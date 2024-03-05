@@ -18,9 +18,9 @@ void zlarfy(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final C = C_.dim(LDC);
-  final V = V_.dim();
-  final WORK = WORK_.dim();
+  final C = C_.having(ld: LDC);
+  final V = V_.having();
+  final WORK = WORK_.having();
   const HALF = Complex(0.5, 0.0);
   Complex ALPHA;
 

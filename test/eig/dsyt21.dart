@@ -35,13 +35,13 @@ void dsyt21(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final D = D_.dim();
-  final E = E_.dim();
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final D = D_.having();
+  final E = E_.having();
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   bool LOWER;
   String CUPLO;

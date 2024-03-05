@@ -25,9 +25,9 @@ void dlaror(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final ISEED = ISEED_.dim();
-  final X = X_.dim();
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having();
+  final X = X_.having();
   const ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20;
   int IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
   double FACTOR, XNORM, XNORMS;

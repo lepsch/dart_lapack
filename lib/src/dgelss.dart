@@ -37,10 +37,10 @@ void dgelss(
   final int LWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final S = S_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final S = S_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

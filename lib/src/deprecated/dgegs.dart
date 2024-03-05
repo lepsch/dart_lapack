@@ -1,9 +1,9 @@
       void dgegs(final int JOBVSL, final int JOBVSR, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHAR, final int ALPHAI, final int BETA, final Matrix<double> VSL_, final int LDVSL, final Matrix<double> VSR_, final int LDVSR, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final VSL = VSL_.dim();
-  final VSR = VSR_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final VSL = VSL_.having();
+  final VSR = VSR_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

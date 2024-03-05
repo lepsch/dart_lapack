@@ -25,10 +25,10 @@ void zunmlq(
   final int LWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final C = C_.dim(LDC);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final C = C_.having(ld: LDC);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,15 +41,15 @@ void zunmlq(
       I2,
       I3,
       IB,
-      IC=0,
+      IC = 0,
       IWT,
-      JC=0,
+      JC = 0,
       LDWORK,
       LWKOPT = 0,
-      MI=0,
+      MI = 0,
       NB = 0,
       NBMIN,
-      NI=0,
+      NI = 0,
       NQ,
       NW;
   final IINFO = Box(0);
@@ -174,8 +174,22 @@ void zunmlq(
 
       // Apply H or H**H
 
-      zlarfb(SIDE, TRANST, 'Forward', 'Rowwise', MI, NI, IB, A(I, I), LDA,
-          WORK(IWT).asMatrix(LDT), LDT, C(IC, JC), LDC, WORK.asMatrix(LDWORK), LDWORK);
+      zlarfb(
+          SIDE,
+          TRANST,
+          'Forward',
+          'Rowwise',
+          MI,
+          NI,
+          IB,
+          A(I, I),
+          LDA,
+          WORK(IWT).asMatrix(LDT),
+          LDT,
+          C(IC, JC),
+          LDC,
+          WORK.asMatrix(LDWORK),
+          LDWORK);
     } // 10
   }
   WORK[1] = LWKOPT.toComplex();

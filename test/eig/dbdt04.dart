@@ -24,12 +24,12 @@ void dbdt04(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim(N);
-  final E = E_.dim(N - 1);
-  final S = S_.dim(NS);
-  final U = U_.dim(LDU);
-  final VT = VT_.dim(LDVT);
-  final WORK = WORK_.dim(2 * N);
+  final D = D_.having(length: N);
+  final E = E_.having(length: N - 1);
+  final S = S_.having(length: NS);
+  final U = U_.having(ld: LDU);
+  final VT = VT_.having(ld: LDVT);
+  final WORK = WORK_.having(length: 2 * N);
   const ZERO = 0.0, ONE = 1.0;
   int I, J, K;
   double BNORM, EPS;

@@ -20,7 +20,7 @@ void zpbtf2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
+  final AB = AB_.having(ld: LDAB);
   const ONE = 1.0, ZERO = 0.0;
   bool UPPER;
   int J, KLD, KN;

@@ -20,9 +20,9 @@ void zung2l(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final WORK = WORK_.dim();
-  final TAU = TAU_.dim();
+  final A = A_.having(ld: LDA);
+  final WORK = WORK_.having();
+  final TAU = TAU_.having();
   int I, II, J, L;
 
   // Test the input arguments

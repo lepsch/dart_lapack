@@ -1057,9 +1057,9 @@ void _stest(
 
   // C. L. LAWSON, JPL, 1974 DEC 10
 
-  final SCOMP = SCOMP_.dim();
-  final STRUE = STRUE_.dim();
-  final SSIZE = SSIZE_.dim();
+  final SCOMP = SCOMP_.having();
+  final STRUE = STRUE_.having();
+  final SSIZE = SSIZE_.having();
   const ZERO = 0.0;
 
   for (var I = 1; I <= LEN; I++) {
@@ -1118,7 +1118,7 @@ void _stest1(
   final Array<double> SSIZE_,
   final double SFAC,
 ) {
-  final SSIZE = SSIZE_.dim();
+  final SSIZE = SSIZE_.having();
   // ************************* STEST1 *****************************
 
   // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN

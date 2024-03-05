@@ -21,9 +21,9 @@ void dgelq(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
-  final T = T_.dim();
-  final A = A_.dim(LDA);
-  final WORK = WORK_.dim();
+  final T = T_.having();
+  final A = A_.having(ld: LDA);
+  final WORK = WORK_.having();
   bool LQUERY, LMINWS, MINT, MINW;
   int MB, NB, MINTSZ, NBLCKS, LWMIN, LWOPT, LWREQ;
 

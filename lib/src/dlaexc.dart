@@ -28,9 +28,9 @@ void dlaexc(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final T = T_.dim(LDT);
-  final Q = Q_.dim(LDQ);
-  final WORK = WORK_.dim();
+  final T = T_.having(ld: LDT);
+  final Q = Q_.having(ld: LDQ);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   const TEN = 1.0e+1;
   const LDD = 4, LDX = 2;

@@ -26,9 +26,9 @@ void dlatbs(
   final Array<double> CNORM_,
   final Box<int> INFO,
 ) {
-  final AB = AB_.dim(LDAB);
-  final X = X_.dim();
-  final CNORM = CNORM_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final X = X_.having();
+  final CNORM = CNORM_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

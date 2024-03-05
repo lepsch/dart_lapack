@@ -22,8 +22,8 @@ void zhegs2(
   final int LDB,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

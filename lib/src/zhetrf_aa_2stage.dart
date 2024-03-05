@@ -33,11 +33,11 @@ void zhetrf_aa_2stage(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final IPIV2 = IPIV2_.dim();
-  final WORK = WORK_.dim();
-  final TB = TB_.dim();
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final IPIV2 = IPIV2_.having();
+  final WORK = WORK_.having();
+  final TB = TB_.having();
   bool UPPER, TQUERY, WQUERY;
   int I, J, K, I1, I2, TD;
   int LDTB, NB = 0, KB, JB, NT;
@@ -220,8 +220,8 @@ void zhetrf_aa_2stage(
             LDTB - 1);
       }
       if (J > 0) {
-        zhegst(1, 'Upper', KB, TB(TD + 1 + (J * NB) * LDTB).asMatrix(), LDTB - 1,
-            A((J - 1) * NB + 1, J * NB + 1), LDA, IINFO);
+        zhegst(1, 'Upper', KB, TB(TD + 1 + (J * NB) * LDTB).asMatrix(),
+            LDTB - 1, A((J - 1) * NB + 1, J * NB + 1), LDA, IINFO);
       }
 
       // Expand T(J,J) into full format
@@ -493,8 +493,8 @@ void zhetrf_aa_2stage(
             LDTB - 1);
       }
       if (J > 0) {
-        zhegst(1, 'Lower', KB, TB(TD + 1 + (J * NB) * LDTB).asMatrix(), LDTB - 1,
-            A(J * NB + 1, (J - 1) * NB + 1), LDA, IINFO);
+        zhegst(1, 'Lower', KB, TB(TD + 1 + (J * NB) * LDTB).asMatrix(),
+            LDTB - 1, A(J * NB + 1, (J - 1) * NB + 1), LDA, IINFO);
       }
 
       // Expand T(J,J) into full format

@@ -41,16 +41,16 @@ void zggsvd3(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final Q = Q_.dim(LDQ);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final Q = Q_.having(ld: LDQ);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
   bool WANTQ, WANTU, WANTV, LQUERY;
   int I, IBND, ISUB, J, LWKOPT;
   double ANORM, BNORM, SMAX, TEMP, TOLA = 0, TOLB = 0, ULP, UNFL;

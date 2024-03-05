@@ -22,9 +22,9 @@ void zla_gbamv(
   final Array<double> Y_,
   final int INCY,
 ) {
-  final AB = AB_.dim(LDAB);
-  final X = X_.dim();
-  final Y = Y_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final X = X_.having();
+  final Y = Y_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

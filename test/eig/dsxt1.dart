@@ -15,8 +15,8 @@ double dsxt1(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D1 = D1_.dim();
-  final D2 = D2_.dim();
+  final D1 = D1_.having();
+  final D2 = D2_.having();
   const ZERO = 0.0;
   int I, J;
   double TEMP1, TEMP2;

@@ -18,10 +18,10 @@ void zgtsv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final B = B_.dim(LDB);
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
+  final B = B_.having(ld: LDB);
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
   int J, K;
   Complex MULT, TEMP;
 

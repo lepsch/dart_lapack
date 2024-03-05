@@ -9,7 +9,7 @@ void zlacgv(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
+  final X = X_.having();
   int I, IOFF;
   // ..
   // .. Intrinsic Functions ..

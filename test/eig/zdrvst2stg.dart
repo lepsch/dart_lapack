@@ -69,24 +69,24 @@ void zdrvst2stg(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDU);
-  final Z = Z_.dim(LDU);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final TAU = TAU_.dim();
-  final D1 = D1_.dim();
-  final D2 = D2_.dim();
-  final D3 = D3_.dim();
-  final WA1 = WA1_.dim();
-  final WA2 = WA2_.dim();
-  final WA3 = WA3_.dim();
-  final RESULT = RESULT_.dim();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDU);
+  final Z = Z_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final TAU = TAU_.having();
+  final D1 = D1_.having();
+  final D2 = D2_.having();
+  final D3 = D3_.having();
+  final WA1 = WA1_.having();
+  final WA2 = WA2_.having();
+  final WA3 = WA3_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = ONE / TWO;
   const MAXTYP = 18;

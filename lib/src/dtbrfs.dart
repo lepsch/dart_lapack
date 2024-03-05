@@ -33,13 +33,13 @@ void dtbrfs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
 
   const ZERO = 0.0;
   const ONE = 1.0;

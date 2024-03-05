@@ -23,9 +23,9 @@ void zgemm(
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
   Complex TEMP;
   int I, INFO, J, L, NROWA, NROWB;
   bool CONJA, CONJB, NOTA, NOTB;

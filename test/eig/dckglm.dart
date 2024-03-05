@@ -34,17 +34,17 @@ Future<void> dckglm(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final MVAL = MVAL_.dim();
-  final PVAL = PVAL_.dim();
-  final NVAL = NVAL_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim();
-  final AF = AF_.dim();
-  final B = B_.dim();
-  final BF = BF_.dim();
-  final X = X_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final MVAL = MVAL_.having();
+  final PVAL = PVAL_.having();
+  final NVAL = NVAL_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having();
+  final AF = AF_.having();
+  final B = B_.having();
+  final BF = BF_.having();
+  final X = X_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const NTYPES = 8;
   bool FIRSTT;
   final TYPE = Box(''), DISTA = Box(''), DISTB = Box('');
@@ -163,8 +163,24 @@ Future<void> dckglm(
         X[I] = dlarnd(2, ISEED);
       }
 
-      dglmts(N, M, P, A.asMatrix(LDA), AF.asMatrix(LDA), LDA, B.asMatrix(LDB), BF.asMatrix(LDB), LDB, X, X(NMAX + 1), X(2 * NMAX + 1),
-          X(3 * NMAX + 1), WORK, LWORK, RWORK, RESID);
+      dglmts(
+          N,
+          M,
+          P,
+          A.asMatrix(LDA),
+          AF.asMatrix(LDA),
+          LDA,
+          B.asMatrix(LDB),
+          BF.asMatrix(LDB),
+          LDB,
+          X,
+          X(NMAX + 1),
+          X(2 * NMAX + 1),
+          X(3 * NMAX + 1),
+          WORK,
+          LWORK,
+          RWORK,
+          RESID);
 
       // Print information about the tests that did not
       // pass the threshold.

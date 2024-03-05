@@ -31,15 +31,15 @@ void zstein(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final IBLOCK = IBLOCK_.dim();
-  final ISPLIT = ISPLIT_.dim();
-  final IFAIL = IFAIL_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
-  final W = W_.dim();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final IBLOCK = IBLOCK_.having();
+  final ISPLIT = ISPLIT_.having();
+  final IFAIL = IFAIL_.having();
+  final D = D_.having();
+  final E = E_.having();
+  final W = W_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1;
   const MAXITS = 5, EXTRA = 2;
   int B1,

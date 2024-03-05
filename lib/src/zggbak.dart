@@ -24,9 +24,9 @@ void zggbak(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim(LDV);
-  final LSCALE = LSCALE_.dim();
-  final RSCALE = RSCALE_.dim();
+  final V = V_.having(ld: LDV);
+  final LSCALE = LSCALE_.having();
+  final RSCALE = RSCALE_.having();
   bool LEFTV, RIGHTV;
   int I, K;
 

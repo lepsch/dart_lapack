@@ -14,8 +14,8 @@ int dlaneg(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final LLD = LLD_.dim();
+  final D = D_.having();
+  final LLD = LLD_.having();
   const ZERO = 0.0, ONE = 1.0;
   // Some architectures propagate Infinities and NaNs very slowly, so
   // the code computes counts in BLKLEN chunks.  Then a NaN can

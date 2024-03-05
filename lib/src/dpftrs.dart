@@ -19,8 +19,8 @@ void dpftrs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim()(1, offset: zeroIndexedArrayOffset);
-  final B = B_.dim(LDB)(1, 1, offset: zeroIndexedMatrixOffset);
+  final A = A_.having()(1, offset: zeroIndexedArrayOffset);
+  final B = B_.having(ld: LDB)(1, 1, offset: zeroIndexedMatrixOffset);
   const ONE = 1.0;
   bool LOWER, NORMALTRANSR;
 

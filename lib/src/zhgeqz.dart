@@ -38,14 +38,14 @@ void zhgeqz(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final T = T_.dim(LDT);
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final H = H_.having(ld: LDH);
+  final T = T_.having(ld: LDT);
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   const HALF = 0.5;
   bool ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY;

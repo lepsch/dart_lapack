@@ -21,9 +21,9 @@ void dgelqf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   bool LQUERY;
   int I, IB, IWS, K, LDWORK = 0, LWKOPT, NB, NBMIN, NX;
   final IINFO = Box(0);
@@ -89,7 +89,6 @@ void dgelqf(
     // Use blocked code initially
 
     for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) {
-
       IB = min(K - I + 1, NB);
 
       // Compute the LQ factorization of the current block
@@ -100,8 +99,8 @@ void dgelqf(
         // Form the triangular factor of the block reflector
         // H = H(i) H(i+1) . . . H(i+ib-1)
 
-        dlarft('Forward', 'Rowwise', N - I + 1, IB, A(I, I), LDA, TAU(I), WORK.asMatrix(LDWORK),
-            LDWORK);
+        dlarft('Forward', 'Rowwise', N - I + 1, IB, A(I, I), LDA, TAU(I),
+            WORK.asMatrix(LDWORK), LDWORK);
 
         // Apply H to A(i+ib:m,i:n) from the right
 

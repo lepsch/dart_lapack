@@ -15,9 +15,9 @@ void dlasdt(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final INODE = INODE_.dim();
-  final NDIML = NDIML_.dim();
-  final NDIMR = NDIMR_.dim();
+  final INODE = INODE_.having();
+  final NDIML = NDIML_.having();
+  final NDIMR = NDIMR_.having();
   const TWO = 2.0;
   int I, IL, IR, LLST, MAXN, NCRNT, NLVL;
   double TEMP;

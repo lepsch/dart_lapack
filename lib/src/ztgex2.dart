@@ -24,10 +24,10 @@ void ztgex2(
   final int J1,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

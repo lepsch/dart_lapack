@@ -15,11 +15,11 @@ void zgttrf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final DU2 = DU2_.dim();
-  final IPIV = IPIV_.dim();
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final DU2 = DU2_.having();
+  final IPIV = IPIV_.having();
   const ZERO = 0.0;
   int I;
   Complex FACT, TEMP;

@@ -30,11 +30,11 @@ void zhegv_2stage(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final W = W_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final W = W_.having();
   bool LQUERY, UPPER, WANTZ;
   String TRANS;
   int NEIG, LWMIN = 0, LHTRD, LWTRD, KD, IB;

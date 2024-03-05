@@ -38,18 +38,18 @@ void dtgsyl(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final D = D_.dim(LDD);
-  final E = E_.dim(LDE);
-  final F = F_.dim(LDF);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final D = D_.having(ld: LDD);
+  final E = E_.having(ld: LDE);
+  final F = F_.having(ld: LDF);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, NOTRAN;
   int I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LWMIN = 0, MB, NB, P, Q;
-  double  SCALE2 = 0;
+  double SCALE2 = 0;
   final PQ = Box(0), PPQQ = Box(0), LINFO = Box(0);
   final SCALOC = Box(0.0), DSCALE = Box(0.0), DSUM = Box(0.0);
 
@@ -150,9 +150,11 @@ void dtgsyl(
           SCALE, DSUM, DSCALE, IWORK, PQ, INFO);
       if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
-          DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value =
+              sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         } else {
-          DIF.value = sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value =
+              sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         }
       }
 
@@ -292,9 +294,11 @@ void dtgsyl(
       }
       if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
-          DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value =
+              sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         } else {
-          DIF.value = sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value =
+              sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         }
       }
       if (ISOLVE == 2 && IROUND == 1) {

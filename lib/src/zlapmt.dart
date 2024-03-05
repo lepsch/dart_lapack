@@ -12,8 +12,8 @@ void zlapmt(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim(LDX);
-  final K = K_.dim();
+  final X = X_.having(ld: LDX);
+  final K = K_.having();
   int I, II, IN, J;
   Complex TEMP;
 

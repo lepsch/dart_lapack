@@ -26,11 +26,11 @@ void dsygvd(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final W = W_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

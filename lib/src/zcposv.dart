@@ -38,12 +38,12 @@ void zcposv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final WORK = WORK_.dim(N);
-  final SWORK = SWORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final WORK = WORK_.having(ld: N);
+  final SWORK = SWORK_.having();
+  final RWORK = RWORK_.having();
   const DOITREF = false;
   const ITERMAX = 30;
   const BWDMAX = 1.0e+00;

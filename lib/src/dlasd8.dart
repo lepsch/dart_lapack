@@ -29,14 +29,14 @@ void dlasd8(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Z = Z_.dim();
-  final VF = VF_.dim();
-  final VL = VL_.dim();
-  final DIFL = DIFL_.dim();
-  final DIFR = DIFR_.dim(LDDIFR);
-  final DSIGMA = DSIGMA_.dim();
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final Z = Z_.having();
+  final VF = VF_.having();
+  final VL = VL_.having();
+  final DIFL = DIFL_.having();
+  final DIFR = DIFR_.having(ld: LDDIFR);
+  final DSIGMA = DSIGMA_.having();
+  final WORK = WORK_.having();
   const ONE = 1.0;
   int I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;
   double DIFLJ, DIFRJ = 0, DJ, DSIGJ, DSIGJP = 0, RHO, TEMP;

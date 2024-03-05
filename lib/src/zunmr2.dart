@@ -22,10 +22,10 @@ void zunmr2(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -27,14 +27,14 @@ void dpprfs(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final AP = AP_.dim();
-  final AFP = AFP_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final AP = AP_.having();
+  final AFP = AFP_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

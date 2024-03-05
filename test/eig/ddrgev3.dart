@@ -52,24 +52,24 @@ void ddrgev3(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDA);
-  final S = S_.dim(LDA);
-  final T = T_.dim(LDA);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDQ);
-  final QE = QE_.dim(LDQE);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final ALPHR1 = ALPHR1_.dim();
-  final ALPHI1 = ALPHI1_.dim();
-  final BETA1 = BETA1_.dim();
-  final WORK = WORK_.dim();
-  final RESULT = RESULT_.dim();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDA);
+  final S = S_.having(ld: LDA);
+  final T = T_.having(ld: LDA);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDQ);
+  final QE = QE_.having(ld: LDQE);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final ALPHR1 = ALPHR1_.having();
+  final ALPHI1 = ALPHI1_.having();
+  final BETA1 = BETA1_.having();
+  final WORK = WORK_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 27;
   bool BADNN;

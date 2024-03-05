@@ -28,10 +28,10 @@ void zlahr2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final TAU = TAU_.dim();
-  final Y = Y_.dim(LDY);
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final TAU = TAU_.having();
+  final Y = Y_.having(ld: LDY);
   int I;
   Complex EI = Complex.zero;
 

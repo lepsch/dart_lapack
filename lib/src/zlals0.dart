@@ -42,16 +42,16 @@ void zlals0(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final B = B_.dim(LDB);
-  final BX = BX_.dim(LDBX);
-  final RWORK = RWORK_.dim();
-  final PERM = PERM_.dim();
-  final GIVCOL = GIVCOL_.dim(LDGCOL);
-  final GIVNUM = GIVNUM_.dim(LDGNUM);
-  final POLES = POLES_.dim(LDGNUM);
-  final DIFL = DIFL_.dim();
-  final DIFR = DIFR_.dim(LDGNUM);
-  final Z = Z_.dim();
+  final B = B_.having(ld: LDB);
+  final BX = BX_.having(ld: LDBX);
+  final RWORK = RWORK_.having();
+  final PERM = PERM_.having();
+  final GIVCOL = GIVCOL_.having(ld: LDGCOL);
+  final GIVNUM = GIVNUM_.having(ld: LDGNUM);
+  final POLES = POLES_.having(ld: LDGNUM);
+  final DIFL = DIFL_.having();
+  final DIFR = DIFR_.having(ld: LDGNUM);
+  final Z = Z_.having();
   const ONE = 1.0, ZERO = 0.0, NEGONE = -1.0;
   int I, J, JCOL, JROW, M, N, NLP1;
   double DIFLJ, DIFRJ = 0, DJ, DSIGJ, DSIGJP = 0, TEMP;

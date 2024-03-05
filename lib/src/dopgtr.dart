@@ -20,10 +20,10 @@ void dopgtr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final TAU = TAU_.dim();
-  final Q = Q_.dim(LDQ);
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final TAU = TAU_.having();
+  final Q = Q_.having(ld: LDQ);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool UPPER;
   int I, IJ, J;

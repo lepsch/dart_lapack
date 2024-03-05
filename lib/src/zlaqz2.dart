@@ -44,16 +44,16 @@ void zlaqz2(
   final int REC,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final QC = QC_.dim(LDQC);
-  final ZC = ZC_.dim(LDZC);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final QC = QC_.having(ld: LDQC);
+  final ZC = ZC_.having(ld: LDZC);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0;
   int JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, IFST, LWORKREQ;
   double SMLNUM, ULP, SAFMIN, TEMPR;

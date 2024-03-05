@@ -17,7 +17,7 @@ double dznrm2(
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 //    March 2021
-  final x = x_.dim();
+  final x = x_.having();
   // const wp = 1;
   const zero = 0.0;
   const one = 1.0;

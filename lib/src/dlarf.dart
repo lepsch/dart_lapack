@@ -19,8 +19,8 @@ void dlarf(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim();
-  final C = C_.dim(LDC);
+  final V = V_.having();
+  final C = C_.having(ld: LDC);
   const ONE = 1.0, ZERO = 0.0;
   bool APPLYLEFT;
   int I, LASTV, LASTC;

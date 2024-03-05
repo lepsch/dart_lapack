@@ -20,10 +20,10 @@ void dsptrd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
-  final TAU = TAU_.dim();
+  final AP = AP_.having();
+  final D = D_.having();
+  final E = E_.having();
+  final TAU = TAU_.having();
   const ONE = 1.0, ZERO = 0.0, HALF = 1.0 / 2.0;
   bool UPPER;
   int I, I1, I1I1, II;

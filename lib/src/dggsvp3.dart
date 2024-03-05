@@ -44,14 +44,14 @@ void dggsvp3(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final Q = Q_.dim(LDQ);
-  final IWORK = IWORK_.dim();
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final Q = Q_.having(ld: LDQ);
+  final IWORK = IWORK_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool FORWRD, WANTQ, WANTU, WANTV, LQUERY;
   int I, J, LWKOPT;

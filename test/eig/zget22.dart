@@ -22,12 +22,12 @@ void zget22(
   final Array<double> RWORK_,
   final Array<double> RESULT_,
 ) {
-  final A = A_.dim(LDA);
-  final E = E_.dim(LDE);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final RESULT = RESULT_.dim(2);
+  final A = A_.having(ld: LDA);
+  final E = E_.having(ld: LDE);
+  final W = W_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final RESULT = RESULT_.having(length: 2);
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

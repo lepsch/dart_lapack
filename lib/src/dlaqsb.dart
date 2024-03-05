@@ -19,8 +19,8 @@ void dlaqsb(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final S = S_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final S = S_.having();
   const ONE = 1.0, THRESH = 0.1;
   int I, J;
   double CJ, LARGE, SMALL;

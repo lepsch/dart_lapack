@@ -17,10 +17,10 @@ void dlarra(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final E2 = E2_.dim();
-  final ISPLIT = ISPLIT_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final E2 = E2_.having();
+  final ISPLIT = ISPLIT_.having();
   const ZERO = 0.0;
   int I;
   double EABS, TMP1;

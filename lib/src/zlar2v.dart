@@ -14,11 +14,11 @@ void zlar2v(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final Y = Y_.dim();
-  final Z = Z_.dim();
-  final S = S_.dim();
-  final C = C_.dim();
+  final X = X_.having();
+  final Y = Y_.having();
+  final Z = Z_.having();
+  final S = S_.having();
+  final C = C_.having();
   int I, IC, IX;
   double CI, SII, SIR, T1I, T1R, T5, T6, XI, YI, ZII, ZIR;
   Complex SI, T2, T3, T4, ZI;

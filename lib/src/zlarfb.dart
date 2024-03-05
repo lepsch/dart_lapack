@@ -26,10 +26,10 @@ void zlarfb(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim(LDV);
-  final T = T_.dim(LDT);
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim(LDWORK);
+  final V = V_.having(ld: LDV);
+  final T = T_.having(ld: LDT);
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having(ld: LDWORK);
   String TRANST;
   int I, J;
 

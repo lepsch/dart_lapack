@@ -35,17 +35,17 @@ Future<void> zckglm(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NVAL = NVAL_.dim();
-  final MVAL = MVAL_.dim();
-  final PVAL = PVAL_.dim();
-  final A = A_.dim();
-  final AF = AF_.dim();
-  final B = B_.dim();
-  final BF = BF_.dim();
-  final X = X_.dim();
-  final ISEED = ISEED_.dim(4);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final NVAL = NVAL_.having();
+  final MVAL = MVAL_.having();
+  final PVAL = PVAL_.having();
+  final A = A_.having();
+  final AF = AF_.having();
+  final B = B_.having();
+  final BF = BF_.having();
+  final X = X_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
   const NTYPES = 8;
   bool FIRSTT;

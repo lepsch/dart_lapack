@@ -13,8 +13,8 @@ double dla_gerpvgrw(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
   int I, J;
   double AMAX, UMAX, RPVGRW;
 

@@ -23,9 +23,9 @@ void zgbequ(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final C = C_.dim();
-  final R = R_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final C = C_.having();
+  final R = R_.having();
   const ONE = 1.0, ZERO = 0.0;
   int I, J, KD;
   double BIGNUM, RCMAX, RCMIN, SMLNUM;

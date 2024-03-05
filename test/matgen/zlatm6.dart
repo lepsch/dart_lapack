@@ -28,12 +28,12 @@ void zlatm6(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDA);
-  final X = X_.dim(LDX);
-  final Y = Y_.dim(LDY);
-  final S = S_.dim();
-  final DIF = DIF_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDA);
+  final X = X_.having(ld: LDX);
+  final Y = Y_.having(ld: LDY);
+  final S = S_.having();
+  final DIF = DIF_.having();
   const RONE = 1.0, TWO = 2.0, THREE = 3.0;
   int I, J;
   final RWORK = Array<double>(50);

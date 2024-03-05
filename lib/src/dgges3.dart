@@ -44,15 +44,15 @@ void dgges3(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final VSL = VSL_.dim(LDVSL);
-  final VSR = VSR_.dim(LDVSR);
-  final WORK = WORK_.dim();
-  final BWORK = BWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final VSL = VSL_.having(ld: LDVSL);
+  final VSR = VSR_.having(ld: LDVSR);
+  final WORK = WORK_.having();
+  final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST;
   int I,

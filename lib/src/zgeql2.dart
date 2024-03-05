@@ -16,9 +16,9 @@ void zgeql2(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

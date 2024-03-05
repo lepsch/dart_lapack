@@ -37,16 +37,16 @@ void dcsdts(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim(LDX);
-  final XF = XF_.dim(LDX);
-  final U1 = U1_.dim(LDU1);
-  final U2 = U2_.dim(LDU2);
-  final V1T = V1T_.dim(LDV1T);
-  final V2T = V2T_.dim(LDV2T);
-  final THETA = THETA_.dim();
-  final IWORK = IWORK_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final X = X_.having(ld: LDX);
+  final XF = XF_.having(ld: LDX);
+  final U1 = U1_.having(ld: LDU1);
+  final U2 = U2_.having(ld: LDU2);
+  final V1T = V1T_.having(ld: LDV1T);
+  final V2T = V2T_.having(ld: LDV2T);
+  final THETA = THETA_.having();
+  final IWORK = IWORK_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const REALONE = 1.0, REALZERO = 0.0;
   const ZERO = 0.0, ONE = 1.0;
   const PIOVER2 = 1.57079632679489661923132169163975144210;

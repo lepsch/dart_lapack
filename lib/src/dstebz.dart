@@ -31,13 +31,13 @@ void dstebz(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final W = W_.dim();
-  final IBLOCK = IBLOCK_.dim();
-  final ISPLIT = ISPLIT_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final W = W_.having();
+  final IBLOCK = IBLOCK_.having();
+  final ISPLIT = ISPLIT_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 1.0 / TWO;
   const FUDGE = 2.1, RELFAC = 2.0;
   bool NCNVRG, TOOFEW;

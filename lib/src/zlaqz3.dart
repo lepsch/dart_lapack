@@ -39,15 +39,15 @@ void zlaqz3(
   final int LWORK,
   final Box<int> INFO,
 ) {
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final QC = QC_.dim(LDQC);
-  final ZC = ZC_.dim(LDZC);
-  final WORK = WORK_.dim();
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final QC = QC_.having(ld: LDQC);
+  final ZC = ZC_.having(ld: LDZC);
+  final WORK = WORK_.having();
 
   // Parameters
   const ONE = 1.0;

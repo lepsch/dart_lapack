@@ -17,8 +17,8 @@ void zsyr(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final A = A_.dim(LDA);
+  final X = X_.having();
+  final A = A_.having(ld: LDA);
   int I, INFO, IX, J, JX, KX = 0;
   Complex TEMP;
 

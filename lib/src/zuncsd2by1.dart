@@ -42,15 +42,15 @@ void zuncsd2by1(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-  final X11 = X11_.dim(LDX11);
-  final X21 = X21_.dim(LDX21);
-  final U1 = U1_.dim(LDU1);
-  final U2 = U2_.dim(LDU2);
-  final V1T = V1T_.dim(LDV1T);
-  final THETA = THETA_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final X11 = X11_.having(ld: LDX11);
+  final X21 = X21_.having(ld: LDX21);
+  final U1 = U1_.having(ld: LDU1);
+  final U2 = U2_.having(ld: LDU2);
+  final V1T = V1T_.having(ld: LDV1T);
+  final THETA = THETA_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

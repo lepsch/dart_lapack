@@ -28,11 +28,11 @@ void dspevd(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final AP = AP_.having();
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, WANTZ;
   int INDE, INDTAU, INDWRK, ISCALE, LIWMIN = 0, LLWORK, LWMIN = 0;

@@ -20,9 +20,9 @@ void dlarz(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim();
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final V = V_.having();
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   const ONE = 1.0, ZERO = 0.0;
 
   if (lsame(SIDE, 'L')) {

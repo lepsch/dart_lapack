@@ -25,10 +25,10 @@ void dhst01(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final H = H_.dim(LDH);
-  final Q = Q_.dim(LDQ);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final H = H_.having(ld: LDH);
+  final Q = Q_.having(ld: LDQ);
+  final WORK = WORK_.having();
   // int                IHI, ILO, LDA, LDH, LDQ, LWORK, N;
   // double             A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK );
   // ..

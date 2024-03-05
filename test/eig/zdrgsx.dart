@@ -50,20 +50,20 @@ Future<void> zdrgsx(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final C = C_.dim(LDC);
-  final B = B_.dim(LDA);
-  final AI = AI_.dim(LDA);
-  final BI = BI_.dim(LDA);
-  final Z = Z_.dim(LDA);
-  final Q = Q_.dim(LDA);
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final S = S_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final BWORK = BWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final C = C_.having(ld: LDC);
+  final B = B_.having(ld: LDA);
+  final AI = AI_.having(ld: LDA);
+  final BI = BI_.having(ld: LDA);
+  final Z = Z_.having(ld: LDA);
+  final Q = Q_.having(ld: LDA);
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final S = S_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1;
   bool ILABAD;
   String SENSE = '';

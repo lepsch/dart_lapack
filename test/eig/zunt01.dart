@@ -21,9 +21,9 @@ void zunt01(
   final Array<double> RWORK_,
   final Box<double> RESID,
 ) {
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -66,7 +66,8 @@ void zunt01(
 
     // Compute norm( I - U*U' ) / ( K * EPS ) .
 
-    RESID.value = zlansy('1', 'Upper', MNMIN, WORK.asMatrix(LDWORK), LDWORK, RWORK);
+    RESID.value =
+        zlansy('1', 'Upper', MNMIN, WORK.asMatrix(LDWORK), LDWORK, RWORK);
     RESID.value = (RESID.value / K.toDouble()) / EPS;
   } else if (TRANSU == 'C') {
     // Find the maximum element in abs( I - U'*U ) / ( m * EPS )

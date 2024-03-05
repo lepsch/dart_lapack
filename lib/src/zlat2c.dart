@@ -16,8 +16,8 @@ void zlat2c(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final SA = SA_.dim(LDSA);
+  final A = A_.having(ld: LDA);
+  final SA = SA_.having(ld: LDSA);
   int I, J;
   double RMAX;
   bool UPPER;

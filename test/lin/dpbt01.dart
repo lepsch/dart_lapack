@@ -1,7 +1,7 @@
       void dpbt01(final int UPLO, final int N, final int KD, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.dim();
-  final AFAC = AFAC_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

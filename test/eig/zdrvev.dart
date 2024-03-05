@@ -47,20 +47,20 @@ void zdrvev(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final LRE = LRE_.dim(LDLRE);
-  final H = H_.dim(LDA);
-  final W = W_.dim();
-  final W1 = W1_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final RESULT = RESULT_.dim(7);
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final LRE = LRE_.having(ld: LDLRE);
+  final H = H_.having(ld: LDA);
+  final W = W_.having();
+  final W1 = W1_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final RESULT = RESULT_.having(length: 7);
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0;
   const MAXTYP = 21;

@@ -51,21 +51,21 @@ void dchkbb(
 // -- LAPACK test routine (input) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final MVAL = MVAL_.dim(NSIZES);
-  final NVAL = NVAL_.dim(NSIZES);
-  final KK = KK_.dim(NWDTHS);
-  final DOTYPE = DOTYPE_.dim(NTYPES);
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final AB = AB_.dim(LDAB);
-  final BD = BD_.dim();
-  final BE = BE_.dim();
-  final Q = Q_.dim(LDQ);
-  final P = P_.dim(LDP);
-  final C = C_.dim(LDC);
-  final CC = CC_.dim(LDC);
-  final WORK = WORK_.dim(LWORK);
-  final RESULT = RESULT_.dim(4);
+  final MVAL = MVAL_.having(length: NSIZES);
+  final NVAL = NVAL_.having(length: NSIZES);
+  final KK = KK_.having(length: NWDTHS);
+  final DOTYPE = DOTYPE_.having(length: NTYPES);
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final AB = AB_.having(ld: LDAB);
+  final BD = BD_.having();
+  final BE = BE_.having();
+  final Q = Q_.having(ld: LDQ);
+  final P = P_.having(ld: LDP);
+  final C = C_.having(ld: LDC);
+  final CC = CC_.having(ld: LDC);
+  final WORK = WORK_.having(length: LWORK);
+  final RESULT = RESULT_.having(length: 4);
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 15;
   bool BADMM, BADNN, BADNNB;
@@ -427,7 +427,7 @@ void print9998(
   final int test,
   final double result,
 ) {
-  final seed = seed_.dim();
+  final seed = seed_.having();
   NOUNIT.println(
       ' M =${m.i4} N=${n.i4}, K=${m.i3}, seed=${seed[1].i4},${seed[2].i4},${seed[3].i4},${seed[4].i4} type ${type.i2}, test(${test.i2})=${result.g10_3}');
 }

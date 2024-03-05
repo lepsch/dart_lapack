@@ -24,12 +24,12 @@ void dlasd0(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final U = U_.dim(LDU);
-  final VT = VT_.dim(LDVT);
-  final IWORK = IWORK_.dim();
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final U = U_.having(ld: LDU);
+  final VT = VT_.having(ld: LDVT);
+  final IWORK = IWORK_.having();
+  final WORK = WORK_.having();
   int I,
       I1,
       IC,

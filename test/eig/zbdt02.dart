@@ -25,11 +25,11 @@ void zbdt02(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double BNORM, EPS, REALMN;

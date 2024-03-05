@@ -44,21 +44,21 @@ Future<void> zdrvsx(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final H = H_.dim(LDA);
-  final HT = HT_.dim(LDA);
-  final VS = VS_.dim(LDVS);
-  final VS1 = VS1_.dim(LDVS);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final BWORK = BWORK_.dim();
-  final W = W_.dim();
-  final WT = WT_.dim();
-  final WTMP = WTMP_.dim();
-  final RESULT = RESULT_.dim(17);
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final H = H_.having(ld: LDA);
+  final HT = HT_.having(ld: LDA);
+  final VS = VS_.having(ld: LDVS);
+  final VS1 = VS1_.having(ld: LDVS);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final BWORK = BWORK_.having();
+  final W = W_.having();
+  final WT = WT_.having();
+  final WTMP = WTMP_.having();
+  final RESULT = RESULT_.having(length: 17);
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;
   bool BADNN;

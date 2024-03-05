@@ -24,10 +24,10 @@ void dormr3(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final C = C_.dim(LDC);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final C = C_.having(ld: LDC);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   bool LEFT, NOTRAN;
   int I, I1, I2, I3, IC = 0, JA, JC = 0, MI = 0, NI = 0, NQ;
 

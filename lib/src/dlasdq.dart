@@ -30,12 +30,12 @@ void dlasdq(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final VT = VT_.dim(LDVT);
-  final U = U_.dim(LDU);
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final VT = VT_.having(ld: LDVT);
+  final U = U_.having(ld: LDU);
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   const ZERO = 0.0;
   bool ROTATE;
   int I, ISUB, IUPLO, J, NP1, SQRE1;

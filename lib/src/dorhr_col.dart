@@ -22,9 +22,9 @@ void dorhr_col(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final D = D_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final D = D_.having();
   const ONE = 1.0, ZERO = 0.0;
   int I, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE;
   final IINFO = Box(0);

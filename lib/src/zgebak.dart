@@ -23,8 +23,8 @@ void zgebak(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim(LDV);
-  final SCALE = SCALE_.dim();
+  final V = V_.having(ld: LDV);
+  final SCALE = SCALE_.having();
   const ONE = 1.0;
   bool LEFTV, RIGHTV;
   int I, II, K;

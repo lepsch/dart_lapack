@@ -26,10 +26,10 @@ void zlaqr4(
   final int LWORK,
   final Box<int> INFO,
 ) {
-  final H = H_.dim(LDH);
-  final Z = Z_.dim(LDZ);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final Z = Z_.having(ld: LDZ);
+  final W = W_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

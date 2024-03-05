@@ -22,7 +22,7 @@ void zlassq(
   final ssml = dssml;
   final tbig = dtbig;
   final tsml = dtsml;
-  final x = x_.dim();
+  final x = x_.having();
   int i, ix;
   bool notbig;
   double abig, amed, asml, ax, ymax, ymin;

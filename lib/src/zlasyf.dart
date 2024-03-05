@@ -26,9 +26,9 @@ void zlasyf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final W = W_.dim(LDW);
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final W = W_.having(ld: LDW);
   const ZERO = 0.0, ONE = 1.0;
   const EIGHT = 8.0, SEVTEN = 17.0;
   int IMAX = 0, J, JB, JJ, JMAX, JP, K = 0, KK, KKW, KP, KSTEP, KW;

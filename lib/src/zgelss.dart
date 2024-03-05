@@ -44,11 +44,11 @@ void zgelss(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final S = S_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final S = S_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY;
   int BL,
@@ -70,11 +70,7 @@ void zgelss(
       MINWRK,
       MM,
       MNTHR = 0;
-  int LWORK_ZGEBRD,
-      LWORK_ZUNMBR,
-      LWORK_ZUNGBR,
-      LWORK_ZUNMLQ,
-      LWORK_ZGELQF;
+  int LWORK_ZGEBRD, LWORK_ZUNMBR, LWORK_ZUNGBR, LWORK_ZUNMLQ, LWORK_ZGELQF;
   double ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
   final DUM = Array<Complex>(1);
 

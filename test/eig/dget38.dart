@@ -25,9 +25,9 @@ Future<void> dget38(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final RMAX = RMAX_.dim();
-  final LMAX = LMAX_.dim();
-  final NINFO = NINFO_.dim();
+  final RMAX = RMAX_.having();
+  final LMAX = LMAX_.having();
+  final NINFO = NINFO_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const EPSIN = 5.9605e-8;
   const LDT = 20, LWORK = 2 * LDT * (10 + LDT);

@@ -23,10 +23,10 @@ void zget10(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   int J;
   double ANORM, EPS, UNFL, WNORM;

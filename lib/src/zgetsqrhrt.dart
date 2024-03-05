@@ -26,9 +26,9 @@ void zgetsqrhrt(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final WORK = WORK_.having();
   bool LQUERY;
   int I,
       J,
@@ -136,8 +136,8 @@ void zgetsqrhrt(
   // (3) Generate a M-by-N matrix Q with orthonormal columns from
   // the result stored below the diagonal in the array A in place.
 
-  zungtsqr_row(M, N, MB1, NB1LOCAL, A, LDA, WORK.asMatrix(), LDWT, WORK(LWT + N * N + 1),
-      LW2, IINFO);
+  zungtsqr_row(M, N, MB1, NB1LOCAL, A, LDA, WORK.asMatrix(), LDWT,
+      WORK(LWT + N * N + 1), LW2, IINFO);
 
   // (4) Perform the reconstruction of Householder vectors from
   // the matrix Q (stored in A) in place.

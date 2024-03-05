@@ -26,13 +26,13 @@ void dlarrb(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final LLD = LLD_.dim();
-  final W = W_.dim();
-  final WGAP = WGAP_.dim();
-  final WERR = WERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final LLD = LLD_.having();
+  final W = W_.having();
+  final WGAP = WGAP_.having();
+  final WERR = WERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, TWO = 2.0, HALF = 0.5;
   int MAXITR;
   int I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R;

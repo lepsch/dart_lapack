@@ -31,11 +31,11 @@ void zsytrf_aa_2stage(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TB = TB_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final IPIV2 = IPIV2_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TB = TB_.having(length: LDA);
+  final IPIV = IPIV_.having();
+  final IPIV2 = IPIV2_.having();
+  final WORK = WORK_.having();
   bool UPPER, TQUERY, WQUERY;
   int I, J, K, I1, I2, TD;
   int LDTB, NB, KB, JB, NT;

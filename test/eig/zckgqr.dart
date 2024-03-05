@@ -40,23 +40,23 @@ Future<void> zckgqr(
   final Nout NOUT,
   final Box<int> INFO,
 ) async {
-  final A = A_.dim();
-  final AF = AF_.dim();
-  final AQ = AQ_.dim();
-  final AR = AR_.dim();
-  final TAUA = TAUA_.dim();
-  final B = B_.dim();
-  final BF = BF_.dim();
-  final BZ = BZ_.dim();
-  final BT = BT_.dim();
-  final BWK = BWK_.dim();
-  final TAUB = TAUB_.dim();
-  final MVAL = MVAL_.dim();
-  final PVAL = PVAL_.dim();
-  final NVAL = NVAL_.dim();
-  final ISEED = ISEED_.dim(4);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having();
+  final AF = AF_.having();
+  final AQ = AQ_.having();
+  final AR = AR_.having();
+  final TAUA = TAUA_.having();
+  final B = B_.having();
+  final BF = BF_.having();
+  final BZ = BZ_.having();
+  final BT = BT_.having();
+  final BWK = BWK_.having();
+  final TAUB = TAUB_.having();
+  final MVAL = MVAL_.having();
+  final PVAL = PVAL_.having();
+  final NVAL = NVAL_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

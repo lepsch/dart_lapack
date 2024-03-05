@@ -38,15 +38,15 @@ void dsysvx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0;
   bool LQUERY, NOFACT;
   int LWKMIN, LWKOPT = 0, NB;

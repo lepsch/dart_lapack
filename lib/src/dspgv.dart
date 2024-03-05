@@ -24,11 +24,11 @@ void dspgv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final BP = BP_.dim();
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final BP = BP_.having();
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
   bool UPPER, WANTZ;
   String TRANS;
   int J, NEIG;

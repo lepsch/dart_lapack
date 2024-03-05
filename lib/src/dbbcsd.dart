@@ -46,21 +46,21 @@ void dbbcsd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final THETA = THETA_.dim();
-  final PHI = PHI_.dim();
-  final U1 = U1_.dim(LDU1);
-  final U2 = U2_.dim(LDU2);
-  final V1T = V1T_.dim(LDV1T);
-  final V2T = V2T_.dim(LDV2T);
-  final B11D = B11D_.dim();
-  final B11E = B11E_.dim();
-  final B12D = B12D_.dim();
-  final B12E = B12E_.dim();
-  final B21D = B21D_.dim();
-  final B21E = B21E_.dim();
-  final B22D = B22D_.dim();
-  final B22E = B22E_.dim();
-  final WORK = WORK_.dim();
+  final THETA = THETA_.having();
+  final PHI = PHI_.having();
+  final U1 = U1_.having(ld: LDU1);
+  final U2 = U2_.having(ld: LDU2);
+  final V1T = V1T_.having(ld: LDV1T);
+  final V2T = V2T_.having(ld: LDV2T);
+  final B11D = B11D_.having();
+  final B11E = B11E_.having();
+  final B12D = B12D_.having();
+  final B12E = B12E_.having();
+  final B21D = B21D_.having();
+  final B21E = B21E_.having();
+  final B22D = B22D_.having();
+  final B22E = B22E_.having();
+  final WORK = WORK_.having();
 
   // // .. Scalar Arguments ..
   // String             JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS;

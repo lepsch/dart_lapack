@@ -16,9 +16,9 @@ double zla_porpvgrw(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final WORK = WORK_.having();
   int I, J;
   double AMAX, UMAX, RPVGRW;
   bool UPPER;

@@ -24,9 +24,9 @@ void ztrcon(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

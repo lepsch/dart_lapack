@@ -176,7 +176,8 @@ void main() async {
       C[J][1] = ZERO;
     }
     for (J = 1; J <= N; J++) {
-      CC[J] = (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
+      CC[J] =
+          (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
     }
     // CC holds the exact result. On exit from DMMCH CT holds
     // the result computed by DMMCH.
@@ -209,7 +210,8 @@ void main() async {
       AB[1][NMAX + J] = N - J + 1;
     }
     for (J = 1; J <= N; J++) {
-      CC[N - J + 1] = (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
+      CC[N - J + 1] =
+          (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
     }
     TRANSA = 'T';
     TRANSB = 'N';
@@ -570,20 +572,20 @@ void _dchk1(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final B = B_.dim(NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final B = B_.having(ld: NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
 
   const ZERO = 0.0;
   double ALPHA = 0, ALS, BETA = 0, BLS, ERRMAX;
@@ -903,20 +905,20 @@ void _dchk2(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final B = B_.dim(NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final B = B_.having(ld: NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
 
   const ZERO = 0.0;
   double ALPHA = 0, ALS, BETA = 0, BLS, ERRMAX;
@@ -1237,17 +1239,17 @@ void _dchk3(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final B = B_.dim(NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final C = C_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final B = B_.having(ld: NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final C = C_.having(ld: NMAX);
   const ZERO = 0.0, ONE = 1.0;
   double ALPHA = 0, ALS, ERRMAX;
   int I,
@@ -1647,20 +1649,20 @@ void _dchk4(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  // final B = B_.dim(NMAX);
-  // final BB = BB_.dim(NMAX * NMAX);
-  // final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  // final B = B_.having(ld: NMAX);
+  // final BB = BB_.having(ld: NMAX * NMAX);
+  // final BS = BS_.having(ld: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
   const ZERO = 0.0;
   double ALPHA = 0, ALS, BETA = 0, BETS, ERRMAX;
   int I,
@@ -1995,20 +1997,20 @@ void _dchk5(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AB = AB_.dim(2 * NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final W = W_.dim(2 * NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AB = AB_.having(length: 2 * NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final W = W_.having(length: 2 * NMAX);
   const ZERO = 0.0;
   double ALPHA = 0, ALS, BETA = 0, BETS, ERRMAX;
   int I,
@@ -2915,8 +2917,8 @@ void _dmake(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim();
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having();
   const ZERO = 0.0, ONE = 1.0;
   const ROGUE = -1.0e10;
   int I, IBEG, IEND, J;
@@ -3026,12 +3028,12 @@ void _dmmch(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final CC = CC_.dim(LDCC);
-  final CT = CT_.dim();
-  final G = G_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final CC = CC_.having(ld: LDCC);
+  final CT = CT_.having();
+  final G = G_.having();
   const ZERO = 0.0, ONE = 1.0;
   double ERRI;
   int I, J, K;
@@ -3154,8 +3156,8 @@ bool _lderes(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
   // .. Array Arguments ..
-  final AA = AA_.dim(LDA);
-  final AS = AS_.dim(LDA);
+  final AA = AA_.having(ld: LDA);
+  final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
   bool UPPER;
 

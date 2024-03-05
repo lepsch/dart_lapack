@@ -30,10 +30,10 @@ void zlaqr0(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
 
   // ==== Matrices of order NTINY or smaller must be processed by
   // .    ZLAHQR because of insufficient subdiagonal scratch space.

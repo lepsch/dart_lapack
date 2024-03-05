@@ -19,12 +19,12 @@ void zgtcon(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final IPIV = IPIV_.dim();
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final DU2 = DU2_.dim();
-  final WORK = WORK_.dim();
+  final IPIV = IPIV_.having();
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final DU2 = DU2_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

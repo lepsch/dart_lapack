@@ -27,9 +27,9 @@ void zlahqr(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
+  final H = H_.having(ld: LDH);
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
   const RZERO = 0.0, HALF = 0.5;
   const DAT1 = 3.0 / 4.0;
   const KEXSH = 10;

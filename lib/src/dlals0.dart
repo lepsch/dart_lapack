@@ -38,16 +38,16 @@ void dlals0(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-  final B = B_.dim(LDB);
-  final BX = BX_.dim(LDBX);
-  final PERM = PERM_.dim();
-  final GIVCOL = GIVCOL_.dim(LDGCOL);
-  final GIVNUM = GIVNUM_.dim(LDGNUM);
-  final POLES = POLES_.dim(LDGNUM);
-  final DIFR = DIFR_.dim(LDGNUM);
-  final DIFL = DIFL_.dim();
-  final Z = Z_.dim();
-  final WORK = WORK_.dim();
+  final B = B_.having(ld: LDB);
+  final BX = BX_.having(ld: LDBX);
+  final PERM = PERM_.having();
+  final GIVCOL = GIVCOL_.having(ld: LDGCOL);
+  final GIVNUM = GIVNUM_.having(ld: LDGNUM);
+  final POLES = POLES_.having(ld: LDGNUM);
+  final DIFR = DIFR_.having(ld: LDGNUM);
+  final DIFL = DIFL_.having();
+  final Z = Z_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

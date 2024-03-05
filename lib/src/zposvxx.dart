@@ -45,17 +45,17 @@ void zposvxx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
-  final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final S = S_.dim();
-  final BERR = BERR_.dim();
-  final PARAMS = PARAMS_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
+  final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final S = S_.having();
+  final BERR = BERR_.having();
+  final PARAMS = PARAMS_.having();
 
   // .. Parameters ..
   const ZERO = 0.0, ONE = 1.0;

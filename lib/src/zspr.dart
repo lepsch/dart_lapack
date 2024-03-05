@@ -14,8 +14,8 @@ void zspr(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final AP = AP_.dim();
+  final X = X_.having();
+  final AP = AP_.having();
   int I, INFO, IX, J, JX, K, KK, KX = 0;
   Complex TEMP;
 

@@ -19,8 +19,8 @@ void dgelqt3(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
   const ONE = 1.0e+00;
   int I, I1, J, J1, M1, M2;
   final IINFO = Box(0);

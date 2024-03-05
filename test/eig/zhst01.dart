@@ -24,12 +24,12 @@ void zhst01(
   final Array<double> RWORK_,
   final Array<double> RESULT_,
 ) {
-  final A = A_.dim(LDA);
-  final H = H_.dim(LDH);
-  final Q = Q_.dim(LDQ);
-  final RESULT = RESULT_.dim(2);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final H = H_.having(ld: LDH);
+  final Q = Q_.having(ld: LDQ);
+  final RESULT = RESULT_.having(length: 2);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

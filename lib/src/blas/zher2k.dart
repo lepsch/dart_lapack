@@ -23,9 +23,9 @@ void zher2k(
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
   Complex TEMP1, TEMP2;
   int I, INFO, J, L, NROWA;
   bool UPPER;

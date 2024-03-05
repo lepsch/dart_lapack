@@ -24,12 +24,12 @@ void dstt21(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AD = AD_.dim();
-  final AE = AE_.dim();
-  final SD = SD_.dim();
-  final SE = SE_.dim();
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim();
+  final AD = AD_.having();
+  final AE = AE_.having();
+  final SD = SD_.having();
+  final SE = SE_.having();
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;

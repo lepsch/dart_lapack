@@ -23,10 +23,10 @@ void dtpqrt(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final T = T_.dim(LDT);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final T = T_.having(ld: LDT);
+  final WORK = WORK_.having();
   int I, IB, LB, MB;
   final IINFO = Box(0);
 
@@ -73,8 +73,25 @@ void dtpqrt(
     // Update by applying H**T to B(:,I+IB:N) from the left
 
     if (I + IB <= N) {
-      dtprfb('L', 'T', 'F', 'C', MB, N - I - IB + 1, IB, LB, B(1, I), LDB,
-          T(1, I), LDT, A(I, I + IB), LDA, B(1, I + IB), LDB, WORK.asMatrix(IB), IB);
+      dtprfb(
+          'L',
+          'T',
+          'F',
+          'C',
+          MB,
+          N - I - IB + 1,
+          IB,
+          LB,
+          B(1, I),
+          LDB,
+          T(1, I),
+          LDT,
+          A(I, I + IB),
+          LDA,
+          B(1, I + IB),
+          LDB,
+          WORK.asMatrix(IB),
+          IB);
     }
   }
 }

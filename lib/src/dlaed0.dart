@@ -28,12 +28,12 @@ void dlaed0(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final Q = Q_.dim(LDQ);
-  final QSTORE = QSTORE_.dim(LDQS);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final Q = Q_.having(ld: LDQ);
+  final QSTORE = QSTORE_.having(ld: LDQS);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int CURLVL,
       CURPRB = 0,

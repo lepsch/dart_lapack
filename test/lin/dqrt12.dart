@@ -1,6 +1,6 @@
       double dqrt12(final int M, final int N, final Matrix<double> A_, final int LDA, final int S, final Array<double> WORK_, final int LWORK,) {
-  final A = A_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

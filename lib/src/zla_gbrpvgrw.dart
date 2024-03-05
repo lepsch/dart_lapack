@@ -16,8 +16,8 @@ double zla_gbrpvgrw(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final AFB = AFB_.dim(LDAB);
+  final AB = AB_.having(ld: LDAB);
+  final AFB = AFB_.having(ld: LDAB);
   int I, J, KD;
   double AMAX, UMAX, RPVGRW;
 

@@ -50,19 +50,19 @@ void dla_gbrfsx_extended(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final AFB = AFB_.dim(LDAFB);
-  final IPIV = IPIV_.dim();
-  final C = C_.dim();
-  final BERR_OUT = BERR_OUT_.dim();
-  final RES = RES_.dim();
-  final AYB = AYB_.dim();
-  final DY = DY_.dim();
-  final Y_TAIL = Y_TAIL_.dim();
-  final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
-  final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
-  final B = B_.dim(LDB);
-  final Y = Y_.dim(LDY);
+  final AB = AB_.having(ld: LDAB);
+  final AFB = AFB_.having(ld: LDAFB);
+  final IPIV = IPIV_.having();
+  final C = C_.having();
+  final BERR_OUT = BERR_OUT_.having();
+  final RES = RES_.having();
+  final AYB = AYB_.having();
+  final DY = DY_.having();
+  final Y_TAIL = Y_TAIL_.having();
+  final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
+  final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
+  final B = B_.having(ld: LDB);
+  final Y = Y_.having(ld: LDY);
 
   String TRANS;
   int CNT, I, J, M, X_STATE = 0, Z_STATE = 0, Y_PREC_STATE;

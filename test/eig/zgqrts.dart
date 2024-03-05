@@ -39,20 +39,20 @@ void zgqrts(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDA);
-  final Q = Q_.dim(LDA);
-  final R = R_.dim(LDA);
-  final TAUA = TAUA_.dim();
-  final B = B_.dim(LDB);
-  final BF = BF_.dim(LDB);
-  final Z = Z_.dim(LDB);
-  final T = T_.dim(LDB);
-  final BWK = BWK_.dim(LDB);
-  final TAUB = TAUB_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final RESULT = RESULT_.dim(4);
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDA);
+  final Q = Q_.having(ld: LDA);
+  final R = R_.having(ld: LDA);
+  final TAUA = TAUA_.having();
+  final B = B_.having(ld: LDB);
+  final BF = BF_.having(ld: LDB);
+  final Z = Z_.having(ld: LDB);
+  final T = T_.having(ld: LDB);
+  final BWK = BWK_.having(ld: LDB);
+  final TAUB = TAUB_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final RESULT = RESULT_.having(length: 4);
   const ZERO = 0.0, ONE = 1.0;
   const CROGUE = Complex(-1.0e+10, 0.0);
   final INFO = Box(0);

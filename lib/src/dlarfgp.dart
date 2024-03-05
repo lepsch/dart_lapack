@@ -16,7 +16,7 @@ void dlarfgp(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
+  final X = X_.having();
   const TWO = 2.0, ONE = 1.0, ZERO = 0.0;
   int J, KNT = 0;
   double BETA = 0, BIGNUM = 0, EPS, SAVEALPHA, SMLNUM = 0, XNORM;

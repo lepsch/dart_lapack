@@ -33,16 +33,16 @@ void zglmts(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDA);
-  final B = B_.dim(LDB);
-  final BF = BF_.dim(LDB);
-  final D = D_.dim();
-  final DF = DF_.dim();
-  final X = X_.dim();
-  final U = U_.dim();
-  final WORK = WORK_.dim(LWORK);
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final BF = BF_.having(ld: LDB);
+  final D = D_.having();
+  final DF = DF_.having();
+  final X = X_.having();
+  final U = U_.having();
+  final WORK = WORK_.having(length: LWORK);
+  final RWORK = RWORK_.having();
   const ZERO = 0.0;
   final INFO = Box(0);
   double ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM;

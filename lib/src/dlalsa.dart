@@ -39,23 +39,23 @@ void dlalsa(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final B = B_.dim(LDB);
-  final BX = BX_.dim(LDBX);
-  final U = U_.dim(LDU);
-  final K = K_.dim();
-  final VT = VT_.dim(LDU);
-  final DIFL = DIFL_.dim(LDU);
-  final DIFR = DIFR_.dim(LDU);
-  final Z = Z_.dim(LDU);
-  final POLES = POLES_.dim(LDU);
-  final GIVNUM = GIVNUM_.dim(LDU);
-  final GIVPTR = GIVPTR_.dim();
-  final GIVCOL = GIVCOL_.dim(LDGCOL);
-  final PERM = PERM_.dim(LDGCOL);
-  final C = C_.dim();
-  final S = S_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final B = B_.having(ld: LDB);
+  final BX = BX_.having(ld: LDBX);
+  final U = U_.having(ld: LDU);
+  final K = K_.having();
+  final VT = VT_.having(ld: LDU);
+  final DIFL = DIFL_.having(ld: LDU);
+  final DIFR = DIFR_.having(ld: LDU);
+  final Z = Z_.having(ld: LDU);
+  final POLES = POLES_.having(ld: LDU);
+  final GIVNUM = GIVNUM_.having(ld: LDU);
+  final GIVPTR = GIVPTR_.having();
+  final GIVCOL = GIVCOL_.having(ld: LDGCOL);
+  final PERM = PERM_.having(ld: LDGCOL);
+  final C = C_.having();
+  final S = S_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
 
   const ZERO = 0.0, ONE = 1.0;
   int I,

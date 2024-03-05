@@ -24,10 +24,10 @@ void zlaqz1(
   final Matrix<Complex> Z_,
   final int LDZ,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
   // const ZERO = 0.0, ONE = 1.0, HALF = 0.5;
   final S = Box(Complex.zero), TEMP = Box(Complex.zero);
   final C = Box(0.0);

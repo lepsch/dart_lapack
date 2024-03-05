@@ -3,7 +3,7 @@ import 'package:lapack/src/nio.dart';
 
 Future<void> alareq(final String PATH, final int NMATS, final Array<bool> DOTYPE_,
       final int NTYPES, final Nin NIN, final Nout NOUT,)async {
-  final DOTYPE = DOTYPE_.dim();
+  final DOTYPE = DOTYPE_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -11,7 +11,7 @@ void zlascl2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim(LDX);
+  final X = X_.having(ld: LDX);
 
   for (var J = 1; J <= N; J++) {
     for (var I = 1; I <= M; I++) {

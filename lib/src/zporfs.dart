@@ -33,14 +33,14 @@ void zporfs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final WORK = WORK_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final WORK = WORK_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final RWORK = RWORK_.having();
   const ITMAX = 5;
   const ZERO = 0.0;
   const TWO = 2.0;

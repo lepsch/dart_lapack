@@ -18,8 +18,8 @@ void ztptrs(
   final int LDB,
   final Box<int> INFO,
 ) {
-  final AP = AP_.dim();
-  final B = B_.dim(LDB);
+  final AP = AP_.having();
+  final B = B_.having(ld: LDB);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

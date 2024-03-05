@@ -24,10 +24,10 @@ void zhetrf_rk(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final E = E_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final E = E_.having();
+  final IPIV = IPIV_.having();
+  final WORK = WORK_.having();
 
   bool LQUERY, UPPER;
   int I, IP, IWS, K, LDWORK, LWKOPT = 0, NB = 0, NBMIN;

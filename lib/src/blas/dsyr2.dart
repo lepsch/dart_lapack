@@ -18,9 +18,9 @@ void dsyr2(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final Y = Y_.dim();
-  final A = A_.dim(LDA);
+  final X = X_.having();
+  final Y = Y_.having();
+  final A = A_.having(ld: LDA);
   const ZERO = 0.0;
   double TEMP1, TEMP2;
   int I, INFO, IX, IY, J, JX = 0, JY = 0, KX = 0, KY = 0;

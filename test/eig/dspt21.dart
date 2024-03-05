@@ -35,13 +35,13 @@ void dspt21(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
-  final U = U_.dim(LDU);
-  final VP = VP_.dim();
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final D = D_.having();
+  final E = E_.having();
+  final U = U_.having(ld: LDU);
+  final VP = VP_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   const HALF = 1.0 / 2.0;
   bool LOWER;
@@ -170,8 +170,8 @@ void dspt21(
 
     if (N < 2) return;
     dlacpy(' ', N, N, U, LDU, WORK.asMatrix(N), N);
-    dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1),
-        IINFO);
+    dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK.asMatrix(N), N,
+        WORK(pow(N, 2).toInt() + 1), IINFO);
     if (IINFO.value != 0) {
       RESULT[1] = TEN / ULP;
       return;

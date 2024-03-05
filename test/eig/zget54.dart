@@ -25,13 +25,13 @@ void zget54(
   final Array<Complex> WORK_,
   final Box<double> RESULT,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final S = S_.dim(LDS);
-  final T = T_.dim(LDT);
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final S = S_.having(ld: LDS);
+  final T = T_.having(ld: LDT);
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

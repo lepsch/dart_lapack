@@ -44,16 +44,16 @@ void dlaqz3(
   final int REC,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final QC = QC_.dim(LDQC);
-  final ZC = ZC_.dim(LDZC);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final QC = QC_.having(ld: LDQC);
+  final ZC = ZC_.having(ld: LDZC);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool BULGE;
   int KWBOT, ISTOPM, ISTARTM, K, K2, LWORKREQ = 0;

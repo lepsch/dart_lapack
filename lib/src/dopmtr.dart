@@ -21,10 +21,10 @@ void dopmtr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final TAU = TAU_.dim();
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final TAU = TAU_.having();
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   const ONE = 1.0;
   bool FORWRD, LEFT, NOTRAN, UPPER;
   int I, I1, I2, I3, IC = 0, II, JC = 0, MI = 0, NI = 0, NQ;

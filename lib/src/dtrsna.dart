@@ -36,14 +36,14 @@ void dtrsna(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SELECT = SELECT_.dim();
-  final T = T_.dim(LDT);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final S = S_.dim();
-  final SEP = SEP_.dim();
-  final WORK = WORK_.dim(LDWORK);
-  final IWORK = IWORK_.dim();
+  final SELECT = SELECT_.having();
+  final T = T_.having(ld: LDT);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final S = S_.having();
+  final SEP = SEP_.having();
+  final WORK = WORK_.having(ld: LDWORK);
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   bool PAIR, SOMCON, WANTBH, WANTS, WANTSP;
   int I, J, K, KS, N2 = 0, NN = 0;

@@ -11,8 +11,8 @@ Complex zdotu(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ZX = ZX_.dim();
-  final ZY = ZY_.dim();
+  final ZX = ZX_.having();
+  final ZY = ZY_.having();
   Complex ZTEMP;
   int I, IX, IY;
 

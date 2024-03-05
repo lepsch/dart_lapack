@@ -24,9 +24,9 @@ void zsyl01(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NFAIL = NFAIL_.dim(3);
-  final NINFO = NINFO_.dim(2);
-  final RMAX = RMAX_.dim(2);
+  final NFAIL = NFAIL_.having(length: 3);
+  final NINFO = NINFO_.having(length: 2);
+  final RMAX = RMAX_.having(length: 2);
   const ZERO = 0.0, ONE = 1.0;
   const MAXM = 185, MAXN = 192, LDSWORK = 36;
   String TRANA = '', TRANB = '';

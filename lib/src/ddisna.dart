@@ -17,8 +17,8 @@ void ddisna(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final SEP = SEP_.dim();
+  final D = D_.having();
+  final SEP = SEP_.having();
   const ZERO = 0.0;
   bool DECR = false, EIGEN = false, INCR = false, LEFT, RIGHT, SING;
   int I, K = 0;

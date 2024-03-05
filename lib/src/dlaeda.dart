@@ -26,15 +26,15 @@ void dlaeda(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final PRMPTR = PRMPTR_.dim();
-  final PERM = PERM_.dim();
-  final GIVPTR = GIVPTR_.dim();
-  final GIVCOL = GIVCOL_.dim(2);
-  final GIVNUM = GIVNUM_.dim(2);
-  final Q = Q_.dim();
-  final QPTR = QPTR_.dim();
-  final Z = Z_.dim();
-  final ZTEMP = ZTEMP_.dim();
+  final PRMPTR = PRMPTR_.having();
+  final PERM = PERM_.having();
+  final GIVPTR = GIVPTR_.having();
+  final GIVCOL = GIVCOL_.having(ld: 2);
+  final GIVNUM = GIVNUM_.having(ld: 2);
+  final Q = Q_.having();
+  final QPTR = QPTR_.having();
+  final Z = Z_.having();
+  final ZTEMP = ZTEMP_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   int BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;
 

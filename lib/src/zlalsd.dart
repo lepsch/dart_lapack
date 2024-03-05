@@ -38,12 +38,12 @@ void zlalsd(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-  final D = D_.dim();
-  final E = E_.dim();
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

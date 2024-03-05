@@ -51,23 +51,23 @@ void dget24(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final H = H_.dim(LDA);
-  final HT = HT_.dim(LDA);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final WRT = WRT_.dim();
-  final WIT = WIT_.dim();
-  final WRTMP = WRTMP_.dim();
-  final WITMP = WITMP_.dim();
-  final VS = VS_.dim(LDVS);
-  final VS1 = VS1_.dim(LDVS);
-  final ISLCT = ISLCT_.dim();
-  final RESULT = RESULT_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final BWORK = BWORK_.dim();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final H = H_.having(ld: LDA);
+  final HT = HT_.having(ld: LDA);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final WRT = WRT_.having();
+  final WIT = WIT_.having();
+  final WRTMP = WRTMP_.having();
+  final WITMP = WITMP_.having();
+  final VS = VS_.having(ld: LDVS);
+  final VS1 = VS1_.having(ld: LDVS);
+  final ISLCT = ISLCT_.having();
+  final RESULT = RESULT_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   const EPSIN = 5.9605e-8;
   String SORT;

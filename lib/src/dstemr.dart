@@ -44,13 +44,13 @@ void dstemr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final ISUPPZ = ISUPPZ_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final ISUPPZ = ISUPPZ_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 1.0e-3;
   bool ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
   int I,

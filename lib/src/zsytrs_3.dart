@@ -24,10 +24,10 @@ void zsytrs_3(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final E = E_.dim();
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final E = E_.having();
   bool UPPER;
   int I, J, K, KP;
   Complex AK, AKM1, AKM1K, BK, BKM1, DENOM;

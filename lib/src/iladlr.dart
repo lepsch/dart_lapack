@@ -6,7 +6,7 @@ int iladlr(final int M, final int N, final Matrix<double> A_, final int LDA) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
+  final A = A_.having(ld: LDA);
   const ZERO = 0.0;
 
   // Quick test for the common case where one corner is non-zero.

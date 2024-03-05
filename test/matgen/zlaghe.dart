@@ -24,10 +24,10 @@ void zlaghe(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final D = D_.dim();
-  final A = A_.dim(LDA);
-  final ISEED = ISEED_.dim(4);
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having(length: 4);
+  final WORK = WORK_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -127,8 +127,8 @@ void zlaghe(
 
     zgemv('Conjugate transpose', N - K - I + 1, K - 1, Complex.one,
         A(K + I, I + 1), LDA, A(K + I, I).asArray(), 1, Complex.zero, WORK, 1);
-    zgerc(N - K - I + 1, K - 1, -TAU, A(K + I, I).asArray(), 1, WORK,
-        1, A(K + I, I + 1), LDA);
+    zgerc(N - K - I + 1, K - 1, -TAU, A(K + I, I).asArray(), 1, WORK, 1,
+        A(K + I, I + 1), LDA);
 
     // apply reflection to A(k+i:n,k+i:n) from the left and the right
 

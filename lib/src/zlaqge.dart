@@ -15,9 +15,9 @@ void zlaqge(
   final double AMAX,
   final Box<String> EQUED,
 ) {
-  final A = A_.dim(LDA);
-  final R = R_.dim();
-  final C = C_.dim();
+  final A = A_.having(ld: LDA);
+  final R = R_.having();
+  final C = C_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

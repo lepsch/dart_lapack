@@ -15,9 +15,9 @@ void dlarzt(
   final Matrix<double> T_,
   final int LDT,
 ) {
-  final V = V_.dim(LDV);
-  final TAU = TAU_.dim();
-  final T = T_.dim(LDT);
+  final V = V_.having(ld: LDV);
+  final TAU = TAU_.having();
+  final T = T_.having(ld: LDT);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

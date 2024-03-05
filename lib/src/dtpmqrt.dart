@@ -28,11 +28,11 @@ void dtpmqrt(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim(LDV);
-  final T = T_.dim(LDT);
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
+  final V = V_.having(ld: LDV);
+  final T = T_.having(ld: LDT);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
   bool LEFT, RIGHT, TRAN, NOTRAN;
   int I, IB, MB, LB, KF, LDAQ = 0, LDVQ = 0;
 

@@ -1,7 +1,7 @@
       void ztrt01(final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final int RCOND, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.dim();
-  final AINV = AINV_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having();
+  final AINV = AINV_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

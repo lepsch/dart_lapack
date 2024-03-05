@@ -50,20 +50,20 @@ Future<void> ddrgsx(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDA);
-  final AI = AI_.dim(LDA);
-  final BI = BI_.dim(LDA);
-  final Z = Z_.dim(LDA);
-  final Q = Q_.dim(LDA);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final C = C_.dim(LDC);
-  final S = S_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final BWORK = BWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDA);
+  final AI = AI_.having(ld: LDA);
+  final BI = BI_.having(ld: LDA);
+  final Z = Z_.having(ld: LDA);
+  final Q = Q_.having(ld: LDA);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final C = C_.having(ld: LDC);
+  final S = S_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1;
   bool ILABAD;
   String SENSE = '';

@@ -24,9 +24,9 @@ void zungtsqr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final WORK = WORK_.having();
   bool LQUERY;
   int LDC = 0, LWORKOPT = 0, LC = 0, LW = 0, NBLOCAL = 0, J;
   final IINFO = Box(0);

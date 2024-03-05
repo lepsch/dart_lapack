@@ -44,13 +44,13 @@ void zgesvdx(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final U = U_.dim(LDU);
-  final VT = VT_.dim(LDVT);
-  final WORK = WORK_.dim();
-  final S = S_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final U = U_.having(ld: LDU);
+  final VT = VT_.having(ld: LDVT);
+  final WORK = WORK_.having();
+  final S = S_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

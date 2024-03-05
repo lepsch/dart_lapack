@@ -21,12 +21,12 @@ double zla_hercond_x(
   final Array<Complex> WORK_,
   final Array<double> RWORK_,
 ) {
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final X = X_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final X = X_.having();
+  final IPIV = IPIV_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

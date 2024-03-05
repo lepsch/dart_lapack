@@ -31,12 +31,12 @@ void dgglse(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim();
-  final D = D_.dim();
-  final X = X_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having();
+  final D = D_.having();
+  final X = X_.having();
+  final WORK = WORK_.having();
   const ONE = 1.0;
   bool LQUERY;
   int LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR;

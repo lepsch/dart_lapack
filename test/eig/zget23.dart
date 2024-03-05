@@ -48,25 +48,25 @@ void zget23(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final H = H_.dim(LDA);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final LRE = LRE_.dim(LDLRE);
-  final W = W_.dim();
-  final W1 = W1_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final RCONDV = RCONDV_.dim();
-  final RCNDV1 = RCNDV1_.dim();
-  final RCDVIN = RCDVIN_.dim();
-  final RCONDE = RCONDE_.dim();
-  final RCNDE1 = RCNDE1_.dim();
-  final RCDEIN = RCDEIN_.dim();
-  final SCALE = SCALE_.dim();
-  final SCALE1 = SCALE1_.dim();
-  final RESULT = RESULT_.dim();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final H = H_.having(ld: LDA);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final LRE = LRE_.having(ld: LDLRE);
+  final W = W_.having();
+  final W1 = W1_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final RCONDV = RCONDV_.having();
+  final RCNDV1 = RCNDV1_.having();
+  final RCDVIN = RCDVIN_.having();
+  final RCONDE = RCONDE_.having();
+  final RCNDE1 = RCNDE1_.having();
+  final RCDEIN = RCDEIN_.having();
+  final SCALE = SCALE_.having();
+  final SCALE1 = SCALE1_.having();
+  final RESULT = RESULT_.having();
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

@@ -23,11 +23,11 @@ void dlaed1(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Q = Q_.dim(LDQ);
-  final INDXQ = INDXQ_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final Q = Q_.having(ld: LDQ);
+  final INDXQ = INDXQ_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   int COLTYP, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, N1, N2, ZPP1;
   final K = Box(0);
 

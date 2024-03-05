@@ -38,12 +38,12 @@ void dgees(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final VS = VS_.dim(LDVS);
-  final WORK = WORK_.dim();
-  final BWORK = BWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final VS = VS_.having(ld: LDVS);
+  final WORK = WORK_.having();
+  final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS;
   int HSWORK, I, I1, I2, IBAL, INXT, IP, ITAU, IWRK, MAXWRK = 0, MINWRK;

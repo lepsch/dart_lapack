@@ -9,7 +9,7 @@ int izmax1(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ZX = ZX_.dim();
+  final ZX = ZX_.having();
   double DMAX;
   int I, IX;
 

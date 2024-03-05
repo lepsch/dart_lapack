@@ -28,15 +28,15 @@ void dlaebz(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  // final E = E_.dim();
-  final E2 = E2_.dim();
-  final NVAL = NVAL_.dim();
-  final AB = AB_.dim(MMAX);
-  final C = C_.dim();
-  final NAB = NAB_.dim(MMAX);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  // final E = E_.having();
+  final E2 = E2_.having();
+  final NVAL = NVAL_.having();
+  final AB = AB_.having(ld: MMAX);
+  final C = C_.having();
+  final NAB = NAB_.having(ld: MMAX);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, TWO = 2.0, HALF = 1.0 / TWO;
   int ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;
   double TMP1, TMP2;

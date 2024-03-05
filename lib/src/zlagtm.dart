@@ -19,11 +19,11 @@ void zlagtm(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final X = X_.dim(LDX);
-  final B = B_.dim(LDB);
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final X = X_.having(ld: LDX);
+  final B = B_.having(ld: LDB);
   const ONE = 1.0, ZERO = 0.0;
   int I, J;
 

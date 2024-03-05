@@ -38,10 +38,10 @@ void dlarhs(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final X = X_.dim(LDX);
-  final B = B_.dim(LDB);
-  final ISEED = ISEED_.dim();
+  final A = A_.having(ld: LDA);
+  final X = X_.having(ld: LDX);
+  final B = B_.having(ld: LDB);
+  final ISEED = ISEED_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI;
   String C1, DIAG;

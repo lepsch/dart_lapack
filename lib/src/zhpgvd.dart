@@ -32,13 +32,13 @@ void zhpgvd(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final Z = Z_.dim(LDZ);
-  final AP = AP_.dim();
-  final BP = BP_.dim();
-  final W = W_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final Z = Z_.having(ld: LDZ);
+  final AP = AP_.having();
+  final BP = BP_.having();
+  final W = W_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
   bool LQUERY, UPPER, WANTZ;
   String TRANS;
   int J, LIWMIN = 0, LRWMIN = 0, LWMIN = 0, NEIG;

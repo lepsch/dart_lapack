@@ -18,8 +18,8 @@ void zlacon(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim();
-  final X = X_.dim();
+  final V = V_.having();
+  final X = X_.having();
   const ITMAX = 5;
   const ONE = 1.0, TWO = 2.0;
   int I, ITER = 0, J = 0, JLAST;

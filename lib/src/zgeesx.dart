@@ -42,12 +42,12 @@ void zgeesx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final VS = VS_.dim(LDVS);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final BWORK = BWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final VS = VS_.having(ld: LDVS);
+  final W = W_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS;
   int HSWORK, I, IBAL, ITAU, IWRK, LWRK, MAXWRK = 0, MINWRK;

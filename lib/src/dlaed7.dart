@@ -36,18 +36,18 @@ void dlaed7(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Q = Q_.dim(LDQ);
-  final INDXQ = INDXQ_.dim();
-  final QSTORE = QSTORE_.dim();
-  final QPTR = QPTR_.dim();
-  final PRMPTR = PRMPTR_.dim();
-  final PERM = PERM_.dim();
-  final GIVPTR = GIVPTR_.dim();
-  final GIVCOL = GIVCOL_.dim(2);
-  final GIVNUM = GIVNUM_.dim(2);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final Q = Q_.having(ld: LDQ);
+  final INDXQ = INDXQ_.having();
+  final QSTORE = QSTORE_.having();
+  final QPTR = QPTR_.having();
+  final PRMPTR = PRMPTR_.having();
+  final PERM = PERM_.having();
+  final GIVPTR = GIVPTR_.having();
+  final GIVCOL = GIVCOL_.having(ld: 2);
+  final GIVNUM = GIVNUM_.having(ld: 2);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   int COLTYP,
       CURR,

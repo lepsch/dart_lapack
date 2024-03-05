@@ -45,13 +45,13 @@ void zlaqr2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final Z = Z_.dim(LDZ);
-  final V = V_.dim(LDV);
-  final T = T_.dim(LDT);
-  final WV = WV_.dim(LDWV);
-  final SH = SH_.dim();
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final Z = Z_.having(ld: LDZ);
+  final V = V_.having(ld: LDV);
+  final T = T_.having(ld: LDT);
+  final WV = WV_.having(ld: LDWV);
+  final SH = SH_.having();
+  final WORK = WORK_.having();
   const RZERO = 0.0;
   Complex S;
   double FOO,

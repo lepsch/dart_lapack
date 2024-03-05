@@ -39,14 +39,14 @@ void ztgsyl(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final D = D_.dim(LDD);
-  final E = E_.dim(LDE);
-  final F = F_.dim(LDF);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final D = D_.having(ld: LDD);
+  final E = E_.having(ld: LDE);
+  final F = F_.having(ld: LDF);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, NOTRAN;
   int I,

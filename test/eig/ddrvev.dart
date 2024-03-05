@@ -48,21 +48,21 @@ void ddrvev(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final H = H_.dim(LDA);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final WR1 = WR1_.dim();
-  final WI1 = WI1_.dim();
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final LRE = LRE_.dim(LDLRE);
-  final RESULT = RESULT_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final H = H_.having(ld: LDA);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final WR1 = WR1_.having();
+  final WI1 = WI1_.having();
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final LRE = LRE_.having(ld: LDLRE);
+  final RESULT = RESULT_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0;
   const MAXTYP = 21;

@@ -18,8 +18,8 @@ void zhptrf(
   final Array<int> IPIV_,
   final Box<int> INFO,
 ) {
-  final AP = AP_.dim();
-  final IPIV = IPIV_.dim();
+  final AP = AP_.having();
+  final IPIV = IPIV_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

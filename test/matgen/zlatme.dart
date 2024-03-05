@@ -46,11 +46,11 @@ void zlatme(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final D = D_.dim();
-  final DS = DS_.dim();
-  final WORK = WORK_.dim();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final D = D_.having();
+  final DS = DS_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0;
   const ONE = 1.0;
   bool BADS;

@@ -11,8 +11,8 @@ void drotm(
 // -- Reference BLAS level1 routine -- int
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final DX = DX_.dim();
-  final DY = DY_.dim();
+  final DX = DX_.having();
+  final DY = DY_.having();
   double DFLAG, DH11, DH12, DH21, DH22, W, Z;
   int I, KX, KY, NSTEPS;
   final (ZERO, TWO) = (0.0, 2.0);

@@ -26,11 +26,11 @@ void dorbdb6(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X1 = X1_.dim();
-  final X2 = X2_.dim();
-  final Q1 = Q1_.dim(LDQ1);
-  final Q2 = Q2_.dim(LDQ2);
-  final WORK = WORK_.dim();
+  final X1 = X1_.having();
+  final X2 = X2_.having();
+  final Q1 = Q1_.having(ld: LDQ1);
+  final Q2 = Q2_.having(ld: LDQ2);
+  final WORK = WORK_.having();
   const ALPHA = 0.83,
       // REALONE = 1.0,
       REALZERO = 0.0;

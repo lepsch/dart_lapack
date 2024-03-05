@@ -38,19 +38,19 @@ void zlarrv(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-  final Z = Z_.dim(LDZ);
-  final D = D_.dim();
-  final L = L_.dim();
-  final W = W_.dim();
-  final WERR = WERR_.dim();
-  final WGAP = WGAP_.dim();
-  final GERS = GERS_.dim();
-  final ISPLIT = ISPLIT_.dim();
-  final IBLOCK = IBLOCK_.dim();
-  final INDEXW = INDEXW_.dim();
-  final ISUPPZ = ISUPPZ_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final Z = Z_.having(ld: LDZ);
+  final D = D_.having();
+  final L = L_.having();
+  final W = W_.having();
+  final WERR = WERR_.having();
+  final WGAP = WGAP_.having();
+  final GERS = GERS_.having();
+  final ISPLIT = ISPLIT_.having();
+  final IBLOCK = IBLOCK_.having();
+  final INDEXW = INDEXW_.having();
+  final ISUPPZ = ISUPPZ_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

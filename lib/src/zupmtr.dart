@@ -20,8 +20,8 @@ void zupmtr(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

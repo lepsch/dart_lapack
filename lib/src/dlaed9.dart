@@ -26,11 +26,11 @@ void dlaed9(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Q = Q_.dim(LDQ);
-  final DLAMBDA = DLAMBDA_.dim();
-  final W = W_.dim();
-  final S = S_.dim(LDS);
+  final D = D_.having();
+  final Q = Q_.having(ld: LDQ);
+  final DLAMBDA = DLAMBDA_.having();
+  final W = W_.having();
+  final S = S_.having(ld: LDS);
   int I, J;
   double TEMP;
 

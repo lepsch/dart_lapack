@@ -30,11 +30,11 @@ void dlaqr4(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
 
   // .. Parameters ..
 

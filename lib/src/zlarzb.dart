@@ -26,10 +26,10 @@ void zlarzb(
   final Matrix<Complex> WORK_,
   final int LDWORK,
 ) {
-  final V = V_.dim(LDV);
-  final T = T_.dim(LDT);
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim(LDWORK);
+  final V = V_.having(ld: LDV);
+  final T = T_.having(ld: LDT);
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having(ld: LDWORK);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

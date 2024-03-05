@@ -21,9 +21,9 @@ void dtrexc(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final T = T_.dim(LDT);
-  final Q = Q_.dim(LDQ);
-  final WORK = WORK_.dim();
+  final T = T_.having(ld: LDT);
+  final Q = Q_.having(ld: LDQ);
+  final WORK = WORK_.having();
   const ZERO = 0.0;
   bool WANTQ;
   int HERE = 0, NBF, NBL, NBNEXT;

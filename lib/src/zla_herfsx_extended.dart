@@ -9,6 +9,8 @@ import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/ilauplo.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_zhemv2_x.dart';
+import 'package:lapack/src/xblas/blas_zhemv_x.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zhetrs.dart';
 import 'package:lapack/src/zla_heamv.dart';
@@ -49,19 +51,19 @@ void zla_herfsx_extended(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final Y = Y_.dim(LDY);
-  final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
-  final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
-  final RES = RES_.dim();
-  final DY = DY_.dim();
-  final Y_TAIL = Y_TAIL_.dim();
-  final C = C_.dim();
-  final BERR_OUT = BERR_OUT_.dim();
-  final AYB = AYB_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final Y = Y_.having(ld: LDY);
+  final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
+  final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
+  final RES = RES_.having();
+  final DY = DY_.having();
+  final Y_TAIL = Y_TAIL_.having();
+  final C = C_.having();
+  final BERR_OUT = BERR_OUT_.having();
+  final AYB = AYB_.having();
   int UPLO2, CNT, I, J, X_STATE = 0, Z_STATE = 0, Y_PREC_STATE;
   double YK,
       DYK,
@@ -162,10 +164,10 @@ void zla_herfsx_extended(
         zhemv(UPLO, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1, Complex.one,
             RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_zhemv_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J), 1, Complex.one,
+        blas_zhemv_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1, Complex.one,
             RES, 1, PREC_TYPE);
       } else {
-        blas_zhemv2_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J), Y_TAIL, 1,
+        blas_zhemv2_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), Y_TAIL, 1,
             Complex.one, RES, 1, PREC_TYPE);
       }
 

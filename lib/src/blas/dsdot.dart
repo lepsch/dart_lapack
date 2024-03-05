@@ -10,8 +10,8 @@ double dsdot(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SX = SX_.dim();
-  final SY = SY_.dim();
+  final SX = SX_.having();
+  final SY = SY_.having();
 
 // Authors:
 // ========

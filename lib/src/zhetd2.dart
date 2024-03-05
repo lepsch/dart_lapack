@@ -24,10 +24,10 @@ void zhetd2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final D = D_.having();
+  final E = E_.having();
   const HALF = Complex(0.5, 0.0);
   bool UPPER;
   int I;

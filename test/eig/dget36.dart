@@ -19,7 +19,7 @@ Future<void> dget36(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NINFO = NINFO_.dim();
+  final NINFO = NINFO_.having();
   const ZERO = 0.0, ONE = 1.0;
   const LDT = 10, LWORK = 2 * LDT * LDT;
   int I, IFST = 0, IFSTSV, ILST = 0, ILSTSV, J, LOC, N = 0;
@@ -29,7 +29,12 @@ Future<void> dget36(
       T2 = Matrix<double>(LDT, LDT),
       TMP = Matrix<double>(LDT, LDT);
   final RESULT = Array<double>(2), WORK = Array<double>(LWORK);
-  final INFO1 = Box(0), INFO2 = Box(0), IFST1=Box(0), IFST2=Box(0), ILST1=Box(0), ILST2=Box(0);
+  final INFO1 = Box(0),
+      INFO2 = Box(0),
+      IFST1 = Box(0),
+      IFST2 = Box(0),
+      ILST1 = Box(0),
+      ILST2 = Box(0);
 
   EPS = dlamch('P');
   RMAX.value = ZERO;

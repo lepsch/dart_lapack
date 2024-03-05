@@ -592,7 +592,7 @@ void main() {
           M = 10,
           N = 10;
       final m = Matrix<double>(NMAX * NMAX, NEED);
-      final s = m.dim(NMAX);
+      final s = m.having(ld: NMAX);
 
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= M; I++) {

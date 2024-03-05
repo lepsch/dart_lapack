@@ -50,8 +50,6 @@ abstract interface class Array<T> implements Box<T> {
 
   Matrix<T> asMatrix([int ld]);
 
-  Array<T> dim([int? ld]);
-
   Array<T> having({int? length, int? offset});
 
   int get offset;
@@ -195,7 +193,7 @@ class Matrix<T> implements Box<T> {
     this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : assert(dimensions.$1 * dimensions.$2 >= entries.length),
+  })  : //assert(dimensions.$1 * dimensions.$2 >= entries.length),
         _entries = _Array._(entries.toData(), offset: 0),
         _strides = (dimensions.$1, 1),
         _indexer = indexer;
@@ -244,14 +242,6 @@ class Matrix<T> implements Box<T> {
   T get first => _entries.first;
 
   set first(T value) => _entries.first = value;
-
-  Matrix<T> dim(int ld, {({int x, int y})? offset}) => Matrix._(
-        _entries,
-        (ld, dimensions.$2),
-        (ld, 1),
-        offset: offset ?? this.offset,
-        indexer: _indexer,
-      );
 
   Matrix<T> having({int? ld, ({int x, int y})? offset}) => Matrix._(
         _entries,
@@ -324,9 +314,6 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   void operator []=(int j, T value) {
     _m(i, j).first = value;
   }
-
-  @override
-  Array<T> dim([int? ld]) => getEntries().dim(ld);
 
   @override
   Array<T> having({int? length, int? offset}) {
@@ -462,9 +449,6 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  Array<T> dim([int? ld]) => _slice(-offset, offset: offset);
-
-  @override
   Array<T> having({int? length, int? offset}) {
     return _slice(
       -this.offset,
@@ -552,7 +536,7 @@ class Matrix3d<T> {
     Array<T> entries,
     this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
-  })  : assert(entries.length >= dimensions.$1 * dimensions.$2 * dimensions.$3),
+  })  : //assert(entries.length >= dimensions.$1 * dimensions.$2 * dimensions.$3),
         _entries = _Array._(entries.toData(), offset: 0),
         _strides = (dimensions.$1, dimensions.$2, 1);
 

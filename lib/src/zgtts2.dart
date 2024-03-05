@@ -16,12 +16,12 @@ void zgtts2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final DU2 = DU2_.dim();
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final DU2 = DU2_.having();
   int I, J = 0;
   Complex TEMP;
   // ..

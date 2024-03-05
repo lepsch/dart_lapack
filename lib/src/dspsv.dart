@@ -20,9 +20,9 @@ void dspsv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final IPIV = IPIV_.dim();
-  final AP = AP_.dim();
-  final B = B_.dim(LDB);
+  final IPIV = IPIV_.having();
+  final AP = AP_.having();
+  final B = B_.having(ld: LDB);
 
   // Test the input parameters.
 

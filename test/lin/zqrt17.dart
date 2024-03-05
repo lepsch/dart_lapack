@@ -1,8 +1,8 @@
       double zqrt17(final int TRANS, final int IRESID, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final int C, final Array<double> WORK_, final int LWORK,) {
-  final A = A_.dim();
-  final X = X_.dim();
-  final B = B_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having();
+  final X = X_.having();
+  final B = B_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

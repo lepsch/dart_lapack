@@ -17,7 +17,7 @@ void zlauu2(
   final int LDA,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
+  final A = A_.having(ld: LDA);
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

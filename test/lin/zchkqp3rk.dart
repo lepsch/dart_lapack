@@ -2,9 +2,9 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final _WORK = _WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
       int                NM, NN, NNB, NNS, NOUT;
       double             THRESH;
       bool               DOTYPE( * );

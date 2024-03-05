@@ -668,22 +668,22 @@ void _zchk1(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final IDIM = IDIM_.dim();
-  final KB = KB_.dim(NKB);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final INC = INC_.dim(NINC);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final X = X_.dim(NMAX);
-  final XX = XX_.dim(NMAX * NMAX);
-  final XS = XS_.dim(NMAX * NMAX);
-  final Y = Y_.dim(NMAX);
-  final YY = YY_.dim(NMAX * NMAX);
-  final YS = YS_.dim(NMAX * NMAX);
-  final YT = YT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having();
+  final KB = KB_.having(length: NKB);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final INC = INC_.having(length: NINC);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  final Y = Y_.having(length: NMAX);
+  final YY = YY_.having(length: NMAX * INCMAX);
+  final YS = YS_.having(length: NMAX * INCMAX);
+  final YT = YT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
 
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
@@ -1089,22 +1089,22 @@ void _zchk2(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final IDIM = IDIM_.dim();
-  final KB = KB_.dim(NKB);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final INC = INC_.dim(NINC);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final X = X_.dim(NMAX);
-  final XX = XX_.dim(NMAX * NMAX);
-  final XS = XS_.dim(NMAX * NMAX);
-  final Y = Y_.dim(NMAX);
-  final YY = YY_.dim(NMAX * NMAX);
-  final YS = YS_.dim(NMAX * NMAX);
-  final YT = YT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having();
+  final KB = KB_.having(length: NKB);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final INC = INC_.having(length: NINC);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  final Y = Y_.having(length: NMAX);
+  final YY = YY_.having(length: NMAX * INCMAX);
+  final YS = YS_.having(length: NMAX * INCMAX);
+  final YT = YT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
 
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
@@ -1466,18 +1466,18 @@ void _zchk3(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final IDIM = IDIM_.dim();
-  final KB = KB_.dim(NKB);
-  final INC = INC_.dim(NINC);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final X = X_.dim(NMAX);
-  final XX = XX_.dim(NMAX * NMAX);
-  final XS = XS_.dim(NMAX * NMAX);
-  final XT = XT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final Z = Z_.dim(NMAX);
+  final IDIM = IDIM_.having();
+  final KB = KB_.having(length: NKB);
+  final INC = INC_.having(length: NINC);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  final XT = XT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final Z = Z_.having(length: NMAX);
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
   Complex TRANSL;
@@ -1892,21 +1892,21 @@ void _zchk4(
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
 
-  final IDIM = IDIM_.dim();
-  final INC = INC_.dim(NINC);
-  final ALF = ALF_.dim(NALF);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final X = X_.dim(NMAX);
-  final XX = XX_.dim(NMAX * INCMAX);
-  final XS = XS_.dim(NMAX * INCMAX);
-  final Y = Y_.dim(NMAX);
-  final YY = YY_.dim(NMAX * INCMAX);
-  final YS = YS_.dim(NMAX * INCMAX);
-  final YT = YT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final Z = Z_.dim(NMAX);
+  final IDIM = IDIM_.having();
+  final INC = INC_.having(length: NINC);
+  final ALF = ALF_.having(length: NALF);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  final Y = Y_.having(length: NMAX);
+  final YY = YY_.having(length: NMAX * INCMAX);
+  final YS = YS_.having(length: NMAX * INCMAX);
+  final YT = YT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final Z = Z_.having(length: NMAX);
 
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
@@ -2224,21 +2224,21 @@ void _zchk5(
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
 
-  final IDIM = IDIM_.dim();
-  final ALF = ALF_.dim(NALF);
-  final INC = INC_.dim(NINC);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final X = X_.dim(NMAX);
-  final XX = XX_.dim(NMAX * NMAX);
-  final XS = XS_.dim(NMAX * NMAX);
-  // final Y = Y_.dim(NMAX);
-  // final YY = YY_.dim(NMAX * NMAX);
-  // final YS = YS_.dim(NMAX * NMAX);
-  final YT = YT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final Z = Z_.dim(NMAX);
+  final IDIM = IDIM_.having();
+  final ALF = ALF_.having(length: NALF);
+  final INC = INC_.having(length: NINC);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  // final Y = Y_.having(ld: NMAX);
+  // final YY = YY_.having(ld: NMAX * INCMAX);
+  // final YS = YS_.having(ld: NMAX * INCMAX);
+  final YT = YT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final Z = Z_.having(length: NMAX);
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
   Complex ALPHA = Complex.zero, TRANSL;
@@ -2562,21 +2562,21 @@ void _zchk6(
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
 
-  final IDIM = IDIM_.dim();
-  final ALF = ALF_.dim(NALF);
-  final INC = INC_.dim(NINC);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final X = X_.dim(NMAX);
-  final XX = XX_.dim(NMAX * NMAX);
-  final XS = XS_.dim(NMAX * NMAX);
-  final Y = Y_.dim(NMAX);
-  final YY = YY_.dim(NMAX * NMAX);
-  final YS = YS_.dim(NMAX * NMAX);
-  final YT = YT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final Z = Z_.dim(NMAX);
+  final IDIM = IDIM_.having();
+  final ALF = ALF_.having(length: NALF);
+  final INC = INC_.having(length: NINC);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  final Y = Y_.having(length: NMAX);
+  final YY = YY_.having(length: NMAX * INCMAX);
+  final YS = YS_.having(length: NMAX * INCMAX);
+  final YT = YT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final Z = Z_.having(ld: NMAX);
   // .. Parameters ..
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
@@ -3268,8 +3268,8 @@ void _zmake(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having();
   // .. Parameters ..
   const ROGUE = Complex(-1.0e10, 1.0e10);
   const RROGUE = -1.0e10;
@@ -3444,12 +3444,12 @@ void _zmvch(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final A = A_.dim(NMAX);
-  final X = X_.dim();
-  final Y = Y_.dim();
-  final YT = YT_.dim();
-  final G = G_.dim();
-  final YY = YY_.dim();
+  final A = A_.having(ld: NMAX);
+  final X = X_.having();
+  final Y = Y_.having();
+  final YT = YT_.having();
+  final G = G_.having();
+  final YY = YY_.having();
   const RZERO = 0.0, RONE = 1.0;
   int I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
 
@@ -3551,8 +3551,8 @@ bool _lze(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final RI = RI_.dim();
-  final RJ = RJ_.dim();
+  final RI = RI_.having();
+  final RJ = RJ_.having();
   for (var I = 1; I <= LR; I++) {
     if (RI[I] != RJ[I]) return false;
   }
@@ -3577,8 +3577,8 @@ bool _lzeres(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final AA = AA_.dim(LDA);
-  final AS = AS_.dim(LDA);
+  final AA = AA_.having(ld: LDA);
+  final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
   bool UPPER;
 
@@ -3701,10 +3701,10 @@ void _chkxer(
   final Array<Complex> Y_,
   final Array<Complex> YS_,
 ) {
-  // final A = A_.dim(LDA);
-  // final X = X_.dim();
-  final Y = Y_.dim();
-  final YS = YS_.dim();
+  // final A = A_.having(ld: LDA);
+  // final X = X_.having();
+  final Y = Y_.having();
+  final YS = YS_.having();
 
   var TRANS = 'T';
   var M = 0;

@@ -11,23 +11,24 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
 void dlagge(
-    final int M,
-    final int N,
-    final int KL,
-    final int KU,
-    final Array<double> D_,
-    final Matrix<double> A_,
-    final int LDA,
-    final Array<int> ISEED_,
-    final Array<double> WORK_,
-    final Box<int> INFO,) {
+  final int M,
+  final int N,
+  final int KL,
+  final int KU,
+  final Array<double> D_,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<int> ISEED_,
+  final Array<double> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final A = A_.dim(LDA);
-  final ISEED = ISEED_.dim();
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int I, J;
   double TAU, WA, WB, WN;

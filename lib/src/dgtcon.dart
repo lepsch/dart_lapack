@@ -9,7 +9,7 @@ void dgtcon(
   final String NORM,
   final int N,
   final Array<double> DL_,
-  final Array<double>  D_,
+  final Array<double> D_,
   final Array<double> DU_,
   final Array<double> DU2_,
   final Array<int> IPIV_,
@@ -22,13 +22,13 @@ void dgtcon(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final DU2 = DU2_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final DU2 = DU2_.having();
+  final IPIV = IPIV_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool ONENRM;
   int I, KASE1;
@@ -81,11 +81,13 @@ void dgtcon(
     if (KASE.value == KASE1) {
       // Multiply by inv(U)*inv(L).
 
-      dgttrs('No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK.asMatrix(N), N, INFO);
+      dgttrs('No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK.asMatrix(N), N,
+          INFO);
     } else {
       // Multiply by inv(L**T)*inv(U**T).
 
-      dgttrs('Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK.asMatrix(N), N, INFO);
+      dgttrs(
+          'Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK.asMatrix(N), N, INFO);
     }
   }
   // Compute the estimate of the reciprocal condition number.

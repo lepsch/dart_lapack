@@ -33,12 +33,12 @@ void zbdsqr(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-  final D = D_.dim();
-  final E = E_.dim();
-  final VT = VT_.dim(LDVT);
-  final U = U_.dim(LDU);
-  final C = C_.dim(LDC);
-  final RWORK = RWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final VT = VT_.having(ld: LDVT);
+  final U = U_.having(ld: LDU);
+  final C = C_.having(ld: LDC);
+  final RWORK = RWORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -223,7 +223,6 @@ void zbdsqr(
 
     mainLoop:
     while (true) {
-
       // Check for convergence or exceeding iteration count
 
       if (M <= 1) break;

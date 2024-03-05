@@ -26,11 +26,11 @@ void dsytrd_sb2st(
   final Box<int> INFO,
 ) {
 // #if defined(_OPENMP)
-  final AB = AB_.dim(LDAB);
-  final D = D_.dim();
-  final E = E_.dim();
-  final HOUS = HOUS_.dim();
-  final WORK = WORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final D = D_.having();
+  final E = E_.having();
+  final HOUS = HOUS_.having();
+  final WORK = WORK_.having();
   // use omp_lib;
 // #endif
 

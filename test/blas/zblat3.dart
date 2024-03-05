@@ -668,20 +668,20 @@ void _zchk1(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final B = B_.dim(NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final B = B_.having(ld: NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
   const RZERO = 0.0;
   Complex ALPHA = Complex.zero, ALS, BETA = Complex.zero, BLS;
   double ERRMAX;
@@ -1014,20 +1014,20 @@ void _zchk2(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final B = B_.dim(NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final B = B_.having(ld: NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
   const RZERO = 0.0;
   Complex ALPHA = Complex.zero, ALS, BETA = Complex.zero, BLS;
   double ERRMAX;
@@ -1366,17 +1366,17 @@ void _zchk3(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final B = B_.dim(NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final B = B_.having(ld: NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
 
   // .. Parameters ..
   const RZERO = 0.0;
@@ -1793,20 +1793,20 @@ void _zchk4(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  // final B = B_.dim(NMAX);
-  // final BB = BB_.dim(NMAX * NMAX);
-  // final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  // final B = B_.having(ld: NMAX);
+  // final BB = BB_.having(ld: NMAX * NMAX);
+  // final BS = BS_.having(ld: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
   const RONE = 1.0, RZERO = 0.0;
   Complex ALPHA = Complex.zero,
       ALS = Complex.zero,
@@ -2219,20 +2219,20 @@ void _zchk5(
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  final IDIM = IDIM_.dim(NIDIM);
-  final ALF = ALF_.dim(NALF);
-  final BET = BET_.dim(NBET);
-  final AB = AB_.dim(2 * NMAX * NMAX);
-  final AA = AA_.dim(NMAX * NMAX);
-  final AS = AS_.dim(NMAX * NMAX);
-  final BB = BB_.dim(NMAX * NMAX);
-  final BS = BS_.dim(NMAX * NMAX);
-  final C = C_.dim(NMAX);
-  final CC = CC_.dim(NMAX * NMAX);
-  final CS = CS_.dim(NMAX * NMAX);
-  final CT = CT_.dim(NMAX);
-  final G = G_.dim(NMAX);
-  final W = W_.dim(2 * NMAX);
+  final IDIM = IDIM_.having(length: NIDIM);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
+  final AB = AB_.having(length: 2 * NMAX * NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final BB = BB_.having(length: NMAX * NMAX);
+  final BS = BS_.having(length: NMAX * NMAX);
+  final C = C_.having(ld: NMAX);
+  final CC = CC_.having(length: NMAX * NMAX);
+  final CS = CS_.having(length: NMAX * NMAX);
+  final CT = CT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
+  final W = W_.having(length: 2 * NMAX);
   const RONE = 1.0, RZERO = 0.0;
   Complex ALPHA = Complex.zero, ALS, BETA = Complex.zero, BETS = Complex.zero;
   double ERRMAX, RBETA = 0, RBETS = 0;
@@ -3596,8 +3596,8 @@ void _zmake(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final A = A_.dim(NMAX);
-  final AA = AA_.dim();
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having();
   const ROGUE = Complex(-1.0e10, 1.0e10);
   const RROGUE = -1.0e10;
   int I, IBEG, IEND, J, JJ;
@@ -3722,12 +3722,12 @@ void _zmmch(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final CC = CC_.dim(LDCC);
-  final CT = CT_.dim();
-  final G = G_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final CC = CC_.having(ld: LDCC);
+  final CT = CT_.having();
+  final G = G_.having();
   const RZERO = 0.0, RONE = 1.0;
   double ERRI;
   int I, J, K;
@@ -3931,8 +3931,8 @@ bool _lzeres(
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
-  final AA = AA_.dim(LDA);
-  final AS = AS_.dim(LDA);
+  final AA = AA_.having(ld: LDA);
+  final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
   bool UPPER;
 
@@ -4023,7 +4023,8 @@ Complex _zbeg(final Box<bool> RESET) {
 //   return X - Y;
 // }
 
-void _chkxer(String SRNAMT, int INFOT, Nout NOUT, Box<bool> LERR, Box<bool> OK) {
+void _chkxer(
+    String SRNAMT, int INFOT, Nout NOUT, Box<bool> LERR, Box<bool> OK) {
   // Tests whether XERBLA has detected an error when it should.
 
   // Auxiliary routine for test program for Level 3 Blas.

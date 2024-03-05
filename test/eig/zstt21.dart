@@ -23,14 +23,14 @@ void zstt21(
   final Array<double> RWORK_,
   final Array<double> RESULT_,
 ) {
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final AD = AD_.dim();
-  final AE = AE_.dim();
-  final SD = SD_.dim();
-  final SE = SE_.dim();
-  final RESULT = RESULT_.dim();
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final AD = AD_.having();
+  final AE = AE_.having();
+  final SD = SD_.having();
+  final SE = SE_.having();
+  final RESULT = RESULT_.having();
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

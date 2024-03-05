@@ -22,8 +22,8 @@ void zgbtf2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final IPIV = IPIV_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final IPIV = IPIV_.having();
   int I, J, JP, JU, KM, KV;
 
   // KV is the number of superdiagonals in the factor U, allowing for

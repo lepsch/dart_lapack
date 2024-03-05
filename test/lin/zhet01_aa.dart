@@ -1,9 +1,9 @@
       void zhet01_aa(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<int> IPIV_, final Matrix<double> C_, final int LDC, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.dim();
-  final AFAC = AFAC_.dim();
-  final IPIV = IPIV_.dim();
-  final C = C_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final IPIV = IPIV_.having();
+  final C = C_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

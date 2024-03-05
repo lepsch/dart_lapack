@@ -1,7 +1,7 @@
 import 'common.dart';
 
       void ddrvrf3(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A_, final int LDA, final int ARF, final int B1, final int B2, final int D_WORK_DLANGE, final int D_WORK_DGEQRF, final int TAU,) {
-  final A = A_.dim();
+  final A = A_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

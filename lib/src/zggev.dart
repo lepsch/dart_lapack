@@ -39,14 +39,14 @@ void zggev(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -69,11 +69,7 @@ void zggev(
       LWKOPT = 0;
   double ANRM, ANRMTO = 0, BIGNUM, BNRM, BNRMTO = 0, EPS, SMLNUM, TEMP;
   final LDUMMA = Array<bool>(1);
-  final IERR = Box(0),
-        IHI = Box(0),
-      ILO = Box(0),
-      IN=Box(0)
-;
+  final IERR = Box(0), IHI = Box(0), ILO = Box(0), IN = Box(0);
 
   double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
 
@@ -213,8 +209,20 @@ void zggev(
   // Apply the orthogonal transformation to matrix A
   // (Complex Workspace: need N, prefer N*NB)
 
-  zunmqr('L', 'C', IROWS, ICOLS, IROWS, B(ILO.value, ILO.value), LDB, WORK(ITAU),
-      A(ILO.value, ILO.value), LDA, WORK(IWRK), LWORK + 1 - IWRK, IERR);
+  zunmqr(
+      'L',
+      'C',
+      IROWS,
+      ICOLS,
+      IROWS,
+      B(ILO.value, ILO.value),
+      LDB,
+      WORK(ITAU),
+      A(ILO.value, ILO.value),
+      LDA,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      IERR);
 
   // Initialize VL
   // (Complex Workspace: need N, prefer N*NB)
@@ -222,11 +230,11 @@ void zggev(
   if (ILVL) {
     zlaset('Full', N, N, Complex.zero, Complex.one, VL, LDVL);
     if (IROWS > 1) {
-      zlacpy('L', IROWS - 1, IROWS - 1, B(ILO.value + 1, ILO.value), LDB, VL(ILO.value + 1, ILO.value),
-          LDVL);
+      zlacpy('L', IROWS - 1, IROWS - 1, B(ILO.value + 1, ILO.value), LDB,
+          VL(ILO.value + 1, ILO.value), LDVL);
     }
-    zungqr(IROWS, IROWS, IROWS, VL(ILO.value, ILO.value), LDVL, WORK(ITAU), WORK(IWRK),
-        LWORK + 1 - IWRK, IERR);
+    zungqr(IROWS, IROWS, IROWS, VL(ILO.value, ILO.value), LDVL, WORK(ITAU),
+        WORK(IWRK), LWORK + 1 - IWRK, IERR);
   }
 
   // Initialize VR
@@ -238,10 +246,11 @@ void zggev(
   if (ILV) {
     // Eigenvectors requested -- work on whole matrix.
 
-    zgghrd(JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR);
+    zgghrd(JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB, VL, LDVL, VR,
+        LDVR, IERR);
   } else {
-    zgghrd('N', 'N', IROWS, 1, IROWS, A(ILO.value, ILO.value), LDA, B(ILO.value, ILO.value), LDB, VL,
-        LDVL, VR, LDVR, IERR);
+    zgghrd('N', 'N', IROWS, 1, IROWS, A(ILO.value, ILO.value), LDA,
+        B(ILO.value, ILO.value), LDB, VL, LDVL, VR, LDVR, IERR);
   }
 
   // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -255,8 +264,27 @@ void zggev(
   } else {
     CHTEMP = 'E';
   }
-  zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB, ALPHA, BETA, VL,
-      LDVL, VR, LDVR, WORK(IWRK), LWORK + 1 - IWRK, RWORK(IRWRK), IERR);
+  zhgeqz(
+      CHTEMP,
+      JOBVL,
+      JOBVR,
+      N,
+      ILO.value,
+      IHI.value,
+      A,
+      LDA,
+      B,
+      LDB,
+      ALPHA,
+      BETA,
+      VL,
+      LDVL,
+      VR,
+      LDVR,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      RWORK(IRWRK),
+      IERR);
   if (IERR.value != 0) {
     if (IERR.value > 0 && IERR.value <= N) {
       INFO.value = IERR.value;
@@ -291,8 +319,8 @@ void zggev(
       // (Workspace: none needed)
 
       if (ILVL) {
-        zggbak('P', 'L', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT), N, VL, LDVL,
-            IERR);
+        zggbak('P', 'L', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT),
+            N, VL, LDVL, IERR);
         for (JC = 1; JC <= N; JC++) {
           // 30
           TEMP = ZERO;
@@ -309,8 +337,8 @@ void zggev(
         } // 30
       }
       if (ILVR) {
-        zggbak('P', 'R', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT), N, VR, LDVR,
-            IERR);
+        zggbak('P', 'R', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT),
+            N, VR, LDVR, IERR);
         for (JC = 1; JC <= N; JC++) {
           // 60
           TEMP = ZERO;

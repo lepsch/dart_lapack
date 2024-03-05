@@ -43,18 +43,18 @@ void dlarre(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final E2 = E2_.dim();
-  final ISPLIT = ISPLIT_.dim();
-  final W = W_.dim();
-  final WERR = WERR_.dim();
-  final WGAP = WGAP_.dim();
-  final IBLOCK = IBLOCK_.dim();
-  final INDEXW = INDEXW_.dim();
-  final GERS = GERS_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final E2 = E2_.having();
+  final ISPLIT = ISPLIT_.having();
+  final W = W_.having();
+  final WERR = WERR_.having();
+  final WGAP = WGAP_.having();
+  final IBLOCK = IBLOCK_.having();
+  final INDEXW = INDEXW_.having();
+  final GERS = GERS_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0,
       ONE = 1.0,
       TWO = 2.0,

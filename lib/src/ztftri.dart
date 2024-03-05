@@ -17,7 +17,7 @@ void ztftri(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim()(1, offset: zeroIndexedArrayOffset);
+  final A = A_.having()(1, offset: zeroIndexedArrayOffset);
   bool LOWER, NISODD, NORMALTRANSR;
   int N1, N2, K = 0;
 

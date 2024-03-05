@@ -18,9 +18,9 @@ void dlasr(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final C = C_.dim();
-  final S = S_.dim();
-  final A = A_.dim(LDA);
+  final C = C_.having();
+  final S = S_.having();
+  final A = A_.having(ld: LDA);
   const ONE = 1.0, ZERO = 0.0;
   int I, INFO, J;
   double CTEMP, STEMP, TEMP;

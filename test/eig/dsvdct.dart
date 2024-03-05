@@ -11,8 +11,8 @@ void dsvdct(
   final double SHIFT,
   final Box<int> NUM,
 ) {
-  final S = S_.dim();
-  final E = E_.dim();
+  final S = S_.having();
+  final E = E_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -40,19 +40,19 @@ void dlasd6(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final VF = VF_.dim();
-  final VL = VL_.dim();
-  final IDXQ = IDXQ_.dim();
-  final PERM = PERM_.dim();
-  final GIVCOL = GIVCOL_.dim(LDGCOL);
-  final GIVNUM = GIVNUM_.dim(LDGNUM);
-  final POLES = POLES_.dim(LDGNUM);
-  final DIFL = DIFL_.dim();
-  final DIFR = DIFR_.dim();
-  final Z = Z_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final VF = VF_.having();
+  final VL = VL_.having();
+  final IDXQ = IDXQ_.having();
+  final PERM = PERM_.having();
+  final GIVCOL = GIVCOL_.having(ld: LDGCOL);
+  final GIVNUM = GIVNUM_.having(ld: LDGNUM);
+  final POLES = POLES_.having(ld: LDGNUM);
+  final DIFL = DIFL_.having();
+  final DIFR = DIFR_.having();
+  final Z = Z_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   int I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M, N, N1, N2;
   double ORGNRM;

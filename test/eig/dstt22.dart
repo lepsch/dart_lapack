@@ -23,12 +23,12 @@ void dstt22(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AD = AD_.dim();
-  final AE = AE_.dim();
-  final SD = SD_.dim();
-  final SE = SE_.dim();
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim(LDWORK);
+  final AD = AD_.having();
+  final AE = AE_.having();
+  final SD = SD_.having();
+  final SE = SE_.having();
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having(ld: LDWORK);
   const ZERO = 0.0, ONE = 1.0;
   int I, J, K;
   double ANORM, AUKJ, ULP, UNFL, WNORM;
@@ -74,7 +74,7 @@ void dstt22(
     }
   }
 
-  WNORM = dlansy('1', 'L', M, WORK, M, WORK(1,M + 1).asArray());
+  WNORM = dlansy('1', 'L', M, WORK, M, WORK(1, M + 1).asArray());
 
   if (ANORM > WNORM) {
     RESULT[1] = (WNORM / ANORM) / (M * ULP);

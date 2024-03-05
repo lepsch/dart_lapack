@@ -24,10 +24,10 @@ void zsytri_3x(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final E = E_.dim();
-  final WORK = WORK_.dim(N + NB + 1);
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final E = E_.having();
+  final WORK = WORK_.having(ld: N + NB + 1);
 
   bool UPPER;
   int CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11;

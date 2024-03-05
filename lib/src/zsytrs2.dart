@@ -22,10 +22,10 @@ void zsytrs2(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

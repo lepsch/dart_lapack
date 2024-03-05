@@ -37,11 +37,11 @@ void dlalsd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim(LDB);
-  final E = E_.dim(LDB);
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having(length: LDB);
+  final E = E_.having(length: LDB);
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int BX,
       BXST,

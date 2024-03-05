@@ -1,8 +1,8 @@
       void dlarhs(final int PATH, final int XTYPE, final int UPLO, final int TRANS, final int M, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<int> ISEED_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final X = X_.dim();
-  final B = B_.dim();
-  final ISEED = ISEED_.dim();
+  final A = A_.having();
+  final X = X_.having();
+  final B = B_.having();
+  final ISEED = ISEED_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

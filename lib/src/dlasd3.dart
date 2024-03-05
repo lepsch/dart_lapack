@@ -36,16 +36,16 @@ void dlasd3(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Q = Q_.dim(LDQ);
-  final DSIGMA = DSIGMA_.dim();
-  final U = U_.dim(LDU);
-  final U2 = U2_.dim(LDU2);
-  final VT = VT_.dim(LDVT);
-  final VT2 = VT2_.dim(LDVT2);
-  final IDXC = IDXC_.dim();
-  final CTOT = CTOT_.dim();
-  final Z = Z_.dim();
+  final D = D_.having();
+  final Q = Q_.having(ld: LDQ);
+  final DSIGMA = DSIGMA_.having();
+  final U = U_.having(ld: LDU);
+  final U2 = U2_.having(ld: LDU2);
+  final VT = VT_.having(ld: LDVT);
+  final VT2 = VT2_.having(ld: LDVT2);
+  final IDXC = IDXC_.having();
+  final CTOT = CTOT_.having();
+  final Z = Z_.having();
   const ONE = 1.0, ZERO = 0.0, NEGONE = -1.0;
   int CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1;
   double RHO, TEMP;

@@ -48,13 +48,13 @@ void zheevr_2stage(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final Z = Z_.dim(LDZ);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final ISUPPZ = ISUPPZ_.dim();
+  final A = A_.having(ld: LDA);
+  final Z = Z_.having(ld: LDZ);
+  final W = W_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final ISUPPZ = ISUPPZ_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   bool ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ;
   String ORDER;

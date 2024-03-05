@@ -22,8 +22,8 @@ void zlatm1(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ISEED = ISEED_.dim(4);
-  final D = D_.dim();
+  final ISEED = ISEED_.having(length: 4);
+  final D = D_.having();
 
   const ONE = 1.0;
   int I;

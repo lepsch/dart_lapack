@@ -19,9 +19,9 @@ void zsptri(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final IPIV = IPIV_.having();
+  final WORK = WORK_.having();
 
   bool UPPER;
   int J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP;

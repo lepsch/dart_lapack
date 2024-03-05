@@ -59,13 +59,13 @@ void zgejsv(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final SVA = SVA_.dim(N);
-  final CWORK = CWORK_.dim();
-  final RWORK = RWORK_.dim(LRWORK);
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final SVA = SVA_.having(length: N);
+  final CWORK = CWORK_.having();
+  final RWORK = RWORK_.having(length: LRWORK);
+  final IWORK = IWORK_.having();
 
   const ZERO = 0.0, ONE = 1.0;
   Complex CTEMP;

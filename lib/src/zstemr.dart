@@ -42,13 +42,13 @@ void zstemr(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final ISUPPZ = ISUPPZ_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
-  final W = W_.dim();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final ISUPPZ = ISUPPZ_.having();
+  final D = D_.having();
+  final E = E_.having();
+  final W = W_.having();
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

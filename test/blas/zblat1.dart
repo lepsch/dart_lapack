@@ -486,9 +486,9 @@ void _stest(
   // NEGLIGIBLE.
 
   // C. L. LAWSON, JPL, 1974 DEC 10
-  final SCOMP = SCOMP_.dim(LEN);
-  final STRUE = STRUE_.dim(LEN);
-  final SSIZE = SSIZE_.dim(LEN);
+  final SCOMP = SCOMP_.having(length: LEN);
+  final STRUE = STRUE_.having(length: LEN);
+  final SSIZE = SSIZE_.having(length: LEN);
   const ZERO = 0.0;
   double SD;
   int I;
@@ -529,7 +529,7 @@ void _stest1(
 
   // C.L. LAWSON, JPL, 1978 DEC 6
 
-  final SSIZE = SSIZE_.dim();
+  final SSIZE = SSIZE_.having();
   final SCOMP = Array<double>(1), STRUE = Array<double>(1);
 
   SCOMP[1] = SCOMP1;
@@ -560,9 +560,9 @@ void _ctest(
   final SCOMP = Array<double>(20),
       SSIZE = Array<double>(20),
       STRUE = Array<double>(20);
-  final CCOMP = CCOMP_.dim(LEN);
-  final CTRUE = CTRUE_.dim(LEN);
-  final CSIZE = CSIZE_.dim(LEN);
+  final CCOMP = CCOMP_.having(length: LEN);
+  final CTRUE = CTRUE_.having(length: LEN);
+  final CSIZE = CSIZE_.having(length: LEN);
 
   for (I = 1; I <= LEN; I++) {
     SCOMP[2 * I - 1] = CCOMP[I].real;

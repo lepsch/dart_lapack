@@ -19,20 +19,20 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final DOTYPE = DOTYPE_.dim();
-  final MVAL = MVAL_.dim();
-  final NVAL = NVAL_.dim();
-  final NSVAL = NSVAL_.dim();
-  final NBVAL = NBVAL_.dim();
-  final NXVAL = NXVAL_.dim();
-  final A = A_.dim();
-  final COPYA = COPYA_.dim();
-  final B = B_.dim();
-  final COPYB = COPYB_.dim();
-  final S = S_.dim();
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final DOTYPE = DOTYPE_.having();
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final NSVAL = NSVAL_.having();
+  final NBVAL = NBVAL_.having();
+  final NXVAL = NXVAL_.having();
+  final A = A_.having();
+  final COPYA = COPYA_.having();
+  final B = B_.having();
+  final COPYB = COPYB_.having();
+  final S = S_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
       // int                NM, NN, NNB, NNS, NOUT;
       // double             THRESH;
       // final                IWORK=Array<int>)(), NBVAL=Array<int>)(), MVAL=Array<int>)(), NVAL=Array<int>)(), NSVAL=Array<int>)(), NXVAL=Array<int>)();

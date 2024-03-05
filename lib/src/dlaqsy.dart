@@ -16,8 +16,8 @@ void dlaqsy(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final S = S_.dim();
+  final A = A_.having(ld: LDA);
+  final S = S_.having();
   const ONE = 1.0, THRESH = 0.1;
   int I, J;
   double CJ, LARGE, SMALL;

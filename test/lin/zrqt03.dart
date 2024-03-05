@@ -1,6 +1,6 @@
       void zrqt03(final int M, final int N, final int K, final int AF, final int C, final int CC, final int Q, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

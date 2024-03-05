@@ -27,10 +27,10 @@ void dlagsy(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final A = A_.dim(LDA);
-  final ISEED = ISEED_.dim();
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0, HALF = 0.5;
   int I, J;
   double ALPHA, TAU, WA, WB, WN;

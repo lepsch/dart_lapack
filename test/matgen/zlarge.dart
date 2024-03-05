@@ -21,9 +21,9 @@ void zlarge(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final ISEED = ISEED_.dim(4);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having(length: 4);
+  final WORK = WORK_.having();
   const ZERO = 0.0;
   int I;
   double WN;

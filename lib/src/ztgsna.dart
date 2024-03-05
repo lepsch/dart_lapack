@@ -38,15 +38,15 @@ void ztgsna(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final SELECT = SELECT_.dim();
-  final S = S_.dim();
-  final DIF = DIF_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final SELECT = SELECT_.having();
+  final S = S_.having();
+  final DIF = DIF_.having();
   const ZERO = 0.0, ONE = 1.0, IDIFJB = 3;
   bool LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
   int I, IFST, K, KS, LWMIN = 0, N1, N2;

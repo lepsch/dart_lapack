@@ -34,11 +34,11 @@ void zhetrd_hb2st(
   // use omp_lib;
 // #endif
 
-  final AB = AB_.dim(LDAB);
-  final WORK = WORK_.dim();
-  final HOUS = HOUS_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final WORK = WORK_.having();
+  final HOUS = HOUS_.having();
+  final D = D_.having();
+  final E = E_.having();
   const RZERO = 0.0;
   bool LQUERY, WANTQ, UPPER, AFTERS1;
   int I,

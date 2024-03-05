@@ -34,12 +34,12 @@ void dsbgvd(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final BB = BB_.dim(LDBB);
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final BB = BB_.having(ld: LDBB);
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool LQUERY, UPPER, WANTZ;
   String VECT;

@@ -45,17 +45,17 @@ void dgbsvx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final AFB = AFB_.dim(LDAFB);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final R = R_.dim();
-  final C = C_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final AFB = AFB_.having(ld: LDAFB);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final R = R_.having();
+  final C = C_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
   String NORM;

@@ -15,9 +15,9 @@ void dlasd5(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Z = Z_.dim();
-  final DELTA = DELTA_.dim();
+  final D = D_.having();
+  final Z = Z_.having();
+  final DELTA = DELTA_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0;
   double B, C, DEL, DELSQ, TAU, W;
 

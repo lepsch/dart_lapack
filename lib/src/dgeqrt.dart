@@ -18,9 +18,9 @@ void dgeqrt(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -69,8 +69,22 @@ void dgeqrt(
     if (I + IB <= N) {
       // Update by applying H**T to A(I:M,I+IB:N) from the left
 
-      dlarfb('L', 'T', 'F', 'C', M - I + 1, N - I - IB + 1, IB, A(I, I), LDA,
-          T(1, I), LDT, A(I, I + IB), LDA, WORK.asMatrix(N - I - IB + 1), N - I - IB + 1);
+      dlarfb(
+          'L',
+          'T',
+          'F',
+          'C',
+          M - I + 1,
+          N - I - IB + 1,
+          IB,
+          A(I, I),
+          LDA,
+          T(1, I),
+          LDT,
+          A(I, I + IB),
+          LDA,
+          WORK.asMatrix(N - I - IB + 1),
+          N - I - IB + 1);
     }
   }
 }

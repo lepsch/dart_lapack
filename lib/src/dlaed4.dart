@@ -19,9 +19,9 @@ void dlaed4(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Z = Z_.dim();
-  final DELTA = DELTA_.dim();
+  final D = D_.having();
+  final Z = Z_.having();
+  final DELTA = DELTA_.having();
   const MAXIT = 30;
   const ZERO = 0.0,
       ONE = 1.0,

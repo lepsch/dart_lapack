@@ -46,14 +46,14 @@ void dlaqr2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final Z = Z_.dim(LDZ);
-  final SR = SR_.dim();
-  final SI = SI_.dim();
-  final V = V_.dim(LDV);
-  final T = T_.dim(LDT);
-  final WV = WV_.dim(LDWV);
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final Z = Z_.having(ld: LDZ);
+  final SR = SR_.having();
+  final SI = SI_.having();
+  final V = V_.having(ld: LDV);
+  final T = T_.having(ld: LDT);
+  final WV = WV_.having(ld: LDWV);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   double EVI,
       EVK,

@@ -47,21 +47,21 @@ void zbbcsd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final U2 = U2_.dim(LDU2);
-  final U1 = U1_.dim(LDU1);
-  final V1T = V1T_.dim(LDV1T);
-  final V2T = V2T_.dim(LDV2T);
-  final THETA = THETA_.dim();
-  final PHI = PHI_.dim();
-  final B11D = B11D_.dim();
-  final B11E = B11E_.dim();
-  final B12D = B12D_.dim();
-  final B12E = B12E_.dim();
-  final B21D = B21D_.dim();
-  final B21E = B21E_.dim();
-  final B22D = B22D_.dim();
-  final B22E = B22E_.dim();
-  final RWORK = RWORK_.dim();
+  final U2 = U2_.having(ld: LDU2);
+  final U1 = U1_.having(ld: LDU1);
+  final V1T = V1T_.having(ld: LDV1T);
+  final V2T = V2T_.having(ld: LDV2T);
+  final THETA = THETA_.having();
+  final PHI = PHI_.having();
+  final B11D = B11D_.having();
+  final B11E = B11E_.having();
+  final B12D = B12D_.having();
+  final B12E = B12E_.having();
+  final B21D = B21D_.having();
+  final B21E = B21E_.having();
+  final B22D = B22D_.having();
+  final B22E = B22E_.having();
+  final RWORK = RWORK_.having();
 
   const MAXITR = 6;
   const HUNDRED = 100.0, MEIGHTH = -0.125, ONE = 1.0, TEN = 10.0, ZERO = 0.0;
@@ -753,14 +753,22 @@ void zbbcsd(
       THETA[I] = THETAMIN;
       if (COLMAJOR) {
         if (WANTU1) zswap(P, U1(1, I).asArray(), 1, U1(1, MINI).asArray(), 1);
-        if (WANTU2) zswap(M - P, U2(1, I).asArray(), 1, U2(1, MINI).asArray(), 1);
-        if (WANTV1T) zswap(Q, V1T(I, 1).asArray(), LDV1T, V1T(MINI, 1).asArray(), LDV1T);
-        if (WANTV2T) zswap(M - Q, V2T(I, 1).asArray(), LDV2T, V2T(MINI, 1).asArray(), LDV2T);
+        if (WANTU2)
+          zswap(M - P, U2(1, I).asArray(), 1, U2(1, MINI).asArray(), 1);
+        if (WANTV1T)
+          zswap(Q, V1T(I, 1).asArray(), LDV1T, V1T(MINI, 1).asArray(), LDV1T);
+        if (WANTV2T)
+          zswap(
+              M - Q, V2T(I, 1).asArray(), LDV2T, V2T(MINI, 1).asArray(), LDV2T);
       } else {
-        if (WANTU1) zswap(P, U1(I, 1).asArray(), LDU1, U1(MINI, 1).asArray(), LDU1);
-        if (WANTU2) zswap(M - P, U2(I, 1).asArray(), LDU2, U2(MINI, 1).asArray(), LDU2);
-        if (WANTV1T) zswap(Q, V1T(1, I).asArray(), 1, V1T(1, MINI).asArray(), 1);
-        if (WANTV2T) zswap(M - Q, V2T(1, I).asArray(), 1, V2T(1, MINI).asArray(), 1);
+        if (WANTU1)
+          zswap(P, U1(I, 1).asArray(), LDU1, U1(MINI, 1).asArray(), LDU1);
+        if (WANTU2)
+          zswap(M - P, U2(I, 1).asArray(), LDU2, U2(MINI, 1).asArray(), LDU2);
+        if (WANTV1T)
+          zswap(Q, V1T(1, I).asArray(), 1, V1T(1, MINI).asArray(), 1);
+        if (WANTV2T)
+          zswap(M - Q, V2T(1, I).asArray(), 1, V2T(1, MINI).asArray(), 1);
       }
     }
   }

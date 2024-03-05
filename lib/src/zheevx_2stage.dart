@@ -44,13 +44,13 @@ void zheevx_2stage(
   final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final IFAIL = IFAIL_.dim();
-  final W = W_.dim();
+  final A = A_.having(ld: LDA);
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final IFAIL = IFAIL_.having();
+  final W = W_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -31,11 +31,11 @@ void dlaein(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final VR = VR_.dim();
-  final VI = VI_.dim();
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final VR = VR_.having();
+  final VI = VI_.having();
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0, TENTH = 1.0e-1;
   String NORMIN, TRANS;
   int I, I1, I2, I3, ITS, J;

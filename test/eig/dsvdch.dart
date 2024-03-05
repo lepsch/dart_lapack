@@ -17,9 +17,9 @@ void dsvdch(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final S = S_.dim();
-  final E = E_.dim();
-  final SVD = SVD_.dim();
+  final S = S_.having();
+  final E = E_.having();
+  final SVD = SVD_.having();
   const ONE = 1.0;
   const ZERO = 0.0;
   int BPNT, COUNT, TPNT;

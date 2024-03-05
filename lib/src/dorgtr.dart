@@ -21,9 +21,9 @@ void dorgtr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, UPPER;
   int I, J, LWKOPT = 0, NB;

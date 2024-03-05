@@ -25,8 +25,8 @@ void zgebal(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final SCALE = SCALE_.dim();
+  final A = A_.having(ld: LDA);
+  final SCALE = SCALE_.having();
   const ZERO = 0.0, ONE = 1.0;
   const SCLFAC = 2.0;
   const FACTOR = 0.95;

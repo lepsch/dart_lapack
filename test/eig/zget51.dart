@@ -26,12 +26,12 @@ void zget51(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   int JCOL, JDIAG, JROW;
   double ANORM, ULP, UNFL, WNORM;

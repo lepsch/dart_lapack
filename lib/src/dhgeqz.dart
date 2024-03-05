@@ -40,14 +40,14 @@ void dhgeqz(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final H = H_.dim(LDH);
-  final T = T_.dim(LDT);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
+  final H = H_.having(ld: LDH);
+  final T = T_.having(ld: LDT);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
   const HALF = 0.5, ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2;
   bool ILAZR2,
       ILAZRO,
@@ -1058,59 +1058,59 @@ void dhgeqz(
           T[J + 2][J] = ZERO;
         }
 
-          // Last elements: Use Givens rotations
+        // Last elements: Use Givens rotations
 
-          // Rotations from the left
+        // Rotations from the left
 
-          J = ILAST - 1;
-          TEMP.value = H[J][J - 1];
-          dlartg(TEMP.value, H[J + 1][J - 1], C, S, H.box(J, J - 1));
-          H[J + 1][J - 1] = ZERO;
+        J = ILAST - 1;
+        TEMP.value = H[J][J - 1];
+        dlartg(TEMP.value, H[J + 1][J - 1], C, S, H.box(J, J - 1));
+        H[J + 1][J - 1] = ZERO;
 
-          for (JC = J; JC <= ILASTM; JC++) {
-            TEMP.value = C.value * H[J][JC] + S.value * H[J + 1][JC];
-            H[J + 1][JC] = -S.value * H[J][JC] + C.value * H[J + 1][JC];
-            H[J][JC] = TEMP.value;
-            TEMP2.value = C.value * T[J][JC] + S.value * T[J + 1][JC];
-            T[J + 1][JC] = -S.value * T[J][JC] + C.value * T[J + 1][JC];
-            T[J][JC] = TEMP2.value;
+        for (JC = J; JC <= ILASTM; JC++) {
+          TEMP.value = C.value * H[J][JC] + S.value * H[J + 1][JC];
+          H[J + 1][JC] = -S.value * H[J][JC] + C.value * H[J + 1][JC];
+          H[J][JC] = TEMP.value;
+          TEMP2.value = C.value * T[J][JC] + S.value * T[J + 1][JC];
+          T[J + 1][JC] = -S.value * T[J][JC] + C.value * T[J + 1][JC];
+          T[J][JC] = TEMP2.value;
+        }
+        if (ILQ) {
+          for (JR = 1; JR <= N; JR++) {
+            TEMP.value = C.value * Q[JR][J] + S.value * Q[JR][J + 1];
+            Q[JR][J + 1] = -S.value * Q[JR][J] + C.value * Q[JR][J + 1];
+            Q[JR][J] = TEMP.value;
           }
-          if (ILQ) {
-            for (JR = 1; JR <= N; JR++) {
-              TEMP.value = C.value * Q[JR][J] + S.value * Q[JR][J + 1];
-              Q[JR][J + 1] = -S.value * Q[JR][J] + C.value * Q[JR][J + 1];
-              Q[JR][J] = TEMP.value;
-            }
-          }
-
-          // Rotations from the right.
-
-          TEMP.value = T[J + 1][J + 1];
-          dlartg(TEMP.value, T[J + 1][J], C, S, T.box(J + 1, J + 1));
-          T[J + 1][J] = ZERO;
-
-          for (JR = IFRSTM; JR <= ILAST; JR++) {
-            TEMP.value = C.value * H[JR][J + 1] + S.value * H[JR][J];
-            H[JR][J] = -S.value * H[JR][J + 1] + C.value * H[JR][J];
-            H[JR][J + 1] = TEMP.value;
-          }
-          for (JR = IFRSTM; JR <= ILAST - 1; JR++) {
-            TEMP.value = C.value * T[JR][J + 1] + S.value * T[JR][J];
-            T[JR][J] = -S.value * T[JR][J + 1] + C.value * T[JR][J];
-            T[JR][J + 1] = TEMP.value;
-          }
-          if (ILZ) {
-            for (JR = 1; JR <= N; JR++) {
-              TEMP.value = C.value * Z[JR][J + 1] + S.value * Z[JR][J];
-              Z[JR][J] = -S.value * Z[JR][J + 1] + C.value * Z[JR][J];
-              Z[JR][J + 1] = TEMP.value;
-            }
-          }
-
-          // End of Double-Shift code
         }
 
-        // End of iteration loop
+        // Rotations from the right.
+
+        TEMP.value = T[J + 1][J + 1];
+        dlartg(TEMP.value, T[J + 1][J], C, S, T.box(J + 1, J + 1));
+        T[J + 1][J] = ZERO;
+
+        for (JR = IFRSTM; JR <= ILAST; JR++) {
+          TEMP.value = C.value * H[JR][J + 1] + S.value * H[JR][J];
+          H[JR][J] = -S.value * H[JR][J + 1] + C.value * H[JR][J];
+          H[JR][J + 1] = TEMP.value;
+        }
+        for (JR = IFRSTM; JR <= ILAST - 1; JR++) {
+          TEMP.value = C.value * T[JR][J + 1] + S.value * T[JR][J];
+          T[JR][J] = -S.value * T[JR][J + 1] + C.value * T[JR][J];
+          T[JR][J + 1] = TEMP.value;
+        }
+        if (ILZ) {
+          for (JR = 1; JR <= N; JR++) {
+            TEMP.value = C.value * Z[JR][J + 1] + S.value * Z[JR][J];
+            Z[JR][J] = -S.value * Z[JR][J + 1] + C.value * Z[JR][J];
+            Z[JR][J + 1] = TEMP.value;
+          }
+        }
+
+        // End of Double-Shift code
+      }
+
+      // End of iteration loop
     }
 
     if (dropThroughNonConvergence) {

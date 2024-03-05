@@ -22,9 +22,9 @@ void dorgbr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, WANTQ;
   int I, J, LWKOPT = 0, MN;
@@ -148,7 +148,7 @@ void dorgbr(
       if (N > 1) {
         // Form P**T(2:n,2:n)
 
-        dorglq(N - 1, N - 1, N - 1, A(2,2), LDA, TAU, WORK, LWORK, IINFO);
+        dorglq(N - 1, N - 1, N - 1, A(2, 2), LDA, TAU, WORK, LWORK, IINFO);
       }
     }
   }

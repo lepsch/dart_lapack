@@ -26,10 +26,10 @@ void dgemlq(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim();
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having();
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   bool LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
   int MB,
       NB,

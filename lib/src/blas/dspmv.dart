@@ -16,9 +16,9 @@ void dspmv(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final X = X_.dim();
-  final Y = Y_.dim();
+  final AP = AP_.having();
+  final X = X_.having();
+  final Y = Y_.having();
   const ONE = 1.0, ZERO = 0.0;
   double TEMP1, TEMP2;
   int I, INFO, IX, IY, J, JX, JY, K, KK, KX, KY;

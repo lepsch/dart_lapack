@@ -1,5 +1,5 @@
       void zsbmv(final int UPLO, final int N, final int K, final int ALPHA, final Matrix<double> A_, final int LDA, final int X, final int INCX, final int BETA, final int Y, final int INCY,) {
-  final A = A_.dim();
+  final A = A_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

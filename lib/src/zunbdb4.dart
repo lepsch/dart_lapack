@@ -33,15 +33,15 @@ void zunbdb4(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X11 = X11_.dim(LDX11);
-  final X21 = X21_.dim(LDX21);
-  final WORK = WORK_.dim();
-  final TAUP1 = TAUP1_.dim();
-  final TAUP2 = TAUP2_.dim();
-  final TAUQ1 = TAUQ1_.dim();
-  final PHANTOM = PHANTOM_.dim();
-  final THETA = THETA_.dim();
-  final PHI = PHI_.dim();
+  final X11 = X11_.having(ld: LDX11);
+  final X21 = X21_.having(ld: LDX21);
+  final WORK = WORK_.having();
+  final TAUP1 = TAUP1_.having();
+  final TAUP2 = TAUP2_.having();
+  final TAUQ1 = TAUQ1_.having();
+  final PHANTOM = PHANTOM_.having();
+  final THETA = THETA_.having();
+  final PHI = PHI_.having();
   double C = 0, S = 0;
   int I, ILARF = 0, IORBDB5 = 0, J, LLARF, LORBDB5 = 0, LWORKMIN, LWORKOPT;
   bool LQUERY;

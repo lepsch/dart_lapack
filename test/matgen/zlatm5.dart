@@ -30,14 +30,14 @@ void zlatm5(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final D = D_.dim(LDD);
-  final E = E_.dim(LDE);
-  final F = F_.dim(LDF);
-  final R = R_.dim(LDR);
-  final L = L_.dim(LDL);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final D = D_.having(ld: LDD);
+  final E = E_.having(ld: LDE);
+  final F = F_.having(ld: LDF);
+  final R = R_.having(ld: LDR);
+  final L = L_.having(ld: LDL);
   const TWO = Complex(2.0, 0.0),
       HALF = Complex(0.5, 0.0),
       TWENTY = Complex(2.0e+1, 0.0);

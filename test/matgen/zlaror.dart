@@ -23,9 +23,9 @@ void zlaror(
   final Array<Complex> X_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final ISEED = ISEED_.dim(4);
-  final X = X_.dim();
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having(length: 4);
+  final X = X_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -15,8 +15,8 @@ void dlacpy(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= min(J, M); I++) {

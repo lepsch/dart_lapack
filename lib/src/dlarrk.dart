@@ -20,8 +20,8 @@ void dlarrk(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E2 = E2_.dim();
+  final D = D_.having();
+  final E2 = E2_.having();
   const HALF = 0.5, TWO = 2.0, FUDGE = TWO, ZERO = 0.0;
   int I, IT, ITMAX, NEGCNT;
   double ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM;

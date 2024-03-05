@@ -24,12 +24,12 @@ void zlaqp2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
-  final JPVT = JPVT_.dim();
-  final VN1 = VN1_.dim();
-  final VN2 = VN2_.dim();
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
+  final JPVT = JPVT_.having();
+  final VN1 = VN1_.having();
+  final VN2 = VN2_.having();
   const ZERO = 0.0, ONE = 1.0;
   int I, ITEMP, J, MN, OFFPI, PVT;
   double TEMP, TEMP2, TOL3Z;

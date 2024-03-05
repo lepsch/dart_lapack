@@ -50,25 +50,25 @@ Future<void> zdrgvx(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDA);
-  final AI = AI_.dim(LDA);
-  final BI = BI_.dim(LDA);
-  final VL = VL_.dim(LDA);
-  final VR = VR_.dim(LDA);
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final BWORK = BWORK_.dim();
-  final LSCALE = LSCALE_.dim();
-  final RSCALE = RSCALE_.dim();
-  final S = S_.dim();
-  final DTRU = DTRU_.dim();
-  final DIF = DIF_.dim();
-  final DIFTRU = DIFTRU_.dim();
-  final RESULT = RESULT_.dim(4);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDA);
+  final AI = AI_.having(ld: LDA);
+  final BI = BI_.having(ld: LDA);
+  final VL = VL_.having(ld: LDA);
+  final VR = VR_.having(ld: LDA);
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final BWORK = BWORK_.having();
+  final LSCALE = LSCALE_.having();
+  final RSCALE = RSCALE_.having();
+  final S = S_.having();
+  final DTRU = DTRU_.having();
+  final DIF = DIF_.having();
+  final DIFTRU = DIFTRU_.having();
+  final RESULT = RESULT_.having(length: 4);
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5;
   int I,
       IPTYPE,

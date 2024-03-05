@@ -31,11 +31,11 @@ void zheevd_2stage(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final W = W_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -49,13 +49,13 @@ void zheevd_2stage(
       INDWK2,
       INDWRK,
       ISCALE,
-      LIWMIN=0,
+      LIWMIN = 0,
       LLRWK,
       LLWORK,
       LLWRK2,
-      LRWMIN=0,
-      LWMIN=0,
-      LHTRD=0,
+      LRWMIN = 0,
+      LWMIN = 0,
+      LHTRD = 0,
       LWTRD,
       KD,
       IB,
@@ -176,10 +176,10 @@ void zheevd_2stage(
   if (!WANTZ) {
     dsterf(N, W, RWORK(INDE), INFO);
   } else {
-    zstedc('I', N, W, RWORK(INDE), WORK(INDWRK).asMatrix(), N, WORK(INDWK2), LLWRK2,
-        RWORK(INDRWK), LLRWK, IWORK, LIWORK, INFO);
-    zunmtr('L', UPLO, 'N', N, N, A, LDA, WORK(INDTAU), WORK(INDWRK).asMatrix(), N,
-        WORK(INDWK2), LLWRK2, IINFO);
+    zstedc('I', N, W, RWORK(INDE), WORK(INDWRK).asMatrix(), N, WORK(INDWK2),
+        LLWRK2, RWORK(INDRWK), LLRWK, IWORK, LIWORK, INFO);
+    zunmtr('L', UPLO, 'N', N, N, A, LDA, WORK(INDTAU), WORK(INDWRK).asMatrix(),
+        N, WORK(INDWK2), LLWRK2, IINFO);
     zlacpy('A', N, N, WORK(INDWRK).asMatrix(), N, A, LDA);
   }
 

@@ -25,14 +25,14 @@ void zstt22(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim(LDWORK);
-  final RWORK = RWORK_.dim();
-  final AD = AD_.dim();
-  final AE = AE_.dim();
-  final SD = SD_.dim();
-  final SE = SE_.dim();
-  final RESULT = RESULT_.dim(2);
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having(ld: LDWORK);
+  final RWORK = RWORK_.having();
+  final AD = AD_.having();
+  final AE = AE_.having();
+  final SD = SD_.having();
+  final SE = SE_.having();
+  final RESULT = RESULT_.having(length: 2);
   const ZERO = 0.0, ONE = 1.0;
   int I, J, K;
   double ANORM, ULP, UNFL, WNORM;

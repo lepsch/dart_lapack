@@ -34,17 +34,17 @@ void dlaed2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Q = Q_.dim(LDQ);
-  final INDXQ = INDXQ_.dim();
-  final Z = Z_.dim();
-  final DLAMBDA = DLAMBDA_.dim();
-  final W = W_.dim();
-  final Q2 = Q2_.dim();
-  final INDX = INDX_.dim();
-  final INDXC = INDXC_.dim();
-  final INDXP = INDXP_.dim();
-  final COLTYP = COLTYP_.dim();
+  final D = D_.having();
+  final Q = Q_.having(ld: LDQ);
+  final INDXQ = INDXQ_.having();
+  final Z = Z_.having();
+  final DLAMBDA = DLAMBDA_.having();
+  final W = W_.having();
+  final Q2 = Q2_.having();
+  final INDX = INDX_.having();
+  final INDXC = INDXC_.having();
+  final INDXP = INDXP_.having();
+  final COLTYP = COLTYP_.having();
   const MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0;
   final CTOT = Array<int>(4), PSM = Array<int>(4);
   int CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ = 0;

@@ -18,10 +18,10 @@ void dstech(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final B = B_.dim();
-  final EIG = EIG_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final EIG = EIG_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0;
   int BPNT, COUNT, I, ISUB, J, TPNT;
   double EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER;

@@ -29,9 +29,9 @@ void dlatrs(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final X = X_.dim();
-  final CNORM = CNORM_.dim();
+  final A = A_.having(ld: LDA);
+  final X = X_.having();
+  final CNORM = CNORM_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   bool NOTRAN, NOUNIT, UPPER;
   int I, IMAX, J, JFIRST, JINC, JLAST;

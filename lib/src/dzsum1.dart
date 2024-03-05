@@ -5,7 +5,7 @@ double dzsum1(final int N, final Array<Complex> CX_, final int INCX) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final CX = CX_.dim();
+  final CX = CX_.having();
   int I, NINCX;
   double STEMP;
 

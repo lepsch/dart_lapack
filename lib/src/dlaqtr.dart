@@ -28,10 +28,10 @@ void dlaqtr(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final T = T_.dim(LDT);
-  final B = B_.dim();
-  final X = X_.dim();
-  final WORK = WORK_.dim();
+  final T = T_.having(ld: LDT);
+  final B = B_.having();
+  final X = X_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool NOTRAN;
   int I, J, J1, J2, JNEXT, K, N1, N2;

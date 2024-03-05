@@ -1,6 +1,6 @@
       void dtrt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Array<double> _WORK_, final int RAT,) {
-  final A = A_.dim();
-  final _WORK = _WORK_.dim();
+  final A = A_.having();
+  final _WORK = _WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -16,8 +16,8 @@ void zlaqhp(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.dim();
-  final S = S_.dim();
+  final AP = AP_.having();
+  final S = S_.having();
   const ONE = 1.0, THRESH = 0.1;
   int I, J, JC;
   double CJ, LARGE, SMALL;

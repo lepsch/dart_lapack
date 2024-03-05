@@ -29,12 +29,12 @@ void dggglm(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final D = D_.dim();
-  final X = X_.dim();
-  final Y = Y_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final D = D_.having();
+  final X = X_.having();
+  final Y = Y_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY;
   int I, LOPT = 0, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP;

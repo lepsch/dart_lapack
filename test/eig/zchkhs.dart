@@ -64,29 +64,29 @@ void zchkhs(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final U = U_.dim(LDU);
-  final H = H_.dim(LDA);
-  final T1 = T1_.dim(LDA);
-  final T2 = T2_.dim(LDA);
-  final Z = Z_.dim(LDU);
-  final UZ = UZ_.dim(LDU);
-  final W1 = W1_.dim();
-  final W3 = W3_.dim();
-  final EVECTL = EVECTL_.dim(LDU);
-  final EVECTR = EVECTR_.dim(LDU);
-  final EVECTY = EVECTY_.dim(LDU);
-  final EVECTX = EVECTX_.dim(LDU);
-  final UU = UU_.dim(LDU);
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final SELECT = SELECT_.dim();
-  final RESULT = RESULT_.dim(16);
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final U = U_.having(ld: LDU);
+  final H = H_.having(ld: LDA);
+  final T1 = T1_.having(ld: LDA);
+  final T2 = T2_.having(ld: LDA);
+  final Z = Z_.having(ld: LDU);
+  final UZ = UZ_.having(ld: LDU);
+  final W1 = W1_.having();
+  final W3 = W3_.having();
+  final EVECTL = EVECTL_.having(ld: LDU);
+  final EVECTR = EVECTR_.having(ld: LDU);
+  final EVECTY = EVECTY_.having(ld: LDU);
+  final EVECTX = EVECTX_.having(ld: LDU);
+  final UU = UU_.having(ld: LDU);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final SELECT = SELECT_.having();
+  final RESULT = RESULT_.having(length: 16);
 
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;

@@ -33,12 +33,12 @@ void zhbevd(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-  final AB = AB_.dim(LDAB);
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

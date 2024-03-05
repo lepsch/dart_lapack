@@ -39,10 +39,10 @@ void dgesvj(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final SVA = SVA_.dim();
-  final V = V_.dim(LDV);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final SVA = SVA_.having();
+  final V = V_.having(ld: LDV);
+  final WORK = WORK_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   const NSWEEP = 30;
   double AAPP0,

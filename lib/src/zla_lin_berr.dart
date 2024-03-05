@@ -15,9 +15,9 @@ void zla_lin_berr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final RES = RES_.dim(N);
-  final AYB = AYB_.dim(N);
-  final BERR = BERR_.dim(NRHS);
+  final RES = RES_.having(ld: N);
+  final AYB = AYB_.having(ld: N);
+  final BERR = BERR_.having(length: NRHS);
   double TMP, SAFE1;
   int I, J;
 

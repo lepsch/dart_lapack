@@ -25,10 +25,10 @@ void zhb2st_kernels(
   final int LDVT,
   final Array<Complex> WORK_,
 ) {
-  final A = A_.dim(LDA);
-  final V = V_.dim();
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final V = V_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

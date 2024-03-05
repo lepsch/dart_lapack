@@ -18,7 +18,7 @@ void zlarot(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
+  final A = A_.having();
   int IINC, INEXT, IX, IY, IYT = 0, J, NT;
   Complex TEMPX;
   final XT = Array<Complex>(2), YT = Array<Complex>(2);

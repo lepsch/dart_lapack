@@ -37,15 +37,15 @@ void zhpt21(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final U = U_.dim(LDU);
-  final AP = AP_.dim();
-  final VP = VP_.dim();
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final D = D_.dim();
-  final E = E_.dim();
-  final RESULT = RESULT_.dim();
+  final U = U_.having(ld: LDU);
+  final AP = AP_.having();
+  final VP = VP_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final D = D_.having();
+  final E = E_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   const HALF = 1.0 / 2.0;
   bool LOWER;

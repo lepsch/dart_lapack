@@ -26,9 +26,9 @@ void zpstrf(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final PIV = PIV_.dim(N);
-  final WORK = WORK_.dim(2 * N);
+  final A = A_.having(ld: LDA);
+  final PIV = PIV_.having(length: N);
+  final WORK = WORK_.having(length: 2 * N);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

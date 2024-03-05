@@ -10,7 +10,7 @@ int izamax(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a softwint are package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ZX = ZX_.dim();
+  final ZX = ZX_.having();
   double DMAX;
   int I, IX;
 

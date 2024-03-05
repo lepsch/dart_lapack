@@ -1,11 +1,11 @@
       void dggsvd(final int JOBU, final int JOBV, final int JOBQ, final int M, final int N, final int P, final int K, final int L, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHA, final int BETA, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Matrix<double> Q_, final int LDQ, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final U = U_.dim();
-  final V = V_.dim();
-  final Q = Q_.dim();
-  final _WORK = _WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final U = U_.having();
+  final V = V_.having();
+  final Q = Q_.having();
+  final _WORK = _WORK_.having();
+  final IWORK = IWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

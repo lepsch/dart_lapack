@@ -33,11 +33,11 @@ void dtrsyl3(
   final Box<int> LDSWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final C = C_.dim(LDC);
-  final IWORK = IWORK_.dim();
-  final SWORK = SWORK_.dim(LDSWORK.value == -1 ? 1 : LDSWORK.value);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDC);
+  final IWORK = IWORK_.having();
+  final SWORK = SWORK_.having(ld: LDSWORK.value == -1 ? 1 : LDSWORK.value);
   const ZERO = 0.0, ONE = 1.0;
   bool NOTRNA, NOTRNB, LQUERY, SKIP;
   int AWRK,

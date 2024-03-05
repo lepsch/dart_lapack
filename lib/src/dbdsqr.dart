@@ -35,12 +35,12 @@ void dbdsqr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final VT = VT_.dim(LDVT);
-  final U = U_.dim(LDU);
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final VT = VT_.having(ld: LDVT);
+  final U = U_.having(ld: LDU);
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   const ZERO = 0.0;
   const ONE = 1.0;
   const NEGONE = -1.0;

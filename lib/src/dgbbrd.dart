@@ -33,13 +33,13 @@ void dgbbrd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final D = D_.dim();
-  final E = E_.dim();
-  final Q = Q_.dim(LDQ);
-  final PT = PT_.dim(LDPT);
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final D = D_.having();
+  final E = E_.having();
+  final Q = Q_.having(ld: LDQ);
+  final PT = PT_.having(ld: LDPT);
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool WANTB, WANTC, WANTPT, WANTQ;
   int I,

@@ -39,13 +39,13 @@ void dsygvx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final W = W_.dim();
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final IFAIL = IFAIL_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final W = W_.having();
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final IFAIL = IFAIL_.having();
   const ONE = 1.0;
   bool ALLEIG, INDEIG, LQUERY, UPPER, VALEIG, WANTZ;
   String TRANS;

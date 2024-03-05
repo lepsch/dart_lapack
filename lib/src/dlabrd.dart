@@ -23,13 +23,13 @@ void dlabrd(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final D = D_.dim();
-  final E = E_.dim();
-  final TAUQ = TAUQ_.dim();
-  final TAUP = TAUP_.dim();
-  final X = X_.dim(LDX);
-  final Y = Y_.dim(LDY);
+  final A = A_.having(ld: LDA);
+  final D = D_.having();
+  final E = E_.having();
+  final TAUQ = TAUQ_.having();
+  final TAUP = TAUP_.having();
+  final X = X_.having(ld: LDX);
+  final Y = Y_.having(ld: LDY);
   const ZERO = 0.0, ONE = 1.0;
   int I;
 

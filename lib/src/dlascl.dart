@@ -22,7 +22,7 @@ void dlascl(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
+  final A = A_.having(ld: LDA);
   const ZERO = 0.0, ONE = 1.0;
   bool DONE;
   int I, ITYPE, J, K1, K2, K3, K4;

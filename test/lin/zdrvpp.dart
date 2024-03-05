@@ -1,6 +1,6 @@
       void zdrvpp(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int ASAV, final int B, final int BSAV, final int X, final int XACT, final int S, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final _WORK = _WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

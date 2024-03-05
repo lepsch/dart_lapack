@@ -11,8 +11,8 @@ void dpttrf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
+  final D = D_.having();
+  final E = E_.having();
   const ZERO = 0.0;
   int I, I4;
   double EI;

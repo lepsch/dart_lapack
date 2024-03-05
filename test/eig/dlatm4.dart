@@ -24,8 +24,8 @@ void dlatm4(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const HALF = ONE / TWO;
   int I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;

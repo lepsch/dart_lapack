@@ -10,8 +10,8 @@ void zlarnv(
   final int N,
   final Array<Complex> X_,
 ) {
-  final ISEED = ISEED_.dim(4);
-  final X = X_.dim();
+  final ISEED = ISEED_.having(length: 4);
+  final X = X_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

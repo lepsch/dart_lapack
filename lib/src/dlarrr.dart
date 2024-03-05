@@ -13,8 +13,8 @@ void dlarrr(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
+  final D = D_.having();
+  final E = E_.having();
   const ZERO = 0.0, RELCOND = 0.999;
   int I;
   bool YESREL;

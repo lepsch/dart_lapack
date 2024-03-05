@@ -34,15 +34,15 @@ void zhsein(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SELECT = SELECT_.dim();
-  final W = W_.dim();
-  final H = H_.dim(LDH);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IFAILL = IFAILL_.dim();
-  final IFAILR = IFAILR_.dim();
+  final SELECT = SELECT_.having();
+  final W = W_.having();
+  final H = H_.having(ld: LDH);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IFAILL = IFAILL_.having();
+  final IFAILR = IFAILR_.having();
   const RZERO = 0.0;
   bool BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
   int I, K, KL, KLN, KR, KS, LDWORK;

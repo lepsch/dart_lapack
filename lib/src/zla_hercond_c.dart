@@ -25,12 +25,12 @@ double zla_hercond_c(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final IPIV = IPIV_.dim();
-  final C = C_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final IPIV = IPIV_.having();
+  final C = C_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
   int I, J;
   double ANORM, TMP;

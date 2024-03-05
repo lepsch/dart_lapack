@@ -42,14 +42,14 @@ void dorcsd2by1(
 // -- LAPACK computational routine (3.5.0) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X11 = X11_.dim(LDX11);
-  final X21 = X21_.dim(LDX21);
-  final THETA = THETA_.dim();
-  final U1 = U1_.dim(LDU1);
-  final U2 = U2_.dim(LDU2);
-  final V1T = V1T_.dim(LDV1T);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final X11 = X11_.having(ld: LDX11);
+  final X21 = X21_.having(ld: LDX21);
+  final THETA = THETA_.having();
+  final U1 = U1_.having(ld: LDU1);
+  final U2 = U2_.having(ld: LDU2);
+  final V1T = V1T_.having(ld: LDV1T);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   int I,
       IB11D = 0,

@@ -17,8 +17,8 @@ void dtfttr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA, offset: zeroIndexedMatrixOffset);
-  final ARF = ARF_.dim()(1, offset: zeroIndexedArrayOffset);
+  final A = A_.having(ld: LDA, offset: zeroIndexedMatrixOffset);
+  final ARF = ARF_.having(offset: zeroIndexedArrayOffset);
   bool NISODD;
   int N1, N2, K = 0, NT, NX2 = 0, NP1X2 = 0;
   int I, J, L, IJ;

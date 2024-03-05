@@ -28,9 +28,9 @@ void dort03(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final WORK = WORK_.dim();
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final WORK = WORK_.having();
   // List<String>       RC;
   // int                INFO.value, K, LDU, LDV, LWORK, MU, MV, N;
   // double             RESULT.value;

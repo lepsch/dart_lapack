@@ -56,20 +56,20 @@ void zggevx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final BWORK = BWORK_.dim();
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final LSCALE = LSCALE_.dim();
-  final RSCALE = RSCALE_.dim();
-  final RCONDE = RCONDE_.dim();
-  final RCONDV = RCONDV_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final BWORK = BWORK_.having();
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final LSCALE = LSCALE_.having();
+  final RSCALE = RSCALE_.having();
+  final RCONDE = RCONDE_.having();
+  final RCONDV = RCONDV_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool ILASCL,
       ILBSCL,

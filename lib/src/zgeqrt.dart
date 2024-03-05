@@ -22,9 +22,9 @@ void zgeqrt(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final WORK = WORK_.having();
   int I, IB, K;
   const USE_RECURSIVE_QR = true;
   final IINFO = Box(0);
@@ -62,15 +62,29 @@ void zgeqrt(
 
     if (USE_RECURSIVE_QR) {
       zgeqrt3(M - I + 1, IB, A(I, I), LDA, T(1, I), LDT, IINFO);
-    // ignore: dead_code
+      // ignore: dead_code
     } else {
       zgeqrt2(M - I + 1, IB, A(I, I), LDA, T(1, I), LDT, IINFO);
     }
     if (I + IB <= N) {
       // Update by applying H**H to A(I:M,I+IB:N) from the left
 
-      zlarfb('L', 'C', 'F', 'C', M - I + 1, N - I - IB + 1, IB, A(I, I), LDA,
-          T(1, I), LDT, A(I, I + IB), LDA, WORK.asMatrix(N - I - IB + 1), N - I - IB + 1);
+      zlarfb(
+          'L',
+          'C',
+          'F',
+          'C',
+          M - I + 1,
+          N - I - IB + 1,
+          IB,
+          A(I, I),
+          LDA,
+          T(1, I),
+          LDT,
+          A(I, I + IB),
+          LDA,
+          WORK.asMatrix(N - I - IB + 1),
+          N - I - IB + 1);
     }
   }
 }

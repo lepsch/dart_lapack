@@ -31,11 +31,11 @@ void ztrsen(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SELECT = SELECT_.dim();
-  final T = T_.dim(LDT);
-  final Q = Q_.dim(LDQ);
-  final W = W_.dim();
-  final WORK = WORK_.dim();
+  final SELECT = SELECT_.having();
+  final T = T_.having(ld: LDT);
+  final Q = Q_.having(ld: LDQ);
+  final W = W_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, WANTBH, WANTQ, WANTS, WANTSP;
   int K, KS, LWMIN = 0, N1, N2, NN;

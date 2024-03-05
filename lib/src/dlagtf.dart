@@ -19,11 +19,11 @@ void dlagtf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final B = B_.dim();
-  final C = C_.dim();
-  final D = D_.dim();
-  final IN = IN_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final C = C_.having();
+  final D = D_.having();
+  final IN = IN_.having();
   const ZERO = 0.0;
   int K;
   double EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL;

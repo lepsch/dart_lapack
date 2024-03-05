@@ -30,11 +30,11 @@ void zlatrs3(
   final int LWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final X = X_.dim(LDX);
-  final SCALE = SCALE_.dim();
-  final CNORM = CNORM_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final X = X_.having(ld: LDX);
+  final SCALE = SCALE_.having();
+  final CNORM = CNORM_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   const NRHSMIN = 2, NBRHS = 32;
   const NBMIN = 8, NBMAX = 64;

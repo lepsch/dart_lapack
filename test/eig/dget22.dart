@@ -25,11 +25,11 @@ void dget22(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final E = E_.dim(LDE);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final E = E_.having(ld: LDE);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   String NORMA, NORME;
   int IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC;

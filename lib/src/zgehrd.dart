@@ -26,9 +26,9 @@ void zgehrd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final WORK = WORK_.dim();
-  final TAU = TAU_.dim();
+  final A = A_.having(ld: LDA);
+  final WORK = WORK_.having();
+  final TAU = TAU_.having();
   const NBMAX = 64, LDT = NBMAX + 1, TSIZE = LDT * NBMAX;
   bool LQUERY;
   int I, IB, IWT, J, LDWORK, LWKOPT = 0, NB, NBMIN, NH, NX = 0;
@@ -133,7 +133,8 @@ void zgehrd(
       // matrices V and T of the block reflector H = I - V*T*V**H
       // which performs the reduction, and also the matrix Y = A*V*T
 
-      zlahr2(IHI, I, IB, A(1, I), LDA, TAU(I), WORK(IWT).asMatrix(LDT), LDT, WORK.asMatrix(LDWORK), LDWORK);
+      zlahr2(IHI, I, IB, A(1, I), LDA, TAU(I), WORK(IWT).asMatrix(LDT), LDT,
+          WORK.asMatrix(LDWORK), LDWORK);
 
       // Apply the block reflector H to A(1:ihi,i+ib:ihi) from the
       // right, computing  A := A - Y * V**H. V(i+ib,ib-1) must be set

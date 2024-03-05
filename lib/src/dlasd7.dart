@@ -41,20 +41,20 @@ void dlasd7(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final Z = Z_.dim();
-  final ZW = ZW_.dim();
-  final VF = VF_.dim();
-  final VFW = VFW_.dim();
-  final VL = VL_.dim();
-  final VLW = VLW_.dim();
-  final DSIGMA = DSIGMA_.dim();
-  final IDX = IDX_.dim();
-  final IDXP = IDXP_.dim();
-  final IDXQ = IDXQ_.dim();
-  final PERM = PERM_.dim();
-  final GIVCOL = GIVCOL_.dim(LDGCOL);
-  final GIVNUM = GIVNUM_.dim(LDGNUM);
+  final D = D_.having();
+  final Z = Z_.having();
+  final ZW = ZW_.having();
+  final VF = VF_.having();
+  final VFW = VFW_.having();
+  final VL = VL_.having();
+  final VLW = VLW_.having();
+  final DSIGMA = DSIGMA_.having();
+  final IDX = IDX_.having();
+  final IDXP = IDXP_.having();
+  final IDXQ = IDXQ_.having();
+  final PERM = PERM_.having();
+  final GIVCOL = GIVCOL_.having(ld: LDGCOL);
+  final GIVNUM = GIVNUM_.having(ld: LDGNUM);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0;
 
   int I, IDXI, IDXJ, IDXJP, J, JP, JPREV = 0, K2, M, N, NLP1, NLP2;
@@ -185,74 +185,73 @@ void dlasd7(
       break;
     }
   }
-  if (!shouldDeflate){
-  J = JPREV;
-  while (true) {
-    J = J + 1;
-    if (J > N) break;
-    if ((Z[J]).abs() <= TOL) {
-      // Deflate due to small z component.
+  if (!shouldDeflate) {
+    J = JPREV;
+    while (true) {
+      J = J + 1;
+      if (J > N) break;
+      if ((Z[J]).abs() <= TOL) {
+        // Deflate due to small z component.
 
-      K2 = K2 - 1;
-      IDXP[K2] = J;
-    } else {
-      // Check if singular values are close enough to allow deflation.
-
-      if ((D[J] - D[JPREV]).abs() <= TOL) {
-        // Deflation is possible.
-
-        S.value = Z[JPREV];
-        C.value = Z[J];
-
-        // Find sqrt(a**2+b**2) without overflow or
-        // destructive underflow.
-
-        TAU = dlapy2(C.value, S.value);
-        Z[J] = TAU;
-        Z[JPREV] = ZERO;
-        C.value = C.value / TAU;
-        S.value = -S.value / TAU;
-
-        // Record the appropriate Givens rotation
-
-        if (ICOMPQ == 1) {
-          GIVPTR.value = GIVPTR.value + 1;
-          IDXJP = IDXQ[IDX[JPREV] + 1];
-          IDXJ = IDXQ[IDX[J] + 1];
-          if (IDXJP <= NLP1) {
-            IDXJP = IDXJP - 1;
-          }
-          if (IDXJ <= NLP1) {
-            IDXJ = IDXJ - 1;
-          }
-          GIVCOL[GIVPTR.value][2] = IDXJP;
-          GIVCOL[GIVPTR.value][1] = IDXJ;
-          GIVNUM[GIVPTR.value][2] = C.value;
-          GIVNUM[GIVPTR.value][1] = S.value;
-        }
-        drot(1, VF(JPREV), 1, VF(J), 1, C.value, S.value);
-        drot(1, VL(JPREV), 1, VL(J), 1, C.value, S.value);
         K2 = K2 - 1;
-        IDXP[K2] = JPREV;
-        JPREV = J;
+        IDXP[K2] = J;
       } else {
-        K.value = K.value + 1;
-        ZW[K.value] = Z[JPREV];
-        DSIGMA[K.value] = D[JPREV];
-        IDXP[K.value] = JPREV;
-        JPREV = J;
+        // Check if singular values are close enough to allow deflation.
+
+        if ((D[J] - D[JPREV]).abs() <= TOL) {
+          // Deflation is possible.
+
+          S.value = Z[JPREV];
+          C.value = Z[J];
+
+          // Find sqrt(a**2+b**2) without overflow or
+          // destructive underflow.
+
+          TAU = dlapy2(C.value, S.value);
+          Z[J] = TAU;
+          Z[JPREV] = ZERO;
+          C.value = C.value / TAU;
+          S.value = -S.value / TAU;
+
+          // Record the appropriate Givens rotation
+
+          if (ICOMPQ == 1) {
+            GIVPTR.value = GIVPTR.value + 1;
+            IDXJP = IDXQ[IDX[JPREV] + 1];
+            IDXJ = IDXQ[IDX[J] + 1];
+            if (IDXJP <= NLP1) {
+              IDXJP = IDXJP - 1;
+            }
+            if (IDXJ <= NLP1) {
+              IDXJ = IDXJ - 1;
+            }
+            GIVCOL[GIVPTR.value][2] = IDXJP;
+            GIVCOL[GIVPTR.value][1] = IDXJ;
+            GIVNUM[GIVPTR.value][2] = C.value;
+            GIVNUM[GIVPTR.value][1] = S.value;
+          }
+          drot(1, VF(JPREV), 1, VF(J), 1, C.value, S.value);
+          drot(1, VL(JPREV), 1, VL(J), 1, C.value, S.value);
+          K2 = K2 - 1;
+          IDXP[K2] = JPREV;
+          JPREV = J;
+        } else {
+          K.value = K.value + 1;
+          ZW[K.value] = Z[JPREV];
+          DSIGMA[K.value] = D[JPREV];
+          IDXP[K.value] = JPREV;
+          JPREV = J;
+        }
       }
     }
-  }
-  // } // 90
+    // } // 90
 
-  // Record the last singular value.
+    // Record the last singular value.
 
-  K.value = K.value + 1;
-  ZW[K.value] = Z[JPREV];
-  DSIGMA[K.value] = D[JPREV];
-  IDXP[K.value] = JPREV;
-
+    K.value = K.value + 1;
+    ZW[K.value] = Z[JPREV];
+    DSIGMA[K.value] = D[JPREV];
+    IDXP[K.value] = JPREV;
   }
 
   // Sort the singular values into DSIGMA. The singular values which

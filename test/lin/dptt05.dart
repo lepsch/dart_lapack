@@ -1,7 +1,7 @@
       void dptt05(final int N, final int NRHS, final int D, final int E, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Matrix<double> XACT_, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
-  final B = B_.dim();
-  final X = X_.dim();
-  final XACT = XACT_.dim();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

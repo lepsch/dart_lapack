@@ -20,7 +20,7 @@ void dlassq(
   final Box<double> scale,
   final Box<double> sumsq,
 ) {
-  final x = x_.dim();
+  final x = x_.having();
   //  use LA_XISNAN
 
 // -- LAPACK auxiliary routine --

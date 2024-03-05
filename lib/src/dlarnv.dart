@@ -12,7 +12,7 @@ void dlarnv(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ISEED = ISEED_.dim();
+  final ISEED = ISEED_.having();
   const ONE = 1.0, TWO = 2.0;
   const LV = 128;
   const TWOPI = 6.28318530717958647692528676655900576839;

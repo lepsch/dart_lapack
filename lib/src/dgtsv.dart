@@ -17,10 +17,10 @@ void dgtsv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final B = B_.dim(LDB);
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final B = B_.having(ld: LDB);
   const ZERO = 0.0;
   int I = 0, J = 0;
   double FACT = 0, TEMP = 0;

@@ -48,18 +48,18 @@ void dla_porfsx_extended(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final B = B_.dim(LDB);
-  final Y = Y_.dim(LDY);
-  final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
-  final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
-  final C = C_.dim();
-  final BERR_OUT = BERR_OUT_.dim();
-  final RES = RES_.dim();
-  final AYB = AYB_.dim();
-  final DY = DY_.dim();
-  final Y_TAIL = Y_TAIL_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final B = B_.having(ld: LDB);
+  final Y = Y_.having(ld: LDY);
+  final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
+  final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
+  final C = C_.having();
+  final BERR_OUT = BERR_OUT_.having();
+  final RES = RES_.having();
+  final AYB = AYB_.having();
+  final DY = DY_.having();
+  final Y_TAIL = Y_TAIL_.having();
   int UPLO2, CNT, I, J, X_STATE, Z_STATE;
   double YK,
       DYK,

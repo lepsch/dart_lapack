@@ -49,19 +49,19 @@ void zla_gerfsx_extended(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final AF = AF_.dim(LDAF);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final Y = Y_.dim(LDY);
-  final ERRS_N = ERRS_N_.dim(NRHS);
-  final ERRS_C = ERRS_C_.dim(NRHS);
-  final RES = RES_.dim();
-  final DY = DY_.dim();
-  final Y_TAIL = Y_TAIL_.dim();
-  final C = C_.dim();
-  final BERR_OUT = BERR_OUT_.dim();
-  final AYB = AYB_.dim();
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDAF);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final Y = Y_.having(ld: LDY);
+  final ERRS_N = ERRS_N_.having(ld: NRHS);
+  final ERRS_C = ERRS_C_.having(ld: NRHS);
+  final RES = RES_.having();
+  final DY = DY_.having();
+  final Y_TAIL = Y_TAIL_.having();
+  final C = C_.having();
+  final BERR_OUT = BERR_OUT_.having();
+  final AYB = AYB_.having();
   String TRANS;
   int CNT, I, J, X_STATE = 0, Z_STATE = 0, Y_PREC_STATE;
   double YK,

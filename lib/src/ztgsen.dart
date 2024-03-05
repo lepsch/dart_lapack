@@ -41,16 +41,16 @@ void ztgsen(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final SELECT = SELECT_.dim();
-  final DIF = DIF_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final SELECT = SELECT_.having();
+  final DIF = DIF_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
   const IDIFJB = 3;
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;

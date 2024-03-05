@@ -21,12 +21,12 @@ void dlagts(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final B = B_.dim();
-  final C = C_.dim();
-  final D = D_.dim();
-  final IN = IN_.dim();
-  final Y = Y_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final C = C_.having();
+  final D = D_.having();
+  final IN = IN_.having();
+  final Y = Y_.having();
   const ONE = 1.0, ZERO = 0.0;
   int K = 0;
   double ABSAK = 0, AK = 0, BIGNUM = 0, EPS = 0, PERT = 0, SFMIN = 0, TEMP = 0;

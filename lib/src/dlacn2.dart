@@ -16,9 +16,9 @@ void dlacn2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim();
-  final X = X_.dim();
-  final ISGN = ISGN_.dim();
+  final V = V_.having();
+  final X = X_.having();
+  final ISGN = ISGN_.having();
   const ITMAX = 5;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int I, JLAST;

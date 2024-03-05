@@ -17,8 +17,8 @@ void zpbequ(
   final Box<double> AMAX,
   final Box<int> INFO,
 ) {
-  final AB = AB_.dim(LDAB);
-  final S = S_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final S = S_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

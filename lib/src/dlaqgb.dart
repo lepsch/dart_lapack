@@ -18,9 +18,9 @@ void dlaqgb(
   final double AMAX,
   final Box<String> EQUED,
 ) {
-  final AB = AB_.dim(LDAB);
-  final C = C_.dim();
-  final R = R_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final C = C_.having();
+  final R = R_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

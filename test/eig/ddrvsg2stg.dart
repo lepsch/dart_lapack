@@ -57,21 +57,21 @@ void ddrvsg2stg(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final D = D_.dim();
-  final D2 = D2_.dim();
-  final Z = Z_.dim(LDZ);
-  final AB = AB_.dim(LDA);
-  final BB = BB_.dim(LDB);
-  final AP = AP_.dim();
-  final BP = BP_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final RESULT = RESULT_.dim();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final D = D_.having();
+  final D2 = D2_.having();
+  final Z = Z_.having(ld: LDZ);
+  final AB = AB_.having(ld: LDA);
+  final BB = BB_.having(ld: LDB);
+  final AP = AP_.having();
+  final BP = BP_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   const MAXTYP = 21;
   bool BADNN;

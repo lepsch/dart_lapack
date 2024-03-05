@@ -37,20 +37,20 @@ void zgtrfs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final DLF = DLF_.dim();
-  final DF = DF_.dim();
-  final DUF = DUF_.dim();
-  final DU2 = DU2_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final DLF = DLF_.having();
+  final DF = DF_.having();
+  final DUF = DUF_.having();
+  final DU2 = DU2_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
   const ITMAX = 5;
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0;

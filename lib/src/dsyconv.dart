@@ -15,9 +15,9 @@ void dsyconv(
   final Array<double> E_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final E = E_.dim();
-  final IPIV = IPIV_.dim();
+  final A = A_.having(ld: LDA);
+  final E = E_.having();
+  final IPIV = IPIV_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -37,14 +37,14 @@ void dlaqz0(
   final int REC,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0; //, HALF = 0.5;
 
   double SMLNUM,

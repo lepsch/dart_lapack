@@ -36,11 +36,11 @@ void dsposv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final SWORK = SWORK_.dim();
-  final WORK = WORK_.dim(N);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final SWORK = SWORK_.having();
+  final WORK = WORK_.having(ld: N);
 
   const DOITREF = true;
   const ITERMAX = 30;

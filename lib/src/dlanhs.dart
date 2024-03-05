@@ -16,14 +16,14 @@ double dlanhs(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
+  final A = A_.having(ld: LDA);
   const ONE = 1.0, ZERO = 0.0;
   int I, J;
   final SCALE = Box(0.0), SUM = Box(0.0);
 
   if (N == 0) {
     return ZERO;
- }
+  }
 
   if (lsame(NORM, 'M')) {
     // Find max(abs(A(i,j))).

@@ -20,9 +20,9 @@ void zpttrs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final B = B_.dim(LDB);
-  final E = E_.dim();
+  final D = D_.having();
+  final B = B_.having(ld: LDB);
+  final E = E_.having();
   bool UPPER;
   int IUPLO, J, JB, NB;
 

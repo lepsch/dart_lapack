@@ -36,10 +36,10 @@ void zlatmt(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final D = D_.dim();
-  final WORK = WORK_.dim();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final D = D_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

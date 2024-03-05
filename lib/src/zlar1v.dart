@@ -32,13 +32,13 @@ void zlar1v(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final Z = Z_.dim();
-  final D = D_.dim();
-  final L = L_.dim();
-  final LD = LD_.dim();
-  final LLD = LLD_.dim();
-  final ISUPPZ = ISUPPZ_.dim();
-  final WORK = WORK_.dim();
+  final Z = Z_.having();
+  final D = D_.having();
+  final L = L_.having();
+  final LD = LD_.having();
+  final LLD = LLD_.having();
+  final ISUPPZ = ISUPPZ_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool SAWNAN1, SAWNAN2;
   int I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2;

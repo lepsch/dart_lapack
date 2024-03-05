@@ -26,10 +26,10 @@ void dlahr2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAU = TAU_.dim();
-  final T = T_.dim(LDT);
-  final Y = Y_.dim(LDY);
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final T = T_.having(ld: LDT);
+  final Y = Y_.having(ld: LDY);
   const ZERO = 0.0, ONE = 1.0;
   int I;
   double EI = 0;

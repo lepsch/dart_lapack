@@ -22,9 +22,9 @@ void dsyl01(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NFAIL = NFAIL_.dim();
-  final RMAX = RMAX_.dim();
-  final NINFO = NINFO_.dim();
+  final NFAIL = NFAIL_.having();
+  final RMAX = RMAX_.having();
+  final NINFO = NINFO_.having();
   const ZERO = 0.0, ONE = 1.0;
   const MAXM = 245, MAXN = 192, LDSWORK = 36;
   String TRANA = '', TRANB = '';

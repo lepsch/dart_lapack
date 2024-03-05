@@ -1,5 +1,5 @@
       void zdrvrf4(final int NOUT, final int NN, final int NVAL, final int THRESH, final int C1, final int C2, final int LDC, final int CRF, final Matrix<double> A_, final int LDA, final int D_WORK_ZLANGE,) {
-  final A = A_.dim();
+  final A = A_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -26,10 +26,10 @@ void zlatrd(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final E = E_.dim();
-  final TAU = TAU_.dim();
-  final W = W_.dim(LDW);
+  final A = A_.having(ld: LDA);
+  final E = E_.having();
+  final TAU = TAU_.having();
+  final W = W_.having(ld: LDW);
   const HALF = Complex(0.5, 0.0);
   int I, IW;
   final ALPHA = Box(Complex.zero);

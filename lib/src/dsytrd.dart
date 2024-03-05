@@ -24,11 +24,11 @@ void dsytrd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final D = D_.dim();
-  final E = E_.dim();
-  final TAU = TAU_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final D = D_.having();
+  final E = E_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ONE = 1.0;
   bool LQUERY, UPPER;
   int I, IWS, J, KK, LDWORK = 0, LWKOPT = 0, NB = 0, NBMIN, NX;

@@ -71,30 +71,30 @@ void dchkst(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final AP = AP_.dim();
-  final SD = SD_.dim();
-  final SE = SE_.dim();
-  final D1 = D1_.dim();
-  final D2 = D2_.dim();
-  final D3 = D3_.dim();
-  final D4 = D4_.dim();
-  final D5 = D5_.dim();
-  final WA1 = WA1_.dim();
-  final WA2 = WA2_.dim();
-  final WA3 = WA3_.dim();
-  final WR = WR_.dim();
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDU);
-  final VP = VP_.dim();
-  final TAU = TAU_.dim();
-  final Z = Z_.dim(LDU);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final RESULT = RESULT_.dim();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final AP = AP_.having();
+  final SD = SD_.having();
+  final SE = SE_.having();
+  final D1 = D1_.having();
+  final D2 = D2_.having();
+  final D3 = D3_.having();
+  final D4 = D4_.having();
+  final D5 = D5_.having();
+  final WA1 = WA1_.having();
+  final WA2 = WA2_.having();
+  final WA3 = WA3_.having();
+  final WR = WR_.having();
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDU);
+  final VP = VP_.having();
+  final TAU = TAU_.having();
+  final Z = Z_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0, TEN = 10.0, HUN = 100.0;
   const HALF = ONE / TWO;
   const MAXTYP = 21;
@@ -1558,7 +1558,7 @@ void print9990(
   final int test,
   final double result,
 ) {
-  final seed = seed_.dim();
+  final seed = seed_.having();
   NOUNIT.println(
       ' N=${n.i5}, seed=${seed.i4(4, ',')} type ${type.i2}, test(${test.i2})=${result.g10_3}');
 }

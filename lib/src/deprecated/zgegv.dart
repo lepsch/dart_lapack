@@ -1,10 +1,10 @@
       void zgegv(final int JOBVL, final int JOBVR, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHA, final int BETA, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final VL = VL_.dim();
-  final VR = VR_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final VL = VL_.having();
+  final VR = VR_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

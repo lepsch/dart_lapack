@@ -43,11 +43,11 @@ void zgesvj(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final V = V_.dim(LDV);
-  final CWORK = CWORK_.dim();
-  final SVA = SVA_.dim(N);
-  final RWORK = RWORK_.dim(LRWORK);
+  final A = A_.having(ld: LDA);
+  final V = V_.having(ld: LDV);
+  final CWORK = CWORK_.having();
+  final SVA = SVA_.having(length: N);
+  final RWORK = RWORK_.having(length: LRWORK);
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   const NSWEEP = 30;
   Complex AAPQ, OMPQ;

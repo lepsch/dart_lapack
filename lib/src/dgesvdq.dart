@@ -46,13 +46,13 @@ void dgesvdq(
   final int LRWORK,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final S = S_.dim();
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final IWORK = IWORK_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final S = S_.having();
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final IWORK = IWORK_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int IWOFF, NR, N1 = 0, OPTRATIO, p, q;
   int LWCON,
@@ -909,7 +909,7 @@ void dgesvdq(
           if (NR > 1) {
             dlaset('L', NR - 1, NR - 1, ZERO, ZERO, U(NR + 2, 1), LDU);
           }
-          dgelqf(NR, N, U(NR + 1,1), LDU, WORK(N + 1), WORK(N + NR + 1),
+          dgelqf(NR, N, U(NR + 1, 1), LDU, WORK(N + 1), WORK(N + NR + 1),
               LWORK - N - NR, IERR);
           dlacpy('L', NR, NR, U(NR + 1, 1), LDU, V, LDV);
           if (NR > 1) dlaset('U', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);

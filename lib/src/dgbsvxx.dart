@@ -48,19 +48,19 @@ void dgbsvxx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final AFB = AFB_.dim(LDAFB);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final R = R_.dim();
-  final C = C_.dim();
-  final BERR = BERR_.dim();
-  final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
-  final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
-  final PARAMS = PARAMS_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final AFB = AFB_.having(ld: LDAFB);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final R = R_.having();
+  final C = C_.having();
+  final BERR = BERR_.having();
+  final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
+  final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
+  final PARAMS = PARAMS_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
 
   const ZERO = 0.0, ONE = 1.0;
   // const FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3;

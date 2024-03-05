@@ -27,11 +27,11 @@ Complex zlatm3(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ISEED = ISEED_.dim();
-  final IWORK = IWORK_.dim();
-  final D = D_.dim();
-  final DL = DL_.dim();
-  final DR = DR_.dim();
+  final ISEED = ISEED_.having();
+  final IWORK = IWORK_.having();
+  final D = D_.having();
+  final DL = DL_.having();
+  final DR = DR_.having();
   const ZERO = 0.0;
   Complex CTEMP;
 

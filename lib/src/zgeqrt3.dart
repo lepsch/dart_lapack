@@ -20,8 +20,8 @@ void zgeqrt3(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
 
   int I, I1, J, J1, N1, N2;
   final IINFO = Box(0);

@@ -28,8 +28,8 @@ void zgbtrf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final IPIV = IPIV_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final IPIV = IPIV_.having();
   const NBMAX = 64, LDWORK = NBMAX + 1;
   int I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;
   Complex TEMP;

@@ -62,24 +62,24 @@ void dchkbd(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final MVAL = MVAL_.dim();
-  final NVAL = NVAL_.dim();
-  final DOTYPE = DOTYPE_.dim(NTYPES);
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final BD = BD_.dim();
-  final BE = BE_.dim();
-  final S1 = S1_.dim();
-  final S2 = S2_.dim();
-  final X = X_.dim(LDX);
-  final Y = Y_.dim(LDX);
-  final Z = Z_.dim(LDX);
-  final Q = Q_.dim(LDQ);
-  final PT = PT_.dim(LDPT);
-  final U = U_.dim(LDPT);
-  final VT = VT_.dim(LDPT);
-  final WORK = WORK_.dim(LWORK);
-  final IWORK = IWORK_.dim();
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final DOTYPE = DOTYPE_.having(length: NTYPES);
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final BD = BD_.having();
+  final BE = BE_.having();
+  final S1 = S1_.having();
+  final S2 = S2_.having();
+  final X = X_.having(ld: LDX);
+  final Y = Y_.having(ld: LDX);
+  final Z = Z_.having(ld: LDX);
+  final Q = Q_.having(ld: LDQ);
+  final PT = PT_.having(ld: LDPT);
+  final U = U_.having(ld: LDPT);
+  final VT = VT_.having(ld: LDPT);
+  final WORK = WORK_.having(length: LWORK);
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5;
   const MAXTYP = 16;
   bool BADMM, BADNN, BIDIAG = false;

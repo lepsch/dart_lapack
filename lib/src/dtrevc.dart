@@ -32,11 +32,11 @@ void dtrevc(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SELECT = SELECT_.dim();
-  final T = T_.dim(LDT);
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final WORK = WORK_.dim();
+  final SELECT = SELECT_.having();
+  final T = T_.having(ld: LDT);
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool ALLV, BOTHV, LEFTV, OVER, PAIR, RIGHTV, SOMEV;
   int I, II, IP, IS, J, J1, J2, JNXT, K, KI, N2;

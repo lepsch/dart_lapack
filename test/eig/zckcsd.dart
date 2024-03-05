@@ -42,20 +42,20 @@ Future<void> zckcsd(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final XF = XF_.dim();
-  final U1 = U1_.dim();
-  final U2 = U2_.dim();
-  final V1T = V1T_.dim();
-  final V2T = V2T_.dim();
-  final MVAL = MVAL_.dim();
-  final PVAL = PVAL_.dim();
-  final QVAL = QVAL_.dim();
-  final THETA = THETA_.dim();
-  final ISEED = ISEED_.dim(4);
-  final IWORK = IWORK_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final X = X_.having();
+  final XF = XF_.having();
+  final U1 = U1_.having();
+  final U2 = U2_.having();
+  final V1T = V1T_.having();
+  final V2T = V2T_.having();
+  final MVAL = MVAL_.having();
+  final PVAL = PVAL_.having();
+  final QVAL = QVAL_.having();
+  final THETA = THETA_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final IWORK = IWORK_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const NTESTS = 15;
   const NTYPES = 4;
   const GAPDIGIT = 18.0,
@@ -219,10 +219,10 @@ void zlacsg(
   final int LDX,
   final Array<Complex> WORK_,
 ) {
-  final ISEED = ISEED_.dim(4);
-  final X = X_.dim(LDX);
-  final THETA = THETA_.dim();
-  final WORK = WORK_.dim();
+  final ISEED = ISEED_.having(length: 4);
+  final X = X_.having(ld: LDX);
+  final THETA = THETA_.having();
+  final WORK = WORK_.having();
   int I, R;
   final INFO = Box(0);
 

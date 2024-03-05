@@ -29,10 +29,10 @@ void zlamswlq(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final T = T_.dim(LDT);
-  final C = C_.dim(LDC);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final T = T_.having(ld: LDT);
+  final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   bool LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
   int I, II, KK, LW, CTR, MINMNK, LWMIN;
 

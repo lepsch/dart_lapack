@@ -20,8 +20,8 @@ void dpbtrs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final B = B_.dim(LDB);
+  final AB = AB_.having(ld: LDAB);
+  final B = B_.having(ld: LDB);
   bool UPPER;
   int J;
 

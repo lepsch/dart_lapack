@@ -24,9 +24,9 @@ void dla_gbamv(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
-  final X = X_.dim();
-  final Y = Y_.dim();
+  final AB = AB_.having(ld: LDAB);
+  final X = X_.having();
+  final Y = Y_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool SYMB_ZERO;
   double TEMP, SAFE1;

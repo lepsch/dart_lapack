@@ -36,27 +36,27 @@ Future<void> zckgsv(
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
-)async {
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final AF = AF_.dim();
-  final B = B_.dim();
-  final BF = BF_.dim();
-  final U = U_.dim();
-  final V = V_.dim();
-  final Q = Q_.dim();
-  final R = R_.dim();
-  final MVAL = MVAL_.dim();
-  final PVAL = PVAL_.dim();
-  final NVAL = NVAL_.dim();
-  final ALPHA = ALPHA_.dim();
-  final BETA = BETA_.dim();
-  final ISEED = ISEED_.dim(4);
-  final IWORK = IWORK_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final A = A_.having();
+  final AF = AF_.having();
+  final B = B_.having();
+  final BF = BF_.having();
+  final U = U_.having();
+  final V = V_.having();
+  final Q = Q_.having();
+  final R = R_.having();
+  final MVAL = MVAL_.having();
+  final PVAL = PVAL_.having();
+  final NVAL = NVAL_.having();
+  final ALPHA = ALPHA_.having();
+  final BETA = BETA_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final IWORK = IWORK_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
   const NTESTS = 12;
   const NTYPES = 8;

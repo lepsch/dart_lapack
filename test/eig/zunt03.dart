@@ -29,10 +29,10 @@ void zunt03(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDV);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int I, IRC, J, LMX;
   double RES1, ULP;

@@ -20,8 +20,8 @@ void dsterf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
+  final D = D_.having();
+  final E = E_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0;
   const MAXIT = 30;
   int I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT;

@@ -16,9 +16,9 @@ void zspcon(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final AP = AP_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final IPIV = IPIV_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

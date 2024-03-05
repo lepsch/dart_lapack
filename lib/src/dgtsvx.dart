@@ -40,20 +40,20 @@ void dgtsvx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final DL = DL_.dim();
-  final D = D_.dim();
-  final DU = DU_.dim();
-  final DLF = DLF_.dim();
-  final DF = DF_.dim();
-  final DUF = DUF_.dim();
-  final DU2 = DU2_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final DL = DL_.having();
+  final D = D_.having();
+  final DU = DU_.having();
+  final DLF = DLF_.having();
+  final DF = DF_.having();
+  final DUF = DUF_.having();
+  final DU2 = DU2_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0;
   bool NOFACT, NOTRAN;
   String NORM;

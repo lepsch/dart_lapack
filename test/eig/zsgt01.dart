@@ -22,13 +22,13 @@ void zsgt01(
   final Array<double> RWORK_,
   final Array<double> RESULT_,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Z = Z_.dim(LDZ);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final D = D_.dim();
-  final RESULT = RESULT_.dim();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Z = Z_.having(ld: LDZ);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final D = D_.having();
+  final RESULT = RESULT_.having();
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

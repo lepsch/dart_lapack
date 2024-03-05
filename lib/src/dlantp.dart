@@ -14,8 +14,8 @@ double dlantp(
   final Array<double> AP_,
   final Array<double> WORK_,
 ) {
-  final AP = AP_.dim();
-  final WORK = WORK_.dim();
+  final AP = AP_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -18,9 +18,9 @@ void zgeru(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final Y = Y_.dim();
-  final A = A_.dim(LDA);
+  final X = X_.having();
+  final Y = Y_.having();
+  final A = A_.having(ld: LDA);
   Complex TEMP;
   int I, INFO, IX, J, JY, KX;
 

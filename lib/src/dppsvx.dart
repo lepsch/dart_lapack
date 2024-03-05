@@ -38,15 +38,15 @@ void dppsvx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final AP = AP_.dim();
-  final AFP = AFP_.dim();
-  final S = S_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final AP = AP_.having();
+  final AFP = AFP_.having();
+  final S = S_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool EQUIL, NOFACT, RCEQU;
   int I, J;

@@ -16,11 +16,11 @@ void zlakf2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDA);
-  final D = D_.dim(LDA);
-  final E = E_.dim(LDA);
-  final Z = Z_.dim(LDA);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDA);
+  final D = D_.having(ld: LDA);
+  final E = E_.having(ld: LDA);
+  final Z = Z_.having(ld: LDA);
   int I, IK, J, JK, L, MN, MN2;
   // ..
   // .. External Subroutines ..

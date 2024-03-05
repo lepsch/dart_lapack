@@ -29,13 +29,13 @@ void dlaqps(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final JPVT = JPVT_.dim();
-  final TAU = TAU_.dim();
-  final VN1 = VN1_.dim();
-  final VN2 = VN2_.dim();
-  final AUXV = AUXV_.dim();
-  final F = F_.dim(LDF);
+  final A = A_.having(ld: LDA);
+  final JPVT = JPVT_.having();
+  final TAU = TAU_.having();
+  final VN1 = VN1_.having();
+  final VN2 = VN2_.having();
+  final AUXV = AUXV_.having();
+  final F = F_.having(ld: LDF);
   const ZERO = 0.0, ONE = 1.0;
   int ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
   double AKK, TEMP, TEMP2, TOL3Z;

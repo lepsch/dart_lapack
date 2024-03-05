@@ -1,7 +1,7 @@
       void dlattb(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int B, final Array<double> _WORK_, final Box<int> INFO,) {
-  final ISEED = ISEED_.dim();
-  final AB = AB_.dim();
-  final _WORK = _WORK_.dim();
+  final ISEED = ISEED_.having();
+  final AB = AB_.having();
+  final _WORK = _WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

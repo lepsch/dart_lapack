@@ -19,9 +19,9 @@ void zheequb(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final WORK = WORK_.dim();
-  final S = S_.dim();
+  final A = A_.having(ld: LDA);
+  final WORK = WORK_.having();
+  final S = S_.having();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

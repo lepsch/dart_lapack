@@ -17,8 +17,8 @@ void zher(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final A = A_.dim(LDA);
+  final X = X_.having();
+  final A = A_.having(ld: LDA);
   Complex TEMP;
   int I, INFO, IX, J, JX, KX = 0;
 
@@ -80,8 +80,7 @@ void zher(
             A[I][J] = A[I][J] + X[IX] * TEMP;
             IX = IX + INCX;
           }
-          A[J][J] =
-              A[J][J].real.toComplex() + (X[JX] * TEMP).real.toComplex();
+          A[J][J] = A[J][J].real.toComplex() + (X[JX] * TEMP).real.toComplex();
         } else {
           A[J][J] = A[J][J].real.toComplex();
         }
@@ -108,8 +107,7 @@ void zher(
       for (J = 1; J <= N; J++) {
         if (X[JX] != Complex.zero) {
           TEMP = ALPHA.toComplex() * X[JX].conjugate();
-          A[J][J] =
-              A[J][J].real.toComplex() + (TEMP * X[JX]).real.toComplex();
+          A[J][J] = A[J][J].real.toComplex() + (TEMP * X[JX]).real.toComplex();
           IX = JX;
           for (I = J + 1; I <= N; I++) {
             IX = IX + INCX;

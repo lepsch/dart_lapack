@@ -31,16 +31,16 @@ void zptrfs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
-  final E = E_.dim();
-  final EF = EF_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final D = D_.dim();
-  final DF = DF_.dim();
-  final FERR = FERR_.dim();
-  final BERR = BERR_.dim();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final E = E_.having();
+  final EF = EF_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final D = D_.having();
+  final DF = DF_.having();
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
   const ITMAX = 5;
   const ZERO = 0.0;
   const ONE = 1.0;

@@ -16,8 +16,8 @@ void dlaqz1(
   final double BETA2,
   final Array<double> V,
 ) {
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
   const ZERO = 0.0, ONE = 1.0;
   double SAFMIN, SAFMAX, SCALE1, SCALE2;
   final W = Array<double>(2);

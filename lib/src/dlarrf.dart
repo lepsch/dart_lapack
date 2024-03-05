@@ -29,15 +29,15 @@ void dlarrf(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final L = L_.dim();
-  final LD = LD_.dim();
-  final W = W_.dim();
-  final WGAP = WGAP_.dim();
-  final WERR = WERR_.dim();
-  final DPLUS = DPLUS_.dim();
-  final LPLUS = LPLUS_.dim();
-  final WORK = WORK_.dim();
+  final D = D_.having();
+  final L = L_.having();
+  final LD = LD_.having();
+  final W = W_.having();
+  final WGAP = WGAP_.having();
+  final WERR = WERR_.having();
+  final DPLUS = DPLUS_.having();
+  final LPLUS = LPLUS_.having();
+  final WORK = WORK_.having();
   const ONE = 1.0,
       TWO = 2.0,
       FOUR = 4.0,

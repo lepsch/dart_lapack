@@ -22,8 +22,8 @@ void ztrexc(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final T = T_.dim(LDT);
-  final Q = Q_.dim(LDQ);
+  final T = T_.having(ld: LDT);
+  final Q = Q_.having(ld: LDQ);
   bool WANTQ;
   int K, M1, M2, M3;
   final CS = Box(0.0);

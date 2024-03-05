@@ -39,16 +39,16 @@ void dlaqz4(
   final int LWORK,
   final Box<int> INFO,
 ) {
-  final SR = SR_.dim();
-  final SI = SI_.dim();
-  final SS = SS_.dim();
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final QC = QC_.dim(LDQC);
-  final ZC = ZC_.dim(LDZC);
-  final WORK = WORK_.dim();
+  final SR = SR_.having();
+  final SI = SI_.having();
+  final SS = SS_.having();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final QC = QC_.having(ld: LDQC);
+  final ZC = ZC_.having(ld: LDZC);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
 
   // Local scalars

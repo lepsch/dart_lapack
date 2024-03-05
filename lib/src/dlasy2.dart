@@ -28,10 +28,10 @@ void dlasy2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final TL = TL_.dim(LDTL);
-  final TR = TR_.dim(LDTR);
-  final B = B_.dim(LDB);
-  final X = X_.dim(LDX);
+  final TL = TL_.having(ld: LDTL);
+  final TR = TR_.having(ld: LDTR);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0, HALF = 0.5, EIGHT = 8.0;
   bool BSWAP, XSWAP;

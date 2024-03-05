@@ -75,25 +75,25 @@ void ddrvst2stg(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final D1 = D1_.dim();
-  final D2 = D2_.dim();
-  final D3 = D3_.dim();
-  final D4 = D4_.dim();
-  final EVEIGS = EVEIGS_.dim();
-  final WA1 = WA1_.dim();
-  final WA2 = WA2_.dim();
-  final WA3 = WA3_.dim();
-  final U = U_.dim(LDU);
-  final V = V_.dim(LDU);
-  final TAU = TAU_.dim();
-  final Z = Z_.dim(LDU);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final RESULT = RESULT_.dim();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final D1 = D1_.having();
+  final D2 = D2_.having();
+  final D3 = D3_.having();
+  final D4 = D4_.having();
+  final EVEIGS = EVEIGS_.having();
+  final WA1 = WA1_.having();
+  final WA2 = WA2_.having();
+  final WA3 = WA3_.having();
+  final U = U_.having(ld: LDU);
+  final V = V_.having(ld: LDU);
+  final TAU = TAU_.having();
+  final Z = Z_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = 0.5;
   const MAXTYP = 18;
@@ -169,9 +169,7 @@ void ddrvst2stg(
       Array.fromList([1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3]);
   final KMODE =
       Array.fromList([0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4]);
-  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0),
-      NERRS=Box(0)
-  ;
+  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0), NERRS = Box(0);
 
   // Keep ftrnchek happy
 
@@ -674,8 +672,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
-              max(1, M2.value), RESULT(10));
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
+              WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(10));
 
           NTEST = 12;
           for (I = 1; I <= N - 1; I++) {
@@ -767,8 +765,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
-              max(1, M2.value), RESULT(13));
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
+              WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(13));
 
           NTEST = 15;
           for (I = 1; I <= N - 1; I++) {
@@ -892,8 +890,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
-              max(1, M2.value), RESULT(19));
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
+              WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(19));
 
           NTEST = 21;
           for (I = 1; I <= N - 1; I++) {
@@ -985,8 +983,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
-              max(1, M2.value), RESULT(22));
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
+              WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(22));
 
           NTEST = 24;
           for (I = 1; I <= N - 1; I++) {
@@ -1446,8 +1444,8 @@ void ddrvst2stg(
 
           // Do tests 40 and 41 (or +54)
 
-          dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT(NTEST));
+          dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -1536,8 +1534,8 @@ void ddrvst2stg(
 
           // Do tests 43 and 44 (or +54)
 
-          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V,
-              LDU, TAU, WORK, RESULT(NTEST));
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -1632,8 +1630,8 @@ void ddrvst2stg(
 
           // Do tests 46 and 47 (or +54)
 
-          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V,
-              LDU, TAU, WORK, RESULT(NTEST));
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 

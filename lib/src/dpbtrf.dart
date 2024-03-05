@@ -22,7 +22,7 @@ void dpbtrf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AB = AB_.dim(LDAB);
+  final AB = AB_.having(ld: LDAB);
   const ONE = 1.0, ZERO = 0.0;
   const NBMAX = 32, LDWORK = NBMAX + 1;
   int I, I2, I3, IB, J, JJ, NB;

@@ -11,7 +11,7 @@ void drscl(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SX = SX_.dim();
+  final SX = SX_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool DONE;
   double BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;

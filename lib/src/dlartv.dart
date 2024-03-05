@@ -13,10 +13,10 @@ void dlartv(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X = X_.dim();
-  final Y = Y_.dim();
-  final C = C_.dim();
-  final S = S_.dim();
+  final X = X_.having();
+  final Y = Y_.having();
+  final C = C_.having();
+  final S = S_.having();
   int I, IC, IX, IY;
   double XI, YI;
 

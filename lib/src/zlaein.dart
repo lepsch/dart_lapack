@@ -25,10 +25,10 @@ void zlaein(
   final double SMLNUM,
   final Box<int> INFO,
 ) {
-  final H = H_.dim(LDH);
-  final B = B_.dim(LDB);
-  final V = V_.dim();
-  final RWORK = RWORK_.dim();
+  final H = H_.having(ld: LDH);
+  final B = B_.having(ld: LDB);
+  final V = V_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

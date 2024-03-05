@@ -25,11 +25,11 @@ void dggrqf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TAUA = TAUA_.dim();
-  final B = B_.dim(LDB);
-  final TAUB = TAUB_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TAUA = TAUA_.having();
+  final B = B_.having(ld: LDB);
+  final TAUB = TAUB_.having();
+  final WORK = WORK_.having();
   bool LQUERY;
   int LOPT, LWKOPT, NB, NB1, NB2, NB3;
 

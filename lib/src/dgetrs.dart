@@ -21,9 +21,9 @@ void dgetrs(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final B = B_.dim(LDB);
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final B = B_.having(ld: LDB);
   const ONE = 1.0;
   bool NOTRAN;
 

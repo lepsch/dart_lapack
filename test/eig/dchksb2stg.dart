@@ -45,19 +45,19 @@ void dchksb2stg(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final NN = NN_.dim();
-  final KK = KK_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim(LDA);
-  final SD = SD_.dim();
-  final SE = SE_.dim();
-  final D1 = D1_.dim();
-  final D2 = D2_.dim();
-  final D3 = D3_.dim();
-  final U = U_.dim(LDU);
-  final WORK = WORK_.dim();
-  final RESULT = RESULT_.dim();
+  final NN = NN_.having();
+  final KK = KK_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having();
+  final A = A_.having(ld: LDA);
+  final SD = SD_.having();
+  final SE = SE_.having();
+  final D1 = D1_.having();
+  final D2 = D2_.having();
+  final D3 = D3_.having();
+  final U = U_.having(ld: LDU);
+  final WORK = WORK_.having();
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = ONE / TWO;
   const MAXTYP = 15;

@@ -29,11 +29,11 @@ void zhpev(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final Z = Z_.dim(LDZ);
-  final AP = AP_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final W = W_.dim();
+  final Z = Z_.having(ld: LDZ);
+  final AP = AP_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final W = W_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool WANTZ;
   int IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE;

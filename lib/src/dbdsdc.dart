@@ -37,14 +37,14 @@ void dbdsdc(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.dim();
-  final E = E_.dim();
-  final U = U_.dim(LDU);
-  final VT = VT_.dim(LDVT);
-  final Q = Q_.dim();
-  final IQ = IQ_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final D = D_.having();
+  final E = E_.having();
+  final U = U_.having(ld: LDU);
+  final VT = VT_.having(ld: LDVT);
+  final Q = Q_.having();
+  final IQ = IQ_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int DIFL = 0,
       DIFR = 0,

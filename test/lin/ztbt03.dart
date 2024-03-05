@@ -1,8 +1,8 @@
       void ztbt03(final int UPLO, final int TRANS, final int DIAG, final int N, final int KD, final int NRHS, final Matrix<double> AB_, final int LDAB, final int SCALE, final int CNORM, final int TSCAL, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> _WORK_, final int RESID,) {
-  final AB = AB_.dim();
-  final X = X_.dim();
-  final B = B_.dim();
-  final _WORK = _WORK_.dim();
+  final AB = AB_.having();
+  final X = X_.having();
+  final B = B_.having();
+  final _WORK = _WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

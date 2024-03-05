@@ -51,16 +51,16 @@ void dgeevx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final VL = VL_.dim(LDVL);
-  final VR = VR_.dim(LDVR);
-  final SCALE = SCALE_.dim();
-  final RCONDE = RCONDE_.dim();
-  final RCONDV = RCONDV_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final VL = VL_.having(ld: LDVL);
+  final VR = VR_.having(ld: LDVR);
+  final SCALE = SCALE_.having();
+  final RCONDE = RCONDE_.having();
+  final RCONDV = RCONDV_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;
   String JOB, SIDE = '';

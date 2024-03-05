@@ -50,22 +50,22 @@ void zchkbb(
   final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
-  final MVAL = MVAL_.dim();
-  final NVAL = NVAL_.dim();
-  final KK = KK_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final AB = AB_.dim(LDAB);
-  final Q = Q_.dim(LDQ);
-  final P = P_.dim(LDP);
-  final C = C_.dim(LDC);
-  final CC = CC_.dim(LDC);
-  final BD = BD_.dim();
-  final BE = BE_.dim();
-  final RESULT = RESULT_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final KK = KK_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final AB = AB_.having(ld: LDAB);
+  final Q = Q_.having(ld: LDQ);
+  final P = P_.having(ld: LDP);
+  final C = C_.having(ld: LDC);
+  final CC = CC_.having(ld: LDC);
+  final BD = BD_.having();
+  final BE = BE_.having();
+  final RESULT = RESULT_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine (input) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -27,9 +27,9 @@ void dsb2st_kernels(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final V = V_.dim();
-  final TAU = TAU_.dim();
+  final A = A_.having(ld: LDA);
+  final V = V_.having();
+  final TAU = TAU_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool UPPER;
   int I,

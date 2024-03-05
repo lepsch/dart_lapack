@@ -26,12 +26,12 @@ void dsytrd_2stage(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final D = D_.dim();
-  final E = E_.dim();
-  final TAU = TAU_.dim();
-  final HOUS2 = HOUS2_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final D = D_.having();
+  final E = E_.having();
+  final TAU = TAU_.having();
+  final HOUS2 = HOUS2_.having();
+  final WORK = WORK_.having();
   bool LQUERY, UPPER
       // WANTQ
       ;

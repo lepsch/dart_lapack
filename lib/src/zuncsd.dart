@@ -50,18 +50,18 @@ void zuncsd(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final X11 = X11_.dim(LDX11);
-  final X12 = X12_.dim(LDX12);
-  final X21 = X21_.dim(LDX21);
-  final X22 = X22_.dim(LDX22);
-  final U1 = U1_.dim(LDU1);
-  final U2 = U2_.dim(LDU2);
-  final V1T = V1T_.dim(LDV1T);
-  final V2T = V2T_.dim(LDV2T);
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
-  final THETA = THETA_.dim();
-  final RWORK = RWORK_.dim();
+  final X11 = X11_.having(ld: LDX11);
+  final X12 = X12_.having(ld: LDX12);
+  final X21 = X21_.having(ld: LDX21);
+  final X22 = X22_.having(ld: LDX22);
+  final U1 = U1_.having(ld: LDU1);
+  final U2 = U2_.having(ld: LDU2);
+  final V1T = V1T_.having(ld: LDV1T);
+  final V2T = V2T_.having(ld: LDV2T);
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
+  final THETA = THETA_.having();
+  final RWORK = RWORK_.having();
   String TRANST, SIGNST;
   int I,
       IB11D = 0,

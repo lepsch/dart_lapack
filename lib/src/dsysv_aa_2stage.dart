@@ -26,12 +26,12 @@ void dsysv_aa_2stage(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final TB = TB_.dim();
-  final IPIV = IPIV_.dim();
-  final IPIV2 = IPIV2_.dim();
-  final B = B_.dim(LDB);
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final TB = TB_.having();
+  final IPIV = IPIV_.having();
+  final IPIV2 = IPIV2_.having();
+  final B = B_.having(ld: LDB);
+  final WORK = WORK_.having();
   bool UPPER, TQUERY, WQUERY;
   int LWKMIN, LWKOPT = 0;
 
@@ -59,8 +59,7 @@ void dsysv_aa_2stage(
   }
 
   if (INFO.value == 0) {
-    dsytrf_aa_2stage(
-        UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO);
+    dsytrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO);
     LWKOPT = max(LWKMIN, WORK[1].toInt());
     WORK[1] = LWKOPT.toDouble();
   }
@@ -74,13 +73,11 @@ void dsysv_aa_2stage(
 
   // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
-  dsytrf_aa_2stage(
-      UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO);
+  dsytrf_aa_2stage(UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO);
   if (INFO.value == 0) {
     // Solve the system A*X = B, overwriting B with X.
 
-    dsytrs_aa_2stage(
-        UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO);
+    dsytrs_aa_2stage(UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO);
   }
 
   WORK[1] = LWKOPT.toDouble();

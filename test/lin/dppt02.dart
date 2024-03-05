@@ -1,7 +1,7 @@
       void dppt02(final int UPLO, final int N, final int NRHS, final int A, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> RWORK_, final int RESID,) {
-  final X = X_.dim();
-  final B = B_.dim();
-  final RWORK = RWORK_.dim();
+  final X = X_.having();
+  final B = B_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

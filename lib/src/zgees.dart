@@ -35,12 +35,12 @@ void zgees(
   final Array<bool> BWORK_,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-  final W = W_.dim();
-  final VS = VS_.dim(LDVS);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final BWORK = BWORK_.dim();
+  final A = A_.having(ld: LDA);
+  final W = W_.having();
+  final VS = VS_.having(ld: LDVS);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final BWORK = BWORK_.having();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

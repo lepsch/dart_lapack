@@ -21,9 +21,9 @@ void dsytri_rook(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA);
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having(ld: LDA);
+  final IPIV = IPIV_.having();
+  final WORK = WORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool UPPER;
   int K, KP, KSTEP;

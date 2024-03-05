@@ -1,8 +1,8 @@
       void dqrt15(final int SCALE, final int RKSEL, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int S, final int RANK, final int NORMA, final int NORMB, final Array<int> ISEED_, final Array<double> WORK_, final int LWORK,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final ISEED = ISEED_.dim();
-  final WORK = WORK_.dim();
+  final A = A_.having();
+  final B = B_.having();
+  final ISEED = ISEED_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

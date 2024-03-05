@@ -14,8 +14,8 @@ void zlaqsy(
   final double AMAX,
   final Box<String> EQUED,
 ) {
-  final A = A_.dim(LDA);
-  final S = S_.dim();
+  final A = A_.having(ld: LDA);
+  final S = S_.having();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -33,13 +33,13 @@ void dtrsen(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SELECT = SELECT_.dim();
-  final T = T_.dim(LDT);
-  final Q = Q_.dim(LDQ);
-  final WR = WR_.dim();
-  final WI = WI_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final SELECT = SELECT_.having();
+  final T = T_.having(ld: LDT);
+  final Q = Q_.having(ld: LDQ);
+  final WR = WR_.having();
+  final WI = WI_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP;
   int K, LIWMIN = 0, LWMIN = 0, N1 = 0, N2 = 0, NN = 0;

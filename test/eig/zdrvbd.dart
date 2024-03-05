@@ -56,22 +56,22 @@ void zdrvbd(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final MM = MM_.dim();
-  final NN = NN_.dim();
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim(4);
-  final A = A_.dim(LDA);
-  final ASAV = ASAV_.dim(LDA);
-  final U = U_.dim(LDU);
-  final USAV = USAV_.dim(LDU);
-  final VT = VT_.dim(LDVT);
-  final VTSAV = VTSAV_.dim(LDVT);
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
-  final S = S_.dim();
-  final SSAV = SSAV_.dim();
-  final E = E_.dim();
+  final MM = MM_.having();
+  final NN = NN_.having();
+  final DOTYPE = DOTYPE_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final ASAV = ASAV_.having(ld: LDA);
+  final U = U_.having(ld: LDU);
+  final USAV = USAV_.having(ld: LDU);
+  final VT = VT_.having(ld: LDVT);
+  final VTSAV = VTSAV_.having(ld: LDVT);
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  final S = S_.having();
+  final SSAV = SSAV_.having();
+  final E = E_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5;
   const MAXTYP = 5;
   bool BADMM, BADNN;

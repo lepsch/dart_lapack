@@ -42,17 +42,17 @@ void dtgsen(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SELECT = SELECT_.dim();
-  final A = A_.dim(LDA);
-  final B = B_.dim(LDB);
-  final ALPHAR = ALPHAR_.dim();
-  final ALPHAI = ALPHAI_.dim();
-  final BETA = BETA_.dim();
-  final Q = Q_.dim(LDQ);
-  final Z = Z_.dim(LDZ);
-  final DIF = DIF_.dim();
-  final WORK = WORK_.dim();
-  final IWORK = IWORK_.dim();
+  final SELECT = SELECT_.having();
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final ALPHAR = ALPHAR_.having();
+  final ALPHAI = ALPHAI_.having();
+  final BETA = BETA_.having();
+  final Q = Q_.having(ld: LDQ);
+  final Z = Z_.having(ld: LDZ);
+  final DIF = DIF_.having();
+  final WORK = WORK_.having();
+  final IWORK = IWORK_.having();
   const IDIFJB = 3;
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP;
@@ -109,15 +109,15 @@ void dtgsen(
         continue;
       }
 
-        if (K < N) {
-          if (A[K + 1][K] == ZERO) {
-            if (SELECT[K]) M.value = M.value + 1;
-          } else {
-            PAIR = true;
-            if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
-          }
+      if (K < N) {
+        if (A[K + 1][K] == ZERO) {
+          if (SELECT[K]) M.value = M.value + 1;
         } else {
-          if (SELECT[N]) M.value = M.value + 1;
+          PAIR = true;
+          if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
+        }
+      } else {
+        if (SELECT[N]) M.value = M.value + 1;
       }
     }
   }
@@ -178,45 +178,45 @@ void dtgsen(
         continue;
       }
 
-        SWAP = SELECT[K];
-        if (K < N) {
-          if (A[K + 1][K] != ZERO) {
-            PAIR = true;
-            SWAP = SWAP || SELECT[K + 1];
-          }
+      SWAP = SELECT[K];
+      if (K < N) {
+        if (A[K + 1][K] != ZERO) {
+          PAIR = true;
+          SWAP = SWAP || SELECT[K + 1];
         }
+      }
 
-        if (SWAP) {
-          KS.value = KS.value + 1;
+      if (SWAP) {
+        KS.value = KS.value + 1;
 
-          // Swap the K-th block to position KS.value.
-          // Perform the reordering of diagonal blocks in (A, B)
-          // by orthogonal transformation matrices and update
-          // Q and Z accordingly (if requested):
+        // Swap the K-th block to position KS.value.
+        // Perform the reordering of diagonal blocks in (A, B)
+        // by orthogonal transformation matrices and update
+        // Q and Z accordingly (if requested):
 
-          KK.value = K;
-          if (K != KS.value) {
+        KK.value = K;
+        if (K != KS.value) {
           dtgexc(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK,
               LWORK, IERR);
+        }
+
+        if (IERR.value > 0) {
+          // Swap is rejected: exit.
+
+          INFO.value = 1;
+          if (WANTP) {
+            PL.value = ZERO;
+            PR.value = ZERO;
           }
-
-          if (IERR.value > 0) {
-            // Swap is rejected: exit.
-
-            INFO.value = 1;
-            if (WANTP) {
-              PL.value = ZERO;
-              PR.value = ZERO;
-            }
-            if (WANTD) {
-              DIF[1] = ZERO;
-              DIF[2] = ZERO;
-            }
-            isRejected = true;
-            break;
+          if (WANTD) {
+            DIF[1] = ZERO;
+            DIF[2] = ZERO;
           }
+          isRejected = true;
+          break;
+        }
 
-          if (PAIR) KS.value = KS.value + 1;
+        if (PAIR) KS.value = KS.value + 1;
       }
     }
     if (!isRejected) {

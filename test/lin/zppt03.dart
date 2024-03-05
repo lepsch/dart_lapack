@@ -1,6 +1,6 @@
       void zppt03(final int UPLO, final int N, final int A, final int AINV, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final int RCOND, final int RESID,) {
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
