@@ -194,6 +194,8 @@ class Complex64List with ListMixin<Complex> implements List<Complex> {
         Float64x2List.fromList(list.map((c) => c.toFloat64x2()).toList()));
   }
 
+  Complex64List.fromData(this._list);
+
   factory Complex64List.fromFloat64List(List<Float64x2> list) {
     return Complex64List._(Float64x2List.fromList(list));
   }
@@ -207,6 +209,8 @@ class Complex64List with ListMixin<Complex> implements List<Complex> {
     return Complex64List._(_list.buffer.asFloat64x2List(
         _list.offsetInBytes + start * _list.elementSizeInBytes, length));
   }
+
+  Float64x2List toData() => _list;
 
   @override
   int get length => _list.length;

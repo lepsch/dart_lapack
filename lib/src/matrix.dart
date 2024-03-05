@@ -34,7 +34,7 @@ abstract interface class Array<T> implements Box<T> {
     List<T> elements, {
     int offset = oneIndexedArrayOffset,
   }) {
-    return _Array._(elements, offset: offset);
+    return _Array.fromData(elements, offset: offset);
   }
 
   Array<T> slice(int index, {int? offset});
@@ -51,6 +51,8 @@ abstract interface class Array<T> implements Box<T> {
   Matrix<T> asMatrix([int ld]);
 
   Array<T> having({int? length, int? offset});
+
+  Array<R> cast<R>();
 
   int get offset;
 
@@ -194,7 +196,7 @@ class Matrix<T> implements Box<T> {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
   })  : //assert(dimensions.$1 * dimensions.$2 >= entries.length),
-        _entries = _Array._(entries.toData(), offset: 0),
+        _entries = _Array.fromData(entries.toData(), offset: 0),
         _strides = (dimensions.$1, 1),
         _indexer = indexer;
 
@@ -298,7 +300,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   @override
   Matrix<T> asMatrix([int? ld]) {
     return Matrix._(
-      _Array._(getEntries().toData(), offset: 0),
+      _Array.fromData(getEntries().toData(), offset: 0),
       ld != null ? (ld, _m.dimensions.$2) : _m.dimensions,
       ld != null ? (ld, 1) : _m._strides,
       offset: _m.offset,
@@ -325,6 +327,11 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   }
 
   @override
+  Array<R> cast<R>() {
+    return getEntries().cast<R>();
+  }
+
+  @override
   int get offset => _m.offset.x;
 
   @override
@@ -348,7 +355,7 @@ class _Array<T> implements Array<T> {
   final int offset;
   final List<T> _elements;
 
-  const _Array._(
+  const _Array.fromData(
     this._elements, {
     this.offset = oneIndexedArrayOffset,
   });
@@ -377,7 +384,7 @@ class _Array<T> implements Array<T> {
       _slice(index, offset: offset ?? this.offset);
 
   _Array<T> _slice(int index, {int? offset, int? length}) {
-    return _Array._(
+    return _Array.fromData(
       switch (T) {
         double => (_elements as Float64List).buffer.asFloat64List(
               (_elements as Float64List).offsetInBytes +
@@ -441,7 +448,7 @@ class _Array<T> implements Array<T> {
   @override
   Matrix<T> asMatrix([int ld = 0]) {
     return Matrix._(
-      _Array._(_elements, offset: 0),
+      _Array.fromData(_elements, offset: 0),
       (ld, ld == 0 ? 0 : length ~/ ld),
       (ld, 1),
       offset: (x: offset, y: offset),
@@ -455,6 +462,27 @@ class _Array<T> implements Array<T> {
       offset: offset ?? this.offset,
       length: length,
     );
+  }
+
+  @override
+  Array<R> cast<R>() {
+    if (T == R) return this as Array<R>;
+
+    final typedData = switch (T) {
+      bool => throw UnimplementedError(),
+      Complex => (_elements as Complex64List).toData(),
+      _ => _elements as TypedData,
+    };
+
+    final elements = switch (R) {
+      double => typedData.buffer.asFloat64List(typedData.offsetInBytes),
+      int => typedData.buffer.asInt64List(typedData.offsetInBytes),
+      Complex => Complex64List.fromData(
+          typedData.buffer.asFloat64x2List(typedData.offsetInBytes)),
+      _ => throw UnimplementedError(),
+    } as List<R>;
+
+    return _Array<R>.fromData(elements);
   }
 
   @override
@@ -537,7 +565,7 @@ class Matrix3d<T> {
     this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
   })  : //assert(entries.length >= dimensions.$1 * dimensions.$2 * dimensions.$3),
-        _entries = _Array._(entries.toData(), offset: 0),
+        _entries = _Array.fromData(entries.toData(), offset: 0),
         _strides = (dimensions.$1, dimensions.$2, 1);
 
   Matrix3d._(
@@ -580,7 +608,7 @@ class Matrix3d<T> {
 
   Box<T> box(int i, int j, int k) => this[i][j].box(k);
 
-  Array<T> asArray() => _Array._(_entries.toData(), offset: offset.x);
+  Array<T> asArray() => _Array.fromData(_entries.toData(), offset: offset.x);
 
   Matrix3d<T> having({(int, int)? ld, ({int x, int y, int z})? offset}) =>
       Matrix3d._(

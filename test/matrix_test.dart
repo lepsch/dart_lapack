@@ -186,6 +186,12 @@ void main() {
       expect(c.first, 1);
       expect(c[10], 1);
     });
+
+    test('cast', () {
+      final a = Array.fromList([1.0, 2.0, 3.0, 4.0]);
+      final b = a.cast<Complex>();
+      expect(b.toData(), [Complex(1, 2), Complex(3, 4)]);
+    });
   });
 
   group('Matrix', () {
