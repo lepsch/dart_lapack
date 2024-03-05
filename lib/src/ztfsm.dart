@@ -24,17 +24,16 @@ void ztfsm(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.dim(offset: zeroIndexedArrayOffset);
-  final B = B_.dim(LDB, offset: zeroIndexedArrayOffset);
-  bool LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS;
+  final B = B_.dim(LDB, offset: zeroIndexedMatrixOffset);
   int M1 = 0, M2 = 0, N1 = 0, N2 = 0, K = 0, INFO, I, J;
 
   // Test the input parameters.
 
   INFO = 0;
-  NORMALTRANSR = lsame(TRANSR, 'N');
-  LSIDE = lsame(SIDE, 'L');
-  LOWER = lsame(UPLO, 'L');
-  NOTRANS = lsame(TRANS, 'N');
+  final NORMALTRANSR = lsame(TRANSR, 'N');
+  final LSIDE = lsame(SIDE, 'L');
+  final LOWER = lsame(UPLO, 'L');
+  final NOTRANS = lsame(TRANS, 'N');
   if (!NORMALTRANSR && !lsame(TRANSR, 'C')) {
     INFO = -1;
   } else if (!LSIDE && !lsame(SIDE, 'R')) {
@@ -65,12 +64,10 @@ void ztfsm(
 
   if (ALPHA == Complex.zero) {
     for (J = 0; J <= N - 1; J++) {
-      // 20
       for (I = 0; I <= M - 1; I++) {
-        // 10
         B[I][J] = Complex.zero;
-      } // 10
-    } // 20
+      }
+    }
     return;
   }
 
@@ -80,7 +77,7 @@ void ztfsm(
     // A is M-by-M.
     // If M is odd, set NISODD = true , and M1 and M2.
     // If M is even, NISODD = false , and M.
-
+    bool MISODD;
     if ((M % 2) == 0) {
       MISODD = false;
       K = M ~/ 2;
@@ -335,7 +332,7 @@ void ztfsm(
     // A is N-by-N.
     // If N is odd, set NISODD = true , and N1 and N2.
     // If N is even, NISODD = false , and K.
-
+    bool NISODD;
     if ((N % 2) == 0) {
       NISODD = false;
       K = N ~/ 2;

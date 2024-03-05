@@ -223,8 +223,9 @@ class Matrix<T> implements Box<T> {
 
   set first(T value) => _entries.first = value;
 
-  Matrix<T> dim(int ld) =>
-      Matrix.fromSlice(_entries, (ld, 1), offset: offset, indexer: _indexer);
+  Matrix<T> dim(int ld, {({int x, int y})? offset}) =>
+      Matrix.fromSlice(_entries, (ld, 1),
+          offset: offset ?? this.offset, indexer: _indexer);
 
   @override
   T get value => first;

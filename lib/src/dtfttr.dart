@@ -19,15 +19,15 @@ void dtfttr(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.dim(LDA, offset: zeroIndexedMatrixOffset);
   final ARF = ARF_.dim()(1, offset: zeroIndexedArrayOffset);
-  bool LOWER, NISODD, NORMALTRANSR;
+  bool NISODD;
   int N1, N2, K = 0, NT, NX2 = 0, NP1X2 = 0;
   int I, J, L, IJ;
 
   // Test the input parameters.
 
   INFO.value = 0;
-  NORMALTRANSR = lsame(TRANSR, 'N');
-  LOWER = lsame(UPLO, 'L');
+  final NORMALTRANSR = lsame(TRANSR, 'N');
+  final LOWER = lsame(UPLO, 'L');
   if (!NORMALTRANSR && !lsame(TRANSR, 'T')) {
     INFO.value = -1;
   } else if (!LOWER && !lsame(UPLO, 'U')) {

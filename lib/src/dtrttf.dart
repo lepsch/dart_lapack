@@ -17,7 +17,7 @@ void dtrttf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim(LDA)(offset: zeroIndexedArrayOffset);
+  final A = A_.dim(LDA, offset: zeroIndexedMatrixOffset);
   final ARF = ARF_.dim()(1, offset: zeroIndexedArrayOffset);
   // double             A[ 0: LDA-1][ 0: * ], ARF( 0: * );
   bool LOWER, NISODD, NORMALTRANSR;

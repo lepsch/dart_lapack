@@ -18,17 +18,16 @@ void ztfttr(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final ARF = ARF_.dim()(1, offset: zeroIndexedArrayOffset.0);
-  final A = A_.dim(LDA)(1, 1, offset: zeroIndexedArrayOffset);
-  bool LOWER, NISODD, NORMALTRANSR;
+  final ARF = ARF_.dim()(1, offset: zeroIndexedArrayOffset);
+  final A = A_.dim(LDA, offset: zeroIndexedMatrixOffset);
   int N1, N2, K = 0, NT, NX2 = 0, NP1X2 = 0;
   int I, J, L, IJ;
 
   // Test the input parameters.
 
   INFO.value = 0;
-  NORMALTRANSR = lsame(TRANSR, 'N');
-  LOWER = lsame(UPLO, 'L');
+  final NORMALTRANSR = lsame(TRANSR, 'N');
+  final LOWER = lsame(UPLO, 'L');
   if (!NORMALTRANSR && !lsame(TRANSR, 'C')) {
     INFO.value = -1;
   } else if (!LOWER && !lsame(UPLO, 'U')) {
@@ -73,7 +72,7 @@ void ztfttr(
   // If N is odd, set NISODD = true , LDA=N+1 and A is (N+1)--by--K2.
   // If N is even, set K = N/2 and NISODD = false , LDA=N and A is
   // N--by--(N+1)/2.
-
+  bool NISODD;
   if ((N % 2) == 0) {
     K = N ~/ 2;
     NISODD = false;

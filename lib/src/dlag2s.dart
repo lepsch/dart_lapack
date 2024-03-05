@@ -1,5 +1,5 @@
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/install/sp/slamch.dart';
+import 'package:lapack/src/install/slamch.dart';
 import 'package:lapack/src/matrix.dart';
 
 void dlag2s(
@@ -16,12 +16,10 @@ void dlag2s(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.dim(LDA);
   final SA = SA_.dim(LDSA);
-  int I, J;
-  double RMAX;
 
-  RMAX = slamch('O');
-  for (J = 1; J <= N; J++) {
-    for (I = 1; I <= M; I++) {
+  final RMAX = slamch('O');
+  for (var J = 1; J <= N; J++) {
+    for (var I = 1; I <= M; I++) {
       if ((A[I][J] < -RMAX) || (A[I][J] > RMAX)) {
         INFO.value = 1;
         return;
