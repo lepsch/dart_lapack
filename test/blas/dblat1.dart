@@ -42,21 +42,21 @@ void main() {
     combla.INCX = 9999;
     combla.INCY = 9999;
     if (combla.ICASE == 3 || combla.ICASE == 11) {
-      check0(SFAC);
+      _check0(SFAC);
     } else if (combla.ICASE == 7 ||
         combla.ICASE == 8 ||
         combla.ICASE == 9 ||
         combla.ICASE == 10) {
-      check1(SFAC);
+      _check1(SFAC);
     } else if (combla.ICASE == 1 ||
         combla.ICASE == 2 ||
         combla.ICASE == 5 ||
         combla.ICASE == 6 ||
         combla.ICASE == 12 ||
         combla.ICASE == 13) {
-      check2(SFAC);
+      _check2(SFAC);
     } else if (combla.ICASE == 4) {
-      check3(SFAC);
+      _check3(SFAC);
     }
 
     if (combla.PASS) {
@@ -85,7 +85,7 @@ void _printHeader() {
       '\n Test of subprogram number${combla.ICASE.i3}${' ' * 12}${L[combla.ICASE - 1]}');
 }
 
-void check0(final double SFAC) {
+void _check0(final double SFAC) {
   int I, K;
   final SA = Box(0.0), SB = Box(0.0), SC = Box(0.0), SS = Box(0.0);
   final DTEMP = Array<double>(9);
@@ -96,26 +96,28 @@ void check0(final double SFAC) {
   final DATRUE = Array.fromList([0.5, 0.5, 0.5, -0.5, -0.5, 0.0, 1.0, 1.0]);
   final DBTRUE = Array.fromList([0.0, 0.6, 0.0, -0.6, 0.0, 0.0, 1.0, 0.0]);
   // INPUT FOR MODIFIED GIVENS
-  final DAB = Array.fromList([
-    [.1, .3, 1.2, .2, .7, .2, .6, 4.2, 0.0],
-    [0.0, 0.0, 0.0, 4.0, -1.0, 2.0, 4.0, 6e-10, 2e-2],
-    [1e5, 10.0, 4e10, 2e-2, 1e-5, 10.0, 2e-10, 4e-2, 1e5],
-    [10.0, 2e10, 4e-2, 1e-5, 10.0, 4.0, -2.0, 8.0, 4.0],
-  ].flattened.toList())
-      .asMatrix(4);
+  final DAB = Matrix.fromData(
+      [
+        [.1, .3, 1.2, .2, .7, .2, .6, 4.2, 0.0],
+        [0.0, 0.0, 0.0, 4.0, -1.0, 2.0, 4.0, 6e-10, 2e-2],
+        [1e5, 10.0, 4e10, 2e-2, 1e-5, 10.0, 2e-10, 4e-2, 1e5],
+        [10.0, 2e10, 4e-2, 1e-5, 10.0, 4.0, -2.0, 8.0, 4.0],
+      ].flattened.toList(),
+      (4, 9));
   // TRUE RESULTS FOR MODIFIED GIVENS
-  final DTRUE = Array.fromList([
-    [0.0, 0.0, 1.3, 0.2, 0.0, 0.0, 0.0, 0.5, 0.0],
-    [0.0, 0.0, 4.5, 4.2, 1.0, 0.5, 0.0, 0.0, 0.0],
-    [0.0, 0.0, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0, 0.0],
-    [0.0, 0.0, 0.0, 4.0, -1.0, 0.0, 0.0, 0.0, 0.0],
-    [0.0, 15e-3, 0.0, 10.0, -1.0, 0.0, -1e-4, 0.0, 1.0],
-    [0.0, 0.0, 6144e-5, 10.0, -1.0, 4096.0, -1e6, 0.0, 1.0],
-    [0.0, 0.0, 15.0, 10.0, -1.0, 5e-5, 0.0, 1.0, 0.0],
-    [0.0, 0.0, 15.0, 10.0, -1.0, 5e5, -4096.0, 1.0, 4096e-6],
-    [0.0, 0.0, 7.0, 4.0, 0.0, 0.0, -.5, -.25, 0.0],
-  ].flattened.toList())
-      .asMatrix(9);
+  final DTRUE = Matrix.fromData(
+      [
+        [0.0, 0.0, 1.3, 0.2, 0.0, 0.0, 0.0, 0.5, 0.0],
+        [0.0, 0.0, 4.5, 4.2, 1.0, 0.5, 0.0, 0.0, 0.0],
+        [0.0, 0.0, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0, 0.0],
+        [0.0, 0.0, 0.0, 4.0, -1.0, 0.0, 0.0, 0.0, 0.0],
+        [0.0, 15e-3, 0.0, 10.0, -1.0, 0.0, -1e-4, 0.0, 1.0],
+        [0.0, 0.0, 6144e-5, 10.0, -1.0, 4096.0, -1e6, 0.0, 1.0],
+        [0.0, 0.0, 15.0, 10.0, -1.0, 5e-5, 0.0, 1.0, 0.0],
+        [0.0, 0.0, 15.0, 10.0, -1.0, 5e5, -4096.0, 1.0, 4096e-6],
+        [0.0, 0.0, 7.0, 4.0, 0.0, 0.0, -.5, -.25, 0.0],
+      ].flattened.toList(),
+      (9, 9));
 
   const D12 = 4096.0; // 4096 = 2 ** 12
   DTRUE[1][1] = 12.0 / 130.0;
@@ -156,10 +158,10 @@ void check0(final double SFAC) {
       SA.value = DA1[K];
       SB.value = DB1[K];
       drotg(SA, SB, SC, SS);
-      stest1(SA.value, DATRUE[K], DATRUE(K), SFAC);
-      stest1(SB.value, DBTRUE[K], DBTRUE(K), SFAC);
-      stest1(SC.value, DC1[K], DC1(K), SFAC);
-      stest1(SS.value, DS1[K], DS1(K), SFAC);
+      _stest1(SA.value, DATRUE[K], DATRUE(K), SFAC);
+      _stest1(SB.value, DBTRUE[K], DBTRUE(K), SFAC);
+      _stest1(SC.value, DC1[K], DC1(K), SFAC);
+      _stest1(SS.value, DS1[K], DS1(K), SFAC);
     } else if (combla.ICASE == 11) {
       // .. DROTMG ..
       for (I = 1; I <= 4; I++) {
@@ -168,14 +170,14 @@ void check0(final double SFAC) {
       }
       DTEMP[9] = 0.0;
       drotmg(DTEMP.box(1), DTEMP.box(2), DTEMP.box(3), DTEMP[4], DTEMP(5));
-      stest(9, DTEMP, DTRUE(1, K).asArray(), DTRUE(1, K).asArray(), SFAC);
+      _stest(9, DTEMP, DTRUE(1, K).asArray(), DTRUE(1, K).asArray(), SFAC);
     } else {
-      print(' Shouldn' 't be here in CHECK0');
+      print(' Shouldn\'t be here in CHECK0');
     }
   }
 }
 
-void check1(final double SFAC) {
+void _check1(final double SFAC) {
   const THRESH = 10.0;
   int I, IX, LEN, NP1;
   final STEMP = Array<double>(1),
@@ -184,8 +186,8 @@ void check1(final double SFAC) {
       SXR = Array<double>(15);
   final SA =
       Array.fromList([0.3, -1.0, 0.0, 1.0, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]);
-  final DV = Matrix3d.fromSlice(
-      Array.fromList([
+  final DV = Matrix3d.fromData(
+      [
         [0.1, 2.0],
         [2.0, 2.0],
         [2.0, 2.0],
@@ -226,13 +228,13 @@ void check1(final double SFAC) {
         [-0.3, 6.0],
         [-0.5, 7.0],
         [-0.1, 3.0],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (8, 5, 2));
   final DVR = Array.fromList([8.0, -7.0, 9.0, 5.0, 9.0, 8.0, 7.0, 7.0]);
   final DTRUE1 = Array.fromList([0.0, 0.3, 0.5, 0.7, 0.6]);
   final DTRUE3 = Array.fromList([0.0, 0.3, 0.7, 1.1, 1.0]);
-  final DTRUE5 = Matrix3d.fromSlice(
-      Array.fromList([
+  final DTRUE5 = Matrix3d.fromData(
+      [
         [0.10, 2.0],
         [2.0, 2.0],
         [2.0, 2.0],
@@ -273,7 +275,7 @@ void check1(final double SFAC) {
         [-0.09, 6.0],
         [-0.15, 7.0],
         [-0.03, 3.0],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (8, 5, 2));
   final ITRUE2 = Array.fromList([0, 1, 2, 2, 3]);
   final ITRUEC = Array.fromList([0, 1, 1, 1, 1]);
@@ -290,29 +292,29 @@ void check1(final double SFAC) {
       if (combla.ICASE == 7) {
         // .. DNRM2 ..
         // Test scaling when some entries are tiny or huge
-        db1nrm2(combla.N, (combla.INCX - 2) * 2, THRESH);
-        db1nrm2(combla.N, combla.INCX, THRESH);
+        _db1nrm2(combla.N, (combla.INCX - 2) * 2, THRESH);
+        _db1nrm2(combla.N, combla.INCX, THRESH);
         // Test with hardcoded mid range entries
         STEMP[1] = DTRUE1[NP1];
-        stest1(dnrm2(combla.N, SX, combla.INCX), STEMP[1], STEMP, SFAC);
+        _stest1(dnrm2(combla.N, SX, combla.INCX), STEMP[1], STEMP, SFAC);
       } else if (combla.ICASE == 8) {
         // .. DASUM ..
         STEMP[1] = DTRUE3[NP1];
-        stest1(dasum(combla.N, SX, combla.INCX), STEMP[1], STEMP, SFAC);
+        _stest1(dasum(combla.N, SX, combla.INCX), STEMP[1], STEMP, SFAC);
       } else if (combla.ICASE == 9) {
         // .. DSCAL ..
         dscal(combla.N, SA[(combla.INCX - 1) * 5 + NP1], SX, combla.INCX);
         for (I = 1; I <= LEN; I++) {
           STRUE[I] = DTRUE5[I][NP1][combla.INCX];
         }
-        stest(LEN, SX, STRUE, STRUE, SFAC);
+        _stest(LEN, SX, STRUE, STRUE, SFAC);
       } else if (combla.ICASE == 10) {
         // .. idamax ..
-        itest1(idamax(combla.N, SX, combla.INCX), ITRUE2[NP1]);
+        _itest1(idamax(combla.N, SX, combla.INCX), ITRUE2[NP1]);
         for (I = 1; I <= LEN; I++) {
           SX[I] = 42.0;
         }
-        itest1(idamax(combla.N, SX, combla.INCX), ITRUEC[NP1]);
+        _itest1(idamax(combla.N, SX, combla.INCX), ITRUEC[NP1]);
       } else {
         throw UnimplementedError(' Shouldn\'t be here in CHECK1');
       }
@@ -325,12 +327,12 @@ void check1(final double SFAC) {
         SXR[IX] = DVR[I];
         IX = IX + combla.INCX;
       }
-      itest1(idamax(combla.N, SXR, combla.INCX), 3);
+      _itest1(idamax(combla.N, SXR, combla.INCX), 3);
     }
   }
 }
 
-void check2(final double SFAC) {
+void _check2(final double SFAC) {
   int I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
   final SSIZE = Array<double>(7),
       STX = Array<double>(7),
@@ -345,26 +347,23 @@ void check2(final double SFAC) {
   const SA = 0.3;
   final INCXS = Array.fromList([1, 2, -2, -1]);
   final INCYS = Array.fromList([1, -2, 1, -2]);
-  final LENS = Array.fromList([
-    [1, 1],
-    [2, 4],
-    [1, 1],
-    [3, 7],
-  ].flattened.toList())
-      .asMatrix(4);
+  final LENS = Matrix.fromData([
+    1, 1, 2, 4, 1, 1, 3, 7, //
+  ], (
+    4, 2 //
+  ));
   final NS = Array.fromList([0, 1, 2, 4]);
 
   final DX1 = Array.fromList([0.6, 0.1, -0.5, 0.8, 0.9, -0.3, -0.4]);
   final DY1 = Array.fromList([0.5, -0.9, 0.3, 0.7, -0.6, 0.2, 0.8]);
-  final DT7 = Array.fromList([
-    [0.0, 0.30, 0.21, 0.62],
-    [0.0, 0.30, -0.07, 0.85],
-    [0.0, 0.30, -0.79, -0.74],
-    [0.0, 0.30, 0.33, 1.27],
-  ].flattened.toList())
-      .asMatrix(4);
-  final DT8 = Matrix3d.fromSlice(
-      Array.fromList([
+  final DT7 = Matrix.fromData([
+    0.0, 0.30, 0.21, 0.62, 0.0, 0.30, -0.07, 0.85, //
+    0.0, 0.30, -0.79, -0.74, 0.0, 0.30, 0.33, 1.27, //
+  ], (
+    4, 4 //
+  ));
+  final DT8 = Matrix3d.fromData(
+      [
         [0.5, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.68],
         [0.0, 0.0, 0.0, 0.0],
@@ -393,10 +392,10 @@ void check2(final double SFAC) {
         [0.33, 0.0, 0.0, 0.0],
         [0.0, 0.68, -0.9, 0.33],
         [0.7, -0.75, 0.2, 1.04],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (7, 4, 4));
-  final DT10X = Matrix3d.fromSlice(
-      Array.fromList([
+  final DT10X = Matrix3d.fromData(
+      [
         [0.6, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.5],
         [0.0, 0.0, 0.0, 0.0],
@@ -425,10 +424,10 @@ void check2(final double SFAC) {
         [0.0, 0.0, 0.0, 0.0],
         [0.0, 0.5, 0.3, -0.6],
         [0.8, 0.0, 0.0, 0.0]
-      ].flattened.toList()),
+      ].flattened.toList(),
       (7, 4, 4));
-  final DT10Y = Matrix3d.fromSlice(
-      Array.fromList([
+  final DT10Y = Matrix3d.fromData(
+      [
         [0.5, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.6],
         [0.0, 0.0, 0.0, 0.0],
@@ -457,40 +456,39 @@ void check2(final double SFAC) {
         [0.1, 0.0, 0.0, 0.0],
         [0.0, 0.6, -0.9, 0.1],
         [0.7, -0.5, 0.2, 0.8],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (7, 4, 4));
   final SSIZE1 = Array.fromList([0.0, 0.3, 1.6, 3.2]);
-  final SSIZE2 = Array.fromList([
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-  ].flattened.toList())
-      .asMatrix(14);
+  final SSIZE2 = Matrix.fromData(
+      [
+        [0.0, 0.0],
+        [0.0, 0.0],
+        [0.0, 0.0],
+        [0.0, 0.0],
+        [0.0, 0.0],
+        [0.0, 0.0],
+        [0.0, 0.0],
+        [1.17, 1.17],
+        [1.17, 1.17],
+        [1.17, 1.17],
+        [1.17, 1.17],
+        [1.17, 1.17],
+        [1.17, 1.17],
+        [1.17, 1.17],
+      ].flattened.toList(),
+      (14, 2));
 
   // FOR DROTM
 
-  final DPAR = Array.fromList([
-    [-2.0, 0.0, 0.0, 0.0],
-    [0.0, -1.0, 2.0, -3.0],
-    [-4.0, 5.0, 0.0, 0.0],
-    [2.0, -3.0, 0.0, 1.0],
-    [5.0, 2.0, 0.0, -4.0],
-  ].flattened.toList())
-      .asMatrix(5);
+  final DPAR = Matrix.fromData([
+    -2.0, 0.0, 0.0, 0.0, 0.0, -1.0, 2.0, -3.0, -4.0, 5.0, //
+    0.0, 0.0, 2.0, -3.0, 0.0, 1.0, 5.0, 2.0, 0.0, -4.0,
+  ], (
+    5, 4 //
+  ));
   // TRUE X RESULTS F0R ROTATIONS DROTM
-  final DT19X = Matrix3d.fromSlice(
-      Array.fromList([
+  final DT19X = Matrix3d.fromData(
+      [
         [
           .6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, .6, //
           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, .6, 0.0
@@ -603,11 +601,11 @@ void check2(final double SFAC) {
           0.0, 0.0, -.9, -.8, 1.3, -1.6, 0.0, 0.0, //
           0.0, 3.5, .8, -3.1, 4.8, 0.0, 0.0, 0.0
         ],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (7, 4, 16));
   // TRUE Y RESULTS FOR ROTATIONS DROTM
-  final DT19Y = Matrix3d.fromSlice(
-      Array.fromList([
+  final DT19Y = Matrix3d.fromData(
+      [
         [
           .5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, .5, //
           0.0, 0.0, 0.0, 0.0, 0.0, 0.0, .5, 0.0
@@ -720,7 +718,7 @@ void check2(final double SFAC) {
           .2, 1.6, 1.7, -.9, .5, .7, -1.6, .2, //
           2.4, -2.6, -.9, -1.3, .7, 2.9, .2, -4.0
         ],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (7, 4, 16));
 
   for (KI = 1; KI <= 4; KI++) {
@@ -742,7 +740,7 @@ void check2(final double SFAC) {
 
       if (combla.ICASE == 1) {
         // .. DDOT ..
-        stest1(ddot(combla.N, SX, combla.INCX, SY, combla.INCY), DT7[KN][KI],
+        _stest1(ddot(combla.N, SX, combla.INCX, SY, combla.INCY), DT7[KN][KI],
             SSIZE1(KN), SFAC);
       } else if (combla.ICASE == 2) {
         // .. DAXPY ..
@@ -750,14 +748,14 @@ void check2(final double SFAC) {
         for (J = 1; J <= LENY; J++) {
           STY[J] = DT8[J][KN][KI];
         }
-        stest(LENY, SY, STY, SSIZE2(1, KSIZE).asArray(), SFAC);
+        _stest(LENY, SY, STY, SSIZE2(1, KSIZE).asArray(), SFAC);
       } else if (combla.ICASE == 5) {
         // .. DCOPY ..
         for (I = 1; I <= 7; I++) {
           STY[I] = DT10Y[I][KN][KI];
         }
         dcopy(combla.N, SX, combla.INCX, SY, combla.INCY);
-        stest(LENY, SY, STY, SSIZE2(1, 1).asArray(), 1.0);
+        _stest(LENY, SY, STY, SSIZE2(1, 1).asArray(), 1.0);
         if (KI == 1) {
           SX0[1] = 42.0;
           SY0[1] = 43.0;
@@ -771,7 +769,7 @@ void check2(final double SFAC) {
           LINCY = combla.INCY;
           combla.INCY = 0;
           dcopy(combla.N, SX0, combla.INCX, SY0, combla.INCY);
-          stest(1, SY0, STY0, SSIZE2(1, 1).asArray(), 1.0);
+          _stest(1, SY0, STY0, SSIZE2(1, 1).asArray(), 1.0);
           combla.INCX = LINCX;
           combla.INCY = LINCY;
         }
@@ -782,8 +780,8 @@ void check2(final double SFAC) {
           STX[I] = DT10X[I][KN][KI];
           STY[I] = DT10Y[I][KN][KI];
         }
-        stest(LENX, SX, STX, SSIZE2(1, 1).asArray(), 1.0);
-        stest(LENY, SY, STY, SSIZE2(1, 1).asArray(), 1.0);
+        _stest(LENX, SX, STX, SSIZE2(1, 1).asArray(), 1.0);
+        _stest(LENY, SY, STY, SSIZE2(1, 1).asArray(), 1.0);
       } else if (combla.ICASE == 12) {
         // .. DROTM ..
         KNI = KN + 4 * (KI - 1);
@@ -808,12 +806,12 @@ void check2(final double SFAC) {
           if ((KPAR == 3) && (KNI == 8)) SSIZE[5] = 1.8;
 
           drotm(combla.N, SX, combla.INCX, SY, combla.INCY, DTEMP);
-          stest(LENX, SX, STX, SSIZE, SFAC);
-          stest(LENY, SY, STY, STY, SFAC);
+          _stest(LENX, SX, STX, SSIZE, SFAC);
+          _stest(LENY, SY, STY, STY, SFAC);
         }
       } else if (combla.ICASE == 13) {
         // .. DSDOT ..
-        testdsdot(dsdot(combla.N, SX, combla.INCX, SY, combla.INCY),
+        _testdsdot(dsdot(combla.N, SX, combla.INCX, SY, combla.INCY),
             DT7[KN][KI], SSIZE1[KN], .3125E-1);
       } else {
         throw UnsupportedError(' Shouldn' 't be here in CHECK2');
@@ -822,7 +820,7 @@ void check2(final double SFAC) {
   }
 }
 
-void check3(final double SFAC) {
+void _check3(final double SFAC) {
   int I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
   final MWPTX = Matrix<double>(11, 5), MWPTY = Matrix<double>(11, 5);
   final COPYX = Array<double>(5),
@@ -841,19 +839,13 @@ void check3(final double SFAC) {
 
   final INCXS = Array.fromList([1, 2, -2, -1]);
   final INCYS = Array.fromList([1, -2, 1, -2]);
-  final LENS = Array.fromList([
-    [1, 1],
-    [2, 4],
-    [1, 1],
-    [3, 7],
-  ].flattened.toList())
-      .asMatrix(4);
+  final LENS = Matrix.fromData([1, 1, 2, 4, 1, 1, 3, 7], (4, 2));
   final NS = Array.fromList([0, 1, 2, 4]);
   final DX1 = Array.fromList([0.6, 0.1, -0.5, 0.8, 0.9, -0.3, -0.4]);
   final DY1 = Array.fromList([0.5, -0.9, 0.3, 0.7, -0.6, 0.2, 0.8]);
   final (SC, SS) = (0.8, 0.6);
-  final DT9X = Matrix3d.fromSlice(
-      Array.fromList([
+  final DT9X = Matrix3d.fromData(
+      [
         [0.6, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.78],
         [0.0, 0.0, 0.0, 0.0],
@@ -882,7 +874,7 @@ void check3(final double SFAC) {
         [0.0, 0.0, 0.0, 0.0],
         [0.0, 0.78, 0.26, -0.76],
         [1.12, 0.0, 0.0, 0.0],
-      ].flattened.toList()),
+      ].flattened.toList(),
       (7, 4, 4));
   final DT9Y = Matrix3d.fromData(
       [
@@ -922,7 +914,7 @@ void check3(final double SFAC) {
     1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, //
     1.17, 1.17, 1.17, 1.17, 1.17, 1.17, //
   ], (
-    14, 1 //
+    14, 2 //
   ));
 
   for (KI = 1; KI <= 4; KI++) {
@@ -946,8 +938,8 @@ void check3(final double SFAC) {
           STY[I] = DT9Y[I][KN][KI];
         }
         drot(combla.N, SX, combla.INCX, SY, combla.INCY, SC, SS);
-        stest(LENX, SX, STX, SSIZE2(1, KSIZE).asArray(), SFAC);
-        stest(LENY, SY, STY, SSIZE2(1, KSIZE).asArray(), SFAC);
+        _stest(LENX, SX, STX, SSIZE2(1, KSIZE).asArray(), SFAC);
+        _stest(LENY, SY, STY, SSIZE2(1, KSIZE).asArray(), SFAC);
       } else {
         throw UnsupportedError(' Shouldn\'t be here in CHECK3');
       }
@@ -1044,13 +1036,13 @@ void check3(final double SFAC) {
       MWPSTY[K] = MWPTY[I][K];
     }
     drot(MWPN[I], COPYX, combla.INCX, COPYY, combla.INCY, MWPC[I], MWPS[I]);
-    stest(5, COPYX, MWPSTX, MWPSTX, SFAC);
-    stest(5, COPYY, MWPSTY, MWPSTY, SFAC);
+    _stest(5, COPYX, MWPSTX, MWPSTX, SFAC);
+    _stest(5, COPYY, MWPSTY, MWPSTY, SFAC);
   }
   return;
 }
 
-void stest(
+void _stest(
   final int LEN,
   final Array<double> SCOMP_,
   final Array<double> STRUE_,
@@ -1088,7 +1080,7 @@ void stest(
   }
 }
 
-void testdsdot(
+void _testdsdot(
   final double SCOMP,
   final double STRUE,
   final double SSIZE,
@@ -1120,7 +1112,7 @@ void testdsdot(
       ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i3}${SCOMP.d36_8}${STRUE.d36_8}${SD.d12_4}${SSIZE.d12_4}');
 }
 
-void stest1(
+void _stest1(
   final double SCOMP1,
   final double STRUE1,
   final Array<double> SSIZE_,
@@ -1138,16 +1130,16 @@ void stest1(
   final SCOMP = Array<double>(1), STRUE = Array<double>(1);
   SCOMP[1] = SCOMP1;
   STRUE[1] = STRUE1;
-  stest(1, SCOMP, STRUE, SSIZE, SFAC);
+  _stest(1, SCOMP, STRUE, SSIZE, SFAC);
 }
 
-double sdiff(final double SA, final double SB) {
-  // ********************************* SDIFF **************************
-  // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-  return SA - SB;
-}
+// double _sdiff(final double SA, final double SB) {
+//   // ********************************* SDIFF **************************
+//   // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
+//   return SA - SB;
+// }
 
-void itest1(final int ICOMP, final int ITRUE) {
+void _itest1(final int ICOMP, final int ITRUE) {
   // ********************************* ITEST1 *************************
 
   // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
@@ -1170,7 +1162,7 @@ void itest1(final int ICOMP, final int ITRUE) {
       ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i5}${ICOMP.i36}${ITRUE.i36}${ID.i12}');
 }
 
-void db1nrm2(final int N, final int INCX, final double THRESH) {
+void _db1nrm2(final int N, final int INCX, final double THRESH) {
   // Compare NRM2 with a reference computation using combinations
   // of the following values:
 
@@ -1208,8 +1200,8 @@ void db1nrm2(final int N, final int INCX, final double THRESH) {
   VALUES[6] = ONE / ULP;
   VALUES[7] = BIGNUM;
   VALUES[8] = SAFMAX;
-  VALUES[9] = dxvals(V0, 2);
-  VALUES[10] = dxvals(V0, 3);
+  VALUES[9] = _dxvals(V0, 2);
+  VALUES[10] = _dxvals(V0, 3);
   ROGUE = -1234.5678;
   FIRST = true;
 
@@ -1336,7 +1328,7 @@ void db1nrm2(final int N, final int INCX, final double THRESH) {
   }
 }
 
-double dxvals(final double XX, final int K) {
+double _dxvals(final double XX, final int K) {
   final Y = huge(XX);
   final Z = Y * Y;
   if (K == 1) {

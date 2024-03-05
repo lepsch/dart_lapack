@@ -778,7 +778,7 @@ void _zchk1(
         // Generate the matrix A.
 
         TRANSL = Complex.zero;
-        zmake(SNAME.substring(1, 3), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU,
+        _zmake(SNAME.substring(1, 3), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU,
             RESET, TRANSL);
 
         for (IC = 1; IC <= 3; IC++) {
@@ -800,7 +800,7 @@ void _zchk1(
             // Generate the vector X.
 
             TRANSL = HALF;
-            zmake('GE', ' ', ' ', 1, NL, X.asMatrix(), 1, XX, INCX.abs(), 0,
+            _zmake('GE', ' ', ' ', 1, NL, X.asMatrix(), 1, XX, INCX.abs(), 0,
                 NL - 1, RESET, TRANSL);
             if (NL > 1) {
               X[NL ~/ 2] = Complex.zero;
@@ -820,7 +820,7 @@ void _zchk1(
                   // Generate the vector Y.
 
                   TRANSL = Complex.zero;
-                  zmake('GE', ' ', ' ', 1, ML, Y.asMatrix(), 1, YY, INCY.abs(),
+                  _zmake('GE', ' ', ' ', 1, ML, Y.asMatrix(), 1, YY, INCY.abs(),
                       0, ML - 1, RESET, TRANSL);
 
                   NC = NC + 1;
@@ -963,7 +963,7 @@ void _zchk1(
       :INCX,
       :BETA,
       :INCY,
-    ) = zregr1(AA.asMatrix(), XX, YY, YS);
+    ) = _zregr1(AA.asMatrix(), XX, YY, YS);
     if (FULL) {
       if (TRACE) {
         NTRA.print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
@@ -1193,7 +1193,7 @@ void _zchk2(
         // Generate the matrix A.
 
         TRANSL = Complex.zero;
-        zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K,
+        _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K,
             RESET, TRANSL);
 
         for (IX = 1; IX <= NINC; IX++) {
@@ -1203,8 +1203,8 @@ void _zchk2(
           // Generate the vector X.
 
           TRANSL = HALF;
-          zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
-              RESET, TRANSL);
+          _zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0,
+              N - 1, RESET, TRANSL);
           if (N > 1) {
             X[N ~/ 2] = Complex.zero;
             XX[1 + INCX.abs() * (N ~/ 2 - 1)] = Complex.zero;
@@ -1223,7 +1223,7 @@ void _zchk2(
                 // Generate the vector Y.
 
                 TRANSL = Complex.zero;
-                zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
+                _zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
                     N - 1, RESET, TRANSL);
 
                 NC = NC + 1;
@@ -1571,7 +1571,7 @@ void _zchk3(
             // Generate the matrix A.
 
             TRANSL = Complex.zero;
-            zmake(SNAME.substring(1, 3), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K,
+            _zmake(SNAME.substring(1, 3), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K,
                 K, RESET, TRANSL);
 
             for (IX = 1; IX <= NINC; IX++) {
@@ -1581,7 +1581,7 @@ void _zchk3(
               // Generate the vector X.
 
               TRANSL = HALF;
-              zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0,
+              _zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0,
                   N - 1, RESET, TRANSL);
               if (N > 1) {
                 X[N ~/ 2] = Complex.zero;
@@ -1974,7 +1974,7 @@ void _zchk4(
         // Generate the vector X.
 
         TRANSL = HALF;
-        zmake('GE', ' ', ' ', 1, M, X.asMatrix(), 1, XX, INCX.abs(), 0, M - 1,
+        _zmake('GE', ' ', ' ', 1, M, X.asMatrix(), 1, XX, INCX.abs(), 0, M - 1,
             RESET, TRANSL);
         if (M > 1) {
           X[M ~/ 2] = Complex.zero;
@@ -1988,8 +1988,8 @@ void _zchk4(
           // Generate the vector Y.
 
           TRANSL = Complex.zero;
-          zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0, N - 1,
-              RESET, TRANSL);
+          _zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
+              N - 1, RESET, TRANSL);
           if (N > 1) {
             Y[N ~/ 2] = Complex.zero;
             YY[1 + INCY.abs() * (N ~/ 2 - 1)] = Complex.zero;
@@ -2001,7 +2001,7 @@ void _zchk4(
             // Generate the matrix A.
 
             TRANSL = Complex.zero;
-            zmake(SNAME.substring(1, 3), ' ', ' ', M, N, A, NMAX, AA, LDA,
+            _zmake(SNAME.substring(1, 3), ' ', ' ', M, N, A, NMAX, AA, LDA,
                 M - 1, N - 1, RESET, TRANSL);
 
             NC = NC + 1;
@@ -2308,7 +2308,7 @@ void _zchk5(
         // Generate the vector X.
 
         TRANSL = HALF;
-        zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
+        _zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
             RESET, TRANSL);
         if (N > 1) {
           X[N ~/ 2] = Complex.zero;
@@ -2323,8 +2323,8 @@ void _zchk5(
           // Generate the matrix A.
 
           TRANSL = Complex.zero;
-          zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1,
-              N - 1, RESET, TRANSL);
+          _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
+              N - 1, N - 1, RESET, TRANSL);
 
           NC = NC + 1;
 
@@ -2651,7 +2651,7 @@ void _zchk6(
         // Generate the vector X.
 
         TRANSL = HALF;
-        zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
+        _zmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
             RESET, TRANSL);
         if (N > 1) {
           X[N ~/ 2] = Complex.zero;
@@ -2665,8 +2665,8 @@ void _zchk6(
           // Generate the vector Y.
 
           TRANSL = Complex.zero;
-          zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0, N - 1,
-              RESET, TRANSL);
+          _zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
+              N - 1, RESET, TRANSL);
           if (N > 1) {
             Y[N ~/ 2] = Complex.zero;
             YY[1 + INCY.abs() * (N ~/ 2 - 1)] = Complex.zero;
@@ -2679,7 +2679,7 @@ void _zchk6(
             // Generate the matrix A.
 
             TRANSL = Complex.zero;
-            zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
+            _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
                 N - 1, N - 1, RESET, TRANSL);
 
             NC += 1;
@@ -2927,309 +2927,309 @@ void _zchke(
     case 1:
       infoc.INFOT = 1;
       zgemv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zgemv('N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       zgemv('N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 6;
       zgemv('N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 8;
       zgemv('N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 11;
       zgemv('N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 2:
       infoc.INFOT = 1;
       zgbmv('/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zgbmv('N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       zgbmv('N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       zgbmv('N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zgbmv('N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 8;
       zgbmv('N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 10;
       zgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 13;
       zgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 3:
       infoc.INFOT = 1;
       zhemv('/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zhemv('U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zhemv('U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       zhemv('U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 10;
       zhemv('U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 4:
       infoc.INFOT = 1;
       zhbmv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zhbmv('U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       zhbmv('U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 6;
       zhbmv('U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 8;
       zhbmv('U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 11;
       zhbmv('U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 5:
       infoc.INFOT = 1;
       zhpmv('/', 0, ALPHA, A.asArray(), X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zhpmv('U', -1, ALPHA, A.asArray(), X, 1, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 6;
       zhpmv('U', 0, ALPHA, A.asArray(), X, 0, BETA, Y, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 9;
       zhpmv('U', 0, ALPHA, A.asArray(), X, 1, BETA, Y, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 6:
       infoc.INFOT = 1;
       ztrmv('/', 'N', 'N', 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       ztrmv('U', '/', 'N', 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       ztrmv('U', 'N', '/', 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       ztrmv('U', 'N', 'N', -1, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 6;
       ztrmv('U', 'N', 'N', 2, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 8;
       ztrmv('U', 'N', 'N', 0, A, 1, X, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 7:
       infoc.INFOT = 1;
       ztbmv('/', 'N', 'N', 0, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       ztbmv('U', '/', 'N', 0, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       ztbmv('U', 'N', '/', 0, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       ztbmv('U', 'N', 'N', -1, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       ztbmv('U', 'N', 'N', 0, -1, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       ztbmv('U', 'N', 'N', 0, 1, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 9;
       ztbmv('U', 'N', 'N', 0, 0, A, 1, X, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 8:
       infoc.INFOT = 1;
       ztpmv('/', 'N', 'N', 0, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       ztpmv('U', '/', 'N', 0, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       ztpmv('U', 'N', '/', 0, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       ztpmv('U', 'N', 'N', -1, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       ztpmv('U', 'N', 'N', 0, A.asArray(), X, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 9:
       infoc.INFOT = 1;
       ztrsv('/', 'N', 'N', 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       ztrsv('U', '/', 'N', 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       ztrsv('U', 'N', '/', 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       ztrsv('U', 'N', 'N', -1, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 6;
       ztrsv('U', 'N', 'N', 2, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 8;
       ztrsv('U', 'N', 'N', 0, A, 1, X, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 10:
       infoc.INFOT = 1;
       ztbsv('/', 'N', 'N', 0, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       ztbsv('U', '/', 'N', 0, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       ztbsv('U', 'N', '/', 0, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       ztbsv('U', 'N', 'N', -1, 0, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       ztbsv('U', 'N', 'N', 0, -1, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       ztbsv('U', 'N', 'N', 0, 1, A, 1, X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 9;
       ztbsv('U', 'N', 'N', 0, 0, A, 1, X, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 11:
       infoc.INFOT = 1;
       ztpsv('/', 'N', 'N', 0, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       ztpsv('U', '/', 'N', 0, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 3;
       ztpsv('U', 'N', '/', 0, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 4;
       ztpsv('U', 'N', 'N', -1, A.asArray(), X, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       ztpsv('U', 'N', 'N', 0, A.asArray(), X, 0);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 12:
       infoc.INFOT = 1;
       zgerc(-1, 0, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zgerc(0, -1, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zgerc(0, 0, ALPHA, X, 0, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       zgerc(0, 0, ALPHA, X, 1, Y, 0, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 9;
       zgerc(2, 0, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 13:
       infoc.INFOT = 1;
       zgeru(-1, 0, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zgeru(0, -1, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zgeru(0, 0, ALPHA, X, 0, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       zgeru(0, 0, ALPHA, X, 1, Y, 0, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 9;
       zgeru(2, 0, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 14:
       infoc.INFOT = 1;
       zher('/', 0, RALPHA, X, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zher('U', -1, RALPHA, X, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zher('U', 0, RALPHA, X, 0, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       zher('U', 2, RALPHA, X, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 15:
       infoc.INFOT = 1;
       zhpr('/', 0, RALPHA, X, 1, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zhpr('U', -1, RALPHA, X, 1, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zhpr('U', 0, RALPHA, X, 0, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 16:
       infoc.INFOT = 1;
       zher2('/', 0, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zher2('U', -1, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zher2('U', 0, ALPHA, X, 0, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       zher2('U', 0, ALPHA, X, 1, Y, 0, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 9;
       zher2('U', 2, ALPHA, X, 1, Y, 1, A, 1);
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       break;
     case 17:
       infoc.INFOT = 1;
       zhpr2('/', 0, ALPHA, X, 1, Y, 1, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 2;
       zhpr2('U', -1, ALPHA, X, 1, Y, 1, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 5;
       zhpr2('U', 0, ALPHA, X, 0, Y, 1, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
       infoc.INFOT = 7;
       zhpr2('U', 0, ALPHA, X, 1, Y, 0, A.asArray());
-      chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+      _chkxer(SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   }
 
   if (infoc.OK.value) {
@@ -3241,7 +3241,7 @@ void _zchke(
   return;
 }
 
-void zmake(
+void _zmake(
   final String TYPE,
   final String UPLO,
   final String DIAG,
@@ -3651,19 +3651,16 @@ Complex _zbeg(final Box<bool> RESET) {
   return Complex((_zbegI - 500) / 1001.0, (_zbegJ - 500) / 1001.0);
 }
 
-double ddiff(
-  final double X,
-  final double Y,
-) {
-  // Auxiliary routine for test program for Level 2 Blas.
+// double _ddiff(final double X, final double Y) {
+//   // Auxiliary routine for test program for Level 2 Blas.
 
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
+//   // -- Written on 10-August-1987.
+//   // Richard Hanson, Sandia National Labs.
 
-  return X - Y;
-}
+//   return X - Y;
+// }
 
-void chkxer(
+void _chkxer(
   String SRNAMT,
   final int INFOT,
   final Nout NOUT,
@@ -3698,7 +3695,7 @@ void chkxer(
   int INCX,
   Complex BETA,
   int INCY,
-}) zregr1(
+}) _zregr1(
   final Matrix<Complex> A_,
   final Array<Complex> X_,
   final Array<Complex> Y_,
