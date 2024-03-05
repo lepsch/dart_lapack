@@ -523,7 +523,7 @@ void main() {
       // expect(a[9], 0);
     });
 
-    test('with new dimention', () {
+    test('with new dimension', () {
       final m = Matrix.fromList([
         List.filled(10, 0),
         List.filled(10, 0),
