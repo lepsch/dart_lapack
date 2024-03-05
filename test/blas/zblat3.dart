@@ -506,7 +506,7 @@ void main() async {
   }
 }
 
-class _ZblatNout extends Nout implements _Dblat2NoutCast {
+class _ZblatNout extends StreamNout implements _Zblat2NoutCast {
   late _MainNout main;
   late _Zchk1Nout _zchk1;
   late _Zchk2Nout _zchk2;
@@ -535,27 +535,20 @@ class _ZblatNout extends Nout implements _Dblat2NoutCast {
       } as T;
 }
 
-abstract interface class _Dblat2NoutCast {
+abstract interface class _Zblat2NoutCast {
   T as<T extends _ZblatNoutBase>();
 }
 
-sealed class _ZblatNoutBase implements Nout, _Dblat2NoutCast {
-  final _ZblatNout _zblatNout;
-
-  const _ZblatNoutBase(this._zblatNout);
-
-  @override
-  void println([String? s]) => _zblatNout.println(s);
+sealed class _ZblatNoutBase extends NoutDelegator<_ZblatNout>
+    implements _Zblat2NoutCast {
+  _ZblatNoutBase(super.nout);
 
   @override
-  Future<void> close() => _zblatNout.close();
-
-  @override
-  T as<T extends _ZblatNoutBase>() => _zblatNout.as<T>();
+  T as<T extends _ZblatNoutBase>() => nout.as<T>();
 }
 
 class _MainNout extends _ZblatNoutBase {
-  _MainNout(super._zblatNout);
+  _MainNout(super.nout);
 
   void print9999(double THRESH) {
     println(

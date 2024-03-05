@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -491,7 +490,7 @@ void main() async {
   }
 }
 
-class _DblatNout extends Nout implements _DblatNoutCast {
+class _DblatNout extends StreamNout implements _DblatNoutCast {
   late _MainNout main;
   late _Dchk1Nout _dchk1;
   late _Dchk2Nout _dchk2;
@@ -527,23 +526,16 @@ abstract interface class _DblatNoutCast {
   T as<T extends _DblatNoutBase>();
 }
 
-sealed class _DblatNoutBase implements Nout, _DblatNoutCast {
-  final _DblatNout _dblatNout;
-
-  const _DblatNoutBase(this._dblatNout);
-
-  @override
-  void println([String? s]) => _dblatNout.println(s);
+sealed class _DblatNoutBase extends NoutDelegator<_DblatNout>
+    implements _DblatNoutCast {
+  const _DblatNoutBase(super.delegatee);
 
   @override
-  Future<void> close() => _dblatNout.close();
-
-  @override
-  T as<T extends _DblatNoutBase>() => _dblatNout.as<T>();
+  T as<T extends _DblatNoutBase>() => nout.as<T>();
 }
 
 class _MainNout extends _DblatNoutBase {
-  _MainNout(super._dblatNout);
+  _MainNout(super.nout);
 
   void print9999(double THRESH) {
     println(

@@ -485,7 +485,7 @@ void main() async {
   }
 }
 
-class _ZblatNout extends Nout implements _ZblatNoutCast {
+class _ZblatNout extends StreamNout implements _ZblatNoutCast {
   late _MainNout main;
   late _Zchk1Nout _zchk1;
   late _Zchk2Nout _zchk2;
@@ -521,23 +521,16 @@ abstract interface class _ZblatNoutCast {
   T as<T extends _ZblatNoutBase>();
 }
 
-sealed class _ZblatNoutBase implements Nout, _ZblatNoutCast {
-  final _ZblatNout _dblatNout;
-
-  const _ZblatNoutBase(this._dblatNout);
-
-  @override
-  void println([String? s]) => _dblatNout.println(s);
+sealed class _ZblatNoutBase extends NoutDelegator<_ZblatNout>
+    implements _ZblatNoutCast {
+  const _ZblatNoutBase(super.nout);
 
   @override
-  Future<void> close() => _dblatNout.close();
-
-  @override
-  T as<T extends _ZblatNoutBase>() => _dblatNout.as<T>();
+  T as<T extends _ZblatNoutBase>() => nout.as<T>();
 }
 
 class _MainNout extends _ZblatNoutBase {
-  _MainNout(super._dblatNout);
+  _MainNout(super.nout);
   void print9999(double THRESH) {
     println(
         ' ROUTINES PASS COMPUTATIONAL TESTS if TEST RATIO IS LESS THAN${THRESH.f8_2}');

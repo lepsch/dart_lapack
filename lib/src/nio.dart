@@ -164,14 +164,37 @@ class Nin {
   }
 }
 
-class Nout {
-  final StreamSink<List<int>> _stream;
-  Nout(this._stream);
+abstract class Nout {
+  factory Nout(StreamSink<List<int>> stream) = StreamNout;
 
+  void println([String? s]);
+
+  Future<void> close();
+}
+
+class StreamNout implements Nout {
+  final StreamSink<List<int>> _stream;
+
+  StreamNout(this._stream);
+
+  @override
   void println([String? s]) {
     s ??= '';
     _stream.add(utf8.encode('$s\n'));
   }
 
+  @override
   Future<void> close() => _stream.close();
+}
+
+class NoutDelegator<T extends Nout> implements Nout {
+  final T nout;
+
+  const NoutDelegator(this.nout);
+
+  @override
+  void println([String? s]) => nout.println(s);
+
+  @override
+  Future<void> close() => nout.close();
 }

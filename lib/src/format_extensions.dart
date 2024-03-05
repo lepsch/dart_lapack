@@ -109,6 +109,7 @@ extension StringFormatExtension on String {
   String get a4 => a(4);
   String get a6 => a(6);
   String get a7 => a(7);
+  String get a9 => a(9);
   String get a10 => a(10);
   String get a15 => a(15);
   String get a17 => a(17);
