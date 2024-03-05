@@ -15,8 +15,8 @@ void ztpttf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final AP = AP_.having()(1, offset: zeroIndexedArrayOffset);
-  final ARF = ARF_.having()(1, offset: zeroIndexedArrayOffset);
+  final AP = AP_.having(offset: zeroIndexedArrayOffset);
+  final ARF = ARF_.having(offset: zeroIndexedArrayOffset);
   bool LOWER, NISODD, NORMALTRANSR;
   int N1, N2, K = 0;
   int I, J, IJ;

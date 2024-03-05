@@ -57,7 +57,6 @@ void zgerfsx(
   final PARAMS = PARAMS_.having();
   final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
   final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
-  const ZERO = 0.0;
   const ITREF_DEFAULT = 1.0;
   const ITHRESH_DEFAULT = 10.0;
   const COMPONENTWISE_DEFAULT = 1.0;
@@ -233,7 +232,7 @@ void zgerfsx(
           WORK,
           RWORK,
           WORK(N + 1),
-          TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N),
+          RWORK.cast<Complex>(),
           RCOND.value,
           ITHRESH,
           RTHRESH,
@@ -264,7 +263,7 @@ void zgerfsx(
           WORK,
           RWORK,
           WORK(N + 1),
-          TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N),
+          RWORK.cast<Complex>(),
           RCOND.value,
           ITHRESH,
           RTHRESH,
@@ -292,8 +291,9 @@ void zgerfsx(
       // Cap the error at 1.0.
 
       if (N_ERR_BNDS >= LA_LINRX_ERR_I &&
-          ERR_BNDS_NORM[J][LA_LINRX_ERR_I] > 1.0)
+          ERR_BNDS_NORM[J][LA_LINRX_ERR_I] > 1.0) {
         ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = 1.0;
+      }
 
       // Threshold the error (see LAWN).
 
@@ -335,16 +335,18 @@ void zgerfsx(
       // Cap the error at 1.0.
 
       if (N_ERR_BNDS >= LA_LINRX_ERR_I &&
-          ERR_BNDS_COMP[J][LA_LINRX_ERR_I] > 1.0)
+          ERR_BNDS_COMP[J][LA_LINRX_ERR_I] > 1.0) {
         ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 1.0;
+      }
 
       // Threshold the error (see LAWN).
 
       if (RCOND_TMP < ILLRCOND_THRESH) {
         ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 1.0;
         ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 0.0;
-        if (PARAMS(LA_LINRX_CWISE_I) == 1.0 && INFO.value < N + J)
+        if (PARAMS[LA_LINRX_CWISE_I] == 1.0 && INFO.value < N + J) {
           INFO.value = N + J;
+        }
       } else if (ERR_BNDS_COMP[J][LA_LINRX_ERR_I] < ERR_LBND) {
         ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = ERR_LBND;
         ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 1.0;

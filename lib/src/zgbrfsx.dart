@@ -59,7 +59,6 @@ void zgbrfsx(
   final PARAMS = PARAMS_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-  const ZERO = 0.0;
   const ITREF_DEFAULT = 1.0;
   const ITHRESH_DEFAULT = 10.0;
   const COMPONENTWISE_DEFAULT = 1.0;
@@ -242,7 +241,7 @@ void zgbrfsx(
           WORK,
           RWORK,
           WORK(N + 1),
-          TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N),
+          RWORK.cast<Complex>(),
           RCOND.value,
           ITHRESH,
           RTHRESH,
@@ -275,7 +274,9 @@ void zgbrfsx(
           WORK,
           RWORK,
           WORK(N + 1),
-          TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N), RCOND.value, ITHRESH,
+          RWORK.cast<Complex>(),
+          RCOND.value,
+          ITHRESH,
           RTHRESH,
           UNSTABLE_THRESH,
           IGNORE_CWISE,

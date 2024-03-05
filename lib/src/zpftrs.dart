@@ -17,7 +17,7 @@ void zpftrs(
   final int LDB,
   final Box<int> INFO,
 ) {
-  final A = A_.having()(1, offset: zeroIndexedArrayOffset);
+  final A = A_.having(offset: zeroIndexedArrayOffset);
   final B = B_.having(ld: LDB);
 
 // -- LAPACK computational routine --

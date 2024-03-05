@@ -54,7 +54,6 @@ void zsyrfsx(
   final S = S_.having();
   final BERR = BERR_.having();
   final PARAMS = PARAMS_.having();
-  const ZERO = 0.0;
   const ITREF_DEFAULT = 1.0;
   const ITHRESH_DEFAULT = 10.0;
   const COMPONENTWISE_DEFAULT = 1.0;
@@ -221,7 +220,7 @@ void zsyrfsx(
         WORK,
         RWORK,
         WORK(N + 1),
-        TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N),
+        RWORK.cast<Complex>(),
         RCOND.value,
         ITHRESH,
         RTHRESH,

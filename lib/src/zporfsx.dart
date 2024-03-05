@@ -52,7 +52,6 @@ void zporfsx(
   final PARAMS = PARAMS_.having();
   final ERR_BNDS_NORM = ERR_BNDS_NORM_.having(ld: NRHS);
   final ERR_BNDS_COMP = ERR_BNDS_COMP_.having(ld: NRHS);
-  const ZERO = 0.0;
   const ITREF_DEFAULT = 1.0;
   const ITHRESH_DEFAULT = 10.0;
   const COMPONENTWISE_DEFAULT = 1.0;
@@ -218,7 +217,7 @@ void zporfsx(
         WORK,
         RWORK,
         WORK(N + 1),
-        TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N),
+        RWORK.cast<Complex>(),
         RCOND.value,
         ITHRESH,
         RTHRESH,
