@@ -388,7 +388,6 @@ void zgesvdq(
     // ell-infinity norm - this enhances numerical robustness in
     // the case of differently scaled rows.
     for (p = 1; p <= M; p++) {
-      // 1904
       // RWORK[p] = ABS( A(p,IZAMAX(N,A[p][1],LDA)) )
       // [[zlange will return NaN if an entry of the p-th row is Nan]]
       RWORK[p] = zlange('M', 1, N, A(p, 1), LDA, RDUMMY);
@@ -398,9 +397,8 @@ void zgesvdq(
         xerbla('ZGESVDQ', -INFO.value);
         return;
       }
-    } // 1904
+    }
     for (p = 1; p <= M - 1; p++) {
-      // 1952
       q = idamax(M - p + 1, RWORK(p), 1) + p - 1;
       IWORK[N + p] = q;
       if (p != q) {
@@ -408,7 +406,7 @@ void zgesvdq(
         RWORK[p] = RWORK[q];
         RWORK[q] = RTMP.value;
       }
-    } // 1952
+    }
 
     if (RWORK[1] == ZERO) {
       // Quick return: A is the M x N zero matrix.
@@ -422,14 +420,12 @@ void zgesvdq(
         zlaset('G', M, N, Complex.zero, Complex.one, U, LDU);
       }
       for (p = 1; p <= N; p++) {
-        // 5001
         IWORK[p] = p;
-      } // 5001
+      }
       if (ROWPRM) {
         for (p = N + 1; p <= N + M - 1; p++) {
-          // 5002
           IWORK[p] = p - N;
-        } // 5002
+        }
       }
       if (CONDA) RWORK[1] = -1;
       RWORK[2] = -1;
@@ -445,10 +441,10 @@ void zgesvdq(
     zlaswp(N, A, LDA, 1, M - 1, IWORK(N + 1), 1);
   }
 
-// .. At this stage, preemptive scaling is done only to avoid column
-// norms overflows during the QR factorization. The SVD procedure should
-// have its own scaling to save the singular values from overflows and
-// underflows. That depends on the SVD procedure.
+  // .. At this stage, preemptive scaling is done only to avoid column
+  // norms overflows during the QR factorization. The SVD procedure should
+  // have its own scaling to save the singular values from overflows and
+  // underflows. That depends on the SVD procedure.
 
   if (!ROWPRM) {
     RTMP.value = zlange('M', M, N, A, LDA, RWORK);
@@ -471,10 +467,9 @@ void zgesvdq(
   //             [ 0 ]
 
   for (p = 1; p <= N; p++) {
-    // 1963
     // .. all columns are free columns
     IWORK[p] = 0;
-  } // 1963
+  }
   zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N + 1), LCWORK - N, RWORK, IERR);
 
   // If the user requested accuracy level allows truncation in the
@@ -494,10 +489,9 @@ void zgesvdq(
     NR = 1;
     RTMP.value = sqrt(N.toDouble()) * EPSLN;
     for (p = 2; p <= N; p++) {
-      // 3001
       if ((A[p][p]).abs() < (RTMP.value * (A[1][1]).abs())) break;
       NR = NR + 1;
-    } // 3001
+    }
   } else if (ACCLM) {
     // .. similarly as above, only slightly more gentle (less aggressive).
     // Sudden drop on the diagonal of R is used as the criterion for being
@@ -507,11 +501,10 @@ void zgesvdq(
     // will be truncated.
     NR = 1;
     for (p = 2; p <= N; p++) {
-      // 3401
       if (((A[p][p]).abs() < (EPSLN * (A[p - 1][p - 1]).abs())) ||
           ((A[p][p]).abs() < SFMIN)) break;
       NR = NR + 1;
-    } // 3401
+    }
   } else {
     // .. RRQR not authorized to determine numerical rank except in the
     // obvious case of zero pivots.
@@ -519,10 +512,9 @@ void zgesvdq(
     // R(i,i)=0 => R(i:N,i:N)=0.
     NR = 1;
     for (p = 2; p <= N; p++) {
-      // 3501
       if ((A[p][p]).abs() == ZERO) break;
       NR = NR + 1;
-    } // 3501
+    }
 
     if (CONDA) {
       // Estimate the scaled condition number of A. Use the fact that it is
@@ -535,10 +527,9 @@ void zgesvdq(
       // expert level and obtain useful information in the sense of
       // perturbation theory.
       for (p = 1; p <= NR; p++) {
-        // 3053
         RTMP.value = dznrm2(p, V(1, p).asArray(), 1);
         zdscal(p, ONE / RTMP.value, V(1, p).asArray(), 1);
-      } // 3053
+      }
       if (!(LSVEC || RSVEC)) {
         zpocon('U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR);
       } else {
@@ -568,42 +559,40 @@ void zgesvdq(
       //   .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
       //   the upper triangle of [A] to zero.
       for (p = 1; p <= min(N, NR); p++) {
-        // 1146
         A[p][p] = A[p][p].conjugate();
         for (q = p + 1; q <= N; q++) {
-          // 1147
           A[q][p] = A[p][q].conjugate();
           if (q <= NR) A[p][q] = Complex.zero;
-        } // 1147
-      } // 1146
+        }
+      }
 
       zgesvd('N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK,
           INFO);
     } else {
       // .. compute the singular values of R = [A](1:NR,1:N)
 
-      if (NR > 1)
+      if (NR > 1) {
         zlaset('L', NR - 1, NR - 1, Complex.zero, Complex.zero, A(2, 1), LDA);
+      }
       zgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK,
           INFO);
     }
   } else if (LSVEC && (!RSVEC)) {
-// .......................................................................
+    // .......................................................................
     // .. the singular values and the left singular vectors requested
-// .......................................................................""""""""
+    // .......................................................................
     if (RTRANS) {
       // .. apply ZGESVD to R**H
       // .. copy R**H into [U] and overwrite [U] with the right singular
       // vectors of R
       for (p = 1; p <= NR; p++) {
-        // 1192
         for (q = p; q <= N; q++) {
-          // 1193
           U[q][p] = A[p][q].conjugate();
-        } // 1193
-      } // 1192
-      if (NR > 1)
+        }
+      }
+      if (NR > 1) {
         zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, U(1, 2), LDU);
+      }
       // .. the left singular vectors not computed, the NR right singular
       // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
       // will be pre-multiplied by Q to build the left singular vectors of A.
@@ -611,21 +600,20 @@ void zgesvdq(
           LCWORK - N, RWORK, INFO);
 
       for (p = 1; p <= NR; p++) {
-        // 1119
         U[p][p] = U[p][p].conjugate();
         for (q = p + 1; q <= NR; q++) {
-          // 1120
           CTMP = U[q][p].conjugate();
           U[q][p] = U[p][q].conjugate();
           U[p][q] = CTMP;
-        } // 1120
-      } // 1119
+        }
+      }
     } else {
       // .. apply ZGESVD to R
       // .. copy R into [U] and overwrite [U] with the left singular vectors
       zlacpy('U', NR, N, A, LDA, U, LDU);
-      if (NR > 1)
+      if (NR > 1) {
         zlaset('L', NR - 1, NR - 1, Complex.zero, Complex.zero, U(2, 1), LDU);
+      }
       // .. the right singular vectors not computed, the NR left singular
       // vectors overwrite [U](1:NR,1:NR)
       zgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N + 1),
@@ -649,26 +637,26 @@ void zgesvdq(
     // The Q matrix from the first QRF is built into the left singular
     // vectors matrix U.
 
-    if (!WNTUF)
+    if (!WNTUF) {
       zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N + 1),
           LCWORK - N, IERR);
+    }
     if (ROWPRM && !WNTUF) zlaswp(N1, U, LDU, 1, M - 1, IWORK(N + 1), -1);
   } else if (RSVEC && (!LSVEC)) {
-// .......................................................................
+    // .......................................................................
     // .. the singular values and the right singular vectors requested
-// .......................................................................
+    // .......................................................................
     if (RTRANS) {
       // .. apply ZGESVD to R**H
       // .. copy R**H into V and overwrite V with the left singular vectors
       for (p = 1; p <= NR; p++) {
-        // 1165
         for (q = p; q <= N; q++) {
-          // 1166
           V[q][p] = A[p][q].conjugate();
-        } // 1166
-      } // 1165
-      if (NR > 1)
+        }
+      }
+      if (NR > 1) {
         zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
+      }
       // .. the left singular vectors of R**H overwrite V, the right singular
       // vectors not computed
       if (WNTVR || (NR == N)) {
@@ -676,24 +664,20 @@ void zgesvdq(
             LCWORK - N, RWORK, INFO);
 
         for (p = 1; p <= NR; p++) {
-          // 1121
           V[p][p] = V[p][p].conjugate();
           for (q = p + 1; q <= NR; q++) {
-            // 1122
             CTMP = V[q][p].conjugate();
             V[q][p] = V[p][q].conjugate();
             V[p][q] = CTMP;
-          } // 1122
-        } // 1121
+          }
+        }
 
         if (NR < N) {
           for (p = 1; p <= NR; p++) {
-            // 1103
             for (q = NR + 1; q <= N; q++) {
-              // 1104
               V[p][q] = V[q][p].conjugate();
-            } // 1104
-          } // 1103
+            }
+          }
         }
         zlapmt(false, NR, N, V, LDV, IWORK);
       } else {
@@ -707,23 +691,22 @@ void zgesvdq(
             LCWORK - N, RWORK, INFO);
 
         for (p = 1; p <= N; p++) {
-          // 1123
           V[p][p] = V[p][p].conjugate();
           for (q = p + 1; q <= N; q++) {
-            // 1124
             CTMP = V[q][p].conjugate();
             V[q][p] = V[p][q].conjugate();
             V[p][q] = CTMP;
-          } // 1124
-        } // 1123
+          }
+        }
         zlapmt(false, N, N, V, LDV, IWORK);
       }
     } else {
       // .. aply ZGESVD to R
       // .. copy R into V and overwrite V with the right singular vectors
       zlacpy('U', NR, N, A, LDA, V, LDV);
-      if (NR > 1)
+      if (NR > 1) {
         zlaset('L', NR - 1, NR - 1, Complex.zero, Complex.zero, V(2, 1), LDV);
+      }
       // .. the right singular vectors overwrite V, the NR left singular
       // vectors stored in U[1:NR][1:NR]
       if (WNTVR || (NR == N)) {
@@ -746,9 +729,9 @@ void zgesvdq(
       // vectors of A.
     }
   } else {
-// .......................................................................
+    // .......................................................................
     // .. FULL SVD requested
-// .......................................................................
+    // .......................................................................
     if (RTRANS) {
       // .. apply ZGESVD to R**H [[this option is left for R&D&T]]
 
@@ -756,14 +739,13 @@ void zgesvdq(
         // .. copy R**H into [V] and overwrite [V] with the left singular
         // vectors of R**H
         for (p = 1; p <= NR; p++) {
-          // 1168
           for (q = p; q <= N; q++) {
-            // 1169
             V[q][p] = A[p][q].conjugate();
-          } // 1169
-        } // 1168
-        if (NR > 1)
+          }
+        }
+        if (NR > 1) {
           zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
+        }
 
         // .. the left singular vectors of R**H overwrite [V], the NR right
         // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
@@ -772,36 +754,30 @@ void zgesvdq(
             LCWORK - N, RWORK, INFO);
         // .. assemble V
         for (p = 1; p <= NR; p++) {
-          // 1115
           V[p][p] = V[p][p].conjugate();
           for (q = p + 1; q <= NR; q++) {
-            // 1116
             CTMP = V[q][p].conjugate();
             V[q][p] = V[p][q].conjugate();
             V[p][q] = CTMP;
-          } // 1116
-        } // 1115
+          }
+        }
         if (NR < N) {
           for (p = 1; p <= NR; p++) {
-            // 1101
             for (q = NR + 1; q <= N; q++) {
-              // 1102
               V[p][q] = V[q][p].conjugate();
-            } // 1102
-          } // 1101
+            }
+          }
         }
         zlapmt(false, NR, N, V, LDV, IWORK);
 
         for (p = 1; p <= NR; p++) {
-          // 1117
           U[p][p] = U[p][p].conjugate();
           for (q = p + 1; q <= NR; q++) {
-            // 1118
             CTMP = U[q][p].conjugate();
             U[q][p] = U[p][q].conjugate();
             U[p][q] = CTMP;
-          } // 1118
-        } // 1117
+          }
+        }
 
         if ((NR < M) && !(WNTUF)) {
           zlaset(
@@ -825,44 +801,39 @@ void zgesvdq(
         OPTRATIO = 2;
         if (OPTRATIO * NR > N) {
           for (p = 1; p <= NR; p++) {
-            // 1198
             for (q = p; q <= N; q++) {
-              // 1199
               V[q][p] = A[p][q].conjugate();
-            } // 1199
-          } // 1198
-          if (NR > 1)
+            }
+          }
+          if (NR > 1) {
             zlaset(
                 'U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
+          }
 
           zlaset('A', N, N - NR, Complex.zero, Complex.zero, V(1, NR + 1), LDV);
           zgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N + 1),
               LCWORK - N, RWORK, INFO);
 
           for (p = 1; p <= N; p++) {
-            // 1113
             V[p][p] = V[p][p].conjugate();
             for (q = p + 1; q <= N; q++) {
-              // 1114
               CTMP = V[q][p].conjugate();
               V[q][p] = V[p][q].conjugate();
               V[p][q] = CTMP;
-            } // 1114
-          } // 1113
+            }
+          }
           zlapmt(false, N, N, V, LDV, IWORK);
           // .. assemble the left singular vector matrix U of dimensions
           // (M x N1), i.e. (M x N) or (M x M).
 
           for (p = 1; p <= N; p++) {
-            // 1111
             U[p][p] = U[p][p].conjugate();
             for (q = p + 1; q <= N; q++) {
-              // 1112
               CTMP = U[q][p].conjugate();
               U[q][p] = U[p][q].conjugate();
               U[p][q] = CTMP;
-            } // 1112
-          } // 1111
+            }
+          }
 
           if ((N < M) && !(WNTUF)) {
             zlaset('A', M - N, N, Complex.zero, Complex.zero, U(N + 1, 1), LDU);
@@ -877,24 +848,21 @@ void zgesvdq(
           // .. copy R**H into [U] and overwrite [U] with the right
           // singular vectors of R
           for (p = 1; p <= NR; p++) {
-            // 1196
             for (q = p; q <= N; q++) {
-              // 1197
               U[q][NR + p] = A[p][q].conjugate();
-            } // 1197
-          } // 1196
-          if (NR > 1)
+            }
+          }
+          if (NR > 1) {
             zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero,
                 U(1, NR + 2), LDU);
+          }
           zgeqrf(N, NR, U(1, NR + 1), LDU, CWORK(N + 1), CWORK(N + NR + 1),
               LCWORK - N - NR, IERR);
           for (p = 1; p <= NR; p++) {
-            // 1143
             for (q = 1; q <= N; q++) {
-              // 1144
               V[q][p] = U[p][NR + q].conjugate();
-            } // 1144
-          } // 1143
+            }
+          }
           zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
           zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N + NR + 1),
               LCWORK - N - NR, RWORK, INFO);
@@ -927,8 +895,9 @@ void zgesvdq(
       if (WNTVR || (NR == N)) {
         // .. copy R into [V] and overwrite V with the right singular vectors
         zlacpy('U', NR, N, A, LDA, V, LDV);
-        if (NR > 1)
+        if (NR > 1) {
           zlaset('L', NR - 1, NR - 1, Complex.zero, Complex.zero, V(2, 1), LDV);
+        }
         // .. the right singular vectors of R overwrite [V], the NR left
         // singular vectors of R stored in [U](1:NR,1:NR)
         zgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N + 1),
@@ -959,9 +928,10 @@ void zgesvdq(
         OPTRATIO = 2;
         if (OPTRATIO * NR > N) {
           zlacpy('U', NR, N, A, LDA, V, LDV);
-          if (NR > 1)
+          if (NR > 1) {
             zlaset(
                 'L', NR - 1, NR - 1, Complex.zero, Complex.zero, V(2, 1), LDV);
+          }
           // .. the right singular vectors of R overwrite [V], the NR left
           //    singular vectors of R stored in [U](1:NR,1:NR)
           zlaset('A', N - NR, N, Complex.zero, Complex.zero, V(NR + 1, 1), LDV);
@@ -984,15 +954,17 @@ void zgesvdq(
           }
         } else {
           zlacpy('U', NR, N, A, LDA, U(NR + 1, 1), LDU);
-          if (NR > 1)
+          if (NR > 1) {
             zlaset('L', NR - 1, NR - 1, Complex.zero, Complex.zero,
                 U(NR + 2, 1), LDU);
+          }
           zgelqf(NR, N, U(NR + 1, 1), LDU, CWORK(N + 1), CWORK(N + NR + 1),
               LCWORK - N - NR, IERR);
           zlacpy('L', NR, NR, U(NR + 1, 1), LDU, V, LDV);
-          if (NR > 1)
+          if (NR > 1) {
             zlaset(
                 'U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
+          }
           zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N + NR + 1),
               LCWORK - N - NR, RWORK, INFO);
           zlaset(
@@ -1024,9 +996,10 @@ void zgesvdq(
     // The Q matrix from the first QRF is built into the left singular
     // vectors matrix U.
 
-    if (!WNTUF)
+    if (!WNTUF) {
       zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N + 1),
           LCWORK - N, IERR);
+    }
     if (ROWPRM && !WNTUF) zlaswp(N1, U, LDU, 1, M - 1, IWORK(N + 1), -1);
 
     // ... end of the "full SVD" branch
@@ -1036,10 +1009,9 @@ void zgesvdq(
   // due to underflow, and update the numerical rank.
   p = NR;
   for (q = p; q >= 1; q--) {
-    // 4001
     if (S[q] > ZERO) break;
     NR = NR - 1;
-  } // 4001
+  }
   // } // 4002x
 
   // .. if numerical rank deficiency is detected, the truncated
@@ -1047,8 +1019,9 @@ void zgesvdq(
   if (NR < N) dlaset('G', N - NR, 1, ZERO, ZERO, S(NR + 1).asMatrix(N), N);
   // .. undo scaling; this may cause overflow in the largest singular
   // values.
-  if (ASCALED)
+  if (ASCALED) {
     dlascl('G', 0, 0, ONE, sqrt(M.toDouble()), NR, 1, S.asMatrix(N), N, IERR);
+  }
   if (CONDA) RWORK[1] = SCONDA;
   RWORK[2] = (p - NR).toDouble();
   // .. p-NR is the number of singular values that are computed as

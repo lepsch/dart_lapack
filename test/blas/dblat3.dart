@@ -3226,17 +3226,17 @@ double _dbeg(final Box<bool> RESET) {
   return (_dbegI - 500) / 1001.0;
 }
 
-double _ddiff(final double X, final double Y) {
-  // Auxiliary routine for test program for Level 3 Blas.
+// double _ddiff(final double X, final double Y) {
+//   // Auxiliary routine for test program for Level 3 Blas.
 
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
+//   // -- Written on 8-February-1989.
+//   // Jack Dongarra, Argonne National Laboratory.
+//   // Iain Duff, AERE Harwell.
+//   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
+//   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-  return X - Y;
-}
+//   return X - Y;
+// }
 
 void _chkxer(
     String SRNAMT, int INFOT, Nout NOUT, Box<bool> LERR, Box<bool> OK) {

@@ -152,9 +152,10 @@ void zgglse(
 
   if (M < N) {
     NR = M + P - N;
-    if (NR > 0)
+    if (NR > 0) {
       zgemv('No transpose', NR, N - M, -Complex.one, A(N - P + 1, M + 1), LDA,
           D(NR + 1), 1, Complex.one, C(N - P + 1), 1);
+    }
   } else {
     NR = P;
   }

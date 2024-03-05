@@ -753,22 +753,29 @@ void zbbcsd(
       THETA[I] = THETAMIN;
       if (COLMAJOR) {
         if (WANTU1) zswap(P, U1(1, I).asArray(), 1, U1(1, MINI).asArray(), 1);
-        if (WANTU2)
+        if (WANTU2) {
           zswap(M - P, U2(1, I).asArray(), 1, U2(1, MINI).asArray(), 1);
-        if (WANTV1T)
+        }
+        if (WANTV1T) {
           zswap(Q, V1T(I, 1).asArray(), LDV1T, V1T(MINI, 1).asArray(), LDV1T);
-        if (WANTV2T)
+        }
+        if (WANTV2T) {
           zswap(
               M - Q, V2T(I, 1).asArray(), LDV2T, V2T(MINI, 1).asArray(), LDV2T);
+        }
       } else {
-        if (WANTU1)
+        if (WANTU1) {
           zswap(P, U1(I, 1).asArray(), LDU1, U1(MINI, 1).asArray(), LDU1);
-        if (WANTU2)
+        }
+        if (WANTU2) {
           zswap(M - P, U2(I, 1).asArray(), LDU2, U2(MINI, 1).asArray(), LDU2);
-        if (WANTV1T)
+        }
+        if (WANTV1T) {
           zswap(Q, V1T(1, I).asArray(), 1, V1T(1, MINI).asArray(), 1);
-        if (WANTV2T)
+        }
+        if (WANTV2T) {
           zswap(M - Q, V2T(1, I).asArray(), 1, V2T(1, MINI).asArray(), 1);
+        }
       }
     }
   }
