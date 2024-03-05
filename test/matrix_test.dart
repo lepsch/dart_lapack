@@ -175,6 +175,17 @@ void main() {
       expect(a[3], Complex(3, 4));
       expect(a[4], Complex(4, 5));
     });
+
+    test('having', () {
+      final a = Array.fromList([1, 2, 3, 4]);
+      final b = a.having(offset: -10);
+      expect([b[10], b[11], b[12], b[13]], [1, 2, 3, 4]);
+      final c = b.having(length: 2);
+      expect(a.length, 4);
+      expect(c.length, 2);
+      expect(c.first, 1);
+      expect(c[10], 1);
+    });
   });
 
   group('Matrix', () {
@@ -589,6 +600,56 @@ void main() {
         }
       }
     });
+
+    test('having', () {
+      final m1 = Matrix.fromList([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ]);
+
+      expect(
+        m1,
+        MatrixEquals([
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+        ]),
+      );
+
+      final m2 = m1.having(offset: zeroIndexedMatrixOffset);
+      m2.first = 999;
+      expect(m2[0][0], 999);
+      expect(m2[0][1], 2);
+      expect(m2[1][0], 4);
+
+      expect(m1[1][1], 999); // `having` should get a new reference
+
+      // `ld` less than original
+      final m3 = m1.having(ld: 2, offset: zeroIndexedMatrixOffset);
+
+      expect(
+        m3,
+        MatrixEquals([
+          [999, 7, 5, 3],
+          [4, 2, 8, 6],
+        ]),
+      );
+
+      // `ld` greater than original
+      final m4 = m1.having(ld: 4);
+      expect(m4[1][1], 999);
+
+      expect(
+        m4,
+        MatrixEquals([
+          [999, 5],
+          [4, 8],
+          [7, 3],
+          [2, 6],
+        ]),
+      );
+    });
   });
 
   group('Matrix3d', () {
@@ -693,6 +754,25 @@ void main() {
     });
   });
 }
+
+class MatrixEquals<T> extends CustomMatcher {
+  MatrixEquals(List<List<T>> expected)
+      : super('Complex with', 'complex', [
+          for (var i = 0; i < expected.length; i++)
+            equals(
+                [for (var j = 0; j < expected[i].length; j++) expected[i][j]])
+        ]);
+
+  @override
+  Object? featureValueOf(dynamic actual) => [
+        for (var i = 0; i < (actual as Matrix<T>).dimensions.$1; i++)
+          [
+            for (var j = 0; j < actual.dimensions.$2; j++)
+              actual[i - actual.offset.y][j - actual.offset.x]
+          ]
+      ];
+}
+
 
 /*
 The program:

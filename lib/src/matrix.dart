@@ -52,6 +52,12 @@ abstract interface class Array<T> implements Box<T> {
 
   Array<T> dim([int? ld]);
 
+  Array<T> having({int? length, int? offset});
+
+  int get offset;
+
+  int get length;
+
   T get first;
 
   set first(T value);
@@ -145,6 +151,7 @@ const defaultMatrixIndexer = columnIndexed;
 class Matrix<T> implements Box<T> {
   final Array<T> _entries;
   final (int, int) _strides;
+  final (int, int) dimensions;
   final ({int x, int y}) offset;
   final MatrixIndexer _indexer;
 
@@ -155,7 +162,8 @@ class Matrix<T> implements Box<T> {
     int n, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : _strides = (m, 1),
+  })  : dimensions = (m, n),
+        _strides = (m, 1),
         _indexer = indexer,
         _entries = _Array<T>(m * n, offset: 0);
 
@@ -169,28 +177,32 @@ class Matrix<T> implements Box<T> {
           ],
         ], offset: 0),
         _indexer = indexer,
+        dimensions = (list.length, (list.firstOrNull ?? []).length),
         _strides = (list.length, 1);
 
   Matrix.fromData(
     List<T> data,
-    (int, int) dimensions, {
+    this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : _entries = Array.fromData(data, offset: 0),
+  })  : assert(dimensions.$1 * dimensions.$2 >= data.length),
+        _entries = Array.fromData(data, offset: 0),
         _indexer = indexer,
         _strides = (dimensions.$1, 1);
 
   Matrix.fromSlice(
     Array<T> entries,
-    (int, int) dimensions, {
+    this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : _entries = _Array._(entries.toData(), offset: 0),
+  })  : assert(dimensions.$1 * dimensions.$2 >= entries.length),
+        _entries = _Array._(entries.toData(), offset: 0),
         _strides = (dimensions.$1, 1),
         _indexer = indexer;
 
   Matrix._(
     this._entries,
+    this.dimensions,
     this._strides, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
@@ -210,6 +222,7 @@ class Matrix<T> implements Box<T> {
 
     return Matrix._(
       entries,
+      (ld ?? this.ld, dimensions.$2),
       (ld ?? this.ld, 1),
       offset: offset ?? this.offset,
       indexer: _indexer,
@@ -234,10 +247,24 @@ class Matrix<T> implements Box<T> {
 
   Matrix<T> dim(int ld, {({int x, int y})? offset}) => Matrix._(
         _entries,
+        (ld, dimensions.$2),
         (ld, 1),
         offset: offset ?? this.offset,
         indexer: _indexer,
       );
+
+  Matrix<T> having({int? ld, ({int x, int y})? offset}) => Matrix._(
+        _entries,
+        (
+          ld ?? this.dimensions.$1,
+          ld != null ? length ~/ ld : this.dimensions.$2
+        ),
+        (ld ?? this._strides.$1, this._strides.$2),
+        offset: offset ?? this.offset,
+        indexer: _indexer,
+      );
+
+  int get length => _entries.length;
 
   @override
   T get value => first;
@@ -256,7 +283,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   Array<T> slice(int j, {int? offset}) {
     final slice = _m(i, j);
     return Array.fromSlice(slice._entries.toData(),
-        offset: offset ?? _m.offset.x);
+        offset: offset ?? this.offset);
   }
 
   @override
@@ -282,6 +309,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   Matrix<T> asMatrix([int? ld]) {
     return Matrix._(
       _Array._(getEntries().toData(), offset: 0),
+      ld != null ? (ld, _m.dimensions.$2) : _m.dimensions,
       ld != null ? (ld, 1) : _m._strides,
       offset: _m.offset,
     );
@@ -301,6 +329,21 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   Array<T> dim([int? ld]) => getEntries().dim(ld);
 
   @override
+  Array<T> having({int? length, int? offset}) {
+    final entries = getEntries();
+    return entries.having(
+      length: length,
+      offset: offset ?? this.offset,
+    );
+  }
+
+  @override
+  int get offset => _m.offset.x;
+
+  @override
+  int get length => getEntries().length;
+
+  @override
   T get value => first;
 
   @override
@@ -314,10 +357,11 @@ class _MatrixArrayAdapter<T> implements Array<T> {
 }
 
 class _Array<T> implements Array<T> {
+  @override
   final int offset;
   final List<T> _elements;
 
-  _Array._(
+  const _Array._(
     this._elements, {
     this.offset = oneIndexedArrayOffset,
   });
@@ -345,23 +389,37 @@ class _Array<T> implements Array<T> {
   Array<T> slice(int index, {int? offset}) =>
       _slice(index, offset: offset ?? this.offset);
 
-  _Array<T> _slice(int index, {int? offset}) {
+  _Array<T> _slice(int index, {int? offset, int? length}) {
     return _Array._(
       switch (T) {
         double => (_elements as Float64List).buffer.asFloat64List(
               (_elements as Float64List).offsetInBytes +
                   (index + this.offset) *
                       (_elements as Float64List).elementSizeInBytes,
+              length,
             ),
         int => (_elements as Int64List).buffer.asInt64List(
               (_elements as Int64List).offsetInBytes +
                   (index + this.offset) *
                       (_elements as Int64List).elementSizeInBytes,
+              length,
             ),
-        Complex => (_elements as Complex64List).slice(index + this.offset),
+        Complex =>
+          (_elements as Complex64List).slice(index + this.offset, length),
         bool => _elements is ListSlice
-            ? _elements.slice(index + this.offset, _elements.length)
-            : ListSlice(_elements, index + this.offset, _elements.length),
+            ? _elements.slice(
+                index + this.offset,
+                length != null
+                    ? index + this.offset + length
+                    : _elements.length,
+              )
+            : ListSlice(
+                _elements,
+                index + this.offset,
+                length != null
+                    ? index + this.offset + length
+                    : _elements.length,
+              ),
         _ => throw UnimplementedError(),
       } as List<T>,
       offset: offset ?? this.offset,
@@ -397,6 +455,7 @@ class _Array<T> implements Array<T> {
   Matrix<T> asMatrix([int ld = 0]) {
     return Matrix._(
       _Array._(_elements, offset: 0),
+      (ld, ld == 0 ? 0 : length ~/ ld),
       (ld, 1),
       offset: (x: offset, y: offset),
     );
@@ -404,6 +463,18 @@ class _Array<T> implements Array<T> {
 
   @override
   Array<T> dim([int? ld]) => _slice(-offset, offset: offset);
+
+  @override
+  Array<T> having({int? length, int? offset}) {
+    return _slice(
+      -this.offset,
+      offset: offset ?? this.offset,
+      length: length,
+    );
+  }
+
+  @override
+  int get length => _elements.length;
 
   @override
   T get value => first;
@@ -434,6 +505,7 @@ class _ArrayElementBox<T> implements Box<T> {
 
 class Matrix3d<T> {
   final Array<T> _entries;
+  final (int, int, int) dimensions;
   final (int, int, int) _strides;
   final ({int x, int y, int z}) offset;
 
@@ -442,7 +514,8 @@ class Matrix3d<T> {
     int n,
     int o, {
     this.offset = oneIndexedMatrix3dOffset,
-  })  : _strides = (m, n, 1),
+  })  : dimensions = (m, n, o),
+        _strides = (m, n, 1),
         _entries = _Array<T>(m * n * o, offset: 0);
 
   Matrix3d.fromList(
@@ -460,21 +533,35 @@ class Matrix3d<T> {
           ],
           offset: 0,
         ),
+        dimensions = (
+          list.length,
+          list[0].length,
+          (list.firstOrNull?.firstOrNull ?? []).length,
+        ),
         _strides = (list.length, list[0].length, 1);
 
   Matrix3d.fromData(
     List<T> data,
-    (int, int, int) dimensions, {
+    this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
-  })  : _entries = _Array<T>.fromList(data, offset: 0),
+  })  : assert(data.length >= dimensions.$1 * dimensions.$2 * dimensions.$3),
+        _entries = _Array<T>.fromList(data, offset: 0),
         _strides = (dimensions.$1, dimensions.$2, 1);
 
   Matrix3d.fromSlice(
     Array<T> entries,
-    (int, int, int) dimensions, {
+    this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
-  })  : _entries = _Array._(entries.toData(), offset: 0),
+  })  : assert(entries.length >= dimensions.$1 * dimensions.$2 * dimensions.$3),
+        _entries = _Array._(entries.toData(), offset: 0),
         _strides = (dimensions.$1, dimensions.$2, 1);
+
+  Matrix3d._(
+    this._entries,
+    this.dimensions,
+    this._strides,
+    this.offset,
+  );
 
   Matrix3d<T> call(
     int i,
@@ -489,7 +576,7 @@ class Matrix3d<T> {
             (j + this.offset.y) * ld1 +
             (k + this.offset.z) * ld2 * ld1,
         offset: 0);
-    return Matrix3d.fromSlice(entries, _strides, offset: offset);
+    return Matrix3d.fromSlice(entries, dimensions, offset: offset);
   }
 
   Matrix<T> operator [](int i) {
@@ -497,6 +584,7 @@ class Matrix3d<T> {
     final ld2 = _strides.$2;
     return Matrix._(
       _entries(i + offset.x, offset: 0),
+      (ld2, ld1),
       (ld2, ld1),
       offset: (x: offset.y, y: offset.z),
     );
@@ -509,4 +597,20 @@ class Matrix3d<T> {
   Box<T> box(int i, int j, int k) => this[i][j].box(k);
 
   Array<T> asArray() => _Array._(_entries.toData(), offset: offset.x);
+
+  Matrix3d<T> having({(int, int)? ld, ({int x, int y, int z})? offset}) =>
+      Matrix3d._(
+        _entries,
+        (
+          ld != null ? ld.$1 : this.dimensions.$1,
+          ld != null ? ld.$2 : this.dimensions.$2,
+          this.dimensions.$3,
+        ),
+        (
+          ld != null ? ld.$1 : this._strides.$1,
+          ld != null ? ld.$2 : this._strides.$2,
+          this._strides.$3,
+        ),
+        offset ?? this.offset,
+      );
 }
