@@ -1,84 +1,89 @@
-      void dsyt01_rook(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<int> IPIV_, final Matrix<double> C_, final int LDC, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.having();
-  final AFAC = AFAC_.having();
-  final IPIV = IPIV_.having();
-  final C = C_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
 
+import 'dlavsy_rook.dart';
+
+void dsyt01_rook(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Matrix<double> AFAC_,
+  final int LDAFAC,
+  final Array<int> IPIV_,
+  final Matrix<double> C_,
+  final int LDC,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDAFAC, LDC, N;
-      double             RESID;
-      int                IPIV( * );
-      double             A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AFAC = AFAC_.having(ld: LDAFAC);
+  final IPIV = IPIV_.having();
+  final C = C_.having(ld: LDC);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, INFO, J;
-      double             ANORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLANSY;
-      // EXTERNAL lsame, DLAMCH, DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASET, DLAVSY_ROOK
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RESID = ZERO;
-         return;
-      }
+  // Determine EPS and the norm of A.
 
-      // Determine EPS and the norm of A.
+  final EPS = dlamch('Epsilon');
+  final ANORM = dlansy('1', UPLO, N, A, LDA, RWORK);
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
+  // Initialize C to the identity matrix.
 
-      // Initialize C to the identity matrix.
+  dlaset('Full', N, N, ZERO, ONE, C, LDC);
 
-      dlaset('Full', N, N, ZERO, ONE, C, LDC );
+  // Call DLAVSY_ROOK to form the product D * U' (or D * L' ).
 
-      // Call DLAVSY_ROOK to form the product D * U' (or D * L' ).
+  dlavsy_rook(
+      UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO);
 
-      dlavsy_rook(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
+  // Call DLAVSY_ROOK again to multiply by U (or L ).
 
-      // Call DLAVSY_ROOK again to multiply by U (or L ).
+  dlavsy_rook(
+      UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO);
 
-      dlavsy_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
+  // Compute the difference  C - A .
 
-      // Compute the difference  C - A .
+  if (lsame(UPLO, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      // 20
+      for (var I = 1; I <= J; I++) {
+        // 10
+        C[I][J] = C[I][J] - A[I][J];
+      } // 10
+    } // 20
+  } else {
+    for (var J = 1; J <= N; J++) {
+      // 40
+      for (var I = J; I <= N; I++) {
+        // 30
+        C[I][J] = C[I][J] - A[I][J];
+      } // 30
+    } // 40
+  }
 
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 20
-            for (I = 1; I <= J; I++) { // 10
-               C[I][J] = C( I, J ) - A( I, J );
-            } // 10
-         } // 20
-      } else {
-         for (J = 1; J <= N; J++) { // 40
-            for (I = J; I <= N; I++) { // 30
-               C[I][J] = C( I, J ) - A( I, J );
-            } // 30
-         } // 40
-      }
+  // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      // Compute norm( C - A ) / ( N * norm(A) * EPS )
+  RESID.value = dlansy('1', UPLO, N, C, LDC, RWORK);
 
-      RESID = dlansy( '1', UPLO, N, C, LDC, RWORK );
-
-      if ( ANORM <= ZERO ) {
-         if (RESID != ZERO) RESID = ONE / EPS;
-      } else {
-         RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
-      }
-
-      }
+  if (ANORM <= ZERO) {
+    if (RESID.value != ZERO) RESID.value = ONE / EPS;
+  } else {
+    RESID.value = ((RESID.value / N) / ANORM) / EPS;
+  }
+}

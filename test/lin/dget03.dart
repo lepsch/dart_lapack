@@ -1,63 +1,61 @@
-      void dget03(final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final int RCOND, final int RESID,) {
-  final A = A_.having();
-  final AINV = AINV_.having();
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
 
+void dget03(
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Matrix<double> AINV_,
+  final int LDAINV,
+  final Matrix<double> WORK_,
+  final int LDWORK,
+  final Array<double> RWORK_,
+  final Box<double> RCOND,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDAINV, LDWORK, N;
-      double             RCOND, RESID;
-      double             A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AINV = AINV_.having(ld: LDAINV);
+  final WORK = WORK_.having(ld: LDWORK);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I;
-      double             AINVNM, ANORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RCOND.value = ONE;
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RCOND = ONE;
-         RESID = ZERO;
-         return;
-      }
+  // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+  final EPS = dlamch('Epsilon');
+  final ANORM = dlange('1', N, N, A, LDA, RWORK);
+  final AINVNM = dlange('1', N, N, AINV, LDAINV, RWORK);
+  if (ANORM <= ZERO || AINVNM <= ZERO) {
+    RCOND.value = ZERO;
+    RESID.value = ONE / EPS;
+    return;
+  }
+  RCOND.value = (ONE / ANORM) / AINVNM;
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = dlange( '1', N, N, A, LDA, RWORK );
-      AINVNM = dlange( '1', N, N, AINV, LDAINV, RWORK );
-      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO;
-         RESID = ONE / EPS;
-         return;
-      }
-      RCOND = ( ONE / ANORM ) / AINVNM;
+  // Compute I - A * AINV
 
-      // Compute I - A * AINV
+  dgemm('No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA,
+      ZERO, WORK, LDWORK);
+  for (var I = 1; I <= N; I++) {
+    WORK[I][I] = ONE + WORK[I][I];
+  }
 
-      dgemm('No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK );
-      for (I = 1; I <= N; I++) { // 10
-         WORK[I][I] = ONE + WORK( I, I );
-      } // 10
+  // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
 
-      // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
+  RESID.value = dlange('1', N, N, WORK, LDWORK, RWORK);
 
-      RESID = dlange( '1', N, N, WORK, LDWORK, RWORK );
-
-      RESID = ( ( RESID*RCOND ) / EPS ) / N.toDouble();
-
-      }
+  RESID.value = ((RESID.value * RCOND.value) / EPS) / N.toDouble();
+}

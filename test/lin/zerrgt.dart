@@ -34,7 +34,7 @@
 
       NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
       for (I = 1; I <= NMAX; I++) { // 10
          D[I] = 1.0;
          E[I] = 2.0;
@@ -42,7 +42,7 @@
          DU[I] = 4.0;
       } // 10
       ANORM = 1.0;
-      infoc.OK = true;
+      infoc.OK.value = true;
 
       if ( lsamen( 2, C2, 'GT' ) ) {
 

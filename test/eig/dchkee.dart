@@ -6,6 +6,7 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/ilaenv2stage.dart';
 import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/dsecnd.dart';
 import 'package:lapack/src/install/ilaver.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
@@ -155,7 +156,7 @@ void main() async {
       WORK = Array<double>(LWORK);
   final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
 
-  final S1 = Stopwatch()..start();
+  final S1 = dsecnd();
   FATAL = false;
   infoc.NUNIT = NOUT;
 
@@ -290,11 +291,11 @@ void main() async {
 
       NN = await NIN.readInt();
       if (NN < 0) {
-        _print9989(NOUT, '   NN ', NN, 1);
+        NOUT.print9989('   NN ', NN, 1);
         NN = 0;
         FATAL = true;
       } else if (NN > MAXIN) {
-        _print9988(NOUT, '   NN ', NN, MAXIN);
+        NOUT.print9988('   NN ', NN, MAXIN);
         NN = 0;
         FATAL = true;
       }
@@ -310,14 +311,14 @@ void main() async {
         }
         for (I = 1; I <= NN; I++) {
           if (MVAL[I] < 0) {
-            _print9989(NOUT, VNAME, MVAL[I], 0);
+            NOUT.print9989(VNAME, MVAL[I], 0);
             FATAL = true;
           } else if (MVAL[I] > NMAX) {
-            _print9988(NOUT, VNAME, MVAL[I], NMAX);
+            NOUT.print9988(VNAME, MVAL[I], NMAX);
             FATAL = true;
           }
         }
-        _print9983(NOUT, 'M:    ', MVAL, NN);
+        NOUT.print9983('M:    ', MVAL, NN);
       }
 
       // Read the values of P
@@ -326,14 +327,14 @@ void main() async {
         await NIN.readArray(PVAL, NN);
         for (I = 1; I <= NN; I++) {
           if (PVAL[I] < 0) {
-            _print9989(NOUT, ' P  ', PVAL[I], 0);
+            NOUT.print9989(' P  ', PVAL[I], 0);
             FATAL = true;
           } else if (PVAL[I] > NMAX) {
-            _print9988(NOUT, ' P  ', PVAL[I], NMAX);
+            NOUT.print9988(' P  ', PVAL[I], NMAX);
             FATAL = true;
           }
         }
-        _print9983(NOUT, 'P:    ', PVAL, NN);
+        NOUT.print9983('P:    ', PVAL, NN);
       }
 
       // Read the values of N
@@ -342,10 +343,10 @@ void main() async {
         await NIN.readArray(NVAL, NN);
         for (I = 1; I <= NN; I++) {
           if (NVAL[I] < 0) {
-            _print9989(NOUT, '    N ', NVAL[I], 0);
+            NOUT.print9989('    N ', NVAL[I], 0);
             FATAL = true;
           } else if (NVAL[I] > NMAX) {
-            _print9988(NOUT, '    N ', NVAL[I], NMAX);
+            NOUT.print9988('    N ', NVAL[I], NMAX);
             FATAL = true;
           }
         }
@@ -355,9 +356,9 @@ void main() async {
         }
       }
       if (!(DGX || DXV)) {
-        _print9983(NOUT, 'N:    ', NVAL, NN);
+        NOUT.print9983('N:    ', NVAL, NN);
       } else {
-        _print9983b(NOUT, 'N:    ', NN);
+        NOUT.print9983b('N:    ', NN);
       }
 
       // Read the number of values of K, followed by the values of K
@@ -367,14 +368,14 @@ void main() async {
         await NIN.readArray(KVAL, NK);
         for (I = 1; I <= NK; I++) {
           if (KVAL[I] < 0) {
-            _print9989(NOUT, '    K ', KVAL[I], 0);
+            NOUT.print9989('    K ', KVAL[I], 0);
             FATAL = true;
           } else if (KVAL[I] > NMAX) {
-            _print9988(NOUT, '    K ', KVAL[I], NMAX);
+            NOUT.print9988('    K ', KVAL[I], NMAX);
             FATAL = true;
           }
         }
-        _print9983(NOUT, 'K:    ', KVAL, NK);
+        NOUT.print9983('K:    ', KVAL, NK);
       }
 
       if (DEV || DES || DVX || DSX) {
@@ -393,28 +394,28 @@ void main() async {
         IACC22[1] = PARAMS[8];
 
         if (NBVAL[1] < 1) {
-          _print9989(NOUT, '   NB ', NBVAL[1], 1);
+          NOUT.print9989('   NB ', NBVAL[1], 1);
           FATAL = true;
         } else if (NBMIN[1] < 1) {
-          _print9989(NOUT, 'NBMIN ', NBMIN[1], 1);
+          NOUT.print9989('NBMIN ', NBMIN[1], 1);
           FATAL = true;
         } else if (NXVAL[1] < 1) {
-          _print9989(NOUT, '   NX ', NXVAL[1], 1);
+          NOUT.print9989('   NX ', NXVAL[1], 1);
           FATAL = true;
         } else if (INMIN[1] < 1) {
-          _print9989(NOUT, '   INMIN ', INMIN[1], 1);
+          NOUT.print9989('   INMIN ', INMIN[1], 1);
           FATAL = true;
         } else if (INWIN[1] < 1) {
-          _print9989(NOUT, '   INWIN ', INWIN[1], 1);
+          NOUT.print9989('   INWIN ', INWIN[1], 1);
           FATAL = true;
         } else if (INIBL[1] < 1) {
-          _print9989(NOUT, '   INIBL ', INIBL[1], 1);
+          NOUT.print9989('   INIBL ', INIBL[1], 1);
           FATAL = true;
         } else if (ISHFTS[1] < 1) {
-          _print9989(NOUT, '   ISHFTS ', ISHFTS[1], 1);
+          NOUT.print9989('   ISHFTS ', ISHFTS[1], 1);
           FATAL = true;
         } else if (IACC22[1] < 0) {
-          _print9989(NOUT, '   IACC22 ', IACC22[1], 0);
+          NOUT.print9989('   IACC22 ', IACC22[1], 0);
           FATAL = true;
         }
         xlaenv(1, NBVAL[1]);
@@ -425,14 +426,14 @@ void main() async {
         xlaenv(14, INIBL[1]);
         xlaenv(15, ISHFTS[1]);
         xlaenv(16, IACC22[1]);
-        _print9983b(NOUT, 'NB:   ', NBVAL[1]);
-        _print9983b(NOUT, 'NBMIN:', NBMIN[1]);
-        _print9983b(NOUT, 'NX:   ', NXVAL[1]);
-        _print9983b(NOUT, 'INMIN:   ', INMIN[1]);
-        _print9983b(NOUT, 'INWIN: ', INWIN[1]);
-        _print9983b(NOUT, 'INIBL: ', INIBL[1]);
-        _print9983b(NOUT, 'ISHFTS: ', ISHFTS[1]);
-        _print9983b(NOUT, 'IACC22: ', IACC22[1]);
+        NOUT.print9983b('NB:   ', NBVAL[1]);
+        NOUT.print9983b('NBMIN:', NBMIN[1]);
+        NOUT.print9983b('NX:   ', NXVAL[1]);
+        NOUT.print9983b('INMIN:   ', INMIN[1]);
+        NOUT.print9983b('INWIN: ', INWIN[1]);
+        NOUT.print9983b('INIBL: ', INIBL[1]);
+        NOUT.print9983b('ISHFTS: ', ISHFTS[1]);
+        NOUT.print9983b('IACC22: ', IACC22[1]);
       } else if (DGS || DGX || DGV || DXV) {
         // For the nonsymmetric generalized driver routines, only one set
         // of parameters is allowed.
@@ -446,19 +447,19 @@ void main() async {
         MXBVAL[1] = PARAMS[5];
 
         if (NBVAL[1] < 1) {
-          _print9989(NOUT, '   NB ', NBVAL[1], 1);
+          NOUT.print9989('   NB ', NBVAL[1], 1);
           FATAL = true;
         } else if (NBMIN[1] < 1) {
-          _print9989(NOUT, 'NBMIN ', NBMIN[1], 1);
+          NOUT.print9989('NBMIN ', NBMIN[1], 1);
           FATAL = true;
         } else if (NXVAL[1] < 1) {
-          _print9989(NOUT, '   NX ', NXVAL[1], 1);
+          NOUT.print9989('   NX ', NXVAL[1], 1);
           FATAL = true;
         } else if (NSVAL[1] < 2) {
-          _print9989(NOUT, '   NS ', NSVAL[1], 2);
+          NOUT.print9989('   NS ', NSVAL[1], 2);
           FATAL = true;
         } else if (MXBVAL[1] < 1) {
-          _print9989(NOUT, ' MAXB ', MXBVAL[1], 1);
+          NOUT.print9989(' MAXB ', MXBVAL[1], 1);
           FATAL = true;
         }
         xlaenv(1, NBVAL[1]);
@@ -466,22 +467,22 @@ void main() async {
         xlaenv(3, NXVAL[1]);
         xlaenv(4, NSVAL[1]);
         xlaenv(8, MXBVAL[1]);
-        _print9983b(NOUT, 'NB:   ', NBVAL[1]);
-        _print9983b(NOUT, 'NBMIN:', NBMIN[1]);
-        _print9983b(NOUT, 'NX:   ', NXVAL[1]);
-        _print9983b(NOUT, 'NS:   ', NSVAL[1]);
-        _print9983b(NOUT, 'MAXB: ', MXBVAL[1]);
+        NOUT.print9983b('NB:   ', NBVAL[1]);
+        NOUT.print9983b('NBMIN:', NBMIN[1]);
+        NOUT.print9983b('NX:   ', NXVAL[1]);
+        NOUT.print9983b('NS:   ', NSVAL[1]);
+        NOUT.print9983b('MAXB: ', MXBVAL[1]);
       } else if (!DSB && !GLM && !GQR && !GSV && !CSD && !LSE) {
         // For the other paths, the number of parameters can be varied
         // from the input file.  Read the number of parameter values.
 
         NPARMS = await NIN.readInt();
         if (NPARMS < 1) {
-          _print9989(NOUT, 'NPARMS', NPARMS, 1);
+          NOUT.print9989('NPARMS', NPARMS, 1);
           NPARMS = 0;
           FATAL = true;
         } else if (NPARMS > MAXIN) {
-          _print9988(NOUT, 'NPARMS', NPARMS, MAXIN);
+          NOUT.print9988('NPARMS', NPARMS, MAXIN);
           NPARMS = 0;
           FATAL = true;
         }
@@ -492,14 +493,14 @@ void main() async {
           await NIN.readArray(NBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (NBVAL[I] < 0) {
-              _print9989(NOUT, '   NB ', NBVAL[I], 0);
+              NOUT.print9989('   NB ', NBVAL[I], 0);
               FATAL = true;
             } else if (NBVAL[I] > NMAX) {
-              _print9988(NOUT, '   NB ', NBVAL[I], NMAX);
+              NOUT.print9988('   NB ', NBVAL[I], NMAX);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'NB:   ', NBVAL, NPARMS);
+          NOUT.print9983('NB:   ', NBVAL, NPARMS);
         }
 
         // Read the values of NBMIN
@@ -508,14 +509,14 @@ void main() async {
           await NIN.readArray(NBMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (NBMIN[I] < 0) {
-              _print9989(NOUT, 'NBMIN ', NBMIN[I], 0);
+              NOUT.print9989('NBMIN ', NBMIN[I], 0);
               FATAL = true;
             } else if (NBMIN[I] > NMAX) {
-              _print9988(NOUT, 'NBMIN ', NBMIN[I], NMAX);
+              NOUT.print9988('NBMIN ', NBMIN[I], NMAX);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'NBMIN:', NBMIN, NPARMS);
+          NOUT.print9983('NBMIN:', NBMIN, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             NBMIN[I] = 1;
@@ -528,14 +529,14 @@ void main() async {
           await NIN.readArray(NXVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (NXVAL[I] < 0) {
-              _print9989(NOUT, '   NX ', NXVAL[I], 0);
+              NOUT.print9989('   NX ', NXVAL[I], 0);
               FATAL = true;
             } else if (NXVAL[I] > NMAX) {
-              _print9988(NOUT, '   NX ', NXVAL[I], NMAX);
+              NOUT.print9988('   NX ', NXVAL[I], NMAX);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'NX:   ', NXVAL, NPARMS);
+          NOUT.print9983('NX:   ', NXVAL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             NXVAL[I] = 1;
@@ -549,14 +550,14 @@ void main() async {
           await NIN.readArray(NSVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (NSVAL[I] < 0) {
-              _print9989(NOUT, '   NS ', NSVAL[I], 0);
+              NOUT.print9989('   NS ', NSVAL[I], 0);
               FATAL = true;
             } else if (NSVAL[I] > NMAX) {
-              _print9988(NOUT, '   NS ', NSVAL[I], NMAX);
+              NOUT.print9988('   NS ', NSVAL[I], NMAX);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'NS:   ', NSVAL, NPARMS);
+          NOUT.print9983('NS:   ', NSVAL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             NSVAL[I] = 1;
@@ -569,14 +570,14 @@ void main() async {
           await NIN.readArray(MXBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (MXBVAL[I] < 0) {
-              _print9989(NOUT, ' MAXB ', MXBVAL[I], 0);
+              NOUT.print9989(' MAXB ', MXBVAL[I], 0);
               FATAL = true;
             } else if (MXBVAL[I] > NMAX) {
-              _print9988(NOUT, ' MAXB ', MXBVAL[I], NMAX);
+              NOUT.print9988(' MAXB ', MXBVAL[I], NMAX);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'MAXB: ', MXBVAL, NPARMS);
+          NOUT.print9983('MAXB: ', MXBVAL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             MXBVAL[I] = 1;
@@ -589,11 +590,11 @@ void main() async {
           await NIN.readArray(INMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (INMIN[I] < 0) {
-              _print9989(NOUT, ' INMIN ', INMIN[I], 0);
+              NOUT.print9989(' INMIN ', INMIN[I], 0);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'INMIN: ', INMIN, NPARMS);
+          NOUT.print9983('INMIN: ', INMIN, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             INMIN[I] = 1;
@@ -606,11 +607,11 @@ void main() async {
           await NIN.readArray(INWIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (INWIN[I] < 0) {
-              _print9989(NOUT, ' INWIN ', INWIN[I], 0);
+              NOUT.print9989(' INWIN ', INWIN[I], 0);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'INWIN: ', INWIN, NPARMS);
+          NOUT.print9983('INWIN: ', INWIN, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             INWIN[I] = 1;
@@ -623,11 +624,11 @@ void main() async {
           await NIN.readArray(INIBL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (INIBL[I] < 0) {
-              _print9989(NOUT, ' INIBL ', INIBL[I], 0);
+              NOUT.print9989(' INIBL ', INIBL[I], 0);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'INIBL: ', INIBL, NPARMS);
+          NOUT.print9983('INIBL: ', INIBL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             INIBL[I] = 1;
@@ -640,11 +641,11 @@ void main() async {
           await NIN.readArray(ISHFTS, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (ISHFTS[I] < 0) {
-              _print9989(NOUT, ' ISHFTS ', ISHFTS[I], 0);
+              NOUT.print9989(' ISHFTS ', ISHFTS[I], 0);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'ISHFTS: ', ISHFTS, NPARMS);
+          NOUT.print9983('ISHFTS: ', ISHFTS, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             ISHFTS[I] = 1;
@@ -657,11 +658,11 @@ void main() async {
           await NIN.readArray(IACC22, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (IACC22[I] < 0) {
-              _print9989(NOUT, ' IACC22 ', IACC22[I], 0);
+              NOUT.print9989(' IACC22 ', IACC22[I], 0);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'IACC22: ', IACC22, NPARMS);
+          NOUT.print9983('IACC22: ', IACC22, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             IACC22[I] = 1;
@@ -674,14 +675,14 @@ void main() async {
           await NIN.readArray(NBCOL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             if (NBCOL[I] < 0) {
-              _print9989(NOUT, 'NBCOL ', NBCOL[I], 0);
+              NOUT.print9989('NBCOL ', NBCOL[I], 0);
               FATAL = true;
             } else if (NBCOL[I] > NMAX) {
-              _print9988(NOUT, 'NBCOL ', NBCOL[I], NMAX);
+              NOUT.print9988('NBCOL ', NBCOL[I], NMAX);
               FATAL = true;
             }
           }
-          _print9983(NOUT, 'NBCOL:', NBCOL, NPARMS);
+          NOUT.print9983('NBCOL:', NBCOL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
             NBCOL[I] = 1;
@@ -693,11 +694,11 @@ void main() async {
 
       NOUT.println('');
       EPS = dlamch('Underflow threshold');
-      _print9981(NOUT, 'underflow', EPS);
+      NOUT.print9981('underflow', EPS);
       EPS = dlamch('Overflow threshold');
-      _print9981(NOUT, 'overflow ', EPS);
+      NOUT.print9981('overflow ', EPS);
       EPS = dlamch('Epsilon');
-      _print9981(NOUT, 'precision', EPS);
+      NOUT.print9981('precision', EPS);
 
       // Read the threshold value for the test ratios.
 
@@ -793,7 +794,7 @@ void main() async {
             // Skip the tests if NTYPES is <= 0.
 
             if (!(DEV || DES || DVX || DSX || DGV || DGS) && NTYPES <= 0) {
-              _print9990(NOUT, C3);
+              NOUT.print9990(C3);
               continue;
             }
             break;
@@ -879,7 +880,7 @@ void main() async {
                 LOGWRK,
                 RESULT,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DCHKHS', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DCHKHS', INFO.value);
           }
         } else if (lsamen(3, C3, 'DST') ||
             lsamen(3, C3, 'SEP') ||
@@ -918,7 +919,7 @@ void main() async {
                 ISEED[K] = IOLDSD[K];
               }
             }
-            _print9997(NOUT, C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+            NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
             if (TSTCHK) {
               if (lsamen(3, C3, 'SE2')) {
                 dchkst2stg(
@@ -991,7 +992,7 @@ void main() async {
                     RESULT,
                     INFO);
               }
-              if (INFO.value != 0) _print9980(NOUT, 'DCHKST', INFO.value);
+              if (INFO.value != 0) NOUT.print9980('DCHKST', INFO.value);
             }
             if (TSTDRV) {
               if (lsamen(3, C3, 'SE2')) {
@@ -1055,7 +1056,7 @@ void main() async {
                     RESULT,
                     INFO);
               }
-              if (INFO.value != 0) _print9980(NOUT, 'DDRVST', INFO.value);
+              if (INFO.value != 0) NOUT.print9980('DDRVST', INFO.value);
             }
           }
         } else if (lsamen(3, C3, 'DSG')) {
@@ -1081,7 +1082,7 @@ void main() async {
                 ISEED[K] = IOLDSD[K];
               }
             }
-            _print9997(NOUT, C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+            NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
             if (TSTCHK) {
               // CALL DDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
               // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
@@ -1114,7 +1115,7 @@ void main() async {
                   LIWORK,
                   RESULT,
                   INFO);
-              if (INFO.value != 0) _print9980(NOUT, 'DDRVSG', INFO.value);
+              if (INFO.value != 0) NOUT.print9980('DDRVSG', INFO.value);
             }
           }
         } else if (lsamen(3, C3, 'DBD') || lsamen(3, C3, 'SVD')) {
@@ -1181,7 +1182,7 @@ void main() async {
                   IWORK,
                   NOUT,
                   INFO);
-              if (INFO.value != 0) _print9980(NOUT, 'DCHKBD', INFO.value);
+              if (INFO.value != 0) NOUT.print9980('DCHKBD', INFO.value);
             }
             if (TSTDRV) {
               ddrvbd(
@@ -1220,7 +1221,7 @@ void main() async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES <= 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1250,7 +1251,7 @@ void main() async {
                 LWORK,
                 IWORK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DGEEV', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DGEEV', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1263,7 +1264,7 @@ void main() async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES <= 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1291,7 +1292,7 @@ void main() async {
                 IWORK,
                 LOGWRK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DGEES', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DGEES', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1304,7 +1305,7 @@ void main() async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES < 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1343,7 +1344,7 @@ void main() async {
                 LWORK,
                 IWORK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DGEEVX', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DGEEVX', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1356,7 +1357,7 @@ void main() async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES < 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1388,7 +1389,7 @@ void main() async {
                 IWORK,
                 LOGWRK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DGEESX', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DGEESX', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1464,7 +1465,7 @@ void main() async {
                   LOGWRK,
                   RESULT,
                   INFO);
-              if (INFO.value != 0) _print9980(NOUT, 'DCHKGG', INFO.value);
+              if (INFO.value != 0) NOUT.print9980('DCHKGG', INFO.value);
             }
           }
         } else if (lsamen(3, C3, 'DGS')) {
@@ -1476,7 +1477,7 @@ void main() async {
           MAXTYP = 26;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES <= 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1504,7 +1505,7 @@ void main() async {
                 RESULT,
                 LOGWRK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DDRGES', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DDRGES', INFO.value);
 
             // Blocked version
 
@@ -1533,7 +1534,7 @@ void main() async {
                 RESULT,
                 LOGWRK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DDRGES3', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DDRGES3', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1546,7 +1547,7 @@ void main() async {
           MAXTYP = 5;
           NTYPES = MAXTYP;
           if (NN < 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1576,7 +1577,7 @@ void main() async {
                 LIWORK,
                 LOGWRK,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DDRGSX', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DDRGSX', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1589,7 +1590,7 @@ void main() async {
           MAXTYP = 26;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES <= 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1621,7 +1622,7 @@ void main() async {
                 LWORK,
                 RESULT,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DDRGEV', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DDRGEV', INFO.value);
 
             // Blocked version
 
@@ -1653,7 +1654,7 @@ void main() async {
                 LWORK,
                 RESULT,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DDRGEV3', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DDRGEV3', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1666,7 +1667,7 @@ void main() async {
           MAXTYP = 2;
           NTYPES = MAXTYP;
           if (NN < 0) {
-            _print9990(NOUT, C3);
+            NOUT.print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
@@ -1701,7 +1702,7 @@ void main() async {
                 LOGWRK,
                 INFO);
 
-            if (INFO.value != 0) _print9980(NOUT, 'DDRGVX', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DDRGVX', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;
@@ -1740,7 +1741,7 @@ void main() async {
               LWORK,
               RESULT,
               INFO);
-          if (INFO.value != 0) _print9980(NOUT, 'DCHKSB', INFO.value);
+          if (INFO.value != 0) NOUT.print9980('DCHKSB', INFO.value);
         } else if (lsamen(3, C3, 'DBB')) {
           // ------------------------------
           // DBB:  General Band Reduction
@@ -1787,7 +1788,7 @@ void main() async {
                 LWORK,
                 RESULT,
                 INFO);
-            if (INFO.value != 0) _print9980(NOUT, 'DCHKBB', INFO.value);
+            if (INFO.value != 0) NOUT.print9980('DCHKBB', INFO.value);
           }
         } else if (lsamen(3, C3, 'GLM')) {
           // -----------------------------------------
@@ -1815,7 +1816,7 @@ void main() async {
               NIN,
               NOUT,
               INFO);
-          if (INFO.value != 0) _print9980(NOUT, 'DCKGLM', INFO.value);
+          if (INFO.value != 0) NOUT.print9980('DCKGLM', INFO.value);
         } else if (lsamen(3, C3, 'GQR')) {
           // ------------------------------------------
           // GQR:  Generalized QR and RQ factorizations
@@ -1850,7 +1851,7 @@ void main() async {
               NIN,
               NOUT,
               INFO);
-          if (INFO.value != 0) _print9980(NOUT, 'DCKGQR', INFO.value);
+          if (INFO.value != 0) NOUT.print9980('DCKGQR', INFO.value);
         } else if (lsamen(3, C3, 'GSV')) {
           // ----------------------------------------------
           // GSV:  Generalized Singular Value Decomposition
@@ -1883,7 +1884,7 @@ void main() async {
               NIN,
               NOUT,
               INFO);
-          if (INFO.value != 0) _print9980(NOUT, 'DCKGSV', INFO.value);
+          if (INFO.value != 0) NOUT.print9980('DCKGSV', INFO.value);
         } else if (lsamen(3, C3, 'CSD')) {
           // ----------------------------------------------
           // CSD:  CS Decomposition
@@ -1913,7 +1914,7 @@ void main() async {
               NIN,
               NOUT,
               INFO);
-          if (INFO.value != 0) _print9980(NOUT, 'DCKCSD', INFO.value);
+          if (INFO.value != 0) NOUT.print9980('DCKCSD', INFO.value);
         } else if (lsamen(3, C3, 'LSE')) {
           // --------------------------------------
           // LSE:  Constrained Linear Least Squares
@@ -1940,7 +1941,7 @@ void main() async {
               NIN,
               NOUT,
               INFO);
-          if (INFO.value != 0) _print9980(NOUT, 'DCKLSE', INFO.value);
+          if (INFO.value != 0) NOUT.print9980('DCKLSE', INFO.value);
         } else {
           NOUT.println('');
           NOUT.println('');
@@ -1952,69 +1953,50 @@ void main() async {
   } on EOF catch (_) {
     // do nothing
   }
+  final S2 = dsecnd();
   NOUT.println('\n\n End of tests');
-  NOUT.println(
-      ' Total time used =${(S1.elapsed.inMilliseconds / 1000).f12_2} seconds\n');
+  NOUT.println(' Total time used =${(S2 - S1).f12_2} seconds\n');
 }
 
-void _print9980(final Nout NOUT, final String s, final int v) {
-  NOUT.println(' *** Error code from $s = ${v.i4}');
-}
-
-void _print9997(
-  final Nout NOUT,
-  final String s,
-  final int nb,
-  final int nbmin,
-  final int nx,
-) {
-  NOUT.println('\n\n $s:  NB =${nb.i4}, NBMIN =${nbmin.i4}, NX =${nx.i4}');
-}
-
-void _print9990(final Nout NOUT, final String s) {
-  NOUT.println('\n\n $s routines were not tested');
-}
-
-void _print9981(final Nout NOUT, final String s, final double precision) {
-  NOUT.println(' Relative machine $s is taken to be${precision.d16_6}');
-}
-
-void _print9983(
-  final Nout NOUT,
-  final String s,
-  final Array<int> a,
-  int n,
-) {
-  var prefix = '${' ' * 4}$s';
-  var i = 1;
-  while (n > 0) {
-    NOUT.println('$prefix${a(i).i6(min(n, 10))}');
-    prefix = ' ' * 10;
-    n -= 10;
-    i += 10;
+extension on Nout {
+  void print9980(final String s, final int v) {
+    println(' *** Error code from $s = ${v.i4}');
   }
-}
 
-void _print9983b(final Nout NOUT, final String s, final int v) {
-  _print9983(NOUT, s, Array.fromList([v]), 1);
-}
+  void print9997(final String s, final int nb, final int nbmin, final int nx) {
+    println('\n\n $s:  NB =${nb.i4}, NBMIN =${nbmin.i4}, NX =${nx.i4}');
+  }
 
-void _print9989(
-  final Nout NOUT,
-  final String s,
-  final int actual,
-  final int expected,
-) {
-  NOUT.println(
-      ' Invalid input value: $s = ${actual.i6}; must be >= ${expected.i6}');
-}
+  void print9990(final String s) {
+    println('\n\n $s routines were not tested');
+  }
 
-void _print9988(
-  final Nout NOUT,
-  final String s,
-  final int actual,
-  final int expected,
-) {
-  NOUT.println(
-      ' Invalid input value: $s = ${actual.i6}; must be <= ${expected.i6}');
+  void print9981(final String s, final double precision) {
+    println(' Relative machine $s is taken to be${precision.d16_6}');
+  }
+
+  void print9983(final String s, final Array<int> a, int n) {
+    var prefix = '    $s';
+    var i = 1;
+    while (n > 0) {
+      println('$prefix${a(i).i6(min(n, 10))}');
+      prefix = ' ' * 10;
+      n -= 10;
+      i += 10;
+    }
+  }
+
+  void print9983b(final String s, final int v) {
+    print9983(s, Array.fromList([v]), 1);
+  }
+
+  void print9989(final String s, final int actual, final int expected) {
+    println(
+        ' Invalid input value: $s = ${actual.i6}; must be >= ${expected.i6}');
+  }
+
+  void print9988(final String s, final int actual, final int expected) {
+    println(
+        ' Invalid input value: $s = ${actual.i6}; must be <= ${expected.i6}');
+  }
 }

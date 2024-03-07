@@ -45,7 +45,7 @@
          LARGE = ONE / SMALL;
       }
 
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
 
       // Set some parameters
 

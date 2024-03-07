@@ -491,7 +491,7 @@ void _print9997(Nout nout, String s) {
 
 void _print9992(Nout nout, String s1, String s2, String s3) {
   nout.println(
-      '\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and $s1 means $s2.\n 1 = max | ( b A - a B )$s3 l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n');
+      '\n Tests performed:  \n     a is alpha, b is beta, l is a left eigenvector, \n     r is a right eigenvector and $s1 means $s2.\n 1 = max | ( b A - a B )$s3 l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n');
 }
 
 void _print9986(Nout nout, String side, String fn, double error, int n, int i) {

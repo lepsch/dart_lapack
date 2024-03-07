@@ -286,7 +286,7 @@
       GO TO 100;
       } // 130
       C1 = PATH( 1: 1 );
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
 
       // Check first character for correct precision.
 

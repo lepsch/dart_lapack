@@ -1,82 +1,80 @@
-      void dpot03(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final int RCOND, final int RESID,) {
-  final A = A_.having();
-  final AINV = AINV_.having();
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/blas/dsymm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
 
+void dpot03(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Matrix<double> AINV_,
+  final int LDAINV,
+  final Matrix<double> WORK_,
+  final int LDWORK,
+  final Array<double> RWORK_,
+  final Box<double> RCOND,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDAINV, LDWORK, N;
-      double             RCOND, RESID;
-      double             A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AINV = AINV_.having(ld: LDAINV);
+  final WORK = WORK_.having(ld: LDWORK);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, J;
-      double             AINVNM, ANORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLANGE, DLANSY;
-      // EXTERNAL lsame, DLAMCH, DLANGE, DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DSYMM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RCOND.value = ONE;
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RCOND = ONE;
-         RESID = ZERO;
-         return;
+  // Exit with RESID.value = 1/EPS if ANORM = 0 or AINVNM = 0.
+
+  final EPS = dlamch('Epsilon');
+  final ANORM = dlansy('1', UPLO, N, A, LDA, RWORK);
+  final AINVNM = dlansy('1', UPLO, N, AINV, LDAINV, RWORK);
+  if (ANORM <= ZERO || AINVNM <= ZERO) {
+    RCOND.value = ZERO;
+    RESID.value = ONE / EPS;
+    return;
+  }
+  RCOND.value = (ONE / ANORM) / AINVNM;
+
+  // Expand AINV into a full matrix and call DSYMM to multiply
+  // AINV on the left by A.
+
+  if (lsame(UPLO, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= J - 1; I++) {
+        AINV[J][I] = AINV[I][J];
       }
-
-      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
-
-      EPS = dlamch( 'Epsilon' );
-      ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
-      AINVNM = dlansy( '1', UPLO, N, AINV, LDAINV, RWORK );
-      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO;
-         RESID = ONE / EPS;
-         return;
+    }
+  } else {
+    for (var J = 1; J <= N; J++) {
+      for (var I = J + 1; I <= N; I++) {
+        AINV[J][I] = AINV[I][J];
       }
-      RCOND = ( ONE / ANORM ) / AINVNM;
+    }
+  }
+  dsymm('Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO, WORK, LDWORK);
 
-      // Expand AINV into a full matrix and call DSYMM to multiply
-      // AINV on the left by A.
+  // Add the identity matrix to WORK .
 
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 20
-            for (I = 1; I <= J - 1; I++) { // 10
-               AINV[J][I] = AINV( I, J );
-            } // 10
-         } // 20
-      } else {
-         for (J = 1; J <= N; J++) { // 40
-            for (I = J + 1; I <= N; I++) { // 30
-               AINV[J][I] = AINV( I, J );
-            } // 30
-         } // 40
-      }
-      dsymm('Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO, WORK, LDWORK );
+  for (var I = 1; I <= N; I++) {
+    WORK[I][I] = WORK[I][I] + ONE;
+  }
 
-      // Add the identity matrix to WORK .
+  // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 
-      for (I = 1; I <= N; I++) { // 50
-         WORK[I][I] = WORK( I, I ) + ONE;
-      } // 50
+  RESID.value = dlange('1', N, N, WORK, LDWORK, RWORK);
 
-      // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
-
-      RESID = dlange( '1', N, N, WORK, LDWORK, RWORK );
-
-      RESID = ( ( RESID*RCOND ) / EPS ) / N.toDouble();
-
-      }
+  RESID.value = ((RESID.value * RCOND.value) / EPS) / N;
+}

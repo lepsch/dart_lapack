@@ -47,7 +47,7 @@
          C[J] = 0.0;
          R[J] = 0.0;
       } // 20
-      infoc.OK = true;
+      infoc.OK.value = true;
 
      srnamc.SRNAMT = 'ZCPOSV';
       infoc.INFOT = 1;

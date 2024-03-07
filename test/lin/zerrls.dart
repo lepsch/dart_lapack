@@ -33,12 +33,12 @@
       // COMMON / SRNAMC /srnamc.SRNAMT
 
       NOUT = infoc.NUNIT;
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
       A[1][1] = ( 1.0, 0.0 );
       A[1][2] = ( 2.0, 0.0 );
       A[2][2] = ( 3.0, 0.0 );
       A[2][1] = ( 4.0, 0.0 );
-      infoc.OK = true;
+      infoc.OK.value = true;
       WRITE( NOUT, FMT = * );
 
       // Test error exits for the least squares driver routines.

@@ -54,7 +54,7 @@
       LDA = NMAX;
       LDAB = (NMAX-1)+(NMAX-1)+1;
       LDAFB = 2*(NMAX-1)+(NMAX-1)+1;
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
 
       // Main loop to test the different Hilbert Matrices.
 
@@ -349,14 +349,14 @@
  9998 FORMAT( ' Z${.a2}SVXX: ${.i6} out of ${.i6} tests failed to pass the threshold' );
  9997 FORMAT( ' Z${.a2}SVXX passed the tests of error bounds' );
       // Test ratios.
- 9996 FORMAT('${' ' * 3}${.i2}: Normwise guaranteed forward error\n${' ' * 5}Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n${' ' * 5}ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
- 9995 FORMAT('${' ' * 3}${.i2}: Componentwise guaranteed forward error' );
- 9994 FORMAT('${' ' * 3}${.i2}: Backwards error' );
- 9993 FORMAT('${' ' * 3}${.i2}: Reciprocal condition number' );
- 9992 FORMAT('${' ' * 3}${.i2}: Reciprocal normwise condition number' );
- 9991 FORMAT('${' ' * 3}${.i2}: Raw normwise error estimate' );
- 9990 FORMAT('${' ' * 3}${.i2}: Reciprocal componentwise condition number' );
- 9989 FORMAT('${' ' * 3}${.i2}: Raw componentwise error estimate' );
+ 9996 FORMAT('   ${.i2}: Normwise guaranteed forward error\n     Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n     ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
+ 9995 FORMAT('   ${.i2}: Componentwise guaranteed forward error' );
+ 9994 FORMAT('   ${.i2}: Backwards error' );
+ 9993 FORMAT('   ${.i2}: Reciprocal condition number' );
+ 9992 FORMAT('   ${.i2}: Reciprocal normwise condition number' );
+ 9991 FORMAT('   ${.i2}: Raw normwise error estimate' );
+ 9990 FORMAT('   ${.i2}: Reciprocal componentwise condition number' );
+ 9989 FORMAT('   ${.i2}: Raw componentwise error estimate' );
 
  8000 FORMAT( ' Z${.a2}SVXX: N =${.i2}, INFO = ${.i3}, ORCOND = ${.g12_5}, real RCOND = ${.g12_5};
       }

@@ -1,4 +1,5 @@
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
 import 'common.dart';
 
@@ -15,7 +16,7 @@ import 'common.dart';
         final Array<double> S_,
         final Array<double> TAU_,
         final Array<double> WORK_,
-        final Array<int> IWORK_, final int NOUT ,) {
+        final Array<int> IWORK_, final Nout NOUT ,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

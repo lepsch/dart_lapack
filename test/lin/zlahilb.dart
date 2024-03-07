@@ -42,7 +42,7 @@
       // EXTERNAL ZLASET, LSAMEN
       // INTRINSIC DBLE
       bool    LSAMEN;
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
 
       // Test the input arguments
 

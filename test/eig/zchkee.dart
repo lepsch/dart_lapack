@@ -2036,7 +2036,7 @@ void _print9983(
   final Array<int> a,
   int n,
 ) {
-  var prefix = '${' ' * 4}$s';
+  var prefix = '    $s';
   var i = 1;
   while (n > 0) {
     nout.println('$prefix${a(i).i6(min(n, 10))}');

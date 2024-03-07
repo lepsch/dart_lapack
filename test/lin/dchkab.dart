@@ -181,13 +181,12 @@ import 'common.dart';
       GO TO 100;
       // } // 130
       C1 = PATH( 1: 1 );
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
       NRHS = NSVAL( 1 );
 
       // Check first character for correct precision.
 
-      if ( !lsame( C1, 'double;
-         ' ) ) {
+      if ( !lsame( C1, 'Double precision' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 
 

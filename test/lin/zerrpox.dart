@@ -37,7 +37,7 @@
 
       NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
 
       // Set the variables to innocuous values.
 
@@ -53,7 +53,7 @@
          S[J] = 0.0;
       } // 20
       ANRM = 1.0;
-      infoc.OK = true;
+      infoc.OK.value = true;
 
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite matrix.

@@ -577,23 +577,11 @@ void zdrgev3(
 void _print9999(
     Nout nout, String s, int info, int n, int jtype, Array<int> iseed) {
   nout.println(
-      ' ZDRGEV3: $s returned INFO=${info.i6}.\n${' ' * 3}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
+      ' ZDRGEV3: $s returned INFO=${info.i6}.\n   N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }
 
 void _print9998(Nout nout, String side, String fn, double error, int n,
     int jtype, Array<int> iseed) {
   nout.println(
-      ' ZDRGEV3: $side Eigenvectors from $fn incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 3}N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(3, ',')})');
+      ' ZDRGEV3: $side Eigenvectors from $fn incorrectly normalized.\n Bits of error=${error.g10_3},   N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(3, ',')})');
 }
-//  9998 FORMAT(  );
-
-//  9997 FORMAT( );
-
-//  9996 FORMAT(  );
-
-//  9995 FORMAT(  );
-//  9994 FORMAT(  );
-
-//  9993 FORMAT();
-//  9992 FORMAT( );
-//  9991 FORMAT( );

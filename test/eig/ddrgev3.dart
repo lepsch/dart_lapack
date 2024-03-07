@@ -565,7 +565,7 @@ void _print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-      ' DDRGEV3: $s returned INFO=${info.i6}.\n${' ' * 3}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
+      ' DDRGEV3: $s returned INFO=${info.i6}.\n   N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }
 
 void _print9998(
@@ -578,5 +578,5 @@ void _print9998(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-      ' DDRGEV3: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 3}N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(4, ',')})');
+      ' DDRGEV3: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},   N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(4, ',')})');
 }

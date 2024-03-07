@@ -1,103 +1,99 @@
-      void dpot01(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.having();
-  final AFAC = AFAC_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/blas/ddot.dart';
+import 'package:lapack/src/blas/dscal.dart';
+import 'package:lapack/src/blas/dsyr.dart';
+import 'package:lapack/src/blas/dtrmv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
 
+void dpot01(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Matrix<double> AFAC_,
+  final int LDAFAC,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDAFAC, N;
-      double             RESID;
-      double             A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AFAC = AFAC_.having(ld: LDAFAC);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, J, K;
-      double             ANORM, EPS, T;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DDOT, DLAMCH, DLANSY;
-      // EXTERNAL lsame, DDOT, DLAMCH, DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DSCAL, DSYR, DTRMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RESID = ZERO;
-         return;
+  // Exit with RESID.value = 1/EPS if ANORM = 0.
+
+  final EPS = dlamch('Epsilon');
+  final ANORM = dlansy('1', UPLO, N, A, LDA, RWORK);
+  if (ANORM <= ZERO) {
+    RESID.value = ONE / EPS;
+    return;
+  }
+
+  // Compute the product U**T * U, overwriting U.
+
+  if (lsame(UPLO, 'U')) {
+    for (var K = N; K >= 1; K--) {
+      // Compute the (K,K) element of the result.
+
+      final T = ddot(K, AFAC(1, K).asArray(), 1, AFAC(1, K).asArray(), 1);
+      AFAC[K][K] = T;
+
+      // Compute the rest of column K.
+
+      dtrmv('Upper', 'Transpose', 'Non-unit', K - 1, AFAC, LDAFAC,
+          AFAC(1, K).asArray(), 1);
+    }
+
+    // Compute the product L * L**T, overwriting L.
+  } else {
+    for (var K = N; K >= 1; K--) {
+      // Add a multiple of column K of the factor L to each of
+      // columns K+1 through N.
+
+      if (K + 1 <= N) {
+        dsyr('Lower', N - K, ONE, AFAC(K + 1, K).asArray(), 1,
+            AFAC(K + 1, K + 1), LDAFAC);
       }
 
-      // Exit with RESID = 1/EPS if ANORM = 0.
+      // Scale column K by the diagonal element.
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
-      if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS;
-         return;
+      final T = AFAC[K][K];
+      dscal(N - K + 1, T, AFAC(K, K).asArray(), 1);
+    }
+  }
+
+  // Compute the difference L * L**T - A (or U**T * U - A).
+
+  if (lsame(UPLO, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= J; I++) {
+        AFAC[I][J] = AFAC[I][J] - A[I][J];
       }
-
-      // Compute the product U**T * U, overwriting U.
-
-      if ( lsame( UPLO, 'U' ) ) {
-         for (K = N; K >= 1; K--) { // 10
-
-            // Compute the (K,K) element of the result.
-
-            T = ddot( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 );
-            AFAC[K][K] = T;
-
-            // Compute the rest of column K.
-
-            dtrmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
-
-         } // 10
-
-      // Compute the product L * L**T, overwriting L.
-
-      } else {
-         for (K = N; K >= 1; K--) { // 20
-
-            // Add a multiple of column K of the factor L to each of
-            // columns K+1 through N.
-
-            if (K+1 <= N) dsyr( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC );
-
-            // Scale column K by the diagonal element.
-
-            T = AFAC( K, K );
-            dscal(N-K+1, T, AFAC( K, K ), 1 );
-
-         } // 20
+    }
+  } else {
+    for (var J = 1; J <= N; J++) {
+      for (var I = J; I <= N; I++) {
+        AFAC[I][J] = AFAC[I][J] - A[I][J];
       }
+    }
+  }
 
-      // Compute the difference L * L**T - A (or U**T * U - A).
+  // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 40
-            for (I = 1; I <= J; I++) { // 30
-               AFAC[I][J] = AFAC( I, J ) - A( I, J );
-            } // 30
-         } // 40
-      } else {
-         for (J = 1; J <= N; J++) { // 60
-            for (I = J; I <= N; I++) { // 50
-               AFAC[I][J] = AFAC( I, J ) - A( I, J );
-            } // 50
-         } // 60
-      }
+  RESID.value = dlansy('1', UPLO, N, AFAC, LDAFAC, RWORK);
 
-      // Compute norm(L*U - A) / ( N * norm(A) * EPS )
-
-      RESID = dlansy( '1', UPLO, N, AFAC, LDAFAC, RWORK );
-
-      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
-
-      }
+  RESID.value = ((RESID.value / N) / ANORM) / EPS;
+}

@@ -40,7 +40,7 @@
          W[J] = 0.0;
          X[J] = 0.0;
       } // 20
-      infoc.OK = true;
+      infoc.OK.value = true;
 
       // Error exits for LQ factorization
 

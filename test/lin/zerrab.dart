@@ -51,7 +51,7 @@
          R[J] = 0.0;
          IP[J] = J;
       } // 20
-      infoc.OK = true;
+      infoc.OK.value = true;
 
      srnamc.SRNAMT = 'ZCGESV';
       infoc.INFOT = 1;

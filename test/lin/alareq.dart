@@ -1,105 +1,114 @@
-      import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
-Future<void> alareq(final String PATH, final int NMATS, final Array<bool> DOTYPE_,
-      final int NTYPES, final Nin NIN, final Nout NOUT,)async {
-  final DOTYPE = DOTYPE_.having();
-
+Future<void> alareq(
+  final String PATH,
+  final int NMATS,
+  final Array<bool> DOTYPE_,
+  final int NTYPES,
+  final Nin NIN,
+  final Nout NOUT,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               FIRSTT;
-      String             C1;
-      String             INTSTR;
-      String             LINE;
-      int                I, I1, IC, J, K, LENP, NT;
-      final                NREQ=Array<int>( 100 );
+  final DOTYPE = DOTYPE_.having();
+  final NREQ = Array<int>(100);
+  const INTSTR = '0123456789';
 
-      const INTSTR = '0123456789';
+  if (NMATS >= NTYPES) {
+    // Test everything if NMATS >= NTYPES.
 
-      if ( NMATS >= NTYPES ) {
+    for (var I = 1; I <= NTYPES; I++) {
+      DOTYPE[I] = true;
+    }
+  } else {
+    for (var I = 1; I <= NTYPES; I++) {
+      DOTYPE[I] = false;
+    }
 
-         // Test everything if NMATS >= NTYPES.
+    // Read a line of matrix types if 0 < NMATS < NTYPES.
 
-         for (I = 1; I <= NTYPES; I++) { // 10
-            DOTYPE[I] = true;
-         } // 10
-      } else {
-         for (I = 1; I <= NTYPES; I++) { // 20
-            DOTYPE[I] = false;
-         } // 20
-         FIRSTT = true;
-
-         // Read a line of matrix types if 0 < NMATS < NTYPES.
-
-         if ( NMATS > 0 ) {
-            READ( NIN, FMT = '(A80)', END = 90 )LINE;
-            LENP = LINE.length;
-            I = 0;
-            for (J = 1; J <= NMATS; J++) { // 60
-               NREQ[J] = 0;
-               I1 = 0;
-               } // 30
-               I = I + 1;
-               if ( I > LENP ) {
-                  if ( J == NMATS && I1 > 0 ) {
-                     GO TO 60;
-                  } else {
-                     WRITE( NOUT, FMT = 9995 )LINE;
-                     WRITE( NOUT, FMT = 9994 )NMATS;
-                     GO TO 80;
-                  }
-               }
-               if ( LINE( I: I ) != ' ' && LINE( I: I ) != ',' ) {
-                  I1 = I;
-                  C1 = LINE( I1: I1 );
-
-               // Check that a valid integer was read
-
-                  for (K = 1; K <= 10; K++) { // 40
-                     if ( C1 == INTSTR( K: K ) ) {
-                        IC = K - 1;
-                        GO TO 50;
-                     }
-                  } // 40
-                  WRITE( NOUT, FMT = 9996 )I, LINE;
-                  WRITE( NOUT, FMT = 9994 )NMATS;
-                  GO TO 80;
-                  } // 50
-                  NREQ[J] = 10*NREQ( J ) + IC;
-                  GO TO 30;
-               } else if ( I1 > 0 ) {
-                  GO TO 60;
-               } else {
-                  GO TO 30;
-               }
-            } // 60
-         }
-         for (I = 1; I <= NMATS; I++) { // 70
-            NT = NREQ( I );
-            if ( NT > 0 && NT <= NTYPES ) {
-               if ( DOTYPE( NT ) ) {
-                  if (FIRSTT) WRITE( NOUT, FMT = * );
-                  FIRSTT = false;
-                  WRITE( NOUT, FMT = 9997 )NT, PATH;
-               }
-               DOTYPE[NT] = true;
+    if (NMATS > 0) {
+      final String LINE;
+      try {
+        LINE = await NIN.readLine();
+      } on EOF catch (_) {
+        NOUT.println(
+            '\n *** End of file reached when trying to read matrix types for ${PATH.a3}\n *** Check that you are requesting the right number of types for each path\n');
+        NOUT.println();
+        rethrow;
+      }
+      final LENP = LINE.length;
+      var I = 0, IC = 0;
+      nextValue:
+      for (var J = 1; J <= NMATS; J++) {
+        NREQ[J] = 0;
+        var I1 = 0;
+        nextChar:
+        while (true) {
+          I = I + 1;
+          if (I > LENP) {
+            if (J == NMATS && I1 > 0) {
+              continue nextValue;
             } else {
-               WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES;
- 9999          FORMAT( ' *** Invalid type request for ${.a3}, type  ${.i4}: must satisfy  1 <= type <= ${.i2}');
+              NOUT.println(
+                  '\n\n *** Not enough matrix types on input line\n${LINE.a79}');
+              NOUT.printInfo(NMATS);
+              return;
             }
-         } // 70
-         } // 80
-      }
-      return;
+          }
+          if (LINE[I - 1] != ' ' && LINE[I - 1] != ',') {
+            I1 = I;
+            final C1 = LINE[I1 - 1];
 
-      } // 90
-      WRITE( NOUT, FMT = 9998 )PATH;
- 9998 FORMAT('\n *** End of file reached when trying to read matrix types for ${.a3}\n *** Check that you are requesting the right number of types for each path\n');
- 9997 FORMAT( ' *** Warning:  duplicate request of matrix type ${.i2} for ${.a3}');
- 9996 FORMAT( '\n\n *** Invalid integer value in column ', I2,; ' of input line:', /A79 )
- 9995 FORMAT( '\n\n *** Not enough matrix types on input line', /A79 );
- 9994 FORMAT( ' ==> Specify ${.i4} matrix types on this line or adjust NTYPES on previous line' );
-      WRITE( NOUT, FMT = * );
-      STOP;
+            // Check that a valid integer was read
+            var isValidInt = false;
+            for (var K = 1; K <= 10; K++) {
+              if (C1 == INTSTR[K - 1]) {
+                IC = K - 1;
+                isValidInt = true;
+                break;
+              }
+            }
+
+            if (!isValidInt) {
+              NOUT.println(
+                  '\n\n *** Invalid integer value in column ${I.i2} of input line:\n${LINE.a79}');
+              NOUT.printInfo(NMATS);
+              return;
+            }
+            NREQ[J] = 10 * NREQ[J] + IC;
+            continue nextChar;
+          } else if (I1 > 0) {
+            continue nextValue;
+          }
+        }
       }
+    }
+    var FIRSTT = true;
+    for (var I = 1; I <= NMATS; I++) {
+      final NT = NREQ[I];
+      if (NT > 0 && NT <= NTYPES) {
+        if (DOTYPE[NT]) {
+          if (FIRSTT) NOUT.println();
+          FIRSTT = false;
+          NOUT.println(
+              ' *** Warning:  duplicate request of matrix type ${NT.i2} for ${PATH.a3}');
+        }
+        DOTYPE[NT] = true;
+      } else {
+        NOUT.println(
+            ' *** Invalid type request for ${PATH.a3}, type  ${NT.i4}: must satisfy  1 <= type <= ${NTYPES.i2}');
+      }
+    }
+  }
+}
+
+extension on Nout {
+  void printInfo(int NMATS) {
+    println(
+        ' ==> Specify ${NMATS.i4} matrix types on this line or adjust NTYPES on previous line');
+  }
+}

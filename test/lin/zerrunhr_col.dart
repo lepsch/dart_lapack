@@ -38,7 +38,7 @@
          }
          D[J] = ( 0.0, 0.0 );
       }
-      infoc.OK = true;
+      infoc.OK.value = true;
 
       // Error exits for Householder reconstruction
 

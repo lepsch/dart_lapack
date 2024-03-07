@@ -1,24 +1,19 @@
-      bool dgennd(final int M, final int N, final int A, final int LDA,) {
+import 'dart:math';
 
+import 'package:lapack/src/matrix.dart';
+
+bool dgennd(final int M, final int N, final Matrix<double> A_, final int LDA) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int     M, N, LDA;
-      double           A( LDA, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  const ZERO = 0.0;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      int     I, K;
-      // ..
-      // .. Intrinsics ..
-      // INTRINSIC MIN
-      K = min( M, N );
-      for (I = 1; I <= K; I++) {
-         if ( A( I, I ) < ZERO ) {
-            DGENND = false;
-            return;
-         }
-      }
-      DGENND = true;
-      }
+  final K = min(M, N);
+  for (var I = 1; I <= K; I++) {
+    if (A[I][I] < ZERO) {
+      return false;
+    }
+  }
+  return true;
+}

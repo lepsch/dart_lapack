@@ -2,8 +2,6 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/nio.dart';
 
-import 'common.dart';
-
 void chkxer(
   final String SRNAMT,
   final int INFOT,
@@ -16,7 +14,7 @@ void chkxer(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   if (!LERR.value) {
     NOUT.println(
-        ' *** Illegal value of parameter number ${INFOT.i2} not detected by ${srnamc.SRNAMT} ***');
+        ' *** Illegal value of parameter number ${INFOT.i2} not detected by ${SRNAMT.trim()} ***');
     OK.value = false;
   }
   LERR.value = false;

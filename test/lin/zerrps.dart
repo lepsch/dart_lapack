@@ -44,7 +44,7 @@
          RWORK[NMAX+J] = 0.0;
 
       } // 110
-      infoc.OK = true;
+      infoc.OK.value = true;
 
 
          // Test error exits of the routines that use the Cholesky

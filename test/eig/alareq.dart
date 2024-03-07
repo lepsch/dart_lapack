@@ -82,7 +82,7 @@ Future<void> alareq(
             }
 
             NREQ[J] = 10 * NREQ[J] + IC;
-            continue nextChar;
+            continue nextChar;  
           } else if (I1 > 0) {
             continue nextValue;
           } else {

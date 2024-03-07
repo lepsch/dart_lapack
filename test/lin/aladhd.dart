@@ -296,104 +296,101 @@ extension on Nout {
 
   void print9989() {
     println(
-        '    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n${' ' * 4}2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n${' ' * 4}4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n${' ' * 4}5. First column zero${' ' * 14}11. Scaled near overflow\n${' ' * 4}6. Last column zero');
+        '    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n    2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n    3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n    4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n    5. First column zero${' ' * 14}11. Scaled near overflow\n    6. Last column zero');
   }
 
   // GB matrix types
 
   void print9988() {
     println(
-        '    1. Random, CNDNUM = 2${' ' * 14}5. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. First column zero${' ' * 15}6. Random, CNDNUM = 0.1/EPS\n${' ' * 4}3. Last column zero${' ' * 16}7. Scaled near underflow\n${' ' * 4}4. Last n/2 columns zero${' ' * 11}8. Scaled near overflow');
+        '    1. Random, CNDNUM = 2${' ' * 14}5. Random, CNDNUM = sqrt(0.1/EPS)\n    2. First column zero${' ' * 15}6. Random, CNDNUM = 0.1/EPS\n    3. Last column zero${' ' * 16}7. Scaled near underflow\n    4. Last n/2 columns zero${' ' * 11}8. Scaled near overflow');
   }
 
   // GT matrix types
 
   void print9987() {
     println(
-        ' Matrix types (1-6 have specified condition numbers):\n${' ' * 4}1. Diagonal${' ' * 24}7. Random, unspecified CNDNUM\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}8. First column zero\n${' ' * 4}3. Random, CNDNUM = sqrt(0.1/EPS)${' ' * 2}9. Last column zero\n${' ' * 4}4. Random, CNDNUM = 0.1/EPS${' ' * 7}10. Last n/2 columns zero\n${' ' * 4}5. Scaled near underflow${' ' * 10}11. Scaled near underflow\n${' ' * 4}6. Scaled near overflow${' ' * 11}12. Scaled near overflow');
+        ' Matrix types (1-6 have specified condition numbers):\n    1. Diagonal${' ' * 24}7. Random, unspecified CNDNUM\n    2. Random, CNDNUM = 2${' ' * 14}8. First column zero\n    3. Random, CNDNUM = sqrt(0.1/EPS)  9. Last column zero\n    4. Random, CNDNUM = 0.1/EPS${' ' * 7}10. Last n/2 columns zero\n    5. Scaled near underflow${' ' * 10}11. Scaled near underflow\n    6. Scaled near overflow${' ' * 11}12. Scaled near overflow');
   }
 
   // PT matrix types
 
   void print9986() {
     println(
-        ' Matrix types (1-6 have specified condition numbers):\n${' ' * 4}1. Diagonal${' ' * 24}7. Random, unspecified CNDNUM\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}8. First row and column zero\n${' ' * 4}3. Random, CNDNUM = sqrt(0.1/EPS)${' ' * 2}9. Last row and column zero\n${' ' * 4}4. Random, CNDNUM = 0.1/EPS${' ' * 7}10. Middle row and column zero\n${' ' * 4}5. Scaled near underflow${' ' * 10}11. Scaled near underflow\n${' ' * 4}6. Scaled near overflow${' ' * 11}12. Scaled near overflow');
+        ' Matrix types (1-6 have specified condition numbers):\n    1. Diagonal${' ' * 24}7. Random, unspecified CNDNUM\n    2. Random, CNDNUM = 2${' ' * 14}8. First row and column zero\n    3. Random, CNDNUM = sqrt(0.1/EPS)  9. Last row and column zero\n    4. Random, CNDNUM = 0.1/EPS${' ' * 7}10. Middle row and column zero\n    5. Scaled near underflow${' ' * 10}11. Scaled near underflow\n    6. Scaled near overflow${' ' * 11}12. Scaled near overflow');
   }
 
   // PO, PP matrix types
 
   void print9985(String PATH) {
     println(
-        '    1. Diagonal${' ' * 24}6. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = 0.1/EPS\n${' ' * 3}*3. First row and column zero${' ' * 7}8. Scaled near underflow\n${' ' * 3}*4. Last row and column zero${' ' * 8}9. Scaled near overflow\n${' ' * 3}*5. Middle row and column zero\n${' ' * 3}(* - tests error exits from ${PATH.a3}TRF, no test ratios are computed)');
+        '    1. Diagonal${' ' * 24}6. Random, CNDNUM = sqrt(0.1/EPS)\n    2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = 0.1/EPS\n   *3. First row and column zero${' ' * 7}8. Scaled near underflow\n   *4. Last row and column zero${' ' * 8}9. Scaled near overflow\n   *5. Middle row and column zero\n   (* - tests error exits from ${PATH.a3}TRF, no test ratios are computed)');
   }
 
   // PB matrix types
 
   void print9984(String PATH) {
     println(
-        '    1. Random, CNDNUM = 2${' ' * 14}5. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 3}*2. First row and column zero${' ' * 7}6. Random, CNDNUM = 0.1/EPS\n${' ' * 3}*3. Last row and column zero${' ' * 8}7. Scaled near underflow\n${' ' * 3}*4. Middle row and column zero${' ' * 6}8. Scaled near overflow\n${' ' * 3}(* - tests error exits from ${PATH.a3}TRF, no test ratios are computed)');
+        '    1. Random, CNDNUM = 2${' ' * 14}5. Random, CNDNUM = sqrt(0.1/EPS)\n   *2. First row and column zero${' ' * 7}6. Random, CNDNUM = 0.1/EPS\n   *3. Last row and column zero${' ' * 8}7. Scaled near underflow\n   *4. Middle row and column zero${' ' * 6}8. Scaled near overflow\n   (* - tests error exits from ${PATH.a3}TRF, no test ratios are computed)');
   }
 
   // SSY, SSP, CHE, CHP matrix types
 
   void print9983() {
     println(
-        '    1. Diagonal${' ' * 24}6. Last n/2 rows and columns zero\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}3. First row and column zero${' ' * 7}8. Random, CNDNUM = 0.1/EPS\n${' ' * 4}4. Last row and column zero${' ' * 8}9. Scaled near underflow\n${' ' * 4}5. Middle row and column zero${' ' * 5}10. Scaled near overflow');
+        '    1. Diagonal${' ' * 24}6. Last n/2 rows and columns zero\n    2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = sqrt(0.1/EPS)\n    3. First row and column zero${' ' * 7}8. Random, CNDNUM = 0.1/EPS\n    4. Last row and column zero${' ' * 8}9. Scaled near underflow\n    5. Middle row and column zero     10. Scaled near overflow');
   }
 
   // CSY, CSP matrix types
 
   void print9982() {
     println(
-        '    1. Diagonal${' ' * 24}7. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}8. Random, CNDNUM = 0.1/EPS\n${' ' * 4}3. First row and column zero${' ' * 7}9. Scaled near underflow\n${' ' * 4}4. Last row and column zero${' ' * 7}10. Scaled near overflow\n${' ' * 4}5. Middle row and column zero${' ' * 5}11. Block diagonal matrix\n${' ' * 4}6. Last n/2 rows and columns zero');
+        '    1. Diagonal${' ' * 24}7. Random, CNDNUM = sqrt(0.1/EPS)\n    2. Random, CNDNUM = 2${' ' * 14}8. Random, CNDNUM = 0.1/EPS\n    3. First row and column zero${' ' * 7}9. Scaled near underflow\n    4. Last row and column zero${' ' * 7}10. Scaled near overflow\n    5. Middle row and column zero     11. Block diagonal matrix\n    6. Last n/2 rows and columns zero');
   }
 
   // Test ratios
 
   void print9981(int i) {
-    println('${' ' * 3}${i.i2}: norm( L * U - A )  / ( N * norm(A) * EPS )');
+    println('   ${i.i2}: norm( L * U - A )  / ( N * norm(A) * EPS )');
   }
 
   void print9980(int i) {
-    println(
-        '${' ' * 3}${i.i2}: norm( B - A * X )  / ( norm(A) * norm(X) * EPS )');
+    println('   ${i.i2}: norm( B - A * X )  / ( norm(A) * norm(X) * EPS )');
   }
 
   void print9979(int i) {
-    println(
-        '${' ' * 3}${i.i2}: norm( X - XACT )   / ( norm(XACT) * CNDNUM * EPS )');
+    println('   ${i.i2}: norm( X - XACT )   / ( norm(XACT) * CNDNUM * EPS )');
   }
 
   void print9978(int i) {
-    println(
-        '${' ' * 3}${i.i2}: norm( X - XACT )   / ( norm(XACT) * (error bound) )');
+    println('   ${i.i2}: norm( X - XACT )   / ( norm(XACT) * (error bound) )');
   }
 
   void print9977(int i) {
-    println('${' ' * 3}${i.i2}: (backward error)   / EPS');
+    println('   ${i.i2}: (backward error)   / EPS');
   }
 
   void print9976(int i) {
-    println('${' ' * 3}${i.i2}: RCOND * CNDNUM - 1.0');
+    println('   ${i.i2}: RCOND * CNDNUM - 1.0');
   }
 
   void print9975(int i) {
     println(
-        '${' ' * 3}${i.i2}: norm( U\' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L\' - A ) / ( N * norm(A) * EPS )');
+        '   ${i.i2}: norm( U\' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L\' - A ) / ( N * norm(A) * EPS )');
   }
 
   void print9974(int i) {
     println(
-        '${' ' * 3}${i.i2}: norm( U*D*U\' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L\' - A ) / ( N * norm(A) * EPS )');
+        '   ${i.i2}: norm( U*D*U\' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L\' - A ) / ( N * norm(A) * EPS )');
   }
 
   void print9973(int i) {
     println(
-        '${' ' * 3}${i.i2}: norm( U\'*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L\' - A ) / ( N * norm(A) * EPS )');
+        '   ${i.i2}: norm( U\'*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L\' - A ) / ( N * norm(A) * EPS )');
   }
 
   void print9972(int i) {
     println(
-        '${' ' * 3}${i.i2}: abs( WORK(1) - RPVGRW ) / ( max( WORK(1), RPVGRW ) * EPS )');
+        '   ${i.i2}: abs( WORK(1) - RPVGRW ) / ( max( WORK(1), RPVGRW ) * EPS )');
   }
 }

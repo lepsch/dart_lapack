@@ -29,11 +29,11 @@ import 'common.dart';
          } else {
             WRITE( infoc.NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO;
          }
-         infoc.OK = false;
+         infoc.OK.value = false;
       }
       if ( SRNAME !=srnamc.SRNAMT ) {
          WRITE( infoc.NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ),srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) );
-         infoc.OK = false;
+         infoc.OK.value = false;
       }
       return;
 

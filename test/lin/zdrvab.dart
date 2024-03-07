@@ -223,6 +223,6 @@
 
  9975 FORMAT( ' *** Error code from ${.a6}=${.i5} for M=${.i5}, type ${.i2}');
  8999 FORMAT('\n ${.a3}:  General dense matrices' );
- 8979 FORMAT('    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n${' ' * 4}2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n${' ' * 4}4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n${' ' * 4}5. First column zero${' ' * 14}11. Scaled near overflow\n${' ' * 4}6. Last column zero' );
- 8960 FORMAT('${' ' * 3}${.i2}: norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF\n${' ' * 4}or norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' );
+ 8979 FORMAT('    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n    2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n    3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n    4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n    5. First column zero${' ' * 14}11. Scaled near overflow\n    6. Last column zero' );
+ 8960 FORMAT('   ${.i2}: norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF\n    or norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' );
       }

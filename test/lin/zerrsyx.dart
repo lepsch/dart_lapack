@@ -38,7 +38,7 @@
 
       NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
-      C2 = PATH( 2: 3 );
+      C2 = PATH.substring( 1, 3 );
 
       // Set the variables to innocuous values.
 
@@ -56,7 +56,7 @@
          IP[J] = J;
       } // 20
       ANRM = 1.0;
-      infoc.OK = true;
+      infoc.OK.value = true;
 
       if ( lsamen( 2, C2, 'SY' ) ) {
 

@@ -573,7 +573,7 @@ void _print9999(
   Array<int> iseed,
 ) {
   nout.println(
-      ' ZDRGEV: $s returned INFO=${info.i6}.\n${' ' * 3}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
+      ' ZDRGEV: $s returned INFO=${info.i6}.\n   N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }
 
 void _print9998(
@@ -586,7 +586,7 @@ void _print9998(
   Array<int> iseed,
 ) {
   nout.println(
-      ' ZDRGEV: $side Eigenvectors from $fn incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 3}N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(3, ',')})');
+      ' ZDRGEV: $side Eigenvectors from $fn incorrectly normalized.\n Bits of error=${error.g10_3},   N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(3, ',')})');
 }
 
 //  9997 FORMAT( );

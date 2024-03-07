@@ -29,7 +29,7 @@
       // COMMON / SRNAMC /srnamc.SRNAMT
 
       NOUT = infoc.NUNIT;
-      infoc.OK = true;
+      infoc.OK.value = true;
       A[1][1] = DCMPLX( 1.0 , 1.0  );
       B[1][1] = DCMPLX( 1.0 , 1.0  );
       ALPHA     = 1.0;

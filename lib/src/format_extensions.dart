@@ -89,6 +89,7 @@ extension DoubleFormatExtension on double {
 
   String get g10_3 => g(10, 3);
   String get g12_3 => g(12, 3);
+  String get g12_5 => g(12, 5);
   String get g11_4 => g(11, 4);
   String get g13_6 => g(13, 6);
   String get g15_6 => g(15, 6);
