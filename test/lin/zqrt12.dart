@@ -1,108 +1,115 @@
-      double zqrt12(final int M, final int N, final Matrix<double> A_, final int LDA, final int S, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_,) {
-  final A = A_.having();
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/dnrm2.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dbdsqr.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgebd2.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlascl.dart';
+import 'package:lapack/src/zlaset.dart';
+
+double zqrt12(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> S_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      double             RWORK( * ), S( * );
-      Complex         A( LDA, * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final S = S_.having();
+  final WORK = WORK_.having(length: LWORK);
+  final RWORK = RWORK_.having();
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, INFO, ISCL, J, MN;
-      double             ANRM, BIGNUM, NRMSVL, SMLNUM;
-      double             DUMMY( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DASUM, DLAMCH, DNRM2, ZLANGE;
-      // EXTERNAL DASUM, DLAMCH, DNRM2, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DBDSQR, DLASCL, XERBLA, ZGEBD2, ZLASCL, ZLASET
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX, MIN
+  const ZERO = 0.0, ONE = 1.0;
+  final DUMMY = Array<double>(1);
+  final INFO = Box(0);
 
-      ZQRT12 = ZERO;
+  // Test that enough workspace is supplied
 
-      // Test that enough workspace is supplied
+  if (LWORK < M * N + 2 * min(M, N) + max(M, N)) {
+    xerbla('ZQRT12', 7);
+    return 0;
+  }
 
-      if ( LWORK < M*N+2*min( M, N )+max( M, N ) ) {
-         xerbla('ZQRT12', 7 );
-         return;
+  // Quick return if possible
+
+  final MN = min(M, N);
+  if (MN <= ZERO) return 0;
+
+  final NRMSVL = dnrm2(MN, S, 1);
+
+  // Copy upper triangle of A into work
+
+  zlaset('Full', M, N, Complex.zero, Complex.zero, WORK.asMatrix(), M);
+  for (var J = 1; J <= N; J++) {
+    for (var I = 1; I <= min(J, M); I++) {
+      WORK[(J - 1) * M + I] = A[I][J];
+    }
+  }
+
+  // Get machine parameters
+
+  final SMLNUM = dlamch('S') / dlamch('P');
+  final BIGNUM = ONE / SMLNUM;
+
+  // Scale work if max entry outside range [SMLNUM,BIGNUM]
+
+  final ANRM = zlange('M', M, N, WORK.asMatrix(), M, DUMMY);
+  final int ISCL;
+  if (ANRM > ZERO && ANRM < SMLNUM) {
+    // Scale matrix norm up to SMLNUM
+
+    zlascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK.asMatrix(), M, INFO);
+    ISCL = 1;
+  } else if (ANRM > BIGNUM) {
+    // Scale matrix norm down to BIGNUM
+
+    zlascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK.asMatrix(), M, INFO);
+    ISCL = 1;
+  } else {
+    ISCL = 0;
+  }
+
+  if (ANRM != ZERO) {
+    // Compute SVD of work
+
+    zgebd2(M, N, WORK.asMatrix(), M, RWORK(1), RWORK(MN + 1), WORK(M * N + 1),
+        WORK(M * N + MN + 1), WORK(M * N + 2 * MN + 1), INFO);
+    dbdsqr('Upper', MN, 0, 0, 0, RWORK(1), RWORK(MN + 1), DUMMY.asMatrix(), MN,
+        DUMMY.asMatrix(), 1, DUMMY.asMatrix(), MN, RWORK(2 * MN + 1), INFO);
+
+    if (ISCL == 1) {
+      if (ANRM > BIGNUM) {
+        dlascl('G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK(1).asMatrix(), MN, INFO);
       }
-
-      // Quick return if possible
-
-      MN = min( M, N );
-      if (MN <= ZERO) return;
-
-      NRMSVL = dnrm2( MN, S, 1 );
-
-      // Copy upper triangle of A into work
-
-      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
-      for (J = 1; J <= N; J++) {
-         for (I = 1; I <= min( J, M ); I++) {
-            WORK[( J-1 )*M+I] = A( I, J );
-         }
+      if (ANRM < SMLNUM) {
+        dlascl('G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK(1).asMatrix(), MN, INFO);
       }
+    }
+  } else {
+    for (var I = 1; I <= MN; I++) {
+      RWORK[I] = ZERO;
+    }
+  }
 
-      // Get machine parameters
+  // Compare s and singular values of work
 
-      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
-      BIGNUM = ONE / SMLNUM;
+  daxpy(MN, -ONE, S, 1, RWORK(1), 1);
+  final result =
+      dasum(MN, RWORK(1), 1) / (dlamch('Epsilon') * (max(M, N)).toDouble());
 
-      // Scale work if max entry outside range [SMLNUM,BIGNUM]
-
-      ANRM = ZLANGE( 'M', M, N, WORK, M, DUMMY );
-      ISCL = 0;
-      if ( ANRM > ZERO && ANRM < SMLNUM ) {
-
-         // Scale matrix norm up to SMLNUM
-
-         zlascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
-         ISCL = 1;
-      } else if ( ANRM > BIGNUM ) {
-
-         // Scale matrix norm down to BIGNUM
-
-         zlascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO );
-         ISCL = 1;
-      }
-
-      if ( ANRM != ZERO ) {
-
-         // Compute SVD of work
-
-         zgebd2(M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO );
-         dbdsqr('Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO );
-
-         if ( ISCL == 1 ) {
-            if ( ANRM > BIGNUM ) {
-               dlascl('G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
-            }
-            if ( ANRM < SMLNUM ) {
-               dlascl('G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
-            }
-         }
-
-      } else {
-
-         for (I = 1; I <= MN; I++) {
-            RWORK[I] = ZERO;
-         }
-      }
-
-      // Compare s and singular values of work
-
-      daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
-      ZQRT12 = dasum( MN, RWORK( 1 ), 1 ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-
-      if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
-
-      }
+  return NRMSVL != ZERO ? result / NRMSVL : result;
+}

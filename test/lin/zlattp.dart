@@ -1,6 +1,6 @@
-      void zlattp(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final int AP, final int B, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+      void zlattp(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final int AP, final int B, final Array<double> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
   final ISEED = ISEED_.having();
-  final _WORK = _WORK_.having();
+  final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

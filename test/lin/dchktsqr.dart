@@ -1,133 +1,130 @@
-import 'common.dart';
+import 'dart:math';
 
-      void dchktsqr(final int THRESH, final int TSTERR, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NOUT,) {
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import 'alahd.dart';
+import 'alasum.dart';
+import 'common.dart';
+import 'derrtsqr.dart';
+import 'dtsqr01.dart';
+import 'xlaenv.dart';
+
+void dchktsqr(
+  final double THRESH,
+  final bool TSTERR,
+  final int NM,
+  final Array<int> MVAL_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNB,
+  final Array<int> NBVAL_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NM, NN, NNB, NOUT;
-      double             THRESH;
-      int                MVAL( * ), NBVAL( * ), NVAL( * );
-      // ..
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final NBVAL = NBVAL_.having();
+  const NTESTS = 6;
+  int NFAIL, NERRS, NRUN;
+  final RESULT = Array<double>(NTESTS);
 
-      int                NTESTS;
-      const              NTESTS = 6 ;
-      String             PATH;
-      int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, INB, MINMN, MB, IMB;
+  // Initialize constants
 
-      // .. Local Arrays ..
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ALAHD, ALASUM, DERRTSQR, DTSQR01, XLAENV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC / srnamc.SRNAMT
+  const PATH = 'DTS';
+  NRUN = 0;
+  NFAIL = 0;
+  NERRS = 0;
 
-      // Initialize constants
+  // Test the error exits
 
-      PATH[1: 1] = 'D';
-      PATH[2: 3] = 'TS';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+  xlaenv(1, 0);
+  xlaenv(2, 0);
+  if (TSTERR) derrtsqr(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      // Test the error exits
+  // Do for each value of M in MVAL.
 
-      xlaenv(1, 0 );
-      xlaenv(2, 0 );
-      if (TSTERR) derrtsqr( PATH, NOUT );
-      infoc.INFOT = 0;
+  for (var I = 1; I <= NM; I++) {
+    final M = MVAL[I];
 
-      // Do for each value of M in MVAL.
+    // Do for each value of N in NVAL.
 
-      for (I = 1; I <= NM; I++) {
-         M = MVAL( I );
+    for (var J = 1; J <= NN; J++) {
+      final N = NVAL[J];
+      if (min(M, N) != 0) {
+        for (var INB = 1; INB <= NNB; INB++) {
+          final MB = NBVAL[INB];
+          xlaenv(1, MB);
+          for (var IMB = 1; IMB <= NNB; IMB++) {
+            final NB = NBVAL[IMB];
+            xlaenv(2, NB);
 
-         // Do for each value of N in NVAL.
+            // Test DGEQR and DGEMQR
 
-         for (J = 1; J <= NN; J++) {
-            N = NVAL( J );
-              if (min(M,N) != 0) {
-              for (INB = 1; INB <= NNB; INB++) {
-                MB = NBVAL( INB );
-                  xlaenv(1, MB );
-                  for (IMB = 1; IMB <= NNB; IMB++) {
-                    NB = NBVAL( IMB );
-                    xlaenv(2, NB );
+            dtsqr01('TS', M, N, MB, NB, RESULT);
 
-                  // Test DGEQR and DGEMQR
+            // Print information about the tests that did not
+            // pass the threshold.
 
-                    dtsqr01('TS', M, N, MB, NB, RESULT );
-
-                  // Print information about the tests that did not
-                  // pass the threshold.
-
-                    for (T = 1; T <= NTESTS; T++) {
-                      if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )M, N, MB, NB, T, RESULT( T );
-                        NFAIL = NFAIL + 1;
-                      }
-                    }
-                    NRUN = NRUN + NTESTS;
-                  }
+            for (var T = 1; T <= NTESTS; T++) {
+              if (RESULT[T] >= THRESH) {
+                if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
+                NOUT.println(
+                    'TS: M=${M.i5}, N=${N.i5}, MB=${MB.i5}, NB=${NB.i5} test(${T.i2})=${RESULT[T].g12_5}');
+                NFAIL = NFAIL + 1;
               }
-              }
-         }
+            }
+            NRUN = NRUN + NTESTS;
+          }
+        }
       }
+    }
+  }
 
-      // Do for each value of M in MVAL.
+  // Do for each value of M in MVAL.
 
-      for (I = 1; I <= NM; I++) {
-         M = MVAL( I );
+  for (var I = 1; I <= NM; I++) {
+    final M = MVAL[I];
 
-         // Do for each value of N in NVAL.
+    // Do for each value of N in NVAL.
 
-         for (J = 1; J <= NN; J++) {
-            N = NVAL( J );
-              if (min(M,N) != 0) {
-              for (INB = 1; INB <= NNB; INB++) {
-                MB = NBVAL( INB );
-                  xlaenv(1, MB );
-                  for (IMB = 1; IMB <= NNB; IMB++) {
-                    NB = NBVAL( IMB );
-                    xlaenv(2, NB );
+    for (var J = 1; J <= NN; J++) {
+      final N = NVAL[J];
+      if (min(M, N) != 0) {
+        for (var INB = 1; INB <= NNB; INB++) {
+          final MB = NBVAL[INB];
+          xlaenv(1, MB);
+          for (var IMB = 1; IMB <= NNB; IMB++) {
+            final NB = NBVAL[IMB];
+            xlaenv(2, NB);
 
-                  // Test DGEQR and DGEMQR
+            // Test DGEQR and DGEMQR
 
-                    dtsqr01('SW', M, N, MB, NB, RESULT );
+            dtsqr01('SW', M, N, MB, NB, RESULT);
 
-                  // Print information about the tests that did not
-                  // pass the threshold.
+            // Print information about the tests that did not
+            // pass the threshold.
 
-                    for (T = 1; T <= NTESTS; T++) {
-                      if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9998 )M, N, MB, NB, T, RESULT( T );
-                        NFAIL = NFAIL + 1;
-                      }
-                    }
-                    NRUN = NRUN + NTESTS;
-                  }
+            for (var T = 1; T <= NTESTS; T++) {
+              if (RESULT[T] >= THRESH) {
+                if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
+                NOUT.println(
+                    'SW: M=${M.i5}, N=${N.i5}, MB=${MB.i5}, NB=${NB.i5} test(${T.i2})=${RESULT[T].g12_5}');
+                NFAIL = NFAIL + 1;
               }
-              }
-         }
+            }
+            NRUN = NRUN + NTESTS;
+          }
+        }
       }
+    }
+  }
 
-      // Print a summary of the results.
+  // Print a summary of the results.
 
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( 'TS: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
- 9998 FORMAT( 'SW: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
-      }
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS);
+}

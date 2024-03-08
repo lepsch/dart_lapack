@@ -1,5 +1,5 @@
-      void zchkps(final int DOTYPE, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NRANK, final int RANKVAL, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
-  final _WORK = _WORK_.having();
+      void zchkps(final int DOTYPE, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NRANK, final int RANKVAL, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+  final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

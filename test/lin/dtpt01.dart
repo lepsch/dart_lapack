@@ -1,5 +1,5 @@
-      void dtpt01(final int UPLO, final int DIAG, final int N, final int AP, final int AINVP, final int RCOND, final Array<double> _WORK_, final int RESID,) {
-  final _WORK = _WORK_.having();
+      void dtpt01(final int UPLO, final int DIAG, final int N, final int AP, final int AINVP, final int RCOND, final Array<double> WORK_, final int RESID,) {
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

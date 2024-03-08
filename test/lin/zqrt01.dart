@@ -1,88 +1,100 @@
-      void zqrt01(final int M, final int N, final int A, final int AF, final int Q, final int R, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zherk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/variants/qr/ll/zgeqrf.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlansy.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zungqr.dart';
+
+import 'common.dart';
+
+void zqrt01(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final Matrix<Complex> AF_,
+  final Matrix<Complex> Q_,
+  final Matrix<Complex> R_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<double> RESULT_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      double             RESULT( * ), RWORK( * );
-      Complex         A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDA);
+  final Q = Q_.having(ld: LDA);
+  final R = R_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
+  final RWORK = RWORK_.having();
+  final RESULT = RESULT_.having();
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         ROGUE;
-      const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
-      int                INFO, MINMN;
-      double             ANORM, EPS, RESID;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE, ZLANSY;
-      // EXTERNAL DLAMCH, ZLANGE, ZLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMM, ZGEQRF, ZHERK, ZLACPY, ZLASET, ZUNGQR
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX, MIN
-      // ..
-      // .. Scalars in Common ..
-      String            srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC /srnamc.SRNAMT
+  const ZERO = 0.0, ONE = 1.0;
+  const ROGUE = Complex(-1.0e+10, -1.0e+10);
+  final INFO = Box(0);
 
-      MINMN = min( M, N );
-      EPS = dlamch( 'Epsilon' );
+  final MINMN = min(M, N);
+  final EPS = dlamch('Epsilon');
 
-      // Copy the matrix A to the array AF.
+  // Copy the matrix A to the array AF.
 
-      zlacpy('Full', M, N, A, LDA, AF, LDA );
+  zlacpy('Full', M, N, A, LDA, AF, LDA);
 
-      // Factorize the matrix A in the array AF.
+  // Factorize the matrix A in the array AF.
 
-     srnamc.SRNAMT = 'ZGEQRF';
-      zgeqrf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
+  srnamc.SRNAMT = 'ZGEQRF';
+  zgeqrf(M, N, AF, LDA, TAU, WORK, LWORK, INFO);
 
-      // Copy details of Q
+  // Copy details of Q
 
-      zlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
-      zlacpy('Lower', M-1, N, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
+  zlaset('Full', M, M, ROGUE, ROGUE, Q, LDA);
+  zlacpy('Lower', M - 1, N, AF(2, 1), LDA, Q(2, 1), LDA);
 
-      // Generate the m-by-m matrix Q
+  // Generate the m-by-m matrix Q
 
-     srnamc.SRNAMT = 'ZUNGQR';
-      zungqr(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
+  srnamc.SRNAMT = 'ZUNGQR';
+  zungqr(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO);
 
-      // Copy R
+  // Copy R
 
-      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), R, LDA );
-      zlacpy('Upper', M, N, AF, LDA, R, LDA );
+  zlaset('Full', M, N, Complex.zero, Complex.zero, R, LDA);
+  zlacpy('Upper', M, N, AF, LDA, R, LDA);
 
-      // Compute R - Q'*A
+  // Compute R - Q'*A
 
-      zgemm('Conjugate transpose', 'No transpose', M, N, M, DCMPLX( -ONE ), Q, LDA, A, LDA, DCMPLX( ONE ), R, LDA );
+  zgemm('Conjugate transpose', 'No transpose', M, N, M, -Complex.one, Q, LDA, A,
+      LDA, Complex.one, R, LDA);
 
-      // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
+  // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
-      ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
-      RESID = ZLANGE( '1', M, N, R, LDA, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / (max( 1, M )).toDouble() ) / ANORM ) / EPS;
-      } else {
-         RESULT[1] = ZERO;
-      }
+  final ANORM = zlange('1', M, N, A, LDA, RWORK);
+  var RESID = zlange('1', M, N, R, LDA, RWORK);
+  if (ANORM > ZERO) {
+    RESULT[1] = ((RESID / (max(1, M)).toDouble()) / ANORM) / EPS;
+  } else {
+    RESULT[1] = ZERO;
+  }
 
-      // Compute I - Q'*Q
+  // Compute I - Q'*Q
 
-      zlaset('Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), R, LDA );
-      zherk('Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA );
+  zlaset('Full', M, M, Complex.zero, Complex.one, R, LDA);
+  zherk('Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA);
 
-      // Compute norm( I - Q'*Q ) / ( M * EPS ) .
+  // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 
-      RESID = ZLANSY( '1', 'Upper', M, R, LDA, RWORK );
+  RESID = zlansy('1', 'Upper', M, R, LDA, RWORK);
 
-      RESULT[2] = ( RESID / (max( 1, M )).toDouble() ) / EPS;
-
-      }
+  RESULT[2] = (RESID / (max(1, M)).toDouble()) / EPS;
+}

@@ -1,42 +1,42 @@
-      void zerrunhr_col(PATH, infoc.NUNIT ) {
+      import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zunhr_col.dart';
+
+import 'alaesm.dart';
+import 'chkxer.dart';
+import 'common.dart';
+
+void zerrunhr_col(String PATH, Nout NUNIT ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String   (LEN=3)   PATH;
-      int                infoc.NUNIT;
-      // ..
-
-      int                NMAX;
       const              NMAX = 2 ;
-      int                I, INFO, J;
-      Complex         A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAESM, CHKXER, ZUNHR_COL
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String   (LEN=32) srnamc.SRNAMT;
-      int                infoc.INFOT, NOUT;
+      final         A=Matrix<Complex>( NMAX, NMAX ), T=Matrix<Complex>( NMAX, NMAX ), D=Array<Complex>(NMAX);
+  final INFO = Box(0);
+      // bool               infoc.LERR, infoc.OK;
+      // String   (LEN=32) srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
       // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
 
-      NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      infoc.NOUT.println();
 
       // Set the variables to innocuous values.
 
-      for (J = 1; J <= NMAX; J++) {
-         for (I = 1; I <= NMAX; I++) {
-            A[I][J] = DCMPLX( 1.0 / (I+J).toDouble() );
-            T[I][J] = DCMPLX( 1.0 / (I+J).toDouble() );
+      for (var J = 1; J <= NMAX; J++) {
+         for (var I = 1; I <= NMAX; I++) {
+            A[I][J] = Complex( 1.0 / (I+J) );
+            T[I][J] = Complex( 1.0 / (I+J) );
          }
-         D[J] = ( 0.0, 0.0 );
+         D[J] = Complex( 0.0, 0.0 );
       }
       infoc.OK.value = true;
 
@@ -48,43 +48,43 @@
 
       infoc.INFOT = 1;
       zunhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       infoc.INFOT = 2;
       zunhr_col(0, -1, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       zunhr_col(1, 2, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       infoc.INFOT = 3;
       zunhr_col(0, 0, -1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(0, 0, 0, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       infoc.INFOT = 5;
       zunhr_col(0, 0, 1, A, -1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(0, 0, 1, A, 0, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(2, 0, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       infoc.INFOT = 7;
       zunhr_col(0, 0, 1, A, 1, T, -1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(0, 0, 1, A, 1, T, 0, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(4, 3, 2, A, 4, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, infoc.OK, NOUT );
+      alaesm(PATH, infoc.OK.value, infoc.NOUT );
 
       }

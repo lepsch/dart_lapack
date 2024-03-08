@@ -1,8 +1,8 @@
-      void zgbt01(final int M, final int N, final int KL, final int KU, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<int> IPIV_, final Array<double> _WORK_, final int RESID,) {
+      void zgbt01(final int M, final int N, final int KL, final int KU, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<int> IPIV_, final Array<double> WORK_, final int RESID,) {
   final A = A_.having();
   final AFAC = AFAC_.having();
   final IPIV = IPIV_.having();
-  final _WORK = _WORK_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

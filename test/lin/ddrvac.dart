@@ -1,7 +1,7 @@
 import 'common.dart';
 
-      void ddrvac(final int DOTYPE, final int NM, final int MVAL, final int NNS, final int NSVAL, final int THRESH, final int NMAX, final int A, final int AFAC, final int B, final int X, final Array<double> _WORK_, final Array<double> RWORK_, final int SWORK, final int NOUT,) {
-  final _WORK = _WORK_.having();
+      void ddrvac(final int DOTYPE, final int NM, final int MVAL, final int NNS, final int NSVAL, final int THRESH, final int NMAX, final int A, final int AFAC, final int B, final int X, final Array<double> WORK_, final Array<double> RWORK_, final int SWORK, final int NOUT,) {
+  final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

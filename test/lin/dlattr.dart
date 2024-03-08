@@ -1,7 +1,7 @@
-      void dlattr(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final Matrix<double> A_, final int LDA, final int B, final Array<double> _WORK_, final Box<int> INFO,) {
+      void dlattr(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final Matrix<double> A_, final int LDA, final int B, final Array<double> WORK_, final Box<int> INFO,) {
   final ISEED = ISEED_.having();
   final A = A_.having();
-  final _WORK = _WORK_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

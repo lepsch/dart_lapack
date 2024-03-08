@@ -96,7 +96,7 @@ void dchksy_rook(
   NFAIL = 0;
   NERRS.value = 0;
   for (I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
+    ISEED[I] = ISEEDY[I];
   }
 
   // Test the error exits

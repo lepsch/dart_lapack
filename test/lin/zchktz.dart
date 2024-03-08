@@ -1,5 +1,5 @@
-      void zchktz(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int S, final int TAU, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
-  final _WORK = _WORK_.having();
+      void zchktz(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int S, final int TAU, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+  final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

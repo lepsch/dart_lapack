@@ -76,7 +76,7 @@ void zdrvhe_aa(
   var NFAIL = 0;
   NERRS.value = 0;
   for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
+    ISEED[I] = ISEEDY[I];
   }
 
   // Test the error exits

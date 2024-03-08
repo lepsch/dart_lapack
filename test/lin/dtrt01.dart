@@ -1,7 +1,7 @@
-      void dtrt01(final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final int RCOND, final Array<double> _WORK_, final int RESID,) {
+      void dtrt01(final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final int RCOND, final Array<double> WORK_, final int RESID,) {
   final A = A_.having();
   final AINV = AINV_.having();
-  final _WORK = _WORK_.having();
+  final WORK = WORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

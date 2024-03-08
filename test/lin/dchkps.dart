@@ -1,169 +1,182 @@
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dpstrf.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import '../matgen/dlatmt.dart';
+import 'alaerh.dart';
+import 'alahd.dart';
+import 'alasum.dart';
 import 'common.dart';
+import 'derrps.dart';
+import 'dlatb5.dart';
+import 'dpst01.dart';
+import 'xlaenv.dart';
 
-      void dchkps(final int DOTYPE, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NRANK, final int RANKVAL, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
-  final _WORK = _WORK_.having();
-  final RWORK = RWORK_.having();
-
+void dchkps(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNB,
+  final Array<int> NBVAL_,
+  final int NRANK,
+  final Array<int> RANKVAL_,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<double> A_,
+  final Array<double> AFAC_,
+  final Array<double> PERM_,
+  final Array<int> PIV_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      double             THRESH;
-      int                NMAX, NN, NNB, NOUT, NRANK;
-      bool               TSTERR;
-      double             A( * ), AFAC( * ), PERM( * ), RWORK( * ), WORK( * );
-      int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * );
-      bool               DOTYPE( * );
-      // ..
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final NBVAL = NBVAL_.having();
+  final RANKVAL = RANKVAL_.having();
+  final PIV = PIV_.having();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final PERM = PERM_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      int                NTYPES;
-      const              NTYPES = 9 ;
-      double             ANORM, CNDNUM, RESULT, TOL;
-      int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF;
-      String             DIST, TYPE, UPLO;
-      String             PATH;
-      int                ISEED( 4 ), ISEEDY( 4 );
-      String             UPLOS( 2 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ALAHD, ALASUM, DERRPS, DLACPY, DLATB5, DLATMT, DPST01, DPSTRF, XLAENV
-      // ..
-      // .. Scalars in Common ..
-      // int                infoc.INFOT, infoc.NUNIT;
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC / srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, CEILING
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
+  const ONE = 1.0;
+  const NTYPES = 9;
+  final ISEED = Array<int>(4);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  final INFO = Box(0), NERRS = Box(0), COMPRANK = Box(0);
 
-      // Initialize constants and the random number seed.
+  // Initialize constants and the random number seed.
 
-      PATH = '${'Double precision'[0]}';
-      PATH[2: 3] = 'PS';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      for (I = 1; I <= 4; I++) { // 100
-         ISEED[I] = ISEEDY( I );
-      } // 100
+  final PATH = '${'Double precision'[0]}PS';
+  var NRUN = 0;
+  var NFAIL = 0;
+  NERRS.value = 0;
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      // Test the error exits
+  // Test the error exits
 
-      if (TSTERR) derrps( PATH, NOUT );
-      infoc.INFOT = 0;
-      xlaenv(2, 2 );
+  if (TSTERR) derrps(PATH, NOUT);
+  infoc.INFOT = 0;
+  xlaenv(2, 2);
 
-      // Do for each value of N in NVAL
+  // Do for each value of N in NVAL
 
-      for (IN = 1; IN <= NN; IN++) { // 150
-         N = NVAL( IN );
-         LDA = max( N, 1 );
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+  for (var IN = 1; IN <= NN; IN++) {
+    final N = NVAL[IN];
+    final LDA = max(N, 1);
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
-         IZERO = 0;
-         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 140
+    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      // Do the tests only if DOTYPE( IMAT ) is true.
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      if (!DOTYPE[IMAT]) continue;
 
-            if( !DOTYPE( IMAT ) ) GO TO 140;
+      // Do for each value of RANK in RANKVAL
 
-               // Do for each value of RANK in RANKVAL
+      for (var IRANK = 1; IRANK <= NRANK; IRANK++) {
+        // Only repeat test 3 to 5 for different ranks
+        // Other tests use full rank
 
-            for (IRANK = 1; IRANK <= NRANK; IRANK++) { // 130
+        if ((IMAT < 3 || IMAT > 5) && IRANK > 1) continue;
 
-               // Only repeat test 3 to 5 for different ranks
-               // Other tests use full rank
+        final RANK = ((N * RANKVAL[IRANK]) / 100.0).ceil();
 
-               if( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130;
+        // Do first for UPLO = 'U', then for UPLO = 'L'
 
-               RANK = CEILING( ( N * (RANKVAL( IRANK )).toDouble() ) / 100.0 );
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          final UPLO = UPLOS[IUPLO - 1];
 
+          // Set up parameters with DLATB5 and generate a test matrix
+          // with DLATMT.
+          final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+              dlatb5(PATH, IMAT, N);
 
-            // Do first for UPLO = 'U', then for UPLO = 'L'
+          srnamc.SRNAMT = 'DLATMT';
+          dlatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL,
+              KU, UPLO, A.asMatrix(), LDA, WORK, INFO);
 
-               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
-                  UPLO = UPLOS( IUPLO );
+          // Check error code from DLATMT.
 
-               // Set up parameters with DLATB5 and generate a test matrix
-               // with DLATMT.
+          if (INFO.value != 0) {
+            alaerh(PATH, 'DLATMT', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
+                NFAIL, NERRS, NOUT);
+            continue;
+          }
 
-                  dlatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+          // Do for each value of NB in NBVAL
 
-                  srnamc.SRNAMT = 'DLATMT';
-                  dlatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO );
+          for (var INB = 1; INB <= NNB; INB++) {
+            final NB = NBVAL[INB];
+            xlaenv(1, NB);
 
-               // Check error code from DLATMT.
+            // Compute the pivoted L*L' or U'*U factorization
+            // of the matrix.
 
-                  if ( INFO != 0 ) {
-                    alaerh(PATH, 'DLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 120;
-                  }
+            dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            srnamc.SRNAMT = 'DPSTRF';
 
-               // Do for each value of NB in NBVAL
+            // Use default tolerance
 
-                  for (INB = 1; INB <= NNB; INB++) { // 110
-                     NB = NBVAL( INB );
-                     xlaenv(1, NB );
+            const TOL = -ONE;
+            dpstrf(
+                UPLO, N, AFAC.asMatrix(), LDA, PIV, COMPRANK, TOL, WORK, INFO);
 
-                  // Compute the pivoted L*L' or U'*U factorization
-                  // of the matrix.
+            // Check error code from DPSTRF.
 
-                     dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     srnamc.SRNAMT = 'DPSTRF';
+            const IZERO = 0;
+            if ((INFO.value < IZERO) ||
+                (INFO.value != IZERO && RANK == N) ||
+                (INFO.value <= IZERO && RANK < N)) {
+              alaerh(PATH, 'DPSTRF', INFO.value, IZERO, UPLO, N, N, -1, -1, NB,
+                  IMAT, NFAIL, NERRS, NOUT);
+              continue;
+            }
 
-                  // Use default tolerance
+            // Skip the test if INFO is not 0.
 
-                     TOL = -ONE;
-                     dpstrf(UPLO, N, AFAC, LDA, PIV, COMPRANK, TOL, WORK, INFO );
+            if (INFO.value != 0) continue;
 
-                  // Check error code from DPSTRF.
+            // Reconstruct matrix from factors and compute residual.
 
-                     if( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
-                        alaerh(PATH, 'DPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 110;
-                     }
+            // PERM holds permuted L*L^T or U^T*U
 
-                  // Skip the test if INFO is not 0.
+            final RESULT = Box(0.0);
+            dpst01(UPLO, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA,
+                PERM.asMatrix(), LDA, PIV, RWORK, RESULT, COMPRANK.value);
 
-                     if (INFO != 0) GO TO 110;
+            // Print information about the tests that did not pass
+            // the threshold or where computed rank was not RANK.
 
-                  // Reconstruct matrix from factors and compute residual.
-
-                  // PERM holds permuted L*L^T or U^T*U
-
-                     dpst01(UPLO, N, A, LDA, AFAC, LDA, PERM, LDA, PIV, RWORK, RESULT, COMPRANK );
-
-                  // Print information about the tests that did not pass
-                  // the threshold or where computed rank was not RANK.
-
-                     if (N == 0) COMPRANK = 0;
-                     RANKDIFF = RANK - COMPRANK;
-                     if ( RESULT >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
-                        NFAIL = NFAIL + 1;
-                     }
-                     NRUN = NRUN + 1;
-                  } // 110
-
-               } // 120
-            } // 130
-         } // 140
-      } // 150
-
-      // Print a summary of the results.
-
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( ' UPLO = \'${.a1}\', N =${.i5}, RANK =${.i3}, Diff =${.i5}, NB =${.i4}, type ${.i2}, Ratio =${.g12_5};
+            if (N == 0) COMPRANK.value = 0;
+            final RANKDIFF = RANK - COMPRANK.value;
+            if (RESULT.value >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              NOUT.println(
+                  ' UPLO = \'${UPLO.a1}\', N =${N.i5}, RANK =${RANK.i3}, Diff =${RANKDIFF.i5}, NB =${NB.i4}, type ${IMAT.i2}, Ratio =${RESULT.value.g12_5}');
+              NFAIL = NFAIL + 1;
+            }
+            NRUN = NRUN + 1;
+          }
+        }
       }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

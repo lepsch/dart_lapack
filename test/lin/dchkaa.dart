@@ -585,8 +585,24 @@ void main() async {
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        dchkps(DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR,
-            LDA, A(1, 1), A(1, 2), A(1, 3), PIV, WORK, RWORK, NOUT);
+        dchkps(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNB2,
+            NBVAL2,
+            NRANK,
+            RANKVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            PIV,
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
@@ -606,13 +622,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);

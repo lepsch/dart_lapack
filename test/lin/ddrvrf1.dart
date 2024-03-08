@@ -1,155 +1,161 @@
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlansf.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dtrttf.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import '../matgen/dlarnd.dart';
 import 'common.dart';
 
-      void ddrvrf1(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A_, final int LDA, final int ARF, final Array<double> WORK_,) {
-  final A = A_.having();
-  final WORK = WORK_.having();
-
+void ddrvrf1(
+  final Nout NOUT,
+  final int NN,
+  final Array<int> NVAL_,
+  final double THRESH,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> ARF_,
+  final Array<double> WORK_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, NN, NOUT;
-      double             THRESH;
-      int                NVAL( NN );
-      double             A( LDA, * ), ARF( * ), WORK( * );
-      // ..
+  final NVAL = NVAL_.having();
+  final A = A_.having();
+  final ARF = ARF_.having();
+  final WORK = WORK_.having();
+  const ONE = 1.0;
+  const NTESTS = 1;
+  int NFAIL, NRUN;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  final INFO = Box(0), NERRS = Box(0);
 
-// =====================================================================
-      // ..
-      // .. Parameters ..
-      double             ONE;
-      const              ONE = 1.0 ;
-      int                NTESTS;
-      const              NTESTS = 1 ;
-      String             UPLO, CFORM, NORM;
-      int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
-      double             EPS, LARGE, NORMA, NORMARF, SMALL;
-      String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  const FORMS = ['N', 'T'];
+  const NORMS = ['M', '1', 'I', 'F'];
 
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
-      const FORMS = [ 'N', 'T' ];
-      const NORMS = [ 'M', '1', 'I', 'F' ];
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  NRUN = 0;
+  NFAIL = 0;
+  NERRS.value = 0;
+  INFO.value = 0;
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      INFO = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
+  final (:EPS, :SMALL, :LARGE) = () {
+    final SMALL = dlamch('Safe minimum');
+    final LARGE = ONE / SMALL;
+    return (
+      EPS: dlamch('Precision'),
+      SMALL: SMALL * LDA * LDA,
+      LARGE: LARGE / LDA / LDA
+    );
+  }();
 
-      EPS = dlamch( 'Precision' );
-      SMALL = dlamch( 'Safe minimum' );
-      LARGE = ONE / SMALL;
-      SMALL = SMALL * LDA * LDA;
-      LARGE = LARGE / LDA / LDA;
+  for (var IIN = 1; IIN <= NN; IIN++) {
+    final N = NVAL[IIN];
 
-      for (IIN = 1; IIN <= NN; IIN++) { // 130
+    for (var IIT = 1; IIT <= 3; IIT++) {
+      // Nothing to do for N=0
+      if (N == 0) break;
 
-         N = NVAL( IIN );
+      // IIT = 1 : random matrix
+      // IIT = 2 : random matrix scaled near underflow
+      // IIT = 3 : random matrix scaled near overflow
 
-            for (IIT = 1; IIT <= 3; IIT++) { // 120
-            // Nothing to do for N=0
-            if (N == 0) break;
-
-            // IIT = 1 : random matrix
-            // IIT = 2 : random matrix scaled near underflow
-            // IIT = 3 : random matrix scaled near overflow
-
-            for (J = 1; J <= N; J++) {
-               for (I = 1; I <= N; I++) {
-                  A[I][J] = dlarnd( 2, ISEED );
-               }
-            }
-
-            if ( IIT == 2 ) {
-               for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= N; I++) {
-                     A[I][J] = A( I, J ) * LARGE;
-                  }
-               }
-            }
-
-            if ( IIT == 3 ) {
-               for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= N; I++) {
-                     A[I][J] = A( I, J) * SMALL;
-                  }
-               }
-            }
-
-            // Do first for UPLO = 'U', then for UPLO = 'L'
-
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
-
-               UPLO = UPLOS( IUPLO );
-
-               // Do first for CFORM = 'N', then for CFORM = 'C'
-
-               for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
-
-                  CFORM = FORMS( IFORM );
-
-                  srnamc.SRNAMT = 'DTRTTF';
-                  dtrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
-
-                  // Check error code from DTRTTF
-
-                  if ( INFO != 0 ) {
-                     if ( NFAIL == 0 && NERRS == 0 ) {
-                        WRITE( NOUT, * );
-                        WRITE( NOUT, FMT = 9999 );
-                     }
-                     WRITE( NOUT, FMT = 9998 ) srnamc.SRNAMT, UPLO, CFORM, N;
-                     NERRS = NERRS + 1;
-                     GO TO 100;
-                  }
-
-                  for (INORM = 1; INORM <= 4; INORM++) { // 90
-
-                     // Check all four norms: 'M', '1', 'I', 'F'
-
-                     NORM = NORMS( INORM );
-                     NORMARF = DLANSF( NORM, CFORM, UPLO, N, ARF, WORK );
-                     NORMA = dlansy( NORM, UPLO, N, A, LDA, WORK );
-
-                     RESULT[1] = ( NORMA - NORMARF ) / NORMA / EPS;
-                     NRUN = NRUN + 1;
-
-                     if ( RESULT(1) >= THRESH ) {
-                        if ( NFAIL == 0 && NERRS == 0 ) {
-                           WRITE( NOUT, * );
-                           WRITE( NOUT, FMT = 9999 );
-                        }
-                        WRITE( NOUT, FMT = 9997 ) 'DLANSF', N, IIT, UPLO, CFORM, NORM, RESULT(1);
-                        NFAIL = NFAIL + 1;
-                     }
-                  } // 90
-               } // 100
-            } // 110
-         } // 120
-      } // 130
-
-      // Print a summary of the results.
-
-      if ( NFAIL == 0 ) {
-         WRITE( NOUT, FMT = 9996 ) 'DLANSF', NRUN;
-      } else {
-         WRITE( NOUT, FMT = 9995 ) 'DLANSF', NFAIL, NRUN;
-      }
-      if ( NERRS != 0 ) {
-         WRITE( NOUT, FMT = 9994 ) NERRS, 'DLANSF';
+      for (var J = 1; J <= N; J++) {
+        for (var I = 1; I <= N; I++) {
+          A[I][J] = dlarnd(2, ISEED);
+        }
       }
 
- 9999 FORMAT('  *** Error(s) or Failure(s) while testing DLANSF ***');
- 9998 FORMAT('      Error in ${.a6} with UPLO=\'${.a1}\', FORM=\'${.a1}\', N=',I5);
- 9997 FORMAT('      Failure in ${.a6} N=',I5,' TYPE=',I5,' UPLO=\'${.a1}\', FORM =\'${.a1}\', NORM=\'${.a1}\', test=',G12.5);
- 9996 FORMAT(' All tests for ${.a6} auxiliary routine passed the threshold ( ',I5,' tests run)');
- 9995 FORMAT(' ${.a6} auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold');
- 9994 FORMAT('${' ' * 26}${.i5} error message recorded (${.a6})');
-
+      if (IIT == 2) {
+        for (var J = 1; J <= N; J++) {
+          for (var I = 1; I <= N; I++) {
+            A[I][J] = A[I][J] * LARGE;
+          }
+        }
       }
+
+      if (IIT == 3) {
+        for (var J = 1; J <= N; J++) {
+          for (var I = 1; I <= N; I++) {
+            A[I][J] = A[I][J] * SMALL;
+          }
+        }
+      }
+
+      // Do first for UPLO = 'U', then for UPLO = 'L'
+
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        final UPLO = UPLOS[IUPLO - 1];
+
+        // Do first for CFORM = 'N', then for CFORM = 'C'
+
+        for (var IFORM = 1; IFORM <= 2; IFORM++) {
+          final CFORM = FORMS[IFORM - 1];
+
+          srnamc.SRNAMT = 'DTRTTF';
+          dtrttf(CFORM, UPLO, N, A, LDA, ARF, INFO);
+
+          // Check error code from DTRTTF
+
+          if (INFO.value != 0) {
+            if (NFAIL == 0 && NERRS.value == 0) {
+              NOUT.println();
+              NOUT.println(
+                  '  *** Error(s) or Failure(s) while testing DLANSF ***');
+            }
+            NOUT.println(
+                '      Error in ${srnamc.SRNAMT.a6} with UPLO=\'${UPLO.a1}\', FORM=\'${CFORM.a1}\', N=${N.i5}');
+            NERRS.value = NERRS.value + 1;
+            continue;
+          }
+
+          for (var INORM = 1; INORM <= 4; INORM++) {
+            // Check all four norms: 'M', '1', 'I', 'F'
+
+            final NORM = NORMS[INORM - 1];
+            final NORMARF = dlansf(NORM, CFORM, UPLO, N, ARF, WORK);
+            final NORMA = dlansy(NORM, UPLO, N, A, LDA, WORK);
+
+            RESULT[1] = (NORMA - NORMARF) / NORMA / EPS;
+            NRUN = NRUN + 1;
+
+            if (RESULT[1] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) {
+                NOUT.println();
+                NOUT.println(
+                    '  *** Error(s) or Failure(s) while testing DLANSF ***');
+              }
+              NOUT.println(
+                  '      Failure in DLANSF N=${N.i5} TYPE=${IIT.i5} UPLO=\'${UPLO.a1}\', FORM =\'${CFORM.a1}\', NORM=\'${NORM.a1}\', test=${RESULT[1].g12_5}');
+              NFAIL = NFAIL + 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Print a summary of the results.
+
+  if (NFAIL == 0) {
+    NOUT.println(
+        ' All tests for DLANSF auxiliary routine passed the threshold ( ${NRUN.i5} tests run)');
+  } else {
+    NOUT.println(
+        ' DLANSF auxiliary routine: ${NFAIL.i5} out of ${NRUN.i5} tests failed to pass the threshold');
+  }
+  if (NERRS.value != 0) {
+    NOUT.println(
+        '${' ' * 26}${NERRS.value.i5} error message recorded (DLANSF)');
+  }
+}

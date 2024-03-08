@@ -1,169 +1,165 @@
-      void zqrt04(final int M, final int N, final int NB, final int RESULT,) {
+import 'dart:math';
+
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zherk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zgemqrt.dart';
+import 'package:lapack/src/zgeqrt.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlansy.dart';
+import 'package:lapack/src/zlarnv.dart';
+import 'package:lapack/src/zlaset.dart';
+
+void zqrt04(
+  final int M,
+  final int N,
+  final int NB,
+  final Array<double> RESULT_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int     M, N, NB, LDT;
-      // .. Return values ..
-      double           RESULT(6);
+  final RESULT = RESULT_.having(length: 6);
+  const ZERO = 0.0, ONE = 1.0;
+  final ISEED = Array.fromList([1988, 1989, 1990, 1991]);
+  final EPS = dlamch('Epsilon');
+  final K = min(M, N);
+  final L = max(M, N);
+  final LWORK = max(2, L) * max(2, L).toInt() * NB;
+  final A = Matrix<Complex>(M, N),
+      AF = Matrix<Complex>(M, N),
+      Q = Matrix<Complex>(M, M),
+      R = Matrix<Complex>(M, L),
+      RWORK = Array<double>(L),
+      WORK = Array<Complex>(LWORK),
+      T = Matrix<Complex>(NB, N),
+      C = Matrix<Complex>(M, N),
+      CF = Matrix<Complex>(M, N),
+      D = Matrix<Complex>(N, M),
+      DF = Matrix<Complex>(N, M);
+  final INFO = Box(0);
 
-// =====================================================================
+  // Put random numbers into A and copy to AF
 
-      // ..
-      // .. Local allocatable arrays
-      Complex, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
-      double          , ALLOCATABLE :: RWORK(:);
+  final LDT = NB;
+  for (var J = 1; J <= N; J++) {
+    zlarnv(2, ISEED, M, A(1, J).asArray());
+  }
+  zlacpy('Full', M, N, A, M, AF, M);
 
-      // .. Parameters ..
-      double           ZERO;
-      Complex ONE, CZERO;
-      const    ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
-      int     INFO, J, K, L, LWORK;
-      double             ANORM, EPS, RESID, CNORM, DNORM;
-      int                ISEED( 4 );
-      // ..
-      // .. External Functions ..
-      //- double           DLAMCH;
-      //- double           ZLANGE, ZLANSY;
-      //- bool     lsame;
-      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, lsame
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Data statements ..
-      const ISEED = [ 1988, 1989, 1990, 1991 ];
+  // Factor the matrix A in the array AF.
 
-      EPS = dlamch( 'Epsilon' );
-      K = min(M,N);
-      L = max(M,N);
-      LWORK = max(2,L)*max(2,L)*NB;
+  zgeqrt(M, N, NB, AF, M, T, LDT, WORK, INFO);
 
-      // Dynamically allocate local arrays
+  // Generate the m-by-m matrix Q
 
-      ALLOCATE ( A(M,N), AF(M,N), Q(M,M), R(M,L), RWORK(L), WORK(LWORK), T(NB,N), C(M,N), CF(M,N), D(N,M), DF(N,M) );
+  zlaset('Full', M, M, Complex.zero, Complex.one, Q, M);
+  zgemqrt('R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M, WORK, INFO);
 
-      // Put random numbers into A and copy to AF
+  // Copy R
 
-      LDT=NB;
-      for (J = 1; J <= N; J++) {
-         zlarnv(2, ISEED, M, A( 1, J ) );
-      }
-      zlacpy('Full', M, N, A, M, AF, M );
+  zlaset('Full', M, N, Complex.zero, Complex.zero, R, M);
+  zlacpy('Upper', M, N, AF, M, R, M);
 
-      // Factor the matrix A in the array AF.
+  // Compute |R - Q'*A| / |A| and store in RESULT(1)
 
-      zgeqrt(M, N, NB, AF, M, T, LDT, WORK, INFO );
+  zgemm('C', 'N', M, N, M, -Complex.one, Q, M, A, M, Complex.one, R, M);
+  final ANORM = zlange('1', M, N, A, M, RWORK);
+  var RESID = zlange('1', M, N, R, M, RWORK);
+  if (ANORM > ZERO) {
+    RESULT[1] = RESID / (EPS * max(1, M) * ANORM);
+  } else {
+    RESULT[1] = ZERO;
+  }
 
-      // Generate the m-by-m matrix Q
+  // Compute |I - Q'*Q| and store in RESULT(2)
 
-      zlaset('Full', M, M, CZERO, ONE, Q, M );
-      zgemqrt('R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M, WORK, INFO );
+  zlaset('Full', M, M, Complex.zero, Complex.one, R, M);
+  zherk('U', 'C', M, M, -ONE, Q, M, ONE, R, M);
+  RESID = zlansy('1', 'Upper', M, R, M, RWORK);
+  RESULT[2] = RESID / (EPS * max(1, M));
 
-      // Copy R
+  // Generate random m-by-n matrix C and a copy CF
 
-      zlaset('Full', M, N, CZERO, CZERO, R, M );
-      zlacpy('Upper', M, N, AF, M, R, M );
+  for (var J = 1; J <= N; J++) {
+    zlarnv(2, ISEED, M, C(1, J).asArray());
+  }
+  final CNORM = zlange('1', M, N, C, M, RWORK);
+  zlacpy('Full', M, N, C, M, CF, M);
 
-      // Compute |R - Q'*A| / |A| and store in RESULT(1)
+  // Apply Q to C as Q*C
 
-      zgemm('C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
-      ANORM = ZLANGE( '1', M, N, A, M, RWORK );
-      RESID = ZLANGE( '1', M, N, R, M, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = RESID / (EPS*max(1,M)*ANORM);
-      } else {
-         RESULT[1] = ZERO;
-      }
+  zgemqrt('L', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
 
-      // Compute |I - Q'*Q| and store in RESULT(2)
+  // Compute |Q*C - Q*C| / |C|
 
-      zlaset('Full', M, M, CZERO, ONE, R, M );
-      zherk('U', 'C', M, M, DREAL(-ONE), Q, M, DREAL(ONE), R, M );
-      RESID = ZLANSY( '1', 'Upper', M, R, M, RWORK );
-      RESULT[2] = RESID / (EPS*max(1,M));
+  zgemm('N', 'N', M, N, M, -Complex.one, Q, M, C, M, Complex.one, CF, M);
+  RESID = zlange('1', M, N, CF, M, RWORK);
+  if (CNORM > ZERO) {
+    RESULT[3] = RESID / (EPS * max(1, M) * CNORM);
+  } else {
+    RESULT[3] = ZERO;
+  }
 
-      // Generate random m-by-n matrix C and a copy CF
+  // Copy C into CF again
 
-      for (J = 1; J <= N; J++) {
-         zlarnv(2, ISEED, M, C( 1, J ) );
-      }
-      CNORM = ZLANGE( '1', M, N, C, M, RWORK);
-      zlacpy('Full', M, N, C, M, CF, M );
+  zlacpy('Full', M, N, C, M, CF, M);
 
-      // Apply Q to C as Q*C
+  // Apply Q to C as QT*C
 
-      zgemqrt('L', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
+  zgemqrt('L', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
 
-      // Compute |Q*C - Q*C| / |C|
+  // Compute |QT*C - QT*C| / |C|
 
-      zgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = ZLANGE( '1', M, N, CF, M, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[3] = RESID / (EPS*max(1,M)*CNORM);
-      } else {
-         RESULT[3] = ZERO;
-      }
+  zgemm('C', 'N', M, N, M, -Complex.one, Q, M, C, M, Complex.one, CF, M);
+  RESID = zlange('1', M, N, CF, M, RWORK);
+  if (CNORM > ZERO) {
+    RESULT[4] = RESID / (EPS * max(1, M) * CNORM);
+  } else {
+    RESULT[4] = ZERO;
+  }
 
-      // Copy C into CF again
+  // Generate random n-by-m matrix D and a copy DF
 
-      zlacpy('Full', M, N, C, M, CF, M );
+  for (var J = 1; J <= M; J++) {
+    zlarnv(2, ISEED, N, D(1, J).asArray());
+  }
+  final DNORM = zlange('1', N, M, D, N, RWORK);
+  zlacpy('Full', N, M, D, N, DF, N);
 
-      // Apply Q to C as QT*C
+  // Apply Q to D as D*Q
 
-      zgemqrt('L', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
+  zgemqrt('R', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
 
-      // Compute |QT*C - QT*C| / |C|
+  // Compute |D*Q - D*Q| / |D|
 
-      zgemm('C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = ZLANGE( '1', M, N, CF, M, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[4] = RESID / (EPS*max(1,M)*CNORM);
-      } else {
-         RESULT[4] = ZERO;
-      }
+  zgemm('N', 'N', N, M, M, -Complex.one, D, N, Q, M, Complex.one, DF, N);
+  RESID = zlange('1', N, M, DF, N, RWORK);
+  if (CNORM > ZERO) {
+    RESULT[5] = RESID / (EPS * max(1, M) * DNORM);
+  } else {
+    RESULT[5] = ZERO;
+  }
 
-      // Generate random n-by-m matrix D and a copy DF
+  // Copy D into DF again
 
-      for (J = 1; J <= M; J++) {
-         zlarnv(2, ISEED, N, D( 1, J ) );
-      }
-      DNORM = ZLANGE( '1', N, M, D, N, RWORK);
-      zlacpy('Full', N, M, D, N, DF, N );
+  zlacpy('Full', N, M, D, N, DF, N);
 
-      // Apply Q to D as D*Q
+  // Apply Q to D as D*QT
 
-      zgemqrt('R', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
+  zgemqrt('R', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
 
-      // Compute |D*Q - D*Q| / |D|
+  // Compute |D*QT - D*QT| / |D|
 
-      zgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = ZLANGE( '1', N, M, DF, N, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[5] = RESID / (EPS*max(1,M)*DNORM);
-      } else {
-         RESULT[5] = ZERO;
-      }
-
-      // Copy D into DF again
-
-      zlacpy('Full', N, M, D, N, DF, N );
-
-      // Apply Q to D as D*QT
-
-      zgemqrt('R', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
-
-      // Compute |D*QT - D*QT| / |D|
-
-      zgemm('N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = ZLANGE( '1', N, M, DF, N, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[6] = RESID / (EPS*max(1,M)*DNORM);
-      } else {
-         RESULT[6] = ZERO;
-      }
-
-      // Deallocate all arrays
-
-      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF);
-
-      }
+  zgemm('N', 'C', N, M, M, -Complex.one, D, N, Q, M, Complex.one, DF, N);
+  RESID = zlange('1', N, M, DF, N, RWORK);
+  if (CNORM > ZERO) {
+    RESULT[6] = RESID / (EPS * max(1, M) * DNORM);
+  } else {
+    RESULT[6] = ZERO;
+  }
+}

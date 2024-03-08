@@ -1,157 +1,147 @@
-      void zlatsy(final int UPLO, final int N, final Matrix<double> X_, final int LDX, final int ISEED,) {
-  final X = X_.having();
+import 'dart:math';
 
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+import '../matgen/zlarnd.dart';
+
+void zlatsy(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Array<int> ISEED_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDX, N;
-      int                ISEED( * );
-      Complex         X( LDX, * );
-      // ..
+  final X = X_.having(ld: LDX);
+  final ISEED = ISEED_.having();
+  const EYE = Complex(0.0, 1.0), TWO = Complex(2.0);
 
-      Complex         EYE;
-      const              EYE = ( 0.0, 1.0 ) ;
-      int                I, J, N5;
-      double             ALPHA, ALPHA3, BETA;
-      Complex         A, B, C, R;
-      // ..
-      // .. External Functions ..
-      //- Complex         ZLARND;
-      // EXTERNAL ZLARND
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, SQRT
+  // Initialize constants
 
-      // Initialize constants
+  final ALPHA = ((1.0 + sqrt(17.0)) / 8.0).toComplex();
+  final BETA = ALPHA - (1.0 / 1000.0).toComplex();
+  final ALPHA3 = ALPHA * ALPHA * ALPHA;
 
-      ALPHA = ( 1.0+sqrt( 17.0 ) ) / 8.0;
-      BETA = ALPHA - 1.0 / 1000.0;
-      ALPHA3 = ALPHA*ALPHA*ALPHA;
+  // UPLO = 'U':  Upper triangular storage
 
-      // UPLO = 'U':  Upper triangular storage
+  if (UPLO == 'U') {
+    // Fill the upper triangle of the matrix with zeros.
 
-      if ( UPLO == 'U' ) {
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= J; I++) {
+        X[I][J] = Complex.zero;
+      }
+    }
+    final N5 = N - 5 * (N ~/ 5) + 1;
 
-         // Fill the upper triangle of the matrix with zeros.
-
-         for (J = 1; J <= N; J++) { // 20
-            for (I = 1; I <= J; I++) { // 10
-               X[I][J] = 0.0;
-            } // 10
-         } // 20
-         N5 = N / 5;
-         N5 = N - 5*N5 + 1;
-
-         for (I = N; I >= N5; I -= 5) { // 30
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[I][I] = A;
-            X[I-2][I] = B;
-            X[I-2][I-1] = R;
-            X[I-2][I-2] = C;
-            X[I-1][I-1] = ZLARND( 2, ISEED );
-            X[I-3][I-3] = ZLARND( 2, ISEED );
-            X[I-4][I-4] = ZLARND( 2, ISEED );
-            if ( ( X( I-3, I-3 ) ).abs() > ( X( I-4, I-4 ) ).abs() ) {
-               X[I-4][I-3] = 2.0*X( I-3, I-3 );
-            } else {
-               X[I-4][I-3] = 2.0*X( I-4, I-4 );
-            }
-         } // 30
-
-         // Clean-up for N not a multiple of 5.
-
-         I = N5 - 1;
-         if ( I > 2 ) {
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[I][I] = A;
-            X[I-2][I] = B;
-            X[I-2][I-1] = R;
-            X[I-2][I-2] = C;
-            X[I-1][I-1] = ZLARND( 2, ISEED );
-            I = I - 3;
-         }
-         if ( I > 1 ) {
-            X[I][I] = ZLARND( 2, ISEED );
-            X[I-1][I-1] = ZLARND( 2, ISEED );
-            if ( ( X( I, I ) ).abs() > ( X( I-1, I-1 ) ).abs() ) {
-               X[I-1][I] = 2.0*X( I, I );
-            } else {
-               X[I-1][I] = 2.0*X( I-1, I-1 );
-            }
-            I = I - 2;
-         } else if ( I == 1 ) {
-            X[I][I] = ZLARND( 2, ISEED );
-            I = I - 1;
-         }
-
-      // UPLO = 'L':  Lower triangular storage
-
+    for (var I = N; I >= N5; I -= 5) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[I][I] = A;
+      X[I - 2][I] = B;
+      X[I - 2][I - 1] = R;
+      X[I - 2][I - 2] = C;
+      X[I - 1][I - 1] = zlarnd(2, ISEED);
+      X[I - 3][I - 3] = zlarnd(2, ISEED);
+      X[I - 4][I - 4] = zlarnd(2, ISEED);
+      if (X[I - 3][I - 3].abs() > X[I - 4][I - 4].abs()) {
+        X[I - 4][I - 3] = TWO * X[I - 3][I - 3];
       } else {
-
-         // Fill the lower triangle of the matrix with zeros.
-
-         for (J = 1; J <= N; J++) { // 50
-            for (I = J; I <= N; I++) { // 40
-               X[I][J] = 0.0;
-            } // 40
-         } // 50
-         N5 = N / 5;
-         N5 = N5*5;
-
-         for (I = 1; I <= N5; I += 5) { // 60
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[I][I] = A;
-            X[I+2][I] = B;
-            X[I+2][I+1] = R;
-            X[I+2][I+2] = C;
-            X[I+1][I+1] = ZLARND( 2, ISEED );
-            X[I+3][I+3] = ZLARND( 2, ISEED );
-            X[I+4][I+4] = ZLARND( 2, ISEED );
-            if ( ( X( I+3, I+3 ) ).abs() > ( X( I+4, I+4 ) ).abs() ) {
-               X[I+4][I+3] = 2.0*X( I+3, I+3 );
-            } else {
-               X[I+4][I+3] = 2.0*X( I+4, I+4 );
-            }
-         } // 60
-
-         // Clean-up for N not a multiple of 5.
-
-         I = N5 + 1;
-         if ( I < N-1 ) {
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[I][I] = A;
-            X[I+2][I] = B;
-            X[I+2][I+1] = R;
-            X[I+2][I+2] = C;
-            X[I+1][I+1] = ZLARND( 2, ISEED );
-            I = I + 3;
-         }
-         if ( I < N ) {
-            X[I][I] = ZLARND( 2, ISEED );
-            X[I+1][I+1] = ZLARND( 2, ISEED );
-            if ( ( X( I, I ) ).abs() > ( X( I+1, I+1 ) ).abs() ) {
-               X[I+1][I] = 2.0*X( I, I );
-            } else {
-               X[I+1][I] = 2.0*X( I+1, I+1 );
-            }
-            I = I + 2;
-         } else if ( I == N ) {
-            X[I][I] = ZLARND( 2, ISEED );
-            I = I + 1;
-         }
+        X[I - 4][I - 3] = TWO * X[I - 4][I - 4];
       }
+    }
 
+    // Clean-up for N not a multiple of 5.
+
+    var I = N5 - 1;
+    if (I > 2) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[I][I] = A;
+      X[I - 2][I] = B;
+      X[I - 2][I - 1] = R;
+      X[I - 2][I - 2] = C;
+      X[I - 1][I - 1] = zlarnd(2, ISEED);
+      I = I - 3;
+    }
+    if (I > 1) {
+      X[I][I] = zlarnd(2, ISEED);
+      X[I - 1][I - 1] = zlarnd(2, ISEED);
+      if (X[I][I].abs() > X[I - 1][I - 1].abs()) {
+        X[I - 1][I] = TWO * X[I][I];
+      } else {
+        X[I - 1][I] = TWO * X[I - 1][I - 1];
       }
+      I = I - 2;
+    } else if (I == 1) {
+      X[I][I] = zlarnd(2, ISEED);
+      I = I - 1;
+    }
+
+    // UPLO = 'L':  Lower triangular storage
+  } else {
+    // Fill the lower triangle of the matrix with zeros.
+
+    for (var J = 1; J <= N; J++) {
+      for (var I = J; I <= N; I++) {
+        X[I][J] = Complex.zero;
+      }
+    }
+    final N5 = (N ~/ 5) * 5;
+
+    for (var I = 1; I <= N5; I += 5) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[I][I] = A;
+      X[I + 2][I] = B;
+      X[I + 2][I + 1] = R;
+      X[I + 2][I + 2] = C;
+      X[I + 1][I + 1] = zlarnd(2, ISEED);
+      X[I + 3][I + 3] = zlarnd(2, ISEED);
+      X[I + 4][I + 4] = zlarnd(2, ISEED);
+      if (X[I + 3][I + 3].abs() > X[I + 4][I + 4].abs()) {
+        X[I + 4][I + 3] = TWO * X[I + 3][I + 3];
+      } else {
+        X[I + 4][I + 3] = TWO * X[I + 4][I + 4];
+      }
+    }
+
+    // Clean-up for N not a multiple of 5.
+
+    var I = N5 + 1;
+    if (I < N - 1) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[I][I] = A;
+      X[I + 2][I] = B;
+      X[I + 2][I + 1] = R;
+      X[I + 2][I + 2] = C;
+      X[I + 1][I + 1] = zlarnd(2, ISEED);
+      I = I + 3;
+    }
+    if (I < N) {
+      X[I][I] = zlarnd(2, ISEED);
+      X[I + 1][I + 1] = zlarnd(2, ISEED);
+      if (X[I][I].abs() > X[I + 1][I + 1].abs()) {
+        X[I + 1][I] = TWO * X[I][I];
+      } else {
+        X[I + 1][I] = TWO * X[I + 1][I + 1];
+      }
+      I = I + 2;
+    } else if (I == N) {
+      X[I][I] = zlarnd(2, ISEED);
+      I = I + 1;
+    }
+  }
+}

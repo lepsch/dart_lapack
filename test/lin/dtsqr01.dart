@@ -1,345 +1,343 @@
-      void dtsqr01(final int TSSW, final int M, final int N, final int MB, final int NB, final int RESULT,) {
+import 'dart:math';
+
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dsyrk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgelq.dart';
+import 'package:lapack/src/dgemlq.dart';
+import 'package:lapack/src/dgemqr.dart';
+import 'package:lapack/src/dgeqr.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dlarnv.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+
+import 'common.dart';
+
+void dtsqr01(
+  final String TSSW,
+  final int M,
+  final int N,
+  final int MB,
+  final int NB,
+  final Array<double> RESULT_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String            TSSW;
-      int               M, N, MB, NB;
-      // .. Return values ..
-      double            RESULT(6);
+  final RESULT = RESULT_.having(length: 6);
+  const ZERO = 0.0, ONE = 1.0;
+  bool TESTZEROS, TS;
+  final TQUERY = Array<double>(5), WORKQUERY = Array<double>(1);
+  final ISEED = Array.fromList([1988, 1989, 1990, 1991]);
+  final INFO = Box(0);
 
-// =====================================================================
+  // TEST TALL SKINNY OR SHORT WIDE
 
-      // ..
-      // .. Local allocatable arrays
-      double          , ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:);
+  TS = lsame(TSSW, 'TS');
 
-      // .. Parameters ..
-      double           ONE, ZERO;
-      const    ZERO = 0.0, ONE = 1.0 ;
-      bool    TESTZEROS, TS;
-      int     INFO, J, K, L, LWORK, TSIZE, MNB;
-      double             ANORM, EPS, RESID, CNORM, DNORM;
-      int                ISEED( 4 );
-      double             TQUERY( 5 ), WORKQUERY( 1 );
-      // ..
-      // .. External Functions ..
-      //- double           DLAMCH, DLANGE, DLANSY;
-      //- bool     lsame;
-      //- int     ILAENV;
-      // EXTERNAL DLAMCH, DLANGE, DLANSY, lsame, ILAENV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // .. Scalars in Common ..
-      String             srnamt;
-      // ..
-      // .. Common blocks ..
-      // COMMON / srnamc / srnamt
-      // ..
-      // .. Data statements ..
-      const ISEED = [ 1988, 1989, 1990, 1991 ];
+  // TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
 
-      // TEST TALL SKINNY OR SHORT WIDE
+  TESTZEROS = false;
 
-      TS = lsame(TSSW, 'TS');
+  final EPS = dlamch('Epsilon');
+  final K = min(M, N);
+  final L = max(M, max(N, 1));
+  final MNB = max(MB, NB);
+  var LWORK = max(3, L) * MNB;
 
-      // TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
+  // Dynamically allocate local arrays
 
-      TESTZEROS = false;
+  final A = Matrix<double>(M, N),
+      AF = Matrix<double>(M, N),
+      Q = Matrix<double>(L, L),
+      R = Matrix<double>(M, L),
+      RWORK = Array<double>(L),
+      C = Matrix<double>(M, N),
+      CF = Matrix<double>(M, N),
+      D = Matrix<double>(N, M),
+      DF = Matrix<double>(N, M),
+      LQ = Matrix<double>(L, N);
 
-      EPS = dlamch( 'Epsilon' );
-      K = min(M,N);
-      L = max(M,N,1);
-      MNB = max( MB, NB);
-      LWORK = max(3,L)*MNB;
+  // Put random numbers into A and copy to AF
 
-      // Dynamically allocate local arrays
-
-      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L), C(M,N), CF(M,N), D(N,M), DF(N,M), LQ(L,N) );
-
-      // Put random numbers into A and copy to AF
-
-      for (J = 1; J <= N; J++) {
-         dlarnv(2, ISEED, M, A( 1, J ) );
+  for (var J = 1; J <= N; J++) {
+    dlarnv(2, ISEED, M, A(1, J).asArray());
+  }
+  // ignore: dead_code
+  if (TESTZEROS) {
+    if (M >= 4) {
+      for (var J = 1; J <= N; J++) {
+        dlarnv(2, ISEED, M ~/ 2, A(M ~/ 4, J).asArray());
       }
-      if (TESTZEROS) {
-         if (M >= 4) {
-            for (J = 1; J <= N; J++) {
-               dlarnv(2, ISEED, M/2, A( M/4, J ) );
-            }
-         }
-      }
-      dlacpy('Full', M, N, A, M, AF, M );
-
-      if (TS) {
-
-      // Factor the matrix A in the array AF.
-
-      dgeqr(M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO );
-      TSIZE = INT( TQUERY( 1 ) );
-      LWORK = INT( WORKQUERY( 1 ) );
-      dgemqr('L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemqr('L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemqr('L', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemqr('R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemqr('R', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      ALLOCATE ( T( TSIZE ) );
-      ALLOCATE ( WORK( LWORK ) );
-      srnamt = 'DGEQR';
-      dgeqr(M, N, AF, M, T, TSIZE, WORK, LWORK, INFO );
-
-      // Generate the m-by-m matrix Q
+    }
+  }
+  dlacpy('Full', M, N, A, M, AF, M);
+
+  if (TS) {
+    // Factor the matrix A in the array AF.
+
+    dgeqr(M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO);
+    final TSIZE = TQUERY[1].toInt();
+    LWORK = WORKQUERY[1].toInt();
+    dgemqr('L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemqr('L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemqr('L', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemqr('R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemqr('R', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    final T = Array<double>(TSIZE);
+    final WORK = Array<double>(LWORK);
+    srnamc.SRNAMT = 'DGEQR';
+    dgeqr(M, N, AF, M, T, TSIZE, WORK, LWORK, INFO);
 
-      dlaset('Full', M, M, ZERO, ONE, Q, M );
-      srnamt = 'DGEMQR';
-      dgemqr('L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO );
+    // Generate the m-by-m matrix Q
 
-      // Copy R
+    dlaset('Full', M, M, ZERO, ONE, Q, M);
+    srnamc.SRNAMT = 'DGEMQR';
+    dgemqr('L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO);
 
-      dlaset('Full', M, N, ZERO, ZERO, R, M );
-      dlacpy('Upper', M, N, AF, M, R, M );
-
-      // Compute |R - Q'*A| / |A| and store in RESULT(1)
+    // Copy R
 
-      dgemm('T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
-      ANORM = dlange( '1', M, N, A, M, RWORK );
-      RESID = dlange( '1', M, N, R, M, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = RESID / (EPS*max(1,M)*ANORM);
-      } else {
-         RESULT[1] = ZERO;
-      }
-
-      // Compute |I - Q'*Q| and store in RESULT(2)
-
-      dlaset('Full', M, M, ZERO, ONE, R, M );
-      dsyrk('U', 'C', M, M, -ONE, Q, M, ONE, R, M );
-      RESID = dlansy( '1', 'Upper', M, R, M, RWORK );
-      RESULT[2] = RESID / (EPS*max(1,M));
-
-      // Generate random m-by-n matrix C and a copy CF
-
-      for (J = 1; J <= N; J++) {
-         dlarnv(2, ISEED, M, C( 1, J ) );
-      }
-      CNORM = dlange( '1', M, N, C, M, RWORK);
-      dlacpy('Full', M, N, C, M, CF, M );
-
-      // Apply Q to C as Q*C
-
-      srnamt = 'DGEMQR';
-      dgemqr('L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
-
-      // Compute |Q*C - Q*C| / |C|
-
-      dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = dlange( '1', M, N, CF, M, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[3] = RESID / (EPS*max(1,M)*CNORM);
-      } else {
-         RESULT[3] = ZERO;
-      }
-
-      // Copy C into CF again
-
-      dlacpy('Full', M, N, C, M, CF, M );
-
-      // Apply Q to C as QT*C
-
-      srnamt = 'DGEMQR';
-      dgemqr('L', 'T', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
-
-      // Compute |QT*C - QT*C| / |C|
-
-      dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = dlange( '1', M, N, CF, M, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[4] = RESID / (EPS*max(1,M)*CNORM);
-      } else {
-         RESULT[4] = ZERO;
-      }
-
-      // Generate random n-by-m matrix D and a copy DF
+    dlaset('Full', M, N, ZERO, ZERO, R, M);
+    dlacpy('Upper', M, N, AF, M, R, M);
 
-      for (J = 1; J <= M; J++) {
-         dlarnv(2, ISEED, N, D( 1, J ) );
-      }
-      DNORM = dlange( '1', N, M, D, N, RWORK);
-      dlacpy('Full', N, M, D, N, DF, N );
+    // Compute |R - Q'*A| / |A| and store in RESULT(1)
 
-      // Apply Q to D as D*Q
+    dgemm('T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M);
+    final ANORM = dlange('1', M, N, A, M, RWORK);
+    var RESID = dlange('1', M, N, R, M, RWORK);
+    if (ANORM > ZERO) {
+      RESULT[1] = RESID / (EPS * max(1, M) * ANORM);
+    } else {
+      RESULT[1] = ZERO;
+    }
+
+    // Compute |I - Q'*Q| and store in RESULT(2)
+
+    dlaset('Full', M, M, ZERO, ONE, R, M);
+    dsyrk('U', 'C', M, M, -ONE, Q, M, ONE, R, M);
+    RESID = dlansy('1', 'Upper', M, R, M, RWORK);
+    RESULT[2] = RESID / (EPS * max(1, M));
+
+    // Generate random m-by-n matrix C and a copy CF
+
+    for (var J = 1; J <= N; J++) {
+      dlarnv(2, ISEED, M, C(1, J).asArray());
+    }
+    final CNORM = dlange('1', M, N, C, M, RWORK);
+    dlacpy('Full', M, N, C, M, CF, M);
+
+    // Apply Q to C as Q*C
+
+    srnamc.SRNAMT = 'DGEMQR';
+    dgemqr('L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
+
+    // Compute |Q*C - Q*C| / |C|
+
+    dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M);
+    RESID = dlange('1', M, N, CF, M, RWORK);
+    if (CNORM > ZERO) {
+      RESULT[3] = RESID / (EPS * max(1, M) * CNORM);
+    } else {
+      RESULT[3] = ZERO;
+    }
+
+    // Copy C into CF again
+
+    dlacpy('Full', M, N, C, M, CF, M);
+
+    // Apply Q to C as QT*C
+
+    srnamc.SRNAMT = 'DGEMQR';
+    dgemqr('L', 'T', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
+
+    // Compute |QT*C - QT*C| / |C|
+
+    dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M);
+    RESID = dlange('1', M, N, CF, M, RWORK);
+    if (CNORM > ZERO) {
+      RESULT[4] = RESID / (EPS * max(1, M) * CNORM);
+    } else {
+      RESULT[4] = ZERO;
+    }
+
+    // Generate random n-by-m matrix D and a copy DF
+
+    for (var J = 1; J <= M; J++) {
+      dlarnv(2, ISEED, N, D(1, J).asArray());
+    }
+    final DNORM = dlange('1', N, M, D, N, RWORK);
+    dlacpy('Full', N, M, D, N, DF, N);
+
+    // Apply Q to D as D*Q
+
+    srnamc.SRNAMT = 'DGEMQR';
+    dgemqr('R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
+
+    // Compute |D*Q - D*Q| / |D|
+
+    dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N);
+    RESID = dlange('1', N, M, DF, N, RWORK);
+    if (DNORM > ZERO) {
+      RESULT[5] = RESID / (EPS * max(1, M) * DNORM);
+    } else {
+      RESULT[5] = ZERO;
+    }
 
-      srnamt = 'DGEMQR';
-      dgemqr('R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
+    // Copy D into DF again
 
-      // Compute |D*Q - D*Q| / |D|
+    dlacpy('Full', N, M, D, N, DF, N);
 
-      dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = dlange( '1', N, M, DF, N, RWORK );
-      if ( DNORM > ZERO ) {
-         RESULT[5] = RESID / (EPS*max(1,M)*DNORM);
-      } else {
-         RESULT[5] = ZERO;
-      }
+    // Apply Q to D as D*QT
 
-      // Copy D into DF again
+    dgemqr('R', 'T', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
-      dlacpy('Full', N, M, D, N, DF, N );
+    // Compute |D*QT - D*QT| / |D|
 
-      // Apply Q to D as D*QT
+    dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N);
+    RESID = dlange('1', N, M, DF, N, RWORK);
+    if (CNORM > ZERO) {
+      RESULT[6] = RESID / (EPS * max(1, M) * DNORM);
+    } else {
+      RESULT[6] = ZERO;
+    }
 
-      dgemqr('R', 'T', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
+    // Short and wide
+  } else {
+    dgelq(M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO);
+    final TSIZE = TQUERY[1].toInt();
+    LWORK = WORKQUERY[1].toInt();
+    dgemlq('R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemlq('L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemlq('L', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemlq('R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    dgemlq('R', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
+    LWORK = max(LWORK, WORKQUERY[1].toInt());
+    final T = Array<double>(TSIZE);
+    final WORK = Array<double>(LWORK);
+    srnamc.SRNAMT = 'DGELQ';
+    dgelq(M, N, AF, M, T, TSIZE, WORK, LWORK, INFO);
 
-      // Compute |D*QT - D*QT| / |D|
+    // Generate the n-by-n matrix Q
 
-      dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = dlange( '1', N, M, DF, N, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[6] = RESID / (EPS*max(1,M)*DNORM);
-      } else {
-         RESULT[6] = ZERO;
-      }
+    dlaset('Full', N, N, ZERO, ONE, Q, N);
+    srnamc.SRNAMT = 'DGEMLQ';
+    dgemlq('R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO);
 
-      // Short and wide
+    // Copy R
 
-      } else {
-      dgelq(M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO );
-      TSIZE = INT( TQUERY( 1 ) );
-      LWORK = INT( WORKQUERY( 1 ) );
-      dgemlq('R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO );
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemlq('L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemlq('L', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemlq('R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      dgemlq('R', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
-      ALLOCATE ( T( TSIZE ) );
-      ALLOCATE ( WORK( LWORK ) );
-      srnamt = 'DGELQ';
-      dgelq(M, N, AF, M, T, TSIZE, WORK, LWORK, INFO );
+    dlaset('Full', M, N, ZERO, ZERO, LQ, L);
+    dlacpy('Lower', M, N, AF, M, LQ, L);
 
+    // Compute |L - A*Q'| / |A| and store in RESULT(1)
 
-      // Generate the n-by-n matrix Q
+    dgemm('N', 'T', M, N, N, -ONE, A, M, Q, N, ONE, LQ, L);
+    final ANORM = dlange('1', M, N, A, M, RWORK);
+    var RESID = dlange('1', M, N, LQ, L, RWORK);
+    if (ANORM > ZERO) {
+      RESULT[1] = RESID / (EPS * max(1, N) * ANORM);
+    } else {
+      RESULT[1] = ZERO;
+    }
 
-      dlaset('Full', N, N, ZERO, ONE, Q, N );
-      srnamt = 'DGEMLQ';
-      dgemlq('R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO );
+    // Compute |I - Q'*Q| and store in RESULT(2)
 
-      // Copy R
+    dlaset('Full', N, N, ZERO, ONE, LQ, L);
+    dsyrk('U', 'C', N, N, -ONE, Q, N, ONE, LQ, L);
+    RESID = dlansy('1', 'Upper', N, LQ, L, RWORK);
+    RESULT[2] = RESID / (EPS * max(1, N));
 
-      dlaset('Full', M, N, ZERO, ZERO, LQ, L );
-      dlacpy('Lower', M, N, AF, M, LQ, L );
+    // Generate random m-by-n matrix C and a copy CF
 
-      // Compute |L - A*Q'| / |A| and store in RESULT(1)
+    for (var J = 1; J <= M; J++) {
+      dlarnv(2, ISEED, N, D(1, J).asArray());
+    }
+    final DNORM = dlange('1', N, M, D, N, RWORK);
+    dlacpy('Full', N, M, D, N, DF, N);
 
-      dgemm('N', 'T', M, N, N, -ONE, A, M, Q, N, ONE, LQ, L );
-      ANORM = dlange( '1', M, N, A, M, RWORK );
-      RESID = dlange( '1', M, N, LQ, L, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = RESID / (EPS*max(1,N)*ANORM);
-      } else {
-         RESULT[1] = ZERO;
-      }
+    // Apply Q to C as Q*C
 
-      // Compute |I - Q'*Q| and store in RESULT(2)
+    dgemlq('L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
-      dlaset('Full', N, N, ZERO, ONE, LQ, L );
-      dsyrk('U', 'C', N, N, -ONE, Q, N, ONE, LQ, L );
-      RESID = dlansy( '1', 'Upper', N, LQ, L, RWORK );
-      RESULT[2] = RESID / (EPS*max(1,N));
+    // Compute |Q*D - Q*D| / |D|
 
-      // Generate random m-by-n matrix C and a copy CF
+    dgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N);
+    RESID = dlange('1', N, M, DF, N, RWORK);
+    if (DNORM > ZERO) {
+      RESULT[3] = RESID / (EPS * max(1, N) * DNORM);
+    } else {
+      RESULT[3] = ZERO;
+    }
 
-      for (J = 1; J <= M; J++) {
-         dlarnv(2, ISEED, N, D( 1, J ) );
-      }
-      DNORM = dlange( '1', N, M, D, N, RWORK);
-      dlacpy('Full', N, M, D, N, DF, N );
+    // Copy D into DF again
 
-      // Apply Q to C as Q*C
+    dlacpy('Full', N, M, D, N, DF, N);
 
-      dgemlq('L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
+    // Apply Q to D as QT*D
 
-      // Compute |Q*D - Q*D| / |D|
+    dgemlq('L', 'T', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
-      dgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
-      RESID = dlange( '1', N, M, DF, N, RWORK );
-      if ( DNORM > ZERO ) {
-         RESULT[3] = RESID / (EPS*max(1,N)*DNORM);
-      } else {
-         RESULT[3] = ZERO;
-      }
+    // Compute |QT*D - QT*D| / |D|
 
-      // Copy D into DF again
+    dgemm('T', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N);
+    RESID = dlange('1', N, M, DF, N, RWORK);
+    if (DNORM > ZERO) {
+      RESULT[4] = RESID / (EPS * max(1, N) * DNORM);
+    } else {
+      RESULT[4] = ZERO;
+    }
 
-      dlacpy('Full', N, M, D, N, DF, N );
+    // Generate random n-by-m matrix D and a copy DF
 
-      // Apply Q to D as QT*D
+    for (var J = 1; J <= N; J++) {
+      dlarnv(2, ISEED, M, C(1, J).asArray());
+    }
+    final CNORM = dlange('1', M, N, C, M, RWORK);
+    dlacpy('Full', M, N, C, M, CF, M);
 
-      dgemlq('L', 'T', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
+    // Apply Q to C as C*Q
 
-      // Compute |QT*D - QT*D| / |D|
+    dgemlq('R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
 
-      dgemm('T', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
-      RESID = dlange( '1', N, M, DF, N, RWORK );
-      if ( DNORM > ZERO ) {
-         RESULT[4] = RESID / (EPS*max(1,N)*DNORM);
-      } else {
-         RESULT[4] = ZERO;
-      }
+    // Compute |C*Q - C*Q| / |C|
 
-      // Generate random n-by-m matrix D and a copy DF
+    dgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M);
+    RESID = dlange('1', N, M, DF, N, RWORK);
+    if (CNORM > ZERO) {
+      RESULT[5] = RESID / (EPS * max(1, N) * CNORM);
+    } else {
+      RESULT[5] = ZERO;
+    }
 
-      for (J = 1; J <= N; J++) {
-         dlarnv(2, ISEED, M, C( 1, J ) );
-      }
-      CNORM = dlange( '1', M, N, C, M, RWORK);
-      dlacpy('Full', M, N, C, M, CF, M );
+    // Copy C into CF again
 
-      // Apply Q to C as C*Q
+    dlacpy('Full', M, N, C, M, CF, M);
 
-      dgemlq('R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
+    // Apply Q to D as D*QT
 
-      // Compute |C*Q - C*Q| / |C|
+    dgemlq('R', 'T', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
 
-      dgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
-      RESID = dlange( '1', N, M, DF, N, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[5] = RESID / (EPS*max(1,N)*CNORM);
-      } else {
-         RESULT[5] = ZERO;
-      }
+    // Compute |C*QT - C*QT| / |C|
 
-      // Copy C into CF again
-
-      dlacpy('Full', M, N, C, M, CF, M );
-
-      // Apply Q to D as D*QT
-
-      dgemlq('R', 'T', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
-
-      // Compute |C*QT - C*QT| / |C|
-
-      dgemm('N', 'T', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
-      RESID = dlange( '1', M, N, CF, M, RWORK );
-      if ( CNORM > ZERO ) {
-         RESULT[6] = RESID / (EPS*max(1,N)*CNORM);
-      } else {
-         RESULT[6] = ZERO;
-      }
-
-      }
-
-      // Deallocate all arrays
-
-      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF);
-
-      }
+    dgemm('N', 'T', M, N, N, -ONE, C, M, Q, N, ONE, CF, M);
+    RESID = dlange('1', M, N, CF, M, RWORK);
+    if (CNORM > ZERO) {
+      RESULT[6] = RESID / (EPS * max(1, N) * CNORM);
+    } else {
+      RESULT[6] = ZERO;
+    }
+  }
+}

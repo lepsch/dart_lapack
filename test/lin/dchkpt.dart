@@ -1,7 +1,7 @@
 import 'common.dart';
 
-      void dchkpt(final int DOTYPE, final int NN, final int NVAL, final int NNS, final int NSVAL, final int THRESH, final int TSTERR, final int A, final int D, final int E, final int B, final int X, final int XACT, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
-  final _WORK = _WORK_.having();
+      void dchkpt(final int DOTYPE, final int NN, final int NVAL, final int NNS, final int NSVAL, final int THRESH, final int TSTERR, final int A, final int D, final int E, final int B, final int X, final int XACT, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+  final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

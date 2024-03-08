@@ -46,7 +46,7 @@ void zlarhs(
   final A = A_.having(ld: LDA);
   final X = X_.having(ld: LDX);
   final B = B_.having(ld: LDB);
-  final ISEED = ISEED_.having(ld: 4);
+  final ISEED = ISEED_.having(length: 4);
   bool BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI;
   String C1, DIAG;
   String C2;

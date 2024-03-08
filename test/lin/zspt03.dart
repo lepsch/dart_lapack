@@ -1,5 +1,5 @@
-      void zspt03(final int UPLO, final int N, final int A, final int AINV, final Array<double> _WORK_, final int LDW, final Array<double> RWORK_, final int RCOND, final int RESID,) {
-  final _WORK = _WORK_.having();
+      void zspt03(final int UPLO, final int N, final int A, final int AINV, final Array<double> WORK_, final int LDW, final Array<double> RWORK_, final int RCOND, final int RESID,) {
+  final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

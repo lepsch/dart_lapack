@@ -1,167 +1,159 @@
-      void zlatsp(final int UPLO, final int N, final int X, final int ISEED,) {
+import 'dart:math';
 
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+import '../matgen/zlarnd.dart';
+
+void zlatsp(
+  final String UPLO,
+  final int N,
+  final Array<Complex> X_,
+  final Array<int> ISEED_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                N;
-      int                ISEED( * );
-      Complex         X( * );
-      // ..
+  final X = X_.having();
+  final ISEED = ISEED_.having();
+  const EYE = Complex(0.0, 1.0), TWO = Complex(2.0);
 
-      Complex         EYE;
-      const              EYE = ( 0.0, 1.0 ) ;
-      int                J, JJ, N5;
-      double             ALPHA, ALPHA3, BETA;
-      Complex         A, B, C, R;
-      // ..
-      // .. External Functions ..
-      //- Complex         ZLARND;
-      // EXTERNAL ZLARND
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, SQRT
+  // Initialize constants
 
-      // Initialize constants
+  final ALPHA = ((1.0 + sqrt(17.0)) / 8.0).toComplex();
+  final BETA = ALPHA - (1.0 / 1000.0).toComplex();
+  final ALPHA3 = ALPHA * ALPHA * ALPHA;
 
-      ALPHA = ( 1.0+sqrt( 17.0 ) ) / 8.0;
-      BETA = ALPHA - 1.0 / 1000.0;
-      ALPHA3 = ALPHA*ALPHA*ALPHA;
+  // Fill the matrix with zeros.
 
-      // Fill the matrix with zeros.
+  for (var J = 1; J <= N * (N + 1) ~/ 2; J++) {
+    X[J] = Complex.zero;
+  }
 
-      for (J = 1; J <= N*( N+1 ) / 2; J++) { // 10
-         X[J] = 0.0;
-      } // 10
+  // UPLO = 'U':  Upper triangular storage
 
-      // UPLO = 'U':  Upper triangular storage
+  if (UPLO == 'U') {
+    final N5 = N - 5 * (N ~/ 5) + 1;
 
-      if ( UPLO == 'U' ) {
-         N5 = N / 5;
-         N5 = N - 5*N5 + 1;
-
-         JJ = N*( N+1 ) / 2;
-         for (J = N; J >= N5; J -= 5) { // 20
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[JJ] = A;
-            X[JJ-2] = B;
-            JJ = JJ - J;
-            X[JJ] = ZLARND( 2, ISEED );
-            X[JJ-1] = R;
-            JJ = JJ - ( J-1 );
-            X[JJ] = C;
-            JJ = JJ - ( J-2 );
-            X[JJ] = ZLARND( 2, ISEED );
-            JJ = JJ - ( J-3 );
-            X[JJ] = ZLARND( 2, ISEED );
-            if ( ABS( X( JJ+( J-3 ) ) ) > ( X( JJ ) ).abs() ) {
-               X[JJ+( J-4 )] = 2.0*X( JJ+( J-3 ) );
-            } else {
-               X[JJ+( J-4 )] = 2.0*X( JJ );
-            }
-            JJ = JJ - ( J-4 );
-         } // 20
-
-         // Clean-up for N not a multiple of 5.
-
-         J = N5 - 1;
-         if ( J > 2 ) {
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[JJ] = A;
-            X[JJ-2] = B;
-            JJ = JJ - J;
-            X[JJ] = ZLARND( 2, ISEED );
-            X[JJ-1] = R;
-            JJ = JJ - ( J-1 );
-            X[JJ] = C;
-            JJ = JJ - ( J-2 );
-            J = J - 3;
-         }
-         if ( J > 1 ) {
-            X[JJ] = ZLARND( 2, ISEED );
-            X[JJ-J] = ZLARND( 2, ISEED );
-            if ( ( X( JJ ) ).abs() > ( X( JJ-J ) ).abs() ) {
-               X[JJ-1] = 2.0*X( JJ );
-            } else {
-               X[JJ-1] = 2.0*X( JJ-J );
-            }
-            JJ = JJ - J - ( J-1 );
-            J = J - 2;
-         } else if ( J == 1 ) {
-            X[JJ] = ZLARND( 2, ISEED );
-            J = J - 1;
-         }
-
-      // UPLO = 'L':  Lower triangular storage
-
+    var JJ = N * (N + 1) ~/ 2;
+    for (var J = N; J >= N5; J -= 5) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[JJ] = A;
+      X[JJ - 2] = B;
+      JJ = JJ - J;
+      X[JJ] = zlarnd(2, ISEED);
+      X[JJ - 1] = R;
+      JJ = JJ - (J - 1);
+      X[JJ] = C;
+      JJ = JJ - (J - 2);
+      X[JJ] = zlarnd(2, ISEED);
+      JJ = JJ - (J - 3);
+      X[JJ] = zlarnd(2, ISEED);
+      if (X[JJ + (J - 3)].abs() > X[JJ].abs()) {
+        X[JJ + (J - 4)] = TWO * X[JJ + (J - 3)];
       } else {
-         N5 = N / 5;
-         N5 = N5*5;
-
-         JJ = 1;
-         for (J = 1; J <= N5; J += 5) { // 30
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[JJ] = A;
-            X[JJ+2] = B;
-            JJ = JJ + ( N-J+1 );
-            X[JJ] = ZLARND( 2, ISEED );
-            X[JJ+1] = R;
-            JJ = JJ + ( N-J );
-            X[JJ] = C;
-            JJ = JJ + ( N-J-1 );
-            X[JJ] = ZLARND( 2, ISEED );
-            JJ = JJ + ( N-J-2 );
-            X[JJ] = ZLARND( 2, ISEED );
-            if ( ABS( X( JJ-( N-J-2 ) ) ) > ( X( JJ ) ).abs() ) {
-               X[JJ-( N-J-2 )+1] = 2.0*X( JJ-( N-J-2 ) );
-            } else {
-               X[JJ-( N-J-2 )+1] = 2.0*X( JJ );
-            }
-            JJ = JJ + ( N-J-3 );
-         } // 30
-
-         // Clean-up for N not a multiple of 5.
-
-         J = N5 + 1;
-         if ( J < N-1 ) {
-            A = ALPHA3*ZLARND( 5, ISEED );
-            B = ZLARND( 5, ISEED ) / ALPHA;
-            C = A - 2.0*B*EYE;
-            R = C / BETA;
-            X[JJ] = A;
-            X[JJ+2] = B;
-            JJ = JJ + ( N-J+1 );
-            X[JJ] = ZLARND( 2, ISEED );
-            X[JJ+1] = R;
-            JJ = JJ + ( N-J );
-            X[JJ] = C;
-            JJ = JJ + ( N-J-1 );
-            J = J + 3;
-         }
-         if ( J < N ) {
-            X[JJ] = ZLARND( 2, ISEED );
-            X[JJ+( N-J+1 )] = ZLARND( 2, ISEED );
-            if ( ( X( JJ ) ).abs() > ABS( X( JJ+( N-J+1 ) ) ) ) {
-               X[JJ+1] = 2.0*X( JJ );
-            } else {
-               X[JJ+1] = 2.0*X( JJ+( N-J+1 ) );
-            }
-            JJ = JJ + ( N-J+1 ) + ( N-J );
-            J = J + 2;
-         } else if ( J == N ) {
-            X[JJ] = ZLARND( 2, ISEED );
-            JJ = JJ + ( N-J+1 );
-            J = J + 1;
-         }
+        X[JJ + (J - 4)] = TWO * X[JJ];
       }
+      JJ = JJ - (J - 4);
+    }
 
+    // Clean-up for N not a multiple of 5.
+
+    var J = N5 - 1;
+    if (J > 2) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[JJ] = A;
+      X[JJ - 2] = B;
+      JJ = JJ - J;
+      X[JJ] = zlarnd(2, ISEED);
+      X[JJ - 1] = R;
+      JJ = JJ - (J - 1);
+      X[JJ] = C;
+      JJ = JJ - (J - 2);
+      J = J - 3;
+    }
+    if (J > 1) {
+      X[JJ] = zlarnd(2, ISEED);
+      X[JJ - J] = zlarnd(2, ISEED);
+      if (X[JJ].abs() > X[JJ - J].abs()) {
+        X[JJ - 1] = TWO * X[JJ];
+      } else {
+        X[JJ - 1] = TWO * X[JJ - J];
       }
+      JJ = JJ - J - (J - 1);
+      J = J - 2;
+    } else if (J == 1) {
+      X[JJ] = zlarnd(2, ISEED);
+      J = J - 1;
+    }
+
+    // UPLO = 'L':  Lower triangular storage
+  } else {
+    final N5 = (N ~/ 5) * 5;
+
+    var JJ = 1;
+    for (var J = 1; J <= N5; J += 5) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[JJ] = A;
+      X[JJ + 2] = B;
+      JJ = JJ + (N - J + 1);
+      X[JJ] = zlarnd(2, ISEED);
+      X[JJ + 1] = R;
+      JJ = JJ + (N - J);
+      X[JJ] = C;
+      JJ = JJ + (N - J - 1);
+      X[JJ] = zlarnd(2, ISEED);
+      JJ = JJ + (N - J - 2);
+      X[JJ] = zlarnd(2, ISEED);
+      if (X[JJ - (N - J - 2)].abs() > X[JJ].abs()) {
+        X[JJ - (N - J - 2) + 1] = TWO * X[JJ - (N - J - 2)];
+      } else {
+        X[JJ - (N - J - 2) + 1] = TWO * X[JJ];
+      }
+      JJ = JJ + (N - J - 3);
+    }
+
+    // Clean-up for N not a multiple of 5.
+
+    var J = N5 + 1;
+    if (J < N - 1) {
+      final A = ALPHA3 * zlarnd(5, ISEED);
+      final B = zlarnd(5, ISEED) / ALPHA;
+      final C = A - TWO * B * EYE;
+      final R = C / BETA;
+      X[JJ] = A;
+      X[JJ + 2] = B;
+      JJ = JJ + (N - J + 1);
+      X[JJ] = zlarnd(2, ISEED);
+      X[JJ + 1] = R;
+      JJ = JJ + (N - J);
+      X[JJ] = C;
+      JJ = JJ + (N - J - 1);
+      J = J + 3;
+    }
+    if (J < N) {
+      X[JJ] = zlarnd(2, ISEED);
+      X[JJ + (N - J + 1)] = zlarnd(2, ISEED);
+      if ((X[JJ]).abs() > X[JJ + (N - J + 1)].abs()) {
+        X[JJ + 1] = TWO * X[JJ];
+      } else {
+        X[JJ + 1] = TWO * X[JJ + (N - J + 1)];
+      }
+      JJ = JJ + (N - J + 1) + (N - J);
+      J = J + 2;
+    } else if (J == N) {
+      X[JJ] = zlarnd(2, ISEED);
+      JJ = JJ + (N - J + 1);
+      J = J + 1;
+    }
+  }
+}
