@@ -86,11 +86,11 @@ void ztrsv(
             TEMP = X[JX];
             IX = JX;
             for (I = J - 1; I >= 1; I--) {
-              IX = IX - INCX;
+              IX -= INCX;
               X[IX] = X[IX] - TEMP * A[I][J];
             }
           }
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     } else {
@@ -112,11 +112,11 @@ void ztrsv(
             TEMP = X[JX];
             IX = JX;
             for (I = J + 1; I <= N; I++) {
-              IX = IX + INCX;
+              IX += INCX;
               X[IX] = X[IX] - TEMP * A[I][J];
             }
           }
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     }
@@ -129,12 +129,12 @@ void ztrsv(
           TEMP = X[J];
           if (NOCONJ) {
             for (I = 1; I <= J - 1; I++) {
-              TEMP = TEMP - A[I][J] * X[I];
+              TEMP -= A[I][J] * X[I];
             }
             if (NOUNIT) TEMP = TEMP / A[J][J];
           } else {
             for (I = 1; I <= J - 1; I++) {
-              TEMP = TEMP - A[I][J].conjugate() * X[I];
+              TEMP -= A[I][J].conjugate() * X[I];
             }
             if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
           }
@@ -147,19 +147,19 @@ void ztrsv(
           TEMP = X[JX];
           if (NOCONJ) {
             for (I = 1; I <= J - 1; I++) {
-              TEMP = TEMP - A[I][J] * X[IX];
-              IX = IX + INCX;
+              TEMP -= A[I][J] * X[IX];
+              IX += INCX;
             }
             if (NOUNIT) TEMP = TEMP / A[J][J];
           } else {
             for (I = 1; I <= J - 1; I++) {
-              TEMP = TEMP - A[I][J].conjugate() * X[IX];
-              IX = IX + INCX;
+              TEMP -= A[I][J].conjugate() * X[IX];
+              IX += INCX;
             }
             if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
           }
           X[JX] = TEMP;
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     } else {
@@ -168,38 +168,38 @@ void ztrsv(
           TEMP = X[J];
           if (NOCONJ) {
             for (I = N; I >= J + 1; I--) {
-              TEMP = TEMP - A[I][J] * X[I];
+              TEMP -= A[I][J] * X[I];
             }
             if (NOUNIT) TEMP = TEMP / A[J][J];
           } else {
             for (I = N; I >= J + 1; I--) {
-              TEMP = TEMP - A[I][J].conjugate() * X[I];
+              TEMP -= A[I][J].conjugate() * X[I];
             }
             if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
           }
           X[J] = TEMP;
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           IX = KX;
           TEMP = X[JX];
           if (NOCONJ) {
             for (I = N; I >= J + 1; I--) {
-              TEMP = TEMP - A[I][J] * X[IX];
-              IX = IX - INCX;
+              TEMP -= A[I][J] * X[IX];
+              IX -= INCX;
             }
             if (NOUNIT) TEMP = TEMP / A[J][J];
           } else {
             for (I = N; I >= J + 1; I--) {
-              TEMP = TEMP - A[I][J].conjugate() * X[IX];
-              IX = IX - INCX;
+              TEMP -= A[I][J].conjugate() * X[IX];
+              IX -= INCX;
             }
             if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
           }
           X[JX] = TEMP;
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     }

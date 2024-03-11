@@ -143,13 +143,13 @@ void zchkpb(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, fin
                      if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1;
                         zcopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
-                        IW = IW + IZERO - I1;
+                        IW += IZERO - I1;
                         zcopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), max( LDAB-1, 1 ) );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1;
                         zcopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), max( LDAB-1, 1 ) );
                         IOFF = ( IZERO-1 )*LDAB + 1;
-                        IW = IW + IZERO - I1;
+                        IW += IZERO - I1;
                         zcopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 );
                      }
                   }
@@ -180,13 +180,13 @@ void zchkpb(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, fin
                      if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1;
                         zswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
-                        IW = IW + IZERO - I1;
+                        IW += IZERO - I1;
                         zswap(I2-IZERO+1, A( IOFF ), max( LDAB-1, 1 ), WORK( IW ), 1 );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1;
                         zswap(IZERO-I1, A( IOFF+IZERO-I1 ), max( LDAB-1, 1 ), WORK( IW ), 1 );
                         IOFF = ( IZERO-1 )*LDAB + 1;
-                        IW = IW + IZERO - I1;
+                        IW += IZERO - I1;
                         zswap(I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 );
                      }
                   }

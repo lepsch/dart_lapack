@@ -96,8 +96,8 @@ void zher2(
           IY = KY;
           for (I = 1; I <= J - 1; I++) {
             A[I][J] = A[I][J] + X[IX] * TEMP1 + Y[IY] * TEMP2;
-            IX = IX + INCX;
-            IY = IY + INCY;
+            IX += INCX;
+            IY += INCY;
           }
           A[J][J] =
               (A[J][J].toDouble() + (X[JX] * TEMP1 + Y[JY] * TEMP2).toDouble())
@@ -105,8 +105,8 @@ void zher2(
         } else {
           A[J][J] = (A[J][J]).real.toComplex();
         }
-        JX = JX + INCX;
-        JY = JY + INCY;
+        JX += INCX;
+        JY += INCY;
       }
     }
   } else {
@@ -138,15 +138,15 @@ void zher2(
           IX = JX;
           IY = JY;
           for (I = J + 1; I <= N; I++) {
-            IX = IX + INCX;
-            IY = IY + INCY;
+            IX += INCX;
+            IY += INCY;
             A[I][J] = A[I][J] + X[IX] * TEMP1 + Y[IY] * TEMP2;
           }
         } else {
           A[J][J] = A[J][J].real.toComplex();
         }
-        JX = JX + INCX;
-        JY = JY + INCY;
+        JX += INCX;
+        JY += INCY;
       }
     }
   }

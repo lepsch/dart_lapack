@@ -54,7 +54,7 @@ void dbdt05(
   for (I = 1; I <= NS; I++) {
     WORK[J + I] = WORK[J + I] + S[I];
     RESID.value = max(RESID.value, dasum(NS, WORK(J + 1), 1));
-    J = J + NS;
+    J += NS;
   }
 
   if (ANORM <= ZERO) {

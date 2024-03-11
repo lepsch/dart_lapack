@@ -94,13 +94,13 @@ void dlasq4(
 
         // Approximate contribution to norm squared from I < NN-1.
 
-        A2 = A2 + B2;
+        A2 += B2;
         for (I4 = NP; I4 >= 4 * I0 - 1 + PP; I4 -= 4) {
           if (B2 == ZERO) break;
           B1 = B2;
           if (Z[I4] > Z[I4 - 2]) return;
           B2 = B2 * (Z[I4] / Z[I4 - 2]);
-          A2 = A2 + B2;
+          A2 += B2;
           if (HUNDRD * max(B2, B1) < A2 || CNST1 < A2) break;
         }
         A2 = CNST3 * A2;
@@ -128,13 +128,13 @@ void dlasq4(
 
       if (N0 - I0 > 2) {
         B2 = Z[NN - 13] / Z[NN - 15];
-        A2 = A2 + B2;
+        A2 += B2;
         for (I4 = NN - 17; I4 >= 4 * I0 - 1 + PP; I4 -= 4) {
           if (B2 == ZERO) break;
           B1 = B2;
           if (Z[I4] > Z[I4 - 2]) return;
           B2 = B2 * (Z[I4] / Z[I4 - 2]);
-          A2 = A2 + B2;
+          A2 += B2;
           if (HUNDRD * max(B2, B1) < A2 || CNST1 < A2) break;
         }
         A2 = CNST3 * A2;
@@ -170,7 +170,7 @@ void dlasq4(
           A2 = B1;
           if (Z[I4] > Z[I4 - 2]) return;
           B1 = B1 * (Z[I4] / Z[I4 - 2]);
-          B2 = B2 + B1;
+          B2 += B1;
           if (HUNDRD * max(B1, A2) < B2) break;
         }
       }
@@ -205,7 +205,7 @@ void dlasq4(
         for (I4 = 4 * N0 - 9 + PP; I4 >= 4 * I0 - 1 + PP; I4 -= 4) {
           if (Z[I4] > Z[I4 - 2]) return;
           B1 = B1 * (Z[I4] / Z[I4 - 2]);
-          B2 = B2 + B1;
+          B2 += B1;
           if (HUNDRD * B1 < B2) break;
         }
       }

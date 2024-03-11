@@ -223,7 +223,7 @@ void dlaln2(
         BR1 = B[1][1];
         BR2 = B[2][1];
       }
-      BR2 = BR2 - LR21 * BR1;
+      BR2 -= LR21 * BR1;
       BBND = max((BR1 * (UR22 * UR11R).abs()), (BR2).abs());
       if (BBND > ONE && (UR22).abs() < ONE) {
         if (BBND >= BIGNUM * (UR22).abs()) SCALE.value = ONE / BBND;
@@ -350,8 +350,8 @@ void dlaln2(
         BI1 = B[1][2];
         BI2 = B[2][2];
       }
-      BR2 = BR2 - LR21 * BR1 + LI21 * BI1;
-      BI2 = BI2 - LI21 * BR1 - LR21 * BI1;
+      BR2 -= LR21 * BR1 + LI21 * BI1;
+      BI2 -= LI21 * BR1 - LR21 * BI1;
       BBND = max(
           (BR1.abs() + BI1.abs()) * (U22ABS * (UR11R.abs() + UI11R.abs())),
           BR2.abs() + BI2.abs());

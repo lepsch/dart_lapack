@@ -78,13 +78,13 @@ void zher(
           IX = KX;
           for (I = 1; I <= J - 1; I++) {
             A[I][J] = A[I][J] + X[IX] * TEMP;
-            IX = IX + INCX;
+            IX += INCX;
           }
           A[J][J] = A[J][J].real.toComplex() + (X[JX] * TEMP).real.toComplex();
         } else {
           A[J][J] = A[J][J].real.toComplex();
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     }
   } else {
@@ -110,13 +110,13 @@ void zher(
           A[J][J] = A[J][J].real.toComplex() + (TEMP * X[JX]).real.toComplex();
           IX = JX;
           for (I = J + 1; I <= N; I++) {
-            IX = IX + INCX;
+            IX += INCX;
             A[I][J] = A[I][J] + X[IX] * TEMP;
           }
         } else {
           A[J][J] = A[J][J].real.toComplex();
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     }
   }

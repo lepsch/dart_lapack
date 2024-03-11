@@ -819,9 +819,9 @@ void dchkbd(
         J = IWBZ;
         for (I = 1; I <= NS1.value; I++) {
           dcopy(MNMIN, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + MNMIN;
+          J += MNMIN;
           dcopy(MNMIN, WORK(J), 1, VT(I, 1).asArray(), LDPT);
-          J = J + MNMIN;
+          J += MNMIN;
         }
 
         // Use DBDSVDX to compute only the singular values of the
@@ -966,9 +966,9 @@ void dchkbd(
         J = IWBZ;
         for (I = 1; I <= NS1.value; I++) {
           dcopy(MNMIN, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + MNMIN;
+          J += MNMIN;
           dcopy(MNMIN, WORK(J), 1, VT(I, 1).asArray(), LDPT);
-          J = J + MNMIN;
+          J += MNMIN;
         }
 
         // Use DBDSVDX to compute only the singular values of the
@@ -1113,9 +1113,9 @@ void dchkbd(
         J = IWBZ;
         for (I = 1; I <= NS1.value; I++) {
           dcopy(MNMIN, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + MNMIN;
+          J += MNMIN;
           dcopy(MNMIN, WORK(J), 1, VT(I, 1).asArray(), LDPT);
-          J = J + MNMIN;
+          J += MNMIN;
         }
 
         // Use DBDSVDX to compute only the singular values of the
@@ -1203,9 +1203,9 @@ void dchkbd(
         }
       }
       if (!BIDIAG) {
-        NTEST = NTEST + 34;
+        NTEST += 34;
       } else {
-        NTEST = NTEST + 30;
+        NTEST += 30;
       }
     }
   }

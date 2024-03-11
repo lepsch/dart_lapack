@@ -145,8 +145,8 @@ void dlasq2(
       xerbla('DLASQ2', 2);
       return;
     }
-    D = D + Z[K];
-    E = E + Z[K + 1];
+    D += Z[K];
+    E += Z[K + 1];
     QMAX.value = max(QMAX.value, Z[K]);
     EMIN = min(EMIN, Z[K + 1]);
     ZMAX = max(QMAX.value, max(ZMAX, Z[K + 1]));
@@ -156,7 +156,7 @@ void dlasq2(
     xerbla('DLASQ2', 2);
     return;
   }
-  D = D + Z[2 * N - 1];
+  D += Z[2 * N - 1];
   QMAX.value = max(QMAX.value, Z[2 * N - 1]);
   ZMAX = max(QMAX.value, ZMAX);
 
@@ -488,7 +488,7 @@ void dlasq2(
 
   E = ZERO;
   for (K = N; K >= 1; K--) {
-    E = E + Z[K];
+    E += Z[K];
   }
 
   // Store trace, sum(eigenvalues) and information on performance.

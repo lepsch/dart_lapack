@@ -130,7 +130,7 @@ void ddrvpt(
           // 20
           D[I] = A[IA];
           E[I] = A[IA + 1];
-          IA = IA + 2;
+          IA += 2;
         } // 20
         if (N > 0) D[N] = A[IA];
       } else {
@@ -218,7 +218,7 @@ void ddrvpt(
       for (var J = 1; J <= NRHS; J++) {
         // 40
         dlarnv(2, ISEED, N, XACT(IX));
-        IX = IX + LDA;
+        IX += LDA;
       } // 40
 
       // Set the right hand side.

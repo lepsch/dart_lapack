@@ -575,7 +575,7 @@ void dtgevc(
           }
         }
       }
-      IEIG = IEIG + NW - 1;
+      IEIG += NW - 1;
     }
   }
 
@@ -901,7 +901,7 @@ void dtgevc(
       // Copy eigenvector to VR, back transforming if
       // HOWMNY='B'.
 
-      IEIG = IEIG - NW;
+      IEIG -= NW;
       if (ILBACK) {
         for (JW = 0; JW <= NW - 1; JW++) {
           for (JR = 1; JR <= N; JR++) {

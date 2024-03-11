@@ -780,7 +780,7 @@ void ddrvbd(
             NFAIL++;
           }
         } // 210
-        NTEST = NTEST + 39;
+        NTEST += 39;
       } // 220
     } // 230
   } // 240

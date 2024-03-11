@@ -62,7 +62,7 @@ void dspt01(
       for (var I = 1; I <= J; I++) {
         C[I][J] = C[I][J] - A[JC + I];
       }
-      JC = JC + J;
+      JC += J;
     }
   } else {
     var JC = 1;
@@ -70,7 +70,7 @@ void dspt01(
       for (var I = J; I <= N; I++) {
         C[I][J] = C[I][J] - A[JC + I - J];
       }
-      JC = JC + N - J + 1;
+      JC += N - J + 1;
     }
   }
 

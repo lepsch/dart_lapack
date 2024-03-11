@@ -635,8 +635,8 @@ void ddrvev(
           }
         }
 
-        NERRS = NERRS + NFAIL;
-        NTESTT = NTESTT + NTEST;
+        NERRS += NFAIL;
+        NTESTT += NTEST;
       }
     }
   }

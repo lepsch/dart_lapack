@@ -105,12 +105,12 @@ void zgbmv(
       if (BETA == Complex.zero) {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = Complex.zero;
-          IY = IY + INCY;
+          IY += INCY;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = BETA * Y[IY];
-          IY = IY + INCY;
+          IY += INCY;
         }
       }
     }
@@ -128,7 +128,7 @@ void zgbmv(
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           Y[I] = Y[I] + TEMP * A[K + I][J];
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -137,9 +137,9 @@ void zgbmv(
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           Y[IY] = Y[IY] + TEMP * A[K + I][J];
-          IY = IY + INCY;
+          IY += INCY;
         }
-        JX = JX + INCX;
+        JX += INCX;
         if (J > KU) KY = KY + INCY;
       }
     }
@@ -153,15 +153,15 @@ void zgbmv(
         K = KUP1 - J;
         if (NOCONJ) {
           for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            TEMP = TEMP + A[K + I][J] * X[I];
+            TEMP += A[K + I][J] * X[I];
           }
         } else {
           for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            TEMP = TEMP + A[K + I][J].conjugate() * X[I];
+            TEMP += A[K + I][J].conjugate() * X[I];
           }
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -170,17 +170,17 @@ void zgbmv(
         K = KUP1 - J;
         if (NOCONJ) {
           for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            TEMP = TEMP + A[K + I][J] * X[IX];
-            IX = IX + INCX;
+            TEMP += A[K + I][J] * X[IX];
+            IX += INCX;
           }
         } else {
           for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            TEMP = TEMP + (A[K + I][J]).conjugate() * X[IX];
-            IX = IX + INCX;
+            TEMP += (A[K + I][J]).conjugate() * X[IX];
+            IX += INCX;
           }
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
         if (J > KU) KX = KX + INCX;
       }
     }

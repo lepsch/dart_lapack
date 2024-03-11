@@ -2361,12 +2361,12 @@ void _dchk5(
                   true);
               if (FULL) {
                 if (UPPER) {
-                  JA = JA + LDA;
+                  JA += LDA;
                 } else {
-                  JA = JA + LDA + 1;
+                  JA += LDA + 1;
                 }
               } else {
-                JA = JA + LJ;
+                JA += LJ;
               }
               ERRMAX = max(ERRMAX, ERR.value);
               // If got really bad answer, report and return.
@@ -2732,12 +2732,12 @@ void _dchk6(
                     true);
                 if (FULL) {
                   if (UPPER) {
-                    JA = JA + LDA;
+                    JA += LDA;
                   } else {
-                    JA = JA + LDA + 1;
+                    JA += LDA + 1;
                   }
                 } else {
-                  JA = JA + LJ;
+                  JA += LJ;
                 }
                 ERRMAX = max(ERRMAX, ERR.value);
                 // If got really bad answer, report and return.
@@ -3380,18 +3380,18 @@ void _dmvch(
       for (J = 1; J <= NL; J++) {
         YT[IY] = YT[IY] + A[J][I] * X[JX];
         G[IY] = G[IY] + (A[J][I] * X[JX]).abs();
-        JX = JX + INCXL;
+        JX += INCXL;
       }
     } else {
       for (J = 1; J <= NL; J++) {
         YT[IY] = YT[IY] + A[I][J] * X[JX];
         G[IY] = G[IY] + (A[I][J] * X[JX]).abs();
-        JX = JX + INCXL;
+        JX += INCXL;
       }
     }
     YT[IY] = ALPHA * YT[IY] + BETA * Y[IY];
     G[IY] = (ALPHA).abs() * G[IY] + (BETA * Y[IY]).abs();
-    IY = IY + INCYL;
+    IY += INCYL;
   }
 
   // Compute the error ratio for this result.
@@ -3523,7 +3523,7 @@ double _dbeg(final Box<bool> RESET) {
 
   while (true) {
     _dbegI = _dbegI * _dbegMI;
-    _dbegI = _dbegI - 1000 * (_dbegI ~/ 1000);
+    _dbegI -= 1000 * (_dbegI ~/ 1000);
     if (_dbegIC < 5) break;
     _dbegIC = 0;
   }

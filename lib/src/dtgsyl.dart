@@ -185,7 +185,7 @@ void dtgsyl(
     if (I > M) break;
     P++;
     IWORK[P] = I;
-    I = I + MB;
+    I += MB;
     if (I >= M) break;
     if (A[I][I - 1] != ZERO) I = I + 1;
   }
@@ -201,7 +201,7 @@ void dtgsyl(
     if (J > N) break;
     Q++;
     IWORK[Q] = J;
-    J = J + NB;
+    J += NB;
     if (J >= N) break;
     if (B[J][J - 1] != ZERO) J = J + 1;
   }

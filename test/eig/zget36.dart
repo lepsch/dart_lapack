@@ -106,7 +106,7 @@ Future<void> zget36(
     // Test for small residual, and orthogonality of Q
 
     zhst01(N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT);
-    RES = RES + RESULT[1] + RESULT[2];
+    RES += RESULT[1] + RESULT[2];
 
     // Test for T2 being in Schur form
 

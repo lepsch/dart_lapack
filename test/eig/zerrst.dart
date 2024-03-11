@@ -108,7 +108,7 @@ void zerrst(
     infoc.INFOT = 9;
     zhetrd('U', 0, A, 1, D, E, TAU, W, 0, INFO);
     chkxer('ZHETRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // ZHETD2
 
@@ -122,7 +122,7 @@ void zerrst(
     infoc.INFOT = 4;
     zhetd2('U', 2, A, 1, D, E, TAU, INFO);
     chkxer('ZHETD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // ZHETRD_2STAGE
 
@@ -148,7 +148,7 @@ void zerrst(
     infoc.INFOT = 12;
     zhetrd_2stage('N', 'U', 0, A, 1, D, E, TAU, C.asArray(), 1, W, 0, INFO);
     chkxer('ZHETRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // ZHETRD_HE2HB
 
@@ -171,7 +171,7 @@ void zerrst(
     infoc.INFOT = 10;
     zhetrd_he2hb('U', 0, 0, A, 1, C, 1, TAU, W, 0, INFO);
     chkxer('ZHETRD_HE2HB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZHETRD_HB2ST
 
@@ -203,7 +203,7 @@ void zerrst(
     infoc.INFOT = 13;
     zhetrd_hb2st('Y', 'N', 'U', 0, 0, A, 1, D, E, C.asArray(), 1, W, 0, INFO);
     chkxer('ZHETRD_HB2ST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZUNGTR
 
@@ -220,7 +220,7 @@ void zerrst(
     infoc.INFOT = 7;
     zungtr('U', 3, A, 3, TAU, W, 1, INFO);
     chkxer('ZUNGTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // ZUNMTR
 
@@ -255,7 +255,7 @@ void zerrst(
     infoc.INFOT = 12;
     zunmtr('R', 'U', 'N', 2, 0, A, 1, TAU, C, 2, W, 1, INFO);
     chkxer('ZUNMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // ZHPTRD
 
@@ -266,7 +266,7 @@ void zerrst(
     infoc.INFOT = 2;
     zhptrd('U', -1, A.asArray(), D, E, TAU, INFO);
     chkxer('ZHPTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 2;
+    NT += 2;
 
     // ZUPGTR
 
@@ -280,7 +280,7 @@ void zerrst(
     infoc.INFOT = 6;
     zupgtr('U', 2, A.asArray(), TAU, Z, 1, W, INFO);
     chkxer('ZUPGTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // ZUPMTR
 
@@ -303,7 +303,7 @@ void zerrst(
     infoc.INFOT = 9;
     zupmtr('L', 'U', 'N', 2, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('ZUPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZPTEQR
 
@@ -317,7 +317,7 @@ void zerrst(
     infoc.INFOT = 6;
     zpteqr('V', 2, D, E, Z, 1, RW, INFO);
     chkxer('ZPTEQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // ZSTEIN
 
@@ -334,7 +334,7 @@ void zerrst(
     infoc.INFOT = 9;
     zstein(2, D, E, 0, X, I1, I2, Z, 1, RW, IW, I3, INFO);
     chkxer('ZSTEIN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // ZSTEQR
 
@@ -348,7 +348,7 @@ void zerrst(
     infoc.INFOT = 6;
     zsteqr('V', 2, D, E, Z, 1, RW, INFO);
     chkxer('ZSTEQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // ZSTEDC
 
@@ -386,7 +386,7 @@ void zerrst(
     infoc.INFOT = 12;
     zstedc('V', 2, D, E, Z, 2, W, 4, RW, 23, IW, 0, INFO);
     chkxer('ZSTEDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZHEEVD
 
@@ -427,7 +427,7 @@ void zerrst(
     infoc.INFOT = 12;
     zheevd('V', 'U', 2, A, 2, X, W, 8, RW, 25, IW, 11, INFO);
     chkxer('ZHEEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // ZHEEVD_2STAGE
 
@@ -474,7 +474,7 @@ void zerrst(
     // CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
     // $                            RW, 25, IW, 11, INFO )
     //     CALL CHKXER( 'ZHEEVD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK )
-    NT = NT + 10;
+    NT += 10;
 
     // ZHEEV
 
@@ -494,7 +494,7 @@ void zerrst(
     infoc.INFOT = 8;
     zheev('N', 'U', 2, A, 2, X, W, 2, RW, INFO);
     chkxer('ZHEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 5;
+    NT += 5;
 
     // ZHEEV_2STAGE
 
@@ -517,7 +517,7 @@ void zerrst(
     infoc.INFOT = 8;
     zheev_2stage('N', 'U', 2, A, 2, X, W, 2, RW, INFO);
     chkxer('ZHEEV_2STAGE ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZHEEVX
 
@@ -561,7 +561,7 @@ void zerrst(
     zheevx('V', 'A', 'U', 2, A, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 2, W, 2, RW,
         IW, I1, INFO);
     chkxer('ZHEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // ZHEEVX_2STAGE
 
@@ -609,7 +609,7 @@ void zerrst(
     zheevx_2stage('N', 'A', 'U', 2, A, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 2, W, 0,
         RW, IW, I1, INFO);
     chkxer('ZHEEVX_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZHEEVR
 
@@ -664,7 +664,7 @@ void zerrst(
     zheevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW,
         Q.asArray(), 2 * N, RW, 24 * N, IW, 0, INFO);
     chkxer('ZHEEVR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // ZHEEVR_2STAGE
 
@@ -722,7 +722,7 @@ void zerrst(
     zheevr_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW,
         Q.asArray(), 26 * N, RW, 24 * N, IW, 0, INFO);
     chkxer('ZHEEVR_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // ZHPEVD
 
@@ -766,7 +766,7 @@ void zerrst(
     infoc.INFOT = 13;
     zhpevd('V', 'U', 2, A.asArray(), X, Z, 2, W, 4, RW, 25, IW, 2, INFO);
     chkxer('ZHPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // ZHPEV
 
@@ -783,7 +783,7 @@ void zerrst(
     infoc.INFOT = 7;
     zhpev('V', 'U', 2, A.asArray(), X, Z, 1, W, RW, INFO);
     chkxer('ZHPEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // ZHPEVX
 
@@ -820,7 +820,7 @@ void zerrst(
     zhpevx('V', 'A', 'U', 2, A.asArray(), 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W,
         RW, IW, I3, INFO);
     chkxer('ZHPEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the HB path.
   } else if (lsamen(2, C2, 'HB')) {
@@ -845,7 +845,7 @@ void zerrst(
     infoc.INFOT = 10;
     zhbtrd('V', 'U', 2, 0, A, 1, D, E, Z, 1, W, INFO);
     chkxer('ZHBTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZHETRD_HB2ST
 
@@ -877,7 +877,7 @@ void zerrst(
     infoc.INFOT = 13;
     zhetrd_hb2st('N', 'N', 'U', 0, 0, A, 1, D, E, C.asArray(), 1, W, 0, INFO);
     chkxer('ZHETRD_HB2ST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZHBEVD
 
@@ -927,7 +927,7 @@ void zerrst(
     infoc.INFOT = 15;
     zhbevd('V', 'U', 2, 1, A, 2, X, Z, 2, W, 8, RW, 25, IW, 2, INFO);
     chkxer('ZHBEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 15;
+    NT += 15;
 
     // ZHBEVD_2STAGE
 
@@ -983,7 +983,7 @@ void zerrst(
     // CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
     // $                          W, 25, RW, 25, IW, 2, INFO )
     //     CALL CHKXER( 'ZHBEVD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK )
-    NT = NT + 13;
+    NT += 13;
 
     // ZHBEV
 
@@ -1006,7 +1006,7 @@ void zerrst(
     infoc.INFOT = 9;
     zhbev('V', 'U', 2, 0, A, 1, X, Z, 1, W, RW, INFO);
     chkxer('ZHBEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZHBEV_2STAGE
 
@@ -1035,7 +1035,7 @@ void zerrst(
     infoc.INFOT = 11;
     zhbev_2stage('N', 'U', 2, 0, A, 1, X, Z, 1, W, 0, RW, INFO);
     chkxer('ZHBEV_2STAGE ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // ZHBEVX
 
@@ -1083,7 +1083,7 @@ void zerrst(
     zhbevx('V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W,
         RW, IW, I3, INFO);
     chkxer('ZHBEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZHBEVX_2STAGE
 
@@ -1139,7 +1139,7 @@ void zerrst(
     zhbevx_2stage('N', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z,
         1, W, 0, RW, IW, I3, INFO);
     chkxer('ZHBEVX_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
   }
 
   // Print a summary line.

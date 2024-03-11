@@ -157,8 +157,8 @@ void dsyr2k(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (L = 1; L <= K; L++) {
-            TEMP1 = TEMP1 + A[L][I] * B[L][J];
-            TEMP2 = TEMP2 + B[L][I] * A[L][J];
+            TEMP1 += A[L][I] * B[L][J];
+            TEMP2 += B[L][I] * A[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA * TEMP1 + ALPHA * TEMP2;
@@ -173,8 +173,8 @@ void dsyr2k(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (L = 1; L <= K; L++) {
-            TEMP1 = TEMP1 + A[L][I] * B[L][J];
-            TEMP2 = TEMP2 + B[L][I] * A[L][J];
+            TEMP1 += A[L][I] * B[L][J];
+            TEMP2 += B[L][I] * A[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA * TEMP1 + ALPHA * TEMP2;

@@ -404,7 +404,7 @@ void zchkbb(
 
           NTEST = 4;
         } // 120
-        NTESTT = NTESTT + NTEST;
+        NTESTT += NTEST;
 
         // Print out tests which fail.
 

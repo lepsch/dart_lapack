@@ -111,7 +111,7 @@ void dtfttr(
             A[J - N1][L] = ARF[IJ];
             IJ++;
           }
-          IJ = IJ - NX2;
+          IJ -= NX2;
         }
       }
     } else {
@@ -192,7 +192,7 @@ void dtfttr(
             A[J - K][L] = ARF[IJ];
             IJ++;
           }
-          IJ = IJ - NP1X2;
+          IJ -= NP1X2;
         }
       }
     } else {

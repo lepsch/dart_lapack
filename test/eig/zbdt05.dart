@@ -57,7 +57,7 @@ void zbdt05(
     // 10
     WORK[J + I] = WORK[J + I] + Complex(S[I], ZERO);
     RESID.value = max(RESID.value, dzasum(NS, WORK(J + 1), 1));
-    J = J + NS;
+    J += NS;
   } // 10
 
   if (ANORM <= ZERO) {

@@ -90,7 +90,7 @@ void zlatps(
       for (J = 1; J <= N; J++) {
         // 10
         CNORM[J] = dzasum(J - 1, AP(IP), 1);
-        IP = IP + J;
+        IP += J;
       } // 10
     } else {
       // A is lower triangular.
@@ -99,7 +99,7 @@ void zlatps(
       for (J = 1; J <= N - 1; J++) {
         // 20
         CNORM[J] = dzasum(N - J, AP(IP + 1), 1);
-        IP = IP + N - J + 1;
+        IP += N - J + 1;
       } // 20
       CNORM[N] = ZERO;
     }
@@ -184,7 +184,7 @@ void zlatps(
 
           GROW = ZERO;
         }
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
         JLEN--;
       } // 40
       if (!isTooSmall) {
@@ -263,7 +263,7 @@ void zlatps(
           XBND = ZERO;
         }
         JLEN++;
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
       } // 70
       if (!isTooSmall) {
         GROW = min(GROW, XBND);
@@ -406,7 +406,7 @@ void zlatps(
             I = izamax(J - 1, X, 1);
             XMAX = CABS1(X[I]);
           }
-          IP = IP - J;
+          IP -= J;
         } else {
           if (J < N) {
             // Compute the update
@@ -416,7 +416,7 @@ void zlatps(
             I = J + izamax(N - J, X(J + 1), 1);
             XMAX = CABS1(X[I]);
           }
-          IP = IP + N - J + 1;
+          IP += N - J + 1;
         }
       } // 120
     } else if (lsame(TRANS, 'T')) {
@@ -472,12 +472,12 @@ void zlatps(
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
               // 130
-              CSUMJ = CSUMJ + (AP[IP - J + I] * USCAL) * X[I];
+              CSUMJ += (AP[IP - J + I] * USCAL) * X[I];
             } // 130
           } else if (J < N) {
             for (I = 1; I <= N - J; I++) {
               // 140
-              CSUMJ = CSUMJ + (AP[IP + I] * USCAL) * X[J + I];
+              CSUMJ += (AP[IP + I] * USCAL) * X[J + I];
             } // 140
           }
         }
@@ -545,7 +545,7 @@ void zlatps(
         }
         XMAX = max(XMAX, CABS1(X[J]));
         JLEN++;
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
       } // 170
     } else {
       // Solve A**H * x = b
@@ -600,12 +600,12 @@ void zlatps(
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
               // 180
-              CSUMJ = CSUMJ + (AP[IP - J + I].conjugate() * USCAL) * X[I];
+              CSUMJ += (AP[IP - J + I].conjugate() * USCAL) * X[I];
             } // 180
           } else if (J < N) {
             for (I = 1; I <= N - J; I++) {
               // 190
-              CSUMJ = CSUMJ + (AP[IP + I].conjugate() * USCAL) * X[J + I];
+              CSUMJ += (AP[IP + I].conjugate() * USCAL) * X[J + I];
             } // 190
           }
         }
@@ -673,7 +673,7 @@ void zlatps(
         }
         XMAX = max(XMAX, CABS1(X[J]));
         JLEN++;
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
       } // 220
     }
     SCALE.value = SCALE.value / TSCAL;

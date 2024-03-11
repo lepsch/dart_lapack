@@ -85,11 +85,11 @@ void dtrmv(
             IX = KX;
             for (I = 1; I <= J - 1; I++) {
               X[IX] = X[IX] + TEMP * A[I][J];
-              IX = IX + INCX;
+              IX += INCX;
             }
             if (NOUNIT) X[JX] = X[JX] * A[J][J];
           }
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     } else {
@@ -104,7 +104,7 @@ void dtrmv(
           }
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           if (X[JX] != ZERO) {
@@ -112,11 +112,11 @@ void dtrmv(
             IX = KX;
             for (I = N; I >= J + 1; I--) {
               X[IX] = X[IX] + TEMP * A[I][J];
-              IX = IX - INCX;
+              IX -= INCX;
             }
             if (NOUNIT) X[JX] = X[JX] * A[J][J];
           }
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     }
@@ -129,7 +129,7 @@ void dtrmv(
           TEMP = X[J];
           if (NOUNIT) TEMP = TEMP * A[J][J];
           for (I = J - 1; I >= 1; I--) {
-            TEMP = TEMP + A[I][J] * X[I];
+            TEMP += A[I][J] * X[I];
           }
           X[J] = TEMP;
         }
@@ -140,11 +140,11 @@ void dtrmv(
           IX = JX;
           if (NOUNIT) TEMP = TEMP * A[J][J];
           for (I = J - 1; I >= 1; I--) {
-            IX = IX - INCX;
-            TEMP = TEMP + A[I][J] * X[IX];
+            IX -= INCX;
+            TEMP += A[I][J] * X[IX];
           }
           X[JX] = TEMP;
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     } else {
@@ -153,7 +153,7 @@ void dtrmv(
           TEMP = X[J];
           if (NOUNIT) TEMP = TEMP * A[J][J];
           for (I = J + 1; I <= N; I++) {
-            TEMP = TEMP + A[I][J] * X[I];
+            TEMP += A[I][J] * X[I];
           }
           X[J] = TEMP;
         }
@@ -164,11 +164,11 @@ void dtrmv(
           IX = JX;
           if (NOUNIT) TEMP = TEMP * A[J][J];
           for (I = J + 1; I <= N; I++) {
-            IX = IX + INCX;
-            TEMP = TEMP + A[I][J] * X[IX];
+            IX += INCX;
+            TEMP += A[I][J] * X[IX];
           }
           X[JX] = TEMP;
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     }

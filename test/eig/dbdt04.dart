@@ -88,7 +88,7 @@ void dbdt04(
   for (I = 1; I <= NS; I++) {
     WORK[K + I] = WORK[K + I] + S[I];
     RESID.value = max(RESID.value, dasum(NS, WORK(K + 1), 1));
-    K = K + NS;
+    K += NS;
   }
 
   if (BNORM <= ZERO) {

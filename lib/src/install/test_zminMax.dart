@@ -25,7 +25,7 @@ void main() {
   // .. Tests ..
 
   for (i = 1; i <= 3; i++) {
-    nTests = nTests + 2;
+    nTests += 2;
     R = min(X[i], Y[i]);
     if (R != X[i]) {
       nFailingTests++;
@@ -38,7 +38,7 @@ void main() {
     }
   }
   for (i = 4; i <= 6; i++) {
-    nTests = nTests + 2;
+    nTests += 2;
     R = min(X[i], Y[i]);
     if (R != Y[i]) {
       nFailingTests++;
@@ -51,7 +51,7 @@ void main() {
     }
   }
   for (i = 7; i <= 8; i++) {
-    nTests = nTests + 2;
+    nTests += 2;
     R = min(X[i], Y[i]);
     if (R == R) {
       nFailingTests++;

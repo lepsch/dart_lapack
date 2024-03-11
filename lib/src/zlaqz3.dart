@@ -283,7 +283,7 @@ void zlaqz3(
       zlacpy('ALL', N, NBLOCK, WORK.asMatrix(N), N, Z(1, K), LDZ);
     }
 
-    K = K + NP;
+    K += NP;
   }
 
   // The following block removes the shifts from the bottom right corner

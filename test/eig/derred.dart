@@ -85,7 +85,7 @@ void derred(
     infoc.INFOT = 13;
     dgeev('V', 'V', 1, A, 1, WR, WI, VL, 1, VR, 1, W, 3, INFO);
     chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
   } else if (lsamen(2, C2, 'ES')) {
     // Test DGEES
 
@@ -108,7 +108,7 @@ void derred(
     infoc.INFOT = 13;
     dgees('N', 'S', dslect, 1, A, 1, SDIM, WR, WI, VL, 1, W, 2, B, INFO);
     chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
   } else if (lsamen(2, C2, 'VX')) {
     // Test DGEEVX
 
@@ -157,7 +157,7 @@ void derred(
     dgeevx('N', 'N', 'V', 'V', 1, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S,
         ABNRM, R1, R2, W, 3, IW, INFO);
     chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
   } else if (lsamen(2, C2, 'SX')) {
     // Test DGEESX
 
@@ -190,7 +190,7 @@ void derred(
     dgeesx('N', 'N', dslect, 'N', 1, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
         R2.box(1), W, 2, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
   } else if (lsamen(2, C2, 'BD')) {
     // Test DGESVD
 

@@ -241,7 +241,7 @@ void dchkeq(final double THRESH, final Nout NOUT) {
     }
     for (var I = 1, J = 1; I <= N; I++) {
       AP[J] = POW[2 * I + 1];
-      J = J + (N - I + 1);
+      J += (N - I + 1);
     }
 
     dppequ('L', N, AP, R, RCOND, NORM, INFO);

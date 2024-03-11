@@ -99,7 +99,7 @@ double zla_syrpvgrw(
           WORK[K - 1] = max(CABS1(AF[I][K - 1]), WORK[K - 1]);
         }
         WORK[K] = max(CABS1(AF[K][K]), WORK[K]);
-        K = K - 2;
+        K -= 2;
       }
     }
     K = NCOLS;
@@ -117,7 +117,7 @@ double zla_syrpvgrw(
         TMP = WORK[N + K];
         WORK[N + K] = WORK[N + KP];
         WORK[N + KP] = TMP;
-        K = K + 2;
+        K += 2;
       }
     }
   } else {
@@ -146,7 +146,7 @@ double zla_syrpvgrw(
           WORK[K + 1] = max(CABS1(AF[I][K + 1]), WORK[K + 1]);
         }
         WORK[K] = max(CABS1(AF[K][K]), WORK[K]);
-        K = K + 2;
+        K += 2;
       }
     }
     K = NCOLS;
@@ -164,7 +164,7 @@ double zla_syrpvgrw(
         TMP = WORK[N + K];
         WORK[N + K] = WORK[N + KP];
         WORK[N + KP] = TMP;
-        K = K - 2;
+        K -= 2;
       }
     }
   }

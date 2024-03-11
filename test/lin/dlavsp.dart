@@ -90,7 +90,7 @@ void dlavsp(
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          KC = KC + K;
+          KC += K;
           K++;
         } else {
           // 2 x 2 pivot block
@@ -131,7 +131,7 @@ void dlavsp(
             }
           }
           KC = KCNEXT + K + 1;
-          K = K + 2;
+          K += 2;
         }
       } // 30
 
@@ -143,7 +143,7 @@ void dlavsp(
       var K = N;
       var KC = N * (N + 1) ~/ 2 + 1;
       while (K >= 1) {
-        KC = KC - (N - K + 1);
+        KC -= (N - K + 1);
 
         // Test the pivot index.  If greater than zero, a 1 x 1
         // pivot was used, otherwise a 2 x 2 pivot was used.
@@ -213,7 +213,7 @@ void dlavsp(
             }
           }
           KC = KCNEXT;
-          K = K - 2;
+          K -= 2;
         }
       } // 60
     }
@@ -233,7 +233,7 @@ void dlavsp(
       var K = N;
       var KC = N * (N + 1) ~/ 2 + 1;
       while (K >= 1) {
-        KC = KC - K;
+        KC -= K;
 
         // 1 x 1 pivot block.
 
@@ -289,7 +289,7 @@ void dlavsp(
             } // 80
           }
           KC = KCNEXT;
-          K = K - 2;
+          K -= 2;
         }
       } // 90
 
@@ -319,7 +319,7 @@ void dlavsp(
                 ONE, B(K, 1).asArray(), LDB);
           }
           if (NOUNIT) dscal(NRHS, A[KC], B(K, 1).asArray(), LDB);
-          KC = KC + N - K + 1;
+          KC += N - K + 1;
           K++;
 
           // 2 x 2 pivot block.
@@ -357,7 +357,7 @@ void dlavsp(
             } // 110
           }
           KC = KCNEXT + (N - K);
-          K = K + 2;
+          K += 2;
         }
       } // 120
     }

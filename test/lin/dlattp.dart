@@ -76,7 +76,7 @@ void dlattp(
           A[JC + I - 1] = ZERO;
         }
         A[JC + J - 1] = J.toDouble();
-        JC = JC + J;
+        JC += J;
       }
     } else {
       var JC = 1;
@@ -85,7 +85,7 @@ void dlattp(
         for (var I = J + 1; I <= N; I++) {
           A[JC + I - J] = ZERO;
         }
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
 
@@ -102,7 +102,7 @@ void dlattp(
           A[JC + I] = ZERO;
         }
         A[JC + J] = J.toDouble();
-        JC = JC + J;
+        JC += J;
       }
     } else {
       var JC = 1;
@@ -111,7 +111,7 @@ void dlattp(
         for (var I = J + 1; I <= N; I++) {
           A[JC + I - J] = ZERO;
         }
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
 
@@ -207,9 +207,9 @@ void dlattp(
         A[JC + 1] = Y;
         if (J > 2) A[JC + J - 1] = WORK[J - 2];
         if (J > 3) A[JC + J - 2] = WORK[N + J - 3];
-        JC = JC + J;
+        JC += J;
       }
-      JC = JC - N;
+      JC -= N;
       A[JC + 1] = Z;
       for (var J = 2; J <= N - 1; J++) {
         A[JC + J] = Y;
@@ -227,7 +227,7 @@ void dlattp(
         A[JC + 1] = WORK[J - 1];
         if (J < N - 1) A[JC + 2] = WORK[N + J - 1];
         A[JC + N - J] = Y;
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
 
@@ -250,7 +250,7 @@ void dlattp(
             final STEMP = C.value * A[JX + J] + S.value * A[JX + J + 1];
             A[JX + J + 1] = -S.value * A[JX + J] + C.value * A[JX + J + 1];
             A[JX + J] = STEMP;
-            JX = JX + I;
+            JX += I;
           }
         }
 
@@ -288,7 +288,7 @@ void dlattp(
             A[JX + J - I + 1] =
                 -S.value * A[JX + J - I] - C.value * A[JX + J - I + 1];
             A[JX + J - I] = STEMP;
-            JX = JX + N - I + 1;
+            JX += N - I + 1;
           }
         }
 
@@ -312,14 +312,14 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(JC));
         A[JC + J - 1] = sign(TWO, A[JC + J - 1]).toDouble();
-        JC = JC + J;
+        JC += J;
       }
     } else {
       var JC = 1;
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(JC));
         A[JC] = sign(TWO, A[JC]).toDouble();
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
 
@@ -343,7 +343,7 @@ void dlattp(
         dlarnv(2, ISEED, J - 1, A(JC));
         dscal(J - 1, TSCAL, A(JC), 1);
         A[JC + J - 1] = sign(ONE, dlarnd(2, ISEED)).toDouble();
-        JC = JC + J;
+        JC += J;
       }
       A[N * (N + 1) ~/ 2] = SMLNUM;
     } else {
@@ -352,7 +352,7 @@ void dlattp(
         dlarnv(2, ISEED, N - J, A(JC + 1));
         dscal(N - J, TSCAL, A(JC + 1), 1);
         A[JC] = sign(ONE, dlarnd(2, ISEED)).toDouble();
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
       A[1] = SMLNUM;
     }
@@ -367,7 +367,7 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J - 1, A(JC));
         A[JC + J - 1] = sign(ONE, dlarnd(2, ISEED)).toDouble();
-        JC = JC + J;
+        JC += J;
       }
       A[N * (N + 1) ~/ 2] = SMLNUM;
     } else {
@@ -375,7 +375,7 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J, A(JC + 1));
         A[JC] = sign(ONE, dlarnd(2, ISEED)).toDouble();
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
       A[1] = SMLNUM;
     }
@@ -398,7 +398,7 @@ void dlattp(
         }
         JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
-        JC = JC - J + 1;
+        JC -= J + 1;
       }
     } else {
       var JCOUNT = 1;
@@ -414,7 +414,7 @@ void dlattp(
         }
         JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
 
@@ -449,7 +449,7 @@ void dlattp(
         }
         if (J > 1) A[JC + J - 2] = -ONE;
         A[JC + J - 1] = TSCAL;
-        JC = JC + J;
+        JC += J;
       }
       B[N] = ONE;
     } else {
@@ -460,7 +460,7 @@ void dlattp(
         }
         if (J < N) A[JC + 1] = -ONE;
         A[JC] = TSCAL;
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
       B[1] = ONE;
     }
@@ -477,7 +477,7 @@ void dlattp(
         } else {
           A[JC + J - 1] = ZERO;
         }
-        JC = JC + J;
+        JC += J;
       }
     } else {
       var JC = 1;
@@ -488,7 +488,7 @@ void dlattp(
         } else {
           A[JC] = ZERO;
         }
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
     dlarnv(2, ISEED, N, B);
@@ -510,12 +510,12 @@ void dlattp(
         A[JC] = -TSCAL / (N + 1);
         A[JC + J - 1] = ONE;
         B[J] = TEXP * (ONE - ULP);
-        JC = JC - J + 1;
+        JC -= J + 1;
         A[JC] = -(TSCAL / (N + 1)) / (N + 2);
         A[JC + J - 2] = ONE;
         B[J - 1] = TEXP * (N * N + N - 1);
         TEXP = TEXP * TWO;
-        JC = JC - J + 2;
+        JC -= J + 2;
       }
       B[1] = ((N + 1) / (N + 2)) * TSCAL;
     } else {
@@ -524,12 +524,12 @@ void dlattp(
         A[JC + N - J] = -TSCAL / (N + 1);
         A[JC] = ONE;
         B[J] = TEXP * (ONE - ULP);
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
         A[JC + N - J - 1] = -(TSCAL / (N + 1)) / (N + 2);
         A[JC] = ONE;
         B[J + 1] = TEXP * (N * N + N - 1);
         TEXP = TEXP * TWO;
-        JC = JC + N - J;
+        JC += N - J;
       }
       B[N] = ((N + 1) / (N + 2)) * TSCAL;
     }
@@ -543,14 +543,14 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J - 1, A(JC));
         A[JC + J - 1] = ZERO;
-        JC = JC + J;
+        JC += J;
       }
     } else {
       var JC = 1;
       for (var J = 1; J <= N; J++) {
         if (J < N) dlarnv(2, ISEED, N - J, A(JC + 1));
         A[JC] = ZERO;
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
 
@@ -575,7 +575,7 @@ void dlattp(
         for (var I = 1; I <= J; I++) {
           A[JC + I - 1] = sign(TLEFT, A[JC + I - 1]) + TSCAL * A[JC + I - 1];
         }
-        JC = JC + J;
+        JC += J;
       }
     } else {
       var JC = 1;
@@ -584,7 +584,7 @@ void dlattp(
         for (var I = J; I <= N; I++) {
           A[JC + I - J] = sign(TLEFT, A[JC + I - J]) + TSCAL * A[JC + I - J];
         }
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
     dlarnv(2, ISEED, N, B);
@@ -604,10 +604,10 @@ void dlattp(
           final T = A[JR - I + J];
           A[JR - I + J] = A[JL];
           A[JL] = T;
-          JL = JL + I;
+          JL += I;
         }
-        JJ = JJ + J + 1;
-        JR = JR - (N - J + 1);
+        JJ += J + 1;
+        JR -= (N - J + 1);
       }
     } else {
       var JL = 1;
@@ -618,10 +618,10 @@ void dlattp(
           final T = A[JL + I - J];
           A[JL + I - J] = A[JR];
           A[JR] = T;
-          JR = JR - I;
+          JR -= I;
         }
-        JL = JL + N - J + 1;
-        JJ = JJ - J - 1;
+        JL += N - J + 1;
+        JJ -= J - 1;
       }
     }
   }

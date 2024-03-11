@@ -224,7 +224,7 @@ void dbdsqr(
       if (M <= 1) break;
 
       if (ITER >= N) {
-        ITER = ITER - N;
+        ITER -= N;
         ITERDIVN++;
         if (ITERDIVN >= MAXITDIVN) {
           // Maximum number of iterations exceeded, failure to converge
@@ -292,7 +292,7 @@ void dbdsqr(
           drot(NCC, C(M - 1, 1).asArray(), LDC, C(M, 1).asArray(), LDC,
               COSL.value, SINL.value);
         }
-        M = M - 2;
+        M -= 2;
         continue main;
       }
 
@@ -394,7 +394,7 @@ void dbdsqr(
 
       // Increment iteration count
 
-      ITER = ITER + M - LL;
+      ITER += M - LL;
 
       // If SHIFT.value = 0, do simplified QR iteration
 

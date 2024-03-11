@@ -116,7 +116,7 @@ void dlaed7(
 
   PTR = 1 + pow(2, TLVLS).toInt();
   for (I = 1; I <= CURLVL - 1; I++) {
-    PTR = PTR + pow(2, TLVLS - I).toInt();
+    PTR += pow(2, TLVLS - I).toInt();
   }
   CURR = PTR + CURPBM;
   dlaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE,

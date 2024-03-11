@@ -72,7 +72,7 @@ void dort01(
         } else {
           TMP = ONE;
         }
-        TMP = TMP - ddot(M, U(1, I).asArray(), 1, U(1, J).asArray(), 1);
+        TMP -= ddot(M, U(1, I).asArray(), 1, U(1, J).asArray(), 1);
         RESID.value = max(RESID.value, (TMP).abs());
       }
     }
@@ -87,7 +87,7 @@ void dort01(
         } else {
           TMP = ONE;
         }
-        TMP = TMP - ddot(N, U(J, 1).asArray(), LDU, U(I, 1).asArray(), LDU);
+        TMP -= ddot(N, U(J, 1).asArray(), LDU, U(I, 1).asArray(), LDU);
         RESID.value = max(RESID.value, (TMP).abs());
       }
     }

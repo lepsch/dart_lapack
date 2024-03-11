@@ -94,7 +94,7 @@ double dla_syrpvgrw(
           WORK[K - 1] = max((AF[I][K - 1]).abs(), WORK[K - 1]);
         }
         WORK[K] = max((AF[K][K]).abs(), WORK[K]);
-        K = K - 2;
+        K -= 2;
       }
     }
     K = NCOLS;
@@ -112,7 +112,7 @@ double dla_syrpvgrw(
         TMP = WORK[N + K];
         WORK[N + K] = WORK[N + KP];
         WORK[N + KP] = TMP;
-        K = K + 2;
+        K += 2;
       }
     }
   } else {
@@ -141,7 +141,7 @@ double dla_syrpvgrw(
           WORK[K + 1] = max((AF[I][K + 1]).abs(), WORK[K + 1]);
         }
         WORK[K] = max((AF[K][K]).abs(), WORK[K]);
-        K = K + 2;
+        K += 2;
       }
     }
     K = NCOLS;
@@ -159,7 +159,7 @@ double dla_syrpvgrw(
         TMP = WORK[N + K];
         WORK[N + K] = WORK[N + KP];
         WORK[N + KP] = TMP;
-        K = K - 2;
+        K -= 2;
       }
     }
   }

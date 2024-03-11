@@ -335,7 +335,7 @@ void zsytf2_rk(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KSTEP;
+      K -= KSTEP;
     } // 34
   } else {
     // Factorize A as L*D*L**T using the lower triangle of A
@@ -618,7 +618,7 @@ void zsytf2_rk(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KSTEP;
+      K += KSTEP;
     } // 64
   }
 }

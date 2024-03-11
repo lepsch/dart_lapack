@@ -36,8 +36,8 @@ void zswap(
       ZTEMP = ZX[IX];
       ZX[IX] = ZY[IY];
       ZY[IY] = ZTEMP;
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     }
   }
 }

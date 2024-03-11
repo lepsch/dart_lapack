@@ -1527,7 +1527,7 @@ void zchkst(
         }
         // } // 270
       } // 280
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
 
       // End of Loop -- Check for RESULT(j) > THRESH
 

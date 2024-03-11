@@ -238,7 +238,7 @@ void zchkgb(
                       I++) {
                     A[IOFF + I] = Complex.zero;
                   }
-                  IOFF = IOFF + LDA;
+                  IOFF += LDA;
                 }
               }
             }

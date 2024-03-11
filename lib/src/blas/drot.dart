@@ -38,8 +38,8 @@ void drot(
       DTEMP = C * DX[IX] + S * DY[IY];
       DY[IY] = C * DY[IY] - S * DX[IX];
       DX[IX] = DTEMP;
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     }
   }
 }

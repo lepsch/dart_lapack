@@ -120,8 +120,8 @@ void dsbtrd(
         // Reduce i-th row of matrix to tridiagonal form
 
         for (K = KDN + 1; K >= 2; K--) {
-          J1 = J1 + KDN;
-          J2 = J2 + KDN;
+          J1 += KDN;
+          J2 += KDN;
 
           if (NR > 0) {
             // generate plane rotations to annihilate nonzero
@@ -172,7 +172,7 @@ void dsbtrd(
                   WORK[I + K - 1]);
             }
             NR++;
-            J1 = J1 - KDN - 1;
+            J1 -= KDN - 1;
           }
 
           // apply plane rotations from both sides to diagonal
@@ -260,7 +260,7 @@ void dsbtrd(
             // adjust J2 to keep within the bounds of the matrix
 
             NR--;
-            J2 = J2 - KDN - 1;
+            J2 -= KDN - 1;
           }
 
           for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
@@ -305,8 +305,8 @@ void dsbtrd(
         // Reduce i-th column of matrix to tridiagonal form
 
         for (K = KDN + 1; K >= 2; K--) {
-          J1 = J1 + KDN;
-          J2 = J2 + KDN;
+          J1 += KDN;
+          J2 += KDN;
 
           if (NR > 0) {
             // generate plane rotations to annihilate nonzero
@@ -364,7 +364,7 @@ void dsbtrd(
                   WORK[I + K - 1]);
             }
             NR++;
-            J1 = J1 - KDN - 1;
+            J1 -= KDN - 1;
           }
 
           // apply plane rotations from both sides to diagonal
@@ -445,7 +445,7 @@ void dsbtrd(
             // adjust J2 to keep within the bounds of the matrix
 
             NR--;
-            J2 = J2 - KDN - 1;
+            J2 -= KDN - 1;
           }
 
           for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {

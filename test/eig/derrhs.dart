@@ -70,7 +70,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 4;
     dgebal('N', 2, A, 1, ILO, IHI, S, INFO);
     chkxer('DGEBAL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DGEBAK
 
@@ -102,7 +102,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 9;
     dgebak('N', 'R', 2, 1, 2, S, 0, A, 1, INFO);
     chkxer('DGEBAK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DGEHRD
 
@@ -128,7 +128,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 8;
     dgehrd(2, 1, 2, A, 2, TAU, W, 1, INFO);
     chkxer('DGEHRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // DGEHD2
 
@@ -151,7 +151,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 5;
     dgehd2(2, 1, 1, A, 1, TAU, W, INFO);
     chkxer('DGEHD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DORGHR
 
@@ -177,7 +177,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 8;
     dorghr(3, 1, 3, A, 3, TAU, W, 1, INFO);
     chkxer('DORGHR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // DORMHR
 
@@ -230,7 +230,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 13;
     dormhr('R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO);
     chkxer('DORMHR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 16;
+    NT += 16;
 
     // DHSEQR
 
@@ -265,7 +265,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 13;
     dhseqr('E', 'N', 2, 1, 2, A, 2, WR, WI, C, 1, W, 1, INFO);
     chkxer('DHSEQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DHSEIN
 
@@ -302,7 +302,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     dhsein('R', 'N', 'N', SEL, 2, A, 2, WR, WI, VL, 1, VR, 2, 1, M, W, IFAILL,
         IFAILR, INFO);
     chkxer('DHSEIN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // DTREVC
 
@@ -328,7 +328,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 11;
     dtrevc('L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, INFO);
     chkxer('DTREVC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // DTREVC3
 
@@ -357,7 +357,7 @@ void derrhs(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 14;
     dtrevc3('L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, 2, INFO);
     chkxer('DTREVC3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
   }
 
   // Print a summary line.

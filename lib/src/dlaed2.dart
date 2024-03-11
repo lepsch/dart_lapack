@@ -121,7 +121,7 @@ void dlaed2(
       I = INDX[J];
       dcopy(N, Q(1, I).asArray(), 1, Q2(IQ2), 1);
       DLAMBDA[J] = D[I];
-      IQ2 = IQ2 + N;
+      IQ2 += N;
     }
     dlacpy('A', N, N, Q2.asMatrix(N), N, Q, LDQ);
     dcopy(N, DLAMBDA, 1, D, 1);
@@ -270,7 +270,7 @@ void dlaed2(
     dcopy(N1, Q(1, JS).asArray(), 1, Q2(IQ1), 1);
     Z[I] = D[JS];
     I++;
-    IQ1 = IQ1 + N1;
+    IQ1 += N1;
   }
 
   for (J = 1; J <= CTOT[2]; J++) {
@@ -279,8 +279,8 @@ void dlaed2(
     dcopy(N2, Q(N1 + 1, JS).asArray(), 1, Q2(IQ2), 1);
     Z[I] = D[JS];
     I++;
-    IQ1 = IQ1 + N1;
-    IQ2 = IQ2 + N2;
+    IQ1 += N1;
+    IQ2 += N2;
   }
 
   for (J = 1; J <= CTOT[3]; J++) {
@@ -288,14 +288,14 @@ void dlaed2(
     dcopy(N2, Q(N1 + 1, JS).asArray(), 1, Q2(IQ2), 1);
     Z[I] = D[JS];
     I++;
-    IQ2 = IQ2 + N2;
+    IQ2 += N2;
   }
 
   IQ1 = IQ2;
   for (J = 1; J <= CTOT[4]; J++) {
     JS = INDX[I];
     dcopy(N, Q(1, JS).asArray(), 1, Q2(IQ2), 1);
-    IQ2 = IQ2 + N;
+    IQ2 += N;
     Z[I] = D[JS];
     I++;
   }

@@ -49,7 +49,7 @@ void dlaqsp(
         for (I = 1; I <= J; I++) {
           AP[JC + I - 1] = CJ * S[I] * AP[JC + I - 1];
         }
-        JC = JC + J;
+        JC += J;
       }
     } else {
       // Lower triangle of A is stored.
@@ -60,7 +60,7 @@ void dlaqsp(
         for (I = J; I <= N; I++) {
           AP[JC + I - J] = CJ * S[I] * AP[JC + I - J];
         }
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       }
     }
     EQUED.value = 'Y';

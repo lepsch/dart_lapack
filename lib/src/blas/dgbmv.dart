@@ -100,12 +100,12 @@ void dgbmv(
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = ZERO;
-          IY = IY + INCY;
+          IY += INCY;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = BETA * Y[IY];
-          IY = IY + INCY;
+          IY += INCY;
         }
       }
     }
@@ -122,7 +122,7 @@ void dgbmv(
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           Y[I] = Y[I] + TEMP * A[K + I][J];
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -131,9 +131,9 @@ void dgbmv(
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           Y[IY] = Y[IY] + TEMP * A[K + I][J];
-          IY = IY + INCY;
+          IY += INCY;
         }
-        JX = JX + INCX;
+        JX += INCX;
         if (J > KU) KY = KY + INCY;
       }
     }
@@ -146,10 +146,10 @@ void dgbmv(
         TEMP = ZERO;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          TEMP = TEMP + A[K + I][J] * X[I];
+          TEMP += A[K + I][J] * X[I];
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -157,11 +157,11 @@ void dgbmv(
         IX = KX;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          TEMP = TEMP + A[K + I][J] * X[IX];
-          IX = IX + INCX;
+          TEMP += A[K + I][J] * X[IX];
+          IX += INCX;
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
         if (J > KU) KX = KX + INCX;
       }
     }

@@ -151,18 +151,18 @@ void dchkpp(
             for (var I = 1; I <= IZERO - 1; I++) {
               A[IOFF + I] = ZERO;
             }
-            IOFF = IOFF + IZERO;
+            IOFF += IZERO;
             for (var I = IZERO; I <= N; I++) {
               A[IOFF] = ZERO;
-              IOFF = IOFF + I;
+              IOFF += I;
             }
           } else {
             var IOFF = IZERO;
             for (var I = 1; I <= IZERO - 1; I++) {
               A[IOFF] = ZERO;
-              IOFF = IOFF + N - I;
+              IOFF += N - I;
             }
-            IOFF = IOFF - IZERO;
+            IOFF -= IZERO;
             for (var I = IZERO; I <= N; I++) {
               A[IOFF + I] = ZERO;
             }

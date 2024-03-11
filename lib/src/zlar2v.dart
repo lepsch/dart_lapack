@@ -47,7 +47,7 @@ void zlar2v(
     Y[IX] = (CI * T6).toComplex() -
         (SIR * T3.toDouble() - SII * T3.imaginary).toComplex();
     Z[IX] = CI.toComplex() * T3 + SI.conjugate() * Complex(T6, T1I);
-    IX = IX + INCX;
-    IC = IC + INCC;
+    IX += INCX;
+    IC += INCC;
   }
 }

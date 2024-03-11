@@ -258,7 +258,7 @@ Future<void> ddrgvx(
                 RESULT[4] = max(RATIO1, RATIO2);
               }
 
-              NTESTT = NTESTT + 4;
+              NTESTT += 4;
 
               // Print out tests which fail.
 
@@ -416,7 +416,7 @@ Future<void> ddrgvx(
         RESULT[4] = max(RATIO1, RATIO2);
       }
 
-      NTESTT = NTESTT + 4;
+      NTESTT += 4;
 
       // Print out tests which fail.
 

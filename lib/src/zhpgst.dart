@@ -58,7 +58,7 @@ void zhpgst(
       for (J = 1; J <= N; J++) {
         // 10
         J1 = JJ + 1;
-        JJ = JJ + J;
+        JJ += J;
 
         // Compute the j-th column of the upper triangle of A
 
@@ -109,7 +109,7 @@ void zhpgst(
       for (K = 1; K <= N; K++) {
         // 30
         K1 = KK + 1;
-        KK = KK + K;
+        KK += K;
 
         // Update the upper triangle of A(1:k,1:k)
 

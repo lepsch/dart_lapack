@@ -99,7 +99,7 @@ void zhetrf(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KB.value;
+      K -= KB.value;
     }
   } else {
     // Factorize A as L*D*L**H using the lower triangle of A
@@ -140,7 +140,7 @@ void zhetrf(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KB.value;
+      K += KB.value;
     }
   }
 

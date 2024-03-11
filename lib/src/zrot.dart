@@ -29,8 +29,8 @@ void zrot(
       STEMP = C.toComplex() * CX[IX] + S * CY[IY];
       CY[IY] = C.toComplex() * CY[IY] - S.conjugate() * CX[IX];
       CX[IX] = STEMP;
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     } // 10
     return;
   } // 20

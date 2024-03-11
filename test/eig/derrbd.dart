@@ -73,7 +73,7 @@ void derrbd(
     infoc.INFOT = 10;
     dgebrd(2, 1, A, 2, D, E, TQ, TP, W, 1, INFO);
     chkxer('DGEBRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // DGEBD2
 
@@ -87,7 +87,7 @@ void derrbd(
     infoc.INFOT = 4;
     dgebd2(2, 1, A, 1, D, E, TQ, TP, W, INFO);
     chkxer('DGEBD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DORGBR
 
@@ -122,7 +122,7 @@ void derrbd(
     infoc.INFOT = 9;
     dorgbr('Q', 2, 2, 1, A, 2, TQ, W, 1, INFO);
     chkxer('DORGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DORMBR
 
@@ -166,7 +166,7 @@ void derrbd(
     infoc.INFOT = 13;
     dormbr('Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO);
     chkxer('DORMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // DBDSQR
 
@@ -195,7 +195,7 @@ void derrbd(
     infoc.INFOT = 13;
     dbdsqr('U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, W, INFO);
     chkxer('DBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // DBDSDC
 
@@ -220,7 +220,7 @@ void derrbd(
     dbdsdc(
         'U', 'I', 2, D, E, U, 2, V, 1, Q.asArray(), IQ.asArray(), W, IW, INFO);
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 5;
+    NT += 5;
 
     // DBDSVDX
 
@@ -261,7 +261,7 @@ void derrbd(
     infoc.INFOT = 14;
     dbdsvdx('L', 'V', 'A', 4, D, E, ZERO, ZERO, 0, 0, NS, S, Q, 2, W, IW, INFO);
     chkxer('DBDSVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
   }
 
   // Print a summary line.

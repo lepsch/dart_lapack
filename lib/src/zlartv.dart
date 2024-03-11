@@ -30,8 +30,8 @@ void zlartv(
     YI = Y[IY];
     X[IX] = C[IC].toComplex() * XI + S[IC] * YI;
     Y[IY] = C[IC].toComplex() * YI - S[IC].conjugate() * XI;
-    IX = IX + INCX;
-    IY = IY + INCY;
-    IC = IC + INCC;
+    IX += INCX;
+    IY += INCY;
+    IC += INCC;
   } // 10
 }

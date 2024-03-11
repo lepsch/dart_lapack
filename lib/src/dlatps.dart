@@ -89,7 +89,7 @@ void dlatps(
       IP = 1;
       for (J = 1; J <= N; J++) {
         CNORM[J] = dasum(J - 1, AP(IP), 1);
-        IP = IP + J;
+        IP += J;
       }
     } else {
       // A is lower triangular.
@@ -97,7 +97,7 @@ void dlatps(
       IP = 1;
       for (J = 1; J <= N - 1; J++) {
         CNORM[J] = dasum(N - J, AP(IP + 1), 1);
-        IP = IP + N - J + 1;
+        IP += N - J + 1;
       }
       CNORM[N] = ZERO;
     }
@@ -168,7 +168,7 @@ void dlatps(
 
           GROW = ZERO;
         }
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
         JLEN--;
       }
       if (!isTooSmall) GROW = XBND;
@@ -233,7 +233,7 @@ void dlatps(
         TJJ = (AP[IP]).abs();
         if (XJ > TJJ) XBND = XBND * (TJJ / XJ);
         JLEN++;
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
       }
       if (!isTooSmall) GROW = min(GROW, XBND);
     } else {
@@ -368,7 +368,7 @@ void dlatps(
             I = idamax(J - 1, X, 1);
             XMAX = (X[I]).abs();
           }
-          IP = IP - J;
+          IP -= J;
         } else {
           if (J < N) {
             // Compute the update
@@ -378,7 +378,7 @@ void dlatps(
             I = J + idamax(N - J, X(J + 1), 1);
             XMAX = (X[I]).abs();
           }
-          IP = IP + N - J + 1;
+          IP += N - J + 1;
         }
       }
     } else {
@@ -431,11 +431,11 @@ void dlatps(
 
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
-              SUMJ = SUMJ + (AP[IP - J + I] * USCAL) * X[I];
+              SUMJ += (AP[IP - J + I] * USCAL) * X[I];
             }
           } else if (J < N) {
             for (I = 1; I <= N - J; I++) {
-              SUMJ = SUMJ + (AP[IP + I] * USCAL) * X[J + I];
+              SUMJ += (AP[IP + I] * USCAL) * X[J + I];
             }
           }
         }
@@ -503,7 +503,7 @@ void dlatps(
         }
         XMAX = max(XMAX, (X[J]).abs());
         JLEN++;
-        IP = IP + JINC * JLEN;
+        IP += JINC * JLEN;
       }
     }
     SCALE.value = SCALE.value / TSCAL;

@@ -18,7 +18,7 @@ double dzsum1(final int N, final Array<Complex> CX_, final int INCX) {
     for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
       // NEXT LINE MODIFIED.
 
-      STEMP = STEMP + CX[I].abs();
+      STEMP += CX[I].abs();
     }
     return STEMP;
 
@@ -27,7 +27,7 @@ double dzsum1(final int N, final Array<Complex> CX_, final int INCX) {
   for (I = 1; I <= N; I++) {
     // NEXT LINE MODIFIED.
 
-    STEMP = STEMP + CX[I].abs();
+    STEMP += CX[I].abs();
   }
   return STEMP;
 }

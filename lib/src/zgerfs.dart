@@ -156,7 +156,7 @@ void zgerfs(
           S = ZERO;
           for (I = 1; I <= N; I++) {
             // 60
-            S = S + CABS1(A[I][K]) * CABS1(X[I][J]);
+            S += CABS1(A[I][K]) * CABS1(X[I][J]);
           } // 60
           RWORK[K] = RWORK[K] + S;
         } // 70

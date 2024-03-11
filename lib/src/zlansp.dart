@@ -39,7 +39,7 @@ double zlansp(
           SUM.value = (AP[I]).abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         } // 10
-        K = K + J;
+        K += J;
       } // 20
     } else {
       K = 1;
@@ -50,7 +50,7 @@ double zlansp(
           SUM.value = (AP[I]).abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         } // 30
-        K = K + N - J + 1;
+        K += N - J + 1;
       } // 40
     }
   } else if ((lsame(NORM, 'I')) || (lsame(NORM, 'O')) || (NORM == '1')) {
@@ -106,13 +106,13 @@ double zlansp(
       for (J = 2; J <= N; J++) {
         // 110
         zlassq(J - 1, AP(K), 1, SCALE, SUM);
-        K = K + J;
+        K += J;
       } // 110
     } else {
       for (J = 1; J <= N - 1; J++) {
         // 120
         zlassq(N - J, AP(K), 1, SCALE, SUM);
-        K = K + N - J + 1;
+        K += N - J + 1;
       } // 120
     }
     SUM.value = 2 * SUM.value;
@@ -138,9 +138,9 @@ double zlansp(
         }
       }
       if (lsame(UPLO, 'U')) {
-        K = K + I + 1;
+        K += I + 1;
       } else {
-        K = K + N - I + 1;
+        K += N - I + 1;
       }
     } // 130
     VALUE = SCALE.value * sqrt(SUM.value);

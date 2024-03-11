@@ -398,7 +398,7 @@ void dchkbb(
 
           NTEST = 4;
         }
-        NTESTT = NTESTT + NTEST;
+        NTESTT += NTEST;
 
         // Print out tests which fail.
 

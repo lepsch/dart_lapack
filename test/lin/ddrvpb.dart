@@ -170,14 +170,14 @@ void ddrvpb(
             if (IUPLO == 1) {
               final IOFF = (IZERO - 1) * LDAB + KD + 1;
               dcopy(IZERO - I1, WORK(IW), 1, A(IOFF - IZERO + I1), 1);
-              IW = IW + IZERO - I1;
+              IW += IZERO - I1;
               dcopy(I2 - IZERO + 1, WORK(IW), 1, A(IOFF), max(LDAB - 1, 1));
             } else {
               var IOFF = (I1 - 1) * LDAB + 1;
               dcopy(IZERO - I1, WORK(IW), 1, A(IOFF + IZERO - I1),
                   max(LDAB - 1, 1));
               IOFF = (IZERO - 1) * LDAB + 1;
-              IW = IW + IZERO - I1;
+              IW += IZERO - I1;
               dcopy(I2 - IZERO + 1, WORK(IW), 1, A(IOFF), 1);
             }
           }
@@ -208,14 +208,14 @@ void ddrvpb(
             if (IUPLO == 1) {
               final IOFF = (IZERO - 1) * LDAB + KD + 1;
               dswap(IZERO - I1, A(IOFF - IZERO + I1), 1, WORK(IW), 1);
-              IW = IW + IZERO - I1;
+              IW += IZERO - I1;
               dswap(I2 - IZERO + 1, A(IOFF), max(LDAB - 1, 1), WORK(IW), 1);
             } else {
               var IOFF = (I1 - 1) * LDAB + 1;
               dswap(IZERO - I1, A(IOFF + IZERO - I1), max(LDAB - 1, 1),
                   WORK(IW), 1);
               IOFF = (IZERO - 1) * LDAB + 1;
-              IW = IW + IZERO - I1;
+              IW += IZERO - I1;
               dswap(I2 - IZERO + 1, A(IOFF), 1, WORK(IW), 1);
             }
           }

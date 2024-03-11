@@ -130,11 +130,11 @@ void dpprfs(
           for (I = 1; I <= K - 1; I++) {
             // 40
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
-            S = S + (AP[IK]).abs() * (X[I][J]).abs();
+            S += (AP[IK]).abs() * (X[I][J]).abs();
             IK++;
           } // 40
           WORK[K] = WORK[K] + (AP[KK + K - 1]).abs() * XK + S;
-          KK = KK + K;
+          KK += K;
         } // 50
       } else {
         for (K = 1; K <= N; K++) {
@@ -146,11 +146,11 @@ void dpprfs(
           for (I = K + 1; I <= N; I++) {
             // 60
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
-            S = S + (AP[IK]).abs() * (X[I][J]).abs();
+            S += (AP[IK]).abs() * (X[I][J]).abs();
             IK++;
           } // 60
           WORK[K] = WORK[K] + S;
-          KK = KK + (N - K + 1);
+          KK += (N - K + 1);
         } // 70
       }
       S = ZERO;

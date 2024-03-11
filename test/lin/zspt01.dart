@@ -64,7 +64,7 @@
             for (I = 1; I <= J; I++) { // 10
                C[I][J] = C( I, J ) - A( JC+I );
             } // 10
-            JC = JC + J;
+            JC += J;
          } // 20
       } else {
          JC = 1;
@@ -72,7 +72,7 @@
             for (I = J; I <= N; I++) { // 30
                C[I][J] = C( I, J ) - A( JC+I-J );
             } // 30
-            JC = JC + N - J + 1;
+            JC += N - J + 1;
          } // 40
       }
 

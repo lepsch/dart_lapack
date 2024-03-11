@@ -217,7 +217,7 @@ void ddrvgb(
                     I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             }
           } else {

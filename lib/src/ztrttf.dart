@@ -119,7 +119,7 @@ void ztrttf(
             ARF[IJ] = A[J - N1][L].conjugate();
             IJ++;
           }
-          IJ = IJ - NX2;
+          IJ -= NX2;
         }
       }
     } else {
@@ -208,7 +208,7 @@ void ztrttf(
             ARF[IJ] = A[J - K][L].conjugate();
             IJ++;
           }
-          IJ = IJ - NP1X2;
+          IJ -= NP1X2;
         }
       }
     } else {

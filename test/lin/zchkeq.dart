@@ -241,7 +241,7 @@
          J = 1;
          for (I = 1; I <= N; I++) { // 340
             AP[J] = POW( 2*I+1 );
-            J = J + ( N-I+1 );
+            J += ( N-I+1 );
          } // 340
 
          zppequ('L', N, AP, R, RCOND, NORM, INFO );

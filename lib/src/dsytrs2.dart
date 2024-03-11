@@ -81,7 +81,7 @@ void dsytrs2(
         if (KP == -IPIV[K - 1]) {
           dswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 2;
+        K -= 2;
       }
     }
 
@@ -137,7 +137,7 @@ void dsytrs2(
         if (K < N && KP == -IPIV[K + 1]) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 2;
+        K += 2;
       }
     }
   } else {
@@ -161,7 +161,7 @@ void dsytrs2(
         if (KP == -IPIV[K]) {
           dswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 2;
+        K += 2;
       }
     }
 
@@ -215,7 +215,7 @@ void dsytrs2(
         if (K > 1 && KP == -IPIV[K - 1]) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 2;
+        K -= 2;
       }
     }
   }

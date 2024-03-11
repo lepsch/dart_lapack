@@ -507,8 +507,8 @@ Future<void> zdrvvx(
               }
             } // 110
 
-            NERRS = NERRS + NFAIL;
-            NTESTT = NTESTT + NTEST;
+            NERRS += NFAIL;
+            NTESTT += NTEST;
           } // 120
         } // 130
       } // 140
@@ -595,8 +595,8 @@ Future<void> zdrvvx(
         }
       } // 210
 
-      NERRS = NERRS + NFAIL;
-      NTESTT = NTESTT + NTEST;
+      NERRS += NFAIL;
+      NTESTT += NTEST;
     }
   } catch (_) {}
 

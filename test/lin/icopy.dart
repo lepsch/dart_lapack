@@ -24,8 +24,8 @@ void icopy(
     if (INCY < 0) IY = (-N + 1) * INCY + 1;
     for (var I = 1; I <= N; I++) {
       SY[IY] = SX[IX];
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     }
     return;
   }

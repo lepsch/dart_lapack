@@ -540,7 +540,7 @@ void dhgeqz(
             T[ILAST - 1][ILAST - 1].abs()) {
           ESHIFT = H[ILAST][ILAST - 1] / T[ILAST - 1][ILAST - 1];
         } else {
-          ESHIFT = ESHIFT + ONE / (SAFMIN * MAXIT.toDouble());
+          ESHIFT += ONE / (SAFMIN * MAXIT.toDouble());
         }
         S1.value = ONE;
         WR.value = ESHIFT;
@@ -994,8 +994,8 @@ void dhgeqz(
           // LU-factor
 
           TEMP.value = W21 / W11;
-          U2 = U2 - TEMP.value * U1;
-          W22 = W22 - TEMP.value * W12;
+          U2 -= TEMP.value * U1;
+          W22 -= TEMP.value * W12;
           W21 = ZERO;
 
           // Compute SCALE

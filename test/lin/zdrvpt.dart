@@ -105,7 +105,7 @@
                for (I = 1; I <= N - 1; I++) { // 20
                   D[I] = (A( IA )).toDouble();
                   E[I] = A( IA+1 );
-                  IA = IA + 2;
+                  IA += 2;
                } // 20
                if (N > 0) D( N ) = (A( IA )).toDouble();
             } else {
@@ -195,7 +195,7 @@
             IX = 1;
             for (J = 1; J <= NRHS; J++) { // 40
                zlarnv(2, ISEED, N, XACT( IX ) );
-               IX = IX + LDA;
+               IX += LDA;
             } // 40
 
             // Set the right hand side.

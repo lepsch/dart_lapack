@@ -28,8 +28,8 @@ void dlartv(
     YI = Y[IY];
     X[IX] = C[IC] * XI + S[IC] * YI;
     Y[IY] = C[IC] * YI - S[IC] * XI;
-    IX = IX + INCX;
-    IY = IY + INCY;
-    IC = IC + INCC;
+    IX += INCX;
+    IY += INCY;
+    IC += INCC;
   }
 }

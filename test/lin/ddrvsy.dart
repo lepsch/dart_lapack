@@ -154,18 +154,18 @@ void ddrvsy(
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF + I] = ZERO;
               }
-              IOFF = IOFF + IZERO;
+              IOFF += IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF] = ZERO;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             } else {
               var IOFF = IZERO;
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF] = ZERO;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
-              IOFF = IOFF - IZERO;
+              IOFF -= IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF + I] = ZERO;
               }
@@ -180,7 +180,7 @@ void ddrvsy(
                 for (var I = 1; I <= I2; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             } else {
               // Set the last IZERO rows and columns to zero.
@@ -190,7 +190,7 @@ void ddrvsy(
                 for (var I = I1; I <= N; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             }
           }

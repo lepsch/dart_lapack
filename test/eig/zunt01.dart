@@ -81,7 +81,7 @@ void zunt01(
         } else {
           TMP = Complex.one;
         }
-        TMP = TMP - zdotc(M, U(1, I).asArray(), 1, U(1, J).asArray(), 1);
+        TMP -= zdotc(M, U(1, I).asArray(), 1, U(1, J).asArray(), 1);
         RESID.value = max(RESID.value, CABS1(TMP));
       } // 10
     } // 20
@@ -98,7 +98,7 @@ void zunt01(
         } else {
           TMP = Complex.one;
         }
-        TMP = TMP - zdotc(N, U(J, 1).asArray(), LDU, U(I, 1).asArray(), LDU);
+        TMP -= zdotc(N, U(J, 1).asArray(), LDU, U(I, 1).asArray(), LDU);
         RESID.value = max(RESID.value, CABS1(TMP));
       } // 30
     } // 40

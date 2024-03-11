@@ -122,12 +122,12 @@ void ztrmm(
             if (NOCONJ) {
               if (NOUNIT) TEMP = TEMP * A[I][I];
               for (K = 1; K <= I - 1; K++) {
-                TEMP = TEMP + A[K][I] * B[K][J];
+                TEMP += A[K][I] * B[K][J];
               }
             } else {
               if (NOUNIT) TEMP = TEMP * A[I][I].conjugate();
               for (K = 1; K <= I - 1; K++) {
-                TEMP = TEMP + A[K][I].conjugate() * B[K][J];
+                TEMP += A[K][I].conjugate() * B[K][J];
               }
             }
             B[I][J] = ALPHA * TEMP;
@@ -140,12 +140,12 @@ void ztrmm(
             if (NOCONJ) {
               if (NOUNIT) TEMP = TEMP * A[I][I];
               for (K = I + 1; K <= M; K++) {
-                TEMP = TEMP + A[K][I] * B[K][J];
+                TEMP += A[K][I] * B[K][J];
               }
             } else {
               if (NOUNIT) TEMP = TEMP * A[I][I].conjugate();
               for (K = I + 1; K <= M; K++) {
-                TEMP = TEMP + A[K][I].conjugate() * B[K][J];
+                TEMP += A[K][I].conjugate() * B[K][J];
               }
             }
             B[I][J] = ALPHA * TEMP;

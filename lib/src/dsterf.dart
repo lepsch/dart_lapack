@@ -162,7 +162,7 @@ void dsterf(
             D[L] = RT1.value;
             D[L + 1] = RT2.value;
             E[L] = ZERO;
-            L = L + 2;
+            L += 2;
             continue;
           }
 
@@ -240,7 +240,7 @@ void dsterf(
             D[L] = RT1.value;
             D[L - 1] = RT2.value;
             E[L - 1] = ZERO;
-            L = L - 2;
+            L -= 2;
             continue;
           }
 

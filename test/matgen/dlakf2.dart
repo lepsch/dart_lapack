@@ -47,7 +47,7 @@ void dlakf2(
       }
     }
 
-    IK = IK + M;
+    IK += M;
   }
 
   IK = 1;
@@ -67,9 +67,9 @@ void dlakf2(
         Z[IK + MN + I - 1][JK + I - 1] = -E[J][L];
       }
 
-      JK = JK + M;
+      JK += M;
     }
 
-    IK = IK + M;
+    IK += M;
   }
 }

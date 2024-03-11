@@ -114,7 +114,7 @@ void dlasd4(
 
     PSI = ZERO;
     for (J = 1; J <= N - 2; J++) {
-      PSI = PSI + Z[J] * Z[J] / (DELTA[J] * WORK[J]);
+      PSI += Z[J] * Z[J] / (DELTA[J] * WORK[J]);
     }
 
     C = RHOINV + PSI;
@@ -184,9 +184,9 @@ void dlasd4(
     ERRETM = ZERO;
     for (J = 1; J <= II; J++) {
       TEMP = Z[J] / (DELTA[J] * WORK[J]);
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -235,7 +235,7 @@ void dlasd4(
 
     ETA.value =
         ETA.value / (SIGMA.value + sqrt(ETA.value + SIGMA.value * SIGMA.value));
-    TAU = TAU + ETA.value;
+    TAU += ETA.value;
     SIGMA.value = SIGMA.value + ETA.value;
 
     for (J = 1; J <= N; J++) {
@@ -250,9 +250,9 @@ void dlasd4(
     ERRETM = ZERO;
     for (J = 1; J <= II; J++) {
       TEMP = Z[J] / (WORK[J] * DELTA[J]);
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -303,7 +303,7 @@ void dlasd4(
 
       ETA.value = ETA.value /
           (SIGMA.value + sqrt(ETA.value + SIGMA.value * SIGMA.value));
-      TAU = TAU + ETA.value;
+      TAU += ETA.value;
       SIGMA.value = SIGMA.value + ETA.value;
 
       for (J = 1; J <= N; J++) {
@@ -318,9 +318,9 @@ void dlasd4(
       ERRETM = ZERO;
       for (J = 1; J <= II; J++) {
         TEMP = Z[J] / (WORK[J] * DELTA[J]);
-        PSI = PSI + Z[J] * TEMP;
-        DPSI = DPSI + TEMP * TEMP;
-        ERRETM = ERRETM + PSI;
+        PSI += Z[J] * TEMP;
+        DPSI += TEMP * TEMP;
+        ERRETM += PSI;
       }
       ERRETM = (ERRETM).abs();
 
@@ -361,12 +361,12 @@ void dlasd4(
 
     PSI = ZERO;
     for (J = 1; J <= I - 1; J++) {
-      PSI = PSI + Z[J] * Z[J] / (WORK[J] * DELTA[J]);
+      PSI += Z[J] * Z[J] / (WORK[J] * DELTA[J]);
     }
 
     PHI = ZERO;
     for (J = N; J >= I + 2; J--) {
-      PHI = PHI + Z[J] * Z[J] / (WORK[J] * DELTA[J]);
+      PHI += Z[J] * Z[J] / (WORK[J] * DELTA[J]);
     }
     C = RHOINV + PSI + PHI;
     W = C +
@@ -440,9 +440,9 @@ void dlasd4(
     ERRETM = ZERO;
     for (J = 1; J <= IIM1; J++) {
       TEMP = Z[J] / (WORK[J] * DELTA[J]);
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -452,9 +452,9 @@ void dlasd4(
     PHI = ZERO;
     for (J = N; J >= IIP1; J--) {
       TEMP = Z[J] / (WORK[J] * DELTA[J]);
-      PHI = PHI + Z[J] * TEMP;
-      DPHI = DPHI + TEMP * TEMP;
-      ERRETM = ERRETM + PHI;
+      PHI += Z[J] * TEMP;
+      DPHI += TEMP * TEMP;
+      ERRETM += PHI;
     }
 
     W = RHOINV + PHI + PSI;
@@ -473,7 +473,7 @@ void dlasd4(
     TEMP = Z[II] / (WORK[II] * DELTA[II]);
     DW = DPSI + DPHI + TEMP * TEMP;
     TEMP = Z[II] * TEMP;
-    W = W + TEMP;
+    W += TEMP;
     ERRETM = EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * (TEMP).abs();
 // $          + ABS( TAU2 )*DW
 
@@ -615,7 +615,7 @@ void dlasd4(
 
     PREW = W;
 
-    TAU = TAU + ETA.value;
+    TAU += ETA.value;
     SIGMA.value = SIGMA.value + ETA.value;
 
     for (J = 1; J <= N; J++) {
@@ -630,9 +630,9 @@ void dlasd4(
     ERRETM = ZERO;
     for (J = 1; J <= IIM1; J++) {
       TEMP = Z[J] / (WORK[J] * DELTA[J]);
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -642,9 +642,9 @@ void dlasd4(
     PHI = ZERO;
     for (J = N; J >= IIP1; J--) {
       TEMP = Z[J] / (WORK[J] * DELTA[J]);
-      PHI = PHI + Z[J] * TEMP;
-      DPHI = DPHI + TEMP * TEMP;
-      ERRETM = ERRETM + PHI;
+      PHI += Z[J] * TEMP;
+      DPHI += TEMP * TEMP;
+      ERRETM += PHI;
     }
 
     TAU2 = WORK[II] * DELTA[II];
@@ -694,9 +694,9 @@ void dlasd4(
         } else {
           TEMP = Z[II] / (WORK[II] * DELTA[II]);
           if (ORGATI) {
-            DPSI = DPSI + TEMP * TEMP;
+            DPSI += TEMP * TEMP;
           } else {
-            DPHI = DPHI + TEMP * TEMP;
+            DPHI += TEMP * TEMP;
           }
           C = W - DTISQ * DPSI - DTIPSQ * DPHI;
         }
@@ -777,9 +777,9 @@ void dlasd4(
           } else {
             TEMP = Z[II] / (WORK[II] * DELTA[II]);
             if (ORGATI) {
-              DPSI = DPSI + TEMP * TEMP;
+              DPSI += TEMP * TEMP;
             } else {
-              DPHI = DPHI + TEMP * TEMP;
+              DPHI += TEMP * TEMP;
             }
             C = W - DTISQ * DPSI - DTIPSQ * DPHI;
           }
@@ -838,7 +838,7 @@ void dlasd4(
 
       PREW = W;
 
-      TAU = TAU + ETA.value;
+      TAU += ETA.value;
       SIGMA.value = SIGMA.value + ETA.value;
 
       for (J = 1; J <= N; J++) {
@@ -853,9 +853,9 @@ void dlasd4(
       ERRETM = ZERO;
       for (J = 1; J <= IIM1; J++) {
         TEMP = Z[J] / (WORK[J] * DELTA[J]);
-        PSI = PSI + Z[J] * TEMP;
-        DPSI = DPSI + TEMP * TEMP;
-        ERRETM = ERRETM + PSI;
+        PSI += Z[J] * TEMP;
+        DPSI += TEMP * TEMP;
+        ERRETM += PSI;
       }
       ERRETM = (ERRETM).abs();
 
@@ -865,9 +865,9 @@ void dlasd4(
       PHI = ZERO;
       for (J = N; J >= IIP1; J--) {
         TEMP = Z[J] / (WORK[J] * DELTA[J]);
-        PHI = PHI + Z[J] * TEMP;
-        DPHI = DPHI + TEMP * TEMP;
-        ERRETM = ERRETM + PHI;
+        PHI += Z[J] * TEMP;
+        DPHI += TEMP * TEMP;
+        ERRETM += PHI;
       }
 
       TAU2 = WORK[II] * DELTA[II];

@@ -77,7 +77,7 @@ void derrec(
   infoc.INFOT = 11;
   dtrsyl('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, INFO);
   chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Test DTRSYL3
 
@@ -122,7 +122,7 @@ void derrec(
   dtrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, IWORK, NMAX,
       WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Test DTREXC
 
@@ -160,7 +160,7 @@ void derrec(
   ILST.value = 2;
   dtrexc('V', 1, A, 1, B, 1, IFST, ILST, WORK, INFO);
   chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Test DTRSNA
 
@@ -201,7 +201,7 @@ void derrec(
   dtrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK.asMatrix(1), 1,
       IWORK, INFO);
   chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 9;
+  NT += 9;
 
   // Test DTRSEN
 
@@ -247,7 +247,7 @@ void derrec(
   dtrsen('V', 'V', SEL, 3, A, 3, B, 3, WR, WI, M, S.box(1), SEP.box(1), WORK, 4,
       IWORK, 1, INFO);
   chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 10;
+  NT += 10;
 
   // Print a summary line.
 

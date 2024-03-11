@@ -246,8 +246,8 @@ void debchvxx(final double THRESH, final String PATH, Nout NOUT) {
         var SUMR = 0.0;
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMR = SUMR + S[I] * (A[I][J]).abs() * S[J];
-          SUMRI = SUMRI + (INVHILB[I][J]).abs() / (S[J] * S[I]);
+          SUMR += S[I] * (A[I][J]).abs() * S[J];
+          SUMRI += (INVHILB[I][J]).abs() / (S[J] * S[I]);
         }
         RNORM = max(RNORM, SUMR);
         RINORM = max(RINORM, SUMRI);
@@ -257,8 +257,8 @@ void debchvxx(final double THRESH, final String PATH, Nout NOUT) {
         var SUMR = 0.0;
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMR = SUMR + R[I] * (A[I][J]).abs() * C[J];
-          SUMRI = SUMRI + INVHILB[I][J].abs() / (R[J] * C[I]);
+          SUMR += R[I] * (A[I][J]).abs() * C[J];
+          SUMRI += INVHILB[I][J].abs() / (R[J] * C[I]);
         }
         RNORM = max(RNORM, SUMR);
         RINORM = max(RINORM, SUMRI);
@@ -283,7 +283,7 @@ void debchvxx(final double THRESH, final String PATH, Nout NOUT) {
     for (var I = 1; I <= N; I++) {
       var SUMRI = 0.0;
       for (var J = 1; J <= N; J++) {
-        SUMRI = SUMRI + (INVHILB[I][J] * RINV[J]).abs();
+        SUMRI += (INVHILB[I][J] * RINV[J]).abs();
       }
       RINORM = max(RINORM, SUMRI);
     }
@@ -330,7 +330,7 @@ void debchvxx(final double THRESH, final String PATH, Nout NOUT) {
       for (var I = 1; I <= N; I++) {
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMRI = SUMRI + (INVHILB[I][J] * RINV[J] / INVHILB[I][K]).abs();
+          SUMRI += (INVHILB[I][J] * RINV[J] / INVHILB[I][K]).abs();
         }
         RINORM = max(RINORM, SUMRI);
       }

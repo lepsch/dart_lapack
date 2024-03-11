@@ -238,7 +238,7 @@ void dchkgb(
                       I++) {
                     A[IOFF + I] = ZERO;
                   }
-                  IOFF = IOFF + LDA;
+                  IOFF += LDA;
                 }
               }
             }

@@ -188,7 +188,7 @@ void dget31(
                             max(SMLNUM, XNORM.value) /
                             EPS;
                     if (INFO.value != 0 && INFO.value != 1) {
-                      RES = RES + ONE / EPS;
+                      RES += ONE / EPS;
                     }
                     KNT.value = KNT.value + 1;
                     if (RES > RMAX.value) {
@@ -401,7 +401,7 @@ void dget31(
                             max(SMLNUM, XNORM.value) /
                             EPS;
                     if (INFO.value != 0 && INFO.value != 1) {
-                      RES = RES + ONE / EPS;
+                      RES += ONE / EPS;
                     }
                     KNT.value = KNT.value + 1;
                     if (RES > RMAX.value) {

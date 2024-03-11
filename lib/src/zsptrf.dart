@@ -101,7 +101,7 @@ void zsptrf(
               ROWMAX = CABS1(AP[KX]);
               JMAX = J;
             }
-            KX = KX + J;
+            KX += J;
           } // 20
           KPC = (IMAX - 1) * IMAX ~/ 2 + 1;
           if (IMAX > 1) {
@@ -137,7 +137,7 @@ void zsptrf(
           KX = KPC + KP - 1;
           for (J = KP + 1; J <= KK - 1; J++) {
             // 30
-            KX = KX + J - 1;
+            KX += J - 1;
             T = AP[KNC + J - 1];
             AP[KNC + J - 1] = AP[KX];
             AP[KX] = T;
@@ -223,7 +223,7 @@ void zsptrf(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KSTEP;
+      K -= KSTEP;
       KC = KNC - K;
     }
   } else {
@@ -280,7 +280,7 @@ void zsptrf(
               ROWMAX = CABS1(AP[KX]);
               JMAX = J;
             }
-            KX = KX + N - J;
+            KX += N - J;
           } // 70
           KPC = NPP - (N - IMAX + 1) * (N - IMAX + 2) ~/ 2 + 1;
           if (IMAX < N) {
@@ -316,7 +316,7 @@ void zsptrf(
           KX = KNC + KP - KK;
           for (J = KK + 1; J <= KP - 1; J++) {
             // 80
-            KX = KX + N - J + 1;
+            KX += N - J + 1;
             T = AP[KNC + J - KK];
             AP[KNC + J - KK] = AP[KX];
             AP[KX] = T;
@@ -408,7 +408,7 @@ void zsptrf(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KSTEP;
+      K += KSTEP;
       KC = KNC + N - K + 2;
     }
   }

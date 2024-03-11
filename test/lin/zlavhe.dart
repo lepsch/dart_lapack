@@ -126,7 +126,7 @@
                   KP = ( IPIV( K ) ).abs();
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K + 2;
+               K += 2;
             }
             GO TO 10;
             } // 30
@@ -203,7 +203,7 @@
                   KP = ( IPIV( K ) ).abs();
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K - 2;
+               K -= 2;
             }
             GO TO 40;
             } // 60
@@ -286,7 +286,7 @@
                      B[K][J] = D21*T1 + D22*T2;
                   } // 80
                }
-               K = K - 2;
+               K -= 2;
             }
             GO TO 70;
             } // 90
@@ -357,7 +357,7 @@
                      B[K+1][J] = D21*T1 + D22*T2;
                   } // 110
                }
-               K = K + 2;
+               K += 2;
             }
             GO TO 100;
             } // 120

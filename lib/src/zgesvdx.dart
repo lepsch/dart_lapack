@@ -322,7 +322,7 @@ void zgesvdx(
             U[J][I] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + N;
+          K += N;
         }
         zlaset(
             'A', M - N, NS.value, Complex.zero, Complex.zero, U(N + 1, 1), LDU);
@@ -349,7 +349,7 @@ void zgesvdx(
             VT[I][J] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + N;
+          K += N;
         }
 
         // Call ZUNMBR to compute VB**T * PB**T
@@ -408,7 +408,7 @@ void zgesvdx(
             U[J][I] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + N;
+          K += N;
         }
         zlaset(
             'A', M - N, NS.value, Complex.zero, Complex.zero, U(N + 1, 1), LDU);
@@ -429,7 +429,7 @@ void zgesvdx(
             VT[I][J] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + N;
+          K += N;
         }
 
         // Call ZUNMBR to compute VB**T * PB**T
@@ -504,7 +504,7 @@ void zgesvdx(
             U[J][I] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + M;
+          K += M;
         }
 
         // Call ZUNMBR to compute QB*UB.
@@ -523,7 +523,7 @@ void zgesvdx(
             VT[I][J] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + M;
+          K += M;
         }
         zlaset('A', NS.value, N - M, Complex.zero, Complex.zero, VT(1, M + 1),
             LDVT);
@@ -590,7 +590,7 @@ void zgesvdx(
             U[J][I] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + M;
+          K += M;
         }
 
         // Call ZUNMBR to compute QB*UB.
@@ -609,7 +609,7 @@ void zgesvdx(
             VT[I][J] = Complex(RWORK[K], ZERO);
             K++;
           }
-          K = K + M;
+          K += M;
         }
         zlaset('A', NS.value, N - M, Complex.zero, Complex.zero, VT(1, M + 1),
             LDVT);

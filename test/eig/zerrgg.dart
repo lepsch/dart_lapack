@@ -147,7 +147,7 @@ void zerrgg(
     infoc.INFOT = 13;
     zgghrd('N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, INFO);
     chkxer('ZGGHRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZGGHD3
 
@@ -179,7 +179,7 @@ void zerrgg(
     infoc.INFOT = 13;
     zgghd3('N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW, INFO);
     chkxer('ZGGHD3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZHGEQZ
 
@@ -224,7 +224,7 @@ void zerrgg(
     zhgeqz('E', 'N', 'V', 2, 1, 1, A, 2, B, 2, ALPHA, BETA, Q, 1, Z, 1, W, 1,
         RW, INFO);
     chkxer('ZHGEQZ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // ZTGEVC
 
@@ -253,7 +253,7 @@ void zerrgg(
     infoc.INFOT = 13;
     ztgevc('R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 2, 1, M, W, RW, INFO);
     chkxer('ZTGEVC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the GSV path.
   } else if (lsamen(3, PATH, 'GSV')) {
@@ -304,7 +304,7 @@ void zerrgg(
     zggsvd3('N', 'N', 'Q', 2, 2, 2, DUMMYK, DUMMYL, A, 2, B, 2, R1, R2, U, 2, V,
         2, Q, 1, W, LWORK, RW, IDUM, INFO);
     chkxer('ZGGSVD3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZGGSVP3
 
@@ -353,7 +353,7 @@ void zerrgg(
     zggsvp3('N', 'N', 'Q', 2, 2, 2, A, 2, B, 2, TOLA.value, TOLB.value, DUMMYK,
         DUMMYL, U, 2, V, 2, Q, 1, IW, RW, TAU, W, LWORK, INFO);
     chkxer('ZGGSVP3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZTGSJA
 
@@ -402,7 +402,7 @@ void zerrgg(
     ztgsja('N', 'N', 'Q', 0, 0, 0, DUMMYK.value, DUMMYL.value, A, 1, B, 1,
         TOLA.value, TOLB.value, R1, R2, U, 1, V, 1, Q, 0, W, NCYCLE, INFO);
     chkxer('ZTGSJA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // Test error exits for the GLM path.
   } else if (lsamen(3, PATH, 'GLM')) {
@@ -433,7 +433,7 @@ void zerrgg(
     infoc.INFOT = 12;
     zggglm(1, 1, 1, A, 1, B, 1, TAU, ALPHA, BETA, W, 1, INFO);
     chkxer('ZGGGLM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the LSE path.
   } else if (lsamen(3, PATH, 'LSE')) {
@@ -464,7 +464,7 @@ void zerrgg(
     infoc.INFOT = 12;
     zgglse(1, 1, 1, A, 1, B, 1, TAU, ALPHA, BETA, W, 1, INFO);
     chkxer('ZGGLSE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the CSD path.
   } else if (lsamen(3, PATH, 'CSD')) {
@@ -503,7 +503,7 @@ void zerrgg(
     zuncsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, RS, A,
         1, A, 1, A, 1, A, -1, W, LW, RW, LW, IW, INFO);
     chkxer('ZUNCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the GQR path.
   } else if (lsamen(3, PATH, 'GQR')) {
@@ -528,7 +528,7 @@ void zerrgg(
     infoc.INFOT = 11;
     zggqrf(1, 1, 2, A, 1, ALPHA, B, 1, BETA, W, 1, INFO);
     chkxer('ZGGQRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZGGRQF
 
@@ -551,7 +551,7 @@ void zerrgg(
     infoc.INFOT = 11;
     zggrqf(1, 1, 2, A, 1, ALPHA, B, 1, BETA, W, 1, INFO);
     chkxer('ZGGRQF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // Test error exits for the ZGS, ZGV, ZGX, and ZXV paths.
   } else if (lsamen(3, PATH, 'ZGS') ||
@@ -605,7 +605,7 @@ void zerrgg(
     zgges('V', 'V', 'S', zlctes, 2, A, 2, B, 2, SDIM, ALPHA, BETA, Q, 2, U, 2,
         W, 1, RW, BW, INFO);
     chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZGGES3
 
@@ -654,7 +654,7 @@ void zerrgg(
     zgges3('V', 'V', 'S', zlctes, 2, A, 2, B, 2, SDIM, ALPHA, BETA, Q, 2, U, 2,
         W, 1, RW, BW, INFO);
     chkxer('ZGGES3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZGGESX
 
@@ -711,7 +711,7 @@ void zerrgg(
     zggesx('V', 'V', 'S', zlctsx, 'V', 1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 1,
         U, 1, RCE, RCV, W, 32, RW, IW, 0, BW, INFO);
     chkxer('ZGGESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // ZGGEV
 
@@ -746,7 +746,7 @@ void zerrgg(
     infoc.INFOT = 15;
     zggev('V', 'V', 1, A, 1, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
     chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // ZGGEV3
 
@@ -781,7 +781,7 @@ void zerrgg(
     infoc.INFOT = 15;
     zggev3('V', 'V', 1, A, 1, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
     chkxer('ZGGEV3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // ZGGEVX
 
@@ -834,7 +834,7 @@ void zerrgg(
     zggevx('N', 'N', 'V', 'N', 2, A, 2, B, 2, ALPHA, BETA, Q, 2, U, 2, ILO, IHI,
         LS, RS, ANRM, BNRM, RCE, RCV, W, 0, RW, IW, BW, INFO);
     chkxer('ZGGEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // ZTGEXC
 
@@ -860,7 +860,7 @@ void zerrgg(
     infoc.INFOT = 11;
     ztgexc(true, true, 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, INFO);
     chkxer('ZTGEXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // ZTGSEN
 
@@ -905,7 +905,7 @@ void zerrgg(
     ztgsen(5, true, true, SEL, 1, A, 1, B, 1, ALPHA, BETA, Q, 1, Z, 1, M, TOLA,
         TOLB, RCV, W, 20, IW, 1, INFO);
     chkxer('ZTGSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // ZTGSNA
 
@@ -946,7 +946,7 @@ void zerrgg(
     ztgsna(
         'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 0, IW, INFO);
     chkxer('ZTGSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZTGSYL
 
@@ -999,7 +999,7 @@ void zerrgg(
     ztgsyl('N', 2, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1,
         IW, INFO);
     chkxer('ZTGSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
   }
 
   // Print a summary line.

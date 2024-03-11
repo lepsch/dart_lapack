@@ -108,7 +108,7 @@ void dsptrf(
               ROWMAX = (AP[KX]).abs();
               JMAX = J;
             }
-            KX = KX + J;
+            KX += J;
           }
           KPC = (IMAX - 1) * IMAX ~/ 2 + 1;
           if (IMAX > 1) {
@@ -143,7 +143,7 @@ void dsptrf(
           dswap(KP - 1, AP(KNC), 1, AP(KPC), 1);
           KX = KPC + KP - 1;
           for (J = KP + 1; J <= KK - 1; J++) {
-            KX = KX + J - 1;
+            KX += J - 1;
             T = AP[KNC + J - 1];
             AP[KNC + J - 1] = AP[KX];
             AP[KX] = T;
@@ -227,7 +227,7 @@ void dsptrf(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KSTEP;
+      K -= KSTEP;
       KC = KNC - K;
     }
   } else {
@@ -283,7 +283,7 @@ void dsptrf(
               ROWMAX = (AP[KX]).abs();
               JMAX = J;
             }
-            KX = KX + N - J;
+            KX += N - J;
           }
           KPC = NPP - (N - IMAX + 1) * (N - IMAX + 2) ~/ 2 + 1;
           if (IMAX < N) {
@@ -318,7 +318,7 @@ void dsptrf(
           if (KP < N) dswap(N - KP, AP(KNC + KP - KK + 1), 1, AP(KPC + 1), 1);
           KX = KNC + KP - KK;
           for (J = KK + 1; J <= KP - 1; J++) {
-            KX = KX + N - J + 1;
+            KX += N - J + 1;
             T = AP[KNC + J - KK];
             AP[KNC + J - KK] = AP[KX];
             AP[KX] = T;
@@ -410,7 +410,7 @@ void dsptrf(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KSTEP;
+      K += KSTEP;
       KC = KNC + N - K + 2;
     }
   }

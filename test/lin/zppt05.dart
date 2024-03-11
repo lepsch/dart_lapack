@@ -90,16 +90,16 @@
                   TMP +=  CABS1( AP( JC+J ) )*CABS1( X( J, K ) );
                } // 40
                TMP +=  ABS( (AP( JC+I )).toDouble() )*CABS1( X( I, K ) );
-               JC = JC + I + I;
+               JC += I + I;
                for (J = I + 1; J <= N; J++) { // 50
                   TMP +=  CABS1( AP( JC ) )*CABS1( X( J, K ) );
-                  JC = JC + J;
+                  JC += J;
                } // 50
             } else {
                JC = I;
                for (J = 1; J <= I - 1; J++) { // 60
                   TMP +=  CABS1( AP( JC ) )*CABS1( X( J, K ) );
-                  JC = JC + N - J;
+                  JC += N - J;
                } // 60
                TMP +=  ABS( (AP( JC )).toDouble() )*CABS1( X( I, K ) );
                for (J = I + 1; J <= N; J++) { // 70

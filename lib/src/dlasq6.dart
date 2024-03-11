@@ -98,7 +98,7 @@ void dlasq6(
   DMIN.value = min(DMIN.value, DNM1.value);
 
   DMIN1.value = DMIN.value;
-  J4 = J4 + 4;
+  J4 += 4;
   J4P2 = J4 + 2 * PP - 1;
   Z[J4 - 2] = DNM1.value + Z[J4P2];
   if (Z[J4 - 2] == ZERO) {

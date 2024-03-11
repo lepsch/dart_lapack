@@ -147,7 +147,7 @@
                         // by ZQLT01
 
                         zqlt03(M, N, K, AF, AC, AL, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) );
-                        NT = NT + 4;
+                        NT += 4;
 
                         // If M>=N and K=N, call ZGEQLS to solve a system
                         // with NRHS right hand sides and compute the

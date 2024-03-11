@@ -60,17 +60,17 @@
             for (J = 1; J <= I; J++) { // 30
                JCOL = ( ( J-1 )*J ) / 2 + 1;
                T = ZDOTU( J, A( ICOL ), 1, AINV( JCOL ), 1 );
-               JCOL = JCOL + 2*J - 1;
+               JCOL += 2*J - 1;
                KCOL = ICOL - 1;
                for (K = J + 1; K <= I; K++) { // 10
-                  T = T + A( KCOL+K )*AINV( JCOL );
-                  JCOL = JCOL + K;
+                  T += A( KCOL+K )*AINV( JCOL );
+                  JCOL += K;
                } // 10
-               KCOL = KCOL + 2*I;
+               KCOL += 2*I;
                for (K = I + 1; K <= N; K++) { // 20
-                  T = T + A( KCOL )*AINV( JCOL );
-                  KCOL = KCOL + K;
-                  JCOL = JCOL + K;
+                  T += A( KCOL )*AINV( JCOL );
+                  KCOL += K;
+                  JCOL += K;
                } // 20
                WORK[I][J] = -T;
             } // 30
@@ -83,14 +83,14 @@
                JCOL--;
                KCOL = ICOL + 2*I - 1;
                for (K = I + 1; K <= J; K++) { // 40
-                  T = T + A( KCOL )*AINV( JCOL+K );
-                  KCOL = KCOL + K;
+                  T += A( KCOL )*AINV( JCOL+K );
+                  KCOL += K;
                } // 40
-               JCOL = JCOL + 2*J;
+               JCOL += 2*J;
                for (K = J + 1; K <= N; K++) { // 50
-                  T = T + A( KCOL )*AINV( JCOL );
-                  KCOL = KCOL + K;
-                  JCOL = JCOL + K;
+                  T += A( KCOL )*AINV( JCOL );
+                  KCOL += K;
+                  JCOL += K;
                } // 50
                WORK[I][J] = -T;
             } // 60
@@ -111,14 +111,14 @@
                KCOL = I;
                JCOL = J;
                for (K = 1; K <= J - 1; K++) { // 80
-                  T = T + A( KCOL )*AINV( JCOL );
-                  JCOL = JCOL + N - K;
-                  KCOL = KCOL + N - K;
+                  T += A( KCOL )*AINV( JCOL );
+                  JCOL += N - K;
+                  KCOL += N - K;
                } // 80
-               JCOL = JCOL - J;
+               JCOL -= J;
                for (K = J; K <= I - 1; K++) { // 90
-                  T = T + A( KCOL )*AINV( JCOL+K );
-                  KCOL = KCOL + N - K;
+                  T += A( KCOL )*AINV( JCOL+K );
+                  KCOL += N - K;
                } // 90
                WORK[I][J] = -T;
             } // 100
@@ -132,14 +132,14 @@
                KCOL = I;
                JCOL = J;
                for (K = 1; K <= I - 1; K++) { // 110
-                  T = T + A( KCOL )*AINV( JCOL );
-                  JCOL = JCOL + N - K;
-                  KCOL = KCOL + N - K;
+                  T += A( KCOL )*AINV( JCOL );
+                  JCOL += N - K;
+                  KCOL += N - K;
                } // 110
-               KCOL = KCOL - I;
+               KCOL -= I;
                for (K = I; K <= J - 1; K++) { // 120
-                  T = T + A( KCOL+K )*AINV( JCOL );
-                  JCOL = JCOL + N - K;
+                  T += A( KCOL+K )*AINV( JCOL );
+                  JCOL += N - K;
                } // 120
                WORK[I][J] = -T;
             } // 130

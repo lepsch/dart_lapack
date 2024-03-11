@@ -54,7 +54,7 @@ void zsptri(
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
       // 10
       if (IPIV[INFO.value] > 0 && AP[KP] == Complex.zero) return;
-      KP = KP - INFO.value;
+      KP -= INFO.value;
     } // 10
   } else {
     // Lower triangular storage: examine D from top to bottom.
@@ -63,7 +63,7 @@ void zsptri(
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
       // 20
       if (IPIV[INFO.value] > 0 && AP[KP] == Complex.zero) return;
-      KP = KP + N - INFO.value + 1;
+      KP += N - INFO.value + 1;
     } // 20
   }
   INFO.value = 0;
@@ -124,7 +124,7 @@ void zsptri(
               AP[KCNEXT + K] - zdotu(K - 1, WORK, 1, AP(KCNEXT), 1);
         }
         KSTEP = 2;
-        KCNEXT = KCNEXT + K + 1;
+        KCNEXT += K + 1;
       }
 
       KP = IPIV[K].abs();
@@ -137,7 +137,7 @@ void zsptri(
         KX = KPC + KP - 1;
         for (J = KP + 1; J <= K - 1; J++) {
           // 40
-          KX = KX + J - 1;
+          KX += J - 1;
           TEMP = AP[KC + J - 1];
           AP[KC + J - 1] = AP[KX];
           AP[KX] = TEMP;
@@ -152,7 +152,7 @@ void zsptri(
         }
       }
 
-      K = K + KSTEP;
+      K += KSTEP;
       KC = KCNEXT;
     } // 50
   } else {
@@ -211,7 +211,7 @@ void zsptri(
           AP[KCNEXT] = AP[KCNEXT] - zdotu(N - K, WORK, 1, AP(KCNEXT + 2), 1);
         }
         KSTEP = 2;
-        KCNEXT = KCNEXT - (N - K + 3);
+        KCNEXT -= (N - K + 3);
       }
 
       KP = (IPIV[K]).abs();
@@ -224,7 +224,7 @@ void zsptri(
         KX = KC + KP - K;
         for (J = K + 1; J <= KP - 1; J++) {
           // 70
-          KX = KX + N - J + 1;
+          KX += N - J + 1;
           TEMP = AP[KC + J - K];
           AP[KC + J - K] = AP[KX];
           AP[KX] = TEMP;
@@ -239,7 +239,7 @@ void zsptri(
         }
       }
 
-      K = K - KSTEP;
+      K -= KSTEP;
       KC = KCNEXT;
     } // 80
   }

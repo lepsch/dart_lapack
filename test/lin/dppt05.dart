@@ -88,16 +88,16 @@ void dppt05(
         for (var J = 1; J <= I; J++) {
           TMP += (AP[JC + J]).abs() * (X[J][K]).abs();
         }
-        JC = JC + I;
+        JC += I;
         for (var J = I + 1; J <= N; J++) {
           TMP += (AP[JC]).abs() * (X[J][K]).abs();
-          JC = JC + J;
+          JC += J;
         }
       } else {
         var JC = I;
         for (var J = 1; J <= I - 1; J++) {
           TMP += (AP[JC]).abs() * (X[J][K]).abs();
-          JC = JC + N - J;
+          JC += N - J;
         }
         for (var J = I; J <= N; J++) {
           TMP += (AP[JC + J - I]).abs() * (X[J][K]).abs();

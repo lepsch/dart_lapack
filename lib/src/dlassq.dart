@@ -60,14 +60,14 @@ void dlassq(
   for (i = 1; i <= n; i++) {
     ax = x[ix].abs();
     if (ax > tbig) {
-      abig = abig + pow(ax * sbig, 2);
+      abig += pow(ax * sbig, 2);
       notbig = false;
     } else if (ax < tsml) {
       if (notbig) asml = asml + pow(ax * ssml, 2);
     } else {
-      amed = amed + pow(ax, 2);
+      amed += pow(ax, 2);
     }
-    ix = ix + incx;
+    ix += incx;
   }
   //
   // Put the existing sum of squares into one of the accumulators
@@ -77,7 +77,7 @@ void dlassq(
     if (ax > tbig) {
       if (scale.value > one) {
         scale.value = scale.value * sbig;
-        abig = abig + scale.value * (scale.value * sumsq.value);
+        abig += scale.value * (scale.value * sumsq.value);
       } else {
         // sumsq.value > tbig^2 => (sbig * (sbig * sumsq.value)) is representable;
         abig =
@@ -87,7 +87,7 @@ void dlassq(
       if (notbig) {
         if (scale.value < one) {
           scale.value = scale.value * ssml;
-          asml = asml + scale.value * (scale.value * sumsq.value);
+          asml += scale.value * (scale.value * sumsq.value);
         } else {
           // sumsq.value < tsml^2 => (ssml * (ssml * sumsq.value)) is representable
           asml = asml +
@@ -95,7 +95,7 @@ void dlassq(
         }
       }
     } else {
-      amed = amed + scale.value * (scale.value * sumsq.value);
+      amed += scale.value * (scale.value * sumsq.value);
     }
   }
   //
@@ -107,7 +107,7 @@ void dlassq(
     //    Combine abig and amed if abig > 0.
     //
     if (amed > zero || amed.isNaN) {
-      abig = abig + (amed * sbig) * sbig;
+      abig += (amed * sbig) * sbig;
     }
     scale.value = one / sbig;
     sumsq.value = abig;

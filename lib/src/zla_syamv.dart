@@ -109,7 +109,7 @@ void zla_syamv(
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     } else {
       for (I = 1; I <= N; I++) {
@@ -138,7 +138,7 @@ void zla_syamv(
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     }
   } else {
@@ -160,19 +160,19 @@ void zla_syamv(
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
           for (J = I + 1; J <= N; J++) {
             TEMP = CABS1(A[I][J]);
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     } else {
       for (I = 1; I <= N; I++) {
@@ -192,19 +192,19 @@ void zla_syamv(
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
           for (J = I + 1; J <= N; J++) {
             TEMP = CABS1(A[J][I]);
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     }
   }

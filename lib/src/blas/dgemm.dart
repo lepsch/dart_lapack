@@ -129,7 +129,7 @@ void dgemm(
         for (I = 1; I <= M; I++) {
           TEMP = ZERO;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * B[L][J];
+            TEMP += A[L][I] * B[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA * TEMP;
@@ -167,7 +167,7 @@ void dgemm(
         for (I = 1; I <= M; I++) {
           TEMP = ZERO;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * B[J][L];
+            TEMP += A[L][I] * B[J][L];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA * TEMP;

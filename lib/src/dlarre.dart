@@ -504,7 +504,7 @@ void dlarre(
             SIGMA = GU + FUDGE * SPDIAM * EPS * N + FUDGE * TWO * PIVMIN.value;
           }
         } else {
-          SIGMA = SIGMA - SGNDEF * TAU;
+          SIGMA -= SGNDEF * TAU;
           TAU = TWO * TAU;
         }
       } else {

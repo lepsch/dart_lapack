@@ -135,6 +135,6 @@ void dlaeda(
     }
     dcopy(PSIZ2 - BSIZ2, ZTEMP(PSIZ1 + BSIZ2 + 1), 1, Z(MID + BSIZ2), 1);
 
-    PTR = PTR + pow(2, (TLVLS - K)).toInt();
+    PTR += pow(2, (TLVLS - K)).toInt();
   }
 }

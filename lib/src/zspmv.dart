@@ -81,13 +81,13 @@ void zspmv(
         for (I = 1; I <= N; I++) {
           // 30
           Y[IY] = Complex.zero;
-          IY = IY + INCY;
+          IY += INCY;
         } // 30
       } else {
         for (I = 1; I <= N; I++) {
           // 40
           Y[IY] = BETA * Y[IY];
-          IY = IY + INCY;
+          IY += INCY;
         } // 40
       }
     }
@@ -106,11 +106,11 @@ void zspmv(
         for (I = 1; I <= J - 1; I++) {
           // 50
           Y[I] = Y[I] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K] * X[I];
+          TEMP2 += AP[K] * X[I];
           K++;
         } // 50
         Y[J] = Y[J] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
-        KK = KK + J;
+        KK += J;
       } // 60
     } else {
       JX = KX;
@@ -124,14 +124,14 @@ void zspmv(
         for (K = KK; K <= KK + J - 2; K++) {
           // 70
           Y[IY] = Y[IY] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K] * X[IX];
-          IX = IX + INCX;
-          IY = IY + INCY;
+          TEMP2 += AP[K] * X[IX];
+          IX += INCX;
+          IY += INCY;
         } // 70
         Y[JY] = Y[JY] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
-        JX = JX + INCX;
-        JY = JY + INCY;
-        KK = KK + J;
+        JX += INCX;
+        JY += INCY;
+        KK += J;
       } // 80
     }
   } else {
@@ -147,11 +147,11 @@ void zspmv(
         for (I = J + 1; I <= N; I++) {
           // 90
           Y[I] = Y[I] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K] * X[I];
+          TEMP2 += AP[K] * X[I];
           K++;
         } // 90
         Y[J] = Y[J] + ALPHA * TEMP2;
-        KK = KK + (N - J + 1);
+        KK += (N - J + 1);
       } // 100
     } else {
       JX = KX;
@@ -165,15 +165,15 @@ void zspmv(
         IY = JY;
         for (K = KK + 1; K <= KK + N - J; K++) {
           // 110
-          IX = IX + INCX;
-          IY = IY + INCY;
+          IX += INCX;
+          IY += INCY;
           Y[IY] = Y[IY] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K] * X[IX];
+          TEMP2 += AP[K] * X[IX];
         } // 110
         Y[JY] = Y[JY] + ALPHA * TEMP2;
-        JX = JX + INCX;
-        JY = JY + INCY;
-        KK = KK + (N - J + 1);
+        JX += INCX;
+        JY += INCY;
+        KK += (N - J + 1);
       } // 120
     }
   }

@@ -831,8 +831,8 @@ void zdrvbd(
           }
         } // 200
 
-        NERRS = NERRS + NFAIL;
-        NTESTT = NTESTT + NTEST;
+        NERRS += NFAIL;
+        NTESTT += NTEST;
       } // 210
     } // 220
   } // 230

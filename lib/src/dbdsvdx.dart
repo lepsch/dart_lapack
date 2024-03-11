@@ -559,9 +559,9 @@ void dbdsvdx(
 
           // Update pointers for TGK, S and Z.
 
-          ISBEG = ISBEG + NSL.value;
-          IROWZ = IROWZ + NTGK;
-          ICOLZ = ICOLZ + NSL.value;
+          ISBEG += NSL.value;
+          IROWZ += NTGK;
+          ICOLZ += NSL.value;
           IROWU = IROWZ;
           IROWV = IROWZ + 1;
           ISPLT = IDPTR + 1;

@@ -54,14 +54,14 @@ double dnrm2(final int n, final Array<double> x_, final int incx) {
   for (i = 1; i <= n; i++) {
     ax = x[ix].abs();
     if (ax > tbig) {
-      abig = abig + pow((ax * sbig), 2);
+      abig += pow((ax * sbig), 2);
       notbig = false;
     } else if (ax < tsml) {
       if (notbig) asml = asml + pow((ax * ssml), 2);
     } else {
-      amed = amed + pow(ax, 2);
+      amed += pow(ax, 2);
     }
-    ix = ix + incx;
+    ix += incx;
   }
 
   // Combine abig and amed or amed and asml if more than one
@@ -71,7 +71,7 @@ double dnrm2(final int n, final Array<double> x_, final int incx) {
     // Combine abig and amed if abig > 0.
 
     if ((amed > zero) || (amed > maxN) || amed.isNaN) {
-      abig = abig + (amed * sbig) * sbig;
+      abig += (amed * sbig) * sbig;
     }
     scl = one / sbig;
     sumsq = abig;

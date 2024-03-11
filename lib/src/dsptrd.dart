@@ -83,7 +83,7 @@ void dsptrd(
       }
       D[I + 1] = AP[I1 + I];
       TAU[I] = TAUI.value;
-      I1 = I1 - I;
+      I1 -= I;
     }
     D[1] = AP[1];
   } else {

@@ -516,12 +516,12 @@ void zlatrs(
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
               // 130
-              CSUMJ = CSUMJ + (A[I][J] * USCAL) * X[I];
+              CSUMJ += (A[I][J] * USCAL) * X[I];
             } // 130
           } else if (J < N) {
             for (I = J + 1; I <= N; I++) {
               // 140
-              CSUMJ = CSUMJ + (A[I][J] * USCAL) * X[I];
+              CSUMJ += (A[I][J] * USCAL) * X[I];
             } // 140
           }
         }
@@ -641,12 +641,12 @@ void zlatrs(
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
               // 180
-              CSUMJ = CSUMJ + (A[I][J].conjugate() * USCAL) * X[I];
+              CSUMJ += (A[I][J].conjugate() * USCAL) * X[I];
             } // 180
           } else if (J < N) {
             for (I = J + 1; I <= N; I++) {
               // 190
-              CSUMJ = CSUMJ + (A[I][J].conjugate() * USCAL) * X[I];
+              CSUMJ += (A[I][J].conjugate() * USCAL) * X[I];
             } // 190
           }
         }

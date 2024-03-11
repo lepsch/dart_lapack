@@ -19,14 +19,14 @@ double dzasum(
     // code for increment equal to 1
 
     for (I = 1; I <= N; I++) {
-      STEMP = STEMP + dcabs1(ZX[I]);
+      STEMP += dcabs1(ZX[I]);
     }
   } else {
     // code for increment not equal to 1
 
     NINCX = N * INCX;
     for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-      STEMP = STEMP + dcabs1(ZX[I]);
+      STEMP += dcabs1(ZX[I]);
     }
   }
   return STEMP;

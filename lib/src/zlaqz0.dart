@@ -472,7 +472,7 @@ void zlaqz0(
         AED_INFO);
 
     if (N_DEFLATED.value > 0) {
-      ISTOP = ISTOP - N_DEFLATED.value;
+      ISTOP -= N_DEFLATED.value;
       LD = 0;
       ESHIFT = Complex.zero;
     }
@@ -497,7 +497,7 @@ void zlaqz0(
           (A[ISTOP - 1][ISTOP - 1]).abs()) {
         ESHIFT = A[ISTOP][ISTOP - 1] / B[ISTOP - 1][ISTOP - 1];
       } else {
-        ESHIFT = ESHIFT + Complex.one / (SAFMIN * MAXIT).toComplex();
+        ESHIFT += Complex.one / (SAFMIN * MAXIT).toComplex();
       }
       ALPHA[SHIFTPOS] = Complex.one;
       BETA[SHIFTPOS] = ESHIFT;

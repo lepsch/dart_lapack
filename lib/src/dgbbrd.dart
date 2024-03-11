@@ -145,8 +145,8 @@ void dgbbrd(
       ML = KLM + 1;
       MU = KUN + 1;
       for (KK = 1; KK <= KB; KK++) {
-        J1 = J1 + KB;
-        J2 = J2 + KB;
+        J1 += KB;
+        J2 += KB;
 
         // generate plane rotations to annihilate nonzero elements
         // which have been created below the band
@@ -197,7 +197,7 @@ void dgbbrd(
             }
           }
           NR++;
-          J1 = J1 - KB1;
+          J1 -= KB1;
         }
 
         if (WANTQ) {
@@ -222,7 +222,7 @@ void dgbbrd(
           // adjust J2 to keep within the bounds of the matrix
 
           NR--;
-          J2 = J2 - KB1;
+          J2 -= KB1;
         }
 
         for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
@@ -280,7 +280,7 @@ void dgbbrd(
                 WORK[I + MU - 1]);
           }
           NR++;
-          J1 = J1 - KB1;
+          J1 -= KB1;
         }
 
         if (WANTPT) {
@@ -302,7 +302,7 @@ void dgbbrd(
           // adjust J2 to keep within the bounds of the matrix
 
           NR--;
-          J2 = J2 - KB1;
+          J2 -= KB1;
         }
 
         for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {

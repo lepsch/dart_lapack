@@ -151,7 +151,7 @@ void dget34(
                   if (T[2][1] != 0 &&
                       (T[1][1] != T[2][2] ||
                           sign(ONE, T[1][2]) == sign(ONE, T[2][1]))) {
-                    RES = RES + ONE / EPS;
+                    RES += ONE / EPS;
                   }
                 }
                 KNT.value = KNT.value + 1;
@@ -212,7 +212,7 @@ void dget34(
                   if (T[3][2] != 0 &&
                       (T[2][2] != T[3][3] ||
                           sign(ONE, T[2][3]) == sign(ONE, T[3][2]))) {
-                    RES = RES + ONE / EPS;
+                    RES += ONE / EPS;
                   }
                 }
                 KNT.value = KNT.value + 1;
@@ -278,12 +278,12 @@ void dget34(
                         if (T[2][1] != 0 &&
                             (T[1][1] != T[2][2] ||
                                 sign(ONE, T[1][2]) == sign(ONE, T[2][1]))) {
-                          RES = RES + ONE / EPS;
+                          RES += ONE / EPS;
                         }
                         if (T[4][3] != 0 &&
                             (T[3][3] != T[4][4] ||
                                 sign(ONE, T[3][4]) == sign(ONE, T[4][3]))) {
-                          RES = RES + ONE / EPS;
+                          RES += ONE / EPS;
                         }
                       }
                       KNT.value = KNT.value + 1;

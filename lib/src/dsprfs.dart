@@ -125,11 +125,11 @@ void dsprfs(
           IK = KK;
           for (I = 1; I <= K - 1; I++) {
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
-            S = S + (AP[IK]).abs() * (X[I][J]).abs();
+            S += (AP[IK]).abs() * (X[I][J]).abs();
             IK++;
           }
           WORK[K] = WORK[K] + (AP[KK + K - 1]).abs() * XK + S;
-          KK = KK + K;
+          KK += K;
         }
       } else {
         for (K = 1; K <= N; K++) {
@@ -139,11 +139,11 @@ void dsprfs(
           IK = KK + 1;
           for (I = K + 1; I <= N; I++) {
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
-            S = S + (AP[IK]).abs() * (X[I][J]).abs();
+            S += (AP[IK]).abs() * (X[I][J]).abs();
             IK++;
           }
           WORK[K] = WORK[K] + S;
-          KK = KK + (N - K + 1);
+          KK += (N - K + 1);
         }
       }
       S = ZERO;

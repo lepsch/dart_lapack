@@ -55,7 +55,7 @@
                RESID = ONE / EPS;
                return;
             }
-            KC = KC + K + 1;
+            KC += K + 1;
          } // 10
       } else {
          for (K = 1; K <= N; K++) { // 20
@@ -63,7 +63,7 @@
                RESID = ONE / EPS;
                return;
             }
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
          } // 20
       }
 
@@ -82,7 +82,7 @@
 
             if ( K > 1 ) {
                ztpmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
-               KC = KC - ( K-1 );
+               KC -= ( K-1 );
             }
          } // 30
 
@@ -94,7 +94,7 @@
                AFAC[KC+I-1] = AFAC( KC+I-1 ) - A( KC+I-1 );
             } // 40
             AFAC[KC+K-1] = AFAC( KC+K-1 ) - (A( KC+K-1 )).toDouble();
-            KC = KC + K;
+            KC += K;
          } // 50
 
       // Compute the product L*L', overwriting L.
@@ -113,7 +113,7 @@
             TC = AFAC( KC );
             zscal(N-K+1, TC, AFAC( KC ), 1 );
 
-            KC = KC - ( N-K+2 );
+            KC -= ( N-K+2 );
          } // 60
 
          // Compute the difference  U'*U - A
@@ -124,7 +124,7 @@
             for (I = K + 1; I <= N; I++) { // 70
                AFAC[KC+I-K] = AFAC( KC+I-K ) - A( KC+I-K );
             } // 70
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
          } // 80
       }
 

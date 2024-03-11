@@ -91,7 +91,7 @@
                   KP = IPIV( K );
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               KC = KC + K;
+               KC += K;
                K++;
             } else {
 
@@ -129,7 +129,7 @@
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT + K + 1;
-               K = K + 2;
+               K += 2;
             }
             GO TO 10;
             } // 30
@@ -145,7 +145,7 @@
             KC = N*( N+1 ) / 2 + 1;
             } // 40
             if (K < 1) GO TO 60;
-            KC = KC - ( N-K+1 );
+            KC -= ( N-K+1 );
 
             // Test the pivot index.  If greater than zero, a 1 x 1
             // pivot was used, otherwise a 2 x 2 pivot was used.
@@ -211,7 +211,7 @@
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT;
-               K = K - 2;
+               K -= 2;
             }
             GO TO 40;
             } // 60
@@ -235,7 +235,7 @@
             KC = N*( N+1 ) / 2 + 1;
             } // 70
             if (K < 1) GO TO 90;
-            KC = KC - K;
+            KC -= K;
 
             // 1 x 1 pivot block.
 
@@ -295,7 +295,7 @@
                   } // 80
                }
                KC = KCNEXT;
-               K = K - 2;
+               K -= 2;
             }
             GO TO 70;
             } // 90
@@ -330,7 +330,7 @@
                   zlacgv(NRHS, B( K, 1 ), LDB );
                }
                if (NOUNIT) zscal( NRHS, A( KC ), B( K, 1 ), LDB );
-               KC = KC + N - K + 1;
+               KC += N - K + 1;
                K++;
 
             // 2 x 2 pivot block.
@@ -370,7 +370,7 @@
                   } // 110
                }
                KC = KCNEXT + ( N-K );
-               K = K + 2;
+               K += 2;
             }
             GO TO 100;
             } // 120

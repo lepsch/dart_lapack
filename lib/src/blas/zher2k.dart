@@ -172,8 +172,8 @@ void zher2k(
           TEMP1 = Complex.zero;
           TEMP2 = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP1 = TEMP1 + A[L][I].conjugate() * B[L][J];
-            TEMP2 = TEMP2 + B[L][I].conjugate() * A[L][J];
+            TEMP1 += A[L][I].conjugate() * B[L][J];
+            TEMP2 += B[L][I].conjugate() * A[L][J];
           }
           if (I == J) {
             if (BETA == Complex.zero.toDouble()) {
@@ -201,8 +201,8 @@ void zher2k(
           TEMP1 = Complex.zero;
           TEMP2 = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP1 = TEMP1 + A[L][I].conjugate() * B[L][J];
-            TEMP2 = TEMP2 + B[L][I].conjugate() * A[L][J];
+            TEMP1 += A[L][I].conjugate() * B[L][J];
+            TEMP2 += B[L][I].conjugate() * A[L][J];
           }
           if (I == J) {
             if (BETA == Complex.zero.toDouble()) {

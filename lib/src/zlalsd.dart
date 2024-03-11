@@ -589,7 +589,7 @@ void zlalsd(
       JREAL = IRWB - 1;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
         // 270
-        J = J + N;
+        J += N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
           // 260
           JREAL++;
@@ -614,7 +614,7 @@ void zlalsd(
       JIMAG = IRWB - 1;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
         // 290
-        J = J + N;
+        J += N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
           // 280
           JIMAG++;

@@ -295,8 +295,8 @@ void ztgevc(
 
           for (JR = JE; JR <= J - 1; JR++) {
             // 80
-            SUMA = SUMA + S[JR][J].conjugate() * WORK[JR];
-            SUMB = SUMB + P[JR][J].conjugate() * WORK[JR];
+            SUMA += S[JR][J].conjugate() * WORK[JR];
+            SUMB += P[JR][J].conjugate() * WORK[JR];
           } // 80
           SUM = ACOEFF.toComplex() * SUMA - BCOEFF.conjugate() * SUMB;
 

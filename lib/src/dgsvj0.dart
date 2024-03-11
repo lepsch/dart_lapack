@@ -180,7 +180,7 @@ void dgsvj0(
       igl = (ibr - 1) * KBL + 1;
 
       for (ir1 = 0; ir1 <= min(LKAHEAD, NBL - ibr); ir1++) {
-        igl = igl + ir1 * KBL;
+        igl += ir1 * KBL;
 
         for (p = igl; p <= min(igl + KBL - 1, N - 1); p++) {
           // .. de Rijk's pivoting
@@ -454,7 +454,7 @@ void dgsvj0(
           } else {
             SVA[p] = AAPP.value;
             if ((ir1 == 0) && (AAPP.value == ZERO)) {
-              NOTROT = NOTROT + min(igl + KBL - 1, N).toInt() - p;
+              NOTROT += min(igl + KBL - 1, N).toInt() - p;
             }
           }
         }
@@ -734,7 +734,7 @@ void dgsvj0(
             SVA[p] = AAPP.value;
           } else {
             if (AAPP.value == ZERO) {
-              NOTROT = NOTROT + min(jgl + KBL - 1, N).toInt() - jgl + 1;
+              NOTROT += min(jgl + KBL - 1, N).toInt() - jgl + 1;
             }
             if (AAPP.value < ZERO) NOTROT = 0;
           }

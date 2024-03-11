@@ -78,7 +78,7 @@ void dspr2(
             K++;
           }
         }
-        KK = KK + J;
+        KK += J;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -89,13 +89,13 @@ void dspr2(
           IY = KY;
           for (K = KK; K <= KK + J - 1; K++) {
             AP[K] = AP[K] + X[IX] * TEMP1 + Y[IY] * TEMP2;
-            IX = IX + INCX;
-            IY = IY + INCY;
+            IX += INCX;
+            IY += INCY;
           }
         }
-        JX = JX + INCX;
-        JY = JY + INCY;
-        KK = KK + J;
+        JX += INCX;
+        JY += INCY;
+        KK += J;
       }
     }
   } else {
@@ -112,7 +112,7 @@ void dspr2(
             K++;
           }
         }
-        KK = KK + N - J + 1;
+        KK += N - J + 1;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -123,13 +123,13 @@ void dspr2(
           IY = JY;
           for (K = KK; K <= KK + N - J; K++) {
             AP[K] = AP[K] + X[IX] * TEMP1 + Y[IY] * TEMP2;
-            IX = IX + INCX;
-            IY = IY + INCY;
+            IX += INCX;
+            IY += INCY;
           }
         }
-        JX = JX + INCX;
-        JY = JY + INCY;
-        KK = KK + N - J + 1;
+        JX += INCX;
+        JY += INCY;
+        KK += N - J + 1;
       }
     }
   }

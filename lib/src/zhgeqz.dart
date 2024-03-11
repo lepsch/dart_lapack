@@ -525,7 +525,7 @@ void zhgeqz(
                     (X / TEMP2.toComplex()).imaginary * Y.imaginary <
                 ZERO) Y = -Y;
           }
-          SHIFT = SHIFT - CTEMP * zladiv(CTEMP, (X + Y));
+          SHIFT -= CTEMP * zladiv(CTEMP, (X + Y));
         }
       } else {
         // Exceptional shift.  Chosen for no particularly good reason.

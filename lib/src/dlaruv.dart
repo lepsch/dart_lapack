@@ -161,14 +161,14 @@ void dlaruv(
 
       IT4 = I4 * MM[I][4];
       IT3 = IT4 ~/ IPW2;
-      IT4 = IT4 - IPW2 * IT3;
-      IT3 = IT3 + I3 * MM[I][4] + I4 * MM[I][3];
+      IT4 -= IPW2 * IT3;
+      IT3 += I3 * MM[I][4] + I4 * MM[I][3];
       IT2 = IT3 ~/ IPW2;
-      IT3 = IT3 - IPW2 * IT2;
-      IT2 = IT2 + I2 * MM[I][4] + I3 * MM[I][3] + I4 * MM[I][2];
+      IT3 -= IPW2 * IT2;
+      IT2 += I2 * MM[I][4] + I3 * MM[I][3] + I4 * MM[I][2];
       IT1 = IT2 ~/ IPW2;
-      IT2 = IT2 - IPW2 * IT1;
-      IT1 = IT1 + I1 * MM[I][4] + I2 * MM[I][3] + I3 * MM[I][2] + I4 * MM[I][1];
+      IT2 -= IPW2 * IT1;
+      IT1 += I1 * MM[I][4] + I2 * MM[I][3] + I3 * MM[I][2] + I4 * MM[I][1];
       IT1 = (IT1 % IPW2);
 
       // Convert 48-bit integer to a real number in the interval (0,1)
@@ -189,10 +189,10 @@ void dlaruv(
       // the statistically correct thing to do in this situation is
       // simply to iterate again.
       // N.B. the case X( I ) = 0.0 should not be possible.
-      I1 = I1 + 2;
-      I2 = I2 + 2;
-      I3 = I3 + 2;
-      I4 = I4 + 2;
+      I1 += 2;
+      I2 += 2;
+      I3 += 2;
+      I4 += 2;
     }
   }
 

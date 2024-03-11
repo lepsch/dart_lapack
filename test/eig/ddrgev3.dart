@@ -511,7 +511,7 @@ void ddrgev3(
         break;
       }
 
-      NTESTT = NTESTT + 7;
+      NTESTT += 7;
 
       // Print out tests which fail.
 

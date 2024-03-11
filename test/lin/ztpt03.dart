@@ -48,13 +48,13 @@
             JJ = 1;
             for (J = 1; J <= N; J++) { // 10
                TNORM = max( TNORM, TSCAL*( AP( JJ ) ).abs()+CNORM( J ) );
-               JJ = JJ + J;
+               JJ += J;
             } // 10
          } else {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 20
                TNORM = max( TNORM, TSCAL*( AP( JJ ) ).abs()+CNORM( J ) );
-               JJ = JJ + N - J + 1;
+               JJ += N - J + 1;
             } // 20
          }
       } else {

@@ -209,8 +209,8 @@ void dstebz(
     GU = max(GU, D[N] + TMP1);
     GL = min(GL, D[N] - TMP1);
     TNORM = max((GL).abs(), (GU).abs());
-    GL = GL - FUDGE * TNORM * ULP * N - FUDGE * TWO * PIVMIN;
-    GU = GU + FUDGE * TNORM * ULP * N + FUDGE * PIVMIN;
+    GL -= FUDGE * TNORM * ULP * N - FUDGE * TWO * PIVMIN;
+    GU += FUDGE * TNORM * ULP * N + FUDGE * PIVMIN;
 
     // Compute Iteration parameters
 
@@ -347,8 +347,8 @@ void dstebz(
       GU = max(GU, D[IEND] + TMP1);
       GL = min(GL, D[IEND] - TMP1);
       BNORM = max((GL).abs(), (GU).abs());
-      GL = GL - FUDGE * BNORM * ULP * IN - FUDGE * PIVMIN;
-      GU = GU + FUDGE * BNORM * ULP * IN + FUDGE * PIVMIN;
+      GL -= FUDGE * BNORM * ULP * IN - FUDGE * PIVMIN;
+      GU += FUDGE * BNORM * ULP * IN + FUDGE * PIVMIN;
 
       // Compute ATOLI for the current submatrix
 
@@ -360,8 +360,8 @@ void dstebz(
 
       if (IRANGE > 1) {
         if (GU < WL) {
-          NWL = NWL + IN;
-          NWU = NWU + IN;
+          NWL += IN;
+          NWU += IN;
           continue;
         }
         GL = max(GL, WL);
@@ -395,8 +395,8 @@ void dstebz(
           IBLOCK(M.value + 1),
           IINFO);
 
-      NWL = NWL + IWORK[1];
-      NWU = NWU + IWORK[IN + 1];
+      NWL += IWORK[1];
+      NWU += IWORK[IN + 1];
       IWOFF = M.value - IWORK[1];
 
       // Compute Eigenvalues

@@ -129,7 +129,7 @@ void dlavsy(
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K + 2;
+          K += 2;
         }
       }
 
@@ -204,7 +204,7 @@ void dlavsy(
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K - 2;
+          K -= 2;
         }
       }
     }
@@ -274,7 +274,7 @@ void dlavsy(
               B[K][J] = D21 * T1 + D22 * T2;
             }
           }
-          K = K - 2;
+          K -= 2;
         }
       }
 
@@ -337,7 +337,7 @@ void dlavsy(
               B[K + 1][J] = D21 * T1 + D22 * T2;
             }
           }
-          K = K + 2;
+          K += 2;
         }
       }
     }

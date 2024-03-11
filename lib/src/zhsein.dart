@@ -173,7 +173,7 @@ void zhsein(
         for (I = K - 1; I >= KL; I--) {
           // 70
           if (SELECT[I] && CABS1(W[I] - WK) < EPS3) {
-            WK = WK + EPS3.toComplex();
+            WK += EPS3.toComplex();
             continue repeat;
           }
         } // 70

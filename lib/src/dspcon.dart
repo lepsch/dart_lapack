@@ -64,7 +64,7 @@ void dspcon(
     IP = N * (N + 1) ~/ 2;
     for (I = N; I >= 1; I--) {
       if (IPIV[I] > 0 && AP[IP] == ZERO) return;
-      IP = IP - I;
+      IP -= I;
     }
   } else {
     // Lower triangular storage: examine D from top to bottom.
@@ -72,7 +72,7 @@ void dspcon(
     IP = 1;
     for (I = 1; I <= N; I++) {
       if (IPIV[I] > 0 && AP[IP] == ZERO) return;
-      IP = IP + N - I + 1;
+      IP += N - I + 1;
     }
   }
 

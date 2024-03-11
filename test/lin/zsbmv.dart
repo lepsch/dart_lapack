@@ -86,12 +86,12 @@
             if ( BETA == ZERO ) {
                for (I = 1; I <= N; I++) { // 30
                   Y[IY] = ZERO;
-                  IY = IY + INCY;
+                  IY += INCY;
                } // 30
             } else {
                for (I = 1; I <= N; I++) { // 40
                   Y[IY] = BETA*Y( IY );
-                  IY = IY + INCY;
+                  IY += INCY;
                } // 40
             }
          }
@@ -109,7 +109,7 @@
                L = KPLUS1 - J;
                for (I = max( 1, J-K ); I <= J - 1; I++) { // 50
                   Y[I] = Y( I ) + TEMP1*A( L+I, J );
-                  TEMP2 = TEMP2 + A( L+I, J )*X( I );
+                  TEMP2 += A( L+I, J )*X( I );
                } // 50
                Y[J] = Y( J ) + TEMP1*A( KPLUS1, J ) + ALPHA*TEMP2;
             } // 60
@@ -124,16 +124,16 @@
                L = KPLUS1 - J;
                for (I = max( 1, J-K ); I <= J - 1; I++) { // 70
                   Y[IY] = Y( IY ) + TEMP1*A( L+I, J );
-                  TEMP2 = TEMP2 + A( L+I, J )*X( IX );
-                  IX = IX + INCX;
-                  IY = IY + INCY;
+                  TEMP2 += A( L+I, J )*X( IX );
+                  IX += INCX;
+                  IY += INCY;
                } // 70
                Y[JY] = Y( JY ) + TEMP1*A( KPLUS1, J ) + ALPHA*TEMP2;
-               JX = JX + INCX;
-               JY = JY + INCY;
+               JX += INCX;
+               JY += INCY;
                if ( J > K ) {
-                  KX = KX + INCX;
-                  KY = KY + INCY;
+                  KX += INCX;
+                  KY += INCY;
                }
             } // 80
          }
@@ -149,7 +149,7 @@
                L = 1 - J;
                for (I = J + 1; I <= min( N, J+K ); I++) { // 90
                   Y[I] = Y( I ) + TEMP1*A( L+I, J );
-                  TEMP2 = TEMP2 + A( L+I, J )*X( I );
+                  TEMP2 += A( L+I, J )*X( I );
                } // 90
                Y[J] = Y( J ) + ALPHA*TEMP2;
             } // 100
@@ -164,14 +164,14 @@
                IX = JX;
                IY = JY;
                for (I = J + 1; I <= min( N, J+K ); I++) { // 110
-                  IX = IX + INCX;
-                  IY = IY + INCY;
+                  IX += INCX;
+                  IY += INCY;
                   Y[IY] = Y( IY ) + TEMP1*A( L+I, J );
-                  TEMP2 = TEMP2 + A( L+I, J )*X( IX );
+                  TEMP2 += A( L+I, J )*X( IX );
                } // 110
                Y[JY] = Y( JY ) + ALPHA*TEMP2;
-               JX = JX + INCX;
-               JY = JY + INCY;
+               JX += INCX;
+               JY += INCY;
             } // 120
          }
       }

@@ -424,7 +424,7 @@ void zgeqp3rk(
         return;
       }
 
-      J = J + JBF.value;
+      J += JBF.value;
     }
   }
 

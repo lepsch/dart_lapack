@@ -72,7 +72,7 @@ void zerrhs(
     infoc.INFOT = 4;
     zgebal('N', 2, A, 1, ILO, IHI, S, INFO);
     chkxer('ZGEBAL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // ZGEBAK
 
@@ -104,7 +104,7 @@ void zerrhs(
     infoc.INFOT = 9;
     zgebak('N', 'R', 2, 1, 2, S, 0, A, 1, INFO);
     chkxer('ZGEBAK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZGEHRD
 
@@ -130,7 +130,7 @@ void zerrhs(
     infoc.INFOT = 8;
     zgehrd(2, 1, 2, A, 2, TAU, W, 1, INFO);
     chkxer('ZGEHRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // ZGEHD2
 
@@ -153,7 +153,7 @@ void zerrhs(
     infoc.INFOT = 5;
     zgehd2(2, 1, 1, A, 1, TAU, W, INFO);
     chkxer('ZGEHD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // ZUNGHR
 
@@ -179,7 +179,7 @@ void zerrhs(
     infoc.INFOT = 8;
     zunghr(3, 1, 3, A, 3, TAU, W, 1, INFO);
     chkxer('ZUNGHR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // ZUNMHR
 
@@ -232,7 +232,7 @@ void zerrhs(
     infoc.INFOT = 13;
     zunmhr('R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO);
     chkxer('ZUNMHR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 16;
+    NT += 16;
 
     // ZHSEQR
 
@@ -264,7 +264,7 @@ void zerrhs(
     infoc.INFOT = 10;
     zhseqr('E', 'V', 2, 1, 2, A, 2, X, C, 1, W, 1, INFO);
     chkxer('ZHSEQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // ZHSEIN
 
@@ -301,7 +301,7 @@ void zerrhs(
     zhsein('R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 2, 1, M, W, RW, IFAILL,
         IFAILR, INFO);
     chkxer('ZHSEIN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // ZTREVC
 
@@ -327,7 +327,7 @@ void zerrhs(
     infoc.INFOT = 11;
     ztrevc('L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, RW, INFO);
     chkxer('ZTREVC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // ZTREVC3
 
@@ -359,7 +359,7 @@ void zerrhs(
     infoc.INFOT = 16;
     ztrevc3('L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, LW, RW, 1, INFO);
     chkxer('ZTREVC3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
   }
 
   // Print a summary line.

@@ -33,13 +33,13 @@ int izamax(
 
     IX = 1;
     DMAX = dcabs1(ZX[1]);
-    IX = IX + INCX;
+    IX += INCX;
     for (I = 2; I <= N; I++) {
       if (dcabs1(ZX[IX]) > DMAX) {
         result = I;
         DMAX = dcabs1(ZX[IX]);
       }
-      IX = IX + INCX;
+      IX += INCX;
     }
   }
   return result;

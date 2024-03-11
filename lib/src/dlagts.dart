@@ -115,7 +115,7 @@ void dlagts(
           if (ABSAK < ONE) {
             if (ABSAK < SFMIN) {
               if (ABSAK == ZERO || (TEMP).abs() * SFMIN > ABSAK) {
-                AK = AK + PERT;
+                AK += PERT;
                 PERT = 2 * PERT;
                 continue;
               } else {
@@ -123,7 +123,7 @@ void dlagts(
                 AK = AK * BIGNUM;
               }
             } else if ((TEMP).abs() > ABSAK * BIGNUM) {
-              AK = AK + PERT;
+              AK += PERT;
               PERT = 2 * PERT;
               continue;
             }
@@ -179,7 +179,7 @@ void dlagts(
           if (ABSAK < ONE) {
             if (ABSAK < SFMIN) {
               if (ABSAK == ZERO || (TEMP).abs() * SFMIN > ABSAK) {
-                AK = AK + PERT;
+                AK += PERT;
                 PERT = 2 * PERT;
                 continue;
               } else {
@@ -187,7 +187,7 @@ void dlagts(
                 AK = AK * BIGNUM;
               }
             } else if ((TEMP).abs() > ABSAK * BIGNUM) {
-              AK = AK + PERT;
+              AK += PERT;
               PERT = 2 * PERT;
               continue;
             }

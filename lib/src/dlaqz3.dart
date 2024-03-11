@@ -206,16 +206,16 @@ void dlaqz3(
                 (S * QC[1][KWBOT - KWTOP + 1]).abs()) <=
             max(SMLNUM, ULP * TEMP.value)) {
           // Deflatable
-          KWBOT = KWBOT - 2;
+          KWBOT -= 2;
         } else {
           // Not deflatable, move out of the way
           IFST.value = KWBOT - KWTOP + 1;
           ILST.value = K2;
           dtgexc(true, true, JW, A(KWTOP, KWTOP), LDA, B(KWTOP, KWTOP), LDB, QC,
               LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, DTGEXC_INFO);
-          K2 = K2 + 2;
+          K2 += 2;
         }
-        K = K + 2;
+        K += 2;
       } else {
         // Try to deflate real eigenvalue
         TEMP.value = A[KWBOT][KWBOT].abs();
@@ -256,7 +256,7 @@ void dlaqz3(
       dlag2(A(K, K), LDA, B(K, K), LDB, SAFMIN, BETA.box(K), BETA.box(K + 1),
           ALPHAR.box(K), ALPHAR.box(K + 1), ALPHAI.box(K));
       ALPHAI[K + 1] = -ALPHAI[K];
-      K = K + 2;
+      K += 2;
     } else {
       // 1x1 eigenvalue block
       ALPHAR[K] = A[K][K];
@@ -297,7 +297,7 @@ void dlaqz3(
               JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC);
         }
 
-        K = K - 2;
+        K -= 2;
       } else {
         // k points to single shift
         for (K2 = K; K2 <= KWBOT - 2; K2++) {

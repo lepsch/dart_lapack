@@ -18,7 +18,7 @@ void zlaipd(
   var IXA = INDA;
   for (var I = 1; I <= N; I++) {
     A[IA] = Complex(A[IA].real, BIGNUM);
-    IA = IA + IXA;
-    IXA = IXA + VINDA;
+    IA += IXA;
+    IXA += VINDA;
   }
 }

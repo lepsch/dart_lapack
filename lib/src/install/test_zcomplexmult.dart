@@ -39,7 +39,7 @@ void main() {
 
   // Test (a) Infs
   for (i = 1; i <= nInf; i++) {
-    nTests = nTests + 3;
+    nTests += 3;
     Y = cInf[i];
     R = czero * Y;
     if (R == R) {
@@ -72,7 +72,7 @@ void main() {
 
   // Test (b) NaNs
   for (i = 1; i <= nNaN; i++) {
-    nTests = nTests + 3;
+    nTests += 3;
     Y = cNaN[i];
     R = czero * Y;
     if (R == R) {

@@ -44,7 +44,7 @@ void dlarf(
     // Look for the last non-zero row in V.
     while (LASTV > 0 && V[I] == ZERO) {
       LASTV--;
-      I = I - INCV;
+      I -= INCV;
     }
     if (APPLYLEFT) {
       // Scan for the last non-zero column in C(1:lastv,:).

@@ -125,7 +125,7 @@ void zhetrf_rk(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KB.value;
+      K -= KB.value;
 
       // This label is the exit from main loop over K decreasing
       // from N to 1 in steps of KB.value
@@ -186,7 +186,7 @@ void zhetrf_rk(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KB.value;
+      K += KB.value;
     } // 35
   }
 

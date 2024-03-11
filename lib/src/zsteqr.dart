@@ -216,7 +216,7 @@ void zsteqr(
             D[L] = RT1.value;
             D[L + 1] = RT2.value;
             E[L] = ZERO;
-            L = L + 2;
+            L += 2;
             if (L <= LEND) continue;
             break;
           }
@@ -316,7 +316,7 @@ void zsteqr(
             D[L - 1] = RT1.value;
             D[L] = RT2.value;
             E[L - 1] = ZERO;
-            L = L - 2;
+            L -= 2;
             if (L >= LEND) continue;
             break;
           }

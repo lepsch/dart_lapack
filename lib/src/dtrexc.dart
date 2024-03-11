@@ -101,7 +101,7 @@ void dtrexc(
           ILST.value = HERE;
           return;
         }
-        HERE = HERE + NBNEXT;
+        HERE += NBNEXT;
 
         // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
@@ -138,13 +138,13 @@ void dtrexc(
               ILST.value = HERE;
               return;
             }
-            HERE = HERE + 2;
+            HERE += 2;
           } else {
             // 2 by 2 Block did split
 
             dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO);
             dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE + 1, 1, 1, WORK, INFO);
-            HERE = HERE + 2;
+            HERE += 2;
           }
         }
       }
@@ -167,7 +167,7 @@ void dtrexc(
           ILST.value = HERE;
           return;
         }
-        HERE = HERE - NBNEXT;
+        HERE -= NBNEXT;
 
         // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
@@ -204,13 +204,13 @@ void dtrexc(
               ILST.value = HERE;
               return;
             }
-            HERE = HERE - 2;
+            HERE -= 2;
           } else {
             // 2 by 2 Block did split
 
             dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO);
             dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE - 1, 1, 1, WORK, INFO);
-            HERE = HERE - 2;
+            HERE -= 2;
           }
         }
       }

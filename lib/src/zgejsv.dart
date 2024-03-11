@@ -380,7 +380,7 @@ void zgejsv(
                           2 * N + pow(N, 2).toInt() + N + LWUNMLQ),
                       max(N + pow(N, 2).toInt() + LWSVDJ, N + LWUNMQRM))));
         }
-        MINIWRK = MINIWRK + N;
+        MINIWRK += N;
         if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
       } else {
         if (ERREST) {

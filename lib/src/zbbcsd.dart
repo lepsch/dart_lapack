@@ -253,7 +253,7 @@ void zbbcsd(
       return;
     }
 
-    ITER = ITER + IMAX - IMIN;
+    ITER += IMAX - IMIN;
 
     // Compute shifts
 

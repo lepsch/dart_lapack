@@ -42,7 +42,7 @@ double zlantp(
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           } // 10
-          K = K + J;
+          K += J;
         } // 20
       } else {
         for (J = 1; J <= N; J++) {
@@ -52,7 +52,7 @@ double zlantp(
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           } // 30
-          K = K + N - J + 1;
+          K += N - J + 1;
         } // 40
       }
     } else {
@@ -65,7 +65,7 @@ double zlantp(
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           } // 50
-          K = K + J;
+          K += J;
         } // 60
       } else {
         for (J = 1; J <= N; J++) {
@@ -75,7 +75,7 @@ double zlantp(
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           } // 70
-          K = K + N - J + 1;
+          K += N - J + 1;
         } // 80
       }
     }
@@ -101,7 +101,7 @@ double zlantp(
             SUM.value = SUM.value + AP[I].abs();
           } // 100
         }
-        K = K + J;
+        K += J;
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       } // 110
     } else {
@@ -120,7 +120,7 @@ double zlantp(
             SUM.value = SUM.value + AP[I].abs();
           } // 130
         }
-        K = K + N - J + 1;
+        K += N - J + 1;
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       } // 140
     }
@@ -204,7 +204,7 @@ double zlantp(
         for (J = 2; J <= N; J++) {
           // 280
           zlassq(J - 1, AP(K), 1, SCALE, SUM);
-          K = K + J;
+          K += J;
         } // 280
       } else {
         SCALE.value = ZERO;
@@ -213,7 +213,7 @@ double zlantp(
         for (J = 1; J <= N; J++) {
           // 290
           zlassq(J, AP(K), 1, SCALE, SUM);
-          K = K + J;
+          K += J;
         } // 290
       }
     } else {
@@ -224,7 +224,7 @@ double zlantp(
         for (J = 1; J <= N - 1; J++) {
           // 300
           zlassq(N - J, AP(K), 1, SCALE, SUM);
-          K = K + N - J + 1;
+          K += N - J + 1;
         } // 300
       } else {
         SCALE.value = ZERO;
@@ -233,7 +233,7 @@ double zlantp(
         for (J = 1; J <= N; J++) {
           // 310
           zlassq(N - J + 1, AP(K), 1, SCALE, SUM);
-          K = K + N - J + 1;
+          K += N - J + 1;
         } // 310
       }
     }

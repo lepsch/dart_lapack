@@ -147,7 +147,7 @@
                         // by ZLQT01
 
                         zlqt03(M, N, K, AF, AC, AL, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) );
-                        NT = NT + 4;
+                        NT += 4;
 
                         // If M<=N and K=M, call ZGELS to solve a system
                         // with NRHS right hand sides and compute the

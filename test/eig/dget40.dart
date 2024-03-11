@@ -111,7 +111,7 @@ Future<void> dget40(
     dget51(1, N, S, LDT, S2, LDT, Q, LDT, Z, LDT, WORK, RESULT.box(2));
     dget51(3, N, T, LDT, T2, LDT, Q, LDT, Q, LDT, WORK, RESULT.box(3));
     dget51(3, N, T, LDT, T2, LDT, Z, LDT, Z, LDT, WORK, RESULT.box(4));
-    RES = RES + RESULT[1] + RESULT[2] + RESULT[3] + RESULT[4];
+    RES += RESULT[1] + RESULT[2] + RESULT[3] + RESULT[4];
     // Read next matrix pair
   }
 }

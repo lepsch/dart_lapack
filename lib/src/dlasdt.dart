@@ -40,8 +40,8 @@ void dlasdt(
     // nodes created on this level is LLST * 2.
 
     for (I = 0; I <= LLST - 1; I++) {
-      IL = IL + 2;
-      IR = IR + 2;
+      IL += 2;
+      IR += 2;
       NCRNT = LLST + I;
       NDIML[IL] = NDIML[NCRNT] ~/ 2;
       NDIMR[IL] = NDIML[NCRNT] - NDIML[IL] - 1;

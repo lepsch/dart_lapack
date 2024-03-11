@@ -138,7 +138,7 @@ void dtprfs(
               // 30
               WORK[I] = WORK[I] + (AP[KC + I - 1]).abs() * XK;
             } // 30
-            KC = KC + K;
+            KC += K;
           } // 40
         } else {
           for (K = 1; K <= N; K++) {
@@ -149,7 +149,7 @@ void dtprfs(
               WORK[I] = WORK[I] + (AP[KC + I - 1]).abs() * XK;
             } // 50
             WORK[K] = WORK[K] + XK;
-            KC = KC + K;
+            KC += K;
           } // 60
         }
       } else {
@@ -162,7 +162,7 @@ void dtprfs(
               // 70
               WORK[I] = WORK[I] + (AP[KC + I - K]).abs() * XK;
             } // 70
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 80
         } else {
           for (K = 1; K <= N; K++) {
@@ -173,7 +173,7 @@ void dtprfs(
               WORK[I] = WORK[I] + (AP[KC + I - K]).abs() * XK;
             } // 90
             WORK[K] = WORK[K] + XK;
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 100
         }
       }
@@ -188,10 +188,10 @@ void dtprfs(
             S = ZERO;
             for (I = 1; I <= K; I++) {
               // 110
-              S = S + (AP[KC + I - 1]).abs() * (X[I][J]).abs();
+              S += (AP[KC + I - 1]).abs() * (X[I][J]).abs();
             } // 110
             WORK[K] = WORK[K] + S;
-            KC = KC + K;
+            KC += K;
           } // 120
         } else {
           for (K = 1; K <= N; K++) {
@@ -199,10 +199,10 @@ void dtprfs(
             S = (X[K][J]).abs();
             for (I = 1; I <= K - 1; I++) {
               // 130
-              S = S + (AP[KC + I - 1]).abs() * (X[I][J]).abs();
+              S += (AP[KC + I - 1]).abs() * (X[I][J]).abs();
             } // 130
             WORK[K] = WORK[K] + S;
-            KC = KC + K;
+            KC += K;
           } // 140
         }
       } else {
@@ -213,10 +213,10 @@ void dtprfs(
             S = ZERO;
             for (I = K; I <= N; I++) {
               // 150
-              S = S + (AP[KC + I - K]).abs() * (X[I][J]).abs();
+              S += (AP[KC + I - K]).abs() * (X[I][J]).abs();
             } // 150
             WORK[K] = WORK[K] + S;
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 160
         } else {
           for (K = 1; K <= N; K++) {
@@ -224,10 +224,10 @@ void dtprfs(
             S = (X[K][J]).abs();
             for (I = K + 1; I <= N; I++) {
               // 170
-              S = S + (AP[KC + I - K]).abs() * (X[I][J]).abs();
+              S += (AP[KC + I - K]).abs() * (X[I][J]).abs();
             } // 170
             WORK[K] = WORK[K] + S;
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 180
         }
       }

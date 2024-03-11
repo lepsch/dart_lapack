@@ -246,8 +246,8 @@ void zgesdd(
           // Path 5o (M >> N, JOBZ='O')
           MAXWRK = max(MAXWRK, 2 * N + LWORK_ZUNGBR_P_NN);
           MAXWRK = max(MAXWRK, 2 * N + LWORK_ZUNGBR_Q_MN);
-          MAXWRK = MAXWRK + M * N;
-          MINWRK = MINWRK + N * N;
+          MAXWRK += M * N;
+          MINWRK += N * N;
         } else if (WNTQS) {
           // Path 5s (M >> N, JOBZ='S')
           MAXWRK = max(MAXWRK, 2 * N + LWORK_ZUNGBR_P_NN);
@@ -266,8 +266,8 @@ void zgesdd(
           // Path 6o (M >= N, JOBZ='O')
           MAXWRK = max(MAXWRK, 2 * N + LWORK_ZUNMBR_PRC_NN);
           MAXWRK = max(MAXWRK, 2 * N + LWORK_ZUNMBR_QLN_MN);
-          MAXWRK = MAXWRK + M * N;
-          MINWRK = MINWRK + N * N;
+          MAXWRK += M * N;
+          MINWRK += N * N;
         } else if (WNTQS) {
           // Path 6s (M >= N, JOBZ='S')
           MAXWRK = max(MAXWRK, 2 * N + LWORK_ZUNMBR_QLN_MN);
@@ -375,8 +375,8 @@ void zgesdd(
           // Path 5to (N >> M, JOBZ='O')
           MAXWRK = max(MAXWRK, 2 * M + LWORK_ZUNGBR_Q_MM);
           MAXWRK = max(MAXWRK, 2 * M + LWORK_ZUNGBR_P_MN);
-          MAXWRK = MAXWRK + M * N;
-          MINWRK = MINWRK + M * M;
+          MAXWRK += M * N;
+          MINWRK += M * M;
         } else if (WNTQS) {
           // Path 5ts (N >> M, JOBZ='S')
           MAXWRK = max(MAXWRK, 2 * M + LWORK_ZUNGBR_Q_MM);
@@ -395,8 +395,8 @@ void zgesdd(
           // Path 6to (N > M, JOBZ='O')
           MAXWRK = max(MAXWRK, 2 * M + LWORK_ZUNMBR_QLN_MM);
           MAXWRK = max(MAXWRK, 2 * M + LWORK_ZUNMBR_PRC_MN);
-          MAXWRK = MAXWRK + M * N;
-          MINWRK = MINWRK + M * M;
+          MAXWRK += M * N;
+          MINWRK += M * M;
         } else if (WNTQS) {
           // Path 6ts (N > M, JOBZ='S')
           MAXWRK = max(MAXWRK, 2 * M + LWORK_ZUNMBR_QLN_MM);

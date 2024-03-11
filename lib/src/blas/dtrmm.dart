@@ -120,7 +120,7 @@ void dtrmm(
             TEMP = B[I][J];
             if (NOUNIT) TEMP = TEMP * A[I][I];
             for (K = 1; K <= I - 1; K++) {
-              TEMP = TEMP + A[K][I] * B[K][J];
+              TEMP += A[K][I] * B[K][J];
             }
             B[I][J] = ALPHA * TEMP;
           }
@@ -131,7 +131,7 @@ void dtrmm(
             TEMP = B[I][J];
             if (NOUNIT) TEMP = TEMP * A[I][I];
             for (K = I + 1; K <= M; K++) {
-              TEMP = TEMP + A[K][I] * B[K][J];
+              TEMP += A[K][I] * B[K][J];
             }
             B[I][J] = ALPHA * TEMP;
           }

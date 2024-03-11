@@ -35,7 +35,7 @@ double dlansp(
           SUM.value = AP[I].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
-        K = K + J;
+        K += J;
       }
     } else {
       K = 1;
@@ -44,7 +44,7 @@ double dlansp(
           SUM.value = AP[I].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
-        K = K + N - J + 1;
+        K += N - J + 1;
       }
     }
   } else if ((lsame(NORM, 'I')) || (lsame(NORM, 'O')) || (NORM == '1')) {
@@ -93,12 +93,12 @@ double dlansp(
     if (lsame(UPLO, 'U')) {
       for (J = 2; J <= N; J++) {
         dlassq(J - 1, AP(K), 1, SCALE, SUM);
-        K = K + J;
+        K += J;
       }
     } else {
       for (J = 1; J <= N - 1; J++) {
         dlassq(N - J, AP(K), 1, SCALE, SUM);
-        K = K + N - J + 1;
+        K += N - J + 1;
       }
     }
     SUM.value = 2 * SUM.value;
@@ -114,9 +114,9 @@ double dlansp(
         }
       }
       if (lsame(UPLO, 'U')) {
-        K = K + I + 1;
+        K += I + 1;
       } else {
-        K = K + N - I + 1;
+        K += N - I + 1;
       }
     }
     VALUE = SCALE.value * sqrt(SUM.value);

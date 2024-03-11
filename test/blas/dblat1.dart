@@ -325,7 +325,7 @@ void _check1(final double SFAC) {
       IX = 1;
       for (I = 1; I <= combla.N; I++) {
         SXR[IX] = DVR[I];
-        IX = IX + combla.INCX;
+        IX += combla.INCX;
       }
       _itest1(idamax(combla.N, SXR, combla.INCX), 3);
     }
@@ -1228,7 +1228,7 @@ void _db1nrm2(final int N, final int INCX, final double THRESH) {
 
   WORKSSQ = ZERO;
   for (I = 2; I <= N; I++) {
-    WORKSSQ = WORKSSQ + WORK[I] * WORK[I];
+    WORKSSQ += WORK[I] * WORK[I];
   }
 
   // Construct the test vector with one known value
@@ -1285,7 +1285,7 @@ void _db1nrm2(final int N, final int INCX, final double THRESH) {
       if (INCX < 0) IX = 1 - (N - 1) * INCX;
       for (I = 1; I <= N; I++) {
         X[IX] = Z[I];
-        IX = IX + INCX;
+        IX += INCX;
       }
 
       // Call DNRM2 to compute the 2-norm

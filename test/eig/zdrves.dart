@@ -560,8 +560,8 @@ void zdrves(
           }
         } // 210
 
-        NERRS = NERRS + NFAIL;
-        NTESTT = NTESTT + NTEST;
+        NERRS += NFAIL;
+        NTESTT += NTEST;
       } // 220
     } // 230
   } // 240

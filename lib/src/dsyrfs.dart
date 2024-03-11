@@ -129,7 +129,7 @@ void dsyrfs(
           XK = (X[K][J]).abs();
           for (I = 1; I <= K - 1; I++) {
             WORK[I] = WORK[I] + (A[I][K]).abs() * XK;
-            S = S + (A[I][K]).abs() * (X[I][J]).abs();
+            S += (A[I][K]).abs() * (X[I][J]).abs();
           }
           WORK[K] = WORK[K] + (A[K][K]).abs() * XK + S;
         }
@@ -140,7 +140,7 @@ void dsyrfs(
           WORK[K] = WORK[K] + (A[K][K]).abs() * XK;
           for (I = K + 1; I <= N; I++) {
             WORK[I] = WORK[I] + (A[I][K]).abs() * XK;
-            S = S + (A[I][K]).abs() * (X[I][J]).abs();
+            S += (A[I][K]).abs() * (X[I][J]).abs();
           }
           WORK[K] = WORK[K] + S;
         }

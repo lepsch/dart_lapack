@@ -515,7 +515,7 @@ void dlarrv(
               // eigenvalues of the child, but then the representation
               // tree could be different from the one when nothing is
               // skipped. For this reason we skip at this place.
-              IDONE = IDONE + NEWLST - NEWFST + 1;
+              IDONE += NEWLST - NEWFST + 1;
               NEWFST = J + 1;
               continue;
             }
@@ -553,7 +553,7 @@ void dlarrv(
               for (K = NEWFST; K <= NEWLST; K++) {
                 FUDGE = THREE * EPS * (WORK[WBEGIN + K - 1]).abs();
                 WORK[WBEGIN + K - 1] = WORK[WBEGIN + K - 1] - TAU.value;
-                FUDGE = FUDGE + FOUR * EPS * (WORK[WBEGIN + K - 1]).abs();
+                FUDGE += FOUR * EPS * (WORK[WBEGIN + K - 1]).abs();
                 // Fudge errors
                 WERR[WBEGIN + K - 1] = WERR[WBEGIN + K - 1] + FUDGE;
                 // Gaps are not fudged. Provided that WERR is small
@@ -768,7 +768,7 @@ void dlarrv(
                     WORK[WINDEX] = HALF * (RIGHT + LEFT);
                     // Take RQCORR.value since it has the correct sign and
                     // improves the iterate reasonably
-                    LAMBDA = LAMBDA + RQCORR.value;
+                    LAMBDA += RQCORR.value;
                     // Update width of error interval
                     WERR[WINDEX] = HALF * (RIGHT - LEFT);
                   } else {
@@ -830,8 +830,8 @@ void dlarrv(
               ISUPPZ[2 * WINDEX] = ISUPPZ[2 * WINDEX] + OLDIEN;
               ZFROM = ISUPPZ[2 * WINDEX - 1];
               ZTO = ISUPPZ[2 * WINDEX];
-              ISUPMN = ISUPMN + OLDIEN;
-              ISUPMX = ISUPMX + OLDIEN;
+              ISUPMN += OLDIEN;
+              ISUPMX += OLDIEN;
               // Ensure vector is ok if support in the RQI has changed
               if (ISUPMN < ZFROM) {
                 for (II = ISUPMN; II <= ZFROM - 1; II++) {

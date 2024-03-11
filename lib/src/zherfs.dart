@@ -138,7 +138,7 @@ void zherfs(
           for (I = 1; I <= K - 1; I++) {
             // 40
             RWORK[I] = RWORK[I] + CABS1(A[I][K]) * XK;
-            S = S + CABS1(A[I][K]) * CABS1(X[I][J]);
+            S += CABS1(A[I][K]) * CABS1(X[I][J]);
           } // 40
           RWORK[K] = RWORK[K] + A[K][K].toDouble().abs() * XK + S;
         } // 50
@@ -151,7 +151,7 @@ void zherfs(
           for (I = K + 1; I <= N; I++) {
             // 60
             RWORK[I] = RWORK[I] + CABS1(A[I][K]) * XK;
-            S = S + CABS1(A[I][K]) * CABS1(X[I][J]);
+            S += CABS1(A[I][K]) * CABS1(X[I][J]);
           } // 60
           RWORK[K] = RWORK[K] + S;
         } // 70

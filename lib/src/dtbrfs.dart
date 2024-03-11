@@ -188,7 +188,7 @@ void dtbrfs(
             S = ZERO;
             for (I = max(1, K - KD); I <= K; I++) {
               // 110
-              S = S + (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 110
             WORK[K] = WORK[K] + S;
           } // 120
@@ -198,7 +198,7 @@ void dtbrfs(
             S = (X[K][J]).abs();
             for (I = max(1, K - KD); I <= K - 1; I++) {
               // 130
-              S = S + (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 130
             WORK[K] = WORK[K] + S;
           } // 140
@@ -210,7 +210,7 @@ void dtbrfs(
             S = ZERO;
             for (I = K; I <= min(N, K + KD); I++) {
               // 150
-              S = S + (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 150
             WORK[K] = WORK[K] + S;
           } // 160
@@ -220,7 +220,7 @@ void dtbrfs(
             S = (X[K][J]).abs();
             for (I = K + 1; I <= min(N, K + KD); I++) {
               // 170
-              S = S + (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 170
             WORK[K] = WORK[K] + S;
           } // 180

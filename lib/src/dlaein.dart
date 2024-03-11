@@ -365,13 +365,13 @@ void dlaein(
         XI = VI[I];
         if (RIGHTV) {
           for (J = I + 1; J <= N; J++) {
-            XR = XR - B[I][J] * VR[J] + B[J + 1][I] * VI[J];
-            XI = XI - B[I][J] * VI[J] - B[J + 1][I] * VR[J];
+            XR -= B[I][J] * VR[J] + B[J + 1][I] * VI[J];
+            XI -= B[I][J] * VI[J] - B[J + 1][I] * VR[J];
           }
         } else {
           for (J = 1; J <= I - 1; J++) {
-            XR = XR - B[J][I] * VR[J] + B[I + 1][J] * VI[J];
-            XI = XI - B[J][I] * VI[J] - B[I + 1][J] * VR[J];
+            XR -= B[J][I] * VR[J] + B[I + 1][J] * VI[J];
+            XI -= B[J][I] * VI[J] - B[I + 1][J] * VR[J];
           }
         }
 

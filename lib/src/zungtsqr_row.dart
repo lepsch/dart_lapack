@@ -130,7 +130,7 @@ void zungtsqr_row(
       // Determine the column index JB_T for the current column block
       // in the matrix T.
 
-      JB_T = JB_T - N;
+      JB_T -= N;
 
       // Apply column blocks of H in the row block from right to left.
 

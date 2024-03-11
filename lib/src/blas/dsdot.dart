@@ -37,8 +37,8 @@ double dsdot(
     if (INCY < 0) KY = 1 + (1 - N) * INCY;
     for (I = 1; I <= N; I++) {
       result += SX[KX].toDouble() * SY[KY].toDouble();
-      KX = KX + INCX;
-      KY = KY + INCY;
+      KX += INCX;
+      KY += INCY;
     }
   }
   return result;

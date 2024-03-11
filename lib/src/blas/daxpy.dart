@@ -61,8 +61,8 @@ void daxpy(
     if (INCY < 0) IY = (-N + 1) * INCY + 1;
     for (I = 1; I <= N; I++) {
       DY[IY] = DY[IY] + DA * DX[IX];
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     }
   }
 }

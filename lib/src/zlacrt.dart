@@ -31,8 +31,8 @@ void zlacrt(
       CTEMP = C * CX[IX] + S * CY[IY];
       CY[IY] = C * CY[IY] - S * CX[IX];
       CX[IX] = CTEMP;
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     } // 10
     return;
   } // 20

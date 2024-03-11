@@ -171,7 +171,7 @@ void dtrrfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = 1; I <= K; I++) {
-              S = S + (A[I][K]).abs() * (X[I][J]).abs();
+              S += (A[I][K]).abs() * (X[I][J]).abs();
             }
             WORK[K] = WORK[K] + S;
           }
@@ -179,7 +179,7 @@ void dtrrfs(
           for (K = 1; K <= N; K++) {
             S = (X[K][J]).abs();
             for (I = 1; I <= K - 1; I++) {
-              S = S + (A[I][K]).abs() * (X[I][J]).abs();
+              S += (A[I][K]).abs() * (X[I][J]).abs();
             }
             WORK[K] = WORK[K] + S;
           }
@@ -189,7 +189,7 @@ void dtrrfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = K; I <= N; I++) {
-              S = S + (A[I][K]).abs() * (X[I][J]).abs();
+              S += (A[I][K]).abs() * (X[I][J]).abs();
             }
             WORK[K] = WORK[K] + S;
           }
@@ -197,7 +197,7 @@ void dtrrfs(
           for (K = 1; K <= N; K++) {
             S = (X[K][J]).abs();
             for (I = K + 1; I <= N; I++) {
-              S = S + (A[I][K]).abs() * (X[I][J]).abs();
+              S += (A[I][K]).abs() * (X[I][J]).abs();
             }
             WORK[K] = WORK[K] + S;
           }

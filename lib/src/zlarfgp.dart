@@ -85,7 +85,7 @@ void zlarfgp(
       TAU.value = -ALPHA.value / BETA.toComplex();
     } else {
       ALPHR = ALPHI * (ALPHI / ALPHA.value.toDouble());
-      ALPHR = ALPHR + XNORM * (XNORM / ALPHA.value.toDouble());
+      ALPHR += XNORM * (XNORM / ALPHA.value.toDouble());
       TAU.value = Complex(ALPHR / BETA, -ALPHI / BETA);
       ALPHA.value = Complex(-ALPHR, ALPHI);
     }

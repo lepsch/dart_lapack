@@ -292,7 +292,7 @@ void dchkgt(
         var IX = 1;
         for (var J = 1; J <= NRHS; J++) {
           dlarnv(2, ISEED, N, XACT(IX));
-          IX = IX + LDA;
+          IX += LDA;
         }
 
         for (var ITRAN = 1; ITRAN <= 3; ITRAN++) {

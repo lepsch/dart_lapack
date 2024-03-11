@@ -281,8 +281,8 @@ void zebchvxx(final double THRESH, final String PATH, Nout NOUT) {
         var SUMR = 0.0;
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMR = SUMR + S[I] * CABS1(A[I][J]) * S[J];
-          SUMRI = SUMRI + CABS1(INVHILB[I][J]) / (S[J] * S[I]);
+          SUMR += S[I] * CABS1(A[I][J]) * S[J];
+          SUMRI += CABS1(INVHILB[I][J]) / (S[J] * S[I]);
         }
         RNORM = max(RNORM, SUMR);
         RINORM = max(RINORM, SUMRI);
@@ -292,8 +292,8 @@ void zebchvxx(final double THRESH, final String PATH, Nout NOUT) {
         var SUMR = 0.0;
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMR = SUMR + R[I] * CABS1(A[I][J]) * C[J];
-          SUMRI = SUMRI + CABS1(INVHILB[I][J]) / (R[J] * C[I]);
+          SUMR += R[I] * CABS1(A[I][J]) * C[J];
+          SUMRI += CABS1(INVHILB[I][J]) / (R[J] * C[I]);
         }
         RNORM = max(RNORM, SUMR);
         RINORM = max(RINORM, SUMRI);
@@ -318,7 +318,7 @@ void zebchvxx(final double THRESH, final String PATH, Nout NOUT) {
     for (var I = 1; I <= N; I++) {
       var SUMRI = 0.0;
       for (var J = 1; J <= N; J++) {
-        SUMRI = SUMRI + CABS1(INVHILB[I][J] * RINV[J].toComplex());
+        SUMRI += CABS1(INVHILB[I][J] * RINV[J].toComplex());
       }
       RINORM = max(RINORM, SUMRI);
     }

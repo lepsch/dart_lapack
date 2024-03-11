@@ -543,7 +543,7 @@ void dchksb2stg(
 
           break;
         }
-        NTESTT = NTESTT + NTEST;
+        NTESTT += NTEST;
 
         // Print out tests which fail.
 

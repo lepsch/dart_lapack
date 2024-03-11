@@ -477,11 +477,11 @@ void dlatrs(
 
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
-              SUMJ = SUMJ + (A[I][J] * USCAL) * X[I];
+              SUMJ += (A[I][J] * USCAL) * X[I];
             }
           } else if (J < N) {
             for (I = J + 1; I <= N; I++) {
-              SUMJ = SUMJ + (A[I][J] * USCAL) * X[I];
+              SUMJ += (A[I][J] * USCAL) * X[I];
             }
           }
         }

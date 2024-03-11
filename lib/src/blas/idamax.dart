@@ -25,13 +25,13 @@ int idamax(final int N, final Array<double> DX_, final int INCX) {
     // code for increment not equal to 1
     IX = 1;
     DMAX = DX[1].abs();
-    IX = IX + INCX;
+    IX += INCX;
     for (var I = 2; I <= N; I++) {
       if (DX[IX].abs() > DMAX) {
         result = I;
         DMAX = DX[IX].abs();
       }
-      IX = IX + INCX;
+      IX += INCX;
     }
   }
   return result;

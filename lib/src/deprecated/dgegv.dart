@@ -107,7 +107,7 @@
 
       EPS = dlamch( 'E' )*dlamch( 'B' );
       SAFMIN = dlamch( 'S' );
-      SAFMIN = SAFMIN + SAFMIN;
+      SAFMIN += SAFMIN;
       SAFMAX = ONE / SAFMIN;
       ONEPLS = ONE + ( 4*EPS );
 

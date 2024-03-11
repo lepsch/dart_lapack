@@ -872,7 +872,7 @@ void zchkhs(
         // End of Loop -- Check for RESULT(j) > THRESH
       } // 240
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
       dlafts('ZHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
     } // 250
   } // 260

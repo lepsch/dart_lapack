@@ -143,7 +143,7 @@ void derrgg(
     infoc.INFOT = 13;
     dgghrd('N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, INFO);
     chkxer('DGGHRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DGGHD3
 
@@ -175,7 +175,7 @@ void derrgg(
     infoc.INFOT = 13;
     dgghd3('N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW, INFO);
     chkxer('DGGHD3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DHGEQZ
 
@@ -220,7 +220,7 @@ void derrgg(
     dhgeqz('E', 'N', 'V', 2, 1, 1, A, 2, B, 2, R1, R2, R3, Q, 1, Z, 1, W, LW,
         INFO);
     chkxer('DHGEQZ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DTGEVC
 
@@ -249,7 +249,7 @@ void derrgg(
     infoc.INFOT = 13;
     dtgevc('R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 2, 1, M, W, INFO);
     chkxer('DTGEVC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the GSV path.
   } else if (lsamen(3, PATH, 'GSV')) {
@@ -300,7 +300,7 @@ void derrgg(
     dggsvd3('N', 'N', 'Q', 1, 2, 1, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V,
         1, Q, 1, W, LWORK, IDUM, INFO);
     chkxer('DGGSVD3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // DGGSVP3
 
@@ -349,7 +349,7 @@ void derrgg(
     dggsvp3('N', 'N', 'Q', 1, 1, 2, A, 1, B, 1, TOLA.value, TOLB.value, DUMMYK,
         DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO);
     chkxer('DGGSVP3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // DTGSJA
 
@@ -398,7 +398,7 @@ void derrgg(
     dtgsja('N', 'N', 'Q', 0, 0, 0, DUMMYK.value, DUMMYL.value, A, 1, B, 1,
         TOLA.value, TOLB.value, R1, R2, U, 1, V, 1, Q, 0, W, NCYCLE, INFO);
     chkxer('DTGSJA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // Test error exits for the GLM path.
   } else if (lsamen(3, PATH, 'GLM')) {
@@ -429,7 +429,7 @@ void derrgg(
     infoc.INFOT = 12;
     dggglm(1, 1, 1, A, 1, B, 1, R1, R2, R3, W, 1, INFO);
     chkxer('DGGGLM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the LSE path.
   } else if (lsamen(3, PATH, 'LSE')) {
@@ -460,7 +460,7 @@ void derrgg(
     infoc.INFOT = 12;
     dgglse(1, 1, 1, A, 1, B, 1, R1, R2, R3, W, 1, INFO);
     chkxer('DGGLSE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the CSD path.
   } else if (lsamen(3, PATH, 'CSD')) {
@@ -499,7 +499,7 @@ void derrgg(
     dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1,
         A.asArray(), A, 1, A, 1, A, 1, A, -1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // Test error exits for the GQR path.
   } else if (lsamen(3, PATH, 'GQR')) {
@@ -524,7 +524,7 @@ void derrgg(
     infoc.INFOT = 11;
     dggqrf(1, 1, 2, A, 1, R1, B, 1, R2, W, 1, INFO);
     chkxer('DGGQRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DGGRQF
 
@@ -547,7 +547,7 @@ void derrgg(
     infoc.INFOT = 11;
     dggrqf(1, 1, 2, A, 1, R1, B, 1, R2, W, 1, INFO);
     chkxer('DGGRQF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // Test error exits for the DGS, DGV, DGX, and DXV paths.
   } else if (lsamen(3, PATH, 'DGS') ||
@@ -601,7 +601,7 @@ void derrgg(
     dgges('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2, W,
         1, BW, INFO);
     chkxer('DGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // DGGES3
 
@@ -650,7 +650,7 @@ void derrgg(
     dgges3('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2,
         W, 1, BW, INFO);
     chkxer('DGGES3 ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // DGGESX
 
@@ -707,7 +707,7 @@ void derrgg(
     dggesx('V', 'V', 'S', dlctsx, 'V', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U,
         1, RCE, RCV, W, 32, IW, 0, BW, INFO);
     chkxer('DGGESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // DGGEV
 
@@ -742,7 +742,7 @@ void derrgg(
     infoc.INFOT = 16;
     dggev('V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
     chkxer('DGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DGGEV3
 
@@ -782,7 +782,7 @@ void derrgg(
     infoc.INFOT = 16;
     dggev3('V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
     chkxer('DGGEV3 ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DGGEVX
 
@@ -835,7 +835,7 @@ void derrgg(
     dggevx('N', 'N', 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 2, ILO, IHI,
         LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO);
     chkxer('DGGEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // DTGEXC
 
@@ -864,7 +864,7 @@ void derrgg(
     infoc.INFOT = 15;
     dtgexc(true, true, 1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, W, 0, INFO);
     chkxer('DTGEXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // DTGSEN
 
@@ -917,7 +917,7 @@ void derrgg(
     dtgsen(2, true, true, SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA,
         TOLB, RCV, W, 20, IW, 1, INFO);
     chkxer('DTGSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // DTGSNA
 
@@ -958,7 +958,7 @@ void derrgg(
     dtgsna(
         'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 0, IW, INFO);
     chkxer('DTGSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DTGSYL
 
@@ -1011,7 +1011,7 @@ void derrgg(
     dtgsyl('N', 2, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1,
         IW, INFO);
     chkxer('DTGSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
   }
 
   // Print a summary line.

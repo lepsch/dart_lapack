@@ -85,11 +85,11 @@ void dtrsv(
             TEMP = X[JX];
             IX = JX;
             for (I = J - 1; I >= 1; I--) {
-              IX = IX - INCX;
+              IX -= INCX;
               X[IX] = X[IX] - TEMP * A[I][J];
             }
           }
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     } else {
@@ -111,11 +111,11 @@ void dtrsv(
             TEMP = X[JX];
             IX = JX;
             for (I = J + 1; I <= N; I++) {
-              IX = IX + INCX;
+              IX += INCX;
               X[IX] = X[IX] - TEMP * A[I][J];
             }
           }
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     }
@@ -127,7 +127,7 @@ void dtrsv(
         for (J = 1; J <= N; J++) {
           TEMP = X[J];
           for (I = 1; I <= J - 1; I++) {
-            TEMP = TEMP - A[I][J] * X[I];
+            TEMP -= A[I][J] * X[I];
           }
           if (NOUNIT) TEMP = TEMP / A[J][J];
           X[J] = TEMP;
@@ -138,12 +138,12 @@ void dtrsv(
           TEMP = X[JX];
           IX = KX;
           for (I = 1; I <= J - 1; I++) {
-            TEMP = TEMP - A[I][J] * X[IX];
-            IX = IX + INCX;
+            TEMP -= A[I][J] * X[IX];
+            IX += INCX;
           }
           if (NOUNIT) TEMP = TEMP / A[J][J];
           X[JX] = TEMP;
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     } else {
@@ -151,24 +151,24 @@ void dtrsv(
         for (J = N; J >= 1; J--) {
           TEMP = X[J];
           for (I = N; I >= J + 1; I--) {
-            TEMP = TEMP - A[I][J] * X[I];
+            TEMP -= A[I][J] * X[I];
           }
           if (NOUNIT) TEMP = TEMP / A[J][J];
           X[J] = TEMP;
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           TEMP = X[JX];
           IX = KX;
           for (I = N; I >= J + 1; I--) {
-            TEMP = TEMP - A[I][J] * X[IX];
-            IX = IX - INCX;
+            TEMP -= A[I][J] * X[IX];
+            IX -= INCX;
           }
           if (NOUNIT) TEMP = TEMP / A[J][J];
           X[JX] = TEMP;
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     }

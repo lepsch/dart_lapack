@@ -318,7 +318,7 @@ void dgesvdx(
         J = ITGKZ;
         for (I = 1; I <= NS.value; I++) {
           dcopy(N, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + N * 2;
+          J += N * 2;
         }
         dlaset('A', M - N, NS.value, ZERO, ZERO, U(N + 1, 1), LDU);
 
@@ -341,7 +341,7 @@ void dgesvdx(
         J = ITGKZ + N;
         for (I = 1; I <= NS.value; I++) {
           dcopy(N, WORK(J), 1, VT(I, 1).asArray(), LDVT);
-          J = J + N * 2;
+          J += N * 2;
         }
 
         // Call DORMBR to compute VB**T * PB**T
@@ -381,7 +381,7 @@ void dgesvdx(
         J = ITGKZ;
         for (I = 1; I <= NS.value; I++) {
           dcopy(N, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + N * 2;
+          J += N * 2;
         }
         dlaset('A', M - N, NS.value, ZERO, ZERO, U(N + 1, 1), LDU);
 
@@ -398,7 +398,7 @@ void dgesvdx(
         J = ITGKZ + N;
         for (I = 1; I <= NS.value; I++) {
           dcopy(N, WORK(J), 1, VT(I, 1).asArray(), LDVT);
-          J = J + N * 2;
+          J += N * 2;
         }
 
         // Call DORMBR to compute VB**T * PB**T
@@ -453,7 +453,7 @@ void dgesvdx(
         J = ITGKZ;
         for (I = 1; I <= NS.value; I++) {
           dcopy(M, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + M * 2;
+          J += M * 2;
         }
 
         // Call DORMBR to compute QB*UB.
@@ -469,7 +469,7 @@ void dgesvdx(
         J = ITGKZ + M;
         for (I = 1; I <= NS.value; I++) {
           dcopy(M, WORK(J), 1, VT(I, 1).asArray(), LDVT);
-          J = J + M * 2;
+          J += M * 2;
         }
         dlaset('A', NS.value, N - M, ZERO, ZERO, VT(1, M + 1), LDVT);
 
@@ -516,7 +516,7 @@ void dgesvdx(
         J = ITGKZ;
         for (I = 1; I <= NS.value; I++) {
           dcopy(M, WORK(J), 1, U(1, I).asArray(), 1);
-          J = J + M * 2;
+          J += M * 2;
         }
 
         // Call DORMBR to compute QB*UB.
@@ -532,7 +532,7 @@ void dgesvdx(
         J = ITGKZ + M;
         for (I = 1; I <= NS.value; I++) {
           dcopy(M, WORK(J), 1, VT(I, 1).asArray(), LDVT);
-          J = J + M * 2;
+          J += M * 2;
         }
         dlaset('A', NS.value, N - M, ZERO, ZERO, VT(1, M + 1), LDVT);
 

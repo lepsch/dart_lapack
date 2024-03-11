@@ -308,8 +308,8 @@ void zggbal(
     EWC = ZERO;
     for (I = ILO.value; I <= IHI.value; I++) {
       // 260
-      EW = EW + WORK[I + 4 * N];
-      EWC = EWC + WORK[I + 5 * N];
+      EW += WORK[I + 4 * N];
+      EWC += WORK[I + 5 * N];
     } // 260
 
     GAMMA = COEF * GAMMA -
@@ -342,12 +342,12 @@ void zggbal(
         // 290
         if (A[I][J] != Complex.zero) {
           KOUNT++;
-          SUM = SUM + WORK[J];
+          SUM += WORK[J];
         }
         // } // 280
         if (B[I][J] != Complex.zero) {
           KOUNT++;
-          SUM = SUM + WORK[J];
+          SUM += WORK[J];
         }
       } // 290
       WORK[I + 2 * N] = KOUNT.toDouble() * WORK[I + N] + SUM;
@@ -361,11 +361,11 @@ void zggbal(
         // 320
         if (A[I][J] != Complex.zero) {
           KOUNT++;
-          SUM = SUM + WORK[I + N];
+          SUM += WORK[I + N];
         }
         if (B[I][J] == Complex.zero) continue;
         KOUNT++;
-        SUM = SUM + WORK[I + N];
+        SUM += WORK[I + N];
       } // 320
       WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
     } // 330

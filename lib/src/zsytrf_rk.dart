@@ -124,7 +124,7 @@ void zsytrf_rk(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KB.value;
+      K -= KB.value;
     } // 15
   } else {
     // Factorize A as L*D*L**T using the lower triangle of A
@@ -182,7 +182,7 @@ void zsytrf_rk(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KB.value;
+      K += KB.value;
     } // 35
 
     // End Lower

@@ -128,7 +128,7 @@ void zhetrf_aa(
               J1 - K1 - 2, A(1, J2).asArray(), 1, A(1, IPIV[J2]).asArray(), 1);
         }
       }
-      J = J + JB;
+      J += JB;
 
       // Trailing submatrix update, where
       //  the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
@@ -257,7 +257,7 @@ void zhetrf_aa(
               LDA);
         }
       }
-      J = J + JB;
+      J += JB;
 
       // Trailing submatrix update, where
       //   A(J2+1, J1-1) stores L(J2+1, J1) and

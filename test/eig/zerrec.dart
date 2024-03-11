@@ -83,7 +83,7 @@ void zerrec(
   infoc.INFOT = 11;
   ztrsyl('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, INFO);
   chkxer('ZTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Test ZTRSYL3
 
@@ -120,7 +120,7 @@ void zerrec(
   ztrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE,
       SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Test ZTREXC
 
@@ -158,7 +158,7 @@ void zerrec(
   ILST = 2;
   ztrexc('V', 1, A, 1, B, 1, IFST, ILST, INFO);
   chkxer('ZTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Test ZTRSNA
 
@@ -199,7 +199,7 @@ void zerrec(
   ztrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK.asMatrix(), 1,
       RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 9;
+  NT += 9;
 
   // Test ZTRSEN
 
@@ -229,7 +229,7 @@ void zerrec(
   infoc.INFOT = 14;
   ztrsen('V', 'V', SEL, 3, A, 3, B, 3, X, M, S(1), SEP(1), WORK, 3, INFO);
   chkxer('ZTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  NT = NT + 8;
+  NT += 8;
 
   // Print a summary line.
 

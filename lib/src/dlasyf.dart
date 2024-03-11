@@ -270,7 +270,7 @@ void dlasyf(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KSTEP;
+      K -= KSTEP;
     }
 
     //  } // 30
@@ -541,7 +541,7 @@ void dlasyf(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KSTEP;
+      K += KSTEP;
     }
 
     //  } // 90

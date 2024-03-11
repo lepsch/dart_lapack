@@ -319,7 +319,7 @@ void zlasyf_rook(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KSTEP;
+      K -= KSTEP;
     } // 30
 
     // Update the upper triangle of A11 (= A(1:k,1:k)) as
@@ -616,7 +616,7 @@ void zlasyf_rook(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KSTEP;
+      K += KSTEP;
     } // 90
 
     // Update the lower triangle of A22 (= A(k:n,k:n)) as

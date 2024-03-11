@@ -80,7 +80,7 @@
                   AP[JC+I-1] = ZERO;
                } // 10
                AP[JC+J-1] = J;
-               JC = JC + J;
+               JC += J;
             } // 20
          } else {
             JC = 1;
@@ -89,7 +89,7 @@
                for (I = J + 1; I <= N; I++) { // 30
                   AP[JC+I-J] = ZERO;
                } // 30
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 40
          }
 
@@ -107,7 +107,7 @@
                   AP[JC+I] = ZERO;
                } // 50
                AP[JC+J] = J;
-               JC = JC + J;
+               JC += J;
             } // 60
          } else {
             JC = 1;
@@ -116,7 +116,7 @@
                for (I = J + 1; I <= N; I++) { // 70
                   AP[JC+I-J] = ZERO;
                } // 70
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 80
          }
 
@@ -216,9 +216,9 @@
                AP[JC+1] = Y;
                if (J > 2) AP( JC+J-1 ) = WORK( J-2 );
                IF[J > 3 ) AP( JC+J-2] = WORK( N+J-3 );
-               JC = JC + J;
+               JC += J;
             } // 100
-            JC = JC - N;
+            JC -= N;
             AP[JC+1] = Z;
             for (J = 2; J <= N - 1; J++) { // 110
                AP[JC+J] = Y;
@@ -237,7 +237,7 @@
                AP[JC+1] = WORK( J-1 );
                if (J < N-1) AP( JC+2 ) = WORK( N+J-1 );
                AP[JC+N-J] = Y;
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 130
          }
 
@@ -259,7 +259,7 @@
                      CTEMP = C*AP( JX+J ) + S*AP( JX+J+1 );
                      AP[JX+J+1] = -DCONJG( S )*AP( JX+J ) + C*AP( JX+J+1 );
                      AP[JX+J] = CTEMP;
-                     JX = JX + I;
+                     JX += I;
                   } // 140
                }
 
@@ -293,7 +293,7 @@
                      CTEMP = -C*AP( JX+J-I ) + S*AP( JX+J-I+1 );
                      AP[JX+J-I+1] = -DCONJG( S )*AP( JX+J-I ) - C*AP( JX+J-I+1 );
                      AP[JX+J-I] = CTEMP;
-                     JX = JX + N - I + 1;
+                     JX += N - I + 1;
                   } // 160
                }
 
@@ -319,14 +319,14 @@
             for (J = 1; J <= N; J++) { // 180
                zlarnv(4, ISEED, J-1, AP( JC ) );
                AP[JC+J-1] = ZLARND( 5, ISEED )*TWO;
-               JC = JC + J;
+               JC += J;
             } // 180
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 190
                if (J < N) zlarnv( 4, ISEED, N-J, AP( JC+1 ) );
                AP[JC] = ZLARND( 5, ISEED )*TWO;
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 190
          }
 
@@ -352,7 +352,7 @@
                zlarnv(4, ISEED, J-1, AP( JC ) );
                zdscal(J-1, TSCAL, AP( JC ), 1 );
                AP[JC+J-1] = ZLARND( 5, ISEED );
-               JC = JC + J;
+               JC += J;
             } // 200
             AP[N*( N+1 ) / 2] = SMLNUM*AP( N*( N+1 ) / 2 );
          } else {
@@ -361,7 +361,7 @@
                zlarnv(2, ISEED, N-J, AP( JC+1 ) );
                zdscal(N-J, TSCAL, AP( JC+1 ), 1 );
                AP[JC] = ZLARND( 5, ISEED );
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 210
             AP[1] = SMLNUM*AP( 1 );
          }
@@ -378,7 +378,7 @@
             for (J = 1; J <= N; J++) { // 220
                zlarnv(4, ISEED, J-1, AP( JC ) );
                AP[JC+J-1] = ZLARND( 5, ISEED );
-               JC = JC + J;
+               JC += J;
             } // 220
             AP[N*( N+1 ) / 2] = SMLNUM*AP( N*( N+1 ) / 2 );
          } else {
@@ -386,7 +386,7 @@
             for (J = 1; J <= N; J++) { // 230
                zlarnv(4, ISEED, N-J, AP( JC+1 ) );
                AP[JC] = ZLARND( 5, ISEED );
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 230
             AP[1] = SMLNUM*AP( 1 );
          }
@@ -411,7 +411,7 @@
                }
                JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
-               JC = JC - J + 1;
+               JC -= J + 1;
             } // 250
          } else {
             JCOUNT = 1;
@@ -427,7 +427,7 @@
                }
                JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 270
          }
 
@@ -464,7 +464,7 @@
                } // 300
                if (J > 1) AP( JC+J-2 ) = DCMPLX( -ONE, -ONE );
                AP[JC+J-1] = TSCAL*ZLARND( 5, ISEED );
-               JC = JC + J;
+               JC += J;
             } // 310
             B[N] = DCMPLX( ONE, ONE );
          } else {
@@ -475,7 +475,7 @@
                } // 320
                if (J < N) AP( JC+1 ) = DCMPLX( -ONE, -ONE );
                AP[JC] = TSCAL*ZLARND( 5, ISEED );
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 330
             B[1] = DCMPLX( ONE, ONE );
          }
@@ -494,7 +494,7 @@
                } else {
                   AP[JC+J-1] = ZERO;
                }
-               JC = JC + J;
+               JC += J;
             } // 340
          } else {
             JC = 1;
@@ -505,7 +505,7 @@
                } else {
                   AP[JC] = ZERO;
                }
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 350
          }
          zlarnv(2, ISEED, N, B );
@@ -530,12 +530,12 @@
                AP[JC] = -TSCAL / (N+1).toDouble();
                AP[JC+J-1] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               JC = JC - J + 1;
+               JC -= J + 1;
                AP[JC] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                AP[JC+J-2] = ONE;
                B[J-1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*TWO;
-               JC = JC - J + 2;
+               JC -= J + 2;
             } // 370
             B[1] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          } else {
@@ -544,12 +544,12 @@
                AP[JC+N-J] = -TSCAL / (N+1).toDouble();
                AP[JC] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
                AP[JC+N-J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                AP[JC] = ONE;
                B[J+1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*TWO;
-               JC = JC + N - J;
+               JC += N - J;
             } // 380
             B[N] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          }
@@ -565,14 +565,14 @@
             for (J = 1; J <= N; J++) { // 390
                zlarnv(4, ISEED, J-1, AP( JC ) );
                AP[JC+J-1] = ZERO;
-               JC = JC + J;
+               JC += J;
             } // 390
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 400
                if (J < N) zlarnv( 4, ISEED, N-J, AP( JC+1 ) );
                AP[JC] = ZERO;
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 400
          }
 
@@ -601,7 +601,7 @@
                for (I = 1; I <= J; I++) { // 410
                   AP[JC+I-1] = AP( JC+I-1 )*( TLEFT+RWORK( I )*TSCAL );
                } // 410
-               JC = JC + J;
+               JC += J;
             } // 420
          } else {
             JC = 1;
@@ -611,7 +611,7 @@
                for (I = J; I <= N; I++) { // 430
                   AP[JC+I-J] = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL );
                } // 430
-               JC = JC + N - J + 1;
+               JC += N - J + 1;
             } // 440
          }
          zlarnv(2, ISEED, N, B );
@@ -631,10 +631,10 @@
                   T = (AP( JR-I+J )).toDouble();
                   AP[JR-I+J] = AP( JL );
                   AP[JL] = T;
-                  JL = JL + I;
+                  JL += I;
                } // 450
-               JJ = JJ + J + 1;
-               JR = JR - ( N-J+1 );
+               JJ += J + 1;
+               JR -= ( N-J+1 );
             } // 460
          } else {
             JL = 1;
@@ -645,10 +645,10 @@
                   T = (AP( JL+I-J )).toDouble();
                   AP[JL+I-J] = AP( JR );
                   AP[JR] = T;
-                  JR = JR - I;
+                  JR -= I;
                } // 470
-               JL = JL + N - J + 1;
-               JJ = JJ - J - 1;
+               JL += N - J + 1;
+               JJ -= J - 1;
             } // 480
          }
       }

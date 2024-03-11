@@ -335,7 +335,7 @@ void dlaqr3(
       DD.value = T[I][I];
       dlanv2(AA, BB, CC, DD, SR.box(KWTOP + I - 2), SI.box(KWTOP + I - 2),
           SR.box(KWTOP + I - 1), SI.box(KWTOP + I - 1), CS, SN);
-      I = I - 2;
+      I -= 2;
     }
   }
 

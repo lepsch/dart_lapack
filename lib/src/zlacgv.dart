@@ -26,7 +26,7 @@ void zlacgv(
     for (I = 1; I <= N; I++) {
       // 20
       X[IOFF] = X[IOFF].conjugate();
-      IOFF = IOFF + INCX;
+      IOFF += INCX;
     } // 20
   }
 }

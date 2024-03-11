@@ -431,7 +431,7 @@ void zchkhb(
 
           break;
         } // 150
-        NTESTT = NTESTT + NTEST;
+        NTESTT += NTEST;
 
         // Print out tests which fail.
 

@@ -116,8 +116,8 @@ void dlasyf_aa(
 
           // Swap A(I1, I1+1:M) with A(I1+1:M, I2)
 
-          I1 = I1 + J - 1;
-          I2 = I2 + J - 1;
+          I1 += J - 1;
+          I2 += J - 1;
           dswap(I2 - I1 - 1, A(J1 + I1 - 1, I1 + 1).asArray(), LDA,
               A(J1 + I1, I2).asArray(), 1);
 
@@ -250,8 +250,8 @@ void dlasyf_aa(
 
           // Swap A(I1+1:M, I1) with A(I2, I1+1:M)
 
-          I1 = I1 + J - 1;
-          I2 = I2 + J - 1;
+          I1 += J - 1;
+          I2 += J - 1;
           dswap(I2 - I1 - 1, A(I1 + 1, J1 + I1 - 1).asArray(), 1,
               A(I2, J1 + I1).asArray(), LDA);
 

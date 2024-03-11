@@ -106,7 +106,7 @@ void dtgsy2(
     IWORK[P] = I;
     if (I == M) break;
     if (A[I + 1][I] != ZERO) {
-      I = I + 2;
+      I += 2;
     } else {
       I++;
     }
@@ -123,7 +123,7 @@ void dtgsy2(
     IWORK[Q] = J;
     if (J == N) break;
     if (B[J + 1][J] != ZERO) {
-      J = J + 2;
+      J += 2;
     } else {
       J++;
     }
@@ -392,8 +392,8 @@ void dtgsy2(
           for (JJ = 0; JJ <= NB - 1; JJ++) {
             dcopy(MB, C(IS, JS + JJ).asArray(), 1, RHS(K), 1);
             dcopy(MB, F(IS, JS + JJ).asArray(), 1, RHS(II), 1);
-            K = K + MB;
-            II = II + MB;
+            K += MB;
+            II += MB;
           }
 
           // Solve Z * x = RHS
@@ -420,8 +420,8 @@ void dtgsy2(
           for (JJ = 0; JJ <= NB - 1; JJ++) {
             dcopy(MB, RHS(K), 1, C(IS, JS + JJ).asArray(), 1);
             dcopy(MB, RHS(II), 1, F(IS, JS + JJ).asArray(), 1);
-            K = K + MB;
-            II = II + MB;
+            K += MB;
+            II += MB;
           }
 
           // Substitute R(I, J) and L(I, J) into remaining
@@ -696,8 +696,8 @@ void dtgsy2(
           for (JJ = 0; JJ <= NB - 1; JJ++) {
             dcopy(MB, C(IS, JS + JJ).asArray(), 1, RHS(K), 1);
             dcopy(MB, F(IS, JS + JJ).asArray(), 1, RHS(II), 1);
-            K = K + MB;
-            II = II + MB;
+            K += MB;
+            II += MB;
           }
 
           // Solve Z**T * x = RHS
@@ -721,8 +721,8 @@ void dtgsy2(
           for (JJ = 0; JJ <= NB - 1; JJ++) {
             dcopy(MB, RHS(K), 1, C(IS, JS + JJ).asArray(), 1);
             dcopy(MB, RHS(II), 1, F(IS, JS + JJ).asArray(), 1);
-            K = K + MB;
-            II = II + MB;
+            K += MB;
+            II += MB;
           }
 
           // Substitute R(I, J) and L(I, J) into remaining

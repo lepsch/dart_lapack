@@ -424,7 +424,7 @@ void dgeqp3rk(
         return;
       }
 
-      J = J + JBF.value;
+      J += JBF.value;
     }
   }
 

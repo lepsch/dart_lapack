@@ -75,10 +75,10 @@ void dsyr(
           IX = KX;
           for (I = 1; I <= J; I++) {
             A[I][J] = A[I][J] + X[IX] * TEMP;
-            IX = IX + INCX;
+            IX += INCX;
           }
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     }
   } else {
@@ -101,10 +101,10 @@ void dsyr(
           IX = JX;
           for (I = J; I <= N; I++) {
             A[I][J] = A[I][J] + X[IX] * TEMP;
-            IX = IX + INCX;
+            IX += INCX;
           }
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     }
   }

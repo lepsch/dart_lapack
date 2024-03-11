@@ -294,8 +294,8 @@ void dggbal(
     EW = ZERO;
     EWC = ZERO;
     for (I = ILO.value; I <= IHI.value; I++) {
-      EW = EW + WORK[I + 4 * N];
-      EWC = EWC + WORK[I + 5 * N];
+      EW += WORK[I + 4 * N];
+      EWC += WORK[I + 5 * N];
     }
 
     GAMMA = COEF * GAMMA -
@@ -325,11 +325,11 @@ void dggbal(
       for (J = ILO.value; J <= IHI.value; J++) {
         if (A[I][J] != ZERO) {
           KOUNT++;
-          SUM = SUM + WORK[J];
+          SUM += WORK[J];
         }
         if (B[I][J] == ZERO) continue;
         KOUNT++;
-        SUM = SUM + WORK[J];
+        SUM += WORK[J];
       }
       WORK[I + 2 * N] = KOUNT.toDouble() * WORK[I + N] + SUM;
     }
@@ -340,11 +340,11 @@ void dggbal(
       for (I = ILO.value; I <= IHI.value; I++) {
         if (A[I][J] != ZERO) {
           KOUNT++;
-          SUM = SUM + WORK[I + N];
+          SUM += WORK[I + N];
         }
         if (B[I][J] == ZERO) continue;
         KOUNT++;
-        SUM = SUM + WORK[I + N];
+        SUM += WORK[I + N];
       }
       WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
     }

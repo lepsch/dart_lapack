@@ -166,8 +166,8 @@ void zlargv(
     C[IC] = CS;
     Y[IY] = SN;
     X[IX] = R;
-    IC = IC + INCC;
-    IY = IY + INCY;
-    IX = IX + INCX;
+    IC += INCC;
+    IY += INCY;
+    IX += INCX;
   }
 }

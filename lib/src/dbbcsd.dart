@@ -260,7 +260,7 @@ void dbbcsd(
       return;
     }
 
-    ITER = ITER + IMAX - IMIN;
+    ITER += IMAX - IMIN;
 
     // Compute shifts
 

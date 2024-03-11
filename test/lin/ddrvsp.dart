@@ -147,18 +147,18 @@ void ddrvsp(
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF + I] = ZERO;
               }
-              IOFF = IOFF + IZERO;
+              IOFF += IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF] = ZERO;
-                IOFF = IOFF + I;
+                IOFF += I;
               }
             } else {
               var IOFF = IZERO;
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF] = ZERO;
-                IOFF = IOFF + N - I;
+                IOFF += N - I;
               }
-              IOFF = IOFF - IZERO;
+              IOFF -= IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF + I] = ZERO;
               }
@@ -173,7 +173,7 @@ void ddrvsp(
                 for (var I = 1; I <= I2; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + J;
+                IOFF += J;
               }
             } else {
               // Set the last IZERO rows and columns to zero.
@@ -183,7 +183,7 @@ void ddrvsp(
                 for (var I = I1; I <= N; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + N - J;
+                IOFF += N - J;
               }
             }
           }

@@ -153,18 +153,18 @@ void dchkpo(
             for (var I = 1; I <= IZERO - 1; I++) {
               A[IOFF + I] = ZERO;
             }
-            IOFF = IOFF + IZERO;
+            IOFF += IZERO;
             for (var I = IZERO; I <= N; I++) {
               A[IOFF] = ZERO;
-              IOFF = IOFF + LDA;
+              IOFF += LDA;
             }
           } else {
             IOFF = IZERO;
             for (var I = 1; I <= IZERO - 1; I++) {
               A[IOFF] = ZERO;
-              IOFF = IOFF + LDA;
+              IOFF += LDA;
             }
-            IOFF = IOFF - IZERO;
+            IOFF -= IZERO;
             for (var I = IZERO; I <= N; I++) {
               A[IOFF + I] = ZERO;
             }

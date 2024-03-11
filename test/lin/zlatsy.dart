@@ -69,7 +69,7 @@ void zlatsy(
       X[I - 2][I - 1] = R;
       X[I - 2][I - 2] = C;
       X[I - 1][I - 1] = zlarnd(2, ISEED);
-      I = I - 3;
+      I -= 3;
     }
     if (I > 1) {
       X[I][I] = zlarnd(2, ISEED);
@@ -79,7 +79,7 @@ void zlatsy(
       } else {
         X[I - 1][I] = TWO * X[I - 1][I - 1];
       }
-      I = I - 2;
+      I -= 2;
     } else if (I == 1) {
       X[I][I] = zlarnd(2, ISEED);
       I--;
@@ -128,7 +128,7 @@ void zlatsy(
       X[I + 2][I + 1] = R;
       X[I + 2][I + 2] = C;
       X[I + 1][I + 1] = zlarnd(2, ISEED);
-      I = I + 3;
+      I += 3;
     }
     if (I < N) {
       X[I][I] = zlarnd(2, ISEED);
@@ -138,7 +138,7 @@ void zlatsy(
       } else {
         X[I + 1][I] = TWO * X[I + 1][I + 1];
       }
-      I = I + 2;
+      I += 2;
     } else if (I == N) {
       X[I][I] = zlarnd(2, ISEED);
       I++;

@@ -112,7 +112,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 9;
     dsytrd('U', 0, A, 1, D, E, TAU, W, 0, INFO);
     chkxer('DSYTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // DSYTD2
 
@@ -126,7 +126,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 4;
     dsytd2('U', 2, A, 1, D, E, TAU, INFO);
     chkxer('DSYTD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DSYTRD_2STAGE
 
@@ -152,7 +152,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 12;
     dsytrd_2stage('N', 'U', 0, A, 1, D, E, TAU, C.asArray(), 1, W, 0, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // DSYTRD_SY2SB
 
@@ -175,7 +175,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 10;
     dsytrd_sy2sb('U', 0, 0, A, 1, C, 1, TAU, W, 0, INFO);
     chkxer('DSYTRD_SY2SB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DSYTRD_SB2ST
 
@@ -207,7 +207,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 13;
     dsytrd_sb2st('Y', 'N', 'U', 0, 0, A, 1, D, E, C.asArray(), 1, W, 0, INFO);
     chkxer('DSYTRD_SB2ST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DORGTR
 
@@ -224,7 +224,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 7;
     dorgtr('U', 3, A, 3, TAU, W, 1, INFO);
     chkxer('DORGTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // DORMTR
 
@@ -259,7 +259,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 12;
     dormtr('R', 'U', 'N', 2, 0, A, 1, TAU, C, 2, W, 1, INFO);
     chkxer('DORMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DSPTRD
 
@@ -270,7 +270,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 2;
     dsptrd('U', -1, A.asArray(), D, E, TAU, INFO);
     chkxer('DSPTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 2;
+    NT += 2;
 
     // DOPGTR
 
@@ -284,7 +284,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 6;
     dopgtr('U', 2, A.asArray(), TAU, Z, 1, W, INFO);
     chkxer('DOPGTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DOPMTR
 
@@ -307,7 +307,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 9;
     dopmtr('L', 'U', 'N', 2, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DPTEQR
 
@@ -321,7 +321,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 6;
     dpteqr('V', 2, D, E, Z, 1, W, INFO);
     chkxer('DPTEQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DSTEBZ
 
@@ -358,7 +358,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dstebz('I', 'E', 1, 0.0, 0.0, 1, 2, 0.0, D, E, M, NSPLIT, X, I1, I2, W, IW,
         INFO);
     chkxer('DSTEBZ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // DSTEIN
 
@@ -375,7 +375,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 9;
     dstein(2, D, E, 0, X, I1, I2, Z, 1, W, IW, I3, INFO);
     chkxer('DSTEIN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // DSTEQR
 
@@ -389,7 +389,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 6;
     dsteqr('V', 2, D, E, Z, 1, W, INFO);
     chkxer('DSTEQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DSTERF
 
@@ -429,7 +429,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 10;
     dstedc('V', 2, D, E, Z, 2, W, 23, IW, 0, INFO);
     chkxer('DSTEDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DSTEVD
 
@@ -455,7 +455,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 10;
     dstevd('V', 2, D, E, Z, 2, W, 19, IW, 11, INFO);
     chkxer('DSTEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 7;
+    NT += 7;
 
     // DSTEV
 
@@ -469,7 +469,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 6;
     dstev('V', 2, D, E, Z, 1, W, INFO);
     chkxer('DSTEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // DSTEVX
 
@@ -502,7 +502,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 14;
     dstevx('V', 'A', 2, D, E, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO);
     chkxer('DSTEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DSTEVR
 
@@ -546,7 +546,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dstevr('V', 'I', 1, D, E, 0.0, 0.0, 1, 1, 0.0, M, W, Z, 1, IW, X, 20 * N,
         IW(2 * N + 1), 10 * N - 1, INFO);
     chkxer('DSTEVR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DSYEVD
 
@@ -581,7 +581,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 10;
     dsyevd('V', 'U', 2, A, 2, X, W, 27, IW, 11, INFO);
     chkxer('DSYEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DSYEVD_2STAGE
 
@@ -619,7 +619,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     // infoc.INFOT = 10
     // CALL DSYEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 27, IW, 11, INFO )
     // CALL CHKXER( 'DSYEVD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK )
-    NT = NT + 9;
+    NT += 9;
 
     // DSYEVR
 
@@ -670,7 +670,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dsyevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW,
         Q.asArray(), 26 * N, IW(2 * N + 1), 0, INFO);
     chkxer('DSYEVR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // DSYEVR_2STAGE
 
@@ -724,7 +724,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dsyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW,
         Q.asArray(), 26 * N, IW(2 * N + 1), 0, INFO);
     chkxer('DSYEVR_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // DSYEV
 
@@ -744,7 +744,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 8;
     dsyev('N', 'U', 1, A, 1, X, W, 1, INFO);
     chkxer('DSYEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 5;
+    NT += 5;
 
     // DSYEV_2STAGE
 
@@ -767,7 +767,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 8;
     dsyev_2stage('N', 'U', 1, A, 1, X, W, 1, INFO);
     chkxer('DSYEV_2STAGE ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DSYEVX
 
@@ -819,7 +819,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dsyevx('V', 'A', 'U', 1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW,
         I3, INFO);
     chkxer('DSYEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 12;
+    NT += 12;
 
     // DSYEVX_2STAGE
 
@@ -875,7 +875,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dsyevx_2stage('N', 'A', 'U', 1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0,
         IW, I3, INFO);
     chkxer('DSYEVX_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // DSPEVD
 
@@ -910,7 +910,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 11;
     dspevd('V', 'U', 2, A.asArray(), X, Z, 2, W, 23, IW, 11, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // DSPEV
 
@@ -927,7 +927,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 7;
     dspev('V', 'U', 2, A.asArray(), W, Z, 1, X, INFO);
     chkxer('DSPEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // DSPEVX
 
@@ -971,7 +971,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dspevx('V', 'A', 'U', 2, A.asArray(), 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W,
         IW, I3, INFO);
     chkxer('DSPEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // Test error exits for the SB path.
   } else if (lsamen(2, C2, 'SB')) {
@@ -996,7 +996,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 10;
     dsbtrd('V', 'U', 2, 0, A, 1, D, E, Z, 1, W, INFO);
     chkxer('DSBTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DSYTRD_SB2ST
 
@@ -1028,7 +1028,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 13;
     dsytrd_sb2st('N', 'N', 'U', 0, 0, A, 1, D, E, C.asArray(), 1, W, 0, INFO);
     chkxer('DSYTRD_SB2ST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 9;
+    NT += 9;
 
     // DSBEVD
 
@@ -1066,7 +1066,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 13;
     dsbevd('V', 'U', 2, 0, A, 1, X, Z, 2, W, 25, IW, 11, INFO);
     chkxer('DSBEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 11;
+    NT += 11;
 
     // DSBEVD_2STAGE
 
@@ -1111,7 +1111,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     // $                                      25, IW, 11, INFO )
     // CALL CHKXER( 'DSBEVD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK )
     // NT = NT + 12
-    NT = NT + 9;
+    NT += 9;
 
     // DSBEV
 
@@ -1134,7 +1134,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 9;
     dsbev('V', 'U', 2, 0, A, 1, X, Z, 1, W, INFO);
     chkxer('DSBEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 6;
+    NT += 6;
 
     // DSBEV_2STAGE
 
@@ -1163,7 +1163,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 11;
     dsbev_2stage('N', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO);
     chkxer('DSBEV_2STAGE ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
 
     // DSBEVX
 
@@ -1220,7 +1220,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dsbevx('V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W,
         IW, I3, INFO);
     chkxer('DSBEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // DSBEVX_2STAGE
 
@@ -1286,7 +1286,7 @@ void derrst(final String PATH, final Nout NUNIT) {
         1, W, 0, IW, I3, INFO);
     chkxer('DSBEVX_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     // NT = NT + 15
-    NT = NT + 13;
+    NT += 13;
   }
 
   // Print a summary line.

@@ -187,7 +187,7 @@ void zhbgst(
         continue;
       }
     } else {
-      I = I + KA;
+      I += KA;
       if (I > N - 1) break;
     }
 
@@ -842,7 +842,7 @@ void zhbgst(
         continue;
       }
     } else {
-      I = I - KA;
+      I -= KA;
       if (I < 2) return;
     }
 

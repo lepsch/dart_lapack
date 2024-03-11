@@ -844,7 +844,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
           AA = (A[L]).toDouble();
           // U(n-1,n-1)
@@ -901,7 +901,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
         }
       } else {
@@ -934,7 +934,7 @@ double zlanhf(
               S.value = S.value + pow(AA / SCALE.value, 2);
             }
           }
-          L = L + LDA;
+          L += LDA;
           // -> U(0,0) at A(0,k)
           for (J = K; J <= N - 1; J++) {
             AA = (A[L]).toDouble();
@@ -957,7 +957,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
         } else {
           // A**H is lower
@@ -998,7 +998,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
           // L-> k-1 + (k-1)*lda or L(k-1,k-1) at A(k-1,k-1)
           AA = (A[L]).toDouble();
@@ -1052,7 +1052,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
         } else {
           // ilu=1 & A is lower
@@ -1089,7 +1089,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
         }
       } else {
@@ -1122,7 +1122,7 @@ double zlanhf(
               S.value = S.value + pow(AA / SCALE.value, 2);
             }
           }
-          L = L + LDA;
+          L += LDA;
           // -> U(0,0) at A(0,k+1)
           for (J = K + 1; J <= N - 1; J++) {
             AA = (A[L]).toDouble();
@@ -1145,7 +1145,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
           // L=k-1+n*lda
           // -> U(k-1,k-1) at A(k-1,n)
@@ -1210,7 +1210,7 @@ double zlanhf(
                 S.value = S.value + pow(AA / SCALE.value, 2);
               }
             }
-            L = L + LDA + 1;
+            L += LDA + 1;
           }
           // L-> k - 1 + k*lda or L(k-1,k-1) at A(k-1,k)
           AA = (A[L]).toDouble();

@@ -585,13 +585,13 @@ void dlamc4(final Box<int> EMIN, final double START, final int BASE) {
     C1 = dlamc3(B1 * BASE, ZERO);
     D1 = ZERO;
     for (I = 1; I <= BASE; I++) {
-      D1 = D1 + B1;
+      D1 += B1;
     }
     B2 = dlamc3(A * RBASE, ZERO);
     C2 = dlamc3(B2 / RBASE, ZERO);
     D2 = ZERO;
     for (I = 1; I <= BASE; I++) {
-      D2 = D2 + B2;
+      D2 += B2;
     }
   }
 }

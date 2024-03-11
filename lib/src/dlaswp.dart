@@ -47,7 +47,7 @@ void dlaswp(
             A[IP][K] = TEMP;
           }
         }
-        IX = IX + INCX;
+        IX += INCX;
       }
     }
   }
@@ -63,7 +63,7 @@ void dlaswp(
           A[IP][K] = TEMP;
         }
       }
-      IX = IX + INCX;
+      IX += INCX;
     }
   }
 }

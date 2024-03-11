@@ -99,12 +99,12 @@ void zgemv(
       if (BETA == Complex.zero) {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = Complex.zero;
-          IY = IY + INCY;
+          IY += INCY;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = BETA * Y[IY];
-          IY = IY + INCY;
+          IY += INCY;
         }
       }
     }
@@ -120,7 +120,7 @@ void zgemv(
         for (I = 1; I <= M; I++) {
           Y[I] = Y[I] + TEMP * A[I][J];
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -128,9 +128,9 @@ void zgemv(
         IY = KY;
         for (I = 1; I <= M; I++) {
           Y[IY] = Y[IY] + TEMP * A[I][J];
-          IY = IY + INCY;
+          IY += INCY;
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     }
   } else {
@@ -142,15 +142,15 @@ void zgemv(
         TEMP = Complex.zero;
         if (NOCONJ) {
           for (I = 1; I <= M; I++) {
-            TEMP = TEMP + A[I][J] * X[I];
+            TEMP += A[I][J] * X[I];
           }
         } else {
           for (I = 1; I <= M; I++) {
-            TEMP = TEMP + A[I][J].conjugate() * X[I];
+            TEMP += A[I][J].conjugate() * X[I];
           }
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -158,17 +158,17 @@ void zgemv(
         IX = KX;
         if (NOCONJ) {
           for (I = 1; I <= M; I++) {
-            TEMP = TEMP + A[I][J] * X[IX];
-            IX = IX + INCX;
+            TEMP += A[I][J] * X[IX];
+            IX += INCX;
           }
         } else {
           for (I = 1; I <= M; I++) {
-            TEMP = TEMP + A[I][J].conjugate() * X[IX];
-            IX = IX + INCX;
+            TEMP += A[I][J].conjugate() * X[IX];
+            IX += INCX;
           }
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
       }
     }
   }

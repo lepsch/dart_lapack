@@ -193,7 +193,7 @@
                            DO 30 I = max( 1, KU+2-J ), min( KL+KU+1, KU+1+( N-J ) );
                               A[IOFF+I] = ZERO;
                            } // 30
-                           IOFF = IOFF + LDA;
+                           IOFF += LDA;
                         } // 40
                      }
                   }

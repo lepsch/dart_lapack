@@ -258,7 +258,7 @@ void zdrvgt(
           var IX = 1;
           for (var J = 1; J <= NRHS; J++) {
             zlarnv(2, ISEED, N, XACT(IX));
-            IX = IX + LDA;
+            IX += LDA;
           }
 
           // Set the right hand side.

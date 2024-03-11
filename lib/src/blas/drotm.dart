@@ -67,8 +67,8 @@ void drotm(
         Z = DY[KY];
         DX[KX] = W * DH11 + Z * DH12;
         DY[KY] = W * DH21 + Z * DH22;
-        KX = KX + INCX;
-        KY = KY + INCY;
+        KX += INCX;
+        KY += INCY;
       }
     } else if (DFLAG == ZERO) {
       DH12 = DPARAM[4];
@@ -78,8 +78,8 @@ void drotm(
         Z = DY[KY];
         DX[KX] = W + Z * DH12;
         DY[KY] = W * DH21 + Z;
-        KX = KX + INCX;
-        KY = KY + INCY;
+        KX += INCX;
+        KY += INCY;
       }
     } else {
       DH11 = DPARAM[2];
@@ -89,8 +89,8 @@ void drotm(
         Z = DY[KY];
         DX[KX] = W * DH11 + Z;
         DY[KY] = -W + DH22 * Z;
-        KX = KX + INCX;
-        KY = KY + INCY;
+        KX += INCX;
+        KY += INCY;
       }
     }
   }

@@ -1511,7 +1511,7 @@ void dchkst(
         break;
       }
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
 
       // End of Loop -- Check for RESULT[j] > THRESH
 

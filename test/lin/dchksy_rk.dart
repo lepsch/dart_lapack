@@ -180,18 +180,18 @@ void dchksy_rk(
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF + I] = ZERO;
               }
-              IOFF = IOFF + IZERO;
+              IOFF += IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF] = ZERO;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             } else {
               var IOFF = IZERO;
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF] = ZERO;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
-              IOFF = IOFF - IZERO;
+              IOFF -= IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF + I] = ZERO;
               }
@@ -206,7 +206,7 @@ void dchksy_rk(
                 for (var I = 1; I <= I2; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             } else {
               // Set the last IZERO rows and columns to zero.
@@ -217,7 +217,7 @@ void dchksy_rk(
                 for (var I = I1; I <= N; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             }
           }
@@ -368,7 +368,7 @@ void dchksy_rk(
 
               // DTEMP should be bounded by CONST
 
-              DTEMP = DTEMP - CONST + THRESH;
+              DTEMP -= CONST + THRESH;
               if (DTEMP > RESULT[3]) RESULT[3] = DTEMP;
 
               K--;
@@ -396,7 +396,7 @@ void dchksy_rk(
 
               // DTEMP should be bounded by CONST
 
-              DTEMP = DTEMP - CONST + THRESH;
+              DTEMP -= CONST + THRESH;
               if (DTEMP > RESULT[3]) RESULT[3] = DTEMP;
 
               K++;
@@ -437,7 +437,7 @@ void dchksy_rk(
 
                 // DTEMP should be bounded by CONST
 
-                DTEMP = DTEMP - CONST + THRESH;
+                DTEMP -= CONST + THRESH;
                 if (DTEMP > RESULT[4]) RESULT[4] = DTEMP;
                 K--;
               }
@@ -469,7 +469,7 @@ void dchksy_rk(
 
                 // DTEMP should be bounded by CONST
 
-                DTEMP = DTEMP - CONST + THRESH;
+                DTEMP -= CONST + THRESH;
                 if (DTEMP > RESULT[4]) RESULT[4] = DTEMP;
                 K++;
               }

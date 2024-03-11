@@ -145,7 +145,7 @@ void zget22(
         WORK[JOFF + JROW] = E[JCOL][JROW].conjugate() * WTEMP;
       } // 90
     }
-    JOFF = JOFF + N;
+    JOFF += N;
   } // 100
 
   zgemm(TRANSA, TRANSE, N, N, N, Complex.one, A, LDA, E, LDE, -Complex.one,

@@ -210,9 +210,9 @@ void dlasda(
     } else {
       SQREI = 1;
     }
-    IDXQI = IDXQI + NLP1;
-    VFI = VFI + NLP1;
-    VLI = VLI + NLP1;
+    IDXQI += NLP1;
+    VFI += NLP1;
+    VLI += NLP1;
     NRP1 = NR + SQREI;
     if (ICOMPQ == 0) {
       dlaset('A', NRP1, NRP1, ZERO, ONE, WORK(NWORK1).asMatrix(SMLSZP), SMLSZP);

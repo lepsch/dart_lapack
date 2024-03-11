@@ -62,14 +62,14 @@ void ztptrs(
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
         // 10
         if (AP[JC + INFO.value - 1] == Complex.zero) return;
-        JC = JC + INFO.value;
+        JC += INFO.value;
       } // 10
     } else {
       JC = 1;
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
         // 20
         if (AP[JC] == Complex.zero) return;
-        JC = JC + N - INFO.value + 1;
+        JC += N - INFO.value + 1;
       } // 20
     }
   }

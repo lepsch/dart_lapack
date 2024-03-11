@@ -63,7 +63,7 @@ void zhptrs(
     K = N;
     KC = N * (N + 1) ~/ 2 + 1;
     while (K >= 1) {
-      KC = KC - K;
+      KC -= K;
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal block
 
@@ -116,8 +116,8 @@ void zhptrs(
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 20
-        KC = KC - K + 1;
-        K = K - 2;
+        KC -= K + 1;
+        K -= 2;
       }
     }
 
@@ -148,7 +148,7 @@ void zhptrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC + K;
+        KC += K;
         K++;
       } else {
         // 2 x 2 diagonal block
@@ -174,8 +174,8 @@ void zhptrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC + 2 * K + 1;
-        K = K + 2;
+        KC += 2 * K + 1;
+        K += 2;
       }
     } // 50
   } else {
@@ -211,7 +211,7 @@ void zhptrs(
 
         S = Complex.one.toDouble() / (AP[KC]).toDouble();
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
-        KC = KC + N - K + 1;
+        KC += N - K + 1;
         K++;
       } else {
         // 2 x 2 diagonal block
@@ -246,8 +246,8 @@ void zhptrs(
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 70
-        KC = KC + 2 * (N - K) + 1;
-        K = K + 2;
+        KC += 2 * (N - K) + 1;
+        K += 2;
       }
     } // 80
 
@@ -263,7 +263,7 @@ void zhptrs(
     // If K < 1, exit from loop.
 
     while (K >= 1) {
-      KC = KC - (N - K + 1);
+      KC -= (N - K + 1);
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal block
 
@@ -318,8 +318,8 @@ void zhptrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC - (N - K + 2);
-        K = K - 2;
+        KC -= (N - K + 2);
+        K -= 2;
       }
     } // 100
   }

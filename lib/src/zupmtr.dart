@@ -114,9 +114,9 @@ void zupmtr(
       AP[II] = AII;
 
       if (FORWRD) {
-        II = II + I + 2;
+        II += I + 2;
       } else {
-        II = II - I - 1;
+        II -= I - 1;
       }
     } // 10
   } else {
@@ -171,9 +171,9 @@ void zupmtr(
       AP[II] = AII;
 
       if (FORWRD) {
-        II = II + NQ - I + 1;
+        II += NQ - I + 1;
       } else {
-        II = II - NQ + I - 2;
+        II -= NQ + I - 2;
       }
     } // 20
   }

@@ -77,9 +77,9 @@ void dgetrf(
     JPIVSTART = J - NTOPIV;
     while (NTOPIV < KAHEAD) {
       dlaswp(NTOPIV, A(1, JPIVSTART), LDA, IPIVSTART, J, IPIV, 1);
-      IPIVSTART = IPIVSTART - NTOPIV;
+      IPIVSTART -= NTOPIV;
       NTOPIV = NTOPIV * 2;
-      JPIVSTART = JPIVSTART - NTOPIV;
+      JPIVSTART -= NTOPIV;
     }
 
     // Permute U block to match L
@@ -124,7 +124,7 @@ void dgetrf(
   while (J > 0) {
     NTOPIV = J & -J;
     dlaswp(NTOPIV, A(1, J - NTOPIV + 1), LDA, J + 1, NSTEP, IPIV, 1);
-    J = J - NTOPIV;
+    J -= NTOPIV;
   }
 
   // If short and wide, handle the rest of the columns.

@@ -62,7 +62,7 @@ void dopgtr(
         Q[I][J] = AP[IJ];
         IJ++;
       }
-      IJ = IJ + 2;
+      IJ += 2;
       Q[N][J] = ZERO;
     }
     for (I = 1; I <= N - 1; I++) {
@@ -91,7 +91,7 @@ void dopgtr(
         Q[I][J] = AP[IJ];
         IJ++;
       }
-      IJ = IJ + 2;
+      IJ += 2;
     }
     if (N > 1) {
       // Generate Q[2:n][2:n]

@@ -190,7 +190,7 @@ void dchkqr(
 
               dqrt03(M, N, K, AF.asMatrix(), AC.asMatrix(), AR.asMatrix(),
                   AQ.asMatrix(), LDA, TAU, WORK, LWORK, RWORK, RESULT(3));
-              NT = NT + 4;
+              NT += 4;
 
               // If M>=N and K=N, call DGELS to solve a system
               // with NRHS right hand sides and compute the

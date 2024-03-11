@@ -68,7 +68,7 @@ void zerrbd(
     infoc.INFOT = 10;
     zgebrd(2, 1, A, 2, D, E, TQ, TP, W, 1, INFO);
     chkxer('ZGEBRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 4;
+    NT += 4;
 
     // ZGEBD2
 
@@ -82,7 +82,7 @@ void zerrbd(
     infoc.INFOT = 4;
     zgebd2(2, 1, A, 1, D, E, TQ, TP, W, INFO);
     chkxer('ZGEBD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 3;
+    NT += 3;
 
     // ZUNGBR
 
@@ -117,7 +117,7 @@ void zerrbd(
     infoc.INFOT = 9;
     zungbr('Q', 2, 2, 1, A, 2, TQ, W, 1, INFO);
     chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 10;
+    NT += 10;
 
     // ZUNMBR
 
@@ -161,7 +161,7 @@ void zerrbd(
     infoc.INFOT = 13;
     zunmbr('Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0, INFO);
     chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 13;
+    NT += 13;
 
     // ZBDSQR
 
@@ -190,7 +190,7 @@ void zerrbd(
     infoc.INFOT = 13;
     zbdsqr('U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, RW, INFO);
     chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 8;
+    NT += 8;
   }
 
   // Print a summary line.

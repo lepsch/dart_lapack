@@ -65,7 +65,7 @@ void zspcon(
     for (I = N; I >= 1; I--) {
       // 10
       if (IPIV[I] > 0 && AP[IP] == Complex.zero) return;
-      IP = IP - I;
+      IP -= I;
     } // 10
   } else {
     // Lower triangular storage: examine D from top to bottom.
@@ -74,7 +74,7 @@ void zspcon(
     for (I = 1; I <= N; I++) {
       // 20
       if (IPIV[I] > 0 && AP[IP] == Complex.zero) return;
-      IP = IP + N - I + 1;
+      IP += N - I + 1;
     } // 20
   }
 

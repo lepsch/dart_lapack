@@ -209,7 +209,7 @@ void _check1(final double SFAC, final Nout NOUT) {
       IX = 1;
       for (I = 1; I <= combla.N; I++) {
         CXR[IX] = CVR[I];
-        IX = IX + combla.INCX;
+        IX += combla.INCX;
       }
       _itest1(izamax(combla.N, CXR, combla.INCX), 3, NOUT);
     }
@@ -675,7 +675,7 @@ void _zb1nrm2(
 
   WORKSSQ = ZERO;
   for (I = 1; I <= KS; I++) {
-    WORKSSQ = WORKSSQ + WORK[I] * WORK[I];
+    WORKSSQ += WORK[I] * WORK[I];
   }
 
   // Construct the test vector with one known value

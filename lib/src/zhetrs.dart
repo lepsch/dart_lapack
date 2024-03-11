@@ -117,7 +117,7 @@ void zhetrs(
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 20
-        K = K - 2;
+        K -= 2;
       }
     }
 
@@ -182,7 +182,7 @@ void zhetrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 2;
+        K += 2;
       }
     }
   } else {
@@ -251,7 +251,7 @@ void zhetrs(
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 70
-        K = K + 2;
+        K += 2;
       }
     } // 80
 
@@ -336,7 +336,7 @@ void zhetrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 2;
+        K -= 2;
       }
     } // 100
   }

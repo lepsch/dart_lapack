@@ -63,7 +63,7 @@ void zgeru(
           A[I][J] = A[I][J] + X[I] * TEMP;
         }
       }
-      JY = JY + INCY;
+      JY += INCY;
     }
   } else {
     if (INCX > 0) {
@@ -77,10 +77,10 @@ void zgeru(
         IX = KX;
         for (I = 1; I <= M; I++) {
           A[I][J] = A[I][J] + X[IX] * TEMP;
-          IX = IX + INCX;
+          IX += INCX;
         }
       }
-      JY = JY + INCY;
+      JY += INCY;
     }
   }
 }

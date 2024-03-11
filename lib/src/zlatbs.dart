@@ -487,7 +487,7 @@ void zlatbs(
             JLEN = min(KD, N - J);
             for (I = 1; I <= JLEN; I++) {
               // 140
-              CSUMJ = CSUMJ + (AB[I + 1][J] * USCAL) * X[J + I];
+              CSUMJ += (AB[I + 1][J] * USCAL) * X[J + I];
             } // 140
           }
         }
@@ -621,7 +621,7 @@ void zlatbs(
             JLEN = min(KD, N - J);
             for (I = 1; I <= JLEN; I++) {
               // 190
-              CSUMJ = CSUMJ + (AB[I + 1][J].conjugate() * USCAL) * X[J + I];
+              CSUMJ += (AB[I + 1][J].conjugate() * USCAL) * X[J + I];
             } // 190
           }
         }

@@ -92,11 +92,11 @@ void ztbmv(
             L = KPLUS1 - J;
             for (I = max(1, J - K); I <= J - 1; I++) {
               X[IX] = X[IX] + TEMP * A[L + I][J];
-              IX = IX + INCX;
+              IX += INCX;
             }
             if (NOUNIT) X[JX] = X[JX] * A[KPLUS1][J];
           }
-          JX = JX + INCX;
+          JX += INCX;
           if (J > K) KX = KX + INCX;
         }
       }
@@ -113,7 +113,7 @@ void ztbmv(
           }
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           if (X[JX] != Complex.zero) {
@@ -122,11 +122,11 @@ void ztbmv(
             L = 1 - J;
             for (I = min(N, J + K); I >= J + 1; I--) {
               X[IX] = X[IX] + TEMP * A[L + I][J];
-              IX = IX - INCX;
+              IX -= INCX;
             }
             if (NOUNIT) X[JX] = X[JX] * A[1][J];
           }
-          JX = JX - INCX;
+          JX -= INCX;
           if ((N - J) >= K) KX = KX - INCX;
         }
       }
@@ -143,39 +143,39 @@ void ztbmv(
           if (NOCONJ) {
             if (NOUNIT) TEMP = TEMP * A[KPLUS1][J];
             for (I = J - 1; I >= max(1, J - K); I--) {
-              TEMP = TEMP + A[L + I][J] * X[I];
+              TEMP += A[L + I][J] * X[I];
             }
           } else {
             if (NOUNIT) TEMP = TEMP * A[KPLUS1][J].conjugate();
             for (I = J - 1; I >= max(1, J - K); I--) {
-              TEMP = TEMP + A[L + I][J].conjugate() * X[I];
+              TEMP += A[L + I][J].conjugate() * X[I];
             }
           }
           X[J] = TEMP;
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           TEMP = X[JX];
-          KX = KX - INCX;
+          KX -= INCX;
           IX = KX;
           L = KPLUS1 - J;
           if (NOCONJ) {
             if (NOUNIT) TEMP = TEMP * A[KPLUS1][J];
             for (I = J - 1; I >= max(1, J - K); I--) {
-              TEMP = TEMP + A[L + I][J] * X[IX];
-              IX = IX - INCX;
+              TEMP += A[L + I][J] * X[IX];
+              IX -= INCX;
             }
           } else {
             if (NOUNIT) TEMP = TEMP * A[KPLUS1][J].conjugate();
             for (I = J - 1; I >= max(1, J - K); I--) {
-              TEMP = TEMP + A[L + I][J].conjugate() * X[IX];
-              IX = IX - INCX;
+              TEMP += A[L + I][J].conjugate() * X[IX];
+              IX -= INCX;
             }
           }
           X[JX] = TEMP;
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     } else {
@@ -186,12 +186,12 @@ void ztbmv(
           if (NOCONJ) {
             if (NOUNIT) TEMP = TEMP * A[1][J];
             for (I = J + 1; I <= min(N, J + K); I++) {
-              TEMP = TEMP + A[L + I][J] * X[I];
+              TEMP += A[L + I][J] * X[I];
             }
           } else {
             if (NOUNIT) TEMP = TEMP * A[1][J].conjugate();
             for (I = J + 1; I <= min(N, J + K); I++) {
-              TEMP = TEMP + A[L + I][J].conjugate() * X[I];
+              TEMP += A[L + I][J].conjugate() * X[I];
             }
           }
           X[J] = TEMP;
@@ -200,24 +200,24 @@ void ztbmv(
         JX = KX;
         for (J = 1; J <= N; J++) {
           TEMP = X[JX];
-          KX = KX + INCX;
+          KX += INCX;
           IX = KX;
           L = 1 - J;
           if (NOCONJ) {
             if (NOUNIT) TEMP = TEMP * A[1][J];
             for (I = J + 1; I <= min(N, J + K); I++) {
-              TEMP = TEMP + A[L + I][J] * X[IX];
-              IX = IX + INCX;
+              TEMP += A[L + I][J] * X[IX];
+              IX += INCX;
             }
           } else {
             if (NOUNIT) TEMP = TEMP * A[1][J].conjugate();
             for (I = J + 1; I <= min(N, J + K); I++) {
-              TEMP = TEMP + A[L + I][J].conjugate() * X[IX];
-              IX = IX + INCX;
+              TEMP += A[L + I][J].conjugate() * X[IX];
+              IX += INCX;
             }
           }
           X[JX] = TEMP;
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     }

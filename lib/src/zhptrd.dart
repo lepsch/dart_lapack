@@ -86,7 +86,7 @@ void zhptrd(
       AP[I1 + I - 1] = E[I].toComplex();
       D[I + 1] = AP[I1 + I].toDouble();
       TAU[I] = TAUI.value;
-      I1 = I1 - I;
+      I1 -= I;
     } // 10
     D[1] = AP[1].toDouble();
   } else {

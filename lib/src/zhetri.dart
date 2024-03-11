@@ -156,7 +156,7 @@ void zhetri(
         }
       }
 
-      K = K + KSTEP;
+      K += KSTEP;
     } // 50
   } else {
     // Compute inv(A) from the factorization A = L*D*L**H.
@@ -244,7 +244,7 @@ void zhetri(
         }
       }
 
-      K = K - KSTEP;
+      K -= KSTEP;
     } // 80
   }
 }

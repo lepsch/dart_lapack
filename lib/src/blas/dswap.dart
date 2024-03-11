@@ -54,8 +54,8 @@ void dswap(
       DTEMP = DX[IX];
       DX[IX] = DY[IY];
       DY[IY] = DTEMP;
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     }
   }
 }

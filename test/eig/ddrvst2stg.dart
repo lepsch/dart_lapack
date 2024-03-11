@@ -1057,7 +1057,7 @@ void ddrvst2stg(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSYEV_2STAGE';
           dsyev_2stage('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO);
           if (IINFO.value != 0) {
@@ -1140,7 +1140,7 @@ void ddrvst2stg(
           dsyt21(1, UPLO, N, 0, A, LDU, D1, D2, Z, LDU, V, LDU, TAU, WORK,
               RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSYEVX_2STAGE';
           dsyevx_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2,
               WA2, Z, LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
@@ -1196,7 +1196,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX_2STAGE';
           dsyevx_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3,
@@ -1248,7 +1248,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX_2STAGE';
           dsyevx_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3,
@@ -1349,7 +1349,7 @@ void ddrvst2stg(
             }
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSPEV';
           dspev('N', UPLO, N, WORK, D3, Z, LDU, V.asArray(), IINFO);
           if (IINFO.value != 0) {
@@ -1447,7 +1447,7 @@ void ddrvst2stg(
           dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
               RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1537,7 +1537,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1633,7 +1633,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1750,7 +1750,7 @@ void ddrvst2stg(
             }
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSBEV_2STAGE';
           dsbev_2stage(
               'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IINFO);
@@ -1819,7 +1819,7 @@ void ddrvst2stg(
           dsyt21(1, UPLO, N, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK,
               RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -1923,7 +1923,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -2028,7 +2028,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -2128,7 +2128,7 @@ void ddrvst2stg(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSYEVD_2STAGE';
           dsyevd_2stage(
               'N', UPLO, N, A, LDU, D3, WORK, LWORK, IWORK, LIWEDC, IINFO);
@@ -2223,7 +2223,7 @@ void ddrvst2stg(
             }
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSPEVD';
           dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK(INDX), LWEDC - INDX + 1,
               IWORK, LIWEDC, IINFO);
@@ -2314,7 +2314,7 @@ void ddrvst2stg(
             }
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSBEVD_2STAGE';
           dsbevd_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK,
               IWORK, LIWEDC, IINFO);
@@ -2370,7 +2370,7 @@ void ddrvst2stg(
           dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
               RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           srnamc.SRNAMT = 'DSYEVR_2STAGE';
           dsyevr_2stage(
               'N',
@@ -2446,7 +2446,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR_2STAGE';
           dsyevr_2stage(
@@ -2518,7 +2518,7 @@ void ddrvst2stg(
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR_2STAGE';
           dsyevr_2stage(
@@ -2578,7 +2578,7 @@ void ddrvst2stg(
 
       // End of Loop -- Check for RESULT[j] > THRESH
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
 
       dlafts('DST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
     }

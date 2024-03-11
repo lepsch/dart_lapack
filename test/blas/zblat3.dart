@@ -2078,9 +2078,9 @@ void _zchk4(
                         true);
                   }
                   if (UPPER) {
-                    JC = JC + LDC;
+                    JC += LDC;
                   } else {
-                    JC = JC + LDC + 1;
+                    JC += LDC + 1;
                   }
                   ERRMAX = max(ERRMAX, ERR.value);
                   // If got really bad answer, report and
@@ -2540,9 +2540,9 @@ void _zchk5(
                         true);
                   }
                   if (UPPER) {
-                    JC = JC + LDC;
+                    JC += LDC;
                   } else {
-                    JC = JC + LDC + 1;
+                    JC += LDC + 1;
                     if (TRAN) JJAB = JJAB + 2 * NMAX;
                   }
                   ERRMAX = max(ERRMAX, ERR.value);
@@ -3997,8 +3997,8 @@ Complex _zbeg(final Box<bool> RESET) {
   while (true) {
     _zbegI = _zbegI * _zbegMI;
     _zbegJ = _zbegJ * _zbegMJ;
-    _zbegI = _zbegI - 1000 * (_zbegI ~/ 1000);
-    _zbegJ = _zbegJ - 1000 * (_zbegJ ~/ 1000);
+    _zbegI -= 1000 * (_zbegI ~/ 1000);
+    _zbegJ -= 1000 * (_zbegJ ~/ 1000);
     if (_zbegIC < 5) break;
     _zbegIC = 0;
   }

@@ -143,7 +143,7 @@ void zlavsy_rook(
               zswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K + 2;
+          K += 2;
         }
       } // 30
 
@@ -228,7 +228,7 @@ void zlavsy_rook(
               zswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K - 2;
+          K -= 2;
         }
       } // 60
     }
@@ -316,7 +316,7 @@ void zlavsy_rook(
               B[K][J] = D21 * T1 + D22 * T2;
             } // 80
           }
-          K = K - 2;
+          K -= 2;
         }
       } // 90
 
@@ -397,7 +397,7 @@ void zlavsy_rook(
               B[K + 1][J] = D21 * T1 + D22 * T2;
             } // 110
           }
-          K = K + 2;
+          K += 2;
         }
       } // 120
     }

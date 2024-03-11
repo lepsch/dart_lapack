@@ -226,7 +226,7 @@ void zdrvgb(
                     I++) {
                   A[IOFF + I] = Complex.zero;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             }
           } else {

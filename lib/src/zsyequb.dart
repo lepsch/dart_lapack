@@ -133,7 +133,7 @@ void zsyequb(
     // avg = s^T beta / n
     AVG = 0.0;
     for (I = 1; I <= N; I++) {
-      AVG = AVG + S[I] * (WORK[I]).toDouble();
+      AVG += S[I] * (WORK[I]).toDouble();
     }
     AVG = AVG / N;
 
@@ -165,28 +165,28 @@ void zsyequb(
       if (UP) {
         for (J = 1; J <= I; J++) {
           T = CABS1(A[J][I]);
-          U = U + S[J] * T;
+          U += S[J] * T;
           WORK[J] = WORK[J] + (D * T).toComplex();
         }
         for (J = I + 1; J <= N; J++) {
           T = CABS1(A[I][J]);
-          U = U + S[J] * T;
+          U += S[J] * T;
           WORK[J] = WORK[J] + (D * T).toComplex();
         }
       } else {
         for (J = 1; J <= I; J++) {
           T = CABS1(A[I][J]);
-          U = U + S[J] * T;
+          U += S[J] * T;
           WORK[J] = WORK[J] + (D * T).toComplex();
         }
         for (J = I + 1; J <= N; J++) {
           T = CABS1(A[J][I]);
-          U = U + S[J] * T;
+          U += S[J] * T;
           WORK[J] = WORK[J] + (D * T).toComplex();
         }
       }
 
-      AVG = AVG + (U + (WORK[I]).toDouble()) * D / N;
+      AVG += (U + (WORK[I]).toDouble()) * D / N;
       S[I] = SI;
     }
   }

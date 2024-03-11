@@ -96,14 +96,14 @@
                   } // 40
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                } else {
-                  JC = JC + I;
+                  JC += I;
                   if ( UNIT ) {
                      TMP +=  CABS1( X( I, K ) );
-                     JC = JC + I;
+                     JC += I;
                   }
                   for (J = I + IFU; J <= N; J++) { // 50
                      TMP +=  CABS1( AP( JC ) )*CABS1( X( J, K ) );
-                     JC = JC + J;
+                     JC += J;
                   } // 50
                }
             } else {
@@ -111,7 +111,7 @@
                   JC = I;
                   for (J = 1; J <= I - IFU; J++) { // 60
                      TMP +=  CABS1( AP( JC ) )*CABS1( X( J, K ) );
-                     JC = JC + N - J;
+                     JC += N - J;
                   } // 60
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                } else {

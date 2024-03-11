@@ -94,7 +94,7 @@ void dlarrb(
     while (true) {
       NEGCNT = dlaneg(N, D, LLD, LEFT, PIVMIN, R);
       if (NEGCNT <= I - 1) break;
-      LEFT = LEFT - BACK;
+      LEFT -= BACK;
       BACK = TWO * BACK;
     }
 
@@ -105,7 +105,7 @@ void dlarrb(
     while (true) {
       NEGCNT = dlaneg(N, D, LLD, RIGHT, PIVMIN, R);
       if (NEGCNT >= I) break;
-      RIGHT = RIGHT + BACK;
+      RIGHT += BACK;
       BACK = TWO * BACK;
     }
     WIDTH = HALF * (LEFT - RIGHT).abs();

@@ -52,7 +52,7 @@ void zlaqsp(
           // 10
           AP[JC + I - 1] = (CJ * S[I]).toComplex() * AP[JC + I - 1];
         } // 10
-        JC = JC + J;
+        JC += J;
       } // 20
     } else {
       // Lower triangle of A is stored.
@@ -65,7 +65,7 @@ void zlaqsp(
           // 30
           AP[JC + I - J] = (CJ * S[I]).toComplex() * AP[JC + I - J];
         } // 30
-        JC = JC + N - J + 1;
+        JC += N - J + 1;
       } // 40
     }
     EQUED.value = 'Y';

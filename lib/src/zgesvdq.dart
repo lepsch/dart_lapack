@@ -271,7 +271,7 @@ void zgesvdq(
       if (RTRANS) {
         MINWRK = max(LWQP3, max(LWSVD, LWUNQ));
         if (CONDA) MINWRK = max(MINWRK, LWCON);
-        MINWRK = MINWRK + N;
+        MINWRK += N;
         if (WNTVA) {
           // .. minimal workspace length for N x N/2 ZGEQRF
           LWQRF = max(N ~/ 2, 1);
@@ -289,7 +289,7 @@ void zgesvdq(
       } else {
         MINWRK = max(LWQP3, max(LWSVD, LWUNQ));
         if (CONDA) MINWRK = max(MINWRK, LWCON);
-        MINWRK = MINWRK + N;
+        MINWRK += N;
         if (WNTVA) {
           // .. minimal workspace length for N/2 x N ZGELQF
           LWLQF = max(N ~/ 2, 1);

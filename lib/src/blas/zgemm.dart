@@ -130,7 +130,7 @@ void zgemm(
         for (I = 1; I <= M; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I].conjugate() * B[L][J];
+            TEMP += A[L][I].conjugate() * B[L][J];
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP;
@@ -146,7 +146,7 @@ void zgemm(
         for (I = 1; I <= M; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * B[L][J];
+            TEMP += A[L][I] * B[L][J];
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP;
@@ -206,7 +206,7 @@ void zgemm(
         for (I = 1; I <= M; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I].conjugate() * B[J][L].conjugate();
+            TEMP += A[L][I].conjugate() * B[J][L].conjugate();
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP;
@@ -222,7 +222,7 @@ void zgemm(
         for (I = 1; I <= M; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I].conjugate() * B[J][L];
+            TEMP += A[L][I].conjugate() * B[J][L];
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP;
@@ -240,7 +240,7 @@ void zgemm(
         for (I = 1; I <= M; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * B[J][L].conjugate();
+            TEMP += A[L][I] * B[J][L].conjugate();
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP;
@@ -256,7 +256,7 @@ void zgemm(
         for (I = 1; I <= M; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * B[J][L];
+            TEMP += A[L][I] * B[J][L];
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP;

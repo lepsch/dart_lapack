@@ -95,14 +95,14 @@ void dtpt05(
           }
           if (UNIT) TMP = TMP + X[I][K].abs();
         } else {
-          JC = JC + I;
+          JC += I;
           if (UNIT) {
             TMP += X[I][K].abs();
-            JC = JC + I;
+            JC += I;
           }
           for (var J = I + IFU; J <= N; J++) {
             TMP += AP[JC].abs() * X[J][K].abs();
-            JC = JC + J;
+            JC += J;
           }
         }
       } else {
@@ -110,7 +110,7 @@ void dtpt05(
           var JC = I;
           for (var J = 1; J <= I - IFU; J++) {
             TMP += AP[JC].abs() * X[J][K].abs();
-            JC = JC + N - J;
+            JC += N - J;
           }
           if (UNIT) TMP = TMP + X[I][K].abs();
         } else {

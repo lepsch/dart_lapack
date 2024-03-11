@@ -446,7 +446,7 @@ void zdrvst(
 
           zlacpy(' ', N, N, V, LDU, A, LDA);
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zheevd('N', UPLO, N, A, LDU, D3, WORK, LWEDC, RWORK, LRWEDC, IWORK,
               LIWEDC, IINFO);
           if (IINFO.value != 0) {
@@ -529,7 +529,7 @@ void zdrvst(
           zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
               RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zheevx('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
               LDU, WORK, LWORK, RWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
@@ -584,7 +584,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           zheevx('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
               LDU, WORK, LWORK, RWORK, IWORK, IWORK(5 * N + 1), IINFO);
@@ -640,7 +640,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           zheevx('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
               LDU, WORK, LWORK, RWORK, IWORK, IWORK(5 * N + 1), IINFO);
@@ -750,7 +750,7 @@ void zdrvst(
             } // 250
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           INDWRK = N * (N + 1) ~/ 2 + 1;
           zhpevd('N', UPLO, N, WORK, D3, Z, LDU, WORK(INDWRK), LWEDC, RWORK,
               LRWEDC, IWORK, LIWEDC, IINFO);
@@ -855,7 +855,7 @@ void zdrvst(
           zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
               RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -952,7 +952,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1049,7 +1049,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1178,7 +1178,7 @@ void zdrvst(
             } // 630
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zhbevd('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, RWORK,
               LRWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
@@ -1251,7 +1251,7 @@ void zdrvst(
           zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
               RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -1343,7 +1343,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -1434,7 +1434,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -1513,7 +1513,7 @@ void zdrvst(
 
           zlacpy(' ', N, N, V, LDU, A, LDA);
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zheev('N', UPLO, N, A, LDU, D3, WORK, LWORK, RWORK, IINFO);
           if (IINFO.value != 0) {
             _print9999(NOUNIT, 'ZHEEV(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1613,7 +1613,7 @@ void zdrvst(
             } // 1030
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           INDWRK = N * (N + 1) ~/ 2 + 1;
           zhpev('N', UPLO, N, WORK, D3, Z, LDU, WORK(INDWRK), RWORK, IINFO);
           if (IINFO.value != 0) {
@@ -1712,7 +1712,7 @@ void zdrvst(
             } // 1130
           }
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zhbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, RWORK, IINFO);
           if (IINFO.value != 0) {
             _print9998(
@@ -1788,7 +1788,7 @@ void zdrvst(
           zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
               RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zheevr(
               'N',
               'A',
@@ -1887,7 +1887,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zlacpy(' ', N, N, V, LDU, A, LDA);
           zheevr(
               'N',
@@ -1981,7 +1981,7 @@ void zdrvst(
           zhet22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
               WORK, RWORK, RESULT(NTEST));
 
-          NTEST = NTEST + 2;
+          NTEST += 2;
           zlacpy(' ', N, N, V, LDU, A, LDA);
           zheevr(
               'N',
@@ -2046,7 +2046,7 @@ void zdrvst(
 
       // End of Loop -- Check for RESULT(j) > THRESH
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
       dlafts('ZST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
     } // 1210
   } // 1220

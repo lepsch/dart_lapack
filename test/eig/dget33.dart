@@ -109,15 +109,15 @@ void dget33(
                     for (J2 = 1; J2 <= 2; J2++) {
                       SUM = T[J1][J2];
                       for (J3 = 1; J3 <= 2; J3++) {
-                        SUM = SUM - Q[J3][J1] * T2[J3][J2];
+                        SUM -= Q[J3][J1] * T2[J3][J2];
                       }
-                      RES = RES + (SUM).abs() / EPS / TNRM;
+                      RES += (SUM).abs() / EPS / TNRM;
                     }
                   }
                   if (T[2][1] != ZERO &&
                       (T[1][1] != T[2][2] ||
                           sign(ONE, T[1][2]) * sign(ONE, T[2][1]) > ZERO)) {
-                    RES = RES + ONE / EPS;
+                    RES += ONE / EPS;
                   }
                   KNT.value = KNT.value + 1;
                   if (RES > RMAX.value) {

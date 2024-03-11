@@ -146,7 +146,7 @@ void zsytri(
         }
       }
 
-      K = K + KSTEP;
+      K += KSTEP;
     } // 40
   } else {
     // Compute inv(A) from the factorization A = L*D*L**T.
@@ -225,7 +225,7 @@ void zsytri(
         }
       }
 
-      K = K - KSTEP;
+      K -= KSTEP;
     } // 60
   }
 }

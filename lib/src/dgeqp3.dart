@@ -198,7 +198,7 @@ void dgeqp3(
             N - J + 1,
           );
 
-          J = J + FJB.value;
+          J += FJB.value;
           continue;
         }
         break;

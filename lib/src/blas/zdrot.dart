@@ -39,8 +39,8 @@ void zdrot(
       CTEMP = C.toComplex() * ZX[IX] + S.toComplex() * ZY[IY];
       ZY[IY] = C.toComplex() * ZY[IY] - S.toComplex() * ZX[IX];
       ZX[IX] = CTEMP;
-      IX = IX + INCX;
-      IY = IY + INCY;
+      IX += INCX;
+      IY += INCY;
     }
   }
 }

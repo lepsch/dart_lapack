@@ -161,7 +161,7 @@ void zherk(
         for (I = 1; I <= J - 1; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I].conjugate() * A[L][J];
+            TEMP += A[L][I].conjugate() * A[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA.toComplex() * TEMP;
@@ -171,7 +171,7 @@ void zherk(
         }
         RTEMP = ZERO;
         for (L = 1; L <= K; L++) {
-          RTEMP = RTEMP + (A[L][J].conjugate() * A[L][J]).real;
+          RTEMP += (A[L][J].conjugate() * A[L][J]).real;
         }
         if (BETA == ZERO) {
           C[J][J] = (ALPHA * RTEMP).toComplex();
@@ -183,7 +183,7 @@ void zherk(
       for (J = 1; J <= N; J++) {
         RTEMP = ZERO;
         for (L = 1; L <= K; L++) {
-          RTEMP = RTEMP + (A[L][J].conjugate() * A[L][J]).toDouble();
+          RTEMP += (A[L][J].conjugate() * A[L][J]).toDouble();
         }
         if (BETA == ZERO) {
           C[J][J] = (ALPHA * RTEMP).toComplex();
@@ -193,7 +193,7 @@ void zherk(
         for (I = J + 1; I <= N; I++) {
           TEMP = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I].conjugate() * A[L][J];
+            TEMP += A[L][I].conjugate() * A[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA.toComplex() * TEMP;

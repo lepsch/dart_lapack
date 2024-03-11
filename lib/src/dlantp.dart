@@ -40,7 +40,7 @@ double dlantp(
             SUM.value = (AP[I]).abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
-          K = K + J;
+          K += J;
         }
       } else {
         for (J = 1; J <= N; J++) {
@@ -48,7 +48,7 @@ double dlantp(
             SUM.value = (AP[I]).abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
-          K = K + N - J + 1;
+          K += N - J + 1;
         }
       }
     } else {
@@ -59,7 +59,7 @@ double dlantp(
             SUM.value = (AP[I]).abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
-          K = K + J;
+          K += J;
         }
       } else {
         for (J = 1; J <= N; J++) {
@@ -67,7 +67,7 @@ double dlantp(
             SUM.value = (AP[I]).abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
-          K = K + N - J + 1;
+          K += N - J + 1;
         }
       }
     }
@@ -90,7 +90,7 @@ double dlantp(
             SUM.value = SUM.value + (AP[I]).abs();
           }
         }
-        K = K + J;
+        K += J;
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       }
     } else {
@@ -106,7 +106,7 @@ double dlantp(
             SUM.value = SUM.value + (AP[I]).abs();
           }
         }
-        K = K + N - J + 1;
+        K += N - J + 1;
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       }
     }
@@ -176,7 +176,7 @@ double dlantp(
         K = 2;
         for (J = 2; J <= N; J++) {
           dlassq(J - 1, AP(K), 1, SCALE, SUM);
-          K = K + J;
+          K += J;
         }
       } else {
         SCALE.value = ZERO;
@@ -184,7 +184,7 @@ double dlantp(
         K = 1;
         for (J = 1; J <= N; J++) {
           dlassq(J, AP(K), 1, SCALE, SUM);
-          K = K + J;
+          K += J;
         }
       }
     } else {
@@ -194,7 +194,7 @@ double dlantp(
         K = 2;
         for (J = 1; J <= N - 1; J++) {
           dlassq(N - J, AP(K), 1, SCALE, SUM);
-          K = K + N - J + 1;
+          K += N - J + 1;
         }
       } else {
         SCALE.value = ZERO;
@@ -202,7 +202,7 @@ double dlantp(
         K = 1;
         for (J = 1; J <= N; J++) {
           dlassq(N - J + 1, AP(K), 1, SCALE, SUM);
-          K = K + N - J + 1;
+          K += N - J + 1;
         }
       }
     }

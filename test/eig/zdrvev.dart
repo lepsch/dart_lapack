@@ -618,8 +618,8 @@ void zdrvev(
           }
         } // 240
 
-        NERRS = NERRS + NFAIL;
-        NTESTT = NTESTT + NTEST;
+        NERRS += NFAIL;
+        NTESTT += NTEST;
       } // 250
     } // 260
   } // 270

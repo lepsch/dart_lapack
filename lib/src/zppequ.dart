@@ -60,7 +60,7 @@ void zppequ(
     JJ = 1;
     for (I = 2; I <= N; I++) {
       // 10
-      JJ = JJ + I;
+      JJ += I;
       S[I] = AP[JJ].toDouble();
       SMIN = min(SMIN, S[I]);
       AMAX.value = max(AMAX.value, S[I]);
@@ -72,7 +72,7 @@ void zppequ(
     JJ = 1;
     for (I = 2; I <= N; I++) {
       // 20
-      JJ = JJ + N - I + 2;
+      JJ += N - I + 2;
       S[I] = AP[JJ].toDouble();
       SMIN = min(SMIN, S[I]);
       AMAX.value = max(AMAX.value, S[I]);

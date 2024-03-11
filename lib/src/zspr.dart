@@ -68,7 +68,7 @@ void zspr(
         } else {
           AP[KK + J - 1] = AP[KK + J - 1];
         }
-        KK = KK + J;
+        KK += J;
       } // 20
     } else {
       JX = KX;
@@ -80,14 +80,14 @@ void zspr(
           for (K = KK; K <= KK + J - 2; K++) {
             // 30
             AP[K] = AP[K] + X[IX] * TEMP;
-            IX = IX + INCX;
+            IX += INCX;
           } // 30
           AP[KK + J - 1] = AP[KK + J - 1] + X[JX] * TEMP;
         } else {
           AP[KK + J - 1] = AP[KK + J - 1];
         }
-        JX = JX + INCX;
-        KK = KK + J;
+        JX += INCX;
+        KK += J;
       } // 40
     }
   } else {
@@ -108,7 +108,7 @@ void zspr(
         } else {
           AP[KK] = AP[KK];
         }
-        KK = KK + N - J + 1;
+        KK += N - J + 1;
       } // 60
     } else {
       JX = KX;
@@ -120,14 +120,14 @@ void zspr(
           IX = JX;
           for (K = KK + 1; K <= KK + N - J; K++) {
             // 70
-            IX = IX + INCX;
+            IX += INCX;
             AP[K] = AP[K] + X[IX] * TEMP;
           } // 70
         } else {
           AP[KK] = AP[KK];
         }
-        JX = JX + INCX;
-        KK = KK + N - J + 1;
+        JX += INCX;
+        KK += N - J + 1;
       } // 80
     }
   }

@@ -79,10 +79,10 @@ void zsyr(
           for (I = 1; I <= J; I++) {
             // 30
             A[I][J] = A[I][J] + X[IX] * TEMP;
-            IX = IX + INCX;
+            IX += INCX;
           } // 30
         }
-        JX = JX + INCX;
+        JX += INCX;
       } // 40
     }
   } else {
@@ -109,10 +109,10 @@ void zsyr(
           for (I = J; I <= N; I++) {
             // 70
             A[I][J] = A[I][J] + X[IX] * TEMP;
-            IX = IX + INCX;
+            IX += INCX;
           } // 70
         }
-        JX = JX + INCX;
+        JX += INCX;
       } // 80
     }
   }

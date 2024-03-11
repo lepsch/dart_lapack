@@ -105,7 +105,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JP = JP + LDA;
+          JP += LDA;
         }
         for (I = 0; I <= N2 - 1; I++) {
           for (J = 1 + I; J <= N2; J++) {
@@ -123,7 +123,7 @@ void dtpttf(
           for (I = 0; I <= J; I++) {
             ARF[IJ] = AP[IJP];
             IJP++;
-            IJ = IJ + LDA;
+            IJ += LDA;
           }
         }
         JS = 0;
@@ -133,7 +133,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
       }
     } else {
@@ -157,7 +157,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JS = JS + LDA + 1;
+          JS += LDA + 1;
         }
       } else {
         // N is odd, TRANSR = 'T', and UPLO = 'U'
@@ -169,7 +169,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
         for (I = 0; I <= N1; I++) {
           for (IJ = I;
@@ -198,7 +198,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JP = JP + LDA;
+          JP += LDA;
         }
         for (I = 0; I <= K - 1; I++) {
           for (J = I; J <= K - 1; J++) {
@@ -216,7 +216,7 @@ void dtpttf(
           for (I = 0; I <= J; I++) {
             ARF[IJ] = AP[IJP];
             IJP++;
-            IJ = IJ + LDA;
+            IJ += LDA;
           }
         }
         JS = 0;
@@ -226,7 +226,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
       }
     } else {
@@ -248,7 +248,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JS = JS + LDA + 1;
+          JS += LDA + 1;
         }
       } else {
         // N is even, TRANSR = 'T', and UPLO = 'U'
@@ -260,7 +260,7 @@ void dtpttf(
             ARF[IJ] = AP[IJP];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
         for (I = 0; I <= K - 1; I++) {
           for (IJ = I; IJ <= I + (K + I) * LDA; IJ += LDA) {

@@ -51,7 +51,7 @@ void zlaswp(
             A[IP][K] = TEMP;
           } // 10
         }
-        IX = IX + INCX;
+        IX += INCX;
       } // 20
     } // 30
   }
@@ -69,7 +69,7 @@ void zlaswp(
           A[IP][K] = TEMP;
         } // 40
       }
-      IX = IX + INCX;
+      IX += INCX;
     } // 50
   }
 }

@@ -106,7 +106,7 @@ void dla_syamv(
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     } else {
       for (I = 1; I <= N; I++) {
@@ -135,7 +135,7 @@ void dla_syamv(
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     }
   } else {
@@ -157,19 +157,19 @@ void dla_syamv(
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
           for (J = I + 1; J <= N; J++) {
             TEMP = (A[I][J]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     } else {
       for (I = 1; I <= N; I++) {
@@ -189,19 +189,19 @@ void dla_syamv(
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
           for (J = I + 1; J <= N; J++) {
             TEMP = (A[J][I]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     }
   }

@@ -192,7 +192,7 @@ void dlaqr0(
     // .    for which there is sufficient workspace. ====
 
     NSMAX = min((N - 3) ~/ 6, 2 * LWORK ~/ 3);
-    NSMAX = NSMAX - (NSMAX % 2);
+    NSMAX -= (NSMAX % 2);
 
     // ==== NDFL: an iteration count restarted at deflation. ====
 
@@ -270,7 +270,7 @@ void dlaqr0(
       } else if (NDEC >= 0 || NW >= NWUPBD) {
         NDEC++;
         if (NW - NDEC < 2) NDEC = 0;
-        NW = NW - NDEC;
+        NW -= NDEC;
       }
 
       // ==== Aggressive early deflation:
@@ -322,7 +322,7 @@ void dlaqr0(
 
       // ==== Adjust KBOT accounting for new deflations. ====
 
-      KBOT = KBOT - LD.value;
+      KBOT -= LD.value;
 
       // ==== KS points to the shifts. ====
 
@@ -342,7 +342,7 @@ void dlaqr0(
         // .    did not provide that many shifts. ====
 
         NS = min(NSMAX, min(NSR, max(2, KBOT - KTOP)));
-        NS = NS - (NS % 2);
+        NS -= (NS % 2);
 
         // ==== If there have been no deflations
         // .    in a multiple of KEXSH iterations,
@@ -387,7 +387,7 @@ void dlaqr0(
               dlahqr(false, false, NS, 1, NS, H(KT, 1), LDH, WR(KS), WI(KS), 1,
                   1, ZDUM, 1, INF);
             }
-            KS = KS + INF.value;
+            KS += INF.value;
 
             // ==== In case of a rare QR failure use
             // .    eigenvalues of the trailing 2-by-2
@@ -474,7 +474,7 @@ void dlaqr0(
         // .    make the number of shifts even. ====
 
         NS = min(NS, KBOT - KS + 1);
-        NS = NS - (NS % 2);
+        NS -= (NS % 2);
         KS = KBOT - NS + 1;
 
         // ==== Small-bulge multi-shift QR sweep:

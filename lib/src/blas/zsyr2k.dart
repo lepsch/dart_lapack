@@ -156,8 +156,8 @@ void zsyr2k(
           TEMP1 = Complex.zero;
           TEMP2 = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP1 = TEMP1 + A[L][I] * B[L][J];
-            TEMP2 = TEMP2 + B[L][I] * A[L][J];
+            TEMP1 += A[L][I] * B[L][J];
+            TEMP2 += B[L][I] * A[L][J];
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP1 + ALPHA * TEMP2;
@@ -172,8 +172,8 @@ void zsyr2k(
           TEMP1 = Complex.zero;
           TEMP2 = Complex.zero;
           for (L = 1; L <= K; L++) {
-            TEMP1 = TEMP1 + A[L][I] * B[L][J];
-            TEMP2 = TEMP2 + B[L][I] * A[L][J];
+            TEMP1 += A[L][I] * B[L][J];
+            TEMP2 += B[L][I] * A[L][J];
           }
           if (BETA == Complex.zero) {
             C[I][J] = ALPHA * TEMP1 + ALPHA * TEMP2;

@@ -100,7 +100,7 @@ Future<void> dget36(
     // Test for small residual, and orthogonality of Q
 
     dhst01(N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RESULT);
-    RES = RES + RESULT[1] + RESULT[2];
+    RES += RESULT[1] + RESULT[2];
 
     // Test for T2 being in Schur form
 
@@ -113,13 +113,13 @@ Future<void> dget36(
         if (T2[LOC][LOC + 1] == ZERO ||
             T2[LOC][LOC] != T2[LOC + 1][LOC + 1] ||
             sign(ONE, T2[LOC][LOC + 1]) == sign(ONE, T2[LOC + 1][LOC])) {
-          RES = RES + ONE / EPS;
+          RES += ONE / EPS;
         }
         for (I = LOC + 2; I <= N; I++) {
           if (T2[I][LOC] != ZERO) RES = RES + ONE / RES;
           if (T2[I][LOC + 1] != ZERO) RES = RES + ONE / RES;
         }
-        LOC = LOC + 2;
+        LOC += 2;
       } else {
         // 1 by 1 block
 

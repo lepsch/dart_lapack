@@ -168,9 +168,9 @@ void dlaed6(
     TEMP1 = ZSCALE[I] * TEMP;
     TEMP2 = TEMP1 * TEMP;
     TEMP3 = TEMP2 * TEMP;
-    FC = FC + TEMP1 / DSCALE[I];
-    DF = DF + TEMP2;
-    DDF = DDF + TEMP3;
+    FC += TEMP1 / DSCALE[I];
+    DF += TEMP2;
+    DDF += TEMP3;
   }
   F = FINIT + TAU.value * FC;
 
@@ -236,10 +236,10 @@ void dlaed6(
           TEMP2 = TEMP1 * TEMP;
           TEMP3 = TEMP2 * TEMP;
           TEMP4 = TEMP1 / DSCALE[I];
-          FC = FC + TEMP4;
-          ERRETM = ERRETM + (TEMP4).abs();
-          DF = DF + TEMP2;
-          DDF = DDF + TEMP3;
+          FC += TEMP4;
+          ERRETM += (TEMP4).abs();
+          DF += TEMP2;
+          DDF += TEMP3;
         } else {
           break done;
         }

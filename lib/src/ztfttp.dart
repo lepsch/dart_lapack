@@ -106,7 +106,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JP = JP + LDA;
+          JP += LDA;
         }
         for (I = 0; I <= N2 - 1; I++) {
           for (J = 1 + I; J <= N2; J++) {
@@ -126,7 +126,7 @@ void ztfttp(
           for (I = 0; I <= J; I++) {
             AP[IJP] = ARF[IJ].conjugate();
             IJP++;
-            IJ = IJ + LDA;
+            IJ += LDA;
           }
         }
         JS = 0;
@@ -136,7 +136,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
       }
     } else {
@@ -162,7 +162,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JS = JS + LDA + 1;
+          JS += LDA + 1;
         }
       } else {
         // SRPA for UPPER, TRANSPOSE and N is odd
@@ -176,7 +176,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
         for (I = 0; I <= N1; I++) {
           for (IJ = I;
@@ -207,7 +207,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JP = JP + LDA;
+          JP += LDA;
         }
         for (I = 0; I <= K - 1; I++) {
           for (J = I; J <= K - 1; J++) {
@@ -227,7 +227,7 @@ void ztfttp(
           for (I = 0; I <= J; I++) {
             AP[IJP] = ARF[IJ].conjugate();
             IJP++;
-            IJ = IJ + LDA;
+            IJ += LDA;
           }
         }
         JS = 0;
@@ -237,7 +237,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
       }
     } else {
@@ -261,7 +261,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JS = JS + LDA + 1;
+          JS += LDA + 1;
         }
       } else {
         // SRPA for UPPER, TRANSPOSE and N is even (see paper)
@@ -275,7 +275,7 @@ void ztfttp(
             AP[IJP] = ARF[IJ];
             IJP++;
           }
-          JS = JS + LDA;
+          JS += LDA;
         }
         for (I = 0; I <= K - 1; I++) {
           for (IJ = I;

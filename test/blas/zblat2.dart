@@ -2428,12 +2428,12 @@ void _zchk5(
                   true);
               if (FULL) {
                 if (UPPER) {
-                  JA = JA + LDA;
+                  JA += LDA;
                 } else {
-                  JA = JA + LDA + 1;
+                  JA += LDA + 1;
                 }
               } else {
-                JA = JA + LJ;
+                JA += LJ;
               }
               ERRMAX = max(ERRMAX, ERR.value);
               // If got really bad answer, report and return.
@@ -2802,12 +2802,12 @@ void _zchk6(
                     true);
                 if (FULL) {
                   if (UPPER) {
-                    JA = JA + LDA;
+                    JA += LDA;
                   } else {
-                    JA = JA + LDA + 1;
+                    JA += LDA + 1;
                   }
                 } else {
-                  JA = JA + LJ;
+                  JA += LJ;
                 }
                 ERRMAX = max(ERRMAX, ERR.value);
                 // If got really bad answer, report and return.
@@ -3484,24 +3484,24 @@ void _zmvch(
       for (J = 1; J <= NL; J++) {
         YT[IY] = YT[IY] + A[J][I] * X[JX];
         G[IY] = G[IY] + ABS1(A[J][I]) * ABS1(X[JX]);
-        JX = JX + INCXL;
+        JX += INCXL;
       }
     } else if (CTRAN) {
       for (J = 1; J <= NL; J++) {
         YT[IY] = YT[IY] + A[J][I].conjugate() * X[JX];
         G[IY] = G[IY] + ABS1(A[J][I]) * ABS1(X[JX]);
-        JX = JX + INCXL;
+        JX += INCXL;
       }
     } else {
       for (J = 1; J <= NL; J++) {
         YT[IY] = YT[IY] + A[I][J] * X[JX];
         G[IY] = G[IY] + ABS1(A[I][J]) * ABS1(X[JX]);
-        JX = JX + INCXL;
+        JX += INCXL;
       }
     }
     YT[IY] = ALPHA * YT[IY] + BETA * Y[IY];
     G[IY] = ABS1(ALPHA) * G[IY] + ABS1(BETA) * ABS1(Y[IY]);
-    IY = IY + INCYL;
+    IY += INCYL;
   }
 
   // Compute the error ratio for this result.
@@ -3636,8 +3636,8 @@ Complex _zbeg(final Box<bool> RESET) {
   while (true) {
     _zbegI = _zbegI * _zbegMI;
     _zbegJ = _zbegJ * _zbegMJ;
-    _zbegI = _zbegI - 1000 * (_zbegI ~/ 1000);
-    _zbegJ = _zbegJ - 1000 * (_zbegJ ~/ 1000);
+    _zbegI -= 1000 * (_zbegI ~/ 1000);
+    _zbegJ -= 1000 * (_zbegJ ~/ 1000);
     if (_zbegIC < 5) break;
     _zbegIC = 0;
   }

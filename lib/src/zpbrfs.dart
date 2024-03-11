@@ -141,7 +141,7 @@ void zpbrfs(
           for (I = max(1, K - KD); I <= K - 1; I++) {
             // 40
             RWORK[I] = RWORK[I] + CABS1(AB[L + I][K]) * XK;
-            S = S + CABS1(AB[L + I][K]) * CABS1(X[I][J]);
+            S += CABS1(AB[L + I][K]) * CABS1(X[I][J]);
           } // 40
           RWORK[K] = RWORK[K] + AB[KD + 1][K].toDouble().abs() * XK + S;
         } // 50
@@ -155,7 +155,7 @@ void zpbrfs(
           for (I = K + 1; I <= min(N, K + KD); I++) {
             // 60
             RWORK[I] = RWORK[I] + CABS1(AB[L + I][K]) * XK;
-            S = S + CABS1(AB[L + I][K]) * CABS1(X[I][J]);
+            S += CABS1(AB[L + I][K]) * CABS1(X[I][J]);
           } // 60
           RWORK[K] = RWORK[K] + S;
         } // 70

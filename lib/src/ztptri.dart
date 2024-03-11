@@ -45,7 +45,7 @@ void ztptri(
       JJ = 0;
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
         // 10
-        JJ = JJ + INFO.value;
+        JJ += INFO.value;
         if (AP[JJ] == Complex.zero) return;
       } // 10
     } else {
@@ -53,7 +53,7 @@ void ztptri(
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
         // 20
         if (AP[JJ] == Complex.zero) return;
-        JJ = JJ + N - INFO.value + 1;
+        JJ += N - INFO.value + 1;
       } // 20
     }
     INFO.value = 0;
@@ -76,7 +76,7 @@ void ztptri(
 
       ztpmv('Upper', 'No transpose', DIAG, J - 1, AP, AP(JC), 1);
       zscal(J - 1, AJJ, AP(JC), 1);
-      JC = JC + J;
+      JC += J;
     } // 30
   } else {
     // Compute inverse of lower triangular matrix.
@@ -97,7 +97,7 @@ void ztptri(
         zscal(N - J, AJJ, AP(JC + 1), 1);
       }
       JCLAST = JC;
-      JC = JC - N + J - 2;
+      JC -= N + J - 2;
     } // 40
   }
 }

@@ -116,7 +116,7 @@ void zla_geamv(
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     } else {
       for (I = 1; I <= LENY; I++) {
@@ -139,7 +139,7 @@ void zla_geamv(
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     }
   } else {
@@ -161,12 +161,12 @@ void zla_geamv(
             SYMB_ZERO = SYMB_ZERO && (X[JX] == Complex.zero || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     } else {
       for (I = 1; I <= LENY; I++) {
@@ -186,12 +186,12 @@ void zla_geamv(
             SYMB_ZERO = SYMB_ZERO && (X[JX] == Complex.zero || TEMP == ZERO);
 
             Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
-            JX = JX + INCX;
+            JX += INCX;
           }
         }
         if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
 
-        IY = IY + INCY;
+        IY += INCY;
       }
     }
   }

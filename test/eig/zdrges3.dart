@@ -525,7 +525,7 @@ void zdrges3(
 
       // } // 160
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
 
       // Print out tests which fail.
 

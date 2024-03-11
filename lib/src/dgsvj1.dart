@@ -468,7 +468,7 @@ void dgsvj1(
             SVA[p] = AAPP.value;
           } else {
             if (AAPP.value == ZERO) {
-              NOTROT = NOTROT + min(jgl + KBL - 1, N).toInt() - jgl + 1;
+              NOTROT += min(jgl + KBL - 1, N).toInt() - jgl + 1;
             }
             if (AAPP.value < ZERO) NOTROT = 0;
             // **      if ( NOTROT >= EMPTSW )  GO TO 2011

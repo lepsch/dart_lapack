@@ -227,7 +227,7 @@ void zbdsqr(
 
       if (M <= 1) break;
       if (ITER >= N) {
-        ITER = ITER - N;
+        ITER -= N;
         ITERDIVN++;
         if (ITERDIVN >= MAXITDIVN) {
           // Maximum number of iterations exceeded, failure to converge
@@ -296,7 +296,7 @@ void zbdsqr(
           zdrot(NCC, C(M - 1, 1).asArray(), LDC, C(M, 1).asArray(), LDC,
               COSL.value, SINL.value);
         }
-        M = M - 2;
+        M -= 2;
         continue mainLoop;
       }
 
@@ -398,7 +398,7 @@ void zbdsqr(
 
       // Increment iteration count
 
-      ITER = ITER + M - LL;
+      ITER += M - LL;
 
       // If SHIFT.value = 0, do simplified QR iteration
 

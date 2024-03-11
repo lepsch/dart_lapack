@@ -33,13 +33,13 @@ int izmax1(
 
     IX = 1;
     DMAX = ZX[1].abs();
-    IX = IX + INCX;
+    IX += INCX;
     for (I = 2; I <= N; I++) {
       if (ZX[IX].abs() > DMAX) {
         result = I;
         DMAX = ZX[IX].abs();
       }
-      IX = IX + INCX;
+      IX += INCX;
     }
   }
   return result;

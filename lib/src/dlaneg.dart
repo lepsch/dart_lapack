@@ -56,7 +56,7 @@ int dlaneg(
         T = TMP * LLD[J] - SIGMA;
       }
     }
-    NEGCNT = NEGCNT + NEG1;
+    NEGCNT += NEG1;
   }
 
   // II) lower part: L D L^T - SIGMA I = U- D- U-^T
@@ -84,7 +84,7 @@ int dlaneg(
         P = TMP * D[J] - SIGMA;
       }
     }
-    NEGCNT = NEGCNT + NEG2;
+    NEGCNT += NEG2;
   }
 
   // III) Twist index

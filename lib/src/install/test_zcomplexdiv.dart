@@ -287,7 +287,7 @@ void main() {
   // Test (g) Infs
   for (i = 1; i <= nInf; i++) {
     // 70
-    nTests = nTests + 3;
+    nTests += 3;
     Y = cInf[i];
     R = Complex.zero / Y;
     if ((R != Complex.zero) && (R == R)) {
@@ -309,7 +309,7 @@ void main() {
   // Test (h) NaNs
   for (i = 1; i <= nNaN; i++) {
     // 80
-    nTests = nTests + 3;
+    nTests += 3;
     Y = cNaN[i];
     R = Complex.zero / Y;
     if (R == R) {

@@ -83,10 +83,10 @@ void dtbsv(
           }
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
-          KX = KX - INCX;
+          KX -= INCX;
           if (X[JX] != ZERO) {
             IX = KX;
             L = KPLUS1 - J;
@@ -94,10 +94,10 @@ void dtbsv(
             TEMP = X[JX];
             for (I = J - 1; I >= max(1, J - K); I--) {
               X[IX] = X[IX] - TEMP * A[L + I][J];
-              IX = IX - INCX;
+              IX -= INCX;
             }
           }
-          JX = JX - INCX;
+          JX -= INCX;
         }
       }
     } else {
@@ -115,7 +115,7 @@ void dtbsv(
       } else {
         JX = KX;
         for (J = 1; J <= N; J++) {
-          KX = KX + INCX;
+          KX += INCX;
           if (X[JX] != ZERO) {
             IX = KX;
             L = 1 - J;
@@ -123,10 +123,10 @@ void dtbsv(
             TEMP = X[JX];
             for (I = J + 1; I <= min(N, J + K); I++) {
               X[IX] = X[IX] - TEMP * A[L + I][J];
-              IX = IX + INCX;
+              IX += INCX;
             }
           }
-          JX = JX + INCX;
+          JX += INCX;
         }
       }
     }
@@ -140,7 +140,7 @@ void dtbsv(
           TEMP = X[J];
           L = KPLUS1 - J;
           for (I = max(1, J - K); I <= J - 1; I++) {
-            TEMP = TEMP - A[L + I][J] * X[I];
+            TEMP -= A[L + I][J] * X[I];
           }
           if (NOUNIT) TEMP = TEMP / A[KPLUS1][J];
           X[J] = TEMP;
@@ -152,12 +152,12 @@ void dtbsv(
           IX = KX;
           L = KPLUS1 - J;
           for (I = max(1, J - K); I <= J - 1; I++) {
-            TEMP = TEMP - A[L + I][J] * X[IX];
-            IX = IX + INCX;
+            TEMP -= A[L + I][J] * X[IX];
+            IX += INCX;
           }
           if (NOUNIT) TEMP = TEMP / A[KPLUS1][J];
           X[JX] = TEMP;
-          JX = JX + INCX;
+          JX += INCX;
           if (J > K) KX = KX + INCX;
         }
       }
@@ -167,25 +167,25 @@ void dtbsv(
           TEMP = X[J];
           L = 1 - J;
           for (I = min(N, J + K); I >= J + 1; I--) {
-            TEMP = TEMP - A[L + I][J] * X[I];
+            TEMP -= A[L + I][J] * X[I];
           }
           if (NOUNIT) TEMP = TEMP / A[1][J];
           X[J] = TEMP;
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           TEMP = X[JX];
           IX = KX;
           L = 1 - J;
           for (I = min(N, J + K); I >= J + 1; I--) {
-            TEMP = TEMP - A[L + I][J] * X[IX];
-            IX = IX - INCX;
+            TEMP -= A[L + I][J] * X[IX];
+            IX -= INCX;
           }
           if (NOUNIT) TEMP = TEMP / A[1][J];
           X[JX] = TEMP;
-          JX = JX - INCX;
+          JX -= INCX;
           if ((N - J) >= K) KX = KX - INCX;
         }
       }

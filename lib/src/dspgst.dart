@@ -55,7 +55,7 @@ void dspgst(
       JJ = 0;
       for (J = 1; J <= N; J++) {
         J1 = JJ + 1;
-        JJ = JJ + J;
+        JJ += J;
 
         // Compute the j-th column of the upper triangle of A
 
@@ -101,7 +101,7 @@ void dspgst(
       KK = 0;
       for (K = 1; K <= N; K++) {
         K1 = KK + 1;
-        KK = KK + K;
+        KK += K;
 
         // Update the upper triangle of A(1:k,1:k)
 

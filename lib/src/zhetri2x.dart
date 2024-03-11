@@ -118,7 +118,7 @@ void zhetri2x(
         WORK[K + 1][INVD + 1] = AK / D;
         WORK[K][INVD + 1] = -AKKP1 / D;
         WORK[K + 1][INVD] = WORK[K][INVD + 1].conjugate();
-        K = K + 2;
+        K += 2;
       }
     }
 
@@ -141,7 +141,7 @@ void zhetri2x(
         if ((COUNT % 2) == 1) NNB = NNB + 1;
       }
 
-      CUT = CUT - NNB;
+      CUT -= NNB;
 
       // U01 Block
 
@@ -181,7 +181,7 @@ void zhetri2x(
             WORK[I + 1][J] =
                 WORK[I + 1][INVD] * U01_I_J + WORK[I + 1][INVD + 1] * U01_IP1_J;
           }
-          I = I + 2;
+          I += 2;
         }
       }
 
@@ -203,7 +203,7 @@ void zhetri2x(
             WORK[U11 + I + 1][J] = WORK[CUT + I + 1][INVD] * U11_I_J +
                 WORK[CUT + I + 1][INVD + 1] * U11_IP1_J;
           }
-          I = I + 2;
+          I += 2;
         }
       }
 
@@ -290,7 +290,7 @@ void zhetri2x(
         WORK[K][INVD] = AK / D;
         WORK[K][INVD + 1] = -AKKP1 / D;
         WORK[K - 1][INVD + 1] = WORK[K][INVD + 1].conjugate();
-        K = K - 2;
+        K -= 2;
       }
     }
 
@@ -347,7 +347,7 @@ void zhetri2x(
             WORK[I - 1][J] = WORK[CUT + NNB + I - 1][INVD + 1] * U01_I_J +
                 WORK[CUT + NNB + I - 1][INVD] * U01_IP1_J;
           }
-          I = I - 2;
+          I -= 2;
         }
       }
 
@@ -369,7 +369,7 @@ void zhetri2x(
             WORK[U11 + I - 1][J] = WORK[CUT + I - 1][INVD + 1] * U11_I_J +
                 WORK[CUT + I - 1][INVD] * U11_IP1_J;
           }
-          I = I - 2;
+          I -= 2;
         }
       }
 
@@ -433,7 +433,7 @@ void zhetri2x(
 
       // Next Block
 
-      CUT = CUT + NNB;
+      CUT += NNB;
     }
 
     // Apply PERMUTATIONS P and P**H: P * inv(U**H)*inv(D)*inv(U) *P**H

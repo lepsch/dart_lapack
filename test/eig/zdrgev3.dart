@@ -523,7 +523,7 @@ void zdrgev3(
 
       // End of Loop -- Check for RESULT(j) > THRESH
 
-      NTESTT = NTESTT + 7;
+      NTESTT += 7;
 
       // Print out tests which fail.
 

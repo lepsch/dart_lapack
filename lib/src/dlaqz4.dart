@@ -293,7 +293,7 @@ void dlaqz4(
       dlacpy('ALL', N, NBLOCK, WORK.asMatrix(N), N, Z(1, K), LDZ);
     }
 
-    K = K + NP;
+    K += NP;
   }
 
   // The following block removes the shifts from the bottom right corner

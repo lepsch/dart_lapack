@@ -98,7 +98,7 @@ void zlaed7(
   PTR = 1 + pow(2, TLVLS).toInt();
   for (I = 1; I <= CURLVL - 1; I++) {
     // 10
-    PTR = PTR + pow(2, TLVLS - I).toInt();
+    PTR += pow(2, TLVLS - I).toInt();
   } // 10
   CURR = PTR + CURPBM;
   dlaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE,

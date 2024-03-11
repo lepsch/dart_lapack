@@ -17,7 +17,7 @@ double dasum(final int N, Array<double> DX, final int INCX) {
     M = (N % 6);
     if (M != 0) {
       for (I = 1; I <= M; I++) {
-        DTEMP = DTEMP + DX[I].abs();
+        DTEMP += DX[I].abs();
       }
       if (N < 6) {
         return DTEMP;
@@ -38,7 +38,7 @@ double dasum(final int N, Array<double> DX, final int INCX) {
 
     NINCX = N * INCX;
     for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-      DTEMP = DTEMP + DX[I].abs();
+      DTEMP += DX[I].abs();
     }
   }
   return DTEMP;

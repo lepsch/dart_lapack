@@ -110,8 +110,8 @@ void dlarrf(
   RSIGMA = max(W[CLSTRT], W[CLEND]) + WERR[CLEND];
 
   // Use a small fudge to make sure that we really shift to the outside
-  LSIGMA = LSIGMA - (LSIGMA).abs() * FOUR * EPS;
-  RSIGMA = RSIGMA + (RSIGMA).abs() * FOUR * EPS;
+  LSIGMA -= (LSIGMA).abs() * FOUR * EPS;
+  RSIGMA += (RSIGMA).abs() * FOUR * EPS;
 
   // Compute upper bounds for how much to back off the initial shifts
   LDMAX = QUART * MINGAP + TWO * PIVMIN;
@@ -249,7 +249,7 @@ void dlarrf(
               PROD = PROD * (WORK[N + I]).abs();
             }
             OLDP = PROD;
-            ZNM2 = ZNM2 + pow(PROD, 2);
+            ZNM2 += pow(PROD, 2);
             TMP = max(TMP, (DPLUS[I] * PROD).abs());
           }
           RRR1 = TMP / (SPDIAM * sqrt(ZNM2));
@@ -271,7 +271,7 @@ void dlarrf(
               PROD = PROD * (LPLUS[I]).abs();
             }
             OLDP = PROD;
-            ZNM2 = ZNM2 + pow(PROD, 2);
+            ZNM2 += pow(PROD, 2);
             TMP = max(TMP, (WORK[I] * PROD).abs());
           }
           RRR2 = TMP / (SPDIAM * sqrt(ZNM2));

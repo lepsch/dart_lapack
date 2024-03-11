@@ -151,18 +151,18 @@
                            for (I = 1; I <= IZERO - 1; I++) { // 20
                               A[IOFF+I] = ZERO;
                            } // 20
-                           IOFF = IOFF + IZERO;
+                           IOFF += IZERO;
                            for (I = IZERO; I <= N; I++) { // 30
                               A[IOFF] = ZERO;
-                              IOFF = IOFF + LDA;
+                              IOFF += LDA;
                            } // 30
                         } else {
                            IOFF = IZERO;
                            for (I = 1; I <= IZERO - 1; I++) { // 40
                               A[IOFF] = ZERO;
-                              IOFF = IOFF + LDA;
+                              IOFF += LDA;
                            } // 40
-                           IOFF = IOFF - IZERO;
+                           IOFF -= IZERO;
                            for (I = IZERO; I <= N; I++) { // 50
                               A[IOFF+I] = ZERO;
                            } // 50
@@ -178,7 +178,7 @@
                               for (I = 1; I <= I2; I++) { // 60
                                  A[IOFF+I] = ZERO;
                               } // 60
-                              IOFF = IOFF + LDA;
+                              IOFF += LDA;
                            } // 70
                         } else {
 
@@ -190,7 +190,7 @@
                               for (I = I1; I <= N; I++) { // 80
                                  A[IOFF+I] = ZERO;
                               } // 80
-                              IOFF = IOFF + LDA;
+                              IOFF += LDA;
                            } // 90
                         }
                      }

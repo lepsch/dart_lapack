@@ -138,7 +138,7 @@ void dpbrfs(
           for (I = max(1, K - KD); I <= K - 1; I++) {
             // 40
             WORK[I] = WORK[I] + (AB[L + I][K]).abs() * XK;
-            S = S + (AB[L + I][K]).abs() * (X[I][J]).abs();
+            S += (AB[L + I][K]).abs() * (X[I][J]).abs();
           } // 40
           WORK[K] = WORK[K] + (AB[KD + 1][K]).abs() * XK + S;
         } // 50
@@ -152,7 +152,7 @@ void dpbrfs(
           for (I = K + 1; I <= min(N, K + KD); I++) {
             // 60
             WORK[I] = WORK[I] + (AB[L + I][K]).abs() * XK;
-            S = S + (AB[L + I][K]).abs() * (X[I][J]).abs();
+            S += (AB[L + I][K]).abs() * (X[I][J]).abs();
           } // 60
           WORK[K] = WORK[K] + S;
         } // 70

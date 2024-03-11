@@ -183,7 +183,7 @@ void dsbgst(
         continue;
       }
     } else {
-      I = I + KA;
+      I += KA;
       if (I > N - 1) break;
     }
 
@@ -847,7 +847,7 @@ void dsbgst(
         continue;
       }
     } else {
-      I = I - KA;
+      I -= KA;
       if (I < 2) return;
     }
 

@@ -56,13 +56,13 @@ void dtpt03(
       var JJ = 1;
       for (var J = 1; J <= N; J++) {
         TNORM = max(TNORM, TSCAL * AP[JJ].abs() + CNORM[J]);
-        JJ = JJ + J + 1;
+        JJ += J + 1;
       }
     } else {
       var JJ = 1;
       for (var J = 1; J <= N; J++) {
         TNORM = max(TNORM, TSCAL * AP[JJ].abs() + CNORM[J]);
-        JJ = JJ + N - J + 1;
+        JJ += N - J + 1;
       }
     }
   } else {

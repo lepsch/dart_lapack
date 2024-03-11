@@ -127,18 +127,18 @@
                      for (I = 1; I <= IZERO - 1; I++) { // 20
                         A[IOFF+I] = ZERO;
                      } // 20
-                     IOFF = IOFF + IZERO;
+                     IOFF += IZERO;
                      for (I = IZERO; I <= N; I++) { // 30
                         A[IOFF] = ZERO;
-                        IOFF = IOFF + I;
+                        IOFF += I;
                      } // 30
                   } else {
                      IOFF = IZERO;
                      for (I = 1; I <= IZERO - 1; I++) { // 40
                         A[IOFF] = ZERO;
-                        IOFF = IOFF + N - I;
+                        IOFF += N - I;
                      } // 40
-                     IOFF = IOFF - IZERO;
+                     IOFF -= IZERO;
                      for (I = IZERO; I <= N; I++) { // 50
                         A[IOFF+I] = ZERO;
                      } // 50

@@ -53,7 +53,7 @@ void dpptri(
     for (J = 1; J <= N; J++) {
       // 10
       JC = JJ + 1;
-      JJ = JJ + J;
+      JJ += J;
       if (J > 1) dspr('Upper', J - 1, ONE, AP(JC), 1, AP);
       AJJ = AP[JJ];
       dscal(J, AJJ, AP(JC), 1);

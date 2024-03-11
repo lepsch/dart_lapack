@@ -443,7 +443,7 @@ void dlatbs(
           } else {
             JLEN = min(KD, N - J);
             for (I = 1; I <= JLEN; I++) {
-              SUMJ = SUMJ + (AB[I + 1][J] * USCAL) * X[J + I];
+              SUMJ += (AB[I + 1][J] * USCAL) * X[J + I];
             }
           }
         }

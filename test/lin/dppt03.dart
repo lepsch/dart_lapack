@@ -60,7 +60,7 @@ void dppt03(
     for (var J = 1; J <= N - 1; J++) {
       dcopy(J, AINV(JJ), 1, WORK(1, J + 1).asArray(), 1);
       dcopy(J - 1, AINV(JJ), 1, WORK(J, 2).asArray(), LDWORK);
-      JJ = JJ + J;
+      JJ += J;
     }
     JJ = ((N - 1) * N) ~/ 2 + 1;
     dcopy(N - 1, AINV(JJ), 1, WORK(N, 2).asArray(), LDWORK);
@@ -84,7 +84,7 @@ void dppt03(
     for (var J = 2; J <= N; J++) {
       dcopy(N - J + 1, AINV(JJ), 1, WORK(J, J - 1).asArray(), 1);
       dcopy(N - J, AINV(JJ + 1), 1, WORK(J, J).asArray(), LDWORK);
-      JJ = JJ + N - J + 1;
+      JJ += N - J + 1;
     }
 
     // Multiply by A

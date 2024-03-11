@@ -201,7 +201,7 @@ void ztgsyl(
     if (I > M) break;
     P++;
     IWORK[P] = I;
-    I = I + MB;
+    I += MB;
   } while (I < M);
 
   IWORK[P + 1] = M + 1;
@@ -216,7 +216,7 @@ void ztgsyl(
 
     Q++;
     IWORK[Q] = J;
-    J = J + NB;
+    J += NB;
   } while (J < N);
 
   IWORK[Q + 1] = N + 1;
@@ -267,7 +267,7 @@ void ztgsyl(
               DSCALE,
               LINFO);
           if (LINFO.value > 0) INFO.value = LINFO.value;
-          PQ = PQ + MB * NB;
+          PQ += MB * NB;
           if (SCALOC.value != ONE) {
             for (K = 1; K <= JS - 1; K++) {
               // 80

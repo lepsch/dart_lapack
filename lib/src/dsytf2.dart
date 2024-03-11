@@ -210,7 +210,7 @@ void dsytf2(
 
       // Decrease K and return to the start of the main loop
 
-      K = K - KSTEP;
+      K -= KSTEP;
     }
   } else {
     // Factorize A as L*D*L**T using the lower triangle of A
@@ -367,7 +367,7 @@ void dsytf2(
 
       // Increase K and return to the start of the main loop
 
-      K = K + KSTEP;
+      K += KSTEP;
     }
   }
 }

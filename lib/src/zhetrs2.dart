@@ -82,7 +82,7 @@ void zhetrs2(
         if (KP == -IPIV[K - 1]) {
           zswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 2;
+        K -= 2;
       }
     }
 
@@ -139,7 +139,7 @@ void zhetrs2(
         if (K < N && KP == -IPIV[K + 1]) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 2;
+        K += 2;
       }
     }
   } else {
@@ -163,7 +163,7 @@ void zhetrs2(
         if (KP == -IPIV[K]) {
           zswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 2;
+        K += 2;
       }
     }
 
@@ -218,7 +218,7 @@ void zhetrs2(
         if (K > 1 && KP == -IPIV[K - 1]) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 2;
+        K -= 2;
       }
     }
   }

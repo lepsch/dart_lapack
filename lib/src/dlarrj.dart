@@ -93,7 +93,7 @@ void dlarrj(
           if (DPLUS < ZERO) CNT = CNT + 1;
         }
         if (CNT > I - 1) {
-          LEFT = LEFT - WERR[II] * FAC;
+          LEFT -= WERR[II] * FAC;
           FAC = TWO * FAC;
           continue;
         }
@@ -113,7 +113,7 @@ void dlarrj(
           if (DPLUS < ZERO) CNT = CNT + 1;
         }
         if (CNT < I) {
-          RIGHT = RIGHT + WERR[II] * FAC;
+          RIGHT += WERR[II] * FAC;
           FAC = TWO * FAC;
           continue;
         }

@@ -218,7 +218,7 @@ void zlahqr(
                     (X / SX.toComplex()).imaginary * Y.imaginary <
                 RZERO) Y = -Y;
           }
-          T = T - U * zladiv(U, (X + Y));
+          T -= U * zladiv(U, (X + Y));
         }
       }
 

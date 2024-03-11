@@ -98,7 +98,7 @@ void zsymm(
           TEMP2 = Complex.zero;
           for (K = 1; K <= I - 1; K++) {
             C[K][J] = C[K][J] + TEMP1 * A[K][I];
-            TEMP2 = TEMP2 + B[K][J] * A[K][I];
+            TEMP2 += B[K][J] * A[K][I];
           }
           if (BETA == Complex.zero) {
             C[I][J] = TEMP1 * A[I][I] + ALPHA * TEMP2;
@@ -114,7 +114,7 @@ void zsymm(
           TEMP2 = Complex.zero;
           for (K = I + 1; K <= M; K++) {
             C[K][J] = C[K][J] + TEMP1 * A[K][I];
-            TEMP2 = TEMP2 + B[K][J] * A[K][I];
+            TEMP2 += B[K][J] * A[K][I];
           }
           if (BETA == Complex.zero) {
             C[I][J] = TEMP1 * A[I][I] + ALPHA * TEMP2;

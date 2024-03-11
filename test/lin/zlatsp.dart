@@ -43,21 +43,21 @@ void zlatsp(
       final R = C / BETA;
       X[JJ] = A;
       X[JJ - 2] = B;
-      JJ = JJ - J;
+      JJ -= J;
       X[JJ] = zlarnd(2, ISEED);
       X[JJ - 1] = R;
-      JJ = JJ - (J - 1);
+      JJ -= (J - 1);
       X[JJ] = C;
-      JJ = JJ - (J - 2);
+      JJ -= (J - 2);
       X[JJ] = zlarnd(2, ISEED);
-      JJ = JJ - (J - 3);
+      JJ -= (J - 3);
       X[JJ] = zlarnd(2, ISEED);
       if (X[JJ + (J - 3)].abs() > X[JJ].abs()) {
         X[JJ + (J - 4)] = TWO * X[JJ + (J - 3)];
       } else {
         X[JJ + (J - 4)] = TWO * X[JJ];
       }
-      JJ = JJ - (J - 4);
+      JJ -= (J - 4);
     }
 
     // Clean-up for N not a multiple of 5.
@@ -70,13 +70,13 @@ void zlatsp(
       final R = C / BETA;
       X[JJ] = A;
       X[JJ - 2] = B;
-      JJ = JJ - J;
+      JJ -= J;
       X[JJ] = zlarnd(2, ISEED);
       X[JJ - 1] = R;
-      JJ = JJ - (J - 1);
+      JJ -= (J - 1);
       X[JJ] = C;
-      JJ = JJ - (J - 2);
-      J = J - 3;
+      JJ -= (J - 2);
+      J -= 3;
     }
     if (J > 1) {
       X[JJ] = zlarnd(2, ISEED);
@@ -86,8 +86,8 @@ void zlatsp(
       } else {
         X[JJ - 1] = TWO * X[JJ - J];
       }
-      JJ = JJ - J - (J - 1);
-      J = J - 2;
+      JJ -= J - (J - 1);
+      J -= 2;
     } else if (J == 1) {
       X[JJ] = zlarnd(2, ISEED);
       J--;
@@ -105,21 +105,21 @@ void zlatsp(
       final R = C / BETA;
       X[JJ] = A;
       X[JJ + 2] = B;
-      JJ = JJ + (N - J + 1);
+      JJ += (N - J + 1);
       X[JJ] = zlarnd(2, ISEED);
       X[JJ + 1] = R;
-      JJ = JJ + (N - J);
+      JJ += (N - J);
       X[JJ] = C;
-      JJ = JJ + (N - J - 1);
+      JJ += (N - J - 1);
       X[JJ] = zlarnd(2, ISEED);
-      JJ = JJ + (N - J - 2);
+      JJ += (N - J - 2);
       X[JJ] = zlarnd(2, ISEED);
       if (X[JJ - (N - J - 2)].abs() > X[JJ].abs()) {
         X[JJ - (N - J - 2) + 1] = TWO * X[JJ - (N - J - 2)];
       } else {
         X[JJ - (N - J - 2) + 1] = TWO * X[JJ];
       }
-      JJ = JJ + (N - J - 3);
+      JJ += (N - J - 3);
     }
 
     // Clean-up for N not a multiple of 5.
@@ -132,13 +132,13 @@ void zlatsp(
       final R = C / BETA;
       X[JJ] = A;
       X[JJ + 2] = B;
-      JJ = JJ + (N - J + 1);
+      JJ += (N - J + 1);
       X[JJ] = zlarnd(2, ISEED);
       X[JJ + 1] = R;
-      JJ = JJ + (N - J);
+      JJ += (N - J);
       X[JJ] = C;
-      JJ = JJ + (N - J - 1);
-      J = J + 3;
+      JJ += (N - J - 1);
+      J += 3;
     }
     if (J < N) {
       X[JJ] = zlarnd(2, ISEED);
@@ -148,11 +148,11 @@ void zlatsp(
       } else {
         X[JJ + 1] = TWO * X[JJ + (N - J + 1)];
       }
-      JJ = JJ + (N - J + 1) + (N - J);
-      J = J + 2;
+      JJ += (N - J + 1) + (N - J);
+      J += 2;
     } else if (J == N) {
       X[JJ] = zlarnd(2, ISEED);
-      JJ = JJ + (N - J + 1);
+      JJ += (N - J + 1);
       J++;
     }
   }

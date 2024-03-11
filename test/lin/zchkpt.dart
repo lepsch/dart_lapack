@@ -107,7 +107,7 @@
                for (I = 1; I <= N - 1; I++) { // 20
                   D[I] = (A( IA )).toDouble();
                   E[I] = A( IA+1 );
-                  IA = IA + 2;
+                  IA += 2;
                } // 20
                if (N > 0) D( N ) = (A( IA )).toDouble();
             } else {
@@ -252,7 +252,7 @@
                IX = 1;
                for (J = 1; J <= NRHS; J++) { // 60
                   zlarnv(2, ISEED, N, XACT( IX ) );
-                  IX = IX + LDA;
+                  IX += LDA;
                } // 60
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80

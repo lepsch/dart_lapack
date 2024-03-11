@@ -691,9 +691,9 @@ void zchkbd(
         }
       } // 160
       if (!BIDIAG) {
-        NTEST = NTEST + 14;
+        NTEST += 14;
       } else {
-        NTEST = NTEST + 5;
+        NTEST += 5;
       }
     } // 170
   } // 180

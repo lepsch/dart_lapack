@@ -132,11 +132,11 @@ void zpprfs(
           for (I = 1; I <= K - 1; I++) {
             // 40
             RWORK[I] = RWORK[I] + CABS1(AP[IK]) * XK;
-            S = S + CABS1(AP[IK]) * CABS1(X[I][J]);
+            S += CABS1(AP[IK]) * CABS1(X[I][J]);
             IK++;
           } // 40
           RWORK[K] = RWORK[K] + AP[KK + K - 1].toDouble().abs() * XK + S;
-          KK = KK + K;
+          KK += K;
         } // 50
       } else {
         for (K = 1; K <= N; K++) {
@@ -148,11 +148,11 @@ void zpprfs(
           for (I = K + 1; I <= N; I++) {
             // 60
             RWORK[I] = RWORK[I] + CABS1(AP[IK]) * XK;
-            S = S + CABS1(AP[IK]) * CABS1(X[I][J]);
+            S += CABS1(AP[IK]) * CABS1(X[I][J]);
             IK++;
           } // 60
           RWORK[K] = RWORK[K] + S;
-          KK = KK + (N - K + 1);
+          KK += (N - K + 1);
         } // 70
       }
       S = ZERO;

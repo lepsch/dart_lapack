@@ -151,7 +151,7 @@ void dgbrfs(
           S = ZERO;
           KK = KU + 1 - K;
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
-            S = S + AB[KK + I][K].abs() * X[I][J].abs();
+            S += AB[KK + I][K].abs() * X[I][J].abs();
           }
           WORK[K] = WORK[K] + S;
         }

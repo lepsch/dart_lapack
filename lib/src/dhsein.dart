@@ -181,7 +181,7 @@ void dhsein(
       while (true) {
         for (I = K - 1; I >= KL; I--) {
           if (SELECT[I] && (WR[I] - WKR).abs() + (WI[I] - WKI).abs() < EPS3) {
-            WKR = WKR + EPS3;
+            WKR += EPS3;
             continue restart;
           }
         }
@@ -279,7 +279,7 @@ void dhsein(
       }
 
       if (PAIR) {
-        KSR = KSR + 2;
+        KSR += 2;
       } else {
         KSR++;
       }

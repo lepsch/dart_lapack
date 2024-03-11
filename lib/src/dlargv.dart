@@ -46,8 +46,8 @@ void dlargv(
       C[IC] = T * Y[IY];
       X[IX] = G * TT;
     }
-    IC = IC + INCC;
-    IY = IY + INCY;
-    IX = IX + INCX;
+    IC += INCC;
+    IY += INCY;
+    IX += INCX;
   }
 }

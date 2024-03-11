@@ -54,7 +54,7 @@ void dppt01(
 
       if (K > 1) {
         dtpmv('Upper', 'Transpose', 'Non-unit', K - 1, AFAC, AFAC(KC), 1);
-        KC = KC - (K - 1);
+        KC -= (K - 1);
       }
     }
 
@@ -73,7 +73,7 @@ void dppt01(
       final T = AFAC[KC];
       dscal(N - K + 1, T, AFAC(KC), 1);
 
-      KC = KC - (N - K + 2);
+      KC -= (N - K + 2);
     }
   }
 

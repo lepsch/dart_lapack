@@ -545,7 +545,7 @@ void zchkhb2stg(
 
         // End of Loop -- Check for RESULT(j) > THRESH
 
-        NTESTT = NTESTT + NTEST;
+        NTESTT += NTEST;
 
         // Print out tests which fail.
 

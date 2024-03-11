@@ -125,7 +125,7 @@ void strsm(
           for (I = 1; I <= M; I++) {
             TEMP = ALPHA * B[I][J];
             for (K = 1; K <= I - 1; K++) {
-              TEMP = TEMP - A[K][I] * B[K][J];
+              TEMP -= A[K][I] * B[K][J];
             }
             if (NOUNIT) TEMP = TEMP / A[I][I];
             B[I][J] = TEMP;
@@ -136,7 +136,7 @@ void strsm(
           for (I = M; I >= 1; I--) {
             TEMP = ALPHA * B[I][J];
             for (K = I + 1; K <= M; K++) {
-              TEMP = TEMP - A[K][I] * B[K][J];
+              TEMP -= A[K][I] * B[K][J];
             }
             if (NOUNIT) TEMP = TEMP / A[I][I];
             B[I][J] = TEMP;

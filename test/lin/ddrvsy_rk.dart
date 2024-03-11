@@ -178,20 +178,20 @@ void ddrvsy_rk(
                 // 20
                 A[IOFF + I] = ZERO;
               } // 20
-              IOFF = IOFF + IZERO;
+              IOFF += IZERO;
               for (var I = IZERO; I <= N; I++) {
                 // 30
                 A[IOFF] = ZERO;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               } // 30
             } else {
               var IOFF = IZERO;
               for (var I = 1; I <= IZERO - 1; I++) {
                 // 40
                 A[IOFF] = ZERO;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               } // 40
-              IOFF = IOFF - IZERO;
+              IOFF -= IZERO;
               for (var I = IZERO; I <= N; I++) {
                 // 50
                 A[IOFF + I] = ZERO;
@@ -209,7 +209,7 @@ void ddrvsy_rk(
                   // 60
                   A[IOFF + I] = ZERO;
                 } // 60
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               } // 70
             } else {
               // Set the last IZERO rows and columns to zero.
@@ -221,7 +221,7 @@ void ddrvsy_rk(
                   // 80
                   A[IOFF + I] = ZERO;
                 } // 80
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               } // 90
             }
           }

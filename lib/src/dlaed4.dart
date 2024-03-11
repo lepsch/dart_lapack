@@ -96,7 +96,7 @@ void dlaed4(
 
     PSI = ZERO;
     for (J = 1; J <= N - 2; J++) {
-      PSI = PSI + Z[J] * Z[J] / DELTA[J];
+      PSI += Z[J] * Z[J] / DELTA[J];
     }
 
     C = RHOINV + PSI;
@@ -150,9 +150,9 @@ void dlaed4(
     ERRETM = ZERO;
     for (J = 1; J <= II; J++) {
       TEMP = Z[J] / DELTA[J];
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -221,7 +221,7 @@ void dlaed4(
       DELTA[J] = DELTA[J] - ETA.value;
     }
 
-    TAU = TAU + ETA.value;
+    TAU += ETA.value;
 
     // Evaluate PSI and the derivative DPSI
 
@@ -230,9 +230,9 @@ void dlaed4(
     ERRETM = ZERO;
     for (J = 1; J <= II; J++) {
       TEMP = Z[J] / DELTA[J];
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -298,7 +298,7 @@ void dlaed4(
         DELTA[J] = DELTA[J] - ETA.value;
       }
 
-      TAU = TAU + ETA.value;
+      TAU += ETA.value;
 
       // Evaluate PSI and the derivative DPSI
 
@@ -307,9 +307,9 @@ void dlaed4(
       ERRETM = ZERO;
       for (J = 1; J <= II; J++) {
         TEMP = Z[J] / DELTA[J];
-        PSI = PSI + Z[J] * TEMP;
-        DPSI = DPSI + TEMP * TEMP;
-        ERRETM = ERRETM + PSI;
+        PSI += Z[J] * TEMP;
+        DPSI += TEMP * TEMP;
+        ERRETM += PSI;
       }
       ERRETM = (ERRETM).abs();
 
@@ -350,12 +350,12 @@ void dlaed4(
 
     PSI = ZERO;
     for (J = 1; J <= I - 1; J++) {
-      PSI = PSI + Z[J] * Z[J] / DELTA[J];
+      PSI += Z[J] * Z[J] / DELTA[J];
     }
 
     PHI = ZERO;
     for (J = N; J >= I + 2; J--) {
-      PHI = PHI + Z[J] * Z[J] / DELTA[J];
+      PHI += Z[J] * Z[J] / DELTA[J];
     }
     C = RHOINV + PSI + PHI;
     W = C + Z[I] * Z[I] / DELTA[I] + Z[IP1] * Z[IP1] / DELTA[IP1];
@@ -416,9 +416,9 @@ void dlaed4(
     ERRETM = ZERO;
     for (J = 1; J <= IIM1; J++) {
       TEMP = Z[J] / DELTA[J];
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -428,9 +428,9 @@ void dlaed4(
     PHI = ZERO;
     for (J = N; J >= IIP1; J--) {
       TEMP = Z[J] / DELTA[J];
-      PHI = PHI + Z[J] * TEMP;
-      DPHI = DPHI + TEMP * TEMP;
-      ERRETM = ERRETM + PHI;
+      PHI += Z[J] * TEMP;
+      DPHI += TEMP * TEMP;
+      ERRETM += PHI;
     }
 
     W = RHOINV + PHI + PSI;
@@ -449,7 +449,7 @@ void dlaed4(
     TEMP = Z[II] / DELTA[II];
     DW = DPSI + DPHI + TEMP * TEMP;
     TEMP = Z[II] * TEMP;
-    W = W + TEMP;
+    W += TEMP;
     ERRETM = EIGHT * (PHI - PSI) +
         ERRETM +
         TWO * RHOINV +
@@ -549,9 +549,9 @@ void dlaed4(
     ERRETM = ZERO;
     for (J = 1; J <= IIM1; J++) {
       TEMP = Z[J] / DELTA[J];
-      PSI = PSI + Z[J] * TEMP;
-      DPSI = DPSI + TEMP * TEMP;
-      ERRETM = ERRETM + PSI;
+      PSI += Z[J] * TEMP;
+      DPSI += TEMP * TEMP;
+      ERRETM += PSI;
     }
     ERRETM = (ERRETM).abs();
 
@@ -561,9 +561,9 @@ void dlaed4(
     PHI = ZERO;
     for (J = N; J >= IIP1; J--) {
       TEMP = Z[J] / DELTA[J];
-      PHI = PHI + Z[J] * TEMP;
-      DPHI = DPHI + TEMP * TEMP;
-      ERRETM = ERRETM + PHI;
+      PHI += Z[J] * TEMP;
+      DPHI += TEMP * TEMP;
+      ERRETM += PHI;
     }
 
     TEMP = Z[II] / DELTA[II];
@@ -583,7 +583,7 @@ void dlaed4(
       if (W > (PREW).abs() / TEN) SWTCH = true;
     }
 
-    TAU = TAU + ETA.value;
+    TAU += ETA.value;
 
     // Main loop to update the values of the array   DELTA
 
@@ -623,9 +623,9 @@ void dlaed4(
         } else {
           TEMP = Z[II] / DELTA[II];
           if (ORGATI) {
-            DPSI = DPSI + TEMP * TEMP;
+            DPSI += TEMP * TEMP;
           } else {
-            DPHI = DPHI + TEMP * TEMP;
+            DPHI += TEMP * TEMP;
           }
           C = W - DELTA[I] * DPSI - DELTA[IP1] * DPHI;
         }
@@ -700,7 +700,7 @@ void dlaed4(
         DELTA[J] = DELTA[J] - ETA.value;
       }
 
-      TAU = TAU + ETA.value;
+      TAU += ETA.value;
       PREW = W;
 
       // Evaluate PSI and the derivative DPSI
@@ -710,9 +710,9 @@ void dlaed4(
       ERRETM = ZERO;
       for (J = 1; J <= IIM1; J++) {
         TEMP = Z[J] / DELTA[J];
-        PSI = PSI + Z[J] * TEMP;
-        DPSI = DPSI + TEMP * TEMP;
-        ERRETM = ERRETM + PSI;
+        PSI += Z[J] * TEMP;
+        DPSI += TEMP * TEMP;
+        ERRETM += PSI;
       }
       ERRETM = (ERRETM).abs();
 
@@ -722,9 +722,9 @@ void dlaed4(
       PHI = ZERO;
       for (J = N; J >= IIP1; J--) {
         TEMP = Z[J] / DELTA[J];
-        PHI = PHI + Z[J] * TEMP;
-        DPHI = DPHI + TEMP * TEMP;
-        ERRETM = ERRETM + PHI;
+        PHI += Z[J] * TEMP;
+        DPHI += TEMP * TEMP;
+        ERRETM += PHI;
       }
 
       TEMP = Z[II] / DELTA[II];

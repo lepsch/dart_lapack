@@ -139,7 +139,7 @@ void dsytri_3x(
         if ((ICOUNT % 2) == 1) NNB = NNB + 1;
       }
 
-      CUT = CUT - NNB;
+      CUT -= NNB;
 
       // U01 Block
 
@@ -425,7 +425,7 @@ void dsytri_3x(
 
       // Next Block
 
-      CUT = CUT + NNB;
+      CUT += NNB;
     }
 
     // Apply PERMUTATIONS P and P**T:

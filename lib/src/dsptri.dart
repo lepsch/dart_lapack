@@ -52,7 +52,7 @@ void dsptri(
     KP = N * (N + 1) ~/ 2;
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
       if (IPIV[INFO.value] > 0 && AP[KP] == ZERO) return;
-      KP = KP - INFO.value;
+      KP -= INFO.value;
     }
   } else {
     // Lower triangular storage: examine D from top to bottom.
@@ -60,7 +60,7 @@ void dsptri(
     KP = 1;
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
       if (IPIV[INFO.value] > 0 && AP[KP] == ZERO) return;
-      KP = KP + N - INFO.value + 1;
+      KP += N - INFO.value + 1;
     }
   }
   INFO.value = 0;
@@ -121,7 +121,7 @@ void dsptri(
           AP[KCNEXT + K] = AP[KCNEXT + K] - ddot(K - 1, WORK, 1, AP(KCNEXT), 1);
         }
         KSTEP = 2;
-        KCNEXT = KCNEXT + K + 1;
+        KCNEXT += K + 1;
       }
 
       KP = (IPIV[K]).abs();
@@ -133,7 +133,7 @@ void dsptri(
         dswap(KP - 1, AP(KC), 1, AP(KPC), 1);
         KX = KPC + KP - 1;
         for (J = KP + 1; J <= K - 1; J++) {
-          KX = KX + J - 1;
+          KX += J - 1;
           TEMP = AP[KC + J - 1];
           AP[KC + J - 1] = AP[KX];
           AP[KX] = TEMP;
@@ -148,7 +148,7 @@ void dsptri(
         }
       }
 
-      K = K + KSTEP;
+      K += KSTEP;
       KC = KCNEXT;
     }
   } else {
@@ -211,7 +211,7 @@ void dsptri(
           AP[KCNEXT] = AP[KCNEXT] - ddot(N - K, WORK, 1, AP(KCNEXT + 2), 1);
         }
         KSTEP = 2;
-        KCNEXT = KCNEXT - (N - K + 3);
+        KCNEXT -= (N - K + 3);
       }
 
       KP = (IPIV[K]).abs();
@@ -223,7 +223,7 @@ void dsptri(
         if (KP < N) dswap(N - KP, AP(KC + KP - K + 1), 1, AP(KPC + 1), 1);
         KX = KC + KP - K;
         for (J = K + 1; J <= KP - 1; J++) {
-          KX = KX + N - J + 1;
+          KX += N - J + 1;
           TEMP = AP[KC + J - K];
           AP[KC + J - K] = AP[KX];
           AP[KX] = TEMP;
@@ -238,7 +238,7 @@ void dsptri(
         }
       }
 
-      K = K - KSTEP;
+      K -= KSTEP;
       KC = KCNEXT;
     }
   }

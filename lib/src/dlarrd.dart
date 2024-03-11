@@ -171,8 +171,8 @@ void dlarrd(
   }
   // Compute global Gerschgorin bounds and spectral diameter
   TNORM = max((GL).abs(), (GU).abs());
-  GL = GL - FUDGE * TNORM * EPS * N - FUDGE * TWO * PIVMIN;
-  GU = GU + FUDGE * TNORM * EPS * N + FUDGE * TWO * PIVMIN;
+  GL -= FUDGE * TNORM * EPS * N - FUDGE * TWO * PIVMIN;
+  GU += FUDGE * TNORM * EPS * N + FUDGE * TWO * PIVMIN;
   // [JAN/28/2009] remove the line below since SPDIAM variable not use
   // SPDIAM = GU - GL
   // Input arguments for DLAEBZ:
@@ -354,14 +354,14 @@ void dlarrd(
       // SPDIAM = GU - GL
       // GL = GL - FUDGE*SPDIAM*EPS*IN - FUDGE*PIVMIN
       // GU = GU + FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
-      GL = GL - FUDGE * TNORM * EPS * IN - FUDGE * PIVMIN;
-      GU = GU + FUDGE * TNORM * EPS * IN + FUDGE * PIVMIN;
+      GL -= FUDGE * TNORM * EPS * IN - FUDGE * PIVMIN;
+      GU += FUDGE * TNORM * EPS * IN + FUDGE * PIVMIN;
 
       if (IRANGE > 1) {
         if (GU < WL.value) {
           // the local block contains none of the wanted eigenvalues
-          NWL = NWL + IN;
-          NWU = NWU + IN;
+          NWL += IN;
+          NWU += IN;
           continue;
         }
         // refine search interval if possible, only range (WL.value,WU.value] matters
@@ -399,8 +399,8 @@ void dlarrd(
         return;
       }
 
-      NWL = NWL + IWORK[1];
-      NWU = NWU + IWORK[IN + 1];
+      NWL += IWORK[1];
+      NWU += IWORK[IN + 1];
       IWOFF = M.value - IWORK[1];
 
       // Compute Eigenvalues

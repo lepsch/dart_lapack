@@ -78,12 +78,12 @@ void zhpmv(
       if (BETA == Complex.zero) {
         for (I = 1; I <= N; I++) {
           Y[IY] = Complex.zero;
-          IY = IY + INCY;
+          IY += INCY;
         }
       } else {
         for (I = 1; I <= N; I++) {
           Y[IY] = BETA * Y[IY];
-          IY = IY + INCY;
+          IY += INCY;
         }
       }
     }
@@ -100,11 +100,11 @@ void zhpmv(
         K = KK;
         for (I = 1; I <= J - 1; I++) {
           Y[I] = Y[I] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K].conjugate() * X[I];
+          TEMP2 += AP[K].conjugate() * X[I];
           K++;
         }
         Y[J] = Y[J] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
-        KK = KK + J;
+        KK += J;
       }
     } else {
       JX = KX;
@@ -116,14 +116,14 @@ void zhpmv(
         IY = KY;
         for (K = KK; K <= KK + J - 2; K++) {
           Y[IY] = Y[IY] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K].conjugate() * X[IX];
-          IX = IX + INCX;
-          IY = IY + INCY;
+          TEMP2 += AP[K].conjugate() * X[IX];
+          IX += INCX;
+          IY += INCY;
         }
         Y[JY] = Y[JY] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
-        JX = JX + INCX;
-        JY = JY + INCY;
-        KK = KK + J;
+        JX += INCX;
+        JY += INCY;
+        KK += J;
       }
     }
   } else {
@@ -137,11 +137,11 @@ void zhpmv(
         K = KK + 1;
         for (I = J + 1; I <= N; I++) {
           Y[I] = Y[I] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K].conjugate() * X[I];
+          TEMP2 += AP[K].conjugate() * X[I];
           K++;
         }
         Y[J] = Y[J] + ALPHA * TEMP2;
-        KK = KK + (N - J + 1);
+        KK += (N - J + 1);
       }
     } else {
       JX = KX;
@@ -153,15 +153,15 @@ void zhpmv(
         IX = JX;
         IY = JY;
         for (K = KK + 1; K <= KK + N - J; K++) {
-          IX = IX + INCX;
-          IY = IY + INCY;
+          IX += INCX;
+          IY += INCY;
           Y[IY] = Y[IY] + TEMP1 * AP[K];
-          TEMP2 = TEMP2 + AP[K].conjugate() * X[IX];
+          TEMP2 += AP[K].conjugate() * X[IX];
         }
         Y[JY] = Y[JY] + ALPHA * TEMP2;
-        JX = JX + INCX;
-        JY = JY + INCY;
-        KK = KK + (N - J + 1);
+        JX += INCX;
+        JY += INCY;
+        KK += (N - J + 1);
       }
     }
   }

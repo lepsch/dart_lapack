@@ -61,23 +61,23 @@ double dznrm2(
   for (i = 1; i <= n; i++) {
     ax = x[ix].real.abs();
     if (ax > tbig) {
-      abig = abig + pow((ax * sbig), 2);
+      abig += pow((ax * sbig), 2);
       notbig = false;
     } else if (ax < tsml) {
       if (notbig) asml = asml + pow((ax * ssml), 2);
     } else {
-      amed = amed + pow(ax, 2);
+      amed += pow(ax, 2);
     }
     ax = x[ix].imaginary.abs();
     if (ax > tbig) {
-      abig = abig + pow((ax * sbig), 2);
+      abig += pow((ax * sbig), 2);
       notbig = false;
     } else if (ax < tsml) {
       if (notbig) asml = asml + pow((ax * ssml), 2);
     } else {
-      amed = amed + pow(ax, 2);
+      amed += pow(ax, 2);
     }
-    ix = ix + incx;
+    ix += incx;
   }
   //
   // Combine abig and amed or amed and asml if more than one
@@ -88,7 +88,7 @@ double dznrm2(
     //    Combine abig and amed if abig > 0.
     //
     if ((amed > zero) || (amed > maxN) || (amed != amed)) {
-      abig = abig + (amed * sbig) * sbig;
+      abig += (amed * sbig) * sbig;
     }
     scl = one / sbig;
     sumsq = abig;

@@ -92,12 +92,12 @@ void dsyr2(
           IY = KY;
           for (I = 1; I <= J; I++) {
             A[I][J] = A[I][J] + X[IX] * TEMP1 + Y[IY] * TEMP2;
-            IX = IX + INCX;
-            IY = IY + INCY;
+            IX += INCX;
+            IY += INCY;
           }
         }
-        JX = JX + INCX;
-        JY = JY + INCY;
+        JX += INCX;
+        JY += INCY;
       }
     }
   } else {
@@ -122,12 +122,12 @@ void dsyr2(
           IY = JY;
           for (I = J; I <= N; I++) {
             A[I][J] = A[I][J] + X[IX] * TEMP1 + Y[IY] * TEMP2;
-            IX = IX + INCX;
-            IY = IY + INCY;
+            IX += INCX;
+            IY += INCY;
           }
         }
-        JX = JX + INCX;
-        JY = JY + INCY;
+        JX += INCX;
+        JY += INCY;
       }
     }
   }

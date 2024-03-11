@@ -200,7 +200,7 @@ void zgeqp3(
             WORK(JB + 1).asMatrix(N - J + 1),
             N - J + 1);
 
-        J = J + FJB.value;
+        J += FJB.value;
       }
     } else {
       J = NFXD + 1;

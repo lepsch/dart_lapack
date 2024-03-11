@@ -56,7 +56,7 @@ void zlakf2(
       } // 30
     } // 40
 
-    IK = IK + M;
+    IK += M;
   } // 50
 
   IK = 1;
@@ -81,9 +81,9 @@ void zlakf2(
         Z[IK + MN + I - 1][JK + I - 1] = -E[J][L];
       } // 70
 
-      JK = JK + M;
+      JK += M;
     } // 80
 
-    IK = IK + M;
+    IK += M;
   } // 90
 }

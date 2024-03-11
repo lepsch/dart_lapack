@@ -74,7 +74,7 @@ void dtpmv(
             }
             if (NOUNIT) X[J] = X[J] * AP[KK + J - 1];
           }
-          KK = KK + J;
+          KK += J;
         }
       } else {
         JX = KX;
@@ -84,12 +84,12 @@ void dtpmv(
             IX = KX;
             for (K = KK; K <= KK + J - 2; K++) {
               X[IX] = X[IX] + TEMP * AP[K];
-              IX = IX + INCX;
+              IX += INCX;
             }
             if (NOUNIT) X[JX] = X[JX] * AP[KK + J - 1];
           }
-          JX = JX + INCX;
-          KK = KK + J;
+          JX += INCX;
+          KK += J;
         }
       }
     } else {
@@ -105,10 +105,10 @@ void dtpmv(
             }
             if (NOUNIT) X[J] = X[J] * AP[KK - N + J];
           }
-          KK = KK - (N - J + 1);
+          KK -= (N - J + 1);
         }
       } else {
-        KX = KX + (N - 1) * INCX;
+        KX += (N - 1) * INCX;
         JX = KX;
         for (J = N; J >= 1; J--) {
           if (X[JX] != ZERO) {
@@ -116,12 +116,12 @@ void dtpmv(
             IX = KX;
             for (K = KK; K >= KK - (N - (J + 1)); K--) {
               X[IX] = X[IX] + TEMP * AP[K];
-              IX = IX - INCX;
+              IX -= INCX;
             }
             if (NOUNIT) X[JX] = X[JX] * AP[KK - N + J];
           }
-          JX = JX - INCX;
-          KK = KK - (N - J + 1);
+          JX -= INCX;
+          KK -= (N - J + 1);
         }
       }
     }
@@ -136,11 +136,11 @@ void dtpmv(
           if (NOUNIT) TEMP = TEMP * AP[KK];
           K = KK - 1;
           for (I = J - 1; I >= 1; I--) {
-            TEMP = TEMP + AP[K] * X[I];
+            TEMP += AP[K] * X[I];
             K--;
           }
           X[J] = TEMP;
-          KK = KK - J;
+          KK -= J;
         }
       } else {
         JX = KX + (N - 1) * INCX;
@@ -149,12 +149,12 @@ void dtpmv(
           IX = JX;
           if (NOUNIT) TEMP = TEMP * AP[KK];
           for (K = KK - 1; K >= KK - J + 1; K--) {
-            IX = IX - INCX;
-            TEMP = TEMP + AP[K] * X[IX];
+            IX -= INCX;
+            TEMP += AP[K] * X[IX];
           }
           X[JX] = TEMP;
-          JX = JX - INCX;
-          KK = KK - J;
+          JX -= INCX;
+          KK -= J;
         }
       }
     } else {
@@ -165,11 +165,11 @@ void dtpmv(
           if (NOUNIT) TEMP = TEMP * AP[KK];
           K = KK + 1;
           for (I = J + 1; I <= N; I++) {
-            TEMP = TEMP + AP[K] * X[I];
+            TEMP += AP[K] * X[I];
             K++;
           }
           X[J] = TEMP;
-          KK = KK + (N - J + 1);
+          KK += (N - J + 1);
         }
       } else {
         JX = KX;
@@ -178,12 +178,12 @@ void dtpmv(
           IX = JX;
           if (NOUNIT) TEMP = TEMP * AP[KK];
           for (K = KK + 1; K <= KK + N - J; K++) {
-            IX = IX + INCX;
-            TEMP = TEMP + AP[K] * X[IX];
+            IX += INCX;
+            TEMP += AP[K] * X[IX];
           }
           X[JX] = TEMP;
-          JX = JX + INCX;
-          KK = KK + (N - J + 1);
+          JX += INCX;
+          KK += (N - J + 1);
         }
       }
     }

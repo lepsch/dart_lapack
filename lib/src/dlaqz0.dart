@@ -308,7 +308,7 @@ void dlaqz0(
                   (A[ISTOP - 2][ISTOP - 2]).abs()),
         )) {
       A[ISTOP - 1][ISTOP - 2] = ZERO;
-      ISTOP = ISTOP - 2;
+      ISTOP -= 2;
       LD = 0;
       ESHIFT = ZERO;
     } else if ((A[ISTOP][ISTOP - 1]).abs() <=
@@ -330,7 +330,7 @@ void dlaqz0(
                   (A[ISTART + 2][ISTART + 2]).abs()),
         )) {
       A[ISTART + 2][ISTART + 1] = ZERO;
-      ISTART = ISTART + 2;
+      ISTART += 2;
       LD = 0;
       ESHIFT = ZERO;
     } else if ((A[ISTART + 1][ISTART]).abs() <=
@@ -493,7 +493,7 @@ void dlaqz0(
         AED_INFO);
 
     if (N_DEFLATED.value > 0) {
-      ISTOP = ISTOP - N_DEFLATED.value;
+      ISTOP -= N_DEFLATED.value;
       LD = 0;
       ESHIFT = ZERO;
     }
@@ -544,7 +544,7 @@ void dlaqz0(
           (A[ISTOP - 1][ISTOP - 1]).abs()) {
         ESHIFT = A[ISTOP][ISTOP - 1] / B[ISTOP - 1][ISTOP - 1];
       } else {
-        ESHIFT = ESHIFT + ONE / (SAFMIN * MAXIT.toDouble());
+        ESHIFT += ONE / (SAFMIN * MAXIT.toDouble());
       }
       ALPHAR[SHIFTPOS] = ONE;
       ALPHAR[SHIFTPOS + 1] = ZERO;

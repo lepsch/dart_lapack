@@ -64,7 +64,7 @@ void dsptrs(
     // If K < 1, exit from loop.
 
     while (K >= 1) {
-      KC = KC - K;
+      KC -= K;
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal block
 
@@ -116,8 +116,8 @@ void dsptrs(
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 20
-        KC = KC - K + 1;
-        K = K - 2;
+        KC -= K + 1;
+        K -= 2;
       }
     }
 
@@ -147,7 +147,7 @@ void dsptrs(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC + K;
+        KC += K;
         K++;
       } else {
         // 2 x 2 diagonal block
@@ -166,8 +166,8 @@ void dsptrs(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC + 2 * K + 1;
-        K = K + 2;
+        KC += 2 * K + 1;
+        K += 2;
       }
     }
   } else {
@@ -205,7 +205,7 @@ void dsptrs(
         // Multiply by the inverse of the diagonal block.
 
         dscal(NRHS, ONE / AP[KC], B(K, 1).asArray(), LDB);
-        KC = KC + N - K + 1;
+        KC += N - K + 1;
         K++;
       } else {
         // 2 x 2 diagonal block
@@ -239,8 +239,8 @@ void dsptrs(
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
         }
-        KC = KC + 2 * (N - K) + 1;
-        K = K + 2;
+        KC += 2 * (N - K) + 1;
+        K += 2;
       }
     }
 
@@ -255,7 +255,7 @@ void dsptrs(
     // If K < 1, exit from loop.
 
     while (K >= 1) {
-      KC = KC - (N - K + 1);
+      KC -= (N - K + 1);
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal block
 
@@ -293,8 +293,8 @@ void dsptrs(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC - (N - K + 2);
-        K = K - 2;
+        KC -= (N - K + 2);
+        K -= 2;
       }
     }
   }

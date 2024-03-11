@@ -118,7 +118,7 @@
 
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' );
       SAFMIN = SLAMCH( 'S' );
-      SAFMIN = SAFMIN + SAFMIN;
+      SAFMIN += SAFMIN;
       SAFMAX = ONE / SAFMIN;
 
       // Scale A

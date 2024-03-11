@@ -186,7 +186,7 @@ void zgghd3(
       for (I = 1; I <= N2NB; I++) {
         zlaset('All', 2 * NNB, 2 * NNB, Complex.zero, Complex.one,
             WORK(PW).asMatrix(2 * NNB), 2 * NNB);
-        PW = PW + 4 * NNB * NNB;
+        PW += 4 * NNB * NNB;
       }
 
       // Reduce columns JCOL:JCOL+NNB-1 of A to Hessenberg form.
@@ -216,7 +216,7 @@ void zgghd3(
             WORK[JJ] = S.value.conjugate() * TEMP + CTEMP * WORK[JJ];
           }
           LEN++;
-          PPW = PPW - NBLST - 1;
+          PPW -= NBLST - 1;
         }
 
         PPWO = NBLST * NBLST + (NNB + J - JCOL - 1) * 2 * NNB + NNB;
@@ -235,9 +235,9 @@ void zgghd3(
               WORK[JJ] = S.value.conjugate() * TEMP + CTEMP * WORK[JJ];
             }
             LEN++;
-            PPW = PPW - 2 * NNB - 1;
+            PPW -= 2 * NNB - 1;
           }
-          PPWO = PPWO + 4 * NNB * NNB;
+          PPWO += 4 * NNB * NNB;
         }
 
         // TOP denotes the number of top rows in A and B that will
@@ -426,7 +426,7 @@ void zgghd3(
               A[I][J + 1] = WORK[PPW];
               PPW++;
             }
-            PPWO = PPWO + 4 * NNB * NNB;
+            PPWO += 4 * NNB * NNB;
           }
         }
       }
@@ -498,7 +498,7 @@ void zgghd3(
           zlacpy('All', 2 * NNB, COLA, WORK(PW).asMatrix(2 * NNB), 2 * NNB,
               A(J, JCOL + NNB), LDA);
         }
-        PPWO = PPWO + 4 * NNB * NNB;
+        PPWO += 4 * NNB * NNB;
       }
 
       // Apply accumulated unitary matrices to Q.
@@ -571,7 +571,7 @@ void zgghd3(
             zlacpy(
                 'All', NH, 2 * NNB, WORK(PW).asMatrix(NH), NH, Q(TOPQ, J), LDQ);
           }
-          PPWO = PPWO + 4 * NNB * NNB;
+          PPWO += 4 * NNB * NNB;
         }
       }
 
@@ -587,7 +587,7 @@ void zgghd3(
         for (I = 1; I <= N2NB; I++) {
           zlaset('All', 2 * NNB, 2 * NNB, Complex.zero, Complex.one,
               WORK(PW).asMatrix(2 * NNB), 2 * NNB);
-          PW = PW + 4 * NNB * NNB;
+          PW += 4 * NNB * NNB;
         }
 
         // Accumulate Givens rotations into workspace array.
@@ -607,7 +607,7 @@ void zgghd3(
               WORK[JJ] = S.value * TEMP + CTEMP * WORK[JJ];
             }
             LEN++;
-            PPW = PPW - NBLST - 1;
+            PPW -= NBLST - 1;
           }
 
           PPWO = NBLST * NBLST + (NNB + J - JCOL - 1) * 2 * NNB + NNB;
@@ -629,9 +629,9 @@ void zgghd3(
                 WORK[JJ] = S.value * TEMP + CTEMP * WORK[JJ];
               }
               LEN++;
-              PPW = PPW - 2 * NNB - 1;
+              PPW -= 2 * NNB - 1;
             }
-            PPWO = PPWO + 4 * NNB * NNB;
+            PPWO += 4 * NNB * NNB;
           }
         }
       } else {
@@ -700,7 +700,7 @@ void zgghd3(
             zlacpy(
                 'All', TOP, 2 * NNB, WORK(PW).asMatrix(TOP), TOP, A(1, J), LDA);
           }
-          PPWO = PPWO + 4 * NNB * NNB;
+          PPWO += 4 * NNB * NNB;
         }
 
         J = IHI - NBLST + 1;
@@ -759,7 +759,7 @@ void zgghd3(
             zlacpy(
                 'All', TOP, 2 * NNB, WORK(PW).asMatrix(TOP), TOP, B(1, J), LDB);
           }
-          PPWO = PPWO + 4 * NNB * NNB;
+          PPWO += 4 * NNB * NNB;
         }
       }
 
@@ -833,7 +833,7 @@ void zgghd3(
             zlacpy(
                 'All', NH, 2 * NNB, WORK(PW).asMatrix(NH), NH, Z(TOPQ, J), LDZ);
           }
-          PPWO = PPWO + 4 * NNB * NNB;
+          PPWO += 4 * NNB * NNB;
         }
       }
     }

@@ -126,7 +126,7 @@ void dchkpt(
         for (var I = 1; I <= N - 1; I++) {
           D[I] = A[IA];
           E[I] = A[IA + 1];
-          IA = IA + 2;
+          IA += 2;
         }
         if (N > 0) D[N] = A[IA];
       } else {
@@ -268,7 +268,7 @@ void dchkpt(
           var IX = 1;
           for (var J = 1; J <= NRHS; J++) {
             dlarnv(2, ISEED, N, XACT(IX));
-            IX = IX + LDA;
+            IX += LDA;
           }
 
           // Set the right hand side.

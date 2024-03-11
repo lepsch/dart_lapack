@@ -1248,7 +1248,7 @@ void zdrvsg2stg(
 
       // End of Loop -- Check for RESULT(j) > THRESH
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
       dlafts('ZSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
     } // 640
   } // 650

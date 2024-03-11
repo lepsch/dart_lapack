@@ -59,7 +59,7 @@ void dtpt01(
       // Subtract 1 from the diagonal
 
       AINVP[JC + J - 1] = AINVP[JC + J - 1] - ONE;
-      JC = JC + J;
+      JC += J;
     } // 10
   } else {
     var JC = 1;
@@ -74,7 +74,7 @@ void dtpt01(
       // Subtract 1 from the diagonal
 
       AINVP[JC] = AINVP[JC] - ONE;
-      JC = JC + N - J + 1;
+      JC += N - J + 1;
     } // 20
   }
 

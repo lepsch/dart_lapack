@@ -142,7 +142,7 @@ void ztprfs(
               // 30
               RWORK[I] = RWORK[I] + CABS1(AP[KC + I - 1]) * XK;
             } // 30
-            KC = KC + K;
+            KC += K;
           } // 40
         } else {
           for (K = 1; K <= N; K++) {
@@ -153,7 +153,7 @@ void ztprfs(
               RWORK[I] = RWORK[I] + CABS1(AP[KC + I - 1]) * XK;
             } // 50
             RWORK[K] = RWORK[K] + XK;
-            KC = KC + K;
+            KC += K;
           } // 60
         }
       } else {
@@ -166,7 +166,7 @@ void ztprfs(
               // 70
               RWORK[I] = RWORK[I] + CABS1(AP[KC + I - K]) * XK;
             } // 70
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 80
         } else {
           for (K = 1; K <= N; K++) {
@@ -177,7 +177,7 @@ void ztprfs(
               RWORK[I] = RWORK[I] + CABS1(AP[KC + I - K]) * XK;
             } // 90
             RWORK[K] = RWORK[K] + XK;
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 100
         }
       }
@@ -192,10 +192,10 @@ void ztprfs(
             S = ZERO;
             for (I = 1; I <= K; I++) {
               // 110
-              S = S + CABS1(AP[KC + I - 1]) * CABS1(X[I][J]);
+              S += CABS1(AP[KC + I - 1]) * CABS1(X[I][J]);
             } // 110
             RWORK[K] = RWORK[K] + S;
-            KC = KC + K;
+            KC += K;
           } // 120
         } else {
           for (K = 1; K <= N; K++) {
@@ -203,10 +203,10 @@ void ztprfs(
             S = CABS1(X[K][J]);
             for (I = 1; I <= K - 1; I++) {
               // 130
-              S = S + CABS1(AP[KC + I - 1]) * CABS1(X[I][J]);
+              S += CABS1(AP[KC + I - 1]) * CABS1(X[I][J]);
             } // 130
             RWORK[K] = RWORK[K] + S;
-            KC = KC + K;
+            KC += K;
           } // 140
         }
       } else {
@@ -217,10 +217,10 @@ void ztprfs(
             S = ZERO;
             for (I = K; I <= N; I++) {
               // 150
-              S = S + CABS1(AP[KC + I - K]) * CABS1(X[I][J]);
+              S += CABS1(AP[KC + I - K]) * CABS1(X[I][J]);
             } // 150
             RWORK[K] = RWORK[K] + S;
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 160
         } else {
           for (K = 1; K <= N; K++) {
@@ -228,10 +228,10 @@ void ztprfs(
             S = CABS1(X[K][J]);
             for (I = K + 1; I <= N; I++) {
               // 170
-              S = S + CABS1(AP[KC + I - K]) * CABS1(X[I][J]);
+              S += CABS1(AP[KC + I - K]) * CABS1(X[I][J]);
             } // 170
             RWORK[K] = RWORK[K] + S;
-            KC = KC + N - K + 1;
+            KC += N - K + 1;
           } // 180
         }
       }

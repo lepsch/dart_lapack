@@ -156,18 +156,18 @@ void zdrvhe_aa(
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF + I] = Complex.zero;
               }
-              IOFF = IOFF + IZERO;
+              IOFF += IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF] = Complex.zero;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             } else {
               var IOFF = IZERO;
               for (var I = 1; I <= IZERO - 1; I++) {
                 A[IOFF] = Complex.zero;
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
-              IOFF = IOFF - IZERO;
+              IOFF -= IZERO;
               for (var I = IZERO; I <= N; I++) {
                 A[IOFF + I] = Complex.zero;
               }
@@ -182,7 +182,7 @@ void zdrvhe_aa(
                 for (var I = 1; I <= I2; I++) {
                   A[IOFF + I] = Complex.zero;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
               IZERO = 1;
             } else {
@@ -193,7 +193,7 @@ void zdrvhe_aa(
                 for (var I = I1; I <= N; I++) {
                   A[IOFF + I] = Complex.zero;
                 }
-                IOFF = IOFF + LDA;
+                IOFF += LDA;
               }
             }
           }

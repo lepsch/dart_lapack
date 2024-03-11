@@ -332,7 +332,7 @@ Future<void> zdrgsx(
               }
             } // 10
             RESULT[6] = TEMP1;
-            NTEST = NTEST + 2;
+            NTEST += 2;
 
             // Test (7) (if sorting worked)
 
@@ -389,7 +389,7 @@ Future<void> zdrgsx(
               NTEST++;
             }
 
-            NTESTT = NTESTT + NTEST;
+            NTESTT += NTEST;
 
             // Print out tests which fail.
 
@@ -585,7 +585,7 @@ Future<void> zdrgsx(
           RESULT[10] = ULPINV;
         }
 
-        NTESTT = NTESTT + NTEST;
+        NTESTT += NTEST;
 
         // Print out tests which fail.
 

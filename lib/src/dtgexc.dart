@@ -126,7 +126,7 @@ void dtgexc(
           ILST.value = HERE;
           return;
         }
-        HERE = HERE + NBNEXT;
+        HERE += NBNEXT;
 
         // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
@@ -170,7 +170,7 @@ void dtgexc(
               ILST.value = HERE;
               return;
             }
-            HERE = HERE + 2;
+            HERE += 2;
           } else {
             // 2-by-2 block did split.
 
@@ -211,7 +211,7 @@ void dtgexc(
           ILST.value = HERE;
           return;
         }
-        HERE = HERE - NBNEXT;
+        HERE -= NBNEXT;
 
         // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
@@ -255,7 +255,7 @@ void dtgexc(
               ILST.value = HERE;
               return;
             }
-            HERE = HERE - 2;
+            HERE -= 2;
           } else {
             // 2-by-2 block did split.
 

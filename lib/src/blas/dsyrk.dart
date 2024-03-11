@@ -150,7 +150,7 @@ void dsyrk(
         for (I = 1; I <= J; I++) {
           TEMP = ZERO;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * A[L][J];
+            TEMP += A[L][I] * A[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA * TEMP;
@@ -164,7 +164,7 @@ void dsyrk(
         for (I = J; I <= N; I++) {
           TEMP = ZERO;
           for (L = 1; L <= K; L++) {
-            TEMP = TEMP + A[L][I] * A[L][J];
+            TEMP += A[L][I] * A[L][J];
           }
           if (BETA == ZERO) {
             C[I][J] = ALPHA * TEMP;

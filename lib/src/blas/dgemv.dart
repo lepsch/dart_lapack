@@ -94,12 +94,12 @@ void dgemv(
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = ZERO;
-          IY = IY + INCY;
+          IY += INCY;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = BETA * Y[IY];
-          IY = IY + INCY;
+          IY += INCY;
         }
       }
     }
@@ -115,7 +115,7 @@ void dgemv(
         for (I = 1; I <= M; I++) {
           Y[I] = Y[I] + TEMP * A[I][J];
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     } else {
       for (J = 1; J <= N; J++) {
@@ -123,9 +123,9 @@ void dgemv(
         IY = KY;
         for (I = 1; I <= M; I++) {
           Y[IY] = Y[IY] + TEMP * A[I][J];
-          IY = IY + INCY;
+          IY += INCY;
         }
-        JX = JX + INCX;
+        JX += INCX;
       }
     }
   } else {
@@ -135,21 +135,21 @@ void dgemv(
       for (J = 1; J <= N; J++) {
         TEMP = ZERO;
         for (I = 1; I <= M; I++) {
-          TEMP = TEMP + A[I][J] * X[I];
+          TEMP += A[I][J] * X[I];
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
       }
     } else {
       for (J = 1; J <= N; J++) {
         TEMP = ZERO;
         IX = KX;
         for (I = 1; I <= M; I++) {
-          TEMP = TEMP + A[I][J] * X[IX];
-          IX = IX + INCX;
+          TEMP += A[I][J] * X[IX];
+          IX += INCX;
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
-        JY = JY + INCY;
+        JY += INCY;
       }
     }
   }

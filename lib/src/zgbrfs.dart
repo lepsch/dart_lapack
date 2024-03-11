@@ -163,7 +163,7 @@ void zgbrfs(
           KK = KU + 1 - K;
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
             // 60
-            S = S + CABS1(AB[KK + I][K]) * CABS1(X[I][J]);
+            S += CABS1(AB[KK + I][K]) * CABS1(X[I][J]);
           } // 60
           RWORK[K] = RWORK[K] + S;
         } // 70

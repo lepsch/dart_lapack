@@ -1874,9 +1874,9 @@ void _dchk4(
                         true);
                   }
                   if (UPPER) {
-                    JC = JC + LDC;
+                    JC += LDC;
                   } else {
-                    JC = JC + LDC + 1;
+                    JC += LDC + 1;
                   }
                   ERRMAX = max(ERRMAX, ERR.value);
                   // If got really bad answer, report and
@@ -2259,9 +2259,9 @@ void _dchk5(
                         true);
                   }
                   if (UPPER) {
-                    JC = JC + LDC;
+                    JC += LDC;
                   } else {
-                    JC = JC + LDC + 1;
+                    JC += LDC + 1;
                     if (TRAN) JJAB = JJAB + 2 * NMAX;
                   }
                   ERRMAX = max(ERRMAX, ERR.value);
@@ -3212,7 +3212,7 @@ double _dbeg(final Box<bool> RESET) {
   _dbegIC++;
   while (true) {
     _dbegI = _dbegI * _dbegMI;
-    _dbegI = _dbegI - 1000 * (_dbegI ~/ 1000);
+    _dbegI -= 1000 * (_dbegI ~/ 1000);
     if (_dbegIC < 5) break;
     _dbegIC = 0;
   }

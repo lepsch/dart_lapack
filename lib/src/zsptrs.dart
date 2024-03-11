@@ -61,7 +61,7 @@ void zsptrs(
     K = N;
     KC = N * (N + 1) ~/ 2 + 1;
     while (K >= 1) {
-      KC = KC - K;
+      KC -= K;
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal block
 
@@ -113,8 +113,8 @@ void zsptrs(
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 20
-        KC = KC - K + 1;
-        K = K - 2;
+        KC -= K + 1;
+        K -= 2;
       }
     }
 
@@ -141,7 +141,7 @@ void zsptrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC + K;
+        KC += K;
         K++;
       } else {
         // 2 x 2 diagonal block
@@ -160,8 +160,8 @@ void zsptrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC + 2 * K + 1;
-        K = K + 2;
+        KC += 2 * K + 1;
+        K += 2;
       }
     }
   } else {
@@ -196,7 +196,7 @@ void zsptrs(
         // Multiply by the inverse of the diagonal block.
 
         zscal(NRHS, Complex.one / AP[KC], B(K, 1).asArray(), LDB);
-        KC = KC + N - K + 1;
+        KC += N - K + 1;
         K++;
       } else {
         // 2 x 2 diagonal block
@@ -231,8 +231,8 @@ void zsptrs(
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 70
-        KC = KC + 2 * (N - K) + 1;
-        K = K + 2;
+        KC += 2 * (N - K) + 1;
+        K += 2;
       }
     } // 80
 
@@ -244,7 +244,7 @@ void zsptrs(
     K = N;
     KC = N * (N + 1) ~/ 2 + 1;
     while (K >= 1) {
-      KC = KC - (N - K + 1);
+      KC -= (N - K + 1);
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal block
 
@@ -282,8 +282,8 @@ void zsptrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        KC = KC - (N - K + 2);
-        K = K - 2;
+        KC -= (N - K + 2);
+        K -= 2;
       }
     } // 100
   }

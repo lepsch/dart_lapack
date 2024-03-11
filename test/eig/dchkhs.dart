@@ -610,7 +610,7 @@ void dchkhs(
               SELECT[J] = false;
               SELECT[J - 1] = false;
             }
-            J = J - 2;
+            J -= 2;
           }
         } while (J > 0);
 
@@ -661,7 +661,7 @@ void dchkhs(
                 break matchRightLoop;
               }
             }
-            K = K + 2;
+            K += 2;
           }
         }
 
@@ -719,7 +719,7 @@ void dchkhs(
                 break matchLeftLoop;
               }
             }
-            K = K + 2;
+            K += 2;
           }
         }
 
@@ -896,7 +896,7 @@ void dchkhs(
       }
       // End of Loop -- Check for RESULT[j] > THRESH
 
-      NTESTT = NTESTT + NTEST;
+      NTESTT += NTEST;
       dlafts('DHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
     }
   }

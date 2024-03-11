@@ -50,7 +50,7 @@ void zpptrf(
     for (J = 1; J <= N; J++) {
       // 10
       JC = JJ + 1;
-      JJ = JJ + J;
+      JJ += J;
 
       // Compute elements 1:J-1 of column J.
 
@@ -92,7 +92,7 @@ void zpptrf(
       if (J < N) {
         zdscal(N - J, ONE / AJJ, AP(JJ + 1), 1);
         zhpr('Lower', N - J, -ONE, AP(JJ + 1), 1, AP(JJ + N - J + 1));
-        JJ = JJ + N - J + 1;
+        JJ += N - J + 1;
       }
     } // 20
   }

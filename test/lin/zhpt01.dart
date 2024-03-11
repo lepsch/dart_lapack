@@ -54,7 +54,7 @@
                RESID = ONE / EPS;
                return;
             }
-            JC = JC + J + 1;
+            JC += J + 1;
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
@@ -62,7 +62,7 @@
                RESID = ONE / EPS;
                return;
             }
-            JC = JC + N - J + 1;
+            JC += N - J + 1;
          } // 20
       }
 
@@ -87,7 +87,7 @@
                C[I][J] = C( I, J ) - A( JC+I );
             } // 30
             C[J][J] = C( J, J ) - (A( JC+J )).toDouble();
-            JC = JC + J;
+            JC += J;
          } // 40
       } else {
          JC = 1;
@@ -96,7 +96,7 @@
             for (I = J + 1; I <= N; I++) { // 50
                C[I][J] = C( I, J ) - A( JC+I-J );
             } // 50
-            JC = JC + N - J + 1;
+            JC += N - J + 1;
          } // 60
       }
 
