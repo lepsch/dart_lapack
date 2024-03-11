@@ -71,10 +71,10 @@ double zlanhp(
           ABSA = (AP[K]).abs();
           SUM.value = SUM.value + ABSA;
           WORK[I] = WORK[I] + ABSA;
-          K = K + 1;
+          K++;
         } // 50
         WORK[J] = SUM.value + AP[K].toDouble().abs();
-        K = K + 1;
+        K++;
       } // 60
       for (I = 1; I <= N; I++) {
         // 70
@@ -89,13 +89,13 @@ double zlanhp(
       for (J = 1; J <= N; J++) {
         // 100
         SUM.value = WORK[J] + AP[K].toDouble().abs();
-        K = K + 1;
+        K++;
         for (I = J + 1; I <= N; I++) {
           // 90
           ABSA = (AP[K]).abs();
           SUM.value = SUM.value + ABSA;
           WORK[I] = WORK[I] + ABSA;
-          K = K + 1;
+          K++;
         } // 90
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       } // 100

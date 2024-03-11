@@ -79,7 +79,7 @@ void dtpt03(
     dcopy(N, X(1, J).asArray(), 1, WORK, 1);
     var IX = idamax(N, WORK, 1);
     var XNORM = max(ONE, X[IX][J].abs());
-    final XSCAL = (ONE / XNORM) / N.toDouble();
+    final XSCAL = (ONE / XNORM) / N;
     dscal(N, XSCAL, WORK, 1);
     dtpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1);
     daxpy(N, -SCALE * XSCAL, B(1, J).asArray(), 1, WORK, 1);

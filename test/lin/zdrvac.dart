@@ -23,10 +23,10 @@
       bool               ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
+      int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NIMAT, NRHS;
       double             ANORM, CNDNUM;
       String             UPLOS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. Local Variables ..
@@ -54,13 +54,12 @@
       // Initialize constants and the random number seed.
 
       KASE = 0;
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'PO';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}PO';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       infoc.INFOT = 0;
@@ -69,37 +68,36 @@
 
       for (IM = 1; IM <= NM; IM++) { // 120
          N = MVAL( IM );
-         LDA = max( N, 1 );
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+         final LDA = max( N, 1 );
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE( IMAT ) ) GO TO 110;
+            if( !DOTYPE[IMAT] ) GO TO 110;
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 5;
+            final ZEROT = IMAT >= 3 && IMAT <= 5;
             if (ZEROT && N < IMAT-2) GO TO 110;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 100
-               UPLO = UPLOS( IUPLO );
+               final UPLO = UPLOS[IUPLO - 1];
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+               final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
 
               srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
-               if ( INFO != 0 ) {
+               if ( INFO.value != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100;
                }
@@ -107,13 +105,14 @@
                // For types 3-5, zero one row and column of the matrix to
                // test that INFO is returned correctly.
 
+               final int IZERO;
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
                      IZERO = 1;
                   } else if ( IMAT == 4 ) {
                      IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1;
+                     IZERO = N ~/ 2 + 1;
                   }
                   IOFF = ( IZERO-1 )*LDA;
 
@@ -148,7 +147,7 @@
                zlaipd(N, A, LDA+1, 0 );
 
                for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
-                  NRHS = NSVAL( IRHS );
+                  final NRHS = NSVAL[IRHS];
                   XTYPE = 'N';
 
                   // Form an exact solution and set the right hand side.
@@ -172,15 +171,15 @@
 
                   // Check error code from ZCPOSV .
 
-                  if ( INFO != IZERO ) {
+                  if ( INFO.value != IZERO ) {
 
-                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
                      NERRS = NERRS + 1;
 
-                     if ( INFO != IZERO && IZERO != 0 ) {
-                        WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N, IMAT;
+                     if ( INFO.value != IZERO && IZERO != 0 ) {
+                        NOUT.println( 9988 )'ZCPOSV',INFO,IZERO,N, IMAT;
                      } else {
-                        WRITE( NOUT, FMT = 9975 )'ZCPOSV',INFO,N,IMAT;
+                        NOUT.println( 9975 )'ZCPOSV',INFO,N,IMAT;
                      }
                   }
 
@@ -209,21 +208,21 @@
                   if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= sqrt(N.toDouble()))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                      if ( NFAIL == 0 && NERRS == 0 ) {
-                        WRITE( NOUT, FMT = 8999 )'ZPO';
-                        WRITE( NOUT, FMT = ' Matrix types:' );
-                        WRITE( NOUT, FMT = 8979 );
-                        WRITE( NOUT, FMT = ' Test ratios:' );
-                        WRITE( NOUT, FMT = 8960 )1;
-                        WRITE( NOUT, FMT = ' Messages:' );
+                        NOUT.println( 8999 )'ZPO';
+                        NOUT.println( ' Matrix types:' );
+                        NOUT.println( 8979 );
+                        NOUT.println( ' Test ratios:' );
+                        NOUT.println( 8960 )1;
+                        NOUT.println( ' Messages:' );
                      }
 
-                     WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 );
+                     NOUT.println( 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 );
 
-                     NFAIL = NFAIL + 1;
+                     NFAIL++;
 
                   }
 
-                  NRUN = NRUN + 1;
+                  NRUN++;
 
                } // 60
             } // 100
@@ -233,26 +232,26 @@
       // Print a summary of the results.
 
       if ( NFAIL > 0 ) {
-         WRITE( NOUT, FMT = 9996 )'ZCPOSV', NFAIL, NRUN;
+         NOUT.println( 9996 )'ZCPOSV', NFAIL, NRUN;
       } else {
-         WRITE( NOUT, FMT = 9995 )'ZCPOSV', NRUN;
+         NOUT.println( 9995 )'ZCPOSV', NRUN;
       }
       if ( NERRS > 0 ) {
-         WRITE( NOUT, FMT = 9994 )NERRS;
+         NOUT.println( 9994 )NERRS;
       }
 
- 9998 FORMAT( ' UPLO=\'${.a1}\', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
+ 9998 FORMAT( ' UPLO=\'${.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${.i2}) =${RESULT[].g12_5};
  9996 FORMAT(' ${.a6}: ${.i6} out of ${.i6} tests failed to pass the threshold' );
  9995 FORMAT('\n All tests for ${.a6} routines passed the threshold ( ${.i6} tests run)' );
  9994 FORMAT('${' ' * 6}${.i6} error messages recorded' );
 
       // SUBNAM, INFO, INFOE, N, IMAT
 
- 9988 FORMAT( ' *** ${.a6} returned with INFO =${.i5} instead of ', I5, / ' ==> N =${.i5}, type ${.i2}');
+ 9988 FORMAT( ' *** ${.a6} returned with INFO =${.i5} instead of ${.i5}\n ==> N =${N.i5}, type ${IMAT.i2}');
 
       // SUBNAM, INFO, N, IMAT
 
- 9975 FORMAT( ' *** Error code from ${.a6}=${.i5} for M=${.i5}, type ${.i2}');
+ 9975 FORMAT( ' *** Error code from ${.a6}=${.i5} for M=${M.i5}, type ${IMAT.i2}');
  8999 FORMAT('\n ${.a3}:  positive definite dense matrices' );
  8979 FORMAT('    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n    2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n    3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n    4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n    5. First column zero${' ' * 14}11. Scaled near overflow\n    6. Last column zero' );
  8960 FORMAT('   ${.i2}: norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF\n    or norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS ) > THRES if ZPOTRF' );

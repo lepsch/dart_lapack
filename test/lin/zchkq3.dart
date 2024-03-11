@@ -22,9 +22,9 @@
       Complex         CZERO;
       const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ) ;
       String             PATH;
-      int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX;
+      int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NRUN, NX;
       double             EPS;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -51,13 +51,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'Q3';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}Q3';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
       EPS = dlamch( 'Epsilon' );
       infoc.INFOT = 0;
@@ -66,14 +65,14 @@
 
          // Do for each value of M in MVAL.
 
-         M = MVAL( IM );
-         LDA = max( 1, M );
+         final M = MVAL[IM];
+         final LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 80
 
             // Do for each value of N in NVAL.
 
-            N = NVAL( IN );
+            final N = NVAL[IN];
             MNMIN = min( M, N );
             LWORK = max( 1, M*max( M, N )+4*MNMIN+max( M, N ) );
 
@@ -129,7 +128,7 @@
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
-                  NB = NBVAL( INB );
+                  final NB = NBVAL[INB];
                   xlaenv(1, NB );
                   NX = NXVAL( INB );
                   xlaenv(3, NX );
@@ -163,13 +162,13 @@
                   // the threshold.
 
                   for (K = 1; K <= NTESTS; K++) { // 50
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )'ZGEQP3', M, N, NB, IMODE, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[K] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 )'ZGEQP3', M, N, NB, IMODE, K, RESULT( K );
+                        NFAIL++;
                      }
                   } // 50
-                  NRUN = NRUN + NTESTS;
+                  NRUN +=  NTESTS;
 
                } // 60
             } // 70
@@ -180,5 +179,5 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${} M =${.i5}, N =${.i5}, NB =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT(' ${} M =${M.i5}, N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
       }

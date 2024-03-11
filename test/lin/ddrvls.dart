@@ -349,10 +349,10 @@ void ddrvls(
                       if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                       NOUT.println(
                           ' TRANS=\'${TRANS.a1}\', M=${M.i5}, N=${N.i5}, NRHS=${NRHS.i4}, NB=${NB.i4}, type${ITYPE.i2}, test(${K.i2})=${RESULT[K].g12_5}');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + 2;
+                  NRUN += 2;
                 }
               }
             }
@@ -469,10 +469,10 @@ void ddrvls(
                       if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                       NOUT.println(
                           ' TRANS=\'${TRANS.a1}\', M=${M.i5}, N=${N.i5}, NRHS=${NRHS.i4}, NB=${NB.i4}, type${ITYPE.i2}, test(${K.i2})=${RESULT[K].g12_5}');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + 2;
+                  NRUN += 2;
                 }
               }
             }
@@ -596,10 +596,10 @@ void ddrvls(
                         if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                         NOUT.println(
                             ' TRANS=\'${TRANS.a1} M=${M.i5}, N=${N.i5}, NRHS=${NRHS.i4}, MB=${MB.i4}, NB=${NB.i4}, type${ITYPE.i2}, test(${K.i2})=${RESULT[K].g12_5}');
-                        NFAIL = NFAIL + 1;
+                        NFAIL++;
                       }
                     }
-                    NRUN = NRUN + 2;
+                    NRUN += 2;
                   }
                 }
               }
@@ -889,10 +889,10 @@ void ddrvls(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' M=${M.i5}, N=${N.i5}, NRHS=${NRHS.i4}, NB=${NB.i4}, type${ITYPE.i2}, test(${K.i2})=${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + 12;
+              NRUN += 12;
             }
           }
         }

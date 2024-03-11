@@ -76,5 +76,5 @@ void dtrt01(
 
   RESID.value = dlantr('1', UPLO, 'Non-unit', N, N, AINV, LDAINV, WORK);
 
-  RESID.value = ((RESID.value * RCOND.value) / N.toDouble()) / EPS;
+  RESID.value = ((RESID.value * RCOND.value) / N) / EPS;
 }

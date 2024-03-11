@@ -122,9 +122,9 @@ double dlantp(
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J - 1; I++) {
             WORK[I] = WORK[I] + (AP[K]).abs();
-            K = K + 1;
+            K++;
           }
-          K = K + 1;
+          K++;
         }
       } else {
         for (I = 1; I <= N; I++) {
@@ -133,7 +133,7 @@ double dlantp(
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J; I++) {
             WORK[I] = WORK[I] + (AP[K]).abs();
-            K = K + 1;
+            K++;
           }
         }
       }
@@ -143,10 +143,10 @@ double dlantp(
           WORK[I] = ONE;
         }
         for (J = 1; J <= N; J++) {
-          K = K + 1;
+          K++;
           for (I = J + 1; I <= N; I++) {
             WORK[I] = WORK[I] + (AP[K]).abs();
-            K = K + 1;
+            K++;
           }
         }
       } else {
@@ -156,7 +156,7 @@ double dlantp(
         for (J = 1; J <= N; J++) {
           for (I = J; I <= N; I++) {
             WORK[I] = WORK[I] + (AP[K]).abs();
-            K = K + 1;
+            K++;
           }
         }
       }

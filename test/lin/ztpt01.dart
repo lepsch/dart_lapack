@@ -85,6 +85,6 @@
 
       RESID = ZLANTP( '1', UPLO, 'Non-unit', N, AINVP, RWORK );
 
-      RESID = ( ( RESID*RCOND ) / N.toDouble() ) / EPS;
+      RESID = ( ( RESID*RCOND ) / N ) / EPS;
 
       }

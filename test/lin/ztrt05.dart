@@ -33,7 +33,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+      double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
       // Quick exit if N = 0 or NRHS = 0.
 
@@ -73,8 +73,8 @@
          }
 
          } // 20
-         if ( DIFF / XNORM <= FERR( J ) ) {
-            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
+         if ( DIFF / XNORM <= FERR[J] ) {
+            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR[J] );
          } else {
             ERRBND = ONE / EPS;
          }
@@ -92,25 +92,25 @@
             if ( UPPER ) {
                if ( !NOTRAN ) {
                   for (J = 1; J <= I - IFU; J++) { // 40
-                     TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) );
+                     TMP +=  CABS1( A( J, I ) )*CABS1( X( J, K ) );
                   } // 40
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                } else {
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                   for (J = I + IFU; J <= N; J++) { // 50
-                     TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) );
+                     TMP +=  CABS1( A( I, J ) )*CABS1( X( J, K ) );
                   } // 50
                }
             } else {
                if ( NOTRAN ) {
                   for (J = 1; J <= I - IFU; J++) { // 60
-                     TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) );
+                     TMP +=  CABS1( A( I, J ) )*CABS1( X( J, K ) );
                   } // 60
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                } else {
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                   for (J = I + IFU; J <= N; J++) { // 70
-                     TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) );
+                     TMP +=  CABS1( A( J, I ) )*CABS1( X( J, K ) );
                   } // 70
                }
             }
@@ -120,7 +120,7 @@
                AXBI = min( AXBI, TMP );
             }
          } // 80
-         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / max( AXBI, ( N+1 )*UNFL ) );
+         TMP = BERR[K] / ( ( N+1 )*EPS+( N+1 )*UNFL / max( AXBI, ( N+1 )*UNFL ) );
          if ( K == 1 ) {
             RESLTS[2] = TMP;
          } else {

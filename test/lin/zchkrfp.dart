@@ -56,103 +56,103 @@
       // Report LAPACK version tag (e.g. LAPACK-3.2.0)
 
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+      NOUT.println( 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
 
       // Read the values of N
 
       READ( NIN, FMT = * )NN;
       if ( NN < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NN ', NN, 1;
+         NOUT.println( 9996 )' NN ', NN, 1;
          NN = 0;
          FATAL = true;
       } else if ( NN > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN;
+         NOUT.println( 9995 )' NN ', NN, MAXIN;
          NN = 0;
          FATAL = true;
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN );
       for (I = 1; I <= NN; I++) { // 10
          if ( NVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0;
+            NOUT.println( 9996 )' M  ', NVAL( I ), 0;
             FATAL = true;
          } else if ( NVAL( I ) > NMAX ) {
-            WRITE( NOUT, FMT = 9995 )' M  ', NVAL( I ), NMAX;
+            NOUT.println( 9995 )' M  ', NVAL( I ), NMAX;
             FATAL = true;
          }
       } // 10
-      if (NN > 0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
+      if (NN > 0) NOUT.println( 9993 )'N   ', ( NVAL( I ), I = 1, NN );
 
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS;
       if ( NNS < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1;
+         NOUT.println( 9996 )' NNS', NNS, 1;
          NNS = 0;
          FATAL = true;
       } else if ( NNS > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN;
+         NOUT.println( 9995 )' NNS', NNS, MAXIN;
          NNS = 0;
          FATAL = true;
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS );
       for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0;
+            NOUT.println( 9996 )'NRHS', NSVAL( I ), 0;
             FATAL = true;
          } else if ( NSVAL( I ) > MAXRHS ) {
-            WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS;
+            NOUT.println( 9995 )'NRHS', NSVAL( I ), MAXRHS;
             FATAL = true;
          }
       } // 30
-      if (NNS > 0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+      if (NNS > 0) NOUT.println( 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the matrix types
 
       READ( NIN, FMT = * )NNT;
       if ( NNT < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1;
+         NOUT.println( 9996 )' NMA', NNT, 1;
          NNT = 0;
          FATAL = true;
       } else if ( NNT > NTYPES ) {
-         WRITE( NOUT, FMT = 9995 )' NMA', NNT, NTYPES;
+         NOUT.println( 9995 )' NMA', NNT, NTYPES;
          NNT = 0;
          FATAL = true;
       }
       READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT );
       for (I = 1; I <= NNT; I++) { // 320
          if ( NTVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0;
+            NOUT.println( 9996 )'TYPE', NTVAL( I ), 0;
             FATAL = true;
          } else if ( NTVAL( I ) > NTYPES ) {
-            WRITE( NOUT, FMT = 9995 )'TYPE', NTVAL( I ), NTYPES;
+            NOUT.println( 9995 )'TYPE', NTVAL( I ), NTYPES;
             FATAL = true;
          }
       } // 320
-      if (NNT > 0) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
+      if (NNT > 0) NOUT.println( 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
 
       // Read the threshold value for the test ratios.
 
       READ( NIN, FMT = * )THRESH;
-      WRITE( NOUT, FMT = 9992 )THRESH;
+      NOUT.println( 9992 )THRESH;
 
       // Read the flag that indicates whether to test the error exits.
 
       READ( NIN, FMT = * )TSTERR;
 
       if ( FATAL ) {
-         WRITE( NOUT, FMT = 9999 );
+         NOUT.println( 9999 );
          STOP;
       }
 
       // Calculate and print the machine dependent constants.
 
       EPS = dlamch( 'Underflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'underflow', EPS;
+      NOUT.println( 9991 )'underflow', EPS;
       EPS = dlamch( 'Overflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'overflow ', EPS;
+      NOUT.println( 9991 )'overflow ', EPS;
       EPS = dlamch( 'Epsilon' );
-      WRITE( NOUT, FMT = 9991 )'precision', EPS;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( 9991 )'precision', EPS;
+      NOUT.println( * );
 
       // Test the error exit of:
 
@@ -183,8 +183,8 @@
 
       CLOSE ( NIN );
       S2 = DSECND( );
-      WRITE( NOUT, FMT = 9998 );
-      WRITE( NOUT, FMT = 9997 )S2 - S1;
+      NOUT.println( 9998 );
+      NOUT.println( 9997 )S2 - S1;
 
  9999 FORMAT('\n Execution not attempted due to input errors' );
  9998 FORMAT('\n End of tests' );

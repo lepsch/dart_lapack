@@ -187,7 +187,7 @@ void zhetri_rook(
 
         // (2) Interchange rows and columns K+1 and -IPIV(K+1)
 
-        K = K + 1;
+        K++;
         KP = -IPIV[K];
         if (KP != K) {
           if (KP > 1) {
@@ -209,7 +209,7 @@ void zhetri_rook(
         }
       }
 
-      K = K + 1;
+      K++;
     } // 70
   } else {
     // Compute inv(A) from the factorization A = L*D*L**H.
@@ -329,7 +329,7 @@ void zhetri_rook(
 
         // (2) Interchange rows and columns K-1 and -IPIV(K-1)
 
-        K = K - 1;
+        K--;
         KP = -IPIV[K];
         if (KP != K) {
           if (KP < N) {
@@ -352,7 +352,7 @@ void zhetri_rook(
         }
       }
 
-      K = K - 1;
+      K--;
     } // 120
   }
 }

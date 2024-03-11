@@ -236,9 +236,9 @@ void dchkpt(
           if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
           NOUT.println(
               ' N =${N.i5}, type ${IMAT.i2}, test ${1.i2}, ratio = ${RESULT[1].g12_5}');
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
-        NRUN = NRUN + 1;
+        NRUN++;
 
         // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 
@@ -326,10 +326,10 @@ void dchkpt(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${(RESULT[K]).g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 5;
+          NRUN += 5;
         }
       }
 
@@ -356,9 +356,9 @@ void dchkpt(
         if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
         NOUT.println(
             ' N =${N.i5}, type ${IMAT.i2}, test ${8.i2}, ratio = ${RESULT[7].g12_5}');
-        NFAIL = NFAIL + 1;
+        NFAIL++;
       }
-      NRUN = NRUN + 1;
+      NRUN++;
     }
   }
 

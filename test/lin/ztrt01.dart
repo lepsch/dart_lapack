@@ -79,6 +79,6 @@
 
       RESID = ZLANTR( '1', UPLO, 'Non-unit', N, N, AINV, LDAINV, RWORK );
 
-      RESID = ( ( RESID*RCOND ) / N.toDouble() ) / EPS;
+      RESID = ( ( RESID*RCOND ) / N ) / EPS;
 
       }

@@ -81,7 +81,7 @@
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
+         RESID = ( ( RESID / N ) / ANORM ) / EPS;
       }
 
       }

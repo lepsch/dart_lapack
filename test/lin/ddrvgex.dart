@@ -87,7 +87,7 @@ void ddrvge(
   const FACTS = ['F', 'N', 'E'];
   const EQUEDS = ['N', 'R', 'C', 'B'];
   final INFO = Box(0);
-  
+
   // Initialize constants and the random number seed.
 
   final PATH = '${'Double precision'[0]}GE';
@@ -339,10 +339,10 @@ void ddrvge(
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                   NOUT.println(
                       ' DGESV , N =${N.i5}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + NT;
+              NRUN += NT;
             }
 
             {
@@ -497,10 +497,10 @@ void ddrvge(
                       NOUT.print9998(
                           'DGESVX', FACT, TRANS, N, IMAT, K, RESULT[K]);
                     }
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + 7 - K1;
+                NRUN += 7 - K1;
               } else {
                 if (RESULT[1] >= THRESH && !PREFAC) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -511,8 +511,8 @@ void ddrvge(
                     NOUT.print9998(
                         'DGESVX', FACT, TRANS, N, IMAT, 1, RESULT[1]);
                   }
-                  NFAIL = NFAIL + 1;
-                  NRUN = NRUN + 1;
+                  NFAIL++;
+                  NRUN++;
                 }
                 if (RESULT[6] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -523,8 +523,8 @@ void ddrvge(
                     NOUT.print9998(
                         'DGESVX', FACT, TRANS, N, IMAT, 6, RESULT[6]);
                   }
-                  NFAIL = NFAIL + 1;
-                  NRUN = NRUN + 1;
+                  NFAIL++;
+                  NRUN++;
                 }
                 if (RESULT[7] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -535,8 +535,8 @@ void ddrvge(
                     NOUT.print9998(
                         'DGESVX', FACT, TRANS, N, IMAT, 7, RESULT[7]);
                   }
-                  NFAIL = NFAIL + 1;
-                  NRUN = NRUN + 1;
+                  NFAIL++;
+                  NRUN++;
                 }
               }
             }
@@ -675,10 +675,10 @@ void ddrvge(
                       NOUT.print9998(
                           'DGESVXX', FACT, TRANS, N, IMAT, K, RESULT[K]);
                     }
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + 7 - K1;
+                NRUN += 7 - K1;
               } else {
                 if (RESULT[1] >= THRESH && !PREFAC) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -689,8 +689,8 @@ void ddrvge(
                     NOUT.print9998(
                         'DGESVXX', FACT, TRANS, N, IMAT, 1, RESULT[1]);
                   }
-                  NFAIL = NFAIL + 1;
-                  NRUN = NRUN + 1;
+                  NFAIL++;
+                  NRUN++;
                 }
                 if (RESULT[6] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -701,8 +701,8 @@ void ddrvge(
                     NOUT.print9998(
                         'DGESVXX', FACT, TRANS, N, IMAT, 6, RESULT[6]);
                   }
-                  NFAIL = NFAIL + 1;
-                  NRUN = NRUN + 1;
+                  NFAIL++;
+                  NRUN++;
                 }
                 if (RESULT[7] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -713,8 +713,8 @@ void ddrvge(
                     NOUT.print9998(
                         'DGESVXX', FACT, TRANS, N, IMAT, 7, RESULT[7]);
                   }
-                  NFAIL = NFAIL + 1;
-                  NRUN = NRUN + 1;
+                  NFAIL++;
+                  NRUN++;
                 }
               }
             }

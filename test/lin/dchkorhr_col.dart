@@ -87,10 +87,10 @@ void dchkorhr_col(
                       if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
                       NOUT.println(
                           'DORGTSQR and DORHR_COL: M=${M.i5}, N=${N.i5}, MB1=${MB1.i5}, NB1=${NB1.i5}, NB2=${NB2.i5} test(${T.i2})=${RESULT[T].g12_5}');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + NTESTS;
+                  NRUN += NTESTS;
                 }
               }
             }
@@ -144,10 +144,10 @@ void dchkorhr_col(
                       if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
                       NOUT.println(
                           'DORGTSQR_ROW and DORHR_COL: M=${M.i5}, N=${N.i5}, MB1=${MB1.i5}, NB1=${NB1.i5}, NB2=${NB2.i5} test(${T.i2})=${RESULT[T].g12_5}');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + NTESTS;
+                  NRUN += NTESTS;
                 }
               }
             }

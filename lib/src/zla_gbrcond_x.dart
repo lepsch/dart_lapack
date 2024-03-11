@@ -70,7 +70,7 @@ double zla_gbrcond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-        TMP = TMP + CABS1(AB[KD + I - J][J] * X[J]);
+        TMP += CABS1(AB[KD + I - J][J] * X[J]);
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);
@@ -79,7 +79,7 @@ double zla_gbrcond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-        TMP = TMP + CABS1(AB[KE - I + J][I] * X[J]);
+        TMP += CABS1(AB[KE - I + J][I] * X[J]);
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);

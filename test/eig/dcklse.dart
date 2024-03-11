@@ -236,10 +236,10 @@ Future<void> dcklse(
           }
           NOUT.println(
               ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
       }
-      NRUN = NRUN + NT;
+      NRUN += NT;
     }
   }
 

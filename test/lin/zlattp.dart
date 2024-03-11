@@ -35,8 +35,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX, SQRT
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'TP';
+      final PATH = '${'Zomplex precision'[0]}TP';
       UNFL = dlamch( 'Safe minimum' );
       ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       SMLNUM = UNFL;
@@ -56,7 +55,7 @@
 
       UPPER = lsame( UPLO, 'U' );
       if ( UPPER ) {
-         zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+         final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
          PACKIT = 'C';
       } else {
          zlatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );

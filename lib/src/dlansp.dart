@@ -59,10 +59,10 @@ double dlansp(
           ABSA = AP[K].abs();
           SUM.value = SUM.value + ABSA;
           WORK[I] = WORK[I] + ABSA;
-          K = K + 1;
+          K++;
         }
         WORK[J] = SUM.value + AP[K].abs();
-        K = K + 1;
+        K++;
       }
       for (I = 1; I <= N; I++) {
         SUM.value = WORK[I];
@@ -74,12 +74,12 @@ double dlansp(
       }
       for (J = 1; J <= N; J++) {
         SUM.value = WORK[J] + AP[K].abs();
-        K = K + 1;
+        K++;
         for (I = J + 1; I <= N; I++) {
           ABSA = AP[K].abs();
           SUM.value = SUM.value + ABSA;
           WORK[I] = WORK[I] + ABSA;
-          K = K + 1;
+          K++;
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       }

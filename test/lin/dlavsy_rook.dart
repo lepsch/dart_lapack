@@ -94,7 +94,7 @@ void dlavsy_rook(
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K + 1;
+          K++;
         } else {
           // 2 x 2 pivot block
 
@@ -179,7 +179,7 @@ void dlavsy_rook(
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K - 1;
+          K--;
         } else {
           // 2 x 2 pivot block:
 
@@ -262,7 +262,7 @@ void dlavsy_rook(
                 ONE, B(K, 1).asArray(), LDB);
           }
           if (NOUNIT) dscal(NRHS, A[K][K], B(K, 1).asArray(), LDB);
-          K = K - 1;
+          K--;
 
           // 2 x 2 pivot block.
         } else {
@@ -333,7 +333,7 @@ void dlavsy_rook(
                 A(K + 1, K).asArray(), 1, ONE, B(K, 1).asArray(), LDB);
           }
           if (NOUNIT) dscal(NRHS, A[K][K], B(K, 1).asArray(), LDB);
-          K = K + 1;
+          K++;
 
           // 2 x 2 pivot block.
         } else {

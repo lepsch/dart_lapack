@@ -39,7 +39,7 @@
       A[2][2] = ( 3.0, 0.0 );
       A[2][1] = ( 4.0, 0.0 );
       infoc.OK.value = true;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
 
       // Test error exits for the least squares driver routines.
 

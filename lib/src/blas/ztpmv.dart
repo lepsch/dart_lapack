@@ -71,7 +71,7 @@ void ztpmv(
             K = KK;
             for (I = 1; I <= J - 1; I++) {
               X[I] = X[I] + TEMP * AP[K];
-              K = K + 1;
+              K++;
             }
             if (NOUNIT) X[J] = X[J] * AP[KK + J - 1];
           }
@@ -102,7 +102,7 @@ void ztpmv(
             K = KK;
             for (I = N; I >= J + 1; I--) {
               X[I] = X[I] + TEMP * AP[K];
-              K = K - 1;
+              K--;
             }
             if (NOUNIT) X[J] = X[J] * AP[KK - N + J];
           }
@@ -139,13 +139,13 @@ void ztpmv(
             if (NOUNIT) TEMP = TEMP * AP[KK];
             for (I = J - 1; I >= 1; I--) {
               TEMP = TEMP + AP[K] * X[I];
-              K = K - 1;
+              K--;
             }
           } else {
             if (NOUNIT) TEMP = TEMP * AP[KK].conjugate();
             for (I = J - 1; I >= 1; I--) {
               TEMP = TEMP + AP[K].conjugate() * X[I];
-              K = K - 1;
+              K--;
             }
           }
           X[J] = TEMP;
@@ -184,13 +184,13 @@ void ztpmv(
             if (NOUNIT) TEMP = TEMP * AP[KK];
             for (I = J + 1; I <= N; I++) {
               TEMP = TEMP + AP[K] * X[I];
-              K = K + 1;
+              K++;
             }
           } else {
             if (NOUNIT) TEMP = TEMP * AP[KK].conjugate();
             for (I = J + 1; I <= N; I++) {
               TEMP = TEMP + AP[K].conjugate() * X[I];
-              K = K + 1;
+              K++;
             }
           }
           X[J] = TEMP;

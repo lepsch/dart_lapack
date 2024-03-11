@@ -288,10 +288,10 @@ void ddrvsy_aa(
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                   NOUT.println(
                       ' DSYSV_AA , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               } // 110
-              NRUN = NRUN + NT;
+              NRUN += NT;
             } // 120
           }
         } // 150

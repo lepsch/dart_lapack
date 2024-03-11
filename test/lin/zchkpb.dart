@@ -23,9 +23,9 @@
       bool               ZEROT;
       String             DIST, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, I1, I2, IKD, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IW, IZERO, K, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NERRS, NFAIL, NIMAT, NKD, NRHS, NRUN;
+      int                I, I1, I2, IKD, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IW, IZERO, K, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NIMAT, NKD, NRHS;
       double             AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 ), KDVAL( NBW );
+      final                ISEED=Array<int>( 4 ), KDVAL( NBW );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -52,13 +52,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'PB';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}PB';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -70,8 +69,8 @@
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 90
-         N = NVAL( IN );
-         LDA = max( N, 1 );
+         final N = NVAL[IN];
+         final LDA = max( N, 1 );
          XTYPE = 'N';
 
          // Set limits on the number of loop iterations.
@@ -110,11 +109,11 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  if( !DOTYPE( IMAT ) ) GO TO 60;
+                  if( !DOTYPE[IMAT] ) GO TO 60;
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
-                  ZEROT = IMAT >= 2 && IMAT <= 4;
+                  final ZEROT = IMAT >= 2 && IMAT <= 4;
                   if (ZEROT && N < IMAT-1) GO TO 60;
 
                   if ( !ZEROT || !DOTYPE( 1 ) ) {
@@ -122,14 +121,14 @@
                      // Set up parameters with ZLATB4 and generate a test
                      // matrix with ZLATMS.
 
-                     zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+                     final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
 
                     srnamc.SRNAMT = 'ZLATMS';
                      zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from ZLATMS.
 
-                     if ( INFO != 0 ) {
+                     if ( INFO.value != 0 ) {
                         alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60;
                      }
@@ -163,7 +162,7 @@
                      } else if ( IMAT == 3 ) {
                         IZERO = N;
                      } else {
-                        IZERO = N / 2 + 1;
+                        IZERO = N ~/ 2 + 1;
                      }
 
                      // Save the zeroed out row and column in WORK(*,3)
@@ -201,7 +200,7 @@
                   // Do for each value of NB in NBVAL
 
                   for (INB = 1; INB <= NNB; INB++) { // 50
-                     NB = NBVAL( INB );
+                     final NB = NBVAL[INB];
                      xlaenv(1, NB );
 
                      // Compute the L*L' or U'*U factorization of the band
@@ -213,7 +212,7 @@
 
                      // Check error code from ZPBTRF.
 
-                     if ( INFO != IZERO ) {
+                     if ( INFO.value != IZERO ) {
                         alaerh(PATH, 'ZPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50;
                      }
@@ -231,12 +230,12 @@
 
                      // Print the test ratio if it is >= THRESH.
 
-                     if ( RESULT( 1 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[1] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
+                        NFAIL++;
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
 
                      // Only do other tests if this is the first blocksize.
 
@@ -245,7 +244,7 @@
                      // Form the inverse of A so we can get a good estimate
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                     zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA );
+                     zlaset('Full', N, N, Complex.zero, Complex.one, AINV, LDA );
                     srnamc.SRNAMT = 'ZPBTRS';
                      zpbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
@@ -260,7 +259,7 @@
                      }
 
                      for (IRHS = 1; IRHS <= NNS; IRHS++) { // 40
-                        NRHS = NSVAL( IRHS );
+                        final NRHS = NSVAL[IRHS];
 
 // +    TEST 2
                      // Solve and compute residual for A * X = B.
@@ -301,13 +300,13 @@
                         // pass the threshold.
 
                         for (K = 2; K <= 6; K++) { // 30
-                           if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                              WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1;
+                           if ( RESULT[K] >= THRESH ) {
+                              if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                              NOUT.println( 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT[K];
+                              NFAIL++;
                            }
                         } // 30
-                        NRUN = NRUN + 5;
+                        NRUN +=  5;
                      } // 40
 
 // +    TEST 7
@@ -324,12 +323,12 @@
 
                      // Print the test ratio if it is >= THRESH.
 
-                     if ( RESULT( 7 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[7] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
+                        NFAIL++;
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
                   } // 50
                } // 60
             } // 70
@@ -340,7 +339,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO=\'${.a1}\', N=${.i5}, KD=${.i5}, NB=${.i4}, type ${.i2}, test ${.i2}, ratio= ${.g12_5};
- 9998 FORMAT( ' UPLO=\'${.a1}\', N=${.i5}, KD=${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) = ${.g12_5};
- 9997 FORMAT( ' UPLO=\'${.a1}\', N=${.i5}, KD=${.i5},${' ' * 10} type ${.i2}, test(${.i2}) = ${.g12_5};
+ 9999 FORMAT( ' UPLO=\'${.a1}\', N=${N.i5}, KD=${.i5}, NB=${.i4}, type ${IMAT.i2}, test ${.i2}, ratio= ${.g12_5};
+ 9998 FORMAT( ' UPLO=\'${.a1}\', N=${N.i5}, KD=${.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${.i2}) = ${RESULT[].g12_5};
+ 9997 FORMAT( ' UPLO=\'${.a1}\', N=${N.i5}, KD=${.i5},${' ' * 10} type ${IMAT.i2}, test(${.i2}) = ${RESULT[].g12_5};
       }

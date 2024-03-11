@@ -39,7 +39,7 @@
       // INTRINSIC DBLE, DCMPLX
 
       NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
       C2 = PATH.substring( 1, 3 );
 
       // Set the variables to innocuous values.
@@ -972,9 +972,9 @@
       // Print a summary line.
 
       if ( infoc.OK ) {
-         WRITE( NOUT, FMT = 9999 )PATH;
+         NOUT.println( 9999 )PATH;
       } else {
-         WRITE( NOUT, FMT = 9998 )PATH;
+         NOUT.println( 9998 )PATH;
       }
 
  9999 FORMAT(' ${.a3} drivers passed the tests of the error exits' );

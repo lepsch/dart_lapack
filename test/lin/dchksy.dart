@@ -311,10 +311,10 @@ void dchksy(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + NT;
+          NRUN += NT;
 
           // Skip the other tests if this is not the first block
           // size.
@@ -454,10 +454,10 @@ void dchksy(
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + 6;
+            NRUN += 6;
 
             // End do for each value of NRHS in NSVAL.
           }
@@ -489,9 +489,9 @@ void dchksy(
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' UPLO = \'${UPLO.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${9.i2}) =${RESULT[9].g12_5}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 1;
+          NRUN++;
         }
       }
     }

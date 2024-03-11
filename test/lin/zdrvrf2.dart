@@ -12,9 +12,9 @@
 // =====================================================================
       bool               LOWER, OK1, OK2;
       String             UPLO, CFORM;
-      int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN;
+      int                I, IFORM, IIN, INFO, IUPLO, J, N, NRUN;
       String             UPLOS( 2 ), FORMS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       // ..
       // .. External Functions ..
       //- Complex         ZLARND;
@@ -36,11 +36,11 @@
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NERRS = Box(0);
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       for (IIN = 1; IIN <= NN; IIN++) { // 120
@@ -51,7 +51,7 @@
 
          for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
-            UPLO = UPLOS( IUPLO );
+            final UPLO = UPLOS[IUPLO - 1];
             LOWER = true;
             if (IUPLO == 1) LOWER = false ;
 
@@ -61,7 +61,7 @@
 
                CFORM = FORMS( IFORM );
 
-               NRUN = NRUN + 1;
+               NRUN++;
 
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
@@ -97,7 +97,7 @@
                   }
                }
 
-               NRUN = NRUN + 1;
+               NRUN++;
 
               srnamc.SRNAMT = 'ZTRTTP';
                ztrttp(UPLO, N, A, LDA, AP, INFO );
@@ -130,9 +130,9 @@
                if (( !OK1 ) || ( !OK2 )) {
                   if ( NERRS == 0 ) {
                      WRITE( NOUT, * );
-                     WRITE( NOUT, FMT = 9999 );
+                     NOUT.println( 9999 );
                   }
-                  WRITE( NOUT, FMT = 9998 ) N, UPLO, CFORM;
+                  NOUT.println( 9998 ) N, UPLO, CFORM;
                   NERRS = NERRS + 1;
                }
 
@@ -143,9 +143,9 @@
       // Print a summary of the results.
 
       if ( NERRS == 0 ) {
-         WRITE( NOUT, FMT = 9997 ) NRUN;
+         NOUT.println( 9997 ) NRUN;
       } else {
-         WRITE( NOUT, FMT = 9996 ) NERRS, NRUN;
+         NOUT.println( 9996 ) NERRS, NRUN;
       }
 
  9999 FORMAT('  *** Error(s) while testing the RFP conversion routines ***');

@@ -179,7 +179,7 @@ void zlaqz2(
         K2 = K2 + 1;
       }
 
-      K = K + 1;
+      K++;
     }
   }
 
@@ -190,7 +190,7 @@ void zlaqz2(
   while (K <= IHI) {
     ALPHA[K] = A[K][K];
     BETA[K] = B[K][K];
-    K = K + 1;
+    K++;
   }
 
   if (KWTOP != ILO && S != Complex.zero) {
@@ -228,7 +228,7 @@ void zlaqz2(
             KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC);
       }
 
-      K = K - 1;
+      K--;
     }
   }
 

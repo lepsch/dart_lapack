@@ -531,11 +531,11 @@ void zdrves(
         NFAIL = 0;
         for (J = 1; J <= 13; J++) {
           // 200
-          if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
-          if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+          if (RESULT[J] >= ZERO) NTEST++;
+          if (RESULT[J] >= THRESH) NFAIL++;
         } // 200
 
-        if (NFAIL > 0) NTESTF = NTESTF + 1;
+        if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
           NOUNIT.println(
               '\n ${PATH.a3} -- Complex Schur Form Decomposition Driver\n Matrix types (see ZDRVES for details): ');

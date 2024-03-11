@@ -92,25 +92,25 @@ void dtrt05(
       if (UPPER) {
         if (!NOTRAN) {
           for (var J = 1; J <= I - IFU; J++) {
-            TMP = TMP + (A[J][I]).abs() * (X[J][K]).abs();
+            TMP += (A[J][I]).abs() * (X[J][K]).abs();
           }
           if (UNIT) TMP = TMP + (X[I][K]).abs();
         } else {
           if (UNIT) TMP = TMP + (X[I][K]).abs();
           for (var J = I + IFU; J <= N; J++) {
-            TMP = TMP + (A[I][J]).abs() * (X[J][K]).abs();
+            TMP += (A[I][J]).abs() * (X[J][K]).abs();
           }
         }
       } else {
         if (NOTRAN) {
           for (var J = 1; J <= I - IFU; J++) {
-            TMP = TMP + (A[I][J]).abs() * (X[J][K]).abs();
+            TMP += (A[I][J]).abs() * (X[J][K]).abs();
           }
           if (UNIT) TMP = TMP + (X[I][K]).abs();
         } else {
           if (UNIT) TMP = TMP + (X[I][K]).abs();
           for (var J = I + IFU; J <= N; J++) {
-            TMP = TMP + (A[J][I]).abs() * (X[J][K]).abs();
+            TMP += (A[J][I]).abs() * (X[J][K]).abs();
           }
         }
       }

@@ -143,10 +143,10 @@ void dchktz(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' M =${M.i5}, N =${N.i5}, type ${IMODE.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 3;
+          NRUN += 3;
         }
       }
     }

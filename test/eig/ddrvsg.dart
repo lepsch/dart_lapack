@@ -409,7 +409,7 @@ void ddrvsg(
           while (true) {
             // Test DSYGV
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             dlacpy(' ', N, N, A, LDA, Z, LDZ);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -434,7 +434,7 @@ void ddrvsg(
 
             // Test DSYGVD
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             dlacpy(' ', N, N, A, LDA, Z, LDZ);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -460,7 +460,7 @@ void ddrvsg(
 
             // Test DSYGVX
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             dlacpy(' ', N, N, A, LDA, AB, LDA);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -484,7 +484,7 @@ void ddrvsg(
             dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
                 RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             dlacpy(' ', N, N, A, LDA, AB, LDA);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -515,7 +515,7 @@ void ddrvsg(
             dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                 RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             dlacpy(' ', N, N, A, LDA, AB, LDA);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -543,7 +543,7 @@ void ddrvsg(
 
           // Test DSPGV
 
-          NTEST = NTEST + 1;
+          NTEST++;
 
           // Copy the matrices into packed storage.
 
@@ -588,7 +588,7 @@ void ddrvsg(
 
             // Test DSPGVD
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -633,7 +633,7 @@ void ddrvsg(
 
             // Test DSPGVX
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -676,7 +676,7 @@ void ddrvsg(
             dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                 RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -721,7 +721,7 @@ void ddrvsg(
             dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                 RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -769,7 +769,7 @@ void ddrvsg(
           if (IBTYPE == 1) {
             // TEST DSBGV
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into band storage.
 
@@ -814,7 +814,7 @@ void ddrvsg(
 
               // TEST DSBGVD
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 
@@ -859,7 +859,7 @@ void ddrvsg(
 
               // Test DSBGVX
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 
@@ -926,7 +926,7 @@ void ddrvsg(
               dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                   RESULT(NTEST));
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 
@@ -995,7 +995,7 @@ void ddrvsg(
               dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                   RESULT(NTEST));
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 

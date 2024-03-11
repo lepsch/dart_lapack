@@ -51,10 +51,10 @@ void dbdt04(
     K = 0;
     for (I = 1; I <= NS; I++) {
       for (J = 1; J <= N - 1; J++) {
-        K = K + 1;
+        K++;
         WORK[K] = D[J] * VT[I][J] + E[J] * VT[I][J + 1];
       }
-      K = K + 1;
+      K++;
       WORK[K] = D[N] * VT[I][N];
     }
     BNORM = (D[1]).abs();
@@ -66,10 +66,10 @@ void dbdt04(
 
     K = 0;
     for (I = 1; I <= NS; I++) {
-      K = K + 1;
+      K++;
       WORK[K] = D[1] * VT[I][1];
       for (J = 1; J <= N - 1; J++) {
-        K = K + 1;
+        K++;
         WORK[K] = E[J] * VT[I][J] + D[J + 1] * VT[I][J + 1];
       }
     }

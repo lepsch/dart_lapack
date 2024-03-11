@@ -35,7 +35,7 @@
       } else if ( LWORK < 1 || LWORK < NRHS && M > 0 && N > 0 ) {
          INFO = -10;
       }
-      if ( INFO != 0 ) {
+      if ( INFO.value != 0 ) {
          xerbla('ZGERQS', -INFO );
          return;
       }

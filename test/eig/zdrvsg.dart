@@ -416,7 +416,7 @@ void zdrvsg(
 
           // Test ZHEGV
 
-          NTEST = NTEST + 1;
+          NTEST++;
 
           zlacpy(' ', N, N, A, LDA, Z, LDZ);
           zlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -443,7 +443,7 @@ void zdrvsg(
 
             // Test ZHEGVD
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             zlacpy(' ', N, N, A, LDA, Z, LDZ);
             zlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -469,7 +469,7 @@ void zdrvsg(
 
             // Test ZHEGVX
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             zlacpy(' ', N, N, A, LDA, AB, LDA);
             zlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -516,7 +516,7 @@ void zdrvsg(
             zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK,
                 RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             zlacpy(' ', N, N, A, LDA, AB, LDA);
             zlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -570,7 +570,7 @@ void zdrvsg(
             zsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                 RWORK, RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             zlacpy(' ', N, N, A, LDA, AB, LDA);
             zlacpy(UPLO, N, N, B, LDB, BB, LDB);
@@ -622,7 +622,7 @@ void zdrvsg(
 
           // Test ZHPGV
 
-          NTEST = NTEST + 1;
+          NTEST++;
 
           // Copy the matrices into packed storage.
 
@@ -671,7 +671,7 @@ void zdrvsg(
 
             // Test ZHPGVD
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -720,7 +720,7 @@ void zdrvsg(
 
             // Test ZHPGVX
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -767,7 +767,7 @@ void zdrvsg(
             zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK,
                 RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -816,7 +816,7 @@ void zdrvsg(
             zsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                 RWORK, RESULT(NTEST));
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into packed storage.
 
@@ -869,7 +869,7 @@ void zdrvsg(
           if (IBTYPE == 1) {
             // TEST ZHBGV
 
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Copy the matrices into band storage.
 
@@ -921,7 +921,7 @@ void zdrvsg(
 
               // TEST ZHBGVD
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 
@@ -972,7 +972,7 @@ void zdrvsg(
 
               // Test ZHBGVX
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 
@@ -1046,7 +1046,7 @@ void zdrvsg(
               zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK,
                   RESULT(NTEST));
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 
@@ -1122,7 +1122,7 @@ void zdrvsg(
               zsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
                   RWORK, RESULT(NTEST));
 
-              NTEST = NTEST + 1;
+              NTEST++;
 
               // Copy the matrices into band storage.
 

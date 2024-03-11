@@ -57,5 +57,5 @@ void dget03(
 
   RESID.value = dlange('1', N, N, WORK, LDWORK, RWORK);
 
-  RESID.value = ((RESID.value * RCOND.value) / EPS) / N.toDouble();
+  RESID.value = ((RESID.value * RCOND.value) / EPS) / N;
 }

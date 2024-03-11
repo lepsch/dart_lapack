@@ -33,7 +33,7 @@ void zunt01(
   int I, J, K, LDWORK, MNMIN;
   double EPS;
   Complex TMP;
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   RESID.value = ZERO;
 
@@ -102,6 +102,6 @@ void zunt01(
         RESID.value = max(RESID.value, CABS1(TMP));
       } // 30
     } // 40
-    RESID.value = (RESID.value / N.toDouble()) / EPS;
+    RESID.value = (RESID.value / N) / EPS;
   }
 }

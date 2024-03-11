@@ -106,7 +106,7 @@ void zhetri2x(
         // 1 x 1 diagonal NNB
         WORK[K][INVD] = (ONE / A[K][K].real).toComplex();
         WORK[K][INVD + 1] = Complex.zero;
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal NNB
         T = WORK[K + 1][1].abs().toComplex();
@@ -278,7 +278,7 @@ void zhetri2x(
         // 1 x 1 diagonal NNB
         WORK[K][INVD] = (ONE / A[K][K].real).toComplex();
         WORK[K][INVD + 1] = Complex.zero;
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal NNB
         T = (WORK[K - 1][1]).abs().toComplex();

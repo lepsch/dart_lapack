@@ -99,7 +99,7 @@ void dchksy_aa_2stage(
   for (var IN = 1; IN <= NN; IN++) {
     final N = NVAL[IN];
     if (N > NMAX) {
-      NFAIL = NFAIL + 1;
+      NFAIL++;
       NOUT.println(
           ' Invalid input value: ${'M '.a4}=${N.i6}; must be <=${NMAX.i6}');
       continue;
@@ -289,10 +289,10 @@ void dchksy_aa_2stage(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + NT;
+          NRUN += NT;
 
           // Skip solver test if INFO.value is not 0.
 
@@ -368,11 +368,11 @@ void dchksy_aa_2stage(
                     if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                     NOUT.println(
                         ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
               }
-              NRUN = NRUN + 1;
+              NRUN++;
 
               // End do for each value of NRHS in NSVAL.
             }

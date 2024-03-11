@@ -27,10 +27,10 @@
       bool               ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
-      int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
+      int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NIMAT, NRHS, NT;
       double             ANORM, CNDNUM;
       String             UPLOS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Subroutines ..
@@ -56,18 +56,17 @@
 
       // Test path
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'SA';
+      final PATH = '${'Zomplex precision'[0]}SA';
 
       // Path to generate matrices
 
       MATPATH[1: 1] = 'Zomplex precision';
       MATPATH[2: 3] = 'SY';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -83,16 +82,15 @@
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN );
+         final N = NVAL[IN];
          if ( N > NMAX ) {
-            NFAIL = NFAIL + 1;
+            NFAIL++;
             WRITE(NOUT, 9995) 'M ', N, NMAX;
             GO TO 180;
          }
-         LDA = max( N, 1 );
+         final LDA = max( N, 1 );
          XTYPE = 'N';
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          IZERO = 0;
 
@@ -102,17 +100,17 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE( IMAT ) ) GO TO 170;
+            if( !DOTYPE[IMAT] ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6;
+            final ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               UPLO = UPLOS( IUPLO );
+               final UPLO = UPLOS[IUPLO - 1];
 
                // Begin generate the test matrix A.
 
@@ -129,7 +127,7 @@
 
                // Check error code from ZLATMS and handle error.
 
-               if ( INFO != 0 ) {
+               if ( INFO.value != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Skip all tests for this generated matrix
@@ -141,13 +139,14 @@
                // columns of the matrix to test that INFO is returned
                // correctly.
 
+               final int IZERO;
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
                      IZERO = 1;
                   } else if ( IMAT == 4 ) {
                      IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1;
+                     IZERO = N ~/ 2 + 1;
                   }
 
                   if ( IMAT < 6 ) {
@@ -216,7 +215,7 @@
                   // Set the optimal blocksize, which will be later
                   // returned by ILAENV.
 
-                  NB = NBVAL( INB );
+                  final NB = NBVAL[INB];
                   xlaenv(1, NB );
 
                   // Copy the test matrix A into matrix AFAC which
@@ -256,7 +255,7 @@
 
                   // Check error code from ZSYTRF and handle error.
 
-                  if ( INFO != K ) {
+                  if ( INFO.value != K ) {
                      alaerh(PATH, 'ZSYTRF_AA', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   }
 
@@ -271,24 +270,24 @@
                   // the threshold.
 
                   for (K = 1; K <= NT; K++) { // 110
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[K] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 )UPLO, N, NB, IMAT, K, RESULT[K];
+                        NFAIL++;
                      }
                   } // 110
-                  NRUN = NRUN + NT;
+                  NRUN +=  NT;
 
                   // Skip solver test if INFO is not 0.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      GO TO 140;
                   }
 
                   // Do for each value of NRHS in NSVAL.
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
-                     NRHS = NSVAL( IRHS );
+                     final NRHS = NSVAL[IRHS];
 
 // +    TEST 2 (Using TRS)
                   // Solve and compute residual for  A * X = B.
@@ -306,7 +305,7 @@
 
                      // Check error code from ZSYTRS and handle error.
 
-                     if ( INFO != 0 ) {
+                     if ( INFO.value != 0 ) {
                         if ( IZERO == 0 ) {
                            alaerh(PATH, 'ZSYTRS_AA', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         }
@@ -322,14 +321,14 @@
                         // the threshold.
 
                         for (K = 2; K <= 2; K++) { // 120
-                           if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                              WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1;
+                           if ( RESULT[K] >= THRESH ) {
+                              if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                              NOUT.println( 9998 )UPLO, N, NRHS, IMAT, K, RESULT[K];
+                              NFAIL++;
                            }
                         } // 120
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
 
                   // End do for each value of NRHS in NSVAL.
 
@@ -344,7 +343,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = \'${.a1}\', N =${.i5}, NB =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
- 9998 FORMAT( ' UPLO = \'${.a1}\', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
+ 9999 FORMAT( ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
+ 9998 FORMAT( ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${.i2}) =${RESULT[].g12_5};
  9995 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
       }

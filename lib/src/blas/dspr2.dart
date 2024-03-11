@@ -75,7 +75,7 @@ void dspr2(
           K = KK;
           for (I = 1; I <= J; I++) {
             AP[K] = AP[K] + X[I] * TEMP1 + Y[I] * TEMP2;
-            K = K + 1;
+            K++;
           }
         }
         KK = KK + J;
@@ -109,7 +109,7 @@ void dspr2(
           K = KK;
           for (I = J; I <= N; I++) {
             AP[K] = AP[K] + X[I] * TEMP1 + Y[I] * TEMP2;
-            K = K + 1;
+            K++;
           }
         }
         KK = KK + N - J + 1;

@@ -200,7 +200,7 @@ void dlaed0(
     K = 1;
     for (J = SUBMAT; J <= IWORK[I + 1]; J++) {
       IWORK[INDXQ + J] = K;
-      K = K + 1;
+      K++;
     }
   }
 

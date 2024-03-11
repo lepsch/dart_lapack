@@ -98,7 +98,7 @@ void ddrvrf3(
                   //    and ALPHA
                   // READY TO TEST!
 
-                  NRUN = NRUN + 1;
+                  NRUN++;
 
                   final int NA;
                   if (ISIDE == 1) {
@@ -213,7 +213,7 @@ void ddrvrf3(
                     }
                     NOUT.println(
                         '      Failure in DTFSM, CFORM=\'${CFORM.a1}\', SIDE=\'${SIDE.a1}\', UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.a1}\', M=${M.i3}, N =${N.i3}, test=${RESULT[1].g12_5}');
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
               }

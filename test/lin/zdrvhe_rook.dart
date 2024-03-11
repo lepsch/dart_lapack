@@ -24,10 +24,10 @@
       bool               ZEROT;
       String             DIST, FACT, TYPE, UPLO, XTYPE;
       String             MATPATH, PATH;
-      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT;
+      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NIMAT, NT;
       double             AINVNM, ANORM, CNDNUM, RCONDC;
       String             FACTS( NFACT ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
 
       // ..
@@ -58,19 +58,18 @@
 
       // Test path
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'HR';
+      final PATH = '${'Zomplex precision'[0]}HR';
 
       // Path to generate matrices
 
       MATPATH[1: 1] = 'Zomplex precision';
       MATPATH[2: 3] = 'HE';
 
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
       LWORK = max( 2*NMAX, NMAX*NRHS );
 
@@ -82,35 +81,34 @@
       // Set the block size and minimum block size for which the block
       // routine should be used, which will be later returned by ILAENV.
 
-      NB = 1;
-      NBMIN = 2;
+            final NB = 1;
+      final NBMIN = 2;
       xlaenv(1, NB );
       xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN );
-         LDA = max( N, 1 );
+         final N = NVAL[IN];
+         final LDA = max( N, 1 );
          XTYPE = 'N';
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE( IMAT ) ) GO TO 170;
+            if( !DOTYPE[IMAT] ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6;
+            final ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               UPLO = UPLOS( IUPLO );
+               final UPLO = UPLOS[IUPLO - 1];
 
                   // Begin generate the test matrix A.
 
@@ -126,7 +124,7 @@
 
                   // Check error code from ZLATMS and handle error.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 160;
                   }
@@ -134,13 +132,14 @@
                   // For types 3-6, zero one or more rows and columns of
                   // the matrix to test that INFO is returned correctly.
 
+                  final int IZERO;
                   if ( ZEROT ) {
                      if ( IMAT == 3 ) {
                         IZERO = 1;
                      } else if ( IMAT == 4 ) {
                         IZERO = N;
                      } else {
-                        IZERO = N / 2 + 1;
+                        IZERO = N ~/ 2 + 1;
                      }
 
                      if ( IMAT < 6 ) {
@@ -211,6 +210,7 @@
                   // Compute the condition number for comparison with
                   // the value returned by ZHESVX_ROOK.
 
+                  final int IZERO;
                   if ( ZEROT ) {
                      if (IFACT == 1) GO TO 150;
                      RCONDC = ZERO;
@@ -280,10 +280,10 @@
 
                      // Check error code from ZHESV_ROOK and handle error.
 
-                     if ( INFO != K ) {
+                     if ( INFO.value != K ) {
                         alaerh(PATH, 'ZHESV_ROOK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120;
-                     } else if ( INFO != 0 ) {
+                     } else if ( INFO.value != 0 ) {
                         GO TO 120;
                      }
 
@@ -307,13 +307,13 @@
                      // the threshold.
 
                      for (K = 1; K <= NT; K++) { // 110
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 )'ZHESV_ROOK', UPLO, N, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1;
+                        if ( RESULT[K] >= THRESH ) {
+                           if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                           NOUT.println( 9999 )'ZHESV_ROOK', UPLO, N, IMAT, K, RESULT[K];
+                           NFAIL++;
                         }
                      } // 110
-                     NRUN = NRUN + NT;
+                     NRUN +=  NT;
                      } // 120
                   }
 
@@ -327,5 +327,5 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
       }

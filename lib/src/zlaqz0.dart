@@ -411,7 +411,7 @@ void zlaqz0(
 
         ISTART2 = ISTART2 + 1;
       }
-      K = K - 1;
+      K--;
     }
 
     // istart2 now points to the top of the bottom right

@@ -256,10 +256,10 @@ void dchkge(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' M = ${M.i5}, N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + NT;
+          NRUN += NT;
 
           // Skip the remaining tests if this is not the first
           // block size or if M != N.  Skip the solve tests if
@@ -380,10 +380,10 @@ void dchkge(
                     if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                     NOUT.println(
                         ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + 5;
+                NRUN += 5;
               }
             }
           }
@@ -422,9 +422,9 @@ void dchkge(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${8.i2}) =${RESULT[8].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 1;
+            NRUN++;
           }
         }
       }

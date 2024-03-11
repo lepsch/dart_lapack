@@ -239,10 +239,10 @@ void ddrvac(
             NOUT.println(
                 ' UPLO=\'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${1.i2}) =${RESULT[1].g12_5}');
 
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
 
-          NRUN = NRUN + 1;
+          NRUN++;
         } // 60
       } // 100
     } // 110

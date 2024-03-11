@@ -644,7 +644,7 @@ void zchkhs(
                 break match;
               }
             } // 160
-            K = K + 1;
+            K++;
           }
         } // 170
         if (!MATCH) _print9997(NOUNIT, 'Right', 'ZTREVC', N, JTYPE, IOLDSD);
@@ -694,7 +694,7 @@ void zchkhs(
                 break match;
               }
             } // 190
-            K = K + 1;
+            K++;
           }
         } // 200
         if (!MATCH) _print9997(NOUNIT, 'Left', 'ZTREVC', N, JTYPE, IOLDSD);

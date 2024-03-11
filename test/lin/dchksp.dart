@@ -267,10 +267,10 @@ void dchksp(
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' UPLO = \'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
         }
-        NRUN = NRUN + NT;
+        NRUN += NT;
 
         // Do only the condition estimate if INFO.value is not 0.
 
@@ -349,10 +349,10 @@ void dchksp(
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + 5;
+            NRUN += 5;
           }
         }
 
@@ -379,9 +379,9 @@ void dchksp(
           if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
           NOUT.println(
               ' UPLO = \'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${8.i2}, ratio =${RESULT[8].g12_5}');
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
-        NRUN = NRUN + 1;
+        NRUN++;
       }
     }
   }

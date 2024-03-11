@@ -157,7 +157,7 @@ void dsytri_rook(
           A[KP][K + 1] = TEMP;
         }
 
-        K = K + 1;
+        K++;
         KP = -IPIV[K];
         if (KP != K) {
           if (KP > 1) {
@@ -171,7 +171,7 @@ void dsytri_rook(
         }
       }
 
-      K = K + 1;
+      K++;
     }
   } else {
     // Compute inv(A) from the factorization A = L*D*L**T.
@@ -267,7 +267,7 @@ void dsytri_rook(
           A[KP][K - 1] = TEMP;
         }
 
-        K = K - 1;
+        K--;
         KP = -IPIV[K];
         if (KP != K) {
           if (KP < N) {
@@ -282,7 +282,7 @@ void dsytri_rook(
         }
       }
 
-      K = K - 1;
+      K--;
     }
   }
 }

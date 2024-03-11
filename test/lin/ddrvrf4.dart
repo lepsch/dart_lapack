@@ -91,7 +91,7 @@ void ddrvrf4(
               //    ALPHA, and BETA
               // READY TO TEST!
 
-              NRUN = NRUN + 1;
+              NRUN++;
 
               final double NORMA;
               if (ITRANS == 1) {
@@ -178,7 +178,7 @@ void ddrvrf4(
                 }
                 NOUT.println(
                     '      Failure in DSFRK, CFORM=\'${CFORM.a1}\', UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', N=${N.i3}, K =${K.i3}, test=${RESULT[1].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
           }

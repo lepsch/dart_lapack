@@ -171,9 +171,9 @@ void dchktr(
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' UPLO=\'${UPLO.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}, NB=${NB.i4}, type ${IMAT.i2}, test(${1.i2})= ${RESULT[1].g12_5}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 1;
+          NRUN++;
 
           // Skip remaining tests if not the first block size.
 
@@ -293,10 +293,10 @@ void dchktr(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}, NB=${NB.i4}, type ${IMAT.i2}, test(${K.i2})= ${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + 5;
+              NRUN += 5;
             }
           }
 
@@ -328,9 +328,9 @@ void dchktr(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' NORM=\'${NORM.a1}\', UPLO =\'${UPLO.a1}\', N=${N.i5},${' ' * 11} type ${IMAT.i2}, test(${7.i2})=${RESULT[7].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 1;
+            NRUN++;
           }
         }
       }
@@ -490,19 +490,19 @@ void dchktr(
           if (RESULT[8] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             printFailedTest('DLATRS', 'N', 8, RESULT[8]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
           if (RESULT[9] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             printFailedTest('DLATRS', 'Y', 9, RESULT[9]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
           if (RESULT[10] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             printFailedTest('DLATRS3', 'N', 10, RESULT[10]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 3;
+          NRUN += 3;
         }
       }
     }

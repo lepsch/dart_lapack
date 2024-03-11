@@ -39,7 +39,7 @@
 
       // Copy upper triangle R
 
-      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
+      zlaset('Full', M, N, Complex.zero, Complex.zero, WORK, M );
       for (J = 1; J <= M; J++) { // 20
          for (I = 1; I <= J; I++) { // 10
             WORK[( J-1 )*M+I] = AF( I, J );

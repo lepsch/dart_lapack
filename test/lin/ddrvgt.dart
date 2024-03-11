@@ -308,10 +308,10 @@ void ddrvgt(
                 if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                 NOUT.println(
                     ' DGTSV , N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio = ${RESULT[K].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + NT - 1;
+            NRUN += NT - 1;
           }
 
           // --- Test DGTSVX ---
@@ -426,7 +426,7 @@ void ddrvgt(
             if (RESULT[K] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
               NOUT.print9998('DGTSVX', FACT, TRANS, N, IMAT, K, RESULT[K]);
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
 
@@ -436,9 +436,9 @@ void ddrvgt(
           if (RESULT[6] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
             NOUT.print9998('DGTSVX', FACT, TRANS, N, IMAT, K, RESULT[K]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + NT - K1 + 2;
+          NRUN += NT - K1 + 2;
         }
       }
     }

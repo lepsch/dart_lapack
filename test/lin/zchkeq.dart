@@ -34,8 +34,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'EQ';
+      final PATH = '${'Zomplex precision'[0]}EQ';
 
       EPS = dlamch( 'P' );
       for (I = 1; I <= 5; I++) { // 10
@@ -63,7 +62,7 @@
 
             zgeequ(M, N, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
 
-            if ( INFO != 0 ) {
+            if ( INFO.value != 0 ) {
                RESLTS[1] = ONE;
             } else {
                if ( N != 0 && M != 0 ) {
@@ -86,7 +85,7 @@
          A[max( NSZ-1, 1 )][J] = CZERO;
       } // 90
       zgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
-      if( INFO != max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
+      if( INFO.value != max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
 
       for (J = 1; J <= NSZ; J++) { // 100
          A[max( NSZ-1, 1 )][J] = CONE;
@@ -95,7 +94,7 @@
          A[I, max( NSZ-1, 1 )] = CZERO;
       } // 110
       zgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
-      if( INFO != NSZ+max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
+      if( INFO.value != NSZ+max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
       RESLTS[1] = RESLTS( 1 ) / EPS;
 
       // Test ZGBEQU
@@ -120,7 +119,7 @@
 
                   zgbequ(M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO );
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      if ( !( ( N+KL < M && INFO == N+KL+1 ) || ( M+KU < N && INFO == 2*M+KU+1 ) ) ) {
                         RESLTS[2] = ONE;
                      }
@@ -192,7 +191,7 @@
 
          zpoequ(N, A, NSZ, R, RCOND, NORM, INFO );
 
-         if ( INFO != 0 ) {
+         if ( INFO.value != 0 ) {
             RESLTS[3] = ONE;
          } else {
             if ( N != 0 ) {
@@ -205,7 +204,7 @@
       } // 290
       A[max( NSZ-1, 1 ), max( NSZ-1, 1 )] = -CONE;
       zpoequ(NSZ, A, NSZ, R, RCOND, NORM, INFO );
-      if( INFO != max( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE;
+      if( INFO.value != max( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE;
       RESLTS[3] = RESLTS( 3 ) / EPS;
 
       // Test ZPPEQU
@@ -223,7 +222,7 @@
 
          zppequ('U', N, AP, R, RCOND, NORM, INFO );
 
-         if ( INFO != 0 ) {
+         if ( INFO.value != 0 ) {
             RESLTS[4] = ONE;
          } else {
             if ( N != 0 ) {
@@ -247,7 +246,7 @@
 
          zppequ('L', N, AP, R, RCOND, NORM, INFO );
 
-         if ( INFO != 0 ) {
+         if ( INFO.value != 0 ) {
             RESLTS[4] = ONE;
          } else {
             if ( N != 0 ) {
@@ -262,7 +261,7 @@
       I = ( NSZ*( NSZ+1 ) ) / 2 - 2;
       AP[I] = -CONE;
       zppequ('L', NSZ, AP, R, RCOND, NORM, INFO );
-      if( INFO != max( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE;
+      if( INFO.value != max( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE;
       RESLTS[4] = RESLTS( 4 ) / EPS;
 
       // Test ZPBEQU
@@ -283,7 +282,7 @@
 
             zpbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
-            if ( INFO != 0 ) {
+            if ( INFO.value != 0 ) {
                RESLTS[5] = ONE;
             } else {
                if ( N != 0 ) {
@@ -296,7 +295,7 @@
             if ( N != 0 ) {
                AB[KL+1, max( N-1, 1 )] = -CONE;
                zpbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
-               if( INFO != max( N-1, 1 ) ) RESLTS( 5 ) = ONE;
+               if( INFO.value != max( N-1, 1 ) ) RESLTS( 5 ) = ONE;
             }
 
             // Test lower triangular storage
@@ -312,7 +311,7 @@
 
             zpbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
-            if ( INFO != 0 ) {
+            if ( INFO.value != 0 ) {
                RESLTS[5] = ONE;
             } else {
                if ( N != 0 ) {
@@ -325,21 +324,21 @@
             if ( N != 0 ) {
                AB[1, max( N-1, 1 )] = -CONE;
                zpbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
-               if( INFO != max( N-1, 1 ) ) RESLTS( 5 ) = ONE;
+               if( INFO.value != max( N-1, 1 ) ) RESLTS( 5 ) = ONE;
             }
          } // 450
       } // 460
       RESLTS[5] = RESLTS( 5 ) / EPS;
       OK = ( RESLTS( 1 ) <= THRESH ) && ( RESLTS( 2 ) <= THRESH ) && ( RESLTS( 3 ) <= THRESH ) && ( RESLTS( 4 ) <= THRESH ) && ( RESLTS( 5 ) <= THRESH );
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
       if ( OK ) {
-         WRITE( NOUT, FMT = 9999 )PATH;
+         NOUT.println( 9999 )PATH;
       } else {
-         if( RESLTS( 1 ) > THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH;
-         if( RESLTS( 2 ) > THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH;
-         if( RESLTS( 3 ) > THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH;
-         if( RESLTS( 4 ) > THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH;
-         IF( RESLTS( 5 ) > THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH;
+         if( RESLTS( 1 ) > THRESH ) NOUT.println( 9998 )RESLTS( 1 ), THRESH;
+         if( RESLTS( 2 ) > THRESH ) NOUT.println( 9997 )RESLTS( 2 ), THRESH;
+         if( RESLTS( 3 ) > THRESH ) NOUT.println( 9996 )RESLTS( 3 ), THRESH;
+         if( RESLTS( 4 ) > THRESH ) NOUT.println( 9995 )RESLTS( 4 ), THRESH;
+         IF( RESLTS( 5 ) > THRESH ) NOUT.println( 9994 )RESLTS( 5 ), THRESH;
       }
  9999 FORMAT(' All tests for ${.a3} routines passed the threshold' );
  9998 FORMAT( ' ZGEEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );

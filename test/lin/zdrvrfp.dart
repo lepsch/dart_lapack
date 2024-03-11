@@ -1,4 +1,4 @@
-      void zdrvrfp(final Nout NOUT, NN, final int NVAL, final int NNS, final Array<int> NSVAL_, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int Z_WORK_ZLATMS, final int Z_WORK_ZPOT02, final int Z_WORK_ZPOT03, final int D_WORK_ZLATMS, final int D_WORK_ZLANHE, final int D_WORK_ZPOT01, final int D_WORK_ZPOT02, final int D_WORK_ZPOT03,) {
+      void zdrvrfp(final Nout NOUT, NN, final int NVAL, final int NNS, final Array<int> NSVAL_, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final Array<Complex> B_, final Array<Complex> BSAV_, final int XACT, final int X, final int ARF, final int ARFINV, final int Z_WORK_ZLATMS, final int Z_WORK_ZPOT02, final int Z_WORK_ZPOT03, final int D_WORK_ZLATMS, final int D_WORK_ZLANHE, final int D_WORK_ZPOT01, final int D_WORK_ZPOT02, final int D_WORK_ZPOT03,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,12 +31,12 @@
       int                NTESTS;
       const              NTESTS = 4 ;
       bool               ZEROT;
-      int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS;
+      int                I, INFO, IUPLO, LDA, LDB, IMAT, NRHS, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS;
       String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE;
       double             ANORM, AINVNM, CNDNUM, RCONDC;
       String             UPLOS( 2 ), FORMS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -59,17 +59,17 @@
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       for (IIN = 1; IIN <= NN; IIN++) { // 130
 
          N = NVAL( IIN );
-         LDA = max( N, 1 );
+         final LDA = max( N, 1 );
          LDB = max( N, 1 );
 
          for (IIS = 1; IIS <= NNS; IIS++) { // 980
@@ -92,7 +92,7 @@
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
-                  UPLO = UPLOS( IUPLO );
+                  final UPLO = UPLOS[IUPLO - 1];
 
                   // Do first for CFORM = 'N', then for CFORM = 'C'
 
@@ -109,7 +109,7 @@
 
                      // Check error code from ZLATMS.
 
-                     if ( INFO != 0 ) {
+                     if ( INFO.value != 0 ) {
                         alaerh('ZPF', 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100;
                      }
@@ -117,14 +117,14 @@
                      // For types 3-5, zero one row and column of the matrix to
                      // test that INFO is returned correctly.
 
-                     ZEROT = IMAT >= 3 && IMAT <= 5;
+                     final ZEROT = IMAT >= 3 && IMAT <= 5;
                      if ( ZEROT ) {
                         if ( IIT == 3 ) {
                            IZERO = 1;
                         } else if ( IIT == 4 ) {
                            IZERO = N;
                         } else {
-                           IZERO = N / 2 + 1;
+                           IZERO = N ~/ 2 + 1;
                         }
                         IOFF = ( IZERO-1 )*LDA;
 
@@ -164,6 +164,7 @@
 
                      // Compute the condition number of A (RCONDC).
 
+                     final int IZERO;
                      if ( ZEROT ) {
                         RCONDC = ZERO;
                      } else {
@@ -213,7 +214,7 @@
 
                      // Check error code from ZPFTRF.
 
-                     if ( INFO != IZERO ) {
+                     if ( INFO.value != IZERO ) {
 
                         // LANGOU: there is a small hick here: IZERO should
                         // always be INFO however if INFO is ZERO, ALAERH does not
@@ -225,7 +226,7 @@
 
                       // Skip the tests if INFO is not 0.
 
-                     if ( INFO != 0 ) {
+                     if ( INFO.value != 0 ) {
                         GO TO 100;
                      }
 
@@ -276,13 +277,13 @@
                      // pass the threshold.
 
                      for (K = 1; K <= NT; K++) { // 60
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, 'ZPF' );
-                           WRITE( NOUT, FMT = 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K );
-                           NFAIL = NFAIL + 1;
+                        if ( RESULT[K] >= THRESH ) {
+                           if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, 'ZPF' );
+                           NOUT.println( 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K );
+                           NFAIL++;
                         }
                      } // 60
-                     NRUN = NRUN + NT;
+                     NRUN +=  NT;
                   } // 100
                } // 110
             } // 120
@@ -293,6 +294,6 @@
 
       alasvm('ZPF', NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${.a6}, UPLO=\'${.a1}\', N =${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
+ 9999 FORMAT(' ${.a6}, UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
 
       }

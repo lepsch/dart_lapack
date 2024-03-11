@@ -22,9 +22,9 @@
       const              ZERO = 0.0 ;
       String             DIST, TYPE;
       String             PATH;
-      int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX;
+      int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NK, NRUN, NT, NX;
       double             ANORM, CNDNUM;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 ), KVAL( 4 );
+      final                ISEED=Array<int>( 4 ), KVAL( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Subroutines ..
@@ -47,13 +47,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'LQ';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}LQ';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -68,30 +67,30 @@
       // Do for each value of M in MVAL.
 
       for (IM = 1; IM <= NM; IM++) { // 70
-         M = MVAL( IM );
+         final M = MVAL[IM];
 
          // Do for each value of N in NVAL.
 
          for (IN = 1; IN <= NN; IN++) { // 60
-            N = NVAL( IN );
+            final N = NVAL[IN];
             MINMN = min( M, N );
             for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 50
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               if( !DOTYPE( IMAT ) ) GO TO 50;
+               if( !DOTYPE[IMAT] ) GO TO 50;
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+               final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, M, N);
 
               srnamc.SRNAMT = 'ZLATMS';
                zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
-               if ( INFO != 0 ) {
+               if ( INFO.value != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 50;
                }
@@ -117,12 +116,12 @@
                // Do for each value of K in KVAL
 
                for (IK = 1; IK <= NK; IK++) { // 40
-                  K = KVAL( IK );
+                  K = KVAL[IK];
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
                   for (INB = 1; INB <= NNB; INB++) { // 30
-                     NB = NBVAL( INB );
+                     final NB = NBVAL[INB];
                      xlaenv(1, NB );
                      NX = NXVAL( INB );
                      xlaenv(3, NX );
@@ -186,12 +185,12 @@
 
                      for (I = 1; I <= NT; I++) { // 20
                         if ( RESULT( I ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
-                           NFAIL = NFAIL + 1;
+                           if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                           NOUT.println( 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
+                           NFAIL++;
                         }
                      } // 20
-                     NRUN = NRUN + NT;
+                     NRUN +=  NT;
                   } // 30
                } // 40
             } // 50
@@ -202,5 +201,5 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' M=${.i5}, N=${.i5}, K=${.i5}, NB=${.i4}, NX=${.i5}, type ${.i2}, test(${.i2})=${.g12_5};
+ 9999 FORMAT( ' M=${M.i5}, N=${N.i5}, K=${.i5}, NB=${.i4}, NX=${.i5}, type ${IMAT.i2}, test(${.i2})=${.g12_5};
       }

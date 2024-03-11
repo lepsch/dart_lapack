@@ -20,10 +20,10 @@
       int                NTESTS;
       const              NTESTS = 1 ;
       String             UPLO, CFORM, NORM;
-      int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
+      int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NRUN;
       double             EPS, LARGE, NORMA, NORMARF, SMALL;
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -48,12 +48,12 @@
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       EPS = dlamch( 'Precision' );
@@ -100,7 +100,7 @@
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
-               UPLO = UPLOS( IUPLO );
+               final UPLO = UPLOS[IUPLO - 1];
 
                // Do first for CFORM = 'N', then for CFORM = 'C'
 
@@ -113,12 +113,12 @@
 
                   // Check error code from ZTRTTF
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, * );
-                        WRITE( NOUT, FMT = 9999 );
+                        NOUT.println( 9999 );
                      }
-                     WRITE( NOUT, FMT = 9998 )srnamc.SRNAMT, UPLO, CFORM, N;
+                     NOUT.println( 9998 )srnamc.SRNAMT, UPLO, CFORM, N;
                      NERRS = NERRS + 1;
                      GO TO 100;
                   }
@@ -132,15 +132,15 @@
                      NORMA = ZLANHE( NORM, UPLO, N, A, LDA, WORK );
 
                      RESULT[1] = ( NORMA - NORMARF ) / NORMA / EPS;
-                     NRUN = NRUN + 1;
+                     NRUN++;
 
                      if ( RESULT(1) >= THRESH ) {
                         if ( NFAIL == 0 && NERRS == 0 ) {
                            WRITE( NOUT, * );
-                           WRITE( NOUT, FMT = 9999 );
+                           NOUT.println( 9999 );
                         }
-                        WRITE( NOUT, FMT = 9997 ) 'ZLANHF', N, IIT, UPLO, CFORM, NORM, RESULT(1);
-                        NFAIL = NFAIL + 1;
+                        NOUT.println( 9997 ) 'ZLANHF', N, IIT, UPLO, CFORM, NORM, RESULT(1);
+                        NFAIL++;
                      }
                   } // 90
                } // 100
@@ -151,12 +151,12 @@
       // Print a summary of the results.
 
       if ( NFAIL == 0 ) {
-         WRITE( NOUT, FMT = 9996 ) 'ZLANHF', NRUN;
+         NOUT.println( 9996 ) 'ZLANHF', NRUN;
       } else {
-         WRITE( NOUT, FMT = 9995 ) 'ZLANHF', NFAIL, NRUN;
+         NOUT.println( 9995 ) 'ZLANHF', NFAIL, NRUN;
       }
       if ( NERRS != 0 ) {
-         WRITE( NOUT, FMT = 9994 ) NERRS, 'ZLANHF';
+         NOUT.println( 9994 ) NERRS, 'ZLANHF';
       }
 
  9999 FORMAT('  *** Error(s) or Failure(s) while testing ZLANHF ***');

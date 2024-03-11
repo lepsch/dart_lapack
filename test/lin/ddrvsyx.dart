@@ -313,10 +313,10 @@ void ddrvsy(
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                   NOUT.println(
                       ' DSYSV , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + NT;
+              NRUN += NT;
             }
           }
 
@@ -437,10 +437,10 @@ void ddrvsy(
               if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
               NOUT.println(
                   ' DSYSVX, FACT=\'${FACT.a1}\', UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 7 - K1;
+          NRUN += 7 - K1;
 
           // --- Test DSYSVXX ---
 
@@ -568,10 +568,10 @@ void ddrvsy(
               if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
               NOUT.println(
                   ' DSYSVXX, FACT=\'${FACT.a1}\', UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 7 - K3;
+          NRUN += 7 - K3;
         }
       }
     }

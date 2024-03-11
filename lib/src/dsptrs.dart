@@ -84,7 +84,7 @@ void dsptrs(
         // Multiply by the inverse of the diagonal block.
 
         dscal(NRHS, ONE / AP[KC + K - 1], B(K, 1).asArray(), LDB);
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 
@@ -148,7 +148,7 @@ void dsptrs(
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
         KC = KC + K;
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -206,7 +206,7 @@ void dsptrs(
 
         dscal(NRHS, ONE / AP[KC], B(K, 1).asArray(), LDB);
         KC = KC + N - K + 1;
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -273,7 +273,7 @@ void dsptrs(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 

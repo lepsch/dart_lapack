@@ -1,386 +1,454 @@
-      void zdrvgt(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int A, final int AF, final int B, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
-  final IWORK = IWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dzasum.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zgtsv.dart';
+import 'package:lapack/src/zgtsvx.dart';
+import 'package:lapack/src/zgttrf.dart';
+import 'package:lapack/src/zgttrs.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlagtm.dart';
+import 'package:lapack/src/zlangt.dart';
+import 'package:lapack/src/zlarnv.dart';
+import 'package:lapack/src/zlaset.dart';
+
+import '../matgen/zlatms.dart';
+import 'aladhd.dart';
+import 'alaerh.dart';
+import 'alasvm.dart';
+import 'common.dart';
+import 'dget06.dart';
+import 'zerrvxx.dart';
+import 'zget04.dart';
+import 'zgtt01.dart';
+import 'zgtt02.dart';
+import 'zgtt05.dart';
+import 'zlatb4.dart';
+
+void zdrvgt(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NRHS,
+  final double THRESH,
+  final bool TSTERR,
+  final Array<Complex> A_,
+  final Array<Complex> AF_,
+  final Array<Complex> B_,
+  final Array<Complex> X_,
+  final Array<Complex> XACT_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<int> IWORK_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NN, NOUT, NRHS;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                IWORK( * ), NVAL( * );
-      double             RWORK( * );
-      Complex         A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * );
-      // ..
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final A = A_.having();
+  final AF = AF_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  const ONE = 1.0, ZERO = 0.0;
+  const NTYPES = 12;
+  const NTESTS = 6;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS), Z = Array<Complex>(3);
+  const ISEEDY = [0, 0, 0, 1], TRANSS = ['N', 'T', 'C'];
+  final INFO = Box(0);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                NTYPES;
-      const              NTYPES = 12 ;
-      int                NTESTS;
-      const              NTESTS = 6 ;
-      bool               TRFCON, ZEROT;
-      String             DIST, FACT, TRANS, TYPE;
-      String             PATH;
-      int                I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J, K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
-      double             AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND, RCONDC, RCONDI, RCONDO;
-      String             TRANSS( 3 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
-      final             RESULT=Array<double>( NTESTS ), Z( 3 );
-      // ..
-      // .. External Functions ..
-      //- double             DGET06, DZASUM, ZLANGT;
-      // EXTERNAL DGET06, DZASUM, ZLANGT
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALADHD, ALAERH, ALASVM, ZCOPY, ZDSCAL, ZERRVX, ZGET04, ZGTSV, ZGTSVX, ZGTT01, ZGTT02, ZGTT05, ZGTTRF, ZGTTRS, ZLACPY, ZLAGTM, ZLARNV, ZLASET, ZLATB4, ZLATMS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCMPLX, MAX
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
+  final PATH = '${'Zomplex precision'[0]}GT';
+  var NRUN = 0;
+  var NFAIL = 0;
+  var NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'GT';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
+  // Test the error exits
 
-      // Test the error exits
+  if (TSTERR) zerrvx(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      if (TSTERR) zerrvx( PATH, NOUT );
-      infoc.INFOT = 0;
+  for (var IN = 1; IN <= NN; IN++) {
+    // Do for each value of N in NVAL.
 
-      for (IN = 1; IN <= NN; IN++) { // 140
+    final N = NVAL[IN];
+    final M = max(N - 1, 0);
+    final LDA = max(1, N);
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
-         // Do for each value of N in NVAL.
+    int IZERO = 0;
+    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      // Do the tests only if DOTYPE( IMAT ) is true.
 
-         N = NVAL( IN );
-         M = max( N-1, 0 );
-         LDA = max( 1, N );
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+      if (!DOTYPE[IMAT]) continue;
 
-         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
+      // Set up parameters with ZLATB4.
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      final (:TYPE, :KL, :KU, :ANORM, :MODE, CNDNUM: COND, :DIST) =
+          zlatb4(PATH, IMAT, N, N);
 
-            if( !DOTYPE( IMAT ) ) GO TO 130;
+      final ZEROT = IMAT >= 8 && IMAT <= 10;
+      if (IMAT <= 6) {
+        // Types 1-6:  generate matrices of known condition number.
 
-            // Set up parameters with ZLATB4.
+        final KOFF = max(2 - KU, 3 - max(1, N)).toInt();
+        srnamc.SRNAMT = 'ZLATMS';
+        zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z',
+            AF(KOFF).asMatrix(), 3, WORK, INFO);
 
-            zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
+        // Check the error code from ZLATMS.
 
-            ZEROT = IMAT >= 8 && IMAT <= 10;
-            if ( IMAT <= 6 ) {
+        if (INFO.value != 0) {
+          alaerh(PATH, 'ZLATMS', INFO.value, 0, ' ', N, N, KL, KU, -1, IMAT,
+              NFAIL, NERRS, NOUT);
+          continue;
+        }
+        IZERO = 0;
 
-               // Types 1-6:  generate matrices of known condition number.
+        if (N > 1) {
+          zcopy(N - 1, AF(4), 3, A, 1);
+          zcopy(N - 1, AF(3), 3, A(N + M + 1), 1);
+        }
+        zcopy(N, AF(2), 3, A(M + 1), 1);
+      } else {
+        // Types 7-12:  generate tridiagonal matrices with
+        // unknown condition numbers.
 
-               KOFF = max( 2-KU, 3-max( 1, N ) );
-              srnamc.SRNAMT = 'ZLATMS';
-               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
+        if (!ZEROT || !DOTYPE[7]) {
+          // Generate a matrix with elements from [-1,1].
 
-               // Check the error code from ZLATMS.
+          zlarnv(2, ISEED, N + 2 * M, A);
+          if (ANORM != ONE) zdscal(N + 2 * M, ANORM, A, 1);
+        } else if (IZERO > 0) {
+          // Reuse the last matrix by copying back the zeroed out
+          // elements.
 
-               if ( INFO != 0 ) {
-                  alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 130;
-               }
-               IZERO = 0;
+          if (IZERO == 1) {
+            A[N] = Z[2];
+            if (N > 1) A[1] = Z[3];
+          } else if (IZERO == N) {
+            A[3 * N - 2] = Z[1];
+            A[2 * N - 1] = Z[2];
+          } else {
+            A[2 * N - 2 + IZERO] = Z[1];
+            A[N - 1 + IZERO] = Z[2];
+            A[IZERO] = Z[3];
+          }
+        }
 
-               if ( N > 1 ) {
-                  zcopy(N-1, AF( 4 ), 3, A, 1 );
-                  zcopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
-               }
-               zcopy(N, AF( 2 ), 3, A( M+1 ), 1 );
+        // If IMAT > 7, set one column of the matrix to 0.
+
+        if (!ZEROT) {
+          IZERO = 0;
+        } else if (IMAT == 8) {
+          IZERO = 1;
+          Z[2] = A[N].real.toComplex();
+          A[N] = Complex.zero;
+          if (N > 1) {
+            Z[3] = A[1].real.toComplex();
+            A[1] = Complex.zero;
+          }
+        } else if (IMAT == 9) {
+          IZERO = N;
+          Z[1] = A[3 * N - 2].real.toComplex();
+          Z[2] = A[2 * N - 1].real.toComplex();
+          A[3 * N - 2] = Complex.zero;
+          A[2 * N - 1] = Complex.zero;
+        } else {
+          IZERO = (N + 1) ~/ 2;
+          for (var I = IZERO; I <= N - 1; I++) {
+            A[2 * N - 2 + I] = Complex.zero;
+            A[N - 1 + I] = Complex.zero;
+            A[I] = Complex.zero;
+          }
+          A[3 * N - 2] = Complex.zero;
+          A[2 * N - 1] = Complex.zero;
+        }
+      }
+
+      double RCONDO = ZERO, RCONDI = ZERO;
+      for (var IFACT = 1; IFACT <= 2; IFACT++) {
+        final FACT = IFACT == 1 ? 'F' : 'N';
+
+        // Compute the condition number for comparison with
+        // the value returned by ZGTSVX.
+
+        if (ZEROT) {
+          if (IFACT == 1) continue;
+          RCONDO = ZERO;
+          RCONDI = ZERO;
+        } else if (IFACT == 1) {
+          zcopy(N + 2 * M, A, 1, AF, 1);
+
+          // Compute the 1-norm and infinity-norm of A.
+
+          final ANORMO = zlangt('1', N, A, A(M + 1), A(N + M + 1));
+          final ANORMI = zlangt('I', N, A, A(M + 1), A(N + M + 1));
+
+          // Factor the matrix A.
+
+          zgttrf(
+              N, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1), IWORK, INFO);
+
+          // Use ZGTTRS to solve for one column at a time of
+          // inv(A), computing the maximum column sum as we go.
+
+          var AINVNM = ZERO;
+          for (var I = 1; I <= N; I++) {
+            for (var J = 1; J <= N; J++) {
+              X[J] = Complex.zero;
+            }
+            X[I] = Complex.one;
+            zgttrs('No transpose', N, 1, AF, AF(M + 1), AF(N + M + 1),
+                AF(N + 2 * M + 1), IWORK, X.asMatrix(), LDA, INFO);
+            AINVNM = max(AINVNM, dzasum(N, X, 1));
+          }
+
+          // Compute the 1-norm condition number of A.
+
+          if (ANORMO <= ZERO || AINVNM <= ZERO) {
+            RCONDO = ONE;
+          } else {
+            RCONDO = (ONE / ANORMO) / AINVNM;
+          }
+
+          // Use ZGTTRS to solve for one column at a time of
+          // inv(A'), computing the maximum column sum as we go.
+
+          AINVNM = ZERO;
+          for (var I = 1; I <= N; I++) {
+            for (var J = 1; J <= N; J++) {
+              X[J] = Complex.zero;
+            }
+            X[I] = Complex.one;
+            zgttrs('Conjugate transpose', N, 1, AF, AF(M + 1), AF(N + M + 1),
+                AF(N + 2 * M + 1), IWORK, X.asMatrix(), LDA, INFO);
+            AINVNM = max(AINVNM, dzasum(N, X, 1));
+          }
+
+          // Compute the infinity-norm condition number of A.
+
+          if (ANORMI <= ZERO || AINVNM <= ZERO) {
+            RCONDI = ONE;
+          } else {
+            RCONDI = (ONE / ANORMI) / AINVNM;
+          }
+        }
+
+        for (var ITRAN = 1; ITRAN <= 3; ITRAN++) {
+          final TRANS = TRANSS[ITRAN - 1];
+          final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
+
+          // Generate NRHS random solution vectors.
+
+          var IX = 1;
+          for (var J = 1; J <= NRHS; J++) {
+            zlarnv(2, ISEED, N, XACT(IX));
+            IX = IX + LDA;
+          }
+
+          // Set the right hand side.
+
+          zlagtm(TRANS, N, NRHS, ONE, A, A(M + 1), A(N + M + 1),
+              XACT.asMatrix(), LDA, ZERO, B.asMatrix(), LDA);
+
+          int NT = 0;
+          if (IFACT == 2 && ITRAN == 1) {
+            // --- Test ZGTSV  ---
+
+            // Solve the system using Gaussian elimination with
+            // partial pivoting.
+
+            zcopy(N + 2 * M, A, 1, AF, 1);
+            zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+
+            srnamc.SRNAMT = 'ZGTSV ';
+            zgtsv(
+                N, NRHS, AF, AF(M + 1), AF(N + M + 1), X.asMatrix(), LDA, INFO);
+
+            // Check error code from ZGTSV .
+
+            if (INFO.value != IZERO) {
+              alaerh(PATH, 'ZGTSV ', INFO.value, IZERO, ' ', N, N, 1, 1, NRHS,
+                  IMAT, NFAIL, NERRS, NOUT);
+            }
+            if (IZERO == 0) {
+              // Check residual of computed solution.
+
+              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              zgtt02(TRANS, N, NRHS, A, A(M + 1), A(N + M + 1), X.asMatrix(),
+                  LDA, WORK.asMatrix(), LDA, RESULT(2));
+
+              // Check solution from generated exact solution.
+
+              zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(3));
+              NT = 3;
             } else {
-
-               // Types 7-12:  generate tridiagonal matrices with
-               // unknown condition numbers.
-
-               if ( !ZEROT || !DOTYPE( 7 ) ) {
-
-                  // Generate a matrix with elements from [-1,1].
-
-                  zlarnv(2, ISEED, N+2*M, A );
-                  if (ANORM != ONE) zdscal( N+2*M, ANORM, A, 1 );
-               } else if ( IZERO > 0 ) {
-
-                  // Reuse the last matrix by copying back the zeroed out
-                  // elements.
-
-                  if ( IZERO == 1 ) {
-                     A[N] = Z( 2 );
-                     if (N > 1) A( 1 ) = Z( 3 );
-                  } else if ( IZERO == N ) {
-                     A[3*N-2] = Z( 1 );
-                     A[2*N-1] = Z( 2 );
-                  } else {
-                     A[2*N-2+IZERO] = Z( 1 );
-                     A[N-1+IZERO] = Z( 2 );
-                     A[IZERO] = Z( 3 );
-                  }
-               }
-
-               // If IMAT > 7, set one column of the matrix to 0.
-
-               if ( !ZEROT ) {
-                  IZERO = 0;
-               } else if ( IMAT == 8 ) {
-                  IZERO = 1;
-                  Z[2] = (A( N )).toDouble();
-                  A[N] = ZERO;
-                  if ( N > 1 ) {
-                     Z[3] = (A( 1 )).toDouble();
-                     A[1] = ZERO;
-                  }
-               } else if ( IMAT == 9 ) {
-                  IZERO = N;
-                  Z[1] = (A( 3*N-2 )).toDouble();
-                  Z[2] = (A( 2*N-1 )).toDouble();
-                  A[3*N-2] = ZERO;
-                  A[2*N-1] = ZERO;
-               } else {
-                  IZERO = ( N+1 ) / 2;
-                  for (I = IZERO; I <= N - 1; I++) { // 20
-                     A[2*N-2+I] = ZERO;
-                     A[N-1+I] = ZERO;
-                     A[I] = ZERO;
-                  } // 20
-                  A[3*N-2] = ZERO;
-                  A[2*N-1] = ZERO;
-               }
+              NT = 1;
             }
 
-            for (IFACT = 1; IFACT <= 2; IFACT++) { // 120
-               if ( IFACT == 1 ) {
-                  FACT = 'F';
-               } else {
-                  FACT = 'N';
-               }
+            // Print information about the tests that did not pass
+            // the threshold.
 
-               // Compute the condition number for comparison with
-               // the value returned by ZGTSVX.
+            for (var K = 2; K <= NT; K++) {
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                NOUT.println(
+                    ' ZGTSV , N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio = ${RESULT[K].g12_5}');
+                NFAIL++;
+              }
+            }
+            NRUN += NT - 1;
+          }
 
-               if ( ZEROT ) {
-                  if (IFACT == 1) GO TO 120;
-                  RCONDO = ZERO;
-                  RCONDI = ZERO;
+          // --- Test ZGTSVX ---
 
-               } else if ( IFACT == 1 ) {
-                  zcopy(N+2*M, A, 1, AF, 1 );
+          if (IFACT > 1) {
+            // Initialize AF to zero.
 
-                  // Compute the 1-norm and infinity-norm of A.
+            for (var I = 1; I <= 3 * N - 2; I++) {
+              AF[I] = Complex.zero;
+            }
+          }
+          zlaset(
+              'Full', N, NRHS, Complex.zero, Complex.zero, X.asMatrix(), LDA);
 
-                  ANORMO = ZLANGT( '1', N, A, A( M+1 ), A( N+M+1 ) );
-                  ANORMI = ZLANGT( 'I', N, A, A( M+1 ), A( N+M+1 ) );
+          // Solve the system and compute the condition number and
+          // error bounds using ZGTSVX.
 
-                  // Factor the matrix A.
+          final RCOND = Box(ZERO);
+          srnamc.SRNAMT = 'ZGTSVX';
+          zgtsvx(
+              FACT,
+              TRANS,
+              N,
+              NRHS,
+              A,
+              A(M + 1),
+              A(N + M + 1),
+              AF,
+              AF(M + 1),
+              AF(N + M + 1),
+              AF(N + 2 * M + 1),
+              IWORK,
+              B.asMatrix(),
+              LDA,
+              X.asMatrix(),
+              LDA,
+              RCOND,
+              RWORK,
+              RWORK(NRHS + 1),
+              WORK,
+              RWORK(2 * NRHS + 1),
+              INFO);
 
-                  zgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
+          // Check the error code from ZGTSVX.
 
-                  // Use ZGTTRS to solve for one column at a time of
-                  // inv(A), computing the maximum column sum as we go.
+          if (INFO.value != IZERO) {
+            alaerh(PATH, 'ZGTSVX', INFO.value, IZERO, FACT + TRANS, N, N, 1, 1,
+                NRHS, IMAT, NFAIL, NERRS, NOUT);
+          }
 
-                  AINVNM = ZERO;
-                  for (I = 1; I <= N; I++) { // 40
-                     for (J = 1; J <= N; J++) { // 30
-                        X[J] = ZERO;
-                     } // 30
-                     X[I] = ONE;
-                     zgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = max( AINVNM, DZASUM( N, X, 1 ) );
-                  } // 40
+          int K1;
+          if (IFACT >= 2) {
+            // Reconstruct matrix from factors and compute
+            // residual.
 
-                  // Compute the 1-norm condition number of A.
+            zgtt01(
+                N,
+                A,
+                A(M + 1),
+                A(N + M + 1),
+                AF,
+                AF(M + 1),
+                AF(N + M + 1),
+                AF(N + 2 * M + 1),
+                IWORK,
+                WORK.asMatrix(),
+                LDA,
+                RWORK,
+                RESULT(1));
+            K1 = 1;
+          } else {
+            K1 = 2;
+          }
 
-                  if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
-                     RCONDO = ONE;
-                  } else {
-                     RCONDO = ( ONE / ANORMO ) / AINVNM;
-                  }
+          if (INFO.value == 0) {
+            // Check residual of computed solution.
 
-                  // Use ZGTTRS to solve for one column at a time of
-                  // inv(A'), computing the maximum column sum as we go.
+            zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+            zgtt02(TRANS, N, NRHS, A, A(M + 1), A(N + M + 1), X.asMatrix(), LDA,
+                WORK.asMatrix(), LDA, RESULT(2));
 
-                  AINVNM = ZERO;
-                  for (I = 1; I <= N; I++) { // 60
-                     for (J = 1; J <= N; J++) { // 50
-                        X[J] = ZERO;
-                     } // 50
-                     X[I] = ONE;
-                     zgttrs('Conjugate transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = max( AINVNM, DZASUM( N, X, 1 ) );
-                  } // 60
+            // Check solution from generated exact solution.
 
-                  // Compute the infinity-norm condition number of A.
+            zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                RESULT(3));
 
-                  if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
-                     RCONDI = ONE;
-                  } else {
-                     RCONDI = ( ONE / ANORMI ) / AINVNM;
-                  }
-               }
+            // Check the error bounds from iterative refinement.
 
-               for (ITRAN = 1; ITRAN <= 3; ITRAN++) { // 110
-                  TRANS = TRANSS( ITRAN );
-                  if ( ITRAN == 1 ) {
-                     RCONDC = RCONDO;
-                  } else {
-                     RCONDC = RCONDI;
-                  }
+            zgtt05(
+                TRANS,
+                N,
+                NRHS,
+                A,
+                A(M + 1),
+                A(N + M + 1),
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                XACT.asMatrix(),
+                LDA,
+                RWORK,
+                RWORK(NRHS + 1),
+                RESULT(4));
+            NT = 5;
+          }
 
-                  // Generate NRHS random solution vectors.
+          // Print information about the tests that did not pass
+          // the threshold.
 
-                  IX = 1;
-                  for (J = 1; J <= NRHS; J++) { // 70
-                     zlarnv(2, ISEED, N, XACT( IX ) );
-                     IX = IX + LDA;
-                  } // 70
+          for (var K = K1; K <= NT; K++) {
+            if (RESULT[K] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+              NOUT.println(
+                  ' ZGTSVX, FACT=\'${FACT.a1}\', TRANS=\'${TRANS.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio = ${RESULT[K].g12_5}');
+              NFAIL++;
+            }
+          }
 
-                  // Set the right hand side.
+          // Check the reciprocal of the condition number.
 
-                  zlagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
-
-                  if ( IFACT == 2 && ITRAN == 1 ) {
-
-                     // --- Test ZGTSV  ---
-
-                     // Solve the system using Gaussian elimination with
-                     // partial pivoting.
-
-                     zcopy(N+2*M, A, 1, AF, 1 );
-                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
-
-                    srnamc.SRNAMT = 'ZGTSV ';
-                     zgtsv(N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO );
-
-                     // Check error code from ZGTSV .
-
-                     if (INFO != IZERO) alaerh( PATH, 'ZGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                     NT = 1;
-                     if ( IZERO == 0 ) {
-
-                        // Check residual of computed solution.
-
-                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                        zgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
-
-                        // Check solution from generated exact solution.
-
-                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                        NT = 3;
-                     }
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     for (K = 2; K <= NT; K++) { // 80
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 )'ZGTSV ', N, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1;
-                        }
-                     } // 80
-                     NRUN = NRUN + NT - 1;
-                  }
-
-                  // --- Test ZGTSVX ---
-
-                  if ( IFACT > 1 ) {
-
-                     // Initialize AF to zero.
-
-                     for (I = 1; I <= 3*N - 2; I++) { // 90
-                        AF[I] = ZERO;
-                     } // 90
-                  }
-                  zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
-
-                  // Solve the system and compute the condition number and
-                  // error bounds using ZGTSVX.
-
-                 srnamc.SRNAMT = 'ZGTSVX';
-                  zgtsvx(FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
-
-                  // Check the error code from ZGTSVX.
-
-                  if (INFO != IZERO) alaerh( PATH, 'ZGTSVX', INFO, IZERO, FACT + TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-
-                  if ( IFACT >= 2 ) {
-
-                     // Reconstruct matrix from factors and compute
-                     // residual.
-
-                     zgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
-                     K1 = 1;
-                  } else {
-                     K1 = 2;
-                  }
-
-                  if ( INFO == 0 ) {
-                     TRFCON = false;
-
-                     // Check residual of computed solution.
-
-                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                     zgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
-
-                     // Check solution from generated exact solution.
-
-                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-
-                     // Check the error bounds from iterative refinement.
-
-                     zgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
-                     NT = 5;
-                  }
-
-                  // Print information about the tests that did not pass
-                  // the threshold.
-
-                  for (K = K1; K <= NT; K++) { // 100
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9998 )'ZGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
-                     }
-                  } // 100
-
-                  // Check the reciprocal of the condition number.
-
-                  RESULT[6] = DGET06( RCOND, RCONDC );
-                  if ( RESULT( 6 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                     WRITE( NOUT, FMT = 9998 )'ZGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
-                     NFAIL = NFAIL + 1;
-                  }
-                  NRUN = NRUN + NT - K1 + 2;
-
-               } // 110
-            } // 120
-         } // 130
-      } // 140
-
-      // Print a summary of the results.
-
-      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT(' ${}, N =${.i5}, type ${.i2}, test ${.i2}, ratio = ${.g12_5};
- 9998 FORMAT(' ${}, FACT=\'${.a1}\', TRANS=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio = ${.g12_5};
+          RESULT[6] = dget06(RCOND.value, RCONDC);
+          if (RESULT[6] >= THRESH) {
+            if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+            NOUT.println(
+                ' ZGTSVX, FACT=\'${FACT.a1}\', TRANS=\'${TRANS.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${6.i2}, ratio = ${RESULT[6].g12_5}');
+            NFAIL++;
+          }
+          NRUN += NT - K1 + 2;
+        }
       }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

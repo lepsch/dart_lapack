@@ -167,9 +167,9 @@ void dchkps(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO = \'${UPLO.a1}\', N =${N.i5}, RANK =${RANK.i3}, Diff =${RANKDIFF.i5}, NB =${NB.i4}, type ${IMAT.i2}, Ratio =${RESULT.value.g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 1;
+            NRUN++;
           }
         }
       }

@@ -107,7 +107,7 @@ void zspmv(
           // 50
           Y[I] = Y[I] + TEMP1 * AP[K];
           TEMP2 = TEMP2 + AP[K] * X[I];
-          K = K + 1;
+          K++;
         } // 50
         Y[J] = Y[J] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
         KK = KK + J;
@@ -148,7 +148,7 @@ void zspmv(
           // 90
           Y[I] = Y[I] + TEMP1 * AP[K];
           TEMP2 = TEMP2 + AP[K] * X[I];
-          K = K + 1;
+          K++;
         } // 90
         Y[J] = Y[J] + ALPHA * TEMP2;
         KK = KK + (N - J + 1);

@@ -27,7 +27,7 @@
       // INTRINSIC DBLE
 
       NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
 
       // Set the variables to innocuous values.
 

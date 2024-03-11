@@ -19,10 +19,10 @@
       int                NTYPES;
       const              NTYPES = 9 ;
       double             ANORM, CNDNUM, RESULT, TOL;
-      int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF;
+      int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NIMAT, RANK, RANKDIFF;
       String             DIST, TYPE, UPLO;
       String             PATH;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       String             UPLOS( 2 );
       // ..
       // .. External Subroutines ..
@@ -48,11 +48,11 @@
 
       PATH[1: 1] = 'Zomplex Precision';
       PATH[2: 3] = 'PS';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 100
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 100
 
       // Test the error exits
@@ -63,17 +63,16 @@
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 150
-         N = NVAL( IN );
-         LDA = max( N, 1 );
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+         final N = NVAL[IN];
+         final LDA = max( N, 1 );
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          IZERO = 0;
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 140
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE( IMAT ) ) GO TO 140;
+            if( !DOTYPE[IMAT] ) GO TO 140;
 
                // Do for each value of RANK in RANKVAL
 
@@ -90,7 +89,7 @@
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
-                  UPLO = UPLOS( IUPLO );
+                  final UPLO = UPLOS[IUPLO - 1];
 
                // Set up parameters with ZLATB5 and generate a test matrix
                // with ZLATMT.
@@ -102,7 +101,7 @@
 
                // Check error code from ZLATMT.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                     alaerh(PATH, 'ZLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120;
                   }
@@ -110,7 +109,7 @@
                // Do for each value of NB in NBVAL
 
                   for (INB = 1; INB <= NNB; INB++) { // 110
-                     NB = NBVAL( INB );
+                     final NB = NBVAL[INB];
                      xlaenv(1, NB );
 
                   // Compute the pivoted L*L' or U'*U factorization
@@ -126,7 +125,7 @@
 
                   // Check error code from ZPSTRF.
 
-                     if( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
+                     if( (INFO < IZERO) || (INFO.value != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
                         alaerh(PATH, 'ZPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110;
                      }
@@ -147,11 +146,11 @@
                      if (N == 0) COMPRANK = 0;
                      RANKDIFF = RANK - COMPRANK;
                      if ( RESULT >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
-                        NFAIL = NFAIL + 1;
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
+                        NFAIL++;
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
                   } // 110
 
                } // 120
@@ -163,5 +162,5 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = \'${.a1}\', N =${.i5}, RANK =${.i3}, Diff =${.i5}, NB =${.i4}, type ${.i2}, Ratio =${.g12_5};
+ 9999 FORMAT( ' UPLO = \'${UPLO.a1}\', N =${N.i5}, RANK =${.i3}, Diff =${.i5}, NB =${NB.i4}, type ${IMAT.i2}, Ratio =${.g12_5};
       }

@@ -342,7 +342,7 @@ Future<void> zdrgsx(
             } else if (MM.value != mn.N) {
               RESULT[7] = ULPINV;
             }
-            NTEST = NTEST + 1;
+            NTEST++;
 
             // Test (8): compare the estimated value DIF and its
             // value. first, compute the exact DIF.
@@ -376,7 +376,7 @@ Future<void> zdrgsx(
                   (DIFTRU * THRSH2 < DIFEST[2])) {
                 RESULT[8] = max(DIFTRU / DIFEST[2], DIFEST[2] / DIFTRU);
               }
-              NTEST = NTEST + 1;
+              NTEST++;
             }
 
             // Test (9)
@@ -386,7 +386,7 @@ Future<void> zdrgsx(
               if (DIFTRU > ABNRM * ULP) RESULT[9] = ULPINV;
               if ((IFUNC > 1) && (DIFEST[2] != ZERO)) RESULT[9] = ULPINV;
               if ((IFUNC == 1) && (PL[1] != ZERO)) RESULT[9] = ULPINV;
-              NTEST = NTEST + 1;
+              NTEST++;
             }
 
             NTESTT = NTESTT + NTEST;

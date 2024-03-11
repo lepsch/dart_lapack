@@ -24,10 +24,10 @@
       const              ONE = 1.0, ZERO = 0.0 ;
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
-      int                I, IDIAG, IK, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, J, K, KD, LDA, LDAB, N, NERRS, NFAIL, NIMAT, NIMAT2, NK, NRHS, NRUN;
+      int                I, IDIAG, IK, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, J, K, KD, LDA, LDAB, N, NIMAT, NIMAT2, NK, NRHS;
       double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
       String             TRANSS( NTRAN ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -56,13 +56,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'TB';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}TB';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -74,7 +73,7 @@
 
          // Do for each value of N in NVAL
 
-         N = NVAL( IN );
+         final N = NVAL[IN];
          LDA = max( 1, N );
          XTYPE = 'N';
          NIMAT = NTYPE1;
@@ -105,13 +104,13 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               if( !DOTYPE( IMAT ) ) GO TO 90;
+               if( !DOTYPE[IMAT] ) GO TO 90;
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80
 
                   // Do first for UPLO = 'U', then for UPLO = 'L'
 
-                  UPLO = UPLOS( IUPLO );
+                  final UPLO = UPLOS[IUPLO - 1];
 
                   // Call ZLATTB to generate a triangular test matrix.
 
@@ -129,7 +128,7 @@
                   // Form the inverse of A so we can get a good estimate
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                  zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA );
+                  zlaset('Full', N, N, Complex.zero, Complex.one, AINV, LDA );
                   if ( lsame( UPLO, 'U' ) ) {
                      for (J = 1; J <= N; J++) { // 20
                         ztbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
@@ -159,14 +158,14 @@
                   }
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
-                     NRHS = NSVAL( IRHS );
+                     final NRHS = NSVAL[IRHS];
                      XTYPE = 'N';
 
                      for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
 
                      // Do for op(A) = A, A**T, or A**H.
 
-                        TRANS = TRANSS( ITRAN );
+                        final TRANS = TRANSS[ITRAN - 1];
                         if ( ITRAN == 1 ) {
                            NORM = 'O';
                            RCONDC = RCONDO;
@@ -215,13 +214,13 @@
                         // pass the threshold.
 
                         for (K = 1; K <= 5; K++) { // 40
-                           if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                              WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1;
+                           if ( RESULT[K] >= THRESH ) {
+                              if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                              NOUT.println( 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT[K];
+                              NFAIL++;
                            }
                         } // 40
-                        NRUN = NRUN + 5;
+                        NRUN +=  5;
                      } // 50
                   } // 60
 
@@ -247,12 +246,12 @@
 
                      // Print the test ratio if it is >= THRESH.
 
-                     if ( RESULT( 6 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9998 ) 'ZTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[6] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9998 ) 'ZTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
+                        NFAIL++;
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
                   } // 70
                } // 80
             } // 90
@@ -263,18 +262,18 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               if( !DOTYPE( IMAT ) ) GO TO 120;
+               if( !DOTYPE[IMAT] ) GO TO 120;
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
                   // Do first for UPLO = 'U', then for UPLO = 'L'
 
-                  UPLO = UPLOS( IUPLO );
+                  final UPLO = UPLOS[IUPLO - 1];
                   for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 100
 
                      // Do for op(A) = A, A**T, and A**H.
 
-                     TRANS = TRANSS( ITRAN );
+                     final TRANS = TRANSS[ITRAN - 1];
 
                      // Call ZLATTB to generate a triangular test matrix.
 
@@ -309,17 +308,17 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     if ( RESULT( 7 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9997 )'ZLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[7] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9997 )'ZLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
+                        NFAIL++;
                      }
-                     if ( RESULT( 8 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9997 )'ZLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[8] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9997 )'ZLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
+                        NFAIL++;
                      }
-                     NRUN = NRUN + 2;
+                     NRUN +=  2;
                   } // 100
                } // 110
             } // 120
@@ -330,7 +329,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', N=${.i5}, KD=${.i5}, NRHS=${.i5}, type ${.i2}, test(${.i2})=${.g12_5};
- 9998 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\',${.i5},${.i5},  ... ), type ${.i2}, test(${.i2})=${.g12_5};
- 9997 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\'${.a1}\',${.i5},${.i5}, ...  ),  type ${.i2}, test(${.i1})=${.g12_5};
+ 9999 FORMAT( ' UPLO=\'${.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${.a1}\', N=${N.i5}, KD=${.i5}, NRHS=${.i5}, type ${IMAT.i2}, test(${.i2})=${.g12_5};
+ 9998 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\',${.i5},${.i5},  ... ), type ${IMAT.i2}, test(${.i2})=${.g12_5};
+ 9997 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\'${.a1}\',${.i5},${.i5}, ...  ),  type ${IMAT.i2}, test(${.i1})=${RESULT[].g12_5};
       }

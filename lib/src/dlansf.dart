@@ -151,7 +151,7 @@ double dlansf(
           }
         } else {
           // ilu = 1
-          K = K + 1;
+          K++;
           // k=(n+1)/2 for n odd and ilu=1
           for (I = K; I <= N - 1; I++) {
             WORK[I] = ZERO;
@@ -274,7 +274,7 @@ double dlansf(
         if (ILU == 0) {
           N1 = K;
           // n/2
-          K = K + 1;
+          K++;
           // k is the row size and lda
           for (I = N1; I <= N - 1; I++) {
             WORK[I] = ZERO;
@@ -331,7 +331,7 @@ double dlansf(
           }
         } else {
           // ilu=1
-          K = K + 1;
+          K++;
           // k=(n+1)/2 for n odd and ilu=1
           for (I = K; I <= N - 1; I++) {
             WORK[I] = ZERO;

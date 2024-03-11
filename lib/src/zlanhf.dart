@@ -406,7 +406,7 @@ double zlanhf(
           }
         } else {
           // ilu = 1 & uplo = 'L'
-          K = K + 1;
+          K++;
           // k=(n+1)/2 for n odd and ilu=1
           for (I = K; I <= N - 1; I++) {
             WORK[I] = ZERO;
@@ -531,7 +531,7 @@ double zlanhf(
           // uplo = 'U'
           N1 = K;
           // n/2
-          K = K + 1;
+          K++;
           // k is the row size and lda
           for (I = N1; I <= N - 1; I++) {
             WORK[I] = ZERO;
@@ -588,7 +588,7 @@ double zlanhf(
           }
         } else {
           // ilu=1 & uplo = 'L'
-          K = K + 1;
+          K++;
           // k=(n+1)/2 for n odd and ilu=1
           for (I = K; I <= N - 1; I++) {
             WORK[I] = ZERO;

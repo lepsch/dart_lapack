@@ -120,9 +120,9 @@ void zsytri_3x(
         WORK[K + 1][INVD + 1] = AK / D;
         WORK[K][INVD + 1] = -AKKP1 / D;
         WORK[K + 1][INVD] = WORK[K][INVD + 1];
-        K = K + 1;
+        K++;
       }
-      K = K + 1;
+      K++;
     }
 
     // inv(U**T) = (inv(U))**T
@@ -294,9 +294,9 @@ void zsytri_3x(
         WORK[K][INVD] = AK / D;
         WORK[K][INVD + 1] = -AKKP1 / D;
         WORK[K - 1][INVD + 1] = WORK[K][INVD + 1];
-        K = K - 1;
+        K--;
       }
-      K = K - 1;
+      K--;
     }
 
     // inv(L**T) = (inv(L))**T

@@ -91,6 +91,6 @@ void dort01(
         RESID.value = max(RESID.value, (TMP).abs());
       }
     }
-    RESID.value = (RESID.value / N.toDouble()) / EPS;
+    RESID.value = (RESID.value / N) / EPS;
   }
 }

@@ -33,7 +33,7 @@
       // COMMON / SRNAMC /srnamc.SRNAMT
 
       NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
       C2 = PATH.substring( 1, 3 );
       for (I = 1; I <= NMAX; I++) { // 10
          D[I] = 1.0;

@@ -252,10 +252,10 @@ void dchklq(
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' M=${M.i5}, N=${N.i5}, K=${K.i5}, NB=${NB.i4}, NX=${NX.i5}, type ${IMAT.i2}, test(${I.i2})=${RESULT[I].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + NT;
+            NRUN += NT;
           }
         }
       }

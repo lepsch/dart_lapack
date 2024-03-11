@@ -88,11 +88,11 @@ void dget07(
       var TMP = B[I][K].abs();
       if (NOTRAN) {
         for (var J = 1; J <= N; J++) {
-          TMP = TMP + A[I][J].abs() * X[J][K].abs();
+          TMP += A[I][J].abs() * X[J][K].abs();
         }
       } else {
         for (var J = 1; J <= N; J++) {
-          TMP = TMP + A[J][I].abs() * X[J][K].abs();
+          TMP += A[J][I].abs() * X[J][K].abs();
         }
       }
       if (I == 1) {

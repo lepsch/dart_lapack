@@ -30,7 +30,7 @@
       // INTRINSIC DBLE
 
       NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
 
       // Set the variables to innocuous values.
 
@@ -72,9 +72,9 @@
       // Print a summary line.
 
       if ( infoc.OK ) {
-         WRITE( NOUT, FMT = 9999 )'ZCPOSV';
+         NOUT.println( 9999 )'ZCPOSV';
       } else {
-         WRITE( NOUT, FMT = 9998 )'ZCPOSV';
+         NOUT.println( 9998 )'ZCPOSV';
       }
 
  9999 FORMAT(' ${.a6} drivers passed the tests of the error exits' );

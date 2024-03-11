@@ -82,7 +82,7 @@ void zsytrs(
         // Multiply by the inverse of the diagonal block.
 
         zscal(NRHS, Complex.one / A[K][K], B(K, 1).asArray(), LDB);
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 
@@ -140,7 +140,7 @@ void zsytrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -192,7 +192,7 @@ void zsytrs(
         // Multiply by the inverse of the diagonal block.
 
         zscal(NRHS, Complex.one / A[K][K], B(K, 1).asArray(), LDB);
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -254,7 +254,7 @@ void zsytrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 

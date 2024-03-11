@@ -132,6 +132,6 @@
 
       RESID = ZLANHP( '1', UPLO, N, AFAC, RWORK );
 
-      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N ) / ANORM ) / EPS;
 
       }

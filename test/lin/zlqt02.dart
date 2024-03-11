@@ -47,12 +47,12 @@
 
       // Copy L(1:k,1:m)
 
-      zlaset('Full', K, M, DCMPLX( ZERO ), DCMPLX( ZERO ), L, LDA );
+      zlaset('Full', K, M, Complex.zero, Complex.zero, L, LDA );
       zlacpy('Lower', K, M, AF, LDA, L, LDA );
 
       // Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
 
-      zgemm('No transpose', 'Conjugate transpose', K, M, N, DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L, LDA );
+      zgemm('No transpose', 'Conjugate transpose', K, M, N, DCMPLX( -ONE ), A, LDA, Q, LDA, Complex.one, L, LDA );
 
       // Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 
@@ -66,7 +66,7 @@
 
       // Compute I - Q*Q'
 
-      zlaset('Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA );
+      zlaset('Full', M, M, Complex.zero, Complex.one, L, LDA );
       zherk('Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA );
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .

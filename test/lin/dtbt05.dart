@@ -93,25 +93,25 @@ void dtbt05(
       if (UPPER) {
         if (!NOTRAN) {
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
-            TMP = TMP + (AB[KD + 1 - I + J][I]).abs() * X[J][K].abs();
+            TMP += (AB[KD + 1 - I + J][I]).abs() * X[J][K].abs();
           }
           if (UNIT) TMP = TMP + X[I][K].abs();
         } else {
           if (UNIT) TMP = TMP + X[I][K].abs();
           for (var J = I + IFU; J <= min(I + KD, N); J++) {
-            TMP = TMP + AB[KD + 1 + I - J][J].abs() * X[J][K].abs();
+            TMP += AB[KD + 1 + I - J][J].abs() * X[J][K].abs();
           }
         }
       } else {
         if (NOTRAN) {
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
-            TMP = TMP + AB[1 + I - J][J].abs() * X[J][K].abs();
+            TMP += AB[1 + I - J][J].abs() * X[J][K].abs();
           }
           if (UNIT) TMP = TMP + X[I][K].abs();
         } else {
           if (UNIT) TMP = TMP + X[I][K].abs();
           for (var J = I + IFU; J <= min(I + KD, N); J++) {
-            TMP = TMP + AB[1 + J - I][I].abs() * X[J][K].abs();
+            TMP += AB[1 + J - I][I].abs() * X[J][K].abs();
           }
         }
       }

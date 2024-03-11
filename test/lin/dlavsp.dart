@@ -91,7 +91,7 @@ void dlavsp(
             }
           }
           KC = KC + K;
-          K = K + 1;
+          K++;
         } else {
           // 2 x 2 pivot block
 
@@ -172,7 +172,7 @@ void dlavsp(
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K - 1;
+          K--;
         } else {
           // 2 x 2 pivot block:
 
@@ -252,7 +252,7 @@ void dlavsp(
                 B(K, 1).asArray(), LDB);
           }
           if (NOUNIT) dscal(NRHS, A[KC + K - 1], B(K, 1).asArray(), LDB);
-          K = K - 1;
+          K--;
 
           // 2 x 2 pivot block.
         } else {
@@ -320,7 +320,7 @@ void dlavsp(
           }
           if (NOUNIT) dscal(NRHS, A[KC], B(K, 1).asArray(), LDB);
           KC = KC + N - K + 1;
-          K = K + 1;
+          K++;
 
           // 2 x 2 pivot block.
         } else {

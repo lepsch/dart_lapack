@@ -35,9 +35,9 @@
 
       PATH[1: 1] = 'Z';
       PATH[2: 3] = 'TS';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
 
       // Test the error exits
 
@@ -72,12 +72,12 @@
 
                     for (T = 1; T <= NTESTS; T++) {
                       if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )M, N, MB, NB, T, RESULT( T );
-                        NFAIL = NFAIL + 1;
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 )M, N, MB, NB, T, RESULT( T );
+                        NFAIL++;
                       }
                     }
-                    NRUN = NRUN + NTESTS;
+                    NRUN +=  NTESTS;
                   }
               }
               }
@@ -110,12 +110,12 @@
 
                     for (T = 1; T <= NTESTS; T++) {
                       if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9998 )M, N, MB, NB, T, RESULT( T );
-                        NFAIL = NFAIL + 1;
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                           NOUT.println( 9998 )M, N, MB, NB, T, RESULT( T );
+                        NFAIL++;
                       }
                     }
-                    NRUN = NRUN + NTESTS;
+                    NRUN +=  NTESTS;
                   }
               }
               }
@@ -126,6 +126,6 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 'TS: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
- 9998 FORMAT( 'SW: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
+ 9999 FORMAT( 'TS: M=${M.i5}, N=${N.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
+ 9998 FORMAT( 'SW: M=${M.i5}, N=${N.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
       }

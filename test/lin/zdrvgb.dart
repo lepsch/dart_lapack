@@ -1,4 +1,4 @@
-      void zdrvgb(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int A, final int LA, final int AFB, final int LAFB, final int ASAV, final int B, final int BSAV, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
+      void zdrvgb(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int A, final int LA, final int AFB, final int LAFB, final int ASAV, final Array<Complex> B_, final Array<Complex> BSAV_, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
@@ -26,10 +26,10 @@
       bool               EQUIL, NOFACT, PREFAC, TRFCON, ZEROT;
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
-      int                I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT;
+      int                I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NFACT, NIMAT, NKL, NKU, NT;
       double             AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW;
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       double             RDUM( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
@@ -60,13 +60,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'GB';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}GB';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -76,15 +75,15 @@
 
       // Set the block size and minimum block size for testing.
 
-      NB = 1;
-      NBMIN = 2;
+            final NB = 1;
+      final NBMIN = 2;
       xlaenv(1, NB );
       xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 150
-         N = NVAL( IN );
+         final N = NVAL[IN];
          LDB = max( N, 1 );
          XTYPE = 'N';
 
@@ -93,8 +92,7 @@
          NKL = max( 1, min( N, 4 ) );
          if (N == 0) NKL = 1;
          NKU = NKL;
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -132,13 +130,13 @@
                LDA = KL + KU + 1;
                LDAFB = 2*KL + KU + 1;
                if ( LDA*N > LA || LDAFB*N > LAFB ) {
-                  if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
                   if ( LDA*N > LA ) {
-                     WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 );
+                     NOUT.println( 9999 )LA, N, KL, KU, N*( KL+KU+1 );
                      NERRS = NERRS + 1;
                   }
                   if ( LDAFB*N > LAFB ) {
-                     WRITE( NOUT, FMT = 9998 )LAFB, N, KL, KU, N*( 2*KL+KU+1 );
+                     NOUT.println( 9998 )LAFB, N, KL, KU, N*( 2*KL+KU+1 );
                      NERRS = NERRS + 1;
                   }
                   GO TO 130;
@@ -148,17 +146,17 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  if( !DOTYPE( IMAT ) ) GO TO 120;
+                  if( !DOTYPE[IMAT] ) GO TO 120;
 
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
-                  ZEROT = IMAT >= 2 && IMAT <= 4;
+                  final ZEROT = IMAT >= 2 && IMAT <= 4;
                   if (ZEROT && N < IMAT-1) GO TO 120;
 
                   // Set up parameters with ZLATB4 and generate a
                   // test matrix with ZLATMS.
 
-                  zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+                  final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
                   RCONDC = ONE / CNDNUM;
 
                  srnamc.SRNAMT = 'ZLATMS';
@@ -166,7 +164,7 @@
 
                   // Check the error code from ZLATMS.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120;
                   }
@@ -181,7 +179,7 @@
                      } else if ( IMAT == 3 ) {
                         IZERO = N;
                      } else {
-                        IZERO = N / 2 + 1;
+                        IZERO = N ~/ 2 + 1;
                      }
                      IOFF = ( IZERO-1 )*LDA;
                      if ( IMAT < 4 ) {
@@ -205,7 +203,7 @@
                   zlacpy('Full', KL+KU+1, N, A, LDA, ASAV, LDA );
 
                   for (IEQUED = 1; IEQUED <= 4; IEQUED++) { // 110
-                     EQUED = EQUEDS( IEQUED );
+                     final EQUED = EQUEDS[IEQUED - 1];
                      if ( IEQUED == 1 ) {
                         NFACT = 3;
                      } else {
@@ -214,10 +212,11 @@
 
                      for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                         final FACT = FACTS[IFACT - 1];
-                        PREFAC = lsame( FACT, 'F' );
-                        NOFACT = lsame( FACT, 'N' );
-                        EQUIL = lsame( FACT, 'E' );
+                        final PREFAC = lsame( FACT, 'F' );
+                        final NOFACT = lsame( FACT, 'N' );
+                        final EQUIL = lsame( FACT, 'E' );
 
+                        final int IZERO;
                         if ( ZEROT ) {
                            if (PREFAC) GO TO 100;
                            RCONDO = ZERO;
@@ -237,7 +236,7 @@
                               // equilibrate the matrix A.
 
                               zgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                              if ( INFO == 0 && N > 0 ) {
+                              if ( INFO.value == 0 && N > 0 ) {
                                  if ( lsame( EQUED, 'R' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ONE;
@@ -273,7 +272,7 @@
 
                            // Form the inverse of A.
 
-                           zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDB );
+                           zlaset('Full', N, N, Complex.zero, Complex.one, WORK, LDB );
                           srnamc.SRNAMT = 'ZGBTRS';
                            zgbtrs('No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO );
 
@@ -301,7 +300,7 @@
 
                            // Do for each value of TRANS.
 
-                           TRANS = TRANSS( ITRAN );
+                           final TRANS = TRANSS[ITRAN - 1];
                            if ( ITRAN == 1 ) {
                               RCONDC = RCONDO;
                            } else {
@@ -335,7 +334,7 @@
 
                               // Check error code from ZGBSV .
 
-                              if (INFO != IZERO) alaerh( PATH, 'ZGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO.value != IZERO) alaerh( PATH, 'ZGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -361,19 +360,19 @@
                               // not pass the threshold.
 
                               for (K = 1; K <= NT; K++) { // 50
-                                 if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                                    WRITE( NOUT, FMT = 9997 )'ZGBSV ', N, KL, KU, IMAT, K, RESULT( K );
-                                    NFAIL = NFAIL + 1;
+                                 if ( RESULT[K] >= THRESH ) {
+                                    if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                                    NOUT.println( 9997 )'ZGBSV ', N, KL, KU, IMAT, K, RESULT[K];
+                                    NFAIL++;
                                  }
                               } // 50
-                              NRUN = NRUN + NT;
+                              NRUN +=  NT;
                            }
 
                            // --- Test ZGBSVX ---
 
-                           if ( !PREFAC) zlaset( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
-                           zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDB );
+                           if ( !PREFAC) zlaset( 'Full', 2*KL+KU+1, N, Complex.zero, Complex.zero, AFB, LDAFB );
+                           zlaset('Full', N, NRHS, Complex.zero, Complex.zero, X, LDB );
                            if ( IEQUED > 1 && N > 0 ) {
 
                               // Equilibrate the matrix if FACT = 'F' and
@@ -390,11 +389,11 @@
 
                            // Check the error code from ZGBSVX.
 
-                           if (INFO != IZERO) alaerh( PATH, 'ZGBSVX', INFO, IZERO, FACT + TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO.value != IZERO) alaerh( PATH, 'ZGBSVX', INFO, IZERO, FACT + TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            // Compare RWORK(2*NRHS+1) from ZGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
 
-                           if ( INFO != 0 && INFO <= N) {
+                           if ( INFO.value != 0 && INFO.value <= N) {
                               ANRMPV = ZERO;
                               for (J = 1; J <= INFO; J++) { // 70
                                  for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 60
@@ -428,7 +427,7 @@
                               K1 = 2;
                            }
 
-                           if ( INFO == 0 ) {
+                           if ( INFO.value == 0 ) {
                               TRFCON = false;
 
                               // Compute residual of the computed solution.
@@ -468,47 +467,47 @@
 
                            if ( !TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
-                                 if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
+                                 if ( RESULT[K] >= THRESH ) {
+                                    if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
                                     if ( PREFAC ) {
-                                       WRITE( NOUT, FMT = 9995 ) 'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K );
+                                       NOUT.println( 9995 ) 'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT[K];
                                     } else {
-                                       WRITE( NOUT, FMT = 9996 ) 'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K );
+                                       NOUT.println( 9996 ) 'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT[K];
                                     }
-                                    NFAIL = NFAIL + 1;
+                                    NFAIL++;
                                  }
                               } // 80
-                              NRUN = NRUN + NTESTS - K1 + 1;
+                              NRUN +=  NTESTS - K1 + 1;
                            } else {
-                              if( RESULT( 1 ) >= THRESH && !PREFAC ) {
+                              if( RESULT[1] >= THRESH && !PREFAC ) {
                                  if( NFAIL == 0 && NERRS == 0 ) aladhd( NOUT, PATH );
                                  if ( PREFAC ) {
-                                    WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 );
+                                    NOUT.println( 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 );
                                  } else {
-                                    WRITE( NOUT, FMT = 9996 )'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 );
+                                    NOUT.println( 9996 )'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 );
                                  }
-                                 NFAIL = NFAIL + 1;
-                                 NRUN = NRUN + 1;
+                                 NFAIL++;
+                                 NRUN++;
                               }
-                              if ( RESULT( 6 ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
+                              if ( RESULT[6] >= THRESH ) {
+                                 if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
                                  if ( PREFAC ) {
-                                    WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 );
+                                    NOUT.println( 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 );
                                  } else {
-                                    WRITE( NOUT, FMT = 9996 )'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 );
+                                    NOUT.println( 9996 )'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 );
                                  }
-                                 NFAIL = NFAIL + 1;
-                                 NRUN = NRUN + 1;
+                                 NFAIL++;
+                                 NRUN++;
                               }
-                              if ( RESULT( 7 ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
+                              if ( RESULT[7] >= THRESH ) {
+                                 if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
                                  if ( PREFAC ) {
-                                    WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 );
+                                    NOUT.println( 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 );
                                  } else {
-                                    WRITE( NOUT, FMT = 9996 )'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 );
+                                    NOUT.println( 9996 )'ZGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 );
                                  }
-                                 NFAIL = NFAIL + 1;
-                                 NRUN = NRUN + 1;
+                                 NFAIL++;
+                                 NRUN++;
                               }
                            }
                         } // 90
@@ -523,10 +522,10 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' *** In ZDRVGB, LA=${.i5} is too small for N=${.i5}, KU=${.i5}, KL=', I5, / ' ==> Increase LA to at least ${.i5}');
- 9998 FORMAT( ' *** In ZDRVGB, LAFB=${.i5} is too small for N=${.i5}, KU=${.i5}, KL=', I5, / ' ==> Increase LAFB to at least ${.i5}');
- 9997 FORMAT(' ${}, N=${.i5}, KL=${.i5}, KU=${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
- 9996 FORMAT(' ${}( \'${.a1}\',\'${.a1}\',${.i5},${.i5},${.i5},...), type ${.i1}, test(${.i1})=${.g12_5};
- 9995 FORMAT(' ${}( \'${.a1}\',\'${.a1}\',${.i5},${.i5},${.i5},...), EQUED=\'${.a1}\', type ${.i1}, test(${.i1})=${.g12_5};
+ 9999 FORMAT( ' *** In ZDRVGB, LA=${LA.i5} is too small for N=${N.i5}, KU=${KU.i5}, KL=${KL.i5}\n ==> Increase LA to at least ${.i5}');
+ 9998 FORMAT( ' *** In ZDRVGB, LAFB=${LAFB.i5} is too small for N=${N.i5}, KU=${KU.i5}, KL=${KL.i5}\n ==> Increase LAFB to at least ${.i5}');
+ 9997 FORMAT(' ${}, N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
+ 9996 FORMAT(' ${}( \'${.a1}\',\'${.a1}\',${.i5},${.i5},${.i5},...), type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
+ 9995 FORMAT(' ${}( \'${.a1}\',\'${.a1}\',${.i5},${.i5},${.i5},...), EQUED=\'${EQUED.a1}\', type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
 
       }

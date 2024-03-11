@@ -168,6 +168,6 @@
 
       RESID = ZLANHE( '1', UPLO, N, PERM, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N ) / ANORM ) / EPS;
 
       }

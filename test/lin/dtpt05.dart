@@ -91,17 +91,17 @@ void dtpt05(
         var JC = ((I - 1) * I) ~/ 2;
         if (!NOTRAN) {
           for (var J = 1; J <= I - IFU; J++) {
-            TMP = TMP + AP[JC + J].abs() * X[J][K].abs();
+            TMP += AP[JC + J].abs() * X[J][K].abs();
           }
           if (UNIT) TMP = TMP + X[I][K].abs();
         } else {
           JC = JC + I;
           if (UNIT) {
-            TMP = TMP + X[I][K].abs();
+            TMP += X[I][K].abs();
             JC = JC + I;
           }
           for (var J = I + IFU; J <= N; J++) {
-            TMP = TMP + AP[JC].abs() * X[J][K].abs();
+            TMP += AP[JC].abs() * X[J][K].abs();
             JC = JC + J;
           }
         }
@@ -109,7 +109,7 @@ void dtpt05(
         if (NOTRAN) {
           var JC = I;
           for (var J = 1; J <= I - IFU; J++) {
-            TMP = TMP + AP[JC].abs() * X[J][K].abs();
+            TMP += AP[JC].abs() * X[J][K].abs();
             JC = JC + N - J;
           }
           if (UNIT) TMP = TMP + X[I][K].abs();
@@ -117,7 +117,7 @@ void dtpt05(
           var JC = (I - 1) * (N - I) + (I * (I + 1)) ~/ 2;
           if (UNIT) TMP = TMP + X[I][K].abs();
           for (var J = I + IFU; J <= N; J++) {
-            TMP = TMP + AP[JC + J - I].abs() * X[J][K].abs();
+            TMP += AP[JC + J - I].abs() * X[J][K].abs();
           }
         }
       }

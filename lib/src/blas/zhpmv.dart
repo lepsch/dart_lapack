@@ -101,7 +101,7 @@ void zhpmv(
         for (I = 1; I <= J - 1; I++) {
           Y[I] = Y[I] + TEMP1 * AP[K];
           TEMP2 = TEMP2 + AP[K].conjugate() * X[I];
-          K = K + 1;
+          K++;
         }
         Y[J] = Y[J] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
         KK = KK + J;
@@ -138,7 +138,7 @@ void zhpmv(
         for (I = J + 1; I <= N; I++) {
           Y[I] = Y[I] + TEMP1 * AP[K];
           TEMP2 = TEMP2 + AP[K].conjugate() * X[I];
-          K = K + 1;
+          K++;
         }
         Y[J] = Y[J] + ALPHA * TEMP2;
         KK = KK + (N - J + 1);

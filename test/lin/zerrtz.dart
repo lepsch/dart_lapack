@@ -43,7 +43,7 @@
       infoc.OK.value = true;
 
       // Test error exits for the trapezoidal routines.
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
       if ( lsamen( 2, C2, 'TZ' ) ) {
 
 

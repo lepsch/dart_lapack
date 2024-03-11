@@ -89,11 +89,11 @@ void dgbt05(
       var TMP = B[I][K].abs();
       if (NOTRAN) {
         for (var J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP = TMP + AB[KU + 1 + I - J][J].abs() * X[J][K].abs();
+          TMP += AB[KU + 1 + I - J][J].abs() * X[J][K].abs();
         }
       } else {
         for (var J = max(I - KU, 1); J <= min(I + KL, N); J++) {
-          TMP = TMP + AB[KU + 1 + J - I][I].abs() * X[J][K].abs();
+          TMP += AB[KU + 1 + J - I][I].abs() * X[J][K].abs();
         }
       }
       if (I == 1) {

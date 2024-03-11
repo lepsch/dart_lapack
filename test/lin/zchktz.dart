@@ -21,9 +21,9 @@
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       String             PATH;
-      int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN;
+      int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NRUN;
       double             EPS;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -50,13 +50,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'TZ';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}TZ';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
       EPS = dlamch( 'Epsilon' );
 
@@ -69,14 +68,14 @@
 
          // Do for each value of M in MVAL.
 
-         M = MVAL( IM );
-         LDA = max( 1, M );
+         final M = MVAL[IM];
+         final LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 60
 
             // Do for each value of N in NVAL for which M <= N.
 
-            N = NVAL( IN );
+            final N = NVAL[IN];
             MNMIN = min( M, N );
             LWORK = max( 1, N*N+4*M+N );
 
@@ -97,14 +96,14 @@
                   // singular value distribution indicated by `mode'.
 
                   if ( MODE == 0 ) {
-                     zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A, LDA );
+                     zlaset('Full', M, N, Complex.zero, Complex.zero, A, LDA );
                      for (I = 1; I <= MNMIN; I++) { // 30
                         S[I] = ZERO;
                      } // 30
                   } else {
                      zlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
                      zgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO );
-                     zlaset('Lower', M-1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A( 2 ), LDA );
+                     zlaset('Lower', M-1, N, Complex.zero, Complex.zero, A( 2 ), LDA );
                      dlaord('Decreasing', MNMIN, S, 1 );
                   }
 
@@ -134,13 +133,13 @@
                   // the threshold.
 
                   for (K = 1; K <= NTESTS; K++) { // 40
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[K] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 )M, N, IMODE, K, RESULT( K );
+                        NFAIL++;
                      }
                   } // 40
-                  NRUN = NRUN + 3;
+                  NRUN +=  3;
                } // 50
             }
          } // 60
@@ -150,7 +149,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' M =${.i5}, N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT( ' M =${M.i5}, N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
 
       // End if ZCHKTZ
 

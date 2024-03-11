@@ -312,10 +312,10 @@ void ddrvpo(
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                     NOUT.println(
                         ' DPOSV , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + NT;
+                NRUN += NT;
               }
             }
 
@@ -436,10 +436,10 @@ void ddrvpo(
                   NOUT.println(
                       ' DPOSVX, FACT=\'${FACT.a1}\', UPLO=\'${UPLO.a1}\', N=${N.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
                 }
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + 7 - K1;
+            NRUN += 7 - K1;
           }
         }
       }

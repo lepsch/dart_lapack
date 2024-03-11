@@ -115,6 +115,6 @@ void zhet01_aa(
   if (ANORM <= ZERO) {
     if (RESID.value != ZERO) RESID.value = ONE / EPS;
   } else {
-    RESID.value = ((RESID.value / N.toDouble()) / ANORM) / EPS;
+    RESID.value = ((RESID.value / N) / ANORM) / EPS;
   }
 }

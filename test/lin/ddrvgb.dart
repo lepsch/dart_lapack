@@ -73,7 +73,7 @@ void ddrvgb(
   final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
   const NTYPES = 8, NTESTS = 7;
-  const NTRAN = 3; 
+  const NTRAN = 3;
   final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
@@ -443,10 +443,10 @@ void ddrvgb(
                       if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                       NOUT.println(
                           ' DGBSV , N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + NT;
+                  NRUN += NT;
                 }
 
                 // --- Test DGBSVX ---
@@ -634,10 +634,10 @@ void ddrvgb(
                         NOUT.print9996('DGBSVX', FACT, TRANS, N, KL, KU, IMAT,
                             K, RESULT[K]);
                       }
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + NTESTS - K1 + 1;
+                  NRUN += NTESTS - K1 + 1;
                 } else {
                   if (RESULT[1] >= THRESH && !PREFAC) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -648,8 +648,8 @@ void ddrvgb(
                       NOUT.print9996(
                           'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT[1]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                   if (RESULT[6] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -660,8 +660,8 @@ void ddrvgb(
                       NOUT.print9996(
                           'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT[6]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                   if (RESULT[7] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -672,8 +672,8 @@ void ddrvgb(
                       NOUT.print9996(
                           'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT[7]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                 }
               }

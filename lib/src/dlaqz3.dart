@@ -235,7 +235,7 @@ void dlaqz3(
           K2 = K2 + 1;
         }
 
-        K = K + 1;
+        K++;
       }
     }
   }
@@ -262,7 +262,7 @@ void dlaqz3(
       ALPHAR[K] = A[K][K];
       ALPHAI[K] = ZERO;
       BETA[K] = B[K][K];
-      K = K + 1;
+      K++;
     }
   }
 
@@ -334,7 +334,7 @@ void dlaqz3(
         drot(JW, ZC(1, KWBOT - KWTOP + 1).asArray(), 1,
             ZC(1, KWBOT - 1 - KWTOP + 1).asArray(), 1, C1.value, S1.value);
 
-        K = K - 1;
+        K--;
       }
     }
   }

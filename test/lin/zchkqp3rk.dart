@@ -22,9 +22,9 @@
       const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), BIGNUM = 1.0e+38 ;
       String             DIST, TYPE;
       String             PATH;
-      int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T;
+      int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NB_GEN, NRHS, NX, T;
       double             ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS ), RDUMMY( 1 );
       // ..
       // .. External Functions ..
@@ -51,13 +51,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'QK';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}QK';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) {
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       }
       EPS = dlamch( 'Epsilon' );
       infoc.INFOT = 0;
@@ -66,14 +65,14 @@
 
          // Do for each value of M in MVAL.
 
-         M = MVAL( IM );
-         LDA = max( 1, M );
+         final M = MVAL[IM];
+         final LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) {
 
             // Do for each value of N in NVAL.
 
-            N = NVAL( IN );
+            final N = NVAL[IN];
             MINMN = min( M, N );
             LWORK = max( 1, M*max( M, N )+4*MINMN+max( M, N ), M*N + 2*MINMN + 4*N );
 
@@ -93,7 +92,7 @@
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT );
                      continue;
                   }
@@ -102,7 +101,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               if( !DOTYPE( IMAT ) ) continue;
+               if( !DOTYPE[IMAT] ) continue;
 
                // The type of distribution used to generate the random
                // eigen-/singular values:
@@ -147,14 +146,14 @@
                   // Set up parameters with DLATB4 and generate a test
                   // matrix with ZLATMS.
 
-                  zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+                  final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, M, N);
 
                  srnamc.SRNAMT = 'ZLATMS';
                   zlatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      continue;
                   }
@@ -274,7 +273,7 @@
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO != 0 ) {
+                  if ( INFO.value != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      continue;
                   }
@@ -344,7 +343,7 @@
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
-                  NB = NBVAL( INB );
+                  final NB = NBVAL[INB];
                   xlaenv(1, NB );
                   NX = NXVAL( INB );
                   xlaenv(3, NX );
@@ -404,12 +403,12 @@
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                           NFAIL = NFAIL + 1;
+                           if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                           NOUT.println( 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           NFAIL++;
                         }
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
 
                     // End test 1
 
@@ -436,12 +435,12 @@
 
                   for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                        NFAIL = NFAIL + 1;
+                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                        NOUT.println( 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                        NFAIL++;
                      }
                   }
-                  NRUN = NRUN + 2;
+                  NRUN +=  2;
 
                   // Compute test 4:
 
@@ -472,12 +471,12 @@
 
                      for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                           NFAIL = NFAIL + 1;
+                           if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                           NOUT.println( 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           NFAIL++;
                         }
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
 
                      // End test 4.
 
@@ -513,12 +512,12 @@
 
                      for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                           NFAIL = NFAIL + 1;
+                           if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                           NOUT.println( 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           NFAIL++;
                         }
                      }
-                     NRUN = NRUN + 1;
+                     NRUN++;
 
                      // End compute test 5.
 
@@ -552,5 +551,5 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${} M =${.i5}, N =${.i5}, NRHS =${.i5}, KMAX =${.i5}, ABSTOL =${.g12_5}, RELTOL =${.g12_5}, NB =${.i4}, NX =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT(' ${} M =${M.i5}, N =${N.i5}, NRHS =${.i5}, KMAX =${.i5}, ABSTOL =${.g12_5}, RELTOL =${.g12_5}, NB =${NB.i4}, NX =${.i4}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
       }

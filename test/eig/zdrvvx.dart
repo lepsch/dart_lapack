@@ -488,11 +488,11 @@ Future<void> zdrvvx(
             NFAIL = 0;
             for (J = 1; J <= 9; J++) {
               // 100
-              if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
-              if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+              if (RESULT[J] >= ZERO) NTEST++;
+              if (RESULT[J] >= THRESH) NFAIL++;
             } // 100
 
-            if (NFAIL > 0) NTESTF = NTESTF + 1;
+            if (NFAIL > 0) NTESTF++;
             if (NTESTF == 1) {
               _printFirst(NOUNIT, PATH, THRESH);
               NTESTF = 2;
@@ -574,14 +574,14 @@ Future<void> zdrvvx(
       // Check for RESULT(j) > THRESH
 
       NTEST = 0;
-      NFAIL = 0;
+      var NFAIL = 0;
       for (J = 1; J <= 11; J++) {
         // 200
-        if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
-        if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+        if (RESULT[J] >= ZERO) NTEST++;
+        if (RESULT[J] >= THRESH) NFAIL++;
       } // 200
 
-      if (NFAIL > 0) NTESTF = NTESTF + 1;
+      if (NFAIL > 0) NTESTF++;
       if (NTESTF == 1) {
         _printFirst(NOUNIT, PATH, THRESH);
         NTESTF = 2;

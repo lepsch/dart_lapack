@@ -178,7 +178,7 @@ void dggbal(
     // Find column with one nonzero in rows K through N
     L90:
     case 90:
-      K = K + 1;
+      K++;
 
       continue L100;
     L100:

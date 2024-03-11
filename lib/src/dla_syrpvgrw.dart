@@ -82,7 +82,7 @@ double dla_syrpvgrw(
         for (I = 1; I <= K; I++) {
           WORK[K] = max((AF[I][K]).abs(), WORK[K]);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2x2 pivot
         KP = -IPIV[K];
@@ -106,7 +106,7 @@ double dla_syrpvgrw(
           WORK[N + K] = WORK[N + KP];
           WORK[N + KP] = TMP;
         }
-        K = K + 1;
+        K++;
       } else {
         KP = -IPIV[K];
         TMP = WORK[N + K];
@@ -129,7 +129,7 @@ double dla_syrpvgrw(
         for (I = K; I <= N; I++) {
           WORK[K] = max((AF[I][K]).abs(), WORK[K]);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2x2 pivot
         KP = -IPIV[K];
@@ -153,7 +153,7 @@ double dla_syrpvgrw(
           WORK[N + K] = WORK[N + KP];
           WORK[N + KP] = TMP;
         }
-        K = K - 1;
+        K--;
       } else {
         KP = -IPIV[K];
         TMP = WORK[N + K];

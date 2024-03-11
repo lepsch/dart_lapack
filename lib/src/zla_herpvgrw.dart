@@ -85,7 +85,7 @@ double zla_herpvgrw(
         for (I = 1; I <= K; I++) {
           WORK[K] = max(CABS1(AF[I][K]), WORK[K]);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2x2 pivot
         KP = -IPIV[K];
@@ -109,7 +109,7 @@ double zla_herpvgrw(
           WORK[N + K] = WORK[N + KP];
           WORK[N + KP] = TMP;
         }
-        K = K + 1;
+        K++;
       } else {
         KP = -IPIV[K];
         TMP = WORK[N + K];
@@ -132,7 +132,7 @@ double zla_herpvgrw(
         for (I = K; I <= N; I++) {
           WORK[K] = max(CABS1(AF[I][K]), WORK[K]);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2x2 pivot
         KP = -IPIV[K];
@@ -156,7 +156,7 @@ double zla_herpvgrw(
           WORK[N + K] = WORK[N + KP];
           WORK[N + KP] = TMP;
         }
-        K = K - 1;
+        K--;
       } else {
         KP = -IPIV[K];
         TMP = WORK[N + K];

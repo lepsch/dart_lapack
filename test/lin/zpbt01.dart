@@ -128,6 +128,6 @@
 
       RESID = ZLANHB( '1', UPLO, N, KD, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N ) / ANORM ) / EPS;
 
       }

@@ -255,9 +255,9 @@ void dchkpb(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO=\'${UPLO.a1}\', N=${N.i5}, KD=${KD.i5}, NB=${NB.i4}, type ${IMAT.i2}, test ${1.i2}, ratio= ${RESULT[1].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 1;
+            NRUN++;
 
             // Only do other tests if this is the first blocksize.
 
@@ -371,10 +371,10 @@ void dchkpb(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' UPLO=\'${UPLO.a1}\', N=${N.i5}, KD=${KD.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + 5;
+              NRUN += 5;
             }
 
             // +    TEST 7
@@ -400,9 +400,9 @@ void dchkpb(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO=\'${UPLO.a1}\', N=${N.i5}, KD=${KD.i5},${' ' * 10} type ${IMAT.i2}, test(${7.i2}) = ${RESULT[7].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 1;
+            NRUN++;
           }
         }
       }

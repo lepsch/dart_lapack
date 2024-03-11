@@ -96,7 +96,7 @@ void zlavsy_rook(
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K + 1;
+          K++;
         } else {
           // 2 x 2 pivot block
 
@@ -181,7 +181,7 @@ void zlavsy_rook(
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
           }
-          K = K - 1;
+          K--;
         } else {
           // 2 x 2 pivot block:
 
@@ -264,7 +264,7 @@ void zlavsy_rook(
                 A(1, K).asArray(), 1, Complex.one, B(K, 1).asArray(), LDB);
           }
           if (NOUNIT) zscal(NRHS, A[K][K], B(K, 1).asArray(), LDB);
-          K = K - 1;
+          K--;
 
           // 2 x 2 pivot block.
         } else {
@@ -345,7 +345,7 @@ void zlavsy_rook(
                 A(K + 1, K).asArray(), 1, Complex.one, B(K, 1).asArray(), LDB);
           }
           if (NOUNIT) zscal(NRHS, A[K][K], B(K, 1).asArray(), LDB);
-          K = K + 1;
+          K++;
 
           // 2 x 2 pivot block.
         } else {

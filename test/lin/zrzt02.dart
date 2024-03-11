@@ -36,7 +36,7 @@
 
       // Q := I
 
-      zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, N );
+      zlaset('Full', N, N, Complex.zero, Complex.one, WORK, N );
 
       // Q := P(1) * ... * P(m) * Q
 

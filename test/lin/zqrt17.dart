@@ -56,7 +56,7 @@
       // compute residual and scale it
 
       zlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
-      zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, DCMPLX( ONE ), C, LDB );
+      zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, Complex.one, C, LDB );
       NORMRS = ZLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK );
       if ( NORMRS > SMLNUM ) {
          ISCL = 1;
@@ -65,7 +65,7 @@
 
       // compute R**H * op(A)
 
-      zgemm('Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, DCMPLX( ONE ), C, LDB, A, LDA, DCMPLX( ZERO ), WORK, NRHS );
+      zgemm('Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, Complex.one, C, LDB, A, LDA, Complex.zero, WORK, NRHS );
 
       // compute and properly scale error
 

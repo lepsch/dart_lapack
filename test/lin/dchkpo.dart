@@ -230,10 +230,10 @@ void dchkpo(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 2;
+          NRUN += 2;
 
           // Skip the rest of the tests unless this is the first
           // blocksize.
@@ -327,10 +327,10 @@ void dchkpo(
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + 5;
+            NRUN += 5;
           }
 
           // +    TEST 8
@@ -357,9 +357,9 @@ void dchkpo(
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' UPLO = \'${UPLO.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${8.i2}) =${RESULT[8].g12_5}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 1;
+          NRUN++;
         }
       }
     }

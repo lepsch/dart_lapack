@@ -325,10 +325,10 @@ void ddrvrfp(
                 if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, 'DPF');
                 NOUT.println(
                     ' DPFSV , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IIT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + NT;
+            NRUN += NT;
           }
         }
       }

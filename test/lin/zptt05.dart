@@ -29,7 +29,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+      double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
       // Quick exit if N = 0 or NRHS = 0.
 
@@ -67,8 +67,8 @@
          }
 
          } // 20
-         if ( DIFF / XNORM <= FERR( J ) ) {
-            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
+         if ( DIFF / XNORM <= FERR[J] ) {
+            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR[J] );
          } else {
             ERRBND = ONE / EPS;
          }
@@ -90,7 +90,7 @@
             TMP = CABS1( B( N, K ) ) + CABS1( E( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N )*X( N, K ) );
             AXBI = min( AXBI, TMP );
          }
-         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
+         TMP = BERR[K] / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
          if ( K == 1 ) {
             RESLTS[2] = TMP;
          } else {

@@ -32,7 +32,7 @@
       // COMMON / SRNAMC /srnamc.SRNAMT
 
       NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
       C2 = PATH.substring( 1, 3 );
       A[1][1] = 1.0;
       A[1][2] = 2.0;

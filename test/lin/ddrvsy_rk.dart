@@ -204,7 +204,7 @@ void ddrvsy_rk(
 
               for (var J = 1; J <= N; J++) {
                 // 70
-               final I2 = min(J, IZERO);
+                final I2 = min(J, IZERO);
                 for (var I = 1; I <= I2; I++) {
                   // 60
                   A[IOFF + I] = ZERO;
@@ -216,7 +216,7 @@ void ddrvsy_rk(
 
               for (var J = 1; J <= N; J++) {
                 // 90
-               final I1 = max(J, IZERO);
+                final I1 = max(J, IZERO);
                 for (var I = I1; I <= N; I++) {
                   // 80
                   A[IOFF + I] = ZERO;
@@ -263,7 +263,7 @@ void ddrvsy_rk(
 
             dsytri_3(
                 UPLO, N, AINV.asMatrix(), LDA, E, IWORK, WORK, LWORK, INFO);
-           final AINVNM = dlansy('1', UPLO, N, AINV.asMatrix(), LDA, RWORK);
+            final AINVNM = dlansy('1', UPLO, N, AINV.asMatrix(), LDA, RWORK);
 
             // Compute the 1-norm condition number of A.
 
@@ -297,7 +297,7 @@ void ddrvsy_rk(
             // Adjust the expected value of INFO.value to account for
             // pivoting.
 
-           var K = IZERO;
+            var K = IZERO;
             if (K > 0) {
               while (true) {
                 if (IWORK[K] < 0) {
@@ -349,10 +349,10 @@ void ddrvsy_rk(
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                   NOUT.println(
                       ' DSYSV_RK, UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               } // 110
-              NRUN = NRUN + NT;
+              NRUN += NT;
             } // 120
           }
         } // 150

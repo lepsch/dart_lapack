@@ -182,7 +182,7 @@ void zlaed0(
     for (J = SUBMAT; J <= IWORK[I + 1]; J++) {
       // 60
       IWORK[INDXQ + J] = K;
-      K = K + 1;
+      K++;
     } // 60
   } // 70
 

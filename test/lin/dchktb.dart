@@ -295,10 +295,10 @@ void dchktb(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}, KD=${KD.i5}, NRHS=${NRHS.i5}, type ${IMAT.i2}, test(${K.i2})=${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + 5;
+              NRUN += 5;
             }
           }
 
@@ -329,9 +329,9 @@ void dchktb(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' DTBCON( \'${NORM.a1}\'${UPLO.a1}\'${DIAG.value.a1}\',${N.i5},${KD.i5},  ... ), type ${IMAT.i2}, test(${6.i2})=${RESULT[6].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 1;
+            NRUN++;
           }
         }
       }
@@ -438,14 +438,14 @@ void dchktb(
             if (RESULT[7] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               printFailedTest('DLATBS', 'N', 7, RESULT[7]);
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
             if (RESULT[8] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               printFailedTest('DLATBS', 'Y', 8, RESULT[8]);
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
-            NRUN = NRUN + 2;
+            NRUN += 2;
           }
         }
       }

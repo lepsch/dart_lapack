@@ -324,10 +324,10 @@ void dchksy_rook(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + NT;
+          NRUN += NT;
 
           // +    TEST 3
           // Compute largest element in U or L
@@ -354,7 +354,7 @@ void dchksy_rook(
 
                 DTEMP = dlange('M', K - 2, 2,
                     AFAC((K - 2) * LDA + 1).asMatrix(), LDA, RWORK);
-                K = K - 1;
+                K--;
               }
 
               // DTEMP should be bounded by CONST
@@ -362,7 +362,7 @@ void dchksy_rook(
               DTEMP = DTEMP - CONST + THRESH;
               if (DTEMP > RESULT[3]) RESULT[3] = DTEMP;
 
-              K = K - 1;
+              K--;
             }
           } else {
             // Compute largest element in L
@@ -382,7 +382,7 @@ void dchksy_rook(
 
                 DTEMP = dlange('M', N - K - 1, 2,
                     AFAC((K - 1) * LDA + K + 2).asMatrix(), LDA, RWORK);
-                K = K + 1;
+                K++;
               }
 
               // DTEMP should be bounded by CONST
@@ -390,7 +390,7 @@ void dchksy_rook(
               DTEMP = DTEMP - CONST + THRESH;
               if (DTEMP > RESULT[3]) RESULT[3] = DTEMP;
 
-              K = K + 1;
+              K++;
             }
           }
 
@@ -430,10 +430,10 @@ void dchksy_rook(
 
                 DTEMP = DTEMP - CONST + THRESH;
                 if (DTEMP > RESULT[4]) RESULT[4] = DTEMP;
-                K = K - 1;
+                K--;
               }
 
-              K = K - 1;
+              K--;
             }
           } else {
             // Loop forward for UPLO = 'L'
@@ -462,10 +462,10 @@ void dchksy_rook(
 
                 DTEMP = DTEMP - CONST + THRESH;
                 if (DTEMP > RESULT[4]) RESULT[4] = DTEMP;
-                K = K + 1;
+                K++;
               }
 
-              K = K + 1;
+              K++;
             }
           }
 
@@ -477,10 +477,10 @@ void dchksy_rook(
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
                   ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 2;
+          NRUN += 2;
 
           // Skip the other tests if this is not the first block
           // size.
@@ -556,10 +556,10 @@ void dchksy_rook(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + 2;
+              NRUN += 2;
 
               // End do for each value of NRHS in NSVAL.
             }
@@ -591,9 +591,9 @@ void dchksy_rook(
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' UPLO = \'${UPLO.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${7.i2}) =${RESULT[7].g12_5}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 1;
+          NRUN++;
         }
       }
     }

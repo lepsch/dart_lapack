@@ -1021,7 +1021,7 @@ void ddrvst(
 
           dlacpy(' ', N, N, A, LDA, V, LDU);
 
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSYEV';
           dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO);
           if (IINFO.value != 0) {
@@ -1073,7 +1073,7 @@ void ddrvst(
         dlacpy(' ', N, N, V, LDU, A, LDA);
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
 
           if (N > 0) {
             TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
@@ -1155,7 +1155,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX';
           dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -1207,7 +1207,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX';
           dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -1295,7 +1295,7 @@ void ddrvst(
             }
           }
 
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSPEV';
           dspev('V', UPLO, N, WORK, D1, Z, LDU, V.asArray(), IINFO);
           if (IINFO.value != 0) {
@@ -1382,7 +1382,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
 
           if (N > 0) {
             TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
@@ -1499,7 +1499,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
 
           srnamc.SRNAMT = 'DSPEVX';
           dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -1595,7 +1595,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
 
           srnamc.SRNAMT = 'DSPEVX';
           dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -1701,7 +1701,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSBEV';
           dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO);
           if (IINFO.value != 0) {
@@ -1780,7 +1780,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSBEVX';
           dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
               M, WA2, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
@@ -1848,7 +1848,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
               for (I = max(1, J - KD); I <= J; I++) {
@@ -1931,7 +1931,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
               for (I = max(1, J - KD); I <= J; I++) {
@@ -2023,7 +2023,7 @@ void ddrvst(
 
           dlacpy(' ', N, N, A, LDA, V, LDU);
 
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSYEVD';
           dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
@@ -2099,7 +2099,7 @@ void ddrvst(
             }
           }
 
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSPEVD';
           dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK(INDX), LWEDC - INDX + 1,
               IWORK, LIWEDC, IINFO);
@@ -2193,7 +2193,7 @@ void ddrvst(
           }
         }
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSBEVD';
           dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK,
               LIWEDC, IINFO);
@@ -2259,7 +2259,7 @@ void ddrvst(
 
         while (true) {
           dlacpy(' ', N, N, A, LDA, V, LDU);
-          NTEST = NTEST + 1;
+          NTEST++;
           srnamc.SRNAMT = 'DSYEVR';
           dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z,
               LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
@@ -2314,7 +2314,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR';
           dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -2366,7 +2366,7 @@ void ddrvst(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR';
           dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,

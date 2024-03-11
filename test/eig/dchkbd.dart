@@ -1199,7 +1199,7 @@ void dchkbd(
           if (NFAIL == 0) dlahd2(NOUT, PATH);
           NOUT.println(
               ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
       }
       if (!BIDIAG) {

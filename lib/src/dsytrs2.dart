@@ -73,7 +73,7 @@ void dsytrs2(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
         // Interchange rows K-1 and -IPIV[K].
@@ -129,7 +129,7 @@ void dsytrs2(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
         // Interchange rows K-1 and -IPIV[K].
@@ -153,7 +153,7 @@ void dsytrs2(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
         // Interchange rows K and -IPIV(K+1).
@@ -207,7 +207,7 @@ void dsytrs2(
         if (KP != K) {
           dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
         // Interchange rows K-1 and -IPIV[K].

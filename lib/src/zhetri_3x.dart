@@ -119,9 +119,9 @@ void zhetri_3x(
         WORK[K + 1][INVD + 1] = AK.toComplex() / D;
         WORK[K][INVD + 1] = -AKKP1 / D;
         WORK[K + 1][INVD] = WORK[K][INVD + 1].conjugate();
-        K = K + 1;
+        K++;
       }
-      K = K + 1;
+      K++;
     }
 
     // inv(U**H) = (inv(U))**H
@@ -293,9 +293,9 @@ void zhetri_3x(
         WORK[K][INVD] = AK.toComplex() / D;
         WORK[K][INVD + 1] = -AKKP1 / D;
         WORK[K - 1][INVD + 1] = WORK[K][INVD + 1].conjugate();
-        K = K - 1;
+        K--;
       }
-      K = K - 1;
+      K--;
     }
 
     // inv(L**H) = (inv(L))**H

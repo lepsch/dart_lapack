@@ -23,9 +23,9 @@
       bool               ZEROT;
       String             DIST, FACT, TYPE;
       String             PATH;
-      int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
+      int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NIMAT, NT;
       double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
@@ -51,13 +51,12 @@
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'PT';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}PT';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -69,10 +68,9 @@
 
          // Do for each value of N in NVAL.
 
-         N = NVAL( IN );
+         final N = NVAL[IN];
          LDA = max( 1, N );
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
@@ -82,9 +80,9 @@
 
             // Set up parameters with ZLATB4.
 
-            zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
+            final (:TYPE,:KL,:KU,:ANORM,:MODE,CNDNUM:COND,:DIST) = zlatb4(PATH, IMAT, N, N);
 
-            ZEROT = IMAT >= 8 && IMAT <= 10;
+            final ZEROT = IMAT >= 8 && IMAT <= 10;
             if ( IMAT <= 6 ) {
 
                // Type 1-6:  generate a symmetric tridiagonal matrix of
@@ -95,7 +93,7 @@
 
                // Check the error code from ZLATMS.
 
-               if ( INFO != 0 ) {
+               if ( INFO.value != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110;
                }
@@ -214,6 +212,7 @@
                // Compute the condition number for comparison with
                // the value returned by ZPTSVX.
 
+               final int IZERO;
                if ( ZEROT ) {
                   if (IFACT == 1) GO TO 100;
                   RCONDC = ZERO;
@@ -268,7 +267,7 @@
 
                   // Check error code from ZPTSV .
 
-                  if (INFO != IZERO) alaerh( PATH, 'ZPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO.value != IZERO) alaerh( PATH, 'ZPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0;
                   if ( IZERO == 0 ) {
 
@@ -292,13 +291,13 @@
                   // the threshold.
 
                   for (K = 1; K <= NT; K++) { // 70
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )'ZPTSV ', N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[K] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                        NOUT.println( 9999 )'ZPTSV ', N, IMAT, K, RESULT[K];
+                        NFAIL++;
                      }
                   } // 70
-                  NRUN = NRUN + NT;
+                  NRUN +=  NT;
                }
 
                // --- Test ZPTSVX ---
@@ -314,7 +313,7 @@
                   if (N > 0) D( N+N ) = ZERO;
                }
 
-               zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
+               zlaset('Full', N, NRHS, Complex.zero, Complex.zero, X, LDA );
 
                // Solve the system and compute the condition number and
                // error bounds using ZPTSVX.
@@ -324,7 +323,7 @@
 
                // Check the error code from ZPTSVX.
 
-               if (INFO != IZERO) alaerh( PATH, 'ZPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO.value != IZERO) alaerh( PATH, 'ZPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO == 0 ) {
                   if ( IFACT == 2 ) {
 
@@ -361,13 +360,13 @@
                // the threshold.
 
                for (K = K1; K <= 6; K++) { // 90
-                  if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                     WRITE( NOUT, FMT = 9998 )'ZPTSVX', FACT, N, IMAT, K, RESULT( K );
-                     NFAIL = NFAIL + 1;
+                  if ( RESULT[K] >= THRESH ) {
+                     if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                     NOUT.println( 9998 )'ZPTSVX', FACT, N, IMAT, K, RESULT[K];
+                     NFAIL++;
                   }
                } // 90
-               NRUN = NRUN + 7 - K1;
+               NRUN +=  7 - K1;
             } // 100
          } // 110
       } // 120
@@ -376,6 +375,6 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${}, N =${.i5}, type ${.i2}, test ${.i2}, ratio = ${.g12_5};
- 9998 FORMAT(' ${}, FACT=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio = ${.g12_5};
+ 9999 FORMAT(' ${}, N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio = ${RESULT[].g12_5};
+ 9998 FORMAT(' ${}, FACT=\'${FACT.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio = ${RESULT[].g12_5};
       }

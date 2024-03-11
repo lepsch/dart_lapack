@@ -201,9 +201,9 @@ Future<void> zckglm(
         }
         NOUT.println(
             ' N=${N.i4} M=${M.i4}, P=${P.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESID.value.g13_6}');
-        NFAIL = NFAIL + 1;
+        NFAIL++;
       }
-      NRUN = NRUN + 1;
+      NRUN++;
     } // 30
   } // 40
 

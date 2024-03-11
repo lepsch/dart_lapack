@@ -75,7 +75,7 @@ void zhpr2(
           K = KK;
           for (I = 1; I <= J - 1; I++) {
             AP[K] = AP[K] + X[I] * TEMP1 + Y[I] * TEMP2;
-            K = K + 1;
+            K++;
           }
           AP[KK + J - 1] = (AP[KK + J - 1].toDouble() +
                   (X[J] * TEMP1 + Y[J] * TEMP2).toDouble())
@@ -122,7 +122,7 @@ void zhpr2(
           K = KK + 1;
           for (I = J + 1; I <= N; I++) {
             AP[K] = AP[K] + X[I] * TEMP1 + Y[I] * TEMP2;
-            K = K + 1;
+            K++;
           }
         } else {
           AP[KK] = AP[KK].real.toComplex();

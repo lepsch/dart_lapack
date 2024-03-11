@@ -330,10 +330,10 @@ void ddrvsy_rook(
                 if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                 NOUT.println(
                     ' DSYSV_ROOK, UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g10_3}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + NT;
+            NRUN += NT;
           }
         }
       }

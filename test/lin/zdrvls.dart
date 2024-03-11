@@ -22,9 +22,9 @@
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       String             TRANS;
       String             PATH;
-      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD;
+      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD;
       double             EPS, NORMA, NORMB, RCOND;
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 ), IWQ( 1 );
+      final                ISEED=Array<int>( 4 ), IWQ( 1 );
       final             RESULT=Array<double>( NTESTS ), RWQ( 1 );
       Complex         WQ( 1 );
       // ..
@@ -57,13 +57,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'LS';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}LS';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
       EPS = dlamch( 'Epsilon' );
 
@@ -118,10 +117,10 @@
       // routines.
 
       for (IM = 1; IM <= NM; IM++) {
-         M = MVAL( IM );
-         LDA = max( 1, M );
+         final M = MVAL[IM];
+         final LDA = max( 1, M );
          for (IN = 1; IN <= NN; IN++) {
-            N = NVAL( IN );
+            final N = NVAL[IN];
             MNMIN = max(min( M, N ),1);
             LDB = max( 1, M, N );
             for (INS = 1; INS <= NNS; INS++) {
@@ -182,11 +181,11 @@
       ALLOCATE( RWORK( LRWORK ) );
 
       for (IM = 1; IM <= NM; IM++) { // 140
-         M = MVAL( IM );
-         LDA = max( 1, M );
+         final M = MVAL[IM];
+         final LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 130
-            N = NVAL( IN );
+            final N = NVAL[IN];
             MNMIN = max(min( M, N ),1);
             LDB = max( 1, M, N );
             MB = (MNMIN+1);
@@ -210,7 +209,7 @@
                         // Loop for testing different block sizes.
 
                         for (INB = 1; INB <= NNB; INB++) {
-                           NB = NBVAL( INB );
+                           final NB = NBVAL[INB];
                            xlaenv(1, NB );
                            xlaenv(3, NXVAL( INB ) );
 
@@ -275,13 +274,13 @@
                               // did not pass the threshold.
 
                               for (K = 1; K <= 2; K++) {
-                                 if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                                    WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
-                                    NFAIL = NFAIL + 1;
+                                 if ( RESULT[K] >= THRESH ) {
+                                    if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                                    NOUT.println( 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    NFAIL++;
                                  }
                               }
-                              NRUN = NRUN + 2;
+                              NRUN +=  2;
                            }
                         }
                      }
@@ -300,7 +299,7 @@
                         // Loop for testing different block sizes.
 
                         for (INB = 1; INB <= NNB; INB++) {
-                           NB = NBVAL( INB );
+                           final NB = NBVAL[INB];
                            xlaenv(1, NB );
                            xlaenv(3, NXVAL( INB ) );
 
@@ -365,13 +364,13 @@
                               // did not pass the threshold.
 
                               for (K = 3; K <= 4; K++) {
-                                 if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                                    WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
-                                    NFAIL = NFAIL + 1;
+                                 if ( RESULT[K] >= THRESH ) {
+                                    if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                                    NOUT.println( 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    NFAIL++;
                                  }
                               }
-                              NRUN = NRUN + 2;
+                              NRUN +=  2;
                            }
                         }
                      }
@@ -430,7 +429,7 @@
                                     zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
                                 srnamc.SRNAMT = 'ZGETSLS ';
-                                 zgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO != 0 ) CALL ALAERH( PATH, 'ZGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
+                                 zgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.value != 0 ) CALL ALAERH( PATH, 'ZGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 5: Check correctness of results
                               // for ZGETSLS, compute the residual:
@@ -461,13 +460,13 @@
                                  // did not pass the threshold.
 
                                  for (K = 5; K <= 6; K++) {
-                                    if ( RESULT( K ) >= THRESH ) {
-                                       if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                                       WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
-                                          NFAIL = NFAIL + 1;
+                                    if ( RESULT[K] >= THRESH ) {
+                                       if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                                       NOUT.println( 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
+                                          NFAIL++;
                                     }
                                  }
-                                 NRUN = NRUN + 2;
+                                 NRUN +=  2;
                               }
                            }
                         }
@@ -488,7 +487,7 @@
                      // Loop for testing different block sizes.
 
                      for (INB = 1; INB <= NNB; INB++) { // 90
-                        NB = NBVAL( INB );
+                        final NB = NBVAL[INB];
                         xlaenv(1, NB );
                         xlaenv(3, NXVAL( INB ) );
 
@@ -509,7 +508,7 @@
                         } // 70
 
                        srnamc.SRNAMT = 'ZGELSY';
-                        zgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'ZGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
+                        zgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO.value != 0 ) CALL ALAERH( PATH, 'ZGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 2*MNMIN+NB*NB+NB*max(N,NRHS)
 
@@ -589,7 +588,7 @@
                         zlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
                        srnamc.SRNAMT = 'ZGELSD';
-                        zgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, IWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'ZGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
+                        zgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, IWORK, INFO )                         IF( INFO.value != 0 ) CALL ALAERH( PATH, 'ZGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 15:  Compute relative error in svd
 
@@ -619,13 +618,13 @@
                         // pass the threshold.
 
                         for (K = 7; K <= 18; K++) { // 80
-                           if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                              WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
-                              NFAIL = NFAIL + 1;
+                           if ( RESULT[K] >= THRESH ) {
+                              if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
+                              NOUT.println( 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                              NFAIL++;
                            }
                         } // 80
-                        NRUN = NRUN + 12;
+                        NRUN +=  12;
 
                      } // 90
                   } // 100
@@ -638,9 +637,9 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' TRANS=\'${.a1}\', M=${.i5}, N=${.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
- 9998 FORMAT( ' M=${.i5}, N=${.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
- 9997 FORMAT( ' TRANS=\'${.a1} M=${.i5}, N=${.i5}, NRHS=${.i4}, MB=', I4,', NB=', I4,', type${.i2}, test(${.i2})=${.g12_5};
+ 9999 FORMAT( ' TRANS=\'${TRANS.a1}\', M=${M.i5}, N=${N.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
+ 9998 FORMAT( ' M=${M.i5}, N=${N.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
+ 9997 FORMAT( ' TRANS=\'${.a1} M=${M.i5}, N=${N.i5}, NRHS=${.i4}, MB=', I4,', NB=', I4,', type${.i2}, test(${.i2})=${.g12_5};
 
       DEALLOCATE( WORK );
       DEALLOCATE( IWORK );

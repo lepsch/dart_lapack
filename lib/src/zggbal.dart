@@ -184,7 +184,7 @@ void zggbal(
       do {
         if (nonZeroRowFound) {
           if (!firstColumn) {
-            K = K + 1;
+            K++;
           }
           firstColumn = false;
 

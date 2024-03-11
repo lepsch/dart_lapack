@@ -51,7 +51,7 @@ void zlaqps(
   // Beginning of while loop.
 
   while ((K < NB) && (LSTICC == 0)) {
-    K = K + 1;
+    K++;
     RK = OFFSET + K;
 
     // Determine ith pivot column and swap if necessary

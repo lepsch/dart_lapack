@@ -36,7 +36,7 @@
       // INTRINSIC DBLE, DCMPLX
 
       NOUT = infoc.NUNIT;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
       C2 = PATH.substring( 1, 3 );
 
       // Set the variables to innocuous values.

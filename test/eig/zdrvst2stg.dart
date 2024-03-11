@@ -428,7 +428,7 @@ void zdrvst2stg(
 
           zlacpy(' ', N, N, A, LDA, V, LDU);
 
-          NTEST = NTEST + 1;
+          NTEST++;
           zheevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, RWORK, LRWEDC, IWORK,
               LIWEDC, IINFO);
           if (IINFO.value != 0) {
@@ -482,7 +482,7 @@ void zdrvst2stg(
         } // 130
         zlacpy(' ', N, N, V, LDU, A, LDA);
 
-        NTEST = NTEST + 1;
+        NTEST++;
 
         if (N > 0) {
           TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
@@ -565,7 +565,7 @@ void zdrvst2stg(
 
         zlacpy(' ', N, N, V, LDU, A, LDA);
 
-        NTEST = NTEST + 1;
+        NTEST++;
 
         while (true) {
           zheevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -621,7 +621,7 @@ void zdrvst2stg(
 
         zlacpy(' ', N, N, V, LDU, A, LDA);
 
-        NTEST = NTEST + 1;
+        NTEST++;
 
         while (true) {
           zheevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
@@ -709,7 +709,7 @@ void zdrvst2stg(
           } // 210
         }
 
-        NTEST = NTEST + 1;
+        NTEST++;
         while (true) {
           INDWRK = N * (N + 1) ~/ 2 + 1;
           zhpevd('V', UPLO, N, WORK, D1, Z, LDU, WORK(INDWRK), LWEDC, RWORK,
@@ -809,7 +809,7 @@ void zdrvst2stg(
           } // 310
         }
 
-        NTEST = NTEST + 1;
+        NTEST++;
 
         if (N > 0) {
           TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
@@ -911,7 +911,7 @@ void zdrvst2stg(
           break;
         } // 370
 
-        NTEST = NTEST + 1;
+        NTEST++;
         if (IUPLO == 1) {
           INDX = 1;
           for (J = 1; J <= N; J++) {
@@ -1008,7 +1008,7 @@ void zdrvst2stg(
           break;
         } // 460
 
-        NTEST = NTEST + 1;
+        NTEST++;
         if (IUPLO == 1) {
           INDX = 1;
           for (J = 1; J <= N; J++) {
@@ -1142,7 +1142,7 @@ void zdrvst2stg(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           zhbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, RWORK,
               LRWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
@@ -1231,7 +1231,7 @@ void zdrvst2stg(
           } // 690
         }
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           zhbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
               M, WA1, Z, LDU, WORK, RWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
@@ -1326,7 +1326,7 @@ void zdrvst2stg(
         // Load array V with the upper or lower triangular part
         // of the matrix in band form.
 
-        NTEST = NTEST + 1;
+        NTEST++;
         if (IUPLO == 1) {
           for (J = 1; J <= N; J++) {
             // 770
@@ -1438,7 +1438,7 @@ void zdrvst2stg(
         // Load array V with the upper or lower triangular part
         // of the matrix in band form.
 
-        NTEST = NTEST + 1;
+        NTEST++;
         if (IUPLO == 1) {
           for (J = 1; J <= N; J++) {
             // 860
@@ -1559,7 +1559,7 @@ void zdrvst2stg(
 
           zlacpy(' ', N, N, A, LDA, V, LDU);
 
-          NTEST = NTEST + 1;
+          NTEST++;
           zheev('V', UPLO, N, A, LDU, D1, WORK, LWORK, RWORK, IINFO);
           if (IINFO.value != 0) {
             _print9999(NOUNIT, 'ZHEEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1639,7 +1639,7 @@ void zdrvst2stg(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           INDWRK = N * (N + 1) ~/ 2 + 1;
           zhpev('V', UPLO, N, WORK, D1, Z, LDU, WORK(INDWRK), RWORK, IINFO);
           if (IINFO.value != 0) {
@@ -1742,7 +1742,7 @@ void zdrvst2stg(
         }
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           zhbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, RWORK, IINFO);
           if (IINFO.value != 0) {
             _print9998(
@@ -1812,7 +1812,7 @@ void zdrvst2stg(
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           zlacpy(' ', N, N, A, LDA, V, LDU);
-          NTEST = NTEST + 1;
+          NTEST++;
           zheevr(
               'V',
               'A',
@@ -1910,7 +1910,7 @@ void zdrvst2stg(
         } // 1170
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           zlacpy(' ', N, N, V, LDU, A, LDA);
           zheevr(
               'V',
@@ -2004,7 +2004,7 @@ void zdrvst2stg(
         } // 1180
 
         while (true) {
-          NTEST = NTEST + 1;
+          NTEST++;
           zlacpy(' ', N, N, V, LDU, A, LDA);
           zheevr(
               'V',

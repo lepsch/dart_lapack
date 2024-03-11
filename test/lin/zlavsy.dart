@@ -44,7 +44,7 @@
       } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       }
-      if ( INFO != 0 ) {
+      if ( INFO.value != 0 ) {
          xerbla('ZLAVSY ', -INFO );
          return;
       }
@@ -92,7 +92,7 @@
                   KP = IPIV( K );
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K + 1;
+               K++;
             } else {
 
                // 2 x 2 pivot block
@@ -167,7 +167,7 @@
 
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K - 1;
+               K--;
 
             } else {
 
@@ -242,7 +242,7 @@
                   zgemv('Transpose', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) zscal( NRHS, A( K, K ), B( K, 1 ), LDB );
-               K = K - 1;
+               K--;
 
             // 2 x 2 pivot block.
 
@@ -306,7 +306,7 @@
                   zgemv('Transpose', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) zscal( NRHS, A( K, K ), B( K, 1 ), LDB );
-               K = K + 1;
+               K++;
 
             // 2 x 2 pivot block.
 

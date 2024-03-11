@@ -64,11 +64,11 @@ double zla_gercond_c(
       TMP = 0.0;
       if (CAPPLY) {
         for (J = 1; J <= N; J++) {
-          TMP = TMP + CABS1(A[I][J]) / C[J];
+          TMP += CABS1(A[I][J]) / C[J];
         }
       } else {
         for (J = 1; J <= N; J++) {
-          TMP = TMP + CABS1(A[I][J]);
+          TMP += CABS1(A[I][J]);
         }
       }
       RWORK[I] = TMP;
@@ -79,11 +79,11 @@ double zla_gercond_c(
       TMP = 0.0;
       if (CAPPLY) {
         for (J = 1; J <= N; J++) {
-          TMP = TMP + CABS1(A[J][I]) / C[J];
+          TMP += CABS1(A[J][I]) / C[J];
         }
       } else {
         for (J = 1; J <= N; J++) {
-          TMP = TMP + CABS1(A[J][I]);
+          TMP += CABS1(A[J][I]);
         }
       }
       RWORK[I] = TMP;

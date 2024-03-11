@@ -75,7 +75,7 @@ void zlaqp3rk(
   DONE.value = false;
 
   while (K < NB.value && LSTICC == 0) {
-    K = K + 1;
+    K++;
     I = IOFFSET + K;
 
     if (I == 1) {

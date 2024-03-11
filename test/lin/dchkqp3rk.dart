@@ -452,10 +452,10 @@ void dchkqp3rk(
                     if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                     NOUT.print9999('DGEQP3RK', M, N, NRHS, KMAX, ABSTOL.value,
                         RELTOL.value, NB, NX, IMAT, T, RESULT[T]);
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + 1;
+                NRUN++;
 
                 // End test 1
               }
@@ -486,10 +486,10 @@ void dchkqp3rk(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.print9999('DGEQP3RK', M, N, NRHS, KMAX, ABSTOL.value,
                       RELTOL.value, NB, NX, IMAT, T, RESULT[T]);
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + 2;
+              NRUN += 2;
 
               // Compute test 4:
 
@@ -522,10 +522,10 @@ void dchkqp3rk(
                     if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                     NOUT.print9999('DGEQP3RK', M, N, NRHS, KMAX, ABSTOL.value,
                         RELTOL.value, NB, NX, IMAT, T, RESULT[T]);
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + 1;
+                NRUN++;
 
                 // End test 4.
               }
@@ -566,10 +566,10 @@ void dchkqp3rk(
                     if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                     NOUT.print9999('DGEQP3RK', M, N, NRHS, KMAX, ABSTOL.value,
                         RELTOL.value, NB, NX, IMAT, T, RESULT[T]);
-                    NFAIL = NFAIL + 1;
+                    NFAIL++;
                   }
                 }
-                NRUN = NRUN + 1;
+                NRUN++;
 
                 // End compute test 5.
               }

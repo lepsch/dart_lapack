@@ -24,10 +24,10 @@
       bool               ZEROT;
       String             DIST, FACT, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT;
+      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NIMAT, NT;
       double             AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
       String             FACTS( NFACT ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -55,13 +55,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'HE';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}HE';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
       LWORK = max( 2*NMAX, NMAX*NRHS );
 
@@ -72,47 +71,46 @@
 
       // Set the block size and minimum block size for testing.
 
-      NB = 1;
-      NBMIN = 2;
+            final NB = 1;
+      final NBMIN = 2;
       xlaenv(1, NB );
       xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN );
-         LDA = max( N, 1 );
+         final N = NVAL[IN];
+         final LDA = max( N, 1 );
          XTYPE = 'N';
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE( IMAT ) ) GO TO 170;
+            if( !DOTYPE[IMAT] ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6;
+            final ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               UPLO = UPLOS( IUPLO );
+               final UPLO = UPLOS[IUPLO - 1];
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+               final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
 
               srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
-               if ( INFO != 0 ) {
+               if ( INFO.value != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 160;
                }
@@ -120,13 +118,14 @@
                // For types 3-6, zero one or more rows and columns of the
                // matrix to test that INFO is returned correctly.
 
+               final int IZERO;
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
                      IZERO = 1;
                   } else if ( IMAT == 4 ) {
                      IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1;
+                     IZERO = N ~/ 2 + 1;
                   }
 
                   if ( IMAT < 6 ) {
@@ -197,6 +196,7 @@
                   // Compute the condition number for comparison with
                   // the value returned by ZHESVX.
 
+                  final int IZERO;
                   if ( ZEROT ) {
                      if (IFACT == 1) GO TO 150;
                      RCONDC = ZERO;
@@ -264,10 +264,10 @@
 
                      // Check error code from ZHESV .
 
-                     if ( INFO != K ) {
+                     if ( INFO.value != K ) {
                         alaerh(PATH, 'ZHESV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120;
-                     } else if ( INFO != 0 ) {
+                     } else if ( INFO.value != 0 ) {
                         GO TO 120;
                      }
 
@@ -290,20 +290,20 @@
                      // the threshold.
 
                      for (K = 1; K <= NT; K++) { // 110
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 )'ZHESV ', UPLO, N, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1;
+                        if ( RESULT[K] >= THRESH ) {
+                           if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                           NOUT.println( 9999 )'ZHESV ', UPLO, N, IMAT, K, RESULT[K];
+                           NFAIL++;
                         }
                      } // 110
-                     NRUN = NRUN + NT;
+                     NRUN +=  NT;
                      } // 120
                   }
 
                   // --- Test ZHESVX ---
 
-                  if (IFACT == 2) zlaset( UPLO, N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
-                  zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
+                  if (IFACT == 2) zlaset( UPLO, N, N, Complex.zero, Complex.zero, AFAC, LDA );
+                  zlaset('Full', N, NRHS, Complex.zero, Complex.zero, X, LDA );
 
                   // Solve the system and compute the condition number and
                   // error bounds using ZHESVX.
@@ -330,12 +330,12 @@
 
                   // Check the error code from ZHESVX.
 
-                  if ( INFO != K ) {
+                  if ( INFO.value != K ) {
                      alaerh(PATH, 'ZHESVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 
-                  if ( INFO == 0 ) {
+                  if ( INFO.value == 0 ) {
                      if ( IFACT >= 2 ) {
 
                         // Reconstruct matrix from factors and compute
@@ -372,13 +372,13 @@
                   // the threshold.
 
                   for (K = K1; K <= 6; K++) { // 140
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9998 )'ZHESVX', FACT, UPLO, N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
+                     if ( RESULT[K] >= THRESH ) {
+                        if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                        NOUT.println( 9998 )'ZHESVX', FACT, UPLO, N, IMAT, K, RESULT[K];
+                        NFAIL++;
                      }
                   } // 140
-                  NRUN = NRUN + 7 - K1;
+                  NRUN +=  7 - K1;
 
                } // 150
 
@@ -390,6 +390,6 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
- 9998 FORMAT(' ${}, FACT=\'${.a1}\', UPLO=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
+ 9998 FORMAT(' ${}, FACT=\'${FACT.a1}\', UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
       }

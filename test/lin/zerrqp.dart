@@ -42,7 +42,7 @@
       A[2][2] = DCMPLX( 3.0, -3.0 );
       A[2][1] = DCMPLX( 4.0, -4.0 );
       infoc.OK.value = true;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( * );
 
       // Test error exits for QR factorization with pivoting
 

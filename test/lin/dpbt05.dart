@@ -87,17 +87,17 @@ void dpbt05(
       var TMP = (B[I][K]).abs();
       if (UPPER) {
         for (var J = max(I - KD, 1); J <= I; J++) {
-          TMP = TMP + (AB[KD + 1 - I + J][I]).abs() * (X[J][K]).abs();
+          TMP += (AB[KD + 1 - I + J][I]).abs() * (X[J][K]).abs();
         }
         for (var J = I + 1; J <= min(I + KD, N); J++) {
-          TMP = TMP + (AB[KD + 1 + I - J][J]).abs() * (X[J][K]).abs();
+          TMP += (AB[KD + 1 + I - J][J]).abs() * (X[J][K]).abs();
         }
       } else {
         for (var J = max(I - KD, 1); J <= I - 1; J++) {
-          TMP = TMP + (AB[1 + I - J][J]).abs() * (X[J][K]).abs();
+          TMP += (AB[1 + I - J][J]).abs() * (X[J][K]).abs();
         }
         for (var J = I; J <= min(I + KD, N); J++) {
-          TMP = TMP + (AB[1 + J - I][I]).abs() * (X[J][K]).abs();
+          TMP += (AB[1 + J - I][I]).abs() * (X[J][K]).abs();
         }
       }
       if (I == 1) {

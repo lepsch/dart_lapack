@@ -43,7 +43,7 @@
       } else if ( INCY == 0 ) {
          INFO = 11;
       }
-      if ( INFO != 0 ) {
+      if ( INFO.value != 0 ) {
          xerbla('ZSBMV ', INFO );
          return;
       }

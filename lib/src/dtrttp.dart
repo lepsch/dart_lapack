@@ -41,7 +41,7 @@ void dtrttp(
     K = 0;
     for (J = 1; J <= N; J++) {
       for (I = J; I <= N; I++) {
-        K = K + 1;
+        K++;
         AP[K] = A[I][J];
       }
     }
@@ -49,7 +49,7 @@ void dtrttp(
     K = 0;
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= J; I++) {
-        K = K + 1;
+        K++;
         AP[K] = A[I][J];
       }
     }

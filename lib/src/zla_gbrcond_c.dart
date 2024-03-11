@@ -72,11 +72,11 @@ double zla_gbrcond_c(
       TMP = 0.0;
       if (CAPPLY) {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP = TMP + CABS1(AB[KD + I - J][J]) / C[J];
+          TMP += CABS1(AB[KD + I - J][J]) / C[J];
         }
       } else {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP = TMP + CABS1(AB[KD + I - J][J]);
+          TMP += CABS1(AB[KD + I - J][J]);
         }
       }
       RWORK[I] = TMP;
@@ -87,11 +87,11 @@ double zla_gbrcond_c(
       TMP = 0.0;
       if (CAPPLY) {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP = TMP + CABS1(AB[KE - I + J][I]) / C[J];
+          TMP += CABS1(AB[KE - I + J][I]) / C[J];
         }
       } else {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP = TMP + CABS1(AB[KE - I + J][I]);
+          TMP += CABS1(AB[KE - I + J][I]);
         }
       }
       RWORK[I] = TMP;

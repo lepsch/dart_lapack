@@ -22,7 +22,7 @@
       int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS;
       double             ALPHA, BETA, EPS, NORMA, NORMC;
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -50,11 +50,11 @@
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0;
-      NFAIL = 0;
+      var NRUN = 0;
+      var NFAIL = 0;
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
       EPS = dlamch( 'Precision' );
 
@@ -72,7 +72,7 @@
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
 
-                  UPLO = UPLOS( IUPLO );
+                  final UPLO = UPLOS[IUPLO - 1];
 
                   for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 110
 
@@ -99,7 +99,7 @@
                         //    ALPHA, and BETA
                         // READY TO TEST!
 
-                        NRUN = NRUN + 1;
+                        NRUN++;
 
                         if ( ITRANS == 1 ) {
 
@@ -181,10 +181,10 @@
                         if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {
                               WRITE( NOUT, * );
-                              WRITE( NOUT, FMT = 9999 );
+                              NOUT.println( 9999 );
                            }
-                           WRITE( NOUT, FMT = 9997 ) 'ZHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1);
-                           NFAIL = NFAIL + 1;
+                           NOUT.println( 9997 ) 'ZHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1);
+                           NFAIL++;
                         }
 
                      } // 100
@@ -197,13 +197,13 @@
       // Print a summary of the results.
 
       if ( NFAIL == 0 ) {
-         WRITE( NOUT, FMT = 9996 ) 'ZHFRK', NRUN;
+         NOUT.println( 9996 ) 'ZHFRK', NRUN;
       } else {
-         WRITE( NOUT, FMT = 9995 ) 'ZHFRK', NFAIL, NRUN;
+         NOUT.println( 9995 ) 'ZHFRK', NFAIL, NRUN;
       }
 
  9999 FORMAT('  *** Error(s) or Failure(s) while testing ZHFRK ***');
- 9997 FORMAT('      Failure in ${.a5}, CFORM=\'${.a1}\', UPLO=\'${.a1}\',',' TRANS=\'${.a1}\', N=',I3,', K =${.i3}, test=',G12.5);
+ 9997 FORMAT('      Failure in ${.a5}, CFORM=\'${.a1}\', UPLO=\'${.a1}\',',' TRANS=\'${TRANS.a1}\', N=',I3,', K =${.i3}, test=',G12.5);
  9996 FORMAT(' All tests for ${.a5} auxiliary routine passed the threshold ( ',I6,' tests run)');
  9995 FORMAT(' ${.a6} auxiliary routine: ',I6,' out of ',I6, ' tests failed to pass the threshold');
 

@@ -210,9 +210,9 @@
       // Print a summary line.
 
       if ( infoc.OK ) {
-         WRITE( NOUT, FMT = 9999 );
+         NOUT.println( 9999 );
       } else {
-         WRITE( NOUT, FMT = 9998 );
+         NOUT.println( 9998 );
       }
 
  9999 FORMAT(' Complex RFP routines passed the tests of the error exits' );

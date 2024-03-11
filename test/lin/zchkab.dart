@@ -62,60 +62,60 @@
       // Report values of parameters.
 
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+      NOUT.println( 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
 
       // Read the values of M
 
       READ( NIN, FMT = * )NM;
       if ( NM < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NM ', NM, 1;
+         NOUT.println( 9996 )' NM ', NM, 1;
          NM = 0;
          FATAL = true;
       } else if ( NM > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN;
+         NOUT.println( 9995 )' NM ', NM, MAXIN;
          NM = 0;
          FATAL = true;
       }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM );
       for (I = 1; I <= NM; I++) { // 10
          if ( MVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0;
+            NOUT.println( 9996 )' M  ', MVAL( I ), 0;
             FATAL = true;
          } else if ( MVAL( I ) > NMAX ) {
-            WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX;
+            NOUT.println( 9995 )' M  ', MVAL( I ), NMAX;
             FATAL = true;
          }
       } // 10
-      if (NM > 0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
+      if (NM > 0) NOUT.println( 9993 )'M   ', ( MVAL( I ), I = 1, NM );
 
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS;
       if ( NNS < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1;
+         NOUT.println( 9996 )' NNS', NNS, 1;
          NNS = 0;
          FATAL = true;
       } else if ( NNS > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN;
+         NOUT.println( 9995 )' NNS', NNS, MAXIN;
          NNS = 0;
          FATAL = true;
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS );
       for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0;
+            NOUT.println( 9996 )'NRHS', NSVAL( I ), 0;
             FATAL = true;
          } else if ( NSVAL( I ) > MAXRHS ) {
-            WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS;
+            NOUT.println( 9995 )'NRHS', NSVAL( I ), MAXRHS;
             FATAL = true;
          }
       } // 30
-      if (NNS > 0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+      if (NNS > 0) NOUT.println( 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the threshold value for the test ratios.
 
       READ( NIN, FMT = * )THRESH;
-      WRITE( NOUT, FMT = 9992 )THRESH;
+      NOUT.println( 9992 )THRESH;
 
       // Read the flag that indicates whether to test the driver routine.
 
@@ -126,27 +126,27 @@
       READ( NIN, FMT = * )TSTERR;
 
       if ( FATAL ) {
-         WRITE( NOUT, FMT = 9999 );
+         NOUT.println( 9999 );
          STOP;
       }
 
       // Calculate and print the machine dependent constants.
 
       SEPS = SLAMCH( 'Underflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'(single precision) underflow', SEPS;
+      NOUT.println( 9991 )'(single precision) underflow', SEPS;
       SEPS = SLAMCH( 'Overflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'(single precision) overflow ', SEPS;
+      NOUT.println( 9991 )'(single precision) overflow ', SEPS;
       SEPS = SLAMCH( 'Epsilon' );
-      WRITE( NOUT, FMT = 9991 )'(single precision) precision', SEPS;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( 9991 )'(single precision) precision', SEPS;
+      NOUT.println( * );
 
       EPS = dlamch( 'Underflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'(double          ) underflow', EPS;
+      NOUT.println( 9991 )'(double          ) underflow', EPS;
       EPS = dlamch( 'Overflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'(double          ) overflow ', EPS;
+      NOUT.println( 9991 )'(double          ) overflow ', EPS;
       EPS = dlamch( 'Epsilon' );
-      WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
-      WRITE( NOUT, FMT = * );
+      NOUT.println( 9991 )'(double          ) precision', EPS;
+      NOUT.println( * );
 
       } // 80
 
@@ -181,19 +181,19 @@
       } // 130
       C1 = PATH( 1: 1 );
       C2 = PATH.substring( 1, 3 );
-      NRHS = NSVAL( 1 );
-      NRHS = NSVAL( 1 );
+      final NRHS = NSVAL[1];
+      final NRHS = NSVAL[1];
 
       // Check first character for correct precision.
 
       if ( !lsame( C1, 'Zomplex precision' ) ) {
-            WRITE( NOUT, FMT = 9990 )PATH;
+            NOUT.println( 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {
 
          // Check for a positive number of tests requested.
 
-         WRITE( NOUT, FMT = 9990 )'ZCGESV';
+         NOUT.println( 9990 )'ZCGESV';
          GO TO 140;
 
       } else if ( lsamen( 2, C2, 'GE' ) ) {
@@ -210,7 +210,7 @@
          if ( TSTDRV ) {
             zdrvab(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )'ZCGESV';
+            NOUT.println( 9989 )'ZCGESV';
          }
 
       } else if ( lsamen( 2, C2, 'PO' ) ) {
@@ -226,7 +226,7 @@
          if ( TSTDRV ) {
             zdrvac(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )'ZCPOSV';
+            NOUT.println( 9989 )'ZCPOSV';
          }
 
       } else {
@@ -242,8 +242,8 @@
       } // 140
       CLOSE ( NIN );
       S2 = DSECND( );
-      WRITE( NOUT, FMT = 9998 );
-      WRITE( NOUT, FMT = 9997 )S2 - S1;
+      NOUT.println( 9998 );
+      NOUT.println( 9997 )S2 - S1;
 
  9999 FORMAT('\n Execution not attempted due to input errors' );
  9998 FORMAT('\n End of tests' );

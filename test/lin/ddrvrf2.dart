@@ -58,7 +58,7 @@ void ddrvrf2(
       for (var IFORM = 1; IFORM <= 2; IFORM++) {
         final CFORM = FORMS[IFORM - 1];
 
-        NRUN = NRUN + 1;
+        NRUN++;
 
         for (var J = 1; J <= N; J++) {
           for (var I = 1; I <= N; I++) {
@@ -94,7 +94,7 @@ void ddrvrf2(
           }
         }
 
-        NRUN = NRUN + 1;
+        NRUN++;
 
         srnamc.SRNAMT = 'DTRTTP';
         dtrttp(UPLO, N, A, LDA, AP, INFO);

@@ -192,9 +192,9 @@ Future<void> dckglm(
         }
         NOUT.println(
             ' N=${M.i4} M=${N.i4}, P=${P.i4}, type ${IMAT.i2}, test 1, ratio=${RESID.value.g13_6}');
-        NFAIL = NFAIL + 1;
+        NFAIL++;
       }
-      NRUN = NRUN + 1;
+      NRUN++;
     }
   }
 

@@ -134,7 +134,7 @@ void zgebal(
           }
           NOCONV = true;
 
-          K = K + 1;
+          K++;
         }
       }
     }

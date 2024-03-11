@@ -56,24 +56,24 @@ double dla_porcond(
       TMP = 0.0;
       if (CMODE == 1) {
         for (J = 1; J <= I; J++) {
-          TMP = TMP + (A[J][I] * C[J]).abs();
+          TMP += (A[J][I] * C[J]).abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP = TMP + (A[I][J] * C[J]).abs();
+          TMP += (A[I][J] * C[J]).abs();
         }
       } else if (CMODE == 0) {
         for (J = 1; J <= I; J++) {
-          TMP = TMP + (A[J][I]).abs();
+          TMP += (A[J][I]).abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP = TMP + (A[I][J]).abs();
+          TMP += (A[I][J]).abs();
         }
       } else {
         for (J = 1; J <= I; J++) {
-          TMP = TMP + (A[J][I] / C[J]).abs();
+          TMP += (A[J][I] / C[J]).abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP = TMP + (A[I][J] / C[J]).abs();
+          TMP += (A[I][J] / C[J]).abs();
         }
       }
       WORK[2 * N + I] = TMP;
@@ -83,24 +83,24 @@ double dla_porcond(
       TMP = 0.0;
       if (CMODE == 1) {
         for (J = 1; J <= I; J++) {
-          TMP = TMP + (A[I][J] * C[J]).abs();
+          TMP += (A[I][J] * C[J]).abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP = TMP + (A[J][I] * C[J]).abs();
+          TMP += (A[J][I] * C[J]).abs();
         }
       } else if (CMODE == 0) {
         for (J = 1; J <= I; J++) {
-          TMP = TMP + (A[I][J]).abs();
+          TMP += (A[I][J]).abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP = TMP + (A[J][I]).abs();
+          TMP += (A[J][I]).abs();
         }
       } else {
         for (J = 1; J <= I; J++) {
-          TMP = TMP + (A[I][J] / C[J]).abs();
+          TMP += (A[I][J] / C[J]).abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP = TMP + (A[J][I] / C[J]).abs();
+          TMP += (A[J][I] / C[J]).abs();
         }
       }
       WORK[2 * N + I] = TMP;

@@ -320,7 +320,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= N; J++) {
             U[J][I] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + N;
         }
@@ -347,7 +347,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= N; J++) {
             VT[I][J] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + N;
         }
@@ -406,7 +406,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= N; J++) {
             U[J][I] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + N;
         }
@@ -427,7 +427,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= N; J++) {
             VT[I][J] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + N;
         }
@@ -502,7 +502,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= M; J++) {
             U[J][I] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + M;
         }
@@ -521,7 +521,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= M; J++) {
             VT[I][J] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + M;
         }
@@ -588,7 +588,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= M; J++) {
             U[J][I] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + M;
         }
@@ -607,7 +607,7 @@ void zgesvdx(
         for (I = 1; I <= NS.value; I++) {
           for (J = 1; J <= M; J++) {
             VT[I][J] = Complex(RWORK[K], ZERO);
-            K = K + 1;
+            K++;
           }
           K = K + M;
         }

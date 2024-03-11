@@ -62,10 +62,10 @@ double zla_porcond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = 1; J <= I; J++) {
-        TMP = TMP + CABS1(A[J][I] * X[J]);
+        TMP += CABS1(A[J][I] * X[J]);
       }
       for (J = I + 1; J <= N; J++) {
-        TMP = TMP + CABS1(A[I][J] * X[J]);
+        TMP += CABS1(A[I][J] * X[J]);
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);
@@ -74,10 +74,10 @@ double zla_porcond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = 1; J <= I; J++) {
-        TMP = TMP + CABS1(A[I][J] * X[J]);
+        TMP += CABS1(A[I][J] * X[J]);
       }
       for (J = I + 1; J <= N; J++) {
-        TMP = TMP + CABS1(A[J][I] * X[J]);
+        TMP += CABS1(A[J][I] * X[J]);
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);

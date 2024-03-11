@@ -74,10 +74,10 @@ void dchktsqr(
                 if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     'TS: M=${M.i5}, N=${N.i5}, MB=${MB.i5}, NB=${NB.i5} test(${T.i2})=${RESULT[T].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + NTESTS;
+            NRUN += NTESTS;
           }
         }
       }
@@ -113,10 +113,10 @@ void dchktsqr(
                 if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     'SW: M=${M.i5}, N=${N.i5}, MB=${MB.i5}, NB=${NB.i5} test(${T.i2})=${RESULT[T].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + NTESTS;
+            NRUN += NTESTS;
           }
         }
       }

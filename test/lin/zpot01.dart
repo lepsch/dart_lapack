@@ -1,118 +1,113 @@
-      void zpot01(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.having();
-  final AFAC = AFAC_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zher.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/blas/ztrmv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlanhe.dart';
 
+void zpot01(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> AFAC_,
+  final int LDAFAC,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDAFAC, N;
-      double             RESID;
-      double             RWORK( * );
-      Complex         A( LDA, * ), AFAC( LDAFAC, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AFAC = AFAC_.having(ld: LDAFAC);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, J, K;
-      double             ANORM, EPS, TR;
-      Complex         TC;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANHE;
-      //- Complex         ZDOTC;
-      // EXTERNAL lsame, DLAMCH, ZLANHE, ZDOTC
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZHER, ZSCAL, ZTRMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DIMAG
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RESID = ZERO;
-         return;
+  // Exit with RESID.value = 1/EPS if ANORM = 0.
+
+  final EPS = dlamch('Epsilon');
+  final ANORM = zlanhe('1', UPLO, N, A, LDA, RWORK);
+  if (ANORM <= ZERO) {
+    RESID.value = ONE / EPS;
+    return;
+  }
+
+  // Check the imaginary parts of the diagonal elements and return with
+  // an error code if any are nonzero.
+
+  for (var J = 1; J <= N; J++) {
+    if (AFAC[J][J].imaginary != ZERO) {
+      RESID.value = ONE / EPS;
+      return;
+    }
+  }
+
+  // Compute the product U**H * U, overwriting U.
+
+  if (lsame(UPLO, 'U')) {
+    for (var K = N; K >= 1; K--) {
+      // Compute the (K,K) element of the result.
+
+      final TR =
+          zdotc(K, AFAC(1, K).asArray(), 1, AFAC(1, K).asArray(), 1).real;
+      AFAC[K][K] = TR.toComplex();
+
+      // Compute the rest of column K.
+
+      ztrmv('Upper', 'Conjugate', 'Non-unit', K - 1, AFAC, LDAFAC,
+          AFAC(1, K).asArray(), 1);
+    }
+
+    // Compute the product L * L**H, overwriting L.
+  } else {
+    for (var K = N; K >= 1; K--) {
+      // Add a multiple of column K of the factor L to each of
+      // columns K+1 through N.
+
+      if (K + 1 <= N) {
+        zher('Lower', N - K, ONE, AFAC(K + 1, K).asArray(), 1,
+            AFAC(K + 1, K + 1), LDAFAC);
       }
 
-      // Exit with RESID = 1/EPS if ANORM = 0.
+      // Scale column K by the diagonal element.
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
-      if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS;
-         return;
+      final TC = AFAC[K][K];
+      zscal(N - K + 1, TC, AFAC(K, K).asArray(), 1);
+    }
+  }
+
+  // Compute the difference L * L**H - A (or U**H * U - A).
+
+  if (lsame(UPLO, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= J - 1; I++) {
+        AFAC[I][J] = AFAC[I][J] - A[I][J];
       }
-
-      // Check the imaginary parts of the diagonal elements and return with
-      // an error code if any are nonzero.
-
-      for (J = 1; J <= N; J++) { // 10
-         if ( DIMAG( AFAC( J, J ) ) != ZERO ) {
-            RESID = ONE / EPS;
-            return;
-         }
-      } // 10
-
-      // Compute the product U**H * U, overwriting U.
-
-      if ( lsame( UPLO, 'U' ) ) {
-         for (K = N; K >= 1; K--) { // 20
-
-            // Compute the (K,K) element of the result.
-
-            TR = DBLE( ZDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
-            AFAC[K][K] = TR;
-
-            // Compute the rest of column K.
-
-            ztrmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
-
-         } // 20
-
-      // Compute the product L * L**H, overwriting L.
-
-      } else {
-         for (K = N; K >= 1; K--) { // 30
-
-            // Add a multiple of column K of the factor L to each of
-            // columns K+1 through N.
-
-            if (K+1 <= N) zher( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC );
-
-            // Scale column K by the diagonal element.
-
-            TC = AFAC( K, K );
-            zscal(N-K+1, TC, AFAC( K, K ), 1 );
-
-         } // 30
+      AFAC[J][J] = AFAC[J][J] - A[J][J].real.toComplex();
+    }
+  } else {
+    for (var J = 1; J <= N; J++) {
+      AFAC[J][J] = AFAC[J][J] - A[J][J].real.toComplex();
+      for (var I = J + 1; I <= N; I++) {
+        AFAC[I][J] = AFAC[I][J] - A[I][J];
       }
+    }
+  }
 
-      // Compute the difference L * L**H - A (or U**H * U - A).
+  // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 50
-            for (I = 1; I <= J - 1; I++) { // 40
-               AFAC[I][J] = AFAC( I, J ) - A( I, J );
-            } // 40
-            AFAC[J][J] = AFAC( J, J ) - (A( J, J )).toDouble();
-         } // 50
-      } else {
-         for (J = 1; J <= N; J++) { // 70
-            AFAC[J][J] = AFAC( J, J ) - (A( J, J )).toDouble();
-            for (I = J + 1; I <= N; I++) { // 60
-               AFAC[I][J] = AFAC( I, J ) - A( I, J );
-            } // 60
-         } // 70
-      }
+  RESID.value = zlanhe('1', UPLO, N, AFAC, LDAFAC, RWORK);
 
-      // Compute norm(L*U - A) / ( N * norm(A) * EPS )
-
-      RESID = ZLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK );
-
-      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
-
-      }
+  RESID.value = ((RESID.value / N) / ANORM) / EPS;
+}

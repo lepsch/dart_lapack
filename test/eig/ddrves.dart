@@ -575,11 +575,11 @@ void ddrves(
         NTEST = 0;
         NFAIL = 0;
         for (J = 1; J <= 13; J++) {
-          if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
-          if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+          if (RESULT[J] >= ZERO) NTEST++;
+          if (RESULT[J] >= THRESH) NFAIL++;
         }
 
-        if (NFAIL > 0) NTESTF = NTESTF + 1;
+        if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
           NOUNIT.println(
               '\n ${PATH.a3} -- Real Schur Form Decomposition Driver\n Matrix types (see DDRVES for details): ');

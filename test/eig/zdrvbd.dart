@@ -810,11 +810,11 @@ void zdrvbd(
         NFAIL = 0;
         for (J = 1; J <= 39; J++) {
           // 190
-          if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
-          if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+          if (RESULT[J] >= ZERO) NTEST++;
+          if (RESULT[J] >= THRESH) NFAIL++;
         } // 190
 
-        if (NFAIL > 0) NTESTF = NTESTF + 1;
+        if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
           NOUNIT.println(
               ' SVD -- Complex Singular Value Decomposition Driver \n Matrix types (see ZDRVBD for details):\n\n 1 = Zero matrix\n 2 = Identity matrix\n 3 = Evenly spaced singular values near 1\n 4 = Evenly spaced singular values near underflow\n 5 = Evenly spaced singular values near overflow\n\n Tests performed: ( A is dense, U and V are unitary,\n${' ' * 19} S is an array, and Upartial, VTpartial, and\n${' ' * 19} Spartial are partially computed U, VT and S),\n');

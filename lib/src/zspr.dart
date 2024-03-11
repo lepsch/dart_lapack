@@ -62,7 +62,7 @@ void zspr(
           for (I = 1; I <= J - 1; I++) {
             // 10
             AP[K] = AP[K] + X[I] * TEMP;
-            K = K + 1;
+            K++;
           } // 10
           AP[KK + J - 1] = AP[KK + J - 1] + X[J] * TEMP;
         } else {
@@ -103,7 +103,7 @@ void zspr(
           for (I = J + 1; I <= N; I++) {
             // 50
             AP[K] = AP[K] + X[I] * TEMP;
-            K = K + 1;
+            K++;
           } // 50
         } else {
           AP[KK] = AP[KK];

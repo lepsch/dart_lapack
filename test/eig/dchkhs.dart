@@ -652,7 +652,7 @@ void dchkhs(
                 break matchRightLoop;
               }
             }
-            K = K + 1;
+            K++;
           } else if (SELECT[J] && WI1[J] != ZERO) {
             for (JJ = 1; JJ <= N; JJ++) {
               if (EVECTR[JJ][J] != EVECTL[JJ][K] ||
@@ -710,7 +710,7 @@ void dchkhs(
                 break matchLeftLoop;
               }
             }
-            K = K + 1;
+            K++;
           } else if (SELECT[J] && WI1[J] != ZERO) {
             for (JJ = 1; JJ <= N; JJ++) {
               if (EVECTL[JJ][J] != EVECTR[JJ][K] ||

@@ -224,7 +224,7 @@ void ddrvsy_aa_2stage(
             // Factor the matrix and solve the system using DSYSV_AA.
 
             srnamc.SRNAMT = 'DSYSV_AA_2STAGE ';
-           final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
+            final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
             dsysv_aa_2stage(
                 UPLO,
                 N,
@@ -295,10 +295,10 @@ void ddrvsy_aa_2stage(
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                   NOUT.println(
                       ' DSYSV_AA , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
               }
-              NRUN = NRUN + NT;
+              NRUN += NT;
             }
           }
         }

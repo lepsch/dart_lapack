@@ -139,9 +139,9 @@ double zlantp(
           for (I = 1; I <= J - 1; I++) {
             // 160
             WORK[I] = WORK[I] + AP[K].abs();
-            K = K + 1;
+            K++;
           } // 160
-          K = K + 1;
+          K++;
         } // 170
       } else {
         for (I = 1; I <= N; I++) {
@@ -153,7 +153,7 @@ double zlantp(
           for (I = 1; I <= J; I++) {
             // 190
             WORK[I] = WORK[I] + AP[K].abs();
-            K = K + 1;
+            K++;
           } // 190
         } // 200
       }
@@ -165,11 +165,11 @@ double zlantp(
         } // 210
         for (J = 1; J <= N; J++) {
           // 230
-          K = K + 1;
+          K++;
           for (I = J + 1; I <= N; I++) {
             // 220
             WORK[I] = WORK[I] + AP[K].abs();
-            K = K + 1;
+            K++;
           } // 220
         } // 230
       } else {
@@ -182,7 +182,7 @@ double zlantp(
           for (I = J; I <= N; I++) {
             // 250
             WORK[I] = WORK[I] + AP[K].abs();
-            K = K + 1;
+            K++;
           } // 250
         } // 260
       }

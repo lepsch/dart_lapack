@@ -591,11 +591,11 @@ void zdrvev(
         NFAIL = 0;
         for (J = 1; J <= 7; J++) {
           // 230
-          if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
-          if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+          if (RESULT[J] >= ZERO) NTEST++;
+          if (RESULT[J] >= THRESH) NFAIL++;
         } // 230
 
-        if (NFAIL > 0) NTESTF = NTESTF + 1;
+        if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
           NOUNIT.println(
               '\n ${PATH.a3} -- Complex Eigenvalue-Eigenvector Decomposition Driver\n Matrix types (see ZDRVEV for details): ');

@@ -126,7 +126,7 @@ void ddrvrf1(
             final NORMA = dlansy(NORM, UPLO, N, A, LDA, WORK);
 
             RESULT[1] = (NORMA - NORMARF) / NORMA / EPS;
-            NRUN = NRUN + 1;
+            NRUN++;
 
             if (RESULT[1] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) {
@@ -136,7 +136,7 @@ void ddrvrf1(
               }
               NOUT.println(
                   '      Failure in DLANSF N=${N.i5} TYPE=${IIT.i5} UPLO=\'${UPLO.a1}\', FORM =\'${CFORM.a1}\', NORM=\'${NORM.a1}\', test=${RESULT[1].g12_5}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
         }

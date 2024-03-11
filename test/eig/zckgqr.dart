@@ -208,10 +208,10 @@ Future<void> zckgqr(
               }
               NOUT.println(
                   ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           } // 10
-          NRUN = NRUN + NT;
+          NRUN += NT;
 
           // Test ZGGQRF
 
@@ -303,10 +303,10 @@ Future<void> zckgqr(
               }
               NOUT.println(
                   ' N=${N.i4} M=${M.i4}, P=${P.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           } // 20
-          NRUN = NRUN + NT;
+          NRUN += NT;
         } // 30
       } // 40
     } // 50

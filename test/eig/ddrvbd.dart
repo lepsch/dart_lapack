@@ -777,7 +777,7 @@ void ddrvbd(
             }
             NOUT.println(
                 ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i1}, IWS=${IWS.i1}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
         } // 210
         NTEST = NTEST + 39;

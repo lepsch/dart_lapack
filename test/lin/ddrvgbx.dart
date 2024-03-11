@@ -451,10 +451,10 @@ void ddrvgb(
                       if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                       NOUT.println(
                           ' DGBSV, N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5} )');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + NT;
+                  NRUN += NT;
                 }
 
                 // --- Test DGBSVX ---
@@ -638,10 +638,10 @@ void ddrvgb(
                         NOUT.print9996('DGBSVX', FACT, TRANS, N, KL, KU, IMAT,
                             K, RESULT[K]);
                       }
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + 7 - K1;
+                  NRUN += 7 - K1;
                 } else {
                   if (RESULT[1] >= THRESH && !PREFAC) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -652,8 +652,8 @@ void ddrvgb(
                       NOUT.print9996(
                           'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT[1]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                   if (RESULT[6] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -664,8 +664,8 @@ void ddrvgb(
                       NOUT.print9996(
                           'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT[6]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                   if (RESULT[7] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -676,8 +676,8 @@ void ddrvgb(
                       NOUT.print9996(
                           'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT[7]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                 }
 
@@ -825,10 +825,10 @@ void ddrvgb(
                         NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT,
                             K, RESULT[K]);
                       }
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + 7 - K1;
+                  NRUN += 7 - K1;
                 } else {
                   if (RESULT[1] >= THRESH && !PREFAC) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -839,8 +839,8 @@ void ddrvgb(
                       NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 1,
                           RESULT[1]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                   if (RESULT[6] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -851,8 +851,8 @@ void ddrvgb(
                       NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 6,
                           RESULT[6]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                   if (RESULT[7] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
@@ -863,8 +863,8 @@ void ddrvgb(
                       NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 7,
                           RESULT[7]);
                     }
-                    NFAIL = NFAIL + 1;
-                    NRUN = NRUN + 1;
+                    NFAIL++;
+                    NRUN++;
                   }
                 }
               }
@@ -881,7 +881,7 @@ void ddrvgb(
 
   // Test Error Bounds from DGBSVXX
 
-  debchvxx(THRESH, PATH);
+  debchvxx(THRESH, PATH, NOUT);
 }
 
 extension on Nout {

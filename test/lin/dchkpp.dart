@@ -220,10 +220,10 @@ void dchkpp(
           if (RESULT[K] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.print9999(UPLO, N, IMAT, K, RESULT[K]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
         }
-        NRUN = NRUN + 2;
+        NRUN += 2;
 
         for (var IRHS = 1; IRHS <= NNS; IRHS++) {
           final NRHS = NSVAL[IRHS];
@@ -282,10 +282,10 @@ void dchkpp(
             if (RESULT[K] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.print9998(UPLO, N, NRHS, IMAT, K, RESULT[K]);
-              NFAIL = NFAIL + 1;
+              NFAIL++;
             }
           }
-          NRUN = NRUN + 5;
+          NRUN += 5;
         }
 
         // +    TEST 8
@@ -310,9 +310,9 @@ void dchkpp(
         if (RESULT[8] >= THRESH) {
           if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
           NOUT.print9999(UPLO, N, IMAT, 8, RESULT[8]);
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
-        NRUN = NRUN + 1;
+        NRUN++;
       }
     }
   }

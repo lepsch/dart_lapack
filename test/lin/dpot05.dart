@@ -85,17 +85,17 @@ void dpot05(
       var TMP = B[I][K].abs();
       if (UPPER) {
         for (var J = 1; J <= I; J++) {
-          TMP = TMP + A[J][I].abs() * X[J][K].abs();
+          TMP += A[J][I].abs() * X[J][K].abs();
         }
         for (var J = I + 1; J <= N; J++) {
-          TMP = TMP + A[I][J].abs() * X[J][K].abs();
+          TMP += A[I][J].abs() * X[J][K].abs();
         }
       } else {
         for (var J = 1; J <= I - 1; J++) {
-          TMP = TMP + A[I][J].abs() * X[J][K].abs();
+          TMP += A[I][J].abs() * X[J][K].abs();
         }
         for (var J = I; J <= N; J++) {
-          TMP = TMP + A[J][I].abs() * X[J][K].abs();
+          TMP += A[J][I].abs() * X[J][K].abs();
         }
       }
       if (I == 1) {

@@ -151,9 +151,9 @@ void dchktp(
           if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
           NOUT.println(
               ' UPLO=\'${UPLO.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}, type ${IMAT.i2}, test(${1.i2})= ${RESULT[1].g12_5}');
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
-        NRUN = NRUN + 1;
+        NRUN++;
 
         for (var IRHS = 1; IRHS <= NNS; IRHS++) {
           final NRHS = NSVAL[IRHS];
@@ -253,10 +253,10 @@ void dchktp(
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}\', NRHS=${NRHS.i5}, type ${IMAT.i2}, test(${K.i2})= ${RESULT[K].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
             }
-            NRUN = NRUN + 5;
+            NRUN += 5;
           }
         }
 
@@ -287,9 +287,9 @@ void dchktp(
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' DTPCON( \'${NORM.a1}\'${UPLO.a1}\'${DIAG.value.a1}\',${N.i5}, ... ), type ${IMAT.i2}, test(${7.i2})=${RESULT[7].g12_5}');
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 1;
+          NRUN++;
         }
       }
     }
@@ -362,14 +362,14 @@ void dchktp(
           if (RESULT[8] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             printFailedTest('DLATPS', 'N', 8, RESULT[8]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
           if (RESULT[9] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             printFailedTest('DLATPS', 'Y', 9, RESULT[9]);
-            NFAIL = NFAIL + 1;
+            NFAIL++;
           }
-          NRUN = NRUN + 2;
+          NRUN += 2;
         }
       }
     }

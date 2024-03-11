@@ -85,7 +85,7 @@ void zhetrs(
 
         S = 1.0 / A[K][K].toDouble();
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 
@@ -147,7 +147,7 @@ void zhetrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -217,7 +217,7 @@ void zhetrs(
 
         S = Complex.one.toDouble() / (A[K][K]).toDouble();
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -291,7 +291,7 @@ void zhetrs(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 

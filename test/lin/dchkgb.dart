@@ -286,9 +286,9 @@ void dchkgb(
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' M =${M.i5}, N =${N.i5}, KL=${KL.i5}, KU=${KU.i5}, NB =${NB.i4}, type ${IMAT.i1}, test(${1.i1})=${RESULT[1].g12_5}');
-                NFAIL = NFAIL + 1;
+                NFAIL++;
               }
-              NRUN = NRUN + 1;
+              NRUN++;
 
               // Skip the remaining tests if this is not the
               // first block size or if M != N.
@@ -464,10 +464,10 @@ void dchkgb(
                       if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                       NOUT.println(
                           ' TRANS=\'${TRANS.a1}\', N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, NRHS=${NRHS.i3}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                      NFAIL = NFAIL + 1;
+                      NFAIL++;
                     }
                   }
-                  NRUN = NRUN + 5;
+                  NRUN += 5;
                 }
               }
 
@@ -509,9 +509,9 @@ void dchkgb(
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' NORM =\'${NORM.a1}\', N=${N.i5}, KL=${KL.i5}, KU=${KU.i5},${' ' * 10} type ${IMAT.i1}, test(${7.i1})=${RESULT[7].g12_5}');
-                  NFAIL = NFAIL + 1;
+                  NFAIL++;
                 }
-                NRUN = NRUN + 1;
+                NRUN++;
               }
             }
           }

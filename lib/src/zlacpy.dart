@@ -18,31 +18,24 @@ void zlacpy(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
-  int I, J;
 
   if (lsame(UPLO, 'U')) {
-    for (J = 1; J <= N; J++) {
-      // 20
-      for (I = 1; I <= min(J, M); I++) {
-        // 10
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= min(J, M); I++) {
         B[I][J] = A[I][J];
-      } // 10
-    } // 20
+      }
+    }
   } else if (lsame(UPLO, 'L')) {
-    for (J = 1; J <= N; J++) {
-      // 40
-      for (I = J; I <= M; I++) {
-        // 30
+    for (var J = 1; J <= N; J++) {
+      for (var I = J; I <= M; I++) {
         B[I][J] = A[I][J];
-      } // 30
-    } // 40
+      }
+    }
   } else {
-    for (J = 1; J <= N; J++) {
-      // 60
-      for (I = 1; I <= M; I++) {
-        // 50
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= M; I++) {
         B[I][J] = A[I][J];
-      } // 50
-    } // 60
+      }
+    }
   }
 }

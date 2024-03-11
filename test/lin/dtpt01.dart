@@ -82,5 +82,5 @@ void dtpt01(
 
   RESID.value = dlantp('1', UPLO, 'Non-unit', N, AINVP, WORK);
 
-  RESID.value = ((RESID.value * RCOND.value) / N.toDouble()) / EPS;
+  RESID.value = ((RESID.value * RCOND.value) / N) / EPS;
 }

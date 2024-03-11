@@ -41,7 +41,7 @@
       } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       }
-      if ( INFO != 0 ) {
+      if ( INFO.value != 0 ) {
          xerbla('ZLAVSP ', -INFO );
          return;
       }
@@ -92,7 +92,7 @@
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KC + K;
-               K = K + 1;
+               K++;
             } else {
 
                // 2 x 2 pivot block
@@ -172,7 +172,7 @@
 
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K - 1;
+               K--;
 
             } else {
 
@@ -254,7 +254,7 @@
                   zgemv('Transpose', K-1, NRHS, ONE, B, LDB, A( KC ), 1, ONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) zscal( NRHS, A( KC+K-1 ), B( K, 1 ), LDB );
-               K = K - 1;
+               K--;
 
             // 2 x 2 pivot block.
 
@@ -323,7 +323,7 @@
                }
                if (NOUNIT) zscal( NRHS, A( KC ), B( K, 1 ), LDB );
                KC = KC + N - K + 1;
-               K = K + 1;
+               K++;
 
             // 2 x 2 pivot block.
 

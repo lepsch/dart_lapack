@@ -1,4 +1,4 @@
-      void zdrvpp(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final int A, final int AFAC, final int ASAV, final int B, final int BSAV, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
+      void zdrvpp(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final Array<Complex> A_, final Array<Complex> AFAC_, final Array<Complex> ASAV_, final Array<Complex> B_, final Array<Complex> BSAV_, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -23,10 +23,10 @@
       bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NERRS, NFACT, NFAIL, NIMAT, NPP, NRUN, NT;
+      int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NFACT, NIMAT, NPP, NRUN, NT;
       double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
       String             EQUEDS( 2 ), FACTS( 3 ), PACKS( 2 ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 );
       final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
@@ -55,13 +55,12 @@
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'PP';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+      final PATH = '${'Zomplex precision'[0]}PP';
+      var NRUN = 0;
+      var NFAIL = 0;
+      var NERRS = Box(0);
       for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
+         ISEED[I] = ISEEDY[I - 1];
       } // 10
 
       // Test the error exits
@@ -72,34 +71,33 @@
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 140
-         N = NVAL( IN );
-         LDA = max( N, 1 );
+         final N = NVAL[IN];
+         final LDA = max( N, 1 );
          NPP = N*( N+1 ) / 2;
          XTYPE = 'N';
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+            final NIMAT = N <= 0 ? 1 : NTYPES;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE( IMAT ) ) GO TO 130;
+            if( !DOTYPE[IMAT] ) GO TO 130;
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 5;
+            final ZEROT = IMAT >= 3 && IMAT <= 5;
             if (ZEROT && N < IMAT-2) GO TO 130;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
-               UPLO = UPLOS( IUPLO );
+               final UPLO = UPLOS[IUPLO - 1];
                PACKIT = PACKS( IUPLO );
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+               final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
                RCONDC = ONE / CNDNUM;
 
               srnamc.SRNAMT = 'ZLATMS';
@@ -107,7 +105,7 @@
 
                // Check error code from ZLATMS.
 
-               if ( INFO != 0 ) {
+               if ( INFO.value != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 120;
                }
@@ -115,13 +113,14 @@
                // For types 3-5, zero one row and column of the matrix to
                // test that INFO is returned correctly.
 
+               final int IZERO;
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
                      IZERO = 1;
                   } else if ( IMAT == 4 ) {
                      IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1;
+                     IZERO = N ~/ 2 + 1;
                   }
 
                   // Set row and column IZERO of A to 0.
@@ -164,7 +163,7 @@
                zcopy(NPP, A, 1, ASAV, 1 );
 
                for (IEQUED = 1; IEQUED <= 2; IEQUED++) { // 110
-                  EQUED = EQUEDS( IEQUED );
+                  final EQUED = EQUEDS[IEQUED - 1];
                   if ( IEQUED == 1 ) {
                      NFACT = 3;
                   } else {
@@ -173,10 +172,11 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                      final FACT = FACTS[IFACT - 1];
-                     PREFAC = lsame( FACT, 'F' );
-                     NOFACT = lsame( FACT, 'N' );
-                     EQUIL = lsame( FACT, 'E' );
+                     final PREFAC = lsame( FACT, 'F' );
+                     final NOFACT = lsame( FACT, 'N' );
+                     final EQUIL = lsame( FACT, 'E' );
 
+                     final int IZERO;
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 100;
                         RCONDC = ZERO;
@@ -195,7 +195,7 @@
                            // equilibrate the matrix A.
 
                            zppequ(UPLO, N, AFAC, S, SCOND, AMAX, INFO );
-                           if ( INFO == 0 && N > 0 ) {
+                           if ( INFO.value == 0 && N > 0 ) {
                               if (IEQUED > 1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
@@ -258,10 +258,10 @@
 
                         // Check error code from ZPPSV .
 
-                        if ( INFO != IZERO ) {
+                        if ( INFO.value != IZERO ) {
                            alaerh(PATH, 'ZPPSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 70;
-                        } else if ( INFO != 0 ) {
+                        } else if ( INFO.value != 0 ) {
                            GO TO 70;
                         }
 
@@ -284,20 +284,20 @@
                         // pass the threshold.
 
                         for (K = 1; K <= NT; K++) { // 60
-                           if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                              WRITE( NOUT, FMT = 9999 )'ZPPSV ', UPLO, N, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1;
+                           if ( RESULT[K] >= THRESH ) {
+                              if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
+                              NOUT.println( 9999 )'ZPPSV ', UPLO, N, IMAT, K, RESULT[K];
+                              NFAIL++;
                            }
                         } // 60
-                        NRUN = NRUN + NT;
+                        NRUN +=  NT;
                         } // 70
                      }
 
                      // --- Test ZPPSVX ---
 
-                     if ( !PREFAC && NPP > 0) zlaset( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP );
-                     zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
+                     if ( !PREFAC && NPP > 0) zlaset( 'Full', NPP, 1, Complex.zero, Complex.zero, AFAC, NPP );
+                     zlaset('Full', N, NRHS, Complex.zero, Complex.zero, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
@@ -314,12 +314,12 @@
 
                      // Check the error code from ZPPSVX.
 
-                     if ( INFO != IZERO ) {
+                     if ( INFO.value != IZERO ) {
                         alaerh(PATH, 'ZPPSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 
-                     if ( INFO == 0 ) {
+                     if ( INFO.value == 0 ) {
                         if ( !PREFAC ) {
 
                            // Reconstruct matrix from factors and compute
@@ -361,17 +361,17 @@
                      // the threshold.
 
                      for (K = K1; K <= 6; K++) { // 80
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
+                        if ( RESULT[K] >= THRESH ) {
+                           if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
-                              WRITE( NOUT, FMT = 9997 )'ZPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
+                              NOUT.println( 9997 )'ZPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT[K];
                            } else {
-                              WRITE( NOUT, FMT = 9998 )'ZPPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
+                              NOUT.println( 9998 )'ZPPSVX', FACT, UPLO, N, IMAT, K, RESULT[K];
                            }
-                           NFAIL = NFAIL + 1;
+                           NFAIL++;
                         }
                      } // 80
-                     NRUN = NRUN + 7 - K1;
+                     NRUN +=  7 - K1;
                      } // 90
                   } // 100
                } // 110
@@ -383,7 +383,7 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
- 9998 FORMAT(' ${}, FACT=\'${.a1}\', UPLO=\'${.a1}\', N=${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
- 9997 FORMAT(' ${}, FACT=\'${.a1}\', UPLO=\'${.a1}\', N=${.i5}, EQUED=\'${.a1}\', type ${.i1}, test(${.i1})=${.g12_5};
+ 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
+ 9998 FORMAT(' ${}, FACT=\'${FACT.a1}\', UPLO=\'${.a1}\', N=${N.i5}, type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
+ 9997 FORMAT(' ${}, FACT=\'${FACT.a1}\', UPLO=\'${.a1}\', N=${N.i5}, EQUED=\'${EQUED.a1}\', type ${IMAT.i1}, test(${.i1})=${RESULT[].g12_5};
       }

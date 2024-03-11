@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:lapack/src/box.dart';
@@ -15,11 +14,7 @@ import 'package:lapack/src/nio.dart';
 
 import 'dlahilb.dart';
 
-void debchvxx(
-  final double THRESH,
-  final String PATH,
-) {
-  final NOUT = Nout(stdout);
+void debchvxx(final double THRESH, final String PATH, Nout NOUT) {
   const NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6;
   final BERR = Array<double>(NMAX),
       TSTRAT = Array<double>(NTESTS),
@@ -45,16 +40,15 @@ void debchvxx(
   const BND_I = 2, COND_I = 3;
   final INFO = Box(0);
   final RPVGRW = Box(0.0), ORCOND = Box(0.0);
-  final EQUED = Box('');
 
 // Create the loop to test out the Hilbert matrices
 
   final FACT = 'E';
   final UPLO = 'U';
   final TRANS = 'N';
-  EQUED.value = 'N';
+  final EQUED = Box('N');
   final EPS = dlamch('Epsilon');
- var NFAIL = 0;
+  var NFAIL = 0;
   var N_AUX_TESTS = 0;
   final LDA = NMAX;
   final LDAB = (NMAX - 1) + (NMAX - 1) + 1;
@@ -63,7 +57,7 @@ void debchvxx(
 
   // Main loop to test the different Hilbert Matrices.
 
- var PRINTED_GUIDE = false;
+  var PRINTED_GUIDE = false;
   int N;
   for (N = 1; N <= NMAX; N++) {
     PARAMS[1] = -1;
@@ -219,7 +213,7 @@ void debchvxx(
           INFO);
     }
 
-    N_AUX_TESTS = N_AUX_TESTS + 1;
+    N_AUX_TESTS++;
     if (ORCOND.value < EPS) {
       // Either factorization failed or the matrix is flagged, and 1 <=
       // INFO <= N+1. We don't decide based on rcond anymore.
@@ -231,7 +225,7 @@ void debchvxx(
       // Either everything succeeded (INFO == 0) or some solution failed
       // to converge (INFO > N+1).
       if (INFO.value > 0 && INFO.value <= N + 1) {
-        NFAIL = NFAIL + 1;
+        NFAIL++;
         NOUT.println(
             ' D${C2.a2}SVXX: N =${N.i2}, INFO = ${INFO.value.i3}, ORCOND = ${ORCOND.value.g12_5}, real RCOND = ${0.0.g12_5}');
       }
@@ -272,7 +266,7 @@ void debchvxx(
     }
 
     RNORM = RNORM / A[1][1].abs();
-   final RCOND = 1.0 / (RNORM * RINORM);
+    final RCOND = 1.0 / (RNORM * RINORM);
 
     // Calculating the R for normwise rcond.
     for (var I = 1; I <= N; I++) {
@@ -435,7 +429,7 @@ void debchvxx(
           }
           NOUT.println(
               ' D${C2.a2}SVXX: N =${N.i2}, RHS = ${K.i2}, NWISE GUAR. = $NGUAR, CWISE GUAR. = $CGUAR test(${I.i1}) =${TSTRAT[I].g12_5}');
-          NFAIL = NFAIL + 1;
+          NFAIL++;
         }
       }
     }

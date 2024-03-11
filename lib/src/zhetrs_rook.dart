@@ -85,7 +85,7 @@ void zhetrs_rook(
 
         S = Complex.one.toDouble() / (A[K][K]).toDouble();
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 
@@ -152,7 +152,7 @@ void zhetrs_rook(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -228,7 +228,7 @@ void zhetrs_rook(
 
         S = Complex.one.toDouble() / (A[K][K]).toDouble();
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
-        K = K + 1;
+        K++;
       } else {
         // 2 x 2 diagonal block
 
@@ -307,7 +307,7 @@ void zhetrs_rook(
         if (KP != K) {
           zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
         }
-        K = K - 1;
+        K--;
       } else {
         // 2 x 2 diagonal block
 
