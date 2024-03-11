@@ -225,7 +225,7 @@ void dbdsqr(
 
       if (ITER >= N) {
         ITER = ITER - N;
-        ITERDIVN = ITERDIVN + 1;
+        ITERDIVN++;
         if (ITERDIVN >= MAXITDIVN) {
           // Maximum number of iterations exceeded, failure to converge
           INFO.value = 0;
@@ -262,11 +262,11 @@ void dbdsqr(
         if (LL == M - 1) {
           // Convergence of bottom singular value, return to top of loop
 
-          M = M - 1;
+          M--;
           continue main;
         }
       }
-      LL = LL + 1;
+      LL++;
 
       // E[LL] through E[M-1] are nonzero, E[LL-1] is zero
 

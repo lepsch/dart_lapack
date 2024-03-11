@@ -146,7 +146,7 @@ void zchkqr(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, fin
 
                         zqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
                           if[!ZGENND( M, N, AF, LDA ) ) RESULT( 9] = 2*THRESH;
-                        NT = NT + 1;
+                        NT++;
                      } else if ( M >= N ) {
 
                         // Test ZUNGQR, using factorization
@@ -189,7 +189,7 @@ void zchkqr(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, fin
                            if (INFO != 0) alaerh( PATH, 'ZGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                            zget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
-                           NT = NT + 1;
+                           NT++;
                         }
                      }
 

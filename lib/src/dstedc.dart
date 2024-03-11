@@ -182,7 +182,7 @@ void dstedc(
         while (FINISH < N) {
           TINY = EPS * sqrt((D[FINISH]).abs()) * sqrt((D[FINISH + 1]).abs());
           if ((E[FINISH]).abs() > TINY) {
-            FINISH = FINISH + 1;
+            FINISH++;
             continue;
           }
           break;

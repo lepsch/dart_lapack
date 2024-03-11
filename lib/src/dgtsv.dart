@@ -171,7 +171,7 @@ void dgtsv(
         B[I][J] = (B[I][J] - DU[I] * B[I + 1][J] - DL[I] * B[I + 2][J]) / D[I];
       }
       if (J < NRHS) {
-        J = J + 1;
+        J++;
         continue;
       }
       break;

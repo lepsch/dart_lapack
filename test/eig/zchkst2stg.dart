@@ -257,7 +257,7 @@ void zchkst2stg(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 300
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -579,7 +579,7 @@ void zchkst2stg(
           // 120
           for (JR = 1; JR <= JC; JR++) {
             // 110
-            I = I + 1;
+            I++;
             AP[I] = A[JR][JC];
           } // 110
         } // 120
@@ -629,7 +629,7 @@ void zchkst2stg(
           // 140
           for (JR = JC; JR <= N; JR++) {
             // 130
-            I = I + 1;
+            I++;
             AP[I] = A[JR][JC];
           } // 130
         } // 140
@@ -1620,7 +1620,7 @@ void zchkst2stg(
 
             NOUNIT.println('\nTest performed:  see ZCHKST2STG for details.\n');
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i3} is${RESULT[JR].f8_2}');

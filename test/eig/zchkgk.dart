@@ -63,7 +63,7 @@ Future<void> zchkgk(
       await NIN.readMatrix(VL, N, M);
       await NIN.readMatrix(VR, N, M);
 
-      KNT = KNT + 1;
+      KNT++;
 
       ANORM = zlange('M', N, N, A, LDA, RWORK);
       BNORM = zlange('M', N, N, B, LDB, RWORK);
@@ -73,7 +73,7 @@ Future<void> zchkgk(
 
       zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, INFO);
       if (INFO.value != 0) {
-        NINFO = NINFO + 1;
+        NINFO++;
         LMAX[1] = KNT;
       }
 
@@ -83,14 +83,14 @@ Future<void> zchkgk(
       zggbak(
           'B', 'L', N, ILO.value, IHI.value, LSCALE, RSCALE, M, VL, LDVL, INFO);
       if (INFO.value != 0) {
-        NINFO = NINFO + 1;
+        NINFO++;
         LMAX[2] = KNT;
       }
 
       zggbak(
           'B', 'R', N, ILO.value, IHI.value, LSCALE, RSCALE, M, VR, LDVR, INFO);
       if (INFO.value != 0) {
-        NINFO = NINFO + 1;
+        NINFO++;
         LMAX[3] = KNT;
       }
 

@@ -177,7 +177,7 @@ void dlalsa(
         NR = IWORK[NDIMR + IM1];
         NLF = IC - NL;
         NRF = IC + 1;
-        J = J - 1;
+        J--;
         dlals0(
             ICOMPQ,
             NL,
@@ -239,7 +239,7 @@ void dlalsa(
       } else {
         SQRE = 1;
       }
-      J = J + 1;
+      J++;
       dlals0(
           ICOMPQ,
           NL,

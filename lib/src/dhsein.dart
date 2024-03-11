@@ -281,7 +281,7 @@ void dhsein(
       if (PAIR) {
         KSR = KSR + 2;
       } else {
-        KSR = KSR + 1;
+        KSR++;
       }
     }
   }

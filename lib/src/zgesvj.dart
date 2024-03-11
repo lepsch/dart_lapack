@@ -715,7 +715,7 @@ void zgesvj(
                   if (ir1 == 0) {
                     NOTROT = 0;
                     PSKIPPED = 0;
-                    ISWROT = ISWROT + 1;
+                    ISWROT++;
                   }
 
                   if (ROTOK) {
@@ -803,12 +803,12 @@ void zgesvj(
                   // A(:,p) and A(:,q) already numerically orthogonal
                   if (ir1 == 0) NOTROT = NOTROT + 1;
                   // [RTD]      SKIPPED  = SKIPPED + 1
-                  PSKIPPED = PSKIPPED + 1;
+                  PSKIPPED++;
                 }
               } else {
                 // A(:,q) is zero column
                 if (ir1 == 0) NOTROT = NOTROT + 1;
-                PSKIPPED = PSKIPPED + 1;
+                PSKIPPED++;
               }
 
               if ((i <= SWBAND) && (PSKIPPED > ROWSKIP)) {
@@ -914,7 +914,7 @@ void zgesvj(
                   NOTROT = 0;
                   // [RTD]      ROTATED  = ROTATED + 1
                   PSKIPPED = 0;
-                  ISWROT = ISWROT + 1;
+                  ISWROT++;
 
                   if (ROTOK) {
                     AQOAP = AAQQ.value / AAPP.value;
@@ -1015,15 +1015,15 @@ void zgesvj(
                   }
                   // end of OK rotation
                 } else {
-                  NOTROT = NOTROT + 1;
+                  NOTROT++;
                   // [RTD]      SKIPPED  = SKIPPED  + 1
-                  PSKIPPED = PSKIPPED + 1;
-                  IJBLSK = IJBLSK + 1;
+                  PSKIPPED++;
+                  IJBLSK++;
                 }
               } else {
-                NOTROT = NOTROT + 1;
-                PSKIPPED = PSKIPPED + 1;
-                IJBLSK = IJBLSK + 1;
+                NOTROT++;
+                PSKIPPED++;
+                IJBLSK++;
               }
 
               if ((i <= SWBAND) && (IJBLSK >= BLSKIP)) {
@@ -1115,12 +1115,12 @@ void zgesvj(
       if (RSVEC) zswap(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1);
     }
     if (SVA[p] != ZERO) {
-      N4 = N4 + 1;
+      N4++;
       if (SVA[p] * SKL > SFMIN) N2 = N2 + 1;
     }
   } // 5991
   if (SVA[N] != ZERO) {
-    N4 = N4 + 1;
+    N4++;
     if (SVA[N] * SKL > SFMIN) N2 = N2 + 1;
   }
 

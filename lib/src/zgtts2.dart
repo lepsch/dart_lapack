@@ -62,7 +62,7 @@ void zgtts2(
               (B[I][J] - DU[I] * B[I + 1][J] - DU2[I] * B[I + 2][J]) / D[I];
         } // 30
         if (J < NRHS) {
-          J = J + 1;
+          J++;
           continue;
         }
         break;
@@ -125,7 +125,7 @@ void zgtts2(
           }
         } // 90
         if (J < NRHS) {
-          J = J + 1;
+          J++;
           continue;
         }
         break;
@@ -192,7 +192,7 @@ void zgtts2(
           }
         } // 150
         if (J < NRHS) {
-          J = J + 1;
+          J++;
           continue;
         }
         break;

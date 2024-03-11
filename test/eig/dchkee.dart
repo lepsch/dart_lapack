@@ -753,7 +753,7 @@ void main() async {
             I1 = 0;
             nextDigit:
             while (true) {
-              I = I + 1;
+              I++;
               if (I > LENP) {
                 if (I1 > 0) {
                   break;

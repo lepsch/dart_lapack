@@ -90,11 +90,11 @@ void dtrttf(
         for (J = 0; J <= N2; J++) {
           for (I = N1; I <= N2 + J; I++) {
             ARF[IJ] = A[N2 + J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = J; I <= N - 1; I++) {
             ARF[IJ] = A[I][J];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -104,11 +104,11 @@ void dtrttf(
         for (J = N - 1; J >= N1; J--) {
           for (I = 0; I <= J; I++) {
             ARF[IJ] = A[I][J];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = J - N1; L <= N1 - 1; L++) {
             ARF[IJ] = A[J - N1][L];
-            IJ = IJ + 1;
+            IJ++;
           }
           IJ = IJ - NX2;
         }
@@ -123,17 +123,17 @@ void dtrttf(
         for (J = 0; J <= N2 - 1; J++) {
           for (I = 0; I <= J; I++) {
             ARF[IJ] = A[J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = N1 + J; I <= N - 1; I++) {
             ARF[IJ] = A[I][N1 + J];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = N2; J <= N - 1; J++) {
           for (I = 0; I <= N1 - 1; I++) {
             ARF[IJ] = A[J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -143,17 +143,17 @@ void dtrttf(
         for (J = 0; J <= N1; J++) {
           for (I = N1; I <= N - 1; I++) {
             ARF[IJ] = A[J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = 0; J <= N1 - 1; J++) {
           for (I = 0; I <= J; I++) {
             ARF[IJ] = A[I][J];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = N2 + J; L <= N - 1; L++) {
             ARF[IJ] = A[N2 + J][L];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       }
@@ -171,11 +171,11 @@ void dtrttf(
         for (J = 0; J <= K - 1; J++) {
           for (I = K; I <= K + J; I++) {
             ARF[IJ] = A[K + J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = J; I <= N - 1; I++) {
             ARF[IJ] = A[I][J];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -185,11 +185,11 @@ void dtrttf(
         for (J = N - 1; J >= K; J--) {
           for (I = 0; I <= J; I++) {
             ARF[IJ] = A[I][J];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = J - K; L <= K - 1; L++) {
             ARF[IJ] = A[J - K][L];
-            IJ = IJ + 1;
+            IJ++;
           }
           IJ = IJ - NP1X2;
         }
@@ -204,22 +204,22 @@ void dtrttf(
         J = K;
         for (I = K; I <= N - 1; I++) {
           ARF[IJ] = A[I][J];
-          IJ = IJ + 1;
+          IJ++;
         }
         for (J = 0; J <= K - 2; J++) {
           for (I = 0; I <= J; I++) {
             ARF[IJ] = A[J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = K + 1 + J; I <= N - 1; I++) {
             ARF[IJ] = A[I][K + 1 + J];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = K - 1; J <= N - 1; J++) {
           for (I = 0; I <= K - 1; I++) {
             ARF[IJ] = A[J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -229,23 +229,23 @@ void dtrttf(
         for (J = 0; J <= K; J++) {
           for (I = K; I <= N - 1; I++) {
             ARF[IJ] = A[J][I];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = 0; J <= K - 2; J++) {
           for (I = 0; I <= J; I++) {
             ARF[IJ] = A[I][J];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = K + 1 + J; L <= N - 1; L++) {
             ARF[IJ] = A[K + 1 + J][L];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         // Note that here, on exit of the loop, J = K-1
         for (I = 0; I <= J; I++) {
           ARF[IJ] = A[I][J];
-          IJ = IJ + 1;
+          IJ++;
         }
       }
     }

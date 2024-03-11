@@ -238,7 +238,7 @@ void dchkgg(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.
@@ -698,7 +698,7 @@ void dchkgg(
             NOUNIT.println(
                 '\n Tests performed:   (H is Hessenberg, S is Schur, B, T, P are triangular,\n${' ' * 20}U, V, Q, and Z are orthogonal, l and r are the\n${' ' * 20}appropriate left and right eigenvectors, resp., a is\n${' ' * 20}alpha, b is beta, and \' means transpose.)\n 1 = | A - U H V\' | / ( |A| n ulp )      2 = | B - U T V\' | / ( |B| n ulp )\n 3 = | I - UU\' | / ( n ulp )             4 = | I - VV\' | / ( n ulp )\n\n 5 = | H - Q S Z\' | / ( |H| n ulp )${' ' * 6}6 = | T - Q P Z\' | / ( |T| n ulp )\n 7 = | I - QQ\' | / ( n ulp )             8 = | I - ZZ\' | / ( n ulp )\n 9 = max | ( b S - a P )\' l | / const.  10 = max | ( b H - a T )\' l | / const.\n 11= max | ( b S - a P ) r | / const.   12 = max | ( b H - a T ) r | / const.\n ');
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}');

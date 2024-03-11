@@ -164,11 +164,11 @@ void zla_herfsx_extended(
         zhemv(UPLO, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1, Complex.one,
             RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_zhemv_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1, Complex.one,
-            RES, 1, PREC_TYPE);
-      } else {
-        blas_zhemv2_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), Y_TAIL, 1,
+        blas_zhemv_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1,
             Complex.one, RES, 1, PREC_TYPE);
+      } else {
+        blas_zhemv2_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), Y_TAIL,
+            1, Complex.one, RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.
@@ -262,7 +262,7 @@ void zla_herfsx_extended(
 
       if (INCR_PREC) {
         INCR_PREC = false;
-        Y_PREC_STATE = Y_PREC_STATE + 1;
+        Y_PREC_STATE++;
         for (I = 1; I <= N; I++) {
           Y_TAIL[I] = Complex.zero;
         }

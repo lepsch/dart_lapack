@@ -79,23 +79,23 @@ void zhbt21(
     if (LOWER) {
       for (JR = 1; JR <= min(IKA + 1, N + 1 - JC); JR++) {
         // 10
-        J = J + 1;
+        J++;
         WORK[J] = A[JR][JC];
       } // 10
       for (JR = IKA + 2; JR <= N + 1 - JC; JR++) {
         // 20
-        J = J + 1;
+        J++;
         WORK[J] = Complex.zero;
       } // 20
     } else {
       for (JR = IKA + 2; JR <= JC; JR++) {
         // 30
-        J = J + 1;
+        J++;
         WORK[J] = Complex.zero;
       } // 30
       for (JR = min(IKA, JC - 1); JR >= 0; JR--) {
         // 40
-        J = J + 1;
+        J++;
         WORK[J] = A[IKA + 1 - JR][JC];
       } // 40
     }

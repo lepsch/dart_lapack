@@ -171,7 +171,7 @@ void zhetri2x(
           for (J = 1; J <= NNB; J++) {
             WORK[I][J] = WORK[I][INVD] * WORK[I][J];
           }
-          I = I + 1;
+          I++;
         } else {
           for (J = 1; J <= NNB; J++) {
             U01_I_J = WORK[I][J];
@@ -193,7 +193,7 @@ void zhetri2x(
           for (J = I; J <= NNB; J++) {
             WORK[U11 + I][J] = WORK[CUT + I][INVD] * WORK[U11 + I][J];
           }
-          I = I + 1;
+          I++;
         } else {
           for (J = I; J <= NNB; J++) {
             U11_I_J = WORK[U11 + I][J];
@@ -257,11 +257,11 @@ void zhetri2x(
         if (I > IP) zheswapr(UPLO, N, A, LDA, IP, I);
       } else {
         IP = -IPIV[I];
-        I = I + 1;
+        I++;
         if ((I - 1) < IP) zheswapr(UPLO, N, A, LDA, I - 1, IP);
         if ((I - 1) > IP) zheswapr(UPLO, N, A, LDA, IP, I - 1);
       }
-      I = I + 1;
+      I++;
     }
   } else {
     // LOWER...
@@ -337,7 +337,7 @@ void zhetri2x(
           for (J = 1; J <= NNB; J++) {
             WORK[I][J] = WORK[CUT + NNB + I][INVD] * WORK[I][J];
           }
-          I = I - 1;
+          I--;
         } else {
           for (J = 1; J <= NNB; J++) {
             U01_I_J = WORK[I][J];
@@ -359,7 +359,7 @@ void zhetri2x(
           for (J = 1; J <= NNB; J++) {
             WORK[U11 + I][J] = WORK[CUT + I][INVD] * WORK[U11 + I][J];
           }
-          I = I - 1;
+          I--;
         } else {
           for (J = 1; J <= NNB; J++) {
             U11_I_J = WORK[U11 + I][J];
@@ -448,9 +448,9 @@ void zhetri2x(
         IP = -IPIV[I];
         if (I < IP) zheswapr(UPLO, N, A, LDA, I, IP);
         if (I > IP) zheswapr(UPLO, N, A, LDA, IP, I);
-        I = I - 1;
+        I--;
       }
-      I = I - 1;
+      I--;
     }
   }
 }

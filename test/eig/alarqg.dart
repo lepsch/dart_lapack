@@ -44,7 +44,7 @@ Future<void> alarqg(
           NREQ[J] = 0;
           I1 = 0;
           while (true) {
-            I = I + 1;
+            I++;
             if (I > LENP) {
               if (J == NMATS && I1 > 0) {
                 continue nextChar;

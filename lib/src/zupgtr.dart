@@ -63,7 +63,7 @@ void zupgtr(
       for (I = 1; I <= J - 1; I++) {
         // 10
         Q[I][J] = AP[IJ];
-        IJ = IJ + 1;
+        IJ++;
       } // 10
       IJ = IJ + 2;
       Q[N][J] = Complex.zero;
@@ -96,7 +96,7 @@ void zupgtr(
       for (I = J + 1; I <= N; I++) {
         // 50
         Q[I][J] = AP[IJ];
-        IJ = IJ + 1;
+        IJ++;
       } // 50
       IJ = IJ + 2;
     } // 60

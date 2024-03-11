@@ -135,7 +135,7 @@ void zhprfs(
             // 40
             RWORK[I] = RWORK[I] + CABS1(AP[IK]) * XK;
             S = S + CABS1(AP[IK]) * CABS1(X[I][J]);
-            IK = IK + 1;
+            IK++;
           } // 40
           RWORK[K] = RWORK[K] + AP[KK + K - 1].toDouble().abs() * XK + S;
           KK = KK + K;
@@ -151,7 +151,7 @@ void zhprfs(
             // 60
             RWORK[I] = RWORK[I] + CABS1(AP[IK]) * XK;
             S = S + CABS1(AP[IK]) * CABS1(X[I][J]);
-            IK = IK + 1;
+            IK++;
           } // 60
           RWORK[K] = RWORK[K] + S;
           KK = KK + (N - K + 1);
@@ -180,7 +180,7 @@ void zhprfs(
         zhptrs(UPLO, N, 1, AFP, IPIV, WORK.asMatrix(), N, INFO);
         zaxpy(N, Complex.one, WORK, 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

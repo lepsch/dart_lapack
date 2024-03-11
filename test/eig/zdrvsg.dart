@@ -198,7 +198,7 @@ void zdrvsg(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 640
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -356,9 +356,9 @@ void zdrvsg(
           //   ka = 3   kb = 2
           //   ka = 3   kb = 3
 
-          KB9 = KB9 + 1;
+          KB9++;
           if (KB9 > KA9) {
-            KA9 = KA9 + 1;
+            KA9++;
             KB9 = 1;
           }
           KA = max(0, min(N - 1, KA9));
@@ -634,7 +634,7 @@ void zdrvsg(
                 // 110
                 AP[IJ] = A[I][J];
                 BP[IJ] = B[I][J];
-                IJ = IJ + 1;
+                IJ++;
               } // 110
             } // 120
           } else {
@@ -645,7 +645,7 @@ void zdrvsg(
                 // 130
                 AP[IJ] = A[I][J];
                 BP[IJ] = B[I][J];
-                IJ = IJ + 1;
+                IJ++;
               } // 130
             } // 140
           }
@@ -683,7 +683,7 @@ void zdrvsg(
                   // 150
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 150
               } // 160
             } else {
@@ -694,7 +694,7 @@ void zdrvsg(
                   // 170
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 170
               } // 180
             }
@@ -732,7 +732,7 @@ void zdrvsg(
                   // 190
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 190
               } // 200
             } else {
@@ -743,7 +743,7 @@ void zdrvsg(
                   // 210
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 210
               } // 220
             }
@@ -779,7 +779,7 @@ void zdrvsg(
                   // 230
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 230
               } // 240
             } else {
@@ -790,7 +790,7 @@ void zdrvsg(
                   // 250
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 250
               } // 260
             }
@@ -828,7 +828,7 @@ void zdrvsg(
                   // 270
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 270
               } // 280
             } else {
@@ -839,7 +839,7 @@ void zdrvsg(
                   // 290
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 } // 290
               } // 300
             }

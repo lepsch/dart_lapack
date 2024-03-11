@@ -164,7 +164,7 @@ void dsytrf_aa(
 
             // First update skips the first column
 
-            JB = JB - 1;
+            JB--;
           }
 
           for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
@@ -186,7 +186,7 @@ void dsytrf_aa(
                   ONE,
                   A(J3, J3).asArray(),
                   LDA);
-              J3 = J3 + 1;
+              J3++;
             }
 
             // Update off-diagonal block of J2-th block row with DGEMM
@@ -291,7 +291,7 @@ void dsytrf_aa(
 
             // First update skips the first column
 
-            JB = JB - 1;
+            JB--;
           }
 
           for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
@@ -313,7 +313,7 @@ void dsytrf_aa(
                   ONE,
                   A(J3, J3).asArray(),
                   1);
-              J3 = J3 + 1;
+              J3++;
             }
 
             // Update off-diagonal block in J2-th block column with DGEMM

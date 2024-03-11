@@ -216,7 +216,7 @@ void dchkbb(
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         if (!DOTYPE[JTYPE]) continue;
-        NMATS = NMATS + 1;
+        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
@@ -405,7 +405,7 @@ void dchkbb(
         for (JR = 1; JR <= NTEST; JR++) {
           if (RESULT[JR] >= THRESH) {
             if (NERRS == 0) dlahd2(NOUNIT, 'DBB');
-            NERRS = NERRS + 1;
+            NERRS++;
             print9998(NOUNIT, M, N, K, IOLDSD, JTYPE, JR, RESULT[JR]);
           }
         }

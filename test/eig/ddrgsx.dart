@@ -448,7 +448,7 @@ Future<void> ddrgsx(
 
                   print9992(NOUT);
                 }
-                NERRS = NERRS + 1;
+                NERRS++;
                 if (RESULT[J] < 10000.0) {
                   NOUT.println(
                       ' Matrix order=${mn.MPLUSN.i2}, type=${PRTYPE.i2}, a=${WEIGHT.d10_3}, order(A_11)=${mn.M.i2}, result ${J.i2} is ${RESULT[J].f8_2}');
@@ -480,7 +480,7 @@ Future<void> ddrgsx(
         break;
       }
 
-      NPTKNT = NPTKNT + 1;
+      NPTKNT++;
       mn.FS = true;
       mn.K = 0;
       mn.M = mn.MPLUSN - mn.N;
@@ -673,7 +673,7 @@ Future<void> ddrgsx(
 
             print9992(NOUT);
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           if (RESULT[J] < 10000.0) {
             NOUT.println(
                 ' Input example #${NPTKNT.i2}, matrix order=${mn.MPLUSN.i4}, result ${J.i2} is${RESULT[J].f8_2}');

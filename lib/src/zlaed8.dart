@@ -161,7 +161,7 @@ void zlaed8(
     if (RHO.value * (Z[J]).abs() <= TOL) {
       // Deflate due to small z component.
 
-      K2 = K2 - 1;
+      K2--;
       INDXP[K2] = J;
       if (J == N) {
         deflate = true;
@@ -174,12 +174,12 @@ void zlaed8(
   } // 60
 
   while (!deflate) {
-    J = J + 1;
+    J++;
     if (J > N) break;
     if (RHO.value * (Z[J]).abs() <= TOL) {
       // Deflate due to small z component.
 
-      K2 = K2 - 1;
+      K2--;
       INDXP[K2] = J;
     } else {
       // Check if eigenvalues are close enough to allow deflation.
@@ -212,14 +212,14 @@ void zlaed8(
         T = D[JLAM] * C * C + D[J] * S * S;
         D[J] = D[JLAM] * S * S + D[J] * C * C;
         D[JLAM] = T;
-        K2 = K2 - 1;
+        K2--;
         I = 1;
         while (true) {
           if (K2 + I <= N) {
             if (D[JLAM] < D[INDXP[K2 + I]]) {
               INDXP[K2 + I - 1] = INDXP[K2 + I];
               INDXP[K2 + I] = JLAM;
-              I = I + 1;
+              I++;
               continue;
             } else {
               INDXP[K2 + I - 1] = JLAM;

@@ -94,7 +94,7 @@ void dstech(
 
       // Merge
 
-      BPNT = BPNT + 1;
+      BPNT++;
       LOWER = WORK[BPNT] - EPS;
     }
 

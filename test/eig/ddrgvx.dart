@@ -285,7 +285,7 @@ Future<void> ddrgvx(
 
                     _print9992(NOUT);
                   }
-                  NERRS = NERRS + 1;
+                  NERRS++;
                   if (RESULT[J] < 10000.0) {
                     NOUT.println(
                         ' Type=$IPTYPE{.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${RESULT[J].f8_2}');
@@ -316,7 +316,7 @@ Future<void> ddrgvx(
       } on EOF catch (_) {
         break;
       }
-      NPTKNT = NPTKNT + 1;
+      NPTKNT++;
 
       // Compute eigenvalues/eigenvectors of (A, B).
       // Compute eigenvalue/eigenvector condition numbers
@@ -438,7 +438,7 @@ Future<void> ddrgvx(
 
             _print9992(NOUT);
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           if (RESULT[J] < 10000.0) {
             NOUT.println(
                 ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${RESULT[J].f8_2}');

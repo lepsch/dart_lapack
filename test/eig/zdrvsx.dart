@@ -501,7 +501,7 @@ Future<void> zdrvsx(
       (N, NSLCT, ISRT) = await NIUNIT.readInt3();
       if (N == 0) break;
 
-      JTYPE = JTYPE + 1;
+      JTYPE++;
       ISEED[1] = JTYPE;
       await NIUNIT.readArray(ISLCT, NSLCT);
       await NIUNIT.readMatrix(A, N, N);

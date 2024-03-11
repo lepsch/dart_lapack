@@ -109,7 +109,7 @@ void main() {
 
   Xj = X[1];
   if (Xj == 0.0) {
-    subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+    subnormalTreatedAs0++;
     if (debug || subnormalTreatedAs0 == 1) {
       print('!! fl( subnormal ) may be 0');
     }
@@ -118,7 +118,7 @@ void main() {
       // 100
       Xj = X[i];
       if (Xj == 0.0) {
-        subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+        subnormalTreatedAs0++;
         if (debug || subnormalTreatedAs0 == 1) {
           print('!! fl( subnormal ) may be 0');
         }
@@ -131,17 +131,17 @@ void main() {
     // 10
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [a] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(Xj, 0.0);
         R = Y / Y;
         if (R != Complex.one) {
-          caseAFails = caseAFails + 1;
+          caseAFails++;
           if (caseAFails == 1) {
             print('!! Some (x+0*I)/(x+0*I) differ from 1');
           }
@@ -157,17 +157,17 @@ void main() {
     // 20
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [b] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(0.0, Xj);
         R = Y / Y;
         if (R != Complex.one) {
-          caseBFails = caseBFails + 1;
+          caseBFails++;
           if (caseBFails == 1) {
             print('!! Some (0+x*I)/(0+x*I) differ from 1');
           }
@@ -183,17 +183,17 @@ void main() {
     // 30
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [c] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(Xj, Xj);
         R = Y / Y;
         if (R != Complex.one) {
-          caseCFails = caseCFails + 1;
+          caseCFails++;
           if (caseCFails == 1) {
             print('!! Some (x+x*I)/(x+x*I) differ from 1');
           }
@@ -209,18 +209,18 @@ void main() {
     // 40
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [d] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(0.0, Xj);
         Y2 = Complex(Xj, 0.0);
         R = Y / Y2;
         if (R != Complex(0.0, 1.0)) {
-          caseDFails = caseDFails + 1;
+          caseDFails++;
           if (caseDFails == 1) {
             print('!! Some (0+x*I)/(x+0*I) differ from I');
           }
@@ -236,18 +236,18 @@ void main() {
     // 50
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [e] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(0.0, Xj);
         Y2 = Complex(Xj, 0.0);
         R = Y2 / Y;
         if (R != Complex(0.0, -1.0)) {
-          caseEFails = caseEFails + 1;
+          caseEFails++;
           if (caseEFails == 1) {
             print('!! Some (x+0*I)/(0+x*I) differ from -I');
           }
@@ -263,17 +263,17 @@ void main() {
     // 60
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [f] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(Xj, Xj);
         R = Y / Y.conjugate();
         if (R != Complex(0.0, 1.0)) {
-          caseFFails = caseFFails + 1;
+          caseFFails++;
           if (caseFFails == 1) {
             print('!! Some (x+x*I)/(x-x*I) differ from I');
           }
@@ -291,17 +291,17 @@ void main() {
     Y = cInf[i];
     R = Complex.zero / Y;
     if ((R != Complex.zero) && (R == R)) {
-      caseInfFails = caseInfFails + 1;
+      caseInfFails++;
       _print9998('ia', i, Complex.zero, Y, R, 'NaN and 0');
     }
     R = Complex.one / Y;
     if ((R != Complex.zero) && (R == R)) {
-      caseInfFails = caseInfFails + 1;
+      caseInfFails++;
       _print9998('ib', i, Complex.one, Y, R, 'NaN and 0');
     }
     R = Y / Y;
     if (R == R) {
-      caseInfFails = caseInfFails + 1;
+      caseInfFails++;
       _print9998('ic', i, Y, Y, R, 'NaN');
     }
   } // 70
@@ -313,17 +313,17 @@ void main() {
     Y = cNaN[i];
     R = Complex.zero / Y;
     if (R == R) {
-      caseNaNFails = caseNaNFails + 1;
+      caseNaNFails++;
       _print9998('na', i, Complex.zero, Y, R, 'NaN');
     }
     R = Complex.one / Y;
     if (R == R) {
-      caseNaNFails = caseNaNFails + 1;
+      caseNaNFails++;
       _print9998('nb', i, Complex.one, Y, R, 'NaN');
     }
     R = Y / Y;
     if (R == R) {
-      caseNaNFails = caseNaNFails + 1;
+      caseNaNFails++;
       _print9998('nc', i, Y, Y, R, 'NaN');
     }
   } // 80

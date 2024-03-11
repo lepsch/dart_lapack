@@ -322,11 +322,11 @@ void zlasyf(
       if (JP < 0) {
         JP = -JP;
         // (Here, J is a diagonal index)
-        J = J + 1;
+        J++;
       }
       // (NOTE: Here, J is used to determine row length. Length N-J+1
       // of the rows to swap back doesn't include diagonal element)
-      J = J + 1;
+      J++;
       if (JP != JJ && J <= N) {
         zswap(N - J + 1, A(JP, J).asArray(), LDA, A(JJ, J).asArray(), LDA);
       }
@@ -603,11 +603,11 @@ void zlasyf(
       if (JP < 0) {
         JP = -JP;
         // (Here, J is a diagonal index)
-        J = J - 1;
+        J--;
       }
       // (NOTE: Here, J is used to determine row length. Length J
       // of the rows to swap back doesn't include diagonal element)
-      J = J - 1;
+      J--;
       if (JP != JJ && J >= 1) {
         zswap(J, A(JP, 1).asArray(), LDA, A(JJ, 1).asArray(), LDA);
       }

@@ -90,7 +90,7 @@ void zlatsp(
       J = J - 2;
     } else if (J == 1) {
       X[JJ] = zlarnd(2, ISEED);
-      J = J - 1;
+      J--;
     }
 
     // UPLO = 'L':  Lower triangular storage
@@ -153,7 +153,7 @@ void zlatsp(
     } else if (J == N) {
       X[JJ] = zlarnd(2, ISEED);
       JJ = JJ + (N - J + 1);
-      J = J + 1;
+      J++;
     }
   }
 }

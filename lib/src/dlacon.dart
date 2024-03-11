@@ -111,7 +111,7 @@ void dlacon(
       final JLAST = _J;
       _J = idamax(N, X, 1);
       if ((X[JLAST] != X[_J].abs()) && (_ITER < ITMAX)) {
-        _ITER = _ITER + 1;
+        _ITER++;
         continue L50;
       }
 

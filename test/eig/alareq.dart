@@ -50,7 +50,7 @@ Future<void> alareq(
         I1 = 0;
         nextChar:
         while (true) {
-          I = I + 1;
+          I++;
           if (I > LENP) {
             if (J == NMATS && I1 > 0) {
               continue nextValue;
@@ -82,7 +82,7 @@ Future<void> alareq(
             }
 
             NREQ[J] = 10 * NREQ[J] + IC;
-            continue nextChar;  
+            continue nextChar;
           } else if (I1 > 0) {
             continue nextValue;
           } else {

@@ -115,7 +115,7 @@ void dlamswlq(
     for (I = II - (NB - K); I >= NB + 1; I -= (NB - K)) {
       // Multiply Q to the current block of C (1:M,I:I+NB)
 
-      CTR = CTR - 1;
+      CTR--;
       dtpmlqt('L', 'T', NB - K, N, K, 0, MB, A(1, I), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(I, 1), LDC, WORK, INFO);
     }
@@ -140,7 +140,7 @@ void dlamswlq(
 
       dtpmlqt('L', 'N', NB - K, N, K, 0, MB, A(1, I), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(I, 1), LDC, WORK, INFO);
-      CTR = CTR + 1;
+      CTR++;
     }
     if (II <= M) {
       // Multiply Q to the last block of C
@@ -164,7 +164,7 @@ void dlamswlq(
     for (I = II - (NB - K); I >= NB + 1; I -= (NB - K)) {
       // Multiply Q to the current block of C (1:M,I:I+MB)
 
-      CTR = CTR - 1;
+      CTR--;
       dtpmlqt('R', 'N', M, NB - K, K, 0, MB, A(1, I), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(1, I), LDC, WORK, INFO);
     }
@@ -189,7 +189,7 @@ void dlamswlq(
 
       dtpmlqt('R', 'T', M, NB - K, K, 0, MB, A(1, I), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(1, I), LDC, WORK, INFO);
-      CTR = CTR + 1;
+      CTR++;
     }
     if (II <= N) {
       // Multiply Q to the last block of C

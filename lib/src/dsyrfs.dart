@@ -167,7 +167,7 @@ void dsyrfs(
         dsytrs(UPLO, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
         daxpy(N, ONE, WORK(N + 1), 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

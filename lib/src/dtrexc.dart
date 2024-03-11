@@ -125,7 +125,7 @@ void dtrexc(
           // Swap two 1 by 1 blocks, no problems possible
 
           dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO);
-          HERE = HERE + 1;
+          HERE++;
         } else {
           // Recompute NBNEXT in case 2 by 2 split
 
@@ -191,7 +191,7 @@ void dtrexc(
           // Swap two 1 by 1 blocks, no problems possible
 
           dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO);
-          HERE = HERE - 1;
+          HERE--;
         } else {
           // Recompute NBNEXT in case 2 by 2 split
 

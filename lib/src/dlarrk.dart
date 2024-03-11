@@ -60,7 +60,7 @@ void dlarrk(
 
     // Count number of negative pivots for mid-point
 
-    IT = IT + 1;
+    IT++;
     MID = HALF * (LEFT + RIGHT);
     NEGCNT = 0;
     TMP1 = D[1] - MID;

@@ -226,7 +226,7 @@ void dchkrq(
 
                 dget02('No transpose', M, N, NRHS, A.asMatrix(), LDA,
                     X.asMatrix(), LDA, B.asMatrix(), LDA, RWORK, RESULT(7));
-                NT = NT + 1;
+                NT++;
               }
             }
 

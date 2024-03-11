@@ -174,7 +174,7 @@ void dlasd7(
     if ((Z[J]).abs() <= TOL) {
       // Deflate due to small z component.
 
-      K2 = K2 - 1;
+      K2--;
       IDXP[K2] = J;
       if (J == N) {
         shouldDeflate = true;
@@ -188,12 +188,12 @@ void dlasd7(
   if (!shouldDeflate) {
     J = JPREV;
     while (true) {
-      J = J + 1;
+      J++;
       if (J > N) break;
       if ((Z[J]).abs() <= TOL) {
         // Deflate due to small z component.
 
-        K2 = K2 - 1;
+        K2--;
         IDXP[K2] = J;
       } else {
         // Check if singular values are close enough to allow deflation.
@@ -220,10 +220,10 @@ void dlasd7(
             IDXJP = IDXQ[IDX[JPREV] + 1];
             IDXJ = IDXQ[IDX[J] + 1];
             if (IDXJP <= NLP1) {
-              IDXJP = IDXJP - 1;
+              IDXJP--;
             }
             if (IDXJ <= NLP1) {
-              IDXJ = IDXJ - 1;
+              IDXJ--;
             }
             GIVCOL[GIVPTR.value][2] = IDXJP;
             GIVCOL[GIVPTR.value][1] = IDXJ;
@@ -232,7 +232,7 @@ void dlasd7(
           }
           drot(1, VF(JPREV), 1, VF(J), 1, C.value, S.value);
           drot(1, VL(JPREV), 1, VL(J), 1, C.value, S.value);
-          K2 = K2 - 1;
+          K2--;
           IDXP[K2] = JPREV;
           JPREV = J;
         } else {

@@ -454,7 +454,7 @@ void zhgeqz(
 
         // Go to next block -- exit if finished.
 
-        ILAST = ILAST - 1;
+        ILAST--;
         if (ILAST < ILO) {
           exhausted = false;
           break jiterLoop;
@@ -477,7 +477,7 @@ void zhgeqz(
       // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
 
       //  } // 70
-      IITER = IITER + 1;
+      IITER++;
       if (!ILSCHR) {
         IFRSTM = IFIRST;
       }

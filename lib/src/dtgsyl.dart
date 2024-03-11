@@ -183,7 +183,7 @@ void dtgsyl(
   I = 1;
   while (true) {
     if (I > M) break;
-    P = P + 1;
+    P++;
     IWORK[P] = I;
     I = I + MB;
     if (I >= M) break;
@@ -199,7 +199,7 @@ void dtgsyl(
   J = 1;
   while (true) {
     if (J > N) break;
-    Q = Q + 1;
+    Q++;
     IWORK[Q] = J;
     J = J + NB;
     if (J >= N) break;

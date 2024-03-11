@@ -60,7 +60,7 @@ void dopgtr(
     for (J = 1; J <= N - 1; J++) {
       for (I = 1; I <= J - 1; I++) {
         Q[I][J] = AP[IJ];
-        IJ = IJ + 1;
+        IJ++;
       }
       IJ = IJ + 2;
       Q[N][J] = ZERO;
@@ -89,7 +89,7 @@ void dopgtr(
       Q[1][J] = ZERO;
       for (I = J + 1; I <= N; I++) {
         Q[I][J] = AP[IJ];
-        IJ = IJ + 1;
+        IJ++;
       }
       IJ = IJ + 2;
     }

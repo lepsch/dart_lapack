@@ -184,7 +184,7 @@ void ztrevc(
         T[K][K] = WORK[K + N];
       } // 70
 
-      IS = IS - 1;
+      IS--;
     } // 80
   }
 
@@ -255,7 +255,7 @@ void ztrevc(
         T[K][K] = WORK[K + N];
       } // 120
 
-      IS = IS + 1;
+      IS++;
     } // 130
   }
 }

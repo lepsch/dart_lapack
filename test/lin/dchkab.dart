@@ -152,9 +152,9 @@ void main() async {
     }
     final PATH = ALINE.substring(0, 3);
     var NMATS = MATMAX;
-   var I = 3;
+    var I = 3;
     do {
-      I = I + 1;
+      I++;
       if (I > 72) {
         NMATS = MATMAX;
         break;
@@ -178,7 +178,7 @@ void main() async {
         if (!isDigit) break;
 
         NMATS = NMATS * 10 + IC;
-        I = I + 1;
+        I++;
         if (I > 72) break;
       }
     }

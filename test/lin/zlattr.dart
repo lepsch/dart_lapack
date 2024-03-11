@@ -354,7 +354,7 @@
                } else {
                   A[J][J] = ZLARND( 5, ISEED );
                }
-               JCOUNT = JCOUNT + 1;
+               JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
             } // 210
          } else {
@@ -368,7 +368,7 @@
                } else {
                   A[J][J] = ZLARND( 5, ISEED );
                }
-               JCOUNT = JCOUNT + 1;
+               JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
             } // 230
          }

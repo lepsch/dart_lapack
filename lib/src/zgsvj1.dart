@@ -273,7 +273,7 @@ void zgsvj1(
                   NOTROT = 0;
 // [RTD]      ROTATED  = ROTATED + 1
                   PSKIPPED = 0;
-                  ISWROT = ISWROT + 1;
+                  ISWROT++;
 
                   if (ROTOK) {
                     AQOAP = AAQQ.value / AAPP.value;
@@ -374,15 +374,15 @@ void zgsvj1(
                   }
                   // end of OK rotation
                 } else {
-                  NOTROT = NOTROT + 1;
+                  NOTROT++;
 // [RTD]      SKIPPED  = SKIPPED  + 1
-                  PSKIPPED = PSKIPPED + 1;
-                  IJBLSK = IJBLSK + 1;
+                  PSKIPPED++;
+                  IJBLSK++;
                 }
               } else {
-                NOTROT = NOTROT + 1;
-                PSKIPPED = PSKIPPED + 1;
-                IJBLSK = IJBLSK + 1;
+                NOTROT++;
+                PSKIPPED++;
+                IJBLSK++;
               }
 
               if ((i <= SWBAND) && (IJBLSK >= BLSKIP)) {

@@ -387,7 +387,7 @@ void dbdsvdx(
             NRU = (IDEND - ISPLT) ~/ 2 + 1;
             NRV = NRU;
             if (ISPLT != IDBEG) {
-              NRU = NRU + 1;
+              NRU++;
             }
           } else {
             if (ISPLT == IDBEG) {
@@ -433,7 +433,7 @@ void dbdsvdx(
             if (SVEQ0 || SMIN < EPS || (NTGK % 2) > 0) {
               // Special case: eigenvalue equal to zero or very
               // small, additional eigenvector is needed.
-              IUTGK = IUTGK + 1;
+              IUTGK++;
             }
           }
 
@@ -584,8 +584,8 @@ void dbdsvdx(
           Z[i][N + 1] = ZERO;
         }
       }
-      IROWV = IROWV - 1;
-      IROWU = IROWU + 1;
+      IROWV--;
+      IROWU++;
       IDBEG = IEPTR + 1;
       SVEQ0 = false;
       SPLIT = false;

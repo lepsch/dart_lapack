@@ -492,17 +492,17 @@ void zlahef_rook(
       if (JP2 < 0) {
         JP2 = -JP2;
         // (Here, J is a diagonal index)
-        J = J + 1;
+        J++;
         JP1 = -IPIV[J];
         KSTEP = 2;
       }
       // (NOTE: Here, J is used to determine row length. Length N-J+1
       // of the rows to swap back doesn't include diagonal element)
-      J = J + 1;
+      J++;
       if (JP2 != JJ && J <= N) {
         zswap(N - J + 1, A(JP2, J).asArray(), LDA, A(JJ, J).asArray(), LDA);
       }
-      JJ = JJ + 1;
+      JJ++;
       if (KSTEP == 2 && JP1 != JJ && J <= N) {
         zswap(N - J + 1, A(JP1, J).asArray(), LDA, A(JJ, J).asArray(), LDA);
       }
@@ -943,17 +943,17 @@ void zlahef_rook(
       if (JP2 < 0) {
         JP2 = -JP2;
         // (Here, J is a diagonal index)
-        J = J - 1;
+        J--;
         JP1 = -IPIV[J];
         KSTEP = 2;
       }
       // (NOTE: Here, J is used to determine row length. Length J
       // of the rows to swap back doesn't include diagonal element)
-      J = J - 1;
+      J--;
       if (JP2 != JJ && J >= 1) {
         zswap(J, A(JP2, 1).asArray(), LDA, A(JJ, 1).asArray(), LDA);
       }
-      JJ = JJ - 1;
+      JJ--;
       if (KSTEP == 2 && JP1 != JJ && J >= 1) {
         zswap(J, A(JP1, 1).asArray(), LDA, A(JJ, 1).asArray(), LDA);
       }

@@ -234,7 +234,7 @@ void dchkql(
                     LDA,
                     RWORK,
                     RESULT(7));
-                NT = NT + 1;
+                NT++;
               }
             }
 

@@ -21,7 +21,7 @@ int iladlr(final int M, final int N, final Matrix<double> A_, final int LDA) {
   for (var J = 1; J <= N; J++) {
     var I = M;
     while ((A[max(I, 1)][J] == ZERO) && (I >= 1)) {
-      I = I - 1;
+      I--;
     }
     result = max(result, I);
   }

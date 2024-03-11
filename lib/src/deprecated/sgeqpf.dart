@@ -56,12 +56,12 @@
             } else {
                JPVT[I] = I;
             }
-            ITEMP = ITEMP + 1;
+            ITEMP++;
          } else {
             JPVT[I] = I;
          }
       } // 10
-      ITEMP = ITEMP - 1;
+      ITEMP--;
 
       // Compute the QR factorization and update remaining columns
 

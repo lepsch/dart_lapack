@@ -216,7 +216,7 @@ void dlarrv(
     WEND = WBEGIN - 1;
     while (WEND < M) {
       if (IBLOCK[WEND + 1] == JBLK) {
-        WEND = WEND + 1;
+        WEND++;
         continue;
       }
       break;
@@ -248,14 +248,14 @@ void dlarrv(
 
     // This is for a 1x1 block
     if (IBEGIN == IEND) {
-      DONE = DONE + 1;
+      DONE++;
       Z[IBEGIN][WBEGIN] = ONE;
       ISUPPZ[2 * WBEGIN - 1] = IBEGIN;
       ISUPPZ[2 * WBEGIN] = IBEGIN;
       W[WBEGIN] = W[WBEGIN] + SIGMA;
       WORK[WBEGIN] = W[WBEGIN];
       IBEGIN = IEND + 1;
-      WBEGIN = WBEGIN + 1;
+      WBEGIN++;
       continue;
     }
 
@@ -565,7 +565,7 @@ void dlarrv(
                 // on the orthogonality of the computed eigenvectors.
               }
 
-              NCLUS = NCLUS + 1;
+              NCLUS++;
               K = NEWCLS + 2 * NCLUS;
               IWORK[K - 1] = NEWFST;
               IWORK[K] = NEWLST;
@@ -585,7 +585,7 @@ void dlarrv(
             WINDMN = max(WINDEX - 1, 1);
             WINDPL = min(WINDEX + 1, M);
             LAMBDA = WORK[WINDEX];
-            DONE = DONE + 1;
+            DONE++;
             // Check if eigenvector computation is to be skipped
             if ((WINDEX < DOL) || (WINDEX > DOU)) {
               ESKIP = true;
@@ -717,7 +717,7 @@ void dlarrv(
                 }
                 ISUPMN = min(ISUPMN, ISUPPZ[2 * WINDEX - 1]);
                 ISUPMX = max(ISUPMX, ISUPPZ[2 * WINDEX]);
-                ITER = ITER + 1;
+                ITER++;
 
                 // sin alpha <= |resid|/gap
                 // Note that both the residual and the gap are
@@ -864,7 +864,7 @@ void dlarrv(
                     W[WINDPL] - WERR[WINDPL] - W[WINDEX] - WERR[WINDEX]);
               }
             }
-            IDONE = IDONE + 1;
+            IDONE++;
           }
           // here ends the code for the current child
 
@@ -872,7 +872,7 @@ void dlarrv(
           NEWFST = J + 1;
         }
       }
-      NDEPTH = NDEPTH + 1;
+      NDEPTH++;
     }
     IBEGIN = IEND + 1;
     WBEGIN = WEND + 1;

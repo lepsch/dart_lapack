@@ -98,12 +98,12 @@ void dgeqp3(
       } else {
         JPVT[J] = J;
       }
-      NFXD = NFXD + 1;
+      NFXD++;
     } else {
       JPVT[J] = J;
     }
   } // 10
-  NFXD = NFXD - 1;
+  NFXD--;
 
   // Factorize fixed columns
   // =======================

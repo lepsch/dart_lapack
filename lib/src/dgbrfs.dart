@@ -179,7 +179,7 @@ void dgbrfs(
             N, INFO);
         daxpy(N, ONE, WORK(N + 1), 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

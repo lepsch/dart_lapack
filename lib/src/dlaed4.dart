@@ -184,7 +184,7 @@ void dlaed4(
 
     // Calculate the new step
 
-    NITER = NITER + 1;
+    NITER++;
     C = W - DELTA[N - 1] * DPSI - DELTA[N] * DPHI;
     A = (DELTA[N - 1] + DELTA[N]) * W - DELTA[N - 1] * DELTA[N] * (DPSI + DPHI);
     B = DELTA[N - 1] * DELTA[N] * W;
@@ -475,7 +475,7 @@ void dlaed4(
 
     // Calculate the new step
 
-    NITER = NITER + 1;
+    NITER++;
     if (!SWTCH3) {
       if (ORGATI) {
         C = W - DELTA[IP1] * DW - (D[I] - D[IP1]) * pow((Z[I] / DELTA[I]), 2);

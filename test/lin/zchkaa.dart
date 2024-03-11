@@ -217,7 +217,7 @@ void main() async {
     for (var J = 1; J <= NNB2; J++) {
       if (NB == NBVAL2[J]) continue nbLoop;
     }
-    NNB2 = NNB2 + 1;
+    NNB2++;
     NBVAL2[NNB2] = NB;
   }
 
@@ -302,7 +302,7 @@ void main() async {
     var NMATS = MATMAX;
     var I = 3;
     do {
-      I = I + 1;
+      I++;
       if (I > 72) break;
     } while (ALINE[I - 1] == ' ');
 
@@ -322,7 +322,7 @@ void main() async {
         if (!isDigit) break;
 
         NMATS = NMATS * 10 + IC;
-        I = I + 1;
+        I++;
         if (I > 72) break;
       }
     }

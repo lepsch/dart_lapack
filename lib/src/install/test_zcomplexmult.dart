@@ -43,28 +43,28 @@ void main() {
     Y = cInf[i];
     R = czero * Y;
     if (R == R) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('ia', i, czero, Y, R, 'NaN');
     }
     R = cone * Y;
     if ((R != Y) && (R == R)) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('ib', i, cone, Y, R, 'the input and NaN');
     }
     R = Y * Y;
     if ((i == 1) || (i == 2)) {
       if ((R != cInf[1]) && (R == R)) {
-        nFailingTests = nFailingTests + 1;
+        nFailingTests++;
         _print9998('ic', i, Y, Y, R, 'Inf and NaN');
       }
     } else if ((i == 3) || (i == 4)) {
       if ((R != cInf[2]) && (R == R)) {
-        nFailingTests = nFailingTests + 1;
+        nFailingTests++;
         _print9998('ic', i, Y, Y, R, '-Inf and NaN');
       }
     } else {
       if (R == R) {
-        nFailingTests = nFailingTests + 1;
+        nFailingTests++;
         _print9998('ic', i, Y, Y, R, 'NaN');
       }
     }
@@ -76,17 +76,17 @@ void main() {
     Y = cNaN[i];
     R = czero * Y;
     if (R == R) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('na', i, czero, Y, R, 'NaN');
     }
     R = cone * Y;
     if (R == R) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('nb', i, cone, Y, R, 'NaN');
     }
     R = Y * Y;
     if (R == R) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('nc', i, Y, Y, R, 'NaN');
     }
   }

@@ -106,7 +106,7 @@ void zgebal(
             return;
           }
 
-          L = L - 1;
+          L--;
         }
       }
     }

@@ -103,7 +103,7 @@ void dtpttf(
           for (I = J; I <= N - 1; I++) {
             IJ = I + JP;
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JP = JP + LDA;
         }
@@ -111,7 +111,7 @@ void dtpttf(
           for (J = 1 + I; J <= N2; J++) {
             IJ = I + J * LDA;
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       } else {
@@ -122,7 +122,7 @@ void dtpttf(
           IJ = N2 + J;
           for (I = 0; I <= J; I++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
             IJ = IJ + LDA;
           }
         }
@@ -131,7 +131,7 @@ void dtpttf(
           IJ = JS;
           for (IJ = JS; IJ <= JS + J; IJ++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
@@ -148,14 +148,14 @@ void dtpttf(
               LDA < 0 ? IJ >= N * LDA - 1 : IJ <= N * LDA - 1;
               IJ += LDA) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
         JS = 1;
         for (J = 0; J <= N2 - 1; J++) {
           for (IJ = JS; IJ <= JS + N2 - J - 1; IJ++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA + 1;
         }
@@ -167,7 +167,7 @@ void dtpttf(
         for (J = 0; J <= N1 - 1; J++) {
           for (IJ = JS; IJ <= JS + J; IJ++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
@@ -176,7 +176,7 @@ void dtpttf(
               LDA < 0 ? IJ >= I + (N1 + I) * LDA : IJ <= I + (N1 + I) * LDA;
               IJ += LDA) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       }
@@ -196,7 +196,7 @@ void dtpttf(
           for (I = J; I <= N - 1; I++) {
             IJ = 1 + I + JP;
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JP = JP + LDA;
         }
@@ -204,7 +204,7 @@ void dtpttf(
           for (J = I; J <= K - 1; J++) {
             IJ = I + J * LDA;
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       } else {
@@ -215,7 +215,7 @@ void dtpttf(
           IJ = K + 1 + J;
           for (I = 0; I <= J; I++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
             IJ = IJ + LDA;
           }
         }
@@ -224,7 +224,7 @@ void dtpttf(
           IJ = JS;
           for (IJ = JS; IJ <= JS + J; IJ++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
@@ -239,14 +239,14 @@ void dtpttf(
         for (I = 0; I <= K - 1; I++) {
           for (IJ = I + (I + 1) * LDA; IJ <= (N + 1) * LDA - 1; IJ += LDA) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
         JS = 0;
         for (J = 0; J <= K - 1; J++) {
           for (IJ = JS; IJ <= JS + K - J - 1; IJ++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA + 1;
         }
@@ -258,14 +258,14 @@ void dtpttf(
         for (J = 0; J <= K - 1; J++) {
           for (IJ = JS; IJ <= JS + J; IJ++) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
         for (I = 0; I <= K - 1; I++) {
           for (IJ = I; IJ <= I + (K + I) * LDA; IJ += LDA) {
             ARF[IJ] = AP[IJP];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       }

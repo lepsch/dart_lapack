@@ -196,7 +196,7 @@ void zlaqr3(
 
       IFST = NS.value;
       ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);
-      ILST = ILST + 1;
+      ILST++;
     }
   } // 10
 

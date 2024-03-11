@@ -813,7 +813,7 @@ void _dchk1(
                   _dmake('GE', ' ', ' ', 1, ML, Y.asMatrix(), 1, YY,
                       (INCY).abs(), 0, ML - 1, RESET, TRANSL);
 
-                  NC = NC + 1;
+                  NC++;
 
                   // Save every datum before calling the
                   // subroutine.
@@ -958,7 +958,7 @@ void _dchk1(
       //  if (REWI) REWIND NTRA;
       dgbmv(TRANS, M, N, KL, KU, ALPHA, AA.asMatrix(), LDA, XX, INCX, BETA, YY,
           INCY);
-      NC = NC + 1;
+      NC++;
       if (!_lde(YS, YY, LY)) {
         NOUT.print9998(NARGS - 1);
         FATAL.value = true;
@@ -1206,7 +1206,7 @@ void _dchk2(
                 _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, (INCY).abs(),
                     0, N - 1, RESET, TRANSL);
 
-                NC = NC + 1;
+                NC++;
 
                 // Save every datum before calling the
                 // subroutine.
@@ -1568,7 +1568,7 @@ void _dchk3(
                 XX[1 + (INCX).abs() * (N ~/ 2 - 1)] = ZERO;
               }
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the subroutine.
 
@@ -1941,7 +1941,7 @@ void _dchk4(
             _dmake(SNAME.substring(1, 3), ' ', ' ', M, N, A, NMAX, AA, LDA,
                 M - 1, N - 1, RESET, TRANSL);
 
-            NC = NC + 1;
+            NC++;
 
             // Save every datum before calling the subroutine.
 
@@ -2252,7 +2252,7 @@ void _dchk5(
           _dmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
               N - 1, N - 1, RESET, TRANSL);
 
-          NC = NC + 1;
+          NC++;
 
           // Save every datum before calling the subroutine.
 
@@ -2605,7 +2605,7 @@ void _dchk6(
             _dmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
                 N - 1, N - 1, RESET, TRANSL);
 
-            NC = NC + 1;
+            NC++;
 
             // Save every datum before calling the subroutine.
 
@@ -3296,7 +3296,7 @@ void _dmake(
         IEND = N;
       }
       for (I = IBEG; I <= IEND; I++) {
-        IOFF = IOFF + 1;
+        IOFF++;
         AA[IOFF] = A[I][J];
         if (I == J) {
           if (UNIT) AA[IOFF] = ROGUE;
@@ -3519,7 +3519,7 @@ double _dbeg(final Box<bool> RESET) {
   // If initial I = 5, the period will be 10.
   // IC is used to break up the period by skipping 1 value of I in 6.
 
-  _dbegIC = _dbegIC + 1;
+  _dbegIC++;
 
   while (true) {
     _dbegI = _dbegI * _dbegMI;

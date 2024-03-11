@@ -487,7 +487,7 @@ void dtrevc(
           }
         }
 
-        IS = IS - 1;
+        IS--;
         if (IP != 0) IS = IS - 1;
         break;
       }
@@ -831,7 +831,7 @@ void dtrevc(
         }
       }
 
-      IS = IS + 1;
+      IS++;
       if (IP != 0) IS = IS + 1;
       break;
     }

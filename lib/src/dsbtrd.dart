@@ -171,7 +171,7 @@ void dsbtrd(
                   D[I + K - 1],
                   WORK[I + K - 1]);
             }
-            NR = NR + 1;
+            NR++;
             J1 = J1 - KDN - 1;
           }
 
@@ -241,7 +241,7 @@ void dsbtrd(
               IQAEND = min(IQAEND, IQEND);
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
                 IBL = I - I2 ~/ KDM1;
-                I2 = I2 + 1;
+                I2++;
                 IQB = max(1, J - IBL);
                 NQ = 1 + IQAEND - IQB;
                 IQAEND = min(IQAEND + KD, IQEND);
@@ -259,7 +259,7 @@ void dsbtrd(
           if (J2 + KDN > N) {
             // adjust J2 to keep within the bounds of the matrix
 
-            NR = NR - 1;
+            NR--;
             J2 = J2 - KDN - 1;
           }
 
@@ -363,7 +363,7 @@ void dsbtrd(
                   D[I + K - 1],
                   WORK[I + K - 1]);
             }
-            NR = NR + 1;
+            NR++;
             J1 = J1 - KDN - 1;
           }
 
@@ -426,7 +426,7 @@ void dsbtrd(
               IQAEND = min(IQAEND, IQEND);
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
                 IBL = I - I2 ~/ KDM1;
-                I2 = I2 + 1;
+                I2++;
                 IQB = max(1, J - IBL);
                 NQ = 1 + IQAEND - IQB;
                 IQAEND = min(IQAEND + KD, IQEND);
@@ -444,7 +444,7 @@ void dsbtrd(
           if (J2 + KDN > N) {
             // adjust J2 to keep within the bounds of the matrix
 
-            NR = NR - 1;
+            NR--;
             J2 = J2 - KDN - 1;
           }
 

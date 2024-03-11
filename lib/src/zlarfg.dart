@@ -49,7 +49,7 @@ void zlarfg(
       // XNORM, BETA may be inaccurate; scale X and recompute them
 
       do {
-        KNT = KNT + 1;
+        KNT++;
         zdscal(N - 1, RSAFMN, X, INCX);
         BETA = BETA * RSAFMN;
         ALPHI = ALPHI * RSAFMN;

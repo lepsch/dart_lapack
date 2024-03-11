@@ -104,7 +104,7 @@ void dgebal(
             return;
           }
 
-          L = L - 1;
+          L--;
         }
       }
     }

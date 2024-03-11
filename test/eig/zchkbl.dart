@@ -52,16 +52,16 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
     await NIN.readArray(SCALIN, N);
 
     // ANORM = zlange('M', N, N, A, LDA, DUMMY);
-    KNT = KNT + 1;
+    KNT++;
     zgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO);
 
     if (INFO.value != 0) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[1] = KNT;
     }
 
     if (ILO.value != ILOIN || IHI.value != IHIIN) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[2] = KNT;
     }
 

@@ -498,7 +498,7 @@ void dhgeqz(
 
         // Gotonext block -- exit if finished.
 
-        ILAST = ILAST - 1;
+        ILAST--;
         if (ILAST < ILO) {
           dropThroughNonConvergence = false;
           break mainQzLoop;
@@ -520,7 +520,7 @@ void dhgeqz(
       // This iteration only involves rows/columns IFIRST:ILAST. We
       // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
 
-      IITER = IITER + 1;
+      IITER++;
       if (!ILSCHR) {
         IFRSTM = IFIRST;
       }

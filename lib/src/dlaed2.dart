@@ -149,7 +149,7 @@ void dlaed2(
     if (RHO.value * (Z[NJ]).abs() <= TOL) {
       // Deflate due to small z component.
 
-      K2 = K2 - 1;
+      K2--;
       COLTYP[NJ] = 4;
       INDXP[K2] = NJ;
       if (J == N) {
@@ -163,13 +163,13 @@ void dlaed2(
   }
 
   while (!isLastItem) {
-    J = J + 1;
+    J++;
     NJ = INDX[J];
     if (J > N) break;
     if (RHO.value * (Z[NJ]).abs() <= TOL) {
       // Deflate due to small z component.
 
-      K2 = K2 - 1;
+      K2--;
       COLTYP[NJ] = 4;
       INDXP[K2] = NJ;
     } else {
@@ -196,13 +196,13 @@ void dlaed2(
         T = D[PJ] * pow(C, 2) + D[NJ] * pow(S, 2);
         D[NJ] = D[PJ] * pow(S, 2) + D[NJ] * pow(C, 2);
         D[PJ] = T;
-        K2 = K2 - 1;
+        K2--;
         I = 1;
 
         while (K2 + I <= N && D[PJ] >= D[INDXP[K2 + I]]) {
           INDXP[K2 + I - 1] = INDXP[K2 + I];
           INDXP[K2 + I] = PJ;
-          I = I + 1;
+          I++;
         }
         INDXP[K2 + I - 1] = PJ;
 
@@ -269,7 +269,7 @@ void dlaed2(
     JS = INDX[I];
     dcopy(N1, Q(1, JS).asArray(), 1, Q2(IQ1), 1);
     Z[I] = D[JS];
-    I = I + 1;
+    I++;
     IQ1 = IQ1 + N1;
   }
 
@@ -278,7 +278,7 @@ void dlaed2(
     dcopy(N1, Q(1, JS).asArray(), 1, Q2(IQ1), 1);
     dcopy(N2, Q(N1 + 1, JS).asArray(), 1, Q2(IQ2), 1);
     Z[I] = D[JS];
-    I = I + 1;
+    I++;
     IQ1 = IQ1 + N1;
     IQ2 = IQ2 + N2;
   }
@@ -287,7 +287,7 @@ void dlaed2(
     JS = INDX[I];
     dcopy(N2, Q(N1 + 1, JS).asArray(), 1, Q2(IQ2), 1);
     Z[I] = D[JS];
-    I = I + 1;
+    I++;
     IQ2 = IQ2 + N2;
   }
 
@@ -297,7 +297,7 @@ void dlaed2(
     dcopy(N, Q(1, JS).asArray(), 1, Q2(IQ2), 1);
     IQ2 = IQ2 + N;
     Z[I] = D[JS];
-    I = I + 1;
+    I++;
   }
 
   // The deflated eigenvalues and their corresponding vectors go back

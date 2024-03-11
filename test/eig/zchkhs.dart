@@ -209,7 +209,7 @@ void zchkhs(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 250
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.

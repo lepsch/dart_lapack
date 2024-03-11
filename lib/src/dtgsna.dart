@@ -181,7 +181,7 @@ void dtgsna(
       }
     }
 
-    KS = KS + 1;
+    KS++;
 
     if (WANTS) {
       // Compute the reciprocal condition number of the k-th

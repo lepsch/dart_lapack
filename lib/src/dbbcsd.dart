@@ -215,12 +215,12 @@ void dbbcsd(
     if (PHI[IMAX - 1] != ZERO) {
       return;
     }
-    IMAX = IMAX - 1;
+    IMAX--;
   }
   IMIN = IMAX - 1;
   if (IMIN > 1) {
     while (PHI[IMIN - 1] != ZERO) {
-      IMIN = IMIN - 1;
+      IMIN--;
       if (IMIN <= 1) return;
     }
   }
@@ -731,14 +731,14 @@ void dbbcsd(
 
     if (IMAX > 1) {
       while (PHI[IMAX - 1] == ZERO) {
-        IMAX = IMAX - 1;
+        IMAX--;
         if (IMAX <= 1) return;
       }
     }
     if (IMIN > IMAX - 1) IMIN = IMAX - 1;
     if (IMIN > 1) {
       while (PHI[IMIN - 1] != ZERO) {
-        IMIN = IMIN - 1;
+        IMIN--;
         if (IMIN <= 1) return;
       }
     }

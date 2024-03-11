@@ -126,7 +126,7 @@ void dsprfs(
           for (I = 1; I <= K - 1; I++) {
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
             S = S + (AP[IK]).abs() * (X[I][J]).abs();
-            IK = IK + 1;
+            IK++;
           }
           WORK[K] = WORK[K] + (AP[KK + K - 1]).abs() * XK + S;
           KK = KK + K;
@@ -140,7 +140,7 @@ void dsprfs(
           for (I = K + 1; I <= N; I++) {
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
             S = S + (AP[IK]).abs() * (X[I][J]).abs();
-            IK = IK + 1;
+            IK++;
           }
           WORK[K] = WORK[K] + S;
           KK = KK + (N - K + 1);
@@ -168,7 +168,7 @@ void dsprfs(
         dsptrs(UPLO, N, 1, AFP, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
         daxpy(N, ONE, WORK(N + 1), 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

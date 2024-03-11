@@ -262,7 +262,7 @@ void zla_syrfsx_extended(
 
       if (INCR_PREC) {
         INCR_PREC = false;
-        Y_PREC_STATE = Y_PREC_STATE + 1;
+        Y_PREC_STATE++;
         for (I = 1; I <= N; I++) {
           Y_TAIL[I] = Complex.zero;
         }

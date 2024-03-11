@@ -816,7 +816,7 @@ void _zchk1(
                   _zmake('GE', ' ', ' ', 1, ML, Y.asMatrix(), 1, YY, INCY.abs(),
                       0, ML - 1, RESET, TRANSL);
 
-                  NC = NC + 1;
+                  NC++;
 
                   // Save every datum before calling the
                   // subroutine.
@@ -972,7 +972,7 @@ void _zchk1(
       zgbmv(TRANS, M, N, KL, KU, ALPHA, AA.asMatrix(), LDA, XX, INCX, BETA, YY,
           INCY);
     }
-    NC = NC + 1;
+    NC++;
     if (!_lze(YS, YY, LY)) {
       NOUT.print9998(NARGS - 1);
       FATAL.value = true;
@@ -1219,7 +1219,7 @@ void _zchk2(
                 _zmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
                     N - 1, RESET, TRANSL);
 
-                NC = NC + 1;
+                NC++;
 
                 // Save every datum before calling the
                 // subroutine.
@@ -1581,7 +1581,7 @@ void _zchk3(
                 XX[1 + INCX.abs() * (N ~/ 2 - 1)] = Complex.zero;
               }
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the subroutine.
 
@@ -1997,7 +1997,7 @@ void _zchk4(
             _zmake(SNAME.substring(1, 3), ' ', ' ', M, N, A, NMAX, AA, LDA,
                 M - 1, N - 1, RESET, TRANSL);
 
-            NC = NC + 1;
+            NC++;
 
             // Save every datum before calling the subroutine.
 
@@ -2319,7 +2319,7 @@ void _zchk5(
           _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
               N - 1, N - 1, RESET, TRANSL);
 
-          NC = NC + 1;
+          NC++;
 
           // Save every datum before calling the subroutine.
 
@@ -3398,7 +3398,7 @@ void _zmake(
         IEND = N;
       }
       for (I = IBEG; I <= IEND; I++) {
-        IOFF = IOFF + 1;
+        IOFF++;
         AA[IOFF] = A[I][J];
         if (I == J) {
           if (UNIT) AA[IOFF] = ROGUE;
@@ -3632,7 +3632,7 @@ Complex _zbeg(final Box<bool> RESET) {
   // IC is used to break up the period by skipping 1 value of I or J
   // in 6.
 
-  _zbegIC = _zbegIC + 1;
+  _zbegIC++;
   while (true) {
     _zbegI = _zbegI * _zbegMI;
     _zbegJ = _zbegJ * _zbegMJ;

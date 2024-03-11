@@ -58,7 +58,7 @@ void dlartgp(
     } else if (SCALE <= SAFMN2) {
       COUNT = 0;
       do {
-        COUNT = COUNT + 1;
+        COUNT++;
         F1 = F1 * SAFMX2;
         G1 = G1 * SAFMX2;
         SCALE = max((F1).abs(), (G1).abs());

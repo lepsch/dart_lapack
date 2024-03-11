@@ -63,11 +63,11 @@ void dsyconv(
           E[I] = A[I - 1][I];
           E[I - 1] = ZERO;
           A[I - 1][I] = ZERO;
-          I = I - 1;
+          I--;
         } else {
           E[I] = ZERO;
         }
-        I = I - 1;
+        I--;
       }
 
       // Convert PERMUTATIONS
@@ -92,9 +92,9 @@ void dsyconv(
               A[I - 1][J] = TEMP;
             }
           }
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
     } else {
       // Revert A (A is upper)
@@ -114,7 +114,7 @@ void dsyconv(
           }
         } else {
           IP = -IPIV[I];
-          I = I + 1;
+          I++;
           if (I < N) {
             for (J = I + 1; J <= N; J++) {
               TEMP = A[IP][J];
@@ -123,7 +123,7 @@ void dsyconv(
             }
           }
         }
-        I = I + 1;
+        I++;
       }
 
       // Revert VALUE
@@ -132,9 +132,9 @@ void dsyconv(
       while (I > 1) {
         if (IPIV[I] < 0) {
           A[I - 1][I] = E[I];
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
     }
   } else {
@@ -152,11 +152,11 @@ void dsyconv(
           E[I] = A[I + 1][I];
           E[I + 1] = ZERO;
           A[I + 1][I] = ZERO;
-          I = I + 1;
+          I++;
         } else {
           E[I] = ZERO;
         }
-        I = I + 1;
+        I++;
       }
 
       // Convert PERMUTATIONS
@@ -181,9 +181,9 @@ void dsyconv(
               A[I + 1][J] = TEMP;
             }
           }
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
     } else {
       // Revert A (A is lower)
@@ -203,7 +203,7 @@ void dsyconv(
           }
         } else {
           IP = -IPIV[I];
-          I = I - 1;
+          I--;
           if (I > 1) {
             for (J = 1; J <= I - 1; J++) {
               TEMP = A[I + 1][J];
@@ -212,7 +212,7 @@ void dsyconv(
             }
           }
         }
-        I = I - 1;
+        I--;
       }
 
       // Revert VALUE
@@ -221,9 +221,9 @@ void dsyconv(
       while (I <= N - 1) {
         if (IPIV[I] < 0) {
           A[I + 1][I] = E[I];
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
     }
   }

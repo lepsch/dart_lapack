@@ -323,11 +323,11 @@ void dlaqr3(
     if (I == INFQR.value + 1) {
       SR[KWTOP + I - 1] = T[I][I];
       SI[KWTOP + I - 1] = ZERO;
-      I = I - 1;
+      I--;
     } else if (T[I][I - 1] == ZERO) {
       SR[KWTOP + I - 1] = T[I][I];
       SI[KWTOP + I - 1] = ZERO;
-      I = I - 1;
+      I--;
     } else {
       AA.value = T[I - 1][I - 1];
       CC.value = T[I][I - 1];

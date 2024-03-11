@@ -102,7 +102,7 @@ void dlanv2(
       COUNT = 0;
       SIGMA = B.value + C.value;
       while (true) {
-        COUNT = COUNT + 1;
+        COUNT++;
         SCALE = max(TEMP.abs(), SIGMA.abs());
         if (SCALE >= SAFMX2) {
           SIGMA = SIGMA * SAFMN2;

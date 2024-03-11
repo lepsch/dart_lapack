@@ -154,7 +154,7 @@ void zsytrf_aa(
 
             // First update skips the first column
 
-            JB = JB - 1;
+            JB--;
           }
 
           for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
@@ -176,7 +176,7 @@ void zsytrf_aa(
                   Complex.one,
                   A(J3, J3).asArray(),
                   LDA);
-              J3 = J3 + 1;
+              J3++;
             }
 
             // Update off-diagonal block of J2-th block row with ZGEMM
@@ -282,7 +282,7 @@ void zsytrf_aa(
 
             // First update skips the first column
 
-            JB = JB - 1;
+            JB--;
           }
 
           for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
@@ -304,7 +304,7 @@ void zsytrf_aa(
                   Complex.one,
                   A(J3, J3).asArray(),
                   1);
-              J3 = J3 + 1;
+              J3++;
             }
 
             // Update off-diagonal block in J2-th block column with ZGEMM

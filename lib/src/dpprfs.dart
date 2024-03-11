@@ -131,7 +131,7 @@ void dpprfs(
             // 40
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
             S = S + (AP[IK]).abs() * (X[I][J]).abs();
-            IK = IK + 1;
+            IK++;
           } // 40
           WORK[K] = WORK[K] + (AP[KK + K - 1]).abs() * XK + S;
           KK = KK + K;
@@ -147,7 +147,7 @@ void dpprfs(
             // 60
             WORK[I] = WORK[I] + (AP[IK]).abs() * XK;
             S = S + (AP[IK]).abs() * (X[I][J]).abs();
-            IK = IK + 1;
+            IK++;
           } // 60
           WORK[K] = WORK[K] + S;
           KK = KK + (N - K + 1);
@@ -176,7 +176,7 @@ void dpprfs(
         dpptrs(UPLO, N, 1, AFP, WORK(N + 1).asMatrix(N), N, INFO);
         daxpy(N, ONE, WORK(N + 1), 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

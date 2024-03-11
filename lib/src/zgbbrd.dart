@@ -205,7 +205,7 @@ void zgbbrd(
                   WORK[I + ML - 1]);
             }
           }
-          NR = NR + 1;
+          NR++;
           J1 = J1 - KB1;
         }
 
@@ -232,7 +232,7 @@ void zgbbrd(
         if (J2 + KUN > N) {
           // adjust J2 to keep within the bounds of the matrix
 
-          NR = NR - 1;
+          NR--;
           J2 = J2 - KB1;
         }
 
@@ -293,7 +293,7 @@ void zgbbrd(
                 RWORK[I + MU - 1],
                 WORK[I + MU - 1]);
           }
-          NR = NR + 1;
+          NR++;
           J1 = J1 - KB1;
         }
 
@@ -316,7 +316,7 @@ void zgbbrd(
         if (J2 + KB > M) {
           // adjust J2 to keep within the bounds of the matrix
 
-          NR = NR - 1;
+          NR--;
           J2 = J2 - KB1;
         }
 
@@ -331,9 +331,9 @@ void zgbbrd(
         } // 70
 
         if (ML > ML0) {
-          ML = ML - 1;
+          ML--;
         } else {
-          MU = MU - 1;
+          MU--;
         }
       } // 80
     } // 90

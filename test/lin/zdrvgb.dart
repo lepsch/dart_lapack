@@ -133,11 +133,11 @@
                   if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
                   if ( LDA*N > LA ) {
                      NOUT.println( 9999 )LA, N, KL, KU, N*( KL+KU+1 );
-                     NERRS = NERRS + 1;
+                     NERRS++;
                   }
                   if ( LDAFB*N > LAFB ) {
                      NOUT.println( 9998 )LAFB, N, KL, KU, N*( 2*KL+KU+1 );
-                     NERRS = NERRS + 1;
+                     NERRS++;
                   }
                   GO TO 130;
                }

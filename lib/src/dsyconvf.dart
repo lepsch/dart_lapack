@@ -66,11 +66,11 @@ void dsyconvf(
           E[I] = A[I - 1][I];
           E[I - 1] = ZERO;
           A[I - 1][I] = ZERO;
-          I = I - 1;
+          I--;
         } else {
           E[I] = ZERO;
         }
-        I = I - 1;
+        I--;
       }
 
       // Convert PERMUTATIONS and IPIV
@@ -112,9 +112,9 @@ void dsyconvf(
 
           IPIV[I] = I;
 
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
     } else {
       // Revert A (A is upper)
@@ -143,7 +143,7 @@ void dsyconvf(
 
           // Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
 
-          I = I + 1;
+          I++;
           IP = -IPIV[I];
           if (I < N) {
             if (IP != (I - 1)) {
@@ -159,7 +159,7 @@ void dsyconvf(
 
           IPIV[I] = IPIV[I - 1];
         }
-        I = I + 1;
+        I++;
       }
 
       // Revert VALUE
@@ -170,9 +170,9 @@ void dsyconvf(
       while (I > 1) {
         if (IPIV[I] < 0) {
           A[I - 1][I] = E[I];
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
 
       // End A is UPPER
@@ -194,11 +194,11 @@ void dsyconvf(
           E[I] = A[I + 1][I];
           E[I + 1] = ZERO;
           A[I + 1][I] = ZERO;
-          I = I + 1;
+          I++;
         } else {
           E[I] = ZERO;
         }
-        I = I + 1;
+        I++;
       }
 
       // Convert PERMUTATIONS and IPIV
@@ -238,9 +238,9 @@ void dsyconvf(
 
           IPIV[I] = I;
 
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
     } else {
       // Revert A (A is lower)
@@ -268,7 +268,7 @@ void dsyconvf(
 
           // Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
 
-          I = I - 1;
+          I--;
           IP = -IPIV[I];
           if (I > 1) {
             if (IP != (I + 1)) {
@@ -283,7 +283,7 @@ void dsyconvf(
 
           IPIV[I] = IPIV[I + 1];
         }
-        I = I - 1;
+        I--;
       }
 
       // Revert VALUE
@@ -294,9 +294,9 @@ void dsyconvf(
       while (I <= N - 1) {
         if (IPIV[I] < 0) {
           A[I + 1][I] = E[I];
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
     }
 

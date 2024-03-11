@@ -667,14 +667,14 @@ void dlamc5(
   TRY = LEXP * 2;
   while (TRY <= -EMIN) {
     LEXP = TRY;
-    EXBITS = EXBITS + 1;
+    EXBITS++;
     TRY = LEXP * 2;
   }
   if (LEXP == -EMIN) {
     UEXP = LEXP;
   } else {
     UEXP = TRY;
-    EXBITS = EXBITS + 1;
+    EXBITS++;
   }
 
   // Now -LEXP is less than or equal to EMIN, and -UEXP is greater

@@ -296,7 +296,7 @@
                } else {
                   AB[KD+1][J] = ZLARND( 5, ISEED );
                }
-               JCOUNT = JCOUNT + 1;
+               JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
             } // 190
          } else {
@@ -310,7 +310,7 @@
                } else {
                   AB[1][J] = ZLARND( 5, ISEED );
                }
-               JCOUNT = JCOUNT + 1;
+               JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
             } // 210
          }

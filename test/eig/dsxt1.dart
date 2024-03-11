@@ -26,7 +26,7 @@ double dsxt1(
   J = 1;
   for (I = 1; I <= N1; I++) {
     while (D2[J] < D1[I] && J < N2) {
-      J = J + 1;
+      J++;
     }
     if (J == 1) {
       TEMP2 = (D2[J] - D1[I]).abs();

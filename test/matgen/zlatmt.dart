@@ -1014,10 +1014,10 @@ void zlatmt(
         // 500
         for (I = 1; I <= J; I++) {
           // 490
-          IROW = IROW + 1;
+          IROW++;
           if (IROW > LDA) {
             IROW = 1;
-            ICOL = ICOL + 1;
+            ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
         } // 490
@@ -1031,10 +1031,10 @@ void zlatmt(
         // 520
         for (I = J; I <= M; I++) {
           // 510
-          IROW = IROW + 1;
+          IROW++;
           if (IROW > LDA) {
             IROW = 1;
-            ICOL = ICOL + 1;
+            ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
         } // 510

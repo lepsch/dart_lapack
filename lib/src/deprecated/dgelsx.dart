@@ -133,7 +133,7 @@
             WORK[ISMAX+RANK] = C2;
             SMIN = SMINPR;
             SMAX = SMAXPR;
-            RANK = RANK + 1;
+            RANK++;
             GO TO 10;
          }
       }

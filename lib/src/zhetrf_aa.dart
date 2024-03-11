@@ -161,7 +161,7 @@ void zhetrf_aa(
 
             // First update skips the first column
 
-            JB = JB - 1;
+            JB--;
           }
 
           for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
@@ -185,7 +185,7 @@ void zhetrf_aa(
                   Complex.one,
                   A(J3, J3),
                   LDA);
-              J3 = J3 + 1;
+              J3++;
             }
 
             // Update off-diagonal block of J2-th block row with ZGEMM
@@ -290,7 +290,7 @@ void zhetrf_aa(
 
             // First update skips the first column
 
-            JB = JB - 1;
+            JB--;
           }
 
           for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
@@ -314,7 +314,7 @@ void zhetrf_aa(
                   Complex.one,
                   A(J3, J3),
                   LDA);
-              J3 = J3 + 1;
+              J3++;
             }
 
             // Update off-diagonal block of J2-th block column with ZGEMM

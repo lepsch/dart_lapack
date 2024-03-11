@@ -396,7 +396,7 @@ void dlattp(
         } else {
           A[JC + J - 1] = ONE;
         }
-        JCOUNT = JCOUNT + 1;
+        JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
         JC = JC - J + 1;
       }
@@ -412,7 +412,7 @@ void dlattp(
         } else {
           A[JC] = ONE;
         }
-        JCOUNT = JCOUNT + 1;
+        JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
         JC = JC + N - J + 1;
       }

@@ -227,7 +227,7 @@ void ddrgev(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
 
       // Save ISEED in case of an error.
 
@@ -512,7 +512,7 @@ void ddrgev(
             NOUNIT.println('\n Tests performed:    \n 1 = max | ( b A - a B )'
                 '*l | / const.,\n 2 = | |VR(i)| - 1 | / ulp,\n 3 = max | ( b A - a B )*r | / const.\n 4 = | |VL(i)| - 1 | / ulp,\n 5 = 0 if W same no matter if r or l computed,\n 6 = 0 if l same no matter if l computed,\n 7 = 0 if r same no matter if r computed,/n ');
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}');

@@ -243,7 +243,7 @@ void zdrvhe_aa(
                   K = J;
                 }
                 if (J >= K) break;
-                J = J + 1;
+                J++;
               }
             } else {
               K = 0;

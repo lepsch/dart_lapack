@@ -25,7 +25,7 @@ int ilazlr(
     for (J = 1; J <= N; J++) {
       I = M;
       while ((A[max(I, 1)][J] == Complex.zero) && (I >= 1)) {
-        I = I - 1;
+        I--;
       }
       result = max(result, I);
     }

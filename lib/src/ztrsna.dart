@@ -199,6 +199,6 @@ void ztrsna(
       }
     }
 
-    KS = KS + 1;
+    KS++;
   } // 50
 }

@@ -51,7 +51,7 @@ void zptts2(
           B[I][J] = B[I][J] - B[I + 1][J] * E[I];
         } // 40
         if (J < NRHS) {
-          J = J + 1;
+          J++;
           continue;
         }
         break;
@@ -101,7 +101,7 @@ void zptts2(
           B[I][J] = B[I][J] - B[I + 1][J] * E[I].conjugate();
         } // 110
         if (J < NRHS) {
-          J = J + 1;
+          J++;
           continue;
         }
         break;

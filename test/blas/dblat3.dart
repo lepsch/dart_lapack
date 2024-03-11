@@ -693,7 +693,7 @@ void _dchk1(
 
                 _dmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO);
 
-                NC = NC + 1;
+                NC++;
 
                 // Save every datum before calling the
                 // subroutine.
@@ -1007,7 +1007,7 @@ void _dchk2(
 
               _dmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO);
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the
               // subroutine.
@@ -1342,7 +1342,7 @@ void _dchk3(
 
                 _dmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO);
 
-                NC = NC + 1;
+                NC++;
 
                 // Save every datum before calling the
                 // subroutine.
@@ -1744,7 +1744,7 @@ void _dchk4(
 
               _dmake('SY', UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO);
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the subroutine.
 
@@ -2114,7 +2114,7 @@ void _dchk5(
 
               _dmake('SY', UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO);
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the subroutine.
 
@@ -3209,7 +3209,7 @@ double _dbeg(final Box<bool> RESET) {
   // If initial I = 5, the period will be 10.
   // _dbegIC is used to break up the period by skipping 1 value of I in 6.
 
-  _dbegIC = _dbegIC + 1;
+  _dbegIC++;
   while (true) {
     _dbegI = _dbegI * _dbegMI;
     _dbegI = _dbegI - 1000 * (_dbegI ~/ 1000);

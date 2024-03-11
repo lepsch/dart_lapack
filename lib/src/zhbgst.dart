@@ -174,14 +174,14 @@ void zhbgst(
   I = N + 1;
   while (true) {
     if (UPDATE) {
-      I = I - 1;
+      I--;
       KBT = min(KB, I - 1);
       I0 = I - 1;
       I1 = min(N, I + KA);
       I2 = I - KBT + KA1;
       if (I < M + 1) {
         UPDATE = false;
-        I = I + 1;
+        I++;
         I0 = M;
         if (KA == 0) break;
         continue;
@@ -829,14 +829,14 @@ void zhbgst(
   while (true) {
     // 480
     if (UPDATE) {
-      I = I + 1;
+      I++;
       KBT = min(KB, M - I);
       I0 = I + 1;
       I1 = max(1, I - KA);
       I2 = I + KBT - KA1;
       if (I > M) {
         UPDATE = false;
-        I = I - 1;
+        I--;
         I0 = M + 1;
         if (KA == 0) return;
         continue;

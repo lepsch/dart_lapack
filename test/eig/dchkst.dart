@@ -242,7 +242,7 @@ void dchkst(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -499,7 +499,7 @@ void dchkst(
           // 120
           for (JR = 1; JR <= JC; JR++) {
             // 110
-            I = I + 1;
+            I++;
             AP[I] = A[JR][JC];
           } // 110
         } // 120
@@ -547,7 +547,7 @@ void dchkst(
           // 140
           for (JR = JC; JR <= N; JR++) {
             // 130
-            I = I + 1;
+            I++;
             AP[I] = A[JR][JC];
           } // 130
         } // 140
@@ -1537,7 +1537,7 @@ void dchkst(
 
             NOUNIT.println('Test performed:  see DCHKST for details.');
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           print9990(NOUNIT, N, IOLDSD, JTYPE, JR, RESULT[JR]);
         }
       } // 290

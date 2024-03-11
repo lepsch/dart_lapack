@@ -119,7 +119,7 @@
                         NOUT.println( 9999 );
                      }
                      NOUT.println( 9998 )srnamc.SRNAMT, UPLO, CFORM, N;
-                     NERRS = NERRS + 1;
+                     NERRS++;
                      GO TO 100;
                   }
 

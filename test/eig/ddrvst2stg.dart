@@ -256,7 +256,7 @@ void ddrvst2stg(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -1297,7 +1297,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -1305,7 +1305,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }
@@ -1336,7 +1336,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -1344,7 +1344,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }
@@ -1383,7 +1383,7 @@ void ddrvst2stg(
           for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             }
           }
         } else {
@@ -1391,7 +1391,7 @@ void ddrvst2stg(
           for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             }
           }
         }
@@ -1454,7 +1454,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -1462,7 +1462,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }
@@ -1499,7 +1499,7 @@ void ddrvst2stg(
           for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             }
           }
         } else {
@@ -1507,7 +1507,7 @@ void ddrvst2stg(
           for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             }
           }
         }
@@ -1544,7 +1544,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -1552,7 +1552,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }
@@ -1595,7 +1595,7 @@ void ddrvst2stg(
           for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             }
           }
         } else {
@@ -1603,7 +1603,7 @@ void ddrvst2stg(
           for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             }
           }
         }
@@ -1640,7 +1640,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -1648,7 +1648,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }
@@ -2170,7 +2170,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -2178,7 +2178,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }
@@ -2210,7 +2210,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = 1; I <= J; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           } else {
@@ -2218,7 +2218,7 @@ void ddrvst2stg(
             for (J = 1; J <= N; J++) {
               for (I = J; I <= N; I++) {
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               }
             }
           }

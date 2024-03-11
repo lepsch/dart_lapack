@@ -183,9 +183,9 @@ void zsytri_3x(
             WORK[I + 1][J] =
                 WORK[I + 1][INVD] * U01_I_J + WORK[I + 1][INVD + 1] * U01_IP1_J;
           }
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
 
       // invD1 * U11
@@ -205,9 +205,9 @@ void zsytri_3x(
             WORK[U11 + I + 1][J] = WORK[CUT + I + 1][INVD] * U11_I_J +
                 WORK[CUT + I + 1][INVD + 1] * U11_IP1_J;
           }
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
 
       // U11**T * invD1 * U11 -> U11
@@ -355,9 +355,9 @@ void zsytri_3x(
             WORK[I - 1][J] = WORK[CUT + NNB + I - 1][INVD + 1] * U01_I_J +
                 WORK[CUT + NNB + I - 1][INVD] * U01_IP1_J;
           }
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
 
       // invD1*L11
@@ -377,9 +377,9 @@ void zsytri_3x(
             WORK[U11 + I - 1][J] = WORK[CUT + I - 1][INVD + 1] * U11_I_J +
                 WORK[CUT + I - 1][INVD] * U11_IP1_J;
           }
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
 
       // L11**T * invD1 * L11 -> L11

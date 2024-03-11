@@ -277,7 +277,7 @@ void dgsvj0(
                   if (ir1 == 0) {
                     NOTROT = 0;
                     PSKIPPED = 0;
-                    ISWROT = ISWROT + 1;
+                    ISWROT++;
                   }
 
                   if (ROTOK) {
@@ -430,12 +430,12 @@ void dgsvj0(
                 } else {
                   // A[:][p] and A[:][q] already numerically orthogonal
                   if (ir1 == 0) NOTROT = NOTROT + 1;
-                  PSKIPPED = PSKIPPED + 1;
+                  PSKIPPED++;
                 }
               } else {
                 // A[:][q] is zero column
                 if (ir1 == 0) NOTROT = NOTROT + 1;
-                PSKIPPED = PSKIPPED + 1;
+                PSKIPPED++;
               }
 
               if ((i <= SWBAND) && (PSKIPPED > ROWSKIP)) {
@@ -543,7 +543,7 @@ void dgsvj0(
                   NOTROT = 0;
                   // ROTATED  = ROTATED + 1
                   PSKIPPED = 0;
-                  ISWROT = ISWROT + 1;
+                  ISWROT++;
 
                   if (ROTOK) {
                     AQOAP = AAQQ.value / AAPP.value;
@@ -708,14 +708,14 @@ void dgsvj0(
                   }
                   // end of OK rotation
                 } else {
-                  NOTROT = NOTROT + 1;
-                  PSKIPPED = PSKIPPED + 1;
-                  IJBLSK = IJBLSK + 1;
+                  NOTROT++;
+                  PSKIPPED++;
+                  IJBLSK++;
                 }
               } else {
-                NOTROT = NOTROT + 1;
-                PSKIPPED = PSKIPPED + 1;
-                IJBLSK = IJBLSK + 1;
+                NOTROT++;
+                PSKIPPED++;
+                IJBLSK++;
               }
 
               if ((i <= SWBAND) && (IJBLSK >= BLSKIP)) {

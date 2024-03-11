@@ -169,14 +169,14 @@ void zlaqz2(
       }
       if (((S * QC[1][KWBOT - KWTOP + 1]).abs()) <= max(ULP * TEMPR, SMLNUM)) {
         // Deflatable
-        KWBOT = KWBOT - 1;
+        KWBOT--;
       } else {
         // Not deflatable, move out of the way
         IFST = KWBOT - KWTOP + 1;
         ILST.value = K2;
         ztgexc(true, true, JW, A(KWTOP, KWTOP), LDA, B(KWTOP, KWTOP), LDB, QC,
             LDQC, ZC, LDZC, IFST, ILST, ZTGEXC_INFO);
-        K2 = K2 + 1;
+        K2++;
       }
 
       K++;

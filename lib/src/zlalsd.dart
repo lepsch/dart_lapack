@@ -220,7 +220,7 @@ void zlalsd(
       // 50
       for (JROW = 1; JROW <= N; JROW++) {
         // 40
-        J = J + 1;
+        J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
       } // 40
     } // 50
@@ -231,7 +231,7 @@ void zlalsd(
       // 70
       for (JROW = 1; JROW <= N; JROW++) {
         // 60
-        J = J + 1;
+        J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
       } // 60
     } // 70
@@ -243,8 +243,8 @@ void zlalsd(
       // 90
       for (JROW = 1; JROW <= N; JROW++) {
         // 80
-        JREAL = JREAL + 1;
-        JIMAG = JIMAG + 1;
+        JREAL++;
+        JIMAG++;
         B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
       } // 80
     } // 90
@@ -272,7 +272,7 @@ void zlalsd(
       // 120
       for (JROW = 1; JROW <= N; JROW++) {
         // 110
-        J = J + 1;
+        J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
       } // 110
     } // 120
@@ -283,7 +283,7 @@ void zlalsd(
       // 140
       for (JROW = 1; JROW <= N; JROW++) {
         // 130
-        J = J + 1;
+        J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
       } // 130
     } // 140
@@ -295,8 +295,8 @@ void zlalsd(
       // 160
       for (JROW = 1; JROW <= N; JROW++) {
         // 150
-        JREAL = JREAL + 1;
-        JIMAG = JIMAG + 1;
+        JREAL++;
+        JIMAG++;
         B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
       } // 150
     } // 160
@@ -355,7 +355,7 @@ void zlalsd(
   for (I = 1; I <= NM1; I++) {
     // 240
     if ((E[I].abs() < EPS) || (I == NM1)) {
-      NSUB = NSUB + 1;
+      NSUB++;
       IWORK[NSUB] = ST;
 
       // Subproblem found. First determine its size and then
@@ -378,7 +378,7 @@ void zlalsd(
 
         NSIZE = I - ST + 1;
         IWORK[SIZEI + NSUB - 1] = NSIZE;
-        NSUB = NSUB + 1;
+        NSUB++;
         IWORK[NSUB] = N;
         IWORK[SIZEI + NSUB - 1] = 1;
         zcopy(NRHS, B(N, 1).asArray(), LDB, WORK(BX + NM1), N);
@@ -424,7 +424,7 @@ void zlalsd(
           // 190
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
             // 180
-            J = J + 1;
+            J++;
             RWORK[J] = B[JROW][JCOL].toDouble();
           } // 180
         } // 190
@@ -447,7 +447,7 @@ void zlalsd(
           // 210
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
             // 200
-            J = J + 1;
+            J++;
             RWORK[J] = B[JROW][JCOL].imaginary;
           } // 200
         } // 210
@@ -471,8 +471,8 @@ void zlalsd(
           // 230
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
             // 220
-            JREAL = JREAL + 1;
-            JIMAG = JIMAG + 1;
+            JREAL++;
+            JIMAG++;
             B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
           } // 220
         } // 230
@@ -592,7 +592,7 @@ void zlalsd(
         J = J + N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
           // 260
-          JREAL = JREAL + 1;
+          JREAL++;
           RWORK[JREAL] = (WORK[J + JROW]).toDouble();
         } // 260
       } // 270
@@ -617,7 +617,7 @@ void zlalsd(
         J = J + N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
           // 280
-          JIMAG = JIMAG + 1;
+          JIMAG++;
           RWORK[JIMAG] = WORK[J + JROW].imaginary;
         } // 280
       } // 290
@@ -641,8 +641,8 @@ void zlalsd(
         // 310
         for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
           // 300
-          JREAL = JREAL + 1;
-          JIMAG = JIMAG + 1;
+          JREAL++;
+          JIMAG++;
           B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
         } // 300
       } // 310

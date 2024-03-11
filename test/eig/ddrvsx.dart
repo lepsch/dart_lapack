@@ -523,7 +523,7 @@ Future<void> ddrvsx(
     try {
       (N, NSLCT) = await NIUNIT.readInt2();
       if (N == 0) break;
-      JTYPE = JTYPE + 1;
+      JTYPE++;
       ISEED[1] = JTYPE;
       if (NSLCT > 0) await NIUNIT.readArray(ISLCT, NSLCT);
       await NIUNIT.readMatrix(A, N, N);

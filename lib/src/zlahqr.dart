@@ -180,7 +180,7 @@ void zlahqr(
         converged = true;
         break;
       }
-      KDEFL = KDEFL + 1;
+      KDEFL++;
 
       // Now the active submatrix is in rows and columns L to I. If
       // eigenvalues only are being computed, only the active submatrix

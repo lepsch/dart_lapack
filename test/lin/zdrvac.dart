@@ -159,7 +159,7 @@
                   // matrix and solve the system.
 
                  srnamc.SRNAMT = 'ZCPOSV ';
-                  KASE = KASE + 1;
+                  KASE++;
 
                   zlacpy('All', N, N, A, LDA, AFAC, LDA);
 
@@ -174,7 +174,7 @@
                   if ( INFO.value != IZERO ) {
 
                      if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                     NERRS = NERRS + 1;
+                     NERRS++;
 
                      if ( INFO.value != IZERO && IZERO != 0 ) {
                         NOUT.println( 9988 )'ZCPOSV',INFO,IZERO,N, IMAT;

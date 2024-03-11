@@ -215,7 +215,7 @@ void zchkbb(
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         // 140
         if (!DOTYPE[JTYPE]) continue;
-        NMATS = NMATS + 1;
+        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
@@ -412,7 +412,7 @@ void zchkbb(
           // 130
           if (RESULT[JR] >= THRESH) {
             if (NERRS == 0) dlahd2(NOUNIT, 'ZBB');
-            NERRS = NERRS + 1;
+            NERRS++;
             NOUNIT.println(
                 ' M =${M.i4} N=${N.i4}, K=${K.i3}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }

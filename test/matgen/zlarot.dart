@@ -47,7 +47,7 @@ void zlarot(
 
   if (LRIGHT) {
     IYT = 1 + INEXT + (NL - 1) * IINC;
-    NT = NT + 1;
+    NT++;
     XT[NT] = XRIGHT.value;
     YT[NT] = A[IYT];
   }

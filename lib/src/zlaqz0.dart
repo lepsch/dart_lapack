@@ -306,7 +306,7 @@ void zlaqz0(
             ULP *
                 ((A[ISTOP][ISTOP]).abs() + (A[ISTOP - 1][ISTOP - 1]).abs()))) {
       A[ISTOP][ISTOP - 1] = Complex.zero;
-      ISTOP = ISTOP - 1;
+      ISTOP--;
       LD = 0;
       ESHIFT = Complex.zero;
     }
@@ -318,7 +318,7 @@ void zlaqz0(
                 ((A[ISTART][ISTART]).abs() +
                     (A[ISTART + 1][ISTART + 1]).abs()))) {
       A[ISTART + 1][ISTART] = Complex.zero;
-      ISTART = ISTART + 1;
+      ISTART++;
       LD = 0;
       ESHIFT = Complex.zero;
     }
@@ -409,7 +409,7 @@ void zlaqz0(
           }
         }
 
-        ISTART2 = ISTART2 + 1;
+        ISTART2++;
       }
       K--;
     }
@@ -484,7 +484,7 @@ void zlaqz0(
       continue;
     }
 
-    LD = LD + 1;
+    LD++;
 
     NS = min(NSHIFTS, ISTOP - ISTART2);
     NS = min(NS, N_UNDEFLATED.value);

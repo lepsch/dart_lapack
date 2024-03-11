@@ -409,7 +409,7 @@
                } else {
                   AP[JC+J-1] = ZLARND( 5, ISEED );
                }
-               JCOUNT = JCOUNT + 1;
+               JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
                JC = JC - J + 1;
             } // 250
@@ -425,7 +425,7 @@
                } else {
                   AP[JC] = ZLARND( 5, ISEED );
                }
-               JCOUNT = JCOUNT + 1;
+               JCOUNT++;
                if (JCOUNT > 4) JCOUNT = 1;
                JC = JC + N - J + 1;
             } // 270

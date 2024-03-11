@@ -96,9 +96,9 @@ void dsytrs_3(
           B[I - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[I][J] = (AKM1 * BK - BKM1) / DENOM;
         }
-        I = I - 1;
+        I--;
       }
-      I = I - 1;
+      I--;
     }
 
     // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
@@ -161,9 +161,9 @@ void dsytrs_3(
           B[I][J] = (AK * BKM1 - BK) / DENOM;
           B[I + 1][J] = (AKM1 * BK - BKM1) / DENOM;
         }
-        I = I + 1;
+        I++;
       }
-      I = I + 1;
+      I++;
     }
 
     // Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]

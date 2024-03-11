@@ -114,7 +114,7 @@ void zlacon(
       JLAST = J;
       J = izmax1(N, X, 1);
       if (((X[JLAST]).abs() != X[J].abs()) && (ITER < ITMAX)) {
-        ITER = ITER + 1;
+        ITER++;
         continue L50;
       }
 

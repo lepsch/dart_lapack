@@ -57,7 +57,7 @@ void dlarfgp(
 
       BIGNUM = ONE / SMLNUM;
       do {
-        KNT = KNT + 1;
+        KNT++;
         dscal(N - 1, BIGNUM, X, INCX);
         BETA = BETA * BIGNUM;
         ALPHA.value = ALPHA.value * BIGNUM;

@@ -74,20 +74,20 @@ void dsbt21(
   for (JC = 1; JC <= N; JC++) {
     if (LOWER) {
       for (JR = 1; JR <= min(IKA + 1, N + 1 - JC); JR++) {
-        J = J + 1;
+        J++;
         WORK[J] = A[JR][JC];
       }
       for (JR = IKA + 2; JR <= N + 1 - JC; JR++) {
-        J = J + 1;
+        J++;
         WORK[J] = ZERO;
       }
     } else {
       for (JR = IKA + 2; JR <= JC; JR++) {
-        J = J + 1;
+        J++;
         WORK[J] = ZERO;
       }
       for (JR = min(IKA, JC - 1); JR >= 0; JR--) {
-        J = J + 1;
+        J++;
         WORK[J] = A[IKA + 1 - JR][JC];
       }
     }

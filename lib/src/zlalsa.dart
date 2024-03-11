@@ -156,7 +156,7 @@ void zlalsa(
         // 20
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
           // 10
-          J = J + 1;
+          J++;
           RWORK[J] = (B[JROW][JCOL]).toDouble();
         } // 10
       } // 20
@@ -179,7 +179,7 @@ void zlalsa(
         // 40
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
           // 30
-          J = J + 1;
+          J++;
           RWORK[J] = B[JROW][JCOL].imaginary;
         } // 30
       } // 40
@@ -203,8 +203,8 @@ void zlalsa(
         // 60
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
           // 50
-          JREAL = JREAL + 1;
-          JIMAG = JIMAG + 1;
+          JREAL++;
+          JIMAG++;
           BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
         } // 50
       } // 60
@@ -220,7 +220,7 @@ void zlalsa(
         // 80
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
           // 70
-          J = J + 1;
+          J++;
           RWORK[J] = (B[JROW][JCOL]).toDouble();
         } // 70
       } // 80
@@ -243,7 +243,7 @@ void zlalsa(
         // 100
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
           // 90
-          J = J + 1;
+          J++;
           RWORK[J] = B[JROW][JCOL].imaginary;
         } // 90
       } // 100
@@ -267,8 +267,8 @@ void zlalsa(
         // 120
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
           // 110
-          JREAL = JREAL + 1;
-          JIMAG = JIMAG + 1;
+          JREAL++;
+          JIMAG++;
           BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
         } // 110
       } // 120
@@ -311,7 +311,7 @@ void zlalsa(
         NR = IWORK[NDIMR + IM1];
         NLF = IC - NL;
         NRF = IC + 1;
-        J = J - 1;
+        J--;
         zlals0(
             ICOMPQ,
             NL,
@@ -375,7 +375,7 @@ void zlalsa(
       } else {
         SQRE = 1;
       }
-      J = J + 1;
+      J++;
       zlals0(
           ICOMPQ,
           NL,
@@ -435,7 +435,7 @@ void zlalsa(
       // 210
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
         // 200
-        J = J + 1;
+        J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
       } // 200
     } // 210
@@ -458,7 +458,7 @@ void zlalsa(
       // 230
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
         // 220
-        J = J + 1;
+        J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
       } // 220
     } // 230
@@ -482,8 +482,8 @@ void zlalsa(
       // 250
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
         // 240
-        JREAL = JREAL + 1;
-        JIMAG = JIMAG + 1;
+        JREAL++;
+        JIMAG++;
         BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
       } // 240
     } // 250
@@ -499,7 +499,7 @@ void zlalsa(
       // 270
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
         // 260
-        J = J + 1;
+        J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
       } // 260
     } // 270
@@ -522,7 +522,7 @@ void zlalsa(
       // 290
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
         // 280
-        J = J + 1;
+        J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
       } // 280
     } // 290
@@ -546,8 +546,8 @@ void zlalsa(
       // 310
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
         // 300
-        JREAL = JREAL + 1;
-        JIMAG = JIMAG + 1;
+        JREAL++;
+        JIMAG++;
         BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
       } // 300
     } // 310

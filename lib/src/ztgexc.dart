@@ -69,9 +69,9 @@ void ztgexc(
         ILST.value = HERE;
         return;
       }
-      HERE = HERE + 1;
+      HERE++;
     } while (HERE < ILST.value);
-    HERE = HERE - 1;
+    HERE--;
   } else {
     HERE = IFST - 1;
 
@@ -83,9 +83,9 @@ void ztgexc(
         ILST.value = HERE;
         return;
       }
-      HERE = HERE - 1;
+      HERE--;
     } while (HERE >= ILST.value);
-    HERE = HERE + 1;
+    HERE++;
   }
   ILST.value = HERE;
 }

@@ -215,7 +215,7 @@ void dchkhs(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.
@@ -595,15 +595,15 @@ void dchkhs(
         do {
           if (WI1[J] == ZERO) {
             if (NSELR < max(N ~/ 4, 1)) {
-              NSELR = NSELR + 1;
+              NSELR++;
               SELECT[J] = true;
             } else {
               SELECT[J] = false;
             }
-            J = J - 1;
+            J--;
           } else {
             if (NSELC < max(N ~/ 4, 1)) {
-              NSELC = NSELC + 1;
+              NSELC++;
               SELECT[J] = true;
               SELECT[J - 1] = false;
             } else {

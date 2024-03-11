@@ -102,7 +102,7 @@ void main() {
 
   Xj = X[1];
   if (Xj == 0.0) {
-    subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+    subnormalTreatedAs0++;
     if (debug || subnormalTreatedAs0 == 1) {
       print('!! fl( subnormal ) may be 0');
     }
@@ -110,7 +110,7 @@ void main() {
     for (i = 1; i <= N; i++) {
       Xj = X[i];
       if (Xj == 0.0) {
-        subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+        subnormalTreatedAs0++;
         if (debug || subnormalTreatedAs0 == 1) {
           print('!! fl( subnormal ) may be 0');
         }
@@ -122,17 +122,17 @@ void main() {
   for (i = 1; i <= N; i++) {
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [a] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(Xj, 0.0);
         R = (Y).abs();
         if (R != Xj) {
-          caseAFails = caseAFails + 1;
+          caseAFails++;
           if (caseAFails == 1) {
             print('!! Some (x+0*I).abs() differ from (x).abs()');
           }
@@ -147,17 +147,17 @@ void main() {
   for (i = 1; i <= N; i++) {
     Xj = X[i];
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [b] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         Y = Complex(0.0, Xj);
         R = (Y).abs();
         if (R != Xj) {
-          caseBFails = caseBFails + 1;
+          caseBFails++;
           if (caseBFails == 1) {
             print('!! Some (0+x*I).abs() differ from (x).abs()');
           }
@@ -177,18 +177,18 @@ void main() {
       Xj = X[i];
     }
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [c] fl( subnormal ) may be 0');
       }
     } else {
       while (Xj != limX[i]) {
-        nTests = nTests + 1;
+        nTests++;
         answerC = fiveFourth * Xj;
         Y = Complex(threeFourth * Xj, Xj);
         R = (Y).abs();
         if (R != answerC) {
-          caseCFails = caseCFails + 1;
+          caseCFails++;
           if (caseCFails == 1) {
             print('!! Some (x*(3/4+I).abs()) differ from (5/4)*(x).abs()');
           }
@@ -207,7 +207,7 @@ void main() {
       Xj = X[i];
     }
     if (Xj == 0.0) {
-      subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+      subnormalTreatedAs0++;
       if (debug || subnormalTreatedAs0 == 1) {
         print('!! [d] fl( subnormal ) may be 0');
       }
@@ -215,17 +215,17 @@ void main() {
       while (Xj != limX[i]) {
         answerD = (oneHalf * Xj) * sqrt(2.0);
         if (answerD == 0.0) {
-          subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
+          subnormalTreatedAs0++;
           if (debug || subnormalTreatedAs0 == 1) {
             print('!! [d] fl( subnormal ) may be 0');
           }
         } else {
-          nTests = nTests + 1;
+          nTests++;
           Y = Complex(oneHalf * Xj, oneHalf * Xj);
           R = (Y).abs();
           relDiff = (R - answerD).abs() / answerD;
           if (relDiff >= (0.5 * eps)) {
-            caseDFails = caseDFails + 1;
+            caseDFails++;
             if (caseDFails == 1) {
               print('!! Some (x*(1+I).abs()) differ from sqrt(2)*(x).abs()');
             }
@@ -239,11 +239,11 @@ void main() {
 
   // Test (e) Infs
   for (i = 1; i <= nInf; i++) {
-    nTests = nTests + 1;
+    nTests++;
     Y = cInf[i];
     R = (Y).abs();
     if (!(R > huge(0.0))) {
-      caseEFails = caseEFails + 1;
+      caseEFails++;
       print(
           '[i$i] ABS(${Y.real.e8_1}${Y.imaginary.sp}${Y.imaginary.e8_1}*I ) = ${R.e8_1} differs from Inf');
     }
@@ -251,11 +251,11 @@ void main() {
 
   // Test (f) NaNs
   for (i = 1; i <= nNaN; i++) {
-    nTests = nTests + 1;
+    nTests++;
     Y = cNaN[i];
     R = (Y).abs();
     if (R == R) {
-      caseFFails = caseFFails + 1;
+      caseFFails++;
       print(
           '[n$i] ABS(${Y.real.e8_1}${Y.imaginary.sp}${Y.imaginary.e8_1}*I ) = ${R.e8_1} differs from NaN');
     }

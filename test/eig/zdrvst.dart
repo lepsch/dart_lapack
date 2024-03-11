@@ -225,7 +225,7 @@ void zdrvst(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 1210
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -689,7 +689,7 @@ void zdrvst(
             for (I = 1; I <= J; I++) {
               // 180
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 180
           } // 190
         } else {
@@ -699,7 +699,7 @@ void zdrvst(
             for (I = J; I <= N; I++) {
               // 200
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 200
           } // 210
         }
@@ -735,7 +735,7 @@ void zdrvst(
               for (I = 1; I <= J; I++) {
                 // 220
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 220
             } // 230
           } else {
@@ -745,7 +745,7 @@ void zdrvst(
               for (I = J; I <= N; I++) {
                 // 240
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 240
             } // 250
           }
@@ -790,7 +790,7 @@ void zdrvst(
             for (I = 1; I <= J; I++) {
               // 280
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 280
           } // 290
         } else {
@@ -800,7 +800,7 @@ void zdrvst(
             for (I = J; I <= N; I++) {
               // 300
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 300
           } // 310
         }
@@ -864,7 +864,7 @@ void zdrvst(
               for (I = 1; I <= J; I++) {
                 // 320
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 320
             } // 330
           } else {
@@ -874,7 +874,7 @@ void zdrvst(
               for (I = J; I <= N; I++) {
                 // 340
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 340
             } // 350
           }
@@ -915,7 +915,7 @@ void zdrvst(
             for (I = 1; I <= J; I++) {
               // 380
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 380
           } // 390
         } else {
@@ -925,7 +925,7 @@ void zdrvst(
             for (I = J; I <= N; I++) {
               // 400
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 400
           } // 410
         }
@@ -961,7 +961,7 @@ void zdrvst(
               for (I = 1; I <= J; I++) {
                 // 420
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 420
             } // 430
           } else {
@@ -971,7 +971,7 @@ void zdrvst(
               for (I = J; I <= N; I++) {
                 // 440
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 440
             } // 450
           }
@@ -1012,7 +1012,7 @@ void zdrvst(
             for (I = 1; I <= J; I++) {
               // 470
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 470
           } // 480
         } else {
@@ -1022,7 +1022,7 @@ void zdrvst(
             for (I = J; I <= N; I++) {
               // 490
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 490
           } // 500
         }
@@ -1058,7 +1058,7 @@ void zdrvst(
               for (I = 1; I <= J; I++) {
                 // 510
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 510
             } // 520
           } else {
@@ -1068,7 +1068,7 @@ void zdrvst(
               for (I = J; I <= N; I++) {
                 // 530
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 530
             } // 540
           }
@@ -1554,7 +1554,7 @@ void zdrvst(
             for (I = 1; I <= J; I++) {
               // 960
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 960
           } // 970
         } else {
@@ -1564,7 +1564,7 @@ void zdrvst(
             for (I = J; I <= N; I++) {
               // 980
               WORK[INDX] = A[I][J];
-              INDX = INDX + 1;
+              INDX++;
             } // 980
           } // 990
         }
@@ -1598,7 +1598,7 @@ void zdrvst(
               for (I = 1; I <= J; I++) {
                 // 1000
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 1000
             } // 1010
           } else {
@@ -1608,7 +1608,7 @@ void zdrvst(
               for (I = J; I <= N; I++) {
                 // 1020
                 WORK[INDX] = A[I][J];
-                INDX = INDX + 1;
+                INDX++;
               } // 1020
             } // 1030
           }

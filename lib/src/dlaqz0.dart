@@ -317,7 +317,7 @@ void dlaqz0(
           ULP * ((A[ISTOP][ISTOP]).abs() + (A[ISTOP - 1][ISTOP - 1]).abs()),
         )) {
       A[ISTOP][ISTOP - 1] = ZERO;
-      ISTOP = ISTOP - 1;
+      ISTOP--;
       LD = 0;
       ESHIFT = ZERO;
     }
@@ -339,7 +339,7 @@ void dlaqz0(
           ULP * ((A[ISTART][ISTART]).abs() + (A[ISTART + 1][ISTART + 1]).abs()),
         )) {
       A[ISTART + 1][ISTART] = ZERO;
-      ISTART = ISTART + 1;
+      ISTART++;
       LD = 0;
       ESHIFT = ZERO;
     }
@@ -430,7 +430,7 @@ void dlaqz0(
           }
         }
 
-        ISTART2 = ISTART2 + 1;
+        ISTART2++;
       }
       K--;
     }
@@ -505,7 +505,7 @@ void dlaqz0(
       continue;
     }
 
-    LD = LD + 1;
+    LD++;
 
     NS = min(NSHIFTS, ISTOP - ISTART2);
     NS = min(NS, N_UNDEFLATED.value);

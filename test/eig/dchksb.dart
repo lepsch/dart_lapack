@@ -167,7 +167,7 @@ void dchksb(
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         if (!DOTYPE[JTYPE]) continue;
-        NMATS = NMATS + 1;
+        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
@@ -423,7 +423,7 @@ void dchksb(
                   'L'
                   ':\n  3= | A - U S U\' | / ( |A| n ulp )       4= | I - U U\' | / ( n ulp )');
             }
-            NERRS = NERRS + 1;
+            NERRS++;
             NOUNIT.println(
                 ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }

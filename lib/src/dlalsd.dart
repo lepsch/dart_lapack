@@ -231,7 +231,7 @@ void dlalsd(
 
   for (I = 1; I <= NM1; I++) {
     if (((E[I]).abs() < EPS) || (I == NM1)) {
-      NSUB = NSUB + 1;
+      NSUB++;
       IWORK[NSUB] = ST;
 
       // Subproblem found. First determine its size and then
@@ -254,7 +254,7 @@ void dlalsd(
 
         NSIZE = I - ST + 1;
         IWORK[SIZEI + NSUB - 1] = NSIZE;
-        NSUB = NSUB + 1;
+        NSUB++;
         IWORK[NSUB] = N;
         IWORK[SIZEI + NSUB - 1] = 1;
         dcopy(NRHS, B(N, 1).asArray(), LDB, WORK(BX + NM1), N);

@@ -255,7 +255,7 @@ void ddrvsy_aa_2stage(
                   K = J;
                 }
                 if (J < K) {
-                  J = J + 1;
+                  J++;
                   continue;
                 }
                 break;

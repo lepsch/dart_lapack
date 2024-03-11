@@ -351,12 +351,12 @@ void dlasyf_rook(
       JP2 = IPIV[J];
       if (JP2 < 0) {
         JP2 = -JP2;
-        J = J + 1;
+        J++;
         JP1 = -IPIV[J];
         KSTEP = 2;
       }
 
-      J = J + 1;
+      J++;
       if (JP2 != JJ && J <= N) {
         dswap(N - J + 1, A(JP2, J).asArray(), LDA, A(JJ, J).asArray(), LDA);
       }
@@ -638,12 +638,12 @@ void dlasyf_rook(
       JP2 = IPIV[J];
       if (JP2 < 0) {
         JP2 = -JP2;
-        J = J - 1;
+        J--;
         JP1 = -IPIV[J];
         KSTEP = 2;
       }
 
-      J = J - 1;
+      J--;
       if (JP2 != JJ && J >= 1) {
         dswap(J, A(JP2, 1).asArray(), LDA, A(JJ, 1).asArray(), LDA);
       }

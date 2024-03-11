@@ -592,7 +592,7 @@ void dtrevc3(
           }
           ISCOMPLEX[IV - 1] = -IP;
           ISCOMPLEX[IV] = IP;
-          IV = IV - 1;
+          IV--;
           // back-transform and normalization is done below
         }
       }
@@ -651,11 +651,11 @@ void dtrevc3(
               VR(1, KI2), LDVR);
           IV = NB;
         } else {
-          IV = IV - 1;
+          IV--;
         }
       } // ! blocked back-transform;
 
-      IS = IS - 1;
+      IS--;
       if (IP != 0) IS = IS - 1;
     } // 140
   }
@@ -1140,7 +1140,7 @@ void dtrevc3(
           }
           ISCOMPLEX[IV] = IP;
           ISCOMPLEX[IV + 1] = -IP;
-          IV = IV + 1;
+          IV++;
           // back-transform and normalization is done below
         }
       }
@@ -1199,11 +1199,11 @@ void dtrevc3(
               VL(1, KI2 - IV + 1), LDVL);
           IV = 1;
         } else {
-          IV = IV + 1;
+          IV++;
         }
       } // ! blocked back-transform;
 
-      IS = IS + 1;
+      IS++;
       if (IP != 0) IS = IS + 1;
     } // 260
   }

@@ -126,7 +126,7 @@ Future<void> dget36(
         for (I = LOC + 1; I <= N; I++) {
           if (T2[I][LOC] != ZERO) RES = RES + ONE / RES;
         }
-        LOC = LOC + 1;
+        LOC++;
       }
     } while (LOC < N);
     if (RES > RMAX.value) {

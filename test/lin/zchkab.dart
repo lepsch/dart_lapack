@@ -157,7 +157,7 @@
       NMATS = MATMAX;
       I = 3;
       } // 90
-      I = I + 1;
+      I++;
       if ( I > 72 ) {
          NMATS = MATMAX;
          GO TO 130;
@@ -175,7 +175,7 @@
       GO TO 130;
       } // 120
       NMATS = NMATS*10 + IC;
-      I = I + 1;
+      I++;
       if (I > 72) GO TO 130;
       GO TO 100;
       } // 130

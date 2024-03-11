@@ -44,7 +44,7 @@ void zlarf(
     }
     // Look for the last non-zero row in V.
     while (LASTV > 0 && V[I] == Complex.zero) {
-      LASTV = LASTV - 1;
+      LASTV--;
       I = I - INCV;
     }
     if (APPLYLEFT) {

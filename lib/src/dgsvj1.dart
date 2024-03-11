@@ -275,7 +275,7 @@ void dgsvj1(
                   NOTROT = 0;
                   // ROTATED  = ROTATED + 1
                   PSKIPPED = 0;
-                  ISWROT = ISWROT + 1;
+                  ISWROT++;
 
                   if (ROTOK) {
                     AQOAP = AAQQ.value / AAPP.value;
@@ -440,15 +440,15 @@ void dgsvj1(
                   }
                   // end of OK rotation
                 } else {
-                  NOTROT = NOTROT + 1;
+                  NOTROT++;
                   // SKIPPED  = SKIPPED  + 1
-                  PSKIPPED = PSKIPPED + 1;
-                  IJBLSK = IJBLSK + 1;
+                  PSKIPPED++;
+                  IJBLSK++;
                 }
               } else {
-                NOTROT = NOTROT + 1;
-                PSKIPPED = PSKIPPED + 1;
-                IJBLSK = IJBLSK + 1;
+                NOTROT++;
+                PSKIPPED++;
+                IJBLSK++;
               }
 
               // if ( NOTROT >= EMPTSW )  GO TO 2011

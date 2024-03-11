@@ -798,7 +798,7 @@ void _zchk1(
                 _zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET,
                     Complex.zero);
 
-                NC = NC + 1;
+                NC++;
 
                 // Save every datum before calling the
                 // subroutine.
@@ -1125,7 +1125,7 @@ void _zchk2(
               _zmake(
                   'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, Complex.zero);
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the
               // subroutine.
@@ -1481,7 +1481,7 @@ void _zchk3(
                 _zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET,
                     Complex.zero);
 
-                NC = NC + 1;
+                NC++;
 
                 // Save every datum before calling the
                 // subroutine.
@@ -1913,7 +1913,7 @@ void _zchk4(
               _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, C, NMAX, CC, LDC,
                   RESET, Complex.zero);
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the subroutine.
 
@@ -2355,7 +2355,7 @@ void _zchk5(
               _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, C, NMAX, CC, LDC,
                   RESET, Complex.zero);
 
-              NC = NC + 1;
+              NC++;
 
               // Save every datum before calling the subroutine.
 
@@ -3993,7 +3993,7 @@ Complex _zbeg(final Box<bool> RESET) {
   // IC is used to break up the period by skipping 1 value of I or J
   // in 6.
 
-  _zbegIC = _zbegIC + 1;
+  _zbegIC++;
   while (true) {
     _zbegI = _zbegI * _zbegMI;
     _zbegJ = _zbegJ * _zbegMJ;

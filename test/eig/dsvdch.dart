@@ -67,7 +67,7 @@ void dsvdch(
 
       // Merge
 
-      BPNT = BPNT + 1;
+      BPNT++;
       LOWER = (ONE - EPS) * SVD[BPNT] - UNFLEP;
       if (LOWER <= UNFLEP) LOWER = -UPPER;
     }

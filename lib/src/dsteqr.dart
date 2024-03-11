@@ -223,7 +223,7 @@ void dsteqr(
           }
           if (JTOT == NMAXIT) break;
 
-          JTOT = JTOT + 1;
+          JTOT++;
 
           // Form shift.
 
@@ -270,7 +270,7 @@ void dsteqr(
         }
         // Eigenvalue found.
         D[L] = P;
-        L = L + 1;
+        L++;
         if (L <= LEND) continue;
         break;
       }
@@ -300,7 +300,7 @@ void dsteqr(
         if (M == L) {
           // Eigenvalue found.
           D[L] = P;
-          L = L - 1;
+          L--;
           if (L >= LEND) continue;
         } else
 
@@ -323,7 +323,7 @@ void dsteqr(
           L = L - 2;
           if (L >= LEND) continue;
         } else if (JTOT != NMAXIT) {
-          JTOT = JTOT + 1;
+          JTOT++;
 
           // Form shift.
 

@@ -112,7 +112,7 @@ void ztrsen(
     for (K = 1; K <= N; K++) {
       // 20
       if (SELECT[K]) {
-        KS = KS + 1;
+        KS++;
 
         // Swap the K-th eigenvalue to position KS.
 

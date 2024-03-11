@@ -123,7 +123,7 @@ void zlamtsqr(
         I -= (MB - K)) {
       // Multiply Q to the current block of C (I:I+MB,1:N)
 
-      CTR = CTR - 1;
+      CTR--;
       ztpmqrt('L', 'N', MB - K, N, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(I, 1), LDC, WORK, INFO);
     }
@@ -148,7 +148,7 @@ void zlamtsqr(
 
       ztpmqrt('L', 'C', MB - K, N, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(I, 1), LDC, WORK, INFO);
-      CTR = CTR + 1;
+      CTR++;
     }
     if (II <= M) {
       // Multiply Q to the last block of C
@@ -174,7 +174,7 @@ void zlamtsqr(
         I -= (MB - K)) {
       // Multiply Q to the current block of C (1:M,I:I+MB)
 
-      CTR = CTR - 1;
+      CTR--;
       ztpmqrt('R', 'C', M, MB - K, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(1, I), LDC, WORK, INFO);
     }
@@ -199,7 +199,7 @@ void zlamtsqr(
 
       ztpmqrt('R', 'N', M, MB - K, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(1, I), LDC, WORK, INFO);
-      CTR = CTR + 1;
+      CTR++;
     }
     if (II <= N) {
       // Multiply Q to the last block of C

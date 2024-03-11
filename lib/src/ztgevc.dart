@@ -208,7 +208,7 @@ void ztgevc(
         ILCOMP = SELECT[JE];
       }
       if (ILCOMP) {
-        IEIG = IEIG + 1;
+        IEIG++;
 
         if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].toDouble().abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
@@ -375,7 +375,7 @@ void ztgevc(
         ILCOMP = SELECT[JE];
       }
       if (ILCOMP) {
-        IEIG = IEIG - 1;
+        IEIG--;
 
         if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].toDouble().abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector

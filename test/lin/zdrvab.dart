@@ -132,7 +132,7 @@
 
               srnamc.SRNAMT = 'ZCGESV';
 
-               KASE = KASE + 1;
+               KASE++;
 
                zlacpy('Full', M, N, A, LDA, AFAC, LDA );
 
@@ -148,7 +148,7 @@
                if ( INFO.value != IZERO ) {
 
                   if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                  NERRS = NERRS + 1;
+                  NERRS++;
 
                   if ( INFO.value != IZERO && IZERO != 0 ) {
                      NOUT.println( 9988 )'ZCGESV',INFO, IZERO,M,IMAT;

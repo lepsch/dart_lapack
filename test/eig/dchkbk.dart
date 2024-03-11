@@ -37,11 +37,11 @@ Future<void> dchkbk(final Nin NIN, final Nout NOUT) async {
     await NIN.readMatrix(E, N, N);
     await NIN.readMatrix(EIN, N, N);
 
-    KNT = KNT + 1;
+    KNT++;
     dgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO);
 
     if (INFO.value != 0) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[1] = KNT;
     }
 

@@ -181,7 +181,7 @@
                      for (I = 1; I <= min( 2*KD+1, N ); I++) { // 20
                         WORK[IW+I] = ZERO;
                      } // 20
-                     IW = IW + 1;
+                     IW++;
                      I1 = max( IZERO-KD, 1 );
                      I2 = min( IZERO+KD, N );
 

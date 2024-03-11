@@ -167,7 +167,7 @@ void dsterf(
           }
 
           if (JTOT == NMAXIT) break;
-          JTOT = JTOT + 1;
+          JTOT++;
 
           // Form shift.
 
@@ -209,7 +209,7 @@ void dsterf(
         // Eigenvalue found.
 
         D[L] = P;
-        L = L + 1;
+        L++;
       }
     } else {
       // QR Iteration
@@ -245,7 +245,7 @@ void dsterf(
           }
 
           if (JTOT == NMAXIT) break;
-          JTOT = JTOT + 1;
+          JTOT++;
 
           // Form shift.
 
@@ -287,7 +287,7 @@ void dsterf(
 
         // Eigenvalue found.
         D[L] = P;
-        L = L - 1;
+        L--;
       }
     }
 

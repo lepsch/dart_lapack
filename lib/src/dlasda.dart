@@ -314,7 +314,7 @@ void dlasda(
             IWORK(IWK),
             INFO);
       } else {
-        J = J - 1;
+        J--;
         dlasd6(
             ICOMPQ,
             NL,

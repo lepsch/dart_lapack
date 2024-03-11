@@ -169,7 +169,7 @@ void dlatps(
           GROW = ZERO;
         }
         IP = IP + JINC * JLEN;
-        JLEN = JLEN - 1;
+        JLEN--;
       }
       if (!isTooSmall) GROW = XBND;
     } else {
@@ -232,7 +232,7 @@ void dlatps(
 
         TJJ = (AP[IP]).abs();
         if (XJ > TJJ) XBND = XBND * (TJJ / XJ);
-        JLEN = JLEN + 1;
+        JLEN++;
         IP = IP + JINC * JLEN;
       }
       if (!isTooSmall) GROW = min(GROW, XBND);
@@ -502,7 +502,7 @@ void dlatps(
           X[J] = X[J] / TJJS - SUMJ;
         }
         XMAX = max(XMAX, (X[J]).abs());
-        JLEN = JLEN + 1;
+        JLEN++;
         IP = IP + JINC * JLEN;
       }
     }

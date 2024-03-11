@@ -74,7 +74,7 @@ void zlargv(
     var isGZero = false;
     if (SCALE >= SAFMX2) {
       do {
-        COUNT = COUNT + 1;
+        COUNT++;
         FS = FS * SAFMN2.toComplex();
         GS = GS * SAFMN2.toComplex();
         SCALE = SCALE * SAFMN2;
@@ -87,7 +87,7 @@ void zlargv(
         isGZero = true;
       } else {
         do {
-          COUNT = COUNT - 1;
+          COUNT--;
           FS = FS * SAFMX2.toComplex();
           GS = GS * SAFMX2.toComplex();
           SCALE = SCALE * SAFMX2;

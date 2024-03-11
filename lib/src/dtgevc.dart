@@ -285,7 +285,7 @@ void dtgevc(
         if ((S[JE][JE]).abs() <= SAFMIN && (P[JE][JE]).abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
 
-          IEIG = IEIG + 1;
+          IEIG++;
           for (JR = 1; JR <= N; JR++) {
             VL[JR][IEIG] = ZERO;
           }
@@ -540,7 +540,7 @@ void dtgevc(
       // Copy eigenvector to VL, back transforming if
       // HOWMNY='B'.
 
-      IEIG = IEIG + 1;
+      IEIG++;
       if (ILBACK) {
         for (JW = 0; JW <= NW - 1; JW++) {
           dgemv('N', N, N + 1 - JE, ONE, VL(1, JE), LDVL,
@@ -623,7 +623,7 @@ void dtgevc(
         if ((S[JE][JE]).abs() <= SAFMIN && (P[JE][JE]).abs() <= SAFMIN) {
           // Singular matrix pencil -- unit eigenvector
 
-          IEIG = IEIG - 1;
+          IEIG--;
           for (JR = 1; JR <= N; JR++) {
             VR[JR][IEIG] = ZERO;
           }

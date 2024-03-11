@@ -292,7 +292,7 @@ void dlarrf(
       RSIGMA = min(RSIGMA + RDELTA, RSIGMA + RDMAX);
       LDELTA = TWO * LDELTA;
       RDELTA = TWO * RDELTA;
-      KTRY = KTRY + 1;
+      KTRY++;
     } else {
       // None of the representations investigated satisfied our
       // criteria. Take the best one we found.

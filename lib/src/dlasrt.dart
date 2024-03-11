@@ -47,7 +47,7 @@ void dlasrt(
   do {
     START = STACK[1][STKPNT];
     ENDD = STACK[2][STKPNT];
-    STKPNT = STKPNT - 1;
+    STKPNT--;
     if (ENDD - START <= SELECT && ENDD - START > 0) {
       // Do Insertion sort on D[ START:ENDD ]
 
@@ -118,10 +118,10 @@ void dlasrt(
         J = ENDD + 1;
         while (true) {
           do {
-            J = J - 1;
+            J--;
           } while (D[J] < DMNMX);
           do {
-            I = I + 1;
+            I++;
           } while (D[I] > DMNMX);
           if (I < J) {
             TMP = D[I];
@@ -132,17 +132,17 @@ void dlasrt(
           break;
         }
         if (J - START > ENDD - J - 1) {
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = START;
           STACK[2][STKPNT] = J;
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = J + 1;
           STACK[2][STKPNT] = ENDD;
         } else {
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = J + 1;
           STACK[2][STKPNT] = ENDD;
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = START;
           STACK[2][STKPNT] = J;
         }
@@ -153,10 +153,10 @@ void dlasrt(
         J = ENDD + 1;
         while (true) {
           do {
-            J = J - 1;
+            J--;
           } while (D[J] > DMNMX);
           do {
-            I = I + 1;
+            I++;
           } while (D[I] < DMNMX);
           if (I < J) {
             TMP = D[I];
@@ -167,17 +167,17 @@ void dlasrt(
           break;
         }
         if (J - START > ENDD - J - 1) {
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = START;
           STACK[2][STKPNT] = J;
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = J + 1;
           STACK[2][STKPNT] = ENDD;
         } else {
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = J + 1;
           STACK[2][STKPNT] = ENDD;
-          STKPNT = STKPNT + 1;
+          STKPNT++;
           STACK[1][STKPNT] = START;
           STACK[2][STKPNT] = J;
         }

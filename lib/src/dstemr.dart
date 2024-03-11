@@ -469,7 +469,7 @@ void dstemr(
         while (WEND < M.value) {
           if (IWORK[IINDBL + WEND] != JBLK) break;
 
-          WEND = WEND + 1;
+          WEND++;
         }
         if (WEND < WBEGIN) {
           IBEGIN = IEND + 1;

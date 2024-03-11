@@ -200,7 +200,7 @@ void dchksb2stg(
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         if (!DOTYPE[JTYPE]) continue;
-        NMATS = NMATS + 1;
+        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
@@ -563,7 +563,7 @@ void dchksb2stg(
               NOUNIT.println(
                   '\n Tests performed:   (S is Tridiag,  U is orthogonal\',\n${' ' * 20} means transpose.\n UPLO=\'U\':\n  1= | A - U S U\' | / ( |A| n ulp )       2= | I - U U\' | / ( n ulp )\n UPLO=\'L\':\n  3= | A - U S U\' | / ( |A| n ulp )       4= | I - U U\' | / ( n ulp )\n Eig check:\n  5= | D1 - D2 | / ( |D1| ulp )           6= | D1 - D3 | / ( |D1| ulp )          ');
             }
-            NERRS = NERRS + 1;
+            NERRS++;
             NOUNIT.println(
                 ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }

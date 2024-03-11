@@ -520,7 +520,7 @@ void dgejsv(
     TEMP1.value = sqrt(N.toDouble()) * EPSLN;
     for (p = 2; p <= N; p++) {
       if (A[p][p].abs() >= (TEMP1.value * A[1][1].abs())) {
-        NR = NR + 1;
+        NR++;
       } else {
         break;
       }
@@ -534,7 +534,7 @@ void dgejsv(
       if ((A[p][p].abs() < (EPSLN * A[p - 1][p - 1].abs())) ||
           (A[p][p].abs() < SMALL) ||
           (L2KILL && (A[p][p].abs() < TEMP1.value))) break;
-      NR = NR + 1;
+      NR++;
     }
   } else {
     // The goal is high relative accuracy. However, if the matrix
@@ -550,7 +550,7 @@ void dgejsv(
           (L2KILL && (A[p][p].abs() < TEMP1.value))) {
         break;
       }
-      NR = NR + 1;
+      NR++;
     }
   }
 

@@ -459,9 +459,9 @@ void dstebz(
     if (IDISCL > 0 || IDISCU > 0) {
       for (JE = 1; JE <= M.value; JE++) {
         if (W[JE] <= WLU && IDISCL > 0) {
-          IDISCL = IDISCL - 1;
+          IDISCL--;
         } else if (W[JE] >= WUL && IDISCU > 0) {
-          IDISCU = IDISCU - 1;
+          IDISCU--;
         } else {
           IM.value = IM.value + 1;
           W[IM.value] = W[JE];

@@ -52,17 +52,17 @@ Future<void> dchkgl(final Nin NIN, final Nout NOUT) async {
     ANORM = dlange('M', N, N, A, LDA, WORK);
     BNORM = dlange('M', N, N, B, LDB, WORK);
 
-    KNT = KNT + 1;
+    KNT++;
 
     dggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO);
 
     if (INFO.value != 0) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[1] = KNT;
     }
 
     if (ILO.value != ILOIN || IHI.value != IHIIN) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[2] = KNT;
     }
 

@@ -65,11 +65,11 @@ void zsyconvf_rook(
           E[I] = A[I - 1][I];
           E[I - 1] = Complex.zero;
           A[I - 1][I] = Complex.zero;
-          I = I - 1;
+          I--;
         } else {
           E[I] = Complex.zero;
         }
-        I = I - 1;
+        I--;
       }
 
       // Convert PERMUTATIONS
@@ -109,9 +109,9 @@ void zsyconvf_rook(
                   A(IP2, I + 1).asArray(), LDA);
             }
           }
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
     } else {
       // Revert A (A is upper)
@@ -141,7 +141,7 @@ void zsyconvf_rook(
           // Swap rows i-1 and IPIV(i-1) and i and IPIV(i)
           // in A(1:i,N-i:N)
 
-          I = I + 1;
+          I++;
           IP = -IPIV[I];
           IP2 = -IPIV[I - 1];
           if (I < N) {
@@ -155,7 +155,7 @@ void zsyconvf_rook(
             }
           }
         }
-        I = I + 1;
+        I++;
       }
 
       // Revert VALUE
@@ -166,9 +166,9 @@ void zsyconvf_rook(
       while (I > 1) {
         if (IPIV[I] < 0) {
           A[I - 1][I] = E[I];
-          I = I - 1;
+          I--;
         }
-        I = I - 1;
+        I--;
       }
 
       // End A is UPPER
@@ -190,11 +190,11 @@ void zsyconvf_rook(
           E[I] = A[I + 1][I];
           E[I + 1] = Complex.zero;
           A[I + 1][I] = Complex.zero;
-          I = I + 1;
+          I++;
         } else {
           E[I] = Complex.zero;
         }
-        I = I + 1;
+        I++;
       }
 
       // Convert PERMUTATIONS
@@ -232,9 +232,9 @@ void zsyconvf_rook(
                   I - 1, A(I + 1, 1).asArray(), LDA, A(IP2, 1).asArray(), LDA);
             }
           }
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
     } else {
       // Revert A (A is lower)
@@ -263,7 +263,7 @@ void zsyconvf_rook(
           // Swap rows i+1 and IPIV(i+1) and i and IPIV(i)
           // in A(i:N,1:i-1)
 
-          I = I - 1;
+          I--;
           IP = -IPIV[I];
           IP2 = -IPIV[I + 1];
           if (I > 1) {
@@ -276,7 +276,7 @@ void zsyconvf_rook(
             }
           }
         }
-        I = I - 1;
+        I--;
       }
 
       // Revert VALUE
@@ -287,9 +287,9 @@ void zsyconvf_rook(
       while (I <= N - 1) {
         if (IPIV[I] < 0) {
           A[I + 1][I] = E[I];
-          I = I + 1;
+          I++;
         }
-        I = I + 1;
+        I++;
       }
     }
 

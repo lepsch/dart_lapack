@@ -168,7 +168,7 @@ void dtrsyl3(
   IWORK[NBA + 1] = M + 1;
   if (IWORK[NBA] >= IWORK[NBA + 1]) {
     IWORK[NBA] = IWORK[NBA + 1];
-    NBA = NBA - 1;
+    NBA--;
   }
 
   // Partition B such that 2-by-2 blocks on the diagonal are not split
@@ -204,7 +204,7 @@ void dtrsyl3(
   IWORK[PC + NBB + 1] = N + 1;
   if (IWORK[PC + NBB] >= IWORK[PC + NBB + 1]) {
     IWORK[PC + NBB] = IWORK[PC + NBB + 1];
-    NBB = NBB - 1;
+    NBB--;
   }
 
   // Set local scaling factors - must never attain zero.

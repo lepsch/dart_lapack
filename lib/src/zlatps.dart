@@ -185,7 +185,7 @@ void zlatps(
           GROW = ZERO;
         }
         IP = IP + JINC * JLEN;
-        JLEN = JLEN - 1;
+        JLEN--;
       } // 40
       if (!isTooSmall) {
         GROW = XBND;
@@ -262,7 +262,7 @@ void zlatps(
 
           XBND = ZERO;
         }
-        JLEN = JLEN + 1;
+        JLEN++;
         IP = IP + JINC * JLEN;
       } // 70
       if (!isTooSmall) {
@@ -544,7 +544,7 @@ void zlatps(
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
         XMAX = max(XMAX, CABS1(X[J]));
-        JLEN = JLEN + 1;
+        JLEN++;
         IP = IP + JINC * JLEN;
       } // 170
     } else {
@@ -672,7 +672,7 @@ void zlatps(
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
         XMAX = max(XMAX, CABS1(X[J]));
-        JLEN = JLEN + 1;
+        JLEN++;
         IP = IP + JINC * JLEN;
       } // 220
     }

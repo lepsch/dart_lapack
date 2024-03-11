@@ -106,7 +106,7 @@ void dtfttp(
           for (I = J; I <= N - 1; I++) {
             IJ = I + JP;
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JP = JP + LDA;
         }
@@ -114,7 +114,7 @@ void dtfttp(
           for (J = 1 + I; J <= N2; J++) {
             IJ = I + J * LDA;
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       } else {
@@ -127,7 +127,7 @@ void dtfttp(
           IJ = N2 + J;
           for (I = 0; I <= J; I++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
             IJ = IJ + LDA;
           }
         }
@@ -136,7 +136,7 @@ void dtfttp(
           IJ = JS;
           for (IJ = JS; IJ <= JS + J; IJ++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
@@ -155,14 +155,14 @@ void dtfttp(
               LDA < 0 ? IJ >= N * LDA - 1 : IJ <= N * LDA - 1;
               IJ += LDA) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
         JS = 1;
         for (J = 0; J <= N2 - 1; J++) {
           for (IJ = JS; IJ <= JS + N2 - J - 1; IJ++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA + 1;
         }
@@ -176,14 +176,14 @@ void dtfttp(
         for (J = 0; J <= N1 - 1; J++) {
           for (IJ = JS; IJ <= JS + J; IJ++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
         for (I = 0; I <= N1; I++) {
           for (IJ = I; IJ <= I + (N1 + I) * LDA; IJ += LDA) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       }
@@ -205,7 +205,7 @@ void dtfttp(
           for (I = J; I <= N - 1; I++) {
             IJ = 1 + I + JP;
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JP = JP + LDA;
         }
@@ -213,7 +213,7 @@ void dtfttp(
           for (J = I; J <= K - 1; J++) {
             IJ = I + J * LDA;
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       } else {
@@ -226,7 +226,7 @@ void dtfttp(
           IJ = K + 1 + J;
           for (I = 0; I <= J; I++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
             IJ = IJ + LDA;
           }
         }
@@ -235,7 +235,7 @@ void dtfttp(
           IJ = JS;
           for (IJ = JS; IJ <= JS + J; IJ++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
@@ -252,14 +252,14 @@ void dtfttp(
         for (I = 0; I <= K - 1; I++) {
           for (IJ = I + (I + 1) * LDA; IJ <= (N + 1) * LDA - 1; IJ += LDA) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
         JS = 0;
         for (J = 0; J <= K - 1; J++) {
           for (IJ = JS; IJ <= JS + K - J - 1; IJ++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA + 1;
         }
@@ -273,7 +273,7 @@ void dtfttp(
         for (J = 0; J <= K - 1; J++) {
           for (IJ = JS; IJ <= JS + J; IJ++) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
           JS = JS + LDA;
         }
@@ -282,7 +282,7 @@ void dtfttp(
               LDA < 0 ? IJ >= I + (K + I) * LDA : IJ <= I + (K + I) * LDA;
               IJ += LDA) {
             AP[IJP] = ARF[IJ];
-            IJP = IJP + 1;
+            IJP++;
           }
         }
       }

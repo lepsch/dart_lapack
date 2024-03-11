@@ -215,7 +215,7 @@ void zgghd3(
             WORK[JJ + NBLST] = CTEMP * TEMP - S.value * WORK[JJ];
             WORK[JJ] = S.value.conjugate() * TEMP + CTEMP * WORK[JJ];
           }
-          LEN = LEN + 1;
+          LEN++;
           PPW = PPW - NBLST - 1;
         }
 
@@ -234,7 +234,7 @@ void zgghd3(
               WORK[JJ + 2 * NNB] = CTEMP * TEMP - S.value * WORK[JJ];
               WORK[JJ] = S.value.conjugate() * TEMP + CTEMP * WORK[JJ];
             }
-            LEN = LEN + 1;
+            LEN++;
             PPW = PPW - 2 * NNB - 1;
           }
           PPWO = PPWO + 4 * NNB * NNB;
@@ -336,7 +336,7 @@ void zgghd3(
           PPW = PW + LEN;
           for (I = JROW; I <= JROW + NBLST - LEN - 1; I++) {
             WORK[PPW] = A[I][J + 1];
-            PPW = PPW + 1;
+            PPW++;
           }
           ztrmv('Lower', 'Conjugate', 'Non-unit', NBLST - LEN,
               WORK(LEN * NBLST + 1).asMatrix(NBLST), NBLST, WORK(PW + LEN), 1);
@@ -355,7 +355,7 @@ void zgghd3(
           PPW = PW;
           for (I = JROW; I <= JROW + NBLST - 1; I++) {
             A[I][J + 1] = WORK[PPW];
-            PPW = PPW + 1;
+            PPW++;
           }
 
           // Multiply with the other accumulated unitary
@@ -379,12 +379,12 @@ void zgghd3(
             PPW = PW + LEN;
             for (I = JROW; I <= JROW + NNB - 1; I++) {
               WORK[PPW] = A[I][J + 1];
-              PPW = PPW + 1;
+              PPW++;
             }
             PPW = PW;
             for (I = JROW + NNB; I <= JROW + NNB + LEN - 1; I++) {
               WORK[PPW] = A[I][J + 1];
-              PPW = PPW + 1;
+              PPW++;
             }
             ztrmv('Upper', 'Conjugate', 'Non-unit', LEN,
                 WORK(PPWO + NNB).asMatrix(2 * NNB), 2 * NNB, WORK(PW), 1);
@@ -424,7 +424,7 @@ void zgghd3(
             PPW = PW;
             for (I = JROW; I <= JROW + LEN + NNB - 1; I++) {
               A[I][J + 1] = WORK[PPW];
-              PPW = PPW + 1;
+              PPW++;
             }
             PPWO = PPWO + 4 * NNB * NNB;
           }
@@ -606,7 +606,7 @@ void zgghd3(
               WORK[JJ + NBLST] = CTEMP * TEMP - S.value.conjugate() * WORK[JJ];
               WORK[JJ] = S.value * TEMP + CTEMP * WORK[JJ];
             }
-            LEN = LEN + 1;
+            LEN++;
             PPW = PPW - NBLST - 1;
           }
 
@@ -628,7 +628,7 @@ void zgghd3(
                     CTEMP * TEMP - S.value.conjugate() * WORK[JJ];
                 WORK[JJ] = S.value * TEMP + CTEMP * WORK[JJ];
               }
-              LEN = LEN + 1;
+              LEN++;
               PPW = PPW - 2 * NNB - 1;
             }
             PPWO = PPWO + 4 * NNB * NNB;

@@ -170,7 +170,7 @@ void dlasd2(
     if ((Z[J]).abs() <= TOL) {
       // Deflate due to small z component.
 
-      K2 = K2 - 1;
+      K2--;
       IDXP[K2] = J;
       COLTYP[J] = 4;
       if (J == N) {
@@ -186,12 +186,12 @@ void dlasd2(
   if (!deflate) {
     J = JPREV;
     while (true) {
-      J = J + 1;
+      J++;
       if (J > N) break; // 110;
       if ((Z[J]).abs() <= TOL) {
         // Deflate due to small z component.
 
-        K2 = K2 - 1;
+        K2--;
         IDXP[K2] = J;
         COLTYP[J] = 4;
       } else {
@@ -218,10 +218,10 @@ void dlasd2(
           IDXJP = IDXQ[IDX[JPREV] + 1];
           IDXJ = IDXQ[IDX[J] + 1];
           if (IDXJP <= NLP1) {
-            IDXJP = IDXJP - 1;
+            IDXJP--;
           }
           if (IDXJ <= NLP1) {
-            IDXJ = IDXJ - 1;
+            IDXJ--;
           }
           drot(N, U(1, IDXJP).asArray(), 1, U(1, IDXJ).asArray(), 1, C, S);
           drot(M, VT(IDXJP, 1).asArray(), LDVT, VT(IDXJ, 1).asArray(), LDVT, C,
@@ -230,7 +230,7 @@ void dlasd2(
             COLTYP[J] = 3;
           }
           COLTYP[JPREV] = 4;
-          K2 = K2 - 1;
+          K2--;
           IDXP[K2] = JPREV;
           JPREV = J;
         } else {
@@ -296,7 +296,7 @@ void dlasd2(
     DSIGMA[J] = D[JP];
     IDXJ = IDXQ[IDX[IDXP[IDXC[J]]] + 1];
     if (IDXJ <= NLP1) {
-      IDXJ = IDXJ - 1;
+      IDXJ--;
     }
     dcopy(N, U(1, IDXJ).asArray(), 1, U2(1, J).asArray(), 1);
     dcopy(M, VT(IDXJ, 1).asArray(), LDVT, VT2(J, 1).asArray(), LDVT2);

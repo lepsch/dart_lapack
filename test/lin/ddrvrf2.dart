@@ -132,7 +132,7 @@ void ddrvrf2(
           }
           NOUT.println(
               '      Error in RFP,conversion routines N=${N.i5} UPLO=\'${UPLO.a1}\', FORM =\'${CFORM.a1}\'');
-          NERRS = NERRS + 1;
+          NERRS++;
         }
       }
     }

@@ -44,7 +44,7 @@ void dlarfg(
 
     RSAFMN = ONE / SAFMIN;
     do {
-      KNT = KNT + 1;
+      KNT++;
       dscal(N - 1, RSAFMN, X, INCX);
       BETA = BETA * RSAFMN;
       ALPHA.value = ALPHA.value * RSAFMN;

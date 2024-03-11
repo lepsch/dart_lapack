@@ -230,7 +230,7 @@ void ddrges(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.
@@ -515,7 +515,7 @@ void ddrges(
           for (I = 1; I <= N; I++) {
             if (dlctes(ALPHAR[I], ALPHAI[I], BETA[I]) ||
                 dlctes(ALPHAR[I], -ALPHAI[I], BETA[I])) {
-              KNTEIG = KNTEIG + 1;
+              KNTEIG++;
             }
             if (I < N) {
               if ((dlctes(ALPHAR[I + 1], ALPHAI[I + 1], BETA[I + 1]) ||
@@ -560,7 +560,7 @@ void ddrges(
             NOUNIT.println(
                 '\n Tests performed:  (S is Schur, T is triangular, Q and Z are orthogonal,\n${' ' * 19}l and r are the appropriate left and right\n${' ' * 19}eigenvectors, resp., a is alpha, b is beta, and\n${' ' * 19}\' means transpose.)\n Without ordering: \n  1 = | A - Q S Z\' | / ( |A| n ulp )      2 = | B - Q T Z\' | / ( |B| n ulp )\n  3 = | I - QQ\' | / ( n ulp )             4 = | I - ZZ\' | / ( n ulp )\n  5 = A is in Schur form S\n  6 = difference between (alpha,beta) and diagonals of (S,T)\n With ordering: \n  7 = | (A,B) - Q (S,T) Z\' | / ( |(A,B)| n ulp )  \n  8 = | I - QQ\' | / ( n ulp )            9 = | I - ZZ\' | / ( n ulp )\n 10 = A is in Schur form S\n 11 = difference between (alpha,beta) and diagonals of (S,T)\n 12 = SDIM is the correct number of selected eigenvalues\n');
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}');

@@ -141,7 +141,7 @@ void dlaebz(
 
             AB[JI][1] = C[JI];
           } else {
-            KLNEW = KLNEW + 1;
+            KLNEW++;
             if (KLNEW <= MMAX) {
               // Eigenvalue in both intervals -- add upper to
               // queue.
@@ -194,7 +194,7 @@ void dlaebz(
         for (J = 2; J <= N; J++) {
           TMP2 = D[J] - E2[J - 1] / TMP2 - TMP1;
           if (TMP2 <= PIVMIN) {
-            ITMP1 = ITMP1 + 1;
+            ITMP1++;
             TMP2 = min(TMP2, -PIVMIN);
           }
         }
@@ -222,7 +222,7 @@ void dlaebz(
           } else if (KLNEW < MMAX) {
             // Eigenvalue in both intervals -- add upper to queue.
 
-            KLNEW = KLNEW + 1;
+            KLNEW++;
             AB[KLNEW][2] = AB[JI][2];
             NAB[KLNEW][2] = NAB[JI][2];
             AB[KLNEW][1] = TMP1;
@@ -280,7 +280,7 @@ void dlaebz(
             NVAL[KFNEW] = ITMP1;
           }
         }
-        KFNEW = KFNEW + 1;
+        KFNEW++;
       }
     }
     KF = KFNEW;

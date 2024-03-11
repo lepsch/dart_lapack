@@ -199,7 +199,7 @@ void ztgsyl(
   I = 1;
   do {
     if (I > M) break;
-    P = P + 1;
+    P++;
     IWORK[P] = I;
     I = I + MB;
   } while (I < M);
@@ -214,7 +214,7 @@ void ztgsyl(
   do {
     if (J > N) break;
 
-    Q = Q + 1;
+    Q++;
     IWORK[Q] = J;
     J = J + NB;
   } while (J < N);

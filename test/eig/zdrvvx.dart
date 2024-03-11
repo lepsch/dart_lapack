@@ -527,7 +527,7 @@ Future<void> zdrvvx(
       // Read input data until N=0
       if (N == 0) break;
 
-      JTYPE = JTYPE + 1;
+      JTYPE++;
       ISEED[1] = JTYPE;
       await NIUNIT.readMatrix(A, N, N);
       for (I = 1; I <= N; I++) {

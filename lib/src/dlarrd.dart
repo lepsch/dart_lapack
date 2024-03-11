@@ -470,7 +470,7 @@ void dlarrd(
         // Remove some of the smallest eigenvalues from the left so that
         // at the end IDISCL =0. Move all eigenvalues up to the left.
         if (W[JE] <= WLU && IDISCL > 0) {
-          IDISCL = IDISCL - 1;
+          IDISCL--;
         } else {
           IM.value = IM.value + 1;
           W[IM.value] = W[JE];
@@ -487,7 +487,7 @@ void dlarrd(
       IM.value = M.value + 1;
       for (JE = M.value; JE >= 1; JE--) {
         if (W[JE] >= WUL && IDISCU > 0) {
-          IDISCU = IDISCU - 1;
+          IDISCU--;
         } else {
           IM.value = IM.value - 1;
           W[IM.value] = W[JE];
@@ -498,7 +498,7 @@ void dlarrd(
       }
       JEE = 0;
       for (JE = IM.value; JE <= M.value; JE++) {
-        JEE = JEE + 1;
+        JEE++;
         W[JEE] = W[JE];
         WERR[JEE] = WERR[JE];
         INDEXW[JEE] = INDEXW[JE];

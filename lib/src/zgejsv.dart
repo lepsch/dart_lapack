@@ -900,7 +900,7 @@ void zgejsv(
     for (p = 2; p <= N; p++) {
       // 3001
       if ((A[p][p]).abs() >= (TEMP1.value * (A[1][1]).abs())) {
-        NR = NR + 1;
+        NR++;
       } else {
         break;
       }
@@ -915,7 +915,7 @@ void zgejsv(
       if (((A[p][p]).abs() < (EPSLN * (A[p - 1][p - 1]).abs())) ||
           ((A[p][p]).abs() < SMALL) ||
           (L2KILL && ((A[p][p]).abs() < TEMP1.value))) break;
-      NR = NR + 1;
+      NR++;
     } // 3401
   } else {
     // The goal is high relative accuracy. However, if the matrix
@@ -930,7 +930,7 @@ void zgejsv(
       // 3301
       if (((A[p][p]).abs() < SMALL) ||
           (L2KILL && ((A[p][p]).abs() < TEMP1.value))) break;
-      NR = NR + 1;
+      NR++;
     } // 3301
   }
 

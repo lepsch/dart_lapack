@@ -54,7 +54,7 @@ Future<void> dchkgk(final Nin NIN, final Nout NOUT) async {
     await NIN.readMatrix(B, N, N);
     await NIN.readMatrix(VL, N, M);
     await NIN.readMatrix(VR, N, M);
-    KNT = KNT + 1;
+    KNT++;
 
     ANORM = dlange('M', N, N, A, LDA, WORK.asArray());
     BNORM = dlange('M', N, N, B, LDB, WORK.asArray());
@@ -65,7 +65,7 @@ Future<void> dchkgk(final Nin NIN, final Nout NOUT) async {
     dggbal(
         'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK.asArray(), INFO);
     if (INFO.value != 0) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[1] = KNT;
     }
 
@@ -75,14 +75,14 @@ Future<void> dchkgk(final Nin NIN, final Nout NOUT) async {
     dggbak(
         'B', 'L', N, ILO.value, IHI.value, LSCALE, RSCALE, M, VL, LDVL, INFO);
     if (INFO.value != 0) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[2] = KNT;
     }
 
     dggbak(
         'B', 'R', N, ILO.value, IHI.value, LSCALE, RSCALE, M, VR, LDVR, INFO);
     if (INFO.value != 0) {
-      NINFO = NINFO + 1;
+      NINFO++;
       LMAX[3] = KNT;
     }
 

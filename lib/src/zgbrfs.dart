@@ -192,7 +192,7 @@ void zgbrfs(
             TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N, INFO);
         zaxpy(N, Complex.one, WORK, 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

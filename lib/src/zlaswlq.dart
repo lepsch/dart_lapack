@@ -97,7 +97,7 @@ void zlaswlq(
 
     ztplqt(M, NB - M, 0, MB, A(1, 1), LDA, A(1, I), LDA, T(1, CTR * M + 1), LDT,
         WORK, INFO);
-    CTR = CTR + 1;
+    CTR++;
   }
 
   // Compute the QR factorization of the last block A(1:M,II:N)

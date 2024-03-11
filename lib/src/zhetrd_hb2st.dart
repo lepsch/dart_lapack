@@ -386,7 +386,7 @@ void zhetrd_hb2st(
                 WORK(INDW));
 // #endif
             if (BLKLASTIND >= (N - 1)) {
-              STT = STT + 1;
+              STT++;
               break;
             }
           } // 140

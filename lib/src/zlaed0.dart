@@ -105,7 +105,7 @@ void zlaed0(
         IWORK[2 * J] = (IWORK[J] + 1) ~/ 2;
         IWORK[2 * J - 1] = IWORK[J] ~/ 2;
       } // 20
-      TLVLS = TLVLS + 1;
+      TLVLS++;
       SUBPBS = 2 * SUBPBS;
       continue repeat;
     }
@@ -173,7 +173,7 @@ void zlaed0(
     zlacrm(QSIZ, MATSIZ, Q(1, SUBMAT), LDQ, RWORK(LL).asMatrix(MATSIZ), MATSIZ,
         QSTORE(1, SUBMAT), LDQS, RWORK(IWREM));
     IWORK[IQPTR + CURR + 1] = IWORK[IQPTR + CURR] + pow(MATSIZ, 2).toInt();
-    CURR = CURR + 1;
+    CURR++;
     if (INFO.value > 0) {
       INFO.value = SUBMAT * (N + 1) + SUBMAT + MATSIZ - 1;
       return;
@@ -205,7 +205,7 @@ void zlaed0(
         SUBMAT = IWORK[I] + 1;
         MATSIZ = IWORK[I + 2] - IWORK[I];
         MSD2 = MATSIZ ~/ 2;
-        CURPRB = CURPRB + 1;
+        CURPRB++;
       }
 
       // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
@@ -245,7 +245,7 @@ void zlaed0(
       IWORK[I ~/ 2 + 1] = IWORK[I + 2];
     } // 90
     SUBPBS = SUBPBS ~/ 2;
-    CURLVL = CURLVL + 1;
+    CURLVL++;
     //  GO TO 80;
   }
 

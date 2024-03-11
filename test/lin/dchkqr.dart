@@ -176,7 +176,7 @@ void dchkqr(
               dqrt01p(M, N, A.asMatrix(), AF.asMatrix(), AQ.asMatrix(),
                   AR.asMatrix(), LDA, TAU, WORK, LWORK, RWORK, RESULT(8));
               if (!dgennd(M, N, AF.asMatrix(), LDA)) RESULT[9] = 2 * THRESH;
-              NT = NT + 1;
+              NT++;
             } else if (M >= N) {
               // Test DORGQR, using factorization
               // returned by DQRT01
@@ -240,7 +240,7 @@ void dchkqr(
 
                 dget02('No transpose', M, N, NRHS, A.asMatrix(), LDA,
                     X.asMatrix(), LDA, B.asMatrix(), LDA, RWORK, RESULT(7));
-                NT = NT + 1;
+                NT++;
               }
             }
 

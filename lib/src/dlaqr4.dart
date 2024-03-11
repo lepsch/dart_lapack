@@ -258,14 +258,14 @@ void dlaqr4(
         } else {
           KWTOP = KBOT - NW + 1;
           if ((H[KWTOP][KWTOP - 1]).abs() > (H[KWTOP - 1][KWTOP - 2]).abs()) {
-            NW = NW + 1;
+            NW++;
           }
         }
       }
       if (NDFL < KEXNW) {
         NDEC = -1;
       } else if (NDEC >= 0 || NW >= NWUPBD) {
-        NDEC = NDEC + 1;
+        NDEC++;
         if (NW - NDEC < 2) NDEC = 0;
         NW = NW - NDEC;
       }
@@ -518,7 +518,7 @@ void dlaqr4(
       if (LD.value > 0) {
         NDFL = 1;
       } else {
-        NDFL = NDFL + 1;
+        NDFL++;
       }
 
       // ==== End of main loop ====

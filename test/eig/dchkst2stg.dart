@@ -241,7 +241,7 @@ void dchkst2stg(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -557,7 +557,7 @@ void dchkst2stg(
         I = 0;
         for (JC = 1; JC <= N; JC++) {
           for (JR = 1; JR <= JC; JR++) {
-            I = I + 1;
+            I++;
             AP[I] = A[JR][JC];
           }
         }
@@ -603,7 +603,7 @@ void dchkst2stg(
         I = 0;
         for (JC = 1; JC <= N; JC++) {
           for (JR = JC; JR <= N; JR++) {
-            I = I + 1;
+            I++;
             AP[I] = A[JR][JC];
           }
         }
@@ -1581,7 +1581,7 @@ void dchkst2stg(
 
             NOUNIT.println('Test performed:  see DCHKST2STG for details.');
           }
-          NERRS = NERRS + 1;
+          NERRS++;
           NOUNIT.println(
               ' N=${N.i5}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
         }

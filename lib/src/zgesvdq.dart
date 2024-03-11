@@ -490,7 +490,7 @@ void zgesvdq(
     RTMP.value = sqrt(N.toDouble()) * EPSLN;
     for (p = 2; p <= N; p++) {
       if ((A[p][p]).abs() < (RTMP.value * (A[1][1]).abs())) break;
-      NR = NR + 1;
+      NR++;
     }
   } else if (ACCLM) {
     // .. similarly as above, only slightly more gentle (less aggressive).
@@ -503,7 +503,7 @@ void zgesvdq(
     for (p = 2; p <= N; p++) {
       if (((A[p][p]).abs() < (EPSLN * (A[p - 1][p - 1]).abs())) ||
           ((A[p][p]).abs() < SFMIN)) break;
-      NR = NR + 1;
+      NR++;
     }
   } else {
     // .. RRQR not authorized to determine numerical rank except in the
@@ -513,7 +513,7 @@ void zgesvdq(
     NR = 1;
     for (p = 2; p <= N; p++) {
       if ((A[p][p]).abs() == ZERO) break;
-      NR = NR + 1;
+      NR++;
     }
 
     if (CONDA) {
@@ -1010,7 +1010,7 @@ void zgesvdq(
   p = NR;
   for (q = p; q >= 1; q--) {
     if (S[q] > ZERO) break;
-    NR = NR - 1;
+    NR--;
   }
   // } // 4002x
 

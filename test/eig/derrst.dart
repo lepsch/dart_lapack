@@ -397,7 +397,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     infoc.INFOT = 1;
     dsterf(-1, D, E, INFO);
     chkxer('DSTERF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    NT = NT + 1;
+    NT++;
 
     // DSTEDC
 

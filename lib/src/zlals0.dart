@@ -174,7 +174,7 @@ void zlals0(
           // 60
           for (JROW = 1; JROW <= K; JROW++) {
             // 50
-            I = I + 1;
+            I++;
             RWORK[I] = (BX[JROW][JCOL]).toDouble();
           } // 50
         } // 60
@@ -185,7 +185,7 @@ void zlals0(
           // 80
           for (JROW = 1; JROW <= K; JROW++) {
             // 70
-            I = I + 1;
+            I++;
             RWORK[I] = BX[JROW][JCOL].imaginary;
           } // 70
         } // 80
@@ -259,7 +259,7 @@ void zlals0(
           // 140
           for (JROW = 1; JROW <= K; JROW++) {
             // 130
-            I = I + 1;
+            I++;
             RWORK[I] = (B[JROW][JCOL]).toDouble();
           } // 130
         } // 140
@@ -270,7 +270,7 @@ void zlals0(
           // 160
           for (JROW = 1; JROW <= K; JROW++) {
             // 150
-            I = I + 1;
+            I++;
             RWORK[I] = B[JROW][JCOL].imaginary;
           } // 150
         } // 160

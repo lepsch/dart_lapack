@@ -156,7 +156,7 @@ void dtgexc(
             ILST.value = HERE;
             return;
           }
-          HERE = HERE + 1;
+          HERE++;
         } else {
           // Recompute NBNEXT in case of 2-by-2 split.
 
@@ -180,14 +180,14 @@ void dtgexc(
               ILST.value = HERE;
               return;
             }
-            HERE = HERE + 1;
+            HERE++;
             dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
                 WORK, LWORK, INFO);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
             }
-            HERE = HERE + 1;
+            HERE++;
           }
         }
       }
@@ -241,7 +241,7 @@ void dtgexc(
             ILST.value = HERE;
             return;
           }
-          HERE = HERE - 1;
+          HERE--;
         } else {
           // Recompute NBNEXT in case of 2-by-2 split.
 
@@ -265,14 +265,14 @@ void dtgexc(
               ILST.value = HERE;
               return;
             }
-            HERE = HERE - 1;
+            HERE--;
             dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
                 WORK, LWORK, INFO);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
             }
-            HERE = HERE - 1;
+            HERE--;
           }
         }
       }

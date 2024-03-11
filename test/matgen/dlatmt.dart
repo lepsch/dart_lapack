@@ -896,10 +896,10 @@ void dlatmt(
         // 430
         for (I = 1; I <= J; I++) {
           // 420
-          IROW = IROW + 1;
+          IROW++;
           if (IROW > LDA) {
             IROW = 1;
-            ICOL = ICOL + 1;
+            ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
         } // 420
@@ -913,10 +913,10 @@ void dlatmt(
         // 450
         for (I = J; I <= M; I++) {
           // 440
-          IROW = IROW + 1;
+          IROW++;
           if (IROW > LDA) {
             IROW = 1;
-            ICOL = ICOL + 1;
+            ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
         } // 440

@@ -99,7 +99,7 @@ void dlaed0(
       IWORK[2 * J] = (IWORK[J] + 1) ~/ 2;
       IWORK[2 * J - 1] = IWORK[J] ~/ 2;
     }
-    TLVLS = TLVLS + 1;
+    TLVLS++;
     SUBPBS = 2 * SUBPBS;
   }
   for (J = 2; J <= SUBPBS; J++) {
@@ -195,7 +195,7 @@ void dlaed0(
             LDQS);
       }
       IWORK[IQPTR + CURR + 1] = IWORK[IQPTR + CURR] + pow(MATSIZ, 2).toInt();
-      CURR = CURR + 1;
+      CURR++;
     }
     K = 1;
     for (J = SUBMAT; J <= IWORK[I + 1]; J++) {
@@ -222,7 +222,7 @@ void dlaed0(
         SUBMAT = IWORK[I] + 1;
         MATSIZ = IWORK[I + 2] - IWORK[I];
         MSD2 = MATSIZ ~/ 2;
-        CURPRB = CURPRB + 1;
+        CURPRB++;
       }
 
       // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
@@ -268,7 +268,7 @@ void dlaed0(
       IWORK[I ~/ 2 + 1] = IWORK[I + 2];
     }
     SUBPBS = SUBPBS ~/ 2;
-    CURLVL = CURLVL + 1;
+    CURLVL++;
   }
 
   // Re-merge the eigenvalues/vectors which were deflated at the final

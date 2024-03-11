@@ -195,7 +195,7 @@ void ddrvsg(
     KB9 = 0;
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS = NMATS + 1;
+      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
@@ -351,9 +351,9 @@ void ddrvsg(
           //   ka = 3   kb = 2
           //   ka = 3   kb = 3
 
-          KB9 = KB9 + 1;
+          KB9++;
           if (KB9 > KA9) {
-            KA9 = KA9 + 1;
+            KA9++;
             KB9 = 1;
           }
           KA = max(0, min(N - 1, KA9));
@@ -553,7 +553,7 @@ void ddrvsg(
               for (I = 1; I <= J; I++) {
                 AP[IJ] = A[I][J];
                 BP[IJ] = B[I][J];
-                IJ = IJ + 1;
+                IJ++;
               }
             }
           } else {
@@ -562,7 +562,7 @@ void ddrvsg(
               for (I = J; I <= N; I++) {
                 AP[IJ] = A[I][J];
                 BP[IJ] = B[I][J];
-                IJ = IJ + 1;
+                IJ++;
               }
             }
           }
@@ -598,7 +598,7 @@ void ddrvsg(
                 for (I = 1; I <= J; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             } else {
@@ -607,7 +607,7 @@ void ddrvsg(
                 for (I = J; I <= N; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             }
@@ -643,7 +643,7 @@ void ddrvsg(
                 for (I = 1; I <= J; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             } else {
@@ -652,7 +652,7 @@ void ddrvsg(
                 for (I = J; I <= N; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             }
@@ -686,7 +686,7 @@ void ddrvsg(
                 for (I = 1; I <= J; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             } else {
@@ -695,7 +695,7 @@ void ddrvsg(
                 for (I = J; I <= N; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             }
@@ -731,7 +731,7 @@ void ddrvsg(
                 for (I = 1; I <= J; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             } else {
@@ -740,7 +740,7 @@ void ddrvsg(
                 for (I = J; I <= N; I++) {
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
-                  IJ = IJ + 1;
+                  IJ++;
                 }
               }
             }

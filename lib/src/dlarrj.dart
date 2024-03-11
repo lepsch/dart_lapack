@@ -119,7 +119,7 @@ void dlarrj(
         }
         break;
       }
-      NINT = NINT + 1;
+      NINT++;
       IWORK[K - 1] = I + 1;
       IWORK[K] = CNT;
     }
@@ -151,7 +151,7 @@ void dlarrj(
       TMP = max((LEFT).abs(), (RIGHT).abs());
       if ((WIDTH < RTOL * TMP) || (ITER == MAXITR)) {
         // reduce number of unconverged intervals
-        NINT = NINT - 1;
+        NINT--;
         // Mark interval as converged.
         IWORK[K - 1] = 0;
         if (I1 == I) {
@@ -182,7 +182,7 @@ void dlarrj(
       }
       I = NEXT;
     }
-    ITER = ITER + 1;
+    ITER++;
     // do another loop if there are still unconverged intervals
     // However, in the last iteration, all intervals are accepted
     // since this is the best we can do.

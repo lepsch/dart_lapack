@@ -211,7 +211,7 @@ void dgghd3(
             WORK[JJ + NBLST] = C.value * TEMP - S.value * WORK[JJ];
             WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
           }
-          LEN = LEN + 1;
+          LEN++;
           PPW = PPW - NBLST - 1;
         }
 
@@ -230,7 +230,7 @@ void dgghd3(
               WORK[JJ + 2 * NNB] = C.value * TEMP - S.value * WORK[JJ];
               WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
             }
-            LEN = LEN + 1;
+            LEN++;
             PPW = PPW - 2 * NNB - 1;
           }
           PPWO = PPWO + 4 * NNB * NNB;
@@ -336,7 +336,7 @@ void dgghd3(
           PPW = PW + LEN;
           for (I = JROW; I <= JROW + NBLST - LEN - 1; I++) {
             WORK[PPW] = A[I][J + 1];
-            PPW = PPW + 1;
+            PPW++;
           }
           dtrmv('Lower', 'Transpose', 'Non-unit', NBLST - LEN,
               WORK(LEN * NBLST + 1).asMatrix(NBLST), NBLST, WORK(PW + LEN), 1);
@@ -355,7 +355,7 @@ void dgghd3(
           PPW = PW;
           for (I = JROW; I <= JROW + NBLST - 1; I++) {
             A[I][J + 1] = WORK[PPW];
-            PPW = PPW + 1;
+            PPW++;
           }
 
           // Multiply with the other accumulated orthogonal
@@ -379,12 +379,12 @@ void dgghd3(
             PPW = PW + LEN;
             for (I = JROW; I <= JROW + NNB - 1; I++) {
               WORK[PPW] = A[I][J + 1];
-              PPW = PPW + 1;
+              PPW++;
             }
             PPW = PW;
             for (I = JROW + NNB; I <= JROW + NNB + LEN - 1; I++) {
               WORK[PPW] = A[I][J + 1];
-              PPW = PPW + 1;
+              PPW++;
             }
             final LDWORK = 2 * NNB;
             dtrmv('Upper', 'Transpose', 'Non-unit', LEN,
@@ -415,7 +415,7 @@ void dgghd3(
             PPW = PW;
             for (I = JROW; I <= JROW + LEN + NNB - 1; I++) {
               A[I][J + 1] = WORK[PPW];
-              PPW = PPW + 1;
+              PPW++;
             }
             PPWO = PPWO + 4 * NNB * NNB;
           }
@@ -584,7 +584,7 @@ void dgghd3(
               WORK[JJ + NBLST] = C.value * TEMP - S.value * WORK[JJ];
               WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
             }
-            LEN = LEN + 1;
+            LEN++;
             PPW = PPW - NBLST - 1;
           }
 
@@ -605,7 +605,7 @@ void dgghd3(
                 WORK[JJ + 2 * NNB] = C.value * TEMP - S.value * WORK[JJ];
                 WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
               }
-              LEN = LEN + 1;
+              LEN++;
               PPW = PPW - 2 * NNB - 1;
             }
             PPWO = PPWO + 4 * NNB * NNB;

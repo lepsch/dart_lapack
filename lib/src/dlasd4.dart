@@ -208,7 +208,7 @@ void dlasd4(
 
     // Calculate the new step
 
-    NITER = NITER + 1;
+    NITER++;
     DTNSQ1 = WORK[N - 1] * DELTA[N - 1];
     DTNSQ = WORK[N] * DELTA[N];
     C = W - DTNSQ1 * DPSI - DTNSQ * DPHI;
@@ -491,7 +491,7 @@ void dlasd4(
 
     // Calculate the new step
 
-    NITER = NITER + 1;
+    NITER++;
     if (!SWTCH3) {
       DTIPSQ = WORK[IP1] * DELTA[IP1];
       DTISQ = WORK[I] * DELTA[I];

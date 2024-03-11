@@ -80,7 +80,7 @@
             for (J = I + 1; J <= N; J++) { // 60
                JCOL = ( ( J-1 )*J ) / 2 + 1;
                T = ZDOTU( I, A( ICOL ), 1, AINV( JCOL ), 1 );
-               JCOL = JCOL - 1;
+               JCOL--;
                KCOL = ICOL + 2*I - 1;
                for (K = I + 1; K <= J; K++) { // 40
                   T = T + A( KCOL )*AINV( JCOL+K );

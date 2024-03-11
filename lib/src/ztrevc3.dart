@@ -252,7 +252,7 @@ void ztrevc3(
               VR(1, KI), LDVR);
           IV = NB;
         } else {
-          IV = IV - 1;
+          IV--;
         }
       }
 
@@ -263,7 +263,7 @@ void ztrevc3(
         T[K][K] = WORK[K];
       } // 70
 
-      IS = IS - 1;
+      IS--;
     } // 80
   }
 
@@ -385,7 +385,7 @@ void ztrevc3(
               VL(1, KI - IV + 1), LDVL);
           IV = 1;
         } else {
-          IV = IV + 1;
+          IV++;
         }
       }
 
@@ -396,7 +396,7 @@ void ztrevc3(
         T[K][K] = WORK[K];
       } // 120
 
-      IS = IS + 1;
+      IS++;
     } // 130
   }
 }

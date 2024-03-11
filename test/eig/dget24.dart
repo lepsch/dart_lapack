@@ -270,7 +270,7 @@ void dget24(
         KNTEIG = 0;
         for (I = 1; I <= N; I++) {
           if (dslect(WR[I], WI[I]) || dslect(WR[I], -WI[I])) {
-            KNTEIG = KNTEIG + 1;
+            KNTEIG++;
           }
           if (I < N) {
             if ((dslect(WR[I + 1], WI[I + 1]) ||

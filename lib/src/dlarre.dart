@@ -268,7 +268,7 @@ void dlarre(
         WGAP[M.value] = ZERO;
         IBLOCK[M.value] = JBLK;
         INDEXW[M.value] = 1;
-        WBEGIN = WBEGIN + 1;
+        WBEGIN++;
       }
       // E[ IEND ] holds the shift for the initial RRR
       E[IEND] = ZERO;
@@ -295,7 +295,7 @@ void dlarre(
       MB = 0;
       for (I = WBEGIN; I <= MM.value; I++) {
         if (IBLOCK[I] == JBLK) {
-          MB = MB + 1;
+          MB++;
         } else {
           break;
         }
@@ -476,7 +476,7 @@ void dlarre(
         DPIVOT = (D[J + 1] - SIGMA) - TMP.value * E[J];
         WORK[I + 1] = DPIVOT;
         DMAX = max(DMAX, (DPIVOT).abs());
-        J = J + 1;
+        J++;
       }
       // check for element growth
       if (DMAX > MAXGROWTH * SPDIAM) {
@@ -615,7 +615,7 @@ void dlarre(
       for (I = 1; I <= IN - 1; I++) {
         WORK[2 * I - 1] = (D[J]).abs();
         WORK[2 * I] = E[J] * E[J] * WORK[2 * I - 1];
-        J = J + 1;
+        J++;
       }
       WORK[2 * IN - 1] = (D[IEND]).abs();
       WORK[2 * IN] = ZERO;

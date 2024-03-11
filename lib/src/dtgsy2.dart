@@ -102,13 +102,13 @@ void dtgsy2(
   I = 1;
   while (true) {
     if (I > M) break;
-    P = P + 1;
+    P++;
     IWORK[P] = I;
     if (I == M) break;
     if (A[I + 1][I] != ZERO) {
       I = I + 2;
     } else {
-      I = I + 1;
+      I++;
     }
   }
   IWORK[P + 1] = M + 1;
@@ -119,13 +119,13 @@ void dtgsy2(
   J = 1;
   while (true) {
     if (J > N) break;
-    Q = Q + 1;
+    Q++;
     IWORK[Q] = J;
     if (J == N) break;
     if (B[J + 1][J] != ZERO) {
       J = J + 2;
     } else {
-      J = J + 1;
+      J++;
     }
   }
   IWORK[Q + 1] = N + 1;

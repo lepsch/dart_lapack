@@ -324,11 +324,11 @@ void dggbal(
       SUM = ZERO;
       for (J = ILO.value; J <= IHI.value; J++) {
         if (A[I][J] != ZERO) {
-          KOUNT = KOUNT + 1;
+          KOUNT++;
           SUM = SUM + WORK[J];
         }
         if (B[I][J] == ZERO) continue;
-        KOUNT = KOUNT + 1;
+        KOUNT++;
         SUM = SUM + WORK[J];
       }
       WORK[I + 2 * N] = KOUNT.toDouble() * WORK[I + N] + SUM;
@@ -339,11 +339,11 @@ void dggbal(
       SUM = ZERO;
       for (I = ILO.value; I <= IHI.value; I++) {
         if (A[I][J] != ZERO) {
-          KOUNT = KOUNT + 1;
+          KOUNT++;
           SUM = SUM + WORK[I + N];
         }
         if (B[I][J] == ZERO) continue;
-        KOUNT = KOUNT + 1;
+        KOUNT++;
         SUM = SUM + WORK[I + N];
       }
       WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
@@ -370,7 +370,7 @@ void dggbal(
     daxpy(NR, -ALPHA, WORK(ILO.value + 3 * N), 1, WORK(ILO.value + 5 * N), 1);
 
     PGAMMA = GAMMA;
-    IT = IT + 1;
+    IT++;
   } while (IT <= NRP2);
 
   // End generalized conjugate gradient iteration

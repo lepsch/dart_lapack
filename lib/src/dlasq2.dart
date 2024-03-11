@@ -443,7 +443,7 @@ void dlasq2(
       if (I1 > 1) {
         N1 = I1 - 1;
         while ((I1 >= 2) && (Z[4 * I1 - 5] >= ZERO)) {
-          I1 = I1 - 1;
+          I1--;
         }
         SIGMA.value = -Z[4 * N1 - 1];
         continue;

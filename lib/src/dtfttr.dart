@@ -91,11 +91,11 @@ void dtfttr(
         for (J = 0; J <= N2; J++) {
           for (I = N1; I <= N2 + J; I++) {
             A[N2 + J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = J; I <= N - 1; I++) {
             A[I][J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -105,11 +105,11 @@ void dtfttr(
         for (J = N - 1; J >= N1; J--) {
           for (I = 0; I <= J; I++) {
             A[I][J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = J - N1; L <= N1 - 1; L++) {
             A[J - N1][L] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           IJ = IJ - NX2;
         }
@@ -124,17 +124,17 @@ void dtfttr(
         for (J = 0; J <= N2 - 1; J++) {
           for (I = 0; I <= J; I++) {
             A[J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = N1 + J; I <= N - 1; I++) {
             A[I][N1 + J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = N2; J <= N - 1; J++) {
           for (I = 0; I <= N1 - 1; I++) {
             A[J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -144,17 +144,17 @@ void dtfttr(
         for (J = 0; J <= N1; J++) {
           for (I = N1; I <= N - 1; I++) {
             A[J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = 0; J <= N1 - 1; J++) {
           for (I = 0; I <= J; I++) {
             A[I][J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = N2 + J; L <= N - 1; L++) {
             A[N2 + J][L] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       }
@@ -172,11 +172,11 @@ void dtfttr(
         for (J = 0; J <= K - 1; J++) {
           for (I = K; I <= K + J; I++) {
             A[K + J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = J; I <= N - 1; I++) {
             A[I][J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -186,11 +186,11 @@ void dtfttr(
         for (J = N - 1; J >= K; J--) {
           for (I = 0; I <= J; I++) {
             A[I][J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = J - K; L <= K - 1; L++) {
             A[J - K][L] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           IJ = IJ - NP1X2;
         }
@@ -205,22 +205,22 @@ void dtfttr(
         J = K;
         for (I = K; I <= N - 1; I++) {
           A[I][J] = ARF[IJ];
-          IJ = IJ + 1;
+          IJ++;
         }
         for (J = 0; J <= K - 2; J++) {
           for (I = 0; I <= J; I++) {
             A[J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (I = K + 1 + J; I <= N - 1; I++) {
             A[I][K + 1 + J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = K - 1; J <= N - 1; J++) {
           for (I = 0; I <= K - 1; I++) {
             A[J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
       } else {
@@ -230,23 +230,23 @@ void dtfttr(
         for (J = 0; J <= K; J++) {
           for (I = K; I <= N - 1; I++) {
             A[J][I] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         for (J = 0; J <= K - 2; J++) {
           for (I = 0; I <= J; I++) {
             A[I][J] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
           for (L = K + 1 + J; L <= N - 1; L++) {
             A[K + 1 + J][L] = ARF[IJ];
-            IJ = IJ + 1;
+            IJ++;
           }
         }
         // Note that here, on exit of the loop, J = K-1
         for (I = 0; I <= J; I++) {
           A[I][J] = ARF[IJ];
-          IJ = IJ + 1;
+          IJ++;
         }
       }
     }

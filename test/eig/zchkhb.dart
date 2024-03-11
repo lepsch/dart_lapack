@@ -187,7 +187,7 @@ void zchkhb(
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         // 170
         if (!DOTYPE[JTYPE]) continue;
-        NMATS = NMATS + 1;
+        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
@@ -452,7 +452,7 @@ void zchkhb(
               NOUNIT.println(
                   '\n Tests performed:   (S is Tridiag,  U is unitary,\n${' ' * 20}* means conjugate transpose.\n UPLO=\'U\':\n  1= | A - U S U* | / ( |A| n ulp )       2= | I - U U* | / ( n ulp )\n UPLO=\'L\':\n  3= | A - U S U* | / ( |A| n ulp )       4= | I - U U* | / ( n ulp )');
             }
-            NERRS = NERRS + 1;
+            NERRS++;
             NOUNIT.println(
                 ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }

@@ -353,7 +353,7 @@ void dlattr(
         } else {
           A[J][J] = ONE;
         }
-        JCOUNT = JCOUNT + 1;
+        JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
       }
     } else {
@@ -367,7 +367,7 @@ void dlattr(
         } else {
           A[J][J] = ONE;
         }
-        JCOUNT = JCOUNT + 1;
+        JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
       }
     }

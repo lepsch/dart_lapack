@@ -171,7 +171,7 @@ void dstein(
         J1 = J;
         continue computeEigenVectors;
       }
-      JBLK = JBLK + 1;
+      JBLK++;
       XJ = W[J];
 
       // Skip all the work if the block size is one.
@@ -211,7 +211,7 @@ void dstein(
         // Update iteration count.
         var flag = false;
         do {
-          ITS = ITS + 1;
+          ITS++;
           if (ITS > MAXITS) {
             flag = true;
             break;
@@ -262,7 +262,7 @@ void dstein(
           // stopping criterion.
 
           if (NRM < DTPCRT) continue;
-          NRMCHK = NRMCHK + 1;
+          NRMCHK++;
         } while (NRMCHK < EXTRA + 1);
 
         if (flag) {

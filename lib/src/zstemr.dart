@@ -471,7 +471,7 @@ void zstemr(
         // check if any eigenvalues have to be refined in this block
         while (WEND < M.value) {
           if (IWORK[IINDBL + WEND] != JBLK) break;
-          WEND = WEND + 1;
+          WEND++;
         }
         if (WEND < WBEGIN) {
           IBEGIN = IEND + 1;

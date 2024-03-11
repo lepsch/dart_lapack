@@ -286,7 +286,7 @@ void dlattb(
         } else {
           AB[KD + 1][J] = ONE;
         }
-        JCOUNT = JCOUNT + 1;
+        JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
       }
     } else {
@@ -300,7 +300,7 @@ void dlattb(
         } else {
           AB[1][J] = ONE;
         }
-        JCOUNT = JCOUNT + 1;
+        JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
       }
     }

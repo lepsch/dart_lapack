@@ -65,7 +65,7 @@ void zlarfgp(
       // XNORM, BETA may be inaccurate; scale X and recompute them
 
       do {
-        KNT = KNT + 1;
+        KNT++;
         zdscal(N - 1, BIGNUM, X, INCX);
         BETA = BETA * BIGNUM;
         ALPHI = ALPHI * BIGNUM;

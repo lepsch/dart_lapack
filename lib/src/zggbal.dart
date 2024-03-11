@@ -341,12 +341,12 @@ void zggbal(
       for (J = ILO.value; J <= IHI.value; J++) {
         // 290
         if (A[I][J] != Complex.zero) {
-          KOUNT = KOUNT + 1;
+          KOUNT++;
           SUM = SUM + WORK[J];
         }
         // } // 280
         if (B[I][J] != Complex.zero) {
-          KOUNT = KOUNT + 1;
+          KOUNT++;
           SUM = SUM + WORK[J];
         }
       } // 290
@@ -360,11 +360,11 @@ void zggbal(
       for (I = ILO.value; I <= IHI.value; I++) {
         // 320
         if (A[I][J] != Complex.zero) {
-          KOUNT = KOUNT + 1;
+          KOUNT++;
           SUM = SUM + WORK[I + N];
         }
         if (B[I][J] == Complex.zero) continue;
-        KOUNT = KOUNT + 1;
+        KOUNT++;
         SUM = SUM + WORK[I + N];
       } // 320
       WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
@@ -392,7 +392,7 @@ void zggbal(
     daxpy(NR, -ALPHA, WORK(ILO.value + 3 * N), 1, WORK(ILO.value + 5 * N), 1);
 
     PGAMMA = GAMMA;
-    IT = IT + 1;
+    IT++;
   } while (IT <= NRP2);
 
   // End generalized conjugate gradient iteration

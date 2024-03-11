@@ -121,7 +121,7 @@ void dlamtsqr(
     for (I = II - (MB - K); I >= MB + 1; I -= (MB - K)) {
       // Multiply Q to the current block of C (I:I+MB,1:N)
 
-      CTR = CTR - 1;
+      CTR--;
       dtpmqrt('L', 'N', MB - K, N, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(I, 1), LDC, WORK, INFO);
     }
@@ -146,7 +146,7 @@ void dlamtsqr(
 
       dtpmqrt('L', 'T', MB - K, N, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(I, 1), LDC, WORK, INFO);
-      CTR = CTR + 1;
+      CTR++;
     }
     if (II <= M) {
       // Multiply Q to the last block of C
@@ -170,7 +170,7 @@ void dlamtsqr(
     for (I = II - (MB - K); I >= MB + 1; I -= (MB - K)) {
       // Multiply Q to the current block of C (1:M,I:I+MB)
 
-      CTR = CTR - 1;
+      CTR--;
       dtpmqrt('R', 'T', M, MB - K, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(1, I), LDC, WORK, INFO);
     }
@@ -195,7 +195,7 @@ void dlamtsqr(
 
       dtpmqrt('R', 'N', M, MB - K, K, 0, NB, A(I, 1), LDA, T(1, CTR * K + 1),
           LDT, C(1, 1), LDC, C(1, I), LDC, WORK, INFO);
-      CTR = CTR + 1;
+      CTR++;
     }
     if (II <= N) {
       // Multiply Q to the last block of C

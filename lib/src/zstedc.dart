@@ -190,7 +190,7 @@ void zstedc(
             while (FINISH < N) {
               TINY = EPS * sqrt(D[FINISH].abs()) * sqrt(D[FINISH + 1].abs());
               if (E[FINISH].abs() <= TINY) break;
-              FINISH = FINISH + 1;
+              FINISH++;
             }
 
             // (Sub) Problem determined.  Compute its size and solve it.

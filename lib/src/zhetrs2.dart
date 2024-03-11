@@ -110,10 +110,10 @@ void zhetrs2(
             B[I - 1][J] = (AK * BKM1 - BK) / DENOM;
             B[I][J] = (AKM1 * BK - BKM1) / DENOM;
           } // 15
-          I = I - 1;
+          I--;
         }
       }
-      I = I - 1;
+      I--;
     }
 
     // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
@@ -190,9 +190,9 @@ void zhetrs2(
           B[I][J] = (AK * BKM1 - BK) / DENOM;
           B[I + 1][J] = (AKM1 * BK - BKM1) / DENOM;
         } // 25
-        I = I + 1;
+        I++;
       }
-      I = I + 1;
+      I++;
     }
 
 // Compute (L**H \ B) -> B   [ L**H \ (D \ (L \P**T * B) ) ]

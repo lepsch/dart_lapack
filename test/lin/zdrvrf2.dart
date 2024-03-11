@@ -133,7 +133,7 @@
                      NOUT.println( 9999 );
                   }
                   NOUT.println( 9998 ) N, UPLO, CFORM;
-                  NERRS = NERRS + 1;
+                  NERRS++;
                }
 
             } // 100

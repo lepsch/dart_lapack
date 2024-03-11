@@ -48,7 +48,7 @@ Future<void> alareq(
         var I1 = 0;
         nextChar:
         while (true) {
-          I = I + 1;
+          I++;
           if (I > LENP) {
             if (J == NMATS && I1 > 0) {
               continue nextValue;

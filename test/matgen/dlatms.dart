@@ -857,10 +857,10 @@ void dlatms(
       IROW = 0;
       for (J = 1; J <= M; J++) {
         for (I = 1; I <= J; I++) {
-          IROW = IROW + 1;
+          IROW++;
           if (IROW > LDA) {
             IROW = 1;
-            ICOL = ICOL + 1;
+            ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
         }
@@ -872,10 +872,10 @@ void dlatms(
       IROW = 0;
       for (J = 1; J <= M; J++) {
         for (I = J; I <= M; I++) {
-          IROW = IROW + 1;
+          IROW++;
           if (IROW > LDA) {
             IROW = 1;
-            ICOL = ICOL + 1;
+            ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
         }

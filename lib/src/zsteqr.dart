@@ -222,7 +222,7 @@ void zsteqr(
           }
 
           if (JTOT == NMAXIT) break;
-          JTOT = JTOT + 1;
+          JTOT++;
 
           // Form shift.
 
@@ -274,7 +274,7 @@ void zsteqr(
 
         D[L] = P;
 
-        L = L + 1;
+        L++;
       } while (L <= LEND);
     } else {
       // QR Iteration
@@ -322,7 +322,7 @@ void zsteqr(
           }
 
           if (JTOT == NMAXIT) break;
-          JTOT = JTOT + 1;
+          JTOT++;
 
           // Form shift.
 
@@ -374,7 +374,7 @@ void zsteqr(
 
         D[L] = P;
 
-        L = L - 1;
+        L--;
       } while (L >= LEND);
     }
 

@@ -225,7 +225,7 @@ void zhsein(
           VR[I][KS] = Complex.zero;
         } // 90
       }
-      KS = KS + 1;
+      KS++;
     }
   } // 100
 }

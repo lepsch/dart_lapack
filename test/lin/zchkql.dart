@@ -170,7 +170,7 @@
                            if (INFO != 0) alaerh( PATH, 'ZGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                            zget02('No transpose', M, N, NRHS, A, LDA, X( M-N+1 ), LDA, B, LDA, RWORK, RESULT( 7 ) );
-                           NT = NT + 1;
+                           NT++;
                         }
                      }
 

@@ -201,7 +201,7 @@ void zptrfs(
         zpttrs(UPLO, N, 1, DF, EF, WORK.asMatrix(), N, INFO);
         zaxpy(N, Complex.one, WORK, 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
-        COUNT = COUNT + 1;
+        COUNT++;
         continue;
       }
       break;

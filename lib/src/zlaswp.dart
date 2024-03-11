@@ -56,7 +56,7 @@ void zlaswp(
     } // 30
   }
   if (N32 != N) {
-    N32 = N32 + 1;
+    N32++;
     IX = IX0;
     for (I = I1; INC < 0 ? I >= I2 : I <= I2; I += INC) {
       // 50

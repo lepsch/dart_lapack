@@ -28,12 +28,12 @@ void main() {
     nTests = nTests + 2;
     R = min(X[i], Y[i]);
     if (R != X[i]) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('i', i, 'MIN', X[i], Y[i], R);
     }
     R = max(X[i], Y[i]);
     if (R != Y[i]) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('i', i, 'MAX', X[i], Y[i], R);
     }
   }
@@ -41,12 +41,12 @@ void main() {
     nTests = nTests + 2;
     R = min(X[i], Y[i]);
     if (R != Y[i]) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('i', i, 'MIN', X[i], Y[i], R);
     }
     R = max(X[i], Y[i]);
     if (R != X[i]) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('i', i, 'MAX', X[i], Y[i], R);
     }
   }
@@ -54,12 +54,12 @@ void main() {
     nTests = nTests + 2;
     R = min(X[i], Y[i]);
     if (R == R) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('i', i, 'MIN', X[i], Y[i], R);
     }
     R = max(X[i], Y[i]);
     if (R == R) {
-      nFailingTests = nFailingTests + 1;
+      nFailingTests++;
       _print9998('i', i, 'MAX', X[i], Y[i], R);
     }
   }

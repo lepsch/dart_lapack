@@ -195,7 +195,7 @@ void dchkpb(
             for (var I = 1; I <= min(2 * KD + 1, N); I++) {
               WORK[IW + I] = ZERO;
             }
-            IW = IW + 1;
+            IW++;
             I1 = max(IZERO - KD, 1);
             I2 = min(IZERO + KD, N);
 

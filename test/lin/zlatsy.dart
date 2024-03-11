@@ -82,7 +82,7 @@ void zlatsy(
       I = I - 2;
     } else if (I == 1) {
       X[I][I] = zlarnd(2, ISEED);
-      I = I - 1;
+      I--;
     }
 
     // UPLO = 'L':  Lower triangular storage
@@ -141,7 +141,7 @@ void zlatsy(
       I = I + 2;
     } else if (I == N) {
       X[I][I] = zlarnd(2, ISEED);
-      I = I + 1;
+      I++;
     }
   }
 }

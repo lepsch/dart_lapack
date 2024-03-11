@@ -225,14 +225,14 @@ void dlaqz3(
         if (((S * QC[1][KWBOT - KWTOP + 1]).abs()) <=
             max(ULP * TEMP.value, SMLNUM)) {
           // Deflatable
-          KWBOT = KWBOT - 1;
+          KWBOT--;
         } else {
           // Not deflatable, move out of the way
           IFST.value = KWBOT - KWTOP + 1;
           ILST.value = K2;
           dtgexc(true, true, JW, A(KWTOP, KWTOP), LDA, B(KWTOP, KWTOP), LDB, QC,
               LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, DTGEXC_INFO);
-          K2 = K2 + 1;
+          K2++;
         }
 
         K++;
