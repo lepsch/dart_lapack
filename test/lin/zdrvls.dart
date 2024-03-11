@@ -1,4 +1,4 @@
-      void zdrvls(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int B, final int COPYB, final int C, final int S, final int COPYS, final int NOUT,) {
+      void zdrvls(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNS, final Array<int> NSVAL_, final int NNB, final Array<int> NBVAL_, final Array<int> NXVAL_, final double THRESH, final bool TSTERR, final int A, final int COPYA, final int B, final int COPYB, final int C, final int S, final int COPYS, final Nout NOUT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,8 +24,8 @@
       String             PATH;
       int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD;
       double             EPS, NORMA, NORMB, RCOND;
-      int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 );
-      double             RESULT( NTESTS ), RWQ( 1 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 ), IWQ( 1 );
+      final             RESULT=Array<double>( NTESTS ), RWQ( 1 );
       Complex         WQ( 1 );
       // ..
       // .. Allocatable Arrays ..

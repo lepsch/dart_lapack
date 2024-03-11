@@ -1,4 +1,4 @@
-      void zdrvpo(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int ASAV, final int B, final int BSAV, final int X, final int XACT, final int S, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zdrvpo(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final int A, final int AFAC, final int ASAV, final int B, final int BSAV, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -26,8 +26,8 @@
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT, N_ERR_BNDS;
       double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND, RPVGRW_SVXX;
       String             EQUEDS( 2 ), FACTS( 3 ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -174,7 +174,7 @@
                   }
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 90
-                     FACT = FACTS( IFACT );
+                     final FACT = FACTS[IFACT - 1];
                      PREFAC = lsame( FACT, 'F' );
                      NOFACT = lsame( FACT, 'N' );
                      EQUIL = lsame( FACT, 'E' );

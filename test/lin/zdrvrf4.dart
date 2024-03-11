@@ -1,4 +1,4 @@
-      void zdrvrf4(final int NOUT, final int NN, final int NVAL, final int THRESH, final int C1, final int C2, final int LDC, final int CRF, final Matrix<double> A_, final int LDA, final int D_WORK_ZLANGE,) {
+      void zdrvrf4(final Nout NOUT, final int NN, final Array<int> NVAL_, final int THRESH, final int C1, final int C2, final int LDC, final int CRF, final Matrix<double> A_, final int LDA, final int D_WORK_ZLANGE,) {
   final A = A_.having();
 
 // -- LAPACK test routine --
@@ -22,8 +22,8 @@
       int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS;
       double             ALPHA, BETA, EPS, NORMA, NORMC;
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
       //- double             DLAMCH, DLARND, ZLANGE;

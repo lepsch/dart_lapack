@@ -19,7 +19,7 @@
       const    ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       int     INFO, J, K, N2, NP1,i;
       double             ANORM, EPS, RESID, CNORM, DNORM;
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       // ..
       // .. External Functions ..
       //- double           DLAMCH;

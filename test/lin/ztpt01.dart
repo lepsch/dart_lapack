@@ -1,4 +1,4 @@
-      void ztpt01(final int UPLO, final int DIAG, final int N, final int AP, final int AINVP, final int RCOND, final Array<double> RWORK_, final int RESID,) {
+      void ztpt01(final String UPLO, final String DIAG, final int N, final int AP, final int AINVP, final int RCOND, final Array<double> RWORK_, final int RESID,) {
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --

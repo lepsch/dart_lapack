@@ -1,4 +1,4 @@
-      void zchkqrtp(final int THRESH, final int TSTERR, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NOUT,) {
+      void zchkqrtp(final double THRESH, final bool TSTERR, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final Nout NOUT,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -12,7 +12,7 @@
       const              NTESTS = 6 ;
       String             PATH;
       int                I, J, K, T, L, M, N, NB, NFAIL, NERRS, NRUN, MINMN;
-      double             RESULT( NTESTS );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, ZERRQRTP

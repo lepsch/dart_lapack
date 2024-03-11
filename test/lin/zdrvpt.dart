@@ -1,4 +1,4 @@
-      void zdrvpt(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int A, final int D, final int E, final int B, final int X, final int XACT, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zdrvpt(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int A, final int D, final int E, final int B, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -25,8 +25,8 @@
       String             PATH;
       int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
       double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS ), Z( 3 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
       //- int                idamax;

@@ -1,64 +1,69 @@
-      double drzt01(final int M, final int N, final int A, final int AF, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK,) {
-  final WORK = WORK_.having();
+import 'dart:math';
+
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dormrz.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+double drzt01(
+  final int M,
+  final int N,
+  final Matrix<double> A_,
+  final Matrix<double> AF_,
+  final int LDA,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
+  final int LWORK,
+) {
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      double             A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  final RWORK = Array<double>(1);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, INFO, J;
-      double             NORMA;
-      double             RWORK( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DLASET, DORMRZ, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX
+  if (LWORK < M * N + M) {
+    xerbla('DRZT01', 8);
+    return ZERO;
+  }
 
-      DRZT01 = ZERO;
+  // Quick return if possible
 
-      if ( LWORK < M*N+M ) {
-         xerbla('DRZT01', 8 );
-         return;
-      }
+  if (M <= 0 || N <= 0) return ZERO;
 
-      // Quick return if possible
+  final NORMA = dlange('One-norm', M, N, A, LDA, RWORK);
 
-      if (M <= 0 || N <= 0) return;
+  // Copy upper triangle R
 
-      NORMA = dlange( 'One-norm', M, N, A, LDA, RWORK );
+  dlaset('Full', M, N, ZERO, ZERO, WORK.asMatrix(), M);
+  for (var J = 1; J <= M; J++) {
+    for (var I = 1; I <= J; I++) {
+      WORK[(J - 1) * M + I] = AF[I][J];
+    }
+  }
 
-      // Copy upper triangle R
+  // R = R * P(1) * ... *P(m)
 
-      dlaset('Full', M, N, ZERO, ZERO, WORK, M );
-      for (J = 1; J <= M; J++) { // 20
-         for (I = 1; I <= J; I++) { // 10
-            WORK[( J-1 )*M+I] = AF( I, J );
-         } // 10
-      } // 20
+  final INFO = Box(0);
+  dormrz('Right', 'No transpose', M, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(),
+      M, WORK(M * N + 1), LWORK - M * N, INFO);
 
-      // R = R * P(1) * ... *P(m)
+  // R = R - A
 
-      dormrz('Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
+  for (var I = 1; I <= N; I++) {
+    daxpy(M, -ONE, A(1, I).asArray(), 1, WORK((I - 1) * M + 1), 1);
+  }
 
-      // R = R - A
+  var result = dlange('One-norm', M, N, WORK.asMatrix(), M, RWORK);
 
-      for (I = 1; I <= N; I++) { // 30
-         daxpy(M, -ONE, A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
-      } // 30
-
-      DRZT01 = dlange( 'One-norm', M, N, WORK, M, RWORK );
-
-      DRZT01 = DRZT01 / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-      if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
-
-      }
+  result = result / (dlamch('Epsilon') * max(M, N));
+  return NORMA != ZERO ? result / NORMA : result;
+}

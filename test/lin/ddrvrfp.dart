@@ -1,294 +1,341 @@
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dpftrf.dart';
+import 'package:lapack/src/dpftri.dart';
+import 'package:lapack/src/dpftrs.dart';
+import 'package:lapack/src/dpotrf.dart';
+import 'package:lapack/src/dpotri.dart';
+import 'package:lapack/src/dtfttr.dart';
+import 'package:lapack/src/dtrttf.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import '../matgen/dlatms.dart';
+import 'aladhd.dart';
+import 'alaerh.dart';
+import 'alasvm.dart';
 import 'common.dart';
+import 'dget04.dart';
+import 'dlarhs.dart';
+import 'dlatb4.dart';
+import 'dpot01.dart';
+import 'dpot02.dart';
+import 'dpot03.dart';
 
-      void ddrvrfp(final int NOUT, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int D_WORK_DLATMS, final int D_WORK_DPOT01, final int D_TEMP_DPOT02, final int D_TEMP_DPOT03, final int D_WORK_DLANSY, final int D_WORK_DPOT02, final int D_WORK_DPOT03,) {
-
+void ddrvrfp(
+  final Nout NOUT,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNS,
+  final Array<int> NSVAL_,
+  final int NNT,
+  final Array<int> NTVAL_,
+  final double THRESH,
+  final Array<double> A_,
+  final Array<double> ASAV_,
+  final Array<double> AFAC_,
+  final Array<double> AINV_,
+  final Array<double> B_,
+  final Array<double> BSAV_,
+  final Array<double> XACT_,
+  final Array<double> X_,
+  final Array<double> ARF_,
+  final Array<double> ARFINV_,
+  final Array<double> D_WORK_DLATMS_,
+  final Array<double> D_WORK_DPOT01_,
+  final Array<double> D_TEMP_DPOT02_,
+  final Array<double> D_TEMP_DPOT03_,
+  final Array<double> D_WORK_DLANSY_,
+  final Array<double> D_WORK_DPOT02_,
+  final Array<double> D_WORK_DPOT03_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                NN, NNS, NNT, NOUT;
-      double             THRESH;
-      int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
-      double             A( * );
-      double             AINV( * );
-      double             ASAV( * );
-      double             B( * );
-      double             BSAV( * );
-      double             AFAC( * );
-      double             ARF( * );
-      double             ARFINV( * );
-      double             XACT( * );
-      double             X( * );
-      double             D_WORK_DLATMS( * );
-      double             D_WORK_DPOT01( * );
-      double             D_TEMP_DPOT02( * );
-      double             D_TEMP_DPOT03( * );
-      double             D_WORK_DLANSY( * );
-      double             D_WORK_DPOT02( * );
-      double             D_WORK_DPOT03( * );
-      // ..
-
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                NTESTS;
-      const              NTESTS = 4 ;
-      bool               ZEROT;
-      int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS;
-      String             DIST, CTYPE, UPLO, CFORM;
-      int                KL, KU, MODE;
-      double             ANORM, AINVNM, CNDNUM, RCONDC;
-      String             UPLOS( 2 ), FORMS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- double             DLANSY;
-      // EXTERNAL DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALADHD, ALAERH, ALASVM, DGET04, DTFTTR, DLACPY, DLARHS, DLATB4, DLATMS, DPFTRI, DPFTRF, DPFTRS, DPOT01, DPOT02, DPOT03, DPOTRI, DPOTRF, DTRTTF
-      // ..
-      // .. Scalars in Common ..
-      // String             srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC / srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
-      const FORMS = [ 'N', 'T' ];
-
-      // Initialize constants and the random number seed.
-
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
-
-      for (IIN = 1; IIN <= NN; IIN++) { // 130
-
-         N = NVAL( IIN );
-         LDA = max( N, 1 );
-         LDB = max( N, 1 );
-
-         for (IIS = 1; IIS <= NNS; IIS++) { // 980
-
-            NRHS = NSVAL( IIS );
-
-            for (IIT = 1; IIT <= NNT; IIT++) { // 120
-
-               IMAT = NTVAL( IIT );
-
-               // If N == 0, only consider the first type
-
-               if (N == 0 && IIT >= 1) GO TO 120;
-
-               // Skip types 3, 4, or 5 if the matrix size is too small.
-
-               if (IMAT == 4 && N <= 1) GO TO 120;
-               if (IMAT == 5 && N <= 2) GO TO 120;
-
-               // Do first for UPLO = 'U', then for UPLO = 'L'
-
-               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
-                  UPLO = UPLOS( IUPLO );
-
-                  // Do first for CFORM = 'N', then for CFORM = 'C'
-
-                  for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
-                     CFORM = FORMS( IFORM );
-
-                     // Set up parameters with DLATB4 and generate a test
-                     // matrix with DLATMS.
-
-                     dlatb4('DPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
-
-                     srnamc.SRNAMT = 'DLATMS';
-                     dlatms(N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, D_WORK_DLATMS, INFO );
+  final NVAL = NVAL_.having(length: NN);
+  final NSVAL = NSVAL_.having(length: NNS);
+  final NTVAL = NTVAL_.having(length: NNT);
+  final A = A_.having();
+  final ASAV = ASAV_.having();
+  final AFAC = AFAC_.having();
+  final AINV = AINV_.having();
+  final B = B_.having();
+  final BSAV = BSAV_.having();
+  final XACT = XACT_.having();
+  final X = X_.having();
+  final ARF = ARF_.having();
+  final ARFINV = ARFINV_.having();
+  final D_WORK_DLATMS = D_WORK_DLATMS_.having();
+  final D_WORK_DPOT01 = D_WORK_DPOT01_.having();
+  final D_TEMP_DPOT02 = D_TEMP_DPOT02_.having();
+  final D_TEMP_DPOT03 = D_TEMP_DPOT03_.having();
+  final D_WORK_DLANSY = D_WORK_DLANSY_.having();
+  final D_WORK_DPOT02 = D_WORK_DPOT02_.having();
+  final D_WORK_DPOT03 = D_WORK_DPOT03_.having();
+  const ONE = 1.0, ZERO = 0.0;
+  const NTESTS = 4;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  const FORMS = ['N', 'T'];
+  final INFO = Box(0);
+
+  // Initialize constants and the random number seed.
+
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
+
+  for (var IIN = 1; IIN <= NN; IIN++) {
+    final N = NVAL[IIN];
+    final LDA = max(N, 1);
+    final LDB = max(N, 1);
+
+    for (var IIS = 1; IIS <= NNS; IIS++) {
+      final NRHS = NSVAL[IIS];
+
+      for (var IIT = 1; IIT <= NNT; IIT++) {
+        final IMAT = NTVAL[IIT];
+
+        // If N == 0, only consider the first type
+
+        if (N == 0 && IIT >= 1) continue;
+
+        // Skip types 3, 4, or 5 if the matrix size is too small.
+
+        if (IMAT == 4 && N <= 1) continue;
+        if (IMAT == 5 && N <= 2) continue;
+
+        // Do first for UPLO = 'U', then for UPLO = 'L'
+
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          final UPLO = UPLOS[IUPLO - 1];
+
+          // Do first for CFORM = 'N', then for CFORM = 'C'
+
+          for (var IFORM = 1; IFORM <= 2; IFORM++) {
+            final CFORM = FORMS[IFORM - 1];
+
+            // Set up parameters with DLATB4 and generate a test
+            // matrix with DLATMS.
+
+            final (TYPE: CTYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
+                dlatb4('DPO', IMAT, N, N);
+
+            srnamc.SRNAMT = 'DLATMS';
+            dlatms(N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM,
+                KL, KU, UPLO, A.asMatrix(), LDA, D_WORK_DLATMS, INFO);
+
+            // Check error code from DLATMS.
+
+            if (INFO.value != 0) {
+              alaerh('DPF', 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1,
+                  IIT, NFAIL, NERRS, NOUT);
+              continue;
+            }
+
+            // For types 3-5, zero one row and column of the matrix to
+            // test that INFO.value is returned correctly.
+
+            final ZEROT = IMAT >= 3 && IMAT <= 5;
+            final int IZERO;
+            if (ZEROT) {
+              if (IIT == 3) {
+                IZERO = 1;
+              } else if (IIT == 4) {
+                IZERO = N;
+              } else {
+                IZERO = N ~/ 2 + 1;
+              }
+              var IOFF = (IZERO - 1) * LDA;
+
+              // Set row and column IZERO of A to 0.
 
-                     // Check error code from DLATMS.
+              if (IUPLO == 1) {
+                for (var I = 1; I <= IZERO - 1; I++) {
+                  A[IOFF + I] = ZERO;
+                }
+                IOFF = IOFF + IZERO;
+                for (var I = IZERO; I <= N; I++) {
+                  A[IOFF] = ZERO;
+                  IOFF = IOFF + LDA;
+                }
+              } else {
+                IOFF = IZERO;
+                for (var I = 1; I <= IZERO - 1; I++) {
+                  A[IOFF] = ZERO;
+                  IOFF = IOFF + LDA;
+                }
+                IOFF = IOFF - IZERO;
+                for (var I = IZERO; I <= N; I++) {
+                  A[IOFF + I] = ZERO;
+                }
+              }
+            } else {
+              IZERO = 0;
+            }
 
-                     if ( INFO != 0 ) {
-                        alaerh('DPF', 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
-                        GO TO 100;
-                     }
+            // Save a copy of the matrix A in ASAV.
 
-                     // For types 3-5, zero one row and column of the matrix to
-                     // test that INFO is returned correctly.
+            dlacpy(UPLO, N, N, A.asMatrix(), LDA, ASAV.asMatrix(), LDA);
 
-                     ZEROT = IMAT >= 3 && IMAT <= 5;
-                     if ( ZEROT ) {
-                        if ( IIT == 3 ) {
-                           IZERO = 1;
-                        } else if ( IIT == 4 ) {
-                           IZERO = N;
-                        } else {
-                           IZERO = N / 2 + 1;
-                        }
-                        IOFF = ( IZERO-1 )*LDA;
+            // Compute the condition number of A (RCONDC).
 
-                        // Set row and column IZERO of A to 0.
+            var RCONDC = Box(ZERO);
+            if (ZEROT) {
+              RCONDC.value = ZERO;
+            } else {
+              // Compute the 1-norm of A.
 
-                        if ( IUPLO == 1 ) {
-                           for (I = 1; I <= IZERO - 1; I++) { // 20
-                              A[IOFF+I] = ZERO;
-                           } // 20
-                           IOFF = IOFF + IZERO;
-                           for (I = IZERO; I <= N; I++) { // 30
-                              A[IOFF] = ZERO;
-                              IOFF = IOFF + LDA;
-                           } // 30
-                        } else {
-                           IOFF = IZERO;
-                           for (I = 1; I <= IZERO - 1; I++) { // 40
-                              A[IOFF] = ZERO;
-                              IOFF = IOFF + LDA;
-                           } // 40
-                           IOFF = IOFF - IZERO;
-                           for (I = IZERO; I <= N; I++) { // 50
-                              A[IOFF+I] = ZERO;
-                           } // 50
-                        }
-                     } else {
-                        IZERO = 0;
-                     }
+              final ANORM =
+                  dlansy('1', UPLO, N, A.asMatrix(), LDA, D_WORK_DLANSY);
 
-                     // Save a copy of the matrix A in ASAV.
+              // Factor the matrix A.
 
-                     dlacpy(UPLO, N, N, A, LDA, ASAV, LDA );
+              dpotrf(UPLO, N, A.asMatrix(), LDA, INFO);
+
+              // Form the inverse of A.
+
+              dpotri(UPLO, N, A.asMatrix(), LDA, INFO);
+
+              if (N != 0) {
+                // Compute the 1-norm condition number of A.
 
-                     // Compute the condition number of A (RCONDC).
+                final AINVNM =
+                    dlansy('1', UPLO, N, A.asMatrix(), LDA, D_WORK_DLANSY);
+                RCONDC.value = (ONE / ANORM) / AINVNM;
 
-                     if ( ZEROT ) {
-                        RCONDC = ZERO;
-                     } else {
+                // Restore the matrix A.
+
+                dlacpy(UPLO, N, N, ASAV.asMatrix(), LDA, A.asMatrix(), LDA);
+              }
+            }
+
+            // Form an exact solution and set the right hand side.
 
-                        // Compute the 1-norm of A.
-
-                        ANORM = dlansy( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
-
-                        // Factor the matrix A.
-
-                        dpotrf(UPLO, N, A, LDA, INFO );
-
-                        // Form the inverse of A.
-
-                        dpotri(UPLO, N, A, LDA, INFO );
-
-                        if ( N != 0 ) {
-
-                           // Compute the 1-norm condition number of A.
-
-                           AINVNM = dlansy( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
-                           RCONDC = ( ONE / ANORM ) / AINVNM;
-
-                           // Restore the matrix A.
-
-                           dlacpy(UPLO, N, N, ASAV, LDA, A, LDA );
-                        }
-
-                     }
-
-                     // Form an exact solution and set the right hand side.
-
-                     srnamc.SRNAMT = 'DLARHS';
-                     dlarhs('DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                     dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
-
-                     // Compute the L*L' or U'*U factorization of the
-                     // matrix and solve the system.
-
-                     dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     dlacpy('Full', N, NRHS, B, LDB, X, LDB );
-
-                     srnamc.SRNAMT = 'DTRTTF';
-                     dtrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
-                     srnamc.SRNAMT = 'DPFTRF';
-                     dpftrf(CFORM, UPLO, N, ARF, INFO );
-
-                     // Check error code from DPFTRF.
-
-                     if ( INFO != IZERO ) {
-
-                        // LANGOU: there is a small hick here: IZERO should
-                        // always be INFO however if INFO is ZERO, ALAERH does not
-                        // complain.
-
-                         alaerh('DPF', 'DPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
-                         GO TO 100;
-                      }
-
-                     // Skip the tests if INFO is not 0.
-
-                     if ( INFO != 0 ) {
-                        GO TO 100;
-                     }
-
-                     srnamc.SRNAMT = 'DPFTRS';
-                     dpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
-
-                     srnamc.SRNAMT = 'DTFTTR';
-                     dtfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
-
-                     // Reconstruct matrix from factors and compute
-                     // residual.
-
-                     dlacpy(UPLO, N, N, AFAC, LDA, ASAV, LDA );
-                     dpot01(UPLO, N, A, LDA, AFAC, LDA, D_WORK_DPOT01, RESULT( 1 ) );
-                     dlacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
-
-                     // Form the inverse and compute the residual.
-
-                     if ((N % 2) == 0) {
-                        dlacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
-                     } else {
-                        dlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
-                     }
-
-                     srnamc.SRNAMT = 'DPFTRI';
-                     dpftri(CFORM, UPLO, N, ARFINV , INFO );
-
-                     srnamc.SRNAMT = 'DTFTTR';
-                     dtfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
-
-                     // Check error code from DPFTRI.
-
-                     if (INFO != 0) alaerh( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                     dpot03(UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) );
-
-                     // Compute residual of the computed solution.
-
-                     dlacpy('Full', N, NRHS, B, LDA, D_TEMP_DPOT02, LDA );
-                     dpot02(UPLO, N, NRHS, A, LDA, X, LDA, D_TEMP_DPOT02, LDA, D_WORK_DPOT02, RESULT( 3 ) );
-
-                     // Check solution from generated exact solution.
-                      dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
-                     NT = 4;
-
-                     // Print information about the tests that did not
-                     // pass the threshold.
-
-                     for (K = 1; K <= NT; K++) { // 60
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, 'DPF' );
-                           WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO, N, IIT, K, RESULT( K );
-                           NFAIL = NFAIL + 1;
-                        }
-                     } // 60
-                     NRUN = NRUN + NT;
-                  } // 100
-               } // 110
-            } // 120
-         } // 980
-      } // 130
-
-      // Print a summary of the results.
-
-      alasvm('DPF', NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT(' ${.a6}, UPLO=\'${.a1}\', N =${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
-
+            srnamc.SRNAMT = 'DLARHS';
+            dlarhs('DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(), LDA,
+                XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
+            dlacpy('Full', N, NRHS, B.asMatrix(), LDA, BSAV.asMatrix(), LDA);
+
+            // Compute the L*L' or U'*U factorization of the
+            // matrix and solve the system.
+
+            dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            dlacpy('Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(), LDB);
+
+            srnamc.SRNAMT = 'DTRTTF';
+            dtrttf(CFORM, UPLO, N, AFAC.asMatrix(), LDA, ARF, INFO);
+            srnamc.SRNAMT = 'DPFTRF';
+            dpftrf(CFORM, UPLO, N, ARF, INFO);
+
+            // Check error code from DPFTRF.
+
+            if (INFO.value != IZERO) {
+              // LANGOU: there is a small hick here: IZERO should
+              // always be INFO.value however if INFO.value is ZERO, ALAERH does not
+              // complain.
+
+              alaerh('DPF', 'DPFSV ', INFO.value, IZERO, UPLO, N, N, -1, -1,
+                  NRHS, IIT, NFAIL, NERRS, NOUT);
+              continue;
+            }
+
+            // Skip the tests if INFO.value is not 0.
+
+            if (INFO.value != 0) {
+              continue;
+            }
+
+            srnamc.SRNAMT = 'DPFTRS';
+            dpftrs(CFORM, UPLO, N, NRHS, ARF, X.asMatrix(), LDB, INFO);
+
+            srnamc.SRNAMT = 'DTFTTR';
+            dtfttr(CFORM, UPLO, N, ARF, AFAC.asMatrix(), LDA, INFO);
+
+            // Reconstruct matrix from factors and compute
+            // residual.
+
+            dlacpy(UPLO, N, N, AFAC.asMatrix(), LDA, ASAV.asMatrix(), LDA);
+            dpot01(UPLO, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA,
+                D_WORK_DPOT01, RESULT(1));
+            dlacpy(UPLO, N, N, ASAV.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+
+            // Form the inverse and compute the residual.
+
+            if ((N % 2) == 0) {
+              dlacpy('A', N + 1, N ~/ 2, ARF.asMatrix(), N + 1,
+                  ARFINV.asMatrix(), N + 1);
+            } else {
+              dlacpy('A', N, (N + 1) ~/ 2, ARF.asMatrix(), N, ARFINV.asMatrix(),
+                  N);
+            }
+
+            srnamc.SRNAMT = 'DPFTRI';
+            dpftri(CFORM, UPLO, N, ARFINV, INFO);
+
+            srnamc.SRNAMT = 'DTFTTR';
+            dtfttr(CFORM, UPLO, N, ARFINV, AINV.asMatrix(), LDA, INFO);
+
+            // Check error code from DPFTRI.
+
+            if (INFO.value != 0) {
+              alaerh('DPO', 'DPFTRI', INFO.value, 0, UPLO, N, N, -1, -1, -1,
+                  IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            dpot03(
+                UPLO,
+                N,
+                A.asMatrix(),
+                LDA,
+                AINV.asMatrix(),
+                LDA,
+                D_TEMP_DPOT03.asMatrix(),
+                LDA,
+                D_WORK_DPOT03,
+                RCONDC,
+                RESULT(2));
+
+            // Compute residual of the computed solution.
+
+            dlacpy('Full', N, NRHS, B.asMatrix(), LDA, D_TEMP_DPOT02.asMatrix(),
+                LDA);
+            dpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                D_TEMP_DPOT02.asMatrix(), LDA, D_WORK_DPOT02, RESULT(3));
+
+            // Check solution from generated exact solution.
+            dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
+                RCONDC.value, RESULT(4));
+            const NT = 4;
+
+            // Print information about the tests that did not
+            // pass the threshold.
+
+            for (var K = 1; K <= NT; K++) {
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, 'DPF');
+                NOUT.println(
+                    ' DPFSV , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IIT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
+                NFAIL = NFAIL + 1;
+              }
+            }
+            NRUN = NRUN + NT;
+          }
+        }
       }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasvm('DPF', NOUT, NFAIL, NRUN, NERRS.value);
+}

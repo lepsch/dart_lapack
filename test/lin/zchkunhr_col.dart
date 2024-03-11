@@ -1,4 +1,4 @@
-      void zchkunhr_col(final int THRESH, final int TSTERR, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NOUT,) {
+      void zchkunhr_col(final double THRESH, final bool TSTERR, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final Nout NOUT,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -14,7 +14,7 @@
       int                I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1, NB2, NFAIL, NERRS, NRUN;
 
       // .. Local Arrays ..
-      double             RESULT( NTESTS );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAHD, ALASUM, ZERRUNHR_COL, ZUNHR_COL01, ZUNHR_COL02

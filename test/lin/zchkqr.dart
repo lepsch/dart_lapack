@@ -1,4 +1,4 @@
-      void zchkqr(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NXVAL, final int NRHS, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AF, final int AQ, final int AR, final int AC, final int B, final int X, final int XACT, final int TAU, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUT,) {
+      void zchkqr(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final Array<int> NXVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final Array<double> A_, final Array<double> AF_, final Array<double> AQ_, final Array<double> AR_, final Array<double> AC_, final Array<double> B_, final Array<double> X_, final Array<double> XACT_, final Array<double> TAU_, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
@@ -25,8 +25,8 @@
       String             PATH;
       int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX;
       double             ANORM, CNDNUM;
-      int                ISEED( 4 ), ISEEDY( 4 ), KVAL( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 ), KVAL( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
       //- bool               ZGENND;

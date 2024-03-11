@@ -1,4 +1,4 @@
-      void zlqt03(final int M, final int N, final int K, final int AF, final int C, final int CC, final int Q, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
+      void zlqt03(final int M, final int N, final int K, final Matrix<double> AF_, final Matrix<double> C_, final Matrix<double> CC_, final Matrix<double> Q_, final int LDA, final Array<double> TAU_, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -25,7 +25,7 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZLACPY, ZLARNV, ZLASET, ZUNGLQ, ZUNMLQ
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX

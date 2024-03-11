@@ -1,251 +1,236 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/dtrsm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgelqf.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dtfsm.dart';
+import 'package:lapack/src/dtrttf.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/variants/qr/ll/dgeqrf.dart';
+
+import '../matgen/dlarnd.dart';
 import 'common.dart';
 
-      void ddrvrf3(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A_, final int LDA, final int ARF, final int B1, final int B2, final int D_WORK_DLANGE, final int D_WORK_DGEQRF, final int TAU,) {
-  final A = A_.having();
-
+void ddrvrf3(
+  final Nout NOUT,
+  final int NN,
+  final Array<int> NVAL_,
+  final double THRESH,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> ARF_,
+  final Matrix<double> B1_,
+  final Matrix<double> B2_,
+  final Array<double> D_WORK_DLANGE_,
+  final Array<double> D_WORK_DGEQRF_,
+  final Array<double> TAU_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, NN, NOUT;
-      double             THRESH;
-      int                NVAL( NN );
-      double             A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * ), D_WORK_DGEQRF( * ), D_WORK_DLANGE( * ), TAU( * );
-      // ..
+  final NVAL = NVAL_.having(length: NN);
+  final A = A_.having(ld: LDA);
+  final ARF = ARF_.having();
+  final B1 = B1_.having(ld: LDA);
+  final B2 = B2_.having(ld: LDA);
+  final D_WORK_DLANGE = D_WORK_DLANGE_.having();
+  final D_WORK_DGEQRF = D_WORK_DGEQRF_.having();
+  final TAU = TAU_.having();
+  const ZERO = 0.0, ONE = 1.0;
+  const NTESTS = 1;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  const FORMS = ['N', 'T'];
+  const SIDES = ['L', 'R'];
+  const TRANSS = ['N', 'T'];
+  const DIAGS = ['N', 'U'];
 
-// =====================================================================
-      // ..
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ) , ONE  = ( 1.0, 0.0 ) ;
-      int                NTESTS;
-      const              NTESTS = 1 ;
-      String             UPLO, CFORM, DIAG, TRANS, SIDE;
-      int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS;
-      double             EPS, ALPHA;
-      String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLANGE, DLARND;
-      // EXTERNAL DLAMCH, DLANGE, DLARND, lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DTRTTF, DGEQRF, DGEQLF, DTFSM, DTRSM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SQRT
-      // ..
-      // .. Scalars in Common ..
-      // String             srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC / srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
-      const FORMS = [ 'N', 'T' ];
-      const SIDES = [ 'L', 'R' ];
-      const TRANSS = [ 'N', 'T' ];
-      const DIAGS = [ 'N', 'U' ];
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  var NRUN = 0;
+  var NFAIL = 0;
+  final INFO = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
+  final EPS = dlamch('Precision');
 
-      NRUN = 0;
-      NFAIL = 0;
-      INFO = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
-      EPS = dlamch( 'Precision' );
+  for (var IIM = 1; IIM <= NN; IIM++) {
+    final M = NVAL[IIM];
 
-      for (IIM = 1; IIM <= NN; IIM++) { // 170
+    for (var IIN = 1; IIN <= NN; IIN++) {
+      final N = NVAL[IIN];
 
-         M = NVAL( IIM );
+      for (var IFORM = 1; IFORM <= 2; IFORM++) {
+        final CFORM = FORMS[IFORM - 1];
 
-         for (IIN = 1; IIN <= NN; IIN++) { // 160
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          final UPLO = UPLOS[IUPLO - 1];
 
-            N = NVAL( IIN );
+          for (var ISIDE = 1; ISIDE <= 2; ISIDE++) {
+            final SIDE = SIDES[ISIDE - 1];
 
-            for (IFORM = 1; IFORM <= 2; IFORM++) { // 150
+            for (var ITRANS = 1; ITRANS <= 2; ITRANS++) {
+              final TRANS = TRANSS[ITRANS - 1];
 
-               CFORM = FORMS( IFORM );
+              for (var IDIAG = 1; IDIAG <= 2; IDIAG++) {
+                final DIAG = DIAGS[IDIAG - 1];
 
-               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 140
+                for (var IALPHA = 1; IALPHA <= 3; IALPHA++) {
+                  final double ALPHA;
+                  if (IALPHA == 1) {
+                    ALPHA = ZERO;
+                  } else if (IALPHA == 2) {
+                    ALPHA = ONE;
+                  } else {
+                    ALPHA = dlarnd(2, ISEED);
+                  }
 
-                  UPLO = UPLOS( IUPLO );
+                  // All the parameters are set:
+                  //    CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
+                  //    and ALPHA
+                  // READY TO TEST!
 
-                  for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 130
+                  NRUN = NRUN + 1;
 
-                     SIDE = SIDES( ISIDE );
+                  final int NA;
+                  if (ISIDE == 1) {
+                    // The case ISIDE == 1 is when SIDE == 'L'
+                    // -> A is M-by-M ( B is M-by-N )
 
-                     for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 120
+                    NA = M;
+                  } else {
+                    // The case ISIDE == 2 is when SIDE == 'R'
+                    // -> A is N-by-N ( B is M-by-N )
 
-                        TRANS = TRANSS( ITRANS );
+                    NA = N;
+                  }
 
-                        for (IDIAG = 1; IDIAG <= 2; IDIAG++) { // 110
+                  // Generate A our NA--by--NA triangular
+                  // matrix.
+                  // Our test is based on forward error so we
+                  // do want A to be well conditioned! To get
+                  // a well-conditioned triangular matrix, we
+                  // take the R factor of the QR/LQ factorization
+                  // of a random matrix.
 
-                           DIAG = DIAGS( IDIAG );
+                  for (var J = 1; J <= NA; J++) {
+                    for (var I = 1; I <= NA; I++) {
+                      A[I][J] = dlarnd(2, ISEED);
+                    }
+                  }
 
-                           for (IALPHA = 1; IALPHA <= 3; IALPHA++) { // 100
+                  if (IUPLO == 1) {
+                    // The case IUPLO == 1 is when SIDE == 'U'
+                    // -> QR factorization.
 
-                              if ( IALPHA == 1 ) {
-                                 ALPHA = ZERO;
-                              } else if ( IALPHA == 2 ) {
-                                 ALPHA = ONE;
-                              } else {
-                                 ALPHA = dlarnd( 2, ISEED );
-                              }
+                    srnamc.SRNAMT = 'DGEQRF';
+                    dgeqrf(NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO);
 
-                              // All the parameters are set:
-                              //    CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
-                              //    and ALPHA
-                              // READY TO TEST!
+                    // Forcing main diagonal of test matrix to
+                    // be unit makes it ill-conditioned for
+                    // some test cases
 
-                              NRUN = NRUN + 1;
+                    if (lsame(DIAG, 'U')) {
+                      for (var J = 1; J <= NA; J++) {
+                        for (var I = 1; I <= J; I++) {
+                          A[I][J] = A[I][J] / (2.0 * A[J][J]);
+                        }
+                      }
+                    }
+                  } else {
+                    // The case IUPLO == 2 is when SIDE == 'L'
+                    // -> QL factorization.
 
-                              if ( ISIDE == 1 ) {
+                    srnamc.SRNAMT = 'DGELQF';
+                    dgelqf(NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO);
 
-                                 // The case ISIDE == 1 is when SIDE == 'L'
-                                 // -> A is M-by-M ( B is M-by-N )
+                    // Forcing main diagonal of test matrix to
+                    // be unit makes it ill-conditioned for
+                    // some test cases
 
-                                 NA = M;
+                    if (lsame(DIAG, 'U')) {
+                      for (var I = 1; I <= NA; I++) {
+                        for (var J = 1; J <= I; J++) {
+                          A[I][J] = A[I][J] / (2.0 * A[I][I]);
+                        }
+                      }
+                    }
+                  }
 
-                              } else {
+                  // Store a copy of A in RFP format (in ARF).
 
-                                 // The case ISIDE == 2 is when SIDE == 'R'
-                                 // -> A is N-by-N ( B is M-by-N )
+                  srnamc.SRNAMT = 'DTRTTF';
+                  dtrttf(CFORM, UPLO, NA, A, LDA, ARF, INFO);
 
-                                 NA = N;
+                  // Generate B1 our M--by--N right-hand side
+                  // and store a copy in B2.
 
-                              }
+                  for (var J = 1; J <= N; J++) {
+                    for (var I = 1; I <= M; I++) {
+                      B1[I][J] = dlarnd(2, ISEED);
+                      B2[I][J] = B1[I][J];
+                    }
+                  }
 
-                              // Generate A our NA--by--NA triangular
-                              // matrix.
-                              // Our test is based on forward error so we
-                              // do want A to be well conditioned! To get
-                              // a well-conditioned triangular matrix, we
-                              // take the R factor of the QR/LQ factorization
-                              // of a random matrix.
+                  // Solve op( A ) X = B or X op( A ) = B
+                  // with DTRSM
 
-                              for (J = 1; J <= NA; J++) {
-                                 for (I = 1; I <= NA; I++) {
-                                    A[I][J] = dlarnd( 2, ISEED );
-                                 }
-                              }
+                  srnamc.SRNAMT = 'DTRSM';
+                  dtrsm(SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA);
 
-                              if ( IUPLO == 1 ) {
+                  // Solve op( A ) X = B or X op( A ) = B
+                  // with DTFSM
 
-                                 // The case IUPLO == 1 is when SIDE == 'U'
-                                 // -> QR factorization.
+                  srnamc.SRNAMT = 'DTFSM';
+                  dtfsm(CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2,
+                      LDA);
 
-                                 srnamc.SRNAMT = 'DGEQRF';
-                                 dgeqrf(NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO );
+                  // Check that the result agrees.
 
-                                 // Forcing main diagonal of test matrix to
-                                 // be unit makes it ill-conditioned for
-                                 // some test cases
+                  for (var J = 1; J <= N; J++) {
+                    for (var I = 1; I <= M; I++) {
+                      B1[I][J] = B2[I][J] - B1[I][J];
+                    }
+                  }
 
-                                 if ( lsame( DIAG, 'U' ) ) {
-                                    for (J = 1; J <= NA; J++) {
-                                       for (I = 1; I <= J; I++) {
-                                          A[I][J] = A( I, J ) / ( 2.0 * A( J, J ) );
-                                       }
-                                    }
-                                 }
+                  RESULT[1] = dlange('I', M, N, B1, LDA, D_WORK_DLANGE);
 
-                              } else {
+                  RESULT[1] = RESULT[1] / sqrt(EPS) / max(max(M, N), 1);
 
-                                 // The case IUPLO == 2 is when SIDE == 'L'
-                                 // -> QL factorization.
-
-                                 srnamc.SRNAMT = 'DGELQF';
-                                 dgelqf(NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO );
-
-                                 // Forcing main diagonal of test matrix to
-                                 // be unit makes it ill-conditioned for
-                                 // some test cases
-
-                                 if ( lsame( DIAG, 'U' ) ) {
-                                    for (I = 1; I <= NA; I++) {
-                                       for (J = 1; J <= I; J++) {
-                                          A[I][J] = A( I, J ) / ( 2.0 * A( I, I ) );
-                                       }
-                                    }
-                                 }
-
-                              }
-
-                              // Store a copy of A in RFP format (in ARF).
-
-                              srnamc.SRNAMT = 'DTRTTF';
-                              dtrttf(CFORM, UPLO, NA, A, LDA, ARF, INFO );
-
-                              // Generate B1 our M--by--N right-hand side
-                              // and store a copy in B2.
-
-                              for (J = 1; J <= N; J++) {
-                                 for (I = 1; I <= M; I++) {
-                                    B1[I][J] = dlarnd( 2, ISEED );
-                                    B2[I][J] = B1( I, J );
-                                 }
-                              }
-
-                              // Solve op( A ) X = B or X op( A ) = B
-                              // with DTRSM
-
-                              srnamc.SRNAMT = 'DTRSM';
-                              dtrsm(SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA );
-
-                              // Solve op( A ) X = B or X op( A ) = B
-                              // with DTFSM
-
-                              srnamc.SRNAMT = 'DTFSM';
-                              dtfsm(CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA );
-
-                              // Check that the result agrees.
-
-                              for (J = 1; J <= N; J++) {
-                                 for (I = 1; I <= M; I++) {
-                                    B1[I][J] = B2( I, J ) - B1( I, J );
-                                 }
-                              }
-
-                              RESULT[1] = dlange( 'I', M, N, B1, LDA, D_WORK_DLANGE );
-
-                              RESULT[1] = RESULT( 1 ) / sqrt( EPS ) / max( max( M, N ), 1 );
-
-                              if ( RESULT( 1 ) >= THRESH ) {
-                                 if ( NFAIL == 0 ) {
-                                    WRITE( NOUT, * );
-                                    WRITE( NOUT, FMT = 9999 );
-                                 }
-                                 WRITE( NOUT, FMT = 9997 ) 'DTFSM', CFORM, SIDE, UPLO, TRANS, DIAG, M, N, RESULT( 1 );
-                                 NFAIL = NFAIL + 1;
-                              }
-
-                           } // 100
-                        } // 110
-                     } // 120
-                  } // 130
-               } // 140
-            } // 150
-         } // 160
-      } // 170
-
-      // Print a summary of the results.
-
-      if ( NFAIL == 0 ) {
-         WRITE( NOUT, FMT = 9996 ) 'DTFSM', NRUN;
-      } else {
-         WRITE( NOUT, FMT = 9995 ) 'DTFSM', NFAIL, NRUN;
+                  if (RESULT[1] >= THRESH) {
+                    if (NFAIL == 0) {
+                      NOUT.println();
+                      NOUT.println(
+                          '  *** Error(s) or Failure(s) while testing DTFSM ***');
+                    }
+                    NOUT.println(
+                        '      Failure in DTFSM, CFORM=\'${CFORM.a1}\', SIDE=\'${SIDE.a1}\', UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.a1}\', M=${M.i3}, N =${N.i3}, test=${RESULT[1].g12_5}');
+                    NFAIL = NFAIL + 1;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
+    }
+  }
 
- 9999 FORMAT('  *** Error(s) or Failure(s) while testing DTFSM ***');
- 9997 FORMAT('      Failure in ${.a5}, CFORM=\'${.a1}\', SIDE=\'${.a1}\',',' UPLO=\'${.a1}\',',' TRANS=\'${.a1}\', DIAG=\'${.a1}\',',' M=',I3,', N =', I3,', test=',G12.5);
- 9996 FORMAT(' All tests for ${.a5} auxiliary routine passed the threshold ( ',I5,' tests run)');
- 9995 FORMAT(' ${.a6} auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold');
+  // Print a summary of the results.
 
-      }
+  if (NFAIL == 0) {
+    NOUT.println(
+        ' All tests for DTFSM auxiliary routine passed the threshold ( ${NRUN.i5} tests run)');
+  } else {
+    NOUT.println(
+        ' DTFSM  auxiliary routine: ${NFAIL.i5} out of ${NRUN.i5} tests failed to pass the threshold');
+  }
+}

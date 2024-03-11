@@ -1,4 +1,4 @@
-      void zlavhp(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int A, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+      void zlavhp(final String UPLO, final String TRANS, final String DIAG, final int N, final int NRHS, final int A, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
   final IPIV = IPIV_.having();
   final B = B_.having();
 

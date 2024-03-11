@@ -29,10 +29,9 @@ void ddrvrf1(
   final WORK = WORK_.having();
   const ONE = 1.0;
   const NTESTS = 1;
-  int NFAIL, NRUN;
   final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
-  final INFO = Box(0), NERRS = Box(0);
+  final INFO = Box(0);
 
   const ISEEDY = [1988, 1989, 1990, 1991];
   const UPLOS = ['U', 'L'];
@@ -41,9 +40,9 @@ void ddrvrf1(
 
   // Initialize constants and the random number seed.
 
-  NRUN = 0;
-  NFAIL = 0;
-  NERRS.value = 0;
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
   INFO.value = 0;
   for (var I = 1; I <= 4; I++) {
     ISEED[I] = ISEEDY[I - 1];

@@ -1,4 +1,4 @@
-      void zlqt02(final int M, final int N, final int K, final int A, final int AF, final int Q, final int L, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
+      void zlqt02(final int M, final int N, final int K, final Array<double> A_, final Array<double> AF_, final Array<double> Q_, final Array<double> L_, final int LDA, final Array<double> TAU_, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 

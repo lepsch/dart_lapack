@@ -12,7 +12,6 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
 import 'alareq.dart';
-import 'common.dart';
 import 'dchkeq.dart';
 import 'dchkgb.dart';
 import 'dchkge.dart';
@@ -71,8 +70,6 @@ void main() async {
   const MATMAX = 30;
   const KDMAX = NMAX + (NMAX + 1) ~/ 4;
   bool FATAL, TSTCHK, TSTDRV, TSTERR;
-  String C1;
-  String C2;
   String PATH;
   String ALINE;
   int I,
@@ -88,10 +85,9 @@ void main() async {
       NNB,
       NNB2,
       NNS,
-      NRHS,
       NTYPES,
       NRANK;
-  double EPS, S2, THRESH;
+  double EPS, THRESH;
   final DOTYPE = Array<bool>(MATMAX);
   final IWORK = Array<int>(25 * NMAX),
       MVAL = Array<int>(MAXIN),
@@ -325,7 +321,7 @@ void main() async {
     if (I <= 72) {
       NMATS = 0;
       while (true) {
-        C1 = ALINE[I - 1];
+        final C1 = ALINE[I - 1];
         var isDigit = false;
         for (K = 1; K <= 10; K++) {
           if (C1 == INTSTR[K - 1]) {
@@ -342,9 +338,9 @@ void main() async {
       }
     }
 
-    C1 = PATH[0];
-    C2 = PATH.substring(1, 3);
-    NRHS = NSVAL[1];
+    final C1 = PATH[0];
+    final C2 = PATH.substring(1, 3);
+    final NRHS = NSVAL[1];
 
     // Check first character for correct precision.
 
@@ -645,15 +641,15 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
             S,
-            WORK,
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -678,13 +674,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -701,15 +697,15 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
             S,
-            WORK,
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -723,15 +719,44 @@ void main() async {
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        dchkpt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        dchkpt(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
 
       if (TSTDRV) {
-        ddrvpt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        ddrvpt(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -754,13 +779,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -769,8 +794,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        ddrvsy(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        ddrvsy(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -793,13 +834,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -816,13 +857,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -849,14 +890,14 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
             E,
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -865,8 +906,25 @@ void main() async {
       }
 
       if (TSTDRV) {
-        ddrvsy_rk(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            E, A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        ddrvsy_rk(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            E,
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -889,13 +947,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -904,8 +962,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        ddrvsy_aa(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        ddrvsy_aa(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -928,13 +1002,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -951,13 +1025,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -981,13 +1055,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -996,8 +1070,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        ddrvsp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        ddrvsp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -1019,12 +1109,12 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1038,8 +1128,24 @@ void main() async {
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        dchktp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A(1, 1),
-            A(1, 2), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        dchktp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
@@ -1050,8 +1156,24 @@ void main() async {
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        dchktb(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A(1, 1),
-            A(1, 2), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        dchktb(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
@@ -1075,16 +1197,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1111,16 +1233,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             NOUT);
       } else {
@@ -1146,16 +1268,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             NOUT);
       } else {
@@ -1181,16 +1303,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1204,8 +1326,23 @@ void main() async {
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        dchkq3(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A(1, 1),
-            A(1, 2), B(1, 1), B(1, 3), WORK, IWORK, NOUT);
+        dchkq3(
+            DOTYPE,
+            NM,
+            MVAL,
+            NN,
+            NVAL,
+            NNB,
+            NBVAL,
+            NXVAL,
+            THRESH,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
@@ -1247,8 +1384,20 @@ void main() async {
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        dchktz(DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A(1, 1), A(1, 2),
-            B(1, 1), B(1, 3), WORK, NOUT);
+        dchktz(
+            DOTYPE,
+            NM,
+            MVAL,
+            NN,
+            NVAL,
+            THRESH,
+            TSTERR,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
@@ -1272,11 +1421,11 @@ void main() async {
             NXVAL,
             THRESH,
             TSTERR,
-            A(1, 1),
-            A(1, 2),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
             RWORK,
             RWORK(NMAX + 1),
             NOUT);
@@ -1349,9 +1498,8 @@ void main() async {
 
   // Branch to this line when the last record is read.
 
-  // } // 140
   await NIN.close();
-  S2 = dsecnd();
+  final S2 = dsecnd();
   NOUT.println('\n End of tests');
   NOUT.println(' Total time used = ${(S2 - S1).f12_2} seconds\n');
 }

@@ -1,4 +1,4 @@
-      void zchklqt(final int THRESH, final int TSTERR, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NOUT,) {
+      void zchklqt(final double THRESH, final bool TSTERR, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final Nout NOUT,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -14,7 +14,7 @@
       int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN;
 
       // .. Local Arrays ..
-      double             RESULT( NTESTS );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, ZERRLQT, ZLQT04

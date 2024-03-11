@@ -1,197 +1,250 @@
-      void main() {
+import 'dart:io';
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/dsecnd.dart';
+import 'package:lapack/src/install/ilaver.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import 'ddrvrf1.dart';
+import 'ddrvrf2.dart';
+import 'ddrvrf3.dart';
+import 'ddrvrf4.dart';
+import 'ddrvrfp.dart';
+import 'derrrfp.dart';
+
+void main() async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      int                MAXIN;
-      const              MAXIN = 12 ;
-      int                NMAX;
-      const              NMAX =  50 ;
-      int                MAXRHS;
-      const              MAXRHS = 16 ;
-      int                NTYPES;
-      const              NTYPES = 9 ;
-      int                NIN, NOUT;
-      const              NIN = 5, NOUT = 6 ;
-      bool               FATAL, TSTERR;
-      int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      int                I, NN, NNS, NNT;
-      double             EPS, S1, S2, THRESH;
+  final NIN = Nin(stdin), NOUT = Nout(stdout);
+  const MAXIN = 12;
+  const NMAX = 50;
+  const MAXRHS = 16;
+  const NTYPES = 9;
 
-      int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
-      double             WORKA( NMAX, NMAX );
-      double             WORKASAV( NMAX, NMAX );
-      double             WORKB( NMAX, MAXRHS );
-      double             WORKXACT( NMAX, MAXRHS );
-      double             WORKBSAV( NMAX, MAXRHS );
-      double             WORKX( NMAX, MAXRHS );
-      double             WORKAFAC( NMAX, NMAX );
-      double             WORKAINV( NMAX, NMAX );
-      double             WORKARF( (NMAX*(NMAX+1))/2 );
-      double             WORKAP( (NMAX*(NMAX+1))/2 );
-      double             WORKARFINV( (NMAX*(NMAX+1))/2 );
-      double             D_WORK_DLATMS( 3 * NMAX );
-      double             D_WORK_DPOT01( NMAX );
-      double             D_TEMP_DPOT02( NMAX, MAXRHS );
-      double             D_TEMP_DPOT03( NMAX, NMAX );
-      double             D_WORK_DLANSY( NMAX );
-      double             D_WORK_DPOT02( NMAX );
-      double             D_WORK_DPOT03( NMAX );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DSECND;
-      // EXTERNAL DLAMCH, DSECND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ILAVER, DDRVRFP, DDRVRF1, DDRVRF2, DDRVRF3, DDRVRF4
+  final NVAL = Array<int>(MAXIN),
+      NSVAL = Array<int>(MAXIN),
+      NTVAL = Array<int>(NTYPES);
+  final WORKA = Matrix<double>(NMAX, NMAX),
+      WORKASAV = Matrix<double>(NMAX, NMAX),
+      WORKB = Matrix<double>(NMAX, MAXRHS),
+      WORKXACT = Matrix<double>(NMAX, MAXRHS),
+      WORKBSAV = Matrix<double>(NMAX, MAXRHS),
+      WORKX = Matrix<double>(NMAX, MAXRHS),
+      WORKAFAC = Matrix<double>(NMAX, NMAX),
+      WORKAINV = Matrix<double>(NMAX, NMAX),
+      WORKARF = Array<double>((NMAX * (NMAX + 1)) ~/ 2),
+      WORKAP = Array<double>((NMAX * (NMAX + 1)) ~/ 2),
+      WORKARFINV = Array<double>((NMAX * (NMAX + 1)) ~/ 2),
+      D_WORK_DLATMS = Array<double>(3 * NMAX),
+      D_WORK_DPOT01 = Array<double>(NMAX),
+      D_TEMP_DPOT02 = Matrix<double>(NMAX, MAXRHS),
+      D_TEMP_DPOT03 = Matrix<double>(NMAX, NMAX),
+      D_WORK_DLANSY = Array<double>(NMAX),
+      D_WORK_DPOT02 = Array<double>(NMAX),
+      D_WORK_DPOT03 = Array<double>(NMAX);
 
-      S1 = DSECND( );
-      FATAL = false;
+  final S1 = dsecnd();
+  var FATAL = false;
 
-      // Read a dummy line.
+  // Read a dummy line.
 
-      READ( NIN, FMT = * );
+  await NIN.readLine();
 
-      // Report LAPACK version tag (e.g. LAPACK-3.2.0)
+  // Report LAPACK version tag (e.g. LAPACK-3.2.0)
 
-      ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+  final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
+  ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
+  NOUT.println(
+      '\n Tests of the double           LAPACK RFP routines  LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
 
-      // Read the values of N
+  // Read the values of N
 
-      READ( NIN, FMT = * )NN;
-      if ( NN < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NN ', NN, 1;
-         NN = 0;
-         FATAL = true;
-      } else if ( NN > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN;
-         NN = 0;
-         FATAL = true;
-      }
-      READ( NIN, FMT = * )( NVAL( I ), I = 1, NN );
-      for (I = 1; I <= NN; I++) { // 10
-         if ( NVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0;
-            FATAL = true;
-         } else if ( NVAL( I ) > NMAX ) {
-            WRITE( NOUT, FMT = 9995 )' M  ', NVAL( I ), NMAX;
-            FATAL = true;
-         }
-      } // 10
-      if (NN > 0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
+  var NN = await NIN.readInt();
+  if (NN < 1) {
+    NOUT.print9996(' NN ', NN, 1);
+    NN = 0;
+    FATAL = true;
+  } else if (NN > MAXIN) {
+    NOUT.print9995(' NN ', NN, MAXIN);
+    NN = 0;
+    FATAL = true;
+  }
+  await NIN.readArray(NVAL, NN);
+  for (var I = 1; I <= NN; I++) {
+    // 10
+    if (NVAL[I] < 0) {
+      NOUT.print9996(' M  ', NVAL[I], 0);
+      FATAL = true;
+    } else if (NVAL[I] > NMAX) {
+      NOUT.print9995(' M  ', NVAL[I], NMAX);
+      FATAL = true;
+    }
+  } // 10
+  if (NN > 0) NOUT.print9993('N   ', NVAL, NN);
 
-      // Read the values of NRHS
+  // Read the values of NRHS
 
-      READ( NIN, FMT = * )NNS;
-      if ( NNS < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1;
-         NNS = 0;
-         FATAL = true;
-      } else if ( NNS > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN;
-         NNS = 0;
-         FATAL = true;
-      }
-      READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS );
-      for (I = 1; I <= NNS; I++) { // 30
-         if ( NSVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0;
-            FATAL = true;
-         } else if ( NSVAL( I ) > MAXRHS ) {
-            WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS;
-            FATAL = true;
-         }
-      } // 30
-      if (NNS > 0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+  var NNS = await NIN.readInt();
+  if (NNS < 1) {
+    NOUT.print9996(' NNS', NNS, 1);
+    NNS = 0;
+    FATAL = true;
+  } else if (NNS > MAXIN) {
+    NOUT.print9995(' NNS', NNS, MAXIN);
+    NNS = 0;
+    FATAL = true;
+  }
+  await NIN.readArray(NSVAL, NNS);
+  for (var I = 1; I <= NNS; I++) {
+    // 30
+    if (NSVAL[I] < 0) {
+      NOUT.print9996('NRHS', NSVAL[I], 0);
+      FATAL = true;
+    } else if (NSVAL[I] > MAXRHS) {
+      NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
+      FATAL = true;
+    }
+  } // 30
+  if (NNS > 0) NOUT.print9993('NRHS', NSVAL, NNS);
 
-      // Read the matrix types
+  // Read the matrix types
 
-      READ( NIN, FMT = * )NNT;
-      if ( NNT < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1;
-         NNT = 0;
-         FATAL = true;
-      } else if ( NNT > NTYPES ) {
-         WRITE( NOUT, FMT = 9995 )' NMA', NNT, NTYPES;
-         NNT = 0;
-         FATAL = true;
-      }
-      READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT );
-      for (I = 1; I <= NNT; I++) { // 320
-         if ( NTVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0;
-            FATAL = true;
-         } else if ( NTVAL( I ) > NTYPES ) {
-            WRITE( NOUT, FMT = 9995 )'TYPE', NTVAL( I ), NTYPES;
-            FATAL = true;
-         }
-      } // 320
-      if (NNT > 0) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
+  var NNT = await NIN.readInt();
+  if (NNT < 1) {
+    NOUT.print9996(' NMA', NNT, 1);
+    NNT = 0;
+    FATAL = true;
+  } else if (NNT > NTYPES) {
+    NOUT.print9995(' NMA', NNT, NTYPES);
+    NNT = 0;
+    FATAL = true;
+  }
+  await NIN.readArray(NTVAL, NNT);
+  for (var I = 1; I <= NNT; I++) {
+    // 320
+    if (NTVAL[I] < 0) {
+      NOUT.print9996('TYPE', NTVAL[I], 0);
+      FATAL = true;
+    } else if (NTVAL[I] > NTYPES) {
+      NOUT.print9995('TYPE', NTVAL[I], NTYPES);
+      FATAL = true;
+    }
+  } // 320
+  if (NNT > 0) NOUT.print9993('TYPE', NTVAL, NNT);
 
-      // Read the threshold value for the test ratios.
+  // Read the threshold value for the test ratios.
 
-      READ( NIN, FMT = * )THRESH;
-      WRITE( NOUT, FMT = 9992 )THRESH;
+  final THRESH = await NIN.readDouble();
+  NOUT.println(
+      '\n Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
 
-      // Read the flag that indicates whether to test the error exits.
+  // Read the flag that indicates whether to test the error exits.
 
-      READ( NIN, FMT = * )TSTERR;
+  final TSTERR = await NIN.readBool();
 
-      if ( FATAL ) {
-         WRITE( NOUT, FMT = 9999 );
-         STOP;
-      }
+  if (FATAL) {
+    NOUT.println('\n Execution not attempted due to input errors');
+    return;
+  }
 
-      // Calculate and print the machine dependent constants.
+  // Calculate and print the machine dependent constants.
 
-      EPS = dlamch( 'Underflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'underflow', EPS;
-      EPS = dlamch( 'Overflow threshold' );
-      WRITE( NOUT, FMT = 9991 )'overflow ', EPS;
-      EPS = dlamch( 'Epsilon' );
-      WRITE( NOUT, FMT = 9991 )'precision', EPS;
-      WRITE( NOUT, FMT = * );
+  var EPS = dlamch('Underflow threshold');
+  NOUT.print9991('underflow', EPS);
+  EPS = dlamch('Overflow threshold');
+  NOUT.print9991('overflow ', EPS);
+  EPS = dlamch('Epsilon');
+  NOUT.print9991('precision', EPS);
+  NOUT.println();
 
-      // Test the error exit of:
+  // Test the error exit of:
 
-      if (TSTERR) derrrfp( NOUT );
+  if (TSTERR) derrrfp(NOUT);
 
-      // Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
-      // This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.
+  // Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
+  // This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.
 
-      ddrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 );
+  ddrvrfp(
+      NOUT,
+      NN,
+      NVAL,
+      NNS,
+      NSVAL,
+      NNT,
+      NTVAL,
+      THRESH,
+      WORKA.asArray(),
+      WORKASAV.asArray(),
+      WORKAFAC.asArray(),
+      WORKAINV.asArray(),
+      WORKB.asArray(),
+      WORKBSAV.asArray(),
+      WORKXACT.asArray(),
+      WORKX.asArray(),
+      WORKARF,
+      WORKARFINV,
+      D_WORK_DLATMS,
+      D_WORK_DPOT01,
+      D_TEMP_DPOT02.asArray(),
+      D_TEMP_DPOT03.asArray(),
+      D_WORK_DLANSY,
+      D_WORK_DPOT02,
+      D_WORK_DPOT03);
 
-      // Test the routine: dlansf
+  // Test the routine: dlansf
 
-      ddrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_DLANSY );
+  ddrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_DLANSY);
 
-      // Test the conversion routines:
-      //   dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
+  // Test the conversion routines:
+  //   dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
 
-      ddrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV );
+  ddrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV);
 
-      // Test the routine: dtfsm
+  // Test the routine: dtfsm
 
-      ddrvrf3(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_DLANSY, D_WORK_DPOT03, D_WORK_DPOT01 );
+  ddrvrf3(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC,
+      D_WORK_DLANSY, D_WORK_DPOT03, D_WORK_DPOT01);
 
+  // Test the routine: dsfrk
 
-      // Test the routine: dsfrk
+  ddrvrf4(NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV,
+      NMAX, D_WORK_DLANSY);
 
-      ddrvrf4(NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, D_WORK_DLANSY);
+  await NIN.close();
+  final S2 = dsecnd();
+  NOUT.println('\n End of tests');
+  NOUT.println(' Total time used = ${(S2 - S1).f12_2} seconds\n');
+}
 
-      CLOSE ( NIN );
-      S2 = DSECND( );
-      WRITE( NOUT, FMT = 9998 );
-      WRITE( NOUT, FMT = 9997 )S2 - S1;
+extension on Nout {
+  void print9996(String s, int actual, int expected) {
+    println(
+        ' !! Invalid input value: ${s.a4}=${actual.i6}; must be >=${expected.i6}');
+  }
 
- 9999 FORMAT('\n Execution not attempted due to input errors' );
- 9998 FORMAT('\n End of tests' );
- 9997 FORMAT( ' Total time used = ${.f12_2} seconds\n');
- 9996 FORMAT( ' !! Invalid input value: ${.a4}=${.i6}; must be >=', I6 )
- 9995 FORMAT( ' !! Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
- 9994 FORMAT('\n Tests of the double           LAPACK RFP routines ',; / ' LAPACK VERSION ${.i1}.${.i1}.', I1, / / ' The following parameter values will be used:' )
- 9993 FORMAT('    ${.a4}:  ', 10I6, / 11X, 10I6 );
- 9992 FORMAT('\n Routines pass computational tests if test ratio is less than', F8.2, / );
- 9991 FORMAT( ' Relative machine ${} is taken to be', D16.6 );
-      }
+  void print9995(String s, int actual, int expected) {
+    println(
+        ' !! Invalid input value: ${s.a4}=${actual.i6}; must be <=${expected.i6}');
+  }
+
+  void print9993(final String s, final Array<int> a, int n) {
+    var prefix = '    $s:  ';
+    var i = 1;
+    while (n > 0) {
+      println('$prefix${a(i).i6(min(n, 10))}');
+      prefix = ' ' * 11;
+      n -= 10;
+      i += 10;
+    }
+  }
+
+  void print9991(String s, double d) {
+    println(' Relative machine $s is taken to be${d.d16_6}');
+  }
+}

@@ -245,7 +245,7 @@ class Matrix<T> implements Box<T> {
 
   set first(T value) => _entries.first = value;
 
-  Matrix<T> having({int? ld, ({int x, int y})? offset}) => Matrix._(
+  Matrix<T> having({int? ld, int? lastd, ({int x, int y})? offset}) => Matrix._(
         _entries,
         (
           ld ?? this.dimensions.$1,

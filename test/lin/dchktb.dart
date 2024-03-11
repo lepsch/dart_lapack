@@ -1,339 +1,462 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dtbsv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlantb.dart';
+import 'package:lapack/src/dlantr.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dlatbs.dart';
+import 'package:lapack/src/dtbcon.dart';
+import 'package:lapack/src/dtbrfs.dart';
+import 'package:lapack/src/dtbtrs.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import 'alaerh.dart';
+import 'alahd.dart';
+import 'alasum.dart';
 import 'common.dart';
+import 'derrtr.dart';
+import 'dget04.dart';
+import 'dlarhs.dart';
+import 'dlattb.dart';
+import 'dtbt02.dart';
+import 'dtbt03.dart';
+import 'dtbt05.dart';
+import 'dtbt06.dart';
 
-      void dchktb(final int DOTYPE, final int NN, final int NVAL, final int NNS, final int NSVAL, final int THRESH, final int TSTERR, final int NMAX, final int AB, final int AINV, final int B, final int X, final int XACT, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUT,) {
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
-  final IWORK = IWORK_.having();
-
+void dchktb(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNS,
+  final Array<int> NSVAL_,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<double> AB_,
+  final Array<double> AINV_,
+  final Array<double> B_,
+  final Array<double> X_,
+  final Array<double> XACT_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
+  final Array<int> IWORK_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NMAX, NN, NNS, NOUT;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                IWORK( * ), NSVAL( * ), NVAL( * );
-      double             AB( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
-      // ..
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final NSVAL = NSVAL_.having();
+  final AB = AB_.having();
+  final AINV = AINV_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  final IWORK = IWORK_.having();
+  const NTYPE1 = 9, NTYPES = 17;
+  const NTESTS = 8;
+  const NTRAN = 3;
+  const ONE = 1.0, ZERO = 0.0;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'], TRANSS = ['N', 'T', 'C'];
+  final INFO = Box(0);
 
-      int                NTYPE1, NTYPES;
-      const              NTYPE1 = 9, NTYPES = 17 ;
-      int                NTESTS;
-      const              NTESTS = 8 ;
-      int                NTRAN;
-      const              NTRAN = 3 ;
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      String             DIAG, NORM, TRANS, UPLO, XTYPE;
-      String             PATH;
-      int                I, IDIAG, IK, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, J, K, KD, LDA, LDAB, N, NERRS, NFAIL, NIMAT, NIMAT2, NK, NRHS, NRUN;
-      double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
-      String             TRANSS( NTRAN ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLANTB, DLANTR;
-      // EXTERNAL lsame, DLANTB, DLANTR
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLASET, DLATBS, DLATTB, DTBCON, DTBRFS, DTBSV, DTBT02, DTBT03, DTBT05, DTBT06, DTBTRS
-      // ..
-      // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // int                infoc.INFOT, infoc.IOUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC / srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = 'U', 'L', TRANSS = 'N', 'T', 'C';
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  final PATH = '${'Double precision'[0]}TB';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      PATH = '${'Double precision'[0]}';
-      PATH[2: 3] = 'TB';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
+  // Test the error exits
 
-      // Test the error exits
+  if (TSTERR) derrtr(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      if (TSTERR) derrtr( PATH, NOUT );
-      infoc.INFOT = 0;
+  for (var IN = 1; IN <= NN; IN++) {
+    // Do for each value of N in NVAL
 
-      for (IN = 1; IN <= NN; IN++) { // 140
+    final N = NVAL[IN];
+    final LDA = max(1, N);
+    var XTYPE = 'N';
+    final NIMAT = N <= 0 ? 1 : NTYPE1;
+    final NIMAT2 = N <= 0 ? NTYPE1 + 1 : NTYPES;
 
-         // Do for each value of N in NVAL
+    final NK = min(N + 1, 4);
+    for (var IK = 1; IK <= NK; IK++) {
+      // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
+      // it easier to skip redundant values for small values of N.
 
-         N = NVAL( IN );
-         LDA = max( 1, N );
-         XTYPE = 'N';
-         NIMAT = NTYPE1;
-         NIMAT2 = NTYPES;
-         if ( N <= 0 ) {
-            NIMAT = 1;
-            NIMAT2 = NTYPE1 + 1;
-         }
+      final KD = switch (IK) {
+        2 => max(N, 0),
+        3 => (3 * N - 1) ~/ 4,
+        4 => (N + 1) ~/ 4,
+        1 || _ => 0,
+      };
+      final LDAB = KD + 1;
 
-         NK = min( N+1, 4 );
-         for (IK = 1; IK <= NK; IK++) { // 130
+      for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+        // Do the tests only if DOTYPE( IMAT ) is true.
 
-            // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
-            // it easier to skip redundant values for small values of N.
+        if (!DOTYPE[IMAT]) continue;
 
-            if ( IK == 1 ) {
-               KD = 0;
-            } else if ( IK == 2 ) {
-               KD = max( N, 0 );
-            } else if ( IK == 3 ) {
-               KD = ( 3*N-1 ) / 4;
-            } else if ( IK == 4 ) {
-               KD = ( N+1 ) / 4;
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          // Do first for UPLO = 'U', then for UPLO = 'L'
+
+          final UPLO = UPLOS[IUPLO - 1];
+
+          // Call DLATTB to generate a triangular test matrix.
+
+          final DIAG = Box('');
+          srnamc.SRNAMT = 'DLATTB';
+          dlattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB.asMatrix(),
+              LDAB, X, WORK, INFO);
+
+          // Set IDIAG = 1 for non-unit matrices, 2 for unit.
+
+          final IDIAG = lsame(DIAG.value, 'N') ? 1 : 2;
+
+          // Form the inverse of A so we can get a good estimate
+          // of RCONDC = 1/(norm(A) * norm(inv(A))).
+
+          dlaset('Full', N, N, ZERO, ONE, AINV.asMatrix(), LDA);
+          if (lsame(UPLO, 'U')) {
+            for (var J = 1; J <= N; J++) {
+              dtbsv(UPLO, 'No transpose', DIAG.value, J, KD, AB.asMatrix(),
+                  LDAB, AINV((J - 1) * LDA + 1), 1);
             }
-            LDAB = KD + 1;
-
-            for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 90
-
-               // Do the tests only if DOTYPE( IMAT ) is true.
-
-               if( !DOTYPE( IMAT ) ) GO TO 90;
-
-               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80
-
-                  // Do first for UPLO = 'U', then for UPLO = 'L'
-
-                  UPLO = UPLOS( IUPLO );
-
-                  // Call DLATTB to generate a triangular test matrix.
-
-                  srnamc.SRNAMT = 'DLATTB';
-                  dlattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
-
-                  // Set IDIAG = 1 for non-unit matrices, 2 for unit.
-
-                  if ( lsame( DIAG, 'N' ) ) {
-                     IDIAG = 1;
-                  } else {
-                     IDIAG = 2;
-                  }
-
-                  // Form the inverse of A so we can get a good estimate
-                  // of RCONDC = 1/(norm(A) * norm(inv(A))).
-
-                  dlaset('Full', N, N, ZERO, ONE, AINV, LDA );
-                  if ( lsame( UPLO, 'U' ) ) {
-                     for (J = 1; J <= N; J++) { // 20
-                        dtbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
-                     } // 20
-                  } else {
-                     for (J = 1; J <= N; J++) { // 30
-                        dtbsv(UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 );
-                     } // 30
-                  }
-
-                  // Compute the 1-norm condition number of A.
-
-                  ANORM = DLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = DLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK );
-                  if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                     RCONDO = ONE;
-                  } else {
-                     RCONDO = ( ONE / ANORM ) / AINVNM;
-                  }
-
-                  // Compute the infinity-norm condition number of A.
-
-                  ANORM = DLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = DLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK );
-                  if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                     RCONDI = ONE;
-                  } else {
-                     RCONDI = ( ONE / ANORM ) / AINVNM;
-                  }
-
-                  for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
-                     NRHS = NSVAL( IRHS );
-                     XTYPE = 'N';
-
-                     for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
-
-                     // Do for op(A) = A, A**T, or A**H.
-
-                        TRANS = TRANSS( ITRAN );
-                        if ( ITRAN == 1 ) {
-                           NORM = 'O';
-                           RCONDC = RCONDO;
-                        } else {
-                           NORM = 'I';
-                           RCONDC = RCONDI;
-                        }
-
-// +    TEST 1
-                     // Solve and compute residual for op(A)*x = b.
-
-                        srnamc.SRNAMT = 'DLARHS';
-                        dlarhs(PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
-                        XTYPE = 'C';
-                        dlacpy('Full', N, NRHS, B, LDA, X, LDA );
-
-                        srnamc.SRNAMT = 'DTBTRS';
-                        dtbtrs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO );
-
-                     // Check error code from DTBTRS.
-
-                        if (INFO != 0) alaerh( PATH, 'DTBTRS', INFO, 0, UPLO + TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
-
-                        dtbt02(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RESULT( 1 ) );
-
-// +    TEST 2
-                     // Check solution from generated exact solution.
-
-                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 2 ) );
-
-// +    TESTS 3, 4, and 5
-                     // Use iterative refinement to improve the solution
-                     // and compute error bounds.
-
-                        srnamc.SRNAMT = 'DTBRFS';
-                        dtbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
-
-                     // Check error code from DTBRFS.
-
-                        if (INFO != 0) alaerh( PATH, 'DTBRFS', INFO, 0, UPLO + TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
-
-                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                        dtbt05(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
-
-                        // Print information about the tests that did not
-                        // pass the threshold.
-
-                        for (K = 1; K <= 5; K++) { // 40
-                           if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                              WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1;
-                           }
-                        } // 40
-                        NRUN = NRUN + 5;
-                     } // 50
-                  } // 60
-
-// +    TEST 6
-                     // Get an estimate of RCOND = 1/CNDNUM.
-
-                  for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 70
-                     if ( ITRAN == 1 ) {
-                        NORM = 'O';
-                        RCONDC = RCONDO;
-                     } else {
-                        NORM = 'I';
-                        RCONDC = RCONDI;
-                     }
-                     srnamc.SRNAMT = 'DTBCON';
-                     dtbcon(NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO );
-
-                     // Check error code from DTBCON.
-
-                     if (INFO != 0) alaerh( PATH, 'DTBCON', INFO, 0, NORM + UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                     dtbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, RWORK, RESULT( 6 ) );
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     if ( RESULT( 6 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9998 ) 'DTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
-                        NFAIL = NFAIL + 1;
-                     }
-                     NRUN = NRUN + 1;
-                  } // 70
-               } // 80
-            } // 90
-
-            // Use pathological test matrices to test DLATBS.
-
-            for (IMAT = NTYPE1 + 1; IMAT <= NIMAT2; IMAT++) { // 120
-
-               // Do the tests only if DOTYPE( IMAT ) is true.
-
-               if( !DOTYPE( IMAT ) ) GO TO 120;
-
-               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
-
-                  // Do first for UPLO = 'U', then for UPLO = 'L'
-
-                  UPLO = UPLOS( IUPLO );
-                  for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 100
-
-                     // Do for op(A) = A, A**T, and A**H.
-
-                     TRANS = TRANSS( ITRAN );
-
-                     // Call DLATTB to generate a triangular test matrix.
-
-                     srnamc.SRNAMT = 'DLATTB';
-                     dlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
-
-// +    TEST 7
-                     // Solve the system op(A)*x = b
-
-                     srnamc.SRNAMT = 'DLATBS';
-                     dcopy(N, X, 1, B, 1 );
-                     dlatbs(UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
-
-                     // Check error code from DLATBS.
-
-                     if (INFO != 0) alaerh( PATH, 'DLATBS', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                     dtbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) );
-
-// +    TEST 8
-                     // Solve op(A)*x = b again with NORMIN = 'Y'.
-
-                     dcopy(N, X, 1, B, 1 );
-                     dlatbs(UPLO, TRANS, DIAG, 'Y', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
-
-                     // Check error code from DLATBS.
-
-                     if (INFO != 0) alaerh( PATH, 'DLATBS', INFO, 0, UPLO + TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                     dtbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     if ( RESULT( 7 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
-                        NFAIL = NFAIL + 1;
-                     }
-                     if ( RESULT( 8 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
-                        NFAIL = NFAIL + 1;
-                     }
-                     NRUN = NRUN + 2;
-                  } // 100
-               } // 110
-            } // 120
-         } // 130
-      } // 140
-
-      // Print a summary of the results.
-
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( ' UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', N=${.i5}, KD=${.i5}, NRHS=${.i5}, type ${.i2}, test(${.i2})=${.g12_5};
- 9998 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\',${.i5},${.i5},  ... ), type ${.i2}, test(${.i2})=${.g12_5};
- 9997 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\'${.a1}\',${.i5},${.i5}, ...  ),  type ${.i2}, test(${.i1})=${.g12_5};
+          } else {
+            for (var J = 1; J <= N; J++) {
+              dtbsv(
+                  UPLO,
+                  'No transpose',
+                  DIAG.value,
+                  N - J + 1,
+                  KD,
+                  AB((J - 1) * LDAB + 1).asMatrix(),
+                  LDAB,
+                  AINV((J - 1) * LDA + J),
+                  1);
+            }
+          }
+
+          // Compute the 1-norm condition number of A.
+
+          var ANORM =
+              dlantb('1', UPLO, DIAG.value, N, KD, AB.asMatrix(), LDAB, RWORK);
+          var AINVNM =
+              dlantr('1', UPLO, DIAG.value, N, N, AINV.asMatrix(), LDA, RWORK);
+          final double RCONDO;
+          if (ANORM <= ZERO || AINVNM <= ZERO) {
+            RCONDO = ONE;
+          } else {
+            RCONDO = (ONE / ANORM) / AINVNM;
+          }
+
+          // Compute the infinity-norm condition number of A.
+
+          ANORM =
+              dlantb('I', UPLO, DIAG.value, N, KD, AB.asMatrix(), LDAB, RWORK);
+          AINVNM =
+              dlantr('I', UPLO, DIAG.value, N, N, AINV.asMatrix(), LDA, RWORK);
+          final double RCONDI;
+          if (ANORM <= ZERO || AINVNM <= ZERO) {
+            RCONDI = ONE;
+          } else {
+            RCONDI = (ONE / ANORM) / AINVNM;
+          }
+
+          for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+            final NRHS = NSVAL[IRHS];
+            XTYPE = 'N';
+
+            for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+              // Do for op(A) = A, A**T, or A**H.
+
+              final TRANS = TRANSS[ITRAN - 1];
+              final (_, RCONDC) = ITRAN == 1 ? ('O', RCONDO) : ('I', RCONDI);
+
+              // +    TEST 1
+              // Solve and compute residual for op(A)*x = b.
+
+              srnamc.SRNAMT = 'DLARHS';
+              dlarhs(
+                  PATH,
+                  XTYPE,
+                  UPLO,
+                  TRANS,
+                  N,
+                  N,
+                  KD,
+                  IDIAG,
+                  NRHS,
+                  AB.asMatrix(),
+                  LDAB,
+                  XACT.asMatrix(),
+                  LDA,
+                  B.asMatrix(),
+                  LDA,
+                  ISEED,
+                  INFO);
+              XTYPE = 'C';
+              dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+
+              srnamc.SRNAMT = 'DTBTRS';
+              dtbtrs(UPLO, TRANS, DIAG.value, N, KD, NRHS, AB.asMatrix(), LDAB,
+                  X.asMatrix(), LDA, INFO);
+
+              // Check error code from DTBTRS.
+
+              if (INFO.value != 0) {
+                alaerh(PATH, 'DTBTRS', INFO.value, 0, UPLO + TRANS + DIAG.value,
+                    N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT);
+              }
+
+              dtbt02(UPLO, TRANS, DIAG.value, N, KD, NRHS, AB.asMatrix(), LDAB,
+                  X.asMatrix(), LDA, B.asMatrix(), LDA, WORK, RESULT(1));
+
+              // +    TEST 2
+              // Check solution from generated exact solution.
+
+              dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(2));
+
+              // +    TESTS 3, 4, and 5
+              // Use iterative refinement to improve the solution
+              // and compute error bounds.
+
+              srnamc.SRNAMT = 'DTBRFS';
+              dtbrfs(
+                  UPLO,
+                  TRANS,
+                  DIAG.value,
+                  N,
+                  KD,
+                  NRHS,
+                  AB.asMatrix(),
+                  LDAB,
+                  B.asMatrix(),
+                  LDA,
+                  X.asMatrix(),
+                  LDA,
+                  RWORK,
+                  RWORK(NRHS + 1),
+                  WORK,
+                  IWORK,
+                  INFO);
+
+              // Check error code from DTBRFS.
+
+              if (INFO.value != 0) {
+                alaerh(PATH, 'DTBRFS', INFO.value, 0, UPLO + TRANS + DIAG.value,
+                    N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT);
+              }
+
+              dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(3));
+              dtbt05(
+                  UPLO,
+                  TRANS,
+                  DIAG.value,
+                  N,
+                  KD,
+                  NRHS,
+                  AB.asMatrix(),
+                  LDAB,
+                  B.asMatrix(),
+                  LDA,
+                  X.asMatrix(),
+                  LDA,
+                  XACT.asMatrix(),
+                  LDA,
+                  RWORK,
+                  RWORK(NRHS + 1),
+                  RESULT(4));
+
+              // Print information about the tests that did not
+              // pass the threshold.
+
+              for (var K = 1; K <= 5; K++) {
+                if (RESULT[K] >= THRESH) {
+                  if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                  NOUT.println(
+                      ' UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}, KD=${KD.i5}, NRHS=${NRHS.i5}, type ${IMAT.i2}, test(${K.i2})=${RESULT[K].g12_5}');
+                  NFAIL = NFAIL + 1;
+                }
+              }
+              NRUN = NRUN + 5;
+            }
+          }
+
+          // +    TEST 6
+          // Get an estimate of RCOND = 1/CNDNUM.
+
+          for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
+            final (NORM, RCONDC) = ITRAN == 1 ? ('O', RCONDO) : ('I', RCONDI);
+            final RCOND = Box(ZERO);
+            srnamc.SRNAMT = 'DTBCON';
+            dtbcon(NORM, UPLO, DIAG.value, N, KD, AB.asMatrix(), LDAB, RCOND,
+                WORK, IWORK, INFO);
+
+            // Check error code from DTBCON.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'DTBCON', INFO.value, 0, NORM + UPLO + DIAG.value, N,
+                  N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            dtbt06(RCOND.value, RCONDC, UPLO, DIAG.value, N, KD, AB.asMatrix(),
+                LDAB, RWORK, RESULT(6));
+
+            // Print information about the tests that did not pass
+            // the threshold.
+
+            if (RESULT[6] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              NOUT.println(
+                  ' DTBCON( \'${NORM.a1}\'${UPLO.a1}\'${DIAG.value.a1}\',${N.i5},${KD.i5},  ... ), type ${IMAT.i2}, test(${6.i2})=${RESULT[6].g12_5}');
+              NFAIL = NFAIL + 1;
+            }
+            NRUN = NRUN + 1;
+          }
+        }
       }
+
+      // Use pathological test matrices to test DLATBS.
+
+      for (var IMAT = NTYPE1 + 1; IMAT <= NIMAT2; IMAT++) {
+        // Do the tests only if DOTYPE( IMAT ) is true.
+
+        if (!DOTYPE[IMAT]) continue;
+
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          // Do first for UPLO = 'U', then for UPLO = 'L'
+
+          final UPLO = UPLOS[IUPLO - 1];
+          for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+            // Do for op(A) = A, A**T, and A**H.
+
+            final TRANS = TRANSS[ITRAN - 1];
+
+            // Call DLATTB to generate a triangular test matrix.
+
+            final DIAG = Box('');
+            srnamc.SRNAMT = 'DLATTB';
+            dlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB.asMatrix(), LDAB,
+                X, WORK, INFO);
+
+            // +    TEST 7
+            // Solve the system op(A)*x = b
+
+            srnamc.SRNAMT = 'DLATBS';
+            dcopy(N, X, 1, B, 1);
+            final SCALE = Box(ZERO);
+            dlatbs(UPLO, TRANS, DIAG.value, 'N', N, KD, AB.asMatrix(), LDAB, B,
+                SCALE, RWORK, INFO);
+
+            // Check error code from DLATBS.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'DLATBS', INFO.value, 0, '$UPLO$TRANS${DIAG.value}N',
+                  N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            dtbt03(
+                UPLO,
+                TRANS,
+                DIAG.value,
+                N,
+                KD,
+                1,
+                AB.asMatrix(),
+                LDAB,
+                SCALE.value,
+                RWORK,
+                ONE,
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                WORK,
+                RESULT(7));
+
+            // +    TEST 8
+            // Solve op(A)*x = b again with NORMIN = 'Y'.
+
+            dcopy(N, X, 1, B, 1);
+            dlatbs(UPLO, TRANS, DIAG.value, 'Y', N, KD, AB.asMatrix(), LDAB, B,
+                SCALE, RWORK, INFO);
+
+            // Check error code from DLATBS.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'DLATBS', INFO.value, 0, '$UPLO$TRANS${DIAG.value}Y',
+                  N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            dtbt03(
+                UPLO,
+                TRANS,
+                DIAG.value,
+                N,
+                KD,
+                1,
+                AB.asMatrix(),
+                LDAB,
+                SCALE.value,
+                RWORK,
+                ONE,
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                WORK,
+                RESULT(8));
+
+            // Print information about the tests that did not pass
+            // the threshold.
+
+            void printFailedTest(String s, String b, int test, double ratio) {
+              NOUT.println(
+                  ' $s( \'${UPLO.a1}\'${TRANS.a1}\'${DIAG.value.a1}\'${b.a1}\',${N.i5},${KD.i5}, ...  ),  type ${IMAT.i2}, test(${test.i1})=${ratio.g12_5}');
+            }
+
+            if (RESULT[7] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              printFailedTest('DLATBS', 'N', 7, RESULT[7]);
+              NFAIL = NFAIL + 1;
+            }
+            if (RESULT[8] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              printFailedTest('DLATBS', 'Y', 8, RESULT[8]);
+              NFAIL = NFAIL + 1;
+            }
+            NRUN = NRUN + 2;
+          }
+        }
+      }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+
+//  9999 FORMAT( ;
+//  9998 FORMAT(;
+//  9997 FORMAT(;
+}

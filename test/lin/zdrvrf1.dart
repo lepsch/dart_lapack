@@ -1,4 +1,4 @@
-      void zdrvrf1(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A_, final int LDA, final int ARF, final Array<double> WORK_,) {
+      void zdrvrf1(final Nout NOUT, final int NN, final Array<int> NVAL_, final int THRESH, final Matrix<double> A_, final int LDA, final int ARF, final Array<double> WORK_,) {
   final A = A_.having();
   final WORK = WORK_.having();
 
@@ -23,8 +23,8 @@
       int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
       double             EPS, LARGE, NORMA, NORMARF, SMALL;
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
       //- Complex         ZLARND;

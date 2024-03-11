@@ -1,334 +1,366 @@
-import 'common.dart';
+import 'dart:math';
 
-      void ddrvsy_rk(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int E, final int AINV, final int B, final int X, final int XACT, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUT,) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dsysv_rk.dart';
+import 'package:lapack/src/dsytrf_rk.dart';
+import 'package:lapack/src/dsytri_3.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import '../matgen/dlatms.dart';
+import 'aladhd.dart';
+import 'alaerh.dart';
+import 'alasvm.dart';
+import 'common.dart';
+import 'derrvxx.dart';
+import 'dget04.dart';
+import 'dlarhs.dart';
+import 'dlatb4.dart';
+import 'dpot02.dart';
+import 'dsyt01_3.dart';
+import 'xlaenv.dart';
+
+void ddrvsy_rk(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NRHS,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<double> A_,
+  final Array<double> AFAC_,
+  final Array<double> E_,
+  final Array<double> AINV_,
+  final Array<double> B_,
+  final Array<double> X_,
+  final Array<double> XACT_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
+  final Array<int> IWORK_,
+  final Nout NOUT,
+) {
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final E = E_.having();
+  final AINV = AINV_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
 
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NMAX, NN, NOUT, NRHS;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                IWORK( * ), NVAL( * );
-      double             A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
-      // ..
+  const ONE = 1.0, ZERO = 0.0;
+  const NTYPES = 10, NTESTS = 3;
+  const NFACT = 2;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L']; // FACTS = ['F', 'N'];
+  final INFO = Box(0);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                NTYPES, NTESTS;
-      const              NTYPES = 10, NTESTS = 3 ;
-      int                NFACT;
-      const              NFACT = 2 ;
-      bool               ZEROT;
-      String             DIST, FACT, TYPE, UPLO, XTYPE;
-      String             PATH, MATPATH;
-      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT;
-      double             AINVNM, ANORM, CNDNUM, RCONDC;
-      String             FACTS( NFACT ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- double             DLANSY;
-      // EXTERNAL DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALADHD, ALAERH, ALASVM, DERRVX, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPOT02, DSYSV_RK, DSYT01_3, DSYTRF_RK, DSYTRI_3, XLAENV
-      // ..
-      // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC / srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = 'U', 'L', FACTS = 'F', 'N';
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  // Test path
 
-      // Test path
+  final PATH = '${'Double precision'[0]}SK';
 
-      PATH = '${'Double precision'[0]}';
-      PATH[2: 3] = 'SK';
+  // Path to generate matrices
 
-      // Path to generate matrices
+  final MATPATH = '${'Double precision'[0]}SY';
 
-      MATPATH = '${'Double precision'[0]}';
-      MATPATH[2: 3] = 'SY';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    // 10
+    ISEED[I] = ISEEDY[I - 1];
+  } // 10
+  var LWORK = max(2 * NMAX, NMAX * NRHS);
 
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
-      LWORK = max( 2*NMAX, NMAX*NRHS );
+  // Test the error exits
 
-      // Test the error exits
+  if (TSTERR) derrvx(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      if (TSTERR) derrvx( PATH, NOUT );
-      infoc.INFOT = 0;
+  // Set the block size and minimum block size for which the block
+  // routine should be used, which will be later returned by ILAENV.
 
-      // Set the block size and minimum block size for which the block
-      // routine should be used, which will be later returned by ILAENV.
+  const NB = 1;
+  const NBMIN = 2;
+  xlaenv(1, NB);
+  xlaenv(2, NBMIN);
 
-      NB = 1;
-      NBMIN = 2;
-      xlaenv(1, NB );
-      xlaenv(2, NBMIN );
+  // Do for each value of N in NVAL
 
-      // Do for each value of N in NVAL
+  for (var IN = 1; IN <= NN; IN++) {
+    // 180
+    final N = NVAL[IN];
+    final LDA = max(N, 1);
+    var XTYPE = 'N';
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
-      for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN );
-         LDA = max( N, 1 );
-         XTYPE = 'N';
-         NIMAT = NTYPES;
-         if (N <= 0) NIMAT = 1;
+    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      // 170
 
-         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
+      // Do the tests only if DOTYPE( IMAT ) is true.
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      if (!DOTYPE[IMAT]) continue;
 
-            if( !DOTYPE( IMAT ) ) GO TO 170;
+      // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            // Skip types 3, 4, 5, or 6 if the matrix size is too small.
+      final ZEROT = IMAT >= 3 && IMAT <= 6;
+      if (ZEROT && N < IMAT - 2) continue;
 
-            ZEROT = IMAT >= 3 && IMAT <= 6;
-            if (ZEROT && N < IMAT-2) GO TO 170;
+      // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            // Do first for UPLO = 'U', then for UPLO = 'L'
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        // 160
+        final UPLO = UPLOS[IUPLO - 1];
 
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               UPLO = UPLOS( IUPLO );
+        // Begin generate the test matrix A.
 
-               // Begin generate the test matrix A.
+        // Set up parameters with DLATB4 for the matrix generator
+        // based on the type of matrix to be generated.
 
-               // Set up parameters with DLATB4 for the matrix generator
-               // based on the type of matrix to be generated.
+        final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) = dlatb4(
+          MATPATH,
+          IMAT,
+          N,
+          N,
+        );
 
-               dlatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+        // Generate a matrix with DLATMS.
 
-               // Generate a matrix with DLATMS.
+        srnamc.SRNAMT = 'DLATMS';
+        dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+            UPLO, A.asMatrix(), LDA, WORK, INFO);
 
-               srnamc.SRNAMT = 'DLATMS';
-               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
+        // Check error code from DLATMS and handle error.
 
-               // Check error code from DLATMS and handle error.
+        if (INFO.value != 0) {
+          alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
+              NFAIL, NERRS, NOUT);
 
-               if ( INFO != 0 ) {
-                  alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+          // Skip all tests for this generated matrix
 
-                  // Skip all tests for this generated matrix
+          continue;
+        }
 
-                  GO TO 160;
-               }
+        // For types 3-6, zero one or more rows and columns of the
+        // matrix to test that INFO.value is returned correctly.
 
-               // For types 3-6, zero one or more rows and columns of the
-               // matrix to test that INFO is returned correctly.
+        final int IZERO;
+        if (ZEROT) {
+          if (IMAT == 3) {
+            IZERO = 1;
+          } else if (IMAT == 4) {
+            IZERO = N;
+          } else {
+            IZERO = N ~/ 2 + 1;
+          }
 
-               if ( ZEROT ) {
-                  if ( IMAT == 3 ) {
-                     IZERO = 1;
-                  } else if ( IMAT == 4 ) {
-                     IZERO = N;
-                  } else {
-                     IZERO = N / 2 + 1;
+          if (IMAT < 6) {
+            // Set row and column IZERO to zero.
+
+            if (IUPLO == 1) {
+              var IOFF = (IZERO - 1) * LDA;
+              for (var I = 1; I <= IZERO - 1; I++) {
+                // 20
+                A[IOFF + I] = ZERO;
+              } // 20
+              IOFF = IOFF + IZERO;
+              for (var I = IZERO; I <= N; I++) {
+                // 30
+                A[IOFF] = ZERO;
+                IOFF = IOFF + LDA;
+              } // 30
+            } else {
+              var IOFF = IZERO;
+              for (var I = 1; I <= IZERO - 1; I++) {
+                // 40
+                A[IOFF] = ZERO;
+                IOFF = IOFF + LDA;
+              } // 40
+              IOFF = IOFF - IZERO;
+              for (var I = IZERO; I <= N; I++) {
+                // 50
+                A[IOFF + I] = ZERO;
+              } // 50
+            }
+          } else {
+            var IOFF = 0;
+            if (IUPLO == 1) {
+              // Set the first IZERO rows and columns to zero.
+
+              for (var J = 1; J <= N; J++) {
+                // 70
+               final I2 = min(J, IZERO);
+                for (var I = 1; I <= I2; I++) {
+                  // 60
+                  A[IOFF + I] = ZERO;
+                } // 60
+                IOFF = IOFF + LDA;
+              } // 70
+            } else {
+              // Set the last IZERO rows and columns to zero.
+
+              for (var J = 1; J <= N; J++) {
+                // 90
+               final I1 = max(J, IZERO);
+                for (var I = I1; I <= N; I++) {
+                  // 80
+                  A[IOFF + I] = ZERO;
+                } // 80
+                IOFF = IOFF + LDA;
+              } // 90
+            }
+          }
+        } else {
+          IZERO = 0;
+        }
+
+        // End generate the test matrix A.
+
+        var RCONDC = ZERO;
+        for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
+          // 150
+
+          // Do first for FACT = 'F', then for other values.
+
+          // Compute the condition number
+
+          if (ZEROT) {
+            if (IFACT == 1) continue;
+            RCONDC = ZERO;
+          } else if (IFACT == 1) {
+            // Compute the 1-norm of A.
+
+            final ANORM = dlansy('1', UPLO, N, A.asMatrix(), LDA, RWORK);
+
+            // Factor the matrix A.
+
+            dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            dsytrf_rk(
+                UPLO, N, AFAC.asMatrix(), LDA, E, IWORK, WORK, LWORK, INFO);
+
+            // Compute inv(A) and take its norm.
+
+            dlacpy(UPLO, N, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
+            LWORK = (N + NB + 1) * (NB + 3);
+
+            // We need to compute the inverse to compute
+            // RCONDC that is used later in TEST3.
+
+            dsytri_3(
+                UPLO, N, AINV.asMatrix(), LDA, E, IWORK, WORK, LWORK, INFO);
+           final AINVNM = dlansy('1', UPLO, N, AINV.asMatrix(), LDA, RWORK);
+
+            // Compute the 1-norm condition number of A.
+
+            if (ANORM <= ZERO || AINVNM <= ZERO) {
+              RCONDC = ONE;
+            } else {
+              RCONDC = (ONE / ANORM) / AINVNM;
+            }
+          }
+
+          // Form an exact solution and set the right hand side.
+
+          srnamc.SRNAMT = 'DLARHS';
+          dlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(),
+              LDA, XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
+          XTYPE = 'C';
+
+          // --- Test DSYSV_RK  ---
+
+          if (IFACT == 2) {
+            dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+
+            // Factor the matrix and solve the system using
+            // DSYSV_RK.
+
+            srnamc.SRNAMT = 'DSYSV_RK';
+            dsysv_rk(UPLO, N, NRHS, AFAC.asMatrix(), LDA, E, IWORK,
+                X.asMatrix(), LDA, WORK, LWORK, INFO);
+
+            // Adjust the expected value of INFO.value to account for
+            // pivoting.
+
+           var K = IZERO;
+            if (K > 0) {
+              while (true) {
+                if (IWORK[K] < 0) {
+                  if (IWORK[K] != -K) {
+                    K = -IWORK[K];
+                    continue;
                   }
+                } else if (IWORK[K] != K) {
+                  K = IWORK[K];
+                  continue;
+                }
+                break;
+              }
+            }
 
-                  if ( IMAT < 6 ) {
+            // Check error code from DSYSV_RK and handle error.
 
-                     // Set row and column IZERO to zero.
+            if (INFO.value != K) {
+              alaerh(PATH, 'DSYSV_RK', INFO.value, K, UPLO, N, N, -1, -1, NRHS,
+                  IMAT, NFAIL, NERRS, NOUT);
+            } else if (INFO.value != 0) {
+              //
+            } else {
+              // +    TEST 1      Reconstruct matrix from factors and compute
+              // residual.
 
-                     if ( IUPLO == 1 ) {
-                        IOFF = ( IZERO-1 )*LDA;
-                        for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A[IOFF+I] = ZERO;
-                        } // 20
-                        IOFF = IOFF + IZERO;
-                        for (I = IZERO; I <= N; I++) { // 30
-                           A[IOFF] = ZERO;
-                           IOFF = IOFF + LDA;
-                        } // 30
-                     } else {
-                        IOFF = IZERO;
-                        for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A[IOFF] = ZERO;
-                           IOFF = IOFF + LDA;
-                        } // 40
-                        IOFF = IOFF - IZERO;
-                        for (I = IZERO; I <= N; I++) { // 50
-                           A[IOFF+I] = ZERO;
-                        } // 50
-                     }
-                  } else {
-                     IOFF = 0;
-                     if ( IUPLO == 1 ) {
+              dsyt01_3(UPLO, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA, E,
+                  IWORK, AINV.asMatrix(), LDA, RWORK, RESULT(1));
 
-                        // Set the first IZERO rows and columns to zero.
+              // +    TEST 2      Compute residual of the computed solution.
 
-                        for (J = 1; J <= N; J++) { // 70
-                           I2 = min( J, IZERO );
-                           for (I = 1; I <= I2; I++) { // 60
-                              A[IOFF+I] = ZERO;
-                           } // 60
-                           IOFF = IOFF + LDA;
-                        } // 70
-                     } else {
+              dlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              dpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK, RESULT(2));
 
-                        // Set the last IZERO rows and columns to zero.
+              // +    TEST 3
+              // Check solution from generated exact solution.
 
-                        for (J = 1; J <= N; J++) { // 90
-                           I1 = max( J, IZERO );
-                           for (I = I1; I <= N; I++) { // 80
-                              A[IOFF+I] = ZERO;
-                           } // 80
-                           IOFF = IOFF + LDA;
-                        } // 90
-                     }
-                  }
-               } else {
-                  IZERO = 0;
-               }
+              dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(3));
+              const NT = 3;
 
-               // End generate the test matrix A.
+              // Print information about the tests that did not pass
+              // the threshold.
 
-               for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 150
+              for (K = 1; K <= NT; K++) {
+                // 110
+                if (RESULT[K] >= THRESH) {
+                  if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                  NOUT.println(
+                      ' DSYSV_RK, UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
+                  NFAIL = NFAIL + 1;
+                }
+              } // 110
+              NRUN = NRUN + NT;
+            } // 120
+          }
+        } // 150
+      } // 160
+    } // 170
+  } // 180
 
-                  // Do first for FACT = 'F', then for other values.
+  // Print a summary of the results.
 
-                  FACT = FACTS( IFACT );
-
-                  // Compute the condition number
-
-                  if ( ZEROT ) {
-                     if (IFACT == 1) GO TO 150;
-                     RCONDC = ZERO;
-
-                  } else if ( IFACT == 1 ) {
-
-                     // Compute the 1-norm of A.
-
-                     ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
-
-                     // Factor the matrix A.
-
-                     dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     dsytrf_rk(UPLO, N, AFAC, LDA, E, IWORK, WORK, LWORK, INFO );
-
-                     // Compute inv(A) and take its norm.
-
-                     dlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     LWORK = (N+NB+1)*(NB+3);
-
-                     // We need to compute the inverse to compute
-                     // RCONDC that is used later in TEST3.
-
-                     dsytri_3(UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO );
-                     AINVNM = dlansy( '1', UPLO, N, AINV, LDA, RWORK );
-
-                     // Compute the 1-norm condition number of A.
-
-                     if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                        RCONDC = ONE;
-                     } else {
-                        RCONDC = ( ONE / ANORM ) / AINVNM;
-                     }
-                  }
-
-                  // Form an exact solution and set the right hand side.
-
-                  srnamc.SRNAMT = 'DLARHS';
-                  dlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                  XTYPE = 'C';
-
-                  // --- Test DSYSV_RK  ---
-
-                  if ( IFACT == 2 ) {
-                     dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     dlacpy('Full', N, NRHS, B, LDA, X, LDA );
-
-                     // Factor the matrix and solve the system using
-                     // DSYSV_RK.
-
-                     srnamc.SRNAMT = 'DSYSV_RK';
-                     dsysv_rk(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, WORK, LWORK, INFO );
-
-                     // Adjust the expected value of INFO to account for
-                     // pivoting.
-
-                     K = IZERO;
-                     if ( K > 0 ) {
-                        } // 100
-                        if ( IWORK( K ) < 0 ) {
-                           if ( IWORK( K ) != -K ) {
-                              K = -IWORK( K );
-                              GO TO 100;
-                           }
-                        } else if ( IWORK( K ) != K ) {
-                           K = IWORK( K );
-                           GO TO 100;
-                        }
-                     }
-
-                     // Check error code from DSYSV_RK and handle error.
-
-                     if ( INFO != K ) {
-                        alaerh(PATH, 'DSYSV_RK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 120;
-                     } else if ( INFO != 0 ) {
-                        GO TO 120;
-                     }
-
-// +    TEST 1      Reconstruct matrix from factors and compute
-                  // residual.
-
-                     dsyt01_3(UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
-
-// +    TEST 2      Compute residual of the computed solution.
-
-                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                     dpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
-
-// +    TEST 3
-                  // Check solution from generated exact solution.
-
-                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                     NT = 3;
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     for (K = 1; K <= NT; K++) { // 110
-                        if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
-                           WRITE( NOUT, FMT = 9999 )'DSYSV_RK', UPLO, N, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1;
-                        }
-                     } // 110
-                     NRUN = NRUN + NT;
-                     } // 120
-                  }
-
-               } // 150
-
-            } // 160
-         } // 170
-      } // 180
-
-      // Print a summary of the results.
-
-      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
-      }
+  alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

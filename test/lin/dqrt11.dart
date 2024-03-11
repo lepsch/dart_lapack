@@ -1,56 +1,57 @@
-      double dqrt11(final int M, final int K, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK,) {
-  final A = A_.having();
-  final WORK = WORK_.having();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dorm2r.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
 
+double dqrt11(
+  final int M,
+  final int K,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                K, LDA, LWORK, M;
-      double             A( LDA, * ), TAU( * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
+  const ZERO = 0.0, ONE = 1.0;
+  final RDUMMY = Array<double>(1);
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                INFO, J;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASET, DORM2R, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
-      double             RDUMMY( 1 );
+  // Test for sufficient workspace
 
-      DQRT11 = ZERO;
+  if (LWORK < M * M + M) {
+    xerbla('DQRT11', 7);
+    return ZERO;
+  }
 
-      // Test for sufficient workspace
+  // Quick return if possible
 
-      if ( LWORK < M*M+M ) {
-         xerbla('DQRT11', 7 );
-         return;
-      }
+  if (M <= 0) return ZERO;
 
-      // Quick return if possible
+  dlaset('Full', M, M, ZERO, ONE, WORK.asMatrix(), M);
 
-      if (M <= 0) return;
+  // Form Q
 
-      dlaset('Full', M, M, ZERO, ONE, WORK, M );
+  dorm2r('Left', 'No transpose', M, M, K, A, LDA, TAU, WORK.asMatrix(), M,
+      WORK(M * M + 1), INFO);
 
-      // Form Q
+  // Form Q'*Q
 
-      dorm2r('Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
+  dorm2r('Left', 'Transpose', M, M, K, A, LDA, TAU, WORK.asMatrix(), M,
+      WORK(M * M + 1), INFO);
 
-      // Form Q'*Q
+  for (var J = 1; J <= M; J++) {
+    WORK[(J - 1) * M + J] = WORK[(J - 1) * M + J] - ONE;
+  }
 
-      dorm2r('Left', 'Transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
-
-      for (J = 1; J <= M; J++) {
-         WORK[( J-1 )*M+J] = WORK( ( J-1 )*M+J ) - ONE;
-      }
-
-      DQRT11 = dlange( 'One-norm', M, M, WORK, M, RDUMMY ) / ( M.toDouble()*dlamch( 'Epsilon' ) );
-
-      }
+  return dlange('One-norm', M, M, WORK.asMatrix(), M, RDUMMY) /
+      (M * dlamch('Epsilon'));
+}

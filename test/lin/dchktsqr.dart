@@ -29,15 +29,14 @@ void dchktsqr(
   final NVAL = NVAL_.having();
   final NBVAL = NBVAL_.having();
   const NTESTS = 6;
-  int NFAIL, NERRS, NRUN;
   final RESULT = Array<double>(NTESTS);
 
   // Initialize constants
 
   const PATH = 'DTS';
-  NRUN = 0;
-  NFAIL = 0;
-  NERRS = 0;
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = 0;
 
   // Test the error exits
 

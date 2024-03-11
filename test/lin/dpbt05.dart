@@ -1,110 +1,116 @@
-      void dpbt05(final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Matrix<double> XACT_, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
-  final AB = AB_.having();
-  final B = B_.having();
-  final X = X_.having();
-  final XACT = XACT_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dpbt05(
+  final String UPLO,
+  final int N,
+  final int KD,
+  final int NRHS,
+  final Matrix<double> AB_,
+  final int LDAB,
+  final Matrix<double> B_,
+  final int LDB,
+  final Matrix<double> X_,
+  final int LDX,
+  final Matrix<double> XACT_,
+  final int LDXACT,
+  final Array<double> FERR_,
+  final Array<double> BERR_,
+  final Array<double> RESLTS_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
-      double             AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * );
-      // ..
+  final AB = AB_.having(ld: LDAB);
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final XACT = XACT_.having(ld: LDXACT);
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final RESLTS = RESLTS_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               UPPER;
-      int                I, IMAX, J, K, NZ;
-      double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                idamax;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, idamax, DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN
+  // Quick exit if N = 0 or NRHS = 0.
 
-      // Quick exit if N = 0 or NRHS = 0.
+  if (N <= 0 || NRHS <= 0) {
+    RESLTS[1] = ZERO;
+    RESLTS[2] = ZERO;
+    return;
+  }
 
-      if ( N <= 0 || NRHS <= 0 ) {
-         RESLTS[1] = ZERO;
-         RESLTS[2] = ZERO;
-         return;
+  final EPS = dlamch('Epsilon');
+  final UNFL = dlamch('Safe minimum');
+  final OVFL = ONE / UNFL;
+  final UPPER = lsame(UPLO, 'U');
+  final NZ = 2 * max(KD, N - 1) + 1;
+
+  // Test 1:  Compute the maximum of
+  //    norm(X - XACT) / ( norm(X) * FERR )
+  // over all the vectors X and XACT using the infinity-norm.
+
+  var ERRBND = ZERO;
+  for (var J = 1; J <= NRHS; J++) {
+    final IMAX = idamax(N, X(1, J).asArray(), 1);
+    final XNORM = max(X[IMAX][J].abs(), UNFL);
+    var DIFF = ZERO;
+    for (var I = 1; I <= N; I++) {
+      DIFF = max(DIFF, (X[I][J] - XACT[I][J]).abs());
+    }
+
+    if (XNORM > ONE) {
+      //
+    } else if (DIFF <= OVFL * XNORM) {
+      //
+    } else {
+      ERRBND = ONE / EPS;
+      continue;
+    }
+
+    if (DIFF / XNORM <= FERR[J]) {
+      ERRBND = max(ERRBND, (DIFF / XNORM) / FERR[J]);
+    } else {
+      ERRBND = ONE / EPS;
+    }
+  }
+  RESLTS[1] = ERRBND;
+
+  // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
+  // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
+
+  for (var K = 1; K <= NRHS; K++) {
+    double AXBI = 0;
+    for (var I = 1; I <= N; I++) {
+      var TMP = (B[I][K]).abs();
+      if (UPPER) {
+        for (var J = max(I - KD, 1); J <= I; J++) {
+          TMP = TMP + (AB[KD + 1 - I + J][I]).abs() * (X[J][K]).abs();
+        }
+        for (var J = I + 1; J <= min(I + KD, N); J++) {
+          TMP = TMP + (AB[KD + 1 + I - J][J]).abs() * (X[J][K]).abs();
+        }
+      } else {
+        for (var J = max(I - KD, 1); J <= I - 1; J++) {
+          TMP = TMP + (AB[1 + I - J][J]).abs() * (X[J][K]).abs();
+        }
+        for (var J = I; J <= min(I + KD, N); J++) {
+          TMP = TMP + (AB[1 + J - I][I]).abs() * (X[J][K]).abs();
+        }
       }
-
-      EPS = dlamch( 'Epsilon' );
-      UNFL = dlamch( 'Safe minimum' );
-      OVFL = ONE / UNFL;
-      UPPER = lsame( UPLO, 'U' );
-      NZ = 2*max( KD, N-1 ) + 1;
-
-      // Test 1:  Compute the maximum of
-      //    norm(X - XACT) / ( norm(X) * FERR )
-      // over all the vectors X and XACT using the infinity-norm.
-
-      ERRBND = ZERO;
-      for (J = 1; J <= NRHS; J++) { // 30
-         IMAX = idamax( N, X( 1, J ), 1 );
-         XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
-         DIFF = ZERO;
-         for (I = 1; I <= N; I++) { // 10
-            DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
-         } // 10
-
-         if ( XNORM > ONE ) {
-            GO TO 20;
-         } else if ( DIFF <= OVFL*XNORM ) {
-            GO TO 20;
-         } else {
-            ERRBND = ONE / EPS;
-            GO TO 30;
-         }
-
-         } // 20
-         if ( DIFF / XNORM <= FERR( J ) ) {
-            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
-         } else {
-            ERRBND = ONE / EPS;
-         }
-      } // 30
-      RESLTS[1] = ERRBND;
-
-      // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
-      // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
-
-      for (K = 1; K <= NRHS; K++) { // 90
-         for (I = 1; I <= N; I++) { // 80
-            TMP = ( B( I, K ) ).abs();
-            if ( UPPER ) {
-               for (J = max( I-KD, 1 ); J <= I; J++) { // 40
-                  TMP = TMP + ( AB( KD+1-I+J, I ) ).abs()*( X( J, K ) ).abs();
-               } // 40
-               for (J = I + 1; J <= min( I+KD, N ); J++) { // 50
-                  TMP = TMP + ( AB( KD+1+I-J, J ) ).abs()*( X( J, K ) ).abs();
-               } // 50
-            } else {
-               for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 60
-                  TMP = TMP + ( AB( 1+I-J, J ) ).abs()*( X( J, K ) ).abs();
-               } // 60
-               for (J = I; J <= min( I+KD, N ); J++) { // 70
-                  TMP = TMP + ( AB( 1+J-I, I ) ).abs()*( X( J, K ) ).abs();
-               } // 70
-            }
-            if ( I == 1 ) {
-               AXBI = TMP;
-            } else {
-               AXBI = min( AXBI, TMP );
-            }
-         } // 80
-         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
-         if ( K == 1 ) {
-            RESLTS[2] = TMP;
-         } else {
-            RESLTS[2] = max( RESLTS( 2 ), TMP );
-         }
-      } // 90
-
+      if (I == 1) {
+        AXBI = TMP;
+      } else {
+        AXBI = min(AXBI, TMP);
       }
+    }
+    final TMP = BERR[K] / (NZ * EPS + NZ * UNFL / max(AXBI, NZ * UNFL));
+    if (K == 1) {
+      RESLTS[2] = TMP;
+    } else {
+      RESLTS[2] = max(RESLTS[2], TMP);
+    }
+  }
+}

@@ -1,89 +1,86 @@
-      void dtpt01(final int UPLO, final int DIAG, final int N, final int AP, final int AINVP, final int RCOND, final Array<double> WORK_, final int RESID,) {
-  final WORK = WORK_.having();
+import 'package:lapack/src/blas/dtpmv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlantp.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
 
+void dtpt01(
+  final String UPLO,
+  final String DIAG,
+  final int N,
+  final Array<double> AP_,
+  final Array<double> AINVP_,
+  final Box<double> RCOND,
+  final Array<double> WORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, UPLO;
-      int                N;
-      double             RCOND, RESID;
-      double             AINVP( * ), AP( * ), WORK( * );
-      // ..
+  final AP = AP_.having();
+  final AINVP = AINVP_.having();
+  final WORK = WORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               UNITD;
-      int                J, JC;
-      double             AINVNM, ANORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLANTP;
-      // EXTERNAL lsame, DLAMCH, DLANTP
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DTPMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RCOND.value = ONE;
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RCOND = ONE;
-         RESID = ZERO;
-         return;
-      }
+  // Exit with RESID.value = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+  final EPS = dlamch('Epsilon');
+  final ANORM = dlantp('1', UPLO, DIAG, N, AP, WORK);
+  final AINVNM = dlantp('1', UPLO, DIAG, N, AINVP, WORK);
+  if (ANORM <= ZERO || AINVNM <= ZERO) {
+    RCOND.value = ZERO;
+    RESID.value = ONE / EPS;
+    return;
+  }
+  RCOND.value = (ONE / ANORM) / AINVNM;
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = DLANTP( '1', UPLO, DIAG, N, AP, WORK );
-      AINVNM = DLANTP( '1', UPLO, DIAG, N, AINVP, WORK );
-      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO;
-         RESID = ONE / EPS;
-         return;
-      }
-      RCOND = ( ONE / ANORM ) / AINVNM;
+  // Compute A * AINV, overwriting AINV.
 
-      // Compute A * AINV, overwriting AINV.
+  final UNITD = lsame(DIAG, 'U');
+  if (lsame(UPLO, 'U')) {
+    var JC = 1;
+    for (var J = 1; J <= N; J++) {
+      // 10
+      if (UNITD) AINVP[JC + J - 1] = ONE;
 
-      UNITD = lsame( DIAG, 'U' );
-      if ( lsame( UPLO, 'U' ) ) {
-         JC = 1;
-         for (J = 1; J <= N; J++) { // 10
-            if (UNITD) AINVP( JC+J-1 ) = ONE;
+      // Form the j-th column of A*AINV
 
-            // Form the j-th column of A*AINV
+      dtpmv('Upper', 'No transpose', DIAG, J, AP, AINVP(JC), 1);
 
-            dtpmv('Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 );
+      // Subtract 1 from the diagonal
 
-            // Subtract 1 from the diagonal
+      AINVP[JC + J - 1] = AINVP[JC + J - 1] - ONE;
+      JC = JC + J;
+    } // 10
+  } else {
+    var JC = 1;
+    for (var J = 1; J <= N; J++) {
+      // 20
+      if (UNITD) AINVP[JC] = ONE;
 
-            AINVP[JC+J-1] = AINVP( JC+J-1 ) - ONE;
-            JC = JC + J;
-         } // 10
-      } else {
-         JC = 1;
-         for (J = 1; J <= N; J++) { // 20
-            if (UNITD) AINVP( JC ) = ONE;
+      // Form the j-th column of A*AINV
 
-            // Form the j-th column of A*AINV
+      dtpmv('Lower', 'No transpose', DIAG, N - J + 1, AP(JC), AINVP(JC), 1);
 
-            dtpmv('Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 );
+      // Subtract 1 from the diagonal
 
-            // Subtract 1 from the diagonal
+      AINVP[JC] = AINVP[JC] - ONE;
+      JC = JC + N - J + 1;
+    } // 20
+  }
 
-            AINVP[JC] = AINVP( JC ) - ONE;
-            JC = JC + N - J + 1;
-         } // 20
-      }
+  // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 
-      // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
+  RESID.value = dlantp('1', UPLO, 'Non-unit', N, AINVP, WORK);
 
-      RESID = DLANTP( '1', UPLO, 'Non-unit', N, AINVP, WORK );
-
-      RESID = ( ( RESID*RCOND ) / N.toDouble() ) / EPS;
-
-      }
+  RESID.value = ((RESID.value * RCOND.value) / N.toDouble()) / EPS;
+}

@@ -1,64 +1,57 @@
-      void dtrt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Array<double> WORK_, final int RAT,) {
-  final A = A_.having();
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlantr.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dtrt06(
+  final double RCOND,
+  final double RCONDC,
+  final String UPLO,
+  final String DIAG,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> WORK_,
+  final Box<double> RAT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, UPLO;
-      int                LDA, N;
-      double             RAT, RCOND, RCONDC;
-      double             A( LDA, * ), WORK( * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final WORK = WORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             ANORM, BIGNUM, EPS, RMAX, RMIN, SMLNUM;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANTR;
-      // EXTERNAL DLAMCH, DLANTR
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  final EPS = dlamch('Epsilon');
+  final RMAX = max(RCOND, RCONDC);
+  final RMIN = min(RCOND, RCONDC);
 
-      EPS = dlamch( 'Epsilon' );
-      RMAX = max( RCOND, RCONDC );
-      RMIN = min( RCOND, RCONDC );
+  // Do the easy cases first.
 
-      // Do the easy cases first.
+  if (RMIN < ZERO) {
+    // Invalid value for RCOND or RCONDC, return 1/EPS.
 
-      if ( RMIN < ZERO ) {
+    RAT.value = ONE / EPS;
+  } else if (RMIN > ZERO) {
+    // Both estimates are positive, return RMAX/RMIN - 1.
 
-         // Invalid value for RCOND or RCONDC, return 1/EPS.
+    RAT.value = RMAX / RMIN - ONE;
+  } else if (RMAX == ZERO) {
+    // Both estimates zero.
 
-         RAT = ONE / EPS;
+    RAT.value = ZERO;
+  } else {
+    // One estimate is zero, the other is non-zero.  If the matrix is
+    // ill-conditioned, return the nonzero estimate multiplied by
+    // 1/EPS; if the matrix is badly scaled, return the nonzero
+    // estimate multiplied by BIGNUM/TMAX, where TMAX is the maximum
+    // element in absolute value in A.
 
-      } else if ( RMIN > ZERO ) {
+    final SMLNUM = dlamch('Safe minimum');
+    final BIGNUM = ONE / SMLNUM;
+    final ANORM = dlantr('M', UPLO, DIAG, N, N, A, LDA, WORK);
 
-         // Both estimates are positive, return RMAX/RMIN - 1.
-
-         RAT = RMAX / RMIN - ONE;
-
-      } else if ( RMAX == ZERO ) {
-
-         // Both estimates zero.
-
-         RAT = ZERO;
-
-      } else {
-
-         // One estimate is zero, the other is non-zero.  If the matrix is
-         // ill-conditioned, return the nonzero estimate multiplied by
-         // 1/EPS; if the matrix is badly scaled, return the nonzero
-         // estimate multiplied by BIGNUM/TMAX, where TMAX is the maximum
-         // element in absolute value in A.
-
-         SMLNUM = dlamch( 'Safe minimum' );
-         BIGNUM = ONE / SMLNUM;
-         ANORM = DLANTR( 'M', UPLO, DIAG, N, N, A, LDA, WORK );
-
-         RAT = RMAX*( min( BIGNUM / max( ONE, ANORM ), ONE / EPS ) );
-      }
-
-      }
+    RAT.value = RMAX * (min(BIGNUM / max(ONE, ANORM), ONE / EPS));
+  }
+}

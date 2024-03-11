@@ -1,4 +1,4 @@
-      void zchkps(final int DOTYPE, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NRANK, final int RANKVAL, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zchkps(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final int NRANK, final int RANKVAL, final double THRESH, final bool TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -22,7 +22,7 @@
       int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF;
       String             DIST, TYPE, UPLO;
       String             PATH;
-      int                ISEED( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
       String             UPLOS( 2 );
       // ..
       // .. External Subroutines ..

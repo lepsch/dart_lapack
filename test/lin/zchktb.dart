@@ -1,4 +1,4 @@
-      void zchktb(final int DOTYPE, final int NN, final int NVAL, final int NNS, final int NSVAL, final int THRESH, final int TSTERR, final int NMAX, final int AB, final int AINV, final int B, final int X, final int XACT, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zchktb(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NNS, final Array<int> NSVAL_, final double THRESH, final bool TSTERR, final int NMAX, final int AB, final int AINV, final int B, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -27,8 +27,8 @@
       int                I, IDIAG, IK, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, J, K, KD, LDA, LDAB, N, NERRS, NFAIL, NIMAT, NIMAT2, NK, NRHS, NRUN;
       double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
       String             TRANSS( NTRAN ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
       //- bool               lsame;

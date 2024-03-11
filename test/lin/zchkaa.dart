@@ -1,79 +1,42 @@
-      void main() {
+      import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dsecnd.dart';
+import 'package:lapack/src/matrix.dart';
+
+void main() {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      int                NMAX;
       const              NMAX = 132 ;
-      int                MAXIN;
       const              MAXIN = 12 ;
-      int                MAXRHS;
       const              MAXRHS = 16 ;
-      int                MATMAX;
       const              MATMAX = 30 ;
-      int                NIN, NOUT;
       const              NIN = 5, NOUT = 6 ;
-      int                KDMAX;
       const              KDMAX = NMAX+( NMAX+1 ) / 4 ;
-      bool               FATAL, TSTCHK, TSTDRV, TSTERR;
+      bool               TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
       String             PATH;
       String             INTSTR;
       String             ALINE;
-      int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      double             EPS, S1, S2, THREQ, THRESH;
-      bool               DOTYPE( MATMAX );
-      int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX );
-      // ..
-      // .. Allocatable Arrays ..
-      int     AllocateStatus;
-      double          , DIMENSION(:), ALLOCATABLE::  RWORK, S;
-      Complex, DIMENSION(:), ALLOCATABLE :: E;
-      Complex, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame, LSAMEN;
-      //- double             DLAMCH, DSECND;
-      // EXTERNAL lsame, LSAMEN, DLAMCH, DSECND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAREQ, ZCHKEQ, ZCHKGB, ZCHKGE, ZCHKGT, ZCHKHE, ZCHKHE_ROOK, ZCHKHE_RK, ZCHKHE_AA, ZCHKHP, ZCHKLQ, ZCHKUNHR_COL, ZCHKPB, ZCHKPO, ZCHKPS, ZCHKPP, ZCHKPT, ZCHKQ3, ZCHKQP3RK, ZCHKQL, ZCHKQR, ZCHKRQ, ZCHKSP, ZCHKSY, ZCHKSY_ROOK, ZCHKSY_RK, ZCHKSY_AA, ZCHKTB, ZCHKTP, ZCHKTR, ZCHKTZ, ZDRVGB, ZDRVGE, ZDRVGT, ZDRVHE, ZDRVHE_ROOK, ZDRVHE_RK, ZDRVHE_AA, ZDRVHE_AA_2STAGE, ZDRVHP, ZDRVLS, ZDRVPB, ZDRVPO, ZDRVPP, ZDRVPT, ZDRVSP, ZDRVSY, ZDRVSY_ROOK, ZDRVSY_RK, ZDRVSY_AA, ZDRVSY_AA_2STAGE, ILAVER, ZCHKQRT, ZCHKQRTP, ZCHKLQT, ZCHKLQTP, ZCHKTSQR
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Arrays in Common ..
-      // int                claenv.IPARMS( 100 );
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // COMMON / CLAENV / claenv.IPARMS
-      // ..
-      // .. Data statements ..
+      int                I, IC, J, K, LA, LAFAC, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+      double             EPS, S2, THREQ, THRESH;
+      final               DOTYPE=Array<bool>( MATMAX );
+      final                IWORK=Array<int>( 25*NMAX ), MVAL=Array<int>( MAXIN ), NBVAL=Array<int>( MAXIN ), NBVAL2=Array<int>( MAXIN ), NSVAL=Array<int>( MAXIN ), NVAL=Array<int>( MAXIN ), NXVAL=Array<int>( MAXIN ), RANKVAL=Array<int>( MAXIN ), PIV=Array<int>( NMAX );
+      // double          , DIMENSION(:), ALLOCATABLE::  RWORK, S;
+      // Complex, DIMENSION(:), ALLOCATABLE :: E;
+      // Complex, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK;
       const THREQ = 2.0, INTSTR = '0123456789';
+     final  A=Matrix<Complex> ( (KDMAX+1) * NMAX, 7 ),
+       B=Matrix<Complex> ( NMAX * MAXRHS, 4 ),
+       WORK=Matrix<Complex> ( NMAX, NMAX+MAXRHS+10 ),
+       E=Array<Complex>( NMAX ),
+       S=Array<Complex>( 2*NMAX ),
+       RWORK=Array<Complex>( 150*NMAX+2*MAXRHS );
 
-      // .. Allocate memory dynamically ..
-
-      ALLOCATE ( A ( (KDMAX+1) * NMAX, 7 ), STAT = AllocateStatus);
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( B ( NMAX * MAXRHS, 4 ), STAT = AllocateStatus);
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( WORK ( NMAX, NMAX+MAXRHS+10 ), STAT = AllocateStatus);
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( E( NMAX ), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( S( 2*NMAX ), STAT = AllocateStatus);
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( RWORK( 150*NMAX+2*MAXRHS ), STAT = AllocateStatus);
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-
-      S1 = DSECND( );
-      LDA = NMAX;
-      FATAL = false;
+     final S1 = dsecnd( );
+     final LDA = NMAX;
+     var FATAL = false;
 
       // Read a dummy line.
 

@@ -1,4 +1,4 @@
-      void zchkeq(final int THRESH, final int NOUT,) {
+      void zchkeq(final int THRESH, final Nout NOUT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

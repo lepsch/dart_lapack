@@ -141,7 +141,7 @@ void dchksy_rook(
         // Set up parameters with DLATB4 for the matrix generator
         // based on the type of matrix to be generated.
 
-        final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+        final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
             dlatb4(MATPATH, IMAT, N, N);
 
         // Generate a matrix with DLATMS.

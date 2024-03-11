@@ -1,173 +1,163 @@
-import 'common.dart';
+import 'dart:math';
 
-      void dchkorhr_col(final int THRESH, final int TSTERR, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NOUT,) {
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import 'alahd.dart';
+import 'alasum.dart';
+import 'common.dart';
+import 'derrorhr_col.dart';
+import 'dorhr_col01.dart';
+import 'dorhr_col02.dart';
+
+void dchkorhr_col(
+  final double THRESH,
+  final bool TSTERR,
+  final int NM,
+  final Array<int> MVAL_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNB,
+  final Array<int> NBVAL_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NM, NN, NNB, NOUT;
-      double             THRESH;
-      int                MVAL( * ), NBVAL( * ), NVAL( * );
-      // ..
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final NBVAL = NBVAL_.having();
+  const NTESTS = 6;
+  final RESULT = Array<double>(NTESTS);
 
-      int                NTESTS;
-      const              NTESTS = 6 ;
-      String   (LEN=3)   PATH;
-      int                I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1, NB2, NFAIL, NERRS, NRUN;
+  // Initialize constants
 
-      // .. Local Arrays ..
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAHD, ALASUM, DERRORHR_COL, DORHR_COL01, DORHR_COL02
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String   (LEN=32)  srnamc.SRNAMT;
-      // int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC / srnamc.SRNAMT
+  final PATH = 'DHH';
+  var NRUN = 0;
+  var NFAIL = 0;
+  const NERRS = 0;
 
-      // Initialize constants
+  // Test the error exits
 
-      PATH[1: 1] = 'D';
-      PATH[2: 3] = 'HH';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
+  if (TSTERR) derrorhr_col(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      // Test the error exits
+  // Do for each value of M in MVAL.
 
-      if (TSTERR) derrorhr_col( PATH, NOUT );
-      infoc.INFOT = 0;
+  for (var I = 1; I <= NM; I++) {
+    final M = MVAL[I];
 
-      // Do for each value of M in MVAL.
+    // Do for each value of N in NVAL.
 
-      for (I = 1; I <= NM; I++) {
-         M = MVAL( I );
+    for (var J = 1; J <= NN; J++) {
+      final N = NVAL[J];
 
-         // Do for each value of N in NVAL.
+      // Only for M >= N
 
-         for (J = 1; J <= NN; J++) {
-            N = NVAL( J );
+      if (min(M, N) > 0 && M >= N) {
+        // Do for each possible value of MB1
 
-            // Only for M >= N
+        for (var IMB1 = 1; IMB1 <= NNB; IMB1++) {
+          final MB1 = NBVAL[IMB1];
 
-            if ( min( M, N ) > 0 && M >= N ) {
+          // Only for MB1 > N
 
-               // Do for each possible value of MB1
+          if (MB1 > N) {
+            // Do for each possible value of NB1
 
-               for (IMB1 = 1; IMB1 <= NNB; IMB1++) {
-                  MB1 = NBVAL( IMB1 );
+            for (var INB1 = 1; INB1 <= NNB; INB1++) {
+              final NB1 = NBVAL[INB1];
 
-                  // Only for MB1 > N
+              // Do for each possible value of NB2
 
-                  if ( MB1 > N ) {
+              for (var INB2 = 1; INB2 <= NNB; INB2++) {
+                final NB2 = NBVAL[INB2];
 
-                     // Do for each possible value of NB1
+                if (NB1 > 0 && NB2 > 0) {
+                  // Test DORHR_COL
 
-                     for (INB1 = 1; INB1 <= NNB; INB1++) {
-                        NB1 = NBVAL( INB1 );
+                  dorhr_col01(M, N, MB1, NB1, NB2, RESULT);
 
-                        // Do for each possible value of NB2
+                  // Print information about the tests that did
+                  // not pass the threshold.
 
-                        for (INB2 = 1; INB2 <= NNB; INB2++) {
-                           NB2 = NBVAL( INB2 );
-
-                           if ( NB1 > 0 && NB2 > 0 ) {
-
-                              // Test DORHR_COL
-
-                              dorhr_col01(M, N, MB1, NB1, NB2, RESULT );
-
-                              // Print information about the tests that did
-                              // not pass the threshold.
-
-                              for (T = 1; T <= NTESTS; T++) {
-                                 if ( RESULT( T ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                                    WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
-                                    NFAIL = NFAIL + 1;
-                                 }
-                              }
-                              NRUN = NRUN + NTESTS;
-                           }
-                        }
-                     }
+                  for (var T = 1; T <= NTESTS; T++) {
+                    if (RESULT[T] >= THRESH) {
+                      if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
+                      NOUT.println(
+                          'DORGTSQR and DORHR_COL: M=${M.i5}, N=${N.i5}, MB1=${MB1.i5}, NB1=${NB1.i5}, NB2=${NB2.i5} test(${T.i2})=${RESULT[T].g12_5}');
+                      NFAIL = NFAIL + 1;
+                    }
                   }
+                  NRUN = NRUN + NTESTS;
                 }
+              }
             }
-         }
+          }
+        }
       }
+    }
+  }
 
-      // Do for each value of M in MVAL.
+  // Do for each value of M in MVAL.
 
-      for (I = 1; I <= NM; I++) {
-         M = MVAL( I );
+  for (var I = 1; I <= NM; I++) {
+    final M = MVAL[I];
 
-         // Do for each value of N in NVAL.
+    // Do for each value of N in NVAL.
 
-         for (J = 1; J <= NN; J++) {
-            N = NVAL( J );
+    for (var J = 1; J <= NN; J++) {
+      final N = NVAL[J];
 
-            // Only for M >= N
+      // Only for M >= N
 
-            if ( min( M, N ) > 0 && M >= N ) {
+      if (min(M, N) > 0 && M >= N) {
+        // Do for each possible value of MB1
 
-               // Do for each possible value of MB1
+        for (var IMB1 = 1; IMB1 <= NNB; IMB1++) {
+          final MB1 = NBVAL[IMB1];
 
-               for (IMB1 = 1; IMB1 <= NNB; IMB1++) {
-                  MB1 = NBVAL( IMB1 );
+          // Only for MB1 > N
 
-                  // Only for MB1 > N
+          if (MB1 > N) {
+            // Do for each possible value of NB1
 
-                  if ( MB1 > N ) {
+            for (var INB1 = 1; INB1 <= NNB; INB1++) {
+              final NB1 = NBVAL[INB1];
 
-                     // Do for each possible value of NB1
+              // Do for each possible value of NB2
 
-                     for (INB1 = 1; INB1 <= NNB; INB1++) {
-                        NB1 = NBVAL( INB1 );
+              for (var INB2 = 1; INB2 <= NNB; INB2++) {
+                final NB2 = NBVAL[INB2];
 
-                        // Do for each possible value of NB2
+                if (NB1 > 0 && NB2 > 0) {
+                  // Test DORHR_COL
 
-                        for (INB2 = 1; INB2 <= NNB; INB2++) {
-                           NB2 = NBVAL( INB2 );
+                  dorhr_col02(M, N, MB1, NB1, NB2, RESULT);
 
-                           if ( NB1 > 0 && NB2 > 0 ) {
+                  // Print information about the tests that did
+                  // not pass the threshold.
 
-                              // Test DORHR_COL
-
-                              dorhr_col02(M, N, MB1, NB1, NB2, RESULT );
-
-                              // Print information about the tests that did
-                              // not pass the threshold.
-
-                              for (T = 1; T <= NTESTS; T++) {
-                                 if ( RESULT( T ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                                    WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
-                                    NFAIL = NFAIL + 1;
-                                 }
-                              }
-                              NRUN = NRUN + NTESTS;
-                           }
-                        }
-                     }
+                  for (var T = 1; T <= NTESTS; T++) {
+                    if (RESULT[T] >= THRESH) {
+                      if (NFAIL == 0 && NERRS == 0) alahd(NOUT, PATH);
+                      NOUT.println(
+                          'DORGTSQR_ROW and DORHR_COL: M=${M.i5}, N=${N.i5}, MB1=${MB1.i5}, NB1=${NB1.i5}, NB2=${NB2.i5} test(${T.i2})=${RESULT[T].g12_5}');
+                      NFAIL = NFAIL + 1;
+                    }
                   }
+                  NRUN = NRUN + NTESTS;
                 }
+              }
             }
-         }
+          }
+        }
       }
+    }
+  }
 
-      // Print a summary of the results.
+  // Print a summary of the results.
 
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( 'DORGTSQR and DORHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
- 9998 FORMAT( 'DORGTSQR_ROW and DORHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
-      }
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS);
+}

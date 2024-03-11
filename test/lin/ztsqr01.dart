@@ -21,7 +21,7 @@
       bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB;
       double             ANORM, EPS, RESID, CNORM, DNORM;
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       Complex         TQUERY( 5 ), WORKQUERY( 1 );
       // ..
       // .. External Functions ..

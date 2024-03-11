@@ -130,7 +130,7 @@ void ddrvge(
       // Set up parameters with DLATB4 and generate a test matrix
       // with DLATMS.
 
-      final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+      final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
           dlatb4(PATH, IMAT, N, N);
       //  final RCONDC = ONE / CNDNUM;
 

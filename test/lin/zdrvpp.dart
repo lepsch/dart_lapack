@@ -1,4 +1,4 @@
-      void zdrvpp(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int ASAV, final int B, final int BSAV, final int X, final int XACT, final int S, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zdrvpp(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final int A, final int AFAC, final int ASAV, final int B, final int BSAV, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -26,8 +26,8 @@
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NERRS, NFACT, NFAIL, NIMAT, NPP, NRUN, NT;
       double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
       String             EQUEDS( 2 ), FACTS( 3 ), PACKS( 2 ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -172,7 +172,7 @@
                   }
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
-                     FACT = FACTS( IFACT );
+                     final FACT = FACTS[IFACT - 1];
                      PREFAC = lsame( FACT, 'F' );
                      NOFACT = lsame( FACT, 'N' );
                      EQUIL = lsame( FACT, 'E' );

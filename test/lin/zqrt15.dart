@@ -9,7 +9,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE;
       double             NORMA, NORMB;
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       double             S( * );
       Complex         A( LDA, * ), B( LDB, * ), WORK( LWORK );
       // ..

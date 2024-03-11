@@ -1,4 +1,4 @@
-      void zdrvrf2(final int NOUT, final int NN, final int NVAL, final Matrix<double> A_, final int LDA, final int ARF, final int AP, final int ASAV,) {
+      void zdrvrf2(final Nout NOUT, final int NN, final Array<int> NVAL_, final Matrix<double> A_, final int LDA, final int ARF, final int AP, final int ASAV,) {
   final A = A_.having();
 
 // -- LAPACK test routine --
@@ -14,7 +14,7 @@
       String             UPLO, CFORM;
       int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN;
       String             UPLOS( 2 ), FORMS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
       // ..
       // .. External Functions ..
       //- Complex         ZLARND;

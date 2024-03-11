@@ -1,4 +1,6 @@
-      void clahqr(final int WANTT, final int WANTZ, final int N, final int ILO, final int IHI, final Matrix<double> H_, final int LDH, final int W, final int ILOZ, final int IHIZ, final Matrix<double> Z_, final int LDZ, final Box<int> INFO,) {
+      void clahqr(final int WANTT, final int WANTZ, final int N, final int ILO, final int IHI,
+      final Matrix<double> H_, final int LDH, final int W, final int ILOZ, final int IHIZ, final Matrix<double> Z_,
+      final int LDZ, final Box<int> INFO,) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -75,7 +77,8 @@
             SC = CONJG( SC ) / ( SC ).abs();
             H[I][I-1] = ( H( I, I-1 ) ).abs();
             cscal(JHI-I+1, SC, H( I, I ), LDH );
-            cscal(min( JHI, I+1 )-JLO+1, CONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL CSCAL( IHIZ-ILOZ+1, CONJG( SC ), Z( ILOZ, I ), 1 );
+            cscal(min( JHI, I+1 )-JLO+1, CONJG( SC ), H( JLO, I ), 1 )             ;
+            if( WANTZ ) CSCAL( IHIZ-ILOZ+1, CONJG( SC ), Z( ILOZ, I ), 1 );
          }
       } // 20
 
@@ -113,7 +116,7 @@
       // H(L,L-1) is negligible so that the matrix splits.
 
       I = IHI;
-      } // 30
+      // } // 30
       if (I < ILO) GO TO 150;
 
       // Perform QR iterations on rows and columns ILO to I until a
@@ -130,7 +133,7 @@
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) );
             if ( TST == ZERO ) {
                if (K-2 >= ILO) TST = TST + ABS( double( H( K-1, K-2 ) ) );
-               IF( K+1 <= IHI ) TST = TST + ABS( double( H( K+1, K ) ) );
+               if( K+1 <= IHI ) TST = TST + ABS( double( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
@@ -139,12 +142,13 @@
             if ( ABS( double( H( K, K-1 ) ) ) <= ULP*TST ) {
                AB = max( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
                BA = min( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
-               AA = max( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = min( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
+               AA = max( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                ;
+               BB = min( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
                if( BA*( AB / S ) <= max( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50;
             }
          } // 40
-         } // 50
+        //  } // 50
          L = K;
          if ( L > ILO ) {
 
@@ -227,7 +231,7 @@
          H21 = H21 / S;
          V[1] = H11S;
          V[2] = H21;
-         } // 70
+        //  } // 70
 
          // Single-shift QR step
 
@@ -327,7 +331,7 @@
       INFO = I;
       return;
 
-      } // 140
+      // } // 140
 
       // H(I,I-1) is negligible: one eigenvalue has converged.
 
@@ -340,5 +344,5 @@
       I = L - 1;
       GO TO 30;
 
-      } // 150
+      // } // 150
       }

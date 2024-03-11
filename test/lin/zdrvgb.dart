@@ -1,4 +1,4 @@
-      void zdrvgb(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int A, final int LA, final int AFB, final int LAFB, final int ASAV, final int B, final int BSAV, final int X, final int XACT, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUT,) {
+      void zdrvgb(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int A, final int LA, final int AFB, final int LAFB, final int ASAV, final int B, final int BSAV, final Array<double> X_, final Array<double> XACT_, final int S, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
@@ -29,7 +29,7 @@
       int                I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT;
       double             AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW;
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
-      int                ISEED( 4 ), ISEEDY( 4 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
       double             RDUM( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
@@ -213,7 +213,7 @@
                      }
 
                      for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
-                        FACT = FACTS( IFACT );
+                        final FACT = FACTS[IFACT - 1];
                         PREFAC = lsame( FACT, 'F' );
                         NOFACT = lsame( FACT, 'N' );
                         EQUIL = lsame( FACT, 'E' );

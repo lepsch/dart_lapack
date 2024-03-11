@@ -1,4 +1,4 @@
-      void ztrt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Array<double> RWORK_, final int RAT,) {
+      void ztrt06(final int RCOND, final int RCONDC, final String UPLO, final String DIAG, final int N, final Matrix<double> A_, final int LDA, final Array<double> RWORK_, final int RAT,) {
   final A = A_.having();
   final RWORK = RWORK_.having();
 

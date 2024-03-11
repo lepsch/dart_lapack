@@ -1,4 +1,4 @@
-      void zchktz(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int S, final int TAU, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zchktz(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final double THRESH, final bool TSTERR, final Array<double> A_, final Array<double> COPYA_, final Array<double> S_, final Array<double> TAU_, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -23,8 +23,8 @@
       String             PATH;
       int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN;
       double             EPS;
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. External Functions ..
       //- double             DLAMCH, ZQRT12, ZRZT01, ZRZT02;

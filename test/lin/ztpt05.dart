@@ -1,4 +1,4 @@
-      void ztpt05(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Matrix<double> XACT_, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
+      void ztpt05(final String UPLO, final String TRANS, final String DIAG, final int N, final int NRHS, final int AP, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Matrix<double> XACT_, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
   final B = B_.having();
   final X = X_.having();
   final XACT = XACT_.having();

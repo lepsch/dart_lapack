@@ -1,4 +1,4 @@
-      void zdrvab(final int DOTYPE, final int NM, final int MVAL, final int NNS, final int NSVAL, final int THRESH, final int NMAX, final int A, final int AFAC, final int B, final int X, final Array<double> WORK_, final Array<double> RWORK_, final int SWORK, final Array<int> IWORK_, final int NOUT,) {
+      void zdrvab(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NNS, final Array<int> NSVAL_, final int THRESH, final int NMAX, final int A, final int AFAC, final int B, final int X, final Array<double> WORK_, final Array<double> RWORK_, final int SWORK, final Array<int> IWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
@@ -26,8 +26,8 @@
       String             PATH;
       int                I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             ANORM, CNDNUM;
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       // ..
       // .. Local Variables ..
       int                ITER, KASE;

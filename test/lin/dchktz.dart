@@ -1,157 +1,158 @@
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgeqr2.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dtzrzf.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import '../matgen/dlatms.dart';
+import 'alahd.dart';
+import 'alasum.dart';
 import 'common.dart';
+import 'derrtz.dart';
+import 'dlaord.dart';
+import 'dqrt12.dart';
+import 'drzt01.dart';
+import 'drzt02.dart';
 
-      void dchktz(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int S, final int TAU, final Array<double> WORK_, final int NOUT,) {
-  final WORK = WORK_.having();
-
+void dchktz(
+  final Array<bool> DOTYPE_,
+  final int NM,
+  final Array<int> MVAL_,
+  final int NN,
+  final Array<int> NVAL_,
+  final double THRESH,
+  final bool TSTERR,
+  final Array<double> A_,
+  final Array<double> COPYA_,
+  final Array<double> S_,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NM, NN, NOUT;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                MVAL( * ), NVAL( * );
-      double             A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );
-      // ..
+  final DOTYPE = DOTYPE_.having();
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final A = A_.having();
+  final COPYA = COPYA_.having();
+  final S = S_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
 
-      int                NTYPES;
-      const              NTYPES = 3 ;
-      int                NTESTS;
-      const              NTESTS = 3 ;
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      String             PATH;
-      int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN;
-      double             EPS;
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DQRT12, DRZT01, DRZT02;
-      // EXTERNAL DLAMCH, DQRT12, DRZT01, DRZT02
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAHD, ALASUM, DERRTZ, DGEQR2, DLACPY, DLAORD, DLASET, DLATMS, DTZRZF
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // int                infoc.INFOT, infoc.IOUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC / srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
+  const NTYPES = 3, NTESTS = 3;
+  const ONE = 1.0, ZERO = 0.0;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  final INFO = Box(0);
 
-      // Initialize constants and the random number seed.
+  // Initialize constants and the random number seed.
 
-      PATH = '${'Double precision'[0]}';
-      PATH[2: 3] = 'TZ';
-      NRUN = 0;
-      NFAIL = 0;
-      NERRS = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY( I );
-      } // 10
-      EPS = dlamch( 'Epsilon' );
+  final PATH = '${'Double precision'[0]}TZ';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
+  final EPS = dlamch('Epsilon');
 
-      // Test the error exits
+  // Test the error exits
 
-      if (TSTERR) derrtz( PATH, NOUT );
-      infoc.INFOT = 0;
+  if (TSTERR) derrtz(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      for (IM = 1; IM <= NM; IM++) { // 70
+  for (var IM = 1; IM <= NM; IM++) {
+    // Do for each value of M in MVAL.
 
-         // Do for each value of M in MVAL.
+    final M = MVAL[IM];
+    final LDA = max(1, M).toInt();
 
-         M = MVAL( IM );
-         LDA = max( 1, M );
+    for (var IN = 1; IN <= NN; IN++) {
+      // Do for each value of N in NVAL for which M <= N.
 
-         for (IN = 1; IN <= NN; IN++) { // 60
+      final N = NVAL[IN];
+      final MNMIN = min(M, N);
+      final LWORK = max(1, max(N * N + 4 * M + N, M * N + 2 * MNMIN + 4 * N));
 
-            // Do for each value of N in NVAL for which M <= N.
+      if (M <= N) {
+        for (var IMODE = 1; IMODE <= NTYPES; IMODE++) {
+          if (!DOTYPE[IMODE]) continue;
 
-            N = NVAL( IN );
-            MNMIN = min( M, N );
-            LWORK = max( 1, N*N+4*M+N, M*N+2*MNMIN+4*N );
+          // Do for each type of singular value distribution.
+          //    0:  zero matrix
+          //    1:  one small singular value
+          //    2:  exponential distribution
 
-            if ( M <= N ) {
-               for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50
-                  if( !DOTYPE( IMODE ) ) GO TO 50;
+          final MODE = IMODE - 1;
 
-                  // Do for each type of singular value distribution.
-                  //    0:  zero matrix
-                  //    1:  one small singular value
-                  //    2:  exponential distribution
+          // Test DTZRQF
 
-                  MODE = IMODE - 1;
+          // Generate test matrix of size m by n using
+          // singular value distribution indicated by `mode'.
 
-                  // Test DTZRQF
-
-                  // Generate test matrix of size m by n using
-                  // singular value distribution indicated by `mode'.
-
-                  if ( MODE == 0 ) {
-                     dlaset('Full', M, N, ZERO, ZERO, A, LDA );
-                     for (I = 1; I <= MNMIN; I++) { // 30
-                        S[I] = ZERO;
-                     } // 30
-                  } else {
-                     dlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
-                     dgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO );
-                     dlaset('Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
-                     dlaord('Decreasing', MNMIN, S, 1 );
-                  }
-
-                  // Save A and its singular values
-
-                  dlacpy('All', M, N, A, LDA, COPYA, LDA );
-
-                  // Call DTZRZF to reduce the upper trapezoidal matrix to
-                  // upper triangular form.
-
-                  srnamc.SRNAMT = 'DTZRZF';
-                  dtzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
-
-                  // Compute norm(svd(a) - svd(r))
-
-                  RESULT[1] = DQRT12( M, M, A, LDA, S, WORK, LWORK );
-
-                  // Compute norm( A - R*Q )
-
-                  RESULT[2] = DRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK );
-
-                  // Compute norm(Q'*Q - I).
-
-                  RESULT[3] = DRZT02( M, N, A, LDA, TAU, WORK, LWORK );
-
-                  // Print information about the tests that did not pass
-                  // the threshold.
-
-                  for (K = 1; K <= NTESTS; K++) { // 40
-                     if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
-                        WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
-                        NFAIL = NFAIL + 1;
-                     }
-                  } // 40
-                  NRUN = NRUN + 3;
-               } // 50
+          if (MODE == 0) {
+            dlaset('Full', M, N, ZERO, ZERO, A.asMatrix(), LDA);
+            for (var I = 1; I <= MNMIN; I++) {
+              S[I] = ZERO;
             }
-         } // 60
-      } // 70
+          } else {
+            dlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS,
+                ONE, M, N, 'No packing', A.asMatrix(), LDA, WORK, INFO);
+            dgeqr2(M, N, A.asMatrix(), LDA, WORK, WORK(MNMIN + 1), INFO);
+            dlaset('Lower', M - 1, N, ZERO, ZERO, A(2).asMatrix(), LDA);
+            dlaord('Decreasing', MNMIN, S, 1);
+          }
 
-      // Print a summary of the results.
+          // Save A and its singular values
 
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
+          dlacpy('All', M, N, A.asMatrix(), LDA, COPYA.asMatrix(), LDA);
 
- 9999 FORMAT( ' M =${.i5}, N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+          // Call DTZRZF to reduce the upper trapezoidal matrix to
+          // upper triangular form.
 
-      // End if DCHKTZ
+          srnamc.SRNAMT = 'DTZRZF';
+          dtzrzf(M, N, A.asMatrix(), LDA, TAU, WORK, LWORK, INFO);
 
+          // Compute norm(svd(a) - svd(r))
+
+          RESULT[1] = dqrt12(M, M, A.asMatrix(), LDA, S, WORK, LWORK);
+
+          // Compute norm( A - R*Q )
+
+          RESULT[2] = drzt01(
+              M, N, COPYA.asMatrix(), A.asMatrix(), LDA, TAU, WORK, LWORK);
+
+          // Compute norm(Q'*Q - I).
+
+          RESULT[3] = drzt02(M, N, A.asMatrix(), LDA, TAU, WORK, LWORK);
+
+          // Print information about the tests that did not pass
+          // the threshold.
+
+          for (var K = 1; K <= NTESTS; K++) {
+            if (RESULT[K] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              NOUT.println(
+                  ' M =${M.i5}, N =${N.i5}, type ${IMODE.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
+              NFAIL = NFAIL + 1;
+            }
+          }
+          NRUN = NRUN + 3;
+        }
       }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

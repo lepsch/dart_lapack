@@ -1,4 +1,4 @@
-      void zlattb(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int B, final Array<double> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+      void zlattb(final int IMAT, final String UPLO, final String TRANS, final String DIAG, final Array<int> ISEED_, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int B, final Array<double> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
   final ISEED = ISEED_.having();
   final AB = AB_.having();
   final WORK = WORK_.having();
@@ -9,7 +9,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       String             DIAG, TRANS, UPLO;
       int                IMAT, INFO, KD, LDAB, N;
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       double             RWORK( * );
       Complex         AB( LDAB, * ), B( * ), WORK( * );
       // ..

@@ -1,56 +1,61 @@
-      double drzt02(final int M, final int N, final int AF, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK,) {
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dormrz.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+double drzt02(
+  final int M,
+  final int N,
+  final Matrix<double> AF_,
+  final int LDA,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      double             AF( LDA, * ), TAU( * ), WORK( LWORK );
-      // ..
+  final AF = AF_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
+  const ZERO = 0.0, ONE = 1.0;
+  final RWORK = Array<double>(1);
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, INFO;
-      double             RWORK( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASET, DORMRZ, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX
+  if (LWORK < N * N + N) {
+    xerbla('DRZT02', 7);
+    return ZERO;
+  }
 
-      DRZT02 = ZERO;
+  // Quick return if possible
 
-      if ( LWORK < N*N+N ) {
-         xerbla('DRZT02', 7 );
-         return;
-      }
+  if (M <= 0 || N <= 0) return ZERO;
 
-      // Quick return if possible
+  // Q := I
 
-      if (M <= 0 || N <= 0) return;
+  dlaset('Full', N, N, ZERO, ONE, WORK.asMatrix(), N);
 
-      // Q := I
+  // Q := P(1) * ... * P(m) * Q
 
-      dlaset('Full', N, N, ZERO, ONE, WORK, N );
+  dormrz('Left', 'No transpose', N, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(),
+      N, WORK(N * N + 1), LWORK - N * N, INFO);
 
-      // Q := P(1) * ... * P(m) * Q
+  // Q := P(m) * ... * P(1) * Q
 
-      dormrz('Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
+  dormrz('Left', 'Transpose', N, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(), N,
+      WORK(N * N + 1), LWORK - N * N, INFO);
 
-      // Q := P(m) * ... * P(1) * Q
+  // Q := Q - I
 
-      dormrz('Left', 'Transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
+  for (var I = 1; I <= N; I++) {
+    WORK[(I - 1) * N + I] = WORK[(I - 1) * N + I] - ONE;
+  }
 
-      // Q := Q - I
-
-      for (I = 1; I <= N; I++) { // 10
-         WORK[( I-1 )*N+I] = WORK( ( I-1 )*N+I ) - ONE;
-      } // 10
-
-      DRZT02 = dlange( 'One-norm', N, N, WORK, N, RWORK ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-      }
+  return dlange('One-norm', N, N, WORK.asMatrix(), N, RWORK) /
+      (dlamch('Epsilon') * max(M, N));
+}

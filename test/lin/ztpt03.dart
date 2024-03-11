@@ -1,4 +1,4 @@
-      void ztpt03(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final int SCALE, final int CNORM, final int TSCAL, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int RESID,) {
+      void ztpt03(final String UPLO, final String TRANS, final String DIAG, final int N, final int NRHS, final int AP, final int SCALE, final int CNORM, final int TSCAL, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int RESID,) {
   final X = X_.having();
   final B = B_.having();
   final WORK = WORK_.having();

@@ -1,4 +1,4 @@
-      void zlattp(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED_, final int N, final int AP, final int B, final Array<double> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+      void zlattp(final int IMAT, final String UPLO, final String TRANS, final String DIAG, final Array<int> ISEED_, final int N, final int AP, final int B, final Array<double> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
   final ISEED = ISEED_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
@@ -8,7 +8,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       String             DIAG, TRANS, UPLO;
       int                IMAT, INFO, N;
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       double             RWORK( * );
       Complex         AP( * ), B( * ), WORK( * );
       // ..

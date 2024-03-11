@@ -1,4 +1,4 @@
-      void zchkpt(final int DOTYPE, final int NN, final int NVAL, final int NNS, final int NSVAL, final int THRESH, final int TSTERR, final int A, final int D, final int E, final int B, final int X, final int XACT, final Array<double> WORK_, final Array<double> RWORK_, final int NOUT,) {
+      void zchkpt(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NNS, final Array<int> NSVAL_, final double THRESH, final bool TSTERR, final int A, final int D, final int E, final int B, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
 
@@ -26,8 +26,8 @@
       int                I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
       String             UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS );
       Complex         Z( 3 );
       // ..
       // .. External Functions ..

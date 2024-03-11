@@ -1,4 +1,4 @@
-      void zgerqs(final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final int TAU, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+      void zgerqs(final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<double> TAU_, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
   final A = A_.having();
   final B = B_.having();
   final WORK = WORK_.having();

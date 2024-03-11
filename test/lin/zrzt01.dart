@@ -1,4 +1,4 @@
-      double zrzt01(final int M, final int N, final int A, final int AF, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK,) {
+      double zrzt01(final int M, final int N, final Matrix<double> A_, final Matrix<double> AF_, final int LDA, final Array<double> TAU_, final Array<double> WORK_, final int LWORK,) {
   final WORK = WORK_.having();
 
 // -- LAPACK test routine --

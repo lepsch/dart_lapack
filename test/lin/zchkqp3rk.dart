@@ -1,4 +1,4 @@
-      void zchkqp3rk(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int A, final int COPYA, final int B, final int COPYB, final int S, final int TAU, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUT,) {
+      void zchkqp3rk(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNS, final Array<int> NSVAL_, final int NNB, final Array<int> NBVAL_, final Array<int> NXVAL_, final int THRESH, final int A, final int COPYA, final int B, final int COPYB, final int S, final int TAU, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -24,8 +24,8 @@
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T;
       double             ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
-      int                ISEED( 4 ), ISEEDY( 4 );
-      double             RESULT( NTESTS ), RDUMMY( 1 );
+      final                ISEED=Array<int>( 4 ), ISEEDY( 4 );
+      final             RESULT=Array<double>( NTESTS ), RDUMMY( 1 );
       // ..
       // .. External Functions ..
       //- double             DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE;

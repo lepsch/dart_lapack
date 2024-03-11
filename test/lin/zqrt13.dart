@@ -6,7 +6,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       int                LDA, M, N, SCALE;
       double             NORMA;
-      int                ISEED( 4 );
+      final                ISEED=Array<int>( 4 );
       Complex         A( LDA, * );
       // ..
 

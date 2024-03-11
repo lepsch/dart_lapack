@@ -1,97 +1,117 @@
-      void drqt01(final int M, final int N, final int A, final int AF, final int Q, final int R, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dsyrk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgerqf.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dorgrq.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+import 'common.dart';
+
+void drqt01(
+  final int M,
+  final int N,
+  final Matrix<double> A_,
+  final Matrix<double> AF_,
+  final Matrix<double> Q_,
+  final Matrix<double> R_,
+  final int LDA,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<double> RESULT_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      double             A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDA);
+  final Q = Q_.having(ld: LDA);
+  final R = R_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
+  final RWORK = RWORK_.having();
+  final RESULT = RESULT_.having();
+  const ZERO = 0.0, ONE = 1.0;
+  const ROGUE = -1.0e+10;
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             ROGUE;
-      const              ROGUE = -1.0e+10 ;
-      int                INFO, MINMN;
-      double             ANORM, EPS, RESID;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE, DLANSY;
-      // EXTERNAL DLAMCH, DLANGE, DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM, DGERQF, DLACPY, DLASET, DORGRQ, DSYRK
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN
-      // ..
-      // .. Scalars in Common ..
-      String            srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC /srnamc.SRNAMT
+  final MINMN = min(M, N);
+  final EPS = dlamch('Epsilon');
 
-      MINMN = min( M, N );
-      EPS = dlamch( 'Epsilon' );
+  // Copy the matrix A to the array AF.
 
-      // Copy the matrix A to the array AF.
+  dlacpy('Full', M, N, A, LDA, AF, LDA);
 
-      dlacpy('Full', M, N, A, LDA, AF, LDA );
+  // Factorize the matrix A in the array AF.
 
-      // Factorize the matrix A in the array AF.
+  srnamc.SRNAMT = 'DGERQF';
+  dgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO);
 
-     srnamc.SRNAMT = 'DGERQF';
-      dgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
+  // Copy details of Q
 
-      // Copy details of Q
+  dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA);
+  if (M <= N) {
+    if (M > 0 && M < N) dlacpy('Full', M, N - M, AF, LDA, Q(N - M + 1, 1), LDA);
+    if (M > 1) {
+      dlacpy('Lower', M - 1, M - 1, AF(2, N - M + 1), LDA,
+          Q(N - M + 2, N - M + 1), LDA);
+    }
+  } else {
+    if (N > 1) {
+      dlacpy('Lower', N - 1, N - 1, AF(M - N + 2, 1), LDA, Q(2, 1), LDA);
+    }
+  }
 
-      dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      if ( M <= N ) {
-         if (M > 0 && M < N) dlacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) dlacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
-      } else {
-         if (N > 1) dlacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
-      }
+  // Generate the n-by-n matrix Q
 
-      // Generate the n-by-n matrix Q
+  srnamc.SRNAMT = 'DORGRQ';
+  dorgrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO);
 
-     srnamc.SRNAMT = 'DORGRQ';
-      dorgrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
+  // Copy R
 
-      // Copy R
+  dlaset('Full', M, N, ZERO, ZERO, R, LDA);
+  if (M <= N) {
+    if (M > 0) {
+      dlacpy('Upper', M, M, AF(1, N - M + 1), LDA, R(1, N - M + 1), LDA);
+    }
+  } else {
+    if (M > N && N > 0) dlacpy('Full', M - N, N, AF, LDA, R, LDA);
+    if (N > 0) {
+      dlacpy('Upper', N, N, AF(M - N + 1, 1), LDA, R(M - N + 1, 1), LDA);
+    }
+  }
 
-      dlaset('Full', M, N, ZERO, ZERO, R, LDA );
-      if ( M <= N ) {
-         if (M > 0) dlacpy( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
-      } else {
-         if (M > N && N > 0) dlacpy( 'Full', M-N, N, AF, LDA, R, LDA );
-         IF( N > 0 ) dlacpy( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
-      }
+  // Compute R - A*Q'
 
-      // Compute R - A*Q'
+  dgemm(
+      'No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA);
 
-      dgemm('No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA );
+  // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 
-      // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
+  final ANORM = dlange('1', M, N, A, LDA, RWORK);
+  var RESID = dlange('1', M, N, R, LDA, RWORK);
+  if (ANORM > ZERO) {
+    RESULT[1] = ((RESID / (max(1, N)).toDouble()) / ANORM) / EPS;
+  } else {
+    RESULT[1] = ZERO;
+  }
 
-      ANORM = dlange( '1', M, N, A, LDA, RWORK );
-      RESID = dlange( '1', M, N, R, LDA, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / (max( 1, N )).toDouble() ) / ANORM ) / EPS;
-      } else {
-         RESULT[1] = ZERO;
-      }
+  // Compute I - Q*Q'
 
-      // Compute I - Q*Q'
+  dlaset('Full', N, N, ZERO, ONE, R, LDA);
+  dsyrk('Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA);
 
-      dlaset('Full', N, N, ZERO, ONE, R, LDA );
-      dsyrk('Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
+  // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      // Compute norm( I - Q*Q' ) / ( N * EPS ) .
+  RESID = dlansy('1', 'Upper', N, R, LDA, RWORK);
 
-      RESID = dlansy( '1', 'Upper', N, R, LDA, RWORK );
-
-      RESULT[2] = ( RESID / (max( 1, N )).toDouble() ) / EPS;
-
-      }
+  RESULT[2] = (RESID / (max(1, N)).toDouble()) / EPS;
+}
