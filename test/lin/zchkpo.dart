@@ -68,7 +68,6 @@ void zchkpo(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NTYPES = 9, NTESTS = 8;
-  double ANORM, CNDNUM, RCOND, RCONDC;
   final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];

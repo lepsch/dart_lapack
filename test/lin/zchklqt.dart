@@ -1,86 +1,87 @@
-      void zchklqt(final double THRESH, final bool TSTERR, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final Nout NOUT,) {
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import 'alahd.dart';
+import 'alasum.dart';
+import 'common.dart';
+import 'zerrlqt.dart';
+import 'zlqt04.dart';
+
+void zchklqt(
+  final double THRESH,
+  final bool TSTERR,
+  final int NM,
+  final Array<int> MVAL_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNB,
+  final Array<int> NBVAL_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NM, NN, NNB, NOUT;
-      double             THRESH;
-      int                MVAL( * ), NBVAL( * ), NVAL( * );
-      // ..
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final NBVAL = NBVAL_.having();
+  const NTESTS = 6;
+  final RESULT = Array<double>(NTESTS);
 
-      int                NTESTS;
-      const              NTESTS = 6 ;
-      String             PATH;
-      int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN;
+  // Initialize constants
 
-      // .. Local Arrays ..
-      final             RESULT=Array<double>( NTESTS );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ALAHD, ALASUM, ZERRLQT, ZLQT04
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
+  final PATH = 'ZTQ';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
 
-      // Initialize constants
+  // Test the error exits
 
-      PATH[1: 1] = 'Z';
-      PATH[2: 3] = 'TQ';
-      var NRUN = 0;
-      var NFAIL = 0;
-      var NERRS = Box(0);
+  if (TSTERR) zerrlqt(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      // Test the error exits
+  // Do for each value of M in MVAL.
 
-      if (TSTERR) zerrlqt( PATH, NOUT );
-      infoc.INFOT = 0;
+  for (var I = 1; I <= NM; I++) {
+    final M = MVAL[I];
 
-      // Do for each value of M in MVAL.
+    // Do for each value of N in NVAL.
 
-      for (I = 1; I <= NM; I++) {
-         M = MVAL( I );
+    for (var J = 1; J <= NN; J++) {
+      final N = NVAL[J];
 
-         // Do for each value of N in NVAL.
+      // Do for each possible value of NB
 
-         for (J = 1; J <= NN; J++) {
-            N = NVAL( J );
+      final MINMN = min(M, N);
+      for (var K = 1; K <= NNB; K++) {
+        final NB = NBVAL[K];
 
-         // Do for each possible value of NB
+        // Test ZGELQT and ZUNMLQT
 
-            MINMN = min( M, N );
-            for (K = 1; K <= NNB; K++) {
-               NB = NBVAL( K );
+        if ((NB <= MINMN) && (NB > 0)) {
+          zlqt04(M, N, NB, RESULT);
 
-               // Test ZGELQT and ZUNMLQT
+          // Print information about the tests that did not
+          // pass the threshold.
 
-               if ( (NB <= MINMN) && (NB > 0) ) {
-                  zlqt04(M, N, NB, RESULT );
-
-                  // Print information about the tests that did not
-                  // pass the threshold.
-
-                  for (T = 1; T <= NTESTS; T++) {
-                     if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                        NOUT.println( 9999 )M, N, NB, T, RESULT( T );
-                        NFAIL++;
-                     }
-                  }
-                  NRUN +=  NTESTS;
-               }
+          for (var T = 1; T <= NTESTS; T++) {
+            if (RESULT[T] >= THRESH) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              NOUT.println(
+                  ' M=${M.i5}, N=${N.i5}, NB=${NB.i4} test(${T.i2})=${RESULT[T].g12_5}');
+              NFAIL++;
             }
-         }
+          }
+          NRUN += NTESTS;
+        }
       }
+    }
+  }
 
-      // Print a summary of the results.
+  // Print a summary of the results.
 
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( ' M=${M.i5}, N=${N.i5}, NB=${.i4} test(${.i2})=${.g12_5};
-      }
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

@@ -1,210 +1,202 @@
-      void zdrvrf4(final Nout NOUT, final int NN, final Array<int> NVAL_, final int THRESH, final int C1, final int C2, final int LDC, final int CRF, final Matrix<double> A_, final int LDA, final int D_WORK_ZLANGE,) {
-  final A = A_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zherk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zhfrk.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/ztfttr.dart';
+import 'package:lapack/src/ztrttf.dart';
+
+import '../matgen/dlarnd.dart';
+import '../matgen/zlarnd.dart';
+import 'common.dart';
+
+void zdrvrf4(
+  final Nout NOUT,
+  final int NN,
+  final Array<int> NVAL_,
+  final double THRESH,
+  final Matrix<Complex> C1_,
+  final Matrix<Complex> C2_,
+  final int LDC,
+  final Array<Complex> CRF_,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> D_WORK_ZLANGE_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDC, NN, NOUT;
-      double             THRESH;
-      int                NVAL( NN );
-      double             D_WORK_ZLANGE( * );
-      Complex         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
-      // ..
+  final NVAL = NVAL_.having();
+  final C1 = C1_.having(ld: LDC);
+  final C2 = C2_.having(ld: LDC);
+  final CRF = CRF_.having();
+  final A = A_.having(ld: LDA);
+  final D_WORK_ZLANGE = D_WORK_ZLANGE_.having();
+  const ZERO = 0.0, ONE = 1.0;
+  const NTESTS = 1;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  const FORMS = ['N', 'C'];
+  const TRANSS = ['N', 'C'];
 
-// =====================================================================
-      // ..
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE  = 1.0 ;
-      int                NTESTS;
-      const              NTESTS = 1 ;
-      String             UPLO, CFORM, TRANS;
-      int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS;
-      double             ALPHA, BETA, EPS, NORMA, NORMC;
-      String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
-      final                ISEED=Array<int>( 4 );
-      final             RESULT=Array<double>( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLARND, ZLANGE;
-      //- Complex         ZLARND;
-      // EXTERNAL DLAMCH, DLARND, ZLANGE, ZLARND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZHERK, ZHFRK, ZTFTTR, ZTRTTF
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DABS, MAX
-      // ..
-      // .. Scalars in Common ..
-      String            srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
-      const FORMS = [ 'N', 'C' ];
-      const TRANSS = [ 'N', 'C' ];
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  var NRUN = 0;
+  var NFAIL = 0;
+  final INFO = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
+  final EPS = dlamch('Precision');
 
-      var NRUN = 0;
-      var NFAIL = 0;
-      INFO = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
-      EPS = dlamch( 'Precision' );
+  for (var IIN = 1; IIN <= NN; IIN++) {
+    final N = NVAL[IIN];
 
-      for (IIN = 1; IIN <= NN; IIN++) { // 150
+    for (var IIK = 1; IIK <= NN; IIK++) {
+      // TODO: Is it really indexed by IIN?
+      final K = NVAL[IIN];
 
-         N = NVAL( IIN );
+      for (var IFORM = 1; IFORM <= 2; IFORM++) {
+        final CFORM = FORMS[IFORM - 1];
 
-         for (IIK = 1; IIK <= NN; IIK++) { // 140
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          final UPLO = UPLOS[IUPLO - 1];
 
-            K = NVAL( IIN );
+          for (var ITRANS = 1; ITRANS <= 2; ITRANS++) {
+            final TRANS = TRANSS[ITRANS - 1];
 
-            for (IFORM = 1; IFORM <= 2; IFORM++) { // 130
+            for (var IALPHA = 1; IALPHA <= 4; IALPHA++) {
+              final double ALPHA, BETA;
+              if (IALPHA == 1) {
+                ALPHA = ZERO;
+                BETA = ZERO;
+              } else if (IALPHA == 2) {
+                ALPHA = ONE;
+                BETA = ZERO;
+              } else if (IALPHA == 3) {
+                ALPHA = ZERO;
+                BETA = ONE;
+              } else {
+                ALPHA = dlarnd(2, ISEED);
+                BETA = dlarnd(2, ISEED);
+              }
 
-               CFORM = FORMS( IFORM );
+              // All the parameters are set:
+              //    CFORM, UPLO, TRANS, M, N,
+              //    ALPHA, and BETA
+              // READY TO TEST!
 
-               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
+              NRUN++;
 
-                  final UPLO = UPLOS[IUPLO - 1];
+              final double NORMA;
+              if (ITRANS == 1) {
+                // In this case we are NOTRANS, so A is N-by-K
 
-                  for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 110
+                for (var J = 1; J <= K; J++) {
+                  for (var I = 1; I <= N; I++) {
+                    A[I][J] = zlarnd(4, ISEED);
+                  }
+                }
 
-                     TRANS = TRANSS( ITRANS );
+                NORMA = zlange('I', N, K, A, LDA, D_WORK_ZLANGE);
+              } else {
+                // In this case we are TRANS, so A is K-by-N
 
-                     for (IALPHA = 1; IALPHA <= 4; IALPHA++) { // 100
+                for (var J = 1; J <= N; J++) {
+                  for (var I = 1; I <= K; I++) {
+                    A[I][J] = zlarnd(4, ISEED);
+                  }
+                }
 
-                        if ( IALPHA == 1) {
-                           ALPHA = ZERO;
-                           BETA = ZERO;
-                        } else if ( IALPHA == 2) {
-                           ALPHA = ONE;
-                           BETA = ZERO;
-                        } else if ( IALPHA == 3) {
-                           ALPHA = ZERO;
-                           BETA = ONE;
-                        } else {
-                           ALPHA = dlarnd( 2, ISEED );
-                           BETA = dlarnd( 2, ISEED );
-                        }
+                NORMA = zlange('I', K, N, A, LDA, D_WORK_ZLANGE);
+              }
 
-                        // All the parameters are set:
-                        //    CFORM, UPLO, TRANS, M, N,
-                        //    ALPHA, and BETA
-                        // READY TO TEST!
+              // Generate C1 our N--by--N Hermitian matrix.
+              // Make sure C2 has the same upper/lower part,
+              // (the one that we do not touch), so
+              // copy the initial C1 in C2 in it.
 
-                        NRUN++;
+              for (var J = 1; J <= N; J++) {
+                for (var I = 1; I <= N; I++) {
+                  C1[I][J] = zlarnd(4, ISEED);
+                  C2[I][J] = C1[I][J];
+                }
+              }
 
-                        if ( ITRANS == 1 ) {
+              // (See comment later on for why we use zlange and
+              // not ZLANHE for C1.)
 
-                           // In this case we are NOTRANS, so A is N-by-K
+              final NORMC = zlange('I', N, N, C1, LDC, D_WORK_ZLANGE);
 
-                           for (J = 1; J <= K; J++) {
-                              for (I = 1; I <= N; I++) {
-                                 A[I][J] = ZLARND( 4, ISEED );
-                              }
-                           }
+              srnamc.SRNAMT = 'ZTRTTF';
+              ztrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO);
 
-                           NORMA = ZLANGE( 'I', N, K, A, LDA, D_WORK_ZLANGE );
+              // call zherk the BLAS routine -> gives C1
 
-                        } else {
+              srnamc.SRNAMT = 'ZHERK ';
+              zherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC);
 
-                           // In this case we are TRANS, so A is K-by-N
+              // call zhfrk the RFP routine -> gives CRF
 
-                           for (J = 1; J <= N; J++) {
-                              for (I = 1; I <= K; I++) {
-                                 A[I][J] = ZLARND( 4, ISEED );
-                              }
-                           }
+              srnamc.SRNAMT = 'ZHFRK ';
+              zhfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF);
 
-                           NORMA = ZLANGE( 'I', K, N, A, LDA, D_WORK_ZLANGE );
+              // convert CRF in full format -> gives C2
 
-                        }
+              srnamc.SRNAMT = 'ZTFTTR';
+              ztfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO);
 
+              // compare C1 and C2
 
-                        // Generate C1 our N--by--N Hermitian matrix.
-                        // Make sure C2 has the same upper/lower part,
-                        // (the one that we do not touch), so
-                        // copy the initial C1 in C2 in it.
+              for (var J = 1; J <= N; J++) {
+                for (var I = 1; I <= N; I++) {
+                  C1[I][J] = C1[I][J] - C2[I][J];
+                }
+              }
 
-                        for (J = 1; J <= N; J++) {
-                           for (I = 1; I <= N; I++) {
-                              C1[I][J] = ZLARND( 4, ISEED );
-                              C2[I][J] = C1(I,J);
-                           }
-                        }
+              // Yes, C1 is Hermitian so we could call ZLANHE,
+              // but we want to check the upper part that is
+              // supposed to be unchanged and the diagonal that
+              // is supposed to be real -> zlange
 
-                        // (See comment later on for why we use ZLANGE and
-                        // not ZLANHE for C1.)
+              RESULT[1] = zlange('I', N, N, C1, LDC, D_WORK_ZLANGE);
+              RESULT[1] = RESULT[1] /
+                  max(ALPHA.abs() * NORMA * NORMA + BETA.abs() * NORMC, ONE) /
+                  max(N, 1) /
+                  EPS;
 
-                        NORMC = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE );
-
-                       srnamc.SRNAMT = 'ZTRTTF';
-                        ztrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
-
-                        // call zherk the BLAS routine -> gives C1
-
-                       srnamc.SRNAMT = 'ZHERK ';
-                        zherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
-
-                        // call zhfrk the RFP routine -> gives CRF
-
-                       srnamc.SRNAMT = 'ZHFRK ';
-                        zhfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
-
-                        // convert CRF in full format -> gives C2
-
-                       srnamc.SRNAMT = 'ZTFTTR';
-                        ztfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
-
-                        // compare C1 and C2
-
-                        for (J = 1; J <= N; J++) {
-                           for (I = 1; I <= N; I++) {
-                              C1[I][J] = C1(I,J)-C2(I,J);
-                           }
-                        }
-
-                        // Yes, C1 is Hermitian so we could call ZLANHE,
-                        // but we want to check the upper part that is
-                        // supposed to be unchanged and the diagonal that
-                        // is supposed to be real -> ZLANGE
-
-                        RESULT[1] = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )                         RESULT(1) = RESULT(1) / max( ( ALPHA ).abs() * NORMA * NORMA + ( BETA ).abs() * NORMC, ONE ) / max( N , 1 ) / EPS;
-
-                        if ( RESULT(1) >= THRESH ) {
-                           if ( NFAIL == 0 ) {
-                              WRITE( NOUT, * );
-                              NOUT.println( 9999 );
-                           }
-                           NOUT.println( 9997 ) 'ZHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1);
-                           NFAIL++;
-                        }
-
-                     } // 100
-                  } // 110
-               } // 120
-            } // 130
-         } // 140
-      } // 150
-
-      // Print a summary of the results.
-
-      if ( NFAIL == 0 ) {
-         NOUT.println( 9996 ) 'ZHFRK', NRUN;
-      } else {
-         NOUT.println( 9995 ) 'ZHFRK', NFAIL, NRUN;
+              if (RESULT[1] >= THRESH) {
+                if (NFAIL == 0) {
+                  NOUT.println();
+                  NOUT.println(
+                      '  *** Error(s) or Failure(s) while testing ZHFRK ***');
+                }
+                NOUT.println(
+                    '      Failure in ZHFRK, CFORM=\'${CFORM.a1}\', UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', N=${N.i3}, K =${K.i3}, test=${RESULT[1].g12_5}');
+                NFAIL++;
+              }
+            }
+          }
+        }
       }
+    }
+  }
 
- 9999 FORMAT('  *** Error(s) or Failure(s) while testing ZHFRK ***');
- 9997 FORMAT('      Failure in ${.a5}, CFORM=\'${.a1}\', UPLO=\'${.a1}\',',' TRANS=\'${TRANS.a1}\', N=',I3,', K =${.i3}, test=',G12.5);
- 9996 FORMAT(' All tests for ${.a5} auxiliary routine passed the threshold ( ',I6,' tests run)');
- 9995 FORMAT(' ${.a6} auxiliary routine: ',I6,' out of ',I6, ' tests failed to pass the threshold');
+  // Print a summary of the results.
 
-      }
+  if (NFAIL == 0) {
+    NOUT.println(
+        ' All tests for ZHFRK auxiliary routine passed the threshold ( ${NRUN.i6} tests run)');
+  } else {
+    NOUT.println(
+        ' ZHFRK  auxiliary routine: ${NFAIL.i6} out of ${NRUN.i6} tests failed to pass the threshold');
+  }
+}

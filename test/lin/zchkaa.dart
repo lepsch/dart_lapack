@@ -522,13 +522,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             NOUT);
       } else {
@@ -536,47 +536,113 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvpo(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), B(1, 4), S, WORK, RWORK, NOUT);
+        zdrvpo(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            S,
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
     } else if (lsamen(2, C2, 'PS')) {
       // PS:  positive semi-definite matrices
 
-      NTYPES = 9;
+      const NTYPES = 9;
 
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchkps(DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR,
-            LDA, A(1, 1), A(1, 2), A(1, 3), PIV, WORK, RWORK, NOUT);
+        zchkps(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNB2,
+            NBVAL2,
+            NRANK,
+            RANKVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            PIV,
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
     } else if (lsamen(2, C2, 'PP')) {
       // PP:  positive definite packed matrices
 
-      NTYPES = 9;
+      const NTYPES = 9;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchkpp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A(1, 1),
-            A(1, 2), A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        zchkpp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
 
       if (TSTDRV) {
-        zdrvpp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), B(1, 4), S, WORK, RWORK, NOUT);
+        zdrvpp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            S,
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
     } else if (lsamen(2, C2, 'PB')) {
       // PB:  positive definite banded matrices
 
-      NTYPES = 8;
+      const NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -591,13 +657,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             NOUT);
       } else {
@@ -605,34 +671,80 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvpb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), B(1, 4), S, WORK, RWORK, NOUT);
+        zdrvpb(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            S,
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
     } else if (lsamen(2, C2, 'PT')) {
       // PT:  positive definite tridiagonal matrices
 
-      NTYPES = 12;
+      const NTYPES = 12;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchkpt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A(1, 1), S,
-            A(1, 2), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        zchkpt(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            A(1, 1).asArray(),
+            S,
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
 
       if (TSTDRV) {
-        zdrvpt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A(1, 1), S, A(1, 2),
-            B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        zdrvpt(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            A(1, 1).asArray(),
+            S,
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
     } else if (lsamen(2, C2, 'HE')) {
       // HE:  Hermitian indefinite matrices
 
-      NTYPES = 10;
+      const NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -647,13 +759,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -662,8 +774,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvhe(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvhe(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -671,7 +799,7 @@ void main() async {
       // HR:  Hermitian indefinite matrices,
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm,
 
-      NTYPES = 10;
+      const NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -686,13 +814,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -709,13 +837,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -727,7 +855,7 @@ void main() async {
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm,
       //      different matrix storage format than HR path version.
 
-      NTYPES = 10;
+      const NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -742,14 +870,14 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
             E,
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -758,8 +886,25 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvhe_rk(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            E, A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvhe_rk(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            E,
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -767,7 +912,7 @@ void main() async {
       // HA:  Hermitian matrices,
       //      Aasen Algorithm
 
-      NTYPES = 10;
+      const NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -782,13 +927,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -797,8 +942,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvhe_aa(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvhe_aa(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -806,7 +967,7 @@ void main() async {
       // H2:  Hermitian matrices,
       //      with partial (Aasen's) pivoting algorithm
 
-      NTYPES = 10;
+      const NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -821,13 +982,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -844,13 +1005,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -860,7 +1021,7 @@ void main() async {
     } else if (lsamen(2, C2, 'HP')) {
       // HP:  Hermitian indefinite packed matrices
 
-      NTYPES = 10;
+      const NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -873,13 +1034,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -888,8 +1049,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvhp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvhp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -897,7 +1074,7 @@ void main() async {
       // SY:  symmetric indefinite matrices,
       //      with partial (Bunch-Kaufman) pivoting algorithm
 
-      NTYPES = 11;
+      const NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -912,13 +1089,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -927,8 +1104,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvsy(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvsy(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -936,7 +1129,7 @@ void main() async {
       // SR:  symmetric indefinite matrices,
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm
 
-      NTYPES = 11;
+      const NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -951,13 +1144,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -974,13 +1167,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -992,7 +1185,7 @@ void main() async {
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm,
       //      different matrix storage format than SR path version.
 
-      NTYPES = 11;
+      const NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1007,14 +1200,14 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
             E,
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1023,15 +1216,32 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvsy_rk(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            E, A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvsy_rk(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            E,
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
     } else if (lsamen(2, C2, 'SA')) {
       // SA:  symmetric indefinite matrices with Aasen's algorithm,
 
-      NTYPES = 11;
+      const NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1046,13 +1256,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1061,8 +1271,24 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvsy_aa(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvsy_aa(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
@@ -1070,7 +1296,7 @@ void main() async {
       // S2:  symmetric indefinite matrices with Aasen's algorithm
       //      2 stage
 
-      NTYPES = 11;
+      const NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1085,13 +1311,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1108,13 +1334,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1125,7 +1351,7 @@ void main() async {
       // SP:  symmetric indefinite packed matrices,
       //      with partial (Bunch-Kaufman) pivoting algorithm
 
-      NTYPES = 11;
+      const NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1138,13 +1364,13 @@ void main() async {
             THRESH,
             TSTERR,
             LDA,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1153,51 +1379,114 @@ void main() async {
       }
 
       if (TSTDRV) {
-        zdrvsp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A(1, 1), A(1, 2),
-            A(1, 3), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, IWORK, NOUT);
+        zdrvsp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NRHS,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9988(PATH);
       }
     } else if (lsamen(2, C2, 'TR')) {
       // TR:  triangular matrices
 
-      NTYPES = 18;
+      const NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchktr(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA,
-            A(1, 1), A(1, 2), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        zchktr(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNB2,
+            NBVAL2,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
     } else if (lsamen(2, C2, 'TP')) {
       // TP:  triangular packed matrices
 
-      NTYPES = 18;
+      const NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchktp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A(1, 1),
-            A(1, 2), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        zchktp(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
     } else if (lsamen(2, C2, 'TB')) {
       // TB:  triangular banded matrices
 
-      NTYPES = 17;
+      const NTYPES = 17;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchktb(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A(1, 1),
-            A(1, 2), B(1, 1), B(1, 2), B(1, 3), WORK, RWORK, NOUT);
+        zchktb(
+            DOTYPE,
+            NN,
+            NVAL,
+            NNS,
+            NSVAL,
+            THRESH,
+            TSTERR,
+            LDA,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
     } else if (lsamen(2, C2, 'QR')) {
       // QR:  QR factorization
 
-      NTYPES = 8;
+      const NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1214,16 +1503,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1233,7 +1522,7 @@ void main() async {
     } else if (lsamen(2, C2, 'LQ')) {
       // LQ:  LQ factorization
 
-      NTYPES = 8;
+      const NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1250,16 +1539,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             NOUT);
       } else {
@@ -1268,7 +1557,7 @@ void main() async {
     } else if (lsamen(2, C2, 'QL')) {
       // QL:  QL factorization
 
-      NTYPES = 8;
+      const NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1285,16 +1574,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             NOUT);
       } else {
@@ -1303,7 +1592,7 @@ void main() async {
     } else if (lsamen(2, C2, 'RQ')) {
       // RQ:  RQ factorization
 
-      NTYPES = 8;
+      const NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1320,16 +1609,16 @@ void main() async {
             THRESH,
             TSTERR,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            WORK,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1348,31 +1637,60 @@ void main() async {
     } else if (lsamen(2, C2, 'TZ')) {
       // TZ:  Trapezoidal matrix
 
-      NTYPES = 3;
+      const NTYPES = 3;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchktz(DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A(1, 1), A(1, 2),
-            S(1), B(1, 1), WORK, RWORK, NOUT);
+        zchktz(
+            DOTYPE,
+            NM,
+            MVAL,
+            NN,
+            NVAL,
+            THRESH,
+            TSTERR,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            S(1),
+            B(1, 1).asArray(),
+            WORK.asArray(),
+            RWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
     } else if (lsamen(2, C2, 'QP')) {
       // QP:  QR factorization with pivoting
 
-      NTYPES = 6;
+      const NTYPES = 6;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
-        zchkq3(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A(1, 1),
-            A(1, 2), S(1), B(1, 1), WORK, RWORK, IWORK, NOUT);
+        zchkq3(
+            DOTYPE,
+            NM,
+            MVAL,
+            NN,
+            NVAL,
+            NNB,
+            NBVAL,
+            NXVAL,
+            THRESH,
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            S(1),
+            B(1, 1).asArray(),
+            WORK.asArray(),
+            RWORK,
+            IWORK,
+            NOUT);
       } else {
         NOUT.print9989(PATH);
       }
     } else if (lsamen(2, C2, 'QK')) {
       // QK: truncated QR factorization with pivoting
 
-      NTYPES = 19;
+      const NTYPES = 19;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1388,13 +1706,13 @@ void main() async {
             NBVAL,
             NXVAL,
             THRESH,
-            A(1, 1),
-            A(1, 2),
-            B(1, 1),
-            B(1, 2),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
             S(1),
-            B(1, 4),
-            WORK,
+            B(1, 4).asArray(),
+            WORK.asArray(),
             RWORK,
             IWORK,
             NOUT);
@@ -1404,7 +1722,7 @@ void main() async {
     } else if (lsamen(2, C2, 'LS')) {
       // LS:  Least squares drivers
 
-      NTYPES = 6;
+      const NTYPES = 6;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTDRV) {
@@ -1421,11 +1739,11 @@ void main() async {
             NXVAL,
             THRESH,
             TSTERR,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
+            A(1, 5).asArray(),
             S(1),
             S(NMAX + 1),
             NOUT);

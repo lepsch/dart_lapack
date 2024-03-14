@@ -1,66 +1,69 @@
-      void zptt01(final int N, final int D, final int E, final int DF, final int EF, final Array<double> WORK_, final int RESID,) {
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zptt01(
+  final int N,
+  final Array<double> D_,
+  final Array<Complex> E_,
+  final Array<double> DF_,
+  final Array<Complex> EF_,
+  final Array<Complex> WORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                N;
-      double             RESID;
-      double             D( * ), DF( * );
-      Complex         E( * ), EF( * ), WORK( * );
-      // ..
+  final D = D_.having();
+  final E = E_.having();
+  final DF = DF_.having();
+  final EF = EF_.having();
+  final WORK = WORK_.having();
+  const ONE = 1.0, ZERO = 0.0;
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                I;
-      double             ANORM, EPS;
-      Complex         DE;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, MAX
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RESID = ZERO;
-         return;
-      }
+  final EPS = dlamch('Epsilon');
 
-      EPS = dlamch( 'Epsilon' );
+  // Construct the difference L*D*L' - A.
 
-      // Construct the difference L*D*L' - A.
+  WORK[1] = (DF[1] - D[1]).toComplex();
+  for (var I = 1; I <= N - 1; I++) {
+    final DE = DF[I].toComplex() * EF[I];
+    WORK[N + I] = DE - E[I];
+    WORK[1 + I] = DE * EF[I].conjugate() + (DF[I + 1] - D[I + 1]).toComplex();
+  }
 
-      WORK[1] = DF( 1 ) - D( 1 );
-      for (I = 1; I <= N - 1; I++) { // 10
-         DE = DF( I )*EF( I );
-         WORK[N+I] = DE - E( I );
-         WORK[1+I] = DE*DCONJG( EF( I ) ) + DF( I+1 ) - D( I+1 );
-      } // 10
+  // Compute the 1-norms of the tridiagonal matrices A and WORK.
 
-      // Compute the 1-norms of the tridiagonal matrices A and WORK.
+  double ANORM;
+  if (N == 1) {
+    ANORM = D[1];
+    RESID.value = WORK[1].abs();
+  } else {
+    ANORM = max(D[1] + E[1].abs(), D[N] + E[N - 1].abs());
+    RESID.value = max(WORK[1].abs() + WORK[N + 1].abs(),
+        WORK[N].abs() + WORK[2 * N - 1].abs());
+    for (var I = 2; I <= N - 1; I++) {
+      ANORM = max(ANORM, D[I] + E[I].abs() + E[I - 1].abs());
+      RESID.value = max(RESID.value,
+          WORK[I].abs() + WORK[N + I - 1].abs() + WORK[N + I].abs());
+    }
+  }
 
-      if ( N == 1 ) {
-         ANORM = D( 1 );
-         RESID = ( WORK( 1 ) ).abs();
-      } else {
-         ANORM = max( D( 1 )+( E( 1 ) ).abs(), D( N )+( E( N-1 ) ).abs() );
-         RESID = max( ( WORK( 1 ) ).abs()+( WORK( N+1 ) ).abs(), ( WORK( N ) ).abs()+( WORK( 2*N-1 ) ).abs() );
-         for (I = 2; I <= N - 1; I++) { // 20
-            ANORM = max( ANORM, D( I )+( E( I ) ).abs()+( E( I-1 ) ).abs() );
-            RESID = max( RESID, ( WORK( I ) ).abs()+( WORK( N+I-1 ) ).abs()+ ( WORK( N+I ) ).abs() );
-         } // 20
-      }
+  // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
 
-      // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
-
-      if ( ANORM <= ZERO ) {
-         if (RESID != ZERO) RESID = ONE / EPS;
-      } else {
-         RESID = ( ( RESID / N ) / ANORM ) / EPS;
-      }
-
-      }
+  if (ANORM <= ZERO) {
+    if (RESID.value != ZERO) RESID.value = ONE / EPS;
+  } else {
+    RESID.value = ((RESID.value / N) / ANORM) / EPS;
+  }
+}

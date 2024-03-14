@@ -130,7 +130,6 @@ void zchkst(
       NAP,
       NBLOCK,
       NERRS,
-      NMATS,
       NMAX,
       NTEST,
       NTESTT;
@@ -225,7 +224,6 @@ void zchkst(
     ISEED2[I] = ISEED[I];
   } // 20
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 310
@@ -254,7 +252,6 @@ void zchkst(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 300
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {

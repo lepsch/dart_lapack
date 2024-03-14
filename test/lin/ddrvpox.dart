@@ -592,7 +592,7 @@ void ddrvpo(
 
   // Test Error Bounds from DPOSVXX
 
-  debchvxx(THRESH, PATH);
+  debchvxx(THRESH, PATH, NOUT);
 }
 
 extension on Nout {

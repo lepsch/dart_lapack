@@ -730,7 +730,7 @@ void ddrvge(
 
   // Test Error Bounds from DGESVXX
 
-  debchvxx(THRESH, PATH);
+  debchvxx(THRESH, PATH, NOUT);
 }
 
 extension on Nout {

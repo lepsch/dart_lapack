@@ -104,7 +104,6 @@ void zchkgg(
       N,
       N1,
       NERRS,
-      NMATS,
       NMAX,
       NTEST = 0,
       NTESTT;
@@ -217,7 +216,6 @@ void zchkgg(
 
   NTESTT = 0;
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 240
@@ -235,7 +233,6 @@ void zchkgg(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 230
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.

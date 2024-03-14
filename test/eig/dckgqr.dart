@@ -63,7 +63,7 @@ Future<void> dckgqr(
   const NTYPES = 8;
   bool FIRSTT;
   final DISTA = Box(''), DISTB = Box(''), TYPE = Box('');
-  int I, IM, IMAT, IN, IP, LDA, LDB, LWORK, M, N, NFAIL, NRUN, NT, P;
+  int I, IM, IMAT, IN, IP, LDA, LDB, LWORK, M, N, NT, P;
   final ANORM = Box(0.0),
       BNORM = Box(0.0),
       CNDNMA = Box(0.0),
@@ -82,8 +82,8 @@ Future<void> dckgqr(
   // Initialize constants.
 
   INFO.value = 0;
-  NRUN = 0;
-  NFAIL = 0;
+  var NRUN = 0;
+  var NFAIL = 0;
   FIRSTT = true;
   await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
   LDA = NMAX;

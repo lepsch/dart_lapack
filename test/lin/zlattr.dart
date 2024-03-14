@@ -1,557 +1,554 @@
-      void zlattr(final int IMAT, final String UPLO, final String TRANS, final String DIAG, final Array<int> ISEED_, final int N, final Matrix<double> A_, final int LDA, final int B, final Array<double> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final ISEED = ISEED_.having();
-  final A = A_.having();
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/blas/zrotg.dart';
+import 'package:lapack/src/blas/zswap.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dlarnv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlarnv.dart';
+import 'package:lapack/src/zrot.dart';
+
+import '../matgen/dlarnd.dart';
+import '../matgen/zlarnd.dart';
+import '../matgen/zlatms.dart';
+import 'zlatb4.dart';
+
+void zlattr(
+  final int IMAT,
+  final String UPLO,
+  final String TRANS,
+  final Box<String> DIAG,
+  final Array<int> ISEED_,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> B_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, TRANS, UPLO;
-      int                IMAT, INFO, LDA, N;
-      final                ISEED=Array<int>( 4 );
-      double             RWORK( * );
-      Complex         A( LDA, * ), B( * ), WORK( * );
-      // ..
+  final ISEED = ISEED_.having(length: 4);
+  final A = A_.having(ld: LDA);
+  final B = B_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  const ONE = 1.0, TWO = 2.0, ZERO = 0.0;
 
-      double             ONE, TWO, ZERO;
-      const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
-      bool               UPPER;
-      String             DIST, TYPE;
-      String             PATH;
-      int                I, IY, J, JCOUNT, KL, KU, MODE;
-      double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
-      Complex         PLUS1, PLUS2, RA, RB, S, STAR1;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                IZAMAX;
-      //- double             DLAMCH, DLARND;
-      //- Complex         ZLARND;
-      // EXTERNAL lsame, IZAMAX, DLAMCH, DLARND, ZLARND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT, ZROTG, ZSWAP
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX, SQRT
+  final PATH = '${'Zomplex precision'[0]}TR';
+  final UNFL = dlamch('Safe minimum');
+  final ULP = dlamch('Epsilon') * dlamch('Base');
+  final SMLNUM = UNFL;
+  final BIGNUM = (ONE - ULP) / SMLNUM;
+  if ((IMAT >= 7 && IMAT <= 10) || IMAT == 18) {
+    DIAG.value = 'U';
+  } else {
+    DIAG.value = 'N';
+  }
+  INFO.value = 0;
 
-      final PATH = '${'Zomplex precision'[0]}TR';
-      UNFL = dlamch( 'Safe minimum' );
-      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
-      SMLNUM = UNFL;
-      BIGNUM = ( ONE-ULP ) / SMLNUM;
-      if ( ( IMAT >= 7 && IMAT <= 10 ) || IMAT == 18 ) {
-         DIAG = 'U';
-      } else {
-         DIAG = 'N';
+  // Quick return if N <= 0.
+
+  if (N <= 0) return;
+
+  // Call ZLATB4 to set parameters for ZLATMS.
+
+  final UPPER = lsame(UPLO, 'U');
+  final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+      zlatb4(PATH, UPPER ? IMAT : -IMAT, N, N);
+
+  // IMAT <= 6:  Non-unit triangular matrix
+
+  if (IMAT <= 6) {
+    zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+        'No packing', A, LDA, WORK, INFO);
+
+    // IMAT > 6:  Unit triangular matrix
+    // The diagonal is deliberately set to something other than 1.
+
+    // IMAT = 7:  Matrix is the identity
+  } else if (IMAT == 7) {
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        for (var I = 1; I <= J - 1; I++) {
+          A[I][J] = Complex.zero;
+        }
+        A[J][J] = J.toComplex();
       }
-      INFO = 0;
-
-      // Quick return if N <= 0.
-
-      if (N <= 0) return;
-
-      // Call ZLATB4 to set parameters for ZLATMS.
-
-      UPPER = lsame( UPLO, 'U' );
-      if ( UPPER ) {
-         final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
-      } else {
-         zlatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+    } else {
+      for (var J = 1; J <= N; J++) {
+        A[J][J] = J.toComplex();
+        for (var I = J + 1; I <= N; I++) {
+          A[I][J] = Complex.zero;
+        }
       }
-
-      // IMAT <= 6:  Non-unit triangular matrix
-
-      if ( IMAT <= 6 ) {
-         zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
-
-      // IMAT > 6:  Unit triangular matrix
-      // The diagonal is deliberately set to something other than 1.
-
-      // IMAT = 7:  Matrix is the identity
-
-      } else if ( IMAT == 7 ) {
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 20
-               for (I = 1; I <= J - 1; I++) { // 10
-                  A[I][J] = ZERO;
-               } // 10
-               A[J][J] = J;
-            } // 20
-         } else {
-            for (J = 1; J <= N; J++) { // 40
-               A[J][J] = J;
-               for (I = J + 1; I <= N; I++) { // 30
-                  A[I][J] = ZERO;
-               } // 30
-            } // 40
-         }
-
-      // IMAT > 7:  Non-trivial unit triangular matrix
-
-      // Generate a unit triangular matrix T with condition CNDNUM by
-      // forming a triangular matrix with known singular values and
-      // filling in the zero entries with Givens rotations.
-
-      } else if ( IMAT <= 10 ) {
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 60
-               for (I = 1; I <= J - 1; I++) { // 50
-                  A[I][J] = ZERO;
-               } // 50
-               A[J][J] = J;
-            } // 60
-         } else {
-            for (J = 1; J <= N; J++) { // 80
-               A[J][J] = J;
-               for (I = J + 1; I <= N; I++) { // 70
-                  A[I][J] = ZERO;
-               } // 70
-            } // 80
-         }
-
-         // Since the trace of a unit triangular matrix is 1, the product
-         // of its singular values must be 1.  Let s = sqrt(CNDNUM),
-         // x = sqrt(s) - 1/sqrt(s), y = sqrt(2/(n-2))*x, and z = x**2.
-         // The following triangular matrix has singular values s, 1, 1,
-         // ..., 1, 1/s:
-
-         // 1  y  y  y  ...  y  y  z
-         //    1  0  0  ...  0  0  y
-         //       1  0  ...  0  0  y
-         //          .  ...  .  .  .
-         //              .   .  .  .
-         //                  1  0  y
-         //                     1  y
-         //                        1
-
-         // To fill in the zeros, we first multiply by a matrix with small
-         // condition number of the form
-
-         // 1  0  0  0  0  ...
-         //    1  +  *  0  0  ...
-         //       1  +  0  0  0
-         //          1  +  *  0  0
-         //             1  +  0  0
-         //                ...
-         //                   1  +  0
-         //                      1  0
-         //                         1
-
-         // Each element marked with a '*' is formed by taking the product
-         // of the adjacent elements marked with '+'.  The '*'s can be
-         // chosen freely, and the '+'s are chosen so that the inverse of
-         // T will have elements of the same magnitude as T.  If the *'s in
-         // both T and inv(T) have small magnitude, T is well conditioned.
-         // The two offdiagonals of T are stored in WORK.
-
-         // The product of these two matrices has the form
-
-         // 1  y  y  y  y  y  .  y  y  z
-         //    1  +  *  0  0  .  0  0  y
-         //       1  +  0  0  .  0  0  y
-         //          1  +  *  .  .  .  .
-         //             1  +  .  .  .  .
-         //                .  .  .  .  .
-         //                   .  .  .  .
-         //                      1  +  y
-         //                         1  y
-         //                            1
-
-         // Now we multiply by Givens rotations, using the fact that
-
-               // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
-               // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
-         // and
-         //       [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
-         //       [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
-
-         // where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
-
-         STAR1 = 0.25*ZLARND( 5, ISEED );
-         SFAC = 0.5;
-         PLUS1 = SFAC*ZLARND( 5, ISEED );
-         for (J = 1; J <= N; J += 2) { // 90
-            PLUS2 = STAR1 / PLUS1;
-            WORK[J] = PLUS1;
-            WORK[N+J] = STAR1;
-            if ( J+1 <= N ) {
-               WORK[J+1] = PLUS2;
-               WORK[N+J+1] = ZERO;
-               PLUS1 = STAR1 / PLUS2;
-               REXP = dlarnd( 2, ISEED );
-               if ( REXP < ZERO ) {
-                  STAR1 = -SFAC**( ONE-REXP )*ZLARND( 5, ISEED );
-               } else {
-                  STAR1 = SFAC**( ONE+REXP )*ZLARND( 5, ISEED );
-               }
-            }
-         } // 90
-
-         X = sqrt( CNDNUM ) - 1 / sqrt( CNDNUM );
-         if ( N > 2 ) {
-            Y = sqrt( 2.0 / ( N-2 ) )*X;
-         } else {
-            Y = ZERO;
-         }
-         Z = X*X;
-
-         if ( UPPER ) {
-            if ( N > 3 ) {
-               zcopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
-               if (N > 4) zcopy( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
-            }
-            for (J = 2; J <= N - 1; J++) { // 100
-               A[1][J] = Y;
-               A[J][N] = Y;
-            } // 100
-            A[1][N] = Z;
-         } else {
-            if ( N > 3 ) {
-               zcopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
-               if (N > 4) zcopy( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
-            }
-            for (J = 2; J <= N - 1; J++) { // 110
-               A[J][1] = Y;
-               A[N][J] = Y;
-            } // 110
-            A[N][1] = Z;
-         }
-
-         // Fill in the zeros using Givens rotations.
-
-         if ( UPPER ) {
-            for (J = 1; J <= N - 1; J++) { // 120
-               RA = A( J, J+1 );
-               RB = 2.0;
-               zrotg(RA, RB, C, S );
-
-               // Multiply by [ c  s; -conjg(s)  c] on the left.
-
-               if (N > J+1) zrot( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
-
-               // Multiply by [-c -s;  conjg(s) -c] on the right.
-
-               if (J > 1) zrot( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
-
-               // Negate A(J,J+1).
-
-               A[J][J+1] = -A( J, J+1 );
-            } // 120
-         } else {
-            for (J = 1; J <= N - 1; J++) { // 130
-               RA = A( J+1, J );
-               RB = 2.0;
-               zrotg(RA, RB, C, S );
-               S = DCONJG( S );
-
-               // Multiply by [ c -s;  conjg(s) c] on the right.
-
-               if (N > J+1) zrot( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
-
-               // Multiply by [-c  s; -conjg(s) -c] on the left.
-
-               if (J > 1) zrot( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
-
-               // Negate A(J+1,J).
-
-               A[J+1][J] = -A( J+1, J );
-            } // 130
-         }
-
-      // IMAT > 10:  Pathological test cases.  These triangular matrices
-      // are badly scaled or badly conditioned, so when used in solving a
-      // triangular system they may cause overflow in the solution vector.
-
-      } else if ( IMAT == 11 ) {
-
-         // Type 11:  Generate a triangular matrix with elements between
-         // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
-         // Make the right hand side large so that it requires scaling.
-
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 140
-               zlarnv(4, ISEED, J-1, A( 1, J ) );
-               A[J][J] = ZLARND( 5, ISEED )*TWO;
-            } // 140
-         } else {
-            for (J = 1; J <= N; J++) { // 150
-               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
-               A[J][J] = ZLARND( 5, ISEED )*TWO;
-            } // 150
-         }
-
-         // Set the right hand side so that the largest value is BIGNUM.
-
-         zlarnv(2, ISEED, N, B );
-         IY = IZAMAX( N, B, 1 );
-         BNORM = ( B( IY ) ).abs();
-         BSCAL = BIGNUM / max( ONE, BNORM );
-         zdscal(N, BSCAL, B, 1 );
-
-      } else if ( IMAT == 12 ) {
-
-         // Type 12:  Make the first diagonal element in the solve small to
-         // cause immediate overflow when dividing by T(j,j).
-         // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
-
-         zlarnv(2, ISEED, N, B );
-         TSCAL = ONE / max( ONE, (N-1).toDouble() );
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 160
-               zlarnv(4, ISEED, J-1, A( 1, J ) );
-               zdscal(J-1, TSCAL, A( 1, J ), 1 );
-               A[J][J] = ZLARND( 5, ISEED );
-            } // 160
-            A[N][N] = SMLNUM*A( N, N );
-         } else {
-            for (J = 1; J <= N; J++) { // 170
-               if ( J < N ) {
-                  zlarnv(4, ISEED, N-J, A( J+1, J ) );
-                  zdscal(N-J, TSCAL, A( J+1, J ), 1 );
-               }
-               A[J][J] = ZLARND( 5, ISEED );
-            } // 170
-            A[1][1] = SMLNUM*A( 1, 1 );
-         }
-
-      } else if ( IMAT == 13 ) {
-
-         // Type 13:  Make the first diagonal element in the solve small to
-         // cause immediate overflow when dividing by T(j,j).
-         // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
-
-         zlarnv(2, ISEED, N, B );
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 180
-               zlarnv(4, ISEED, J-1, A( 1, J ) );
-               A[J][J] = ZLARND( 5, ISEED );
-            } // 180
-            A[N][N] = SMLNUM*A( N, N );
-         } else {
-            for (J = 1; J <= N; J++) { // 190
-               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
-               A[J][J] = ZLARND( 5, ISEED );
-            } // 190
-            A[1][1] = SMLNUM*A( 1, 1 );
-         }
-
-      } else if ( IMAT == 14 ) {
-
-         // Type 14:  T is diagonal with small numbers on the diagonal to
-         // make the growth factor underflow, but a small right hand side
-         // chosen so that the solution does not overflow.
-
-         if ( UPPER ) {
-            JCOUNT = 1;
-            for (J = N; J >= 1; J--) { // 210
-               for (I = 1; I <= J - 1; I++) { // 200
-                  A[I][J] = ZERO;
-               } // 200
-               if ( JCOUNT <= 2 ) {
-                  A[J][J] = SMLNUM*ZLARND( 5, ISEED );
-               } else {
-                  A[J][J] = ZLARND( 5, ISEED );
-               }
-               JCOUNT++;
-               if (JCOUNT > 4) JCOUNT = 1;
-            } // 210
-         } else {
-            JCOUNT = 1;
-            for (J = 1; J <= N; J++) { // 230
-               for (I = J + 1; I <= N; I++) { // 220
-                  A[I][J] = ZERO;
-               } // 220
-               if ( JCOUNT <= 2 ) {
-                  A[J][J] = SMLNUM*ZLARND( 5, ISEED );
-               } else {
-                  A[J][J] = ZLARND( 5, ISEED );
-               }
-               JCOUNT++;
-               if (JCOUNT > 4) JCOUNT = 1;
-            } // 230
-         }
-
-         // Set the right hand side alternately zero and small.
-
-         if ( UPPER ) {
-            B[1] = ZERO;
-            for (I = N; I >= 2; I -= 2) { // 240
-               B[I] = ZERO;
-               B[I-1] = SMLNUM*ZLARND( 5, ISEED );
-            } // 240
-         } else {
-            B[N] = ZERO;
-            for (I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) { // 250
-               B[I] = ZERO;
-               B[I+1] = SMLNUM*ZLARND( 5, ISEED );
-            } // 250
-         }
-
-      } else if ( IMAT == 15 ) {
-
-         // Type 15:  Make the diagonal elements small to cause gradual
-         // overflow when dividing by T(j,j).  To control the amount of
-         // scaling needed, the matrix is bidiagonal.
-
-         TEXP = ONE / max( ONE, (N-1).toDouble() );
-         TSCAL = SMLNUM**TEXP;
-         zlarnv(4, ISEED, N, B );
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 270
-               for (I = 1; I <= J - 2; I++) { // 260
-                  A[I][J] = 0.0;
-               } // 260
-               if (J > 1) A( J-1, J ) = DCMPLX( -ONE, -ONE );
-               A[J][J] = TSCAL*ZLARND( 5, ISEED );
-            } // 270
-            B[N] = DCMPLX( ONE, ONE );
-         } else {
-            for (J = 1; J <= N; J++) { // 290
-               for (I = J + 2; I <= N; I++) { // 280
-                  A[I][J] = 0.0;
-               } // 280
-               if (J < N) A( J+1, J ) = DCMPLX( -ONE, -ONE );
-               A[J][J] = TSCAL*ZLARND( 5, ISEED );
-            } // 290
-            B[1] = DCMPLX( ONE, ONE );
-         }
-
-      } else if ( IMAT == 16 ) {
-
-         // Type 16:  One zero diagonal element.
-
-         IY = N / 2 + 1;
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 300
-               zlarnv(4, ISEED, J-1, A( 1, J ) );
-               if ( J != IY ) {
-                  A[J][J] = ZLARND( 5, ISEED )*TWO;
-               } else {
-                  A[J][J] = ZERO;
-               }
-            } // 300
-         } else {
-            for (J = 1; J <= N; J++) { // 310
-               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
-               if ( J != IY ) {
-                  A[J][J] = ZLARND( 5, ISEED )*TWO;
-               } else {
-                  A[J][J] = ZERO;
-               }
-            } // 310
-         }
-         zlarnv(2, ISEED, N, B );
-         zdscal(N, TWO, B, 1 );
-
-      } else if ( IMAT == 17 ) {
-
-         // Type 17:  Make the offdiagonal elements large to cause overflow
-         // when adding a column of T.  In the non-transposed case, the
-         // matrix is constructed to cause overflow when adding a column in
-         // every other step.
-
-         TSCAL = UNFL / ULP;
-         TSCAL = ( ONE-ULP ) / TSCAL;
-         for (J = 1; J <= N; J++) { // 330
-            for (I = 1; I <= N; I++) { // 320
-               A[I][J] = 0.0;
-            } // 320
-         } // 330
-         TEXP = ONE;
-         if ( UPPER ) {
-            for (J = N; J >= 2; J -= 2) { // 340
-               A[1][J] = -TSCAL / (N+1).toDouble();
-               A[J][J] = ONE;
-               B[J] = TEXP*( ONE-ULP );
-               A[1][J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
-               A[J-1][J-1] = ONE;
-               B[J-1] = TEXP*(N*N+N-1).toDouble();
-               TEXP = TEXP*2.0;
-            } // 340
-            B[1] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
-         } else {
-            for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 350
-               A[N][J] = -TSCAL / (N+1).toDouble();
-               A[J][J] = ONE;
-               B[J] = TEXP*( ONE-ULP );
-               A[N][J+1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
-               A[J+1][J+1] = ONE;
-               B[J+1] = TEXP*(N*N+N-1).toDouble();
-               TEXP = TEXP*2.0;
-            } // 350
-            B[N] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
-         }
-
-      } else if ( IMAT == 18 ) {
-
-         // Type 18:  Generate a unit triangular matrix with elements
-         // between -1 and 1, and make the right hand side large so that it
-         // requires scaling.
-
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 360
-               zlarnv(4, ISEED, J-1, A( 1, J ) );
-               A[J][J] = ZERO;
-            } // 360
-         } else {
-            for (J = 1; J <= N; J++) { // 370
-               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
-               A[J][J] = ZERO;
-            } // 370
-         }
-
-         // Set the right hand side so that the largest value is BIGNUM.
-
-         zlarnv(2, ISEED, N, B );
-         IY = IZAMAX( N, B, 1 );
-         BNORM = ( B( IY ) ).abs();
-         BSCAL = BIGNUM / max( ONE, BNORM );
-         zdscal(N, BSCAL, B, 1 );
-
-      } else if ( IMAT == 19 ) {
-
-         // Type 19:  Generate a triangular matrix with elements between
-         // BIGNUM/(n-1) and BIGNUM so that at least one of the column
-         // norms will exceed BIGNUM.
-         // 1/3/91:  ZLATRS no longer can handle this case
-
-         TLEFT = BIGNUM / max( ONE, (N-1).toDouble() );
-         TSCAL = BIGNUM*( (N-1).toDouble() / max( ONE, N.toDouble() ) );
-         if ( UPPER ) {
-            for (J = 1; J <= N; J++) { // 390
-               zlarnv(5, ISEED, J, A( 1, J ) );
-               dlarnv(1, ISEED, J, RWORK );
-               for (I = 1; I <= J; I++) { // 380
-                  A[I][J] = A( I, J )*( TLEFT+RWORK( I )*TSCAL );
-               } // 380
-            } // 390
-         } else {
-            for (J = 1; J <= N; J++) { // 410
-               zlarnv(5, ISEED, N-J+1, A( J, J ) );
-               dlarnv(1, ISEED, N-J+1, RWORK );
-               for (I = J; I <= N; I++) { // 400
-                  A[I][J] = A( I, J )*( TLEFT+RWORK( I-J+1 )*TSCAL );
-               } // 400
-            } // 410
-         }
-         zlarnv(2, ISEED, N, B );
-         zdscal(N, TWO, B, 1 );
+    }
+
+    // IMAT > 7:  Non-trivial unit triangular matrix
+
+    // Generate a unit triangular matrix T with condition CNDNUM by
+    // forming a triangular matrix with known singular values and
+    // filling in the zero entries with Givens rotations.
+  } else if (IMAT <= 10) {
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        for (var I = 1; I <= J - 1; I++) {
+          A[I][J] = Complex.zero;
+        }
+        A[J][J] = J.toComplex();
       }
-
-      // Flip the matrix if the transpose will be used.
-
-      if ( !lsame( TRANS, 'N' ) ) {
-         if ( UPPER ) {
-            for (J = 1; J <= N / 2; J++) { // 420
-               zswap(N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 );
-            } // 420
-         } else {
-            for (J = 1; J <= N / 2; J++) { // 430
-               zswap(N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA );
-            } // 430
-         }
+    } else {
+      for (var J = 1; J <= N; J++) {
+        A[J][J] = J.toComplex();
+        for (var I = J + 1; I <= N; I++) {
+          A[I][J] = Complex.zero;
+        }
       }
+    }
 
+    // Since the trace of a unit triangular matrix is 1, the product
+    // of its singular values must be 1.  Let s = sqrt(CNDNUM),
+    // x = sqrt(s) - 1/sqrt(s), y = sqrt(2/(n-2))*x, and z = x**2.
+    // The following triangular matrix has singular values s, 1, 1,
+    // ..., 1, 1/s:
+
+    // 1  y  y  y  ...  y  y  z
+    //    1  0  0  ...  0  0  y
+    //       1  0  ...  0  0  y
+    //          .  ...  .  .  .
+    //              .   .  .  .
+    //                  1  0  y
+    //                     1  y
+    //                        1
+
+    // To fill in the zeros, we first multiply by a matrix with small
+    // condition number of the form
+
+    // 1  0  0  0  0  ...
+    //    1  +  *  0  0  ...
+    //       1  +  0  0  0
+    //          1  +  *  0  0
+    //             1  +  0  0
+    //                ...
+    //                   1  +  0
+    //                      1  0
+    //                         1
+
+    // Each element marked with a '*' is formed by taking the product
+    // of the adjacent elements marked with '+'.  The '*'s can be
+    // chosen freely, and the '+'s are chosen so that the inverse of
+    // T will have elements of the same magnitude as T.  If the *'s in
+    // both T and inv(T) have small magnitude, T is well conditioned.
+    // The two offdiagonals of T are stored in WORK.
+
+    // The product of these two matrices has the form
+
+    // 1  y  y  y  y  y  .  y  y  z
+    //    1  +  *  0  0  .  0  0  y
+    //       1  +  0  0  .  0  0  y
+    //          1  +  *  .  .  .  .
+    //             1  +  .  .  .  .
+    //                .  .  .  .  .
+    //                   .  .  .  .
+    //                      1  +  y
+    //                         1  y
+    //                            1
+
+    // Now we multiply by Givens rotations, using the fact that
+
+    // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
+    // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
+    // and
+    //       [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
+    //       [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
+
+    // where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
+
+    var STAR1 = 0.25.toComplex() * zlarnd(5, ISEED);
+    final SFAC = 0.5;
+    var PLUS1 = SFAC.toComplex() * zlarnd(5, ISEED);
+    for (var J = 1; J <= N; J += 2) {
+      final PLUS2 = STAR1 / PLUS1;
+      WORK[J] = PLUS1;
+      WORK[N + J] = STAR1;
+      if (J + 1 <= N) {
+        WORK[J + 1] = PLUS2;
+        WORK[N + J + 1] = Complex.zero;
+        PLUS1 = STAR1 / PLUS2;
+        final REXP = dlarnd(2, ISEED);
+        if (REXP < ZERO) {
+          STAR1 = pow(-SFAC, (ONE - REXP)).toComplex() * zlarnd(5, ISEED);
+        } else {
+          STAR1 = pow(SFAC, (ONE + REXP)).toComplex() * zlarnd(5, ISEED);
+        }
       }
+    }
+
+    final X = sqrt(CNDNUM) - 1 / sqrt(CNDNUM);
+    final Y = N > 2 ? sqrt(2.0 / (N - 2)) * X : ZERO;
+    final Z = X * X;
+
+    if (UPPER) {
+      if (N > 3) {
+        zcopy(N - 3, WORK, 1, A(2, 3).asArray(), LDA + 1);
+        if (N > 4) zcopy(N - 4, WORK(N + 1), 1, A(2, 4).asArray(), LDA + 1);
+      }
+      for (var J = 2; J <= N - 1; J++) {
+        A[1][J] = Y.toComplex();
+        A[J][N] = Y.toComplex();
+      }
+      A[1][N] = Z.toComplex();
+    } else {
+      if (N > 3) {
+        zcopy(N - 3, WORK, 1, A(3, 2).asArray(), LDA + 1);
+        if (N > 4) zcopy(N - 4, WORK(N + 1), 1, A(4, 2).asArray(), LDA + 1);
+      }
+      for (var J = 2; J <= N - 1; J++) {
+        A[J][1] = Y.toComplex();
+        A[N][J] = Y.toComplex();
+      }
+      A[N][1] = Z.toComplex();
+    }
+
+    // Fill in the zeros using Givens rotations.
+
+    if (UPPER) {
+      for (var J = 1; J <= N - 1; J++) {
+        final RA = Box(A[J][J + 1]);
+        final RB = 2.0.toComplex();
+        final C = Box(0.0);
+        final S = Box(Complex.zero);
+        zrotg(RA, RB, C, S);
+
+        // Multiply by [ c  s; -conjg(s)  c] on the left.
+
+        if (N > J + 1) {
+          zrot(N - J - 1, A(J, J + 2).asArray(), LDA, A(J + 1, J + 2).asArray(),
+              LDA, C.value, S.value);
+        }
+
+        // Multiply by [-c -s;  conjg(s) -c] on the right.
+
+        if (J > 1) {
+          zrot(J - 1, A(1, J + 1).asArray(), 1, A(1, J).asArray(), 1, -C.value,
+              -S.value);
+        }
+
+        // Negate A(J,J+1).
+
+        A[J][J + 1] = -A[J][J + 1];
+      }
+    } else {
+      for (var J = 1; J <= N - 1; J++) {
+        final RA = Box(A[J + 1][J]);
+        final RB = 2.0.toComplex();
+        final C = Box(0.0);
+        final S = Box(Complex.zero);
+        zrotg(RA, RB, C, S);
+        S.value = S.value.conjugate();
+
+        // Multiply by [ c -s;  conjg(s) c] on the right.
+
+        if (N > J + 1) {
+          zrot(N - J - 1, A(J + 2, J + 1).asArray(), 1, A(J + 2, J).asArray(),
+              1, C.value, -S.value);
+        }
+
+        // Multiply by [-c  s; -conjg(s) -c] on the left.
+
+        if (J > 1) {
+          zrot(J - 1, A(J, 1).asArray(), LDA, A(J + 1, 1).asArray(), LDA,
+              -C.value, S.value);
+        }
+
+        // Negate A(J+1,J).
+
+        A[J + 1][J] = -A[J + 1][J];
+      }
+    }
+
+    // IMAT > 10:  Pathological test cases.  These triangular matrices
+    // are badly scaled or badly conditioned, so when used in solving a
+    // triangular system they may cause overflow in the solution vector.
+  } else if (IMAT == 11) {
+    // Type 11:  Generate a triangular matrix with elements between
+    // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
+    // Make the right hand side large so that it requires scaling.
+
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(4, ISEED, J - 1, A(1, J).asArray());
+        A[J][J] = zlarnd(5, ISEED) * TWO.toComplex();
+      }
+    } else {
+      for (var J = 1; J <= N; J++) {
+        if (J < N) zlarnv(4, ISEED, N - J, A(J + 1, J).asArray());
+        A[J][J] = zlarnd(5, ISEED) * TWO.toComplex();
+      }
+    }
+
+    // Set the right hand side so that the largest value is BIGNUM.
+
+    zlarnv(2, ISEED, N, B);
+    final IY = izamax(N, B, 1);
+    final BNORM = B[IY].abs();
+    final BSCAL = BIGNUM / max(ONE, BNORM);
+    zdscal(N, BSCAL, B, 1);
+  } else if (IMAT == 12) {
+    // Type 12:  Make the first diagonal element in the solve small to
+    // cause immediate overflow when dividing by T(j,j).
+    // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
+
+    zlarnv(2, ISEED, N, B);
+    final TSCAL = ONE / max(ONE, (N - 1).toDouble());
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(4, ISEED, J - 1, A(1, J).asArray());
+        zdscal(J - 1, TSCAL, A(1, J).asArray(), 1);
+        A[J][J] = zlarnd(5, ISEED);
+      }
+      A[N][N] = SMLNUM.toComplex() * A[N][N];
+    } else {
+      for (var J = 1; J <= N; J++) {
+        if (J < N) {
+          zlarnv(4, ISEED, N - J, A(J + 1, J).asArray());
+          zdscal(N - J, TSCAL, A(J + 1, J).asArray(), 1);
+        }
+        A[J][J] = zlarnd(5, ISEED);
+      }
+      A[1][1] = SMLNUM.toComplex() * A[1][1];
+    }
+  } else if (IMAT == 13) {
+    // Type 13:  Make the first diagonal element in the solve small to
+    // cause immediate overflow when dividing by T(j,j).
+    // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
+
+    zlarnv(2, ISEED, N, B);
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(4, ISEED, J - 1, A(1, J).asArray());
+        A[J][J] = zlarnd(5, ISEED);
+      }
+      A[N][N] = SMLNUM.toComplex() * A[N][N];
+    } else {
+      for (var J = 1; J <= N; J++) {
+        if (J < N) zlarnv(4, ISEED, N - J, A(J + 1, J).asArray());
+        A[J][J] = zlarnd(5, ISEED);
+      }
+      A[1][1] = SMLNUM.toComplex() * A[1][1];
+    }
+  } else if (IMAT == 14) {
+    // Type 14:  T is diagonal with small numbers on the diagonal to
+    // make the growth factor underflow, but a small right hand side
+    // chosen so that the solution does not overflow.
+
+    if (UPPER) {
+      var JCOUNT = 1;
+      for (var J = N; J >= 1; J--) {
+        for (var I = 1; I <= J - 1; I++) {
+          A[I][J] = Complex.zero;
+        }
+        if (JCOUNT <= 2) {
+          A[J][J] = SMLNUM.toComplex() * zlarnd(5, ISEED);
+        } else {
+          A[J][J] = zlarnd(5, ISEED);
+        }
+        JCOUNT++;
+        if (JCOUNT > 4) JCOUNT = 1;
+      }
+    } else {
+      var JCOUNT = 1;
+      for (var J = 1; J <= N; J++) {
+        for (var I = J + 1; I <= N; I++) {
+          A[I][J] = Complex.zero;
+        }
+        if (JCOUNT <= 2) {
+          A[J][J] = SMLNUM.toComplex() * zlarnd(5, ISEED);
+        } else {
+          A[J][J] = zlarnd(5, ISEED);
+        }
+        JCOUNT++;
+        if (JCOUNT > 4) JCOUNT = 1;
+      }
+    }
+
+    // Set the right hand side alternately zero and small.
+
+    if (UPPER) {
+      B[1] = Complex.zero;
+      for (var I = N; I >= 2; I -= 2) {
+        B[I] = Complex.zero;
+        B[I - 1] = SMLNUM.toComplex() * zlarnd(5, ISEED);
+      }
+    } else {
+      B[N] = Complex.zero;
+      for (var I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) {
+        B[I] = Complex.zero;
+        B[I + 1] = SMLNUM.toComplex() * zlarnd(5, ISEED);
+      }
+    }
+  } else if (IMAT == 15) {
+    // Type 15:  Make the diagonal elements small to cause gradual
+    // overflow when dividing by T(j,j).  To control the amount of
+    // scaling needed, the matrix is bidiagonal.
+
+    final TEXP = ONE / max(ONE, (N - 1).toDouble());
+    final TSCAL = pow(SMLNUM, TEXP);
+    zlarnv(4, ISEED, N, B);
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        for (var I = 1; I <= J - 2; I++) {
+          A[I][J] = Complex.zero;
+        }
+        if (J > 1) A[J - 1][J] = Complex(-ONE, -ONE);
+        A[J][J] = TSCAL.toComplex() * zlarnd(5, ISEED);
+      }
+      B[N] = Complex(ONE, ONE);
+    } else {
+      for (var J = 1; J <= N; J++) {
+        for (var I = J + 2; I <= N; I++) {
+          A[I][J] = Complex.zero;
+        }
+        if (J < N) A[J + 1][J] = Complex(-ONE, -ONE);
+        A[J][J] = TSCAL.toComplex() * zlarnd(5, ISEED);
+      }
+      B[1] = Complex(ONE, ONE);
+    }
+  } else if (IMAT == 16) {
+    // Type 16:  One zero diagonal element.
+
+    final IY = N ~/ 2 + 1;
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(4, ISEED, J - 1, A(1, J).asArray());
+        if (J != IY) {
+          A[J][J] = zlarnd(5, ISEED) * TWO.toComplex();
+        } else {
+          A[J][J] = Complex.zero;
+        }
+      }
+    } else {
+      for (var J = 1; J <= N; J++) {
+        if (J < N) zlarnv(4, ISEED, N - J, A(J + 1, J).asArray());
+        if (J != IY) {
+          A[J][J] = zlarnd(5, ISEED) * TWO.toComplex();
+        } else {
+          A[J][J] = Complex.zero;
+        }
+      }
+    }
+    zlarnv(2, ISEED, N, B);
+    zdscal(N, TWO, B, 1);
+  } else if (IMAT == 17) {
+    // Type 17:  Make the offdiagonal elements large to cause overflow
+    // when adding a column of T.  In the non-transposed case, the
+    // matrix is constructed to cause overflow when adding a column in
+    // every other step.
+
+    final TSCAL = (ONE - ULP) / (UNFL / ULP);
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= N; I++) {
+        A[I][J] = Complex.zero;
+      }
+    }
+    var TEXP = ONE;
+    if (UPPER) {
+      for (var J = N; J >= 2; J -= 2) {
+        A[1][J] = (-TSCAL / (N + 1)).toComplex();
+        A[J][J] = Complex.one;
+        B[J] = (TEXP * (ONE - ULP)).toComplex();
+        A[1][J - 1] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
+        A[J - 1][J - 1] = Complex.one;
+        B[J - 1] = (TEXP * (N * N + N - 1)).toComplex();
+        TEXP = TEXP * 2.0;
+      }
+      B[1] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
+    } else {
+      for (var J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) {
+        A[N][J] = (-TSCAL / (N + 1)).toComplex();
+        A[J][J] = Complex.one;
+        B[J] = (TEXP * (ONE - ULP)).toComplex();
+        A[N][J + 1] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
+        A[J + 1][J + 1] = Complex.one;
+        B[J + 1] = (TEXP * (N * N + N - 1)).toComplex();
+        TEXP = TEXP * 2.0;
+      }
+      B[N] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
+    }
+  } else if (IMAT == 18) {
+    // Type 18:  Generate a unit triangular matrix with elements
+    // between -1 and 1, and make the right hand side large so that it
+    // requires scaling.
+
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(4, ISEED, J - 1, A(1, J).asArray());
+        A[J][J] = Complex.zero;
+      }
+    } else {
+      for (var J = 1; J <= N; J++) {
+        if (J < N) zlarnv(4, ISEED, N - J, A(J + 1, J).asArray());
+        A[J][J] = Complex.zero;
+      }
+    }
+
+    // Set the right hand side so that the largest value is BIGNUM.
+
+    zlarnv(2, ISEED, N, B);
+    final IY = izamax(N, B, 1);
+    final BNORM = B[IY].abs();
+    final BSCAL = BIGNUM / max(ONE, BNORM);
+    zdscal(N, BSCAL, B, 1);
+  } else if (IMAT == 19) {
+    // Type 19:  Generate a triangular matrix with elements between
+    // BIGNUM/(n-1) and BIGNUM so that at least one of the column
+    // norms will exceed BIGNUM.
+    // 1/3/91:  ZLATRS no longer can handle this case
+
+    final TLEFT = BIGNUM / max(ONE, (N - 1).toDouble());
+    final TSCAL = BIGNUM * ((N - 1).toDouble() / max(ONE, N.toDouble()));
+    if (UPPER) {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(5, ISEED, J, A(1, J).asArray());
+        dlarnv(1, ISEED, J, RWORK);
+        for (var I = 1; I <= J; I++) {
+          A[I][J] = A[I][J] * (TLEFT + RWORK[I] * TSCAL).toComplex();
+        }
+      }
+    } else {
+      for (var J = 1; J <= N; J++) {
+        zlarnv(5, ISEED, N - J + 1, A(J, J).asArray());
+        dlarnv(1, ISEED, N - J + 1, RWORK);
+        for (var I = J; I <= N; I++) {
+          A[I][J] = A[I][J] * (TLEFT + RWORK[I - J + 1] * TSCAL).toComplex();
+        }
+      }
+    }
+    zlarnv(2, ISEED, N, B);
+    zdscal(N, TWO, B, 1);
+  }
+
+  // Flip the matrix if the transpose will be used.
+
+  if (!lsame(TRANS, 'N')) {
+    if (UPPER) {
+      for (var J = 1; J <= N / 2; J++) {
+        zswap(N - 2 * J + 1, A(J, J).asArray(), LDA,
+            A(J + 1, N - J + 1).asArray(), -1);
+      }
+    } else {
+      for (var J = 1; J <= N / 2; J++) {
+        zswap(N - 2 * J + 1, A(J, J).asArray(), 1,
+            A(N - J + 1, J + 1).asArray(), -LDA);
+      }
+    }
+  }
+}

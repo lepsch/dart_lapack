@@ -1,84 +1,81 @@
-      void ztrt01(final String UPLO, final String DIAG, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final int RCOND, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.having();
-  final AINV = AINV_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/blas/ztrmv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlantr.dart';
 
+void ztrt01(
+  final String UPLO,
+  final String DIAG,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> AINV_,
+  final int LDAINV,
+  final Box<double> RCOND,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, UPLO;
-      int                LDA, LDAINV, N;
-      double             RCOND, RESID;
-      double             RWORK( * );
-      Complex         A( LDA, * ), AINV( LDAINV, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AINV = AINV_.having(ld: LDAINV);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                J;
-      double             AINVNM, ANORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANTR;
-      // EXTERNAL lsame, DLAMCH, ZLANTR
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZTRMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick exit if N = 0
 
-      // Quick exit if N = 0
+  if (N <= 0) {
+    RCOND.value = ONE;
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RCOND = ONE;
-         RESID = ZERO;
-         return;
-      }
+  // Exit with RESID.value = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+  final EPS = dlamch('Epsilon');
+  final ANORM = zlantr('1', UPLO, DIAG, N, N, A, LDA, RWORK);
+  final AINVNM = zlantr('1', UPLO, DIAG, N, N, AINV, LDAINV, RWORK);
+  if (ANORM <= ZERO || AINVNM <= ZERO) {
+    RCOND.value = ZERO;
+    RESID.value = ONE / EPS;
+    return;
+  }
+  RCOND.value = (ONE / ANORM) / AINVNM;
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = ZLANTR( '1', UPLO, DIAG, N, N, A, LDA, RWORK );
-      AINVNM = ZLANTR( '1', UPLO, DIAG, N, N, AINV, LDAINV, RWORK );
-      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO;
-         RESID = ONE / EPS;
-         return;
-      }
-      RCOND = ( ONE / ANORM ) / AINVNM;
+  // Set the diagonal of AINV to 1 if AINV has unit diagonal.
 
-      // Set the diagonal of AINV to 1 if AINV has unit diagonal.
+  if (lsame(DIAG, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      AINV[J][J] = Complex.one;
+    }
+  }
 
-      if ( lsame( DIAG, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 10
-            AINV[J][J] = ONE;
-         } // 10
-      }
+  // Compute A * AINV, overwriting AINV.
 
-      // Compute A * AINV, overwriting AINV.
+  if (lsame(UPLO, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      ztrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV(1, J).asArray(), 1);
+    }
+  } else {
+    for (var J = 1; J <= N; J++) {
+      ztrmv('Lower', 'No transpose', DIAG, N - J + 1, A(J, J), LDA,
+          AINV(J, J).asArray(), 1);
+    }
+  }
 
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 20
-            ztrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 );
-         } // 20
-      } else {
-         for (J = 1; J <= N; J++) { // 30
-            ztrmv('Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 );
-         } // 30
-      }
+  // Subtract 1 from each diagonal element to form A*AINV - I.
 
-      // Subtract 1 from each diagonal element to form A*AINV - I.
+  for (var J = 1; J <= N; J++) {
+    AINV[J][J] = AINV[J][J] - Complex.one;
+  }
 
-      for (J = 1; J <= N; J++) { // 40
-         AINV[J][J] = AINV( J, J ) - ONE;
-      } // 40
+  // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 
-      // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
+  RESID.value = zlantr('1', UPLO, 'Non-unit', N, N, AINV, LDAINV, RWORK);
 
-      RESID = ZLANTR( '1', UPLO, 'Non-unit', N, N, AINV, LDAINV, RWORK );
-
-      RESID = ( ( RESID*RCOND ) / N ) / EPS;
-
-      }
+  RESID.value = ((RESID.value * RCOND.value) / N) / EPS;
+}

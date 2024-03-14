@@ -122,7 +122,6 @@ void dchkst2stg(
       NAP,
       NBLOCK,
       NERRS,
-      NMATS,
       NMAX,
       NTEST,
       NTESTT,
@@ -216,7 +215,6 @@ void dchkst2stg(
     ISEED2[I] = ISEED[I];
   }
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
@@ -241,7 +239,6 @@ void dchkst2stg(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {

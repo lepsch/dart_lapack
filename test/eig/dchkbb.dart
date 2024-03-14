@@ -89,7 +89,6 @@ void dchkbb(
       MTYPES,
       N,
       NERRS,
-      NMATS,
       NMAX,
       NTEST = 0,
       NTESTT;
@@ -194,7 +193,6 @@ void dchkbb(
   // Loop over sizes, widths, types
 
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     M = MVAL[JSIZE];
@@ -216,7 +214,6 @@ void dchkbb(
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         if (!DOTYPE[JTYPE]) continue;
-        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {

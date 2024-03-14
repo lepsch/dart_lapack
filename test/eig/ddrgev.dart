@@ -86,7 +86,6 @@ void ddrgev(
       N,
       N1,
       NERRS,
-      NMATS,
       NMAX,
       NTESTT;
   double SAFMAX, SAFMIN, ULP, ULPINV;
@@ -211,7 +210,6 @@ void ddrgev(
 
   NTESTT = 0;
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
@@ -227,7 +225,6 @@ void ddrgev(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
 
       // Save ISEED in case of an error.
 

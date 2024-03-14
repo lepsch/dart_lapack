@@ -1,56 +1,63 @@
-      double zrzt02(final int M, final int N, final int AF, final int LDA, final Array<double> TAU_, final Array<double> WORK_, final int LWORK,) {
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zunmrz.dart';
+
+import 'xerbla.dart';
+
+double zrzt02(
+  final int M,
+  final int N,
+  final Matrix<Complex> AF_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      Complex         AF( LDA, * ), TAU( * ), WORK( LWORK );
-      // ..
+  final AF = AF_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
+  const ZERO = 0.0;
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, INFO;
-      double             RWORK( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLASET, ZUNMRZ
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX
+  if (LWORK < N * N + N) {
+    xerbla('ZRZT02', 7);
+    return ZERO;
+  }
 
-      ZRZT02 = ZERO;
+  // Quick return if possible
 
-      if ( LWORK < N*N+N ) {
-         xerbla('ZRZT02', 7 );
-         return;
-      }
+  if (M <= 0 || N <= 0) return ZERO;
 
-      // Quick return if possible
+  // Q := I
 
-      if (M <= 0 || N <= 0) return;
+  zlaset('Full', N, N, Complex.zero, Complex.one, WORK.asMatrix(), N);
 
-      // Q := I
+  // Q := P(1) * ... * P(m) * Q
 
-      zlaset('Full', N, N, Complex.zero, Complex.one, WORK, N );
+  zunmrz('Left', 'No transpose', N, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(),
+      N, WORK(N * N + 1), LWORK - N * N, INFO);
 
-      // Q := P(1) * ... * P(m) * Q
+  // Q := P(m)' * ... * P(1)' * Q
 
-      zunmrz('Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
+  zunmrz('Left', 'Conjugate transpose', N, N, M, N - M, AF, LDA, TAU,
+      WORK.asMatrix(), N, WORK(N * N + 1), LWORK - N * N, INFO);
 
-      // Q := P(m)' * ... * P(1)' * Q
+  // Q := Q - I
 
-      zunmrz('Left', 'Conjugate transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
+  for (var I = 1; I <= N; I++) {
+    WORK[(I - 1) * N + I] = WORK[(I - 1) * N + I] - Complex.one;
+  }
 
-      // Q := Q - I
-
-      for (I = 1; I <= N; I++) { // 10
-         WORK[( I-1 )*N+I] = WORK( ( I-1 )*N+I ) - ONE;
-      } // 10
-
-      ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-      }
+  final RWORK = Array<double>(1);
+  return zlange('One-norm', N, N, WORK.asMatrix(), N, RWORK) /
+      (dlamch('Epsilon') * max(M, N));
+}

@@ -1,156 +1,159 @@
-      void zdrvrf2(final Nout NOUT, final int NN, final Array<int> NVAL_, final Matrix<double> A_, final int LDA, final int ARF, final int AP, final int ASAV,) {
-  final A = A_.having();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/ztfttp.dart';
+import 'package:lapack/src/ztfttr.dart';
+import 'package:lapack/src/ztpttf.dart';
+import 'package:lapack/src/ztpttr.dart';
+import 'package:lapack/src/ztrttf.dart';
+import 'package:lapack/src/ztrttp.dart';
 
+import '../matgen/zlarnd.dart';
+import 'common.dart';
+
+void zdrvrf2(
+  final Nout NOUT,
+  final int NN,
+  final Array<int> NVAL_,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> ARF_,
+  final Array<Complex> AP_,
+  final Matrix<Complex> ASAV_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, NN, NOUT;
-      int                NVAL( NN );
-      Complex         A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
-      // ..
+  final NVAL = NVAL_.having();
+  final A = A_.having(ld: LDA);
+  final ARF = ARF_.having();
+  final AP = AP_.having();
+  final ASAV = ASAV_.having(ld: LDA);
+  final ISEED = Array<int>(4);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  const FORMS = ['N', 'C'];
 
-// =====================================================================
-      bool               LOWER, OK1, OK2;
-      String             UPLO, CFORM;
-      int                I, IFORM, IIN, INFO, IUPLO, J, N, NRUN;
-      String             UPLOS( 2 ), FORMS( 2 );
-      final                ISEED=Array<int>( 4 );
-      // ..
-      // .. External Functions ..
-      //- Complex         ZLARND;
-      // EXTERNAL ZLARND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZTFTTR, ZTFTTP, ZTRTTF, ZTRTTP, ZTPTTR, ZTPTTF
-      // ..
-      // .. Scalars in Common ..
-      String            srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
-      const FORMS = [ 'N', 'C' ];
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  var NRUN = 0;
+  var NERRS = 0;
+  final INFO = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      var NRUN = 0;
-      var NERRS = Box(0);
-      INFO = 0;
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
+  for (var IIN = 1; IIN <= NN; IIN++) {
+    final N = NVAL[IIN];
 
-      for (IIN = 1; IIN <= NN; IIN++) { // 120
+    // Do first for UPLO = 'U', then for UPLO = 'L'
 
-         N = NVAL( IIN );
+    for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+      final UPLO = UPLOS[IUPLO - 1];
+      final LOWER = IUPLO == 1 ? false : true;
 
-         // Do first for UPLO = 'U', then for UPLO = 'L'
+      // Do first for CFORM = 'N', then for CFORM = 'C'
 
-         for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
+      for (var IFORM = 1; IFORM <= 2; IFORM++) {
+        final CFORM = FORMS[IFORM - 1];
 
-            final UPLO = UPLOS[IUPLO - 1];
-            LOWER = true;
-            if (IUPLO == 1) LOWER = false ;
+        NRUN++;
 
-            // Do first for CFORM = 'N', then for CFORM = 'C'
+        for (var J = 1; J <= N; J++) {
+          for (var I = 1; I <= N; I++) {
+            A[I][J] = zlarnd(4, ISEED);
+          }
+        }
 
-            for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
+        srnamc.SRNAMT = 'ZTRTTF';
+        ztrttf(CFORM, UPLO, N, A, LDA, ARF, INFO);
 
-               CFORM = FORMS( IFORM );
+        srnamc.SRNAMT = 'ZTFTTP';
+        ztfttp(CFORM, UPLO, N, ARF, AP, INFO);
 
-               NRUN++;
+        srnamc.SRNAMT = 'ZTPTTR';
+        ztpttr(UPLO, N, AP, ASAV, LDA, INFO);
 
-               for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= N; I++) {
-                     A[I][J] = ZLARND( 4, ISEED );
-                  }
-               }
+        var OK1 = true;
+        if (LOWER) {
+          loop:
+          for (var J = 1; J <= N; J++) {
+            for (var I = J; I <= N; I++) {
+              if (A[I][J] != ASAV[I][J]) {
+                OK1 = false;
+                break loop;
+              }
+            }
+          }
+        } else {
+          loop:
+          for (var J = 1; J <= N; J++) {
+            for (var I = 1; I <= J; I++) {
+              if (A[I][J] != ASAV[I][J]) {
+                OK1 = false;
+                break loop;
+              }
+            }
+          }
+        }
 
-              srnamc.SRNAMT = 'ZTRTTF';
-               ztrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
+        NRUN++;
 
-              srnamc.SRNAMT = 'ZTFTTP';
-               ztfttp(CFORM, UPLO, N, ARF, AP, INFO );
+        srnamc.SRNAMT = 'ZTRTTP';
+        ztrttp(UPLO, N, A, LDA, AP, INFO);
 
-              srnamc.SRNAMT = 'ZTPTTR';
-               ztpttr(UPLO, N, AP, ASAV, LDA, INFO );
+        srnamc.SRNAMT = 'ZTPTTF';
+        ztpttf(CFORM, UPLO, N, AP, ARF, INFO);
 
-               OK1 = true;
-               if ( LOWER ) {
-                  for (J = 1; J <= N; J++) {
-                     for (I = J; I <= N; I++) {
-                        if ( A(I,J) != ASAV(I,J) ) {
-                           OK1 = false;
-                        }
-                     }
-                  }
-               } else {
-                  for (J = 1; J <= N; J++) {
-                     for (I = 1; I <= J; I++) {
-                        if ( A(I,J) != ASAV(I,J) ) {
-                           OK1 = false;
-                        }
-                     }
-                  }
-               }
+        srnamc.SRNAMT = 'ZTFTTR';
+        ztfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO);
 
-               NRUN++;
+        var OK2 = true;
+        if (LOWER) {
+          loop:
+          for (var J = 1; J <= N; J++) {
+            for (var I = J; I <= N; I++) {
+              if (A[I][J] != ASAV[I][J]) {
+                OK2 = false;
+                break loop;
+              }
+            }
+          }
+        } else {
+          loop:
+          for (var J = 1; J <= N; J++) {
+            for (var I = 1; I <= J; I++) {
+              if (A[I][J] != ASAV[I][J]) {
+                OK2 = false;
+                break loop;
+              }
+            }
+          }
+        }
 
-              srnamc.SRNAMT = 'ZTRTTP';
-               ztrttp(UPLO, N, A, LDA, AP, INFO );
-
-              srnamc.SRNAMT = 'ZTPTTF';
-               ztpttf(CFORM, UPLO, N, AP, ARF, INFO );
-
-              srnamc.SRNAMT = 'ZTFTTR';
-               ztfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO );
-
-               OK2 = true;
-               if ( LOWER ) {
-                  for (J = 1; J <= N; J++) {
-                     for (I = J; I <= N; I++) {
-                        if ( A(I,J) != ASAV(I,J) ) {
-                           OK2 = false;
-                        }
-                     }
-                  }
-               } else {
-                  for (J = 1; J <= N; J++) {
-                     for (I = 1; I <= J; I++) {
-                        if ( A(I,J) != ASAV(I,J) ) {
-                           OK2 = false;
-                        }
-                     }
-                  }
-               }
-
-               if (( !OK1 ) || ( !OK2 )) {
-                  if ( NERRS == 0 ) {
-                     WRITE( NOUT, * );
-                     NOUT.println( 9999 );
-                  }
-                  NOUT.println( 9998 ) N, UPLO, CFORM;
-                  NERRS++;
-               }
-
-            } // 100
-         } // 110
-      } // 120
-
-      // Print a summary of the results.
-
-      if ( NERRS == 0 ) {
-         NOUT.println( 9997 ) NRUN;
-      } else {
-         NOUT.println( 9996 ) NERRS, NRUN;
+        if ((!OK1) || (!OK2)) {
+          if (NERRS == 0) {
+            NOUT.println();
+            NOUT.println(
+                '  *** Error(s) while testing the RFP conversion routines ***');
+          }
+          NOUT.println(
+              '      Error in RFP,conversion routines N=${N.i5} UPLO=\'${UPLO.a1}\', FORM =\'${CFORM.a1}\'');
+          NERRS++;
+        }
       }
+    }
+  }
 
- 9999 FORMAT('  *** Error(s) while testing the RFP conversion routines ***');
- 9998 FORMAT('      Error in RFP,conversion routines N=',I5, ' UPLO=\'${.a1}\', FORM =\'${.a1}\'');
- 9997 FORMAT(' All tests for the RFP conversion routines passed (', I5,' tests run)');
- 9996 FORMAT(' RFP conversion routines:',I5,' out of ',I5, ' error message recorded');
+  // Print a summary of the results.
 
-      }
+  if (NERRS == 0) {
+    NOUT.println(
+        ' All tests for the RFP conversion routines passed (${NRUN.i5} tests run)');
+  } else {
+    NOUT.println(
+        ' RFP conversion routines:${NERRS.i5} out of ${NRUN.i5} error message recorded');
+  }
+}

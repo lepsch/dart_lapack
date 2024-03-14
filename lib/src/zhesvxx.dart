@@ -104,10 +104,9 @@ void zhesvxx(
       SMIN = BIGNUM;
       SMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         SMIN = min(SMIN, S[J]);
         SMAX = max(SMAX, S[J]);
-      } // 10
+      }
       if (SMIN <= ZERO) {
         INFO.value = -10;
       } else if (N > 0) {

@@ -1,491 +1,638 @@
-      void zdrvsy(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final Array<double> A_, final Array<double> AFAC_, final Array<double> AINV_, final Array<double> B_, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlansy.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zsysv.dart';
+import 'package:lapack/src/zsysvx.dart';
+import 'package:lapack/src/zsysvxx.dart';
+import 'package:lapack/src/zsytrf.dart';
+import 'package:lapack/src/zsytri2.dart';
+
+import '../matgen/zlatms.dart';
+import 'aladhd.dart';
+import 'alaerh.dart';
+import 'alasvm.dart';
+import 'common.dart';
+import 'dget06.dart';
+import 'xlaenv.dart';
+import 'zebchvxx.dart';
+import 'zerrvxx.dart';
+import 'zget04.dart';
+import 'zlarhs.dart';
+import 'zlatb4.dart';
+import 'zlatsy.dart';
+import 'zpot05.dart';
+import 'zsyt01.dart';
+import 'zsyt02.dart';
+
+void zdrvsy(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NRHS,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<Complex> A_,
+  final Array<Complex> AFAC_,
+  final Array<Complex> AINV_,
+  final Array<Complex> B_,
+  final Array<Complex> X_,
+  final Array<Complex> XACT_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<int> IWORK_,
+  final Nout NOUT,
+) {
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final AINV = AINV_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
 
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NMAX, NN, NOUT, NRHS;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                IWORK( * ), NVAL( * );
-      double             RWORK( * );
-      Complex         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
-      // ..
+  // ..
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                NTYPES, NTESTS;
-      const              NTYPES = 11, NTESTS = 6 ;
-      int                NFACT;
-      const              NFACT = 2 ;
-      bool               ZEROT;
-      String             DIST, EQUED, FACT, TYPE, UPLO, XTYPE;
-      String             PATH;
-      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NIMAT, NT, N_ERR_BNDS;
-      double             AINVNM, ANORM, CNDNUM, RCOND, RCONDC, RPVGRW_SVXX;
-      String             FACTS( NFACT ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 );
-      final             RESULT=Array<double>( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
-      // ..
-      // .. External Functions ..
-      //- double             DGET06, ZLANSY;
-      // EXTERNAL DGET06, ZLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZLATSY, ZPOT05, ZSYSV, ZSYSVX, ZSYT01, ZSYT02, ZSYTRF, ZSYTRI2, ZSYSVXX
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCMPLX, MAX, MIN
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = 'U', 'L', FACTS = 'F', 'N';
+  const ONE = 1.0, ZERO = 0.0;
+  const NTYPES = 11, NTESTS = 6, NFACT = 2;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS),
+      BERR = Array<double>(NRHS),
+      ERRBNDS_N = Matrix<double>(NRHS, 3),
+      ERRBNDS_C = Matrix<double>(NRHS, 3);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'], FACTS = ['F', 'N'];
+  final INFO = Box(0);
 
-      // Initialize constants and the random number seed.
+  // Initialize constants and the random number seed.
 
-      final PATH = '${'Zomplex precision'[0]}SY';
-      var NRUN = 0;
-      var NFAIL = 0;
-      var NERRS = Box(0);
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
-      LWORK = max( 2*NMAX, NMAX*NRHS );
+  final PATH = '${'Zomplex precision'[0]}SY';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    // 10
+    ISEED[I] = ISEEDY[I - 1];
+  } // 10
+  var LWORK = max(2 * NMAX, NMAX * NRHS);
 
-      // Test the error exits
+  // Test the error exits
 
-      if (TSTERR) zerrvx( PATH, NOUT );
-      infoc.INFOT = 0;
+  if (TSTERR) zerrvx(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      // Set the block size and minimum block size for testing.
+  // Set the block size and minimum block size for testing.
 
-            final NB = 1;
-      final NBMIN = 2;
-      xlaenv(1, NB );
-      xlaenv(2, NBMIN );
+  final NB = 1;
+  final NBMIN = 2;
+  xlaenv(1, NB);
+  xlaenv(2, NBMIN);
 
-      // Do for each value of N in NVAL
+  // Do for each value of N in NVAL
 
-      for (IN = 1; IN <= NN; IN++) { // 180
-         final N = NVAL[IN];
-         final LDA = max( N, 1 );
-         XTYPE = 'N';
-            final NIMAT = N <= 0 ? 1 : NTYPES;
+  for (var IN = 1; IN <= NN; IN++) {
+    // 180
+    final N = NVAL[IN];
+    final LDA = max(N, 1);
+    var XTYPE = 'N';
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
-         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
+    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      // 170
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      // Do the tests only if DOTYPE( IMAT ) is true.
 
-            if( !DOTYPE[IMAT] ) GO TO 170;
+      if (!DOTYPE[IMAT]) continue;
 
-            // Skip types 3, 4, 5, or 6 if the matrix size is too small.
+      // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            final ZEROT = IMAT >= 3 && IMAT <= 6;
-            if (ZEROT && N < IMAT-2) GO TO 170;
+      final ZEROT = IMAT >= 3 && IMAT <= 6;
+      if (ZEROT && N < IMAT - 2) continue;
 
-            // Do first for UPLO = 'U', then for UPLO = 'L'
+      // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               final UPLO = UPLOS[IUPLO - 1];
+      var KL = 0, KU = 0, IZERO = 0;
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        // 160
+        final UPLO = UPLOS[IUPLO - 1];
 
-               if ( IMAT != NTYPES ) {
+        if (IMAT != NTYPES) {
+          // Set up parameters with ZLATB4 and generate a test
+          // matrix with ZLATMS.
 
-                  // Set up parameters with ZLATB4 and generate a test
-                  // matrix with ZLATMS.
+          final (:TYPE, KL: KLTMP, KU: KUTMP, :ANORM, :MODE, :CNDNUM, :DIST) =
+              zlatb4(PATH, IMAT, N, N);
+          (KL, KU) = (KLTMP, KUTMP);
 
-                  final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
+          srnamc.SRNAMT = 'ZLATMS';
+          zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+              UPLO, A.asMatrix(), LDA, WORK, INFO);
 
-                 srnamc.SRNAMT = 'ZLATMS';
-                  zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
+          // Check error code from ZLATMS.
 
-                  // Check error code from ZLATMS.
+          if (INFO.value != 0) {
+            alaerh(PATH, 'ZLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
+                NFAIL, NERRS, NOUT);
+            continue;
+          }
 
-                  if ( INFO.value != 0 ) {
-                     alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 160;
+          // For types 3-6, zero one or more rows and columns of
+          // the matrix to test that INFO.value is returned correctly.
+
+          if (ZEROT) {
+            if (IMAT == 3) {
+              IZERO = 1;
+            } else if (IMAT == 4) {
+              IZERO = N;
+            } else {
+              IZERO = N ~/ 2 + 1;
+            }
+
+            if (IMAT < 6) {
+              // Set row and column IZERO to zero.
+
+              if (IUPLO == 1) {
+                var IOFF = (IZERO - 1) * LDA;
+                for (var I = 1; I <= IZERO - 1; I++) {
+                  // 20
+                  A[IOFF + I] = Complex.zero;
+                } // 20
+                IOFF += IZERO;
+                for (var I = IZERO; I <= N; I++) {
+                  // 30
+                  A[IOFF] = Complex.zero;
+                  IOFF += LDA;
+                } // 30
+              } else {
+                var IOFF = IZERO;
+                for (var I = 1; I <= IZERO - 1; I++) {
+                  // 40
+                  A[IOFF] = Complex.zero;
+                  IOFF += LDA;
+                } // 40
+                IOFF -= IZERO;
+                for (var I = IZERO; I <= N; I++) {
+                  // 50
+                  A[IOFF + I] = Complex.zero;
+                } // 50
+              }
+            } else {
+              if (IUPLO == 1) {
+                // Set the first IZERO rows to zero.
+
+                var IOFF = 0;
+                for (var J = 1; J <= N; J++) {
+                  // 70
+                  final I2 = min(J, IZERO);
+                  for (var I = 1; I <= I2; I++) {
+                    // 60
+                    A[IOFF + I] = Complex.zero;
+                  } // 60
+                  IOFF += LDA;
+                } // 70
+              } else {
+                // Set the last IZERO rows to zero.
+
+                var IOFF = 0;
+                for (var J = 1; J <= N; J++) {
+                  // 90
+                  final I1 = max(J, IZERO);
+                  for (var I = I1; I <= N; I++) {
+                    // 80
+                    A[IOFF + I] = Complex.zero;
+                  } // 80
+                  IOFF += LDA;
+                } // 90
+              }
+            }
+          } else {
+            IZERO = 0;
+          }
+        } else {
+          // IMAT = NTYPES:  Use a special block diagonal matrix to
+          // test alternate code for the 2-by-2 blocks.
+
+          zlatsy(UPLO, N, A.asMatrix(), LDA, ISEED);
+        }
+
+        var RCONDC = ZERO;
+        for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
+          // 150
+
+          // Do first for FACT = 'F', then for other values.
+
+          final FACT = FACTS[IFACT - 1];
+
+          // Compute the condition number for comparison with
+          // the value returned by ZSYSVX.
+
+          if (ZEROT) {
+            if (IFACT == 1) continue;
+            RCONDC = ZERO;
+          } else if (IFACT == 1) {
+            // Compute the 1-norm of A.
+
+            final ANORM = zlansy('1', UPLO, N, A.asMatrix(), LDA, RWORK);
+
+            // Factor the matrix A.
+
+            zlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            zsytrf(UPLO, N, AFAC.asMatrix(), LDA, IWORK, WORK, LWORK, INFO);
+
+            // Compute inv(A) and take its norm.
+
+            zlacpy(UPLO, N, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
+            LWORK = (N + NB + 1) * (NB + 3);
+            zsytri2(UPLO, N, AINV.asMatrix(), LDA, IWORK, WORK, LWORK, INFO);
+            final AINVNM = zlansy('1', UPLO, N, AINV.asMatrix(), LDA, RWORK);
+
+            // Compute the 1-norm condition number of A.
+
+            if (ANORM <= ZERO || AINVNM <= ZERO) {
+              RCONDC = ONE;
+            } else {
+              RCONDC = (ONE / ANORM) / AINVNM;
+            }
+          }
+
+          // Form an exact solution and set the right hand side.
+
+          srnamc.SRNAMT = 'ZLARHS';
+          zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(), LDA,
+              XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
+          XTYPE = 'C';
+
+          // --- Test ZSYSV  ---
+
+          if (IFACT == 2) {
+            zlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+
+            // Factor the matrix and solve the system using ZSYSV.
+
+            srnamc.SRNAMT = 'ZSYSV ';
+            zsysv(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(), LDA,
+                WORK, LWORK, INFO);
+
+            // Adjust the expected value of INFO.value to account for
+            // pivoting.
+
+            var K = IZERO;
+            if (K > 0) {
+              while (true) {
+                if (IWORK[K] < 0) {
+                  if (IWORK[K] != -K) {
+                    K = -IWORK[K];
+                    continue;
                   }
+                } else if (IWORK[K] != K) {
+                  K = IWORK[K];
+                  continue;
+                }
+                break;
+              }
+            }
 
-                  // For types 3-6, zero one or more rows and columns of
-                  // the matrix to test that INFO is returned correctly.
+            // Check error code from ZSYSV .
 
-                  final int IZERO;
-                  if ( ZEROT ) {
-                     if ( IMAT == 3 ) {
-                        IZERO = 1;
-                     } else if ( IMAT == 4 ) {
-                        IZERO = N;
-                     } else {
-                        IZERO = N ~/ 2 + 1;
-                     }
+            if (INFO.value != K) {
+              alaerh(PATH, 'ZSYSV ', INFO.value, K, UPLO, N, N, -1, -1, NRHS,
+                  IMAT, NFAIL, NERRS, NOUT);
+            } else if (INFO.value != 0) {
+              //
+            } else {
+              // Reconstruct matrix from factors and compute
+              // residual.
 
-                     if ( IMAT < 6 ) {
+              zsyt01(UPLO, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA, IWORK,
+                  AINV.asMatrix(), LDA, RWORK, RESULT(1));
 
-                        // Set row and column IZERO to zero.
+              // Compute residual of the computed solution.
 
-                        if ( IUPLO == 1 ) {
-                           IOFF = ( IZERO-1 )*LDA;
-                           for (I = 1; I <= IZERO - 1; I++) { // 20
-                              A[IOFF+I] = ZERO;
-                           } // 20
-                           IOFF += IZERO;
-                           for (I = IZERO; I <= N; I++) { // 30
-                              A[IOFF] = ZERO;
-                              IOFF += LDA;
-                           } // 30
-                        } else {
-                           IOFF = IZERO;
-                           for (I = 1; I <= IZERO - 1; I++) { // 40
-                              A[IOFF] = ZERO;
-                              IOFF += LDA;
-                           } // 40
-                           IOFF -= IZERO;
-                           for (I = IZERO; I <= N; I++) { // 50
-                              A[IOFF+I] = ZERO;
-                           } // 50
-                        }
-                     } else {
-                        if ( IUPLO == 1 ) {
+              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              zsyt02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK, RESULT(2));
 
-                           // Set the first IZERO rows to zero.
+              // Check solution from generated exact solution.
 
-                           IOFF = 0;
-                           for (J = 1; J <= N; J++) { // 70
-                              I2 = min( J, IZERO );
-                              for (I = 1; I <= I2; I++) { // 60
-                                 A[IOFF+I] = ZERO;
-                              } // 60
-                              IOFF += LDA;
-                           } // 70
-                        } else {
+              zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(3));
+              const NT = 3;
 
-                           // Set the last IZERO rows to zero.
+              // Print information about the tests that did not pass
+              // the threshold.
 
-                           IOFF = 0;
-                           for (J = 1; J <= N; J++) { // 90
-                              I1 = max( J, IZERO );
-                              for (I = I1; I <= N; I++) { // 80
-                                 A[IOFF+I] = ZERO;
-                              } // 80
-                              IOFF += LDA;
-                           } // 90
-                        }
-                     }
-                  } else {
-                     IZERO = 0;
+              for (var K = 1; K <= NT; K++) {
+                // 110
+                if (RESULT[K] >= THRESH) {
+                  if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                  NOUT.println(
+                      ' ZSYSV , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
+                  NFAIL++;
+                }
+              } // 110
+              NRUN += NT;
+            } // 120
+          }
+
+          {
+            // --- Test ZSYSVX ---
+
+            if (IFACT == 2) {
+              zlaset(
+                  UPLO, N, N, Complex.zero, Complex.zero, AFAC.asMatrix(), LDA);
+            }
+            zlaset(
+                'Full', N, NRHS, Complex.zero, Complex.zero, X.asMatrix(), LDA);
+
+            // Solve the system and compute the condition number and
+            // error bounds using ZSYSVX.
+
+            srnamc.SRNAMT = 'ZSYSVX';
+            final RCOND = Box(ZERO);
+            zsysvx(
+                FACT,
+                UPLO,
+                N,
+                NRHS,
+                A.asMatrix(),
+                LDA,
+                AFAC.asMatrix(),
+                LDA,
+                IWORK,
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                RCOND,
+                RWORK,
+                RWORK(NRHS + 1),
+                WORK,
+                LWORK,
+                RWORK(2 * NRHS + 1),
+                INFO);
+
+            // Adjust the expected value of INFO.value to account for
+            // pivoting.
+
+            var K = IZERO;
+            if (K > 0) {
+              while (true) {
+                if (IWORK[K] < 0) {
+                  if (IWORK[K] != -K) {
+                    K = -IWORK[K];
+                    continue;
                   }
-               } else {
+                } else if (IWORK[K] != K) {
+                  K = IWORK[K];
+                  continue;
+                }
+                break;
+              }
+            }
 
-                  // IMAT = NTYPES:  Use a special block diagonal matrix to
-                  // test alternate code for the 2-by-2 blocks.
+            // Check the error code from ZSYSVX.
 
-                  zlatsy(UPLO, N, A, LDA, ISEED );
-               }
+            if (INFO.value != K) {
+              alaerh(PATH, 'ZSYSVX', INFO.value, K, FACT + UPLO, N, N, -1, -1,
+                  NRHS, IMAT, NFAIL, NERRS, NOUT);
+              continue;
+            }
 
-               for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 150
+            final int K1;
+            if (INFO.value == 0) {
+              if (IFACT >= 2) {
+                // Reconstruct matrix from factors and compute
+                // residual.
 
-                  // Do first for FACT = 'F', then for other values.
+                zsyt01(UPLO, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA, IWORK,
+                    AINV.asMatrix(), LDA, RWORK(2 * NRHS + 1), RESULT(1));
+                K1 = 1;
+              } else {
+                K1 = 2;
+              }
 
-                  final FACT = FACTS[IFACT - 1];
+              // Compute residual of the computed solution.
 
-                  // Compute the condition number for comparison with
-                  // the value returned by ZSYSVX.
+              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              zsyt02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK(2 * NRHS + 1), RESULT(2));
 
-                  final int IZERO;
-                  if ( ZEROT ) {
-                     if (IFACT == 1) GO TO 150;
-                     RCONDC = ZERO;
+              // Check solution from generated exact solution.
 
-                  } else if ( IFACT == 1 ) {
+              zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(3));
 
-                     // Compute the 1-norm of A.
+              // Check the error bounds from iterative refinement.
 
-                     ANORM = ZLANSY( '1', UPLO, N, A, LDA, RWORK );
+              zpot05(
+                  UPLO,
+                  N,
+                  NRHS,
+                  A.asMatrix(),
+                  LDA,
+                  B.asMatrix(),
+                  LDA,
+                  X.asMatrix(),
+                  LDA,
+                  XACT.asMatrix(),
+                  LDA,
+                  RWORK,
+                  RWORK(NRHS + 1),
+                  RESULT(4));
+            } else {
+              K1 = 6;
+            }
 
-                     // Factor the matrix A.
+            // Compare RCOND from ZSYSVX with the computed value
+            // in RCONDC.
 
-                     zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     zsytrf(UPLO, N, AFAC, LDA, IWORK, WORK, LWORK, INFO );
+            RESULT[6] = dget06(RCOND.value, RCONDC);
 
-                     // Compute inv(A) and take its norm.
+            // Print information about the tests that did not pass
+            // the threshold.
 
-                     zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     LWORK = (N+NB+1)*(NB+3);
-                     zsytri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
-                     AINVNM = ZLANSY( '1', UPLO, N, AINV, LDA, RWORK );
+            for (var K = K1; K <= 6; K++) {
+              // 140
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                NOUT.print9998('ZSYSVX', FACT, UPLO, N, IMAT, K, RESULT[K]);
+                NFAIL++;
+              }
+            } // 140
+            NRUN += 7 - K1;
+          }
 
-                     // Compute the 1-norm condition number of A.
+          {
+            // --- Test ZSYSVXX ---
 
-                     if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                        RCONDC = ONE;
-                     } else {
-                        RCONDC = ( ONE / ANORM ) / AINVNM;
-                     }
+            // Restore the matrices A and B.
+
+            if (IFACT == 2) {
+              zlaset(
+                  UPLO, N, N, Complex.zero, Complex.zero, AFAC.asMatrix(), LDA);
+            }
+            zlaset(
+                'Full', N, NRHS, Complex.zero, Complex.zero, X.asMatrix(), LDA);
+
+            // Solve the system and compute the condition number
+            // and error bounds using ZSYSVXX.
+
+            srnamc.SRNAMT = 'ZSYSVXX';
+            const N_ERR_BNDS = 3;
+            final EQUED = Box('N');
+            final RCOND = Box(ZERO), RPVGRW_SVXX = Box(ZERO);
+            zsysvxx(
+                FACT,
+                UPLO,
+                N,
+                NRHS,
+                A.asMatrix(),
+                LDA,
+                AFAC.asMatrix(),
+                LDA,
+                IWORK,
+                EQUED,
+                WORK(N + 1).cast<double>(),
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                RCOND,
+                RPVGRW_SVXX,
+                BERR,
+                N_ERR_BNDS,
+                ERRBNDS_N,
+                ERRBNDS_C,
+                0,
+                Array<double>(1),
+                WORK,
+                RWORK,
+                INFO);
+
+            // Adjust the expected value of INFO.value to account for
+            // pivoting.
+
+            var K = IZERO;
+            if (K > 0) {
+              while (true) {
+                if (IWORK[K] < 0) {
+                  if (IWORK[K] != -K) {
+                    K = -IWORK[K];
+                    continue;
                   }
-
-                  // Form an exact solution and set the right hand side.
-
-                 srnamc.SRNAMT = 'ZLARHS';
-                  zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                  XTYPE = 'C';
-
-                  // --- Test ZSYSV  ---
-
-                  if ( IFACT == 2 ) {
-                     zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
-
-                     // Factor the matrix and solve the system using ZSYSV.
-
-                    srnamc.SRNAMT = 'ZSYSV ';
-                     zsysv(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
-
-                     // Adjust the expected value of INFO to account for
-                     // pivoting.
-
-                     K = IZERO;
-                     if ( K > 0 ) {
-                        } // 100
-                        if ( IWORK( K ) < 0 ) {
-                           if ( IWORK( K ) != -K ) {
-                              K = -IWORK( K );
-                              GO TO 100;
-                           }
-                        } else if ( IWORK( K ) != K ) {
-                           K = IWORK( K );
-                           GO TO 100;
-                        }
-                     }
-
-                     // Check error code from ZSYSV .
-
-                     if ( INFO.value != K ) {
-                        alaerh(PATH, 'ZSYSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 120;
-                     } else if ( INFO.value != 0 ) {
-                        GO TO 120;
-                     }
-
-                     // Reconstruct matrix from factors and compute
-                     // residual.
-
-                     zsyt01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
-
-                     // Compute residual of the computed solution.
-
-                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                     zsyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
-
-                     // Check solution from generated exact solution.
-
-                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                     NT = 3;
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     for (K = 1; K <= NT; K++) { // 110
-                        if ( RESULT[K] >= THRESH ) {
-                           if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
-                           NOUT.println( 9999 )'ZSYSV ', UPLO, N, IMAT, K, RESULT[K];
-                           NFAIL++;
-                        }
-                     } // 110
-                     NRUN +=  NT;
-                     } // 120
-                  }
-
-                  // --- Test ZSYSVX ---
-
-                  if (IFACT == 2) zlaset( UPLO, N, N, Complex.zero, Complex.zero, AFAC, LDA );
-                  zlaset('Full', N, NRHS, Complex.zero, Complex.zero, X, LDA );
-
-                  // Solve the system and compute the condition number and
-                  // error bounds using ZSYSVX.
-
-                 srnamc.SRNAMT = 'ZSYSVX';
-                  zsysvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, LWORK, RWORK( 2*NRHS+1 ), INFO );
-
-                  // Adjust the expected value of INFO to account for
-                  // pivoting.
-
-                  K = IZERO;
-                  if ( K > 0 ) {
-                     } // 130
-                     if ( IWORK( K ) < 0 ) {
-                        if ( IWORK( K ) != -K ) {
-                           K = -IWORK( K );
-                           GO TO 130;
-                        }
-                     } else if ( IWORK( K ) != K ) {
-                        K = IWORK( K );
-                        GO TO 130;
-                     }
-                  }
-
-                  // Check the error code from ZSYSVX.
-
-                  if ( INFO.value != K ) {
-                     alaerh(PATH, 'ZSYSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 150;
-                  }
-
-                  if ( INFO.value == 0 ) {
-                     if ( IFACT >= 2 ) {
-
-                        // Reconstruct matrix from factors and compute
-                        // residual.
-
-                        zsyt01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
-                        K1 = 1;
-                     } else {
-                        K1 = 2;
-                     }
-
-                     // Compute residual of the computed solution.
-
-                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                     zsyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
-
-                     // Check solution from generated exact solution.
-
-                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-
-                     // Check the error bounds from iterative refinement.
-
-                     zpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
-                  } else {
-                     K1 = 6;
-                  }
-
-                  // Compare RCOND from ZSYSVX with the computed value
-                  // in RCONDC.
-
-                  RESULT[6] = DGET06( RCOND, RCONDC );
-
-                  // Print information about the tests that did not pass
-                  // the threshold.
-
-                  for (K = K1; K <= 6; K++) { // 140
-                     if ( RESULT[K] >= THRESH ) {
-                        if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
-                        NOUT.println( 9998 )'ZSYSVX', FACT, UPLO, N, IMAT, K, RESULT[K];
-                        NFAIL++;
-                     }
-                  } // 140
-                  NRUN +=  7 - K1;
-
-                  // --- Test ZSYSVXX ---
-
-                  // Restore the matrices A and B.
-
-                  if (IFACT == 2) zlaset( UPLO, N, N, Complex.zero, Complex.zero, AFAC, LDA );
-                  zlaset('Full', N, NRHS, Complex.zero, Complex.zero, X, LDA );
-
-                  // Solve the system and compute the condition number
-                  // and error bounds using ZSYSVXX.
-
-                 srnamc.SRNAMT = 'ZSYSVXX';
-                  N_ERR_BNDS = 3;
-                  EQUED = 'N';
-                  zsysvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, WORK( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK, INFO );
-
-                  // Adjust the expected value of INFO to account for
-                  // pivoting.
-
-                  K = IZERO;
-                  if ( K > 0 ) {
-                     } // 135
-                     if ( IWORK( K ) < 0 ) {
-                        if ( IWORK( K ) != -K ) {
-                           K = -IWORK( K );
-                           GO TO 135;
-                        }
-                     } else if ( IWORK( K ) != K ) {
-                        K = IWORK( K );
-                        GO TO 135;
-                     }
-                  }
-
-                  // Check the error code from ZSYSVXX.
-
-                  if ( INFO.value != K && INFO.value <= N ) {
-                     alaerh(PATH, 'ZSYSVXX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 150;
-                  }
-
-                  if ( INFO.value == 0 ) {
-                     if ( IFACT >= 2 ) {
-
-                  // Reconstruct matrix from factors and compute
-                  // residual.
-
-                        zsyt01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK(2*NRHS+1), RESULT( 1 ) );
-                        K1 = 1;
-                     } else {
-                        K1 = 2;
-                     }
-
-                  // Compute residual of the computed solution.
-
-                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                     zsyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
-                     RESULT[2] = 0.0;
-
-                  // Check solution from generated exact solution.
-
-                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-
-                  // Check the error bounds from iterative refinement.
-
-                     zpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
-                  } else {
-                     K1 = 6;
-                  }
-
-                  // Compare RCOND from ZSYSVXX with the computed value
-                  // in RCONDC.
-
-                  RESULT[6] = DGET06( RCOND, RCONDC );
-
-                  // Print information about the tests that did not pass
-                  // the threshold.
-
-                  for (K = K1; K <= 6; K++) { // 85
-                     if ( RESULT[K] >= THRESH ) {
-                        if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
-                        NOUT.println( 9998 )'ZSYSVXX', FACT, UPLO, N, IMAT, K, RESULT[K];
-                        NFAIL++;
-                     }
-                  } // 85
-                  NRUN +=  7 - K1;
-
-               } // 150
-
-            } // 160
-         } // 170
-      } // 180
-
-      // Print a summary of the results.
-
-      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
-
-
-      // Test Error Bounds from ZSYSVXX
-
-      zebchvxx(THRESH, PATH);
-
- 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
- 9998 FORMAT(' ${}, FACT=\'${FACT.a1}\', UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
-      }
+                } else if (IWORK[K] != K) {
+                  K = IWORK[K];
+                  continue;
+                }
+                break;
+              }
+            }
+
+            // Check the error code from ZSYSVXX.
+
+            if (INFO.value != K && INFO.value <= N) {
+              alaerh(PATH, 'ZSYSVXX', INFO.value, K, FACT + UPLO, N, N, -1, -1,
+                  NRHS, IMAT, NFAIL, NERRS, NOUT);
+              continue;
+            }
+
+            final int K1;
+            if (INFO.value == 0) {
+              if (IFACT >= 2) {
+                // Reconstruct matrix from factors and compute
+                // residual.
+
+                zsyt01(UPLO, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA, IWORK,
+                    AINV.asMatrix(), LDA, RWORK(2 * NRHS + 1), RESULT(1));
+                K1 = 1;
+              } else {
+                K1 = 2;
+              }
+
+              // Compute residual of the computed solution.
+
+              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              zsyt02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK(2 * NRHS + 1), RESULT(2));
+              RESULT[2] = 0.0;
+
+              // Check solution from generated exact solution.
+
+              zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                  RESULT(3));
+
+              // Check the error bounds from iterative refinement.
+
+              zpot05(
+                  UPLO,
+                  N,
+                  NRHS,
+                  A.asMatrix(),
+                  LDA,
+                  B.asMatrix(),
+                  LDA,
+                  X.asMatrix(),
+                  LDA,
+                  XACT.asMatrix(),
+                  LDA,
+                  RWORK,
+                  RWORK(NRHS + 1),
+                  RESULT(4));
+            } else {
+              K1 = 6;
+            }
+
+            // Compare RCOND from ZSYSVXX with the computed value
+            // in RCONDC.
+
+            RESULT[6] = dget06(RCOND.value, RCONDC);
+
+            // Print information about the tests that did not pass
+            // the threshold.
+
+            for (var K = K1; K <= 6; K++) {
+              // 85
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                NOUT.print9998('ZSYSVXX', FACT, UPLO, N, IMAT, K, RESULT[K]);
+                NFAIL++;
+              }
+            } // 85
+            NRUN += 7 - K1;
+          }
+        } // 150
+      } // 160
+    } // 170
+  } // 180
+
+  // Print a summary of the results.
+
+  alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+
+  // Test Error Bounds from ZSYSVXX
+
+  zebchvxx(THRESH, PATH, NOUT);
+}
+
+extension on Nout {
+  void print9998(String s, String fact, String uplo, int n, int type, int test,
+      double ratio) {
+    println(
+        ' $s, FACT=\'${fact.a1}\', UPLO=\'${uplo.a1}\', N =${n.i5}, type ${type.i2}, test ${test.i2}, ratio =${ratio.g12_5}');
+  }
+}

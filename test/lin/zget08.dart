@@ -1,85 +1,81 @@
-      void zget08(final int TRANS, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.having();
-  final X = X_.having();
-  final B = B_.having();
+import 'dart:math';
+
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+
+void zget08(
+  final String TRANS,
+  final int M,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
+  final A = A_.having(ld: LDA);
+  final X = X_.having(ld: LDX);
+  final B = B_.having(ld: LDB);
   final RWORK = RWORK_.having();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                LDA, LDB, LDX, M, N, NRHS;
-      double             RESID;
-      double             RWORK( * );
-      Complex         A( LDA, * ), B( LDB, * ), X( LDX, * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      int                J, N1, N2;
-      double             ANORM, BNORM, EPS, XNORM;
-      Complex         ZDUM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                IZAMAX;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, IZAMAX, DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DIMAG, MAX
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
-      // Quick exit if M = 0 or N = 0 or NRHS = 0
+  // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      if ( M <= 0 || N <= 0 || NRHS == 0 ) {
-         RESID = ZERO;
-         return;
-      }
+  if (M <= 0 || N <= 0 || NRHS == 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
-         N1 = N;
-         N2 = M;
-      } else {
-         N1 = M;
-         N2 = N;
-      }
+  final int N1, N2;
+  if (lsame(TRANS, 'T') || lsame(TRANS, 'C')) {
+    N1 = N;
+    N2 = M;
+  } else {
+    N1 = M;
+    N2 = N;
+  }
 
-      // Exit with RESID = 1/EPS if ANORM = 0.
+  // Exit with RESID.value = 1/EPS if ANORM = 0.
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = ZLANGE( 'I', N1, N2, A, LDA, RWORK );
-      if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS;
-         return;
-      }
+  final EPS = dlamch('Epsilon');
+  final ANORM = zlange('I', N1, N2, A, LDA, RWORK);
+  if (ANORM <= ZERO) {
+    RESID.value = ONE / EPS;
+    return;
+  }
 
-      // Compute  B - A*X  (or  B - A'*X ) and store in B.
+  // Compute  B - A*X  (or  B - A'*X ) and store in B.
 
-      zgemm(TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X, LDX, CONE, B, LDB );
+  zgemm(TRANS, 'No transpose', N1, NRHS, N2, -Complex.one, A, LDA, X, LDX,
+      Complex.one, B, LDB);
 
-      // Compute the maximum over the number of right hand sides of
-      //    norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .
+  // Compute the maximum over the number of right hand sides of
+  //    norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .
 
-      RESID = ZERO;
-      for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = CABS1( B( IZAMAX( N1, B( 1, J ), 1 ), J ) );
-         XNORM = CABS1( X( IZAMAX( N2, X( 1, J ), 1 ), J ) );
-         if ( XNORM <= ZERO ) {
-            RESID = ONE / EPS;
-         } else {
-            RESID = max( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS );
-         }
-      } // 10
-
-      }
+  RESID.value = ZERO;
+  for (var J = 1; J <= NRHS; J++) {
+    final BNORM = CABS1(B[izamax(N1, B(1, J).asArray(), 1)][J]);
+    final XNORM = CABS1(X[izamax(N2, X(1, J).asArray(), 1)][J]);
+    if (XNORM <= ZERO) {
+      RESID.value = ONE / EPS;
+    } else {
+      RESID.value = max(RESID.value, ((BNORM / ANORM) / XNORM) / EPS);
+    }
+  }
+}

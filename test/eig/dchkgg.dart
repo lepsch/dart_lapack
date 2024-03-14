@@ -105,7 +105,6 @@ void dchkgg(
       N = 0,
       N1,
       NERRS,
-      NMATS,
       NMAX,
       NTEST,
       NTESTT;
@@ -222,7 +221,6 @@ void dchkgg(
 
   NTESTT = 0;
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
@@ -238,7 +236,6 @@ void dchkgg(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.

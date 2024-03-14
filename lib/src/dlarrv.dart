@@ -56,8 +56,7 @@ void dlarrv(
   const MAXITR = 10;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;
   bool ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;
-  int DONE,
-      I,
+  int I,
       IBEGIN,
       IDONE = 0,
       IEND = 0,
@@ -204,8 +203,6 @@ void dlarrv(
   // Remark that if k eigenpairs are desired, then the eigenvectors
   // are stored in k contiguous columns of Z.
 
-  // DONE is the number of eigenvectors already computed
-  DONE = 0;
   IBEGIN = 1;
   WBEGIN = 1;
   for (JBLK = 1; JBLK <= IBLOCK[M]; JBLK++) {
@@ -248,7 +245,6 @@ void dlarrv(
 
     // This is for a 1x1 block
     if (IBEGIN == IEND) {
-      DONE++;
       Z[IBEGIN][WBEGIN] = ONE;
       ISUPPZ[2 * WBEGIN - 1] = IBEGIN;
       ISUPPZ[2 * WBEGIN] = IBEGIN;
@@ -585,7 +581,6 @@ void dlarrv(
             WINDMN = max(WINDEX - 1, 1);
             WINDPL = min(WINDEX + 1, M);
             LAMBDA = WORK[WINDEX];
-            DONE++;
             // Check if eigenvector computation is to be skipped
             if ((WINDEX < DOL) || (WINDEX > DOU)) {
               ESKIP = true;

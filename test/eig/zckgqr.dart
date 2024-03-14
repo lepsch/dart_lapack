@@ -65,7 +65,7 @@ Future<void> zckgqr(
   const NTYPES = 8;
   bool FIRSTT;
   String PATH;
-  int I, IM, IMAT, IN, IP, LDA, LDB, LWORK, M, N, NFAIL, NRUN, NT, P;
+  int I, IM, IMAT, IN, IP, LDA, LDB, LWORK, M, N, NT, P;
   final DOTYPE = Array<bool>(NTYPES);
   final RESULT = Array<double>(NTESTS);
   final DISTA = Box(''), DISTB = Box(''), TYPE = Box('');
@@ -85,8 +85,8 @@ Future<void> zckgqr(
 
   PATH = 'GQR';
   INFO.value = 0;
-  NRUN = 0;
-  NFAIL = 0;
+  var NRUN = 0;
+  var NFAIL = 0;
   FIRSTT = true;
   await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
   LDA = NMAX;

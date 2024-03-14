@@ -583,5 +583,5 @@ void ddrvsy(
 
   // Test Error Bounds from DSYSVXX
 
-  debchvxx(THRESH, PATH);
+  debchvxx(THRESH, PATH, NOUT);
 }

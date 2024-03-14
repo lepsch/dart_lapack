@@ -105,7 +105,6 @@ void zchkhs(
       MTYPES,
       N = 0,
       N1,
-      NMATS,
       NMAX,
       NTEST,
       NTESTT;
@@ -190,7 +189,6 @@ void zchkhs(
   // Loop over sizes, types
 
   NERRS.value = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 260
@@ -209,7 +207,6 @@ void zchkhs(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 250
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       // Save ISEED in case of an error.

@@ -1,101 +1,111 @@
-      void zptt05(final int N, final int NRHS, final int D, final int E, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Matrix<double> XACT_, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
-  final B = B_.having();
-  final X = X_.having();
-  final XACT = XACT_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zptt05(
+  final int N,
+  final int NRHS,
+  final Array<double> D_,
+  final Array<Complex> E_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Matrix<Complex> XACT_,
+  final int LDXACT,
+  final Array<double> FERR_,
+  final Array<double> BERR_,
+  final Array<double> RESLTS_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDB, LDX, LDXACT, N, NRHS;
-      double             BERR( * ), D( * ), FERR( * ), RESLTS( * );
-      Complex         B( LDB, * ), E( * ), X( LDX, * ), XACT( LDXACT, * );
-      // ..
+  final D = D_.having();
+  final E = E_.having();
+  final B = B_.having(ld: LDB);
+  final X = X_.having(ld: LDX);
+  final XACT = XACT_.having(ld: LDXACT);
+  final FERR = FERR_.having();
+  final BERR = BERR_.having();
+  final RESLTS = RESLTS_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, IMAX, J, K, NZ;
-      double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-      Complex         ZDUM;
-      // ..
-      // .. External Functions ..
-      //- int                IZAMAX;
-      //- double             DLAMCH;
-      // EXTERNAL IZAMAX, DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
-      // Quick exit if N = 0 or NRHS = 0.
+  // Quick exit if N = 0 or NRHS = 0.
 
-      if ( N <= 0 || NRHS <= 0 ) {
-         RESLTS[1] = ZERO;
-         RESLTS[2] = ZERO;
-         return;
+  if (N <= 0 || NRHS <= 0) {
+    RESLTS[1] = ZERO;
+    RESLTS[2] = ZERO;
+    return;
+  }
+
+  final EPS = dlamch('Epsilon');
+  final UNFL = dlamch('Safe minimum');
+  final OVFL = ONE / UNFL;
+  final NZ = 4;
+
+  // Test 1:  Compute the maximum of
+  //    norm(X - XACT) / ( norm(X) * FERR )
+  // over all the vectors X and XACT using the infinity-norm.
+
+  var ERRBND = ZERO;
+  for (var J = 1; J <= NRHS; J++) {
+    final IMAX = izamax(N, X(1, J).asArray(), 1);
+    final XNORM = max(CABS1(X[IMAX][J]), UNFL);
+    var DIFF = ZERO;
+    for (var I = 1; I <= N; I++) {
+      DIFF = max(DIFF, CABS1(X[I][J] - XACT[I][J]));
+    }
+
+    if (XNORM > ONE) {
+      //
+    } else if (DIFF <= OVFL * XNORM) {
+      //
+    } else {
+      ERRBND = ONE / EPS;
+      continue;
+    }
+
+    if (DIFF / XNORM <= FERR[J]) {
+      ERRBND = max(ERRBND, (DIFF / XNORM) / FERR[J]);
+    } else {
+      ERRBND = ONE / EPS;
+    }
+  }
+  RESLTS[1] = ERRBND;
+
+  // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
+  // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
+
+  for (var K = 1; K <= NRHS; K++) {
+    double AXBI;
+    if (N == 1) {
+      AXBI = CABS1(B[1][K]) + CABS1(D[1].toComplex() * X[1][K]);
+    } else {
+      AXBI = CABS1(B[1][K]) +
+          CABS1(D[1].toComplex() * X[1][K]) +
+          CABS1(E[1]) * CABS1(X[2][K]);
+      for (var I = 2; I <= N - 1; I++) {
+        final TMP = CABS1(B[I][K]) +
+            CABS1(E[I - 1]) * CABS1(X[I - 1][K]) +
+            CABS1(D[I].toComplex() * X[I][K]) +
+            CABS1(E[I]) * CABS1(X[I + 1][K]);
+        AXBI = min(AXBI, TMP);
       }
-
-      EPS = dlamch( 'Epsilon' );
-      UNFL = dlamch( 'Safe minimum' );
-      OVFL = ONE / UNFL;
-      NZ = 4;
-
-      // Test 1:  Compute the maximum of
-      //    norm(X - XACT) / ( norm(X) * FERR )
-      // over all the vectors X and XACT using the infinity-norm.
-
-      ERRBND = ZERO;
-      for (J = 1; J <= NRHS; J++) { // 30
-         IMAX = IZAMAX( N, X( 1, J ), 1 );
-         XNORM = max( CABS1( X( IMAX, J ) ), UNFL );
-         DIFF = ZERO;
-         for (I = 1; I <= N; I++) { // 10
-            DIFF = max( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
-         } // 10
-
-         if ( XNORM > ONE ) {
-            GO TO 20;
-         } else if ( DIFF <= OVFL*XNORM ) {
-            GO TO 20;
-         } else {
-            ERRBND = ONE / EPS;
-            GO TO 30;
-         }
-
-         } // 20
-         if ( DIFF / XNORM <= FERR[J] ) {
-            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR[J] );
-         } else {
-            ERRBND = ONE / EPS;
-         }
-      } // 30
-      RESLTS[1] = ERRBND;
-
-      // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
-      // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
-
-      for (K = 1; K <= NRHS; K++) { // 50
-         if ( N == 1 ) {
-            AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) );
-         } else {
-            AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) ) + CABS1( E( 1 ) )*CABS1( X( 2, K ) );
-            for (I = 2; I <= N - 1; I++) { // 40
-               TMP = CABS1( B( I, K ) ) + CABS1( E( I-1 ) )* CABS1( X( I-1, K ) ) + CABS1( D( I )*X( I, K ) ) + CABS1( E( I ) )*CABS1( X( I+1, K ) );
-               AXBI = min( AXBI, TMP );
-            } // 40
-            TMP = CABS1( B( N, K ) ) + CABS1( E( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N )*X( N, K ) );
-            AXBI = min( AXBI, TMP );
-         }
-         TMP = BERR[K] / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
-         if ( K == 1 ) {
-            RESLTS[2] = TMP;
-         } else {
-            RESLTS[2] = max( RESLTS( 2 ), TMP );
-         }
-      } // 50
-
-      }
+      final TMP = CABS1(B[N][K]) +
+          CABS1(E[N - 1]) * CABS1(X[N - 1][K]) +
+          CABS1(D[N].toComplex() * X[N][K]);
+      AXBI = min(AXBI, TMP);
+    }
+    final TMP = BERR[K] / (NZ * EPS + NZ * UNFL / max(AXBI, NZ * UNFL));
+    if (K == 1) {
+      RESLTS[2] = TMP;
+    } else {
+      RESLTS[2] = max(RESLTS[2], TMP);
+    }
+  }
+}

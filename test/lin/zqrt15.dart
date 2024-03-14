@@ -1,143 +1,160 @@
-      void zqrt15(final int SCALE, final int RKSEL, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int S, final int RANK, final int NORMA, final int NORMB, final Array<int> ISEED_, final Array<double> WORK_, final int LWORK,) {
-  final A = A_.having();
-  final B = B_.having();
-  final ISEED = ISEED_.having();
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/blas/dznrm2.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlarf.dart';
+import 'package:lapack/src/zlarnv.dart';
+import 'package:lapack/src/zlascl.dart';
+import 'package:lapack/src/zlaset.dart';
+
+import '../matgen/dlarnd.dart';
+import '../matgen/zlaror.dart';
+import 'dlaord.dart';
+import 'xerbla.dart';
+
+void zqrt15(
+  final int SCALE,
+  final int RKSEL,
+  final int M,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<double> S_,
+  final Box<int> RANK,
+  final Box<double> NORMA,
+  final Box<double> NORMB,
+  final Array<int> ISEED_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE;
-      double             NORMA, NORMB;
-      final                ISEED=Array<int>( 4 );
-      double             S( * );
-      Complex         A( LDA, * ), B( LDB, * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final S = S_.having();
+  final ISEED = ISEED_.having(length: 4);
+  final WORK = WORK_.having(length: LWORK);
+  const ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1;
+  final DUMMY = Array<double>(1);
+  final INFO = Box(0);
 
-      double             ZERO, ONE, TWO, SVMIN;
-      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      int                INFO, J, MN;
-      double             BIGNUM, EPS, SMLNUM, TEMP;
-      double             DUMMY( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DASUM, DLAMCH, DLARND, DZNRM2, ZLANGE;
-      // EXTERNAL DASUM, DLAMCH, DLARND, DZNRM2, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLAORD, DLASCL, XERBLA, ZDSCAL, ZGEMM, ZLARF, ZLARNV, ZLAROR, ZLASCL, ZLASET
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DCMPLX, MAX, MIN
+  final MN = min(M, N);
+  if (LWORK < max(M + MN, max(MN * NRHS, 2 * N + M))) {
+    xerbla('ZQRT15', 16);
+    return;
+  }
 
-      MN = min( M, N );
-      if ( LWORK < max( M+MN, MN*NRHS, 2*N+M ) ) {
-         xerbla('ZQRT15', 16 );
-         return;
+  var SMLNUM = dlamch('Safe minimum');
+  var BIGNUM = ONE / SMLNUM;
+  final EPS = dlamch('Epsilon');
+  SMLNUM = (SMLNUM / EPS) / EPS;
+  BIGNUM = ONE / SMLNUM;
+
+  // Determine rank and (unscaled) singular values
+
+  if (RKSEL == 1) {
+    RANK.value = MN;
+  } else if (RKSEL == 2) {
+    RANK.value = (3 * MN) ~/ 4;
+    for (var J = RANK.value + 1; J <= MN; J++) {
+      S[J] = ZERO;
+    }
+  } else {
+    xerbla('ZQRT15', 2);
+  }
+
+  if (RANK.value > 0) {
+    // Nontrivial case
+
+    S[1] = ONE;
+    for (var J = 2; J <= RANK.value; J++) {
+      while (true) {
+        final TEMP = dlarnd(1, ISEED);
+        if (TEMP > SVMIN) {
+          S[J] = TEMP.abs();
+          break;
+        }
       }
+    }
+    dlaord('Decreasing', RANK.value, S, 1);
 
-      SMLNUM = dlamch( 'Safe minimum' );
-      BIGNUM = ONE / SMLNUM;
-      EPS = dlamch( 'Epsilon' );
-      SMLNUM = ( SMLNUM / EPS ) / EPS;
-      BIGNUM = ONE / SMLNUM;
+    // Generate 'rank' columns of a random orthogonal matrix in A
 
-      // Determine rank and (unscaled) singular values
+    zlarnv(2, ISEED, M, WORK);
+    zdscal(M, ONE / dznrm2(M, WORK, 1), WORK, 1);
+    zlaset('Full', M, RANK.value, Complex.zero, Complex.one, A, LDA);
+    zlarf('Left', M, RANK.value, WORK, 1, TWO.toComplex(), A, LDA, WORK(M + 1));
 
-      if ( RKSEL == 1 ) {
-         RANK = MN;
-      } else if ( RKSEL == 2 ) {
-         RANK = ( 3*MN ) / 4;
-         for (J = RANK + 1; J <= MN; J++) { // 10
-            S[J] = ZERO;
-         } // 10
+    // workspace used: m+mn
+
+    // Generate consistent rhs in the range space of A
+
+    zlarnv(2, ISEED, RANK.value * NRHS, WORK);
+    zgemm('No transpose', 'No transpose', M, NRHS, RANK.value, Complex.one, A,
+        LDA, WORK.asMatrix(), RANK.value, Complex.zero, B, LDB);
+
+    // work space used: <= mn *nrhs
+
+    // generate (unscaled) matrix A
+
+    for (var J = 1; J <= RANK.value; J++) {
+      zdscal(M, S[J], A(1, J).asArray(), 1);
+    }
+    if (RANK.value < N) {
+      zlaset('Full', M, N - RANK.value, Complex.zero, Complex.zero,
+          A(1, RANK.value + 1), LDA);
+    }
+    zlaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO);
+  } else {
+    // work space used 2*n+m
+
+    // Generate null matrix and rhs
+
+    for (var J = 1; J <= MN; J++) {
+      S[J] = ZERO;
+    }
+    zlaset('Full', M, N, Complex.zero, Complex.zero, A, LDA);
+    zlaset('Full', M, NRHS, Complex.zero, Complex.zero, B, LDB);
+  }
+
+  // Scale the matrix
+
+  if (SCALE != 1) {
+    NORMA.value = zlange('Max', M, N, A, LDA, DUMMY);
+    if (NORMA.value != ZERO) {
+      if (SCALE == 2) {
+        // matrix scaled up
+
+        zlascl('General', 0, 0, NORMA.value, BIGNUM, M, N, A, LDA, INFO);
+        dlascl('General', 0, 0, NORMA.value, BIGNUM, MN, 1, S.asMatrix(), MN,
+            INFO);
+        zlascl('General', 0, 0, NORMA.value, BIGNUM, M, NRHS, B, LDB, INFO);
+      } else if (SCALE == 3) {
+        // matrix scaled down
+
+        zlascl('General', 0, 0, NORMA.value, SMLNUM, M, N, A, LDA, INFO);
+        dlascl('General', 0, 0, NORMA.value, SMLNUM, MN, 1, S.asMatrix(), MN,
+            INFO);
+        zlascl('General', 0, 0, NORMA.value, SMLNUM, M, NRHS, B, LDB, INFO);
       } else {
-         xerbla('ZQRT15', 2 );
+        xerbla('ZQRT15', 1);
+        return;
       }
+    }
+  }
 
-      if ( RANK > 0 ) {
-
-         // Nontrivial case
-
-         S[1] = ONE;
-         for (J = 2; J <= RANK; J++) { // 30
-            } // 20
-            TEMP = dlarnd( 1, ISEED );
-            if ( TEMP > SVMIN ) {
-               S[J] = ( TEMP ).abs();
-            } else {
-               GO TO 20;
-            }
-         } // 30
-         dlaord('Decreasing', RANK, S, 1 );
-
-         // Generate 'rank' columns of a random orthogonal matrix in A
-
-         zlarnv(2, ISEED, M, WORK );
-         zdscal(M, ONE / DZNRM2( M, WORK, 1 ), WORK, 1 );
-         zlaset('Full', M, RANK, CZERO, CONE, A, LDA );
-         zlarf('Left', M, RANK, WORK, 1, DCMPLX( TWO ), A, LDA, WORK( M+1 ) );
-
-         // workspace used: m+mn
-
-         // Generate consistent rhs in the range space of A
-
-         zlarnv(2, ISEED, RANK*NRHS, WORK );
-         zgemm('No transpose', 'No transpose', M, NRHS, RANK, CONE, A, LDA, WORK, RANK, CZERO, B, LDB );
-
-         // work space used: <= mn *nrhs
-
-         // generate (unscaled) matrix A
-
-         for (J = 1; J <= RANK; J++) { // 40
-            zdscal(M, S( J ), A( 1, J ), 1 );
-         } // 40
-         if (RANK < N) zlaset( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA );
-         zlaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
-
-      } else {
-
-         // work space used 2*n+m
-
-         // Generate null matrix and rhs
-
-         for (J = 1; J <= MN; J++) { // 50
-            S[J] = ZERO;
-         } // 50
-         zlaset('Full', M, N, CZERO, CZERO, A, LDA );
-         zlaset('Full', M, NRHS, CZERO, CZERO, B, LDB );
-
-      }
-
-      // Scale the matrix
-
-      if ( SCALE != 1 ) {
-         NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY );
-         if ( NORMA != ZERO ) {
-            if ( SCALE == 2 ) {
-
-               // matrix scaled up
-
-               zlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
-               dlascl('General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO );
-               zlascl('General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
-            } else if ( SCALE == 3 ) {
-
-               // matrix scaled down
-
-               zlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
-               dlascl('General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO );
-               zlascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
-            } else {
-               xerbla('ZQRT15', 1 );
-               return;
-            }
-         }
-      }
-
-      NORMA = dasum( MN, S, 1 );
-      NORMB = ZLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY );
-
-      }
+  NORMA.value = dasum(MN, S, 1);
+  NORMB.value = zlange('One-norm', M, NRHS, B, LDB, DUMMY);
+}

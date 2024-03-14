@@ -1,83 +1,82 @@
-      void zerrac(infoc.NUNIT ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zcposv.dart';
 
+import 'chkxer.dart';
+import 'common.dart';
+
+void zerrac(Nout NUNIT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                infoc.NUNIT;
-      // ..
+  const NMAX = 4;
+  final A = Matrix<Complex>(NMAX, NMAX),
+      AF = Matrix<Complex>(NMAX, NMAX),
+      B = Array<Complex>(NMAX),
+      C = Array<Complex>(NMAX),
+      R = Array<Complex>(NMAX),
+      R1 = Array<Complex>(NMAX),
+      R2 = Array<Complex>(NMAX),
+      W = Array<Complex>(2 * NMAX),
+      X = Array<Complex>(NMAX);
+  final RWORK = Array<double>(NMAX);
+  final WORK = Array<Complex>(NMAX * NMAX);
+  final SWORK = Array<Complex>(NMAX * NMAX);
 
-      int                NMAX;
-      const              NMAX = 4 ;
-      int                I, INFO, ITER, J;
-      Complex         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
-      double             RWORK( NMAX );
-      Complex         WORK(NMAX*NMAX);
-      Complex            SWORK(NMAX*NMAX);
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL CHKXER, ZCPOSV
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, NOUT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  final NOUT = NUNIT;
+  NOUT.println();
 
-      NOUT = infoc.NUNIT;
-      NOUT.println( * );
+  // Set the variables to innocuous values.
 
-      // Set the variables to innocuous values.
+  for (var J = 1; J <= NMAX; J++) {
+    for (var I = 1; I <= NMAX; I++) {
+      A[I][J] = (1.0 / (I + J)).toComplex();
+      AF[I][J] = (1.0 / (I + J)).toComplex();
+    }
+    B[J] = Complex.zero;
+    R1[J] = Complex.zero;
+    R2[J] = Complex.zero;
+    W[J] = Complex.zero;
+    X[J] = Complex.zero;
+    C[J] = Complex.zero;
+    R[J] = Complex.zero;
+  }
+  infoc.OK.value = true;
 
-      for (J = 1; J <= NMAX; J++) { // 20
-         for (I = 1; I <= NMAX; I++) { // 10
-            A[I][J] = 1.0 / (I+J).toDouble();
-            AF[I][J] = 1.0 / (I+J).toDouble();
-         } // 10
-         B[J] = 0.0;
-         R1[J] = 0.0;
-         R2[J] = 0.0;
-         W[J] = 0.0;
-         X[J] = 0.0;
-         C[J] = 0.0;
-         R[J] = 0.0;
-      } // 20
-      infoc.OK.value = true;
+  final INFO = Box(0), ITER = Box(0);
+  srnamc.SRNAMT = 'ZCPOSV';
+  infoc.INFOT = 1;
+  zcposv('/', 0, 0, A, 1, B.asMatrix(), 1, X.asMatrix(), 1, WORK.asMatrix(),
+      SWORK, RWORK, ITER, INFO);
+  chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 2;
+  zcposv('U', -1, 0, A, 1, B.asMatrix(), 1, X.asMatrix(), 1, WORK.asMatrix(),
+      SWORK, RWORK, ITER, INFO);
+  chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 3;
+  zcposv('U', 0, -1, A, 1, B.asMatrix(), 1, X.asMatrix(), 1, WORK.asMatrix(),
+      SWORK, RWORK, ITER, INFO);
+  chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 5;
+  zcposv('U', 2, 1, A, 1, B.asMatrix(), 2, X.asMatrix(), 2, WORK.asMatrix(),
+      SWORK, RWORK, ITER, INFO);
+  chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 7;
+  zcposv('U', 2, 1, A, 2, B.asMatrix(), 1, X.asMatrix(), 2, WORK.asMatrix(),
+      SWORK, RWORK, ITER, INFO);
+  chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 9;
+  zcposv('U', 2, 1, A, 2, B.asMatrix(), 2, X.asMatrix(), 1, WORK.asMatrix(),
+      SWORK, RWORK, ITER, INFO);
+  chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
-     srnamc.SRNAMT = 'ZCPOSV';
-      infoc.INFOT = 1;
-      zcposv('/',0,0,A,1,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 2;
-      zcposv('U',-1,0,A,1,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 3;
-      zcposv('U',0,-1,A,1,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 5;
-      zcposv('U',2,1,A,1,B,2,X,2,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 7;
-      zcposv('U',2,1,A,2,B,1,X,2,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 9;
-      zcposv('U',2,1,A,2,B,2,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+  // Print a summary line.
 
-      // Print a summary line.
-
-      if ( infoc.OK ) {
-         NOUT.println( 9999 )'ZCPOSV';
-      } else {
-         NOUT.println( 9998 )'ZCPOSV';
-      }
-
- 9999 FORMAT(' ${.a6} drivers passed the tests of the error exits' );
- 9998 FORMAT( ' *** ${.a6} drivers failed the tests of the error exits ***' );
-
-      }
+  if (infoc.OK.value) {
+    NOUT.println(' ZCPOSV drivers passed the tests of the error exits');
+  } else {
+    NOUT.println(' *** ZCPOSV drivers failed the tests of the error exits ***');
+  }
+}

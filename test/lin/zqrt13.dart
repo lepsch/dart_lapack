@@ -1,63 +1,65 @@
-      void zqrt13(final int SCALE, final int M, final int N, final Matrix<double> A_, final int LDA, final int NORMA, final int ISEED,) {
-  final A = A_.having();
+import 'package:lapack/src/blas/dzasum.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlarnv.dart';
+import 'package:lapack/src/zlascl.dart';
 
+void zqrt13(
+  final int SCALE,
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Box<double> NORMA,
+  final Array<int> ISEED_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, M, N, SCALE;
-      double             NORMA;
-      final                ISEED=Array<int>( 4 );
-      Complex         A( LDA, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final ISEED = ISEED_.having(length: 4);
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      int                INFO, J;
-      double             BIGNUM, SMLNUM;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DZASUM, ZLANGE;
-      // EXTERNAL DLAMCH, DZASUM, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLARNV, ZLASCL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, SIGN
-      double             DUMMY( 1 );
+  const ONE = 1.0;
+  final DUMMY = Array<double>(1);
+  final INFO = Box(0);
 
-      if (M <= 0 || N <= 0) return;
+  if (M <= 0 || N <= 0) return;
 
-      // benign matrix
+  // benign matrix
 
-      for (J = 1; J <= N; J++) { // 10
-         zlarnv(2, ISEED, M, A( 1, J ) );
-         if ( J <= M ) {
-            A[J][J] = A( J, J ) + DCMPLX( sign( DZASUM( M, A( 1, J ), 1 ), (A( J, J )).toDouble() ) );
-         }
-      } // 10
+  for (var J = 1; J <= N; J++) {
+    // 10
+    zlarnv(2, ISEED, M, A(1, J).asArray());
+    if (J <= M) {
+      A[J][J] = A[J][J] +
+          Complex(
+              sign(dzasum(M, A(1, J).asArray(), 1), A[J][J].real).toDouble());
+    }
+  } // 10
 
-      // scaled versions
+  // scaled versions
 
-      if ( SCALE != 1 ) {
-         NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY );
-         SMLNUM = dlamch( 'Safe minimum' );
-         BIGNUM = ONE / SMLNUM;
-         SMLNUM = SMLNUM / dlamch( 'Epsilon' );
-         BIGNUM = ONE / SMLNUM;
+  if (SCALE != 1) {
+    NORMA.value = zlange('Max', M, N, A, LDA, DUMMY);
+    var SMLNUM = dlamch('Safe minimum');
+    var BIGNUM = ONE / SMLNUM;
+    SMLNUM = SMLNUM / dlamch('Epsilon');
+    BIGNUM = ONE / SMLNUM;
 
-         if ( SCALE == 2 ) {
+    if (SCALE == 2) {
+      // matrix scaled up
 
-            // matrix scaled up
+      zlascl('General', 0, 0, NORMA.value, BIGNUM, M, N, A, LDA, INFO);
+    } else if (SCALE == 3) {
+      // matrix scaled down
 
-            zlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
-         } else if ( SCALE == 3 ) {
+      zlascl('General', 0, 0, NORMA.value, SMLNUM, M, N, A, LDA, INFO);
+    }
+  }
 
-            // matrix scaled down
-
-            zlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
-         }
-      }
-
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, DUMMY );
-      }
+  NORMA.value = zlange('One-norm', M, N, A, LDA, DUMMY);
+}

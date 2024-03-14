@@ -23,9 +23,6 @@ void zgeqr2(
   final TAU = TAU_.having();
   final WORK = WORK_.having();
 
-  int I, K;
-  Complex ALPHA;
-
   // Test the input arguments
 
   INFO.value = 0;
@@ -41,11 +38,9 @@ void zgeqr2(
     return;
   }
 
-  K = min(M, N);
+  final K = min(M, N);
 
-  for (I = 1; I <= K; I++) {
-    // 10
-
+  for (var I = 1; I <= K; I++) {
     // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
     zlarfg(
@@ -53,11 +48,11 @@ void zgeqr2(
     if (I < N) {
       // Apply H(i)**H to A(i:m,i+1:n) from the left
 
-      ALPHA = A[I][I];
+      final ALPHA = A[I][I];
       A[I][I] = Complex.one;
       zlarf('Left', M - I + 1, N - I, A(I, I).asArray(), 1, TAU[I].conjugate(),
           A(I, I + 1), LDA, WORK);
       A[I][I] = ALPHA;
     }
-  } // 10
+  }
 }

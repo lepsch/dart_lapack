@@ -263,6 +263,12 @@ class Matrix<T> implements Box<T> {
 
   @override
   set value(T value) => first = value;
+
+  Matrix<R> cast<R>() {
+    final entries = _entries.cast<R>();
+    return Matrix.fromSlice(entries, dimensions,
+        offset: offset, indexer: _indexer);
+  }
 }
 
 class _MatrixArrayAdapter<T> implements Array<T> {

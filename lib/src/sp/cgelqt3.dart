@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE CGELQT3( M, N, A, LDA, T, LDT, INFO );
+      void cgelqt3( M, N, A, LDA, T, LDT, INFO );
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

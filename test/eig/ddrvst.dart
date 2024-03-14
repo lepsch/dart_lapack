@@ -115,7 +115,6 @@ void ddrvst(
       LWEDC,
       MTYPES,
       N,
-      NMATS,
       NMAX,
       NTEST = 0,
       NTESTT;
@@ -223,7 +222,6 @@ void ddrvst(
   }
 
   NERRS.value = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
@@ -249,7 +247,6 @@ void ddrvst(
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {

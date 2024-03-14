@@ -1,198 +1,249 @@
-      void main() {
+import 'dart:io';
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/dsecnd.dart';
+import 'package:lapack/src/install/ilaver.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import 'zdrvrf1.dart';
+import 'zdrvrf2.dart';
+import 'zdrvrf3.dart';
+import 'zdrvrf4.dart';
+import 'zdrvrfp.dart';
+import 'zerrrfp.dart';
+
+void main() async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      int                MAXIN;
-      const              MAXIN = 12 ;
-      int                NMAX;
-      const              NMAX =  50 ;
-      int                MAXRHS;
-      const              MAXRHS = 16 ;
-      int                NTYPES;
-      const              NTYPES = 9 ;
-      int                NIN, NOUT;
-      const              NIN = 5, NOUT = 6 ;
-      bool               FATAL, TSTERR;
-      int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      int                I, NN, NNS, NNT;
-      double             EPS, S1, S2, THRESH;
+  final NIN = Nin(stdin), NOUT = Nout(stdout);
+  const MAXIN = 12, NMAX = 50, MAXRHS = 16, NTYPES = 9;
+  final NVAL = Array<int>(MAXIN),
+      NSVAL = Array<int>(MAXIN),
+      NTVAL = Array<int>(NTYPES);
+  final WORKA = Matrix<Complex>(NMAX, NMAX),
+      WORKASAV = Matrix<Complex>(NMAX, NMAX),
+      WORKB = Matrix<Complex>(NMAX, MAXRHS),
+      WORKXACT = Matrix<Complex>(NMAX, MAXRHS),
+      WORKBSAV = Matrix<Complex>(NMAX, MAXRHS),
+      WORKX = Matrix<Complex>(NMAX, MAXRHS),
+      WORKAFAC = Matrix<Complex>(NMAX, NMAX),
+      WORKAINV = Matrix<Complex>(NMAX, NMAX),
+      WORKARF = Array<Complex>((NMAX * (NMAX + 1)) ~/ 2),
+      WORKAP = Array<Complex>((NMAX * (NMAX + 1)) ~/ 2),
+      WORKARFINV = Array<Complex>((NMAX * (NMAX + 1)) ~/ 2),
+      Z_WORK_ZLATMS = Array<Complex>(3 * NMAX),
+      Z_WORK_ZPOT02 = Matrix<Complex>(NMAX, MAXRHS),
+      Z_WORK_ZPOT03 = Matrix<Complex>(NMAX, NMAX),
+      D_WORK_ZLATMS = Array<double>(NMAX);
+  final D_WORK_ZLANHE = Array<double>(NMAX),
+      D_WORK_ZPOT01 = Array<double>(NMAX),
+      D_WORK_ZPOT02 = Array<double>(NMAX),
+      D_WORK_ZPOT03 = Array<double>(NMAX);
 
-      int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
-      Complex         WORKA( NMAX, NMAX );
-      Complex         WORKASAV( NMAX, NMAX );
-      Complex         WORKB( NMAX, MAXRHS );
-      Complex         WORKXACT( NMAX, MAXRHS );
-      Complex         WORKBSAV( NMAX, MAXRHS );
-      Complex         WORKX( NMAX, MAXRHS );
-      Complex         WORKAFAC( NMAX, NMAX );
-      Complex         WORKAINV( NMAX, NMAX );
-      Complex         WORKARF( (NMAX*(NMAX+1))/2 );
-      Complex         WORKAP( (NMAX*(NMAX+1))/2 );
-      Complex         WORKARFINV( (NMAX*(NMAX+1))/2 );
-      Complex         Z_WORK_ZLATMS( 3 * NMAX );
-      Complex         Z_WORK_ZPOT02( NMAX, MAXRHS );
-      Complex         Z_WORK_ZPOT03( NMAX, NMAX );
-      double             D_WORK_ZLATMS( NMAX );
-      double             D_WORK_ZLANHE( NMAX );
-      double             D_WORK_ZPOT01( NMAX );
-      double             D_WORK_ZPOT02( NMAX );
-      double             D_WORK_ZPOT03( NMAX );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DSECND;
-      // EXTERNAL DLAMCH, DSECND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3, ZDRVRF4
+  final S1 = dsecnd();
+  var FATAL = false;
 
-      S1 = DSECND( );
-      FATAL = false;
+  // Read a dummy line.
 
-      // Read a dummy line.
+  await NIN.readLine();
 
-      READ( NIN, FMT = * );
+  // Report LAPACK version tag (e.g. LAPACK-3.2.0)
 
-      // Report LAPACK version tag (e.g. LAPACK-3.2.0)
+  final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
+  ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
+  NOUT.println(
+      '\n Tests of the Complex LAPACK RFP routines \n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
 
-      ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      NOUT.println( 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+  // Read the values of N
 
-      // Read the values of N
+  var NN = await NIN.readInt();
+  if (NN < 1) {
+    NOUT.print9996(' NN ', NN, 1);
+    NN = 0;
+    FATAL = true;
+  } else if (NN > MAXIN) {
+    NOUT.print9995(' NN ', NN, MAXIN);
+    NN = 0;
+    FATAL = true;
+  }
+  await NIN.readArray(NVAL, NN);
+  for (var I = 1; I <= NN; I++) {
+    // 10
+    if (NVAL[I] < 0) {
+      NOUT.print9996(' M  ', NVAL[I], 0);
+      FATAL = true;
+    } else if (NVAL[I] > NMAX) {
+      NOUT.print9995(' M  ', NVAL[I], NMAX);
+      FATAL = true;
+    }
+  } // 10
+  if (NN > 0) NOUT.print9993('N   ', NVAL, NN);
 
-      READ( NIN, FMT = * )NN;
-      if ( NN < 1 ) {
-         NOUT.println( 9996 )' NN ', NN, 1;
-         NN = 0;
-         FATAL = true;
-      } else if ( NN > MAXIN ) {
-         NOUT.println( 9995 )' NN ', NN, MAXIN;
-         NN = 0;
-         FATAL = true;
-      }
-      READ( NIN, FMT = * )( NVAL( I ), I = 1, NN );
-      for (I = 1; I <= NN; I++) { // 10
-         if ( NVAL( I ) < 0 ) {
-            NOUT.println( 9996 )' M  ', NVAL( I ), 0;
-            FATAL = true;
-         } else if ( NVAL( I ) > NMAX ) {
-            NOUT.println( 9995 )' M  ', NVAL( I ), NMAX;
-            FATAL = true;
-         }
-      } // 10
-      if (NN > 0) NOUT.println( 9993 )'N   ', ( NVAL( I ), I = 1, NN );
+  // Read the values of NRHS
 
-      // Read the values of NRHS
+  var NNS = await NIN.readInt();
+  if (NNS < 1) {
+    NOUT.print9996(' NNS', NNS, 1);
+    NNS = 0;
+    FATAL = true;
+  } else if (NNS > MAXIN) {
+    NOUT.print9995(' NNS', NNS, MAXIN);
+    NNS = 0;
+    FATAL = true;
+  }
+  await NIN.readArray(NSVAL, NNS);
+  for (var I = 1; I <= NNS; I++) {
+    // 30
+    if (NSVAL[I] < 0) {
+      NOUT.print9996('NRHS', NSVAL[I], 0);
+      FATAL = true;
+    } else if (NSVAL[I] > MAXRHS) {
+      NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
+      FATAL = true;
+    }
+  } // 30
+  if (NNS > 0) NOUT.print9993('NRHS', NSVAL, NNS);
 
-      READ( NIN, FMT = * )NNS;
-      if ( NNS < 1 ) {
-         NOUT.println( 9996 )' NNS', NNS, 1;
-         NNS = 0;
-         FATAL = true;
-      } else if ( NNS > MAXIN ) {
-         NOUT.println( 9995 )' NNS', NNS, MAXIN;
-         NNS = 0;
-         FATAL = true;
-      }
-      READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS );
-      for (I = 1; I <= NNS; I++) { // 30
-         if ( NSVAL( I ) < 0 ) {
-            NOUT.println( 9996 )'NRHS', NSVAL( I ), 0;
-            FATAL = true;
-         } else if ( NSVAL( I ) > MAXRHS ) {
-            NOUT.println( 9995 )'NRHS', NSVAL( I ), MAXRHS;
-            FATAL = true;
-         }
-      } // 30
-      if (NNS > 0) NOUT.println( 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+  // Read the matrix types
 
-      // Read the matrix types
+  var NNT = await NIN.readInt();
+  if (NNT < 1) {
+    NOUT.print9996(' NMA', NNT, 1);
+    NNT = 0;
+    FATAL = true;
+  } else if (NNT > NTYPES) {
+    NOUT.print9995(' NMA', NNT, NTYPES);
+    NNT = 0;
+    FATAL = true;
+  }
+  await NIN.readArray(NTVAL, NNT);
+  for (var I = 1; I <= NNT; I++) {
+    // 320
+    if (NTVAL[I] < 0) {
+      NOUT.print9996('TYPE', NTVAL[I], 0);
+      FATAL = true;
+    } else if (NTVAL[I] > NTYPES) {
+      NOUT.print9995('TYPE', NTVAL[I], NTYPES);
+      FATAL = true;
+    }
+  } // 320
+  if (NNT > 0) NOUT.print9993('TYPE', NTVAL, NNT);
 
-      READ( NIN, FMT = * )NNT;
-      if ( NNT < 1 ) {
-         NOUT.println( 9996 )' NMA', NNT, 1;
-         NNT = 0;
-         FATAL = true;
-      } else if ( NNT > NTYPES ) {
-         NOUT.println( 9995 )' NMA', NNT, NTYPES;
-         NNT = 0;
-         FATAL = true;
-      }
-      READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT );
-      for (I = 1; I <= NNT; I++) { // 320
-         if ( NTVAL( I ) < 0 ) {
-            NOUT.println( 9996 )'TYPE', NTVAL( I ), 0;
-            FATAL = true;
-         } else if ( NTVAL( I ) > NTYPES ) {
-            NOUT.println( 9995 )'TYPE', NTVAL( I ), NTYPES;
-            FATAL = true;
-         }
-      } // 320
-      if (NNT > 0) NOUT.println( 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
+  // Read the threshold value for the test ratios.
 
-      // Read the threshold value for the test ratios.
+  final THRESH = await NIN.readDouble();
+  NOUT.println(
+      '\n Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
 
-      READ( NIN, FMT = * )THRESH;
-      NOUT.println( 9992 )THRESH;
+  // Read the flag that indicates whether to test the error exits.
 
-      // Read the flag that indicates whether to test the error exits.
+  final TSTERR = await NIN.readBool();
 
-      READ( NIN, FMT = * )TSTERR;
+  if (FATAL) {
+    NOUT.println('\n Execution not attempted due to input errors');
+    return;
+  }
 
-      if ( FATAL ) {
-         NOUT.println( 9999 );
-         STOP;
-      }
+  // Calculate and print the machine dependent constants.
 
-      // Calculate and print the machine dependent constants.
+  var EPS = dlamch('Underflow threshold');
+  NOUT.print9991('underflow', EPS);
+  EPS = dlamch('Overflow threshold');
+  NOUT.print9991('overflow ', EPS);
+  EPS = dlamch('Epsilon');
+  NOUT.print9991('precision', EPS);
+  NOUT.println();
 
-      EPS = dlamch( 'Underflow threshold' );
-      NOUT.println( 9991 )'underflow', EPS;
-      EPS = dlamch( 'Overflow threshold' );
-      NOUT.println( 9991 )'overflow ', EPS;
-      EPS = dlamch( 'Epsilon' );
-      NOUT.println( 9991 )'precision', EPS;
-      NOUT.println( * );
+  // Test the error exit of:
 
-      // Test the error exit of:
+  if (TSTERR) zerrrfp(NOUT);
 
-      if (TSTERR) zerrrfp( NOUT );
+  // Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
+  // This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.
 
-// Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
-// This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.
+  zdrvrfp(
+      NOUT,
+      NN,
+      NVAL,
+      NNS,
+      NSVAL,
+      NNT,
+      NTVAL,
+      THRESH,
+      WORKA.asArray(),
+      WORKASAV.asArray(),
+      WORKAFAC.asArray(),
+      WORKAINV.asArray(),
+      WORKB.asArray(),
+      WORKBSAV.asArray(),
+      WORKXACT.asArray(),
+      WORKX.asArray(),
+      WORKARF,
+      WORKARFINV,
+      Z_WORK_ZLATMS,
+      Z_WORK_ZPOT02.asArray(),
+      Z_WORK_ZPOT03.asArray(),
+      D_WORK_ZLATMS,
+      D_WORK_ZLANHE,
+      D_WORK_ZPOT01,
+      D_WORK_ZPOT02,
+      D_WORK_ZPOT03);
 
-      zdrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 );
+  // Test the routine: zlanhf
 
-// Test the routine: zlanhf
+  zdrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_ZLANHE);
 
-      zdrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_ZLANHE );
+  // Test the conversion routines:
+  // zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
 
-// Test the conversion routines:
-        // zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
+  zdrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV);
 
-      zdrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV );
+  // Test the routine: ztfsm
 
-// Test the routine: ztfsm
+  zdrvrf3(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC,
+      D_WORK_ZLANHE, Z_WORK_ZPOT03.asArray(), Z_WORK_ZPOT02.asArray());
 
-      zdrvrf3(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_ZLANHE, Z_WORK_ZPOT03, Z_WORK_ZPOT02 );
+  // Test the routine: zhfrk
 
+  zdrvrf4(NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV,
+      NMAX, D_WORK_ZLANHE);
 
-// Test the routine: zhfrk
+  await NIN.close();
+  final S2 = dsecnd();
+  NOUT.println('\n End of tests');
+  NOUT.println(' Total time used = ${(S2 - S1).f12_2} seconds\n');
+}
 
-      zdrvrf4(NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX,D_WORK_ZLANHE);
+extension on Nout {
+  void print9996(String s, int actual, int expected) {
+    println(
+        ' !! Invalid input value: ${s.a4}=${actual.i6}; must be >=${expected.i6}');
+  }
 
-      CLOSE ( NIN );
-      S2 = DSECND( );
-      NOUT.println( 9998 );
-      NOUT.println( 9997 )S2 - S1;
+  void print9995(String s, int actual, int expected) {
+    println(
+        ' !! Invalid input value: ${s.a4}=${actual.i6}; must be <=${expected.i6}');
+  }
 
- 9999 FORMAT('\n Execution not attempted due to input errors' );
- 9998 FORMAT('\n End of tests' );
- 9997 FORMAT( ' Total time used = ${.f12_2} seconds\n');
- 9996 FORMAT( ' !! Invalid input value: ${.a4}=${.i6}; must be >=', I6 )
- 9995 FORMAT( ' !! Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
- 9994 FORMAT('\n Tests of the Complex LAPACK RFP routines \n LAPACK VERSION ${.i1}.${.i1}.', I1, / / ' The following parameter values will be used:' );
- 9993 FORMAT('    ${.a4}:  ', 10I6, / 11X, 10I6 );
- 9992 FORMAT('\n Routines pass computational tests if test ratio is less than', F8.2, / );
- 9991 FORMAT( ' Relative machine ${} is taken to be', D16.6 );
-      }
+  void print9993(final String s, final Array<int> a, int n) {
+    var prefix = '    $s:  ';
+    var i = 1;
+    while (n > 0) {
+      println('$prefix${a(i).i6(min(n, 10))}');
+      prefix = ' ' * 11;
+      n -= 10;
+      i += 10;
+    }
+  }
+
+  void print9991(String s, double d) {
+    println(' Relative machine $s is taken to be${d.d16_6}');
+  }
+}

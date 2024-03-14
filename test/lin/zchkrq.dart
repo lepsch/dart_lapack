@@ -1,200 +1,253 @@
-      void zchkrq(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NN, final Array<int> NVAL_, final int NNB, final Array<int> NBVAL_, final Array<int> NXVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final Array<double> A_, final Array<double> AF_, final Array<double> AQ_, final Array<double> AR_, final Array<double> AC_, final Array<double> B_, final Array<double> X_, final Array<double> XACT_, final Array<double> TAU_, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
-  final IWORK = IWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zlacpy.dart';
+
+import '../matgen/zlatms.dart';
+import 'alaerh.dart';
+import 'alahd.dart';
+import 'alasum.dart';
+import 'common.dart';
+import 'xlaenv.dart';
+import 'zerrrq.dart';
+import 'zgerqs.dart';
+import 'zget02.dart';
+import 'zlarhs.dart';
+import 'zlatb4.dart';
+import 'zrqt01.dart';
+import 'zrqt02.dart';
+import 'zrqt03.dart';
+
+void zchkrq(
+  final Array<bool> DOTYPE_,
+  final int NM,
+  final Array<int> MVAL_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNB,
+  final Array<int> NBVAL_,
+  final Array<int> NXVAL_,
+  final int NRHS,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<Complex> A_,
+  final Array<Complex> AF_,
+  final Array<Complex> AQ_,
+  final Array<Complex> AR_,
+  final Array<Complex> AC_,
+  final Array<Complex> B_,
+  final Array<Complex> X_,
+  final Array<Complex> XACT_,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<int> IWORK_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NM, NMAX, NN, NNB, NOUT, NRHS;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
-      double             RWORK( * );
-      Complex         A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), TAU( * ), WORK( * ), X( * ), XACT( * );
-      // ..
+  final DOTYPE = DOTYPE_.having();
+  final MVAL = MVAL_.having();
+  final NVAL = NVAL_.having();
+  final NBVAL = NBVAL_.having();
+  final NXVAL = NXVAL_.having();
+  final A = A_.having();
+  final AF = AF_.having();
+  final AQ = AQ_.having();
+  final AR = AR_.having();
+  final AC = AC_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
+  final TAU = TAU_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+  // final IWORK = IWORK_.having();
+  const NTESTS = 7, NTYPES = 8;
+  const ZERO = 0.0;
+  final ISEED = Array<int>(4), KVAL = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  final INFO = Box(0);
 
-      int                NTESTS;
-      const              NTESTS = 7 ;
-      int                NTYPES;
-      const              NTYPES = 8 ;
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      String             DIST, TYPE;
-      String             PATH;
-      int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NK, NRUN, NT, NX;
-      double             ANORM, CNDNUM;
-      final                ISEED=Array<int>( 4 ), KVAL( 4 );
-      final             RESULT=Array<double>( NTESTS );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, ZERRRQ, ZGERQS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZRQT01, ZRQT02, ZRQT03
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  final PATH = '${'Zomplex precision'[0]}RQ';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      final PATH = '${'Zomplex precision'[0]}RQ';
-      var NRUN = 0;
-      var NFAIL = 0;
-      var NERRS = Box(0);
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
+  // Test the error exits
 
-      // Test the error exits
+  if (TSTERR) zerrrq(PATH, NOUT);
+  infoc.INFOT = 0;
+  xlaenv(2, 2);
 
-      if (TSTERR) zerrrq( PATH, NOUT );
-      infoc.INFOT = 0;
-      xlaenv(2, 2 );
+  final LDA = NMAX;
+  final LWORK = NMAX * max(NMAX, NRHS).toInt();
 
-      LDA = NMAX;
-      LWORK = NMAX*max( NMAX, NRHS );
+  // Do for each value of M in MVAL.
 
-      // Do for each value of M in MVAL.
+  for (var IM = 1; IM <= NM; IM++) {
+    final M = MVAL[IM];
 
-      for (IM = 1; IM <= NM; IM++) { // 70
-         final M = MVAL[IM];
+    // Do for each value of N in NVAL.
 
-         // Do for each value of N in NVAL.
+    for (var IN = 1; IN <= NN; IN++) {
+      final N = NVAL[IN];
+      final MINMN = min(M, N);
+      for (var IMAT = 1; IMAT <= NTYPES; IMAT++) {
+        // Do the tests only if DOTYPE( IMAT ) is true.
 
-         for (IN = 1; IN <= NN; IN++) { // 60
-            final N = NVAL[IN];
-            MINMN = min( M, N );
-            for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 50
+        if (!DOTYPE[IMAT]) continue;
 
-               // Do the tests only if DOTYPE( IMAT ) is true.
+        // Set up parameters with ZLATB4 and generate a test matrix
+        // with ZLATMS.
 
-               if( !DOTYPE[IMAT] ) GO TO 50;
+        final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+            zlatb4(PATH, IMAT, M, N);
 
-               // Set up parameters with ZLATB4 and generate a test matrix
-               // with ZLATMS.
+        srnamc.SRNAMT = 'ZLATMS';
+        zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+            'No packing', A.asMatrix(), LDA, WORK, INFO);
 
-               final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, M, N);
+        // Check error code from ZLATMS.
 
-              srnamc.SRNAMT = 'ZLATMS';
-               zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
+        if (INFO.value != 0) {
+          alaerh(PATH, 'ZLATMS', INFO.value, 0, ' ', M, N, -1, -1, -1, IMAT,
+              NFAIL, NERRS, NOUT);
+          continue;
+        }
 
-               // Check error code from ZLATMS.
+        // Set some values for K: the first value must be MINMN,
+        // corresponding to the call of ZRQT01; other values are
+        // used in the calls of ZRQT02, and must not exceed MINMN.
 
-               if ( INFO.value != 0 ) {
-                  alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 50;
-               }
+        KVAL[1] = MINMN;
+        KVAL[2] = 0;
+        KVAL[3] = 1;
+        KVAL[4] = MINMN ~/ 2;
+        final int NK;
+        if (MINMN == 0) {
+          NK = 1;
+        } else if (MINMN == 1) {
+          NK = 2;
+        } else if (MINMN <= 3) {
+          NK = 3;
+        } else {
+          NK = 4;
+        }
 
-               // Set some values for K: the first value must be MINMN,
-               // corresponding to the call of ZRQT01; other values are
-               // used in the calls of ZRQT02, and must not exceed MINMN.
+        // Do for each value of K in KVAL
 
-               KVAL[1] = MINMN;
-               KVAL[2] = 0;
-               KVAL[3] = 1;
-               KVAL[4] = MINMN / 2;
-               if ( MINMN == 0 ) {
-                  NK = 1;
-               } else if ( MINMN == 1 ) {
-                  NK = 2;
-               } else if ( MINMN <= 3 ) {
-                  NK = 3;
-               } else {
-                  NK = 4;
-               }
+        for (var IK = 1; IK <= NK; IK++) {
+          final K = KVAL[IK];
 
-               // Do for each value of K in KVAL
+          // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
-               for (IK = 1; IK <= NK; IK++) { // 40
-                  K = KVAL[IK];
+          for (var INB = 1; INB <= NNB; INB++) {
+            final NB = NBVAL[INB];
+            xlaenv(1, NB);
+            final NX = NXVAL[INB];
+            xlaenv(3, NX);
+            for (var I = 1; I <= NTESTS; I++) {
+              RESULT[I] = ZERO;
+            }
+            var NT = 2;
+            if (IK == 1) {
+              // Test ZGERQF
 
-                  // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
+              zrqt01(M, N, A.asMatrix(), AF.asMatrix(), AQ.asMatrix(),
+                  AR.asMatrix(), LDA, TAU, WORK, LWORK, RWORK, RESULT(1));
+            } else if (M <= N) {
+              // Test ZUNGRQ, using factorization
+              // returned by ZRQT01
 
-                  for (INB = 1; INB <= NNB; INB++) { // 30
-                     final NB = NBVAL[INB];
-                     xlaenv(1, NB );
-                     NX = NXVAL( INB );
-                     xlaenv(3, NX );
-                     for (I = 1; I <= NTESTS; I++) {
-                        RESULT[I] = ZERO;
-                     }
-                     NT = 2;
-                     if ( IK == 1 ) {
+              zrqt02(M, N, K, A.asMatrix(), AF.asMatrix(), AQ.asMatrix(),
+                  AR.asMatrix(), LDA, TAU, WORK, LWORK, RWORK, RESULT(1));
+            }
+            if (M >= K) {
+              // Test ZUNMRQ, using factorization returned
+              // by ZRQT01
 
-                        // Test ZGERQF
+              zrqt03(M, N, K, AF.asMatrix(), AC.asMatrix(), AR.asMatrix(),
+                  AQ.asMatrix(), LDA, TAU, WORK, LWORK, RWORK, RESULT(3));
+              NT += 4;
 
-                        zrqt01(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
-                     } else if ( M <= N ) {
+              // If M>=N and K=N, call ZGERQS to solve a system
+              // with NRHS right hand sides and compute the
+              // residual.
 
-                        // Test ZUNGRQ, using factorization
-                        // returned by ZRQT01
+              if (K == M && INB == 1) {
+                // Generate a solution and set the right
+                // hand side.
 
-                        zrqt02(M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
-                     }
-                     if ( M >= K ) {
+                srnamc.SRNAMT = 'ZLARHS';
+                zlarhs(
+                    PATH,
+                    'New',
+                    'Full',
+                    'No transpose',
+                    M,
+                    N,
+                    0,
+                    0,
+                    NRHS,
+                    A.asMatrix(),
+                    LDA,
+                    XACT.asMatrix(),
+                    LDA,
+                    B.asMatrix(),
+                    LDA,
+                    ISEED,
+                    INFO);
 
-                        // Test ZUNMRQ, using factorization returned
-                        // by ZRQT01
+                zlacpy('Full', M, NRHS, B.asMatrix(), LDA,
+                    X(N - M + 1).asMatrix(), LDA);
+                srnamc.SRNAMT = 'ZGERQS';
+                zgerqs(M, N, NRHS, AF.asMatrix(), LDA, TAU, X.asMatrix(), LDA, WORK, LWORK, INFO);
 
-                        zrqt03(M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) );
-                        NT += 4;
+                // Check error code from ZGERQS.
 
-                        // If M>=N and K=N, call ZGERQS to solve a system
-                        // with NRHS right hand sides and compute the
-                        // residual.
+                if (INFO.value != 0) {
+                  alaerh(PATH, 'ZGERQS', INFO.value, 0, ' ', M, N, NRHS, -1, NB,
+                      IMAT, NFAIL, NERRS, NOUT);
+                }
 
-                        if ( K == M && INB == 1 ) {
+                zget02('No transpose', M, N, NRHS, A.asMatrix(), LDA,
+                    X.asMatrix(), LDA, B.asMatrix(), LDA, RWORK, RESULT(7));
+                NT++;
+              }
+            }
 
-                           // Generate a solution and set the right
-                           // hand side.
+            // Print information about the tests that did not
+            // pass the threshold.
 
-                          srnamc.SRNAMT = 'ZLARHS';
-                           zlarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-
-                           zlacpy('Full', M, NRHS, B, LDA, X( N-M+1 ), LDA );
-                          srnamc.SRNAMT = 'ZGERQS';
-                           zgerqs(M, N, NRHS, AF, LDA, TAU, X, LDA, WORK, LWORK, INFO );
-
-                           // Check error code from ZGERQS.
-
-                           if (INFO != 0) alaerh( PATH, 'ZGERQS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
-
-                           zget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
-                           NT++;
-                        }
-                    }
-
-                     // Print information about the tests that did not
-                     // pass the threshold.
-
-                     for (I = 1; I <= NT; I++) { // 20
-                        if ( RESULT( I ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                           NOUT.println( 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
-                           NFAIL++;
-                        }
-                     } // 20
-                     NRUN +=  NT;
-                  } // 30
-               } // 40
-            } // 50
-         } // 60
-      } // 70
-
-      // Print a summary of the results.
-
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( ' M=${M.i5}, N=${N.i5}, K=${.i5}, NB=${.i4}, NX=${.i5}, type ${IMAT.i2}, test(${.i2})=${.g12_5};
+            for (var I = 1; I <= NT; I++) {
+              if (RESULT[I] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(
+                    ' M=${M.i5}, N=${N.i5}, K=${K.i5}, NB=${NB.i4}, NX=${NX.i5}, type ${IMAT.i2}, test(${I.i2})=${RESULT[I].g12_5}');
+                NFAIL++;
+              }
+            }
+            NRUN += NT;
+          }
+        }
       }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

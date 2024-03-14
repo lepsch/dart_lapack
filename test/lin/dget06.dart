@@ -12,14 +12,14 @@ double dget06(final double RCOND, final double RCONDC) {
   if (RCOND > ZERO) {
     if (RCONDC > ZERO) {
       return max(RCOND, RCONDC) / min(RCOND, RCONDC) - (ONE - EPS);
-    } else {
-      return RCOND / EPS;
     }
+
+    return RCOND / EPS;
   }
 
   if (RCONDC > ZERO) {
     return RCONDC / EPS;
-  } else {
-    return ZERO;
   }
+
+  return ZERO;
 }

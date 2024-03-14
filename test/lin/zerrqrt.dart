@@ -1,43 +1,36 @@
-      void zerrqrt(PATH, infoc.NUNIT ) {
+      import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zgemqrt.dart';
+import 'package:lapack/src/zgeqrt.dart';
+import 'package:lapack/src/zgeqrt2.dart';
+import 'package:lapack/src/zgeqrt3.dart';
+
+import 'alaesm.dart';
+import 'chkxer.dart';
+import 'common.dart';
+
+void zerrqrt(final String PATH, final Nout NUNIT ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             PATH;
-      int                infoc.NUNIT;
-      // ..
-
-      int                NMAX;
       const              NMAX = 2 ;
-      int                I, INFO, J;
-      Complex         A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAESM, CHKXER, ZGEQRT2, ZGEQRT3, ZGEQRT, ZGEMQRT
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, NOUT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX
+      final         A=Matrix<Complex>( NMAX, NMAX ), T=Matrix<Complex>( NMAX, NMAX ), W=Array<Complex>( NMAX ), C=Matrix<Complex>( NMAX, NMAX );
+  final INFO = Box(0);
 
-      NOUT = infoc.NUNIT;
-      NOUT.println( * );
+      final NOUT = NUNIT;
+      NOUT.println( );
 
       // Set the variables to innocuous values.
 
-      for (J = 1; J <= NMAX; J++) {
-         for (I = 1; I <= NMAX; I++) {
-            A[I][J] = 1.0 / DCMPLX( (I+J).toDouble(), 0.0 );
-            C[I][J] = 1.0 / DCMPLX( (I+J).toDouble(), 0.0 );
-            T[I][J] = 1.0 / DCMPLX( (I+J).toDouble(), 0.0 );
+      for (var J = 1; J <= NMAX; J++) {
+         for (var I = 1; I <= NMAX; I++) {
+            A[I][J] = Complex.one / Complex( (I+J).toDouble(), 0.0 );
+            C[I][J] = Complex.one / Complex( (I+J).toDouble(), 0.0 );
+            T[I][J] = Complex.one / Complex( (I+J).toDouble(), 0.0 );
          }
-         W[J] = 0.0;
+         W[J] = Complex.zero;
       }
       infoc.OK.value = true;
 
@@ -133,6 +126,6 @@
 
       // Print a summary line.
 
-      alaesm(PATH, infoc.OK, NOUT );
+      alaesm(PATH, infoc.OK.value, NOUT );
 
       }

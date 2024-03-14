@@ -99,7 +99,6 @@ void zdrvsg2stg(
       KB9,
       MTYPES,
       N,
-      NMATS,
       NMAX,
       NTEST = 0,
       NTESTT;
@@ -185,7 +184,6 @@ void zdrvsg2stg(
   // Loop over sizes, types
 
   NERRS.value = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 650
@@ -203,7 +201,6 @@ void zdrvsg2stg(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 640
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {

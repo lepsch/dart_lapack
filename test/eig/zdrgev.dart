@@ -87,7 +87,6 @@ void zdrgev(
       N1,
       NB,
       NERRS,
-      NMATS,
       NMAX,
       NTESTT;
   double SAFMAX, SAFMIN, ULP, ULPINV;
@@ -213,7 +212,6 @@ void zdrgev(
 
   NTESTT = 0;
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 220
@@ -231,7 +229,6 @@ void zdrgev(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 210
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
 
       // Save ISEED in case of an error.
 

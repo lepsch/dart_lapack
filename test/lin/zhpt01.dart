@@ -1,113 +1,111 @@
-      void zhpt01(final int UPLO, final int N, final int A, final int AFAC, final Array<int> IPIV_, final Matrix<double> C_, final int LDC, final Array<double> RWORK_, final int RESID,) {
-  final IPIV = IPIV_.having();
-  final C = C_.having();
-  final RWORK = RWORK_.having();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlanhe.dart';
+import 'package:lapack/src/zlanhp.dart';
+import 'package:lapack/src/zlaset.dart';
 
+import 'zlavhp.dart';
+
+void zhpt01(
+  final String UPLO,
+  final int N,
+  final Array<Complex> A_,
+  final Array<Complex> AFAC_,
+  final Array<int> IPIV_,
+  final Matrix<Complex> C_,
+  final int LDC,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDC, N;
-      double             RESID;
-      int                IPIV( * );
-      double             RWORK( * );
-      Complex         A( * ), AFAC( * ), C( LDC, * );
-      // ..
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final IPIV = IPIV_.having();
+  final C = C_.having(ld: LDC);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      int                I, INFO, J, JC;
-      double             ANORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANHE, ZLANHP;
-      // EXTERNAL lsame, DLAMCH, ZLANHE, ZLANHP
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLASET, ZLAVHP
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DIMAG
+  // Quick exit if N = 0.
 
-      // Quick exit if N = 0.
+  if (N <= 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         RESID = ZERO;
-         return;
+  // Determine EPS and the norm of A.
+
+  final EPS = dlamch('Epsilon');
+  final ANORM = zlanhp('1', UPLO, N, A, RWORK);
+
+  // Check the imaginary parts of the diagonal elements and return with
+  // an error code if any are nonzero.
+
+  var JC = 1;
+  if (lsame(UPLO, 'U')) {
+    for (var J = 1; J <= N; J++) {
+      if (AFAC[JC].imaginary != ZERO) {
+        RESID.value = ONE / EPS;
+        return;
       }
-
-      // Determine EPS and the norm of A.
-
-      EPS = dlamch( 'Epsilon' );
-      ANORM = ZLANHP( '1', UPLO, N, A, RWORK );
-
-      // Check the imaginary parts of the diagonal elements and return with
-      // an error code if any are nonzero.
-
-      JC = 1;
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 10
-            if ( DIMAG( AFAC( JC ) ) != ZERO ) {
-               RESID = ONE / EPS;
-               return;
-            }
-            JC += J + 1;
-         } // 10
-      } else {
-         for (J = 1; J <= N; J++) { // 20
-            if ( DIMAG( AFAC( JC ) ) != ZERO ) {
-               RESID = ONE / EPS;
-               return;
-            }
-            JC += N - J + 1;
-         } // 20
+      JC += J + 1;
+    }
+  } else {
+    for (var J = 1; J <= N; J++) {
+      if (AFAC[JC].imaginary != ZERO) {
+        RESID.value = ONE / EPS;
+        return;
       }
+      JC += N - J + 1;
+    }
+  }
 
-      // Initialize C to the identity matrix.
+  // Initialize C to the identity matrix.
 
-      zlaset('Full', N, N, CZERO, CONE, C, LDC );
+  zlaset('Full', N, N, Complex.zero, Complex.one, C, LDC);
 
-      // Call ZLAVHP to form the product D * U' (or D * L' ).
+  // Call ZLAVHP to form the product D * U' (or D * L' ).
 
-      zlavhp(UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO );
+  zlavhp(UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO);
 
-      // Call ZLAVHP again to multiply by U ( or L ).
+  // Call ZLAVHP again to multiply by U ( or L ).
 
-      zlavhp(UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO );
+  zlavhp(UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO);
 
-      // Compute the difference  C - A .
+  // Compute the difference  C - A .
 
-      if ( lsame( UPLO, 'U' ) ) {
-         JC = 0;
-         for (J = 1; J <= N; J++) { // 40
-            for (I = 1; I <= J - 1; I++) { // 30
-               C[I][J] = C( I, J ) - A( JC+I );
-            } // 30
-            C[J][J] = C( J, J ) - (A( JC+J )).toDouble();
-            JC += J;
-         } // 40
-      } else {
-         JC = 1;
-         for (J = 1; J <= N; J++) { // 60
-            C[J][J] = C( J, J ) - (A( JC )).toDouble();
-            for (I = J + 1; I <= N; I++) { // 50
-               C[I][J] = C( I, J ) - A( JC+I-J );
-            } // 50
-            JC += N - J + 1;
-         } // 60
+  if (lsame(UPLO, 'U')) {
+    var JC = 0;
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= J - 1; I++) {
+        C[I][J] = C[I][J] - A[JC + I];
       }
-
-      // Compute norm( C - A ) / ( N * norm(A) * EPS )
-
-      RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK );
-
-      if ( ANORM <= ZERO ) {
-         if (RESID != ZERO) RESID = ONE / EPS;
-      } else {
-         RESID = ( ( RESID / N ) / ANORM ) / EPS;
+      C[J][J] = C[J][J] - A[JC + J].real.toComplex();
+      JC += J;
+    }
+  } else {
+    var JC = 1;
+    for (var J = 1; J <= N; J++) {
+      C[J][J] = C[J][J] - A[JC].real.toComplex();
+      for (var I = J + 1; I <= N; I++) {
+        C[I][J] = C[I][J] - A[JC + I - J];
       }
+      JC += N - J + 1;
+    }
+  }
 
-      }
+  // Compute norm( C - A ) / ( N * norm(A) * EPS )
+
+  RESID.value = zlanhe('1', UPLO, N, C, LDC, RWORK);
+
+  if (ANORM <= ZERO) {
+    if (RESID.value != ZERO) RESID.value = ONE / EPS;
+  } else {
+    RESID.value = ((RESID.value / N) / ANORM) / EPS;
+  }
+}

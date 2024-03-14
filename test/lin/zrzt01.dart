@@ -1,64 +1,70 @@
-      double zrzt01(final int M, final int N, final Matrix<double> A_, final Matrix<double> AF_, final int LDA, final Array<double> TAU_, final Array<double> WORK_, final int LWORK,) {
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zunmrz.dart';
+
+import 'xerbla.dart';
+
+double zrzt01(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final Matrix<Complex> AF_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LWORK, M, N;
-      Complex         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final AF = AF_.having(ld: LDA);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
+  const ZERO = 0.0, ONE = 1.0;
+  final RWORK = Array<double>(1);
+  final INFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, INFO, J;
-      double             NORMA;
-      double             RWORK( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZAXPY, ZLASET, ZUNMRZ
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX
+  if (LWORK < M * N + M) {
+    xerbla('ZRZT01', 8);
+    return ZERO;
+  }
 
-      ZRZT01 = ZERO;
+  // Quick return if possible
 
-      if ( LWORK < M*N+M ) {
-         xerbla('ZRZT01', 8 );
-         return;
-      }
+  if (M <= 0 || N <= 0) return ZERO;
 
-      // Quick return if possible
+  final NORMA = zlange('One-norm', M, N, A, LDA, RWORK);
 
-      if (M <= 0 || N <= 0) return;
+  // Copy upper triangle R
 
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
+  zlaset('Full', M, N, Complex.zero, Complex.zero, WORK.asMatrix(), M);
+  for (var J = 1; J <= M; J++) {
+    for (var I = 1; I <= J; I++) {
+      WORK[(J - 1) * M + I] = AF[I][J];
+    }
+  }
 
-      // Copy upper triangle R
+  // R = R * P(1) * ... *P(m)
 
-      zlaset('Full', M, N, Complex.zero, Complex.zero, WORK, M );
-      for (J = 1; J <= M; J++) { // 20
-         for (I = 1; I <= J; I++) { // 10
-            WORK[( J-1 )*M+I] = AF( I, J );
-         } // 10
-      } // 20
+  zunmrz('Right', 'No transpose', M, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(),
+      M, WORK(M * N + 1), LWORK - M * N, INFO);
 
-      // R = R * P(1) * ... *P(m)
+  // R = R - A
 
-      zunmrz('Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
+  for (var I = 1; I <= N; I++) {
+    zaxpy(M, Complex(-ONE), A(1, I).asArray(), 1, WORK((I - 1) * M + 1), 1);
+  }
 
-      // R = R - A
+  var result = zlange('One-norm', M, N, WORK.asMatrix(), M, RWORK);
 
-      for (I = 1; I <= N; I++) { // 30
-         zaxpy(M, DCMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
-      } // 30
-
-      ZRZT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK );
-
-      ZRZT01 = ZRZT01 / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-      if (NORMA != ZERO) ZRZT01 = ZRZT01 / NORMA;
-
-      }
+  result = result / (dlamch('Epsilon') * max(M, N));
+  return NORMA != ZERO ? result / NORMA : result;
+}

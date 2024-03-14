@@ -110,7 +110,6 @@ void zdrvst(
       LWEDC,
       MTYPES,
       N,
-      NMATS,
       NMAX,
       NTEST,
       NTESTT;
@@ -197,7 +196,6 @@ void zdrvst(
   } // 20
 
   NERRS.value = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 1220
@@ -225,7 +223,6 @@ void zdrvst(
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       // 1210
       if (!DOTYPE[JTYPE]) continue;
-      NMATS++;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {

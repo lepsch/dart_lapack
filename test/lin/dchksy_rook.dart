@@ -70,7 +70,7 @@ void dchksy_rook(
   const EIGHT = 8.0, SEVTEN = 17.0;
   const NTYPES = 10;
   const NTESTS = 7;
-  int I, I1, I2, IOFF, IZERO, J, K, NFAIL, NRUN, NT;
+  int I, I1, I2, IOFF, IZERO, J, K, NT;
   final ISEED = Array<int>(4);
   final BLOCK = Matrix<double>(2, 2),
       DDUMMY = Array<double>(1),
@@ -92,8 +92,8 @@ void dchksy_rook(
 
   final MATPATH = '${'Double precision'[0]}SY';
 
-  NRUN = 0;
-  NFAIL = 0;
+  var NRUN = 0;
+  var NFAIL = 0;
   NERRS.value = 0;
   for (I = 1; I <= 4; I++) {
     ISEED[I] = ISEEDY[I];

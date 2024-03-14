@@ -1,316 +1,393 @@
-      void zchktp(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NNS, final Array<int> NSVAL_, final double THRESH, final bool TSTERR, final int NMAX, final int AP, final int AINVP, final int B, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Nout NOUT,) {
-  final WORK = WORK_.having();
-  final RWORK = RWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlantp.dart';
+import 'package:lapack/src/zlatps.dart';
+import 'package:lapack/src/ztpcon.dart';
+import 'package:lapack/src/ztprfs.dart';
+import 'package:lapack/src/ztptri.dart';
+import 'package:lapack/src/ztptrs.dart';
+
+import 'alaerh.dart';
+import 'alahd.dart';
+import 'alasum.dart';
+import 'common.dart';
+import 'zerrtr.dart';
+import 'zget04.dart';
+import 'zlarhs.dart';
+import 'zlattp.dart';
+import 'ztpt01.dart';
+import 'ztpt02.dart';
+import 'ztpt03.dart';
+import 'ztpt05.dart';
+import 'ztpt06.dart';
+
+void zchktp(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NNS,
+  final Array<int> NSVAL_,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<Complex> AP_,
+  final Array<Complex> AINVP_,
+  final Array<Complex> B_,
+  final Array<Complex> X_,
+  final Array<Complex> XACT_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Nout NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NMAX, NN, NNS, NOUT;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                NSVAL( * ), NVAL( * );
-      double             RWORK( * );
-      Complex         AINVP( * ), AP( * ), B( * ), WORK( * ), X( * ), XACT( * );
-      // ..
-
-      int                NTYPE1, NTYPES;
-      const              NTYPE1 = 10, NTYPES = 18 ;
-      int                NTESTS;
-      const              NTESTS = 9 ;
-      int                NTRAN;
-      const              NTRAN = 3 ;
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      String             DIAG, NORM, TRANS, UPLO, XTYPE;
-      String             PATH;
-      int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NRHS;
-      double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
-      String             TRANSS( NTRAN ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 );
-      final             RESULT=Array<double>( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             ZLANTP;
-      // EXTERNAL lsame, ZLANTP
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ALAHD, ALASUM, ZCOPY, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLATPS, ZLATTP, ZTPCON, ZTPRFS, ZTPT01, ZTPT02, ZTPT03, ZTPT05, ZTPT06, ZTPTRI, ZTPTRS
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, IOUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, IOUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = 'U', 'L', TRANSS = 'N', 'T', 'C';
-
-      // Initialize constants and the random number seed.
-
-      final PATH = '${'Zomplex precision'[0]}TP';
-      var NRUN = 0;
-      var NFAIL = 0;
-      var NERRS = Box(0);
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
-
-      // Test the error exits
-
-      if (TSTERR) zerrtr( PATH, NOUT );
-      infoc.INFOT = 0;
-
-      for (IN = 1; IN <= NN; IN++) { // 110
-
-         // Do for each value of N in NVAL
-
-         final N = NVAL[IN];
-         LDA = max( 1, N );
-         LAP = LDA*( LDA+1 ) / 2;
-         XTYPE = 'N';
-
-         for (IMAT = 1; IMAT <= NTYPE1; IMAT++) { // 70
-
-            // Do the tests only if DOTYPE( IMAT ) is true.
-
-            if( !DOTYPE[IMAT] ) GO TO 70;
-
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 60
-
-               // Do first for UPLO = 'U', then for UPLO = 'L'
-
-               final UPLO = UPLOS[IUPLO - 1];
-
-               // Call ZLATTP to generate a triangular test matrix.
-
-              srnamc.SRNAMT = 'ZLATTP';
-               zlattp(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, RWORK, INFO );
-
-               // Set IDIAG = 1 for non-unit matrices, 2 for unit.
-
-               if ( lsame( DIAG, 'N' ) ) {
-                  IDIAG = 1;
-               } else {
-                  IDIAG = 2;
-               }
-
-// +    TEST 1
-               // Form the inverse of A.
-
-               if (N > 0) zcopy( LAP, AP, 1, AINVP, 1 );
-              srnamc.SRNAMT = 'ZTPTRI';
-               ztptri(UPLO, DIAG, N, AINVP, INFO );
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final NSVAL = NSVAL_.having();
+  final AP = AP_.having();
+  final AINVP = AINVP_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
+  final WORK = WORK_.having();
+  final RWORK = RWORK_.having();
+
+  const NTYPE1 = 10, NTYPES = 18;
+  const NTESTS = 9;
+  const NTRAN = 3;
+  const ONE = 1.0, ZERO = 0.0;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'], TRANSS = ['N', 'T', 'C'];
+  final INFO = Box(0);
 
-               // Check error code from ZTPTRI.
-
-               if (INFO != 0) alaerh( PATH, 'ZTPTRI', INFO, 0, UPLO + DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-
-               // Compute the infinity-norm condition number of A.
-
-               ANORM = ZLANTP( 'I', UPLO, DIAG, N, AP, RWORK );
-               AINVNM = ZLANTP( 'I', UPLO, DIAG, N, AINVP, RWORK );
-               if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                  RCONDI = ONE;
-               } else {
-                  RCONDI = ( ONE / ANORM ) / AINVNM;
-               }
-
-               // Compute the residual for the triangular matrix times its
-               // inverse.  Also compute the 1-norm condition number of A.
-
-               ztpt01(UPLO, DIAG, N, AP, AINVP, RCONDO, RWORK, RESULT( 1 ) );
-
-               // Print the test ratio if it is >= THRESH.
-
-               if ( RESULT[1] >= THRESH ) {
-                  if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                  NOUT.println( 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 );
-                  NFAIL++;
-               }
-               NRUN++;
-
-               for (IRHS = 1; IRHS <= NNS; IRHS++) { // 40
-                  final NRHS = NSVAL[IRHS];
-                  XTYPE = 'N';
-
-                  for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 30
-
-                  // Do for op(A) = A, A**T, or A**H.
-
-                     final TRANS = TRANSS[ITRAN - 1];
-                     if ( ITRAN == 1 ) {
-                        NORM = 'O';
-                        RCONDC = RCONDO;
-                     } else {
-                        NORM = 'I';
-                        RCONDC = RCONDI;
-                     }
-
-// +    TEST 2
-                  // Solve and compute residual for op(A)*x = b.
-
-                    srnamc.SRNAMT = 'ZLARHS';
-                     zlarhs(PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO );
-                     XTYPE = 'C';
-                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
-
-                    srnamc.SRNAMT = 'ZTPTRS';
-                     ztptrs(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO );
-
-                  // Check error code from ZTPTRS.
-
-                     if (INFO != 0) alaerh( PATH, 'ZTPTRS', INFO, 0, UPLO + TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                     ztpt02(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
-
-// +    TEST 3
-                  // Check solution from generated exact solution.
-
-                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-
-// +    TESTS 4, 5, and 6
-                  // Use iterative refinement to improve the solution and
-                  // compute error bounds.
-
-                    srnamc.SRNAMT = 'ZTPRFS';
-                     ztprfs(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
-
-                  // Check error code from ZTPRFS.
-
-                     if (INFO != 0) alaerh( PATH, 'ZTPRFS', INFO, 0, UPLO + TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-
-                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
-                     ztpt05(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     for (K = 2; K <= 6; K++) { // 20
-                        if ( RESULT[K] >= THRESH ) {
-                           if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                           NOUT.println( 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT[K];
-                           NFAIL++;
-                        }
-                     } // 20
-                     NRUN +=  5;
-                  } // 30
-               } // 40
-
-// +    TEST 7
-                  // Get an estimate of RCOND = 1/CNDNUM.
-
-               for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
-                  if ( ITRAN == 1 ) {
-                     NORM = 'O';
-                     RCONDC = RCONDO;
-                  } else {
-                     NORM = 'I';
-                     RCONDC = RCONDI;
-                  }
-                 srnamc.SRNAMT = 'ZTPCON';
-                  ztpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, RWORK, INFO );
-
-                  // Check error code from ZTPCON.
-
-                  if (INFO != 0) alaerh( PATH, 'ZTPCON', INFO, 0, NORM + UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                  ztpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) );
-
-                  // Print the test ratio if it is >= THRESH.
-
-                  if ( RESULT[7] >= THRESH ) {
-                     if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                     NOUT.println( 9997 ) 'ZTPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 );
-                     NFAIL++;
-                  }
-                  NRUN++;
-               } // 50
-            } // 60
-         } // 70
-
-         // Use pathological test matrices to test ZLATPS.
-
-         for (IMAT = NTYPE1 + 1; IMAT <= NTYPES; IMAT++) { // 100
-
-            // Do the tests only if DOTYPE( IMAT ) is true.
-
-            if( !DOTYPE[IMAT] ) GO TO 100;
-
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
-
-               // Do first for UPLO = 'U', then for UPLO = 'L'
-
-               final UPLO = UPLOS[IUPLO - 1];
-               for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 80
-
-                  // Do for op(A) = A, A**T, or A**H.
-
-                  final TRANS = TRANSS[ITRAN - 1];
-
-                  // Call ZLATTP to generate a triangular test matrix.
-
-                 srnamc.SRNAMT = 'ZLATTP';
-                  zlattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, RWORK, INFO );
-
-// +    TEST 8
-                  // Solve the system op(A)*x = b.
-
-                 srnamc.SRNAMT = 'ZLATPS';
-                  zcopy(N, X, 1, B, 1 );
-                  zlatps(UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO );
-
-                  // Check error code from ZLATPS.
-
-                  if (INFO != 0) alaerh( PATH, 'ZLATPS', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                  ztpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
-
-// +    TEST 9
-                  // Solve op(A)*x = b again with NORMIN = 'Y'.
-
-                  zcopy(N, X, 1, B( N+1 ), 1 );
-                  zlatps(UPLO, TRANS, DIAG, 'Y', N, AP, B( N+1 ), SCALE, RWORK, INFO );
-
-                  // Check error code from ZLATPS.
-
-                  if (INFO != 0) alaerh( PATH, 'ZLATPS', INFO, 0, UPLO + TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-
-                  ztpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
-
-                  // Print information about the tests that did not pass
-                  // the threshold.
-
-                  if ( RESULT[8] >= THRESH ) {
-                     if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                     NOUT.println( 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
-                     NFAIL++;
-                  }
-                  if ( RESULT[9] >= THRESH ) {
-                     if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                     NOUT.println( 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
-                     NFAIL++;
-                  }
-                  NRUN +=  2;
-               } // 80
-            } // 90
-         } // 100
-      } // 110
-
-      // Print a summary of the results.
-
-      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT( ' UPLO=\'${.a1}\', DIAG=\'${.a1}\', N=${N.i5}, type ${IMAT.i2}, test(${.i2})= ${.g12_5};
- 9998 FORMAT( ' UPLO=\'${.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${.a1}\', N=${.i5}\', NRHS=${.i5}, type ${IMAT.i2}, test(${.i2})= ${.g12_5};
- 9997 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\',${.i5}, ... ), type ${IMAT.i2}, test(${.i2})=${.g12_5};
- 9996 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\'${.a1}\',${.i5}, ... ), type ${IMAT.i2}, test(${.i2})=${.g12_5};
+  // Initialize constants and the random number seed.
+
+  final PATH = '${'Zomplex precision'[0]}TP';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
+
+  // Test the error exits
+
+  if (TSTERR) zerrtr(PATH, NOUT);
+  infoc.INFOT = 0;
+
+  for (var IN = 1; IN <= NN; IN++) {
+    // Do for each value of N in NVAL
+
+    final N = NVAL[IN];
+    final LDA = max(1, N);
+    final LAP = LDA * (LDA + 1) ~/ 2;
+    var XTYPE = 'N';
+
+    for (var IMAT = 1; IMAT <= NTYPE1; IMAT++) {
+      // Do the tests only if DOTYPE( IMAT ) is true.
+
+      if (!DOTYPE[IMAT]) continue;
+
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        // Do first for UPLO = 'U', then for UPLO = 'L'
+
+        final UPLO = UPLOS[IUPLO - 1];
+
+        // Call ZLATTP to generate a triangular test matrix.
+
+        srnamc.SRNAMT = 'ZLATTP';
+        final DIAG = Box('');
+        zlattp(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, RWORK,
+            INFO);
+
+        // Set IDIAG = 1 for non-unit matrices, 2 for unit.
+
+        final IDIAG = lsame(DIAG.value, 'N') ? 1 : 2;
+
+        // +    TEST 1
+        // Form the inverse of A.
+
+        if (N > 0) zcopy(LAP, AP, 1, AINVP, 1);
+        srnamc.SRNAMT = 'ZTPTRI';
+        ztptri(UPLO, DIAG.value, N, AINVP, INFO);
+
+        // Check error code from ZTPTRI.
+
+        if (INFO.value != 0) {
+          alaerh(PATH, 'ZTPTRI', INFO.value, 0, UPLO + DIAG.value, N, N, -1, -1,
+              -1, IMAT, NFAIL, NERRS, NOUT);
+        }
+
+        // Compute the infinity-norm condition number of A.
+
+        final ANORM = zlantp('I', UPLO, DIAG.value, N, AP, RWORK);
+        final AINVNM = zlantp('I', UPLO, DIAG.value, N, AINVP, RWORK);
+        final double RCONDI;
+        if (ANORM <= ZERO || AINVNM <= ZERO) {
+          RCONDI = ONE;
+        } else {
+          RCONDI = (ONE / ANORM) / AINVNM;
+        }
+
+        // Compute the residual for the triangular matrix times its
+        // inverse.  Also compute the 1-norm condition number of A.
+
+        final RCONDO = Box(ZERO);
+        ztpt01(UPLO, DIAG.value, N, AP, AINVP, RCONDO, RWORK, RESULT(1));
+
+        // Print the test ratio if it is >= THRESH.
+
+        if (RESULT[1] >= THRESH) {
+          if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+          NOUT.println(
+              ' UPLO=\'${UPLO.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}, type ${IMAT.i2}, test(${1.i2})= ${RESULT[1].g12_5}');
+          NFAIL++;
+        }
+        NRUN++;
+
+        for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+          final NRHS = NSVAL[IRHS];
+          XTYPE = 'N';
+
+          for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+            // Do for op(A) = A, A**T, or A**H.
+
+            final TRANS = TRANSS[ITRAN - 1];
+            final (_, RCONDC) =
+                ITRAN == 1 ? ('O', RCONDO.value) : ('I', RCONDI);
+
+            // +    TEST 2
+            // Solve and compute residual for op(A)*x = b.
+
+            srnamc.SRNAMT = 'ZLARHS';
+            zlarhs(
+                PATH,
+                XTYPE,
+                UPLO,
+                TRANS,
+                N,
+                N,
+                0,
+                IDIAG,
+                NRHS,
+                AP.asMatrix(),
+                LAP,
+                XACT.asMatrix(),
+                LDA,
+                B.asMatrix(),
+                LDA,
+                ISEED,
+                INFO);
+            XTYPE = 'C';
+            zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+
+            srnamc.SRNAMT = 'ZTPTRS';
+            ztptrs(
+                UPLO, TRANS, DIAG.value, N, NRHS, AP, X.asMatrix(), LDA, INFO);
+
+            // Check error code from ZTPTRS.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'ZTPTRS', INFO.value, 0, UPLO + TRANS + DIAG.value,
+                  N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            ztpt02(UPLO, TRANS, DIAG.value, N, NRHS, AP, X.asMatrix(), LDA,
+                B.asMatrix(), LDA, WORK, RWORK, RESULT(2));
+
+            // +    TEST 3
+            // Check solution from generated exact solution.
+
+            zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                RESULT(3));
+
+            // +    TESTS 4, 5, and 6
+            // Use iterative refinement to improve the solution and
+            // compute error bounds.
+
+            srnamc.SRNAMT = 'ZTPRFS';
+            ztprfs(
+                UPLO,
+                TRANS,
+                DIAG.value,
+                N,
+                NRHS,
+                AP,
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                RWORK,
+                RWORK(NRHS + 1),
+                WORK,
+                RWORK(2 * NRHS + 1),
+                INFO);
+
+            // Check error code from ZTPRFS.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'ZTPRFS', INFO.value, 0, UPLO + TRANS + DIAG.value,
+                  N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            zget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                RESULT(4));
+            ztpt05(
+                UPLO,
+                TRANS,
+                DIAG.value,
+                N,
+                NRHS,
+                AP,
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                XACT.asMatrix(),
+                LDA,
+                RWORK,
+                RWORK(NRHS + 1),
+                RESULT(5));
+
+            // Print information about the tests that did not pass
+            // the threshold.
+
+            for (var K = 2; K <= 6; K++) {
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(
+                    ' UPLO=\'${UPLO.a1}\', TRANS=\'${TRANS.a1}\', DIAG=\'${DIAG.value.a1}\', N=${N.i5}\', NRHS=${NRHS.i5}, type ${IMAT.i2}, test(${K.i2})= ${RESULT[K].g12_5}');
+                NFAIL++;
+              }
+            }
+            NRUN += 5;
+          }
+        }
+
+        // +    TEST 7
+        // Get an estimate of RCOND = 1/CNDNUM.
+
+        for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
+          final (NORM, RCONDC) =
+              ITRAN == 1 ? ('O', RCONDO.value) : ('I', RCONDI);
+
+          srnamc.SRNAMT = 'ZTPCON';
+          final RCOND = Box(ZERO);
+          ztpcon(NORM, UPLO, DIAG.value, N, AP, RCOND, WORK, RWORK, INFO);
+
+          // Check error code from ZTPCON.
+
+          if (INFO.value != 0) {
+            alaerh(PATH, 'ZTPCON', INFO.value, 0, NORM + UPLO + DIAG.value, N,
+                N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT);
+          }
+
+          ztpt06(
+              RCOND.value, RCONDC, UPLO, DIAG.value, N, AP, RWORK, RESULT(7));
+
+          // Print the test ratio if it is >= THRESH.
+
+          if (RESULT[7] >= THRESH) {
+            if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+            NOUT.println(
+                ' ZTPCON( \'${NORM.a1}\'${UPLO.a1}\'${DIAG.value.a1}\',${N.i5}, ... ), type ${IMAT.i2}, test(${7.i2})=${RESULT[7].g12_5}');
+            NFAIL++;
+          }
+          NRUN++;
+        }
       }
+    }
+
+    // Use pathological test matrices to test ZLATPS.
+
+    for (var IMAT = NTYPE1 + 1; IMAT <= NTYPES; IMAT++) {
+      // Do the tests only if DOTYPE( IMAT ) is true.
+
+      if (!DOTYPE[IMAT]) continue;
+
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        // Do first for UPLO = 'U', then for UPLO = 'L'
+
+        final UPLO = UPLOS[IUPLO - 1];
+        for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+          // Do for op(A) = A, A**T, or A**H.
+
+          final TRANS = TRANSS[ITRAN - 1];
+
+          // Call ZLATTP to generate a triangular test matrix.
+
+          srnamc.SRNAMT = 'ZLATTP';
+          final DIAG = Box('');
+          zlattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, RWORK, INFO);
+
+          // +    TEST 8
+          // Solve the system op(A)*x = b.
+
+          srnamc.SRNAMT = 'ZLATPS';
+          zcopy(N, X, 1, B, 1);
+          final SCALE = Box(ZERO);
+          zlatps(UPLO, TRANS, DIAG.value, 'N', N, AP, B, SCALE, RWORK, INFO);
+
+          // Check error code from ZLATPS.
+
+          if (INFO.value != 0) {
+            alaerh(PATH, 'ZLATPS', INFO.value, 0, '$UPLO$TRANS${DIAG.value}N',
+                N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT);
+          }
+
+          ztpt03(UPLO, TRANS, DIAG.value, N, 1, AP, SCALE.value, RWORK, ONE,
+              B.asMatrix(), LDA, X.asMatrix(), LDA, WORK, RESULT(8));
+
+          // +    TEST 9
+          // Solve op(A)*x = b again with NORMIN = 'Y'.
+
+          zcopy(N, X, 1, B(N + 1), 1);
+          zlatps(UPLO, TRANS, DIAG.value, 'Y', N, AP, B(N + 1), SCALE, RWORK,
+              INFO);
+
+          // Check error code from ZLATPS.
+
+          if (INFO.value != 0) {
+            alaerh(PATH, 'ZLATPS', INFO.value, 0, '$UPLO$TRANS${DIAG.value}Y',
+                N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT);
+          }
+
+          ztpt03(UPLO, TRANS, DIAG.value, N, 1, AP, SCALE.value, RWORK, ONE,
+              B(N + 1).asMatrix(), LDA, X.asMatrix(), LDA, WORK, RESULT(9));
+
+          // Print information about the tests that did not pass
+          // the threshold.
+
+          if (RESULT[8] >= THRESH) {
+            if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+            NOUT.println(
+                ' ZLATPS( \'${UPLO.a1}\'${TRANS.a1}\'${DIAG.value.a1}\'${'N'.a1}\',${N.i5}, ... ), type ${IMAT.i2}, test(${8.i2})=${RESULT[8].g12_5}');
+            NFAIL++;
+          }
+          if (RESULT[9] >= THRESH) {
+            if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+            NOUT.println(
+                ' ZLATPS( \'${UPLO.a1}\'${TRANS.a1}\'${DIAG.value.a1}\'${'Y'.a1}\',${N.i5}, ... ), type ${IMAT.i2}, test(${9.i2})=${RESULT[9].g12_5}');
+            NFAIL++;
+          }
+          NRUN += 2;
+        }
+      }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

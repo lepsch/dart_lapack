@@ -14,7 +14,7 @@ import 'package:lapack/src/nio.dart';
 
 import 'dlahilb.dart';
 
-void debchvxx(final double THRESH, final String PATH, Nout NOUT) {
+void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
   const NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6;
   final BERR = Array<double>(NMAX),
       TSTRAT = Array<double>(NTESTS),

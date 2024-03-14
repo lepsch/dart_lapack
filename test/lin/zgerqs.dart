@@ -1,59 +1,71 @@
-      void zgerqs(final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<double> TAU_, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.having();
-  final B = B_.having();
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/ztrsm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zunmrq.dart';
+
+import 'xerbla.dart';
+
+void zgerqs(
+  final int M,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS;
-      Complex         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK );
-      // ..
+  final A = A_.having(ld: LDA);
+  final B = B_.having(ld: LDB);
+  final TAU = TAU_.having();
+  final WORK = WORK_.having(length: LWORK);
 
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLASET, ZTRSM, ZUNMRQ
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0 || M > N) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  } else if (LWORK < 1 || LWORK < NRHS && M > 0 && N > 0) {
+    INFO.value = -10;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGERQS', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 || M > N ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      } else if ( LWORK < 1 || LWORK < NRHS && M > 0 && N > 0 ) {
-         INFO = -10;
-      }
-      if ( INFO.value != 0 ) {
-         xerbla('ZGERQS', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0 || NRHS == 0 || M == 0) return;
 
-      if (N == 0 || NRHS == 0 || M == 0) return;
+  // Solve R*X = B(n-m+1:n,:)
 
-      // Solve R*X = B(n-m+1:n,:)
+  ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, Complex.one,
+      A(1, N - M + 1), LDA, B(N - M + 1, 1), LDB);
 
-      ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, CONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB );
+  // Set B(1:n-m,:) to zero
 
-      // Set B(1:n-m,:) to zero
+  zlaset('Full', N - M, NRHS, Complex.zero, Complex.zero, B, LDB);
 
-      zlaset('Full', N-M, NRHS, CZERO, CZERO, B, LDB );
+  // B := Q' * B
 
-      // B := Q' * B
-
-      zunmrq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
-
-      }
+  zunmrq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK,
+      LWORK, INFO);
+}

@@ -1,4 +1,51 @@
-      void zdrvhe_aa_2stage(final Array<bool> DOTYPE_, final int NN, final Array<int> NVAL_, final int NRHS, final double THRESH, final bool TSTERR, final int NMAX, final Array<double> A_, final Array<double> AFAC_, final Array<double> AINV_, final Array<double> B_, final Array<double> X_, final Array<double> XACT_, final Array<double> WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Nout NOUT,) {
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zhesv_aa_2stage.dart';
+import 'package:lapack/src/zlacpy.dart';
+
+import '../matgen/zlatms.dart';
+import 'aladhd.dart';
+import 'alaerh.dart';
+import 'alasvm.dart';
+import 'common.dart';
+import 'xlaenv.dart';
+import 'zerrvxx.dart';
+import 'zlarhs.dart';
+import 'zlatb4.dart';
+import 'zpot02.dart';
+
+void zdrvhe_aa_2stage(
+  final Array<bool> DOTYPE_,
+  final int NN,
+  final Array<int> NVAL_,
+  final int NRHS,
+  final double THRESH,
+  final bool TSTERR,
+  final int NMAX,
+  final Array<Complex> A_,
+  final Array<Complex> AFAC_,
+  final Array<Complex> AINV_,
+  final Array<Complex> B_,
+  final Array<Complex> X_,
+  final Array<Complex> XACT_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<int> IWORK_,
+  final Nout NOUT,
+) {
+  final DOTYPE = DOTYPE_.having();
+  final NVAL = NVAL_.having();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final AINV = AINV_.having();
+  final B = B_.having();
+  final X = X_.having();
+  final XACT = XACT_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
@@ -6,290 +53,261 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               TSTERR;
-      int                NMAX, NN, NOUT, NRHS;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                IWORK( * ), NVAL( * );
-      double             RWORK( * );
-      Complex         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
-      // ..
+  const NTYPES = 10, NTESTS = 3, NFACT = 2;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L']; // FACTS = ['F', 'N'];
+  final INFO = Box(0);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                NTYPES, NTESTS;
-      const              NTYPES = 10, NTESTS = 3 ;
-      int                NFACT;
-      const              NFACT = 2 ;
-      bool               ZEROT;
-      String             DIST, FACT, TYPE, UPLO, XTYPE;
-      String             MATPATH, PATH;
-      int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NIMAT, NT;
-      double             ANORM, CNDNUM;
-      String             FACTS( NFACT ), UPLOS( 2 );
-      final                ISEED=Array<int>( 4 );
-      final             RESULT=Array<double>( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- double             DGET06, ZLANHE;
-      // EXTERNAL DGET06, ZLANHE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZHESV_AA_2STAGE, ZHET01_AA, ZPOT02, ZHETRF_AA_2STAGE
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCMPLX, MAX, MIN
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = 'U', 'L', FACTS = 'F', 'N';
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  // Test path
 
-      // Test path
+  final PATH = '${'Zomplex precision'[0]}H2';
 
-      final PATH = '${'Zomplex precision'[0]}H2';
+  // Path to generate matrices
 
-      // Path to generate matrices
+  final MATPATH = '${'Zomplex precision'[0]}HE';
 
-      MATPATH[1: 1] = 'Zomplex precision';
-      MATPATH[2: 3] = 'HE';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      var NRUN = 0;
-      var NFAIL = 0;
-      var NERRS = Box(0);
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
+  // Test the error exits
 
-      // Test the error exits
+  if (TSTERR) zerrvx(PATH, NOUT);
+  infoc.INFOT = 0;
 
-      if (TSTERR) zerrvx( PATH, NOUT );
-      infoc.INFOT = 0;
+  // Set the block size and minimum block size for testing.
 
-      // Set the block size and minimum block size for testing.
+  final NB = 1;
+  final NBMIN = 2;
+  xlaenv(1, NB);
+  xlaenv(2, NBMIN);
 
-            final NB = 1;
-      final NBMIN = 2;
-      xlaenv(1, NB );
-      xlaenv(2, NBMIN );
+  // Do for each value of N in NVAL
 
-      // Do for each value of N in NVAL
+  for (var IN = 1; IN <= NN; IN++) {
+    final N = NVAL[IN];
+    final LDA = max(N, 1);
+    var XTYPE = 'N';
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
-      for (IN = 1; IN <= NN; IN++) { // 180
-         final N = NVAL[IN];
-         final LDA = max( N, 1 );
-         XTYPE = 'N';
-            final NIMAT = N <= 0 ? 1 : NTYPES;
+    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      // Do the tests only if DOTYPE( IMAT ) is true.
 
-         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
+      if (!DOTYPE[IMAT]) continue;
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            if( !DOTYPE[IMAT] ) GO TO 170;
+      final ZEROT = IMAT >= 3 && IMAT <= 6;
+      if (ZEROT && N < IMAT - 2) continue;
 
-            // Skip types 3, 4, 5, or 6 if the matrix size is too small.
+      // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            final ZEROT = IMAT >= 3 && IMAT <= 6;
-            if (ZEROT && N < IMAT-2) GO TO 170;
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        final UPLO = UPLOS[IUPLO - 1];
 
-            // Do first for UPLO = 'U', then for UPLO = 'L'
+        // Begin generate the test matrix A.
 
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               final UPLO = UPLOS[IUPLO - 1];
+        // Set up parameters with ZLATB4 for the matrix generator
+        // based on the type of matrix to be generated.
 
-               // Begin generate the test matrix A.
+        final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+            zlatb4(MATPATH, IMAT, N, N);
 
-               // Set up parameters with ZLATB4 for the matrix generator
-               // based on the type of matrix to be generated.
+        // Generate a matrix with ZLATMS.
 
-              zlatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
+        srnamc.SRNAMT = 'ZLATMS';
+        zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+            UPLO, A.asMatrix(), LDA, WORK, INFO);
 
-               // Generate a matrix with ZLATMS.
+        // Check error code from ZLATMS and handle error.
 
-                 srnamc.SRNAMT = 'ZLATMS';
-                  zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
+        if (INFO.value != 0) {
+          alaerh(PATH, 'ZLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
+              NFAIL, NERRS, NOUT);
+          continue;
+        }
 
-                  // Check error code from ZLATMS and handle error.
+        // For types 3-6, zero one or more rows and columns of
+        // the matrix to test that INFO.value is returned correctly.
 
-                  if ( INFO.value != 0 ) {
-                     alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 160;
-                  }
+        int IZERO;
+        if (ZEROT) {
+          if (IMAT == 3) {
+            IZERO = 1;
+          } else if (IMAT == 4) {
+            IZERO = N;
+          } else {
+            IZERO = N ~/ 2 + 1;
+          }
 
-                  // For types 3-6, zero one or more rows and columns of
-                  // the matrix to test that INFO is returned correctly.
+          if (IMAT < 6) {
+            // Set row and column IZERO to zero.
 
-                  final int IZERO;
-                  if ( ZEROT ) {
-                     if ( IMAT == 3 ) {
-                        IZERO = 1;
-                     } else if ( IMAT == 4 ) {
-                        IZERO = N;
-                     } else {
-                        IZERO = N ~/ 2 + 1;
-                     }
+            if (IUPLO == 1) {
+              var IOFF = (IZERO - 1) * LDA;
+              for (var I = 1; I <= IZERO - 1; I++) {
+                A[IOFF + I] = Complex.zero;
+              }
+              IOFF += IZERO;
+              for (var I = IZERO; I <= N; I++) {
+                A[IOFF] = Complex.zero;
+                IOFF += LDA;
+              }
+            } else {
+              var IOFF = IZERO;
+              for (var I = 1; I <= IZERO - 1; I++) {
+                A[IOFF] = Complex.zero;
+                IOFF += LDA;
+              }
+              IOFF -= IZERO;
+              for (var I = IZERO; I <= N; I++) {
+                A[IOFF + I] = Complex.zero;
+              }
+            }
+          } else {
+            var IOFF = 0;
+            if (IUPLO == 1) {
+              // Set the first IZERO rows and columns to zero.
 
-                     if ( IMAT < 6 ) {
+              for (var J = 1; J <= N; J++) {
+                final I2 = min(J, IZERO);
+                for (var I = 1; I <= I2; I++) {
+                  A[IOFF + I] = Complex.zero;
+                }
+                IOFF += LDA;
+              }
+              IZERO = 1;
+            } else {
+              // Set the first IZERO rows and columns to zero.
 
-                        // Set row and column IZERO to zero.
+              var IOFF = 0;
+              for (var J = 1; J <= N; J++) {
+                final I1 = max(J, IZERO);
+                for (var I = I1; I <= N; I++) {
+                  A[IOFF + I] = Complex.zero;
+                }
+                IOFF += LDA;
+              }
+            }
+          }
+        } else {
+          IZERO = 0;
+        }
 
-                        if ( IUPLO == 1 ) {
-                           IOFF = ( IZERO-1 )*LDA;
-                           for (I = 1; I <= IZERO - 1; I++) { // 20
-                              A[IOFF+I] = ZERO;
-                           } // 20
-                           IOFF += IZERO;
-                           for (I = IZERO; I <= N; I++) { // 30
-                              A[IOFF] = ZERO;
-                              IOFF += LDA;
-                           } // 30
-                        } else {
-                           IOFF = IZERO;
-                           for (I = 1; I <= IZERO - 1; I++) { // 40
-                              A[IOFF] = ZERO;
-                              IOFF += LDA;
-                           } // 40
-                           IOFF -= IZERO;
-                           for (I = IZERO; I <= N; I++) { // 50
-                              A[IOFF+I] = ZERO;
-                           } // 50
-                        }
-                     } else {
-                        IOFF = 0;
-                        if ( IUPLO == 1 ) {
+        // End generate the test matrix A.
 
-                        // Set the first IZERO rows and columns to zero.
+        for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
+          // Do first for FACT = 'F', then for other values.
 
-                           for (J = 1; J <= N; J++) { // 70
-                              I2 = min( J, IZERO );
-                              for (I = 1; I <= I2; I++) { // 60
-                                 A[IOFF+I] = ZERO;
-                              } // 60
-                              IOFF += LDA;
-                           } // 70
-                           IZERO = 1;
-                        } else {
+          // final FACT = FACTS[IFACT - 1];
 
-                        // Set the first IZERO rows and columns to zero.
+          // Form an exact solution and set the right hand side.
 
-                           IOFF = 0;
-                           for (J = 1; J <= N; J++) { // 90
-                              I1 = max( J, IZERO );
-                              for (I = I1; I <= N; I++) { // 80
-                                 A[IOFF+I] = ZERO;
-                              } // 80
-                              IOFF += LDA;
-                           } // 90
-                        }
-                     }
-                  } else {
-                     IZERO = 0;
-                  }
+          srnamc.SRNAMT = 'ZLARHS';
+          zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(),
+              LDA, XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
+          XTYPE = 'C';
 
-                  // End generate the test matrix A.
+          // --- Test ZHESV_AA_2STAGE  ---
 
+          if (IFACT == 2) {
+            zlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-               for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 150
+            // Factor the matrix and solve the system using ZHESV_AA.
 
-                  // Do first for FACT = 'F', then for other values.
+            srnamc.SRNAMT = 'ZHESV_AA_2STAGE ';
+            final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
+            zhesv_aa_2stage(
+                UPLO,
+                N,
+                NRHS,
+                AFAC.asMatrix(),
+                LDA,
+                AINV,
+                max(1, (3 * NB + 1) * N),
+                IWORK,
+                IWORK(1 + N),
+                X.asMatrix(),
+                LDA,
+                WORK,
+                LWORK,
+                INFO);
 
-                  final FACT = FACTS[IFACT - 1];
+            // Adjust the expected value of INFO.value to account for
+            // pivoting.
 
-                  // Form an exact solution and set the right hand side.
+            int K;
+            if (IZERO > 0) {
+              var J = 1;
+              K = IZERO;
+              while (true) {
+                if (J == K) {
+                  K = IWORK[J];
+                } else if (IWORK[J] == K) {
+                  K = J;
+                }
+                if (J < K) {
+                  J++;
+                  continue;
+                }
+                break;
+              }
+            } else {
+              K = 0;
+            }
 
-                 srnamc.SRNAMT = 'ZLARHS';
-                  zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                  XTYPE = 'C';
+            // Check error code from ZHESV_AA .
 
-                  // --- Test ZHESV_AA_2STAGE  ---
+            if (INFO.value != K) {
+              alaerh(PATH, 'ZHESV_AA', INFO.value, K, UPLO, N, N, -1, -1, NRHS,
+                  IMAT, NFAIL, NERRS, NOUT);
+            } else if (INFO.value != 0) {
+              //
+            } else {
+              // Compute residual of the computed solution.
 
-                  if ( IFACT == 2 ) {
-                     zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
+              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              zpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK, RESULT(1));
 
-                     // Factor the matrix and solve the system using ZHESV_AA.
+              // Reconstruct matrix from factors and compute
+              // residual.
 
-                    srnamc.SRNAMT = 'ZHESV_AA_2STAGE ';
-                     LWORK = min( max( 1, N*NB ), 3*NMAX*NMAX );
-                     zhesv_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, max( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO );
+              // NEED TO CREATE ZHET01_AA_2STAGE
+              //  CALL ZHET01_AA( UPLO, N, A, LDA, AFAC, LDA,
+              //      IWORK, AINV, LDA, RWORK,
+              //      RESULT( 2 ) )
+              //  NT = 2
+              const NT = 1;
 
-                     // Adjust the expected value of INFO to account for
-                     // pivoting.
+              // Print information about the tests that did not pass
+              // the threshold.
 
-                     if ( IZERO > 0 ) {
-                        J = 1;
-                        K = IZERO;
-                        } // 100
-                        if ( J == K ) {
-                           K = IWORK( J );
-                        } else if ( IWORK( J ) == K ) {
-                           K = J;
-                        }
-                        if ( J < K ) {
-                           J++;
-                           GO TO 100;
-                        }
-                     } else {
-                        K = 0;
-                     }
-
-                     // Check error code from ZHESV_AA .
-
-                     if ( INFO.value != K ) {
-                        alaerh(PATH, 'ZHESV_AA', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 120;
-                     } else if ( INFO.value != 0 ) {
-                        GO TO 120;
-                     }
-
-                     // Compute residual of the computed solution.
-
-                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
-                     zpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) );
-
-                     // Reconstruct matrix from factors and compute
-                     // residual.
-
-                     // NEED TO CREATE ZHET01_AA_2STAGE
-                     //  CALL ZHET01_AA( UPLO, N, A, LDA, AFAC, LDA,
-      // $                                  IWORK, AINV, LDA, RWORK,
-      // $                                  RESULT( 2 ) )
-      //                 NT = 2
-                     NT = 1;
-
-                     // Print information about the tests that did not pass
-                     // the threshold.
-
-                     for (K = 1; K <= NT; K++) { // 110
-                        if ( RESULT[K] >= THRESH ) {
-                           if (NFAIL == 0 && NERRS.value == 0) aladhd( NOUT, PATH );
-                           NOUT.println( 9999 )'ZHESV_AA_2STAGE', UPLO, N, IMAT, K, RESULT[K];
-                           NFAIL++;
-                        }
-                     } // 110
-                     NRUN +=  NT;
-                     } // 120
-                  }
-
-               } // 150
-
-            } // 160
-         } // 170
-      } // 180
-
-      // Print a summary of the results.
-
-      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
-
- 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${.i2}, ratio =${RESULT[].g12_5};
+              for (var K = 1; K <= NT; K++) {
+                if (RESULT[K] >= THRESH) {
+                  if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                  NOUT.println(
+                      ' ZHESV_AA_2STAGE, UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
+                  NFAIL++;
+                }
+              }
+              NRUN += NT;
+            }
+          }
+        }
       }
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
+}

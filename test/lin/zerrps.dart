@@ -1,84 +1,70 @@
-      void zerrps(PATH, infoc.NUNIT ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zpstf2.dart';
+import 'package:lapack/src/zpstrf.dart';
 
+import 'alaesm.dart';
+import 'chkxer.dart';
+import 'common.dart';
+
+void zerrps(final String PATH, final Nout NUNIT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                infoc.NUNIT;
-      String             PATH;
-      // ..
+  const NMAX = 4;
+  final A = Matrix<Complex>(NMAX, NMAX);
+  final RWORK = Array<double>(2 * NMAX);
+  final PIV = Array<int>(NMAX);
+  final INFO = Box(0);
 
-      int                NMAX;
-      const              NMAX = 4 ;
-      int                I, INFO, J, RANK;
-      Complex         A( NMAX, NMAX );
-      double             RWORK( 2*NMAX );
-      int                PIV( NMAX );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAESM, CHKXER, ZPSTF2, ZPSTRF
-      // ..
-      // .. Scalars in Common ..
-      int                infoc.INFOT, NOUT;
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  final NOUT = NUNIT;
+  NOUT.println();
 
-      NOUT = infoc.NUNIT;
-      NOUT.println( * );
+  // Set the variables to innocuous values.
 
-      // Set the variables to innocuous values.
+  for (var J = 1; J <= NMAX; J++) {
+    for (var I = 1; I <= NMAX; I++) {
+      A[I][J] = Complex.one / (I + J).toComplex();
+    }
+    PIV[J] = J;
+    RWORK[J] = 0.0;
+    RWORK[NMAX + J] = 0.0;
+  }
+  infoc.OK.value = true;
 
-      for (J = 1; J <= NMAX; J++) { // 110
-         for (I = 1; I <= NMAX; I++) { // 100
-            A[I][J] = 1.0 / (I+J).toDouble();
+  // Test error exits of the routines that use the Cholesky
+  // decomposition of an Hermitian positive semidefinite matrix.
 
-         } // 100
-         PIV[J] = J;
-         RWORK[J] = 0.0;
-         RWORK[NMAX+J] = 0.0;
+  // ZPSTRF
 
-      } // 110
-      infoc.OK.value = true;
+  srnamc.SRNAMT = 'ZPSTRF';
+  infoc.INFOT = 1;
+  final RANK = Box(0);
+  zpstrf('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO);
+  chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 2;
+  zpstrf('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO);
+  chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 4;
+  zpstrf('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO);
+  chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
+  // ZPSTF2
 
-         // Test error exits of the routines that use the Cholesky
-         // decomposition of an Hermitian positive semidefinite matrix.
+  srnamc.SRNAMT = 'ZPSTF2';
+  infoc.INFOT = 1;
+  zpstf2('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO);
+  chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 2;
+  zpstf2('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO);
+  chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  infoc.INFOT = 4;
+  zpstf2('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO);
+  chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
-         // ZPSTRF
+  // Print a summary line.
 
-     srnamc.SRNAMT = 'ZPSTRF';
-      infoc.INFOT = 1;
-      zpstrf('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 2;
-      zpstrf('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 4;
-      zpstrf('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-
-         // ZPSTF2
-
-     srnamc.SRNAMT = 'ZPSTF2';
-      infoc.INFOT = 1;
-      zpstf2('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 2;
-      zpstf2('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-      infoc.INFOT = 4;
-      zpstf2('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
-
-
-      // Print a summary line.
-
-      alaesm(PATH, infoc.OK, NOUT );
-
-      }
+  alaesm(PATH, infoc.OK.value, NOUT);
+}

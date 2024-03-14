@@ -10,13 +10,13 @@ import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/zgbsvxx.dart';
 import 'package:lapack/src/zgesvxx.dart';
 import 'package:lapack/src/zhesvxx.dart';
+import 'package:lapack/src/zlacpy.dart';
 import 'package:lapack/src/zposvxx.dart';
 import 'package:lapack/src/zsysvxx.dart';
 
-import 'zchkhe_rook.dart';
 import 'zlahilb.dart';
 
-void zebchvxx(final double THRESH, final String PATH, Nout NOUT) {
+void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
   const NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6;
   bool PRINTED_GUIDE;
   final BERR = Array<double>(NMAX),
@@ -76,7 +76,7 @@ void zebchvxx(final double THRESH, final String PATH, Nout NOUT) {
 
     // Generate the Hilbert matrix, its inverse, and the
     // right hand side, all scaled by the LCM(1,..,2N-1).
-    zlahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO, PATH);
+    zlahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK.cast<double>(), INFO, PATH);
 
     // Copy A into ACOPY.
     zlacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);

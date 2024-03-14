@@ -1,85 +1,99 @@
-      double zqrt17(final int TRANS, final int IRESID, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final int C, final Array<double> WORK_, final int LWORK,) {
-  final A = A_.having();
-  final X = X_.having();
-  final B = B_.having();
-  final WORK = WORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlascl.dart';
+
+import 'xerbla.dart';
+
+double zqrt17(
+  final String TRANS,
+  final int IRESID,
+  final int M,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> C_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS;
-      Complex         A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final X = X_.having(ld: LDX);
+  final B = B_.having(ld: LDB);
+  final C = C_.having(ld: LDB);
+  final WORK = WORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
+  final RWORK = Array<double>(1);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                INFO, ISCL, NCOLS, NROWS;
-      double             ERR, NORMA, NORMB, NORMRS, SMLNUM;
-      double             RWORK( 1 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEMM, ZLACPY, ZLASCL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX
+  final int NROWS, NCOLS;
+  if (lsame(TRANS, 'N')) {
+    NROWS = M;
+    NCOLS = N;
+  } else if (lsame(TRANS, 'C')) {
+    NROWS = N;
+    NCOLS = M;
+  } else {
+    xerbla('ZQRT17', 1);
+    return ZERO;
+  }
 
-      ZQRT17 = ZERO;
+  if (LWORK < NCOLS * NRHS) {
+    xerbla('ZQRT17', 13);
+    return ZERO;
+  }
 
-      if ( lsame( TRANS, 'N' ) ) {
-         NROWS = M;
-         NCOLS = N;
-      } else if ( lsame( TRANS, 'C' ) ) {
-         NROWS = N;
-         NCOLS = M;
-      } else {
-         xerbla('ZQRT17', 1 );
-         return;
-      }
+  if (M <= 0 || N <= 0 || NRHS <= 0) return ZERO;
 
-      if ( LWORK < NCOLS*NRHS ) {
-         xerbla('ZQRT17', 13 );
-         return;
-      }
+  final NORMA = zlange('One-norm', M, N, A, LDA, RWORK);
+  final SMLNUM = dlamch('Safe minimum') / dlamch('Precision');
 
-      if (M <= 0 || N <= 0 || NRHS <= 0) return;
+  // compute residual and scale it
 
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
-      SMLNUM = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
-      ISCL = 0;
+  zlacpy('All', NROWS, NRHS, B, LDB, C, LDB);
+  zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, Complex(-ONE), A, LDA, X,
+      LDX, Complex.one, C, LDB);
+  final int ISCL;
+  final NORMRS = zlange('Max', NROWS, NRHS, C, LDB, RWORK);
+  if (NORMRS > SMLNUM) {
+    ISCL = 1;
+    final INFO = Box(0);
+    zlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO);
+  } else {
+    ISCL = 0;
+  }
 
-      // compute residual and scale it
+  // compute R**H * op(A)
 
-      zlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
-      zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, Complex.one, C, LDB );
-      NORMRS = ZLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK );
-      if ( NORMRS > SMLNUM ) {
-         ISCL = 1;
-         zlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
-      }
+  zgemm('Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, Complex.one, C, LDB,
+      A, LDA, Complex.zero, WORK.asMatrix(), NRHS);
 
-      // compute R**H * op(A)
+  // compute and properly scale error
 
-      zgemm('Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, Complex.one, C, LDB, A, LDA, Complex.zero, WORK, NRHS );
+  var ERR = zlange('One-norm', NRHS, NCOLS, WORK.asMatrix(), NRHS, RWORK);
+  if (NORMA != ZERO) ERR = ERR / NORMA;
 
-      // compute and properly scale error
+  if (ISCL == 1) ERR = ERR * NORMRS;
 
-      ERR = ZLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK );
-      if (NORMA != ZERO) ERR = ERR / NORMA;
+  if (IRESID == 1) {
+    final NORMB = zlange('One-norm', NROWS, NRHS, B, LDB, RWORK);
+    if (NORMB != ZERO) ERR = ERR / NORMB;
+  } else {
+    if (NORMRS != ZERO) ERR = ERR / NORMRS;
+  }
 
-      if (ISCL == 1) ERR = ERR*NORMRS;
-
-      if ( IRESID == 1 ) {
-         NORMB = ZLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK );
-         if (NORMB != ZERO) ERR = ERR / NORMB;
-      } else {
-         if (NORMRS != ZERO) ERR = ERR / NORMRS;
-      }
-
-      ZQRT17 = ERR / ( dlamch( 'Epsilon' )*(max( M, N, NRHS )).toDouble() );
-      }
+  return ERR / (dlamch('Epsilon') * (max(M, max(N, NRHS))));
+}

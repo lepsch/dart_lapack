@@ -1,80 +1,70 @@
-      void zpot06(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> RWORK_, final int RESID,) {
-  final A = A_.having();
-  final X = X_.having();
-  final B = B_.having();
-  final RWORK = RWORK_.having();
+import 'dart:math';
 
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/zhemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlansy.dart';
+
+void zpot06(
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDB, LDX, N, NRHS;
-      double             RESID;
-      double             RWORK( * );
-      Complex         A( LDA, * ), B( LDB, * ), X( LDX, * );
-      // ..
+  final A = A_.having(ld: LDA);
+  final X = X_.having(ld: LDX);
+  final B = B_.having(ld: LDB);
+  final RWORK = RWORK_.having();
+  const ZERO = 0.0, ONE = 1.0;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CONE, NEGCONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      const              NEGCONE = ( -1.0, 0.0 ) ;
-      int                IFAIL, J;
-      double             ANORM, BNORM, EPS, XNORM;
-      Complex         ZDUM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                IZAMAX;
-      //- double             DLAMCH, ZLANSY;
-      // EXTERNAL lsame, IZAMAX, DLAMCH, ZLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZHEMM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DIMAG, MAX
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-      // ..
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
+  // ..
 
-      // Quick exit if N = 0 or NRHS = 0
+  // Quick exit if N = 0 or NRHS = 0
 
-      if ( N <= 0 || NRHS == 0 ) {
-         RESID = ZERO;
-         return;
-      }
+  if (N <= 0 || NRHS == 0) {
+    RESID.value = ZERO;
+    return;
+  }
 
-      // Exit with RESID = 1/EPS if ANORM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = dlamch( 'Epsilon' );
-      ANORM = ZLANSY( 'I', UPLO, N, A, LDA, RWORK );
-      if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS;
-         return;
-      }
+  final EPS = dlamch('Epsilon');
+  final ANORM = zlansy('I', UPLO, N, A, LDA, RWORK);
+  if (ANORM <= ZERO) {
+    RESID.value = ONE / EPS;
+    return;
+  }
 
-      // Compute  B - A*X  and store in B.
-      IFAIL=0;
+  // Compute  B - A*X  and store in B.
 
-      zhemm('Left', UPLO, N, NRHS, NEGCONE, A, LDA, X, LDX, CONE, B, LDB );
+  zhemm(
+      'Left', UPLO, N, NRHS, -Complex.one, A, LDA, X, LDX, Complex.one, B, LDB);
 
-      // Compute the maximum over the number of right hand sides of
-      //    norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .
+  // Compute the maximum over the number of right hand sides of
+  //    norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .
 
-      RESID = ZERO;
-      for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = CABS1(B(IZAMAX( N, B( 1, J ), 1 ),J));
-         XNORM = CABS1(X(IZAMAX( N, X( 1, J ), 1 ),J));
-         if ( XNORM <= ZERO ) {
-            RESID = ONE / EPS;
-         } else {
-            RESID = max( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS );
-         }
-      } // 10
-
-      }
+  RESID.value = ZERO;
+  for (var J = 1; J <= NRHS; J++) {
+    final BNORM = CABS1(B[izamax(N, B(1, J).asArray(), 1)][J]);
+    final XNORM = CABS1(X[izamax(N, X(1, J).asArray(), 1)][J]);
+    if (XNORM <= ZERO) {
+      RESID.value = ONE / EPS;
+    } else {
+      RESID.value = max(RESID.value, ((BNORM / ANORM) / XNORM) / EPS);
+    }
+  }
+}

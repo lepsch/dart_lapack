@@ -64,8 +64,7 @@ void zlarrv(
       TRYRQC,
       USEDBS = false,
       USEDRQ = false;
-  int DONE,
-      I,
+  int I,
       IBEGIN = 0,
       IDONE = 0,
       IEND = 0,
@@ -217,8 +216,6 @@ void zlarrv(
   // Remark that if k eigenpairs are desired, then the eigenvectors
   // are stored in k contiguous columns of Z.
 
-  // DONE is the number of eigenvectors already computed
-  DONE = 0;
   IBEGIN = 1;
   WBEGIN = 1;
   for (JBLK = 1; JBLK <= IBLOCK[M]; JBLK++) {
@@ -260,7 +257,6 @@ void zlarrv(
 
     // This is for a 1x1 block
     if (IBEGIN == IEND) {
-      DONE++;
       Z[IBEGIN][WBEGIN] = Complex(ONE, ZERO);
       ISUPPZ[2 * WBEGIN - 1] = IBEGIN;
       ISUPPZ[2 * WBEGIN] = IBEGIN;
@@ -619,7 +615,6 @@ void zlarrv(
             WINDMN = max(WINDEX - 1, 1);
             WINDPL = min(WINDEX + 1, M);
             LAMBDA = WORK[WINDEX];
-            DONE++;
             // Check if eigenvector computation is to be skipped
             if ((WINDEX < DOL) || (WINDEX > DOU)) {
               ESKIP = true;

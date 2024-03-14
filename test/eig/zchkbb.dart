@@ -93,7 +93,6 @@ void zchkbb(
       MTYPES,
       N,
       NERRS,
-      NMATS,
       NMAX,
       NTEST,
       NTESTT;
@@ -190,7 +189,6 @@ void zchkbb(
   // Loop over sizes, widths, types
 
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 160
@@ -215,7 +213,6 @@ void zchkbb(
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         // 140
         if (!DOTYPE[JTYPE]) continue;
-        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {

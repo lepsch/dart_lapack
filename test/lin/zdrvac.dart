@@ -1,259 +1,256 @@
-      void zdrvac(final Array<bool> DOTYPE_, final int NM, final Array<int> MVAL_, final int NNS, final Array<int> NSVAL_, final int THRESH, final int NMAX, final int A, final int AFAC, final int B, final int X, final Array<double> WORK_, final Array<double> RWORK_, final int SWORK, final Nout NOUT,) {
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zcposv.dart';
+import 'package:lapack/src/zlacpy.dart';
+
+import '../matgen/zlatms.dart';
+import 'alaerh.dart';
+import 'alahd.dart';
+import 'common.dart';
+import 'zlaipd.dart';
+import 'zlarhs.dart';
+import 'zlatb4.dart';
+import 'zpot06.dart';
+
+void zdrvac(
+  final Array<bool> DOTYPE_,
+  final int NM,
+  final Array<int> MVAL_,
+  final int NNS,
+  final Array<int> NSVAL_,
+  final double THRESH,
+  final int NMAX,
+  final Array<Complex> A_,
+  final Array<Complex> AFAC_,
+  final Array<Complex> B_,
+  final Array<Complex> X_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<Complex> SWORK_,
+  final Nout NOUT,
+) {
+  final DOTYPE = DOTYPE_.having();
+  final MVAL = MVAL_.having();
+  final NSVAL = NSVAL_.having();
+  final A = A_.having();
+  final AFAC = AFAC_.having();
+  final B = B_.having();
+  final X = X_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
+  final SWORK = SWORK_.having();
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                NMAX, NM, NNS, NOUT;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                MVAL( * ), NSVAL( * );
-      double             RWORK( * );
-      Complex            SWORK(*);
-      Complex         A( * ), AFAC( * ), B( * ), WORK( * ), X( * );
-      // ..
+  const NTYPES = 9, NTESTS = 1;
+  final ISEED = Array<int>(4);
+  final RESULT = Array<double>(NTESTS);
+  const ISEEDY = [1988, 1989, 1990, 1991];
+  const UPLOS = ['U', 'L'];
+  final INFO = Box(0);
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      int                NTYPES;
-      const              NTYPES = 9 ;
-      int                NTESTS;
-      const              NTESTS = 1 ;
-      bool               ZEROT;
-      String             DIST, TYPE, UPLO, XTYPE;
-      String             PATH;
-      int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NIMAT, NRHS;
-      double             ANORM, CNDNUM;
-      String             UPLOS( 2 );
-      final                ISEED=Array<int>( 4 );
-      final             RESULT=Array<double>( NTESTS );
-      // ..
-      // .. Local Variables ..
-      int                ITER, KASE;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, SQRT
-      // ..
-      // .. Scalars in Common ..
-      bool               infoc.LERR, infoc.OK;
-      String            srnamc.SRNAMT;
-      int                infoc.INFOT, infoc.NUNIT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Data statements ..
-      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      const UPLOS = [ 'U', 'L' ];
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  final PATH = '${'Zomplex precision'[0]}PO';
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  for (var I = 1; I <= 4; I++) {
+    ISEED[I] = ISEEDY[I - 1];
+  }
 
-      KASE = 0;
-      final PATH = '${'Zomplex precision'[0]}PO';
-      var NRUN = 0;
-      var NFAIL = 0;
-      var NERRS = Box(0);
-      for (I = 1; I <= 4; I++) { // 10
-         ISEED[I] = ISEEDY[I - 1];
-      } // 10
+  infoc.INFOT = 0;
 
-      infoc.INFOT = 0;
+  // Do for each value of N in MVAL
 
-      // Do for each value of N in MVAL
+  for (var IM = 1; IM <= NM; IM++) {
+    final N = MVAL[IM];
+    final LDA = max(N, 1);
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
-      for (IM = 1; IM <= NM; IM++) { // 120
-         N = MVAL( IM );
-         final LDA = max( N, 1 );
-            final NIMAT = N <= 0 ? 1 : NTYPES;
+    imatLoop:
+    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      // Do the tests only if DOTYPE( IMAT ) is true.
 
-         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
+      if (!DOTYPE[IMAT]) continue;
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            if( !DOTYPE[IMAT] ) GO TO 110;
+      final ZEROT = IMAT >= 3 && IMAT <= 5;
+      if (ZEROT && N < IMAT - 2) continue;
 
-            // Skip types 3, 4, or 5 if the matrix size is too small.
+      // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            final ZEROT = IMAT >= 3 && IMAT <= 5;
-            if (ZEROT && N < IMAT-2) GO TO 110;
+      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+        final UPLO = UPLOS[IUPLO - 1];
 
-            // Do first for UPLO = 'U', then for UPLO = 'L'
+        // Set up parameters with ZLATB4 and generate a test matrix
+        // with ZLATMS.
 
-            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 100
-               final UPLO = UPLOS[IUPLO - 1];
+        final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+            zlatb4(PATH, IMAT, N, N);
 
-               // Set up parameters with ZLATB4 and generate a test matrix
-               // with ZLATMS.
+        srnamc.SRNAMT = 'ZLATMS';
+        zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+            UPLO, A.asMatrix(), LDA, WORK, INFO);
 
-               final (:TYPE,:KL,:KU,:ANORM,:MODE,:CNDNUM,:DIST) = zlatb4(PATH, IMAT, N, N);
+        // Check error code from ZLATMS.
 
-              srnamc.SRNAMT = 'ZLATMS';
-               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
+        if (INFO.value != 0) {
+          alaerh(PATH, 'ZLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
+              NFAIL, NERRS, NOUT);
+        } else {
+          // For types 3-5, zero one row and column of the matrix to
+          // test that INFO is returned correctly.
 
-               // Check error code from ZLATMS.
+          final int IZERO;
+          if (ZEROT) {
+            if (IMAT == 3) {
+              IZERO = 1;
+            } else if (IMAT == 4) {
+              IZERO = N;
+            } else {
+              IZERO = N ~/ 2 + 1;
+            }
+            var IOFF = (IZERO - 1) * LDA;
 
-               if ( INFO.value != 0 ) {
-                  alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 100;
-               }
+            // Set row and column IZERO of A to 0.
 
-               // For types 3-5, zero one row and column of the matrix to
-               // test that INFO is returned correctly.
+            if (IUPLO == 1) {
+              for (var I = 1; I <= IZERO - 1; I++) {
+                A[IOFF + I] = Complex.zero;
+              }
+              IOFF += IZERO;
+              for (var I = IZERO; I <= N; I++) {
+                A[IOFF] = Complex.zero;
+                IOFF += LDA;
+              }
+            } else {
+              IOFF = IZERO;
+              for (var I = 1; I <= IZERO - 1; I++) {
+                A[IOFF] = Complex.zero;
+                IOFF += LDA;
+              }
+              IOFF -= IZERO;
+              for (var I = IZERO; I <= N; I++) {
+                A[IOFF + I] = Complex.zero;
+              }
+            }
+          } else {
+            IZERO = 0;
+          }
 
-               final int IZERO;
-               if ( ZEROT ) {
-                  if ( IMAT == 3 ) {
-                     IZERO = 1;
-                  } else if ( IMAT == 4 ) {
-                     IZERO = N;
-                  } else {
-                     IZERO = N ~/ 2 + 1;
-                  }
-                  IOFF = ( IZERO-1 )*LDA;
+          // Set the imaginary part of the diagonals.
 
-                  // Set row and column IZERO of A to 0.
+          zlaipd(N, A, LDA + 1, 0);
 
-                  if ( IUPLO == 1 ) {
-                     for (I = 1; I <= IZERO - 1; I++) { // 20
-                        A[IOFF+I] = ZERO;
-                     } // 20
-                     IOFF += IZERO;
-                     for (I = IZERO; I <= N; I++) { // 30
-                        A[IOFF] = ZERO;
-                        IOFF += LDA;
-                     } // 30
-                  } else {
-                     IOFF = IZERO;
-                     for (I = 1; I <= IZERO - 1; I++) { // 40
-                        A[IOFF] = ZERO;
-                        IOFF += LDA;
-                     } // 40
-                     IOFF -= IZERO;
-                     for (I = IZERO; I <= N; I++) { // 50
-                        A[IOFF+I] = ZERO;
-                     } // 50
-                  }
-               } else {
-                  IZERO = 0;
-               }
+          for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+            final NRHS = NSVAL[IRHS];
+            final XTYPE = 'N';
 
-               // Set the imaginary part of the diagonals.
+            // Form an exact solution and set the right hand side.
 
-               zlaipd(N, A, LDA+1, 0 );
+            srnamc.SRNAMT = 'ZLARHS';
+            zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(),
+                LDA, X.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
 
-               for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
-                  final NRHS = NSVAL[IRHS];
-                  XTYPE = 'N';
+            // Compute the L*L' or U'*U factorization of the
+            // matrix and solve the system.
 
-                  // Form an exact solution and set the right hand side.
+            srnamc.SRNAMT = 'ZCPOSV ';
 
-                 srnamc.SRNAMT = 'ZLARHS';
-                  zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
+            zlacpy('All', N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
 
-                  // Compute the L*L' or U'*U factorization of the
-                  // matrix and solve the system.
+            final ITER = Box(0);
+            zcposv(UPLO, N, NRHS, AFAC.asMatrix(), LDA, B.asMatrix(), LDA,
+                X.asMatrix(), LDA, WORK.asMatrix(), SWORK, RWORK, ITER, INFO);
 
-                 srnamc.SRNAMT = 'ZCPOSV ';
-                  KASE++;
+            if (ITER.value < 0) {
+              zlacpy('All', N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            }
 
-                  zlacpy('All', N, N, A, LDA, AFAC, LDA);
+            // Check error code from ZCPOSV .
 
-                  zcposv(UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO );
+            if (INFO.value != IZERO) {
+              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+              NERRS.value++;
 
-                  if (ITER < 0) {
-                     zlacpy('All', N, N, A, LDA, AFAC, LDA );
-                  }
+              if (INFO.value != IZERO && IZERO != 0) {
+                NOUT.println(
+                    ' *** ZCPOSV returned with INFO =${INFO.value.i5} instead of ${IZERO.i5}\n ==> N =${N.i5}, type ${IMAT.i2}');
+              } else {
+                NOUT.println(
+                    ' *** Error code from ZCPOSV=${INFO.value.i5} for M=${N.i5}, type ${IMAT.i2}');
+              }
+            }
 
-                  // Check error code from ZCPOSV .
+            // Skip the remaining test if the matrix is singular.
 
-                  if ( INFO.value != IZERO ) {
+            if (INFO.value != 0) continue imatLoop;
 
-                     if (NFAIL == 0 && NERRS.value == 0) alahd( NOUT, PATH );
-                     NERRS++;
+            // Check the quality of the solution
 
-                     if ( INFO.value != IZERO && IZERO != 0 ) {
-                        NOUT.println( 9988 )'ZCPOSV',INFO,IZERO,N, IMAT;
-                     } else {
-                        NOUT.println( 9975 )'ZCPOSV',INFO,N,IMAT;
-                     }
-                  }
+            zlacpy('All', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
 
-                  // Skip the remaining test if the matrix is singular.
+            zpot06(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                WORK.asMatrix(), LDA, RWORK, RESULT(1));
 
-                  if (INFO != 0) GO TO 110;
+            // Check if the test passes the testing.
+            // Print information about the tests that did not
+            // pass the testing.
 
-                  // Check the quality of the solution
+            // If iterative refinement has been used and claimed to
+            // be successful (ITER>0), we want
+            // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS*SRQT(N)) < 1
 
-                  zlacpy('All', N, NRHS, B, LDA, WORK, LDA );
+            // If double precision has been used (ITER<0), we want
+            // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
+            // (Cf. the linear solver testing routines)
 
-                  zpot06(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) );
+            if ((THRESH <= 0.0e+00) ||
+                ((ITER.value >= 0) &&
+                    (N > 0) &&
+                    (RESULT[1] >= sqrt(N.toDouble()))) ||
+                ((ITER.value < 0) && (RESULT[1] >= THRESH))) {
+              if (NFAIL == 0 && NERRS.value == 0) {
+                NOUT.println('\n ZPO:  positive definite dense matrices');
+                NOUT.println(' Matrix types:');
+                NOUT.println(
+                    '    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n    2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n    3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n    4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n    5. First column zero${' ' * 14}11. Scaled near overflow\n    6. Last column zero');
+                NOUT.println(' Test ratios:');
+                NOUT.println(
+                    '   ${1.i2}: norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF\n    or norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS ) > THRES if ZPOTRF');
+                NOUT.println(' Messages:');
+              }
 
-                  // Check if the test passes the testing.
-                  // Print information about the tests that did not
-                  // pass the testing.
+              NOUT.println(
+                  ' UPLO=\'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${1.i2}) =${RESULT[1].g12_5}');
 
-                  // If iterative refinement has been used and claimed to
-                  // be successful (ITER>0), we want
-                  // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS*SRQT(N)) < 1
+              NFAIL++;
+            }
 
-                  // If double precision has been used (ITER<0), we want
-                  // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
-                  // (Cf. the linear solver testing routines)
-
-                  if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= sqrt(N.toDouble()))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
-
-                     if ( NFAIL == 0 && NERRS == 0 ) {
-                        NOUT.println( 8999 )'ZPO';
-                        NOUT.println( ' Matrix types:' );
-                        NOUT.println( 8979 );
-                        NOUT.println( ' Test ratios:' );
-                        NOUT.println( 8960 )1;
-                        NOUT.println( ' Messages:' );
-                     }
-
-                     NOUT.println( 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 );
-
-                     NFAIL++;
-
-                  }
-
-                  NRUN++;
-
-               } // 60
-            } // 100
-         } // 110
-      } // 120
-
-      // Print a summary of the results.
-
-      if ( NFAIL > 0 ) {
-         NOUT.println( 9996 )'ZCPOSV', NFAIL, NRUN;
-      } else {
-         NOUT.println( 9995 )'ZCPOSV', NRUN;
+            NRUN++;
+          }
+        }
       }
-      if ( NERRS > 0 ) {
-         NOUT.println( 9994 )NERRS;
-      }
+    }
 
- 9998 FORMAT( ' UPLO=\'${.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${.i2}) =${RESULT[].g12_5};
- 9996 FORMAT(' ${.a6}: ${.i6} out of ${.i6} tests failed to pass the threshold' );
- 9995 FORMAT('\n All tests for ${.a6} routines passed the threshold ( ${.i6} tests run)' );
- 9994 FORMAT('${' ' * 6}${.i6} error messages recorded' );
+    // Print a summary of the results.
 
-      // SUBNAM, INFO, INFOE, N, IMAT
-
- 9988 FORMAT( ' *** ${.a6} returned with INFO =${.i5} instead of ${.i5}\n ==> N =${N.i5}, type ${IMAT.i2}');
-
-      // SUBNAM, INFO, N, IMAT
-
- 9975 FORMAT( ' *** Error code from ${.a6}=${.i5} for M=${M.i5}, type ${IMAT.i2}');
- 8999 FORMAT('\n ${.a3}:  positive definite dense matrices' );
- 8979 FORMAT('    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n    2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n    3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n    4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n    5. First column zero${' ' * 14}11. Scaled near overflow\n    6. Last column zero' );
- 8960 FORMAT('   ${.i2}: norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF\n    or norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS ) > THRES if ZPOTRF' );
-
-      }
+    if (NFAIL > 0) {
+      NOUT.println(
+          ' ZCPOSV: ${NFAIL.i6} out of ${NRUN.i6} tests failed to pass the threshold');
+    } else {
+      NOUT.println(
+          '\n All tests for ZCPOSV routines passed the threshold ( ${NRUN.i6} tests run)');
+    }
+    if (NERRS.value > 0) {
+      NOUT.println('${' ' * 6}${NERRS.value.i6} error messages recorded');
+    }
+  }
+}

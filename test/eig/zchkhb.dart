@@ -73,7 +73,6 @@ void zchkhb(
       MTYPES,
       N,
       NERRS,
-      NMATS,
       NMAX,
       NTEST = 0,
       NTESTT;
@@ -165,7 +164,6 @@ void zchkhb(
   // Loop over sizes, types
 
   NERRS = 0;
-  NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     // 190
@@ -187,7 +185,6 @@ void zchkhb(
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
         // 170
         if (!DOTYPE[JTYPE]) continue;
-        NMATS++;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
