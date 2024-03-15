@@ -32,7 +32,7 @@ void ztgex2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  const TWENTY = 2.0e+1;
+  const ZERO = 0.0, ONE = 1.0, TWENTY = 2.0e+1;
   const LDST = 2;
   const WANDS = true;
   bool STRONG, WEAK;
@@ -66,14 +66,14 @@ void ztgex2(
 
   EPS = dlamch('P');
   SMLNUM = dlamch('S') / EPS;
-  SCALE.value = Complex.zero.toDouble();
-  SUM.value = Complex.one.toDouble();
+  SCALE.value = ZERO;
+  SUM.value = ONE;
   zlacpy('Full', M, M, S, LDST, WORK.asMatrix(M), M);
   zlacpy('Full', M, M, T, LDST, WORK(M * M + 1).asMatrix(M), M);
   zlassq(M * M, WORK, 1, SCALE, SUM);
   SA = SCALE.value * sqrt(SUM.value);
-  SCALE.value = Complex.zero.toDouble();
-  SUM.value = Complex.one.toDouble();
+  SCALE.value = ZERO;
+  SUM.value = ONE;
   zlassq(M * M, WORK(M * M + 1), 1, SCALE, SUM);
   SB = SCALE.value * sqrt(SUM.value);
 
@@ -138,12 +138,12 @@ void ztgex2(
       WORK[I + 4] = WORK[I + 4] - B[J1 + I - 1][J1];
       WORK[I + 6] = WORK[I + 6] - B[J1 + I - 1][J1 + 1];
     } // 10
-    SCALE.value = Complex.zero.toDouble();
-    SUM.value = Complex.one.toDouble();
+    SCALE.value = ZERO;
+    SUM.value = ONE;
     zlassq(M * M, WORK, 1, SCALE, SUM);
     SA = SCALE.value * sqrt(SUM.value);
-    SCALE.value = Complex.zero.toDouble();
-    SUM.value = Complex.one.toDouble();
+    SCALE.value = ZERO;
+    SUM.value = ONE;
     zlassq(M * M, WORK(M * M + 1), 1, SCALE, SUM);
     SB = SCALE.value * sqrt(SUM.value);
     STRONG = SA <= THRESHA && SB <= THRESHB;

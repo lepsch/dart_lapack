@@ -17,6 +17,7 @@ void zher(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const ZERO = 0.0;
   final X = X_.having();
   final A = A_.having(ld: LDA);
   Complex TEMP;
@@ -41,7 +42,7 @@ void zher(
 
   // Quick return if possible.
 
-  if ((N == 0) || (ALPHA == Complex.zero.toDouble())) return;
+  if ((N == 0) || (ALPHA == ZERO)) return;
 
   // Set the start point in X if the increment is not unity.
 

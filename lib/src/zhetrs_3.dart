@@ -21,14 +21,14 @@ void zhetrs_3(
   final int LDB,
   final Box<int> INFO,
 ) {
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);
   final E = E_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const ONE = 1.0;
   bool UPPER;
   int I, J, K, KP;
   double S;
@@ -152,7 +152,7 @@ void zhetrs_3(
     I = 1;
     while (I <= N) {
       if (IPIV[I] > 0) {
-        S = Complex.one.toDouble() / (A[I][I]).toDouble();
+        S = ONE / A[I][I].real;
         zdscal(NRHS, S, B(I, 1).asArray(), LDB);
       } else if (I < N) {
         AKM1K = E[I];

@@ -27,6 +27,7 @@ void zhptrs(
   final AP = AP_.having();
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);
+  const ONE = 1.0;
   bool UPPER;
   int J, K, KC, KP;
   double S;
@@ -82,7 +83,7 @@ void zhptrs(
 
         // Multiply by the inverse of the diagonal block.
 
-        S = Complex.one.toDouble() / AP[KC + K - 1].toDouble();
+        S = ONE / AP[KC + K - 1].real;
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
         K--;
       } else {
@@ -209,7 +210,7 @@ void zhptrs(
 
         // Multiply by the inverse of the diagonal block.
 
-        S = Complex.one.toDouble() / (AP[KC]).toDouble();
+        S = ONE / AP[KC].real;
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
         KC += N - K + 1;
         K++;

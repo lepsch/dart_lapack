@@ -22,7 +22,7 @@ void zher2k(
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  const ONE = 1.0;
+  const ZERO = 0.0, ONE = 1.0;
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final C = C_.having(ld: LDC);
@@ -70,7 +70,7 @@ void zher2k(
 
   if (ALPHA == Complex.zero) {
     if (UPPER) {
-      if (BETA == Complex.zero.toDouble()) {
+      if (BETA == ZERO) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J; I++) {
             C[I][J] = Complex.zero;
@@ -81,11 +81,11 @@ void zher2k(
           for (I = 1; I <= J - 1; I++) {
             C[I][J] = BETA.toComplex() * C[I][J];
           }
-          C[J][J] = (BETA * C[J][J].toDouble()).toComplex();
+          C[J][J] = (BETA * C[J][J].real).toComplex();
         }
       }
     } else {
-      if (BETA == Complex.zero.toDouble()) {
+      if (BETA == ZERO) {
         for (J = 1; J <= N; J++) {
           for (I = J; I <= N; I++) {
             C[I][J] = Complex.zero;
@@ -93,7 +93,7 @@ void zher2k(
         }
       } else {
         for (J = 1; J <= N; J++) {
-          C[J][J] = (BETA * C[J][J].toDouble()).toComplex();
+          C[J][J] = (BETA * C[J][J].real).toComplex();
           for (I = J + 1; I <= N; I++) {
             C[I][J] = BETA.toComplex() * C[I][J];
           }
@@ -111,15 +111,15 @@ void zher2k(
 
     if (UPPER) {
       for (J = 1; J <= N; J++) {
-        if (BETA == Complex.zero.toDouble()) {
+        if (BETA == ZERO) {
           for (I = 1; I <= J; I++) {
             C[I][J] = Complex.zero;
           }
-        } else if (BETA.toComplex() != Complex.one) {
+        } else if (BETA != ONE) {
           for (I = 1; I <= J - 1; I++) {
             C[I][J] = BETA.toComplex() * C[I][J];
           }
-          C[J][J] = (BETA * C[J][J].toDouble()).toComplex();
+          C[J][J] = (BETA * C[J][J].real).toComplex();
         } else {
           C[J][J] = C[J][J].real.toComplex();
         }
@@ -130,14 +130,14 @@ void zher2k(
             for (I = 1; I <= J - 1; I++) {
               C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
             }
-            C[J][J] = C[J][J].real.toComplex() +
-                (A[J][L] * TEMP1 + B[J][L] * TEMP2).real.toComplex();
+            C[J][J] = (C[J][J].real + (A[J][L] * TEMP1 + B[J][L] * TEMP2).real)
+                .toComplex();
           }
         }
       }
     } else {
       for (J = 1; J <= N; J++) {
-        if (BETA == Complex.zero.toDouble()) {
+        if (BETA == ZERO) {
           for (I = J; I <= N; I++) {
             C[I][J] = Complex.zero;
           }
@@ -145,9 +145,9 @@ void zher2k(
           for (I = J + 1; I <= N; I++) {
             C[I][J] = BETA.toComplex() * C[I][J];
           }
-          C[J][J] = BETA.toComplex() * (C[J][J].real.toComplex());
+          C[J][J] = (BETA * C[J][J].real).toComplex();
         } else {
-          C[J][J] = (C[J][J]).real.toComplex();
+          C[J][J] = C[J][J].real.toComplex();
         }
         for (L = 1; L <= K; L++) {
           if ((A[J][L] != Complex.zero) || (B[J][L] != Complex.zero)) {
@@ -156,8 +156,8 @@ void zher2k(
             for (I = J + 1; I <= N; I++) {
               C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
             }
-            C[J][J] = C[J][J].real.toComplex() +
-                (A[J][L] * TEMP1 + B[J][L] * TEMP2).real.toComplex();
+            C[J][J] = (C[J][J].real + (A[J][L] * TEMP1 + B[J][L] * TEMP2).real)
+                .toComplex();
           }
         }
       }
@@ -176,16 +176,16 @@ void zher2k(
             TEMP2 += B[L][I].conjugate() * A[L][J];
           }
           if (I == J) {
-            if (BETA == Complex.zero.toDouble()) {
+            if (BETA == ZERO) {
               C[J][J] =
                   (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real.toComplex();
             } else {
-              C[J][J] = (BETA * (C[J][J]).toDouble() +
-                      (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).toDouble())
+              C[J][J] = (BETA * C[J][J].real +
+                      (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real)
                   .toComplex();
             }
           } else {
-            if (BETA == Complex.zero.toDouble()) {
+            if (BETA == ZERO) {
               C[I][J] = ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2;
             } else {
               C[I][J] = BETA.toComplex() * C[I][J] +
@@ -205,16 +205,16 @@ void zher2k(
             TEMP2 += B[L][I].conjugate() * A[L][J];
           }
           if (I == J) {
-            if (BETA == Complex.zero.toDouble()) {
+            if (BETA == ZERO) {
               C[J][J] =
                   (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real.toComplex();
             } else {
-              C[J][J] = (BETA * C[J][J].toDouble() +
-                      (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).toDouble())
+              C[J][J] = (BETA * C[J][J].real +
+                      (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real)
                   .toComplex();
             }
           } else {
-            if (BETA == Complex.zero.toDouble()) {
+            if (BETA == ZERO) {
               C[I][J] = ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2;
             } else {
               C[I][J] = BETA.toComplex() * C[I][J] +

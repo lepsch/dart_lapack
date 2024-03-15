@@ -28,6 +28,7 @@ void zhetrs_rook(
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);
+  const ONE = 1.0;
   bool UPPER;
   int J, K, KP;
   double S;
@@ -83,7 +84,7 @@ void zhetrs_rook(
 
         // Multiply by the inverse of the diagonal block.
 
-        S = Complex.one.toDouble() / (A[K][K]).toDouble();
+        S = ONE / A[K][K].real;
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
         K--;
       } else {
@@ -226,7 +227,7 @@ void zhetrs_rook(
 
         // Multiply by the inverse of the diagonal block.
 
-        S = Complex.one.toDouble() / (A[K][K]).toDouble();
+        S = ONE / A[K][K].real;
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
         K++;
       } else {
