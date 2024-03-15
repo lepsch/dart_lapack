@@ -257,19 +257,16 @@ void dlasy2(
   // Perform elimination
 
   for (I = 1; I <= 3; I++) {
-    // 100
     XMAX = ZERO;
     for (IP = I; IP <= 4; IP++) {
-      // 70
       for (JP = I; JP <= 4; JP++) {
-        // 60
         if ((T16[IP][JP].abs()) >= XMAX) {
           XMAX = (T16[IP][JP].abs());
           IPSV = IP;
           JPSV = JP;
         }
-      } // 60
-    } // 70
+      }
+    }
     if (IPSV != I) {
       dswap(4, T16(IPSV, 1).asArray(), 4, T16(I, 1).asArray(), 4);
       TEMP = BTMP[I];
@@ -283,15 +280,13 @@ void dlasy2(
       T16[I][I] = SMIN;
     }
     for (J = I + 1; J <= 4; J++) {
-      // 90
       T16[J][I] = T16[J][I] / T16[I][I];
       BTMP[J] = BTMP[J] - T16[J][I] * BTMP[I];
       for (K = I + 1; K <= 4; K++) {
-        // 80
         T16[J][K] = T16[J][K] - T16[J][I] * T16[I][K];
-      } // 80
-    } // 90
-  } // 100
+      }
+    }
+  }
   if (T16[4][4].abs() < SMIN) {
     INFO.value = 1;
     T16[4][4] = SMIN;
@@ -310,23 +305,20 @@ void dlasy2(
     BTMP[4] = BTMP[4] * SCALE.value;
   }
   for (I = 1; I <= 4; I++) {
-    // 120
     K = 5 - I;
     TEMP = ONE / T16[K][K];
     TMP[K] = BTMP[K] * TEMP;
     for (J = K + 1; J <= 4; J++) {
-      // 110
       TMP[K] = TMP[K] - (TEMP * T16[K][J]) * TMP[J];
-    } // 110
-  } // 120
+    }
+  }
   for (I = 1; I <= 3; I++) {
-    // 130
     if (JPIV[4 - I] != 4 - I) {
       TEMP = TMP[4 - I];
       TMP[4 - I] = TMP[JPIV[4 - I]];
       TMP[JPIV[4 - I]] = TEMP;
     }
-  } // 130
+  }
   X[1][1] = TMP[1];
   X[2][1] = TMP[2];
   X[1][2] = TMP[3];

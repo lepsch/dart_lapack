@@ -10,5 +10,16 @@
 		"editor.formatOnType": true,
 		"editor.suggestSelection": "recentlyUsedByPrefix",
 		"fortran.fortls.disabled": true
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Run all Tests",
+				"type": "dart",
+				"request": "launch",
+				"program": "./test/"
+			}
+		]
 	}
 }

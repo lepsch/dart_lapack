@@ -220,7 +220,6 @@ Future<void> ddrvvx(
 
           // Compute norm
 
-          // GO TO ( 30, 40, 50 );
           switch (KMAGN[JTYPE]) {
             case 1:
               ANORM = ONE;

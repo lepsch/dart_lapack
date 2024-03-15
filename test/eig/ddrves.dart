@@ -200,7 +200,6 @@ void ddrves(
 
         // Compute norm
 
-        // GO TO ( 30, 40, 50 )KMAGN[ JTYPE ];
         switch (KMAGN[JTYPE]) {
           case 1:
             ANORM = ONE;

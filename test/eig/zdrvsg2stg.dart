@@ -229,7 +229,6 @@ void zdrvsg2stg(
 
         // Compute norm
 
-        // GO TO ( 40, 50, 60 );
         switch (KMAGN[JTYPE]) {
           case 1:
             ANORM = ONE;

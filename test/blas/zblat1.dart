@@ -18,62 +18,67 @@ import 'package:lapack/src/intrinsics/huge.dart';
 import 'package:lapack/src/intrinsics/random_number.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
 
+import '../test_driver.dart';
 import 'common.dart';
 
-void main() {
+void zblat1(final Nout nout, final TestDriver test) {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  final NOUT = Nout(stdout);
   const SFAC = 9.765625e-4;
 
-  NOUT.println(' Complex BLAS Test Program Results\n ');
-  for (var IC = 1; IC <= 10; IC++) {
-    combla.ICASE = IC;
-    _header(NOUT);
+  nout.println(' Complex BLAS Test Program Results\n ');
+  test.group('Complex Level 1 BLAS routines', () {
+    for (final IC in 1.through(10)) {
+      test(L[IC - 1].trim(), () {
+        combla.ICASE = IC;
+        _header(nout);
 
-    // Initialize PASS, INCX, INCY, and MODE for a new case.
-    // The value 9999 for INCX, INCY or MODE will appear in the
-    // detailed  output, if any, for cases that do not involve
-    // these parameters.
+        // Initialize PASS, INCX, INCY, and MODE for a new case.
+        // The value 9999 for INCX, INCY or MODE will appear in the
+        // detailed  output, if any, for cases that do not involve
+        // these parameters.
 
-    combla.PASS = true;
-    combla.INCX = 9999;
-    combla.INCY = 9999;
-    combla.MODE = 9999;
-    if (combla.ICASE <= 5) {
-      _check2(SFAC, NOUT);
-    } else if (combla.ICASE >= 6) {
-      _check1(SFAC, NOUT);
+        combla.PASS = true;
+        combla.INCX = 9999;
+        combla.INCY = 9999;
+        combla.MODE = 9999;
+        if (combla.ICASE <= 5) {
+          _check2(SFAC, nout);
+        } else if (combla.ICASE >= 6) {
+          _check1(SFAC, nout);
+        }
+        // -- Print
+        if (test.expect(combla.PASS, true)) {
+          nout.println('                                    ----- PASS -----');
+        }
+      });
     }
-    // -- Print
-    if (combla.PASS) {
-      NOUT.println('                                    ----- PASS -----');
-    }
-  }
+  });
 }
 
-void _header(final Nout NOUT) {
-  const L = [
-    'ZDOTC ',
-    'ZDOTU ',
-    'ZAXPY ',
-    'ZCOPY ',
-    'ZSWAP ',
-    'DZNRM2',
-    'DZASUM',
-    'ZSCAL ',
-    'ZDSCAL',
-    'IZAMAX',
-  ];
+const L = [
+  'ZDOTC ',
+  'ZDOTU ',
+  'ZAXPY ',
+  'ZCOPY ',
+  'ZSWAP ',
+  'DZNRM2',
+  'DZASUM',
+  'ZSCAL ',
+  'ZDSCAL',
+  'IZAMAX',
+];
 
-  NOUT.println(
+void _header(final Nout nout) {
+  nout.println(
       '\n Test of subprogram number${combla.ICASE.i3}${' ' * 12}${L[combla.ICASE - 1].a6}');
 }
 
-void _check1(final double SFAC, final Nout NOUT) {
+void _check1(final double SFAC, final Nout nout) {
   const THRESH = 10.0;
   int I, IX, LEN, NP1;
   var (SA, CA) = (0.3, Complex(0.4, -0.7));
@@ -173,34 +178,34 @@ void _check1(final double SFAC, final Nout NOUT) {
       if (combla.ICASE == 6) {
         // .. dznrm2 ..
         // Test scaling when some entries are tiny or huge
-        _zb1nrm2(combla.N, (combla.INCX - 2) * 2, THRESH, NOUT);
-        _zb1nrm2(combla.N, combla.INCX, THRESH, NOUT);
+        _zb1nrm2(combla.N, (combla.INCX - 2) * 2, THRESH, nout);
+        _zb1nrm2(combla.N, combla.INCX, THRESH, nout);
         // Test with hardcoded mid range entries
         _stest1(dznrm2(combla.N, CX, combla.INCX), STRUE2[NP1], STRUE2(NP1),
-            SFAC, NOUT);
+            SFAC, nout);
       } else if (combla.ICASE == 7) {
         // .. dzasum ..
         _stest1(dzasum(combla.N, CX, combla.INCX), STRUE4[NP1], STRUE4(NP1),
-            SFAC, NOUT);
+            SFAC, nout);
       } else if (combla.ICASE == 8) {
         // .. ZSCAL ..
         zscal(combla.N, CA, CX, combla.INCX);
         _ctest(LEN, CX, CTRUE5(1, NP1, combla.INCX).asArray(),
-            CTRUE5(1, NP1, combla.INCX).asArray(), SFAC, NOUT);
+            CTRUE5(1, NP1, combla.INCX).asArray(), SFAC, nout);
       } else if (combla.ICASE == 9) {
         // .. ZDSCAL ..
         zdscal(combla.N, SA, CX, combla.INCX);
         _ctest(LEN, CX, CTRUE6(1, NP1, combla.INCX).asArray(),
-            CTRUE6(1, NP1, combla.INCX).asArray(), SFAC, NOUT);
+            CTRUE6(1, NP1, combla.INCX).asArray(), SFAC, nout);
       } else if (combla.ICASE == 10) {
         // .. izamax ..
-        _itest1(izamax(combla.N, CX, combla.INCX), ITRUE3[NP1], NOUT);
+        _itest1(izamax(combla.N, CX, combla.INCX), ITRUE3[NP1], nout);
         for (I = 1; I <= LEN; I++) {
           CX[I] = Complex(42.0, 43.0);
         }
-        _itest1(izamax(combla.N, CX, combla.INCX), ITRUEC[NP1], NOUT);
+        _itest1(izamax(combla.N, CX, combla.INCX), ITRUEC[NP1], nout);
       } else {
-        NOUT.println(' Shouldn\'t be here in CHECK1');
+        nout.println(' Shouldn\'t be here in CHECK1');
         exit(1);
       }
     }
@@ -211,7 +216,7 @@ void _check1(final double SFAC, final Nout NOUT) {
         CXR[IX] = CVR[I];
         IX += combla.INCX;
       }
-      _itest1(izamax(combla.N, CXR, combla.INCX), 3, NOUT);
+      _itest1(izamax(combla.N, CXR, combla.INCX), 3, nout);
     }
   }
 
@@ -225,7 +230,7 @@ void _check1(final double SFAC, final Nout NOUT) {
       MWPCS[I] = Complex(1.0, 1.0);
     }
     zscal(5, CA, CX, combla.INCX);
-    _ctest(5, CX, MWPCT, MWPCS, SFAC, NOUT);
+    _ctest(5, CX, MWPCT, MWPCS, SFAC, nout);
   } else if (combla.ICASE == 9) {
     // ZDSCAL
     // Add a test for alpha equal to zero.
@@ -235,7 +240,7 @@ void _check1(final double SFAC, final Nout NOUT) {
       MWPCS[I] = Complex(1.0, 1.0);
     }
     zdscal(5, SA, CX, combla.INCX);
-    _ctest(5, CX, MWPCT, MWPCS, SFAC, NOUT);
+    _ctest(5, CX, MWPCT, MWPCS, SFAC, nout);
     // Add a test for alpha equal to one.
     SA = 1.0;
     for (I = 1; I <= 5; I++) {
@@ -243,7 +248,7 @@ void _check1(final double SFAC, final Nout NOUT) {
       MWPCS[I] = CX[I];
     }
     zdscal(5, SA, CX, combla.INCX);
-    _ctest(5, CX, MWPCT, MWPCS, SFAC, NOUT);
+    _ctest(5, CX, MWPCT, MWPCS, SFAC, nout);
     // Add a test for alpha equal to minus one.
     SA = -1.0;
     for (I = 1; I <= 5; I++) {
@@ -251,11 +256,11 @@ void _check1(final double SFAC, final Nout NOUT) {
       MWPCS[I] = -CX[I];
     }
     zdscal(5, SA, CX, combla.INCX);
-    _ctest(5, CX, MWPCT, MWPCS, SFAC, NOUT);
+    _ctest(5, CX, MWPCT, MWPCS, SFAC, nout);
   }
 }
 
-void _check2(final double SFAC, final Nout NOUT) {
+void _check2(final double SFAC, final Nout nout) {
   int I, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
   final CDOT = Array<Complex>(1),
       CTY0 = Array<Complex>(1),
@@ -315,7 +320,7 @@ void _check2(final double SFAC, final Nout NOUT) {
         (0.0, 0.0), (-0.06, -0.90), (-0.83, 0.59), (0.07, -0.37), //
         (0.0, 0.0), (-0.06, -0.90), (-0.76, -1.15), (-1.33, -1.82)
       ].toComplexList(),
-      (4, 1));
+      (4, 4));
   final CT6 = Matrix.fromData(
       [
         (0.0, 0.0), (0.90, 0.06), (0.91, -0.77), (1.80, -0.10), //
@@ -323,7 +328,7 @@ void _check2(final double SFAC, final Nout NOUT) {
         (0.0, 0.0), (0.90, 0.06), (-0.55, 0.23), (0.83, -0.39), //
         (0.0, 0.0), (0.90, 0.06), (1.04, 0.79), (1.95, 1.22)
       ].toComplexList(),
-      (4, 1));
+      (4, 4));
 
   final CT10X = Matrix3d.fromData(
       [
@@ -407,7 +412,7 @@ void _check2(final double SFAC, final Nout NOUT) {
         (0.0, 0.0), (0.0, 0.0), (1.54, 1.54), (1.54, 1.54), (1.54, 1.54), //
         (1.54, 1.54), (1.54, 1.54), (1.54, 1.54), (1.54, 1.54)
       ].toComplexList(),
-      (7, 1));
+      (7, 2));
 
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
@@ -428,20 +433,20 @@ void _check2(final double SFAC, final Nout NOUT) {
       if (combla.ICASE == 1) {
         // .. zdotc ..
         CDOT[1] = zdotc(combla.N, CX, combla.INCX, CY, combla.INCY);
-        _ctest(1, CDOT, CT6(KN, KI).asArray(), CSIZE1(KN), SFAC, NOUT);
+        _ctest(1, CDOT, CT6(KN, KI).asArray(), CSIZE1(KN), SFAC, nout);
       } else if (combla.ICASE == 2) {
         // .. zdotu ..
         CDOT[1] = zdotu(combla.N, CX, combla.INCX, CY, combla.INCY);
-        _ctest(1, CDOT, CT7(KN, KI).asArray(), CSIZE1(KN), SFAC, NOUT);
+        _ctest(1, CDOT, CT7(KN, KI).asArray(), CSIZE1(KN), SFAC, nout);
       } else if (combla.ICASE == 3) {
         // .. ZAXPY ..
         zaxpy(combla.N, CA, CX, combla.INCX, CY, combla.INCY);
         _ctest(LENY, CY, CT8(1, KN, KI).asArray(), CSIZE2(1, KSIZE).asArray(),
-            SFAC, NOUT);
+            SFAC, nout);
       } else if (combla.ICASE == 4) {
         // .. ZCOPY ..
         zcopy(combla.N, CX, combla.INCX, CY, combla.INCY);
-        _ctest(LENY, CY, CT10Y(1, KN, KI).asArray(), CSIZE3, 1.0, NOUT);
+        _ctest(LENY, CY, CT10Y(1, KN, KI).asArray(), CSIZE3, 1.0, nout);
         if (KI == 1) {
           CX0[1] = Complex(42.0, 43.0);
           CY0[1] = Complex(44.0, 45.0);
@@ -455,17 +460,17 @@ void _check2(final double SFAC, final Nout NOUT) {
           LINCY = combla.INCY;
           combla.INCY = 0;
           zcopy(combla.N, CX0, combla.INCX, CY0, combla.INCY);
-          _ctest(1, CY0, CTY0, CSIZE3, 1.0, NOUT);
+          _ctest(1, CY0, CTY0, CSIZE3, 1.0, nout);
           combla.INCX = LINCX;
           combla.INCY = LINCY;
         }
       } else if (combla.ICASE == 5) {
         // .. ZSWAP ..
         zswap(combla.N, CX, combla.INCX, CY, combla.INCY);
-        _ctest(LENX, CX, CT10X(1, KN, KI).asArray(), CSIZE3, 1.0, NOUT);
-        _ctest(LENY, CY, CT10Y(1, KN, KI).asArray(), CSIZE3, 1.0, NOUT);
+        _ctest(LENX, CX, CT10X(1, KN, KI).asArray(), CSIZE3, 1.0, nout);
+        _ctest(LENY, CY, CT10Y(1, KN, KI).asArray(), CSIZE3, 1.0, nout);
       } else {
-        NOUT.println(' Shouldn\'t be here in CHECK2');
+        nout.println(' Shouldn\'t be here in CHECK2');
         exit(1);
       }
     }
@@ -473,12 +478,13 @@ void _check2(final double SFAC, final Nout NOUT) {
 }
 
 void _stest(
-    final int LEN,
-    final Array<double> SCOMP_,
-    final Array<double> STRUE_,
-    final Array<double> SSIZE_,
-    final double SFAC,
-    final Nout NOUT) {
+  final int LEN,
+  final Array<double> SCOMP_,
+  final Array<double> STRUE_,
+  final Array<double> SSIZE_,
+  final double SFAC,
+  final Nout nout,
+) {
   // ********************************* STEST **************************
 
   // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -495,18 +501,18 @@ void _stest(
 
   for (I = 1; I <= LEN; I++) {
     SD = SCOMP[I] - STRUE[I];
-    if ((SFAC * SD).abs() <= (SSIZE[I]).abs() * epsilon(ZERO)) continue;
+    if ((SFAC * SD).abs() <= SSIZE[I].abs() * epsilon(ZERO)) continue;
 
     // HERE    SCOMP[I] IS NOT CLOSE TO STRUE[I].
 
     if (combla.PASS) {
       // PRINT FAIL MESSAGE AND HEADER.
       combla.PASS = false;
-      NOUT.println('                                       FAIL');
-      NOUT.println(
-          '\n CASE  combla.N combla.INCX combla.INCY combla.MODE  I                             COMP[I]                             TRUE[I]  DIFFERENCE     SIZE[I]\n ');
+      nout.println('                                       FAIL');
+      nout.println(
+          '\n CASE  N INCX INCY MODE  I                             COMP[I]                             TRUE[I]  DIFFERENCE     SIZE[I]\n ');
     }
-    NOUT.println(' ${combla.ICASE.i4}${combla.N.i3}${[
+    nout.println(' ${combla.ICASE.i4}${combla.N.i3}${[
       combla.INCX,
       combla.INCY,
       combla.MODE
@@ -519,7 +525,7 @@ void _stest1(
   final double STRUE1,
   final Array<double> SSIZE_,
   final double SFAC,
-  Nout NOUT,
+  final Nout nout,
 ) {
   // ************************* STEST1 *****************************
 
@@ -534,7 +540,7 @@ void _stest1(
 
   SCOMP[1] = SCOMP1;
   STRUE[1] = STRUE1;
-  _stest(1, SCOMP, STRUE, SSIZE, SFAC, NOUT);
+  _stest(1, SCOMP, STRUE, SSIZE, SFAC, nout);
 }
 
 // double _sdiff(final double SA, final double SB) {
@@ -550,7 +556,7 @@ void _ctest(
   final Array<Complex> CTRUE_,
   final Array<Complex> CSIZE_,
   final double SFAC,
-  final Nout NOUT,
+  final Nout nout,
 ) {
   // **************************** CTEST *****************************
 
@@ -573,10 +579,10 @@ void _ctest(
     SSIZE[2 * I] = CSIZE[I].imaginary;
   }
 
-  _stest(2 * LEN, SCOMP, STRUE, SSIZE, SFAC, NOUT);
+  _stest(2 * LEN, SCOMP, STRUE, SSIZE, SFAC, nout);
 }
 
-void _itest1(final int ICOMP, final int ITRUE, Nout NOUT) {
+void _itest1(final int ICOMP, final int ITRUE, final Nout nout) {
   // ********************************* ITEST1 *************************
 
   // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
@@ -590,13 +596,13 @@ void _itest1(final int ICOMP, final int ITRUE, Nout NOUT) {
   if (combla.PASS) {
     // PRINT FAIL MESSAGE AND HEADER.
     combla.PASS = false;
-    NOUT.println('                                       FAIL');
-    NOUT.println(
+    nout.println('                                       FAIL');
+    nout.println(
         '\n CASE  N INCX INCY MODE                                COMP                                TRUE     DIFFERENCE\n ');
   }
 
   final ID = ICOMP - ITRUE;
-  NOUT.println(' ${combla.ICASE.i4}${combla.N.i3}${[
+  nout.println(' ${combla.ICASE.i4}${combla.N.i3}${[
     combla.INCX,
     combla.INCY,
     combla.MODE
@@ -607,7 +613,7 @@ void _zb1nrm2(
   final int N,
   final int INCX,
   final double THRESH,
-  final Nout NOUT,
+  final Nout nout,
 ) {
   // Compare NRM2 with a reference computation using combinations
   // of the following values:
@@ -654,7 +660,7 @@ void _zb1nrm2(
   // Check that the arrays are large enough
 
   if (N * (INCX).abs() > NMAX) {
-    NOUT.println(
+    nout.println(
         ' Not enough space to test DZNRM2: NMAX = ${NMAX.i6}, INCX = ${INCX.i6}\n   N = ${N.i6}, must be at least ${(N * INCX.abs()).i6}');
     return;
   }
@@ -778,9 +784,9 @@ void _zb1nrm2(
       if (TRAT >= THRESH) {
         if (FIRST) {
           FIRST = false;
-          NOUT.println('                                       FAIL');
+          nout.println('                                       FAIL');
         }
-        NOUT.println(
+        nout.println(
             ' DZNRM2: N=${N.i6}, INCX=${INCX.i4}, IV=${IV.i2}, IW=${IW.i2}, test=${TRAT.e15_8}');
       }
     }
@@ -798,4 +804,10 @@ double _dxvals(final double XX, final int K) {
     return Z / Z;
   }
   throw UnimplementedError();
+}
+
+void main() {
+  Nout nout = Nout(stdout);
+  zblat1(nout, lapackTestDriver);
+  exit(lapackTestDriver.errors);
 }

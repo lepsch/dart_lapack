@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:async/async.dart';
 import 'package:lapack/src/blas/dgbmv.dart';
 import 'package:lapack/src/blas/dgemv.dart';
 import 'package:lapack/src/blas/dger.dart';
@@ -24,24 +23,24 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
 
+import '../test_driver.dart';
 import 'common.dart';
 
-void main() async {
+Future<void> dblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   xerbla = _xerbla;
 
-  final NIN = Nin(stdin);
-  _MainNout NOUT = _DblatNout(stdout).as<_MainNout>();
-  _MainNout NTRA = _DblatNout(NullStreamSink()).as<_MainNout>();
+  Nout NTRA = NullNout();
   const NSUBS = 16;
   const ZERO = 0.0, ONE = 1.0;
   const NMAX = 65, INCMAX = 2;
   const NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7;
   double EPS, THRESH;
-  int I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB;
+  int I, J, N, NALF, NBET, NIDIM, NINC, NKB;
   bool LTESTT, REWI, SAME, SFATAL, TRACE = false, TSTERR;
   String TRANS;
   String SNAMET;
@@ -78,7 +77,7 @@ void main() async {
     final SUMMRY = await NIN.readString();
     await NIN.readInt(); // NOUT - ignore
 
-    NOUT = _DblatNout(File(SUMMRY).openWrite()).as<_MainNout>();
+    NOUT ??= Nout(File(SUMMRY).openWrite());
     infoc.NOUTC = NOUT;
 
     // Read name and unit number for snapshot output file and open file.
@@ -86,7 +85,7 @@ void main() async {
     final SNAPS = await NIN.readString();
     TRACE = await NIN.readInt() >= 0;
     if (TRACE) {
-      NTRA = _DblatNout(File(SNAPS).openWrite()).as<_MainNout>();
+      NTRA = Nout(File(SNAPS).openWrite());
     }
     // Read the flag that directs rewinding of the snapshot file.
     REWI = await NIN.readBool();
@@ -103,80 +102,80 @@ void main() async {
     // Values of N
     NIDIM = await NIN.readInt();
     if (NIDIM < 1 || NIDIM > NIDMAX) {
-      NOUT.print9997('N', NIDMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('N', NIDMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(IDIM, NIDIM);
     for (I = 1; I <= NIDIM; I++) {
       if (IDIM[I] < 0 || IDIM[I] > NMAX) {
-        NOUT.print9996(NMAX);
-        NOUT.print9987();
+        NOUT.main.print9996(NMAX);
+        NOUT.main.print9987();
         return;
       }
     }
     // Values of K
     NKB = await NIN.readInt();
     if (NKB < 1 || NKB > NKBMAX) {
-      NOUT.print9997('K', NKBMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('K', NKBMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(KB, NKB);
     for (I = 1; I <= NKB; I++) {
       if (KB[I] < 0) {
-        NOUT.print9995();
-        NOUT.print9987();
+        NOUT.main.print9995();
+        NOUT.main.print9987();
         return;
       }
     }
     // Values of INCX and INCY
     NINC = await NIN.readInt();
     if (NINC < 1 || NINC > NINMAX) {
-      NOUT.print9997('INCX AND INCY', NINMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('INCX AND INCY', NINMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(INC, NINC);
     for (I = 1; I <= NINC; I++) {
       if (INC[I] == 0 || (INC[I]).abs() > INCMAX) {
-        NOUT.print9994(INCMAX);
-        NOUT.print9987();
+        NOUT.main.print9994(INCMAX);
+        NOUT.main.print9987();
         return;
       }
     }
     // Values of ALPHA
     NALF = await NIN.readInt();
     if (NALF < 1 || NALF > NALMAX) {
-      NOUT.print9997('ALPHA', NALMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('ALPHA', NALMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(ALF, NALF);
     // Values of BETA
     NBET = await NIN.readInt();
     if (NBET < 1 || NBET > NBEMAX) {
-      NOUT.print9997('BETA', NBEMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('BETA', NBEMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(BET, NBET);
 
     // Report values of parameters.
 
-    NOUT.print9993();
-    NOUT.print9992(IDIM, NIDIM);
-    NOUT.print9991(KB, NKB);
-    NOUT.print9990(INC, NINC);
-    NOUT.print9989(ALF, NALF);
-    NOUT.print9988(BET, NBET);
+    NOUT.main.print9993();
+    NOUT.main.print9992(IDIM, NIDIM);
+    NOUT.main.print9991(KB, NKB);
+    NOUT.main.print9990(INC, NINC);
+    NOUT.main.print9989(ALF, NALF);
+    NOUT.main.print9988(BET, NBET);
     if (!TSTERR) {
-      NOUT.println();
-      NOUT.print9980();
+      NOUT.main.println();
+      NOUT.main.print9980();
     }
-    NOUT.println();
-    NOUT.print9999(THRESH);
-    NOUT.println();
+    NOUT.main.println();
+    NOUT.main.print9999(THRESH);
+    NOUT.main.println();
 
     // Read names of subroutines and flags which indicate
     // whether they are to be tested.
@@ -196,7 +195,7 @@ void main() async {
         }
 
         if (!found) {
-          NOUT.print9986(SNAMET);
+          NOUT.main.print9986(SNAMET);
           return;
         }
 
@@ -209,7 +208,7 @@ void main() async {
     // Compute EPS (the machine precision).
 
     EPS = epsilon(ZERO);
-    NOUT.print9998(EPS);
+    NOUT.main.print9998(EPS);
 
     // Check the reliability of DMVCH using exact data.
 
@@ -231,7 +230,7 @@ void main() async {
         FATAL, NOUT, true);
     SAME = _lde(YY, YT, N);
     if (!SAME || ERR.value != ZERO) {
-      NOUT.print9985(TRANS, SAME, ERR.value);
+      NOUT.main.print9985(TRANS, SAME, ERR.value);
       return;
     }
     TRANS = 'T';
@@ -239,303 +238,280 @@ void main() async {
         FATAL, NOUT, true);
     SAME = _lde(YY, YT, N);
     if (!SAME || ERR.value != ZERO) {
-      NOUT.print9985(TRANS, SAME, ERR.value);
+      NOUT.main.print9985(TRANS, SAME, ERR.value);
       return;
     }
 
     // Test each subroutine in turn.
-    for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) {
-      NOUT.println();
-      if (!LTEST[ISNUM]) {
-        // Subprogram is not to be tested.
-        NOUT.print9983(SNAMES[ISNUM - 1]);
-      } else {
-        srnamc.SRNAMT = SNAMES[ISNUM - 1];
-        // Test error exits.
-        if (TSTERR) {
-          _dchke(ISNUM, SNAMES[ISNUM - 1], NOUT);
-          NOUT.println();
+    test.group('Double Precision Level 2 BLAS routines', () {
+      NOUT as Nout;
+      for (final ISNUM in 1.through(NSUBS)) {
+        final skip = !LTEST[ISNUM];
+        test(SNAMES[ISNUM - 1], () {
+          NOUT as Nout;
+
+          NOUT.main.println();
+
+          srnamc.SRNAMT = SNAMES[ISNUM - 1];
+          // Test error exits.
+          if (TSTERR) {
+            _dchke(ISNUM, SNAMES[ISNUM - 1], NOUT);
+            NOUT.main.println();
+          }
+          // Test computations.
+          infoc.INFOT = 0;
+          infoc.OK.value = true;
+          FATAL.value = false;
+
+          switch (ISNUM) {
+            case 1:
+            case 2:
+
+              // Test DGEMV, 01, and DGBMV, 02.
+              _dchk1(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NKB,
+                  KB,
+                  NALF,
+                  ALF,
+                  NBET,
+                  BET,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G);
+              break;
+            case 3:
+            case 4:
+            case 5:
+
+              // Test DSYMV, 03, DSBMV, 04, and DSPMV, 05.
+              _dchk2(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NKB,
+                  KB,
+                  NALF,
+                  ALF,
+                  NBET,
+                  BET,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G);
+              break;
+            // Test DTRMV, 06, DTBMV, 07, DTPMV, 08,
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 111:
+
+              // DTRSV, 09, DTBSV, 10, and DTPSV, 11.
+              _dchk3(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NKB,
+                  KB,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z);
+              break;
+            case 12:
+
+              // Test DGER, 12.
+              _dchk4(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NALF,
+                  ALF,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z);
+              break;
+            case 13:
+            case 14:
+
+              // Test DSYR, 13, and DSPR, 14.
+              _dchk5(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NALF,
+                  ALF,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z);
+              break;
+            case 15:
+            case 16:
+
+              // Test DSYR2, 15, and DSPR2, 16.
+              _dchk6(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NALF,
+                  ALF,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z.asMatrix());
+              break;
+          }
+          if (test.expect(FATAL.value, false)) {
+            if (SFATAL) test.fail();
+          }
+        }, skip: skip);
+        if (skip) {
+          // Subprogram is not to be tested.
+          NOUT.main.print9983(SNAMES[ISNUM - 1]);
         }
-        // Test computations.
-        infoc.INFOT = 0;
-        infoc.OK.value = true;
-        FATAL.value = false;
-
-        switch (ISNUM) {
-          case 1:
-          case 2:
-
-            // Test DGEMV, 01, and DGBMV, 02.
-            _dchk1(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Dchk1Nout>(),
-                NTRA.as<_Dchk1Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NKB,
-                KB,
-                NALF,
-                ALF,
-                NBET,
-                BET,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G);
-            break;
-          case 3:
-          case 4:
-          case 5:
-
-            // Test DSYMV, 03, DSBMV, 04, and DSPMV, 05.
-            _dchk2(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Dchk2Nout>(),
-                NTRA.as<_Dchk2Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NKB,
-                KB,
-                NALF,
-                ALF,
-                NBET,
-                BET,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G);
-            break;
-          // Test DTRMV, 06, DTBMV, 07, DTPMV, 08,
-          case 6:
-          case 7:
-          case 8:
-          case 9:
-          case 10:
-          case 111:
-
-            // DTRSV, 09, DTBSV, 10, and DTPSV, 11.
-            _dchk3(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Dchk3Nout>(),
-                NTRA.as<_Dchk3Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NKB,
-                KB,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z);
-            break;
-          case 12:
-
-            // Test DGER, 12.
-            _dchk4(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Dchk4Nout>(),
-                NTRA.as<_Dchk4Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NALF,
-                ALF,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z);
-            break;
-          case 13:
-          case 14:
-
-            // Test DSYR, 13, and DSPR, 14.
-            _dchk5(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Dchk5Nout>(),
-                NTRA.as<_Dchk5Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NALF,
-                ALF,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z);
-            break;
-          case 15:
-          case 16:
-
-            // Test DSYR2, 15, and DSPR2, 16.
-            _dchk6(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Dchk6Nout>(),
-                NTRA.as<_Dchk6Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NALF,
-                ALF,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z.asMatrix());
-            break;
-        }
-        if (FATAL.value && SFATAL) break;
       }
-    }
+    });
+
     if (FATAL.value && SFATAL) {
-      NOUT.print9981();
+      NOUT.main.print9981();
       return;
     }
 
-    NOUT.print9982();
+    NOUT.main.print9982();
   } finally {
     if (TRACE) await NTRA.close();
-    await NOUT.close();
+    await NOUT?.close();
   }
 }
 
-class _DblatNout extends StreamNout implements _DblatNoutCast {
-  late _MainNout main;
-  late _Dchk1Nout _dchk1;
-  late _Dchk2Nout _dchk2;
-  late _Dchk3Nout _dchk3;
-  late _Dchk4Nout _dchk4;
-  late _Dchk5Nout _dchk5;
-  late _Dchk6Nout _dchk6;
-
-  _DblatNout(super._stream) {
-    main = _MainNout(this);
-    _dchk1 = _Dchk1Nout(this);
-    _dchk2 = _Dchk2Nout(this);
-    _dchk3 = _Dchk3Nout(this);
-    _dchk4 = _Dchk4Nout(this);
-    _dchk5 = _Dchk5Nout(this);
-    _dchk6 = _Dchk6Nout(this);
-  }
-
-  @override
-  T as<T extends _DblatNoutBase>() => switch (T) {
-        _MainNout => main,
-        _Dchk1Nout => _dchk1,
-        _Dchk2Nout => _dchk2,
-        _Dchk3Nout => _dchk3,
-        _Dchk4Nout => _dchk4,
-        _Dchk5Nout => _dchk5,
-        _Dchk6Nout => _dchk6,
-        Type() => null,
-      } as T;
+extension on Nout {
+  _MainNout get main => _MainNout(this);
+  _Dchk1Nout get dchk1 => _Dchk1Nout(this);
+  _Dchk2Nout get dchk2 => _Dchk2Nout(this);
+  _Dchk3Nout get dchk3 => _Dchk3Nout(this);
+  _Dchk4Nout get dchk4 => _Dchk4Nout(this);
+  _Dchk5Nout get dchk5 => _Dchk5Nout(this);
+  _Dchk6Nout get dchk6 => _Dchk6Nout(this);
 }
 
-abstract interface class _DblatNoutCast {
-  T as<T extends _DblatNoutBase>();
-}
-
-sealed class _DblatNoutBase extends NoutDelegator<_DblatNout>
-    implements _DblatNoutCast {
-  const _DblatNoutBase(super.delegatee);
-
-  @override
-  T as<T extends _DblatNoutBase>() => nout.as<T>();
-}
-
-class _MainNout extends _DblatNoutBase {
-  _MainNout(super.nout);
+class _MainNout extends NoutDelegator<Nout> {
+  const _MainNout(super.nout);
 
   void print9999(double THRESH) {
     println(
@@ -624,8 +600,8 @@ void _dchk1(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Dchk1Nout NOUT,
-  final _Dchk1Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -842,7 +818,7 @@ void _dchk1(
 
                   if (FULL) {
                     if (TRACE) {
-                      NTRA.print9994(
+                      NTRA.dchk1.print9994(
                           NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
                     }
                     //  if (REWI) REWIND NTRA;
@@ -850,8 +826,8 @@ void _dchk1(
                         BETA, YY, INCY);
                   } else if (BANDED) {
                     if (TRACE) {
-                      NTRA.print9995(NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA,
-                          INCX, BETA, INCY);
+                      NTRA.dchk1.print9995(NC, SNAME, TRANS, M, N, KL, KU,
+                          ALPHA, LDA, INCX, BETA, INCY);
                     }
                     //  if (REWI) REWIND NTRA;
                     dgbmv(TRANS, M, N, KL, KU, ALPHA, AA.asMatrix(), LDA, XX,
@@ -861,7 +837,7 @@ void _dchk1(
                   // Check if error-exit was taken incorrectly.
 
                   if (!infoc.OK.value) {
-                    NOUT.print9993();
+                    NOUT.dchk1.print9993();
                     FATAL.value = true;
                     break mainLoop;
                   }
@@ -909,7 +885,7 @@ void _dchk1(
                   SAME = true;
                   for (I = 1; I <= NARGS; I++) {
                     SAME = SAME && ISAME[I];
-                    if (!ISAME[I]) NOUT.print9998(I);
+                    if (!ISAME[I]) NOUT.dchk1.print9998(I);
                   }
                   if (!SAME) {
                     FATAL.value = true;
@@ -946,13 +922,14 @@ void _dchk1(
         _dregr1(AA.asMatrix(), XX, YY, YS);
     if (FULL) {
       if (TRACE) {
-        NTRA.print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
+        NTRA.dchk1
+            .print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
       }
       //  if (REWI) REWIND NTRA;
       dgemv(TRANS, M, N, ALPHA, AA.asMatrix(), LDA, XX, INCX, BETA, YY, INCY);
     } else if (BANDED) {
       if (TRACE) {
-        NTRA.print9995(
+        NTRA.dchk1.print9995(
             NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY);
       }
       //  if (REWI) REWIND NTRA;
@@ -960,19 +937,19 @@ void _dchk1(
           INCY);
       NC++;
       if (!_lde(YS, YY, LY)) {
-        NOUT.print9998(NARGS - 1);
+        NOUT.dchk1.print9998(NARGS - 1);
         FATAL.value = true;
       }
     }
   }
 
-  // }
   if (FATAL.value) {
-    NOUT.print9996(SNAME);
+    NOUT.dchk1.print9996(SNAME);
     if (FULL) {
-      NOUT.print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
+      NOUT.dchk1
+          .print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
     } else if (BANDED) {
-      NOUT.print9995(
+      NOUT.dchk1.print9995(
           NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY);
     }
   }
@@ -980,14 +957,13 @@ void _dchk1(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.dchk1.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.dchk1.print9997(SNAME, NC, ERRMAX);
   }
-  // }
 }
 
-class _Dchk1Nout extends _DblatNoutBase {
+class _Dchk1Nout extends NoutDelegator<Nout> {
   _Dchk1Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -1035,8 +1011,8 @@ void _dchk2(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Dchk2Nout NOUT,
-  final _Dchk2Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -1233,7 +1209,7 @@ void _dchk2(
 
                 if (FULL) {
                   if (TRACE) {
-                    NTRA.print9993(
+                    NTRA.dchk2.print9993(
                         NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY);
                   }
                   // if (REWI) REWIND NTRA;
@@ -1241,7 +1217,7 @@ void _dchk2(
                       INCY);
                 } else if (BANDED) {
                   if (TRACE) {
-                    NTRA.print9994(
+                    NTRA.dchk2.print9994(
                         NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY);
                   }
                   // if (REWI) REWIND NTRA;
@@ -1249,7 +1225,8 @@ void _dchk2(
                       YY, INCY);
                 } else if (PACKED) {
                   if (TRACE) {
-                    NTRA.print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
+                    NTRA.dchk2
+                        .print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
                   }
                   // if (REWI) REWIND NTRA;
                   dspmv(UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY);
@@ -1258,7 +1235,7 @@ void _dchk2(
                 // Check if error-exit was taken incorrectly.
 
                 if (!infoc.OK.value) {
-                  NOUT.print9992();
+                  NOUT.dchk2.print9992();
                   FATAL.value = true;
                   break idimLoop;
                 }
@@ -1317,7 +1294,7 @@ void _dchk2(
                 SAME = true;
                 for (I = 1; I <= NARGS; I++) {
                   SAME = SAME && ISAME[I];
-                  if (!ISAME[I]) NOUT.print9998(I);
+                  if (!ISAME[I]) NOUT.dchk2.print9998(I);
                 }
                 if (!SAME) {
                   FATAL.value = true;
@@ -1346,14 +1323,13 @@ void _dchk2(
   }
 
   if (FATAL.value) {
-    // }
-    NOUT.print9996(SNAME);
+    NOUT.dchk2.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY);
+      NOUT.dchk2.print9993(NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY);
     } else if (BANDED) {
-      NOUT.print9994(NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY);
+      NOUT.dchk2.print9994(NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY);
     } else if (PACKED) {
-      NOUT.print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
+      NOUT.dchk2.print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
     }
     return;
   }
@@ -1361,13 +1337,13 @@ void _dchk2(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.dchk2.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.dchk2.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Dchk2Nout extends _DblatNoutBase {
+class _Dchk2Nout extends NoutDelegator<Nout> {
   _Dchk2Nout(super._dblatNout);
   void print9999(String SNAME, int NC) {
     println(' ${SNAME.a6} PASSED THE COMPUTATIONAL TESTS (${NC.i6} CALLS)');
@@ -1416,8 +1392,8 @@ void _dchk3(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Dchk3Nout NOUT,
-  final _Dchk3Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -1591,20 +1567,21 @@ void _dchk3(
               if (SNAME.substring(3, 5) == 'MV') {
                 if (FULL) {
                   if (TRACE) {
-                    NTRA.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
+                    NTRA.dchk3
+                        .print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   dtrmv(UPLO, TRANS, DIAG, N, AA.asMatrix(), LDA, XX, INCX);
                 } else if (BANDED) {
                   if (TRACE) {
-                    NTRA.print9994(
+                    NTRA.dchk3.print9994(
                         NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   dtbmv(UPLO, TRANS, DIAG, N, K, AA.asMatrix(), LDA, XX, INCX);
                 } else if (PACKED) {
                   if (TRACE) {
-                    NTRA.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
+                    NTRA.dchk3.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   dtpmv(UPLO, TRANS, DIAG, N, AA, XX, INCX);
@@ -1612,20 +1589,21 @@ void _dchk3(
               } else if (SNAME.substring(3, 5) == 'SV') {
                 if (FULL) {
                   if (TRACE) {
-                    NTRA.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
+                    NTRA.dchk3
+                        .print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   dtrsv(UPLO, TRANS, DIAG, N, AA.asMatrix(), LDA, XX, INCX);
                 } else if (BANDED) {
                   if (TRACE) {
-                    NTRA.print9994(
+                    NTRA.dchk3.print9994(
                         NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   dtbsv(UPLO, TRANS, DIAG, N, K, AA.asMatrix(), LDA, XX, INCX);
                 } else if (PACKED) {
                   if (TRACE) {
-                    NTRA.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
+                    NTRA.dchk3.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   dtpsv(UPLO, TRANS, DIAG, N, AA, XX, INCX);
@@ -1635,7 +1613,7 @@ void _dchk3(
               // Check if error-exit was taken incorrectly.
 
               if (!infoc.OK.value) {
-                NOUT.print9992();
+                NOUT.dchk3.print9992();
                 FATAL.value = true;
                 break mainLoop;
               }
@@ -1684,7 +1662,7 @@ void _dchk3(
               SAME = true;
               for (I = 1; I <= NARGS; I++) {
                 SAME = SAME && ISAME[I];
-                if (!ISAME[I]) NOUT.print9998(I);
+                if (!ISAME[I]) NOUT.dchk3.print9998(I);
               }
               if (!SAME) {
                 FATAL.value = true;
@@ -1722,29 +1700,26 @@ void _dchk3(
   }
 
   if (FATAL.value) {
-    // }
-    NOUT.print9996(SNAME);
+    NOUT.dchk3.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
+      NOUT.dchk3.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
     } else if (BANDED) {
-      NOUT.print9994(NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
+      NOUT.dchk3.print9994(NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
     } else if (PACKED) {
-      NOUT.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
+      NOUT.dchk3.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
     }
     return;
   }
 
   // Report result.
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.dchk3.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.dchk3.print9997(SNAME, NC, ERRMAX);
   }
-
-  // }
 }
 
-class _Dchk3Nout extends _DblatNoutBase {
+class _Dchk3Nout extends NoutDelegator<Nout> {
   _Dchk3Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -1801,8 +1776,8 @@ void _dchk4(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Dchk4Nout NOUT,
-  final _Dchk4Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -1963,14 +1938,16 @@ void _dchk4(
 
             // Call the subroutine.
 
-            if (TRACE) NTRA.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
+            if (TRACE) {
+              NTRA.dchk4.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
+            }
             //  if (REWI) REWIND NTRA;
             dger(M, N, ALPHA, XX, INCX, YY, INCY, AA.asMatrix(), LDA);
 
             // Check if error-exit was taken incorrectly.
 
             if (!infoc.OK.value) {
-              NOUT.print9993();
+              NOUT.dchk4.print9993();
               FATAL.value = true;
               break mainLoop;
             }
@@ -1997,7 +1974,7 @@ void _dchk4(
             SAME = true;
             for (I = 1; I <= NARGS; I++) {
               SAME = SAME && ISAME[I];
-              if (!ISAME[I]) NOUT.print9998(I);
+              if (!ISAME[I]) NOUT.dchk4.print9998(I);
             }
             if (!SAME) {
               FATAL.value = true;
@@ -2063,23 +2040,21 @@ void _dchk4(
 
   if (FATAL.value) {
     if (reportColumn) {
-      // }
-      NOUT.print9995(J);
+      NOUT.dchk4.print9995(J);
     }
-    // }
-    NOUT.print9996(SNAME);
-    NOUT.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
+    NOUT.dchk4.print9996(SNAME);
+    NOUT.dchk4.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
     return;
   }
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.dchk4.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.dchk4.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Dchk4Nout extends _DblatNoutBase {
+class _Dchk4Nout extends NoutDelegator<Nout> {
   _Dchk4Nout(super._dblatNout);
   void print9999(String SNAME, int NC) {
     println(' ${SNAME.a6} PASSED THE COMPUTATIONAL TESTS (${NC.i6} CALLS)');
@@ -2120,8 +2095,8 @@ void _dchk5(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  _Dchk5Nout NOUT,
-  final _Dchk5Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -2271,11 +2246,13 @@ void _dchk5(
           // Call the subroutine.
 
           if (FULL) {
-            if (TRACE) NTRA.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, LDA);
+            if (TRACE) {
+              NTRA.dchk5.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, LDA);
+            }
             //  if (REWI) REWIND NTRA;
             dsyr(UPLO, N, ALPHA, XX, INCX, AA.asMatrix(), LDA);
           } else if (PACKED) {
-            if (TRACE) NTRA.print9994(NC, SNAME, UPLO, N, ALPHA, INCX);
+            if (TRACE) NTRA.dchk5.print9994(NC, SNAME, UPLO, N, ALPHA, INCX);
             //  if (REWI) REWIND NTRA;
             dspr(UPLO, N, ALPHA, XX, INCX, AA);
           }
@@ -2283,7 +2260,7 @@ void _dchk5(
           // Check if error-exit was taken incorrectly.
 
           if (!infoc.OK.value) {
-            NOUT.print9992();
+            NOUT.dchk5.print9992();
             FATAL.value = true;
             break mainLoop;
           }
@@ -2310,7 +2287,7 @@ void _dchk5(
           SAME = true;
           for (I = 1; I <= NARGS; I++) {
             SAME = SAME && ISAME[I];
-            if (!ISAME[I]) NOUT.print9998(I);
+            if (!ISAME[I]) NOUT.dchk5.print9998(I);
           }
           if (!SAME) {
             FATAL.value = true;
@@ -2386,16 +2363,14 @@ void _dchk5(
 
   if (FATAL.value) {
     if (reportColumn) {
-      // }
-      NOUT.print9995(J);
+      NOUT.dchk5.print9995(J);
     }
 
-    // }
-    NOUT.print9996(SNAME);
+    NOUT.dchk5.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, LDA);
+      NOUT.dchk5.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, LDA);
     } else if (PACKED) {
-      NOUT.print9994(NC, SNAME, UPLO, N, ALPHA, INCX);
+      NOUT.dchk5.print9994(NC, SNAME, UPLO, N, ALPHA, INCX);
     }
     return;
   }
@@ -2403,13 +2378,13 @@ void _dchk5(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.dchk5.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.dchk5.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Dchk5Nout extends _DblatNoutBase {
+class _Dchk5Nout extends NoutDelegator<Nout> {
   _Dchk5Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -2455,8 +2430,8 @@ void _dchk6(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  _Dchk6Nout NOUT,
-  final _Dchk6Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -2629,12 +2604,15 @@ void _dchk6(
 
             if (FULL) {
               if (TRACE) {
-                NTRA.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
+                NTRA.dchk6
+                    .print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
               }
               // if (REWI) REWIND NTRA;
               dsyr2(UPLO, N, ALPHA, XX, INCX, YY, INCY, AA.asMatrix(), LDA);
             } else if (PACKED) {
-              if (TRACE) NTRA.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
+              if (TRACE) {
+                NTRA.dchk6.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
+              }
               // if (REWI) REWIND NTRA;
               dspr2(UPLO, N, ALPHA, XX, INCX, YY, INCY, AA);
             }
@@ -2642,7 +2620,7 @@ void _dchk6(
             // Check if error-exit was taken incorrectly.
 
             if (!infoc.OK.value) {
-              NOUT.print9992();
+              NOUT.dchk6.print9992();
               FATAL.value = true;
               break mainLoop;
             }
@@ -2671,7 +2649,7 @@ void _dchk6(
             SAME = true;
             for (I = 1; I <= NARGS; I++) {
               SAME = SAME && ISAME[I];
-              if (!ISAME[I]) NOUT.print9998(I);
+              if (!ISAME[I]) NOUT.dchk6.print9998(I);
             }
             if (!SAME) {
               FATAL.value = true;
@@ -2758,32 +2736,29 @@ void _dchk6(
 
   if (FATAL.value) {
     if (reportColumn) {
-      // }
-      NOUT.print9995(J);
+      NOUT.dchk6.print9995(J);
     }
 
-    // }
-    NOUT.print9996(SNAME);
+    NOUT.dchk6.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
+      NOUT.dchk6.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
     } else if (PACKED) {
-      NOUT.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
+      NOUT.dchk6.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
     }
 
-    // }
     return;
   }
 
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.dchk6.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.dchk6.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Dchk6Nout extends _DblatNoutBase {
+class _Dchk6Nout extends NoutDelegator<Nout> {
   _Dchk6Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -3538,7 +3513,6 @@ double _dbeg(final Box<bool> RESET) {
 //   // Richard Hanson, Sandia National Labs.
 
 //   return X - Y;
-// }
 
 void _chkxer(
   String SRNAMT,
@@ -3647,4 +3621,10 @@ void _xerbla(final String SRNAME, final int INFO) {
         ' ******* XERBLA WAS CALLED WITH SRNAME = ${SRNAME.a6} INSTEAD OF ${srnamc.SRNAMT.a6} *******');
     infoc.OK.value = false;
   }
+}
+
+void main() async {
+  final nin = Nin(stdin);
+  await dblat2(nin, null, lapackTestDriver);
+  exit(lapackTestDriver.errors);
 }

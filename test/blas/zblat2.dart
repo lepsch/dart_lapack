@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:async/async.dart';
 import 'package:lapack/src/blas/xerbla.dart';
 import 'package:lapack/src/blas/zgbmv.dart';
 import 'package:lapack/src/blas/zgemv.dart';
@@ -26,24 +25,24 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
 
+import '../test_driver.dart';
 import 'common.dart';
 
-void main() async {
+Future<void> zblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   xerbla = _xerbla;
 
-  final NIN = Nin(stdin);
-  _MainNout NOUT = _ZblatNout(stdout).as<_MainNout>();
-  _MainNout NTRA = _ZblatNout(NullStreamSink()).as<_MainNout>();
+  Nout NTRA = NullNout();
   const NSUBS = 17;
   const RZERO = 0.0;
   const NMAX = 65, INCMAX = 2;
   const NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7;
   double EPS, THRESH;
-  int I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB;
+  int I, J, N, NALF, NBET, NIDIM, NINC, NKB;
   bool REWI, SAME, SFATAL, TRACE = false, TSTERR;
   final FATAL = Box(false);
   String TRANS;
@@ -78,7 +77,7 @@ void main() async {
     final SUMMRY = await NIN.readString();
     await NIN.readInt(); // NOUT - ignore
 
-    NOUT = _ZblatNout(File(SUMMRY).openWrite()).as<_MainNout>();
+    NOUT ??= Nout(File(SUMMRY).openWrite());
     infoc.NOUTC = NOUT;
 
     // Read name and unit number for snapshot output file and open file.
@@ -86,7 +85,7 @@ void main() async {
     final SNAPS = await NIN.readString();
     TRACE = await NIN.readInt() >= 0;
     if (TRACE) {
-      NTRA = _ZblatNout(File(SNAPS).openWrite()).as<_MainNout>();
+      NTRA = Nout(File(SNAPS).openWrite());
     }
     // Read the flag that directs rewinding of the snapshot file.
     REWI = await NIN.readBool();
@@ -103,80 +102,80 @@ void main() async {
     // Values of N
     NIDIM = await NIN.readInt();
     if (NIDIM < 1 || NIDIM > NIDMAX) {
-      NOUT.print9997('N', NIDMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('N', NIDMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(IDIM, NIDIM);
     for (I = 1; I <= NIDIM; I++) {
       if (IDIM[I] < 0 || IDIM[I] > NMAX) {
-        NOUT.print9996(NMAX);
-        NOUT.print9987();
+        NOUT.main.print9996(NMAX);
+        NOUT.main.print9987();
         return;
       }
     }
     // Values of K
     NKB = await NIN.readInt();
     if (NKB < 1 || NKB > NKBMAX) {
-      NOUT.print9997('K', NKBMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('K', NKBMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(KB, NKB);
     for (I = 1; I <= NKB; I++) {
       if (KB[I] < 0) {
-        NOUT.print9995();
-        NOUT.print9987();
+        NOUT.main.print9995();
+        NOUT.main.print9987();
         return;
       }
     }
     // Values of INCX and INCY
     NINC = await NIN.readInt();
     if (NINC < 1 || NINC > NINMAX) {
-      NOUT.print9997('INCX AND INCY', NINMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('INCX AND INCY', NINMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(INC, NINC);
     for (I = 1; I <= NINC; I++) {
       if (INC[I] == 0 || (INC[I]).abs() > INCMAX) {
-        NOUT.print9994(INCMAX);
-        NOUT.print9987();
+        NOUT.main.print9994(INCMAX);
+        NOUT.main.print9987();
         return;
       }
     }
     // Values of ALPHA
     NALF = await NIN.readInt();
     if (NALF < 1 || NALF > NALMAX) {
-      NOUT.print9997('ALPHA', NALMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('ALPHA', NALMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(ALF, NALF);
     // Values of BETA
     NBET = await NIN.readInt();
     if (NBET < 1 || NBET > NBEMAX) {
-      NOUT.print9997('BETA', NBEMAX);
-      NOUT.print9987();
+      NOUT.main.print9997('BETA', NBEMAX);
+      NOUT.main.print9987();
       return;
     }
     await NIN.readArray(BET, NBET);
 
     // Report values of parameters.
 
-    NOUT.print9993();
-    NOUT.print9992(IDIM, NIDIM);
-    NOUT.print9991(KB, NKB);
-    NOUT.print9990(INC, NINC);
-    NOUT.print9989(ALF, NALF);
-    NOUT.print9988(BET, NBET);
+    NOUT.main.print9993();
+    NOUT.main.print9992(IDIM, NIDIM);
+    NOUT.main.print9991(KB, NKB);
+    NOUT.main.print9990(INC, NINC);
+    NOUT.main.print9989(ALF, NALF);
+    NOUT.main.print9988(BET, NBET);
     if (!TSTERR) {
-      NOUT.println();
-      NOUT.print9980();
+      NOUT.main.println();
+      NOUT.main.print9980();
     }
-    NOUT.println();
-    NOUT.print9999(THRESH);
-    NOUT.println();
+    NOUT.main.println();
+    NOUT.main.print9999(THRESH);
+    NOUT.main.println();
 
     // Read names of subroutines and flags which indicate
     // whether they are to be tested.
@@ -195,7 +194,7 @@ void main() async {
           }
         }
         if (!found) {
-          NOUT.print9986(SNAMET);
+          NOUT.main.print9986(SNAMET);
           return;
         }
         LTEST[I] = LTESTT;
@@ -207,7 +206,7 @@ void main() async {
     // Compute EPS (the machine precision).
 
     EPS = epsilon(RZERO);
-    NOUT.print9998(EPS);
+    NOUT.main.print9998(EPS);
 
     // Check the reliability of ZMVCH using exact data.
 
@@ -230,7 +229,7 @@ void main() async {
         YY, EPS, ERR, FATAL, NOUT, true);
     SAME = _lze(YY, YT, N);
     if (!SAME || ERR.value != RZERO) {
-      NOUT.print9985(TRANS, SAME, ERR.value);
+      NOUT.main.print9985(TRANS, SAME, ERR.value);
       return;
     }
     TRANS = 'T';
@@ -238,299 +237,275 @@ void main() async {
         YY, EPS, ERR, FATAL, NOUT, true);
     SAME = _lze(YY, YT, N);
     if (!SAME || ERR.value != RZERO) {
-      NOUT.print9985(TRANS, SAME, ERR.value);
+      NOUT.main.print9985(TRANS, SAME, ERR.value);
       return;
     }
 
     // Test each subroutine in turn.
+    test.group('Complex Level 2 BLAS routines', () {
+      NOUT as Nout;
+      for (final ISNUM in 1.through(NSUBS)) {
+        final skip = !LTEST[ISNUM];
+        test(SNAMES[ISNUM - 1], () {
+          NOUT as Nout;
 
-    for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) {
-      NOUT.println();
-      if (!LTEST[ISNUM]) {
-        // Subprogram is not to be tested.
-        NOUT.print9983(SNAMES[ISNUM - 1]);
-      } else {
-        srnamc.SRNAMT = SNAMES[ISNUM - 1];
-        // Test error exits.
-        if (TSTERR) {
-          _zchke(ISNUM, SNAMES[ISNUM - 1], NOUT);
-          NOUT.println();
+          NOUT.main.println();
+
+          srnamc.SRNAMT = SNAMES[ISNUM - 1];
+          // Test error exits.
+          if (TSTERR) {
+            _zchke(ISNUM, SNAMES[ISNUM - 1], NOUT);
+            NOUT.main.println();
+          }
+          // Test computations.
+          infoc.INFOT = 0;
+          infoc.OK.value = true;
+          FATAL.value = false;
+          switch (ISNUM) {
+            case 1:
+            case 2:
+              // Test ZGEMV, 01, and ZGBMV, 02.
+              _zchk1(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NKB,
+                  KB,
+                  NALF,
+                  ALF,
+                  NBET,
+                  BET,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G);
+              break;
+            case 3:
+            case 4:
+            case 5:
+              // Test ZHEMV, 03, ZHBMV, 04, and ZHPMV, 05.
+              _zchk2(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NKB,
+                  KB,
+                  NALF,
+                  ALF,
+                  NBET,
+                  BET,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G);
+              break;
+            // Test ZTRMV, 06, ZTBMV, 07, ZTPMV, 08,
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+              // ZTRSV, 09, ZTBSV, 10, and ZTPSV, 11.
+              _zchk3(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NKB,
+                  KB,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z);
+              break;
+            case 12:
+            case 13:
+              // Test ZGERC, 12, ZGERU, 13.
+              _zchk4(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NALF,
+                  ALF,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z);
+              break;
+            case 14:
+            case 15:
+              // Test ZHER, 14, and ZHPR, 15.
+              _zchk5(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NALF,
+                  ALF,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z);
+              break;
+            case 16:
+            case 17:
+              // Test ZHER2, 16, and ZHPR2, 17.
+              _zchk6(
+                  SNAMES[ISNUM - 1],
+                  EPS,
+                  THRESH,
+                  NOUT,
+                  NTRA,
+                  TRACE,
+                  REWI,
+                  FATAL,
+                  NIDIM,
+                  IDIM,
+                  NALF,
+                  ALF,
+                  NINC,
+                  INC,
+                  NMAX,
+                  INCMAX,
+                  A,
+                  AA,
+                  AS,
+                  X,
+                  XX,
+                  XS,
+                  Y,
+                  YY,
+                  YS,
+                  YT,
+                  G,
+                  Z.asMatrix());
+              break;
+          }
+          if (test.expect(FATAL.value, false)) {
+            if (SFATAL) test.fail();
+          }
+        }, skip: skip);
+        if (skip) {
+          // Subprogram is not to be tested.
+          NOUT.main.print9983(SNAMES[ISNUM - 1]);
         }
-        // Test computations.
-        infoc.INFOT = 0;
-        infoc.OK.value = true;
-        FATAL.value = false;
-        switch (ISNUM) {
-          case 1:
-          case 2:
-            // Test ZGEMV, 01, and ZGBMV, 02.
-            _zchk1(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Zchk1Nout>(),
-                NTRA.as<_Zchk1Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NKB,
-                KB,
-                NALF,
-                ALF,
-                NBET,
-                BET,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G);
-            break;
-          case 3:
-          case 4:
-          case 5:
-            // Test ZHEMV, 03, ZHBMV, 04, and ZHPMV, 05.
-            _zchk2(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Zchk2Nout>(),
-                NTRA.as<_Zchk2Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NKB,
-                KB,
-                NALF,
-                ALF,
-                NBET,
-                BET,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G);
-            break;
-          // Test ZTRMV, 06, ZTBMV, 07, ZTPMV, 08,
-          case 6:
-          case 7:
-          case 8:
-          case 9:
-          case 10:
-          case 11:
-            // ZTRSV, 09, ZTBSV, 10, and ZTPSV, 11.
-            _zchk3(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Zchk3Nout>(),
-                NTRA.as<_Zchk3Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NKB,
-                KB,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z);
-            break;
-          case 12:
-          case 13:
-            // Test ZGERC, 12, ZGERU, 13.
-            _zchk4(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Zchk4Nout>(),
-                NTRA.as<_Zchk4Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NALF,
-                ALF,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z);
-            break;
-          case 14:
-          case 15:
-            // Test ZHER, 14, and ZHPR, 15.
-            _zchk5(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Zchk5Nout>(),
-                NTRA.as<_Zchk5Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NALF,
-                ALF,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z);
-            break;
-          case 16:
-          case 17:
-            // Test ZHER2, 16, and ZHPR2, 17.
-            _zchk6(
-                SNAMES[ISNUM - 1],
-                EPS,
-                THRESH,
-                NOUT.as<_Zchk6Nout>(),
-                NTRA.as<_Zchk6Nout>(),
-                TRACE,
-                REWI,
-                FATAL,
-                NIDIM,
-                IDIM,
-                NALF,
-                ALF,
-                NINC,
-                INC,
-                NMAX,
-                INCMAX,
-                A,
-                AA,
-                AS,
-                X,
-                XX,
-                XS,
-                Y,
-                YY,
-                YS,
-                YT,
-                G,
-                Z.asMatrix());
-            break;
-        }
-        if (FATAL.value && SFATAL) break;
       }
-    }
+    });
 
     if (FATAL.value && SFATAL) {
-      NOUT.print9981();
+      NOUT.main.print9981();
       return;
     }
 
-    NOUT.print9982();
+    NOUT.main.print9982();
   } finally {
     if (TRACE) await NTRA.close();
-    await NOUT.close();
+    await NOUT?.close();
   }
 }
 
-class _ZblatNout extends StreamNout implements _ZblatNoutCast {
-  late _MainNout main;
-  late _Zchk1Nout _zchk1;
-  late _Zchk2Nout _zchk2;
-  late _Zchk3Nout _zchk3;
-  late _Zchk4Nout _zchk4;
-  late _Zchk5Nout _zchk5;
-  late _Zchk6Nout _zchk6;
-
-  _ZblatNout(super._stream) {
-    main = _MainNout(this);
-    _zchk1 = _Zchk1Nout(this);
-    _zchk2 = _Zchk2Nout(this);
-    _zchk3 = _Zchk3Nout(this);
-    _zchk4 = _Zchk4Nout(this);
-    _zchk5 = _Zchk5Nout(this);
-    _zchk6 = _Zchk6Nout(this);
-  }
-
-  @override
-  T as<T extends _ZblatNoutBase>() => switch (T) {
-        _MainNout => main,
-        _Zchk1Nout => _zchk1,
-        _Zchk2Nout => _zchk2,
-        _Zchk3Nout => _zchk3,
-        _Zchk4Nout => _zchk4,
-        _Zchk5Nout => _zchk5,
-        _Zchk6Nout => _zchk6,
-        Type() => null,
-      } as T;
+extension on Nout {
+  _MainNout get main => _MainNout(this);
+  _Zchk1Nout get zchk1 => _Zchk1Nout(this);
+  _Zchk2Nout get zchk2 => _Zchk2Nout(this);
+  _Zchk3Nout get zchk3 => _Zchk3Nout(this);
+  _Zchk4Nout get zchk4 => _Zchk4Nout(this);
+  _Zchk5Nout get zchk5 => _Zchk5Nout(this);
+  _Zchk6Nout get zchk6 => _Zchk6Nout(this);
 }
 
-abstract interface class _ZblatNoutCast {
-  T as<T extends _ZblatNoutBase>();
-}
+class _MainNout extends NoutDelegator<Nout> {
+  const _MainNout(super.nout);
 
-sealed class _ZblatNoutBase extends NoutDelegator<_ZblatNout>
-    implements _ZblatNoutCast {
-  const _ZblatNoutBase(super.nout);
-
-  @override
-  T as<T extends _ZblatNoutBase>() => nout.as<T>();
-}
-
-class _MainNout extends _ZblatNoutBase {
-  _MainNout(super.nout);
   void print9999(double THRESH) {
     println(
         ' ROUTINES PASS COMPUTATIONAL TESTS if TEST RATIO IS LESS THAN${THRESH.f8_2}');
@@ -625,8 +600,8 @@ void _zchk1(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Zchk1Nout NOUT,
-  final _Zchk1Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -845,7 +820,7 @@ void _zchk1(
 
                   if (FULL) {
                     if (TRACE) {
-                      NTRA.print9994(
+                      NTRA.zchk1.print9994(
                           NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
                     }
                     //  if (REWI) REWIND NTRA;
@@ -853,8 +828,8 @@ void _zchk1(
                         BETA, YY, INCY);
                   } else if (BANDED) {
                     if (TRACE) {
-                      NTRA.print9995(NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA,
-                          INCX, BETA, INCY);
+                      NTRA.zchk1.print9995(NC, SNAME, TRANS, M, N, KL, KU,
+                          ALPHA, LDA, INCX, BETA, INCY);
                     }
                     //  if (REWI) REWIND NTRA;
                     zgbmv(TRANS, M, N, KL, KU, ALPHA, AA.asMatrix(), LDA, XX,
@@ -864,7 +839,7 @@ void _zchk1(
                   // Check if error-exit was taken incorrectly.
 
                   if (!infoc.OK.value) {
-                    NOUT.print9993();
+                    NOUT.zchk1.print9993();
                     FATAL.value = true;
                     break mainLoop;
                   }
@@ -912,7 +887,7 @@ void _zchk1(
                   SAME = true;
                   for (I = 1; I <= NARGS; I++) {
                     SAME = SAME && ISAME[I];
-                    if (!ISAME[I]) NOUT.print9998(I);
+                    if (!ISAME[I]) NOUT.zchk1.print9998(I);
                   }
                   if (!SAME) {
                     FATAL.value = true;
@@ -959,13 +934,14 @@ void _zchk1(
     ) = _zregr1(AA.asMatrix(), XX, YY, YS);
     if (FULL) {
       if (TRACE) {
-        NTRA.print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
+        NTRA.zchk1
+            .print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
       }
       //  if (REWI) REWIND NTRA;
       zgemv(TRANS, M, N, ALPHA, AA.asMatrix(), LDA, XX, INCX, BETA, YY, INCY);
     } else if (BANDED) {
       if (TRACE) {
-        NTRA.print9995(
+        NTRA.zchk1.print9995(
             NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY);
       }
       //  if (REWI) REWIND NTRA;
@@ -974,17 +950,18 @@ void _zchk1(
     }
     NC++;
     if (!_lze(YS, YY, LY)) {
-      NOUT.print9998(NARGS - 1);
+      NOUT.zchk1.print9998(NARGS - 1);
       FATAL.value = true;
     }
   }
 
   if (FATAL.value) {
-    NOUT.print9996(SNAME);
+    NOUT.zchk1.print9996(SNAME);
     if (FULL) {
-      NOUT.print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
+      NOUT.zchk1
+          .print9994(NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY);
     } else if (BANDED) {
-      NOUT.print9995(
+      NOUT.zchk1.print9995(
           NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY);
     }
     return;
@@ -993,13 +970,13 @@ void _zchk1(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.zchk1.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.zchk1.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Zchk1Nout extends _ZblatNoutBase {
+class _Zchk1Nout extends NoutDelegator<Nout> {
   _Zchk1Nout(super._dblatNout);
   void print9999(String SNAME, int NC) {
     println(' ${SNAME.a6} PASSED THE COMPUTATIONAL TESTS (${NC.i6} CALLS)');
@@ -1046,8 +1023,8 @@ void _zchk2(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Zchk2Nout NOUT,
-  final _Zchk2Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -1246,7 +1223,7 @@ void _zchk2(
 
                 if (FULL) {
                   if (TRACE) {
-                    NTRA.print9993(
+                    NTRA.zchk2.print9993(
                         NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY);
                   }
                   // if (REWI) REWIND NTRA;
@@ -1254,7 +1231,7 @@ void _zchk2(
                       INCY);
                 } else if (BANDED) {
                   if (TRACE) {
-                    NTRA.print9994(
+                    NTRA.zchk2.print9994(
                         NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY);
                   }
                   // if (REWI) REWIND NTRA;
@@ -1262,7 +1239,8 @@ void _zchk2(
                       YY, INCY);
                 } else if (PACKED) {
                   if (TRACE) {
-                    NTRA.print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
+                    NTRA.zchk2
+                        .print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
                   }
                   // if (REWI) REWIND NTRA;
                   zhpmv(UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY);
@@ -1271,7 +1249,7 @@ void _zchk2(
                 // Check if error-exit was taken incorrectly.
 
                 if (!infoc.OK.value) {
-                  NOUT.print9992();
+                  NOUT.zchk2.print9992();
                   FATAL.value = true;
                   break mainLoop;
                 }
@@ -1330,7 +1308,7 @@ void _zchk2(
                 SAME = true;
                 for (I = 1; I <= NARGS; I++) {
                   SAME = SAME && ISAME[I];
-                  if (!ISAME[I]) NOUT.print9998(I);
+                  if (!ISAME[I]) NOUT.zchk2.print9998(I);
                 }
                 if (!SAME) {
                   FATAL.value = true;
@@ -1359,13 +1337,13 @@ void _zchk2(
   }
 
   if (FATAL.value) {
-    NOUT.print9996(SNAME);
+    NOUT.zchk2.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY);
+      NOUT.zchk2.print9993(NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY);
     } else if (BANDED) {
-      NOUT.print9994(NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY);
+      NOUT.zchk2.print9994(NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY);
     } else if (PACKED) {
-      NOUT.print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
+      NOUT.zchk2.print9995(NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY);
     }
     return;
   }
@@ -1373,13 +1351,13 @@ void _zchk2(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.zchk2.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.zchk2.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Zchk2Nout extends _ZblatNoutBase {
+class _Zchk2Nout extends NoutDelegator<Nout> {
   _Zchk2Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -1429,8 +1407,8 @@ void _zchk3(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Zchk3Nout NOUT,
-  final _Zchk3Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -1604,20 +1582,21 @@ void _zchk3(
               if (SNAME.substring(3, 5) == 'MV') {
                 if (FULL) {
                   if (TRACE) {
-                    NTRA.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
+                    NTRA.zchk3
+                        .print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   ztrmv(UPLO, TRANS, DIAG, N, AA.asMatrix(), LDA, XX, INCX);
                 } else if (BANDED) {
                   if (TRACE) {
-                    NTRA.print9994(
+                    NTRA.zchk3.print9994(
                         NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   ztbmv(UPLO, TRANS, DIAG, N, K, AA.asMatrix(), LDA, XX, INCX);
                 } else if (PACKED) {
                   if (TRACE) {
-                    NTRA.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
+                    NTRA.zchk3.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   ztpmv(UPLO, TRANS, DIAG, N, AA, XX, INCX);
@@ -1625,20 +1604,21 @@ void _zchk3(
               } else if (SNAME.substring(3, 5) == 'SV') {
                 if (FULL) {
                   if (TRACE) {
-                    NTRA.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
+                    NTRA.zchk3
+                        .print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   ztrsv(UPLO, TRANS, DIAG, N, AA.asMatrix(), LDA, XX, INCX);
                 } else if (BANDED) {
                   if (TRACE) {
-                    NTRA.print9994(
+                    NTRA.zchk3.print9994(
                         NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   ztbsv(UPLO, TRANS, DIAG, N, K, AA.asMatrix(), LDA, XX, INCX);
                 } else if (PACKED) {
                   if (TRACE) {
-                    NTRA.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
+                    NTRA.zchk3.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
                   }
                   // if (REWI) REWIND NTRA;
                   ztpsv(UPLO, TRANS, DIAG, N, AA, XX, INCX);
@@ -1648,7 +1628,7 @@ void _zchk3(
               // Check if error-exit was taken incorrectly.
 
               if (!infoc.OK.value) {
-                NOUT.print9992();
+                NOUT.zchk3.print9992();
                 FATAL.value = true;
                 break mainLoop;
               }
@@ -1697,7 +1677,7 @@ void _zchk3(
               SAME = true;
               for (I = 1; I <= NARGS; I++) {
                 SAME = SAME && ISAME[I];
-                if (!ISAME[I]) NOUT.print9998(I);
+                if (!ISAME[I]) NOUT.zchk3.print9998(I);
               }
               if (!SAME) {
                 FATAL.value = true;
@@ -1771,13 +1751,13 @@ void _zchk3(
   }
 
   if (FATAL.value) {
-    NOUT.print9996(SNAME);
+    NOUT.zchk3.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
+      NOUT.zchk3.print9993(NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX);
     } else if (BANDED) {
-      NOUT.print9994(NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
+      NOUT.zchk3.print9994(NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX);
     } else if (PACKED) {
-      NOUT.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
+      NOUT.zchk3.print9995(NC, SNAME, UPLO, TRANS, DIAG, N, INCX);
     }
     return;
   }
@@ -1785,13 +1765,13 @@ void _zchk3(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.zchk3.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.zchk3.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Zchk3Nout extends _ZblatNoutBase {
+class _Zchk3Nout extends NoutDelegator<Nout> {
   _Zchk3Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -1851,8 +1831,8 @@ void _zchk4(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Zchk4Nout NOUT,
-  final _Zchk4Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -2019,7 +1999,9 @@ void _zchk4(
 
             // Call the subroutine.
 
-            if (TRACE) NTRA.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
+            if (TRACE) {
+              NTRA.zchk4.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
+            }
             if (CONJ) {
               // if (REWI) REWIND NTRA;
               zgerc(M, N, ALPHA, XX, INCX, YY, INCY, AA.asMatrix(), LDA);
@@ -2031,7 +2013,7 @@ void _zchk4(
             // Check if error-exit was taken incorrectly.
 
             if (!infoc.OK.value) {
-              NOUT.print9993();
+              NOUT.zchk4.print9993();
               FATAL.value = true;
               break mainLoop;
             }
@@ -2058,7 +2040,7 @@ void _zchk4(
             SAME = true;
             for (I = 1; I <= NARGS; I++) {
               SAME = SAME && ISAME[I];
-              if (!ISAME[I]) NOUT.print9998(I);
+              if (!ISAME[I]) NOUT.zchk4.print9998(I);
             }
             if (!SAME) {
               FATAL.value = true;
@@ -2123,25 +2105,25 @@ void _zchk4(
 
   if (FATAL.value) {
     if (reportColumn) {
-      NOUT.print9995(J);
+      NOUT.zchk4.print9995(J);
     }
 
     // }
-    NOUT.print9996(SNAME);
-    NOUT.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
+    NOUT.zchk4.print9996(SNAME);
+    NOUT.zchk4.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
     return;
   }
 
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.zchk4.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.zchk4.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Zchk4Nout extends _ZblatNoutBase {
+class _Zchk4Nout extends NoutDelegator<Nout> {
   _Zchk4Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -2183,8 +2165,8 @@ void _zchk5(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Zchk5Nout NOUT,
-  final _Zchk5Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -2338,11 +2320,13 @@ void _zchk5(
           // Call the subroutine.
 
           if (FULL) {
-            if (TRACE) NTRA.print9993(NC, SNAME, UPLO, N, RALPHA, INCX, LDA);
+            if (TRACE) {
+              NTRA.zchk5.print9993(NC, SNAME, UPLO, N, RALPHA, INCX, LDA);
+            }
             //  if (REWI) REWIND NTRA;
             zher(UPLO, N, RALPHA, XX, INCX, AA.asMatrix(), LDA);
           } else if (PACKED) {
-            if (TRACE) NTRA.print9994(NC, SNAME, UPLO, N, RALPHA, INCX);
+            if (TRACE) NTRA.zchk5.print9994(NC, SNAME, UPLO, N, RALPHA, INCX);
             //  if (REWI) REWIND NTRA;
             zhpr(UPLO, N, RALPHA, XX, INCX, AA);
           }
@@ -2350,7 +2334,7 @@ void _zchk5(
           // Check if error-exit was taken incorrectly.
 
           if (!infoc.OK.value) {
-            NOUT.print9992();
+            NOUT.zchk5.print9992();
             FATAL.value = true;
             break mainLoop;
           }
@@ -2377,7 +2361,7 @@ void _zchk5(
           SAME = true;
           for (I = 1; I <= NARGS; I++) {
             SAME = SAME && ISAME[I];
-            if (!ISAME[I]) NOUT.print9998(I);
+            if (!ISAME[I]) NOUT.zchk5.print9998(I);
           }
           if (!SAME) {
             FATAL.value = true;
@@ -2453,15 +2437,15 @@ void _zchk5(
 
   if (FATAL.value) {
     if (reportColumn) {
-      NOUT.print9995(J);
+      NOUT.zchk5.print9995(J);
     }
 
     // }
-    NOUT.print9996(SNAME);
+    NOUT.zchk5.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, N, RALPHA, INCX, LDA);
+      NOUT.zchk5.print9993(NC, SNAME, UPLO, N, RALPHA, INCX, LDA);
     } else if (PACKED) {
-      NOUT.print9994(NC, SNAME, UPLO, N, RALPHA, INCX);
+      NOUT.zchk5.print9994(NC, SNAME, UPLO, N, RALPHA, INCX);
     }
     return;
   }
@@ -2469,13 +2453,13 @@ void _zchk5(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.zchk5.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.zchk5.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Zchk5Nout extends _ZblatNoutBase {
+class _Zchk5Nout extends NoutDelegator<Nout> {
   _Zchk5Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -2521,8 +2505,8 @@ void _zchk6(
   final String SNAME,
   final double EPS,
   final double THRESH,
-  final _Zchk6Nout NOUT,
-  final _Zchk6Nout NTRA,
+  final Nout NOUT,
+  final Nout NTRA,
   final bool TRACE,
   final bool REWI,
   final Box<bool> FATAL,
@@ -2699,12 +2683,15 @@ void _zchk6(
 
             if (FULL) {
               if (TRACE) {
-                NTRA.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
+                NTRA.zchk6
+                    .print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
               }
               // if (REWI) REWIND NTRA;
               zher2(UPLO, N, ALPHA, XX, INCX, YY, INCY, AA.asMatrix(), LDA);
             } else if (PACKED) {
-              if (TRACE) NTRA.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
+              if (TRACE) {
+                NTRA.zchk6.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
+              }
               // if (REWI) REWIND NTRA;
               zhpr2(UPLO, N, ALPHA, XX, INCX, YY, INCY, AA);
             }
@@ -2712,7 +2699,7 @@ void _zchk6(
             // Check if error-exit was taken incorrectly.
 
             if (!infoc.OK.value) {
-              NOUT.print9992();
+              NOUT.zchk6.print9992();
               FATAL.value = true;
               break mainLoop;
             }
@@ -2741,7 +2728,7 @@ void _zchk6(
             SAME = true;
             for (I = 1; I <= NARGS; I++) {
               SAME = SAME && ISAME[I];
-              if (!ISAME[I]) NOUT.print9998(I);
+              if (!ISAME[I]) NOUT.zchk6.print9998(I);
             }
             if (!SAME) {
               FATAL.value = true;
@@ -2828,14 +2815,14 @@ void _zchk6(
 
   if (FATAL.value) {
     if (reportColumn) {
-      NOUT.print9995(J);
+      NOUT.zchk6.print9995(J);
     }
 
-    NOUT.print9996(SNAME);
+    NOUT.zchk6.print9996(SNAME);
     if (FULL) {
-      NOUT.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
+      NOUT.zchk6.print9993(NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA);
     } else if (PACKED) {
-      NOUT.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
+      NOUT.zchk6.print9994(NC, SNAME, UPLO, N, ALPHA, INCX, INCY);
     }
     return;
   }
@@ -2843,13 +2830,13 @@ void _zchk6(
   // Report result.
 
   if (ERRMAX < THRESH) {
-    NOUT.print9999(SNAME, NC);
+    NOUT.zchk6.print9999(SNAME, NC);
   } else {
-    NOUT.print9997(SNAME, NC, ERRMAX);
+    NOUT.zchk6.print9997(SNAME, NC, ERRMAX);
   }
 }
 
-class _Zchk6Nout extends _ZblatNoutBase {
+class _Zchk6Nout extends NoutDelegator<Nout> {
   _Zchk6Nout(super._dblatNout);
 
   void print9999(String SNAME, int NC) {
@@ -2915,7 +2902,6 @@ void _zchke(
   // infoc.LERR is set to true by the special version of XERBLA each time
   // it is called, and is then tested and re-set by CHKXER.
   infoc.LERR.value = false;
-  // GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170 )ISNUM;
   switch (ISNUM) {
     case 1:
       infoc.INFOT = 1;
@@ -3761,4 +3747,10 @@ void _xerbla(final String SRNAME, final int INFO) {
         ' ******* XERBLA WAS CALLED WITH SRNAME = ${SRNAME.a6} INSTEAD OF ${srnamc.SRNAMT.a6} *******');
     infoc.OK.value = false;
   }
+}
+
+void main() async {
+  final nin = Nin(stdin);
+  await zblat2(nin, null, lapackTestDriver);
+  exit(lapackTestDriver.errors);
 }

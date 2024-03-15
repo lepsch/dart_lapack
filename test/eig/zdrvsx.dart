@@ -120,10 +120,9 @@ Future<void> zdrvsx(
 
   NMAX = 8;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -169,7 +168,6 @@ Future<void> zdrvsx(
     NERRS = 0;
 
     for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-      // 140
       N = NN[JSIZE];
       if (NSIZES != 1) {
         MTYPES = min(MAXTYP, NTYPES);
@@ -178,15 +176,13 @@ Future<void> zdrvsx(
       }
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-        // 130
         if (!DOTYPE[JTYPE]) continue;
 
         // Save ISEED in case of an error.
 
         for (J = 1; J <= 4; J++) {
-          // 20
           IOLDSD[J] = ISEED[J];
-        } // 20
+        }
 
         // Compute "A"
 
@@ -210,7 +206,6 @@ Future<void> zdrvsx(
 
           // Compute norm
 
-          // GO TO ( 30, 40, 50 );
           switch (KMAGN[JTYPE]) {
             case 1:
               ANORM = ONE;
@@ -223,7 +218,7 @@ Future<void> zdrvsx(
             case 3:
               ANORM = UNFL * ULPINV;
               break;
-          } // 60
+          }
 
           zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
           IINFO.value = 0;
@@ -239,17 +234,15 @@ Future<void> zdrvsx(
             // Identity
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 70
               A[JCOL][JCOL] = ANORM.toComplex();
-            } // 70
+            }
           } else if (ITYPE == 3) {
             // Jordan Block
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 80
               A[JCOL][JCOL] = ANORM.toComplex();
               if (JCOL > 1) A[JCOL][JCOL - 1] = Complex.one;
-            } // 80
+            }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, [Eigen]values Specified
 
@@ -419,12 +412,11 @@ Future<void> zdrvsx(
             INFO.value = (IINFO.value).abs();
             return;
           }
-        } // 90
+        }
 
         // Test for minimal and generous workspace
 
         for (IWK = 1; IWK <= 2; IWK++) {
-          // 120
           if (IWK == 1) {
             NNWORK = 2 * N;
           } else {
@@ -466,10 +458,9 @@ Future<void> zdrvsx(
           NTEST = 0;
           NFAIL = 0;
           for (J = 1; J <= 15; J++) {
-            // 100
             if (RESULT[J] >= ZERO) NTEST++;
             if (RESULT[J] >= THRESH) NFAIL++;
-          } // 100
+          }
 
           if (NFAIL > 0) NTESTF++;
           if (NTESTF == 1) {
@@ -478,19 +469,18 @@ Future<void> zdrvsx(
           }
 
           for (J = 1; J <= 15; J++) {
-            // 110
             if (RESULT[J] >= THRESH) {
               NOUNIT.println(
                   ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
             }
-          } // 110
+          }
 
           NERRS += NFAIL;
           NTESTT += NTEST;
-        } // 120
-      } // 130
-    } // 140
-  } // 150
+        }
+      }
+    }
+  }
 
   // Read in data from file to check accuracy of condition estimation
   // Read input data until N=0
@@ -541,10 +531,9 @@ Future<void> zdrvsx(
       NTEST = 0;
       var NFAIL = 0;
       for (J = 1; J <= 17; J++) {
-        // 180
         if (RESULT[J] >= ZERO) NTEST++;
         if (RESULT[J] >= THRESH) NFAIL++;
-      } // 180
+      }
 
       if (NFAIL > 0) NTESTF++;
       if (NTESTF == 1) {
@@ -552,12 +541,11 @@ Future<void> zdrvsx(
         NTESTF = 2;
       }
       for (J = 1; J <= 17; J++) {
-        // 190
         if (RESULT[J] >= THRESH) {
           NOUNIT.println(
               ' N=${N.i5}, input example =${JTYPE.i3},  test(${J.i2})=${RESULT[J].g10_3}');
         }
-      } // 190
+      }
 
       NERRS += NFAIL;
       NTESTT += NTEST;

@@ -198,3 +198,11 @@ class NoutDelegator<T extends Nout> implements Nout {
   @override
   Future<void> close() => nout.close();
 }
+
+class NullNout implements Nout {
+  @override
+  void println([String? s]) {}
+
+  @override
+  Future<void> close() => Future.value();
+}
