@@ -125,7 +125,7 @@ void zher2k(
         }
         for (L = 1; L <= K; L++) {
           if ((A[J][L] != Complex.zero) || (B[J][L] != Complex.zero)) {
-            TEMP1 = ALPHA * B[J][L].real.toComplex();
+            TEMP1 = ALPHA * B[J][L].conjugate();
             TEMP2 = (ALPHA * A[J][L]).conjugate();
             for (I = 1; I <= J - 1; I++) {
               C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
