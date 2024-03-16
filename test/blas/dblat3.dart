@@ -9,7 +9,6 @@ import 'package:lapack/src/blas/dtrmm.dart';
 import 'package:lapack/src/blas/dtrsm.dart';
 import 'package:lapack/src/blas/xerbla.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/debug.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
 import 'package:lapack/src/matrix.dart';
@@ -176,13 +175,6 @@ Future<void> dblat3(final Nin NIN, Nout? NOUT, final TestDriver test) async {
     }
     // CC holds the exact result. On exit from DMMCH CT holds
     // the result computed by DMMCH.
-    AB.debug('DBLAT3: 1 - AB', N, N);
-    C.debug('DBLAT3: 1 - C', N, N);
-    CC.debug('DBLAT3: 1 - CC', N);
-
-    // CALL DEBUGMATRIX(, AB, NMAX, N, N)
-    // CALL DEBUGMATRIX('DBLAT3: 1 - C', C, NMAX, N, N)
-    // CALL DEBUGDARRAY('DBLAT3: 1 - CC', CC, N)
     TRANSA = 'N';
     TRANSB = 'N';
     _dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB(1, NMAX + 1), NMAX, ZERO,

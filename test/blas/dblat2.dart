@@ -221,7 +221,8 @@ Future<void> dblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       Y[J] = ZERO;
     }
     for (J = 1; J <= N; J++) {
-      YY[J] = J * ((J + 1) * J) / 2 - ((J + 1) * J * (J - 1)) / 3;
+      YY[J] =
+          (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
     }
     // YY holds the exact result. On exit from DMVCH YT holds
     // the result computed by DMVCH.
@@ -266,7 +267,6 @@ Future<void> dblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           switch (ISNUM) {
             case 1:
             case 2:
-
               // Test DGEMV, 01, and DGBMV, 02.
               _dchk1(
                   SNAMES[ISNUM - 1],
@@ -515,7 +515,7 @@ class _MainNout extends NoutDelegator<Nout> {
 
   void print9999(double THRESH) {
     println(
-        ' ROUTINES PASS COMPUTATIONAL TESTS if TEST RATIO IS LESS THAN${THRESH.f8_2}');
+        ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LESS THAN${THRESH.f8_2}');
   }
 
   void print9998(double EPS) {
@@ -636,8 +636,11 @@ void _dchk1(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
+  final IDIM = IDIM_.having(length: NIDIM);
+  final KB = KB_.having(length: NKB);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
+  final INC = INC_.having(length: NINC);
   final A = A_.having(ld: NMAX);
   final AA = AA_.having(length: NMAX * NMAX);
   final AS = AS_.having(length: NMAX * NMAX);
@@ -649,9 +652,6 @@ void _dchk1(
   final YS = YS_.having(length: NMAX * INCMAX);
   final YT = YT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
-  final IDIM = IDIM_.having(length: NIDIM);
-  final KB = KB_.having(length: NKB);
-  final INC = INC_.having(length: NINC);
   const ZERO = 0.0, HALF = 0.5;
   double ALPHA = 0, ALS, BETA = 0, BLS, ERRMAX, TRANSL;
   int I,
@@ -761,21 +761,21 @@ void _dchk1(
 
           for (IX = 1; IX <= NINC; IX++) {
             INCX = INC[IX];
-            LX = (INCX).abs() * NL;
+            LX = INCX.abs() * NL;
 
             // Generate the vector X.
 
             TRANSL = HALF;
-            _dmake('GE', ' ', ' ', 1, NL, X.asMatrix(), 1, XX, (INCX).abs(), 0,
+            _dmake('GE', ' ', ' ', 1, NL, X.asMatrix(), 1, XX, INCX.abs(), 0,
                 NL - 1, RESET, TRANSL);
             if (NL > 1) {
               X[NL ~/ 2] = ZERO;
-              XX[1 + (INCX).abs() * (NL ~/ 2 - 1)] = ZERO;
+              XX[1 + INCX.abs() * (NL ~/ 2 - 1)] = ZERO;
             }
 
             for (IY = 1; IY <= NINC; IY++) {
               INCY = INC[IY];
-              LY = (INCY).abs() * ML;
+              LY = INCY.abs() * ML;
 
               for (IA = 1; IA <= NALF; IA++) {
                 ALPHA = ALF[IA];
@@ -786,8 +786,8 @@ void _dchk1(
                   // Generate the vector Y.
 
                   TRANSL = ZERO;
-                  _dmake('GE', ' ', ' ', 1, ML, Y.asMatrix(), 1, YY,
-                      (INCY).abs(), 0, ML - 1, RESET, TRANSL);
+                  _dmake('GE', ' ', ' ', 1, ML, Y.asMatrix(), 1, YY, INCY.abs(),
+                      0, ML - 1, RESET, TRANSL);
 
                   NC++;
 
@@ -858,7 +858,7 @@ void _dchk1(
                       ISAME[10] = _lde(YS, YY, LY);
                     } else {
                       ISAME[10] = _lderes('GE', ' ', 1, ML, YS.asMatrix(),
-                          YY.asMatrix(), (INCY).abs());
+                          YY.asMatrix(), INCY.abs());
                     }
                     ISAME[11] = INCYS == INCY;
                   } else if (BANDED) {
@@ -874,7 +874,7 @@ void _dchk1(
                       ISAME[12] = _lde(YS, YY, LY);
                     } else {
                       ISAME[12] = _lderes('GE', ' ', 1, ML, YS.asMatrix(),
-                          YY.asMatrix(), (INCY).abs());
+                          YY.asMatrix(), INCY.abs());
                     }
                     ISAME[13] = INCYS == INCY;
                   }
@@ -935,11 +935,11 @@ void _dchk1(
       //  if (REWI) REWIND NTRA;
       dgbmv(TRANS, M, N, KL, KU, ALPHA, AA.asMatrix(), LDA, XX, INCX, BETA, YY,
           INCY);
-      NC++;
-      if (!_lde(YS, YY, LY)) {
-        NOUT.dchk1.print9998(NARGS - 1);
-        FATAL.value = true;
-      }
+    }
+    NC++;
+    if (!_lde(YS, YY, LY)) {
+      NOUT.dchk1.print9998(NARGS - 1);
+      FATAL.value = true;
     }
   }
 
@@ -965,7 +965,6 @@ void _dchk1(
 
 class _Dchk1Nout extends NoutDelegator<Nout> {
   _Dchk1Nout(super._dblatNout);
-
   void print9999(String SNAME, int NC) {
     println(' ${SNAME.a6} PASSED THE COMPUTATIONAL TESTS (${NC.i6} CALLS)');
   }
@@ -1048,22 +1047,22 @@ void _dchk2(
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
 
-  final A = A_.having(ld: NMAX);
-  final AA = AA_.having(length: NMAX * NMAX);
-  final ALF = ALF_.having(length: NALF);
-  final AS = AS_.having(length: NMAX * NMAX);
-  final BET = BET_.having(length: NBET);
-  final G = G_.having(length: NMAX);
-  final X = X_.having(length: NMAX);
-  final XS = XS_.having(length: NMAX * INCMAX);
-  final XX = XX_.having(length: NMAX * INCMAX);
-  final Y = Y_.having(length: NMAX);
-  final YS = YS_.having(length: NMAX * INCMAX);
-  final YT = YT_.having(length: NMAX);
-  final YY = YY_.having(length: NMAX * INCMAX);
   final IDIM = IDIM_.having(length: NIDIM);
   final KB = KB_.having(length: NKB);
+  final ALF = ALF_.having(length: NALF);
+  final BET = BET_.having(length: NBET);
   final INC = INC_.having(length: NINC);
+  final A = A_.having(ld: NMAX);
+  final AA = AA_.having(length: NMAX * NMAX);
+  final AS = AS_.having(length: NMAX * NMAX);
+  final X = X_.having(length: NMAX);
+  final XX = XX_.having(length: NMAX * INCMAX);
+  final XS = XS_.having(length: NMAX * INCMAX);
+  final Y = Y_.having(length: NMAX);
+  final YY = YY_.having(length: NMAX * INCMAX);
+  final YS = YS_.having(length: NMAX * INCMAX);
+  final YT = YT_.having(length: NMAX);
+  final G = G_.having(length: NMAX);
   const ZERO = 0.0, HALF = 0.5;
   double ALPHA = 0, ALS, BETA = 0, BLS, ERRMAX, TRANSL;
   int I,
@@ -1154,21 +1153,21 @@ void _dchk2(
 
         for (IX = 1; IX <= NINC; IX++) {
           INCX = INC[IX];
-          LX = (INCX).abs() * N;
+          LX = INCX.abs() * N;
 
           // Generate the vector X.
 
           TRANSL = HALF;
-          _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, (INCX).abs(), 0,
+          _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0,
               N - 1, RESET, TRANSL);
           if (N > 1) {
             X[N ~/ 2] = ZERO;
-            XX[1 + (INCX).abs() * (N ~/ 2 - 1)] = ZERO;
+            XX[1 + INCX.abs() * (N ~/ 2 - 1)] = ZERO;
           }
 
           for (IY = 1; IY <= NINC; IY++) {
             INCY = INC[IY];
-            LY = (INCY).abs() * N;
+            LY = INCY.abs() * N;
 
             for (IA = 1; IA <= NALF; IA++) {
               ALPHA = ALF[IA];
@@ -1179,8 +1178,8 @@ void _dchk2(
                 // Generate the vector Y.
 
                 TRANSL = ZERO;
-                _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, (INCY).abs(),
-                    0, N - 1, RESET, TRANSL);
+                _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
+                    N - 1, RESET, TRANSL);
 
                 NC++;
 
@@ -1255,7 +1254,7 @@ void _dchk2(
                     ISAME[9] = _lde(YS, YY, LY);
                   } else {
                     ISAME[9] = _lderes('GE', ' ', 1, N, YS.asMatrix(),
-                        YY.asMatrix(), (INCY).abs());
+                        YY.asMatrix(), INCY.abs());
                   }
                   ISAME[10] = INCYS == INCY;
                 } else if (BANDED) {
@@ -1270,7 +1269,7 @@ void _dchk2(
                     ISAME[10] = _lde(YS, YY, LY);
                   } else {
                     ISAME[10] = _lderes('GE', ' ', 1, N, YS.asMatrix(),
-                        YY.asMatrix(), (INCY).abs());
+                        YY.asMatrix(), INCY.abs());
                   }
                   ISAME[11] = INCYS == INCY;
                 } else if (PACKED) {
@@ -1283,7 +1282,7 @@ void _dchk2(
                     ISAME[8] = _lde(YS, YY, LY);
                   } else {
                     ISAME[8] = _lderes('GE', ' ', 1, N, YS.asMatrix(),
-                        YY.asMatrix(), (INCY).abs());
+                        YY.asMatrix(), INCY.abs());
                   }
                   ISAME[9] = INCYS == INCY;
                 }
@@ -1423,6 +1422,9 @@ void _dchk3(
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
 
+  final IDIM = IDIM_.having(length: NIDIM);
+  final KB = KB_.having(length: NKB);
+  final INC = INC_.having(length: NINC);
   final A = A_.having(ld: NMAX);
   final AA = AA_.having(length: NMAX * NMAX);
   final AS = AS_.having(length: NMAX * NMAX);
@@ -1432,9 +1434,6 @@ void _dchk3(
   final XT = XT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
   final Z = Z_.having(length: NMAX);
-  final IDIM = IDIM_.having(length: NIDIM);
-  final KB = KB_.having(length: NINC);
-  final INC = INC_.having(length: NKB);
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   double ERRMAX, TRANSL;
   int I,
@@ -1532,7 +1531,7 @@ void _dchk3(
 
             for (IX = 1; IX <= NINC; IX++) {
               INCX = INC[IX];
-              LX = (INCX).abs() * N;
+              LX = INCX.abs() * N;
 
               // Generate the vector X.
 
@@ -1541,7 +1540,7 @@ void _dchk3(
                   N - 1, RESET, TRANSL);
               if (N > 1) {
                 X[N ~/ 2] = ZERO;
-                XX[1 + (INCX).abs() * (N ~/ 2 - 1)] = ZERO;
+                XX[1 + INCX.abs() * (N ~/ 2 - 1)] = ZERO;
               }
 
               NC++;
@@ -1631,7 +1630,7 @@ void _dchk3(
                   ISAME[7] = _lde(XS, XX, LX);
                 } else {
                   ISAME[7] = _lderes('GE', ' ', 1, N, XS.asMatrix(),
-                      XX.asMatrix(), (INCX).abs());
+                      XX.asMatrix(), INCX.abs());
                 }
                 ISAME[8] = INCXS == INCX;
               } else if (BANDED) {
@@ -1642,7 +1641,7 @@ void _dchk3(
                   ISAME[8] = _lde(XS, XX, LX);
                 } else {
                   ISAME[8] = _lderes('GE', ' ', 1, N, XS.asMatrix(),
-                      XX.asMatrix(), (INCX).abs());
+                      XX.asMatrix(), INCX.abs());
                 }
                 ISAME[9] = INCXS == INCX;
               } else if (PACKED) {
@@ -1651,7 +1650,7 @@ void _dchk3(
                   ISAME[6] = _lde(XS, XX, LX);
                 } else {
                   ISAME[6] = _lderes('GE', ' ', 1, N, XS.asMatrix(),
-                      XX.asMatrix(), (INCX).abs());
+                      XX.asMatrix(), INCX.abs());
                 }
                 ISAME[7] = INCXS == INCX;
               }
@@ -1679,8 +1678,8 @@ void _dchk3(
                   // Compute approximation to original vector.
 
                   for (I = 1; I <= N; I++) {
-                    Z[I] = XX[1 + (I - 1) * (INCX).abs()];
-                    XX[1 + (I - 1) * (INCX).abs()] = X[I];
+                    Z[I] = XX[1 + (I - 1) * INCX.abs()];
+                    XX[1 + (I - 1) * INCX.abs()] = X[I];
                   }
                   _dmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT,
                       G, XX, EPS, ERR, FATAL, NOUT, false);
@@ -1809,6 +1808,8 @@ void _dchk4(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
+  final IDIM = IDIM_.having();
+  final INC = INC_.having();
   final ALF = ALF_.having(length: NALF);
   final A = A_.having(ld: NMAX);
   final AA = AA_.having(length: NMAX * NMAX);
@@ -1822,8 +1823,6 @@ void _dchk4(
   final YT = YT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
   final Z = Z_.having(length: NMAX);
-  final IDIM = IDIM_.having();
-  final INC = INC_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   double ALPHA = 0, ALS, ERRMAX, TRANSL;
   int I,
@@ -1881,21 +1880,21 @@ void _dchk4(
 
       for (IX = 1; IX <= NINC; IX++) {
         INCX = INC[IX];
-        LX = (INCX).abs() * M;
+        LX = INCX.abs() * M;
 
         // Generate the vector X.
 
         TRANSL = HALF;
-        _dmake('GE', ' ', ' ', 1, M, X.asMatrix(), 1, XX, (INCX).abs(), 0,
-            M - 1, RESET, TRANSL);
+        _dmake('GE', ' ', ' ', 1, M, X.asMatrix(), 1, XX, INCX.abs(), 0, M - 1,
+            RESET, TRANSL);
         if (M > 1) {
           X[M ~/ 2] = ZERO;
-          XX[1 + (INCX).abs() * (M ~/ 2 - 1)] = ZERO;
+          XX[1 + INCX.abs() * (M ~/ 2 - 1)] = ZERO;
         }
 
         for (IY = 1; IY <= NINC; IY++) {
           INCY = INC[IY];
-          LY = (INCY).abs() * N;
+          LY = INCY.abs() * N;
 
           // Generate the vector Y.
 
@@ -1904,7 +1903,7 @@ void _dchk4(
               N - 1, RESET, TRANSL);
           if (N > 1) {
             Y[N ~/ 2] = ZERO;
-            YY[1 + (INCY).abs() * (N ~/ 2 - 1)] = ZERO;
+            YY[1 + INCY.abs() * (N ~/ 2 - 1)] = ZERO;
           }
 
           for (IA = 1; IA <= NALF; IA++) {
@@ -2036,16 +2035,17 @@ void _dchk4(
     }
   }
 
-  // Report result.
-
   if (FATAL.value) {
     if (reportColumn) {
       NOUT.dchk4.print9995(J);
     }
+
     NOUT.dchk4.print9996(SNAME);
     NOUT.dchk4.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
     return;
   }
+
+  // Report result.
 
   if (ERRMAX < THRESH) {
     NOUT.dchk4.print9999(SNAME, NC);
@@ -2128,7 +2128,10 @@ void _dchk5(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
+
+  final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
+  final INC = INC_.having(length: NINC);
   final A = A_.having(ld: NMAX);
   final AA = AA_.having(length: NMAX * NMAX);
   final AS = AS_.having(length: NMAX * NMAX);
@@ -2141,8 +2144,6 @@ void _dchk5(
   final YT = YT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
   final Z = Z_.having(length: NMAX);
-  final IDIM = IDIM_.having(length: NIDIM);
-  final INC = INC_.having(length: NINC);
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   double ALPHA = 0, ALS, ERRMAX, TRANSL;
   int I,
@@ -2205,16 +2206,16 @@ void _dchk5(
 
       for (IX = 1; IX <= NINC; IX++) {
         INCX = INC[IX];
-        LX = (INCX).abs() * N;
+        LX = INCX.abs() * N;
 
         // Generate the vector X.
 
         TRANSL = HALF;
-        _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, (INCX).abs(), 0,
-            N - 1, RESET, TRANSL);
+        _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
+            RESET, TRANSL);
         if (N > 1) {
           X[N ~/ 2] = ZERO;
-          XX[1 + (INCX).abs() * (N ~/ 2 - 1)] = ZERO;
+          XX[1 + INCX.abs() * (N ~/ 2 - 1)] = ZERO;
         }
 
         for (IA = 1; IA <= NALF; IA++) {
@@ -2463,7 +2464,9 @@ void _dchk6(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
+  final IDIM = IDIM_.having();
   final ALF = ALF_.having(length: NALF);
+  final INC = INC_.having();
   final A = A_.having(ld: NMAX);
   final AA = AA_.having(length: NMAX * NMAX);
   final AS = AS_.having(length: NMAX * NMAX);
@@ -2476,8 +2479,6 @@ void _dchk6(
   final YT = YT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
   final Z = Z_.having(ld: NMAX);
-  final IDIM = IDIM_.having();
-  final INC = INC_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   double ALPHA = 0, ALS, ERRMAX, TRANSL;
   int I,
@@ -2544,30 +2545,30 @@ void _dchk6(
 
       for (IX = 1; IX <= NINC; IX++) {
         INCX = INC[IX];
-        LX = (INCX).abs() * N;
+        LX = INCX.abs() * N;
 
         // Generate the vector X.
 
         TRANSL = HALF;
-        _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, (INCX).abs(), 0,
-            N - 1, RESET, TRANSL);
+        _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0, N - 1,
+            RESET, TRANSL);
         if (N > 1) {
           X[N ~/ 2] = ZERO;
-          XX[1 + (INCX).abs() * (N ~/ 2 - 1)] = ZERO;
+          XX[1 + INCX.abs() * (N ~/ 2 - 1)] = ZERO;
         }
 
         for (IY = 1; IY <= NINC; IY++) {
           INCY = INC[IY];
-          LY = (INCY).abs() * N;
+          LY = INCY.abs() * N;
 
           // Generate the vector Y.
 
           TRANSL = ZERO;
-          _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, (INCY).abs(), 0,
+          _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
               N - 1, RESET, TRANSL);
           if (N > 1) {
             Y[N ~/ 2] = ZERO;
-            YY[1 + (INCY).abs() * (N ~/ 2 - 1)] = ZERO;
+            YY[1 + INCY.abs() * (N ~/ 2 - 1)] = ZERO;
           }
 
           for (IA = 1; IA <= NALF; IA++) {
@@ -3144,7 +3145,7 @@ void _dmake(
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
-  final A = A_.having(ld: LDA);
+  final A = A_.having(ld: NMAX);
   final AA = AA_.having();
   const ZERO = 0.0, ONE = 1.0;
   const ROGUE = -1.0e10;
@@ -3365,7 +3366,7 @@ void _dmvch(
       }
     }
     YT[IY] = ALPHA * YT[IY] + BETA * Y[IY];
-    G[IY] = (ALPHA).abs() * G[IY] + (BETA * Y[IY]).abs();
+    G[IY] = ALPHA.abs() * G[IY] + (BETA * Y[IY]).abs();
     IY += INCYL;
   }
 
@@ -3373,7 +3374,7 @@ void _dmvch(
   var isHalfAccurate = true;
   ERR.value = ZERO;
   for (I = 1; I <= ML; I++) {
-    ERRI = (YT[I] - YY[1 + (I - 1) * (INCY).abs()]).abs() / EPS;
+    ERRI = (YT[I] - YY[1 + (I - 1) * INCY.abs()]).abs() / EPS;
     if (G[I] != ZERO) ERRI = ERRI / G[I];
     ERR.value = max(ERR.value, ERRI);
     if (ERR.value * sqrt(EPS) >= ONE) {
@@ -3393,10 +3394,10 @@ void _dmvch(
   for (I = 1; I <= ML; I++) {
     if (MV) {
       NOUT.println(
-          ' ${I.i7}${YT[I].g18_6}${YY[1 + (I - 1) * (INCY).abs()].g18_6}');
+          ' ${I.i7}${YT[I].g18_6}${YY[1 + (I - 1) * INCY.abs()].g18_6}');
     } else {
       NOUT.println(
-          ' ${I.i7}${YY[1 + (I - 1) * (INCY).abs()].g18_6}${YT[I].g18_6}');
+          ' ${I.i7}${YY[1 + (I - 1) * INCY.abs()].g18_6}${YT[I].g18_6}');
     }
   }
 }
@@ -3503,7 +3504,8 @@ double _dbeg(final Box<bool> RESET) {
     _dbegIC = 0;
   }
 
-  return (_dbegI - 500) / 1001.0;
+  final R = (_dbegI - 500) / 1001.0;
+  return R;
 }
 
 // double _ddiff(final double X, final double Y) {
@@ -3513,6 +3515,7 @@ double _dbeg(final Box<bool> RESET) {
 //   // Richard Hanson, Sandia National Labs.
 
 //   return X - Y;
+// }
 
 void _chkxer(
   String SRNAMT,

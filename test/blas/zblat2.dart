@@ -220,7 +220,7 @@ Future<void> zblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
     }
     for (J = 1; J <= N; J++) {
       YY[J] =
-          (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) / 3).toComplex();
+          (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toComplex();
     }
     // YY holds the exact result. On exit from ZMVCH YT holds
     // the result computed by ZMVCH.
@@ -630,9 +630,9 @@ void _zchk1(
   final Array<double> G_,
 ) {
   // Tests ZGEMV and ZGBMV.
-
+  //
   // Auxiliary routine for test program for Level 2 Blas.
-
+  //
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
@@ -919,19 +919,8 @@ void _zchk1(
 
   if (!FATAL.value) {
     // Regression test to verify preservation of y when m zero, n nonzero.
-    (
-      :TRANS,
-      :M,
-      :N,
-      :LY,
-      :KL,
-      :KU,
-      :ALPHA,
-      :LDA,
-      :INCX,
-      :BETA,
-      :INCY,
-    ) = _zregr1(AA.asMatrix(), XX, YY, YS);
+    (:TRANS, :M, :N, :LY, :KL, :KU, :ALPHA, :LDA, :INCX, :BETA, :INCY) =
+        _zregr1(AA.asMatrix(), XX, YY, YS);
     if (FULL) {
       if (TRACE) {
         NTRA.zchk1
@@ -1909,7 +1898,6 @@ void _zchk4(
       ND,
       NS;
   bool CONJ, NULL, SAME;
-  // .. Local Arrays ..
   final W = Array<Complex>(1);
   final ISAME = Array<bool>(13);
   final ERR = Box(0.0);
@@ -2108,7 +2096,6 @@ void _zchk4(
       NOUT.zchk4.print9995(J);
     }
 
-    // }
     NOUT.zchk4.print9996(SNAME);
     NOUT.zchk4.print9994(NC, SNAME, M, N, ALPHA, INCX, INCY, LDA);
     return;
@@ -2125,7 +2112,6 @@ void _zchk4(
 
 class _Zchk4Nout extends NoutDelegator<Nout> {
   _Zchk4Nout(super._dblatNout);
-
   void print9999(String SNAME, int NC) {
     println(' ${SNAME.a6} PASSED THE COMPUTATIONAL TESTS (${NC.i6} CALLS)');
   }
@@ -2291,7 +2277,7 @@ void _zchk5(
         }
 
         for (IA = 1; IA <= NALF; IA++) {
-          RALPHA = (ALF[IA]).toDouble();
+          RALPHA = ALF[IA].toDouble();
           ALPHA = RALPHA.toComplex();
           NULL = N <= 0 || RALPHA == RZERO;
 
@@ -2440,7 +2426,6 @@ void _zchk5(
       NOUT.zchk5.print9995(J);
     }
 
-    // }
     NOUT.zchk5.print9996(SNAME);
     if (FULL) {
       NOUT.zchk5.print9993(NC, SNAME, UPLO, N, RALPHA, INCX, LDA);
@@ -2554,7 +2539,6 @@ void _zchk6(
   final YT = YT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
   final Z = Z_.having(ld: NMAX);
-  // .. Parameters ..
   const HALF = Complex(0.5, 0.0);
   const RZERO = 0.0;
   Complex ALPHA = Complex.zero, ALS, TRANSL;
@@ -2659,7 +2643,7 @@ void _zchk6(
             _zmake(SNAME.substring(1, 3), UPLO, ' ', N, N, A, NMAX, AA, LDA,
                 N - 1, N - 1, RESET, TRANSL);
 
-            NC += 1;
+            NC++;
 
             // Save every datum before calling the subroutine.
 
@@ -2878,11 +2862,7 @@ class _Zchk6Nout extends NoutDelegator<Nout> {
   }
 }
 
-void _zchke(
-  final int ISNUM,
-  final String SRNAMT,
-  final Nout NOUT,
-) {
+void _zchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
   // Tests the error exits from the Level 2 Blas.
   // Requires a special version of the error-handling routine XERBLA.
   // ALPHA, RALPHA, BETA, A, X and Y should not need to be defined.
@@ -3249,7 +3229,6 @@ void _zmake(
   // Jeremy Du Croz, NAG Central Office.
   final A = A_.having(ld: NMAX);
   final AA = AA_.having();
-  // .. Parameters ..
   const ROGUE = Complex(-1.0e10, 1.0e10);
   const RROGUE = -1.0e10;
   int I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK;
@@ -3532,6 +3511,7 @@ bool _lze(
   // Jeremy Du Croz, NAG Central Office.
   final RI = RI_.having();
   final RJ = RJ_.having();
+
   for (var I = 1; I <= LR; I++) {
     if (RI[I] != RJ[I]) return false;
   }
@@ -3619,6 +3599,7 @@ Complex _zbeg(final Box<bool> RESET) {
   // in 6.
 
   _zbegIC++;
+
   while (true) {
     _zbegI = _zbegI * _zbegMI;
     _zbegJ = _zbegJ * _zbegMJ;
@@ -3700,6 +3681,7 @@ void _chkxer(
     Y[I] = Complex(42.0, I.toDouble());
     YS[I] = Y[I];
   }
+
   return (
     TRANS: TRANS,
     M: M,
@@ -3719,14 +3701,14 @@ void _xerbla(final String SRNAME, final int INFO) {
   // This is a special version of XERBLA to be used only as part of
   // the test program for testing error exits from the Level 2 BLAS
   // routines.
-
+  //
   // XERBLA  is an error handler for the Level 2 BLAS routines.
-
+  //
   // It is called by the Level 2 BLAS routines if an input parameter is
   // invalid.
-
+  //
   // Auxiliary routine for test program for Level 2 Blas.
-
+  //
   // -- Written on 10-August-1987.
   // Richard Hanson, Sandia National Labs.
   // Jeremy Du Croz, NAG Central Office.
