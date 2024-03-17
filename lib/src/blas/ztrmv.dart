@@ -20,13 +20,10 @@ void ztrmv(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final X = X_.having();
-  Complex TEMP;
-  int I, INFO, IX, J, JX, KX = 0;
-  bool NOCONJ, NOUNIT;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
@@ -49,17 +46,17 @@ void ztrmv(
 
   if (N == 0) return;
 
-  NOCONJ = lsame(TRANS, 'T');
-  NOUNIT = lsame(DIAG, 'N');
+  final NOCONJ = lsame(TRANS, 'T');
+  final NOUNIT = lsame(DIAG, 'N');
 
   // Set up the start point in X if the increment is not unity. This
   // will be  ( N - 1 )*INCX  too small for descending loops.
 
-  if (INCX <= 0) {
-    KX = 1 - (N - 1) * INCX;
-  } else if (INCX != 1) {
-    KX = 1;
-  }
+  var KX = switch (INCX) {
+    <= 0 => 1 - (N - 1) * INCX,
+    1 => 0,
+    _ => 1,
+  };
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through A.
@@ -69,22 +66,22 @@ void ztrmv(
 
     if (lsame(UPLO, 'U')) {
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
+        for (var J = 1; J <= N; J++) {
           if (X[J] != Complex.zero) {
-            TEMP = X[J];
-            for (I = 1; I <= J - 1; I++) {
+            final TEMP = X[J];
+            for (var I = 1; I <= J - 1; I++) {
               X[I] += TEMP * A[I][J];
             }
             if (NOUNIT) X[J] *= A[J][J];
           }
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
           if (X[JX] != Complex.zero) {
-            TEMP = X[JX];
-            IX = KX;
-            for (I = 1; I <= J - 1; I++) {
+            final TEMP = X[JX];
+            var IX = KX;
+            for (var I = 1; I <= J - 1; I++) {
               X[IX] += TEMP * A[I][J];
               IX += INCX;
             }
@@ -95,10 +92,10 @@ void ztrmv(
       }
     } else {
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
+        for (var J = N; J >= 1; J--) {
           if (X[J] != Complex.zero) {
-            TEMP = X[J];
-            for (I = N; I >= J + 1; I--) {
+            final TEMP = X[J];
+            for (var I = N; I >= J + 1; I--) {
               X[I] += TEMP * A[I][J];
             }
             if (NOUNIT) X[J] *= A[J][J];
@@ -106,12 +103,12 @@ void ztrmv(
         }
       } else {
         KX += (N - 1) * INCX;
-        JX = KX;
-        for (J = N; J >= 1; J--) {
+        var JX = KX;
+        for (var J = N; J >= 1; J--) {
           if (X[JX] != Complex.zero) {
-            TEMP = X[JX];
-            IX = KX;
-            for (I = N; I >= J + 1; I--) {
+            final TEMP = X[JX];
+            var IX = KX;
+            for (var I = N; I >= J + 1; I--) {
               X[IX] += TEMP * A[I][J];
               IX -= INCX;
             }
@@ -126,35 +123,35 @@ void ztrmv(
 
     if (lsame(UPLO, 'U')) {
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
-          TEMP = X[J];
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[J];
           if (NOCONJ) {
             if (NOUNIT) TEMP *= A[J][J];
-            for (I = J - 1; I >= 1; I--) {
+            for (var I = J - 1; I >= 1; I--) {
               TEMP += A[I][J] * X[I];
             }
           } else {
             if (NOUNIT) TEMP *= A[J][J].conjugate();
-            for (I = J - 1; I >= 1; I--) {
+            for (var I = J - 1; I >= 1; I--) {
               TEMP += A[I][J].conjugate() * X[I];
             }
           }
           X[J] = TEMP;
         }
       } else {
-        JX = KX + (N - 1) * INCX;
-        for (J = N; J >= 1; J--) {
-          TEMP = X[JX];
-          IX = JX;
+        var JX = KX + (N - 1) * INCX;
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[JX];
+          var IX = JX;
           if (NOCONJ) {
             if (NOUNIT) TEMP *= A[J][J];
-            for (I = J - 1; I >= 1; I--) {
+            for (var I = J - 1; I >= 1; I--) {
               IX -= INCX;
               TEMP += A[I][J] * X[IX];
             }
           } else {
             if (NOUNIT) TEMP *= A[J][J].conjugate();
-            for (I = J - 1; I >= 1; I--) {
+            for (var I = J - 1; I >= 1; I--) {
               IX -= INCX;
               TEMP += A[I][J].conjugate() * X[IX];
             }
@@ -165,35 +162,35 @@ void ztrmv(
       }
     } else {
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
-          TEMP = X[J];
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[J];
           if (NOCONJ) {
             if (NOUNIT) TEMP *= A[J][J];
-            for (I = J + 1; I <= N; I++) {
+            for (var I = J + 1; I <= N; I++) {
               TEMP += A[I][J] * X[I];
             }
           } else {
             if (NOUNIT) TEMP *= A[J][J].conjugate();
-            for (I = J + 1; I <= N; I++) {
+            for (var I = J + 1; I <= N; I++) {
               TEMP += A[I][J].conjugate() * X[I];
             }
           }
           X[J] = TEMP;
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
-          TEMP = X[JX];
-          IX = JX;
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[JX];
+          var IX = JX;
           if (NOCONJ) {
             if (NOUNIT) TEMP *= A[J][J];
-            for (I = J + 1; I <= N; I++) {
+            for (var I = J + 1; I <= N; I++) {
               IX += INCX;
               TEMP += A[I][J] * X[IX];
             }
           } else {
             if (NOUNIT) TEMP *= A[J][J].conjugate();
-            for (I = J + 1; I <= N; I++) {
+            for (var I = J + 1; I <= N; I++) {
               IX += INCX;
               TEMP += A[I][J].conjugate() * X[IX];
             }
