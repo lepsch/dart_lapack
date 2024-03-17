@@ -26,13 +26,10 @@ void zgbmv(
   final A = A_.having(ld: LDA);
   final X = X_.having();
   final Y = Y_.having();
-  Complex TEMP;
-  int I, INFO, IX, IY, J, JX, JY, K, KUP1, KX, KY, LENX, LENY;
-  bool NOCONJ;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
     INFO = 1;
   } else if (M < 0) {
@@ -61,28 +58,14 @@ void zgbmv(
       (N == 0) ||
       ((ALPHA == Complex.zero) && (BETA == Complex.one))) return;
 
-  NOCONJ = lsame(TRANS, 'T');
+  final NOCONJ = lsame(TRANS, 'T');
 
   // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
   // up the start points in  X  and  Y.
 
-  if (lsame(TRANS, 'N')) {
-    LENX = N;
-    LENY = M;
-  } else {
-    LENX = M;
-    LENY = N;
-  }
-  if (INCX > 0) {
-    KX = 1;
-  } else {
-    KX = 1 - (LENX - 1) * INCX;
-  }
-  if (INCY > 0) {
-    KY = 1;
-  } else {
-    KY = 1 - (LENY - 1) * INCY;
-  }
+  final (LENX, LENY) = lsame(TRANS, 'N') ? (N, M) : (M, N);
+  var KX = INCX > 0 ? 1 : 1 - (LENX - 1) * INCX;
+  var KY = INCY > 0 ? 1 : 1 - (LENY - 1) * INCY;
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through the band part of A.
@@ -92,96 +75,97 @@ void zgbmv(
   if (BETA != Complex.one) {
     if (INCY == 1) {
       if (BETA == Complex.zero) {
-        for (I = 1; I <= LENY; I++) {
+        for (var I = 1; I <= LENY; I++) {
           Y[I] = Complex.zero;
         }
       } else {
-        for (I = 1; I <= LENY; I++) {
-          Y[I] = BETA * Y[I];
+        for (var I = 1; I <= LENY; I++) {
+          Y[I] *= BETA;
         }
       }
     } else {
-      IY = KY;
+      var IY = KY;
       if (BETA == Complex.zero) {
-        for (I = 1; I <= LENY; I++) {
+        for (var I = 1; I <= LENY; I++) {
           Y[IY] = Complex.zero;
           IY += INCY;
         }
       } else {
-        for (I = 1; I <= LENY; I++) {
-          Y[IY] = BETA * Y[IY];
+        for (var I = 1; I <= LENY; I++) {
+          Y[IY] *= BETA;
           IY += INCY;
         }
       }
     }
   }
   if (ALPHA == Complex.zero) return;
-  KUP1 = KU + 1;
+
+  final KUP1 = KU + 1;
   if (lsame(TRANS, 'N')) {
     // Form  y := alpha*A*x + y.
 
-    JX = KX;
+    var JX = KX;
     if (INCY == 1) {
-      for (J = 1; J <= N; J++) {
-        TEMP = ALPHA * X[JX];
-        K = KUP1 - J;
-        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          Y[I] = Y[I] + TEMP * A[K + I][J];
+      for (var J = 1; J <= N; J++) {
+        final TEMP = ALPHA * X[JX];
+        final K = KUP1 - J;
+        for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          Y[I] += TEMP * A[K + I][J];
         }
         JX += INCX;
       }
     } else {
-      for (J = 1; J <= N; J++) {
-        TEMP = ALPHA * X[JX];
-        IY = KY;
-        K = KUP1 - J;
-        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          Y[IY] = Y[IY] + TEMP * A[K + I][J];
+      for (var J = 1; J <= N; J++) {
+        final TEMP = ALPHA * X[JX];
+        var IY = KY;
+        final K = KUP1 - J;
+        for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          Y[IY] += TEMP * A[K + I][J];
           IY += INCY;
         }
         JX += INCX;
-        if (J > KU) KY = KY + INCY;
+        if (J > KU) KY += INCY;
       }
     }
   } else {
     // Form  y := alpha*A**T*x + y  or  y := alpha*A**H*x + y.
 
-    JY = KY;
+    var JY = KY;
     if (INCX == 1) {
-      for (J = 1; J <= N; J++) {
-        TEMP = Complex.zero;
-        K = KUP1 - J;
+      for (var J = 1; J <= N; J++) {
+        var TEMP = Complex.zero;
+        final K = KUP1 - J;
         if (NOCONJ) {
-          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
             TEMP += A[K + I][J] * X[I];
           }
         } else {
-          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
             TEMP += A[K + I][J].conjugate() * X[I];
           }
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP;
+        Y[JY] += ALPHA * TEMP;
         JY += INCY;
       }
     } else {
-      for (J = 1; J <= N; J++) {
-        TEMP = Complex.zero;
-        IX = KX;
-        K = KUP1 - J;
+      for (var J = 1; J <= N; J++) {
+        var TEMP = Complex.zero;
+        var IX = KX;
+        final K = KUP1 - J;
         if (NOCONJ) {
-          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
             TEMP += A[K + I][J] * X[IX];
             IX += INCX;
           }
         } else {
-          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
             TEMP += (A[K + I][J]).conjugate() * X[IX];
             IX += INCX;
           }
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP;
+        Y[JY] += ALPHA * TEMP;
         JY += INCY;
-        if (J > KU) KX = KX + INCX;
+        if (J > KU) KX += INCX;
       }
     }
   }

@@ -11,21 +11,21 @@ void zdscal(
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final ZX = ZX_.having();
-  int I, NINCX;
   const ONE = 1.0;
 
   if (N <= 0 || INCX <= 0 || DA == ONE) return;
+
   if (INCX == 1) {
     // code for increment equal to 1
 
-    for (I = 1; I <= N; I++) {
+    for (var I = 1; I <= N; I++) {
       ZX[I] = Complex(DA * ZX[I].real, DA * ZX[I].imaginary);
     }
   } else {
     // code for increment not equal to 1
 
-    NINCX = N * INCX;
-    for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
+    final NINCX = N * INCX;
+    for (var I = 1; I <= NINCX; I += INCX) {
       ZX[I] = Complex(DA * ZX[I].real, DA * ZX[I].imaginary);
     }
   }

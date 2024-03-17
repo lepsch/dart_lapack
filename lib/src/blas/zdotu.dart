@@ -13,26 +13,23 @@ Complex zdotu(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final ZX = ZX_.having();
   final ZY = ZY_.having();
-  Complex ZTEMP;
-  int I, IX, IY;
 
-  ZTEMP = Complex.zero;
   if (N <= 0) return Complex.zero;
+  
+  var ZTEMP = Complex.zero;
   if (INCX == 1 && INCY == 1) {
     // code for both increments equal to 1
 
-    for (I = 1; I <= N; I++) {
+    for (var I = 1; I <= N; I++) {
       ZTEMP += ZX[I] * ZY[I];
     }
   } else {
     // code for unequal increments or equal increments
     // not equal to 1
 
-    IX = 1;
-    IY = 1;
-    if (INCX < 0) IX = (-N + 1) * INCX + 1;
-    if (INCY < 0) IY = (-N + 1) * INCY + 1;
-    for (I = 1; I <= N; I++) {
+    var IX = INCX < 0 ? (-N + 1) * INCX + 1 : 1;
+    var IY = INCY < 0 ? (-N + 1) * INCY + 1 : 1;
+    for (var I = 1; I <= N; I++) {
       ZTEMP += ZX[IX] * ZY[IY];
       IX += INCX;
       IY += INCY;
