@@ -120,10 +120,10 @@ void zla_gbamv(
             TEMP = CABS1(AB[KD + I - J][J]);
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * CABS1(X[J]) * TEMP;
+            Y[IY] += ALPHA * CABS1(X[J]) * TEMP;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -143,10 +143,10 @@ void zla_gbamv(
             TEMP = CABS1(AB[KE - I + J][I]);
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * CABS1(X[J]) * TEMP;
+            Y[IY] += ALPHA * CABS1(X[J]) * TEMP;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -169,11 +169,11 @@ void zla_gbamv(
             TEMP = CABS1(AB[KD + I - J][J]);
             SYMB_ZERO = SYMB_ZERO && (X[JX] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
+            Y[IY] += ALPHA * CABS1(X[JX]) * TEMP;
             JX += INCX;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -194,11 +194,11 @@ void zla_gbamv(
             TEMP = CABS1(AB[KE - I + J][I]);
             SYMB_ZERO = SYMB_ZERO && (X[JX] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * CABS1(X[JX]) * TEMP;
+            Y[IY] += ALPHA * CABS1(X[JX]) * TEMP;
             JX += INCX;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }

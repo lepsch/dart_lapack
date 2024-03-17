@@ -257,7 +257,7 @@ void zgesvj(
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
             // 1873
-            SVA[q] = SVA[q] * SKL;
+            SVA[q] *= SKL;
           } // 1873
         }
       }
@@ -284,7 +284,7 @@ void zgesvj(
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
             // 2873
-            SVA[q] = SVA[q] * SKL;
+            SVA[q] *= SKL;
           } // 2873
         }
       }
@@ -311,7 +311,7 @@ void zgesvj(
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
             // 3873
-            SVA[q] = SVA[q] * SKL;
+            SVA[q] *= SKL;
           } // 3873
         }
       }

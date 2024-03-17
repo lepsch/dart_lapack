@@ -170,7 +170,7 @@ void dtrevc3(
     WORK[J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
       // 20
-      WORK[J] = WORK[J] + (T[I][J]).abs();
+      WORK[J] += (T[I][J]).abs();
     } // 20
   } // 30
 
@@ -749,9 +749,8 @@ void dtrevc3(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + IV * N] = WORK[J + IV * N] -
-                ddot(J - KI - 1, T(KI + 1, J).asArray(), 1,
-                    WORK(KI + 1 + IV * N), 1);
+            WORK[J + IV * N] -= ddot(J - KI - 1, T(KI + 1, J).asArray(), 1,
+                WORK(KI + 1 + IV * N), 1);
 
             // Solve [ T[J][J] - WR ]**T * X = WORK
 
@@ -797,13 +796,11 @@ void dtrevc3(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + IV * N] = WORK[J + IV * N] -
-                ddot(J - KI - 1, T(KI + 1, J).asArray(), 1,
-                    WORK(KI + 1 + IV * N), 1);
+            WORK[J + IV * N] -= ddot(J - KI - 1, T(KI + 1, J).asArray(), 1,
+                WORK(KI + 1 + IV * N), 1);
 
-            WORK[J + 1 + IV * N] = WORK[J + 1 + IV * N] -
-                ddot(J - KI - 1, T(KI + 1, J + 1).asArray(), 1,
-                    WORK(KI + 1 + IV * N), 1);
+            WORK[J + 1 + IV * N] -= ddot(J - KI - 1, T(KI + 1, J + 1).asArray(),
+                1, WORK(KI + 1 + IV * N), 1);
 
             // Solve
             // [ T[J][J]-WR   T[J][J+1]      ]**T * X = SCALE.value*( WORK1 )
@@ -950,12 +947,10 @@ void dtrevc3(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + (IV) * N] = WORK[J + (IV) * N] -
-                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
-                    WORK(KI + 2 + (IV) * N), 1);
-            WORK[J + (IV + 1) * N] = WORK[J + (IV + 1) * N] -
-                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
-                    WORK(KI + 2 + (IV + 1) * N), 1);
+            WORK[J + (IV) * N] -= ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
+                WORK(KI + 2 + (IV) * N), 1);
+            WORK[J + (IV + 1) * N] -= ddot(J - KI - 2, T(KI + 2, J).asArray(),
+                1, WORK(KI + 2 + (IV + 1) * N), 1);
 
             // Solve [ T[J][J]-(WR-i*WI) ]*(X11+i*X12)= WK+I*WK2
 
@@ -1005,21 +1000,17 @@ void dtrevc3(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + (IV) * N] = WORK[J + (IV) * N] -
-                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
-                    WORK(KI + 2 + (IV) * N), 1);
+            WORK[J + (IV) * N] -= ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
+                WORK(KI + 2 + (IV) * N), 1);
 
-            WORK[J + (IV + 1) * N] = WORK[J + (IV + 1) * N] -
-                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
-                    WORK(KI + 2 + (IV + 1) * N), 1);
+            WORK[J + (IV + 1) * N] -= ddot(J - KI - 2, T(KI + 2, J).asArray(),
+                1, WORK(KI + 2 + (IV + 1) * N), 1);
 
-            WORK[J + 1 + (IV) * N] = WORK[J + 1 + (IV) * N] -
-                ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
-                    WORK(KI + 2 + (IV) * N), 1);
+            WORK[J + 1 + (IV) * N] -= ddot(J - KI - 2,
+                T(KI + 2, J + 1).asArray(), 1, WORK(KI + 2 + (IV) * N), 1);
 
-            WORK[J + 1 + (IV + 1) * N] = WORK[J + 1 + (IV + 1) * N] -
-                ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
-                    WORK(KI + 2 + (IV + 1) * N), 1);
+            WORK[J + 1 + (IV + 1) * N] -= ddot(J - KI - 2,
+                T(KI + 2, J + 1).asArray(), 1, WORK(KI + 2 + (IV + 1) * N), 1);
 
             // Solve 2-by-2 complex linear equation
             // [ (T[j][j]   T[j][j+1]  )**T - (wr-i*wi)*I ]*X = SCALE.value*B

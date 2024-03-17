@@ -116,7 +116,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = K + 1 - J;
           for (I = max(1, J - K); I <= J - 1; I++) {
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           }
         }
       } else {
@@ -126,7 +126,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = K + 1 - J;
           for (I = max(1, J - K); I <= J; I++) {
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           }
         }
       }
@@ -138,7 +138,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = 1 - J;
           for (I = J + 1; I <= min(N, J + K); I++) {
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           }
         }
       } else {
@@ -148,7 +148,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = 1 - J;
           for (I = J; I <= min(N, J + K); I++) {
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           }
         }
       }

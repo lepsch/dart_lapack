@@ -104,7 +104,7 @@ void zstt21(
 
   for (J = 1; J <= N; J++) {
     // 40
-    WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - Complex.one;
+    WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
   } // 40
 
   RESULT[2] = min(N.toDouble(), zlange('1', N, N, WORK.asMatrix(), N, RWORK)) /

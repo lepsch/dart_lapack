@@ -96,7 +96,7 @@ void dget51(
     dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK.asMatrix(N), N);
 
     for (JDIAG = 1; JDIAG <= N; JDIAG++) {
-      WORK[(N + 1) * (JDIAG - 1) + 1] = WORK[(N + 1) * (JDIAG - 1) + 1] - ONE;
+      WORK[(N + 1) * (JDIAG - 1) + 1] -= ONE;
     }
 
     RESULT.value = min(

@@ -56,7 +56,7 @@ double dlangb(
     for (J = 1; J <= N; J++) {
       K = KU + 1 - J;
       for (I = max(1, J - KU); I <= min(N, J + KL); I++) {
-        WORK[I] = WORK[I] + (AB[K + I][J]).abs();
+        WORK[I] += (AB[K + I][J]).abs();
       }
     }
     VALUE = ZERO;

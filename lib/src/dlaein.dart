@@ -186,7 +186,7 @@ void dlaein(
       for (I = 2; I <= N; I++) {
         VR[I] = TEMP;
       }
-      VR[N - ITS + 1] = VR[N - ITS + 1] - EPS3 * ROOTN;
+      VR[N - ITS + 1] -= EPS3 * ROOTN;
     }
 
     // Failure to find eigenvector in N iterations.
@@ -426,7 +426,7 @@ void dlaein(
         VR[I] = Y;
         VI[I] = ZERO;
       }
-      VR[N - ITS + 1] = VR[N - ITS + 1] - EPS3 * ROOTN;
+      VR[N - ITS + 1] -= EPS3 * ROOTN;
     }
 
     // Failure to find eigenvector in N iterations

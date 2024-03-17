@@ -156,9 +156,9 @@ void zsytrf_rk(
 
       for (I = K; I <= K + KB.value - 1; I++) {
         if (IPIV[I] > 0) {
-          IPIV[I] = IPIV[I] + K - 1;
+          IPIV[I] += K - 1;
         } else {
-          IPIV[I] = IPIV[I] - K + 1;
+          IPIV[I] -= K + 1;
         }
       }
 

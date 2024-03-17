@@ -58,9 +58,9 @@ void zbdt03(
         } // 10
         zgemv('No transpose', N, N, -Complex.one, U, LDU, WORK(N + 1), 1,
             Complex.zero, WORK, 1);
-        WORK[J] = WORK[J] + D[J].toComplex();
+        WORK[J] += D[J].toComplex();
         if (J > 1) {
-          WORK[J - 1] = WORK[J - 1] + E[J - 1].toComplex();
+          WORK[J - 1] += E[J - 1].toComplex();
           BNORM = max(BNORM, (D[J]).abs() + (E[J - 1]).abs());
         } else {
           BNORM = max(BNORM, (D[J]).abs());
@@ -78,9 +78,9 @@ void zbdt03(
         } // 30
         zgemv('No transpose', N, N, -Complex.one, U, LDU, WORK(N + 1), 1,
             Complex.zero, WORK, 1);
-        WORK[J] = WORK[J] + D[J].toComplex();
+        WORK[J] += D[J].toComplex();
         if (J < N) {
-          WORK[J + 1] = WORK[J + 1] + E[J].toComplex();
+          WORK[J + 1] += E[J].toComplex();
           BNORM = max(BNORM, (D[J]).abs() + (E[J]).abs());
         } else {
           BNORM = max(BNORM, (D[J]).abs());
@@ -99,7 +99,7 @@ void zbdt03(
       } // 50
       zgemv('No transpose', N, N, -Complex.one, U, LDU, WORK(N + 1), 1,
           Complex.zero, WORK, 1);
-      WORK[J] = WORK[J] + D[J].toComplex();
+      WORK[J] += D[J].toComplex();
       RESID.value = max(RESID.value, dzasum(N, WORK, 1));
     } // 60
     J = idamax(N, D, 1);

@@ -109,7 +109,7 @@ void dlaed8(
   // Sort the eigenvalues into increasing order
 
   for (I = CUTPNT + 1; I <= N; I++) {
-    INDXQ[I] = INDXQ[I] + CUTPNT;
+    INDXQ[I] += CUTPNT;
   }
   for (I = 1; I <= N; I++) {
     DLAMBDA[I] = D[INDXQ[I]];

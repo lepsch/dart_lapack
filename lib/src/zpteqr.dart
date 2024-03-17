@@ -74,7 +74,7 @@ void zpteqr(
   } // 10
   for (I = 1; I <= N - 1; I++) {
     // 20
-    E[I] = E[I] * D[I];
+    E[I] *= D[I];
   } // 20
 
   // Call ZBDSQR to compute the singular values/vectors of the
@@ -92,7 +92,7 @@ void zpteqr(
   if (INFO.value == 0) {
     for (I = 1; I <= N; I++) {
       // 30
-      D[I] = D[I] * D[I];
+      D[I] *= D[I];
     } // 30
   } else {
     INFO.value = N + INFO.value;

@@ -168,10 +168,10 @@ void zdrvrf4(
               // is supposed to be real -> zlange
 
               RESULT[1] = zlange('I', N, N, C1, LDC, D_WORK_ZLANGE);
-              RESULT[1] = RESULT[1] /
+              RESULT[1] /=
                   max(ALPHA.abs() * NORMA * NORMA + BETA.abs() * NORMC, ONE) /
-                  max(N, 1) /
-                  EPS;
+                      max(N, 1) /
+                      EPS;
 
               if (RESULT[1] >= THRESH) {
                 if (NFAIL == 0) {

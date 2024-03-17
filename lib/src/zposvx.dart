@@ -185,7 +185,7 @@ void zposvx(
     } // 50
     for (J = 1; J <= NRHS; J++) {
       // 60
-      FERR[J] = FERR[J] / SCOND.value;
+      FERR[J] /= SCOND.value;
     } // 60
   }
 

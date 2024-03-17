@@ -3648,23 +3648,23 @@ void _zmmch(
     if (!TRANA && !TRANB) {
       for (K = 1; K <= KK; K++) {
         for (I = 1; I <= M; I++) {
-          CT[I] = CT[I] + A[I][K] * B[K][J];
-          G[I] = G[I] + ABS1(A[I][K]) * ABS1(B[K][J]);
+          CT[I] += A[I][K] * B[K][J];
+          G[I] += ABS1(A[I][K]) * ABS1(B[K][J]);
         }
       }
     } else if (TRANA && !TRANB) {
       if (CTRANA) {
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
-            CT[I] = CT[I] + A[K][I].conjugate() * B[K][J];
-            G[I] = G[I] + ABS1(A[K][I]) * ABS1(B[K][J]);
+            CT[I] += A[K][I].conjugate() * B[K][J];
+            G[I] += ABS1(A[K][I]) * ABS1(B[K][J]);
           }
         }
       } else {
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
-            CT[I] = CT[I] + A[K][I] * B[K][J];
-            G[I] = G[I] + ABS1(A[K][I]) * ABS1(B[K][J]);
+            CT[I] += A[K][I] * B[K][J];
+            G[I] += ABS1(A[K][I]) * ABS1(B[K][J]);
           }
         }
       }
@@ -3672,15 +3672,15 @@ void _zmmch(
       if (CTRANB) {
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
-            CT[I] = CT[I] + A[I][K] * B[J][K].conjugate();
-            G[I] = G[I] + ABS1(A[I][K]) * ABS1(B[J][K]);
+            CT[I] += A[I][K] * B[J][K].conjugate();
+            G[I] += ABS1(A[I][K]) * ABS1(B[J][K]);
           }
         }
       } else {
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
-            CT[I] = CT[I] + A[I][K] * B[J][K];
-            G[I] = G[I] + ABS1(A[I][K]) * ABS1(B[J][K]);
+            CT[I] += A[I][K] * B[J][K];
+            G[I] += ABS1(A[I][K]) * ABS1(B[J][K]);
           }
         }
       }
@@ -3689,15 +3689,15 @@ void _zmmch(
         if (CTRANB) {
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
-              CT[I] = CT[I] + A[K][I].conjugate() * B[J][K].conjugate();
-              G[I] = G[I] + ABS1(A[K][I]) * ABS1(B[J][K]);
+              CT[I] += A[K][I].conjugate() * B[J][K].conjugate();
+              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
             }
           }
         } else {
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
-              CT[I] = CT[I] + A[K][I].conjugate() * B[J][K];
-              G[I] = G[I] + ABS1(A[K][I]) * ABS1(B[J][K]);
+              CT[I] += A[K][I].conjugate() * B[J][K];
+              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
             }
           }
         }
@@ -3705,15 +3705,15 @@ void _zmmch(
         if (CTRANB) {
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
-              CT[I] = CT[I] + A[K][I] * B[J][K].conjugate();
-              G[I] = G[I] + ABS1(A[K][I]) * ABS1(B[J][K]);
+              CT[I] += A[K][I] * B[J][K].conjugate();
+              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
             }
           }
         } else {
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
-              CT[I] = CT[I] + A[K][I] * B[J][K];
-              G[I] = G[I] + ABS1(A[K][I]) * ABS1(B[J][K]);
+              CT[I] += A[K][I] * B[J][K];
+              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
             }
           }
         }

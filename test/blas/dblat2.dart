@@ -3354,14 +3354,14 @@ void _dmvch(
     JX = KX;
     if (TRAN) {
       for (J = 1; J <= NL; J++) {
-        YT[IY] = YT[IY] + A[J][I] * X[JX];
-        G[IY] = G[IY] + (A[J][I] * X[JX]).abs();
+        YT[IY] += A[J][I] * X[JX];
+        G[IY] += (A[J][I] * X[JX]).abs();
         JX += INCXL;
       }
     } else {
       for (J = 1; J <= NL; J++) {
-        YT[IY] = YT[IY] + A[I][J] * X[JX];
-        G[IY] = G[IY] + (A[I][J] * X[JX]).abs();
+        YT[IY] += A[I][J] * X[JX];
+        G[IY] += (A[I][J] * X[JX]).abs();
         JX += INCXL;
       }
     }

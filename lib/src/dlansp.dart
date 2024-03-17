@@ -58,7 +58,7 @@ double dlansp(
         for (I = 1; I <= J - 1; I++) {
           ABSA = AP[K].abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
           K++;
         }
         WORK[J] = SUM.value + AP[K].abs();
@@ -78,7 +78,7 @@ double dlansp(
         for (I = J + 1; I <= N; I++) {
           ABSA = AP[K].abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
           K++;
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

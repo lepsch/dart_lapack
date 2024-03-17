@@ -3447,20 +3447,20 @@ void _zmvch(
     JX = KX;
     if (TRAN) {
       for (J = 1; J <= NL; J++) {
-        YT[IY] = YT[IY] + A[J][I] * X[JX];
-        G[IY] = G[IY] + ABS1(A[J][I]) * ABS1(X[JX]);
+        YT[IY] += A[J][I] * X[JX];
+        G[IY] += ABS1(A[J][I]) * ABS1(X[JX]);
         JX += INCXL;
       }
     } else if (CTRAN) {
       for (J = 1; J <= NL; J++) {
-        YT[IY] = YT[IY] + A[J][I].conjugate() * X[JX];
-        G[IY] = G[IY] + ABS1(A[J][I]) * ABS1(X[JX]);
+        YT[IY] += A[J][I].conjugate() * X[JX];
+        G[IY] += ABS1(A[J][I]) * ABS1(X[JX]);
         JX += INCXL;
       }
     } else {
       for (J = 1; J <= NL; J++) {
-        YT[IY] = YT[IY] + A[I][J] * X[JX];
-        G[IY] = G[IY] + ABS1(A[I][J]) * ABS1(X[JX]);
+        YT[IY] += A[I][J] * X[JX];
+        G[IY] += ABS1(A[I][J]) * ABS1(X[JX]);
         JX += INCXL;
       }
     }

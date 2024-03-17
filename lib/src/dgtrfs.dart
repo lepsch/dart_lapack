@@ -259,6 +259,6 @@ void dgtrfs(
     for (I = 1; I <= N; I++) {
       LSTRES = max(LSTRES, (X[I][J]).abs());
     }
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }
 }

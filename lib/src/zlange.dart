@@ -63,7 +63,7 @@ double zlange(
       // 70
       for (I = 1; I <= M; I++) {
         // 60
-        WORK[I] = WORK[I] + (A[I][J]).abs();
+        WORK[I] += (A[I][J]).abs();
       } // 60
     } // 70
     VALUE = ZERO;

@@ -217,7 +217,7 @@ void dgbtrf(
         // Adjust the pivot indices.
 
         for (I = J; I <= J + JB - 1; I++) {
-          IPIV[I] = IPIV[I] + J - 1;
+          IPIV[I] += J - 1;
         }
 
         // Apply the row interchanges to A13, A23, and A33
@@ -336,7 +336,7 @@ void dgbtrf(
         // Adjust the pivot indices.
 
         for (I = J; I <= J + JB - 1; I++) {
-          IPIV[I] = IPIV[I] + J - 1;
+          IPIV[I] += J - 1;
         }
       }
 

@@ -24,7 +24,7 @@ void main() {
   T1 = dsecnd();
   for (J = 1; J <= ITS; J++) {
     for (I = 1; I <= NMAX; I++) {
-      Y[I] = Y[I] + ALPHA * X[I];
+      Y[I] += ALPHA * X[I];
     }
     ALPHA = -ALPHA;
   }
@@ -44,7 +44,7 @@ void main() {
   T1 = dsecnd();
   for (J = 1; J <= ITS; J++) {
     for (I = 1; I <= NMAX; I++) {
-      Y[I] = Y[I] + ALPHA * X[I];
+      Y[I] += ALPHA * X[I];
     }
     ALPHA = -ALPHA;
     T2 = dsecnd();

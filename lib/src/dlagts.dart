@@ -64,7 +64,7 @@ void dlagts(
   if ((JOB).abs() == 1) {
     for (K = 2; K <= N; K++) {
       if (IN[K - 1] == 0) {
-        Y[K] = Y[K] - C[K - 1] * Y[K - 1];
+        Y[K] -= C[K - 1] * Y[K - 1];
       } else {
         TEMP = Y[K - 1];
         Y[K - 1] = Y[K];
@@ -200,7 +200,7 @@ void dlagts(
 
     for (K = N; K >= 2; K--) {
       if (IN[K - 1] == 0) {
-        Y[K - 1] = Y[K - 1] - C[K - 1] * Y[K];
+        Y[K - 1] -= C[K - 1] * Y[K];
       } else {
         TEMP = Y[K - 1];
         Y[K - 1] = Y[K];

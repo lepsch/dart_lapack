@@ -118,7 +118,7 @@ void dlasq2(
         S = Z[3] * (Z[2] / (T + sqrt(T) * sqrt(T + S)));
       }
       T = Z[1] + (S + Z[2]);
-      Z[3] = Z[3] * (Z[1] / T);
+      Z[3] *= (Z[1] / T);
       Z[1] = T;
     }
     Z[2] = Z[3];
@@ -430,12 +430,12 @@ void dlasq2(
     N1 = N0.value;
     while (true) {
       TEMPQ = Z[4 * I0 - 3];
-      Z[4 * I0 - 3] = Z[4 * I0 - 3] + SIGMA.value;
+      Z[4 * I0 - 3] += SIGMA.value;
       for (K = I0 + 1; K <= N0.value; K++) {
         TEMPE = Z[4 * K - 5];
-        Z[4 * K - 5] = Z[4 * K - 5] * (TEMPQ / Z[4 * K - 7]);
+        Z[4 * K - 5] *= (TEMPQ / Z[4 * K - 7]);
         TEMPQ = Z[4 * K - 3];
-        Z[4 * K - 3] = Z[4 * K - 3] + SIGMA.value + TEMPE - Z[4 * K - 5];
+        Z[4 * K - 3] += SIGMA.value + TEMPE - Z[4 * K - 5];
       }
 
       // Prepare to do this on the previous block if there is one

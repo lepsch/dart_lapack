@@ -108,10 +108,10 @@ void zsbmv(
         TEMP2 = Complex.zero;
         L = KPLUS1 - J;
         for (var I = max(1, J - K); I <= J - 1; I++) {
-          Y[I] = Y[I] + TEMP1 * A[L + I][J];
+          Y[I] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[I];
         }
-        Y[J] = Y[J] + TEMP1 * A[KPLUS1][J] + ALPHA * TEMP2;
+        Y[J] += TEMP1 * A[KPLUS1][J] + ALPHA * TEMP2;
       }
     } else {
       JX = KX;
@@ -123,12 +123,12 @@ void zsbmv(
         IY = KY;
         L = KPLUS1 - J;
         for (var I = max(1, J - K); I <= J - 1; I++) {
-          Y[IY] = Y[IY] + TEMP1 * A[L + I][J];
+          Y[IY] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[IX];
           IX += INCX;
           IY += INCY;
         }
-        Y[JY] = Y[JY] + TEMP1 * A[KPLUS1][J] + ALPHA * TEMP2;
+        Y[JY] += TEMP1 * A[KPLUS1][J] + ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
         if (J > K) {
@@ -144,13 +144,13 @@ void zsbmv(
       for (var J = 1; J <= N; J++) {
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
-        Y[J] = Y[J] + TEMP1 * A[1][J];
+        Y[J] += TEMP1 * A[1][J];
         L = 1 - J;
         for (var I = J + 1; I <= min(N, J + K); I++) {
-          Y[I] = Y[I] + TEMP1 * A[L + I][J];
+          Y[I] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[I];
         }
-        Y[J] = Y[J] + ALPHA * TEMP2;
+        Y[J] += ALPHA * TEMP2;
       }
     } else {
       JX = KX;
@@ -158,17 +158,17 @@ void zsbmv(
       for (var J = 1; J <= N; J++) {
         TEMP1 = ALPHA * X[JX];
         TEMP2 = Complex.zero;
-        Y[JY] = Y[JY] + TEMP1 * A[1][J];
+        Y[JY] += TEMP1 * A[1][J];
         L = 1 - J;
         IX = JX;
         IY = JY;
         for (var I = J + 1; I <= min(N, J + K); I++) {
           IX += INCX;
           IY += INCY;
-          Y[IY] = Y[IY] + TEMP1 * A[L + I][J];
+          Y[IY] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[IX];
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP2;
+        Y[JY] += ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
       }

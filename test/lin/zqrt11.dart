@@ -48,7 +48,7 @@ double zqrt11(
       M, WORK(M * M + 1), INFO);
 
   for (var J = 1; J <= M; J++) {
-    WORK[(J - 1) * M + J] = WORK[(J - 1) * M + J] - Complex.one;
+    WORK[(J - 1) * M + J] -= Complex.one;
   }
 
   final RDUMMY = Array<double>(1);

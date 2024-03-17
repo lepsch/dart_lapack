@@ -71,10 +71,10 @@ void ztrsv(
       if (INCX == 1) {
         for (J = N; J >= 1; J--) {
           if (X[J] != Complex.zero) {
-            if (NOUNIT) X[J] = X[J] / A[J][J];
+            if (NOUNIT) X[J] /= A[J][J];
             TEMP = X[J];
             for (I = J - 1; I >= 1; I--) {
-              X[I] = X[I] - TEMP * A[I][J];
+              X[I] -= TEMP * A[I][J];
             }
           }
         }
@@ -82,12 +82,12 @@ void ztrsv(
         JX = KX + (N - 1) * INCX;
         for (J = N; J >= 1; J--) {
           if (X[JX] != Complex.zero) {
-            if (NOUNIT) X[JX] = X[JX] / A[J][J];
+            if (NOUNIT) X[JX] /= A[J][J];
             TEMP = X[JX];
             IX = JX;
             for (I = J - 1; I >= 1; I--) {
               IX -= INCX;
-              X[IX] = X[IX] - TEMP * A[I][J];
+              X[IX] -= TEMP * A[I][J];
             }
           }
           JX -= INCX;
@@ -97,10 +97,10 @@ void ztrsv(
       if (INCX == 1) {
         for (J = 1; J <= N; J++) {
           if (X[J] != Complex.zero) {
-            if (NOUNIT) X[J] = X[J] / A[J][J];
+            if (NOUNIT) X[J] /= A[J][J];
             TEMP = X[J];
             for (I = J + 1; I <= N; I++) {
-              X[I] = X[I] - TEMP * A[I][J];
+              X[I] -= TEMP * A[I][J];
             }
           }
         }
@@ -108,12 +108,12 @@ void ztrsv(
         JX = KX;
         for (J = 1; J <= N; J++) {
           if (X[JX] != Complex.zero) {
-            if (NOUNIT) X[JX] = X[JX] / A[J][J];
+            if (NOUNIT) X[JX] /= A[J][J];
             TEMP = X[JX];
             IX = JX;
             for (I = J + 1; I <= N; I++) {
               IX += INCX;
-              X[IX] = X[IX] - TEMP * A[I][J];
+              X[IX] -= TEMP * A[I][J];
             }
           }
           JX += INCX;

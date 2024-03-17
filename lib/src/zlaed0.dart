@@ -113,7 +113,7 @@ void zlaed0(
   }
   for (J = 2; J <= SUBPBS; J++) {
     // 30
-    IWORK[J] = IWORK[J] + IWORK[J - 1];
+    IWORK[J] += IWORK[J - 1];
   } // 30
 
   // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
@@ -124,8 +124,8 @@ void zlaed0(
     // 40
     SUBMAT = IWORK[I] + 1;
     SMM1 = SUBMAT - 1;
-    D[SMM1] = D[SMM1] - (E[SMM1]).abs();
-    D[SUBMAT] = D[SUBMAT] - (E[SMM1]).abs();
+    D[SMM1] -= (E[SMM1]).abs();
+    D[SUBMAT] -= (E[SMM1]).abs();
   } // 40
 
   INDXQ = 4 * N + 3;

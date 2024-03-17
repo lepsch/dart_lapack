@@ -179,7 +179,7 @@ void zhpt21(
 
     for (J = 1; J <= LAP; J++) {
       // 70
-      WORK[J] = WORK[J] - AP[J];
+      WORK[J] -= AP[J];
     } // 70
     WNORM = zlanhp('1', CUPLO, N, WORK, RWORK);
   } else if (ITYPE == 3) {
@@ -196,7 +196,7 @@ void zhpt21(
 
     for (J = 1; J <= N; J++) {
       // 80
-      WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - Complex.one;
+      WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
     } // 80
 
     WNORM = zlange('1', N, N, WORK.asMatrix(), N, RWORK);
@@ -222,7 +222,7 @@ void zhpt21(
 
     for (J = 1; J <= N; J++) {
       // 90
-      WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - Complex.one;
+      WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
     } // 90
 
     RESULT[2] =

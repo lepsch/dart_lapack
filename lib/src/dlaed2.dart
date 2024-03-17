@@ -90,7 +90,7 @@ void dlaed2(
   // Sort the eigenvalues into increasing order
 
   for (I = N1P1; I <= N; I++) {
-    INDXQ[I] = INDXQ[I] + N1;
+    INDXQ[I] += N1;
   }
 
   // re-integrate the deflated parts from the last pass

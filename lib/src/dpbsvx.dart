@@ -195,7 +195,7 @@ void dpbsvx(
       }
     }
     for (J = 1; J <= NRHS; J++) {
-      FERR[J] = FERR[J] / SCOND.value;
+      FERR[J] /= SCOND.value;
     }
   }
 

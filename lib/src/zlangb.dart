@@ -65,7 +65,7 @@ double zlangb(
       K = KU + 1 - J;
       for (I = max(1, J - KU); I <= min(N, J + KL); I++) {
         // 60
-        WORK[I] = WORK[I] + (AB[K + I][J]).abs();
+        WORK[I] += (AB[K + I][J]).abs();
       } // 60
     } // 70
     VALUE = ZERO;

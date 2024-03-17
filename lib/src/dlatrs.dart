@@ -143,18 +143,18 @@ void dlatrs(
         TSCAL = ONE / (SMLNUM * TMAX);
         for (J = 1; J <= N; J++) {
           if (CNORM[J] <= dlamch('Overflow')) {
-            CNORM[J] = CNORM[J] * TSCAL;
+            CNORM[J] *= TSCAL;
           } else {
             // Recompute the 1-norm without introducing Infinity
             // in the summation
             CNORM[J] = ZERO;
             if (UPPER) {
               for (I = 1; I <= J - 1; I++) {
-                CNORM[J] = CNORM[J] + TSCAL * (A[I][J]).abs();
+                CNORM[J] += TSCAL * (A[I][J]).abs();
               }
             } else {
               for (I = J + 1; I <= N; I++) {
-                CNORM[J] = CNORM[J] + TSCAL * (A[I][J]).abs();
+                CNORM[J] += TSCAL * (A[I][J]).abs();
               }
             }
           }
@@ -354,7 +354,7 @@ void dlatrs(
                 XMAX = XMAX * REC;
               }
             }
-            X[J] = X[J] / TJJS;
+            X[J] /= TJJS;
             XJ = (X[J]).abs();
           } else if (TJJ > ZERO) {
             // 0 < abs(A[j][j]) <= SMLNUM:
@@ -374,7 +374,7 @@ void dlatrs(
               SCALE.value = SCALE.value * REC;
               XMAX = XMAX * REC;
             }
-            X[J] = X[J] / TJJS;
+            X[J] /= TJJS;
             XJ = (X[J]).abs();
           } else {
             // A[j][j] = 0:  Set x[1:n] = 0, x[j] = 1, and
@@ -490,7 +490,7 @@ void dlatrs(
           // Compute x[j] := ( x[j] - sumj ) / A[j][j] if 1/A[j][j]
           // was not used to scale the dotproduct.
 
-          X[J] = X[J] - SUMJ;
+          X[J] -= SUMJ;
           XJ = (X[J]).abs();
           var scale = true;
           if (NOUNIT) {
@@ -503,7 +503,7 @@ void dlatrs(
           }
 
           if (scale) {
-            // Compute x[j] = x[j] / A[j][j], scaling if necessary.
+            // Compute x[j] /= A[j][j], scaling if necessary.
 
             TJJ = (TJJS).abs();
             if (TJJ > SMLNUM) {
@@ -519,7 +519,7 @@ void dlatrs(
                   XMAX = XMAX * REC;
                 }
               }
-              X[J] = X[J] / TJJS;
+              X[J] /= TJJS;
             } else if (TJJ > ZERO) {
               // 0 < abs(A[j][j]) <= SMLNUM:
 
@@ -531,7 +531,7 @@ void dlatrs(
                 SCALE.value = SCALE.value * REC;
                 XMAX = XMAX * REC;
               }
-              X[J] = X[J] / TJJS;
+              X[J] /= TJJS;
             } else {
               // A[j][j] = 0:  Set x[1:n] = 0, x[j] = 1, and
               // scale = 0, and compute a solution to A**T*x = 0.
@@ -548,7 +548,7 @@ void dlatrs(
           // Compute x[j] := x[j] / A[j][j]  - sumj if the dot
           // product has already been divided by 1/A[j][j].
 
-          X[J] = X[J] / TJJS - SUMJ;
+          X[J] /= TJJS - SUMJ;
         }
         XMAX = max(XMAX, (X[J]).abs());
       }

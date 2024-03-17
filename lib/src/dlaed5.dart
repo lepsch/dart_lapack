@@ -46,8 +46,8 @@ void dlaed5(
       DELTA[2] = -Z[2] / TAU;
     }
     TEMP = sqrt(DELTA[1] * DELTA[1] + DELTA[2] * DELTA[2]);
-    DELTA[1] = DELTA[1] / TEMP;
-    DELTA[2] = DELTA[2] / TEMP;
+    DELTA[1] /= TEMP;
+    DELTA[2] /= TEMP;
   } else {
     // Now I=2
 
@@ -62,7 +62,7 @@ void dlaed5(
     DELTA[1] = -Z[1] / (DEL + TAU);
     DELTA[2] = -Z[2] / TAU;
     TEMP = sqrt(DELTA[1] * DELTA[1] + DELTA[2] * DELTA[2]);
-    DELTA[1] = DELTA[1] / TEMP;
-    DELTA[2] = DELTA[2] / TEMP;
+    DELTA[1] /= TEMP;
+    DELTA[2] /= TEMP;
   }
 }

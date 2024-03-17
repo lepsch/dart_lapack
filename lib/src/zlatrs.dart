@@ -149,7 +149,7 @@ void zlatrs(
         TSCAL = ONE / (SMLNUM * TMAX);
         for (J = 1; J <= N; J++) {
           if (CNORM[J] <= dlamch('Overflow')) {
-            CNORM[J] = CNORM[J] * TSCAL;
+            CNORM[J] *= TSCAL;
           } else {
             // Recompute the 1-norm of each column without
             // introducing Infinity in the summation.
@@ -157,11 +157,11 @@ void zlatrs(
             CNORM[J] = ZERO;
             if (UPPER) {
               for (I = 1; I <= J - 1; I++) {
-                CNORM[J] = CNORM[J] + TSCAL * CABS2(A[I][J]);
+                CNORM[J] += TSCAL * CABS2(A[I][J]);
               }
             } else {
               for (I = J + 1; I <= N; I++) {
-                CNORM[J] = CNORM[J] + TSCAL * CABS2(A[I][J]);
+                CNORM[J] += TSCAL * CABS2(A[I][J]);
               }
             }
             TSCAL = TSCAL * HALF;
@@ -530,7 +530,7 @@ void zlatrs(
           // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
           // was not used to scale the dotproduct.
           var scale = true;
-          X[J] = X[J] - CSUMJ;
+          X[J] -= CSUMJ;
           XJ = CABS1(X[J]);
           if (NOUNIT) {
             TJJS = A[J][J] * TSCAL.toComplex();
@@ -655,7 +655,7 @@ void zlatrs(
           // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
           // was not used to scale the dotproduct.
           var scale = true;
-          X[J] = X[J] - CSUMJ;
+          X[J] -= CSUMJ;
           XJ = CABS1(X[J]);
           if (NOUNIT) {
             TJJS = A[J][J].conjugate() * TSCAL.toComplex();

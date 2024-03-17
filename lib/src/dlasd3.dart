@@ -128,18 +128,16 @@ void dlasd3(
   for (I = 1; I <= K; I++) {
     Z[I] = U[I][K] * VT[I][K];
     for (J = 1; J <= I - 1; J++) {
-      Z[I] = Z[I] *
-          (U[I][J] *
-              VT[I][J] /
-              (DSIGMA[I] - DSIGMA[J]) /
-              (DSIGMA[I] + DSIGMA[J]));
+      Z[I] *= (U[I][J] *
+          VT[I][J] /
+          (DSIGMA[I] - DSIGMA[J]) /
+          (DSIGMA[I] + DSIGMA[J]));
     }
     for (J = I; J <= K - 1; J++) {
-      Z[I] = Z[I] *
-          (U[I][J] *
-              VT[I][J] /
-              (DSIGMA[I] - DSIGMA[J + 1]) /
-              (DSIGMA[I] + DSIGMA[J + 1]));
+      Z[I] *= (U[I][J] *
+          VT[I][J] /
+          (DSIGMA[I] - DSIGMA[J + 1]) /
+          (DSIGMA[I] + DSIGMA[J + 1]));
     }
     Z[I] = sign(sqrt((Z[I]).abs()), Q[I][1]).toDouble();
   }

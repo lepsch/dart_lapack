@@ -876,20 +876,17 @@ void dtgevc(
               CIMAGB = BCOEFI.value * WORK[2 * N + J + JA - 1] +
                   BCOEFR.value * WORK[3 * N + J + JA - 1];
               for (JR = 1; JR <= J - 1; JR++) {
-                WORK[2 * N + JR] = WORK[2 * N + JR] -
-                    CREALA * S[JR][J + JA - 1] +
-                    CREALB * P[JR][J + JA - 1];
-                WORK[3 * N + JR] = WORK[3 * N + JR] -
-                    CIMAGA * S[JR][J + JA - 1] +
-                    CIMAGB * P[JR][J + JA - 1];
+                WORK[2 * N + JR] -=
+                    CREALA * S[JR][J + JA - 1] + CREALB * P[JR][J + JA - 1];
+                WORK[3 * N + JR] -=
+                    CIMAGA * S[JR][J + JA - 1] + CIMAGB * P[JR][J + JA - 1];
               }
             } else {
               CREALA = ACOEF.value * WORK[2 * N + J + JA - 1];
               CREALB = BCOEFR.value * WORK[2 * N + J + JA - 1];
               for (JR = 1; JR <= J - 1; JR++) {
-                WORK[2 * N + JR] = WORK[2 * N + JR] -
-                    CREALA * S[JR][J + JA - 1] +
-                    CREALB * P[JR][J + JA - 1];
+                WORK[2 * N + JR] -=
+                    CREALA * S[JR][J + JA - 1] + CREALB * P[JR][J + JA - 1];
               }
             }
           }
@@ -913,8 +910,7 @@ void dtgevc(
 
           for (JC = 2; JC <= JE; JC++) {
             for (JR = 1; JR <= N; JR++) {
-              WORK[(JW + 4) * N + JR] = WORK[(JW + 4) * N + JR] +
-                  WORK[(JW + 2) * N + JC] * VR[JR][JC];
+              WORK[(JW + 4) * N + JR] += WORK[(JW + 2) * N + JC] * VR[JR][JC];
             }
           }
         }

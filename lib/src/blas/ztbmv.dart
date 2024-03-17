@@ -78,9 +78,9 @@ void ztbmv(
             TEMP = X[J];
             L = KPLUS1 - J;
             for (I = max(1, J - K); I <= J - 1; I++) {
-              X[I] = X[I] + TEMP * A[L + I][J];
+              X[I] += TEMP * A[L + I][J];
             }
-            if (NOUNIT) X[J] = X[J] * A[KPLUS1][J];
+            if (NOUNIT) X[J] *= A[KPLUS1][J];
           }
         }
       } else {
@@ -91,10 +91,10 @@ void ztbmv(
             IX = KX;
             L = KPLUS1 - J;
             for (I = max(1, J - K); I <= J - 1; I++) {
-              X[IX] = X[IX] + TEMP * A[L + I][J];
+              X[IX] += TEMP * A[L + I][J];
               IX += INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * A[KPLUS1][J];
+            if (NOUNIT) X[JX] *= A[KPLUS1][J];
           }
           JX += INCX;
           if (J > K) KX = KX + INCX;
@@ -107,9 +107,9 @@ void ztbmv(
             TEMP = X[J];
             L = 1 - J;
             for (I = min(N, J + K); I >= J + 1; I--) {
-              X[I] = X[I] + TEMP * A[L + I][J];
+              X[I] += TEMP * A[L + I][J];
             }
-            if (NOUNIT) X[J] = X[J] * A[1][J];
+            if (NOUNIT) X[J] *= A[1][J];
           }
         }
       } else {
@@ -121,10 +121,10 @@ void ztbmv(
             IX = KX;
             L = 1 - J;
             for (I = min(N, J + K); I >= J + 1; I--) {
-              X[IX] = X[IX] + TEMP * A[L + I][J];
+              X[IX] += TEMP * A[L + I][J];
               IX -= INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * A[1][J];
+            if (NOUNIT) X[JX] *= A[1][J];
           }
           JX -= INCX;
           if ((N - J) >= K) KX = KX - INCX;

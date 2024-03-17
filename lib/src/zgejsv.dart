@@ -630,7 +630,7 @@ void zgejsv(
       V[1][1] = Complex.one;
     }
     if (SVA[1] < (BIG * SCALEM)) {
-      SVA[1] = SVA[1] / SCALEM;
+      SVA[1] /= SCALEM;
       SCALEM = ONE;
     }
     RWORK[1] = ONE / SCALEM;

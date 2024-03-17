@@ -93,7 +93,7 @@ void dchkeq(final double THRESH, final Nout NOUT) {
   }
   dgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO);
   if (INFO.value != NSZ + max(NSZ - 1, 1)) RESLTS[1] = ONE;
-  RESLTS[1] = RESLTS[1] / EPS;
+  RESLTS[1] /= EPS;
 
   // Test DGBEQU
 
@@ -170,7 +170,7 @@ void dchkeq(final double THRESH, final Nout NOUT) {
       }
     }
   }
-  RESLTS[2] = RESLTS[2] / EPS;
+  RESLTS[2] /= EPS;
 
   // Test DPOEQU
 
@@ -204,7 +204,7 @@ void dchkeq(final double THRESH, final Nout NOUT) {
   A[max(NSZ - 1, 1)][max(NSZ - 1, 1)] = -ONE;
   dpoequ(NSZ, A, NSZ, R, RCOND, NORM, INFO);
   if (INFO.value != max(NSZ - 1, 1)) RESLTS[3] = ONE;
-  RESLTS[3] = RESLTS[3] / EPS;
+  RESLTS[3] /= EPS;
 
   // Test DPPEQU
 
@@ -264,7 +264,7 @@ void dchkeq(final double THRESH, final Nout NOUT) {
   AP[I] = -ONE;
   dppequ('L', NSZ, AP, R, RCOND, NORM, INFO);
   if (INFO.value != max(NSZ - 1, 1)) RESLTS[4] = ONE;
-  RESLTS[4] = RESLTS[4] / EPS;
+  RESLTS[4] /= EPS;
 
   // Test DPBEQU
 
@@ -335,7 +335,7 @@ void dchkeq(final double THRESH, final Nout NOUT) {
       }
     }
   }
-  RESLTS[5] = RESLTS[5] / EPS;
+  RESLTS[5] /= EPS;
   final OK = (RESLTS[1] <= THRESH) &&
       (RESLTS[2] <= THRESH) &&
       (RESLTS[3] <= THRESH) &&

@@ -100,7 +100,7 @@ void dlaror(
       return;
     }
     FACTOR = ONE / FACTOR;
-    X[KBEG] = X[KBEG] + XNORMS;
+    X[KBEG] += XNORMS;
 
     // Apply Householder transformation to A
 

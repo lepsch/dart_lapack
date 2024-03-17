@@ -72,7 +72,7 @@ void dlaqtr(
 
   if (!LREAL) {
     for (I = 2; I <= N; I++) {
-      WORK[I] = WORK[I] + B[I].abs();
+      WORK[I] += B[I].abs();
     }
   }
 
@@ -131,7 +131,7 @@ void dlaqtr(
               XMAX = XMAX * REC;
             }
           }
-          X[J1] = X[J1] / TMP;
+          X[J1] /= TMP;
           XJ = X[J1].abs();
 
           // Scale x if necessary to avoid overflow when adding a
@@ -222,7 +222,7 @@ void dlaqtr(
             }
           }
 
-          X[J1] = X[J1] - ddot(J1 - 1, T(1, J1).asArray(), 1, X, 1);
+          X[J1] -= ddot(J1 - 1, T(1, J1).asArray(), 1, X, 1);
 
           XJ = X[J1].abs();
           TJJ = T[J1][J1].abs();
@@ -241,7 +241,7 @@ void dlaqtr(
               XMAX = XMAX * REC;
             }
           }
-          X[J1] = X[J1] / TMP;
+          X[J1] /= TMP;
           XMAX = max(XMAX, (X[J1]).abs());
         } else {
           // 2 by 2 diagonal block
@@ -340,8 +340,8 @@ void dlaqtr(
             daxpy(J1 - 1, -X[J1], T(1, J1).asArray(), 1, X, 1);
             daxpy(J1 - 1, -X[N + J1], T(1, J1).asArray(), 1, X(N + 1), 1);
 
-            X[1] = X[1] + B[J1] * X[N + J1];
-            X[N + 1] = X[N + 1] - B[J1] * X[J1];
+            X[1] += B[J1] * X[N + J1];
+            X[N + 1] -= B[J1] * X[J1];
 
             XMAX = ZERO;
             for (K = 1; K <= J1 - 1; K++) {
@@ -390,8 +390,8 @@ void dlaqtr(
             daxpy(J1 - 1, -X[N + J1], T(1, J1).asArray(), 1, X(N + 1), 1);
             daxpy(J1 - 1, -X[N + J2], T(1, J2).asArray(), 1, X(N + 1), 1);
 
-            X[1] = X[1] + B[J1] * X[N + J1] + B[J2] * X[N + J2];
-            X[N + 1] = X[N + 1] - B[J1] * X[J1] - B[J2] * X[J2];
+            X[1] += B[J1] * X[N + J1] + B[J2] * X[N + J2];
+            X[N + 1] -= B[J1] * X[J1] - B[J2] * X[J2];
 
             XMAX = ZERO;
             for (K = 1; K <= J1 - 1; K++) {
@@ -432,12 +432,12 @@ void dlaqtr(
             }
           }
 
-          X[J1] = X[J1] - ddot(J1 - 1, T(1, J1).asArray(), 1, X, 1);
+          X[J1] -= ddot(J1 - 1, T(1, J1).asArray(), 1, X, 1);
           X[N + J1] =
               X[N + J1] - ddot(J1 - 1, T(1, J1).asArray(), 1, X(N + 1), 1);
           if (J1 > 1) {
-            X[J1] = X[J1] - B[J1] * X[N + 1];
-            X[N + J1] = X[N + J1] + B[J1] * X[1];
+            X[J1] -= B[J1] * X[N + 1];
+            X[N + J1] += B[J1] * X[1];
           }
           XJ = (X[J1]).abs() + (X[J1 + N]).abs();
 

@@ -315,7 +315,7 @@ void dlatrs3(
           // factor WORK( J, KK ) > 0.
           RSCAL = ONE / SCALOC.value;
           if (XNRM[KK] * RSCAL <= BIGNUM) {
-            XNRM[KK] = XNRM[KK] * RSCAL;
+            XNRM[KK] *= RSCAL;
             dscal(J2 - J1, RSCAL, X(J1, RHS).asArray(), 1);
             SCALOC.value = ONE;
           } else {
@@ -386,7 +386,7 @@ void dlatrs3(
 
           BNRM = dlange('I', I2 - I1, 1, X(I1, RHS), LDX, W);
           BNRM = BNRM * (SCAMIN / WORK[I + KK * LDS]);
-          XNRM[KK] = XNRM[KK] * (SCAMIN / WORK[J + KK * LDS]);
+          XNRM[KK] *= (SCAMIN / WORK[J + KK * LDS]);
           ANRM = WORK[AWRK + I + (J - 1) * NBA];
           SCALOC.value = dlarmm(ANRM, XNRM[KK], BNRM);
 

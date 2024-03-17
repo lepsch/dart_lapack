@@ -104,7 +104,7 @@ double zla_porcond_x(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * RWORK[I].toComplex();
+        WORK[I] *= RWORK[I].toComplex();
       }
 
       if (UP) {
@@ -116,13 +116,13 @@ double zla_porcond_x(
       // Multiply by inv(X).
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] / X[I];
+        WORK[I] /= X[I];
       }
     } else {
       // Multiply by inv(X**H).
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] / X[I];
+        WORK[I] /= X[I];
       }
 
       if (UP) {
@@ -134,7 +134,7 @@ double zla_porcond_x(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * RWORK[I].toComplex();
+        WORK[I] *= RWORK[I].toComplex();
       }
     }
   }

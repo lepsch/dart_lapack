@@ -70,10 +70,10 @@ void zptcon(
 
   // Solve D * M(L)**H * x = b.
 
-  RWORK[N] = RWORK[N] / D[N];
+  RWORK[N] /= D[N];
   for (I = N - 1; I >= 1; I--) {
     // 30
-    RWORK[I] = RWORK[I] / D[I] + RWORK[I + 1] * E[I].abs();
+    RWORK[I] /= D[I] + RWORK[I + 1] * E[I].abs();
   } // 30
 
   // Compute AINVNM = max(x[I]), 1<=i<=n.

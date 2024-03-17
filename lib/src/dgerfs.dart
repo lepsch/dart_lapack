@@ -136,7 +136,7 @@ void dgerfs(
         for (K = 1; K <= N; K++) {
           XK = (X[K][J]).abs();
           for (I = 1; I <= N; I++) {
-            WORK[I] = WORK[I] + (A[I][K]).abs() * XK;
+            WORK[I] += (A[I][K]).abs() * XK;
           }
         }
       } else {
@@ -145,7 +145,7 @@ void dgerfs(
           for (I = 1; I <= N; I++) {
             S += (A[I][K]).abs() * (X[I][J]).abs();
           }
-          WORK[K] = WORK[K] + S;
+          WORK[K] += S;
         }
       }
       S = ZERO;
@@ -235,6 +235,6 @@ void dgerfs(
     for (I = 1; I <= N; I++) {
       LSTRES = max(LSTRES, (X[I][J]).abs());
     }
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }
 }

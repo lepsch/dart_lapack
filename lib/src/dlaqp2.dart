@@ -91,7 +91,7 @@ void dlaqp2(
             VN2[J] = ZERO;
           }
         } else {
-          VN1[J] = VN1[J] * sqrt(TEMP);
+          VN1[J] *= sqrt(TEMP);
         }
       }
     }

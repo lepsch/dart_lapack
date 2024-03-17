@@ -40,7 +40,7 @@ void dpttrf(
     }
     EI = E[I];
     E[I] = EI / D[I];
-    D[I + 1] = D[I + 1] - E[I] * EI;
+    D[I + 1] -= E[I] * EI;
   }
 
   for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) {
@@ -56,7 +56,7 @@ void dpttrf(
 
     EI = E[I];
     E[I] = EI / D[I];
-    D[I + 1] = D[I + 1] - E[I] * EI;
+    D[I + 1] -= E[I] * EI;
 
     if (D[I + 1] <= ZERO) {
       INFO.value = I + 1;
@@ -67,7 +67,7 @@ void dpttrf(
 
     EI = E[I + 1];
     E[I + 1] = EI / D[I + 1];
-    D[I + 2] = D[I + 2] - E[I + 1] * EI;
+    D[I + 2] -= E[I + 1] * EI;
 
     if (D[I + 2] <= ZERO) {
       INFO.value = I + 2;
@@ -78,7 +78,7 @@ void dpttrf(
 
     EI = E[I + 2];
     E[I + 2] = EI / D[I + 2];
-    D[I + 3] = D[I + 3] - E[I + 2] * EI;
+    D[I + 3] -= E[I + 2] * EI;
 
     if (D[I + 3] <= ZERO) {
       INFO.value = I + 3;
@@ -89,7 +89,7 @@ void dpttrf(
 
     EI = E[I + 3];
     E[I + 3] = EI / D[I + 3];
-    D[I + 4] = D[I + 4] - E[I + 3] * EI;
+    D[I + 4] -= E[I + 3] * EI;
   }
 
   // Check d[n] for positive definiteness.

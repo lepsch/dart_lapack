@@ -73,9 +73,9 @@ void ztrmv(
           if (X[J] != Complex.zero) {
             TEMP = X[J];
             for (I = 1; I <= J - 1; I++) {
-              X[I] = X[I] + TEMP * A[I][J];
+              X[I] += TEMP * A[I][J];
             }
-            if (NOUNIT) X[J] = X[J] * A[J][J];
+            if (NOUNIT) X[J] *= A[J][J];
           }
         }
       } else {
@@ -85,10 +85,10 @@ void ztrmv(
             TEMP = X[JX];
             IX = KX;
             for (I = 1; I <= J - 1; I++) {
-              X[IX] = X[IX] + TEMP * A[I][J];
+              X[IX] += TEMP * A[I][J];
               IX += INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * A[J][J];
+            if (NOUNIT) X[JX] *= A[J][J];
           }
           JX += INCX;
         }
@@ -99,9 +99,9 @@ void ztrmv(
           if (X[J] != Complex.zero) {
             TEMP = X[J];
             for (I = N; I >= J + 1; I--) {
-              X[I] = X[I] + TEMP * A[I][J];
+              X[I] += TEMP * A[I][J];
             }
-            if (NOUNIT) X[J] = X[J] * A[J][J];
+            if (NOUNIT) X[J] *= A[J][J];
           }
         }
       } else {
@@ -112,10 +112,10 @@ void ztrmv(
             TEMP = X[JX];
             IX = KX;
             for (I = N; I >= J + 1; I--) {
-              X[IX] = X[IX] + TEMP * A[I][J];
+              X[IX] += TEMP * A[I][J];
               IX -= INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * A[J][J];
+            if (NOUNIT) X[JX] *= A[J][J];
           }
           JX -= INCX;
         }

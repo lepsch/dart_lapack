@@ -118,7 +118,7 @@ void dlasd7(
 
   for (I = NLP2; I <= N; I++) {
     // 30
-    IDXQ[I] = IDXQ[I] + NLP1;
+    IDXQ[I] += NLP1;
   } // 30
 
   // DSIGMA, IDXC, IDXC, and ZW are used as storage space.

@@ -270,6 +270,6 @@ void zgtrfs(
       // 100
       LSTRES = max(LSTRES, CABS1(X[I][J]));
     } // 100
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 110
 }

@@ -143,7 +143,7 @@ void dgbrfs(
           KK = KU + 1 - K;
           XK = X[K][J].abs();
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
-            WORK[I] = WORK[I] + AB[KK + I][K].abs() * XK;
+            WORK[I] += AB[KK + I][K].abs() * XK;
           }
         }
       } else {
@@ -153,7 +153,7 @@ void dgbrfs(
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
             S += AB[KK + I][K].abs() * X[I][J].abs();
           }
-          WORK[K] = WORK[K] + S;
+          WORK[K] += S;
         }
       }
       S = ZERO;
@@ -225,13 +225,13 @@ void dgbrfs(
         dgbtrs(TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK(N + 1).asMatrix(N),
             N, INFO);
         for (I = 1; I <= N; I++) {
-          WORK[N + I] = WORK[N + I] * WORK[I];
+          WORK[N + I] *= WORK[I];
         }
       } else {
         // Multiply by inv(op(A))*diag(W).
 
         for (I = 1; I <= N; I++) {
-          WORK[N + I] = WORK[N + I] * WORK[I];
+          WORK[N + I] *= WORK[I];
         }
         dgbtrs(TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK(N + 1).asMatrix(N),
             N, INFO);
@@ -244,6 +244,6 @@ void dgbrfs(
     for (I = 1; I <= N; I++) {
       LSTRES = max(LSTRES, X[I][J].abs());
     }
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }
 }

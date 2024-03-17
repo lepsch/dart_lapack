@@ -271,7 +271,7 @@ void zgbsvx(
       } // 110
       for (J = 1; J <= NRHS; J++) {
         // 120
-        FERR[J] = FERR[J] / COLCND.value;
+        FERR[J] /= COLCND.value;
       } // 120
     }
   } else if (ROWEQU) {
@@ -284,7 +284,7 @@ void zgbsvx(
     } // 140
     for (J = 1; J <= NRHS; J++) {
       // 150
-      FERR[J] = FERR[J] / ROWCND.value;
+      FERR[J] /= ROWCND.value;
     } // 150
   }
 

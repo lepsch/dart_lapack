@@ -115,17 +115,17 @@ void zsyequb(
     if (UP) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J - 1; I++) {
-          WORK[I] = WORK[I] + (CABS1(A[I][J]) * S[J]).toComplex();
-          WORK[J] = WORK[J] + (CABS1(A[I][J]) * S[I]).toComplex();
+          WORK[I] += (CABS1(A[I][J]) * S[J]).toComplex();
+          WORK[J] += (CABS1(A[I][J]) * S[I]).toComplex();
         }
-        WORK[J] = WORK[J] + (CABS1(A[J][J]) * S[J]).toComplex();
+        WORK[J] += (CABS1(A[J][J]) * S[J]).toComplex();
       }
     } else {
       for (J = 1; J <= N; J++) {
-        WORK[J] = WORK[J] + (CABS1(A[J][J]) * S[J]).toComplex();
+        WORK[J] += (CABS1(A[J][J]) * S[J]).toComplex();
         for (I = J + 1; I <= N; I++) {
-          WORK[I] = WORK[I] + (CABS1(A[I][J]) * S[J]).toComplex();
-          WORK[J] = WORK[J] + (CABS1(A[I][J]) * S[I]).toComplex();
+          WORK[I] += (CABS1(A[I][J]) * S[J]).toComplex();
+          WORK[J] += (CABS1(A[I][J]) * S[I]).toComplex();
         }
       }
     }
@@ -166,23 +166,23 @@ void zsyequb(
         for (J = 1; J <= I; J++) {
           T = CABS1(A[J][I]);
           U += S[J] * T;
-          WORK[J] = WORK[J] + (D * T).toComplex();
+          WORK[J] += (D * T).toComplex();
         }
         for (J = I + 1; J <= N; J++) {
           T = CABS1(A[I][J]);
           U += S[J] * T;
-          WORK[J] = WORK[J] + (D * T).toComplex();
+          WORK[J] += (D * T).toComplex();
         }
       } else {
         for (J = 1; J <= I; J++) {
           T = CABS1(A[I][J]);
           U += S[J] * T;
-          WORK[J] = WORK[J] + (D * T).toComplex();
+          WORK[J] += (D * T).toComplex();
         }
         for (J = I + 1; J <= N; J++) {
           T = CABS1(A[J][I]);
           U += S[J] * T;
-          WORK[J] = WORK[J] + (D * T).toComplex();
+          WORK[J] += (D * T).toComplex();
         }
       }
 

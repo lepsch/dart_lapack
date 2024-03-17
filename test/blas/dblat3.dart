@@ -3008,29 +3008,29 @@ void _dmmch(
     if (!TRANA && !TRANB) {
       for (K = 1; K <= KK; K++) {
         for (I = 1; I <= M; I++) {
-          CT[I] = CT[I] + A[I][K] * B[K][J];
-          G[I] = G[I] + A[I][K].abs() * B[K][J].abs();
+          CT[I] += A[I][K] * B[K][J];
+          G[I] += A[I][K].abs() * B[K][J].abs();
         }
       }
     } else if (TRANA && !TRANB) {
       for (K = 1; K <= KK; K++) {
         for (I = 1; I <= M; I++) {
-          CT[I] = CT[I] + A[K][I] * B[K][J];
-          G[I] = G[I] + A[K][I].abs() * B[K][J].abs();
+          CT[I] += A[K][I] * B[K][J];
+          G[I] += A[K][I].abs() * B[K][J].abs();
         }
       }
     } else if (!TRANA && TRANB) {
       for (K = 1; K <= KK; K++) {
         for (I = 1; I <= M; I++) {
-          CT[I] = CT[I] + A[I][K] * B[J][K];
-          G[I] = G[I] + A[I][K].abs() * B[J][K].abs();
+          CT[I] += A[I][K] * B[J][K];
+          G[I] += A[I][K].abs() * B[J][K].abs();
         }
       }
     } else if (TRANA && TRANB) {
       for (K = 1; K <= KK; K++) {
         for (I = 1; I <= M; I++) {
-          CT[I] = CT[I] + A[K][I] * B[J][K];
-          G[I] = G[I] + A[K][I].abs() * B[J][K].abs();
+          CT[I] += A[K][I] * B[J][K];
+          G[I] += A[K][I].abs() * B[J][K].abs();
         }
       }
     }

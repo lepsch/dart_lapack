@@ -255,16 +255,16 @@ void zptrfs(
 
     // Solve D * M(L)**H * x = b.
 
-    RWORK[N] = RWORK[N] / DF[N];
+    RWORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
       // 80
-      RWORK[I] = RWORK[I] / DF[I] + RWORK[I + 1] * (EF[I]).abs();
+      RWORK[I] /= DF[I] + RWORK[I + 1] * (EF[I]).abs();
     } // 80
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
     IX = idamax(N, RWORK, 1);
-    FERR[J] = FERR[J] * (RWORK[IX]).abs();
+    FERR[J] *= (RWORK[IX]).abs();
 
     // Normalize error.
 
@@ -273,6 +273,6 @@ void zptrfs(
       // 90
       LSTRES = max(LSTRES, (X[I][J]).abs());
     } // 90
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 100
 }

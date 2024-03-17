@@ -108,10 +108,10 @@ void dla_geamv(
             TEMP = A[I][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * X[J].abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -131,10 +131,10 @@ void dla_geamv(
             TEMP = A[J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * X[J].abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -157,11 +157,11 @@ void dla_geamv(
             TEMP = (A[I][J]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * X[JX].abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -182,11 +182,11 @@ void dla_geamv(
             TEMP = (A[J][I]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
             JX += INCX;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }

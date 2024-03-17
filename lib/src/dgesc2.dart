@@ -43,7 +43,7 @@ void dgesc2(
 
   for (I = 1; I <= N - 1; I++) {
     for (J = I + 1; J <= N; J++) {
-      RHS[J] = RHS[J] - A[J][I] * RHS[I];
+      RHS[J] -= A[J][I] * RHS[I];
     }
   }
 
@@ -62,9 +62,9 @@ void dgesc2(
 
   for (I = N; I >= 1; I--) {
     TEMP = ONE / A[I][I];
-    RHS[I] = RHS[I] * TEMP;
+    RHS[I] *= TEMP;
     for (J = I + 1; J <= N; J++) {
-      RHS[I] = RHS[I] - RHS[J] * (A[I][J] * TEMP);
+      RHS[I] -= RHS[J] * (A[I][J] * TEMP);
     }
   }
 

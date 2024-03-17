@@ -286,8 +286,8 @@ void zggbal(
         TB = log10(CABS1(B[I][J])) / BASL;
       }
 
-      WORK[I + 4 * N] = WORK[I + 4 * N] - TA - TB;
-      WORK[J + 5 * N] = WORK[J + 5 * N] - TA - TB;
+      WORK[I + 4 * N] -= TA - TB;
+      WORK[J + 5 * N] -= TA - TB;
     } // 230
   } // 240
 
@@ -328,8 +328,8 @@ void zggbal(
 
     for (I = ILO.value; I <= IHI.value; I++) {
       // 270
-      WORK[I] = WORK[I] + TC;
-      WORK[I + N] = WORK[I + N] + T;
+      WORK[I] += TC;
+      WORK[I + N] += T;
     } // 270
 
     // Apply matrix to vector
@@ -381,10 +381,10 @@ void zggbal(
       // 340
       COR = ALPHA * WORK[I + N];
       if ((COR).abs() > CMAX) CMAX = (COR).abs();
-      LSCALE[I] = LSCALE[I] + COR;
+      LSCALE[I] += COR;
       COR = ALPHA * WORK[I];
       if ((COR).abs() > CMAX) CMAX = (COR).abs();
-      RSCALE[I] = RSCALE[I] + COR;
+      RSCALE[I] += COR;
     } // 340
     if (CMAX < HALF) break;
 

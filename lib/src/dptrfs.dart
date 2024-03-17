@@ -206,16 +206,16 @@ void dptrfs(
 
     // Solve D * M(L)**T * x = b.
 
-    WORK[N] = WORK[N] / DF[N];
+    WORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
       // 70
-      WORK[I] = WORK[I] / DF[I] + WORK[I + 1] * (EF[I]).abs();
+      WORK[I] /= DF[I] + WORK[I + 1] * (EF[I]).abs();
     } // 70
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
     IX = idamax(N, WORK, 1);
-    FERR[J] = FERR[J] * (WORK[IX]).abs();
+    FERR[J] *= (WORK[IX]).abs();
 
     // Normalize error.
 
@@ -224,6 +224,6 @@ void dptrfs(
       // 80
       LSTRES = max(LSTRES, (X[I][J]).abs());
     } // 80
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 90
 }

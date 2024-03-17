@@ -454,7 +454,7 @@ void zstemr(
       for (J = 1; J <= M.value; J++) {
         // 20
         ITMP.value = IWORK[IINDBL + J - 1];
-        W[J] = W[J] + E[IWORK[IINSPL + ITMP.value - 1]];
+        W[J] += E[IWORK[IINSPL + ITMP.value - 1]];
       } // 20
     }
 

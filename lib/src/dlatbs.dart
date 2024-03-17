@@ -305,7 +305,7 @@ void dlatbs(
                 XMAX = XMAX * REC;
               }
             }
-            X[J] = X[J] / TJJS;
+            X[J] /= TJJS;
             XJ = (X[J]).abs();
           } else if (TJJ > ZERO) {
             // 0 < abs(A(j,j)) <= SMLNUM:
@@ -325,7 +325,7 @@ void dlatbs(
               SCALE.value = SCALE.value * REC;
               XMAX = XMAX * REC;
             }
-            X[J] = X[J] / TJJS;
+            X[J] /= TJJS;
             XJ = (X[J]).abs();
           } else {
             // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
@@ -452,7 +452,7 @@ void dlatbs(
           // Compute x(j) := ( x(j) - sumj ) / A(j,j) if 1/A(j,j)
           // was not used to scale the dotproduct.
 
-          X[J] = X[J] - SUMJ;
+          X[J] -= SUMJ;
           XJ = (X[J]).abs();
           var scale = true;
           if (NOUNIT) {
@@ -478,7 +478,7 @@ void dlatbs(
                   XMAX = XMAX * REC;
                 }
               }
-              X[J] = X[J] / TJJS;
+              X[J] /= TJJS;
             } else if (TJJ > ZERO) {
               // 0 < abs(A(j,j)) <= SMLNUM:
 
@@ -490,7 +490,7 @@ void dlatbs(
                 SCALE.value = SCALE.value * REC;
                 XMAX = XMAX * REC;
               }
-              X[J] = X[J] / TJJS;
+              X[J] /= TJJS;
             } else {
               // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
               // scale = 0, and compute a solution to A**T*x = 0.
@@ -507,7 +507,7 @@ void dlatbs(
           // Compute x(j) := x(j) / A(j,j) - sumj if the dot
           // product has already been divided by 1/A(j,j).
 
-          X[J] = X[J] / TJJS - SUMJ;
+          X[J] /= TJJS - SUMJ;
         }
         XMAX = max(XMAX, (X[J]).abs());
       }

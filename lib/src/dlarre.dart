@@ -539,11 +539,11 @@ void dlarre(
 
       dlarnv(2, ISEED, 2 * IN - 1, WORK(1));
       for (I = 1; I <= IN - 1; I++) {
-        D[IBEGIN + I - 1] = D[IBEGIN + I - 1] * (ONE + EPS * PERT * WORK[I]);
+        D[IBEGIN + I - 1] *= (ONE + EPS * PERT * WORK[I]);
         E[IBEGIN + I - 1] =
             E[IBEGIN + I - 1] * (ONE + EPS * PERT * WORK[IN + I]);
       }
-      D[IEND] = D[IEND] * (ONE + EPS * FOUR * WORK[IN]);
+      D[IEND] *= (ONE + EPS * FOUR * WORK[IN]);
     }
 
     // Don't update the Gerschgorin intervals because keeping track
@@ -559,8 +559,8 @@ void dlarre(
       // shifted representation. In DLARRV, W will always hold the
       // UNshifted eigenvalue approximation.
       for (J = WBEGIN; J <= WEND; J++) {
-        W[J] = W[J] - SIGMA;
-        WERR[J] = WERR[J] + (W[J]).abs() * EPS;
+        W[J] -= SIGMA;
+        WERR[J] += (W[J]).abs() * EPS;
       }
       // call DLARRB to reduce eigenvalue error of the approximations
       // from DLARRD

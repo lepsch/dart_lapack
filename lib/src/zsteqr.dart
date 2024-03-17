@@ -265,7 +265,7 @@ void zsteqr(
                 LDZ);
           }
 
-          D[L] = D[L] - P;
+          D[L] -= P;
           E[L] = G;
           continue;
         }
@@ -365,7 +365,7 @@ void zsteqr(
                 LDZ);
           }
 
-          D[L] = D[L] - P;
+          D[L] -= P;
           E[LM1] = G;
           continue;
         } // 130

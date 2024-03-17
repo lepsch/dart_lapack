@@ -274,7 +274,7 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     }
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= N; I++) {
-        RINV[I] = RINV[I] + (A[I][J]).abs();
+        RINV[I] += (A[I][J]).abs();
       }
     }
 
@@ -323,7 +323,7 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       }
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= N; I++) {
-          RINV[I] = RINV[I] + (A[I][J] * INVHILB[J][K]).abs();
+          RINV[I] += (A[I][J] * INVHILB[J][K]).abs();
         }
       }
       RINORM = 0.0;

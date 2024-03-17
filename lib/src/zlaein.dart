@@ -176,7 +176,7 @@ void zlaein(
       // 100
       V[I] = RTEMP.toComplex();
     } // 100
-    V[N - ITS + 1] = V[N - ITS + 1] - (EPS3 * ROOTN).toComplex();
+    V[N - ITS + 1] -= (EPS3 * ROOTN).toComplex();
   } // 110
 
   if (!solved) {

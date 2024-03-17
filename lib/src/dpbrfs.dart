@@ -137,24 +137,24 @@ void dpbrfs(
           L = KD + 1 - K;
           for (I = max(1, K - KD); I <= K - 1; I++) {
             // 40
-            WORK[I] = WORK[I] + (AB[L + I][K]).abs() * XK;
+            WORK[I] += (AB[L + I][K]).abs() * XK;
             S += (AB[L + I][K]).abs() * (X[I][J]).abs();
           } // 40
-          WORK[K] = WORK[K] + (AB[KD + 1][K]).abs() * XK + S;
+          WORK[K] += (AB[KD + 1][K]).abs() * XK + S;
         } // 50
       } else {
         for (K = 1; K <= N; K++) {
           // 70
           S = ZERO;
           XK = (X[K][J]).abs();
-          WORK[K] = WORK[K] + (AB[1][K]).abs() * XK;
+          WORK[K] += (AB[1][K]).abs() * XK;
           L = 1 - K;
           for (I = K + 1; I <= min(N, K + KD); I++) {
             // 60
-            WORK[I] = WORK[I] + (AB[L + I][K]).abs() * XK;
+            WORK[I] += (AB[L + I][K]).abs() * XK;
             S += (AB[L + I][K]).abs() * (X[I][J]).abs();
           } // 60
-          WORK[K] = WORK[K] + S;
+          WORK[K] += S;
         } // 70
       }
       S = ZERO;
@@ -226,14 +226,14 @@ void dpbrfs(
         dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK(N + 1).asMatrix(N), N, INFO);
         for (I = 1; I <= N; I++) {
           // 110
-          WORK[N + I] = WORK[N + I] * WORK[I];
+          WORK[N + I] *= WORK[I];
         } // 110
       } else if (KASE.value == 2) {
         // Multiply by inv(A)*diag(W).
 
         for (I = 1; I <= N; I++) {
           // 120
-          WORK[N + I] = WORK[N + I] * WORK[I];
+          WORK[N + I] *= WORK[I];
         } // 120
         dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK(N + 1).asMatrix(N), N, INFO);
       }
@@ -246,6 +246,6 @@ void dpbrfs(
       // 130
       LSTRES = max(LSTRES, (X[I][J]).abs());
     } // 130
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 140
 }

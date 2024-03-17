@@ -72,7 +72,7 @@ void dpteqr(
     D[I] = sqrt(D[I]);
   }
   for (I = 1; I <= N - 1; I++) {
-    E[I] = E[I] * D[I];
+    E[I] *= D[I];
   }
 
   // Call DBDSQR to compute the singular values/vectors of the
@@ -89,7 +89,7 @@ void dpteqr(
 
   if (INFO.value == 0) {
     for (I = 1; I <= N; I++) {
-      D[I] = D[I] * D[I];
+      D[I] *= D[I];
     }
   } else {
     INFO.value = N + INFO.value;

@@ -91,7 +91,7 @@ void zsptri(
           zcopy(K - 1, AP(KC), 1, WORK, 1);
           zspmv(
               UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero, AP(KC), 1);
-          AP[KC + K - 1] = AP[KC + K - 1] - zdotu(K - 1, WORK, 1, AP(KC), 1);
+          AP[KC + K - 1] -= zdotu(K - 1, WORK, 1, AP(KC), 1);
         }
         KSTEP = 1;
       } else {
@@ -114,7 +114,7 @@ void zsptri(
           zcopy(K - 1, AP(KC), 1, WORK, 1);
           zspmv(
               UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero, AP(KC), 1);
-          AP[KC + K - 1] = AP[KC + K - 1] - zdotu(K - 1, WORK, 1, AP(KC), 1);
+          AP[KC + K - 1] -= zdotu(K - 1, WORK, 1, AP(KC), 1);
           AP[KCNEXT + K - 1] =
               AP[KCNEXT + K - 1] - zdotu(K - 1, AP(KC), 1, AP(KCNEXT), 1);
           zcopy(K - 1, AP(KCNEXT), 1, WORK, 1);
@@ -179,7 +179,7 @@ void zsptri(
           zcopy(N - K, AP(KC + 1), 1, WORK, 1);
           zspmv(UPLO, N - K, -Complex.one, AP(KC + N - K + 1), WORK, 1,
               Complex.zero, AP(KC + 1), 1);
-          AP[KC] = AP[KC] - zdotu(N - K, WORK, 1, AP(KC + 1), 1);
+          AP[KC] -= zdotu(N - K, WORK, 1, AP(KC + 1), 1);
         }
         KSTEP = 1;
       } else {
@@ -202,13 +202,13 @@ void zsptri(
           zcopy(N - K, AP(KC + 1), 1, WORK, 1);
           zspmv(UPLO, N - K, -Complex.one, AP(KC + (N - K + 1)), WORK, 1,
               Complex.zero, AP(KC + 1), 1);
-          AP[KC] = AP[KC] - zdotu(N - K, WORK, 1, AP(KC + 1), 1);
+          AP[KC] -= zdotu(N - K, WORK, 1, AP(KC + 1), 1);
           AP[KCNEXT + 1] =
               AP[KCNEXT + 1] - zdotu(N - K, AP(KC + 1), 1, AP(KCNEXT + 2), 1);
           zcopy(N - K, AP(KCNEXT + 2), 1, WORK, 1);
           zspmv(UPLO, N - K, -Complex.one, AP(KC + (N - K + 1)), WORK, 1,
               Complex.zero, AP(KCNEXT + 2), 1);
-          AP[KCNEXT] = AP[KCNEXT] - zdotu(N - K, WORK, 1, AP(KCNEXT + 2), 1);
+          AP[KCNEXT] -= zdotu(N - K, WORK, 1, AP(KCNEXT + 2), 1);
         }
         KSTEP = 2;
         KCNEXT -= (N - K + 3);

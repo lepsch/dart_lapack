@@ -205,8 +205,7 @@ void dsptrf(
                   (D22 * AP[J + (K - 1) * K ~/ 2] -
                       AP[J + (K - 2) * (K - 1) ~/ 2]);
               for (I = J; I >= 1; I--) {
-                AP[I + (J - 1) * J ~/ 2] = AP[I + (J - 1) * J ~/ 2] -
-                    AP[I + (K - 1) * K ~/ 2] * WK -
+                AP[I + (J - 1) * J ~/ 2] -= AP[I + (K - 1) * K ~/ 2] * WK -
                     AP[I + (K - 2) * (K - 1) ~/ 2] * WKM1;
               }
               AP[J + (K - 1) * K ~/ 2] = WK;

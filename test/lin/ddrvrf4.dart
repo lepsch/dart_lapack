@@ -165,10 +165,8 @@ void ddrvrf4(
               // is supposed to be real -> DLANGE
 
               RESULT[1] = dlange('I', N, N, C1, LDC, D_WORK_DLANGE);
-              RESULT[1] = RESULT[1] /
-                  max(ALPHA.abs() * NORMA + BETA.abs(), ONE) /
-                  max(N, 1) /
-                  EPS;
+              RESULT[1] /=
+                  max(ALPHA.abs() * NORMA + BETA.abs(), ONE) / max(N, 1) / EPS;
 
               if (RESULT[1] >= THRESH) {
                 if (NFAIL == 0) {

@@ -109,7 +109,7 @@ void zlaed8(
 
   for (I = CUTPNT + 1; I <= N; I++) {
     // 20
-    INDXQ[I] = INDXQ[I] + CUTPNT;
+    INDXQ[I] += CUTPNT;
   } // 20
   for (I = 1; I <= N; I++) {
     // 30

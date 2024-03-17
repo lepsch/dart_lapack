@@ -239,8 +239,8 @@ void dlasd4(
     SIGMA.value = SIGMA.value + ETA.value;
 
     for (J = 1; J <= N; J++) {
-      DELTA[J] = DELTA[J] - ETA.value;
-      WORK[J] = WORK[J] + ETA.value;
+      DELTA[J] -= ETA.value;
+      WORK[J] += ETA.value;
     }
 
     // Evaluate PSI and the derivative DPSI
@@ -307,8 +307,8 @@ void dlasd4(
       SIGMA.value = SIGMA.value + ETA.value;
 
       for (J = 1; J <= N; J++) {
-        DELTA[J] = DELTA[J] - ETA.value;
-        WORK[J] = WORK[J] + ETA.value;
+        DELTA[J] -= ETA.value;
+        WORK[J] += ETA.value;
       }
 
       // Evaluate PSI and the derivative DPSI
@@ -619,8 +619,8 @@ void dlasd4(
     SIGMA.value = SIGMA.value + ETA.value;
 
     for (J = 1; J <= N; J++) {
-      WORK[J] = WORK[J] + ETA.value;
-      DELTA[J] = DELTA[J] - ETA.value;
+      WORK[J] += ETA.value;
+      DELTA[J] -= ETA.value;
     }
 
     // Evaluate PSI and the derivative DPSI
@@ -842,8 +842,8 @@ void dlasd4(
       SIGMA.value = SIGMA.value + ETA.value;
 
       for (J = 1; J <= N; J++) {
-        WORK[J] = WORK[J] + ETA.value;
-        DELTA[J] = DELTA[J] - ETA.value;
+        WORK[J] += ETA.value;
+        DELTA[J] -= ETA.value;
       }
 
       // Evaluate PSI and the derivative DPSI

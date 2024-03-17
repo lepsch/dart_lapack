@@ -70,7 +70,7 @@ double zlanhp(
           // 50
           ABSA = (AP[K]).abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
           K++;
         } // 50
         WORK[J] = SUM.value + AP[K].toDouble().abs();
@@ -94,7 +94,7 @@ double zlanhp(
           // 90
           ABSA = (AP[K]).abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
           K++;
         } // 90
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

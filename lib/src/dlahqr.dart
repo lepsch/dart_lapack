@@ -259,9 +259,9 @@ void dlahqr(
         V[2] = H21S * (H[M][M] + H[M + 1][M + 1] - RT1R - RT2R);
         V[3] = H21S * H[M + 2][M + 1];
         S = (V[1]).abs() + (V[2]).abs() + (V[3]).abs();
-        V[1] = V[1] / S;
-        V[2] = V[2] / S;
-        V[3] = V[3] / S;
+        V[1] /= S;
+        V[2] /= S;
+        V[3] /= S;
         if (M == L) break;
         if ((H[M][M - 1]).abs() * ((V[2]).abs() + (V[3]).abs()) <=
             ULP *

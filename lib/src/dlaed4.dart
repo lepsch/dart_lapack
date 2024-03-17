@@ -218,7 +218,7 @@ void dlaed4(
       }
     }
     for (J = 1; J <= N; J++) {
-      DELTA[J] = DELTA[J] - ETA.value;
+      DELTA[J] -= ETA.value;
     }
 
     TAU += ETA.value;
@@ -295,7 +295,7 @@ void dlaed4(
         }
       }
       for (J = 1; J <= N; J++) {
-        DELTA[J] = DELTA[J] - ETA.value;
+        DELTA[J] -= ETA.value;
       }
 
       TAU += ETA.value;
@@ -539,7 +539,7 @@ void dlaed4(
     PREW = W;
 
     for (J = 1; J <= N; J++) {
-      DELTA[J] = DELTA[J] - ETA.value;
+      DELTA[J] -= ETA.value;
     }
 
     // Evaluate PSI and the derivative DPSI
@@ -697,7 +697,7 @@ void dlaed4(
       }
 
       for (J = 1; J <= N; J++) {
-        DELTA[J] = DELTA[J] - ETA.value;
+        DELTA[J] -= ETA.value;
       }
 
       TAU += ETA.value;

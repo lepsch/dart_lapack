@@ -70,10 +70,10 @@ void ztpmv(
             TEMP = X[J];
             K = KK;
             for (I = 1; I <= J - 1; I++) {
-              X[I] = X[I] + TEMP * AP[K];
+              X[I] += TEMP * AP[K];
               K++;
             }
-            if (NOUNIT) X[J] = X[J] * AP[KK + J - 1];
+            if (NOUNIT) X[J] *= AP[KK + J - 1];
           }
           KK += J;
         }
@@ -84,10 +84,10 @@ void ztpmv(
             TEMP = X[JX];
             IX = KX;
             for (K = KK; K <= KK + J - 2; K++) {
-              X[IX] = X[IX] + TEMP * AP[K];
+              X[IX] += TEMP * AP[K];
               IX += INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * AP[KK + J - 1];
+            if (NOUNIT) X[JX] *= AP[KK + J - 1];
           }
           JX += INCX;
           KK += J;
@@ -101,10 +101,10 @@ void ztpmv(
             TEMP = X[J];
             K = KK;
             for (I = N; I >= J + 1; I--) {
-              X[I] = X[I] + TEMP * AP[K];
+              X[I] += TEMP * AP[K];
               K--;
             }
-            if (NOUNIT) X[J] = X[J] * AP[KK - N + J];
+            if (NOUNIT) X[J] *= AP[KK - N + J];
           }
           KK -= (N - J + 1);
         }
@@ -116,10 +116,10 @@ void ztpmv(
             TEMP = X[JX];
             IX = KX;
             for (K = KK; K >= KK - (N - (J + 1)); K--) {
-              X[IX] = X[IX] + TEMP * AP[K];
+              X[IX] += TEMP * AP[K];
               IX -= INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * AP[KK - N + J];
+            if (NOUNIT) X[JX] *= AP[KK - N + J];
           }
           JX -= INCX;
           KK -= (N - J + 1);

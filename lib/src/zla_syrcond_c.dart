@@ -125,7 +125,7 @@ double zla_syrcond_c(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * RWORK[I].toComplex();
+        WORK[I] *= RWORK[I].toComplex();
       }
 
       if (UP) {
@@ -138,7 +138,7 @@ double zla_syrcond_c(
 
       if (CAPPLY) {
         for (I = 1; I <= N; I++) {
-          WORK[I] = WORK[I] * C[I].toComplex();
+          WORK[I] *= C[I].toComplex();
         }
       }
     } else {
@@ -146,7 +146,7 @@ double zla_syrcond_c(
 
       if (CAPPLY) {
         for (I = 1; I <= N; I++) {
-          WORK[I] = WORK[I] * C[I].toComplex();
+          WORK[I] *= C[I].toComplex();
         }
       }
 
@@ -159,7 +159,7 @@ double zla_syrcond_c(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * RWORK[I].toComplex();
+        WORK[I] *= RWORK[I].toComplex();
       }
     }
   }

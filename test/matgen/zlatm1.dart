@@ -139,7 +139,7 @@ void zlatm1(
       for (I = 1; I <= N; I++) {
         // 130
         CTEMP = zlarnd(3, ISEED);
-        D[I] = D[I] * (CTEMP / CTEMP.abs().toComplex());
+        D[I] *= (CTEMP / CTEMP.abs().toComplex());
       } // 130
     }
 

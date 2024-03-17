@@ -245,7 +245,7 @@ void dgesvj(
         if (GOSCALE) {
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
-            SVA[q] = SVA[q] * SKL;
+            SVA[q] *= SKL;
           }
         }
       }
@@ -270,7 +270,7 @@ void dgesvj(
         if (GOSCALE) {
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
-            SVA[q] = SVA[q] * SKL;
+            SVA[q] *= SKL;
           }
         }
       }
@@ -295,7 +295,7 @@ void dgesvj(
         if (GOSCALE) {
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
-            SVA[q] = SVA[q] * SKL;
+            SVA[q] *= SKL;
           }
         }
       }
@@ -741,8 +741,8 @@ void dgesvj(
                         if (WORK[q] >= ONE) {
                           FASTR[3] = T.value * APOAQ;
                           FASTR[4] = -T.value * AQOAP;
-                          WORK[p] = WORK[p] * CS;
-                          WORK[q] = WORK[q] * CS;
+                          WORK[p] *= CS;
+                          WORK[q] *= CS;
                           drotm(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1,
                               FASTR);
                           if (RSVEC) {
@@ -754,8 +754,8 @@ void dgesvj(
                               A(1, p).asArray(), 1);
                           daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
                               A(1, q).asArray(), 1);
-                          WORK[p] = WORK[p] * CS;
-                          WORK[q] = WORK[q] / CS;
+                          WORK[p] *= CS;
+                          WORK[q] /= CS;
                           if (RSVEC) {
                             daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
                                 V(1, p).asArray(), 1);
@@ -769,8 +769,8 @@ void dgesvj(
                               A(1, q).asArray(), 1);
                           daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
                               A(1, p).asArray(), 1);
-                          WORK[p] = WORK[p] / CS;
-                          WORK[q] = WORK[q] * CS;
+                          WORK[p] /= CS;
+                          WORK[q] *= CS;
                           if (RSVEC) {
                             daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
                                 V(1, q).asArray(), 1);
@@ -783,8 +783,8 @@ void dgesvj(
                                 A(1, p).asArray(), 1);
                             daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
                                 A(1, q).asArray(), 1);
-                            WORK[p] = WORK[p] * CS;
-                            WORK[q] = WORK[q] / CS;
+                            WORK[p] *= CS;
+                            WORK[q] /= CS;
                             if (RSVEC) {
                               daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
                                   V(1, p).asArray(), 1);
@@ -796,8 +796,8 @@ void dgesvj(
                                 A(1, q).asArray(), 1);
                             daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
                                 A(1, p).asArray(), 1);
-                            WORK[p] = WORK[p] / CS;
-                            WORK[q] = WORK[q] * CS;
+                            WORK[p] /= CS;
+                            WORK[q] *= CS;
                             if (RSVEC) {
                               daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
                                   V(1, q).asArray(), 1);
@@ -1002,8 +1002,8 @@ void dgesvj(
                         if (WORK[q] >= ONE) {
                           FASTR[3] = T.value * APOAQ;
                           FASTR[4] = -T.value * AQOAP;
-                          WORK[p] = WORK[p] * CS;
-                          WORK[q] = WORK[q] * CS;
+                          WORK[p] *= CS;
+                          WORK[q] *= CS;
                           drotm(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1,
                               FASTR);
                           if (RSVEC) {
@@ -1021,8 +1021,8 @@ void dgesvj(
                             daxpy(MVL, CS * SN * APOAQ, V(1, p).asArray(), 1,
                                 V(1, q).asArray(), 1);
                           }
-                          WORK[p] = WORK[p] * CS;
-                          WORK[q] = WORK[q] / CS;
+                          WORK[p] *= CS;
+                          WORK[q] /= CS;
                         }
                       } else {
                         if (WORK[q] >= ONE) {
@@ -1036,16 +1036,16 @@ void dgesvj(
                             daxpy(MVL, -CS * SN * AQOAP, V(1, q).asArray(), 1,
                                 V(1, p).asArray(), 1);
                           }
-                          WORK[p] = WORK[p] / CS;
-                          WORK[q] = WORK[q] * CS;
+                          WORK[p] /= CS;
+                          WORK[q] *= CS;
                         } else {
                           if (WORK[p] >= WORK[q]) {
                             daxpy(M, -T.value * AQOAP, A(1, q).asArray(), 1,
                                 A(1, p).asArray(), 1);
                             daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
                                 A(1, q).asArray(), 1);
-                            WORK[p] = WORK[p] * CS;
-                            WORK[q] = WORK[q] / CS;
+                            WORK[p] *= CS;
+                            WORK[q] /= CS;
                             if (RSVEC) {
                               daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
                                   V(1, p).asArray(), 1);
@@ -1057,8 +1057,8 @@ void dgesvj(
                                 A(1, q).asArray(), 1);
                             daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
                                 A(1, p).asArray(), 1);
-                            WORK[p] = WORK[p] / CS;
-                            WORK[q] = WORK[q] * CS;
+                            WORK[p] /= CS;
+                            WORK[q] *= CS;
                             if (RSVEC) {
                               daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
                                   V(1, q).asArray(), 1);

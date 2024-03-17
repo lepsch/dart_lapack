@@ -65,7 +65,7 @@ void dgbt02(
     for (var J = 1; J <= N; J++) {
       final KD = KU + 1 - J;
       for (var I1 = max(1, J - KU); I1 <= min(M, J + KL); I1++) {
-        RWORK[I1] = RWORK[I1] + (A[KD + I1][J]).abs();
+        RWORK[I1] += (A[KD + I1][J]).abs();
       }
     }
     for (var I1 = 1; I1 <= M; I1++) {

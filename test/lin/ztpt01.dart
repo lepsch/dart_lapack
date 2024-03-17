@@ -58,7 +58,7 @@ void ztpt01(
 
       // Subtract 1 from the diagonal to form A*AINV - I.
 
-      AINVP[JC + J - 1] = AINVP[JC + J - 1] - Complex.one;
+      AINVP[JC + J - 1] -= Complex.one;
       JC += J;
     }
   } else {
@@ -72,7 +72,7 @@ void ztpt01(
 
       // Subtract 1 from the diagonal to form A*AINV - I.
 
-      AINVP[JC] = AINVP[JC] - Complex.one;
+      AINVP[JC] -= Complex.one;
       JC += N - J + 1;
     }
   }

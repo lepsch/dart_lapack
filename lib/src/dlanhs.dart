@@ -60,7 +60,7 @@ double dlanhs(
     }
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= min(N, J + 1); I++) {
-        WORK[I] = WORK[I] + A[I][J].abs();
+        WORK[I] += A[I][J].abs();
       }
     }
     var VALUE = ZERO;

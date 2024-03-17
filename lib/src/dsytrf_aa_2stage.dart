@@ -346,7 +346,7 @@ void dsytrf_aa_2stage(
 
         for (K = 1; K <= KB; K++) {
           // > Adjust ipiv
-          IPIV[(J + 1) * NB + K] = IPIV[(J + 1) * NB + K] + (J + 1) * NB;
+          IPIV[(J + 1) * NB + K] += (J + 1) * NB;
 
           I1 = (J + 1) * NB + K;
           I2 = IPIV[(J + 1) * NB + K];
@@ -595,7 +595,7 @@ void dsytrf_aa_2stage(
 
         for (K = 1; K <= KB; K++) {
           // > Adjust ipiv
-          IPIV[(J + 1) * NB + K] = IPIV[(J + 1) * NB + K] + (J + 1) * NB;
+          IPIV[(J + 1) * NB + K] += (J + 1) * NB;
 
           I1 = (J + 1) * NB + K;
           I2 = IPIV[(J + 1) * NB + K];

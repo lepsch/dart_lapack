@@ -344,15 +344,15 @@ void dgges(
           if ((ALPHAR[I] / SAFMAX) > (ANRMTO / ANRM) ||
               (SAFMIN / ALPHAR[I]) > (ANRM / ANRMTO)) {
             WORK[1] = (A[I][I] / ALPHAR[I]).abs();
-            BETA[I] = BETA[I] * WORK[1];
-            ALPHAR[I] = ALPHAR[I] * WORK[1];
-            ALPHAI[I] = ALPHAI[I] * WORK[1];
+            BETA[I] *= WORK[1];
+            ALPHAR[I] *= WORK[1];
+            ALPHAI[I] *= WORK[1];
           } else if ((ALPHAI[I] / SAFMAX) > (ANRMTO / ANRM) ||
               (SAFMIN / ALPHAI[I]) > (ANRM / ANRMTO)) {
             WORK[1] = (A[I][I + 1] / ALPHAI[I]).abs();
-            BETA[I] = BETA[I] * WORK[1];
-            ALPHAR[I] = ALPHAR[I] * WORK[1];
-            ALPHAI[I] = ALPHAI[I] * WORK[1];
+            BETA[I] *= WORK[1];
+            ALPHAR[I] *= WORK[1];
+            ALPHAI[I] *= WORK[1];
           }
         }
       }
@@ -364,9 +364,9 @@ void dgges(
           if ((BETA[I] / SAFMAX) > (BNRMTO / BNRM) ||
               (SAFMIN / BETA[I]) > (BNRM / BNRMTO)) {
             WORK[1] = (B[I][I] / BETA[I]).abs();
-            BETA[I] = BETA[I] * WORK[1];
-            ALPHAR[I] = ALPHAR[I] * WORK[1];
-            ALPHAI[I] = ALPHAI[I] * WORK[1];
+            BETA[I] *= WORK[1];
+            ALPHAR[I] *= WORK[1];
+            ALPHAI[I] *= WORK[1];
           }
         }
       }

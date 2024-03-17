@@ -116,10 +116,10 @@ void dla_gbamv(
             TEMP = (AB[KD + I - J][J]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
         IY += INCY;
       }
     } else {
@@ -138,10 +138,10 @@ void dla_gbamv(
             TEMP = (AB[KE - I + J][I]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
         IY += INCY;
       }
     }
@@ -163,11 +163,11 @@ void dla_gbamv(
             TEMP = (AB[KD + I - J][J]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
             JX += INCX;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }
@@ -188,11 +188,11 @@ void dla_gbamv(
             TEMP = (AB[KE - I + J][I]).abs();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == ZERO || TEMP == ZERO);
 
-            Y[IY] = Y[IY] + ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
             JX += INCX;
           }
         }
-        if (!SYMB_ZERO) Y[IY] = Y[IY] + sign(SAFE1, Y[IY]);
+        if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
 
         IY += INCY;
       }

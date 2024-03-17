@@ -65,14 +65,14 @@ void dsyt22(
       WORK(NNP1).asMatrix(N), N);
   for (J = 1; J <= M; J++) {
     JJ = NN + (J - 1) * N + J;
-    WORK[JJ] = WORK[JJ] - D[J];
+    WORK[JJ] -= D[J];
   }
   if (KBAND == 1 && N > 1) {
     for (J = 2; J <= M; J++) {
       JJ1 = NN + (J - 1) * N + J - 1;
       JJ2 = NN + (J - 2) * N + J;
-      WORK[JJ1] = WORK[JJ1] - E[J - 1];
-      WORK[JJ2] = WORK[JJ2] - E[J - 1];
+      WORK[JJ1] -= E[J - 1];
+      WORK[JJ2] -= E[J - 1];
     }
   }
   WNORM = dlansy('1', UPLO, M, WORK(NNP1).asMatrix(N), N, WORK(1));

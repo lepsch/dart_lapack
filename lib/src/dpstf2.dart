@@ -98,7 +98,7 @@ void dpstf2(
 
       for (I = J; I <= N; I++) {
         if (J > 1) {
-          WORK[I] = WORK[I] + pow(A[J - 1][I], 2);
+          WORK[I] += pow(A[J - 1][I], 2);
         }
         WORK[N + I] = A[I][I] - WORK[I];
       }
@@ -161,7 +161,7 @@ void dpstf2(
 
       for (I = J; I <= N; I++) {
         if (J > 1) {
-          WORK[I] = WORK[I] + pow(A[I][J - 1], 2);
+          WORK[I] += pow(A[I][J - 1], 2);
         }
         WORK[N + I] = A[I][I] - WORK[I];
       }

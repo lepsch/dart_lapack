@@ -134,7 +134,7 @@ void zhbt21(
 
   for (J = 1; J <= N; J++) {
     // 80
-    WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - Complex.one;
+    WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
   } // 80
 
   RESULT[2] = min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N.toDouble()) /

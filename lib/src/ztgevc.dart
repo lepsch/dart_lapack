@@ -183,8 +183,8 @@ void ztgevc(
     RWORK[N + J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
       // 30
-      RWORK[J] = RWORK[J] + ABS1(S[I][J]);
-      RWORK[N + J] = RWORK[N + J] + ABS1(P[I][J]);
+      RWORK[J] += ABS1(S[I][J]);
+      RWORK[N + J] += ABS1(P[I][J]);
     } // 30
     ANORM = max(ANORM, RWORK[J] + ABS1(S[J][J]));
     BNORM = max(BNORM, RWORK[N + J] + ABS1(P[J][J]));
@@ -483,7 +483,7 @@ void ztgevc(
             CB = BCOEFF * WORK[J];
             for (JR = 1; JR <= J - 1; JR++) {
               // 200
-              WORK[JR] = WORK[JR] + CA * S[JR][J] - CB * P[JR][J];
+              WORK[JR] += CA * S[JR][J] - CB * P[JR][J];
             } // 200
           }
         } // 210

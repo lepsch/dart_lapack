@@ -113,17 +113,17 @@ void dsyequb(
     if (UP) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J - 1; I++) {
-          WORK[I] = WORK[I] + (A[I][J]).abs() * S[J];
-          WORK[J] = WORK[J] + (A[I][J]).abs() * S[I];
+          WORK[I] += (A[I][J]).abs() * S[J];
+          WORK[J] += (A[I][J]).abs() * S[I];
         }
-        WORK[J] = WORK[J] + (A[J][J]).abs() * S[J];
+        WORK[J] += (A[J][J]).abs() * S[J];
       }
     } else {
       for (J = 1; J <= N; J++) {
-        WORK[J] = WORK[J] + (A[J][J]).abs() * S[J];
+        WORK[J] += (A[J][J]).abs() * S[J];
         for (I = J + 1; I <= N; I++) {
-          WORK[I] = WORK[I] + (A[I][J]).abs() * S[J];
-          WORK[J] = WORK[J] + (A[I][J]).abs() * S[I];
+          WORK[I] += (A[I][J]).abs() * S[J];
+          WORK[J] += (A[I][J]).abs() * S[I];
         }
       }
     }
@@ -164,23 +164,23 @@ void dsyequb(
         for (J = 1; J <= I; J++) {
           T = (A[J][I]).abs();
           U += S[J] * T;
-          WORK[J] = WORK[J] + D * T;
+          WORK[J] += D * T;
         }
         for (J = I + 1; J <= N; J++) {
           T = (A[I][J]).abs();
           U += S[J] * T;
-          WORK[J] = WORK[J] + D * T;
+          WORK[J] += D * T;
         }
       } else {
         for (J = 1; J <= I; J++) {
           T = (A[I][J]).abs();
           U += S[J] * T;
-          WORK[J] = WORK[J] + D * T;
+          WORK[J] += D * T;
         }
         for (J = I + 1; J <= N; J++) {
           T = (A[J][I]).abs();
           U += S[J] * T;
-          WORK[J] = WORK[J] + D * T;
+          WORK[J] += D * T;
         }
       }
 

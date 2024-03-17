@@ -133,11 +133,11 @@ void zhprfs(
           IK = KK;
           for (I = 1; I <= K - 1; I++) {
             // 40
-            RWORK[I] = RWORK[I] + CABS1(AP[IK]) * XK;
+            RWORK[I] += CABS1(AP[IK]) * XK;
             S += CABS1(AP[IK]) * CABS1(X[I][J]);
             IK++;
           } // 40
-          RWORK[K] = RWORK[K] + AP[KK + K - 1].toDouble().abs() * XK + S;
+          RWORK[K] += AP[KK + K - 1].toDouble().abs() * XK + S;
           KK += K;
         } // 50
       } else {
@@ -145,15 +145,15 @@ void zhprfs(
           // 70
           S = ZERO;
           XK = CABS1(X[K][J]);
-          RWORK[K] = RWORK[K] + AP[KK].toDouble().abs() * XK;
+          RWORK[K] += AP[KK].toDouble().abs() * XK;
           IK = KK + 1;
           for (I = K + 1; I <= N; I++) {
             // 60
-            RWORK[I] = RWORK[I] + CABS1(AP[IK]) * XK;
+            RWORK[I] += CABS1(AP[IK]) * XK;
             S += CABS1(AP[IK]) * CABS1(X[I][J]);
             IK++;
           } // 60
-          RWORK[K] = RWORK[K] + S;
+          RWORK[K] += S;
           KK += (N - K + 1);
         } // 70
       }
@@ -247,6 +247,6 @@ void zhprfs(
       // 130
       LSTRES = max(LSTRES, CABS1(X[I][J]));
     } // 130
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 140
 }

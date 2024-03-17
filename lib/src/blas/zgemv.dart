@@ -118,7 +118,7 @@ void zgemv(
       for (J = 1; J <= N; J++) {
         TEMP = ALPHA * X[JX];
         for (I = 1; I <= M; I++) {
-          Y[I] = Y[I] + TEMP * A[I][J];
+          Y[I] += TEMP * A[I][J];
         }
         JX += INCX;
       }
@@ -127,7 +127,7 @@ void zgemv(
         TEMP = ALPHA * X[JX];
         IY = KY;
         for (I = 1; I <= M; I++) {
-          Y[IY] = Y[IY] + TEMP * A[I][J];
+          Y[IY] += TEMP * A[I][J];
           IY += INCY;
         }
         JX += INCX;
@@ -149,7 +149,7 @@ void zgemv(
             TEMP += A[I][J].conjugate() * X[I];
           }
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP;
+        Y[JY] += ALPHA * TEMP;
         JY += INCY;
       }
     } else {
@@ -167,7 +167,7 @@ void zgemv(
             IX += INCX;
           }
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP;
+        Y[JY] += ALPHA * TEMP;
         JY += INCY;
       }
     }

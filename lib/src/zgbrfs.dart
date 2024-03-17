@@ -153,7 +153,7 @@ void zgbrfs(
           XK = CABS1(X[K][J]);
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
             // 40
-            RWORK[I] = RWORK[I] + CABS1(AB[KK + I][K]) * XK;
+            RWORK[I] += CABS1(AB[KK + I][K]) * XK;
           } // 40
         } // 50
       } else {
@@ -165,7 +165,7 @@ void zgbrfs(
             // 60
             S += CABS1(AB[KK + I][K]) * CABS1(X[I][J]);
           } // 60
-          RWORK[K] = RWORK[K] + S;
+          RWORK[K] += S;
         } // 70
       }
       S = ZERO;
@@ -261,6 +261,6 @@ void zgbrfs(
       // 130
       LSTRES = max(LSTRES, CABS1(X[I][J]));
     } // 130
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 140
 }

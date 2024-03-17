@@ -89,10 +89,10 @@ void dlaed3(
     dcopy(K, Q.asArray(), LDQ + 1, W, 1);
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= J - 1; I++) {
-        W[I] = W[I] * (Q[I][J] / (DLAMBDA[I] - DLAMBDA[J]));
+        W[I] *= (Q[I][J] / (DLAMBDA[I] - DLAMBDA[J]));
       }
       for (I = J + 1; I <= K; I++) {
-        W[I] = W[I] * (Q[I][J] / (DLAMBDA[I] - DLAMBDA[J]));
+        W[I] *= (Q[I][J] / (DLAMBDA[I] - DLAMBDA[J]));
       }
     }
     for (I = 1; I <= K; I++) {

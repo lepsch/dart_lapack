@@ -178,14 +178,14 @@ void dlasy2(
       BTMP[2] = BTMP[1] - L21 * TEMP;
       BTMP[1] = TEMP;
     } else {
-      BTMP[2] = BTMP[2] - L21 * BTMP[1];
+      BTMP[2] -= L21 * BTMP[1];
     }
     SCALE.value = ONE;
     if ((TWO * SMLNUM) * BTMP[2].abs() > (U22).abs() ||
         (TWO * SMLNUM) * BTMP[1].abs() > (U11).abs()) {
       SCALE.value = HALF / max(BTMP[1].abs(), BTMP[2]).abs();
-      BTMP[1] = BTMP[1] * SCALE.value;
-      BTMP[2] = BTMP[2] * SCALE.value;
+      BTMP[1] *= SCALE.value;
+      BTMP[2] *= SCALE.value;
     }
     X2[2] = BTMP[2] / U22;
     X2[1] = BTMP[1] / U11 - (U12 / U11) * X2[2];
@@ -281,7 +281,7 @@ void dlasy2(
     }
     for (J = I + 1; J <= 4; J++) {
       T16[J][I] /= T16[I][I];
-      BTMP[J] = BTMP[J] - T16[J][I] * BTMP[I];
+      BTMP[J] -= T16[J][I] * BTMP[I];
       for (K = I + 1; K <= 4; K++) {
         T16[J][K] -= T16[J][I] * T16[I][K];
       }
@@ -299,17 +299,17 @@ void dlasy2(
     SCALE.value = (ONE / EIGHT) /
         max(BTMP[1].abs(),
             max(BTMP[2].abs(), max(BTMP[3].abs(), BTMP[4].abs())));
-    BTMP[1] = BTMP[1] * SCALE.value;
-    BTMP[2] = BTMP[2] * SCALE.value;
-    BTMP[3] = BTMP[3] * SCALE.value;
-    BTMP[4] = BTMP[4] * SCALE.value;
+    BTMP[1] *= SCALE.value;
+    BTMP[2] *= SCALE.value;
+    BTMP[3] *= SCALE.value;
+    BTMP[4] *= SCALE.value;
   }
   for (I = 1; I <= 4; I++) {
     K = 5 - I;
     TEMP = ONE / T16[K][K];
     TMP[K] = BTMP[K] * TEMP;
     for (J = K + 1; J <= 4; J++) {
-      TMP[K] = TMP[K] - (TEMP * T16[K][J]) * TMP[J];
+      TMP[K] -= (TEMP * T16[K][J]) * TMP[J];
     }
   }
   for (I = 1; I <= 3; I++) {

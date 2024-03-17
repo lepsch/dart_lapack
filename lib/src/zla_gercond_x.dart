@@ -97,7 +97,7 @@ double zla_gercond_x(
     if (KASE.value == 2) {
       // Multiply by R.
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * RWORK[I].toComplex();
+        WORK[I] *= RWORK[I].toComplex();
       }
 
       if (NOTRANS) {
@@ -110,13 +110,13 @@ double zla_gercond_x(
       // Multiply by inv(X).
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] / X[I];
+        WORK[I] /= X[I];
       }
     } else {
       // Multiply by inv(X**H).
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] / X[I];
+        WORK[I] /= X[I];
       }
 
       if (NOTRANS) {
@@ -129,7 +129,7 @@ double zla_gercond_x(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * RWORK[I].toComplex();
+        WORK[I] *= RWORK[I].toComplex();
       }
     }
   }

@@ -117,7 +117,7 @@ void dlasd2(
   // Sort the singular values into increasing order
 
   for (I = NLP2; I <= N; I++) {
-    IDXQ[I] = IDXQ[I] + NLP1;
+    IDXQ[I] += NLP1;
   }
 
   // DSIGMA, IDXC, IDXC, and the first column of U2

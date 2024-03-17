@@ -221,7 +221,7 @@ void dgebal(
         if (SCALE[I] >= SFMAX1 / F) continue;
       }
       G = ONE / F;
-      SCALE[I] = SCALE[I] * F;
+      SCALE[I] *= F;
       NOCONV = true;
 
       dscal(N - K + 1, G, A(I, K).asArray(), LDA);

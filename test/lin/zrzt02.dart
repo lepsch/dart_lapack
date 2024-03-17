@@ -54,7 +54,7 @@ double zrzt02(
   // Q := Q - I
 
   for (var I = 1; I <= N; I++) {
-    WORK[(I - 1) * N + I] = WORK[(I - 1) * N + I] - Complex.one;
+    WORK[(I - 1) * N + I] -= Complex.one;
   }
 
   final RWORK = Array<double>(1);

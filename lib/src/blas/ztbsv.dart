@@ -76,10 +76,10 @@ void ztbsv(
         for (J = N; J >= 1; J--) {
           if (X[J] != Complex.zero) {
             L = KPLUS1 - J;
-            if (NOUNIT) X[J] = X[J] / A[KPLUS1][J];
+            if (NOUNIT) X[J] /= A[KPLUS1][J];
             TEMP = X[J];
             for (I = J - 1; I >= max(1, J - K); I--) {
-              X[I] = X[I] - TEMP * A[L + I][J];
+              X[I] -= TEMP * A[L + I][J];
             }
           }
         }
@@ -91,10 +91,10 @@ void ztbsv(
           if (X[JX] != Complex.zero) {
             IX = KX;
             L = KPLUS1 - J;
-            if (NOUNIT) X[JX] = X[JX] / A[KPLUS1][J];
+            if (NOUNIT) X[JX] /= A[KPLUS1][J];
             TEMP = X[JX];
             for (I = J - 1; I >= max(1, J - K); I--) {
-              X[IX] = X[IX] - TEMP * A[L + I][J];
+              X[IX] -= TEMP * A[L + I][J];
               IX -= INCX;
             }
           }
@@ -106,10 +106,10 @@ void ztbsv(
         for (J = 1; J <= N; J++) {
           if (X[J] != Complex.zero) {
             L = 1 - J;
-            if (NOUNIT) X[J] = X[J] / A[1][J];
+            if (NOUNIT) X[J] /= A[1][J];
             TEMP = X[J];
             for (I = J + 1; I <= min(N, J + K); I++) {
-              X[I] = X[I] - TEMP * A[L + I][J];
+              X[I] -= TEMP * A[L + I][J];
             }
           }
         }
@@ -120,10 +120,10 @@ void ztbsv(
           if (X[JX] != Complex.zero) {
             IX = KX;
             L = 1 - J;
-            if (NOUNIT) X[JX] = X[JX] / A[1][J];
+            if (NOUNIT) X[JX] /= A[1][J];
             TEMP = X[JX];
             for (I = J + 1; I <= min(N, J + K); I++) {
-              X[IX] = X[IX] - TEMP * A[L + I][J];
+              X[IX] -= TEMP * A[L + I][J];
               IX += INCX;
             }
           }

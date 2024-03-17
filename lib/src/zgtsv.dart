@@ -58,7 +58,7 @@ void zgtsv(
       // No row interchange required
 
       MULT = DL[K] / D[K];
-      D[K + 1] = D[K + 1] - MULT * DU[K];
+      D[K + 1] -= MULT * DU[K];
       for (J = 1; J <= NRHS; J++) {
         // 10
         B[K + 1][J] -= MULT * B[K][J];

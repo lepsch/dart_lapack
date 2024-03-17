@@ -264,7 +264,7 @@ void dsteqr(
             dlasr('R', 'V', 'B', N, MM, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
           }
 
-          D[L] = D[L] - P;
+          D[L] -= P;
           E[L] = G;
           continue;
         }
@@ -364,7 +364,7 @@ void dsteqr(
             dlasr('R', 'V', 'F', N, MM, WORK(M), WORK(N - 1 + M), Z(1, M), LDZ);
           }
 
-          D[L] = D[L] - P;
+          D[L] -= P;
           E[LM1] = G;
           continue;
         }

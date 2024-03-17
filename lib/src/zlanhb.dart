@@ -68,7 +68,7 @@ double zlanhb(
           // 50
           ABSA = AB[L + I][J].abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
         } // 50
         WORK[J] = SUM.value + AB[K + 1][J].toDouble().abs();
       } // 60
@@ -90,7 +90,7 @@ double zlanhb(
           // 90
           ABSA = (AB[L + I][J]).abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
         } // 90
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       } // 100

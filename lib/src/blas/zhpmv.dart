@@ -99,11 +99,11 @@ void zhpmv(
         TEMP2 = Complex.zero;
         K = KK;
         for (I = 1; I <= J - 1; I++) {
-          Y[I] = Y[I] + TEMP1 * AP[K];
+          Y[I] += TEMP1 * AP[K];
           TEMP2 += AP[K].conjugate() * X[I];
           K++;
         }
-        Y[J] = Y[J] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
+        Y[J] += TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
         KK += J;
       }
     } else {
@@ -115,12 +115,12 @@ void zhpmv(
         IX = KX;
         IY = KY;
         for (K = KK; K <= KK + J - 2; K++) {
-          Y[IY] = Y[IY] + TEMP1 * AP[K];
+          Y[IY] += TEMP1 * AP[K];
           TEMP2 += AP[K].conjugate() * X[IX];
           IX += INCX;
           IY += INCY;
         }
-        Y[JY] = Y[JY] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
+        Y[JY] += TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
         KK += J;
@@ -133,14 +133,14 @@ void zhpmv(
       for (J = 1; J <= N; J++) {
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
-        Y[J] = Y[J] + TEMP1 * AP[KK].real.toComplex();
+        Y[J] += TEMP1 * AP[KK].real.toComplex();
         K = KK + 1;
         for (I = J + 1; I <= N; I++) {
-          Y[I] = Y[I] + TEMP1 * AP[K];
+          Y[I] += TEMP1 * AP[K];
           TEMP2 += AP[K].conjugate() * X[I];
           K++;
         }
-        Y[J] = Y[J] + ALPHA * TEMP2;
+        Y[J] += ALPHA * TEMP2;
         KK += (N - J + 1);
       }
     } else {
@@ -149,16 +149,16 @@ void zhpmv(
       for (J = 1; J <= N; J++) {
         TEMP1 = ALPHA * X[JX];
         TEMP2 = Complex.zero;
-        Y[JY] = Y[JY] + TEMP1 * AP[KK].real.toComplex();
+        Y[JY] += TEMP1 * AP[KK].real.toComplex();
         IX = JX;
         IY = JY;
         for (K = KK + 1; K <= KK + N - J; K++) {
           IX += INCX;
           IY += INCY;
-          Y[IY] = Y[IY] + TEMP1 * AP[K];
+          Y[IY] += TEMP1 * AP[K];
           TEMP2 += AP[K].conjugate() * X[IX];
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP2;
+        Y[JY] += ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
         KK += (N - J + 1);

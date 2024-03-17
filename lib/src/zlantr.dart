@@ -132,7 +132,7 @@ double zlantr(
           // 170
           for (I = 1; I <= min(M, J - 1); I++) {
             // 160
-            WORK[I] = WORK[I] + A[I][J].abs();
+            WORK[I] += A[I][J].abs();
           } // 160
         } // 170
       } else {
@@ -144,7 +144,7 @@ double zlantr(
           // 200
           for (I = 1; I <= min(M, J); I++) {
             // 190
-            WORK[I] = WORK[I] + A[I][J].abs();
+            WORK[I] += A[I][J].abs();
           } // 190
         } // 200
       }
@@ -162,7 +162,7 @@ double zlantr(
           // 240
           for (I = J + 1; I <= M; I++) {
             // 230
-            WORK[I] = WORK[I] + A[I][J].abs();
+            WORK[I] += A[I][J].abs();
           } // 230
         } // 240
       } else {
@@ -174,7 +174,7 @@ double zlantr(
           // 270
           for (I = J; I <= M; I++) {
             // 260
-            WORK[I] = WORK[I] + A[I][J].abs();
+            WORK[I] += A[I][J].abs();
           } // 260
         } // 270
       }

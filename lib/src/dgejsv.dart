@@ -271,7 +271,7 @@ void dgejsv(
       V[1][1] = ONE;
     }
     if (SVA[1] < (BIG * SCALEM)) {
-      SVA[1] = SVA[1] / SCALEM;
+      SVA[1] /= SCALEM;
       SCALEM = ONE;
     }
     WORK[1] = ONE / SCALEM;

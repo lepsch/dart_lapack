@@ -189,7 +189,7 @@ void zhet21(
 
     for (J = 1; J <= N; J++) {
       // 100
-      WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - Complex.one;
+      WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
     } // 100
 
     WNORM = zlange('1', N, N, WORK.asMatrix(), N, RWORK);
@@ -215,7 +215,7 @@ void zhet21(
 
     for (J = 1; J <= N; J++) {
       // 110
-      WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - Complex.one;
+      WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
     } // 110
 
     RESULT[2] =

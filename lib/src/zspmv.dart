@@ -105,11 +105,11 @@ void zspmv(
         K = KK;
         for (I = 1; I <= J - 1; I++) {
           // 50
-          Y[I] = Y[I] + TEMP1 * AP[K];
+          Y[I] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[I];
           K++;
         } // 50
-        Y[J] = Y[J] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
+        Y[J] += TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
         KK += J;
       } // 60
     } else {
@@ -123,12 +123,12 @@ void zspmv(
         IY = KY;
         for (K = KK; K <= KK + J - 2; K++) {
           // 70
-          Y[IY] = Y[IY] + TEMP1 * AP[K];
+          Y[IY] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[IX];
           IX += INCX;
           IY += INCY;
         } // 70
-        Y[JY] = Y[JY] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
+        Y[JY] += TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
         KK += J;
@@ -142,15 +142,15 @@ void zspmv(
         // 100
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
-        Y[J] = Y[J] + TEMP1 * AP[KK];
+        Y[J] += TEMP1 * AP[KK];
         K = KK + 1;
         for (I = J + 1; I <= N; I++) {
           // 90
-          Y[I] = Y[I] + TEMP1 * AP[K];
+          Y[I] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[I];
           K++;
         } // 90
-        Y[J] = Y[J] + ALPHA * TEMP2;
+        Y[J] += ALPHA * TEMP2;
         KK += (N - J + 1);
       } // 100
     } else {
@@ -160,17 +160,17 @@ void zspmv(
         // 120
         TEMP1 = ALPHA * X[JX];
         TEMP2 = Complex.zero;
-        Y[JY] = Y[JY] + TEMP1 * AP[KK];
+        Y[JY] += TEMP1 * AP[KK];
         IX = JX;
         IY = JY;
         for (K = KK + 1; K <= KK + N - J; K++) {
           // 110
           IX += INCX;
           IY += INCY;
-          Y[IY] = Y[IY] + TEMP1 * AP[K];
+          Y[IY] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[IX];
         } // 110
-        Y[JY] = Y[JY] + ALPHA * TEMP2;
+        Y[JY] += ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
         KK += (N - J + 1);

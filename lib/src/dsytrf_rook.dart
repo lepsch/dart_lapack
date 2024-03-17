@@ -142,9 +142,9 @@ void dsytrf_rook(
       for (J = K; J <= K + KB.value - 1; J++) {
         // 30
         if (IPIV[J] > 0) {
-          IPIV[J] = IPIV[J] + K - 1;
+          IPIV[J] += K - 1;
         } else {
-          IPIV[J] = IPIV[J] - K + 1;
+          IPIV[J] -= K + 1;
         }
       } // 30
 

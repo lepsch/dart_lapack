@@ -158,7 +158,7 @@ void dlaed7(
       IWORK(INDX),
       INFO);
   PRMPTR[CURR + 1] = PRMPTR[CURR] + N;
-  GIVPTR[CURR + 1] = GIVPTR[CURR + 1] + GIVPTR[CURR];
+  GIVPTR[CURR + 1] += GIVPTR[CURR];
 
   // Solve Secular Equation.
 

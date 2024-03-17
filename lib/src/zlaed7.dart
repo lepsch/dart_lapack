@@ -139,7 +139,7 @@ void zlaed7(
       GIVNUM(1, GIVPTR[CURR]),
       INFO);
   PRMPTR[CURR + 1] = PRMPTR[CURR] + N;
-  GIVPTR[CURR + 1] = GIVPTR[CURR + 1] + GIVPTR[CURR];
+  GIVPTR[CURR + 1] += GIVPTR[CURR];
 
   // Solve Secular Equation.
 

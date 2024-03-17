@@ -452,7 +452,7 @@ void dstemr(
       // eigenvalues of the original matrix.
       for (J = 1; J <= M.value; J++) {
         ITMP.value = IWORK[IINDBL + J - 1];
-        W[J] = W[J] + E[IWORK[IINSPL + ITMP.value - 1]];
+        W[J] += E[IWORK[IINSPL + ITMP.value - 1]];
       }
     }
 

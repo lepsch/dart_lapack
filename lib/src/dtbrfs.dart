@@ -142,7 +142,7 @@ void dtbrfs(
             XK = (X[K][J]).abs();
             for (I = max(1, K - KD); I <= K; I++) {
               // 30
-              WORK[I] = WORK[I] + (AB[KD + 1 + I - K][K]).abs() * XK;
+              WORK[I] += (AB[KD + 1 + I - K][K]).abs() * XK;
             } // 30
           } // 40
         } else {
@@ -151,9 +151,9 @@ void dtbrfs(
             XK = (X[K][J]).abs();
             for (I = max(1, K - KD); I <= K - 1; I++) {
               // 50
-              WORK[I] = WORK[I] + (AB[KD + 1 + I - K][K]).abs() * XK;
+              WORK[I] += (AB[KD + 1 + I - K][K]).abs() * XK;
             } // 50
-            WORK[K] = WORK[K] + XK;
+            WORK[K] += XK;
           } // 60
         }
       } else {
@@ -163,7 +163,7 @@ void dtbrfs(
             XK = (X[K][J]).abs();
             for (I = K; I <= min(N, K + KD); I++) {
               // 70
-              WORK[I] = WORK[I] + (AB[1 + I - K][K]).abs() * XK;
+              WORK[I] += (AB[1 + I - K][K]).abs() * XK;
             } // 70
           } // 80
         } else {
@@ -172,9 +172,9 @@ void dtbrfs(
             XK = (X[K][J]).abs();
             for (I = K + 1; I <= min(N, K + KD); I++) {
               // 90
-              WORK[I] = WORK[I] + (AB[1 + I - K][K]).abs() * XK;
+              WORK[I] += (AB[1 + I - K][K]).abs() * XK;
             } // 90
-            WORK[K] = WORK[K] + XK;
+            WORK[K] += XK;
           } // 100
         }
       }
@@ -190,7 +190,7 @@ void dtbrfs(
               // 110
               S += (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 110
-            WORK[K] = WORK[K] + S;
+            WORK[K] += S;
           } // 120
         } else {
           for (K = 1; K <= N; K++) {
@@ -200,7 +200,7 @@ void dtbrfs(
               // 130
               S += (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 130
-            WORK[K] = WORK[K] + S;
+            WORK[K] += S;
           } // 140
         }
       } else {
@@ -212,7 +212,7 @@ void dtbrfs(
               // 150
               S += (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 150
-            WORK[K] = WORK[K] + S;
+            WORK[K] += S;
           } // 160
         } else {
           for (K = 1; K <= N; K++) {
@@ -222,7 +222,7 @@ void dtbrfs(
               // 170
               S += (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
             } // 170
-            WORK[K] = WORK[K] + S;
+            WORK[K] += S;
           } // 180
         }
       }
@@ -299,6 +299,6 @@ void dtbrfs(
       // 240
       LSTRES = max(LSTRES, (X[I][J]).abs());
     } // 240
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 250
 }

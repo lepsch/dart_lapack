@@ -175,7 +175,7 @@ void dsyt21(
     }
 
     for (J = 1; J <= N; J++) {
-      WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - ONE;
+      WORK[(N + 1) * (J - 1) + 1] -= ONE;
     }
 
     WNORM = dlange('1', N, N, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1));
@@ -199,7 +199,7 @@ void dsyt21(
     dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK.asMatrix(N), N);
 
     for (J = 1; J <= N; J++) {
-      WORK[(N + 1) * (J - 1) + 1] = WORK[(N + 1) * (J - 1) + 1] - ONE;
+      WORK[(N + 1) * (J - 1) + 1] -= ONE;
     }
 
     RESULT[2] = min(

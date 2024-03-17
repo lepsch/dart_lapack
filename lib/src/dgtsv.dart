@@ -47,7 +47,7 @@ void dgtsv(
 
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
-          D[I + 1] = D[I + 1] - FACT * DU[I];
+          D[I + 1] -= FACT * DU[I];
           B[I + 1][1] -= FACT * B[I][1];
         } else {
           INFO.value = I;
@@ -74,7 +74,7 @@ void dgtsv(
       if ((D[I]).abs() >= (DL[I]).abs()) {
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
-          D[I + 1] = D[I + 1] - FACT * DU[I];
+          D[I + 1] -= FACT * DU[I];
           B[I + 1][1] -= FACT * B[I][1];
         } else {
           INFO.value = I;
@@ -102,7 +102,7 @@ void dgtsv(
 
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
-          D[I + 1] = D[I + 1] - FACT * DU[I];
+          D[I + 1] -= FACT * DU[I];
           for (J = 1; J <= NRHS; J++) {
             B[I + 1][J] -= FACT * B[I][J];
           }
@@ -133,7 +133,7 @@ void dgtsv(
       if ((D[I]).abs() >= (DL[I]).abs()) {
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
-          D[I + 1] = D[I + 1] - FACT * DU[I];
+          D[I + 1] -= FACT * DU[I];
           for (J = 1; J <= NRHS; J++) {
             B[I + 1][J] -= FACT * B[I][J];
           }

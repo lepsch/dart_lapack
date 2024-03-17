@@ -87,7 +87,7 @@ void dlasq3(
         S = Z[NN - 3] * (Z[NN - 5] / (T + sqrt(T) * sqrt(T + S)));
       }
       T = Z[NN - 7] + (S + Z[NN - 5]);
-      Z[NN - 3] = Z[NN - 3] * (Z[NN - 7] / T);
+      Z[NN - 3] *= (Z[NN - 7] / T);
       Z[NN - 7] = T;
     }
     Z[4 * N0.value - 7] = Z[NN - 7] + SIGMA.value;

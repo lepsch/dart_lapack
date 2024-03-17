@@ -305,7 +305,7 @@ void dlaqp2rk(
             // element A(I,J) and store it in partial
             // 2-norm vector VN1.
 
-            VN1[J] = VN1[J] * sqrt(TEMP);
+            VN1[J] *= sqrt(TEMP);
           }
         }
       }

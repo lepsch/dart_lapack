@@ -42,7 +42,7 @@ void zgesc2(
     // 20
     for (J = I + 1; J <= N; J++) {
       // 10
-      RHS[J] = RHS[J] - A[J][I] * RHS[I];
+      RHS[J] -= A[J][I] * RHS[I];
     } // 10
   } // 20
 
@@ -61,10 +61,10 @@ void zgesc2(
   for (I = N; I >= 1; I--) {
     // 40
     TEMP = Complex(ONE, ZERO) / A[I][I];
-    RHS[I] = RHS[I] * TEMP;
+    RHS[I] *= TEMP;
     for (J = I + 1; J <= N; J++) {
       // 30
-      RHS[I] = RHS[I] - RHS[J] * (A[I][J] * TEMP);
+      RHS[I] -= RHS[J] * (A[I][J] * TEMP);
     } // 30
   } // 40
 

@@ -228,7 +228,7 @@ void zgbtrf(
 
         for (I = J; I <= J + JB - 1; I++) {
           // 90
-          IPIV[I] = IPIV[I] + J - 1;
+          IPIV[I] += J - 1;
         } // 90
 
         // Apply the row interchanges to A13, A23, and A33
@@ -366,7 +366,7 @@ void zgbtrf(
 
         for (I = J; I <= J + JB - 1; I++) {
           // 160
-          IPIV[I] = IPIV[I] + J - 1;
+          IPIV[I] += J - 1;
         } // 160
       }
 

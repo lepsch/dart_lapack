@@ -497,7 +497,7 @@ void zlatbs(
           // was not used to scale the dotproduct.
 
           var scale = true;
-          X[J] = X[J] - CSUMJ;
+          X[J] -= CSUMJ;
           XJ = CABS1(X[J]);
           if (NOUNIT) {
             // Compute x(j) = x(j) / A(j,j), scaling if necessary.
@@ -630,7 +630,7 @@ void zlatbs(
           // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
           // was not used to scale the dotproduct.
           var scale = true;
-          X[J] = X[J] - CSUMJ;
+          X[J] -= CSUMJ;
           XJ = CABS1(X[J]);
           if (NOUNIT) {
             // Compute x(j) = x(j) / A(j,j), scaling if necessary.

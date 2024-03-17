@@ -258,7 +258,7 @@ void dgbsvx(
         }
       }
       for (J = 1; J <= NRHS; J++) {
-        FERR[J] = FERR[J] / COLCND.value;
+        FERR[J] /= COLCND.value;
       }
     }
   } else if (ROWEQU) {
@@ -268,7 +268,7 @@ void dgbsvx(
       }
     }
     for (J = 1; J <= NRHS; J++) {
-      FERR[J] = FERR[J] / ROWCND.value;
+      FERR[J] /= ROWCND.value;
     }
   }
 

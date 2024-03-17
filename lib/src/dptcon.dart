@@ -68,9 +68,9 @@ void dptcon(
 
   // Solve D * M(L)**T * x = b.
 
-  WORK[N] = WORK[N] / D[N];
+  WORK[N] /= D[N];
   for (I = N - 1; I >= 1; I--) {
-    WORK[I] = WORK[I] / D[I] + WORK[I + 1] * (E[I]).abs();
+    WORK[I] /= D[I] + WORK[I + 1] * (E[I]).abs();
   }
 
   // Compute AINVNM = max(x(i)), 1<=i<=n.

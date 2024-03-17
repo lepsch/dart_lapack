@@ -53,7 +53,7 @@ double drzt02(
   // Q := Q - I
 
   for (var I = 1; I <= N; I++) {
-    WORK[(I - 1) * N + I] = WORK[(I - 1) * N + I] - ONE;
+    WORK[(I - 1) * N + I] -= ONE;
   }
 
   return dlange('One-norm', N, N, WORK.asMatrix(), N, RWORK) /

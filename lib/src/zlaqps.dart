@@ -146,7 +146,7 @@ void zlaqps(
             VN2[J] = LSTICC.toDouble();
             LSTICC = J;
           } else {
-            VN1[J] = VN1[J] * sqrt(TEMP);
+            VN1[J] *= sqrt(TEMP);
           }
         }
       } // 50

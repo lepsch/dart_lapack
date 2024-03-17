@@ -49,7 +49,7 @@ double dqrt11(
       WORK(M * M + 1), INFO);
 
   for (var J = 1; J <= M; J++) {
-    WORK[(J - 1) * M + J] = WORK[(J - 1) * M + J] - ONE;
+    WORK[(J - 1) * M + J] -= ONE;
   }
 
   return dlange('One-norm', M, M, WORK.asMatrix(), M, RDUMMY) /

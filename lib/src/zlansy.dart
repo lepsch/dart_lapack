@@ -63,7 +63,7 @@ double zlansy(
           // 50
           ABSA = (A[I][J]).abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
         } // 50
         WORK[J] = SUM.value + (A[J][J]).abs();
       } // 60
@@ -84,7 +84,7 @@ double zlansy(
           // 90
           ABSA = (A[I][J]).abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
         } // 90
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       } // 100

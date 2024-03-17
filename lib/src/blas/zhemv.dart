@@ -103,10 +103,10 @@ void zhemv(
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
         for (I = 1; I <= J - 1; I++) {
-          Y[I] = Y[I] + TEMP1 * A[I][J];
+          Y[I] += TEMP1 * A[I][J];
           TEMP2 += A[I][J].conjugate() * X[I];
         }
-        Y[J] = Y[J] + TEMP1 * A[J][J].real.toComplex() + ALPHA * TEMP2;
+        Y[J] += TEMP1 * A[J][J].real.toComplex() + ALPHA * TEMP2;
       }
     } else {
       JX = KX;
@@ -117,12 +117,12 @@ void zhemv(
         IX = KX;
         IY = KY;
         for (I = 1; I <= J - 1; I++) {
-          Y[IY] = Y[IY] + TEMP1 * A[I][J];
+          Y[IY] += TEMP1 * A[I][J];
           TEMP2 += A[I][J].conjugate() * X[IX];
           IX += INCX;
           IY += INCY;
         }
-        Y[JY] = Y[JY] + TEMP1 * A[J][J].real.toComplex() + ALPHA * TEMP2;
+        Y[JY] += TEMP1 * A[J][J].real.toComplex() + ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
       }
@@ -134,12 +134,12 @@ void zhemv(
       for (J = 1; J <= N; J++) {
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
-        Y[J] = Y[J] + TEMP1 * A[J][J].real.toComplex();
+        Y[J] += TEMP1 * A[J][J].real.toComplex();
         for (I = J + 1; I <= N; I++) {
-          Y[I] = Y[I] + TEMP1 * A[I][J];
+          Y[I] += TEMP1 * A[I][J];
           TEMP2 += A[I][J].conjugate() * X[I];
         }
-        Y[J] = Y[J] + ALPHA * TEMP2;
+        Y[J] += ALPHA * TEMP2;
       }
     } else {
       JX = KX;
@@ -147,16 +147,16 @@ void zhemv(
       for (J = 1; J <= N; J++) {
         TEMP1 = ALPHA * X[JX];
         TEMP2 = Complex.zero;
-        Y[JY] = Y[JY] + TEMP1 * A[J][J].real.toComplex();
+        Y[JY] += TEMP1 * A[J][J].real.toComplex();
         IX = JX;
         IY = JY;
         for (I = J + 1; I <= N; I++) {
           IX += INCX;
           IY += INCY;
-          Y[IY] = Y[IY] + TEMP1 * A[I][J];
+          Y[IY] += TEMP1 * A[I][J];
           TEMP2 += A[I][J].conjugate() * X[IX];
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP2;
+        Y[JY] += ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
       }

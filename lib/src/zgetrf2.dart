@@ -124,7 +124,7 @@ void zgetrf2(
     if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + N1;
     for (I = N1 + 1; I <= min(M, N); I++) {
       // 20
-      IPIV[I] = IPIV[I] + N1;
+      IPIV[I] += N1;
     } // 20
 
     // Apply interchanges to A21

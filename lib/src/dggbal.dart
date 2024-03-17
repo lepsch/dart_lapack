@@ -273,8 +273,8 @@ void dggbal(
       if (TB != ZERO) {
         TB = log10((TB).abs()) / BASL;
       }
-      WORK[I + 4 * N] = WORK[I + 4 * N] - TA - TB;
-      WORK[J + 5 * N] = WORK[J + 5 * N] - TA - TB;
+      WORK[I + 4 * N] -= TA - TB;
+      WORK[J + 5 * N] -= TA - TB;
     }
   }
 
@@ -313,8 +313,8 @@ void dggbal(
     daxpy(NR, COEF, WORK(ILO.value + 5 * N), 1, WORK(ILO.value), 1);
 
     for (I = ILO.value; I <= IHI.value; I++) {
-      WORK[I] = WORK[I] + TC;
-      WORK[I + N] = WORK[I + N] + T;
+      WORK[I] += TC;
+      WORK[I + N] += T;
     }
 
     // Apply matrix to vector
@@ -359,10 +359,10 @@ void dggbal(
     for (I = ILO.value; I <= IHI.value; I++) {
       COR = ALPHA * WORK[I + N];
       if ((COR).abs() > CMAX) CMAX = (COR).abs();
-      LSCALE[I] = LSCALE[I] + COR;
+      LSCALE[I] += COR;
       COR = ALPHA * WORK[I];
       if ((COR).abs() > CMAX) CMAX = (COR).abs();
-      RSCALE[I] = RSCALE[I] + COR;
+      RSCALE[I] += COR;
     }
     if (CMAX < HALF) break;
 

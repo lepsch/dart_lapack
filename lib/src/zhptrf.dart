@@ -213,9 +213,9 @@ void zhptrf(
                       D12 * AP[J + (K - 2) * (K - 1) ~/ 2]);
               for (I = J; I >= 1; I--) {
                 // 40
-                AP[I + (J - 1) * J ~/ 2] = AP[I + (J - 1) * J ~/ 2] -
+                AP[I + (J - 1) * J ~/ 2] -=
                     AP[I + (K - 1) * K ~/ 2] * WK.conjugate() -
-                    AP[I + (K - 2) * (K - 1) ~/ 2] * WKM1.conjugate();
+                        AP[I + (K - 2) * (K - 1) ~/ 2] * WKM1.conjugate();
               } // 40
               AP[J + (K - 1) * K ~/ 2] = WK;
               AP[J + (K - 2) * (K - 1) ~/ 2] = WKM1;

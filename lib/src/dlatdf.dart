@@ -73,7 +73,7 @@ void dlatdf(
         // get good estimates of matrices like Byers well-known
         // example (see [1]). (Not done in BSOLVE.)
 
-        RHS[J] = RHS[J] + PMONE;
+        RHS[J] += PMONE;
         PMONE = ONE;
       }
 
@@ -90,18 +90,18 @@ void dlatdf(
 
     dcopy(N - 1, RHS, 1, XP, 1);
     XP[N] = RHS[N] + ONE;
-    RHS[N] = RHS[N] - ONE;
+    RHS[N] -= ONE;
     SPLUS = ZERO;
     SMINU = ZERO;
     for (I = N; I >= 1; I--) {
       // 30
       TEMP.value = ONE / Z[I][I];
-      XP[I] = XP[I] * TEMP.value;
-      RHS[I] = RHS[I] * TEMP.value;
+      XP[I] *= TEMP.value;
+      RHS[I] *= TEMP.value;
       for (K = I + 1; K <= N; K++) {
         // 20
-        XP[I] = XP[I] - XP[K] * (Z[I][K] * TEMP.value);
-        RHS[I] = RHS[I] - RHS[K] * (Z[I][K] * TEMP.value);
+        XP[I] -= XP[K] * (Z[I][K] * TEMP.value);
+        RHS[I] -= RHS[K] * (Z[I][K] * TEMP.value);
       } // 20
       SPLUS += (XP[I]).abs();
       SMINU += (RHS[I]).abs();

@@ -75,7 +75,7 @@ void zlatdf(
         // good estimates of matrices like Byers well-known example
         // (see [1]). (Not done in BSOLVE.)
 
-        RHS[J] = RHS[J] + PMONE;
+        RHS[J] += PMONE;
         PMONE = Complex.one;
       }
 
@@ -92,18 +92,18 @@ void zlatdf(
 
     zcopy(N - 1, RHS, 1, WORK, 1);
     WORK[N] = RHS[N] + Complex.one;
-    RHS[N] = RHS[N] - Complex.one;
+    RHS[N] -= Complex.one;
     SPLUS = ZERO;
     SMINU = ZERO;
     for (I = N; I >= 1; I--) {
       // 30
       TEMP = Complex.one / Z[I][I];
-      WORK[I] = WORK[I] * TEMP;
-      RHS[I] = RHS[I] * TEMP;
+      WORK[I] *= TEMP;
+      RHS[I] *= TEMP;
       for (K = I + 1; K <= N; K++) {
         // 20
-        WORK[I] = WORK[I] - WORK[K] * (Z[I][K] * TEMP);
-        RHS[I] = RHS[I] - RHS[K] * (Z[I][K] * TEMP);
+        WORK[I] -= WORK[K] * (Z[I][K] * TEMP);
+        RHS[I] -= RHS[K] * (Z[I][K] * TEMP);
       } // 20
       SPLUS += WORK[I].abs();
       SMINU += RHS[I].abs();

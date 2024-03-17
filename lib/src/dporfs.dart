@@ -127,21 +127,21 @@ void dporfs(
           S = ZERO;
           XK = (X[K][J]).abs();
           for (I = 1; I <= K - 1; I++) {
-            WORK[I] = WORK[I] + (A[I][K]).abs() * XK;
+            WORK[I] += (A[I][K]).abs() * XK;
             S += (A[I][K]).abs() * (X[I][J]).abs();
           }
-          WORK[K] = WORK[K] + (A[K][K]).abs() * XK + S;
+          WORK[K] += (A[K][K]).abs() * XK + S;
         }
       } else {
         for (K = 1; K <= N; K++) {
           S = ZERO;
           XK = (X[K][J]).abs();
-          WORK[K] = WORK[K] + (A[K][K]).abs() * XK;
+          WORK[K] += (A[K][K]).abs() * XK;
           for (I = K + 1; I <= N; I++) {
-            WORK[I] = WORK[I] + (A[I][K]).abs() * XK;
+            WORK[I] += (A[I][K]).abs() * XK;
             S += (A[I][K]).abs() * (X[I][J]).abs();
           }
-          WORK[K] = WORK[K] + S;
+          WORK[K] += S;
         }
       }
       S = ZERO;
@@ -231,6 +231,6 @@ void dporfs(
     for (I = 1; I <= N; I++) {
       LSTRES = max(LSTRES, (X[I][J]).abs());
     }
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }
 }

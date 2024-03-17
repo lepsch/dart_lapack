@@ -86,9 +86,9 @@ void zppt01(
     KC = 1;
     for (var K = 1; K <= N; K++) {
       for (var I = 1; I <= K - 1; I++) {
-        AFAC[KC + I - 1] = AFAC[KC + I - 1] - A[KC + I - 1];
+        AFAC[KC + I - 1] -= A[KC + I - 1];
       }
-      AFAC[KC + K - 1] = AFAC[KC + K - 1] - A[KC + K - 1].real.toComplex();
+      AFAC[KC + K - 1] -= A[KC + K - 1].real.toComplex();
       KC += K;
     }
 
@@ -115,9 +115,9 @@ void zppt01(
 
     KC = 1;
     for (var K = 1; K <= N; K++) {
-      AFAC[KC] = AFAC[KC] - A[KC].real.toComplex();
+      AFAC[KC] -= A[KC].real.toComplex();
       for (var I = K + 1; I <= N; I++) {
-        AFAC[KC + I - K] = AFAC[KC + I - K] - A[KC + I - K];
+        AFAC[KC + I - K] -= A[KC + I - K];
       }
       KC += N - K + 1;
     }

@@ -120,8 +120,8 @@ void zlaqz3(
     // Introduce the shift
     SCALE = sqrt((ALPHA[I]).abs()) * sqrt((BETA[I]).abs());
     if (SCALE >= SAFMIN && SCALE <= SAFMAX) {
-      ALPHA[I] = ALPHA[I] / SCALE.toComplex();
-      BETA[I] = BETA[I] / SCALE.toComplex();
+      ALPHA[I] /= SCALE.toComplex();
+      BETA[I] /= SCALE.toComplex();
     }
 
     TEMP2 = BETA[I] * A[ILO][ILO] - ALPHA[I] * B[ILO][ILO];

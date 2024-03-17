@@ -55,7 +55,7 @@ double dlansy(
         for (I = 1; I <= J - 1; I++) {
           ABSA = A[I][J].abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
         }
         WORK[J] = SUM.value + A[J][J].abs();
       }
@@ -72,7 +72,7 @@ double dlansy(
         for (I = J + 1; I <= N; I++) {
           ABSA = A[I][J].abs();
           SUM.value = SUM.value + ABSA;
-          WORK[I] = WORK[I] + ABSA;
+          WORK[I] += ABSA;
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
       }

@@ -37,7 +37,7 @@ void dlagtf(
 
   if (N == 0) return;
 
-  A[1] = A[1] - LAMBDA;
+  A[1] -= LAMBDA;
   IN[N] = 0;
   if (N == 1) {
     if (A[1] == ZERO) IN[1] = 1;
@@ -49,7 +49,7 @@ void dlagtf(
   TL = max(TOL, EPS);
   SCALE1 = (A[1]).abs() + (B[1]).abs();
   for (K = 1; K <= N - 1; K++) {
-    A[K + 1] = A[K + 1] - LAMBDA;
+    A[K + 1] -= LAMBDA;
     SCALE2 = (C[K]).abs() + (A[K + 1]).abs();
     if (K < (N - 1)) SCALE2 = SCALE2 + (B[K + 1]).abs();
     if (A[K] == ZERO) {
@@ -67,8 +67,8 @@ void dlagtf(
       if (PIV2 <= PIV1) {
         IN[K] = 0;
         SCALE1 = SCALE2;
-        C[K] = C[K] / A[K];
-        A[K + 1] = A[K + 1] - C[K] * B[K];
+        C[K] /= A[K];
+        A[K + 1] -= C[K] * B[K];
         if (K < (N - 1)) D[K] = ZERO;
       } else {
         IN[K] = 1;

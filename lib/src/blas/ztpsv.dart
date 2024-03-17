@@ -67,11 +67,11 @@ void ztpsv(
       if (INCX == 1) {
         for (J = N; J >= 1; J--) {
           if (X[J] != Complex.zero) {
-            if (NOUNIT) X[J] = X[J] / AP[KK];
+            if (NOUNIT) X[J] /= AP[KK];
             TEMP = X[J];
             K = KK - 1;
             for (I = J - 1; I >= 1; I--) {
-              X[I] = X[I] - TEMP * AP[K];
+              X[I] -= TEMP * AP[K];
               K--;
             }
           }
@@ -81,12 +81,12 @@ void ztpsv(
         JX = KX + (N - 1) * INCX;
         for (J = N; J >= 1; J--) {
           if (X[JX] != Complex.zero) {
-            if (NOUNIT) X[JX] = X[JX] / AP[KK];
+            if (NOUNIT) X[JX] /= AP[KK];
             TEMP = X[JX];
             IX = JX;
             for (K = KK - 1; K >= KK - J + 1; K--) {
               IX -= INCX;
-              X[IX] = X[IX] - TEMP * AP[K];
+              X[IX] -= TEMP * AP[K];
             }
           }
           JX -= INCX;
@@ -98,11 +98,11 @@ void ztpsv(
       if (INCX == 1) {
         for (J = 1; J <= N; J++) {
           if (X[J] != Complex.zero) {
-            if (NOUNIT) X[J] = X[J] / AP[KK];
+            if (NOUNIT) X[J] /= AP[KK];
             TEMP = X[J];
             K = KK + 1;
             for (I = J + 1; I <= N; I++) {
-              X[I] = X[I] - TEMP * AP[K];
+              X[I] -= TEMP * AP[K];
               K++;
             }
           }
@@ -112,12 +112,12 @@ void ztpsv(
         JX = KX;
         for (J = 1; J <= N; J++) {
           if (X[JX] != Complex.zero) {
-            if (NOUNIT) X[JX] = X[JX] / AP[KK];
+            if (NOUNIT) X[JX] /= AP[KK];
             TEMP = X[JX];
             IX = JX;
             for (K = KK + 1; K <= KK + N - J; K++) {
               IX += INCX;
-              X[IX] = X[IX] - TEMP * AP[K];
+              X[IX] -= TEMP * AP[K];
             }
           }
           JX += INCX;

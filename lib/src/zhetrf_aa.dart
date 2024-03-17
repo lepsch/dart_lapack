@@ -122,7 +122,7 @@ void zhetrf_aa(
       // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
       for (J2 = J + 2; J2 <= min(N, J + JB + 1); J2++) {
-        IPIV[J2] = IPIV[J2] + J;
+        IPIV[J2] += J;
         if ((J2 != IPIV[J2]) && ((J1 - K1) > 2)) {
           zswap(
               J1 - K1 - 2, A(1, J2).asArray(), 1, A(1, IPIV[J2]).asArray(), 1);
@@ -251,7 +251,7 @@ void zhetrf_aa(
       // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
       for (J2 = J + 2; J2 <= min(N, J + JB + 1); J2++) {
-        IPIV[J2] = IPIV[J2] + J;
+        IPIV[J2] += J;
         if ((J2 != IPIV[J2]) && ((J1 - K1) > 2)) {
           zswap(J1 - K1 - 2, A(J2, 1).asArray(), LDA, A(IPIV[J2], 1).asArray(),
               LDA);

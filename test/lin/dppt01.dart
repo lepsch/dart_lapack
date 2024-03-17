@@ -81,7 +81,7 @@ void dppt01(
 
   final NPP = N * (N + 1) ~/ 2;
   for (var I = 1; I <= NPP; I++) {
-    AFAC[I] = AFAC[I] - A[I];
+    AFAC[I] -= A[I];
   }
 
   // Compute norm( L*U - A ) / ( N * norm(A) * EPS )

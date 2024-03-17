@@ -86,7 +86,7 @@ void dbdt04(
 
   K = N * NS;
   for (I = 1; I <= NS; I++) {
-    WORK[K + I] = WORK[K + I] + S[I];
+    WORK[K + I] += S[I];
     RESID.value = max(RESID.value, dasum(NS, WORK(K + 1), 1));
     K += NS;
   }

@@ -203,7 +203,7 @@ void ddrvrf3(
 
                   RESULT[1] = dlange('I', M, N, B1, LDA, D_WORK_DLANGE);
 
-                  RESULT[1] = RESULT[1] / sqrt(EPS) / max(max(M, N), 1);
+                  RESULT[1] /= sqrt(EPS) / max(max(M, N), 1);
 
                   if (RESULT[1] >= THRESH) {
                     if (NFAIL == 0) {

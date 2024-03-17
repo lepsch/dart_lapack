@@ -134,7 +134,7 @@ double zlantb(
           L = K + 1 - J;
           for (I = max(1, J - K); I <= J - 1; I++) {
             // 160
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           } // 160
         } // 170
       } else {
@@ -147,7 +147,7 @@ double zlantb(
           L = K + 1 - J;
           for (I = max(1, J - K); I <= J; I++) {
             // 190
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           } // 190
         } // 200
       }
@@ -162,7 +162,7 @@ double zlantb(
           L = 1 - J;
           for (I = J + 1; I <= min(N, J + K); I++) {
             // 220
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           } // 220
         } // 230
       } else {
@@ -175,7 +175,7 @@ double zlantb(
           L = 1 - J;
           for (I = J; I <= min(N, J + K); I++) {
             // 250
-            WORK[I] = WORK[I] + (AB[L + I][J]).abs();
+            WORK[I] += (AB[L + I][J]).abs();
           } // 250
         } // 260
       }

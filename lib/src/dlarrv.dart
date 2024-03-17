@@ -248,7 +248,7 @@ void dlarrv(
       Z[IBEGIN][WBEGIN] = ONE;
       ISUPPZ[2 * WBEGIN - 1] = IBEGIN;
       ISUPPZ[2 * WBEGIN] = IBEGIN;
-      W[WBEGIN] = W[WBEGIN] + SIGMA;
+      W[WBEGIN] += SIGMA;
       WORK[WBEGIN] = W[WBEGIN];
       IBEGIN = IEND + 1;
       WBEGIN++;
@@ -266,7 +266,7 @@ void dlarrv(
     // We store in W the eigenvalue approximations w.r.t. the original
     // matrix T.
     for (I = 1; I <= IM; I++) {
-      W[WBEGIN + I - 1] = W[WBEGIN + I - 1] + SIGMA;
+      W[WBEGIN + I - 1] += SIGMA;
     }
 
     // NDEPTH is the current depth of the representation tree
@@ -548,10 +548,10 @@ void dlarrv(
               // Note that the entries in W are unchanged.
               for (K = NEWFST; K <= NEWLST; K++) {
                 FUDGE = THREE * EPS * (WORK[WBEGIN + K - 1]).abs();
-                WORK[WBEGIN + K - 1] = WORK[WBEGIN + K - 1] - TAU.value;
+                WORK[WBEGIN + K - 1] -= TAU.value;
                 FUDGE += FOUR * EPS * (WORK[WBEGIN + K - 1]).abs();
                 // Fudge errors
-                WERR[WBEGIN + K - 1] = WERR[WBEGIN + K - 1] + FUDGE;
+                WERR[WBEGIN + K - 1] += FUDGE;
                 // Gaps are not fudged. Provided that WERR is small
                 // when eigenvalues are close, a zero gap indicates
                 // that a new representation is needed for resolving
@@ -821,8 +821,8 @@ void dlarrv(
 
               // Compute FP-vector support w.r.t. whole matrix
 
-              ISUPPZ[2 * WINDEX - 1] = ISUPPZ[2 * WINDEX - 1] + OLDIEN;
-              ISUPPZ[2 * WINDEX] = ISUPPZ[2 * WINDEX] + OLDIEN;
+              ISUPPZ[2 * WINDEX - 1] += OLDIEN;
+              ISUPPZ[2 * WINDEX] += OLDIEN;
               ZFROM = ISUPPZ[2 * WINDEX - 1];
               ZTO = ISUPPZ[2 * WINDEX];
               ISUPMN += OLDIEN;

@@ -98,19 +98,17 @@ void dlasd8(
     if (INFO.value != 0) {
       return;
     }
-    WORK[IWK3I + J] = WORK[IWK3I + J] * WORK[J] * WORK[IWK2I + J];
+    WORK[IWK3I + J] *= WORK[J] * WORK[IWK2I + J];
     DIFL[J] = -WORK[J];
     DIFR[J][1] = -WORK[J + 1];
     for (I = 1; I <= J - 1; I++) {
-      WORK[IWK3I + I] = WORK[IWK3I + I] *
-          WORK[I] *
+      WORK[IWK3I + I] *= WORK[I] *
           WORK[IWK2I + I] /
           (DSIGMA[I] - DSIGMA[J]) /
           (DSIGMA[I] + DSIGMA[J]);
     }
     for (I = J + 1; I <= K; I++) {
-      WORK[IWK3I + I] = WORK[IWK3I + I] *
-          WORK[I] *
+      WORK[IWK3I + I] *= WORK[I] *
           WORK[IWK2I + I] /
           (DSIGMA[I] - DSIGMA[J]) /
           (DSIGMA[I] + DSIGMA[J]);

@@ -290,7 +290,7 @@ void zhbgst(
           // create nonzero element a(j-ka,j+1) outside the band
           // and store it in WORK(j-m)
 
-          WORK[J - M] = WORK[J - M] * AB[1][J + 1];
+          WORK[J - M] *= AB[1][J + 1];
           AB[1][J + 1] = RWORK[J - M].toComplex() * AB[1][J + 1];
         } // 90
 
@@ -402,7 +402,7 @@ void zhbgst(
           // create nonzero element a(j-ka,j+1) outside the band
           // and store it in WORK(j)
 
-          WORK[J] = WORK[J] * AB[1][J + 1];
+          WORK[J] *= AB[1][J + 1];
           AB[1][J + 1] = RWORK[J].toComplex() * AB[1][J + 1];
         } // 160
         if (UPDATE) {
@@ -603,7 +603,7 @@ void zhbgst(
           // create nonzero element a(j+1,j-ka) outside the band
           // and store it in WORK(j-m)
 
-          WORK[J - M] = WORK[J - M] * AB[KA1][J - KA + 1];
+          WORK[J - M] *= AB[KA1][J - KA + 1];
           AB[KA1][J - KA + 1] = RWORK[J - M].toComplex() * AB[KA1][J - KA + 1];
         } // 320
 
@@ -715,7 +715,7 @@ void zhbgst(
           // create nonzero element a(j+1,j-ka) outside the band
           // and store it in WORK(j)
 
-          WORK[J] = WORK[J] * AB[KA1][J - KA + 1];
+          WORK[J] *= AB[KA1][J - KA + 1];
           AB[KA1][J - KA + 1] = RWORK[J].toComplex() * AB[KA1][J - KA + 1];
         } // 390
         if (UPDATE) {
@@ -948,7 +948,7 @@ void zhbgst(
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK(j)
 
-          WORK[J] = WORK[J] * AB[1][J + KA - 1];
+          WORK[J] *= AB[1][J + KA - 1];
           AB[1][J + KA - 1] = RWORK[J].toComplex() * AB[1][J + KA - 1];
         } // 570
 
@@ -1048,7 +1048,7 @@ void zhbgst(
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK(m-kb+j)
 
-          WORK[M - KB + J] = WORK[M - KB + J] * AB[1][J + KA - 1];
+          WORK[M - KB + J] *= AB[1][J + KA - 1];
           AB[1][J + KA - 1] = RWORK[M - KB + J].toComplex() * AB[1][J + KA - 1];
         } // 640
         if (UPDATE) {
@@ -1252,7 +1252,7 @@ void zhbgst(
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK(j)
 
-          WORK[J] = WORK[J] * AB[KA1][J - 1];
+          WORK[J] *= AB[KA1][J - 1];
           AB[KA1][J - 1] = RWORK[J].toComplex() * AB[KA1][J - 1];
         } // 800
 
@@ -1359,7 +1359,7 @@ void zhbgst(
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK(m-kb+j)
 
-          WORK[M - KB + J] = WORK[M - KB + J] * AB[KA1][J - 1];
+          WORK[M - KB + J] *= AB[KA1][J - 1];
           AB[KA1][J - 1] = RWORK[M - KB + J].toComplex() * AB[KA1][J - 1];
         } // 870
         if (UPDATE) {

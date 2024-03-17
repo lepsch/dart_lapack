@@ -138,23 +138,23 @@ void zsyrfs(
           XK = CABS1(X[K][J]);
           for (I = 1; I <= K - 1; I++) {
             // 40
-            RWORK[I] = RWORK[I] + CABS1(A[I][K]) * XK;
+            RWORK[I] += CABS1(A[I][K]) * XK;
             S += CABS1(A[I][K]) * CABS1(X[I][J]);
           } // 40
-          RWORK[K] = RWORK[K] + CABS1(A[K][K]) * XK + S;
+          RWORK[K] += CABS1(A[K][K]) * XK + S;
         } // 50
       } else {
         for (K = 1; K <= N; K++) {
           // 70
           S = ZERO;
           XK = CABS1(X[K][J]);
-          RWORK[K] = RWORK[K] + CABS1(A[K][K]) * XK;
+          RWORK[K] += CABS1(A[K][K]) * XK;
           for (I = K + 1; I <= N; I++) {
             // 60
-            RWORK[I] = RWORK[I] + CABS1(A[I][K]) * XK;
+            RWORK[I] += CABS1(A[I][K]) * XK;
             S += CABS1(A[I][K]) * CABS1(X[I][J]);
           } // 60
-          RWORK[K] = RWORK[K] + S;
+          RWORK[K] += S;
         } // 70
       }
       S = ZERO;
@@ -247,6 +247,6 @@ void zsyrfs(
       // 130
       LSTRES = max(LSTRES, CABS1(X[I][J]));
     } // 130
-    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+    if (LSTRES != ZERO) FERR[J] /= LSTRES;
   } // 140
 }

@@ -141,7 +141,7 @@ void dtrevc(
   for (J = 2; J <= N; J++) {
     WORK[J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
-      WORK[J] = WORK[J] + (T[I][J]).abs();
+      WORK[J] += (T[I][J]).abs();
     }
   }
 
@@ -564,9 +564,8 @@ void dtrevc(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + N] = WORK[J + N] -
-                ddot(
-                    J - KI - 1, T(KI + 1, J).asArray(), 1, WORK(KI + 1 + N), 1);
+            WORK[J + N] -= ddot(
+                J - KI - 1, T(KI + 1, J).asArray(), 1, WORK(KI + 1 + N), 1);
 
             // Solve (T[J][J]-WR)**T*X = WORK
 
@@ -595,13 +594,11 @@ void dtrevc(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + N] = WORK[J + N] -
-                ddot(
-                    J - KI - 1, T(KI + 1, J).asArray(), 1, WORK(KI + 1 + N), 1);
+            WORK[J + N] -= ddot(
+                J - KI - 1, T(KI + 1, J).asArray(), 1, WORK(KI + 1 + N), 1);
 
-            WORK[J + 1 + N] = WORK[J + 1 + N] -
-                ddot(J - KI - 1, T(KI + 1, J + 1).asArray(), 1,
-                    WORK(KI + 1 + N), 1);
+            WORK[J + 1 + N] -= ddot(
+                J - KI - 1, T(KI + 1, J + 1).asArray(), 1, WORK(KI + 1 + N), 1);
 
             // Solve
             // [T[J][J]-WR   T[J][J+1]     ]**T * X = SCALE.value*( WORK1 )
@@ -702,12 +699,10 @@ void dtrevc(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + N] = WORK[J + N] -
-                ddot(
-                    J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N), 1);
-            WORK[J + N2] = WORK[J + N2] -
-                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N2),
-                    1);
+            WORK[J + N] -= ddot(
+                J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N), 1);
+            WORK[J + N2] -= ddot(
+                J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N2), 1);
 
             // Solve (T[J][J]-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
 
@@ -739,21 +734,17 @@ void dtrevc(
               VCRIT = BIGNUM;
             }
 
-            WORK[J + N] = WORK[J + N] -
-                ddot(
-                    J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N), 1);
+            WORK[J + N] -= ddot(
+                J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N), 1);
 
-            WORK[J + N2] = WORK[J + N2] -
-                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N2),
-                    1);
+            WORK[J + N2] -= ddot(
+                J - KI - 2, T(KI + 2, J).asArray(), 1, WORK(KI + 2 + N2), 1);
 
-            WORK[J + 1 + N] = WORK[J + 1 + N] -
-                ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
-                    WORK(KI + 2 + N), 1);
+            WORK[J + 1 + N] -= ddot(
+                J - KI - 2, T(KI + 2, J + 1).asArray(), 1, WORK(KI + 2 + N), 1);
 
-            WORK[J + 1 + N2] = WORK[J + 1 + N2] -
-                ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
-                    WORK(KI + 2 + N2), 1);
+            WORK[J + 1 + N2] -= ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
+                WORK(KI + 2 + N2), 1);
 
             // Solve 2-by-2 complex linear equation
             // ([T[j][j]   T[j][j+1]  ]**T-(wr-i*wi)*I)*X = SCALE.value*B

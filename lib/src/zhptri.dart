@@ -91,7 +91,7 @@ void zhptri(
           zcopy(K - 1, AP(KC), 1, WORK, 1);
           zhpmv(
               UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero, AP(KC), 1);
-          AP[KC + K - 1] = AP[KC + K - 1] -
+          AP[KC + K - 1] -=
               zdotc(K - 1, WORK, 1, AP(KC), 1).toDouble().toComplex();
         }
         KSTEP = 1;
@@ -115,14 +115,14 @@ void zhptri(
           zcopy(K - 1, AP(KC), 1, WORK, 1);
           zhpmv(
               UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero, AP(KC), 1);
-          AP[KC + K - 1] = AP[KC + K - 1] -
+          AP[KC + K - 1] -=
               zdotc(K - 1, WORK, 1, AP(KC), 1).toDouble().toComplex();
           AP[KCNEXT + K - 1] =
               AP[KCNEXT + K - 1] - zdotc(K - 1, AP(KC), 1, AP(KCNEXT), 1);
           zcopy(K - 1, AP(KCNEXT), 1, WORK, 1);
           zhpmv(UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero,
               AP(KCNEXT), 1);
-          AP[KCNEXT + K] = AP[KCNEXT + K] -
+          AP[KCNEXT + K] -=
               zdotc(K - 1, WORK, 1, AP(KCNEXT), 1).toDouble().toComplex();
         }
         KSTEP = 2;
@@ -182,8 +182,7 @@ void zhptri(
           zcopy(N - K, AP(KC + 1), 1, WORK, 1);
           zhpmv(UPLO, N - K, -Complex.one, AP(KC + N - K + 1), WORK, 1,
               Complex.zero, AP(KC + 1), 1);
-          AP[KC] = AP[KC] -
-              zdotc(N - K, WORK, 1, AP(KC + 1), 1).toDouble().toComplex();
+          AP[KC] -= zdotc(N - K, WORK, 1, AP(KC + 1), 1).toDouble().toComplex();
         }
         KSTEP = 1;
       } else {
@@ -206,14 +205,13 @@ void zhptri(
           zcopy(N - K, AP(KC + 1), 1, WORK, 1);
           zhpmv(UPLO, N - K, -Complex.one, AP(KC + (N - K + 1)), WORK, 1,
               Complex.zero, AP(KC + 1), 1);
-          AP[KC] = AP[KC] -
-              zdotc(N - K, WORK, 1, AP(KC + 1), 1).toDouble().toComplex();
+          AP[KC] -= zdotc(N - K, WORK, 1, AP(KC + 1), 1).toDouble().toComplex();
           AP[KCNEXT + 1] =
               AP[KCNEXT + 1] - zdotc(N - K, AP(KC + 1), 1, AP(KCNEXT + 2), 1);
           zcopy(N - K, AP(KCNEXT + 2), 1, WORK, 1);
           zhpmv(UPLO, N - K, -Complex.one, AP(KC + (N - K + 1)), WORK, 1,
               Complex.zero, AP(KCNEXT + 2), 1);
-          AP[KCNEXT] = AP[KCNEXT] -
+          AP[KCNEXT] -=
               zdotc(N - K, WORK, 1, AP(KCNEXT + 2), 1).toDouble().toComplex();
         }
         KSTEP = 2;

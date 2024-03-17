@@ -527,7 +527,7 @@ void zlaqp3rk(
 
             LSTICC = J;
           } else {
-            VN1[J] = VN1[J] * sqrt(TEMP);
+            VN1[J] *= sqrt(TEMP);
           }
         }
       }

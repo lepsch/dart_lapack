@@ -56,7 +56,7 @@ void zgttrf(
       if (CABS1(D[I]) != ZERO) {
         FACT = DL[I] / D[I];
         DL[I] = FACT;
-        D[I + 1] = D[I + 1] - FACT * DU[I];
+        D[I + 1] -= FACT * DU[I];
       }
     } else {
       // Interchange rows I and I+1, eliminate DL(I)
@@ -78,7 +78,7 @@ void zgttrf(
       if (CABS1(D[I]) != ZERO) {
         FACT = DL[I] / D[I];
         DL[I] = FACT;
-        D[I + 1] = D[I + 1] - FACT * DU[I];
+        D[I + 1] -= FACT * DU[I];
       }
     } else {
       FACT = D[I] / DL[I];

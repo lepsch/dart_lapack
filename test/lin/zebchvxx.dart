@@ -310,7 +310,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     }
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= N; I++) {
-        RINV[I] = RINV[I] + CABS1(A[I][J]);
+        RINV[I] += CABS1(A[I][J]);
       }
     }
 
@@ -359,7 +359,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       }
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= N; I++) {
-          RINV[I] = RINV[I] + CABS1(A[I][J] * INVHILB[J][K]);
+          RINV[I] += CABS1(A[I][J] * INVHILB[J][K]);
         }
       }
       RINORM = 0.0;

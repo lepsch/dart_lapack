@@ -134,7 +134,7 @@ double dla_syrcond(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * WORK[2 * N + I];
+        WORK[I] *= WORK[2 * N + I];
       }
 
       if (UP) {
@@ -147,11 +147,11 @@ double dla_syrcond(
 
       if (CMODE == 1) {
         for (I = 1; I <= N; I++) {
-          WORK[I] = WORK[I] / C[I];
+          WORK[I] /= C[I];
         }
       } else if (CMODE == -1) {
         for (I = 1; I <= N; I++) {
-          WORK[I] = WORK[I] * C[I];
+          WORK[I] *= C[I];
         }
       }
     } else {
@@ -159,11 +159,11 @@ double dla_syrcond(
 
       if (CMODE == 1) {
         for (I = 1; I <= N; I++) {
-          WORK[I] = WORK[I] / C[I];
+          WORK[I] /= C[I];
         }
       } else if (CMODE == -1) {
         for (I = 1; I <= N; I++) {
-          WORK[I] = WORK[I] * C[I];
+          WORK[I] *= C[I];
         }
       }
 
@@ -176,7 +176,7 @@ double dla_syrcond(
       // Multiply by R.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = WORK[I] * WORK[2 * N + I];
+        WORK[I] *= WORK[2 * N + I];
       }
     }
   }

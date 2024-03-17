@@ -321,8 +321,8 @@ void dgsvj0(
                         if (D[q] >= ONE) {
                           FASTR[3] = T.value * APOAQ;
                           FASTR[4] = -T.value * AQOAP;
-                          D[p] = D[p] * CS;
-                          D[q] = D[q] * CS;
+                          D[p] *= CS;
+                          D[q] *= CS;
                           drotm(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1,
                               FASTR);
                           if (RSVEC) {
@@ -334,8 +334,8 @@ void dgsvj0(
                               A(1, p).asArray(), 1);
                           daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
                               A(1, q).asArray(), 1);
-                          D[p] = D[p] * CS;
-                          D[q] = D[q] / CS;
+                          D[p] *= CS;
+                          D[q] /= CS;
                           if (RSVEC) {
                             daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
                                 V(1, p).asArray(), 1);
@@ -349,8 +349,8 @@ void dgsvj0(
                               A(1, q).asArray(), 1);
                           daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
                               A(1, p).asArray(), 1);
-                          D[p] = D[p] / CS;
-                          D[q] = D[q] * CS;
+                          D[p] /= CS;
+                          D[q] *= CS;
                           if (RSVEC) {
                             daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
                                 V(1, q).asArray(), 1);
@@ -363,8 +363,8 @@ void dgsvj0(
                                 A(1, p).asArray(), 1);
                             daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
                                 A(1, q).asArray(), 1);
-                            D[p] = D[p] * CS;
-                            D[q] = D[q] / CS;
+                            D[p] *= CS;
+                            D[q] /= CS;
                             if (RSVEC) {
                               daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
                                   V(1, p).asArray(), 1);
@@ -376,8 +376,8 @@ void dgsvj0(
                                 A(1, q).asArray(), 1);
                             daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
                                 A(1, p).asArray(), 1);
-                            D[p] = D[p] / CS;
-                            D[q] = D[q] * CS;
+                            D[p] /= CS;
+                            D[q] *= CS;
                             if (RSVEC) {
                               daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
                                   V(1, q).asArray(), 1);
@@ -587,8 +587,8 @@ void dgsvj0(
                         if (D[q] >= ONE) {
                           FASTR[3] = T.value * APOAQ;
                           FASTR[4] = -T.value * AQOAP;
-                          D[p] = D[p] * CS;
-                          D[q] = D[q] * CS;
+                          D[p] *= CS;
+                          D[q] *= CS;
                           drotm(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1,
                               FASTR);
                           if (RSVEC) {
@@ -606,8 +606,8 @@ void dgsvj0(
                             daxpy(MVL, CS * SN * APOAQ, V(1, p).asArray(), 1,
                                 V(1, q).asArray(), 1);
                           }
-                          D[p] = D[p] * CS;
-                          D[q] = D[q] / CS;
+                          D[p] *= CS;
+                          D[q] /= CS;
                         }
                       } else {
                         if (D[q] >= ONE) {
@@ -621,16 +621,16 @@ void dgsvj0(
                             daxpy(MVL, -CS * SN * AQOAP, V(1, q).asArray(), 1,
                                 V(1, p).asArray(), 1);
                           }
-                          D[p] = D[p] / CS;
-                          D[q] = D[q] * CS;
+                          D[p] /= CS;
+                          D[q] *= CS;
                         } else {
                           if (D[p] >= D[q]) {
                             daxpy(M, -T.value * AQOAP, A(1, q).asArray(), 1,
                                 A(1, p).asArray(), 1);
                             daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
                                 A(1, q).asArray(), 1);
-                            D[p] = D[p] * CS;
-                            D[q] = D[q] / CS;
+                            D[p] *= CS;
+                            D[q] /= CS;
                             if (RSVEC) {
                               daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
                                   V(1, p).asArray(), 1);
@@ -642,8 +642,8 @@ void dgsvj0(
                                 A(1, q).asArray(), 1);
                             daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
                                 A(1, p).asArray(), 1);
-                            D[p] = D[p] / CS;
-                            D[q] = D[q] * CS;
+                            D[p] /= CS;
+                            D[q] *= CS;
                             if (RSVEC) {
                               daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
                                   V(1, q).asArray(), 1);

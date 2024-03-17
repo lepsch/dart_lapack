@@ -204,7 +204,7 @@ void zpbsvx(
     } // 70
     for (J = 1; J <= NRHS; J++) {
       // 80
-      FERR[J] = FERR[J] / SCOND.value;
+      FERR[J] /= SCOND.value;
     } // 80
   }
 
