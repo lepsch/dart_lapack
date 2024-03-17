@@ -96,7 +96,7 @@ void zhetrs2(
     I = N;
     while (I >= 1) {
       if (IPIV[I] > 0) {
-        S = 1.0 / (A[I][I]).toDouble();
+        S = 1.0 / A[I][I].toDouble();
         zdscal(NRHS, S, B(I, 1).asArray(), LDB);
       } else if (I > 1) {
         if (IPIV[I - 1] == IPIV[I]) {

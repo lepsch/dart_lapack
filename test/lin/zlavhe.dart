@@ -128,7 +128,7 @@ void zlavhe(
 
             // Interchange if P(K) != I.
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -203,7 +203,7 @@ void zlavhe(
             // Interchange if a permutation was applied at the
             // K-th step of the factorization.
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -255,7 +255,7 @@ void zlavhe(
           if (K > 2) {
             // Interchange if P(K) != I.
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K - 1) {
               zswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -338,7 +338,7 @@ void zlavhe(
           if (K < N - 1) {
             // Interchange if P(K) != I.
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K + 1) {
               zswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }

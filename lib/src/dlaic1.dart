@@ -44,9 +44,9 @@ void dlaic1(
   EPS = dlamch('Epsilon');
   ALPHA = ddot(J, X, 1, W, 1);
 
-  ABSALP = (ALPHA).abs();
-  ABSGAM = (GAMMA).abs();
-  ABSEST = (SEST).abs();
+  ABSALP = ALPHA.abs();
+  ABSGAM = GAMMA.abs();
+  ABSEST = SEST.abs();
 
   if (JOB == 1) {
     // Estimating largest singular value
@@ -142,7 +142,7 @@ void dlaic1(
         SINE = -GAMMA;
         COSINE = ALPHA;
       }
-      S1 = max((SINE).abs(), (COSINE).abs());
+      S1 = max(SINE.abs(), COSINE.abs());
       S.value = SINE / S1;
       C.value = COSINE / S1;
       TMP = sqrt(S.value * S.value + C.value * C.value);

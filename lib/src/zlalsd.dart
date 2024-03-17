@@ -130,7 +130,7 @@ void zlalsd(
     } else {
       RANK.value = 1;
       zlascl('G', 0, 0, D[1], ONE, 1, NRHS, B, LDB, INFO);
-      D[1] = (D[1]).abs();
+      D[1] = D[1].abs();
     }
     return;
   }
@@ -216,7 +216,7 @@ void zlalsd(
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
       for (JROW = 1; JROW <= N; JROW++) {
         J++;
-        RWORK[J] = (B[JROW][JCOL]).toDouble();
+        RWORK[J] = B[JROW][JCOL].toDouble();
       }
     }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWU).asMatrix(N), N,
@@ -261,7 +261,7 @@ void zlalsd(
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
       for (JROW = 1; JROW <= N; JROW++) {
         J++;
-        RWORK[J] = (B[JROW][JCOL]).toDouble();
+        RWORK[J] = B[JROW][JCOL].toDouble();
       }
     }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWVT).asMatrix(N), N,
@@ -330,7 +330,7 @@ void zlalsd(
   NSUB = 0;
 
   for (I = 1; I <= N; I++) {
-    if ((D[I]).abs() < EPS) {
+    if (D[I].abs() < EPS) {
       D[I] = sign(EPS, D[I]).toDouble();
     }
   }
@@ -348,7 +348,7 @@ void zlalsd(
 
         NSIZE = I - ST + 1;
         IWORK[SIZEI + NSUB - 1] = NSIZE;
-      } else if ((E[I]).abs() >= EPS) {
+      } else if (E[I].abs() >= EPS) {
         // A subproblem with E(NM1) not too small but I = NM1.
 
         NSIZE = N - ST + 1;
@@ -529,7 +529,7 @@ void zlalsd(
     // Some of the elements in D can be negative because 1-by-1
     // subproblems were not solved explicitly.
 
-    if ((D[I]).abs() <= TOL) {
+    if (D[I].abs() <= TOL) {
       zlaset('A', 1, NRHS, Complex.zero, Complex.zero,
           WORK(BX + I - 1).asMatrix(N), N);
     } else {
@@ -537,7 +537,7 @@ void zlalsd(
       zlascl(
           'G', 0, 0, D[I], ONE, 1, NRHS, WORK(BX + I - 1).asMatrix(N), N, INFO);
     }
-    D[I] = (D[I]).abs();
+    D[I] = D[I].abs();
   }
 
   // Now apply back the right singular vectors.
@@ -564,7 +564,7 @@ void zlalsd(
         J += N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
           JREAL++;
-          RWORK[JREAL] = (WORK[J + JROW]).toDouble();
+          RWORK[JREAL] = WORK[J + JROW].toDouble();
         }
       }
       dgemm(

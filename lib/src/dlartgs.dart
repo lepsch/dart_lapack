@@ -21,8 +21,7 @@ void dlartgs(
   // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
   // factor.
 
-  if ((SIGMA == ZERO && (X).abs() < THRESH) ||
-      ((X).abs() == SIGMA && Y == ZERO)) {
+  if ((SIGMA == ZERO && X.abs() < THRESH) || (X.abs() == SIGMA && Y == ZERO)) {
     Z = ZERO;
     W = ZERO;
   } else if (SIGMA == ZERO) {
@@ -33,7 +32,7 @@ void dlartgs(
       Z = -X;
       W = -Y;
     }
-  } else if ((X).abs() < THRESH) {
+  } else if (X.abs() < THRESH) {
     Z = -SIGMA * SIGMA;
     W = ZERO;
   } else {
@@ -42,7 +41,7 @@ void dlartgs(
     } else {
       S = NEGONE;
     }
-    Z = S * ((X).abs() - SIGMA) * (S + SIGMA / X);
+    Z = S * (X.abs() - SIGMA) * (S + SIGMA / X);
     W = S * Y;
   }
 

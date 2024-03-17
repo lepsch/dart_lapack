@@ -68,7 +68,7 @@ void dgeequb(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      R[I] = max(R[I], (A[I][J]).abs());
+      R[I] = max(R[I], A[I][J].abs());
     }
   }
   for (I = 1; I <= M; I++) {
@@ -119,7 +119,7 @@ void dgeequb(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      C[J] = max(C[J], (A[I][J]).abs() * R[I]);
+      C[J] = max(C[J], A[I][J].abs() * R[I]);
     }
     if (C[J] > ZERO) {
       C[J] = pow(RADIX, (log(C[J]) ~/ LOGRDX)).toDouble();

@@ -300,21 +300,19 @@ void dlaqz0(
     }
 
     // Check deflations at the end
-    if ((A[ISTOP - 1][ISTOP - 2]).abs() <=
+    if (A[ISTOP - 1][ISTOP - 2].abs() <=
         max(
           SMLNUM,
-          ULP *
-              ((A[ISTOP - 1][ISTOP - 1]).abs() +
-                  (A[ISTOP - 2][ISTOP - 2]).abs()),
+          ULP * (A[ISTOP - 1][ISTOP - 1].abs() + A[ISTOP - 2][ISTOP - 2].abs()),
         )) {
       A[ISTOP - 1][ISTOP - 2] = ZERO;
       ISTOP -= 2;
       LD = 0;
       ESHIFT = ZERO;
-    } else if ((A[ISTOP][ISTOP - 1]).abs() <=
+    } else if (A[ISTOP][ISTOP - 1].abs() <=
         max(
           SMLNUM,
-          ULP * ((A[ISTOP][ISTOP]).abs() + (A[ISTOP - 1][ISTOP - 1]).abs()),
+          ULP * (A[ISTOP][ISTOP].abs() + A[ISTOP - 1][ISTOP - 1].abs()),
         )) {
       A[ISTOP][ISTOP - 1] = ZERO;
       ISTOP--;
@@ -322,21 +320,21 @@ void dlaqz0(
       ESHIFT = ZERO;
     }
     // Check deflations at the start
-    if ((A[ISTART + 2][ISTART + 1]).abs() <=
+    if (A[ISTART + 2][ISTART + 1].abs() <=
         max(
           SMLNUM,
           ULP *
-              ((A[ISTART + 1][ISTART + 1]).abs() +
-                  (A[ISTART + 2][ISTART + 2]).abs()),
+              (A[ISTART + 1][ISTART + 1].abs() +
+                  A[ISTART + 2][ISTART + 2].abs()),
         )) {
       A[ISTART + 2][ISTART + 1] = ZERO;
       ISTART += 2;
       LD = 0;
       ESHIFT = ZERO;
-    } else if ((A[ISTART + 1][ISTART]).abs() <=
+    } else if (A[ISTART + 1][ISTART].abs() <=
         max(
           SMLNUM,
-          ULP * ((A[ISTART][ISTART]).abs() + (A[ISTART + 1][ISTART + 1]).abs()),
+          ULP * (A[ISTART][ISTART].abs() + A[ISTART + 1][ISTART + 1].abs()),
         )) {
       A[ISTART + 1][ISTART] = ZERO;
       ISTART++;
@@ -351,8 +349,8 @@ void dlaqz0(
     // Check interior deflations
     ISTART2 = ISTART;
     for (K = ISTOP; K >= ISTART + 1; K--) {
-      if ((A[K][K - 1]).abs() <=
-          max(SMLNUM, ULP * ((A[K][K]).abs() + (A[K - 1][K - 1]).abs()))) {
+      if (A[K][K - 1].abs() <=
+          max(SMLNUM, ULP * (A[K][K].abs() + A[K - 1][K - 1].abs()))) {
         A[K][K - 1] = ZERO;
         ISTART2 = K;
         break;
@@ -372,7 +370,7 @@ void dlaqz0(
     // slow down the method when many infinite eigenvalues are present
     K = ISTOP;
     while (K >= ISTART2) {
-      if ((B[K][K]).abs() < BTOL) {
+      if (B[K][K].abs() < BTOL) {
         // A diagonal element of B is negligible, move it
         // to the top and deflate it
 
@@ -540,8 +538,8 @@ void dlaqz0(
     if ((LD % 6) == 0) {
       // Exceptional shift.  Chosen for no particularly good reason.
 
-      if ((MAXIT.toDouble() * SAFMIN) * (A[ISTOP][ISTOP - 1]).abs() <
-          (A[ISTOP - 1][ISTOP - 1]).abs()) {
+      if ((MAXIT.toDouble() * SAFMIN) * A[ISTOP][ISTOP - 1].abs() <
+          A[ISTOP - 1][ISTOP - 1].abs()) {
         ESHIFT = A[ISTOP][ISTOP - 1] / B[ISTOP - 1][ISTOP - 1];
       } else {
         ESHIFT += ONE / (SAFMIN * MAXIT.toDouble());

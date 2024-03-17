@@ -25,10 +25,10 @@ void dlaev2(
 
   SM = A + C;
   DF = A - C;
-  ADF = (DF).abs();
+  ADF = DF.abs();
   TB = B + B;
-  AB = (TB).abs();
-  if ((A).abs() > (C).abs()) {
+  AB = TB.abs();
+  if (A.abs() > C.abs()) {
     ACMX = A;
     ACMN = C;
   } else {
@@ -79,7 +79,7 @@ void dlaev2(
     CS = DF - RT;
     SGN2 = -1;
   }
-  ACS = (CS).abs();
+  ACS = CS.abs();
   if (ACS > AB) {
     CT = -TB / CS;
     SN1.value = ONE / sqrt(ONE + CT * CT);

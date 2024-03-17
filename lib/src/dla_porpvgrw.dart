@@ -38,13 +38,13 @@ double dla_porpvgrw(
   if (UPPER) {
     for (J = 1; J <= NCOLS; J++) {
       for (I = 1; I <= J; I++) {
-        WORK[NCOLS + J] = max((A[I][J]).abs(), WORK[NCOLS + J]);
+        WORK[NCOLS + J] = max(A[I][J].abs(), WORK[NCOLS + J]);
       }
     }
   } else {
     for (J = 1; J <= NCOLS; J++) {
       for (I = J; I <= NCOLS; I++) {
-        WORK[NCOLS + J] = max((A[I][J]).abs(), WORK[NCOLS + J]);
+        WORK[NCOLS + J] = max(A[I][J].abs(), WORK[NCOLS + J]);
       }
     }
   }
@@ -55,13 +55,13 @@ double dla_porpvgrw(
   if (lsame('Upper', UPLO)) {
     for (J = 1; J <= NCOLS; J++) {
       for (I = 1; I <= J; I++) {
-        WORK[J] = max((AF[I][J]).abs(), WORK[J]);
+        WORK[J] = max(AF[I][J].abs(), WORK[J]);
       }
     }
   } else {
     for (J = 1; J <= NCOLS; J++) {
       for (I = J; I <= NCOLS; I++) {
-        WORK[J] = max((AF[I][J]).abs(), WORK[J]);
+        WORK[J] = max(AF[I][J].abs(), WORK[J]);
       }
     }
   }

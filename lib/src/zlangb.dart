@@ -34,7 +34,7 @@ double zlangb(
     VALUE = ZERO;
     for (J = 1; J <= N; J++) {
       for (I = max(KU + 2 - J, 1); I <= min(N + KU + 1 - J, KL + KU + 1); I++) {
-        TEMP = (AB[I][J]).abs();
+        TEMP = AB[I][J].abs();
         if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
       }
     }
@@ -45,7 +45,7 @@ double zlangb(
     for (J = 1; J <= N; J++) {
       SUM.value = ZERO;
       for (I = max(KU + 2 - J, 1); I <= min(N + KU + 1 - J, KL + KU + 1); I++) {
-        SUM.value += (AB[I][J]).abs();
+        SUM.value += AB[I][J].abs();
       }
       if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
     }
@@ -58,7 +58,7 @@ double zlangb(
     for (J = 1; J <= N; J++) {
       K = KU + 1 - J;
       for (I = max(1, J - KU); I <= min(N, J + KL); I++) {
-        WORK[I] += (AB[K + I][J]).abs();
+        WORK[I] += AB[K + I][J].abs();
       }
     }
     VALUE = ZERO;

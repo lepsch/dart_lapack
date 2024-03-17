@@ -92,11 +92,11 @@ void zlahef_rk(
       // Copy column K of A to column KW of W and update it
 
       if (K > 1) zcopy(K - 1, A(1, K).asArray(), 1, W(1, KW).asArray(), 1);
-      W[K][KW] = (A[K][K]).toDouble().toComplex();
+      W[K][KW] = A[K][K].toDouble().toComplex();
       if (K < N) {
         zgemv('No transpose', K, N - K, -Complex.one, A(1, K + 1), LDA,
             W(K, KW + 1).asArray(), LDW, Complex.one, W(1, KW).asArray(), 1);
-        W[K][KW] = (W[K][KW]).toDouble().toComplex();
+        W[K][KW] = W[K][KW].toDouble().toComplex();
       }
 
       // Determine rows and columns to be interchanged and whether
@@ -332,8 +332,8 @@ void zlahef_rk(
 
             // Handle division by a small number
 
-            T = (A[K][K]).toDouble();
-            if ((T).abs() >= SFMIN) {
+            T = A[K][K].toDouble();
+            if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(K - 1, R1, A(1, K).asArray(), 1);
             } else {
@@ -475,10 +475,10 @@ void zlahef_rk(
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        A[JJ][JJ] = (A[JJ][JJ]).toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
         zgemv('No transpose', JJ - J + 1, N - K, -Complex.one, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, Complex.one, A(J, JJ).asArray(), 1);
-        A[JJ][JJ] = (A[JJ][JJ]).toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
       }
 
       // Update the rectangular superdiagonal block
@@ -510,14 +510,14 @@ void zlahef_rk(
 
       // Copy column K of A to column K of W and update column K of W
 
-      W[K][K] = (A[K][K]).toDouble().toComplex();
+      W[K][K] = A[K][K].toDouble().toComplex();
       if (K < N) {
         zcopy(N - K, A(K + 1, K).asArray(), 1, W(K + 1, K).asArray(), 1);
       }
       if (K > 1) {
         zgemv('No transpose', N - K + 1, K - 1, -Complex.one, A(K, 1), LDA,
             W(K, 1).asArray(), LDW, Complex.one, W(K, K).asArray(), 1);
-        W[K][K] = (W[K][K]).toDouble().toComplex();
+        W[K][K] = W[K][K].toDouble().toComplex();
       }
 
       // Determine rows and columns to be interchanged and whether
@@ -541,7 +541,7 @@ void zlahef_rk(
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
-        A[K][K] = (W[K][K]).toDouble().toComplex();
+        A[K][K] = W[K][K].toDouble().toComplex();
         if (K < N) {
           zcopy(N - K, W(K + 1, K).asArray(), 1, A(K + 1, K).asArray(), 1);
         }
@@ -680,7 +680,7 @@ void zlahef_rk(
           // K and K+1 of A for 2-by-2 pivot, since these columns
           // will be later overwritten.
 
-          A[P][P] = (A[K][K]).toDouble().toComplex();
+          A[P][P] = A[K][K].toDouble().toComplex();
           zcopy(
               P - K - 1, A(K + 1, K).asArray(), 1, A(P, K + 1).asArray(), LDA);
           zlacgv(P - K - 1, A(P, K + 1).asArray(), LDA);
@@ -708,7 +708,7 @@ void zlahef_rk(
           // (or K and K+1 for 2-by-2 pivot) of A, since these columns
           // will be later overwritten.
 
-          A[KP][KP] = (A[KK][KK]).toDouble().toComplex();
+          A[KP][KP] = A[KK][KK].toDouble().toComplex();
           zcopy(KP - KK - 1, A(KK + 1, KK).asArray(), 1,
               A(KP, KK + 1).asArray(), LDA);
           zlacgv(KP - KK - 1, A(KP, KK + 1).asArray(), LDA);
@@ -753,8 +753,8 @@ void zlahef_rk(
 
             // Handle division by a small number
 
-            T = (A[K][K]).toDouble();
-            if ((T).abs() >= SFMIN) {
+            T = A[K][K].toDouble();
+            if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else {
@@ -896,10 +896,10 @@ void zlahef_rk(
       // Update the lower triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        A[JJ][JJ] = (A[JJ][JJ]).toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
         zgemv('No transpose', J + JB - JJ, K - 1, -Complex.one, A(JJ, 1), LDA,
             W(JJ, 1).asArray(), LDW, Complex.one, A(JJ, JJ).asArray(), 1);
-        A[JJ][JJ] = (A[JJ][JJ]).toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
       }
 
       // Update the rectangular subdiagonal block

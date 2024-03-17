@@ -489,7 +489,7 @@ void zgesvdq(
     NR = 1;
     RTMP.value = sqrt(N.toDouble()) * EPSLN;
     for (p = 2; p <= N; p++) {
-      if ((A[p][p]).abs() < (RTMP.value * (A[1][1]).abs())) break;
+      if (A[p][p].abs() < (RTMP.value * A[1][1].abs())) break;
       NR++;
     }
   } else if (ACCLM) {
@@ -501,8 +501,8 @@ void zgesvdq(
     // will be truncated.
     NR = 1;
     for (p = 2; p <= N; p++) {
-      if (((A[p][p]).abs() < (EPSLN * (A[p - 1][p - 1]).abs())) ||
-          ((A[p][p]).abs() < SFMIN)) break;
+      if ((A[p][p].abs() < (EPSLN * A[p - 1][p - 1].abs())) ||
+          (A[p][p].abs() < SFMIN)) break;
       NR++;
     }
   } else {
@@ -512,7 +512,7 @@ void zgesvdq(
     // R(i,i)=0 => R(i:N,i:N)=0.
     NR = 1;
     for (p = 2; p <= N; p++) {
-      if ((A[p][p]).abs() == ZERO) break;
+      if (A[p][p].abs() == ZERO) break;
       NR++;
     }
 

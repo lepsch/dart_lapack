@@ -138,7 +138,7 @@ Future<void> zblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
     }
     await NIN.readArray(INC, NINC);
     for (I = 1; I <= NINC; I++) {
-      if (INC[I] == 0 || (INC[I]).abs() > INCMAX) {
+      if (INC[I] == 0 || INC[I].abs() > INCMAX) {
         NOUT.main.print9994(INCMAX);
         NOUT.main.print9987();
         return;

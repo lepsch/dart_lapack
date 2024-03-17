@@ -202,7 +202,7 @@ void dtgsja(
         ERROR = max(ERROR, SSMIN.value);
       }
 
-      if ((ERROR).abs() <= min(TOLA, TOLB)) {
+      if (ERROR.abs() <= min(TOLA, TOLB)) {
         hasConverged = true;
         break;
       }
@@ -236,7 +236,7 @@ void dtgsja(
           if (WANTV) dscal(P, -ONE, V(1, I).asArray(), 1);
         }
 
-        dlartg((GAMMA).abs(), ONE, BETA.box(K + I), ALPHA.box(K + I), RWK);
+        dlartg(GAMMA.abs(), ONE, BETA.box(K + I), ALPHA.box(K + I), RWK);
 
         if (ALPHA[K + I] >= BETA[K + I]) {
           dscal(L - I + 1, ONE / ALPHA[K + I], A(K + I, N - L + I).asArray(),

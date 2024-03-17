@@ -1,4 +1,3 @@
-
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlartg.dart';
 import 'package:lapack/src/dlasv2.dart';
@@ -71,7 +70,8 @@ void dlags2(
 
     dlasv2(A, B, D, S1, S2, SNR, CSR, SNL, CSL);
 
-    if ((CSL.value).abs() >= (SNL.value).abs() || (CSR.value).abs() >= (SNR.value).abs()) {
+    if ((CSL.value).abs() >= (SNL.value).abs() ||
+        (CSR.value).abs() >= (SNR.value).abs()) {
       // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
       // and (1,2) element of |U|**T *|A| and |V|**T *|B|.
 
@@ -81,14 +81,14 @@ void dlags2(
       VB11R = CSR.value * B1;
       VB12 = CSR.value * B2 + SNR.value * B3;
 
-      AUA12 = (CSL.value).abs() * (A2).abs() + (SNL.value).abs() * (A3).abs();
-      AVB12 = (CSR.value).abs() * (B2).abs() + (SNR.value).abs() * (B3).abs();
+      AUA12 = (CSL.value).abs() * A2.abs() + (SNL.value).abs() * A3.abs();
+      AVB12 = (CSR.value).abs() * B2.abs() + (SNR.value).abs() * B3.abs();
 
       // zero (1,2) elements of U**T *A and V**T *B
 
-      if (((UA11R).abs() + (UA12).abs()) != ZERO) {
-        if (AUA12 / ((UA11R).abs() + (UA12).abs()) <=
-            AVB12 / ((VB11R).abs() + (VB12).abs())) {
+      if ((UA11R.abs() + UA12.abs()) != ZERO) {
+        if (AUA12 / (UA11R.abs() + UA12.abs()) <=
+            AVB12 / (VB11R.abs() + VB12.abs())) {
           dlartg(-UA11R, UA12, CSQ, SNQ, R);
         } else {
           dlartg(-VB11R, VB12, CSQ, SNQ, R);
@@ -111,14 +111,14 @@ void dlags2(
       VB21 = -SNR.value * B1;
       VB22 = -SNR.value * B2 + CSR.value * B3;
 
-      AUA22 = (SNL.value).abs() * (A2).abs() + (CSL.value).abs() * (A3).abs();
-      AVB22 = (SNR.value).abs() * (B2).abs() + (CSR.value).abs() * (B3).abs();
+      AUA22 = (SNL.value).abs() * A2.abs() + (CSL.value).abs() * A3.abs();
+      AVB22 = (SNR.value).abs() * B2.abs() + (CSR.value).abs() * B3.abs();
 
       // zero (2,2) elements of U**T*A and V**T*B, and then swap.
 
-      if (((UA21).abs() + (UA22).abs()) != ZERO) {
-        if (AUA22 / ((UA21).abs() + (UA22).abs()) <=
-            AVB22 / ((VB21).abs() + (VB22).abs())) {
+      if ((UA21.abs() + UA22.abs()) != ZERO) {
+        if (AUA22 / (UA21.abs() + UA22.abs()) <=
+            AVB22 / (VB21.abs() + VB22.abs())) {
           dlartg(-UA21, UA22, CSQ, SNQ, R);
         } else {
           dlartg(-VB21, VB22, CSQ, SNQ, R);
@@ -149,7 +149,8 @@ void dlags2(
 
     dlasv2(A, C, D, S1, S2, SNR, CSR, SNL, CSL);
 
-    if ((CSR.value).abs() >= (SNR.value).abs() || (CSL.value).abs() >= (SNL.value).abs()) {
+    if ((CSR.value).abs() >= (SNR.value).abs() ||
+        (CSL.value).abs() >= (SNL.value).abs()) {
       // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
       // and (2,1) element of |U|**T *|A| and |V|**T *|B|.
 
@@ -159,14 +160,14 @@ void dlags2(
       VB21 = -SNL.value * B1 + CSL.value * B2;
       VB22R = CSL.value * B3;
 
-      AUA21 = (SNR.value).abs() * (A1).abs() + (CSR.value).abs() * (A2).abs();
-      AVB21 = (SNL.value).abs() * (B1).abs() + (CSL.value).abs() * (B2).abs();
+      AUA21 = (SNR.value).abs() * A1.abs() + (CSR.value).abs() * A2.abs();
+      AVB21 = (SNL.value).abs() * B1.abs() + (CSL.value).abs() * B2.abs();
 
       // zero (2,1) elements of U**T *A and V**T *B.
 
-      if (((UA21).abs() + (UA22R).abs()) != ZERO) {
-        if (AUA21 / ((UA21).abs() + (UA22R).abs()) <=
-            AVB21 / ((VB21).abs() + (VB22R).abs())) {
+      if ((UA21.abs() + UA22R.abs()) != ZERO) {
+        if (AUA21 / (UA21.abs() + UA22R.abs()) <=
+            AVB21 / (VB21.abs() + VB22R.abs())) {
           dlartg(UA22R, UA21, CSQ, SNQ, R);
         } else {
           dlartg(VB22R, VB21, CSQ, SNQ, R);
@@ -189,14 +190,14 @@ void dlags2(
       VB11 = CSL.value * B1 + SNL.value * B2;
       VB12 = SNL.value * B3;
 
-      AUA11 = (CSR.value).abs() * (A1).abs() + (SNR.value).abs() * (A2).abs();
-      AVB11 = (CSL.value).abs() * (B1).abs() + (SNL.value).abs() * (B2).abs();
+      AUA11 = (CSR.value).abs() * A1.abs() + (SNR.value).abs() * A2.abs();
+      AVB11 = (CSL.value).abs() * B1.abs() + (SNL.value).abs() * B2.abs();
 
       // zero (1,1) elements of U**T*A and V**T*B, and then swap.
 
-      if (((UA11).abs() + (UA12).abs()) != ZERO) {
-        if (AUA11 / ((UA11).abs() + (UA12).abs()) <=
-            AVB11 / ((VB11).abs() + (VB12).abs())) {
+      if ((UA11.abs() + UA12.abs()) != ZERO) {
+        if (AUA11 / (UA11.abs() + UA12.abs()) <=
+            AVB11 / (VB11.abs() + VB12.abs())) {
           dlartg(UA12, UA11, CSQ, SNQ, R);
         } else {
           dlartg(VB12, VB11, CSQ, SNQ, R);

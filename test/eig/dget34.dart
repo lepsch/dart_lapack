@@ -84,7 +84,7 @@ void dget34(
           T[2][2] = VAL[IC];
           T[1][2] = VAL[IB];
           T[2][1] = ZERO;
-          TNRM = max((T[1][1]).abs(), max((T[2][2]).abs(), (T[1][2]).abs()));
+          TNRM = max(T[1][1].abs(), max(T[2][2].abs(), T[1][2].abs()));
           dcopy(16, T.asArray(), 1, T1.asArray(), 1);
           dcopy(16, VAL(1), 0, Q.asArray(), 1);
           dcopy(4, VAL(3), 0, Q.asArray(), 5);
@@ -123,16 +123,16 @@ void dget34(
                 T[3][2] = -VAL[IC21];
                 T[3][3] = VAL[IC11] * IC22.toDouble();
                 TNRM = max(
-                    (T[1][1]).abs(),
+                    T[1][1].abs(),
                     max(
-                      (T[1][2]).abs(),
+                      T[1][2].abs(),
                       max(
-                        (T[1][3]).abs(),
+                        T[1][3].abs(),
                         max(
-                          (T[2][2]).abs(),
+                          T[2][2].abs(),
                           max(
-                            (T[2][3]).abs(),
-                            max((T[3][2]).abs(), (T[3][3]).abs()),
+                            T[2][3].abs(),
+                            max(T[3][2].abs(), T[3][3].abs()),
                           ),
                         ),
                       ),
@@ -184,16 +184,16 @@ void dget34(
                 T[3][2] = ZERO;
                 T[3][3] = VAL[IC] * VM[ICM];
                 TNRM = max(
-                    (T[1][1]).abs(),
+                    T[1][1].abs(),
                     max(
-                      (T[1][2]).abs(),
+                      T[1][2].abs(),
                       max(
-                        (T[1][3]).abs(),
+                        T[1][3].abs(),
                         max(
-                          (T[2][2]).abs(),
+                          T[2][2].abs(),
                           max(
-                            (T[2][3]).abs(),
-                            max((T[3][2]).abs(), (T[3][3]).abs()),
+                            T[2][3].abs(),
+                            max(T[3][2].abs(), T[3][3].abs()),
                           ),
                         ),
                       ),
@@ -249,16 +249,16 @@ void dget34(
                       T[2][4] = THREE * VAL[IB];
                       T[3][1] = ZERO;
                       T[3][2] = ZERO;
-                      T[3][3] = VAL[IC11] * (VAL[ICM]).abs();
-                      T[3][4] = VAL[IC12] * (VAL[ICM]).abs();
+                      T[3][3] = VAL[IC11] * VAL[ICM].abs();
+                      T[3][4] = VAL[IC12] * VAL[ICM].abs();
                       T[4][1] = ZERO;
                       T[4][2] = ZERO;
-                      T[4][3] = -T[3][4] * VAL[IC21] * (VAL[ICM]).abs();
-                      T[4][4] = VAL[IC11] * IC22.toDouble() * (VAL[ICM]).abs();
+                      T[4][3] = -T[3][4] * VAL[IC21] * VAL[ICM].abs();
+                      T[4][4] = VAL[IC11] * IC22.toDouble() * VAL[ICM].abs();
                       TNRM = ZERO;
                       for (I = 1; I <= 4; I++) {
                         for (J = 1; J <= 4; J++) {
-                          TNRM = max(TNRM, (T[I][J]).abs());
+                          TNRM = max(TNRM, T[I][J].abs());
                         }
                       }
                       dcopy(16, T.asArray(), 1, T1.asArray(), 1);

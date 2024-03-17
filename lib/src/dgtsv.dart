@@ -42,7 +42,7 @@ void dgtsv(
 
   if (NRHS == 1) {
     for (I = 1; I <= N - 2; I++) {
-      if ((D[I]).abs() >= (DL[I]).abs()) {
+      if (D[I].abs() >= DL[I].abs()) {
         // No row interchange required
 
         if (D[I] != ZERO) {
@@ -71,7 +71,7 @@ void dgtsv(
     }
     if (N > 1) {
       I = N - 1;
-      if ((D[I]).abs() >= (DL[I]).abs()) {
+      if (D[I].abs() >= DL[I].abs()) {
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
           D[I + 1] -= FACT * DU[I];
@@ -97,7 +97,7 @@ void dgtsv(
     }
   } else {
     for (I = 1; I <= N - 2; I++) {
-      if ((D[I]).abs() >= (DL[I]).abs()) {
+      if (D[I].abs() >= DL[I].abs()) {
         // No row interchange required
 
         if (D[I] != ZERO) {
@@ -130,7 +130,7 @@ void dgtsv(
     }
     if (N > 1) {
       I = N - 1;
-      if ((D[I]).abs() >= (DL[I]).abs()) {
+      if (D[I].abs() >= DL[I].abs()) {
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
           D[I + 1] -= FACT * DU[I];

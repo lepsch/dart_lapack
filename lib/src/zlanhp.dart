@@ -47,7 +47,7 @@ double zlanhp(
         SUM.value = AP[K].toDouble().abs();
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         for (I = K + 1; I <= K + N - J; I++) {
-          SUM.value = (AP[I]).abs();
+          SUM.value = AP[I].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
         K += N - J + 1;
@@ -62,7 +62,7 @@ double zlanhp(
       for (J = 1; J <= N; J++) {
         SUM.value = ZERO;
         for (I = 1; I <= J - 1; I++) {
-          ABSA = (AP[K]).abs();
+          ABSA = AP[K].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
@@ -82,7 +82,7 @@ double zlanhp(
         SUM.value = WORK[J] + AP[K].toDouble().abs();
         K++;
         for (I = J + 1; I <= N; I++) {
-          ABSA = (AP[K]).abs();
+          ABSA = AP[K].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
@@ -110,7 +110,7 @@ double zlanhp(
     SUM.value = 2 * SUM.value;
     K = 1;
     for (I = 1; I <= N; I++) {
-      if ((AP[K]).toDouble() != ZERO) {
+      if (AP[K].toDouble() != ZERO) {
         ABSA = AP[K].toDouble().abs();
         if (SCALE.value < ABSA) {
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);

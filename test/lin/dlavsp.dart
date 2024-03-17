@@ -124,7 +124,7 @@ void dlavsp(
 
             // Interchange if P(K) != I.
 
-            final KP = (IPIV[K]).abs();
+            final KP = IPIV[K].abs();
             if (KP != K) {
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -205,7 +205,7 @@ void dlavsp(
             // Interchange if a permutation was applied at the
             // K-th step of the factorization.
 
-            final KP = (IPIV[K]).abs();
+            final KP = IPIV[K].abs();
             if (KP != K) {
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -258,7 +258,7 @@ void dlavsp(
           if (K > 2) {
             // Interchange if P(K) != I.
 
-            final KP = (IPIV[K]).abs();
+            final KP = IPIV[K].abs();
             if (KP != K - 1) {
               dswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -325,7 +325,7 @@ void dlavsp(
           if (K < N - 1) {
             // Interchange if P(K) != I.
 
-            final KP = (IPIV[K]).abs();
+            final KP = IPIV[K].abs();
             if (KP != K + 1) {
               dswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }

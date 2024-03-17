@@ -37,7 +37,7 @@ double dlantp(
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
           for (I = K; I <= K + J - 2; I++) {
-            SUM.value = (AP[I]).abs();
+            SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
           K += J;
@@ -45,7 +45,7 @@ double dlantp(
       } else {
         for (J = 1; J <= N; J++) {
           for (I = K + 1; I <= K + N - J; I++) {
-            SUM.value = (AP[I]).abs();
+            SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
           K += N - J + 1;
@@ -56,7 +56,7 @@ double dlantp(
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
           for (I = K; I <= K + J - 1; I++) {
-            SUM.value = (AP[I]).abs();
+            SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
           K += J;
@@ -64,7 +64,7 @@ double dlantp(
       } else {
         for (J = 1; J <= N; J++) {
           for (I = K; I <= K + N - J; I++) {
-            SUM.value = (AP[I]).abs();
+            SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
           K += N - J + 1;
@@ -82,12 +82,12 @@ double dlantp(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = K; I <= K + J - 2; I++) {
-            SUM.value += (AP[I]).abs();
+            SUM.value += AP[I].abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + J - 1; I++) {
-            SUM.value += (AP[I]).abs();
+            SUM.value += AP[I].abs();
           }
         }
         K += J;
@@ -98,12 +98,12 @@ double dlantp(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = K + 1; I <= K + N - J; I++) {
-            SUM.value += (AP[I]).abs();
+            SUM.value += AP[I].abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + N - J; I++) {
-            SUM.value += (AP[I]).abs();
+            SUM.value += AP[I].abs();
           }
         }
         K += N - J + 1;
@@ -121,7 +121,7 @@ double dlantp(
         }
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J - 1; I++) {
-            WORK[I] += (AP[K]).abs();
+            WORK[I] += AP[K].abs();
             K++;
           }
           K++;
@@ -132,7 +132,7 @@ double dlantp(
         }
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J; I++) {
-            WORK[I] += (AP[K]).abs();
+            WORK[I] += AP[K].abs();
             K++;
           }
         }
@@ -145,7 +145,7 @@ double dlantp(
         for (J = 1; J <= N; J++) {
           K++;
           for (I = J + 1; I <= N; I++) {
-            WORK[I] += (AP[K]).abs();
+            WORK[I] += AP[K].abs();
             K++;
           }
         }
@@ -155,7 +155,7 @@ double dlantp(
         }
         for (J = 1; J <= N; J++) {
           for (I = J; I <= N; I++) {
-            WORK[I] += (AP[K]).abs();
+            WORK[I] += AP[K].abs();
             K++;
           }
         }

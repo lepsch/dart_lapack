@@ -33,7 +33,7 @@ void dlargv(
       C[IC] = ZERO;
       Y[IY] = ONE;
       X[IX] = G;
-    } else if ((F).abs() > (G).abs()) {
+    } else if (F.abs() > G.abs()) {
       T = G / F;
       TT = sqrt(ONE + T * T);
       C[IC] = ONE / TT;

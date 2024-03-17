@@ -49,7 +49,7 @@ Future<void> dchkbk(final Nin NIN, final Nout NOUT) async {
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
         X = (E[I][J] - EIN[I][J]).abs() / EPS;
-        if ((E[I][J]).abs() > SAFMIN) X /= (E[I][J]).abs();
+        if (E[I][J].abs() > SAFMIN) X /= E[I][J].abs();
         VMAX = max(VMAX, X);
       }
     }

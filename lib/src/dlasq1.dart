@@ -37,7 +37,7 @@ void dlasq1(
   } else if (N == 0) {
     return;
   } else if (N == 1) {
-    D[1] = (D[1]).abs();
+    D[1] = D[1].abs();
     return;
   } else if (N == 2) {
     dlas2(D[1], E[1], D[2], SIGMN, SIGMX);
@@ -50,10 +50,10 @@ void dlasq1(
 
   SIGMX.value = ZERO;
   for (I = 1; I <= N - 1; I++) {
-    D[I] = (D[I]).abs();
-    SIGMX.value = max(SIGMX.value, (E[I]).abs());
+    D[I] = D[I].abs();
+    SIGMX.value = max(SIGMX.value, E[I].abs());
   }
-  D[N] = (D[N]).abs();
+  D[N] = D[N].abs();
 
   // Early return if SIGMX.value is zero (matrix is already diagonal).
 

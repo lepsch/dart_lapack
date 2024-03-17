@@ -62,7 +62,7 @@ void dgetf2(
       // Compute elements J+1:M of J-th column.
 
       if (J < M) {
-        if ((A[J][J]).abs() >= SFMIN) {
+        if (A[J][J].abs() >= SFMIN) {
           dscal(M - J, ONE / A[J][J], A(J + 1, J).asArray(), 1);
         } else {
           for (I = 1; I <= M - J; I++) {

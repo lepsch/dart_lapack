@@ -242,26 +242,26 @@ void zptrfs(
 
     RWORK[1] = ONE;
     for (I = 2; I <= N; I++) {
-      RWORK[I] = ONE + RWORK[I - 1] * (EF[I - 1]).abs();
+      RWORK[I] = ONE + RWORK[I - 1] * EF[I - 1].abs();
     }
 
     // Solve D * M(L)**H * x = b.
 
     RWORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
-      RWORK[I] /= DF[I] + RWORK[I + 1] * (EF[I]).abs();
+      RWORK[I] /= DF[I] + RWORK[I + 1] * EF[I].abs();
     }
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
     IX = idamax(N, RWORK, 1);
-    FERR[J] *= (RWORK[IX]).abs();
+    FERR[J] *= RWORK[IX].abs();
 
     // Normalize error.
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

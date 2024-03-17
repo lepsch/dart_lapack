@@ -111,7 +111,7 @@ void dtbcon(
 
       if (SCALE.value != ONE) {
         IX = idamax(N, WORK, 1);
-        XNORM = (WORK[IX]).abs();
+        XNORM = WORK[IX].abs();
         if (SCALE.value < XNORM * SMLNUM || SCALE.value == ZERO) return;
         drscl(N, SCALE.value, WORK, 1);
       }

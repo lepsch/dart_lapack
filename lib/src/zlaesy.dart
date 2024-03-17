@@ -26,7 +26,7 @@ void zlaesy(
   // Special case:  The matrix is actually diagonal.
   // To avoid divide by zero later, we treat this case separately.
 
-  if ((B).abs() == ZERO) {
+  if (B.abs() == ZERO) {
     RT1.value = A;
     RT2.value = C;
     if ((RT1.value).abs() < (RT2.value).abs()) {
@@ -50,8 +50,8 @@ void zlaesy(
 
     // Take the square root carefully to avoid over/under flow.
 
-    BABS = (B).abs();
-    TABS = (T).abs();
+    BABS = B.abs();
+    TABS = T.abs();
     Z = max(BABS, TABS);
     if (Z > ZERO) {
       T = Z.toComplex() *
@@ -84,7 +84,7 @@ void zlaesy(
     } else {
       T = (Complex.one + SN1.value * SN1.value).sqrt();
     }
-    EVNORM = (T).abs();
+    EVNORM = T.abs();
     if (EVNORM >= THRESH) {
       EVSCAL.value = Complex.one / T;
       CS1.value = EVSCAL.value;

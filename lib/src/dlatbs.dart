@@ -127,7 +127,7 @@ void dlatbs(
   // Level 2 BLAS routine DTBSV can be used.
 
   J = idamax(N, X, 1);
-  XMAX = (X[J]).abs();
+  XMAX = X[J].abs();
   XBND = XMAX;
   if (NOTRAN) {
     // Compute the growth in A * x = b.
@@ -165,7 +165,7 @@ void dlatbs(
 
         // M(j) = G(j-1) / abs(A(j,j))
 
-        TJJ = (AB[MAIND][J]).abs();
+        TJJ = AB[MAIND][J].abs();
         XBND = min(XBND, min(ONE, TJJ) * GROW);
         if (TJJ + CNORM[J] >= SMLNUM) {
           // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
@@ -235,7 +235,7 @@ void dlatbs(
 
         // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
-        TJJ = (AB[MAIND][J]).abs();
+        TJJ = AB[MAIND][J].abs();
         if (XJ > TJJ) XBND *= (TJJ / XJ);
       }
       if (!isTooSmall) GROW = min(GROW, XBND);
@@ -283,7 +283,7 @@ void dlatbs(
         // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
         var scale = true;
-        XJ = (X[J]).abs();
+        XJ = X[J].abs();
         if (NOUNIT) {
           TJJS = AB[MAIND][J] * TSCAL;
         } else {
@@ -291,7 +291,7 @@ void dlatbs(
           if (TSCAL == ONE) scale = false;
         }
         if (scale) {
-          TJJ = (TJJS).abs();
+          TJJ = TJJS.abs();
           if (TJJ > SMLNUM) {
             // abs(A(j,j)) > SMLNUM:
 
@@ -306,7 +306,7 @@ void dlatbs(
               }
             }
             X[J] /= TJJS;
-            XJ = (X[J]).abs();
+            XJ = X[J].abs();
           } else if (TJJ > ZERO) {
             // 0 < abs(A(j,j)) <= SMLNUM:
 
@@ -326,7 +326,7 @@ void dlatbs(
               XMAX *= REC;
             }
             X[J] /= TJJS;
-            XJ = (X[J]).abs();
+            XJ = X[J].abs();
           } else {
             // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
             // scale = 0, and compute a solution to A*x = 0.
@@ -370,7 +370,7 @@ void dlatbs(
             daxpy(JLEN, -X[J] * TSCAL, AB(KD + 1 - JLEN, J).asArray(), 1,
                 X(J - JLEN), 1);
             I = idamax(J - 1, X, 1);
-            XMAX = (X[I]).abs();
+            XMAX = X[I].abs();
           }
         } else if (J < N) {
           // Compute the update
@@ -382,7 +382,7 @@ void dlatbs(
             daxpy(JLEN, -X[J] * TSCAL, AB(2, J).asArray(), 1, X(J + 1), 1);
           }
           I = J + idamax(N - J, X(J + 1), 1);
-          XMAX = (X[I]).abs();
+          XMAX = X[I].abs();
         }
       }
     } else {
@@ -392,7 +392,7 @@ void dlatbs(
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
-        XJ = (X[J]).abs();
+        XJ = X[J].abs();
         USCAL = TSCAL;
         REC = ONE / max(XMAX, ONE);
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
@@ -404,7 +404,7 @@ void dlatbs(
           } else {
             TJJS = TSCAL;
           }
-          TJJ = (TJJS).abs();
+          TJJ = TJJS.abs();
           if (TJJ > ONE) {
             // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
@@ -453,7 +453,7 @@ void dlatbs(
           // was not used to scale the dotproduct.
 
           X[J] -= SUMJ;
-          XJ = (X[J]).abs();
+          XJ = X[J].abs();
           var scale = true;
           if (NOUNIT) {
             // Compute x(j) /= A(j,j), scaling if necessary.
@@ -464,7 +464,7 @@ void dlatbs(
             if (TSCAL == ONE) scale = false;
           }
           if (scale) {
-            TJJ = (TJJS).abs();
+            TJJ = TJJS.abs();
             if (TJJ > SMLNUM) {
               // abs(A(j,j)) > SMLNUM:
 
@@ -509,7 +509,7 @@ void dlatbs(
 
           X[J] /= TJJS - SUMJ;
         }
-        XMAX = max(XMAX, (X[J]).abs());
+        XMAX = max(XMAX, X[J].abs());
       }
     }
     SCALE.value /= TSCAL;

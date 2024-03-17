@@ -43,9 +43,9 @@ void zlaic1(
   EPS = dlamch('Epsilon');
   ALPHA = zdotc(J, X, 1, W, 1);
 
-  ABSALP = (ALPHA).abs();
-  ABSGAM = (GAMMA).abs();
-  ABSEST = (SEST).abs();
+  ABSALP = ALPHA.abs();
+  ABSGAM = GAMMA.abs();
+  ABSEST = SEST.abs();
 
   if (JOB == 1) {
     // Estimating largest singular value
@@ -147,7 +147,7 @@ void zlaic1(
         SINE = -GAMMA.conjugate();
         COSINE = ALPHA.conjugate();
       }
-      S1 = max((SINE).abs(), (COSINE).abs());
+      S1 = max(SINE.abs(), COSINE.abs());
       S.value = SINE / S1.toComplex();
       C.value = COSINE / S1.toComplex();
       TMP = (S.value * S.value.conjugate() + C.value * C.value.conjugate())

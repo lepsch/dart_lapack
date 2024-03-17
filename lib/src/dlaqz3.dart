@@ -133,7 +133,7 @@ void dlaqz3(
     BETA[KWTOP] = B[KWTOP][KWTOP];
     NS.value = 1;
     ND.value = 0;
-    if ((S).abs() <= max(SMLNUM, ULP * (A[KWTOP][KWTOP]).abs())) {
+    if (S.abs() <= max(SMLNUM, ULP * A[KWTOP][KWTOP].abs())) {
       NS.value = 0;
       ND.value = 1;
       if (KWTOP > ILO) {
@@ -198,9 +198,9 @@ void dlaqz3(
       if (BULGE) {
         // Try to deflate complex conjugate eigenvalue pair
         TEMP.value = A[KWBOT][KWBOT].abs() +
-            sqrt(A[KWBOT][KWBOT - 1].abs()) * sqrt((A[KWBOT - 1][KWBOT]).abs());
+            sqrt(A[KWBOT][KWBOT - 1].abs()) * sqrt(A[KWBOT - 1][KWBOT].abs());
         if (TEMP.value == ZERO) {
-          TEMP.value = (S).abs();
+          TEMP.value = S.abs();
         }
         if (max((S * QC[1][KWBOT - KWTOP]).abs(),
                 (S * QC[1][KWBOT - KWTOP + 1]).abs()) <=
@@ -220,7 +220,7 @@ void dlaqz3(
         // Try to deflate real eigenvalue
         TEMP.value = A[KWBOT][KWBOT].abs();
         if (TEMP.value == ZERO) {
-          TEMP.value = (S).abs();
+          TEMP.value = S.abs();
         }
         if (((S * QC[1][KWBOT - KWTOP + 1]).abs()) <=
             max(ULP * TEMP.value, SMLNUM)) {

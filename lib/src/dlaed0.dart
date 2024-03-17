@@ -113,8 +113,8 @@ void dlaed0(
   for (I = 1; I <= SPM1; I++) {
     SUBMAT = IWORK[I] + 1;
     SMM1 = SUBMAT - 1;
-    D[SMM1] -= (E[SMM1]).abs();
-    D[SUBMAT] -= (E[SMM1]).abs();
+    D[SMM1] -= E[SMM1].abs();
+    D[SUBMAT] -= E[SMM1].abs();
   }
 
   INDXQ = 4 * N + 3;

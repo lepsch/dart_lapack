@@ -34,7 +34,7 @@ double zlansp(
       K = 1;
       for (J = 1; J <= N; J++) {
         for (I = K; I <= K + J - 1; I++) {
-          SUM.value = (AP[I]).abs();
+          SUM.value = AP[I].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
         K += J;
@@ -43,7 +43,7 @@ double zlansp(
       K = 1;
       for (J = 1; J <= N; J++) {
         for (I = K; I <= K + N - J; I++) {
-          SUM.value = (AP[I]).abs();
+          SUM.value = AP[I].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
         K += N - J + 1;
@@ -58,12 +58,12 @@ double zlansp(
       for (J = 1; J <= N; J++) {
         SUM.value = ZERO;
         for (I = 1; I <= J - 1; I++) {
-          ABSA = (AP[K]).abs();
+          ABSA = AP[K].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
         }
-        WORK[J] = SUM.value + (AP[K]).abs();
+        WORK[J] = SUM.value + AP[K].abs();
         K++;
       }
       for (I = 1; I <= N; I++) {
@@ -75,10 +75,10 @@ double zlansp(
         WORK[I] = ZERO;
       }
       for (J = 1; J <= N; J++) {
-        SUM.value = WORK[J] + (AP[K]).abs();
+        SUM.value = WORK[J] + AP[K].abs();
         K++;
         for (I = J + 1; I <= N; I++) {
-          ABSA = (AP[K]).abs();
+          ABSA = AP[K].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
@@ -106,7 +106,7 @@ double zlansp(
     SUM.value = 2 * SUM.value;
     K = 1;
     for (I = 1; I <= N; I++) {
-      if ((AP[K]).toDouble() != ZERO) {
+      if (AP[K].toDouble() != ZERO) {
         ABSA = AP[K].toDouble().abs();
         if (SCALE.value < ABSA) {
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);

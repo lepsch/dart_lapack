@@ -29,7 +29,7 @@ void zlarcm(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      RWORK[(J - 1) * M + I] = (B[I][J]).toDouble();
+      RWORK[(J - 1) * M + I] = B[I][J].toDouble();
     }
   }
 

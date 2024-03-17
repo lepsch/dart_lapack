@@ -32,22 +32,22 @@ void dlartgp(
   if (G == ZERO) {
     CS.value = sign(ONE, F).toDouble();
     SN.value = ZERO;
-    R.value = (F).abs();
+    R.value = F.abs();
   } else if (F == ZERO) {
     CS.value = ZERO;
     SN.value = sign(ONE, G).toDouble();
-    R.value = (G).abs();
+    R.value = G.abs();
   } else {
     F1 = F;
     G1 = G;
-    SCALE = max((F1).abs(), (G1).abs());
+    SCALE = max(F1.abs(), G1.abs());
     if (SCALE >= SAFMX2) {
       COUNT = 0;
       do {
         COUNT += 1;
         F1 *= SAFMN2;
         G1 *= SAFMN2;
-        SCALE = max((F1).abs(), (G1).abs());
+        SCALE = max(F1.abs(), G1.abs());
       } while (SCALE >= SAFMX2 && COUNT < 20);
       R.value = sqrt(pow(F1, 2) + pow(G1, 2));
       CS.value = F1 / R.value;
@@ -61,7 +61,7 @@ void dlartgp(
         COUNT++;
         F1 *= SAFMX2;
         G1 *= SAFMX2;
-        SCALE = max((F1).abs(), (G1).abs());
+        SCALE = max(F1.abs(), G1.abs());
       } while (SCALE <= SAFMN2);
       R.value = sqrt(pow(F1, 2) + pow(G1, 2));
       CS.value = F1 / R.value;

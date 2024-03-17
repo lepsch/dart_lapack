@@ -268,10 +268,10 @@ void dggbal(
       TB = B[I][J];
       TA = A[I][J];
       if (TA != ZERO) {
-        TA = log10((TA).abs()) / BASL;
+        TA = log10(TA.abs()) / BASL;
       }
       if (TB != ZERO) {
-        TB = log10((TB).abs()) / BASL;
+        TB = log10(TB.abs()) / BASL;
       }
       WORK[I + 4 * N] -= TA - TB;
       WORK[J + 5 * N] -= TA - TB;
@@ -358,10 +358,10 @@ void dggbal(
     CMAX = ZERO;
     for (I = ILO.value; I <= IHI.value; I++) {
       COR = ALPHA * WORK[I + N];
-      if ((COR).abs() > CMAX) CMAX = (COR).abs();
+      if (COR.abs() > CMAX) CMAX = COR.abs();
       LSCALE[I] += COR;
       COR = ALPHA * WORK[I];
-      if ((COR).abs() > CMAX) CMAX = (COR).abs();
+      if (COR.abs() > CMAX) CMAX = COR.abs();
       RSCALE[I] += COR;
     }
     if (CMAX < HALF) break;
@@ -381,17 +381,17 @@ void dggbal(
   LSFMAX = log10(SFMAX) ~/ BASL;
   for (I = ILO.value; I <= IHI.value; I++) {
     IRAB = idamax(N - ILO.value + 1, A(I, ILO.value).asArray(), LDA);
-    RAB = (A[I][IRAB + ILO.value - 1]).abs();
+    RAB = A[I][IRAB + ILO.value - 1].abs();
     IRAB = idamax(N - ILO.value + 1, B(I, ILO.value).asArray(), LDB);
-    RAB = max(RAB, (B[I][IRAB + ILO.value - 1]).abs());
+    RAB = max(RAB, B[I][IRAB + ILO.value - 1].abs());
     LRAB = (log10(RAB + SFMIN) / BASL + ONE).toInt();
     IR = (LSCALE[I] + sign(HALF, LSCALE[I])).toInt();
     IR = min(min(max(IR, LSFMIN), LSFMAX), LSFMAX - LRAB);
     LSCALE[I] = pow(SCLFAC, IR).toDouble();
     ICAB = idamax(IHI.value, A(1, I).asArray(), 1);
-    CAB = (A[ICAB][I]).abs();
+    CAB = A[ICAB][I].abs();
     ICAB = idamax(IHI.value, B(1, I).asArray(), 1);
-    CAB = max(CAB, (B[ICAB][I]).abs());
+    CAB = max(CAB, B[ICAB][I].abs());
     LCAB = (log10(CAB + SFMIN) / BASL + ONE).toInt();
     JC = (RSCALE[I] + sign(HALF, RSCALE[I])).toInt();
     JC = min(min(max(JC, LSFMIN), LSFMAX), LSFMAX - LCAB);

@@ -86,7 +86,7 @@ void dsterf(
     if (L1 > 1) E[L1 - 1] = ZERO;
     bool isLoopExhausted = true;
     for (M = L1; M <= N - 1; M++) {
-      if ((E[M]).abs() <= (sqrt((D[M]).abs()) * sqrt((D[M + 1]).abs())) * EPS) {
+      if (E[M].abs() <= (sqrt(D[M].abs()) * sqrt(D[M + 1].abs())) * EPS) {
         E[M] = ZERO;
         isLoopExhausted = false;
         break;
@@ -126,7 +126,7 @@ void dsterf(
 
     // Choose between QL and QR iteration
 
-    if ((D[LEND]).abs() < (D[L]).abs()) {
+    if (D[LEND].abs() < D[L].abs()) {
       LEND = LSV;
       L = LENDSV;
     }
@@ -140,7 +140,7 @@ void dsterf(
         var hasSubdiagonalElement = false;
         if (L != LEND) {
           for (M = L; M <= LEND - 1; M++) {
-            if ((E[M]).abs() <= EPS2 * (D[M] * D[M + 1]).abs()) {
+            if (E[M].abs() <= EPS2 * (D[M] * D[M + 1]).abs()) {
               hasSubdiagonalElement = true;
               break;
             }
@@ -219,7 +219,7 @@ void dsterf(
       while (L >= LEND) {
         var hasSuperdiagonalElement = false;
         for (M = L; M >= LEND + 1; M--) {
-          if ((E[M - 1]).abs() <= EPS2 * (D[M] * D[M - 1]).abs()) {
+          if (E[M - 1].abs() <= EPS2 * (D[M] * D[M - 1]).abs()) {
             hasSuperdiagonalElement = true;
             break;
           }

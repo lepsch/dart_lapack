@@ -143,7 +143,7 @@ void zlatsp(
     if (J < N) {
       X[JJ] = zlarnd(2, ISEED);
       X[JJ + (N - J + 1)] = zlarnd(2, ISEED);
-      if ((X[JJ]).abs() > X[JJ + (N - J + 1)].abs()) {
+      if (X[JJ].abs() > X[JJ + (N - J + 1)].abs()) {
         X[JJ + 1] = TWO * X[JJ];
       } else {
         X[JJ + 1] = TWO * X[JJ + (N - J + 1)];

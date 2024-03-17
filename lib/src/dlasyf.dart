@@ -70,7 +70,7 @@ void dlasyf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (W[K][KW]).abs();
+      ABSAKK = W[K][KW].abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -78,7 +78,7 @@ void dlasyf(
 
       if (K > 1) {
         IMAX = idamax(K - 1, W(1, KW).asArray(), 1);
-        COLMAX = (W[IMAX][KW]).abs();
+        COLMAX = W[IMAX][KW].abs();
       } else {
         COLMAX = ZERO;
       }
@@ -108,17 +108,17 @@ void dlasyf(
           // element in row IMAX, and ROWMAX is its absolute value
 
           JMAX = IMAX + idamax(K - IMAX, W(IMAX + 1, KW - 1).asArray(), 1);
-          ROWMAX = (W[JMAX][KW - 1]).abs();
+          ROWMAX = W[JMAX][KW - 1].abs();
           if (IMAX > 1) {
             JMAX = idamax(IMAX - 1, W(1, KW - 1).asArray(), 1);
-            ROWMAX = max(ROWMAX, (W[JMAX][KW - 1]).abs());
+            ROWMAX = max(ROWMAX, W[JMAX][KW - 1].abs());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if ((W[IMAX][KW - 1]).abs() >= ALPHA * ROWMAX) {
+          } else if (W[IMAX][KW - 1].abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -341,7 +341,7 @@ void dlasyf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (W[K][K]).abs();
+      ABSAKK = W[K][K].abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -349,7 +349,7 @@ void dlasyf(
 
       if (K < N) {
         IMAX = K + idamax(N - K, W(K + 1, K).asArray(), 1);
-        COLMAX = (W[IMAX][K]).abs();
+        COLMAX = W[IMAX][K].abs();
       } else {
         COLMAX = ZERO;
       }
@@ -377,17 +377,17 @@ void dlasyf(
           // element in row IMAX, and ROWMAX is its absolute value
 
           JMAX = K - 1 + idamax(IMAX - K, W(K, K + 1).asArray(), 1);
-          ROWMAX = (W[JMAX][K + 1]).abs();
+          ROWMAX = W[JMAX][K + 1].abs();
           if (IMAX < N) {
             JMAX = IMAX + idamax(N - IMAX, W(IMAX + 1, K + 1).asArray(), 1);
-            ROWMAX = max(ROWMAX, (W[JMAX][K + 1]).abs());
+            ROWMAX = max(ROWMAX, W[JMAX][K + 1].abs());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if ((W[IMAX][K + 1]).abs() >= ALPHA * ROWMAX) {
+          } else if (W[IMAX][K + 1].abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 

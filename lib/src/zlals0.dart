@@ -168,7 +168,7 @@ void zlals0(
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
           for (JROW = 1; JROW <= K; JROW++) {
             I++;
-            RWORK[I] = (BX[JROW][JCOL]).toDouble();
+            RWORK[I] = BX[JROW][JCOL].toDouble();
           }
         }
         dgemv('T', K, NRHS, ONE, RWORK(1 + K + NRHS * 2).asMatrix(K), K,
@@ -245,7 +245,7 @@ void zlals0(
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
           for (JROW = 1; JROW <= K; JROW++) {
             I++;
-            RWORK[I] = (B[JROW][JCOL]).toDouble();
+            RWORK[I] = B[JROW][JCOL].toDouble();
           }
         }
         dgemv('T', K, NRHS, ONE, RWORK(1 + K + NRHS * 2).asMatrix(K), K,

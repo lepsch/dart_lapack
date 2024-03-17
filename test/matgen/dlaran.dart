@@ -35,10 +35,8 @@ double dlaran(final Array<int> ISEED_) {
     // convert 48-bit integer to a real number in the interval (0,1)
 
     RNDOUT = R *
-        ((IT1).toDouble() +
-            R *
-                ((IT2).toDouble() +
-                    R * ((IT3).toDouble() + R * (IT4.toDouble()))));
+        (IT1.toDouble() +
+            R * (IT2.toDouble() + R * (IT3.toDouble() + R * (IT4.toDouble()))));
 
     // If a real number has n bits of precision, and the first
     // n bits of the 48-bit integer above happen to be all 1 (which

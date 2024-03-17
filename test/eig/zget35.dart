@@ -80,15 +80,15 @@ Future<void> zget35(
                   for (I = 1; I <= M; I++) {
                     for (J = 1; J <= M; J++) {
                       A[I][J] = ATMP[I][J] * VM1[IMLA].toComplex();
-                      TNRM = max(TNRM, (A[I][J]).abs());
+                      TNRM = max(TNRM, A[I][J].abs());
                     }
                     A[I][I] *= VM2[IMLAD].toComplex();
-                    TNRM = max(TNRM, (A[I][I]).abs());
+                    TNRM = max(TNRM, A[I][I].abs());
                   }
                   for (I = 1; I <= N; I++) {
                     for (J = 1; J <= N; J++) {
                       B[I][J] = BTMP[I][J] * VM1[IMLB].toComplex();
-                      TNRM = max(TNRM, (B[I][J]).abs());
+                      TNRM = max(TNRM, B[I][J].abs());
                     }
                   }
                   if (TNRM == ZERO) TNRM = ONE;
@@ -119,7 +119,7 @@ Future<void> zget35(
                       max(
                           SMLNUM,
                           max(SMLNUM * XNRM,
-                              (((RMUL).abs() * TNRM) * EPS) * XNRM));
+                              ((RMUL.abs() * TNRM) * EPS) * XNRM));
                   if (RES > RMAX.value) {
                     LMAX.value = KNT.value;
                     RMAX.value = RES;

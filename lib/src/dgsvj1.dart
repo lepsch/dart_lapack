@@ -489,7 +489,7 @@ void dgsvj1(
 
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
     if ((i > SWBAND + 1) &&
-        (MXAAPQ < (N).toDouble() * TOL) &&
+        (MXAAPQ < N.toDouble() * TOL) &&
         (N.toDouble() * MXAAPQ * MXSINJ < TOL)) {
       isBelowTolerance = true;
       break;

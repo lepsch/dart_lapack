@@ -110,8 +110,8 @@ void dlarrf(
   RSIGMA = max(W[CLSTRT], W[CLEND]) + WERR[CLEND];
 
   // Use a small fudge to make sure that we really shift to the outside
-  LSIGMA -= (LSIGMA).abs() * FOUR * EPS;
-  RSIGMA += (RSIGMA).abs() * FOUR * EPS;
+  LSIGMA -= LSIGMA.abs() * FOUR * EPS;
+  RSIGMA += RSIGMA.abs() * FOUR * EPS;
 
   // Compute upper bounds for how much to back off the initial shifts
   LDMAX = QUART * MINGAP + TWO * PIVMIN;
@@ -146,24 +146,24 @@ void dlarrf(
     // Left end
     S = -LSIGMA;
     DPLUS[1] = D[1] + S;
-    if ((DPLUS[1]).abs() < PIVMIN) {
+    if (DPLUS[1].abs() < PIVMIN) {
       DPLUS[1] = -PIVMIN;
       // Need to set SAWNAN1 because refined RRR test should not be used
       // in this case
       SAWNAN1 = true;
     }
-    MAX1 = (DPLUS[1]).abs();
+    MAX1 = DPLUS[1].abs();
     for (I = 1; I <= N - 1; I++) {
       LPLUS[I] = LD[I] / DPLUS[I];
       S *= LPLUS[I] * L[I] - LSIGMA;
       DPLUS[I + 1] = D[I + 1] + S;
-      if ((DPLUS[I + 1]).abs() < PIVMIN) {
+      if (DPLUS[I + 1].abs() < PIVMIN) {
         DPLUS[I + 1] = -PIVMIN;
         // Need to set SAWNAN1 because refined RRR test should not be used
         // in this case
         SAWNAN1 = true;
       }
-      MAX1 = max(MAX1, (DPLUS[I + 1]).abs());
+      MAX1 = max(MAX1, DPLUS[I + 1].abs());
     }
     SAWNAN1 = SAWNAN1 || disnan(MAX1);
     if (FORCER || (MAX1 <= GROWTHBOUND && !SAWNAN1)) {
@@ -175,24 +175,24 @@ void dlarrf(
     // Right end
     S = -RSIGMA;
     WORK[1] = D[1] + S;
-    if ((WORK[1]).abs() < PIVMIN) {
+    if (WORK[1].abs() < PIVMIN) {
       WORK[1] = -PIVMIN;
       // Need to set SAWNAN2 because refined RRR test should not be used
       // in this case
       SAWNAN2 = true;
     }
-    MAX2 = (WORK[1]).abs();
+    MAX2 = WORK[1].abs();
     for (I = 1; I <= N - 1; I++) {
       WORK[N + I] = LD[I] / WORK[I];
       S *= WORK[N + I] * L[I] - RSIGMA;
       WORK[I + 1] = D[I + 1] + S;
-      if ((WORK[I + 1]).abs() < PIVMIN) {
+      if (WORK[I + 1].abs() < PIVMIN) {
         WORK[I + 1] = -PIVMIN;
         // Need to set SAWNAN2 because refined RRR test should not be used
         // in this case
         SAWNAN2 = true;
       }
-      MAX2 = max(MAX2, (WORK[I + 1]).abs());
+      MAX2 = max(MAX2, WORK[I + 1].abs());
     }
     SAWNAN2 = SAWNAN2 || disnan(MAX2);
     if (FORCER || (MAX2 <= GROWTHBOUND && !SAWNAN2)) {
@@ -236,7 +236,7 @@ void dlarrf(
       TRYRRR1 = true;
       if (TRYRRR1 && DORRR1) {
         if (INDX == 1) {
-          TMP = (DPLUS[N]).abs();
+          TMP = DPLUS[N].abs();
           ZNM2 = ONE;
           PROD = ONE;
           OLDP = ONE;
@@ -246,7 +246,7 @@ void dlarrf(
                       (DPLUS[I] * WORK[N + I])) *
                   OLDP;
             } else {
-              PROD *= (WORK[N + I]).abs();
+              PROD *= WORK[N + I].abs();
             }
             OLDP = PROD;
             ZNM2 += pow(PROD, 2);
@@ -259,7 +259,7 @@ void dlarrf(
             break;
           }
         } else if (INDX == 2) {
-          TMP = (WORK[N]).abs();
+          TMP = WORK[N].abs();
           ZNM2 = ONE;
           PROD = ONE;
           OLDP = ONE;
@@ -268,7 +268,7 @@ void dlarrf(
               PROD =
                   ((WORK[I + 1] * LPLUS[I + 1]) / (WORK[I] * LPLUS[I])) * OLDP;
             } else {
-              PROD *= (LPLUS[I]).abs();
+              PROD *= LPLUS[I].abs();
             }
             OLDP = PROD;
             ZNM2 += pow(PROD, 2);

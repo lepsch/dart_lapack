@@ -108,13 +108,13 @@ void dlaed2(
   IMAX = idamax(N, Z, 1);
   JMAX = idamax(N, D, 1);
   EPS = dlamch('Epsilon');
-  TOL = EIGHT * EPS * max((D[JMAX]).abs(), (Z[IMAX]).abs());
+  TOL = EIGHT * EPS * max(D[JMAX].abs(), Z[IMAX].abs());
 
   // If the rank-1 modifier is small enough, no more needs to be done
   // except to reorganize Q so that its columns correspond with the
   // elements in D.
 
-  if (RHO.value * (Z[IMAX]).abs() <= TOL) {
+  if (RHO.value * Z[IMAX].abs() <= TOL) {
     K.value = 0;
     IQ2 = 1;
     for (J = 1; J <= N; J++) {
@@ -146,7 +146,7 @@ void dlaed2(
   var isLastItem = false;
   for (J = 1; J <= N; J++) {
     NJ = INDX[J];
-    if (RHO.value * (Z[NJ]).abs() <= TOL) {
+    if (RHO.value * Z[NJ].abs() <= TOL) {
       // Deflate due to small z component.
 
       K2--;
@@ -166,7 +166,7 @@ void dlaed2(
     J++;
     NJ = INDX[J];
     if (J > N) break;
-    if (RHO.value * (Z[NJ]).abs() <= TOL) {
+    if (RHO.value * Z[NJ].abs() <= TOL) {
       // Deflate due to small z component.
 
       K2--;

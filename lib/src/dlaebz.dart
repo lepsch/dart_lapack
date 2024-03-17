@@ -58,13 +58,13 @@ void dlaebz(
     for (JI = 1; JI <= MINP; JI++) {
       for (JP = 1; JP <= 2; JP++) {
         TMP1 = D[1] - AB[JI][JP];
-        if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
+        if (TMP1.abs() < PIVMIN) TMP1 = -PIVMIN;
         NAB[JI][JP] = 0;
         if (TMP1 <= ZERO) NAB[JI][JP] = 1;
 
         for (J = 2; J <= N; J++) {
           TMP1 = D[J] - E2[J - 1] / TMP1 - AB[JI][JP];
-          if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
+          if (TMP1.abs() < PIVMIN) TMP1 = -PIVMIN;
           if (TMP1 <= ZERO) NAB[JI][JP]++;
         }
       }
@@ -255,7 +255,7 @@ void dlaebz(
     KFNEW = KF;
     for (JI = KF; JI <= KL; JI++) {
       TMP1 = (AB[JI][2] - AB[JI][1]).abs();
-      TMP2 = max((AB[JI][2]).abs(), (AB[JI][1]).abs());
+      TMP2 = max(AB[JI][2].abs(), AB[JI][1].abs());
       if (TMP1 < max(ABSTOL, max(PIVMIN, RELTOL * TMP2)) ||
           NAB[JI][1] >= NAB[JI][2]) {
         // Converged -- Swap with position KFNEW,

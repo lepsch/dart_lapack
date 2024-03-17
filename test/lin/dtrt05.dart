@@ -57,7 +57,7 @@ void dtrt05(
   var ERRBND = ZERO;
   for (var J = 1; J <= NRHS; J++) {
     final IMAX = idamax(N, X(1, J).asArray(), 1);
-    final XNORM = max((X[IMAX][J]).abs(), UNFL);
+    final XNORM = max(X[IMAX][J].abs(), UNFL);
     var DIFF = ZERO;
     for (var I = 1; I <= N; I++) {
       DIFF = max(DIFF, (X[I][J] - XACT[I][J]).abs());
@@ -88,29 +88,29 @@ void dtrt05(
   for (var K = 1; K <= NRHS; K++) {
     var AXBI = ZERO;
     for (var I = 1; I <= N; I++) {
-      var TMP = (B[I][K]).abs();
+      var TMP = B[I][K].abs();
       if (UPPER) {
         if (!NOTRAN) {
           for (var J = 1; J <= I - IFU; J++) {
-            TMP += (A[J][I]).abs() * (X[J][K]).abs();
+            TMP += A[J][I].abs() * X[J][K].abs();
           }
-          if (UNIT) TMP += (X[I][K]).abs();
+          if (UNIT) TMP += X[I][K].abs();
         } else {
-          if (UNIT) TMP += (X[I][K]).abs();
+          if (UNIT) TMP += X[I][K].abs();
           for (var J = I + IFU; J <= N; J++) {
-            TMP += (A[I][J]).abs() * (X[J][K]).abs();
+            TMP += A[I][J].abs() * X[J][K].abs();
           }
         }
       } else {
         if (NOTRAN) {
           for (var J = 1; J <= I - IFU; J++) {
-            TMP += (A[I][J]).abs() * (X[J][K]).abs();
+            TMP += A[I][J].abs() * X[J][K].abs();
           }
-          if (UNIT) TMP += (X[I][K]).abs();
+          if (UNIT) TMP += X[I][K].abs();
         } else {
-          if (UNIT) TMP += (X[I][K]).abs();
+          if (UNIT) TMP += X[I][K].abs();
           for (var J = I + IFU; J <= N; J++) {
-            TMP += (A[J][I]).abs() * (X[J][K]).abs();
+            TMP += A[J][I].abs() * X[J][K].abs();
           }
         }
       }

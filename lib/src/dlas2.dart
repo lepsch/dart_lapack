@@ -17,9 +17,9 @@ void dlas2(
   const TWO = 2.0;
   double AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
 
-  FA = (F).abs();
-  GA = (G).abs();
-  HA = (H).abs();
+  FA = F.abs();
+  GA = G.abs();
+  HA = H.abs();
   FHMN = min(FA, HA);
   FHMX = max(FA, HA);
   if (FHMN == ZERO) {

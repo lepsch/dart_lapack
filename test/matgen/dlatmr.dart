@@ -282,7 +282,7 @@ void dlatmr(
   // Initialize random number generator
 
   for (I = 1; I <= 4; I++) {
-    ISEED[I] = ((ISEED[I]).abs() % 4096);
+    ISEED[I] = (ISEED[I].abs() % 4096);
   }
 
   ISEED[4] = 2 * (ISEED[4] ~/ 2) + 1;
@@ -299,9 +299,9 @@ void dlatmr(
   if (MODE != 0 && MODE != -6 && MODE != 6) {
     // Scale by DMAX
 
-    TEMP = (D[1]).abs();
+    TEMP = D[1].abs();
     for (I = 2; I <= MNMIN; I++) {
-      TEMP = max(TEMP, (D[I]).abs());
+      TEMP = max(TEMP, D[I].abs());
     }
     if (TEMP == ZERO && DMAX != ZERO) {
       INFO.value = 2;

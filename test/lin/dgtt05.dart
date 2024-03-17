@@ -57,7 +57,7 @@ void dgtt05(
   var ERRBND = ZERO;
   for (var J = 1; J <= NRHS; J++) {
     final IMAX = idamax(N, X(1, J).asArray(), 1);
-    final XNORM = max((X[IMAX][J]).abs(), UNFL);
+    final XNORM = max(X[IMAX][J].abs(), UNFL);
     var DIFF = ZERO;
     for (var I = 1; I <= N; I++) {
       DIFF = max(DIFF, (X[I][J] - XACT[I][J]).abs());

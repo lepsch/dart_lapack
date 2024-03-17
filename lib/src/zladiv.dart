@@ -11,6 +11,6 @@ Complex zladiv(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final ZI = Box(0.0), ZR = Box(0.0);
 
-  dladiv((X).toDouble(), X.imaginary, Y.toDouble(), Y.imaginary, ZR, ZI);
+  dladiv(X.toDouble(), X.imaginary, Y.toDouble(), Y.imaginary, ZR, ZI);
   return Complex(ZR.value, ZI.value);
 }

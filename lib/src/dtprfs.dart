@@ -118,7 +118,7 @@ void dtprfs(
     // numerator and denominator before dividing.
 
     for (I = 1; I <= N; I++) {
-      WORK[I] = (B[I][J]).abs();
+      WORK[I] = B[I][J].abs();
     }
 
     if (NOTRAN) {
@@ -128,17 +128,17 @@ void dtprfs(
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = 1; I <= K; I++) {
-              WORK[I] += (AP[KC + I - 1]).abs() * XK;
+              WORK[I] += AP[KC + I - 1].abs() * XK;
             }
             KC += K;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = 1; I <= K - 1; I++) {
-              WORK[I] += (AP[KC + I - 1]).abs() * XK;
+              WORK[I] += AP[KC + I - 1].abs() * XK;
             }
             WORK[K] += XK;
             KC += K;
@@ -148,17 +148,17 @@ void dtprfs(
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = K; I <= N; I++) {
-              WORK[I] += (AP[KC + I - K]).abs() * XK;
+              WORK[I] += AP[KC + I - K].abs() * XK;
             }
             KC += N - K + 1;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = K + 1; I <= N; I++) {
-              WORK[I] += (AP[KC + I - K]).abs() * XK;
+              WORK[I] += AP[KC + I - K].abs() * XK;
             }
             WORK[K] += XK;
             KC += N - K + 1;
@@ -174,16 +174,16 @@ void dtprfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = 1; I <= K; I++) {
-              S += (AP[KC + I - 1]).abs() * (X[I][J]).abs();
+              S += AP[KC + I - 1].abs() * X[I][J].abs();
             }
             WORK[K] += S;
             KC += K;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            S = (X[K][J]).abs();
+            S = X[K][J].abs();
             for (I = 1; I <= K - 1; I++) {
-              S += (AP[KC + I - 1]).abs() * (X[I][J]).abs();
+              S += AP[KC + I - 1].abs() * X[I][J].abs();
             }
             WORK[K] += S;
             KC += K;
@@ -195,16 +195,16 @@ void dtprfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = K; I <= N; I++) {
-              S += (AP[KC + I - K]).abs() * (X[I][J]).abs();
+              S += AP[KC + I - K].abs() * X[I][J].abs();
             }
             WORK[K] += S;
             KC += N - K + 1;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            S = (X[K][J]).abs();
+            S = X[K][J].abs();
             for (I = K + 1; I <= N; I++) {
-              S += (AP[KC + I - K]).abs() * (X[I][J]).abs();
+              S += AP[KC + I - K].abs() * X[I][J].abs();
             }
             WORK[K] += S;
             KC += N - K + 1;
@@ -215,9 +215,9 @@ void dtprfs(
     S = ZERO;
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        S = max(S, (WORK[N + I]).abs() / WORK[I]);
+        S = max(S, WORK[N + I].abs() / WORK[I]);
       } else {
-        S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+        S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
       }
     }
     BERR[J] = S;
@@ -246,9 +246,9 @@ void dtprfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 
@@ -277,7 +277,7 @@ void dtprfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

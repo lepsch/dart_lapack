@@ -94,14 +94,14 @@ void dget52(
       if (SALFI == ZERO) {
         // Real eigenvalue and -vector
 
-        ABMAX = max((SALFR).abs(), (SBETA).abs());
-        if ((SALFR).abs() > ALFMAX || (SBETA).abs() > BETMAX || ABMAX < ONE) {
+        ABMAX = max(SALFR.abs(), SBETA.abs());
+        if (SALFR.abs() > ALFMAX || SBETA.abs() > BETMAX || ABMAX < ONE) {
           SCALE = ONE / max(ABMAX, SAFMIN);
           SALFR = SCALE * SALFR;
           SBETA = SCALE * SBETA;
         }
-        SCALE = ONE /
-            max((SALFR).abs() * BNORM, max((SBETA).abs() * ANORM, SAFMIN));
+        SCALE =
+            ONE / max(SALFR.abs() * BNORM, max(SBETA.abs() * ANORM, SAFMIN));
         ACOEF = SCALE * SBETA;
         BCOEFR = SCALE * SALFR;
         dgemv(TRANS, N, N, ACOEF, A, LDA, E(1, JVEC).asArray(), 1, ZERO,
@@ -116,9 +116,9 @@ void dget52(
           RESULT[1] = TEN / ULP;
           return;
         }
-        ABMAX = max((SALFR).abs() + (SALFI).abs(), (SBETA).abs());
-        if ((SALFR).abs() + (SALFI).abs() > ALFMAX ||
-            (SBETA).abs() > BETMAX ||
+        ABMAX = max(SALFR.abs() + SALFI.abs(), SBETA.abs());
+        if (SALFR.abs() + SALFI.abs() > ALFMAX ||
+            SBETA.abs() > BETMAX ||
             ABMAX < ONE) {
           SCALE = ONE / max(ABMAX, SAFMIN);
           SALFR = SCALE * SALFR;
@@ -126,8 +126,8 @@ void dget52(
           SBETA = SCALE * SBETA;
         }
         SCALE = ONE /
-            max(((SALFR).abs() + (SALFI).abs()) * BNORM,
-                max((SBETA).abs() * ANORM, SAFMIN));
+            max((SALFR.abs() + SALFI.abs()) * BNORM,
+                max(SBETA.abs() * ANORM, SAFMIN));
         ACOEF = SCALE * SBETA;
         BCOEFR = SCALE * SALFR;
         BCOEFI = SCALE * SALFI;
@@ -171,13 +171,13 @@ void dget52(
       TEMP1 = ZERO;
       if (ALPHAI[JVEC] == ZERO) {
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, (E[J][JVEC]).abs());
+          TEMP1 = max(TEMP1, E[J][JVEC].abs());
         }
         ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
       } else {
         ILCPLX = true;
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, (E[J][JVEC]).abs() + (E[J][JVEC + 1]).abs());
+          TEMP1 = max(TEMP1, E[J][JVEC].abs() + E[J][JVEC + 1].abs());
         }
         ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
       }

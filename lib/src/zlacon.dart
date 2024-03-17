@@ -44,7 +44,7 @@ void zlacon(
 
       if (N == 1) {
         V[1] = X[1];
-        EST.value = (V[1]).abs();
+        EST.value = V[1].abs();
         // ... QUIT
         break;
       }
@@ -53,7 +53,7 @@ void zlacon(
       for (I = 1; I <= N; I++) {
         ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex((X[I]).toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
@@ -93,9 +93,9 @@ void zlacon(
       if (EST.value <= ESTOLD) continue L100;
 
       for (I = 1; I <= N; I++) {
-        ABSXI = (X[I]).abs();
+        ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex((X[I]).toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
@@ -109,7 +109,7 @@ void zlacon(
 
       JLAST = J;
       J = izmax1(N, X, 1);
-      if (((X[JLAST]).abs() != X[J].abs()) && (ITER < ITMAX)) {
+      if ((X[JLAST].abs() != X[J].abs()) && (ITER < ITMAX)) {
         ITER++;
         continue L50;
       }

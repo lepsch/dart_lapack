@@ -66,7 +66,7 @@ void dgeequ(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      R[I] = max(R[I], (A[I][J]).abs());
+      R[I] = max(R[I], A[I][J].abs());
     }
   }
 
@@ -112,7 +112,7 @@ void dgeequ(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      C[J] = max(C[J], (A[I][J]).abs() * R[I]);
+      C[J] = max(C[J], A[I][J].abs() * R[I]);
     }
   }
 

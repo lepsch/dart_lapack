@@ -104,7 +104,7 @@ void zlaqz2(
     BETA[KWTOP] = B[KWTOP][KWTOP];
     NS.value = 1;
     ND.value = 0;
-    if (S.abs() <= max(SMLNUM, ULP * (A[KWTOP][KWTOP]).abs())) {
+    if (S.abs() <= max(SMLNUM, ULP * A[KWTOP][KWTOP].abs())) {
       NS.value = 0;
       ND.value = 1;
       if (KWTOP > ILO) {
@@ -163,9 +163,9 @@ void zlaqz2(
     K2 = 1;
     while (K <= JW) {
       // Try to deflate eigenvalue
-      TEMPR = (A[KWBOT][KWBOT]).abs();
+      TEMPR = A[KWBOT][KWBOT].abs();
       if (TEMPR == ZERO) {
-        TEMPR = (S).abs();
+        TEMPR = S.abs();
       }
       if (((S * QC[1][KWBOT - KWTOP + 1]).abs()) <= max(ULP * TEMPR, SMLNUM)) {
         // Deflatable

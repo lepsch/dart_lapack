@@ -87,12 +87,12 @@ void zunt03(
       if (V[I][LMX] == Complex.zero) {
         SV = Complex.one;
       } else {
-        SV = (V[I][LMX]).abs().toComplex() / V[I][LMX];
+        SV = V[I][LMX].abs().toComplex() / V[I][LMX];
       }
       if (U[I][LMX] == Complex.zero) {
         SU = Complex.one;
       } else {
-        SU = (U[I][LMX]).abs().toComplex() / U[I][LMX];
+        SU = U[I][LMX].abs().toComplex() / U[I][LMX];
       }
       S = SV / SU;
       for (J = 1; J <= N; J++) {
@@ -113,12 +113,12 @@ void zunt03(
       if (V[LMX][I] == Complex.zero) {
         SV = Complex.one;
       } else {
-        SV = (V[LMX][I]).abs().toComplex() / V[LMX][I];
+        SV = V[LMX][I].abs().toComplex() / V[LMX][I];
       }
       if (U[LMX][I] == Complex.zero) {
         SU = Complex.one;
       } else {
-        SU = (U[LMX][I]).abs().toComplex() / U[LMX][I];
+        SU = U[LMX][I].abs().toComplex() / U[LMX][I];
       }
       S = SV / SU;
       for (J = 1; J <= N; J++) {

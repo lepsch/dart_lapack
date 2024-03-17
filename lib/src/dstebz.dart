@@ -208,7 +208,7 @@ void dstebz(
 
     GU = max(GU, D[N] + TMP1);
     GL = min(GL, D[N] - TMP1);
-    TNORM = max((GL).abs(), (GU).abs());
+    TNORM = max(GL.abs(), GU.abs());
     GL -= FUDGE * TNORM * ULP * N - FUDGE * TWO * PIVMIN;
     GU += FUDGE * TNORM * ULP * N + FUDGE * PIVMIN;
 
@@ -279,10 +279,10 @@ void dstebz(
   } else {
     // RANGE='A' or 'V' -- Set ATOLI
 
-    TNORM = max((D[1]).abs() + (E[1]).abs(), (D[N]).abs() + (E[N - 1]).abs());
+    TNORM = max(D[1].abs() + E[1].abs(), D[N].abs() + E[N - 1].abs());
 
     for (J = 2; J <= N - 1; J++) {
-      TNORM = max(TNORM, (D[J]).abs() + (E[J - 1]).abs() + (E[J]).abs());
+      TNORM = max(TNORM, D[J].abs() + E[J - 1].abs() + E[J].abs());
     }
 
     if (ABSTOL <= ZERO) {
@@ -338,7 +338,7 @@ void dstebz(
       TMP1 = ZERO;
 
       for (J = IBEGIN; J <= IEND - 1; J++) {
-        TMP2 = (E[J]).abs();
+        TMP2 = E[J].abs();
         GU = max(GU, D[J] + TMP1 + TMP2);
         GL = min(GL, D[J] - TMP1 - TMP2);
         TMP1 = TMP2;
@@ -346,14 +346,14 @@ void dstebz(
 
       GU = max(GU, D[IEND] + TMP1);
       GL = min(GL, D[IEND] - TMP1);
-      BNORM = max((GL).abs(), (GU).abs());
+      BNORM = max(GL.abs(), GU.abs());
       GL -= FUDGE * BNORM * ULP * IN - FUDGE * PIVMIN;
       GU += FUDGE * BNORM * ULP * IN + FUDGE * PIVMIN;
 
       // Compute ATOLI for the current submatrix
 
       if (ABSTOL <= ZERO) {
-        ATOLI = ULP * max((GL).abs(), (GU).abs());
+        ATOLI = ULP * max(GL.abs(), GU.abs());
       } else {
         ATOLI = ABSTOL;
       }

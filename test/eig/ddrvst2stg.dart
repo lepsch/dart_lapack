@@ -437,10 +437,10 @@ void ddrvst2stg(
         while (true) {
           NTEST = 1;
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEV';
           dstev('V', N, D1, D2, Z, LDU, WORK, IINFO);
@@ -460,16 +460,16 @@ void ddrvst2stg(
           // Do tests 1 and 2.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT(1));
 
           NTEST = 3;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEV';
           dstev('N', N, D3, D4, Z, LDU, WORK, IINFO);
@@ -489,7 +489,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[3] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -501,10 +501,10 @@ void ddrvst2stg(
           NTEST = 4;
           for (I = 1; I <= N; I++) {
             EVEIGS[I] = D3[I];
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU,
@@ -522,7 +522,7 @@ void ddrvst2stg(
             }
           }
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -530,16 +530,16 @@ void ddrvst2stg(
           // Do tests 4 and 5.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT(4));
 
           NTEST = 6;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -560,7 +560,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((WA2[J]).abs(), (EVEIGS[J]).abs()));
+            TEMP1 = max(TEMP1, max(WA2[J].abs(), EVEIGS[J].abs()));
             TEMP2 = max(TEMP2, (WA2[J] - EVEIGS[J]).abs());
           }
           RESULT[6] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -571,10 +571,10 @@ void ddrvst2stg(
         while (true) {
           NTEST = 7;
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU,
@@ -591,7 +591,7 @@ void ddrvst2stg(
             }
           }
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -599,16 +599,16 @@ void ddrvst2stg(
           // Do tests 7 and 8.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT(7));
 
           NTEST = 9;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -629,7 +629,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((WA2[J]).abs(), (EVEIGS[J]).abs()));
+            TEMP1 = max(TEMP1, max(WA2[J].abs(), EVEIGS[J].abs()));
             TEMP2 = max(TEMP2, (WA2[J] - EVEIGS[J]).abs());
           }
           RESULT[9] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -640,10 +640,10 @@ void ddrvst2stg(
         while (true) {
           NTEST = 10;
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -664,17 +664,17 @@ void ddrvst2stg(
           // Do tests 10 and 11.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
               WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(10));
 
           NTEST = 12;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -726,10 +726,10 @@ void ddrvst2stg(
           }
 
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -757,17 +757,17 @@ void ddrvst2stg(
           // Do tests 13 and 14.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
               WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(13));
 
           NTEST = 15;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -795,10 +795,10 @@ void ddrvst2stg(
         while (true) {
           NTEST = 16;
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVD';
           dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO);
@@ -818,16 +818,16 @@ void ddrvst2stg(
           // Do tests 16 and 17.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT(16));
 
           NTEST = 18;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVD';
           dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO);
@@ -847,7 +847,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((EVEIGS[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(EVEIGS[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (EVEIGS[J] - D3[J]).abs());
           }
           RESULT[18] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -858,10 +858,10 @@ void ddrvst2stg(
         while (true) {
           NTEST = 19;
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -882,17 +882,17 @@ void ddrvst2stg(
           // DO tests 19 and 20.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
               WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(19));
 
           NTEST = 21;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -944,10 +944,10 @@ void ddrvst2stg(
           }
 
           for (I = 1; I <= N; I++) {
-            D1[I] = (A[I][I]).toDouble();
+            D1[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D2[I] = (A[I + 1][I]).toDouble();
+            D2[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -975,17 +975,17 @@ void ddrvst2stg(
           // Do tests 22 and 23.
 
           for (I = 1; I <= N; I++) {
-            D3[I] = (A[I][I]).toDouble();
+            D3[I] = A[I][I].toDouble();
           }
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
               WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(22));
 
           NTEST = 24;
           for (I = 1; I <= N - 1; I++) {
-            D4[I] = (A[I + 1][I]).toDouble();
+            D4[I] = A[I + 1][I].toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -1074,7 +1074,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -1088,7 +1088,7 @@ void ddrvst2stg(
           NTEST++;
 
           if (N > 0) {
-            TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
+            TEMP3 = max(D1[1].abs(), D1[N].abs());
             if (IL != 1) {
               VL = D1[IL] -
                   max(HALF * (D1[IL] - D1[IL - 1]),
@@ -1158,7 +1158,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((WA1[J]).abs(), (WA2[J]).abs()));
+            TEMP1 = max(TEMP1, max(WA1[J].abs(), WA2[J].abs()));
             TEMP2 = max(TEMP2, (WA1[J] - WA2[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -1272,7 +1272,7 @@ void ddrvst2stg(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1365,7 +1365,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -1397,7 +1397,7 @@ void ddrvst2stg(
           NTEST++;
 
           if (N > 0) {
-            TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
+            TEMP3 = max(D1[1].abs(), D1[N].abs());
             if (IL != 1) {
               VL = D1[IL] -
                   max(HALF * (D1[IL] - D1[IL - 1]),
@@ -1484,7 +1484,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((WA1[J]).abs(), (WA2[J]).abs()));
+            TEMP1 = max(TEMP1, max(WA1[J].abs(), WA2[J].abs()));
             TEMP2 = max(TEMP2, (WA1[J] - WA2[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -1579,7 +1579,7 @@ void ddrvst2stg(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1675,7 +1675,7 @@ void ddrvst2stg(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1768,7 +1768,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -1874,7 +1874,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((WA2[J]).abs(), (WA3[J]).abs()));
+            TEMP1 = max(TEMP1, max(WA2[J].abs(), WA3[J].abs()));
             TEMP2 = max(TEMP2, (WA2[J] - WA3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -1978,7 +1978,7 @@ void ddrvst2stg(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -2088,7 +2088,7 @@ void ddrvst2stg(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -2146,7 +2146,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -2240,7 +2240,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -2332,7 +2332,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D3[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -2408,7 +2408,7 @@ void ddrvst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((WA1[J]).abs(), (WA2[J]).abs()));
+            TEMP1 = max(TEMP1, max(WA1[J].abs(), WA2[J].abs()));
             TEMP2 = max(TEMP2, (WA1[J] - WA2[J]).abs());
           }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
@@ -2562,7 +2562,7 @@ void ddrvst2stg(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }

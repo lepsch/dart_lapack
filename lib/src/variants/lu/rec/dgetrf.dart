@@ -87,7 +87,7 @@ void dgetrf(
 
     // Factor the current column
     if (A[J][J] != ZERO && !disnan(A[J][J])) {
-      if ((A[J][J]).abs() >= SFMIN) {
+      if (A[J][J].abs() >= SFMIN) {
         dscal(M - J, ONE / A[J][J], A(J + 1, J).asArray(), 1);
       } else {
         for (I = 1; I <= M - J; I++) {

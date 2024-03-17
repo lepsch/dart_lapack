@@ -587,6 +587,24 @@ FORs
 \{ //\s*\d+
 ```
 
+### Unecessary parens
+Matrices
+```
+([^\w])\((\w+\[[^\[\]]*?\]\[[^\[\]]*?\])\)\.(abs|to|real|conj)
+$1$2.$3
+```
+
+Arrays
+```
+([^\w])\((\w+\[[^\[\]]*?\])\)\.(abs|to|real|conj)
+$1$2.$3
+```
+
+```
+([^\w])\((\w+)\)\.(abs|to|real|conj)
+$1$2.$3
+```
+
 ### Functios
 ```
 ^\s*\b(void|String|int|double|Complex|bool)\s+\w+\((((\s*\n?\s*final\s+\w+(<\w+>)?\s+\w+),\s*)*(\4\n?,?)?)\)\s*\{

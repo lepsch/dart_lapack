@@ -111,7 +111,7 @@ void dpprfs(
       // numerator and denominator before dividing.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = (B[I][J]).abs();
+        WORK[I] = B[I][J].abs();
       }
 
       // Compute abs(A)*abs(X) + abs(B).
@@ -120,25 +120,25 @@ void dpprfs(
       if (UPPER) {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = (X[K][J]).abs();
+          XK = X[K][J].abs();
           IK = KK;
           for (I = 1; I <= K - 1; I++) {
-            WORK[I] += (AP[IK]).abs() * XK;
-            S += (AP[IK]).abs() * (X[I][J]).abs();
+            WORK[I] += AP[IK].abs() * XK;
+            S += AP[IK].abs() * X[I][J].abs();
             IK++;
           }
-          WORK[K] += (AP[KK + K - 1]).abs() * XK + S;
+          WORK[K] += AP[KK + K - 1].abs() * XK + S;
           KK += K;
         }
       } else {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = (X[K][J]).abs();
-          WORK[K] += (AP[KK]).abs() * XK;
+          XK = X[K][J].abs();
+          WORK[K] += AP[KK].abs() * XK;
           IK = KK + 1;
           for (I = K + 1; I <= N; I++) {
-            WORK[I] += (AP[IK]).abs() * XK;
-            S += (AP[IK]).abs() * (X[I][J]).abs();
+            WORK[I] += AP[IK].abs() * XK;
+            S += AP[IK].abs() * X[I][J].abs();
             IK++;
           }
           WORK[K] += S;
@@ -148,9 +148,9 @@ void dpprfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (WORK[I] > SAFE2) {
-          S = max(S, (WORK[N + I]).abs() / WORK[I]);
+          S = max(S, WORK[N + I].abs() / WORK[I]);
         } else {
-          S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+          S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -197,9 +197,9 @@ void dpprfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 
@@ -228,7 +228,7 @@ void dpprfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

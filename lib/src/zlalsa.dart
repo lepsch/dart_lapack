@@ -153,7 +153,7 @@ void zlalsa(
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
           J++;
-          RWORK[J] = (B[JROW][JCOL]).toDouble();
+          RWORK[J] = B[JROW][JCOL].toDouble();
         }
       }
       dgemm(
@@ -211,7 +211,7 @@ void zlalsa(
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
           J++;
-          RWORK[J] = (B[JROW][JCOL]).toDouble();
+          RWORK[J] = B[JROW][JCOL].toDouble();
         }
       }
       dgemm(
@@ -414,7 +414,7 @@ void zlalsa(
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
         J++;
-        RWORK[J] = (B[JROW][JCOL]).toDouble();
+        RWORK[J] = B[JROW][JCOL].toDouble();
       }
     }
     dgemm(
@@ -472,7 +472,7 @@ void zlalsa(
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
         J++;
-        RWORK[J] = (B[JROW][JCOL]).toDouble();
+        RWORK[J] = B[JROW][JCOL].toDouble();
       }
     }
     dgemm(

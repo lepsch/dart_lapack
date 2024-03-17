@@ -159,8 +159,8 @@ void dla_gbrfsx_extended(
       YMIN = HUGEVAL;
 
       for (I = 1; I <= N; I++) {
-        YK = (Y[I][J]).abs();
-        DYK = (DY[I]).abs();
+        YK = Y[I][J].abs();
+        DYK = DY[I].abs();
 
         if (YK != 0.0) {
           DZ_Z = max(DZ_Z, DYK / YK);

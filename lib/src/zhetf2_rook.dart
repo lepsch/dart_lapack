@@ -192,7 +192,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[P][K] = A[P][K].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = (A[K][K]).toDouble();
+          R1 = A[K][K].toDouble();
           A[K][K] = A[P][P].real.toComplex();
           A[P][P] = R1.toComplex();
         }
@@ -215,7 +215,7 @@ void zhetf2_rook(
           A[KP][KK] = A[KP][KK].conjugate();
           // (4) Swap diagonal elements at row-col intersection
           R1 = A[KK][KK].toDouble();
-          A[KK][KK] = (A[KP][KP]).real.toComplex();
+          A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
 
           if (KSTEP == 2) {
@@ -245,12 +245,12 @@ void zhetf2_rook(
             // Perform a rank-1 update of A(1:k-1,1:k-1) and
             // store U(k) in column k
 
-            if ((A[K][K]).toDouble().abs() >= SFMIN) {
+            if (A[K][K].toDouble().abs() >= SFMIN) {
               // Perform a rank-1 update of A(1:k-1,1:k-1) as
               // A := A - U(k)*D(k)*U(k)**T
               //    = A - W(k)*1/D(k)*W(k)**T
 
-              D11 = ONE / (A[K][K]).toDouble();
+              D11 = ONE / A[K][K].toDouble();
               zher(UPLO, K - 1, -D11, A(1, K).asArray(), 1, A, LDA);
 
               // Store U(k) in column k
@@ -259,7 +259,7 @@ void zhetf2_rook(
             } else {
               // Store L(k) in column K
 
-              D11 = (A[K][K]).toDouble();
+              D11 = A[K][K].toDouble();
               for (II = 1; II <= K - 1; II++) {
                 A[II][K] /= D11.toComplex();
               }
@@ -469,7 +469,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[P][K] = A[P][K].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = (A[K][K]).toDouble();
+          R1 = A[K][K].toDouble();
           A[K][K] = A[P][P].real.toComplex();
           A[P][P] = R1.toComplex();
         }
@@ -492,7 +492,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[KP][KK] = A[KP][KK].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = (A[KK][KK]).toDouble();
+          R1 = A[KK][KK].toDouble();
           A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
 
@@ -540,7 +540,7 @@ void zhetf2_rook(
             } else {
               // Store L(k) in column k
 
-              D11 = (A[K][K]).toDouble();
+              D11 = A[K][K].toDouble();
               for (II = K + 1; II <= N; II++) {
                 A[II][K] /= D11.toComplex();
               }
@@ -572,8 +572,8 @@ void zhetf2_rook(
           if (K < N - 1) {
             // D = |A21|
             D = dlapy2(A[K + 1][K].toDouble(), A[K + 1][K].imaginary);
-            D11 = (A[K + 1][K + 1]).toDouble() / D;
-            D22 = (A[K][K]).toDouble() / D;
+            D11 = A[K + 1][K + 1].toDouble() / D;
+            D22 = A[K][K].toDouble() / D;
             D21 = A[K + 1][K] / D.toComplex();
             TT = ONE / (D11 * D22 - ONE);
 

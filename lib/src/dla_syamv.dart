@@ -88,20 +88,20 @@ void dla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           for (J = 1; J <= I; J++) {
-            TEMP = (A[J][I]).abs();
+            TEMP = A[J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
           for (J = I + 1; J <= N; J++) {
-            TEMP = (A[I][J]).abs();
+            TEMP = A[I][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
         }
         if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
@@ -117,20 +117,20 @@ void dla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           for (J = 1; J <= I; J++) {
-            TEMP = (A[I][J]).abs();
+            TEMP = A[I][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
           for (J = I + 1; J <= N; J++) {
-            TEMP = (A[J][I]).abs();
+            TEMP = A[J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
         }
         if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
@@ -148,22 +148,22 @@ void dla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         JX = KX;
         if (ALPHA != ZERO) {
           for (J = 1; J <= I; J++) {
-            TEMP = (A[J][I]).abs();
+            TEMP = A[J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
           for (J = I + 1; J <= N; J++) {
-            TEMP = (A[I][J]).abs();
+            TEMP = A[I][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
         }
@@ -180,22 +180,22 @@ void dla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         JX = KX;
         if (ALPHA != ZERO) {
           for (J = 1; J <= I; J++) {
-            TEMP = (A[I][J]).abs();
+            TEMP = A[I][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
           for (J = I + 1; J <= N; J++) {
-            TEMP = (A[J][I]).abs();
+            TEMP = A[J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
         }

@@ -394,7 +394,7 @@ void dlamc2(
     THIRD = dlamc3(SIXTH, SIXTH);
     B = dlamc3(THIRD, -HALF);
     B = dlamc3(B, SIXTH);
-    B = (B).abs();
+    B = B.abs();
     if (B < LEPS) B = LEPS;
 
     LEPS = 1;

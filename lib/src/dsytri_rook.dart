@@ -94,7 +94,7 @@ void dsytri_rook(
 
         // Invert the diagonal block.
 
-        T = (A[K][K + 1]).abs();
+        T = A[K][K + 1].abs();
         AK = A[K][K] / T;
         AKP1 = A[K + 1][K + 1] / T;
         AKKP1 = A[K][K + 1] / T;
@@ -200,7 +200,7 @@ void dsytri_rook(
 
         // Invert the diagonal block.
 
-        T = (A[K][K - 1]).abs();
+        T = A[K][K - 1].abs();
         AK = A[K - 1][K - 1] / T;
         AKP1 = A[K][K] / T;
         AKKP1 = A[K][K - 1] / T;

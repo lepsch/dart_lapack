@@ -109,14 +109,14 @@ void dla_gbamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           for (J = max(I - KL, 1); J <= min(I + KU, LENX); J++) {
-            TEMP = (AB[KD + I - J][J]).abs();
+            TEMP = AB[KD + I - J][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
         }
         if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
@@ -131,14 +131,14 @@ void dla_gbamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           for (J = max(I - KL, 1); J <= min(I + KU, LENX); J++) {
-            TEMP = (AB[KE - I + J][I]).abs();
+            TEMP = AB[KE - I + J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[J] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[J]).abs() * TEMP;
+            Y[IY] += ALPHA * X[J].abs() * TEMP;
           }
         }
         if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
@@ -155,15 +155,15 @@ void dla_gbamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           JX = KX;
           for (J = max(I - KL, 1); J <= min(I + KU, LENX); J++) {
-            TEMP = (AB[KD + I - J][J]).abs();
+            TEMP = AB[KD + I - J][J].abs();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
         }
@@ -180,15 +180,15 @@ void dla_gbamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           JX = KX;
           for (J = max(I - KL, 1); J <= min(I + KU, LENX); J++) {
-            TEMP = (AB[KE - I + J][I]).abs();
+            TEMP = AB[KE - I + J][I].abs();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == ZERO || TEMP == ZERO);
 
-            Y[IY] += ALPHA * (X[JX]).abs() * TEMP;
+            Y[IY] += ALPHA * X[JX].abs() * TEMP;
             JX += INCX;
           }
         }

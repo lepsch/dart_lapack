@@ -71,7 +71,7 @@ void dlasv2(
     // Now FA >= HA
   }
   GT = G;
-  GA = (GT).abs();
+  GA = GT.abs();
   if (GA == ZERO) {
     // Diagonal matrix
 
@@ -130,7 +130,7 @@ void dlasv2(
       // Note that 1 <= S <= 1 + 1/macheps
 
       if (L == ZERO) {
-        R = (M).abs();
+        R = M.abs();
       } else {
         R = sqrt(L * L + MM);
       }

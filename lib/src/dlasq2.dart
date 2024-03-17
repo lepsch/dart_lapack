@@ -309,7 +309,7 @@ void dlasq2(
 
     EMAX = ZERO;
     if (N0.value > I0) {
-      EMIN = (Z[4 * N0.value - 5]).abs();
+      EMIN = Z[4 * N0.value - 5].abs();
     } else {
       EMIN = ZERO;
     }

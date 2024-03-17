@@ -61,8 +61,8 @@ void zhpgst(
 
         // Compute the j-th column of the upper triangle of A
 
-        AP[JJ] = (AP[JJ]).real.toComplex();
-        BJJ = (BP[JJ]).toDouble();
+        AP[JJ] = AP[JJ].real.toComplex();
+        BJJ = BP[JJ].toDouble();
         ztpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP(J1), 1);
         zhpmv(UPLO, J - 1, -Complex.one, AP, BP(J1), 1, Complex.one, AP(J1), 1);
         zdscal(J - 1, ONE / BJJ, AP(J1), 1);
@@ -131,8 +131,8 @@ void zhpgst(
 
         // Compute the j-th column of the lower triangle of A
 
-        AJJ = (AP[JJ]).toDouble();
-        BJJ = (BP[JJ]).toDouble();
+        AJJ = AP[JJ].toDouble();
+        BJJ = BP[JJ].toDouble();
         AP[JJ] = (AJJ * BJJ).toComplex() +
             zdotc(N - J, AP(JJ + 1), 1, BP(JJ + 1), 1);
         zdscal(N - J, BJJ, AP(JJ + 1), 1);

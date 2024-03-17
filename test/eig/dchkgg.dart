@@ -279,7 +279,7 @@ void dchkgg(
           if (KCLASS[JTYPE] < 3) {
             // Generate A (w/o rotation)
 
-            if ((KATYPE[JTYPE]).abs() == 3) {
+            if (KATYPE[JTYPE].abs() == 3) {
               IN.value = 2 * ((N - 1) ~/ 2) + 1;
               if (IN.value != N) dlaset('Full', N, N, ZERO, ZERO, A, LDA);
             } else {
@@ -303,7 +303,7 @@ void dchkgg(
 
             // Generate B (w/o rotation)
 
-            if ((KBTYPE[JTYPE]).abs() == 3) {
+            if (KBTYPE[JTYPE].abs() == 3) {
               IN.value = 2 * ((N - 1) ~/ 2) + 1;
               if (IN.value != N) dlaset('Full', N, N, ZERO, ZERO, B, LDA);
             } else {

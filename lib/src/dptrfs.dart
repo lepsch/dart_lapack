@@ -94,26 +94,26 @@ void dptrfs(
         BI = B[1][J];
         DX = D[1] * X[1][J];
         WORK[N + 1] = BI - DX;
-        WORK[1] = (BI).abs() + (DX).abs();
+        WORK[1] = BI.abs() + DX.abs();
       } else {
         BI = B[1][J];
         DX = D[1] * X[1][J];
         EX = E[1] * X[2][J];
         WORK[N + 1] = BI - DX - EX;
-        WORK[1] = (BI).abs() + (DX).abs() + (EX).abs();
+        WORK[1] = BI.abs() + DX.abs() + EX.abs();
         for (I = 2; I <= N - 1; I++) {
           BI = B[I][J];
           CX = E[I - 1] * X[I - 1][J];
           DX = D[I] * X[I][J];
           EX = E[I] * X[I + 1][J];
           WORK[N + I] = BI - CX - DX - EX;
-          WORK[I] = (BI).abs() + (CX).abs() + (DX).abs() + (EX).abs();
+          WORK[I] = BI.abs() + CX.abs() + DX.abs() + EX.abs();
         }
         BI = B[N][J];
         CX = E[N - 1] * X[N - 1][J];
         DX = D[N] * X[N][J];
         WORK[N + N] = BI - CX - DX;
-        WORK[N] = (BI).abs() + (CX).abs() + (DX).abs();
+        WORK[N] = BI.abs() + CX.abs() + DX.abs();
       }
 
       // Compute componentwise relative backward error from formula
@@ -128,9 +128,9 @@ void dptrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (WORK[I] > SAFE2) {
-          S = max(S, (WORK[N + I]).abs() / WORK[I]);
+          S = max(S, WORK[N + I].abs() / WORK[I]);
         } else {
-          S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+          S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -173,9 +173,9 @@ void dptrfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
     IX = idamax(N, WORK, 1);
@@ -194,26 +194,26 @@ void dptrfs(
 
     WORK[1] = ONE;
     for (I = 2; I <= N; I++) {
-      WORK[I] = ONE + WORK[I - 1] * (EF[I - 1]).abs();
+      WORK[I] = ONE + WORK[I - 1] * EF[I - 1].abs();
     }
 
     // Solve D * M(L)**T * x = b.
 
     WORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
-      WORK[I] /= DF[I] + WORK[I + 1] * (EF[I]).abs();
+      WORK[I] /= DF[I] + WORK[I + 1] * EF[I].abs();
     }
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
     IX = idamax(N, WORK, 1);
-    FERR[J] *= (WORK[IX]).abs();
+    FERR[J] *= WORK[IX].abs();
 
     // Normalize error.
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

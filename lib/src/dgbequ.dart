@@ -73,7 +73,7 @@ void dgbequ(
   KD = KU + 1;
   for (J = 1; J <= N; J++) {
     for (I = max(J - KU, 1); I <= min(J + KL, M); I++) {
-      R[I] = max(R[I], (AB[KD + I - J][J]).abs());
+      R[I] = max(R[I], AB[KD + I - J][J].abs());
     }
   }
 
@@ -120,7 +120,7 @@ void dgbequ(
   KD = KU + 1;
   for (J = 1; J <= N; J++) {
     for (I = max(J - KU, 1); I <= min(J + KL, M); I++) {
-      C[J] = max(C[J], (AB[KD + I - J][J]).abs() * R[I]);
+      C[J] = max(C[J], AB[KD + I - J][J].abs() * R[I]);
     }
   }
 

@@ -54,14 +54,14 @@ void dlarrr(
 
   YESREL = true;
   OFFDIG = ZERO;
-  TMP = sqrt((D[1]).abs());
+  TMP = sqrt(D[1].abs());
   if (TMP < RMIN) YESREL = false;
   if (YESREL) {
     for (I = 2; I <= N; I++) {
-      TMP2 = sqrt((D[I]).abs());
+      TMP2 = sqrt(D[I].abs());
       if (TMP2 < RMIN) YESREL = false;
       if (!YESREL) break;
-      OFFDIG2 = (E[I - 1]).abs() / (TMP * TMP2);
+      OFFDIG2 = E[I - 1].abs() / (TMP * TMP2);
       if (OFFDIG + OFFDIG2 >= RELCOND) YESREL = false;
       if (!YESREL) break;
       TMP = TMP2;

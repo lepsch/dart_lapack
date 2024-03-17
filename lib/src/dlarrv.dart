@@ -420,7 +420,7 @@ void dlarrv(
             // boundary of the child cluster
             NEWLST = J;
           } else if (WGAP[WBEGIN + J - 1] >=
-              MINRGP * (WORK[WBEGIN + J - 1]).abs()) {
+              MINRGP * WORK[WBEGIN + J - 1].abs()) {
             // the right relative gap is big enough, the child cluster
             // (NEWFST,..,NEWLST) is well separated from the following
             NEWLST = J;
@@ -547,9 +547,9 @@ void dlarrv(
               // WORK() are the midpoints and WERR() the semi-width
               // Note that the entries in W are unchanged.
               for (K = NEWFST; K <= NEWLST; K++) {
-                FUDGE = THREE * EPS * (WORK[WBEGIN + K - 1]).abs();
+                FUDGE = THREE * EPS * WORK[WBEGIN + K - 1].abs();
                 WORK[WBEGIN + K - 1] -= TAU.value;
-                FUDGE += FOUR * EPS * (WORK[WBEGIN + K - 1]).abs();
+                FUDGE += FOUR * EPS * WORK[WBEGIN + K - 1].abs();
                 // Fudge errors
                 WERR[WBEGIN + K - 1] += FUDGE;
                 // Gaps are not fudged. Provided that WERR is small
@@ -604,7 +604,7 @@ void dlarrv(
                 // can lead to an overestimation of the left gap and
                 // thus to inadequately early RQI 'convergence'.
                 // Prevent this by forcing a small left gap.
-                LGAP = EPS * max((LEFT).abs(), (RIGHT).abs());
+                LGAP = EPS * max(LEFT.abs(), RIGHT.abs());
               } else {
                 LGAP = WGAP[WINDMN];
               }
@@ -614,7 +614,7 @@ void dlarrv(
                 // can lead to an overestimation of the right gap and
                 // thus to inadequately early RQI 'convergence'.
                 // Prevent this by forcing a small right gap.
-                RGAP = EPS * max((LEFT).abs(), (RIGHT).abs());
+                RGAP = EPS * max(LEFT.abs(), RIGHT.abs());
               } else {
                 RGAP = WGAP[WINDEX];
               }
@@ -723,7 +723,7 @@ void dlarrv(
                 // (omitted when Bisection has been used)
 
                 if (RESID.value > TOL * GAP &&
-                    (RQCORR.value).abs() > RQTOL * (LAMBDA).abs() &&
+                    (RQCORR.value).abs() > RQTOL * LAMBDA.abs() &&
                     !USEDBS) {
                   // We need to check that the RQCORR.value update doesn't
                   // move the eigenvalue away from the desired one and
@@ -769,7 +769,7 @@ void dlarrv(
                   } else {
                     NEEDBS = true;
                   }
-                  if (RIGHT - LEFT < RQTOL * (LAMBDA).abs()) {
+                  if (RIGHT - LEFT < RQTOL * LAMBDA.abs()) {
                     // The eigenvalue is computed to bisection accuracy
                     // compute eigenvector and stop
                     USEDBS = true;

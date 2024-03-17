@@ -118,7 +118,7 @@ void zlaqz3(
 
   for (I = 1; I <= NS; I++) {
     // Introduce the shift
-    SCALE = sqrt((ALPHA[I]).abs()) * sqrt((BETA[I]).abs());
+    SCALE = sqrt(ALPHA[I].abs()) * sqrt(BETA[I].abs());
     if (SCALE >= SAFMIN && SCALE <= SAFMAX) {
       ALPHA[I] /= SCALE.toComplex();
       BETA[I] /= SCALE.toComplex();
@@ -126,7 +126,7 @@ void zlaqz3(
 
     TEMP2 = BETA[I] * A[ILO][ILO] - ALPHA[I] * B[ILO][ILO];
     TEMP3 = BETA[I] * A[ILO + 1][ILO];
-    if ((TEMP2).abs() > SAFMAX || (TEMP3).abs() > SAFMAX) {
+    if (TEMP2.abs() > SAFMAX || TEMP3.abs() > SAFMAX) {
       TEMP2 = Complex.one;
       TEMP3 = Complex.zero;
     }

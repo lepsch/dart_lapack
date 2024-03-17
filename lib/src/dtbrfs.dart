@@ -125,7 +125,7 @@ void dtbrfs(
     // numerator and denominator before dividing.
 
     for (I = 1; I <= N; I++) {
-      WORK[I] = (B[I][J]).abs();
+      WORK[I] = B[I][J].abs();
     }
 
     if (NOTRAN) {
@@ -134,16 +134,16 @@ void dtbrfs(
       if (UPPER) {
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = max(1, K - KD); I <= K; I++) {
-              WORK[I] += (AB[KD + 1 + I - K][K]).abs() * XK;
+              WORK[I] += AB[KD + 1 + I - K][K].abs() * XK;
             }
           }
         } else {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = max(1, K - KD); I <= K - 1; I++) {
-              WORK[I] += (AB[KD + 1 + I - K][K]).abs() * XK;
+              WORK[I] += AB[KD + 1 + I - K][K].abs() * XK;
             }
             WORK[K] += XK;
           }
@@ -151,16 +151,16 @@ void dtbrfs(
       } else {
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = K; I <= min(N, K + KD); I++) {
-              WORK[I] += (AB[1 + I - K][K]).abs() * XK;
+              WORK[I] += AB[1 + I - K][K].abs() * XK;
             }
           }
         } else {
           for (K = 1; K <= N; K++) {
-            XK = (X[K][J]).abs();
+            XK = X[K][J].abs();
             for (I = K + 1; I <= min(N, K + KD); I++) {
-              WORK[I] += (AB[1 + I - K][K]).abs() * XK;
+              WORK[I] += AB[1 + I - K][K].abs() * XK;
             }
             WORK[K] += XK;
           }
@@ -174,15 +174,15 @@ void dtbrfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = max(1, K - KD); I <= K; I++) {
-              S += (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += AB[KD + 1 + I - K][K].abs() * X[I][J].abs();
             }
             WORK[K] += S;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            S = (X[K][J]).abs();
+            S = X[K][J].abs();
             for (I = max(1, K - KD); I <= K - 1; I++) {
-              S += (AB[KD + 1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += AB[KD + 1 + I - K][K].abs() * X[I][J].abs();
             }
             WORK[K] += S;
           }
@@ -192,15 +192,15 @@ void dtbrfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = K; I <= min(N, K + KD); I++) {
-              S += (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += AB[1 + I - K][K].abs() * X[I][J].abs();
             }
             WORK[K] += S;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            S = (X[K][J]).abs();
+            S = X[K][J].abs();
             for (I = K + 1; I <= min(N, K + KD); I++) {
-              S += (AB[1 + I - K][K]).abs() * (X[I][J]).abs();
+              S += AB[1 + I - K][K].abs() * X[I][J].abs();
             }
             WORK[K] += S;
           }
@@ -210,9 +210,9 @@ void dtbrfs(
     S = ZERO;
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        S = max(S, (WORK[N + I]).abs() / WORK[I]);
+        S = max(S, WORK[N + I].abs() / WORK[I]);
       } else {
-        S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+        S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
       }
     }
     BERR[J] = S;
@@ -241,9 +241,9 @@ void dtbrfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 
@@ -272,7 +272,7 @@ void dtbrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

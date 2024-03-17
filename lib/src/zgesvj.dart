@@ -231,7 +231,7 @@ void zgesvj(
   // sqrt(N)*max_i SVA(i) does not overflow. If INFinite entries
   // in A are detected, the procedure returns with INFO.value=-6.
 
-  SKL = ONE / sqrt((M).toDouble() * N.toDouble());
+  SKL = ONE / sqrt(M.toDouble() * N.toDouble());
   NOSCALE = true;
   GOSCALE = true;
 
@@ -683,12 +683,12 @@ void zgesvj(
                 }
 
                 // AAPQ *= CONJG( CWORK(p) ) * CWORK(q)
-                AAPQ1 = -(AAPQ).abs();
+                AAPQ1 = -AAPQ.abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
                 // TO rotate or NOT to rotate, THAT is the question ...
 
-                if ((AAPQ1).abs() > TOL) {
+                if (AAPQ1.abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
 
                   // .. rotate
@@ -705,7 +705,7 @@ void zgesvj(
                     APOAQ = AAPP.value / AAQQ.value;
                     THETA = -HALF * (AQOAP - APOAQ).abs() / AAPQ1;
 
-                    if ((THETA).abs() > BIGTHETA) {
+                    if (THETA.abs() > BIGTHETA) {
                       T.value = HALF / THETA;
                       CS = ONE;
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,
@@ -728,7 +728,7 @@ void zgesvj(
                       CS = sqrt(ONE / (ONE + T.value * T.value));
                       SN = T.value * CS;
 
-                      MXSINJ = max(MXSINJ, (SN).abs());
+                      MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
                       AAPP.value *=
@@ -878,12 +878,12 @@ void zgesvj(
                 }
 
                 // AAPQ *= CONJG(CWORK(p))*CWORK(q)
-                AAPQ1 = -(AAPQ).abs();
+                AAPQ1 = -AAPQ.abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
                 // TO rotate or NOT to rotate, THAT is the question ...
 
-                if ((AAPQ1).abs() > TOL) {
+                if (AAPQ1.abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
                   NOTROT = 0;
                   // [RTD]      ROTATED++
@@ -896,7 +896,7 @@ void zgesvj(
                     THETA = -HALF * (AQOAP - APOAQ).abs() / AAPQ1;
                     if (AAQQ.value > AAPP0) THETA = -THETA;
 
-                    if ((THETA).abs() > BIGTHETA) {
+                    if (THETA.abs() > BIGTHETA) {
                       T.value = HALF / THETA;
                       CS = ONE;
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,
@@ -919,7 +919,7 @@ void zgesvj(
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));
                       CS = sqrt(ONE / (ONE + T.value * T.value));
                       SN = T.value * CS;
-                      MXSINJ = max(MXSINJ, (SN).abs());
+                      MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
                       AAPP.value *=
@@ -1026,7 +1026,7 @@ void zgesvj(
       // end of the jbc-loop
       // 2011 bailed out of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-        SVA[p] = (SVA[p]).abs();
+        SVA[p] = SVA[p].abs();
       }
     }
     // 2000 :: end of the ibr-loop
@@ -1046,7 +1046,7 @@ void zgesvj(
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
 
     if ((i > SWBAND + 1) &&
-        (MXAAPQ < sqrt((N).toDouble()) * TOL) &&
+        (MXAAPQ < sqrt(N.toDouble()) * TOL) &&
         (N.toDouble() * MXAAPQ * MXSINJ < TOL)) {
       exhausted = false;
       break;

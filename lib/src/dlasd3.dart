@@ -88,7 +88,7 @@ void dlasd3(
   // Quick return if possible
 
   if (K == 1) {
-    D[1] = (Z[1]).abs();
+    D[1] = Z[1].abs();
     dcopy(M, VT2(1, 1).asArray(), LDVT2, VT(1, 1).asArray(), LDVT);
     if (Z[1] > ZERO) {
       dcopy(N, U2(1, 1).asArray(), 1, U(1, 1).asArray(), 1);
@@ -139,7 +139,7 @@ void dlasd3(
           (DSIGMA[I] - DSIGMA[J + 1]) /
           (DSIGMA[I] + DSIGMA[J + 1]));
     }
-    Z[I] = sign(sqrt((Z[I]).abs()), Q[I][1]).toDouble();
+    Z[I] = sign(sqrt(Z[I].abs()), Q[I][1]).toDouble();
   }
 
   // Compute left singular vectors of the modified diagonal matrix,

@@ -84,7 +84,7 @@ void zhpr(
               (AP[KK + J - 1].toDouble() + (X[JX] * TEMP).toDouble())
                   .toComplex();
         } else {
-          AP[KK + J - 1] = (AP[KK + J - 1]).real.toComplex();
+          AP[KK + J - 1] = AP[KK + J - 1].real.toComplex();
         }
         JX += INCX;
         KK += J;

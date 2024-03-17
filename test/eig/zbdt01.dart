@@ -133,11 +133,11 @@ void zbdt01(
       RESID.value = (RESID.value / ANORM) / (N.toDouble() * EPS);
     } else {
       if (ANORM < ONE) {
-        RESID.value = (min(RESID.value, (N).toDouble() * ANORM) / ANORM) /
+        RESID.value = (min(RESID.value, N.toDouble() * ANORM) / ANORM) /
             (N.toDouble() * EPS);
       } else {
         RESID.value =
-            min(RESID.value / ANORM, (N).toDouble()) / (N.toDouble() * EPS);
+            min(RESID.value / ANORM, N.toDouble()) / (N.toDouble() * EPS);
       }
     }
   }

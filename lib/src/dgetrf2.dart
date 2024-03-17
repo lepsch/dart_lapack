@@ -75,7 +75,7 @@ void dgetrf2(
 
       // Compute elements 2:M of the column
 
-      if ((A[1][1]).abs() >= SFMIN) {
+      if (A[1][1].abs() >= SFMIN) {
         dscal(M - 1, ONE / A[1][1], A(1, 2).asArray(), 1);
       } else {
         for (I = 1; I <= M - 1; I++) {

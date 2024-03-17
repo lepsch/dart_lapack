@@ -57,9 +57,9 @@ void dbdt04(
       K++;
       WORK[K] = D[N] * VT[I][N];
     }
-    BNORM = (D[1]).abs();
+    BNORM = D[1].abs();
     for (I = 2; I <= N; I++) {
-      BNORM = max(BNORM, (D[I]).abs() + (E[I - 1]).abs());
+      BNORM = max(BNORM, D[I].abs() + E[I - 1].abs());
     }
   } else {
     // B is lower bidiagonal.
@@ -73,9 +73,9 @@ void dbdt04(
         WORK[K] = E[J] * VT[I][J] + D[J + 1] * VT[I][J + 1];
       }
     }
-    BNORM = (D[N]).abs();
+    BNORM = D[N].abs();
     for (I = 1; I <= N - 1; I++) {
-      BNORM = max(BNORM, (D[I]).abs() + (E[I]).abs());
+      BNORM = max(BNORM, D[I].abs() + E[I].abs());
     }
   }
 
@@ -98,11 +98,11 @@ void dbdt04(
       RESID.value = (RESID.value / BNORM) / (N.toDouble() * EPS);
     } else {
       if (BNORM < ONE) {
-        RESID.value = (min(RESID.value, (N).toDouble() * BNORM) / BNORM) /
+        RESID.value = (min(RESID.value, N.toDouble() * BNORM) / BNORM) /
             (N.toDouble() * EPS);
       } else {
         RESID.value =
-            min(RESID.value / BNORM, (N).toDouble()) / (N.toDouble() * EPS);
+            min(RESID.value / BNORM, N.toDouble()) / (N.toDouble() * EPS);
       }
     }
   }

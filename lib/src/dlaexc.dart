@@ -137,7 +137,7 @@ void dlaexc(
 
         // Test whether to reject swap.
 
-        if (max((D[3][1]).abs(), max((D[3][2]).abs(), (D[3][3] - T11).abs())) >
+        if (max(D[3][1].abs(), max(D[3][2].abs(), (D[3][3] - T11).abs())) >
             THRESH) {
           // Exit with INFO = 1 if swap was rejected.
           INFO.value = 1;
@@ -182,7 +182,7 @@ void dlaexc(
 
         // Test whether to reject swap.
 
-        if (max((D[2][1]).abs(), max((D[3][1]).abs(), (D[1][1] - T33).abs())) >
+        if (max(D[2][1].abs(), max(D[3][1].abs(), (D[1][1] - T33).abs())) >
             THRESH) {
           // Exit with INFO = 1 if swap was rejected.
           INFO.value = 1;
@@ -238,8 +238,8 @@ void dlaexc(
         // Test whether to reject swap.
 
         if (max(
-              max((D[3][1]).abs(), (D[3][2]).abs()),
-              max((D[4][1]).abs(), (D[4][2]).abs()),
+              max(D[3][1].abs(), D[3][2].abs()),
+              max(D[4][1].abs(), D[4][2].abs()),
             ) >
             THRESH) {
           // Exit with INFO = 1 if swap was rejected.

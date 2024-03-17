@@ -224,17 +224,17 @@ void ztgevc(
             max(ABS1(S[JE][JE]) * ASCALE,
                 max(P[JE][JE].toDouble().abs() * BSCALE, SAFMIN));
         SALPHA = TEMP.toComplex() * S[JE][JE] * ASCALE.toComplex();
-        SBETA = (TEMP * (P[JE][JE]).toDouble()) * BSCALE;
+        SBETA = (TEMP * P[JE][JE].toDouble()) * BSCALE;
         ACOEFF = SBETA * ASCALE;
         BCOEFF = SALPHA * BSCALE.toComplex();
 
         // Scale to avoid underflow
 
-        LSA = (SBETA).abs() >= SAFMIN && (ACOEFF).abs() < SMALL;
+        LSA = SBETA.abs() >= SAFMIN && ACOEFF.abs() < SMALL;
         LSB = ABS1(SALPHA) >= SAFMIN && ABS1(BCOEFF) < SMALL;
 
         SCALE = ONE;
-        if (LSA) SCALE = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
+        if (LSA) SCALE = (SMALL / SBETA.abs()) * min(ANORM, BIG);
         if (LSB) SCALE = max(SCALE, (SMALL / ABS1(SALPHA)) * min(BNORM, BIG));
         if (LSA || LSB) {
           SCALE = min(SCALE,
@@ -251,7 +251,7 @@ void ztgevc(
           }
         }
 
-        ACOEFA = (ACOEFF).abs();
+        ACOEFA = ACOEFF.abs();
         BCOEFA = ABS1(BCOEFF);
         XMAX = ONE;
         for (JR = 1; JR <= N; JR++) {
@@ -380,17 +380,17 @@ void ztgevc(
             max(ABS1(S[JE][JE]) * ASCALE,
                 max(P[JE][JE].toDouble().abs() * BSCALE, SAFMIN));
         SALPHA = (TEMP.toComplex() * S[JE][JE]) * ASCALE.toComplex();
-        SBETA = (TEMP * (P[JE][JE]).toDouble()) * BSCALE;
+        SBETA = (TEMP * P[JE][JE].toDouble()) * BSCALE;
         ACOEFF = SBETA * ASCALE;
         BCOEFF = SALPHA * BSCALE.toComplex();
 
         // Scale to avoid underflow
 
-        LSA = (SBETA).abs() >= SAFMIN && (ACOEFF).abs() < SMALL;
+        LSA = SBETA.abs() >= SAFMIN && ACOEFF.abs() < SMALL;
         LSB = ABS1(SALPHA) >= SAFMIN && ABS1(BCOEFF) < SMALL;
 
         SCALE = ONE;
-        if (LSA) SCALE = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
+        if (LSA) SCALE = (SMALL / SBETA.abs()) * min(ANORM, BIG);
         if (LSB) SCALE = max(SCALE, (SMALL / ABS1(SALPHA)) * min(BNORM, BIG));
         if (LSA || LSB) {
           SCALE = min(SCALE,
@@ -407,7 +407,7 @@ void ztgevc(
           }
         }
 
-        ACOEFA = (ACOEFF).abs();
+        ACOEFA = ACOEFF.abs();
         BCOEFA = ABS1(BCOEFF);
         XMAX = ONE;
         for (JR = 1; JR <= N; JR++) {

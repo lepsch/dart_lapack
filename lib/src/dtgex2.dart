@@ -138,8 +138,8 @@ void dtgex2(
 
     F = S[2][2] * T[1][1] - T[2][2] * S[1][1];
     G = S[2][2] * T[1][2] - T[2][2] * S[1][2];
-    SA = (S[2][2]).abs() * (T[1][1]).abs();
-    SB = (S[1][1]).abs() * (T[2][2]).abs();
+    SA = S[2][2].abs() * T[1][1].abs();
+    SB = S[1][1].abs() * T[2][2].abs();
     dlartg(F, G, IR.box(1, 2), IR.box(1, 1), DDUM);
     IR[2][1] = -IR[1][2];
     IR[2][2] = IR[1][1];
@@ -160,7 +160,7 @@ void dtgex2(
     // Weak stability test: |S21| <= O(EPS F-norm((A)))
     //                 and  |T21| <= O(EPS F-norm((B)))
 
-    WEAK = (S[2][1]).abs() <= THRESHA && (T[2][1]).abs() <= THRESHB;
+    WEAK = S[2][1].abs() <= THRESHA && T[2][1].abs() <= THRESHB;
     if (!WEAK) {
       // Exit with INFO.value = 1 if swap was rejected.
       INFO.value = 1;

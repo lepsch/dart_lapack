@@ -227,13 +227,13 @@ void zlahqr(
         H22 = H[M + 1][M + 1];
         H11S = H11 - T;
         H21 = H[M + 1][M].toDouble();
-        S = CABS1(H11S) + (H21).abs();
+        S = CABS1(H11S) + H21.abs();
         H11S /= S.toComplex();
         H21 /= S;
         V[1] = H11S;
         V[2] = H21.toComplex();
-        H10 = (H[M][M - 1]).toDouble();
-        if ((H10).abs() * (H21).abs() <=
+        H10 = H[M][M - 1].toDouble();
+        if (H10.abs() * H21.abs() <=
             ULP * (CABS1(H11S) * (CABS1(H11) + CABS1(H22)))) {
           found = true;
           break;
@@ -243,8 +243,8 @@ void zlahqr(
         H11 = H[L][L];
         H22 = H[L + 1][L + 1];
         H11S = H11 - T;
-        H21 = (H[L + 1][L]).toDouble();
-        S = CABS1(H11S) + (H21).abs();
+        H21 = H[L + 1][L].toDouble();
+        S = CABS1(H11S) + H21.abs();
         H11S /= S.toComplex();
         H21 /= S;
         V[1] = H11S;
@@ -329,7 +329,7 @@ void zlahqr(
 
       TEMP = H[I][I - 1];
       if (TEMP.imaginary != RZERO) {
-        RTEMP = (TEMP).abs();
+        RTEMP = TEMP.abs();
         H[I][I - 1] = RTEMP.toComplex();
         TEMP /= RTEMP.toComplex();
         if (I2 > I) zscal(I2 - I, TEMP.conjugate(), H(I, I + 1).asArray(), LDH);

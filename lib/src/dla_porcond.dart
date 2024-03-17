@@ -63,10 +63,10 @@ double dla_porcond(
         }
       } else if (CMODE == 0) {
         for (J = 1; J <= I; J++) {
-          TMP += (A[J][I]).abs();
+          TMP += A[J][I].abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP += (A[I][J]).abs();
+          TMP += A[I][J].abs();
         }
       } else {
         for (J = 1; J <= I; J++) {
@@ -90,10 +90,10 @@ double dla_porcond(
         }
       } else if (CMODE == 0) {
         for (J = 1; J <= I; J++) {
-          TMP += (A[I][J]).abs();
+          TMP += A[I][J].abs();
         }
         for (J = I + 1; J <= N; J++) {
-          TMP += (A[J][I]).abs();
+          TMP += A[J][I].abs();
         }
       } else {
         for (J = 1; J <= I; J++) {

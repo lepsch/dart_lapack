@@ -98,7 +98,7 @@ void zhptri(
 
         // Invert the diagonal block.
 
-        T = (AP[KCNEXT + K - 1]).abs();
+        T = AP[KCNEXT + K - 1].abs();
         AK = AP[KC + K - 1].toDouble() / T;
         AKP1 = AP[KCNEXT + K].toDouble() / T;
         AKKP1 = AP[KCNEXT + K - 1] / T.toComplex();
@@ -187,9 +187,9 @@ void zhptri(
 
         // Invert the diagonal block.
 
-        T = (AP[KCNEXT + 1]).abs();
-        AK = (AP[KCNEXT]).toDouble() / T;
-        AKP1 = (AP[KC]).toDouble() / T;
+        T = AP[KCNEXT + 1].abs();
+        AK = AP[KCNEXT].toDouble() / T;
+        AKP1 = AP[KC].toDouble() / T;
         AKKP1 = AP[KCNEXT + 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         AP[KCNEXT] = (AKP1 / D).toComplex();
@@ -215,7 +215,7 @@ void zhptri(
         KCNEXT -= (N - K + 3);
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the trailing
         // submatrix A(k-1:n,k-1:n)

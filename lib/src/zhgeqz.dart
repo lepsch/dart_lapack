@@ -280,7 +280,7 @@ void zhgeqz(
       if (!standardizeB) {
         var splitOff = false;
 
-        if ((T[ILAST][ILAST]).abs() <= BTOL) {
+        if (T[ILAST][ILAST].abs() <= BTOL) {
           T[ILAST][ILAST] = Complex.zero;
         } else {
           // General case: j<ILAST
@@ -303,7 +303,7 @@ void zhgeqz(
 
             // Test 2: for T(j,j)=0
 
-            if ((T[J][J]).abs() < BTOL) {
+            if (T[J][J].abs() < BTOL) {
               T[J][J] = Complex.zero;
 
               // Test 1a: Check for 2 consecutive small subdiagonals in A
@@ -633,7 +633,7 @@ void zhgeqz(
   // Set Eigenvalues 1:ILO-1
 
   for (J = 1; J <= ILO - 1; J++) {
-    ABSB = (T[J][J]).abs();
+    ABSB = T[J][J].abs();
     if (ABSB > SAFMIN) {
       SIGNBC = T[J][J].conjugate() / ABSB.toComplex();
       T[J][J] = ABSB.toComplex();

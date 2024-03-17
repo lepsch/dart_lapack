@@ -141,8 +141,8 @@ void dlasd2(
   // Calculate the allowable deflation tolerance
 
   EPS = dlamch('Epsilon');
-  TOL = max((ALPHA).abs(), (BETA).abs());
-  TOL = EIGHT * EPS * max((D[N]).abs(), TOL);
+  TOL = max(ALPHA.abs(), BETA.abs());
+  TOL = EIGHT * EPS * max(D[N].abs(), TOL);
 
   // There are 2 kinds of deflation -- first a value in the z-vector
   // is small, second two (or more) singular values are very close
@@ -167,7 +167,7 @@ void dlasd2(
   K2 = N + 1;
   var deflate = false;
   for (J = 2; J <= N; J++) {
-    if ((Z[J]).abs() <= TOL) {
+    if (Z[J].abs() <= TOL) {
       // Deflate due to small z component.
 
       K2--;
@@ -188,7 +188,7 @@ void dlasd2(
     while (true) {
       J++;
       if (J > N) break; // 110;
-      if ((Z[J]).abs() <= TOL) {
+      if (Z[J].abs() <= TOL) {
         // Deflate due to small z component.
 
         K2--;
@@ -306,7 +306,7 @@ void dlasd2(
 
   DSIGMA[1] = ZERO;
   HLFTOL = TOL / TWO;
-  if ((DSIGMA[2]).abs() <= HLFTOL) DSIGMA[2] = HLFTOL;
+  if (DSIGMA[2].abs() <= HLFTOL) DSIGMA[2] = HLFTOL;
   if (M > N) {
     Z[1] = dlapy2(Z1, Z[M]);
     if (Z[1] <= TOL) {
@@ -318,7 +318,7 @@ void dlasd2(
       S = Z[M] / Z[1];
     }
   } else {
-    if ((Z1).abs() <= TOL) {
+    if (Z1.abs() <= TOL) {
       Z[1] = TOL;
     } else {
       Z[1] = Z1;

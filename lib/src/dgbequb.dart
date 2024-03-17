@@ -75,7 +75,7 @@ void dgbequb(
   KD = KU + 1;
   for (J = 1; J <= N; J++) {
     for (I = max(J - KU, 1); I <= min(J + KL, M); I++) {
-      R[I] = max(R[I], (AB[KD + I - J][J]).abs());
+      R[I] = max(R[I], AB[KD + I - J][J].abs());
     }
   }
   for (I = 1; I <= M; I++) {
@@ -126,7 +126,7 @@ void dgbequb(
 
   for (J = 1; J <= N; J++) {
     for (I = max(J - KU, 1); I <= min(J + KL, M); I++) {
-      C[J] = max(C[J], (AB[KD + I - J][J]).abs() * R[I]);
+      C[J] = max(C[J], AB[KD + I - J][J].abs() * R[I]);
     }
     if (C[J] > ZERO) {
       C[J] = pow(RADIX, log(C[J]) ~/ LOGRDX).toDouble();

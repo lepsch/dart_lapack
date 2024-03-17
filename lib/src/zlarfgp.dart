@@ -61,7 +61,7 @@ void zlarfgp(
     BIGNUM = ONE / SMLNUM;
 
     KNT = 0;
-    if ((BETA).abs() < SMLNUM) {
+    if (BETA.abs() < SMLNUM) {
       // XNORM, BETA may be inaccurate; scale X and recompute them
 
       do {
@@ -70,7 +70,7 @@ void zlarfgp(
         BETA *= BIGNUM;
         ALPHI *= BIGNUM;
         ALPHR *= BIGNUM;
-      } while (((BETA).abs() < SMLNUM) && (KNT < 20));
+      } while ((BETA.abs() < SMLNUM) && (KNT < 20));
 
       // New BETA is at most 1, at least SMLNUM
 

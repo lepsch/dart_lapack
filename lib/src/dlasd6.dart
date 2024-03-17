@@ -99,8 +99,8 @@ void dlasd6(
   ORGNRM = max((ALPHA.value).abs(), (BETA.value).abs());
   D[NL + 1] = ZERO;
   for (I = 1; I <= N; I++) {
-    if ((D[I]).abs() > ORGNRM) {
-      ORGNRM = (D[I]).abs();
+    if (D[I].abs() > ORGNRM) {
+      ORGNRM = D[I].abs();
     }
   }
   dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D.asMatrix(N), N, INFO);

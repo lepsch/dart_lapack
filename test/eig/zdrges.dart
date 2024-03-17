@@ -272,7 +272,7 @@ void zdrges(
         if (KCLASS[JTYPE] < 3) {
           // Generate A (w/o rotation)
 
-          if ((KATYPE[JTYPE]).abs() == 3) {
+          if (KATYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, A, LDA);
@@ -300,7 +300,7 @@ void zdrges(
 
           // Generate B (w/o rotation)
 
-          if ((KBTYPE[JTYPE]).abs() == 3) {
+          if (KBTYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, B, LDA);
@@ -349,11 +349,11 @@ void zdrges(
             CTEMP = zlarnd(3, ISEED);
             Q[N][N] = Complex.one;
             WORK[N] = Complex.zero;
-            WORK[3 * N] = CTEMP / (CTEMP).abs().toComplex();
+            WORK[3 * N] = CTEMP / CTEMP.abs().toComplex();
             CTEMP = zlarnd(3, ISEED);
             Z[N][N] = Complex.one;
             WORK[2 * N] = Complex.zero;
-            WORK[4 * N] = CTEMP / (CTEMP).abs().toComplex();
+            WORK[4 * N] = CTEMP / CTEMP.abs().toComplex();
 
             // Apply the diagonal matrices
 

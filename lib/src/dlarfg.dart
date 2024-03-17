@@ -39,7 +39,7 @@ void dlarfg(
   BETA = -sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
   SAFMIN = dlamch('S') / dlamch('E');
   KNT = 0;
-  if ((BETA).abs() < SAFMIN) {
+  if (BETA.abs() < SAFMIN) {
     // XNORM, BETA may be inaccurate; scale X and recompute them
 
     RSAFMN = ONE / SAFMIN;
@@ -48,7 +48,7 @@ void dlarfg(
       dscal(N - 1, RSAFMN, X, INCX);
       BETA *= RSAFMN;
       ALPHA.value *= RSAFMN;
-    } while (((BETA).abs() < SAFMIN) && (KNT < 20));
+    } while ((BETA.abs() < SAFMIN) && (KNT < 20));
 
     // New BETA is at most 1, at least SAFMIN
 

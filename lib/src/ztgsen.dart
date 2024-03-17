@@ -457,7 +457,7 @@ void ztgsen(
   // eigenvalues of reordered pair (A, B)
 
   for (K = 1; K <= N; K++) {
-    DSCALE.value = (B[K][K]).abs();
+    DSCALE.value = B[K][K].abs();
     if (DSCALE.value > SAFMIN) {
       TEMP1 = (B[K][K] / DSCALE.value.toComplex()).conjugate();
       TEMP2 = B[K][K] / DSCALE.value.toComplex();

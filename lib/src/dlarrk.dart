@@ -36,7 +36,7 @@ void dlarrk(
   // Get machine constants
   EPS = dlamch('P');
 
-  TNORM = max((GL).abs(), (GU).abs());
+  TNORM = max(GL.abs(), GU.abs());
   RTOLI = RELTOL;
   ATOLI = FUDGE * TWO * PIVMIN;
   ITMAX = (log(TNORM + PIVMIN) - log(PIVMIN)) ~/ log(TWO) + 2;
@@ -51,7 +51,7 @@ void dlarrk(
     // Check if interval converged or maximum number of iterations reached
 
     TMP1 = (RIGHT - LEFT).abs();
-    TMP2 = max((RIGHT).abs(), (LEFT).abs());
+    TMP2 = max(RIGHT.abs(), LEFT.abs());
     if (TMP1 < max(ATOLI, max(PIVMIN, RTOLI * TMP2))) {
       INFO.value = 0;
       break;
@@ -64,12 +64,12 @@ void dlarrk(
     MID = HALF * (LEFT + RIGHT);
     NEGCNT = 0;
     TMP1 = D[1] - MID;
-    if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
+    if (TMP1.abs() < PIVMIN) TMP1 = -PIVMIN;
     if (TMP1 <= ZERO) NEGCNT++;
 
     for (I = 2; I <= N; I++) {
       TMP1 = D[I] - E2[I - 1] / TMP1 - MID;
-      if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
+      if (TMP1.abs() < PIVMIN) TMP1 = -PIVMIN;
       if (TMP1 <= ZERO) NEGCNT++;
     }
 

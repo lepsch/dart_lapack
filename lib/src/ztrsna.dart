@@ -133,7 +133,7 @@ void ztrsna(
       PROD = zdotc(N, VR(1, KS).asArray(), 1, VL(1, KS).asArray(), 1);
       RNRM = dznrm2(N, VR(1, KS).asArray(), 1);
       LNRM = dznrm2(N, VL(1, KS).asArray(), 1);
-      S[KS] = (PROD).abs() / (RNRM * LNRM);
+      S[KS] = PROD.abs() / (RNRM * LNRM);
     }
 
     if (WANTSP) {

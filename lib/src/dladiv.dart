@@ -24,8 +24,8 @@ void dladiv(
   BB.value = B;
   CC = C;
   DD = D;
-  AB = max((A).abs(), (B).abs());
-  CD = max((C).abs(), (D).abs());
+  AB = max(A.abs(), B.abs());
+  CD = max(C.abs(), D.abs());
   S = 1.0;
 
   OV = dlamch('Overflow threshold');
@@ -53,7 +53,7 @@ void dladiv(
     DD *= BE;
     S *= BE;
   }
-  if ((D).abs() <= (C).abs()) {
+  if (D.abs() <= C.abs()) {
     dladiv1(AA, BB.value, CC, DD, P, Q);
   } else {
     dladiv1(BB, AA.value, DD, CC, P, Q);

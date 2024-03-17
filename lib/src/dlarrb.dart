@@ -109,7 +109,7 @@ void dlarrb(
       BACK = TWO * BACK;
     }
     WIDTH = HALF * (LEFT - RIGHT).abs();
-    TMP = max((LEFT).abs(), (RIGHT).abs());
+    TMP = max(LEFT.abs(), RIGHT.abs());
     CVRGD = max(RTOL1 * GAP, RTOL2 * TMP);
     if (WIDTH <= CVRGD || WIDTH <= MNWDTH) {
       // This interval has already converged and does not need refinement.
@@ -154,7 +154,7 @@ void dlarrb(
 
       // semiwidth of interval
       WIDTH = RIGHT - MID;
-      TMP = max((LEFT).abs(), (RIGHT).abs());
+      TMP = max(LEFT.abs(), RIGHT.abs());
       CVRGD = max(RTOL1 * GAP, RTOL2 * TMP);
       if ((WIDTH <= CVRGD) || (WIDTH <= MNWDTH) || (ITER == MAXITR)) {
         // reduce number of unconverged intervals

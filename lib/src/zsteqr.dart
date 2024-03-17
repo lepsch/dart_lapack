@@ -186,7 +186,7 @@ void zsteqr(
           LENDM1 = LEND - 1;
           for (M = L; M <= LENDM1; M++) {
             TST = pow(E[M].abs(), 2).toDouble();
-            if (TST <= (EPS2 * (D[M]).abs()) * (D[M + 1]).abs() + SAFMIN) {
+            if (TST <= (EPS2 * D[M].abs()) * D[M + 1].abs() + SAFMIN) {
               found = true;
               break;
             }
@@ -286,7 +286,7 @@ void zsteqr(
           LENDP1 = LEND + 1;
           for (M = L; M >= LENDP1; M--) {
             TST = pow(E[M - 1].abs(), 2).toDouble();
-            if (TST <= (EPS2 * (D[M]).abs()) * D[M - 1].abs() + SAFMIN) {
+            if (TST <= (EPS2 * D[M].abs()) * D[M - 1].abs() + SAFMIN) {
               found = true;
               break;
             }

@@ -28,7 +28,7 @@ double dlansf(
   if (N == 0) {
     return ZERO;
   } else if (N == 1) {
-    return (A[0]).abs();
+    return A[0].abs();
   }
 
   // set noe = 1 if n is odd. if n is even set noe=0
@@ -73,7 +73,7 @@ double dlansf(
         // A is n by k
         for (J = 0; J <= K - 1; J++) {
           for (I = 0; I <= N - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
         }
@@ -81,7 +81,7 @@ double dlansf(
         // xpose case; A is k by n
         for (J = 0; J <= N - 1; J++) {
           for (I = 0; I <= K - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
         }
@@ -92,7 +92,7 @@ double dlansf(
         // A is n+1 by k
         for (J = 0; J <= K - 1; J++) {
           for (I = 0; I <= N; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
         }
@@ -100,7 +100,7 @@ double dlansf(
         // xpose case; A is k by n+1
         for (J = 0; J <= N; J++) {
           for (I = 0; I <= K - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
         }
@@ -120,23 +120,23 @@ double dlansf(
           for (J = 0; J <= K; J++) {
             S.value = ZERO;
             for (I = 0; I <= K + J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[i,j+k]
               S.value += AA;
               WORK[I] += AA;
             }
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j+k,j+k]
             WORK[J + K] = S.value + AA;
             if (I == K + K) break;
             I++;
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j,j]
             WORK[J] += AA;
             S.value = ZERO;
             for (L = J + 1; L <= K - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[l,j]
               S.value += AA;
               WORK[L] += AA;
@@ -159,26 +159,26 @@ double dlansf(
           for (J = K - 1; J >= 0; J--) {
             S.value = ZERO;
             for (I = 0; I <= J - 2; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[j+k,i+k]
               S.value += AA;
               WORK[I + K] += AA;
             }
             if (J > 0) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[j+k,j+k]
               S.value += AA;
               WORK[I + K] += S.value;
               // i=j
               I++;
             }
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j,j]
             WORK[J] = AA;
             S.value = ZERO;
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[l,j]
               S.value += AA;
               WORK[L] += AA;
@@ -200,22 +200,22 @@ double dlansf(
           for (J = 0; J <= K - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= K + J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[i,j+k]
               S.value += AA;
               WORK[I] += AA;
             }
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j+k,j+k]
             WORK[J + K] = S.value + AA;
             I++;
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j,j]
             WORK[J] += AA;
             S.value = ZERO;
             for (L = J + 1; L <= K - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[l,j]
               S.value += AA;
               WORK[L] += AA;
@@ -235,24 +235,24 @@ double dlansf(
           for (J = K - 1; J >= 0; J--) {
             S.value = ZERO;
             for (I = 0; I <= J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[j+k,i+k]
               S.value += AA;
               WORK[I + K] += AA;
             }
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j+k,j+k]
             S.value += AA;
             WORK[I + K] += S.value;
             // i=j
             I++;
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // -> A[j,j]
             WORK[J] = AA;
             S.value = ZERO;
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A[l,j]
               S.value += AA;
               WORK[L] += AA;
@@ -282,7 +282,7 @@ double dlansf(
           for (J = 0; J <= N1 - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j,n1+i]
               WORK[I + N1] += AA;
               S.value += AA;
@@ -290,10 +290,10 @@ double dlansf(
             WORK[J] = S.value;
           }
           // j=n1=k-1 is special
-          S.value = (A[0 + J * LDA]).abs();
+          S.value = A[0 + J * LDA].abs();
           // A[k-1,k-1]
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[k-1,i+n1]
             WORK[I + N1] += AA;
             S.value += AA;
@@ -302,22 +302,22 @@ double dlansf(
           for (J = K; J <= N - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= J - K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[i,j-k]
               WORK[I] += AA;
               S.value += AA;
             }
             // i=j-k
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[j-k,j-k]
             S.value += AA;
             WORK[J - K] += S.value;
             I++;
-            S.value = (A[I + J * LDA]).abs();
+            S.value = A[I + J * LDA].abs();
             // A[j,j]
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j,l]
               WORK[L] += AA;
               S.value += AA;
@@ -340,23 +340,23 @@ double dlansf(
             // process
             S.value = ZERO;
             for (I = 0; I <= J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j,i]
               WORK[I] += AA;
               S.value += AA;
             }
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // i=j so process of A[j,j]
             S.value += AA;
             WORK[J] = S.value;
             // is initialised here
             I++;
             // i=j process A[j+k,j+k]
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             S.value = AA;
             for (L = K + J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[l,k+j]
               S.value += AA;
               WORK[L] += AA;
@@ -366,13 +366,13 @@ double dlansf(
           // j=k-1 is special :process col A[k-1,0:k-1]
           S.value = ZERO;
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[k,i]
             WORK[I] += AA;
             S.value += AA;
           }
           // i=k-1
-          AA = (A[I + J * LDA]).abs();
+          AA = A[I + J * LDA].abs();
           // A[k-1,k-1]
           S.value += AA;
           WORK[I] = S.value;
@@ -381,7 +381,7 @@ double dlansf(
             // process col j of A = A[j,0:k-1]
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j,i]
               WORK[I] += AA;
               S.value += AA;
@@ -403,7 +403,7 @@ double dlansf(
           for (J = 0; J <= K - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j,i+k]
               WORK[I + K] += AA;
               S.value += AA;
@@ -411,11 +411,11 @@ double dlansf(
             WORK[J] = S.value;
           }
           // j=k
-          AA = (A[0 + J * LDA]).abs();
+          AA = A[0 + J * LDA].abs();
           // A[k,k]
           S.value = AA;
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[k,k+i]
             WORK[I + K] += AA;
             S.value += AA;
@@ -424,23 +424,23 @@ double dlansf(
           for (J = K + 1; J <= N - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= J - 2 - K; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[i,j-k-1]
               WORK[I] += AA;
               S.value += AA;
             }
             // i=j-1-k
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[j-k-1,j-k-1]
             S.value += AA;
             WORK[J - K - 1] += S.value;
             I++;
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[j,j]
             S.value = AA;
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j,l]
               WORK[L] += AA;
               S.value += AA;
@@ -450,13 +450,13 @@ double dlansf(
           // j=n
           S.value = ZERO;
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[i,k-1]
             WORK[I] += AA;
             S.value += AA;
           }
           // i=k-1
-          AA = (A[I + J * LDA]).abs();
+          AA = A[I + J * LDA].abs();
           // A[k-1,k-1]
           S.value += AA;
           WORK[I] += S.value;
@@ -471,10 +471,10 @@ double dlansf(
             WORK[I] = ZERO;
           }
           // j=0 is special :process col A[k:n-1,k]
-          S.value = (A[0]).abs();
+          S.value = A[0].abs();
           // A[k,k]
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[I]).abs();
+            AA = A[I].abs();
             // A[k+i,k]
             WORK[I + K] += AA;
             S.value += AA;
@@ -484,23 +484,23 @@ double dlansf(
             // process
             S.value = ZERO;
             for (I = 0; I <= J - 2; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j-1,i]
               WORK[I] += AA;
               S.value += AA;
             }
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // i=j-1 so process of A[j-1,j-1]
             S.value += AA;
             WORK[J - 1] = S.value;
             // is initialised here
             I++;
             // i=j process A[j+k,j+k]
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             S.value = AA;
             for (L = K + J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[l,k+j]
               S.value += AA;
               WORK[L] += AA;
@@ -510,13 +510,13 @@ double dlansf(
           // j=k is special :process col A[k,0:k-1]
           S.value = ZERO;
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A[k,i]
             WORK[I] += AA;
             S.value += AA;
           }
           // i=k-1
-          AA = (A[I + J * LDA]).abs();
+          AA = A[I + J * LDA].abs();
           // A[k-1,k-1]
           S.value += AA;
           WORK[I] = S.value;
@@ -525,7 +525,7 @@ double dlansf(
             // process col j-1 of A = A[j-1,0:k-1]
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A[j-1,i]
               WORK[I] += AA;
               S.value += AA;

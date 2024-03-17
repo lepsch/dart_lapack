@@ -77,14 +77,14 @@ void dsptrf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (AP[KC + K - 1]).abs();
+      ABSAKK = AP[KC + K - 1].abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value
 
       if (K > 1) {
         IMAX = idamax(K - 1, AP(KC), 1);
-        COLMAX = (AP[KC + IMAX - 1]).abs();
+        COLMAX = AP[KC + IMAX - 1].abs();
       } else {
         COLMAX = ZERO;
       }
@@ -104,8 +104,8 @@ void dsptrf(
           JMAX = IMAX;
           KX = IMAX * (IMAX + 1) ~/ 2 + IMAX;
           for (J = IMAX + 1; J <= K; J++) {
-            if ((AP[KX]).abs() > ROWMAX) {
-              ROWMAX = (AP[KX]).abs();
+            if (AP[KX].abs() > ROWMAX) {
+              ROWMAX = AP[KX].abs();
               JMAX = J;
             }
             KX += J;
@@ -249,14 +249,14 @@ void dsptrf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (AP[KC]).abs();
+      ABSAKK = AP[KC].abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value
 
       if (K < N) {
         IMAX = K + idamax(N - K, AP(KC + 1), 1);
-        COLMAX = (AP[KC + IMAX - K]).abs();
+        COLMAX = AP[KC + IMAX - K].abs();
       } else {
         COLMAX = ZERO;
       }
@@ -278,8 +278,8 @@ void dsptrf(
           ROWMAX = ZERO;
           KX = KC + IMAX - K;
           for (J = K; J <= IMAX - 1; J++) {
-            if ((AP[KX]).abs() > ROWMAX) {
-              ROWMAX = (AP[KX]).abs();
+            if (AP[KX].abs() > ROWMAX) {
+              ROWMAX = AP[KX].abs();
               JMAX = J;
             }
             KX += N - J;
@@ -287,14 +287,14 @@ void dsptrf(
           KPC = NPP - (N - IMAX + 1) * (N - IMAX + 2) ~/ 2 + 1;
           if (IMAX < N) {
             JMAX = IMAX + idamax(N - IMAX, AP(KPC + 1), 1);
-            ROWMAX = max(ROWMAX, (AP[KPC + JMAX - IMAX]).abs());
+            ROWMAX = max(ROWMAX, AP[KPC + JMAX - IMAX].abs());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if ((AP[KPC]).abs() >= ALPHA * ROWMAX) {
+          } else if (AP[KPC].abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 

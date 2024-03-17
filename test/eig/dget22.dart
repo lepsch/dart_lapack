@@ -74,7 +74,7 @@ void dget22(
         // Complex eigenvector
 
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, (E[J][JVEC]).abs() + (E[J][JVEC + 1]).abs());
+          TEMP1 = max(TEMP1, E[J][JVEC].abs() + E[J][JVEC + 1].abs());
         }
         ENRMIN = min(ENRMIN, TEMP1);
         ENRMAX = max(ENRMAX, TEMP1);
@@ -85,7 +85,7 @@ void dget22(
         // Real eigenvector
 
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, (E[J][JVEC]).abs());
+          TEMP1 = max(TEMP1, E[J][JVEC].abs());
         }
         ENRMIN = min(ENRMIN, TEMP1);
         ENRMAX = max(ENRMAX, TEMP1);
@@ -104,13 +104,12 @@ void dget22(
       for (JVEC = 1; JVEC <= N; JVEC++) {
         if (IPAIR == 0 && JVEC < N && WI[JVEC] != ZERO) IPAIR = 1;
         if (IPAIR == 1) {
-          WORK[JVEC] =
-              max(WORK[JVEC], (E[J][JVEC]).abs() + (E[J][JVEC + 1]).abs());
+          WORK[JVEC] = max(WORK[JVEC], E[J][JVEC].abs() + E[J][JVEC + 1].abs());
           WORK[JVEC + 1] = WORK[JVEC];
         } else if (IPAIR == 2) {
           IPAIR = 0;
         } else {
-          WORK[JVEC] = max(WORK[JVEC], (E[J][JVEC]).abs());
+          WORK[JVEC] = max(WORK[JVEC], E[J][JVEC].abs());
           IPAIR = 0;
         }
       }

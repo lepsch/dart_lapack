@@ -119,28 +119,28 @@ void dsyrfs(
       // numerator and denominator before dividing.
 
       for (I = 1; I <= N; I++) {
-        WORK[I] = (B[I][J]).abs();
+        WORK[I] = B[I][J].abs();
       }
       // Compute abs(A)*abs(X) + abs(B).
 
       if (UPPER) {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = (X[K][J]).abs();
+          XK = X[K][J].abs();
           for (I = 1; I <= K - 1; I++) {
-            WORK[I] += (A[I][K]).abs() * XK;
-            S += (A[I][K]).abs() * (X[I][J]).abs();
+            WORK[I] += A[I][K].abs() * XK;
+            S += A[I][K].abs() * X[I][J].abs();
           }
-          WORK[K] += (A[K][K]).abs() * XK + S;
+          WORK[K] += A[K][K].abs() * XK + S;
         }
       } else {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = (X[K][J]).abs();
-          WORK[K] += (A[K][K]).abs() * XK;
+          XK = X[K][J].abs();
+          WORK[K] += A[K][K].abs() * XK;
           for (I = K + 1; I <= N; I++) {
-            WORK[I] += (A[I][K]).abs() * XK;
-            S += (A[I][K]).abs() * (X[I][J]).abs();
+            WORK[I] += A[I][K].abs() * XK;
+            S += A[I][K].abs() * X[I][J].abs();
           }
           WORK[K] += S;
         }
@@ -148,9 +148,9 @@ void dsyrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (WORK[I] > SAFE2) {
-          S = max(S, (WORK[N + I]).abs() / WORK[I]);
+          S = max(S, WORK[N + I].abs() / WORK[I]);
         } else {
-          S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+          S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -197,9 +197,9 @@ void dsyrfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 
@@ -228,7 +228,7 @@ void dsyrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

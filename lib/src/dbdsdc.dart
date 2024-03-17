@@ -122,7 +122,7 @@ void dbdsdc(
       U[1][1] = sign(ONE, D[1]).toDouble();
       VT[1][1] = ONE;
     }
-    D[1] = (D[1]).abs();
+    D[1] = D[1].abs();
     return;
   }
   NM1 = N - 1;
@@ -231,7 +231,7 @@ void dbdsdc(
     }
 
     for (I = 1; I <= N; I++) {
-      if ((D[I]).abs() < EPS) {
+      if (D[I].abs() < EPS) {
         D[I] = sign(EPS, D[I]).toDouble();
       }
     }
@@ -240,7 +240,7 @@ void dbdsdc(
     SQRE = 0;
 
     for (I = 1; I <= NM1; I++) {
-      if (((E[I]).abs() < EPS) || (I == NM1)) {
+      if ((E[I].abs() < EPS) || (I == NM1)) {
         // Subproblem found. First determine its size and then
         // apply divide and conquer on it.
 
@@ -248,7 +248,7 @@ void dbdsdc(
           // A subproblem with E[I] small for I < NM1.
 
           NSIZE = I - START + 1;
-        } else if ((E[I]).abs() >= EPS) {
+        } else if (E[I].abs() >= EPS) {
           // A subproblem with E[NM1] not too small but I = NM1.
 
           NSIZE = N - START + 1;
@@ -265,7 +265,7 @@ void dbdsdc(
             Q[N + (QSTART - 1) * N] = sign(ONE, D[N]).toDouble();
             Q[N + (SMLSIZ + QSTART - 1) * N] = ONE;
           }
-          D[N] = (D[N]).abs();
+          D[N] = D[N].abs();
         }
         if (ICOMPQ == 2) {
           dlasd0(NSIZE, SQRE, D(START), E(START), U(START, START), LDU,

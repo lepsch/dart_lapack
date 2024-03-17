@@ -60,7 +60,7 @@ void dlasd8(
   // Quick return if possible
 
   if (K == 1) {
-    D[1] = (Z[1]).abs();
+    D[1] = Z[1].abs();
     DIFL[1] = D[1];
     if (ICOMPQ == 1) {
       DIFL[2] = ONE;
@@ -118,7 +118,7 @@ void dlasd8(
   // Compute updated Z.
 
   for (I = 1; I <= K; I++) {
-    Z[I] = sign(sqrt((WORK[IWK3I + I]).abs()), Z[I]).toDouble();
+    Z[I] = sign(sqrt(WORK[IWK3I + I].abs()), Z[I]).toDouble();
   }
 
   // Update VF and VL.

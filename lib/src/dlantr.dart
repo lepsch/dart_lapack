@@ -38,14 +38,14 @@ double dlantr(
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= min(M, J - 1); I++) {
-            SUM.value = (A[I][J]).abs();
+            SUM.value = A[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
       } else {
         for (J = 1; J <= N; J++) {
           for (I = J + 1; I <= M; I++) {
-            SUM.value = (A[I][J]).abs();
+            SUM.value = A[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
@@ -55,14 +55,14 @@ double dlantr(
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= min(M, J); I++) {
-            SUM.value = (A[I][J]).abs();
+            SUM.value = A[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
       } else {
         for (J = 1; J <= N; J++) {
           for (I = J; I <= M; I++) {
-            SUM.value = (A[I][J]).abs();
+            SUM.value = A[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
@@ -78,12 +78,12 @@ double dlantr(
         if ((UDIAG) && (J <= M)) {
           SUM.value = ONE;
           for (I = 1; I <= J - 1; I++) {
-            SUM.value += (A[I][J]).abs();
+            SUM.value += A[I][J].abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = 1; I <= min(M, J); I++) {
-            SUM.value += (A[I][J]).abs();
+            SUM.value += A[I][J].abs();
           }
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -93,12 +93,12 @@ double dlantr(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = J + 1; I <= M; I++) {
-            SUM.value += (A[I][J]).abs();
+            SUM.value += A[I][J].abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = J; I <= M; I++) {
-            SUM.value += (A[I][J]).abs();
+            SUM.value += A[I][J].abs();
           }
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -114,7 +114,7 @@ double dlantr(
         }
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= min(M, J - 1); I++) {
-            WORK[I] += (A[I][J]).abs();
+            WORK[I] += A[I][J].abs();
           }
         }
       } else {
@@ -123,7 +123,7 @@ double dlantr(
         }
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= min(M, J); I++) {
-            WORK[I] += (A[I][J]).abs();
+            WORK[I] += A[I][J].abs();
           }
         }
       }
@@ -137,7 +137,7 @@ double dlantr(
         }
         for (J = 1; J <= N; J++) {
           for (I = J + 1; I <= M; I++) {
-            WORK[I] += (A[I][J]).abs();
+            WORK[I] += A[I][J].abs();
           }
         }
       } else {
@@ -146,7 +146,7 @@ double dlantr(
         }
         for (J = 1; J <= N; J++) {
           for (I = J; I <= M; I++) {
-            WORK[I] += (A[I][J]).abs();
+            WORK[I] += A[I][J].abs();
           }
         }
       }

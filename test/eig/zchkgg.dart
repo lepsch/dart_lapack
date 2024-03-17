@@ -270,7 +270,7 @@ void zchkgg(
         if (KCLASS[JTYPE] < 3) {
           // Generate A (w/o rotation)
 
-          if ((KATYPE[JTYPE]).abs() == 3) {
+          if (KATYPE[JTYPE].abs() == 3) {
             IN.value = 2 * ((N - 1) ~/ 2) + 1;
             if (IN.value != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, A, LDA);
@@ -298,7 +298,7 @@ void zchkgg(
 
           // Generate B (w/o rotation)
 
-          if ((KBTYPE[JTYPE]).abs() == 3) {
+          if (KBTYPE[JTYPE].abs() == 3) {
             IN.value = 2 * ((N - 1) ~/ 2) + 1;
             if (IN.value != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, B, LDA);
@@ -336,21 +336,21 @@ void zchkgg(
               }
               zlarfg(
                   N + 1 - JC, U(JC, JC), U(JC + 1, JC).asArray(), 1, WORK(JC));
-              WORK[2 * N + JC] = sign(ONE, (U[JC][JC]).toDouble()).toComplex();
+              WORK[2 * N + JC] = sign(ONE, U[JC][JC].toDouble()).toComplex();
               U[JC][JC] = Complex.one;
               zlarfg(N + 1 - JC, V(JC, JC), V(JC + 1, JC).asArray(), 1,
                   WORK(N + JC));
-              WORK[3 * N + JC] = sign(ONE, (V[JC][JC]).toDouble()).toComplex();
+              WORK[3 * N + JC] = sign(ONE, V[JC][JC].toDouble()).toComplex();
               V[JC][JC] = Complex.one;
             }
             CTEMP = zlarnd(3, ISEED);
             U[N][N] = Complex.one;
             WORK[N] = Complex.zero;
-            WORK[3 * N] = CTEMP / (CTEMP).abs().toComplex();
+            WORK[3 * N] = CTEMP / CTEMP.abs().toComplex();
             CTEMP = zlarnd(3, ISEED);
             V[N][N] = Complex.one;
             WORK[2 * N] = Complex.zero;
-            WORK[4 * N] = CTEMP / (CTEMP).abs().toComplex();
+            WORK[4 * N] = CTEMP / CTEMP.abs().toComplex();
 
             // Apply the diagonal matrices
 

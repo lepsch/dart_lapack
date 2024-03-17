@@ -37,7 +37,7 @@ void dlarra(
   // Compute splitting points
   if (SPLTOL < ZERO) {
     // Criterion based on absolute off-diagonal value
-    TMP1 = (SPLTOL).abs() * TNRM;
+    TMP1 = SPLTOL.abs() * TNRM;
     for (I = 1; I <= N - 1; I++) {
       EABS = E[I].abs();
       if (EABS <= TMP1) {

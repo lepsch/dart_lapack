@@ -141,11 +141,11 @@ void zhetf2(
             A[KP][J] = T;
           }
           A[KP][KK] = A[KP][KK].conjugate();
-          R1 = (A[KK][KK]).toDouble();
-          A[KK][KK] = (A[KP][KP]).real.toComplex();
+          R1 = A[KK][KK].toDouble();
+          A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
           if (KSTEP == 2) {
-            A[K][K] = (A[K][K]).real.toComplex();
+            A[K][K] = A[K][K].real.toComplex();
             T = A[K - 1][K];
             A[K - 1][K] = A[KP][K];
             A[KP][K] = T;
@@ -168,7 +168,7 @@ void zhetf2(
 
           // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
-          R1 = ONE / (A[K][K]).toDouble();
+          R1 = ONE / A[K][K].toDouble();
           zher(UPLO, K - 1, -R1, A(1, K).asArray(), 1, A, LDA);
 
           // Store U(k) in column k
@@ -189,8 +189,8 @@ void zhetf2(
 
           if (K > 2) {
             D = dlapy2(A[K - 1][K].toDouble(), A[K - 1][K].imaginary);
-            D22 = (A[K - 1][K - 1]).toDouble() / D;
-            D11 = (A[K][K]).toDouble() / D;
+            D22 = A[K - 1][K - 1].toDouble() / D;
+            D11 = A[K][K].toDouble() / D;
             TT = ONE / (D11 * D22 - ONE);
             D12 = A[K - 1][K] / D.toComplex();
             D = TT / D;
@@ -314,8 +314,8 @@ void zhetf2(
             A[KP][J] = T;
           }
           A[KP][KK] = A[KP][KK].conjugate();
-          R1 = (A[KK][KK]).toDouble();
-          A[KK][KK] = (A[KP][KP]).real.toComplex();
+          R1 = A[KK][KK].toDouble();
+          A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
           if (KSTEP == 2) {
             A[K][K] = A[K][K].real.toComplex();
@@ -324,7 +324,7 @@ void zhetf2(
             A[KP][K] = T;
           }
         } else {
-          A[K][K] = (A[K][K]).real.toComplex();
+          A[K][K] = A[K][K].real.toComplex();
           if (KSTEP == 2) A[K + 1][K + 1] = A[K + 1][K + 1].real.toComplex();
         }
 
@@ -342,7 +342,7 @@ void zhetf2(
 
             // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
-            R1 = ONE / (A[K][K]).toDouble();
+            R1 = ONE / A[K][K].toDouble();
             zher(UPLO, N - K, -R1, A(K + 1, K).asArray(), 1, A(K + 1, K + 1),
                 LDA);
 
@@ -363,8 +363,8 @@ void zhetf2(
             // columns of L
 
             D = dlapy2(A[K + 1][K].real, A[K + 1][K].imaginary);
-            D11 = (A[K + 1][K + 1]).toDouble() / D;
-            D22 = (A[K][K]).toDouble() / D;
+            D11 = A[K + 1][K + 1].toDouble() / D;
+            D22 = A[K][K].toDouble() / D;
             TT = ONE / (D11 * D22 - ONE);
             D21 = A[K + 1][K] / D.toComplex();
             D = TT / D;

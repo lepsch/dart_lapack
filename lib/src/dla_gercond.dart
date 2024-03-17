@@ -69,7 +69,7 @@ double dla_gercond(
         }
       } else if (CMODE == 0) {
         for (J = 1; J <= N; J++) {
-          TMP += (A[I][J]).abs();
+          TMP += A[I][J].abs();
         }
       } else {
         for (J = 1; J <= N; J++) {
@@ -87,7 +87,7 @@ double dla_gercond(
         }
       } else if (CMODE == 0) {
         for (J = 1; J <= N; J++) {
-          TMP += (A[J][I]).abs();
+          TMP += A[J][I].abs();
         }
       } else {
         for (J = 1; J <= N; J++) {

@@ -130,11 +130,11 @@ void main() {
       while (Xj != limX[i]) {
         nTests++;
         Y = Complex(Xj, 0.0);
-        R = (Y).abs();
+        R = Y.abs();
         if (R != Xj) {
           caseAFails++;
           if (caseAFails == 1) {
-            print('!! Some (x+0*I).abs() differ from (x).abs()');
+            print('!! Some (x+0*I).abs() differ from x.abs()');
           }
           _print9999('a', i, Xj, '(1+0*I)', R, Xj);
         }
@@ -155,11 +155,11 @@ void main() {
       while (Xj != limX[i]) {
         nTests++;
         Y = Complex(0.0, Xj);
-        R = (Y).abs();
+        R = Y.abs();
         if (R != Xj) {
           caseBFails++;
           if (caseBFails == 1) {
-            print('!! Some (0+x*I).abs() differ from (x).abs()');
+            print('!! Some (0+x*I).abs() differ from x.abs()');
           }
           _print9999('b', i, Xj, '(0+1*I)', R, Xj);
         }
@@ -186,11 +186,11 @@ void main() {
         nTests++;
         answerC = fiveFourth * Xj;
         Y = Complex(threeFourth * Xj, Xj);
-        R = (Y).abs();
+        R = Y.abs();
         if (R != answerC) {
           caseCFails++;
           if (caseCFails == 1) {
-            print('!! Some (x*(3/4+I).abs()) differ from (5/4)*(x).abs()');
+            print('!! Some (x*(3/4+I).abs()) differ from (5/4)*x.abs()');
           }
           _print9999('c', i, Xj, '(3/4+I)', R, answerC);
         }
@@ -222,12 +222,12 @@ void main() {
         } else {
           nTests++;
           Y = Complex(oneHalf * Xj, oneHalf * Xj);
-          R = (Y).abs();
+          R = Y.abs();
           relDiff = (R - answerD).abs() / answerD;
           if (relDiff >= (0.5 * eps)) {
             caseDFails++;
             if (caseDFails == 1) {
-              print('!! Some (x*(1+I).abs()) differ from sqrt(2)*(x).abs()');
+              print('!! Some (x*(1+I).abs()) differ from sqrt(2)*x.abs()');
             }
             _print9999('d', i, (oneHalf * Xj), '(1+1*I)', R, answerD);
           }
@@ -241,7 +241,7 @@ void main() {
   for (i = 1; i <= nInf; i++) {
     nTests++;
     Y = cInf[i];
-    R = (Y).abs();
+    R = Y.abs();
     if (!(R > huge(0.0))) {
       caseEFails++;
       print(
@@ -253,7 +253,7 @@ void main() {
   for (i = 1; i <= nNaN; i++) {
     nTests++;
     Y = cNaN[i];
-    R = (Y).abs();
+    R = Y.abs();
     if (R == R) {
       caseFFails++;
       print(

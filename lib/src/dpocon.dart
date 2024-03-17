@@ -103,7 +103,7 @@ void dpocon(
     SCALE = SCALEL.value * SCALEU.value;
     if (SCALE != ONE) {
       IX = idamax(N, WORK, 1);
-      if (SCALE < (WORK[IX]).abs() * SMLNUM || SCALE == ZERO) return;
+      if (SCALE < WORK[IX].abs() * SMLNUM || SCALE == ZERO) return;
       drscl(N, SCALE, WORK, 1);
     }
   }

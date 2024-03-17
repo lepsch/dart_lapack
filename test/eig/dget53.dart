@@ -56,10 +56,10 @@ void dget53(
 
   SAFMIN = dlamch('Safe minimum');
   ULP = dlamch('Epsilon') * dlamch('Base');
-  ABSW = (WRS).abs() + (WIS).abs();
-  ANORM = max((A[1][1]).abs() + (A[2][1]).abs(),
-      max((A[1][2]).abs() + (A[2][2]).abs(), SAFMIN));
-  BNORM = max((B[1][1]).abs(), max((B[1][2]).abs() + (B[2][2]).abs(), SAFMIN));
+  ABSW = WRS.abs() + WIS.abs();
+  ANORM = max(A[1][1].abs() + A[2][1].abs(),
+      max(A[1][2].abs() + A[2][2].abs(), SAFMIN));
+  BNORM = max(B[1][1].abs(), max(B[1][2].abs() + B[2][2].abs(), SAFMIN));
 
   // Check for possible overflow.
 
@@ -72,7 +72,7 @@ void dget53(
     SCALES *= TEMP;
     WRS *= TEMP;
     WIS *= TEMP;
-    ABSW = (WRS).abs() + (WIS).abs();
+    ABSW = WRS.abs() + WIS.abs();
   }
   S1 = max(ULP * max(SCALES * ANORM, ABSW * BNORM), SAFMIN * max(SCALES, ABSW));
 
@@ -92,7 +92,7 @@ void dget53(
     SCALES *= TEMP;
     WRS *= TEMP;
     WIS *= TEMP;
-    ABSW = (WRS).abs() + (WIS).abs();
+    ABSW = WRS.abs() + WIS.abs();
     S1 = max(
         ULP * max(SCALES * ANORM, ABSW * BNORM), SAFMIN * max(SCALES, ABSW));
     if (S1 < SAFMIN) {
@@ -127,6 +127,6 @@ void dget53(
   DETI = (CSCALE * CR11) * (CSCALE * CI22) +
       (CSCALE * CI11) * (CSCALE * CR22) -
       (CSCALE * CI12) * (CSCALE * CR21);
-  SIGMIN = (DETR).abs() + (DETI).abs();
+  SIGMIN = DETR.abs() + DETI.abs();
   RESULT.value = SIGMIN / S1;
 }

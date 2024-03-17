@@ -398,7 +398,7 @@ void zchkst2stg(
           zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A,
               LDA, WORK, IINFO);
           for (I = 2; I <= N; I++) {
-            TEMP1 = (A[I - 1][I]).abs();
+            TEMP1 = A[I - 1][I].abs();
             TEMP2 = sqrt((A[I - 1][I - 1] * A[I][I]).abs());
             if (TEMP1 > HALF * TEMP2) {
               A[I - 1][I] =
@@ -958,7 +958,7 @@ void zchkst2stg(
         TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
         TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
         if (N > 0) {
-          TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
+          TEMP3 = max(WA1[N].abs(), WA1[1].abs());
         } else {
           TEMP3 = ZERO;
         }
@@ -1152,7 +1152,7 @@ void zchkst2stg(
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) {
               TEMP1 = max(TEMP1,
-                  (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
+                  (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + D4[J].abs()));
             }
 
             RESULT[27] = TEMP1 / TEMP2;
@@ -1216,7 +1216,7 @@ void zchkst2stg(
                 TEMP1 = max(
                     TEMP1,
                     (WR[J - IL + 1] - D4[N - J + 1]).abs() /
-                        (ABSTOL + (WR[J - IL + 1]).abs()));
+                        (ABSTOL + WR[J - IL + 1].abs()));
               }
 
               RESULT[28] = TEMP1 / TEMP2;

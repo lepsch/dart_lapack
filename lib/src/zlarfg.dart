@@ -45,7 +45,7 @@ void zlarfg(
     RSAFMN = ONE / SAFMIN;
 
     KNT = 0;
-    if ((BETA).abs() < SAFMIN) {
+    if (BETA.abs() < SAFMIN) {
       // XNORM, BETA may be inaccurate; scale X and recompute them
 
       do {

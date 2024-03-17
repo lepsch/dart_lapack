@@ -99,8 +99,8 @@ void dlatdf(
         XP[I] -= XP[K] * (Z[I][K] * TEMP.value);
         RHS[I] -= RHS[K] * (Z[I][K] * TEMP.value);
       }
-      SPLUS += (XP[I]).abs();
-      SMINU += (RHS[I]).abs();
+      SPLUS += XP[I].abs();
+      SMINU += RHS[I].abs();
     }
     if (SPLUS > SMINU) dcopy(N, XP, 1, RHS, 1);
 

@@ -313,13 +313,13 @@ Future<void> ddrgsx(
               if (ALPHAI[J] == ZERO) {
                 TEMP2.value = ((ALPHAR[J] - AI[J][J]).abs() /
                             max(
-                              max(SMLNUM, (ALPHAR[J]).abs()),
-                              (AI[J][J]).abs(),
+                              max(SMLNUM, ALPHAR[J].abs()),
+                              AI[J][J].abs(),
                             ) +
                         (BETA[J] - BI[J][J]).abs() /
                             max(
                               SMLNUM,
-                              max((BETA[J]).abs(), (BI[J][J]).abs()),
+                              max(BETA[J].abs(), BI[J][J].abs()),
                             )) /
                     ULP;
                 if (J < mn.MPLUSN) {
@@ -559,9 +559,9 @@ Future<void> ddrgsx(
         ILABAD = false;
         if (ALPHAI[J] == ZERO) {
           TEMP2.value = ((ALPHAR[J] - AI[J][J]).abs() /
-                      max(max(SMLNUM, (ALPHAR[J]).abs()), (AI[J][J]).abs()) +
+                      max(max(SMLNUM, ALPHAR[J].abs()), AI[J][J].abs()) +
                   (BETA[J] - BI[J][J]).abs() /
-                      max(SMLNUM, max((BETA[J]).abs(), (BI[J][J]).abs()))) /
+                      max(SMLNUM, max(BETA[J].abs(), BI[J][J].abs()))) /
               ULP;
           if (J < mn.MPLUSN) {
             if (AI[J + 1][J] != ZERO) {

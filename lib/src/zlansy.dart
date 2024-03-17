@@ -35,14 +35,14 @@ double zlansy(
     if (lsame(UPLO, 'U')) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          SUM.value = (A[I][J]).abs();
+          SUM.value = A[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
       }
     } else {
       for (J = 1; J <= N; J++) {
         for (I = J; I <= N; I++) {
-          SUM.value = (A[I][J]).abs();
+          SUM.value = A[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
       }
@@ -55,11 +55,11 @@ double zlansy(
       for (J = 1; J <= N; J++) {
         SUM.value = ZERO;
         for (I = 1; I <= J - 1; I++) {
-          ABSA = (A[I][J]).abs();
+          ABSA = A[I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }
-        WORK[J] = SUM.value + (A[J][J]).abs();
+        WORK[J] = SUM.value + A[J][J].abs();
       }
       for (I = 1; I <= N; I++) {
         SUM.value = WORK[I];
@@ -70,9 +70,9 @@ double zlansy(
         WORK[I] = ZERO;
       }
       for (J = 1; J <= N; J++) {
-        SUM.value = WORK[J] + (A[J][J]).abs();
+        SUM.value = WORK[J] + A[J][J].abs();
         for (I = J + 1; I <= N; I++) {
-          ABSA = (A[I][J]).abs();
+          ABSA = A[I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }

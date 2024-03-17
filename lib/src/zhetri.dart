@@ -86,7 +86,7 @@ void zhetri(
 
         // Invert the diagonal block.
 
-        A[K][K] = (ONE / (A[K][K]).toDouble()).toComplex();
+        A[K][K] = (ONE / A[K][K].toDouble()).toComplex();
 
         // Compute column K of the inverse.
 
@@ -103,9 +103,9 @@ void zhetri(
 
         // Invert the diagonal block.
 
-        T = (A[K][K + 1]).abs();
-        AK = (A[K][K]).toDouble() / T;
-        AKP1 = (A[K + 1][K + 1]).toDouble() / T;
+        T = A[K][K + 1].abs();
+        AK = A[K][K].toDouble() / T;
+        AKP1 = A[K + 1][K + 1].toDouble() / T;
         AKKP1 = A[K][K + 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         A[K][K] = (AKP1 / D).toComplex();
@@ -131,7 +131,7 @@ void zhetri(
         KSTEP = 2;
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the leading
         // submatrix A(1:k+1,1:k+1)
@@ -168,7 +168,7 @@ void zhetri(
 
         // Invert the diagonal block.
 
-        A[K][K] = (ONE / (A[K][K]).toDouble()).toComplex();
+        A[K][K] = (ONE / A[K][K].toDouble()).toComplex();
 
         // Compute column K of the inverse.
 
@@ -185,9 +185,9 @@ void zhetri(
 
         // Invert the diagonal block.
 
-        T = (A[K][K - 1]).abs();
-        AK = (A[K - 1][K - 1]).toDouble() / T;
-        AKP1 = (A[K][K]).toDouble() / T;
+        T = A[K][K - 1].abs();
+        AK = A[K - 1][K - 1].toDouble() / T;
+        AKP1 = A[K][K].toDouble() / T;
         AKKP1 = A[K][K - 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         A[K - 1][K - 1] = (AKP1 / D).toComplex();
@@ -214,7 +214,7 @@ void zhetri(
         KSTEP = 2;
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the trailing
         // submatrix A(k-1:n,k-1:n)

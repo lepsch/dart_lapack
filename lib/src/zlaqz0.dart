@@ -301,22 +301,19 @@ void zlaqz0(
 
     // Check deflations at the end
     if (A[ISTOP][ISTOP - 1].abs() <=
-        max(
-            SMLNUM,
-            ULP *
-                ((A[ISTOP][ISTOP]).abs() + (A[ISTOP - 1][ISTOP - 1]).abs()))) {
+        max(SMLNUM,
+            ULP * (A[ISTOP][ISTOP].abs() + A[ISTOP - 1][ISTOP - 1].abs()))) {
       A[ISTOP][ISTOP - 1] = Complex.zero;
       ISTOP--;
       LD = 0;
       ESHIFT = Complex.zero;
     }
     // Check deflations at the start
-    if ((A[ISTART + 1][ISTART]).abs() <=
+    if (A[ISTART + 1][ISTART].abs() <=
         max(
             SMLNUM,
             ULP *
-                ((A[ISTART][ISTART]).abs() +
-                    (A[ISTART + 1][ISTART + 1]).abs()))) {
+                (A[ISTART][ISTART].abs() + A[ISTART + 1][ISTART + 1].abs()))) {
       A[ISTART + 1][ISTART] = Complex.zero;
       ISTART++;
       LD = 0;
@@ -331,7 +328,7 @@ void zlaqz0(
     ISTART2 = ISTART;
     for (K = ISTOP; K >= ISTART + 1; K--) {
       if (A[K][K - 1].abs() <=
-          max(SMLNUM, ULP * ((A[K][K]).abs() + (A[K - 1][K - 1]).abs()))) {
+          max(SMLNUM, ULP * (A[K][K].abs() + A[K - 1][K - 1].abs()))) {
         A[K][K - 1] = Complex.zero;
         ISTART2 = K;
         break;
@@ -351,7 +348,7 @@ void zlaqz0(
     // slow down the method when many infinite eigenvalues are present
     K = ISTOP;
     while (K >= ISTART2) {
-      if ((B[K][K]).abs() < BTOL) {
+      if (B[K][K].abs() < BTOL) {
         // A diagonal element of B is negligible, move it
         // to the top and deflate it
 
@@ -493,8 +490,8 @@ void zlaqz0(
     if ((LD % 6) == 0) {
       // Exceptional shift.  Chosen for no particularly good reason.
 
-      if ((MAXIT.toDouble() * SAFMIN) * (A[ISTOP][ISTOP - 1]).abs() <
-          (A[ISTOP - 1][ISTOP - 1]).abs()) {
+      if ((MAXIT.toDouble() * SAFMIN) * A[ISTOP][ISTOP - 1].abs() <
+          A[ISTOP - 1][ISTOP - 1].abs()) {
         ESHIFT = A[ISTOP][ISTOP - 1] / B[ISTOP - 1][ISTOP - 1];
       } else {
         ESHIFT += Complex.one / (SAFMIN * MAXIT).toComplex();

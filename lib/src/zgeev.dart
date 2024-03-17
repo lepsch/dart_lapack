@@ -273,7 +273,7 @@ void zgeev(
         K = idamax(N, RWORK(IRWORK), 1);
         TMP = VL[K][I].conjugate() / sqrt(RWORK[IRWORK + K - 1]).toComplex();
         zscal(N, TMP, VL(1, I).asArray(), 1);
-        VL[K][I] = (VL[K][I]).toDouble().toComplex();
+        VL[K][I] = VL[K][I].toDouble().toComplex();
       }
     }
 

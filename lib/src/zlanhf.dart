@@ -79,12 +79,12 @@ double zlanhf(
           TEMP = A[J + J * LDA].abs().toDouble();
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (I = 1; I <= N - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           for (J = 1; J <= K - 1; J++) {
             for (I = 0; I <= J - 2; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = J - 1;
@@ -96,7 +96,7 @@ double zlanhf(
             TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = J + 1; I <= N - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -104,7 +104,7 @@ double zlanhf(
           // uplo = 'U'
           for (J = 0; J <= K - 2; J++) {
             for (I = 0; I <= K + J - 2; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = K + J - 1;
@@ -116,12 +116,12 @@ double zlanhf(
             TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = K + J + 1; I <= N - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
           for (I = 0; I <= N - 2; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             // j=k-1
           }
@@ -135,34 +135,34 @@ double zlanhf(
           // uplo ='L'
           for (J = 0; J <= K - 2; J++) {
             for (I = 0; I <= J - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = J;
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             // L(i,i)
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             I = J + 1;
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             // L(j+k,j+k)
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = J + 2; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
           J = K - 1;
           for (I = 0; I <= K - 2; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           I = K - 1;
           // -> L(i,i) is at A(i,j)
-          TEMP = (A[I + J * LDA]).toDouble().abs();
+          TEMP = A[I + J * LDA].toDouble().abs();
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (J = K; J <= N - 1; J++) {
             for (I = 0; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -170,7 +170,7 @@ double zlanhf(
           // uplo = 'U'
           for (J = 0; J <= K - 2; J++) {
             for (I = 0; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -179,24 +179,24 @@ double zlanhf(
           TEMP = A[(0 + J * LDA)].toDouble().abs();
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (I = 1; I <= K - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           for (J = K; J <= N - 1; J++) {
             for (I = 0; I <= J - K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = J - K;
             // -> U(i,i) at A(i,j)
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             I = J - K + 1;
             // U(j,j)
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = J - K + 2; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -215,24 +215,24 @@ double zlanhf(
           TEMP = A[J + 1 + J * LDA].toDouble().abs();
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (I = 2; I <= N; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           for (J = 1; J <= K - 1; J++) {
             for (I = 0; I <= J - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = J;
             // L(k+j,k+j)
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             I = J + 1;
             // -> L(j,j)
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = J + 2; I <= N; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -240,24 +240,24 @@ double zlanhf(
           // uplo = 'U'
           for (J = 0; J <= K - 2; J++) {
             for (I = 0; I <= K + J - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = K + J;
             // -> U(i,i)
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             I++;
             // =k+j+1; i -> U(j,j)
-            TEMP = (A[I + J * LDA]).toDouble().abs();
+            TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = K + J + 2; I <= N; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
           for (I = 0; I <= N - 2; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             // j=k-1
           }
@@ -278,12 +278,12 @@ double zlanhf(
           TEMP = A[J + J * LDA].toDouble().abs();
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (I = 1; I <= K - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           for (J = 1; J <= K - 1; J++) {
             for (I = 0; I <= J - 2; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = J - 1;
@@ -295,13 +295,13 @@ double zlanhf(
             TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = J + 1; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
           J = K;
           for (I = 0; I <= K - 2; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           I = K - 1;
@@ -310,7 +310,7 @@ double zlanhf(
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (J = K + 1; J <= N; J++) {
             for (I = 0; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -318,7 +318,7 @@ double zlanhf(
           // uplo = 'U'
           for (J = 0; J <= K - 1; J++) {
             for (I = 0; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
@@ -327,12 +327,12 @@ double zlanhf(
           TEMP = A[0 + J * LDA].toDouble().abs();
           if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           for (I = 1; I <= K - 1; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           for (J = K + 1; J <= N - 1; J++) {
             for (I = 0; I <= J - K - 2; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
             I = J - K - 1;
@@ -344,13 +344,13 @@ double zlanhf(
             TEMP = A[I + J * LDA].toDouble().abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             for (I = J - K + 1; I <= K - 1; I++) {
-              TEMP = (A[I + J * LDA]).abs();
+              TEMP = A[I + J * LDA].abs();
               if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
             }
           }
           J = N;
           for (I = 0; I <= K - 2; I++) {
-            TEMP = (A[I + J * LDA]).abs();
+            TEMP = A[I + J * LDA].abs();
             if (VALUE < TEMP || disnan(TEMP)) VALUE = TEMP;
           }
           I = K - 1;
@@ -376,23 +376,23 @@ double zlanhf(
           for (J = 0; J <= K; J++) {
             S.value = ZERO;
             for (I = 0; I <= K + J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(i,j+k)
               S.value += AA;
               WORK[I] += AA;
             }
-            AA = (A[I + J * LDA]).toDouble().abs();
+            AA = A[I + J * LDA].toDouble().abs();
             // -> A(j+k,j+k)
             WORK[J + K] = S.value + AA;
             if (I == K + K) break;
             I++;
-            AA = (A[I + J * LDA]).toDouble().abs();
+            AA = A[I + J * LDA].toDouble().abs();
             // -> A(j,j)
             WORK[J] += AA;
             S.value = ZERO;
             for (L = J + 1; L <= K - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(l,j)
               S.value += AA;
               WORK[L] += AA;
@@ -414,7 +414,7 @@ double zlanhf(
           for (J = K - 1; J >= 0; J--) {
             S.value = ZERO;
             for (I = 0; I <= J - 2; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(j+k,i+k)
               S.value += AA;
               WORK[I + K] += AA;
@@ -433,7 +433,7 @@ double zlanhf(
             S.value = ZERO;
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(l,j)
               S.value += AA;
               WORK[L] += AA;
@@ -456,7 +456,7 @@ double zlanhf(
           for (J = 0; J <= K - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= K + J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(i,j+k)
               S.value += AA;
               WORK[I] += AA;
@@ -471,7 +471,7 @@ double zlanhf(
             S.value = ZERO;
             for (L = J + 1; L <= K - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(l,j)
               S.value += AA;
               WORK[L] += AA;
@@ -491,7 +491,7 @@ double zlanhf(
           for (J = K - 1; J >= 0; J--) {
             S.value = ZERO;
             for (I = 0; I <= J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(j+k,i+k)
               S.value += AA;
               WORK[I + K] += AA;
@@ -508,7 +508,7 @@ double zlanhf(
             S.value = ZERO;
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // -> A(l,j)
               S.value += AA;
               WORK[L] += AA;
@@ -539,7 +539,7 @@ double zlanhf(
           for (J = 0; J <= N1 - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j,n1+i)
               WORK[I + N1] += AA;
               S.value += AA;
@@ -550,7 +550,7 @@ double zlanhf(
           S.value = A[0 + J * LDA].toDouble();
           // A(k-1,k-1)
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A(k-1,i+n1)
             WORK[I + N1] += AA;
             S.value += AA;
@@ -559,7 +559,7 @@ double zlanhf(
           for (J = K; J <= N - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= J - K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(i,j-k)
               WORK[I] += AA;
               S.value += AA;
@@ -574,7 +574,7 @@ double zlanhf(
             // A(j,j)
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j,l)
               WORK[L] += AA;
               S.value += AA;
@@ -597,7 +597,7 @@ double zlanhf(
             // process
             S.value = ZERO;
             for (I = 0; I <= J - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j,i)
               WORK[I] += AA;
               S.value += AA;
@@ -613,7 +613,7 @@ double zlanhf(
             S.value = AA;
             for (L = K + J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(l,k+j)
               S.value += AA;
               WORK[L] += AA;
@@ -623,7 +623,7 @@ double zlanhf(
           // j=k-1 is special :process col A(k-1,0:k-1)
           S.value = ZERO;
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A(k,i)
             WORK[I] += AA;
             S.value += AA;
@@ -638,7 +638,7 @@ double zlanhf(
             // process col j of A = A(j,0:k-1)
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j,i)
               WORK[I] += AA;
               S.value += AA;
@@ -661,7 +661,7 @@ double zlanhf(
           for (J = 0; J <= K - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j,i+k)
               WORK[I + K] += AA;
               S.value += AA;
@@ -673,7 +673,7 @@ double zlanhf(
           // A(k,k)
           S.value = AA;
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A(k,k+i)
             WORK[I + K] += AA;
             S.value += AA;
@@ -682,7 +682,7 @@ double zlanhf(
           for (J = K + 1; J <= N - 1; J++) {
             S.value = ZERO;
             for (I = 0; I <= J - 2 - K; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(i,j-k-1)
               WORK[I] += AA;
               S.value += AA;
@@ -698,7 +698,7 @@ double zlanhf(
             S.value = AA;
             for (L = J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j,l)
               WORK[L] += AA;
               S.value += AA;
@@ -708,7 +708,7 @@ double zlanhf(
           // j=n
           S.value = ZERO;
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A(i,k-1)
             WORK[I] += AA;
             S.value += AA;
@@ -732,7 +732,7 @@ double zlanhf(
           S.value = A[0].toDouble().abs();
           // A(k,k)
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[I]).abs();
+            AA = A[I].abs();
             // A(k+i,k)
             WORK[I + K] += AA;
             S.value += AA;
@@ -742,7 +742,7 @@ double zlanhf(
             // process
             S.value = ZERO;
             for (I = 0; I <= J - 2; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j-1,i)
               WORK[I] += AA;
               S.value += AA;
@@ -758,7 +758,7 @@ double zlanhf(
             S.value = AA;
             for (L = K + J + 1; L <= N - 1; L++) {
               I++;
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(l,k+j)
               S.value += AA;
               WORK[L] += AA;
@@ -768,7 +768,7 @@ double zlanhf(
           // j=k is special :process col A(k,0:k-1)
           S.value = ZERO;
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[I + J * LDA]).abs();
+            AA = A[I + J * LDA].abs();
             // A(k,i)
             WORK[I] += AA;
             S.value += AA;
@@ -784,7 +784,7 @@ double zlanhf(
             // process col j-1 of A = A(j-1,0:k-1)
             S.value = ZERO;
             for (I = 0; I <= K - 1; I++) {
-              AA = (A[I + J * LDA]).abs();
+              AA = A[I + J * LDA].abs();
               // A(j-1,i)
               WORK[I] += AA;
               S.value += AA;
@@ -824,7 +824,7 @@ double zlanhf(
           L = K - 1;
           // -> U(k,k) at A(k-1,0)
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // U(k+i,k+i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -834,7 +834,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // U(i,i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -846,7 +846,7 @@ double zlanhf(
             }
             L += LDA + 1;
           }
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // U(n-1,n-1)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -868,7 +868,7 @@ double zlanhf(
           }
           S.value += S.value;
           // double s for the off diagonal elements
-          AA = (A[0]).toDouble();
+          AA = A[0].toDouble();
           // L(0,0) at A(0,0)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -881,7 +881,7 @@ double zlanhf(
           L = LDA;
           // -> L(k,k) at A(0,1)
           for (I = 1; I <= K - 1; I++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // L(k-1+i,k-1+i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -891,7 +891,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // L(i,i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -924,7 +924,7 @@ double zlanhf(
           // double s for the off diagonal elements
           L = 0 + K * LDA - LDA;
           // -> U(k-1,k-1) at A(0,k-1)
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // U(k-1,k-1)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -937,7 +937,7 @@ double zlanhf(
           L += LDA;
           // -> U(0,0) at A(0,k)
           for (J = K; J <= N - 1; J++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // -> U(j-k,j-k)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -947,7 +947,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // -> U(j,j)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -978,7 +978,7 @@ double zlanhf(
           L = 0;
           // -> L(0,0) at A(0,0)
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // L(i,i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -988,7 +988,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // L(k+i,k+i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1001,7 +1001,7 @@ double zlanhf(
             L += LDA + 1;
           }
           // L-> k-1 + (k-1)*lda or L(k-1,k-1) at A(k-1,k-1)
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // L(k-1,k-1) at A(k-1,k-1)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -1032,7 +1032,7 @@ double zlanhf(
           L = K;
           // -> U(k,k) at A(k,0)
           for (I = 0; I <= K - 1; I++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // U(k+i,k+i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1042,7 +1042,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // U(i,i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1069,7 +1069,7 @@ double zlanhf(
           L = 0;
           // -> L(k,k) at A(0,0)
           for (I = 0; I <= K - 1; I++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // L(k-1+i,k-1+i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1079,7 +1079,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // L(i,i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1112,7 +1112,7 @@ double zlanhf(
           // double s for the off diagonal elements
           L = 0 + K * LDA;
           // -> U(k,k) at A(0,k)
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // U(k,k)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -1125,7 +1125,7 @@ double zlanhf(
           L += LDA;
           // -> U(0,0) at A(0,k+1)
           for (J = K + 1; J <= N - 1; J++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // -> U(j-k-1,j-k-1)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1135,7 +1135,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // -> U(j,j)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1149,7 +1149,7 @@ double zlanhf(
           }
           // L=k-1+n*lda
           // -> U(k-1,k-1) at A(k-1,n)
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // U(k,k)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -1177,7 +1177,7 @@ double zlanhf(
           // double s for the off diagonal elements
           L = 0;
           // -> L(k,k) at A(0,0)
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // L(k,k) at A(0,0)
           if (AA != ZERO) {
             if (SCALE.value < AA) {
@@ -1190,7 +1190,7 @@ double zlanhf(
           L = LDA;
           // -> L(0,0) at A(0,1)
           for (I = 0; I <= K - 2; I++) {
-            AA = (A[L]).toDouble();
+            AA = A[L].toDouble();
             // L(i,i)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1200,7 +1200,7 @@ double zlanhf(
                 S.value += pow(AA / SCALE.value, 2);
               }
             }
-            AA = (A[L + 1]).toDouble();
+            AA = A[L + 1].toDouble();
             // L(k+i+1,k+i+1)
             if (AA != ZERO) {
               if (SCALE.value < AA) {
@@ -1213,7 +1213,7 @@ double zlanhf(
             L += LDA + 1;
           }
           // L-> k - 1 + k*lda or L(k-1,k-1) at A(k-1,k)
-          AA = (A[L]).toDouble();
+          AA = A[L].toDouble();
           // L(k-1,k-1) at A(k-1,k)
           if (AA != ZERO) {
             if (SCALE.value < AA) {

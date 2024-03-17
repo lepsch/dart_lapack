@@ -47,15 +47,15 @@ void dlagtf(
   EPS = dlamch('Epsilon');
 
   TL = max(TOL, EPS);
-  SCALE1 = (A[1]).abs() + (B[1]).abs();
+  SCALE1 = A[1].abs() + B[1].abs();
   for (K = 1; K <= N - 1; K++) {
     A[K + 1] -= LAMBDA;
-    SCALE2 = (C[K]).abs() + (A[K + 1]).abs();
-    if (K < (N - 1)) SCALE2 += (B[K + 1]).abs();
+    SCALE2 = C[K].abs() + A[K + 1].abs();
+    if (K < (N - 1)) SCALE2 += B[K + 1].abs();
     if (A[K] == ZERO) {
       PIV1 = ZERO;
     } else {
-      PIV1 = (A[K]).abs() / SCALE1;
+      PIV1 = A[K].abs() / SCALE1;
     }
     if (C[K] == ZERO) {
       IN[K] = 0;
@@ -63,7 +63,7 @@ void dlagtf(
       SCALE1 = SCALE2;
       if (K < (N - 1)) D[K] = ZERO;
     } else {
-      PIV2 = (C[K]).abs() / SCALE2;
+      PIV2 = C[K].abs() / SCALE2;
       if (PIV2 <= PIV1) {
         IN[K] = 0;
         SCALE1 = SCALE2;
@@ -86,5 +86,5 @@ void dlagtf(
     }
     if ((max(PIV1, PIV2) <= TL) && (IN[N] == 0)) IN[N] = K;
   }
-  if (((A[N]).abs() <= SCALE1 * TL) && (IN[N] == 0)) IN[N] = N;
+  if ((A[N].abs() <= SCALE1 * TL) && (IN[N] == 0)) IN[N] = N;
 }

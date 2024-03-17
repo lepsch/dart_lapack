@@ -180,9 +180,9 @@ void dgelsy(
 
   WORK[ISMIN] = ONE;
   WORK[ISMAX] = ONE;
-  SMAX = (A[1][1]).abs();
+  SMAX = A[1][1].abs();
   SMIN = SMAX;
-  if ((A[1][1]).abs() == ZERO) {
+  if (A[1][1].abs() == ZERO) {
     RANK.value = 0;
     dlaset('F', max(M, N), NRHS, ZERO, ZERO, B, LDB);
     WORK[1] = LWKOPT.toDouble();

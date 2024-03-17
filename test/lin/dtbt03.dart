@@ -55,11 +55,11 @@ void dtbt03(
   if (lsame(DIAG, 'N')) {
     if (lsame(UPLO, 'U')) {
       for (var J = 1; J <= N; J++) {
-        TNORM = max(TNORM, TSCAL * (AB[KD + 1][J]).abs() + CNORM[J]);
+        TNORM = max(TNORM, TSCAL * AB[KD + 1][J].abs() + CNORM[J]);
       }
     } else {
       for (var J = 1; J <= N; J++) {
-        TNORM = max(TNORM, TSCAL * (AB[1][J]).abs() + CNORM[J]);
+        TNORM = max(TNORM, TSCAL * AB[1][J].abs() + CNORM[J]);
       }
     }
   } else {

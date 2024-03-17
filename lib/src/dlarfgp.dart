@@ -52,7 +52,7 @@ void dlarfgp(
     BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
     SMLNUM = dlamch('S') / dlamch('E');
     KNT = 0;
-    if ((BETA).abs() < SMLNUM) {
+    if (BETA.abs() < SMLNUM) {
       // XNORM, BETA may be inaccurate; scale X and recompute them
 
       BIGNUM = ONE / SMLNUM;
@@ -61,7 +61,7 @@ void dlarfgp(
         dscal(N - 1, BIGNUM, X, INCX);
         BETA *= BIGNUM;
         ALPHA.value *= BIGNUM;
-      } while (((BETA).abs() < SMLNUM) && (KNT < 20));
+      } while ((BETA.abs() < SMLNUM) && (KNT < 20));
 
       // New BETA is at most 1, at least SMLNUM
 

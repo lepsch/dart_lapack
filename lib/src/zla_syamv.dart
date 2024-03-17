@@ -91,7 +91,7 @@ void zla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           for (J = 1; J <= I; J++) {
@@ -120,7 +120,7 @@ void zla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != ZERO) {
           for (J = 1; J <= I; J++) {
@@ -151,7 +151,7 @@ void zla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         JX = KX;
         if (ALPHA != ZERO) {
@@ -183,7 +183,7 @@ void zla_syamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         JX = KX;
         if (ALPHA != ZERO) {

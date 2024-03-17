@@ -299,11 +299,11 @@ void dggev(
             TEMP = ZERO;
             if (ALPHAI[JC] == ZERO) {
               for (JR = 1; JR <= N; JR++) {
-                TEMP = max(TEMP, (VL[JR][JC]).abs());
+                TEMP = max(TEMP, VL[JR][JC].abs());
               }
             } else {
               for (JR = 1; JR <= N; JR++) {
-                TEMP = max(TEMP, (VL[JR][JC]).abs() + (VL[JR][JC + 1]).abs());
+                TEMP = max(TEMP, VL[JR][JC].abs() + VL[JR][JC + 1].abs());
               }
             }
             if (TEMP < SMLNUM) continue;
@@ -328,11 +328,11 @@ void dggev(
             TEMP = ZERO;
             if (ALPHAI[JC] == ZERO) {
               for (JR = 1; JR <= N; JR++) {
-                TEMP = max(TEMP, (VR[JR][JC]).abs());
+                TEMP = max(TEMP, VR[JR][JC].abs());
               }
             } else {
               for (JR = 1; JR <= N; JR++) {
-                TEMP = max(TEMP, (VR[JR][JC]).abs() + (VR[JR][JC + 1]).abs());
+                TEMP = max(TEMP, VR[JR][JC].abs() + VR[JR][JC + 1].abs());
               }
             }
             if (TEMP < SMLNUM) continue;

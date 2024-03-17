@@ -221,7 +221,7 @@ void dgesvj(
   // sqrt(N)*max_i SVA[i] does not overflow. If INFinite entries
   // in A are detected, the procedure returns with INFO.value=-6.
 
-  SKL = ONE / sqrt((M).toDouble() * N.toDouble());
+  SKL = ONE / sqrt(M.toDouble() * N.toDouble());
   NOSCALE = true;
   GOSCALE = true;
 
@@ -1184,7 +1184,7 @@ void dgesvj(
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
 
     if ((i > SWBAND + 1) &&
-            (MXAAPQ < sqrt((N).toDouble()) * TOL) &&
+            (MXAAPQ < sqrt(N.toDouble()) * TOL) &&
             (N.toDouble() * MXAAPQ * MXSINJ < TOL) ||
         NOTROT >= EMPTSW) {
       // #:) Reaching this point means numerical convergence after the i-th

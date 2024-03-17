@@ -75,7 +75,7 @@ void dlanv2(
     BCMIS = min((B.value).abs(), (C.value).abs()) *
         sign(ONE, B.value) *
         sign(ONE, C.value);
-    SCALE = max((P).abs(), BCMAX);
+    SCALE = max(P.abs(), BCMAX);
     Z = (P / SCALE) * P + (BCMAX / SCALE) * BCMIS;
 
     // If Z is of the order of the machine accuracy, postpone the
@@ -118,7 +118,7 @@ void dlanv2(
       }
       P = HALF * TEMP;
       TAU = dlapy2(SIGMA, TEMP);
-      CS.value = sqrt(HALF * (ONE + (SIGMA).abs() / TAU));
+      CS.value = sqrt(HALF * (ONE + SIGMA.abs() / TAU));
       SN.value = -(P / (TAU * CS.value)) * sign(ONE, SIGMA);
 
       // Compute [ AA  BB ] = [ A.value  B.value ] [ CS.value -SN.value ]

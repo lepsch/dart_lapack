@@ -56,7 +56,7 @@ void zstt22(
     }
     ANORM = max(ANORM, AD[N].abs() + AE[N - 1].abs());
   } else {
-    ANORM = (AD[1]).abs();
+    ANORM = AD[1].abs();
   }
   ANORM = max(ANORM, UNFL);
 

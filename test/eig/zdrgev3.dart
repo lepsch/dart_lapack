@@ -262,7 +262,7 @@ void zdrgev3(
         if (KCLASS[JTYPE] < 3) {
           // Generate A (w/o rotation)
 
-          if ((KATYPE[JTYPE]).abs() == 3) {
+          if (KATYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, A, LDA);
@@ -290,7 +290,7 @@ void zdrgev3(
 
           // Generate B (w/o rotation)
 
-          if ((KBTYPE[JTYPE]).abs() == 3) {
+          if (KBTYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, B, LDA);

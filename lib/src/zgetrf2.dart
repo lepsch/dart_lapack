@@ -76,7 +76,7 @@ void zgetrf2(
 
       // Compute elements 2:M of the column
 
-      if ((A[1][1]).abs() >= SFMIN) {
+      if (A[1][1].abs() >= SFMIN) {
         zscal(M - 1, Complex.one / A[1][1], A(2, 1).asArray(), 1);
       } else {
         for (I = 1; I <= M - 1; I++) {

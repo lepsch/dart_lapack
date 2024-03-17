@@ -104,7 +104,7 @@ void zla_geamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != 0.0) {
           for (J = 1; J <= LENX; J++) {
@@ -127,7 +127,7 @@ void zla_geamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != 0.0) {
           for (J = 1; J <= LENX; J++) {
@@ -152,7 +152,7 @@ void zla_geamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != 0.0) {
           JX = KX;
@@ -177,7 +177,7 @@ void zla_geamv(
           SYMB_ZERO = true;
         } else {
           SYMB_ZERO = false;
-          Y[IY] = BETA * (Y[IY]).abs();
+          Y[IY] = BETA * Y[IY].abs();
         }
         if (ALPHA != 0.0) {
           JX = KX;

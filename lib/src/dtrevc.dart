@@ -141,7 +141,7 @@ void dtrevc(
   for (J = 2; J <= N; J++) {
     WORK[J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
-      WORK[J] += (T[I][J]).abs();
+      WORK[J] += T[I][J].abs();
     }
   }
 
@@ -177,9 +177,9 @@ void dtrevc(
         WR = T[KI][KI];
         WI = ZERO;
         if (IP != 0) {
-          WI = sqrt((T[KI][KI - 1]).abs()) * sqrt((T[KI - 1][KI]).abs());
+          WI = sqrt(T[KI][KI - 1].abs()) * sqrt(T[KI - 1][KI].abs());
         }
-        SMIN = max(ULP * ((WR).abs() + (WI).abs()), SMLNUM);
+        SMIN = max(ULP * (WR.abs() + WI.abs()), SMLNUM);
 
         if (IP == 0) {
           // Real right eigenvector
@@ -303,7 +303,7 @@ void dtrevc(
             dcopy(KI, WORK(1 + N), 1, VR(1, IS).asArray(), 1);
 
             II = idamax(KI, VR(1, IS).asArray(), 1);
-            REMAX = ONE / (VR[II][IS]).abs();
+            REMAX = ONE / VR[II][IS].abs();
             dscal(KI, REMAX, VR(1, IS).asArray(), 1);
 
             for (K = KI + 1; K <= N; K++) {
@@ -316,7 +316,7 @@ void dtrevc(
             }
 
             II = idamax(N, VR(1, KI).asArray(), 1);
-            REMAX = ONE / (VR[II][KI]).abs();
+            REMAX = ONE / VR[II][KI].abs();
             dscal(N, REMAX, VR(1, KI).asArray(), 1);
           }
         } else {
@@ -326,7 +326,7 @@ void dtrevc(
           // [ (T[KI-1][KI-1] T[KI-1][KI] ) - (WR + I* WI)]*X = 0.
           // [ (T[KI][KI-1]   T[KI][KI]   )               ]
 
-          if ((T[KI - 1][KI]).abs() >= (T[KI][KI - 1]).abs()) {
+          if (T[KI - 1][KI].abs() >= T[KI][KI - 1].abs()) {
             WORK[KI - 1 + N] = ONE;
             WORK[KI + N2] = WI / T[KI - 1][KI];
           } else {
@@ -455,7 +455,7 @@ void dtrevc(
 
             EMAX = ZERO;
             for (K = 1; K <= KI; K++) {
-              EMAX = max(EMAX, (VR[K][IS - 1]).abs() + (VR[K][IS]).abs());
+              EMAX = max(EMAX, VR[K][IS - 1].abs() + VR[K][IS].abs());
             }
 
             REMAX = ONE / EMAX;
@@ -479,7 +479,7 @@ void dtrevc(
 
             EMAX = ZERO;
             for (K = 1; K <= N; K++) {
-              EMAX = max(EMAX, (VR[K][KI - 1]).abs() + (VR[K][KI]).abs());
+              EMAX = max(EMAX, VR[K][KI - 1].abs() + VR[K][KI].abs());
             }
             REMAX = ONE / EMAX;
             dscal(N, REMAX, VR(1, KI - 1).asArray(), 1);
@@ -517,9 +517,9 @@ void dtrevc(
       WR = T[KI][KI];
       WI = ZERO;
       if (IP != 0) {
-        WI = sqrt((T[KI][KI + 1]).abs()) * sqrt((T[KI + 1][KI]).abs());
+        WI = sqrt(T[KI][KI + 1].abs()) * sqrt(T[KI + 1][KI].abs());
       }
-      SMIN = max(ULP * ((WR).abs() + (WI).abs()), SMLNUM);
+      SMIN = max(ULP * (WR.abs() + WI.abs()), SMLNUM);
 
       if (IP == 0) {
         // Real left eigenvector.
@@ -578,7 +578,7 @@ void dtrevc(
               dscal(N - KI + 1, SCALE.value, WORK(KI + N), 1);
             }
             WORK[J + N] = X[1][1];
-            VMAX = max((WORK[J + N]).abs(), VMAX);
+            VMAX = max(WORK[J + N].abs(), VMAX);
             VCRIT = BIGNUM / VMAX;
           } else {
             // 2-by-2 diagonal block
@@ -615,7 +615,7 @@ void dtrevc(
             WORK[J + N] = X[1][1];
             WORK[J + 1 + N] = X[2][1];
 
-            VMAX = max((WORK[J + N]).abs(), max((WORK[J + 1 + N]).abs(), VMAX));
+            VMAX = max(WORK[J + N].abs(), max(WORK[J + 1 + N].abs(), VMAX));
             VCRIT = BIGNUM / VMAX;
           }
         }
@@ -626,7 +626,7 @@ void dtrevc(
           dcopy(N - KI + 1, WORK(KI + N), 1, VL(KI, IS).asArray(), 1);
 
           II = idamax(N - KI + 1, VL(KI, IS).asArray(), 1) + KI - 1;
-          REMAX = ONE / (VL[II][IS]).abs();
+          REMAX = ONE / VL[II][IS].abs();
           dscal(N - KI + 1, REMAX, VL(KI, IS).asArray(), 1);
 
           for (K = 1; K <= KI - 1; K++) {
@@ -639,7 +639,7 @@ void dtrevc(
           }
 
           II = idamax(N, VL(1, KI).asArray(), 1);
-          REMAX = ONE / (VL[II][KI]).abs();
+          REMAX = ONE / VL[II][KI].abs();
           dscal(N, REMAX, VL(1, KI).asArray(), 1);
         }
       } else {
@@ -649,7 +649,7 @@ void dtrevc(
         // ((T[KI][KI]    T[KI][KI+1] )**T - (WR - I* WI))*X = 0.
         // ((T[KI+1][KI] T[KI+1][KI+1])                )
 
-        if ((T[KI][KI + 1]).abs() >= (T[KI + 1][KI]).abs()) {
+        if (T[KI][KI + 1].abs() >= T[KI + 1][KI].abs()) {
           WORK[KI + N] = WI / T[KI][KI + 1];
           WORK[KI + 1 + N2] = ONE;
         } else {
@@ -717,7 +717,7 @@ void dtrevc(
             }
             WORK[J + N] = X[1][1];
             WORK[J + N2] = X[1][2];
-            VMAX = max((WORK[J + N]).abs(), max((WORK[J + N2]).abs(), VMAX));
+            VMAX = max(WORK[J + N].abs(), max(WORK[J + N2].abs(), VMAX));
             VCRIT = BIGNUM / VMAX;
           } else {
             // 2-by-2 diagonal block
@@ -764,10 +764,10 @@ void dtrevc(
             WORK[J + 1 + N] = X[2][1];
             WORK[J + 1 + N2] = X[2][2];
             VMAX = max(
-                (X[1][1]).abs(),
+                X[1][1].abs(),
                 max(
-                  max((X[1][2]).abs(), (X[2][1]).abs()),
-                  max((X[2][2]).abs(), VMAX),
+                  max(X[1][2].abs(), X[2][1].abs()),
+                  max(X[2][2].abs(), VMAX),
                 ));
             VCRIT = BIGNUM / VMAX;
           }
@@ -781,7 +781,7 @@ void dtrevc(
 
           EMAX = ZERO;
           for (K = KI; K <= N; K++) {
-            EMAX = max(EMAX, (VL[K][IS]).abs() + (VL[K][IS + 1]).abs());
+            EMAX = max(EMAX, VL[K][IS].abs() + VL[K][IS + 1].abs());
           }
           REMAX = ONE / EMAX;
           dscal(N - KI + 1, REMAX, VL(KI, IS).asArray(), 1);
@@ -814,7 +814,7 @@ void dtrevc(
 
           EMAX = ZERO;
           for (K = 1; K <= N; K++) {
-            EMAX = max(EMAX, (VL[K][KI]).abs() + (VL[K][KI + 1]).abs());
+            EMAX = max(EMAX, VL[K][KI].abs() + VL[K][KI + 1].abs());
           }
           REMAX = ONE / EMAX;
           dscal(N, REMAX, VL(1, KI).asArray(), 1);

@@ -154,7 +154,7 @@ void dlaed4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -165,13 +165,13 @@ void dlaed4(
         ERRETM -
         PHI +
         RHOINV +
-        (TAU).abs() * (DPSI + DPHI);
+        TAU.abs() * (DPSI + DPHI);
 
     W = RHOINV + PHI + PSI;
 
     // Test for convergence
 
-    if ((W).abs() <= EPS * ERRETM) {
+    if (W.abs() <= EPS * ERRETM) {
       DLAM.value = D[I] + TAU;
       return;
     }
@@ -188,7 +188,7 @@ void dlaed4(
     C = W - DELTA[N - 1] * DPSI - DELTA[N] * DPHI;
     A = (DELTA[N - 1] + DELTA[N]) * W - DELTA[N - 1] * DELTA[N] * (DPSI + DPHI);
     B = DELTA[N - 1] * DELTA[N] * W;
-    if (C < ZERO) C = (C).abs();
+    if (C < ZERO) C = C.abs();
     if (C == ZERO) {
       // ETA.value = B/A
       // ETA.value = RHO - TAU
@@ -234,7 +234,7 @@ void dlaed4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -245,7 +245,7 @@ void dlaed4(
         ERRETM -
         PHI +
         RHOINV +
-        (TAU).abs() * (DPSI + DPHI);
+        TAU.abs() * (DPSI + DPHI);
 
     W = RHOINV + PHI + PSI;
 
@@ -256,7 +256,7 @@ void dlaed4(
     for (NITER = ITER; NITER <= MAXIT; NITER++) {
       // Test for convergence
 
-      if ((W).abs() <= EPS * ERRETM) {
+      if (W.abs() <= EPS * ERRETM) {
         DLAM.value = D[I] + TAU;
         return;
       }
@@ -311,7 +311,7 @@ void dlaed4(
         DPSI += TEMP * TEMP;
         ERRETM += PSI;
       }
-      ERRETM = (ERRETM).abs();
+      ERRETM = ERRETM.abs();
 
       // Evaluate PHI and the derivative DPHI
 
@@ -322,7 +322,7 @@ void dlaed4(
           ERRETM -
           PHI +
           RHOINV +
-          (TAU).abs() * (DPSI + DPHI);
+          TAU.abs() * (DPSI + DPHI);
 
       W = RHOINV + PHI + PSI;
     }
@@ -420,7 +420,7 @@ void dlaed4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -453,12 +453,12 @@ void dlaed4(
     ERRETM = EIGHT * (PHI - PSI) +
         ERRETM +
         TWO * RHOINV +
-        THREE * (TEMP).abs() +
-        (TAU).abs() * DW;
+        THREE * TEMP.abs() +
+        TAU.abs() * DW;
 
     // Test for convergence
 
-    if ((W).abs() <= EPS * ERRETM) {
+    if (W.abs() <= EPS * ERRETM) {
       if (ORGATI) {
         DLAM.value = D[I] + TAU;
       } else {
@@ -553,7 +553,7 @@ void dlaed4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -573,14 +573,14 @@ void dlaed4(
     ERRETM = EIGHT * (PHI - PSI) +
         ERRETM +
         TWO * RHOINV +
-        THREE * (TEMP).abs() +
+        THREE * TEMP.abs() +
         (TAU + ETA.value).abs() * DW;
 
     SWTCH = false;
     if (ORGATI) {
-      if (-W > (PREW).abs() / TEN) SWTCH = true;
+      if (-W > PREW.abs() / TEN) SWTCH = true;
     } else {
-      if (W > (PREW).abs() / TEN) SWTCH = true;
+      if (W > PREW.abs() / TEN) SWTCH = true;
     }
 
     TAU += ETA.value;
@@ -592,7 +592,7 @@ void dlaed4(
     for (NITER = ITER; NITER <= MAXIT; NITER++) {
       // Test for convergence
 
-      if ((W).abs() <= EPS * ERRETM) {
+      if (W.abs() <= EPS * ERRETM) {
         if (ORGATI) {
           DLAM.value = D[I] + TAU;
         } else {
@@ -714,7 +714,7 @@ void dlaed4(
         DPSI += TEMP * TEMP;
         ERRETM += PSI;
       }
-      ERRETM = (ERRETM).abs();
+      ERRETM = ERRETM.abs();
 
       // Evaluate PHI and the derivative DPHI
 
@@ -734,9 +734,9 @@ void dlaed4(
       ERRETM = EIGHT * (PHI - PSI) +
           ERRETM +
           TWO * RHOINV +
-          THREE * (TEMP).abs() +
-          (TAU).abs() * DW;
-      if (W * PREW > ZERO && (W).abs() > (PREW).abs() / TEN) SWTCH = !SWTCH;
+          THREE * TEMP.abs() +
+          TAU.abs() * DW;
+      if (W * PREW > ZERO && W.abs() > PREW.abs() / TEN) SWTCH = !SWTCH;
     }
 
     // Return with INFO.value = 1, NITER = MAXIT and not converged

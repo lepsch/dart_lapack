@@ -144,7 +144,7 @@ void ztgsna(
       zgemv('N', N, N, Complex.one, B, LDB, VR(1, KS).asArray(), 1,
           Complex.zero, WORK, 1);
       YHBX = zdotc(N, WORK, 1, VL(1, KS).asArray(), 1);
-      COND = dlapy2((YHAX).abs(), (YHBX).abs());
+      COND = dlapy2(YHAX.abs(), YHBX.abs());
       if (COND == ZERO) {
         S[KS] = -ONE;
       } else {

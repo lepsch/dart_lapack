@@ -176,7 +176,7 @@ void dlaed6(
 
   done:
   while (true) {
-    if ((F).abs() <= ZERO) break done;
+    if (F.abs() <= ZERO) break done;
     if (F <= ZERO) {
       LBD = TAU.value;
     } else {
@@ -237,7 +237,7 @@ void dlaed6(
           TEMP3 = TEMP2 * TEMP;
           TEMP4 = TEMP1 / DSCALE[I];
           FC += TEMP4;
-          ERRETM += (TEMP4).abs();
+          ERRETM += TEMP4.abs();
           DF += TEMP2;
           DDF += TEMP3;
         } else {
@@ -245,9 +245,9 @@ void dlaed6(
         }
       }
       F = FINIT + TAU.value * FC;
-      ERRETM = EIGHT * ((FINIT).abs() + (TAU.value).abs() * ERRETM) +
+      ERRETM = EIGHT * (FINIT.abs() + (TAU.value).abs() * ERRETM) +
           (TAU.value).abs() * DF;
-      if (((F).abs() <= FOUR * EPS * ERRETM) ||
+      if ((F.abs() <= FOUR * EPS * ERRETM) ||
           ((UBD - LBD) <= FOUR * EPS * (TAU.value).abs())) break done;
       if (F <= ZERO) {
         LBD = TAU.value;

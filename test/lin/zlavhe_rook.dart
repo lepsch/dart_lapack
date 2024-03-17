@@ -216,7 +216,7 @@ void zlavhe_rook(
 
             // Swap the second of pair with IMAXth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -276,14 +276,14 @@ void zlavhe_rook(
           if (K > 2) {
             // Swap the second of pair with Pth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
 
             // Now swap the first of pair with IMAX(r)th
 
-            KP = (IPIV[K - 1]).abs();
+            KP = IPIV[K - 1].abs();
             if (KP != K - 1) {
               zswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -366,14 +366,14 @@ void zlavhe_rook(
           if (K < N - 1) {
             // Swap the first of pair with Pth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
 
             // Now swap the second of pair with IMAX(r)th
 
-            KP = (IPIV[K + 1]).abs();
+            KP = IPIV[K + 1].abs();
             if (KP != K + 1) {
               zswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }

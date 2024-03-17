@@ -159,9 +159,9 @@ void dgbrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (WORK[I] > SAFE2) {
-          S = max(S, (WORK[N + I]).abs() / WORK[I]);
+          S = max(S, WORK[N + I].abs() / WORK[I]);
         } else {
-          S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+          S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -209,9 +209,9 @@ void dgbrfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 

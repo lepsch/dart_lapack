@@ -326,7 +326,7 @@ void dgejsv(
     } else {
       for (p = 1; p <= M; p++) {
         WORK[M + N + p] =
-            SCALEM * (A[p][idamax(N, A(p, 1).asArray(), LDA)]).abs();
+            SCALEM * A[p][idamax(N, A(p, 1).asArray(), LDA)].abs();
         AATMAX = max(AATMAX, WORK[M + N + p]);
         AATMIN = min(AATMIN, WORK[M + N + p]);
       }

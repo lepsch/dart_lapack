@@ -45,13 +45,13 @@ void dstt22(
   // Compute the 1-norm of A.
 
   if (N > 1) {
-    ANORM = (AD[1]).abs() + (AE[1]).abs();
+    ANORM = AD[1].abs() + AE[1].abs();
     for (J = 2; J <= N - 1; J++) {
-      ANORM = max(ANORM, (AD[J]).abs() + (AE[J]).abs() + (AE[J - 1]).abs());
+      ANORM = max(ANORM, AD[J].abs() + AE[J].abs() + AE[J - 1].abs());
     }
-    ANORM = max(ANORM, (AD[N]).abs() + (AE[N - 1]).abs());
+    ANORM = max(ANORM, AD[N].abs() + AE[N - 1].abs());
   } else {
-    ANORM = (AD[1]).abs();
+    ANORM = AD[1].abs();
   }
   ANORM = max(ANORM, UNFL);
 

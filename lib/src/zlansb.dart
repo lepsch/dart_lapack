@@ -35,14 +35,14 @@ double zlansb(
     if (lsame(UPLO, 'U')) {
       for (J = 1; J <= N; J++) {
         for (I = max(K + 2 - J, 1); I <= K + 1; I++) {
-          SUM.value = (AB[I][J]).abs();
+          SUM.value = AB[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
       }
     } else {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= min(N + 1 - J, K + 1); I++) {
-          SUM.value = (AB[I][J]).abs();
+          SUM.value = AB[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
       }
@@ -56,11 +56,11 @@ double zlansb(
         SUM.value = ZERO;
         L = K + 1 - J;
         for (I = max(1, J - K); I <= J - 1; I++) {
-          ABSA = (AB[L + I][J]).abs();
+          ABSA = AB[L + I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }
-        WORK[J] = SUM.value + (AB[K + 1][J]).abs();
+        WORK[J] = SUM.value + AB[K + 1][J].abs();
       }
       for (I = 1; I <= N; I++) {
         SUM.value = WORK[I];
@@ -71,10 +71,10 @@ double zlansb(
         WORK[I] = ZERO;
       }
       for (J = 1; J <= N; J++) {
-        SUM.value = WORK[J] + (AB[1][J]).abs();
+        SUM.value = WORK[J] + AB[1][J].abs();
         L = 1 - J;
         for (I = J + 1; I <= min(N, J + K); I++) {
-          ABSA = (AB[L + I][J]).abs();
+          ABSA = AB[L + I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }

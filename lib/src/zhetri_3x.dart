@@ -110,9 +110,9 @@ void zhetri_3x(
         WORK[K][INVD + 1] = Complex.zero;
       } else {
         // 2 x 2 diagonal NNB
-        T = (WORK[K + 1][1]).abs();
-        AK = (A[K][K]).toDouble() / T;
-        AKP1 = (A[K + 1][K + 1]).toDouble() / T;
+        T = WORK[K + 1][1].abs();
+        AK = A[K][K].toDouble() / T;
+        AKP1 = A[K + 1][K + 1].toDouble() / T;
         AKKP1 = WORK[K + 1][1] / T.toComplex();
         D = T.toComplex() * (AK * AKP1 - ONE).toComplex();
         WORK[K][INVD] = AKP1.toComplex() / D;
@@ -261,7 +261,7 @@ void zhetri_3x(
     // for 1x1 and 2x2 pivot cases )
 
     for (I = 1; I <= N; I++) {
-      IP = (IPIV[I]).abs();
+      IP = IPIV[I].abs();
       if (IP != I) {
         if (I < IP) zheswapr(UPLO, N, A, LDA, I, IP);
         if (I > IP) zheswapr(UPLO, N, A, LDA, IP, I);
@@ -280,13 +280,13 @@ void zhetri_3x(
     while (K >= 1) {
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal NNB
-        WORK[K][INVD] = (ONE / (A[K][K]).toDouble()).toComplex();
+        WORK[K][INVD] = (ONE / A[K][K].toDouble()).toComplex();
         WORK[K][INVD + 1] = Complex.zero;
       } else {
         // 2 x 2 diagonal NNB
-        T = (WORK[K - 1][1]).abs();
+        T = WORK[K - 1][1].abs();
         AK = A[K - 1][K - 1].toDouble() / T;
-        AKP1 = (A[K][K]).toDouble() / T;
+        AKP1 = A[K][K].toDouble() / T;
         AKKP1 = WORK[K - 1][1] / T.toComplex();
         D = T.toComplex() * (AK * AKP1 - ONE).toComplex();
         WORK[K - 1][INVD] = AKP1.toComplex() / D;
@@ -457,7 +457,7 @@ void zhetri_3x(
     // for 1x1 and 2x2 pivot cases )
 
     for (I = N; I >= 1; I--) {
-      IP = (IPIV[I]).abs();
+      IP = IPIV[I].abs();
       if (IP != I) {
         if (I < IP) zheswapr(UPLO, N, A, LDA, I, IP);
         if (I > IP) zheswapr(UPLO, N, A, LDA, IP, I);

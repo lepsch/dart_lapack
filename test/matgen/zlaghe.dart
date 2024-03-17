@@ -71,7 +71,7 @@ void zlaghe(
 
     zlarnv(3, ISEED, N - I + 1, WORK);
     WN = dznrm2(N - I + 1, WORK, 1);
-    WA = (WN / (WORK[1]).abs()).toComplex() * WORK[1];
+    WA = (WN / WORK[1].abs()).toComplex() * WORK[1];
     if (WN == ZERO) {
       TAU = Complex.zero;
     } else {
@@ -106,7 +106,7 @@ void zlaghe(
     // generate reflection to annihilate A(k+i+1:n,i)
 
     WN = dznrm2(N - K - I + 1, A(K + I, I).asArray(), 1);
-    WA = (WN / (A[K + I][I]).abs()).toComplex() * A[K + I][I];
+    WA = (WN / A[K + I][I].abs()).toComplex() * A[K + I][I];
     if (WN == ZERO) {
       TAU = Complex.zero;
     } else {

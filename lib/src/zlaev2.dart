@@ -18,11 +18,11 @@ void zlaev2(
   final T = Box(0.0);
   Complex W;
 
-  if ((B).abs() == ZERO) {
+  if (B.abs() == ZERO) {
     W = Complex.one;
   } else {
     W = B.conjugate() / B.abs().toComplex();
   }
-  dlaev2((A).toDouble(), (B).abs(), C.toDouble(), RT1, RT2, CS1, T);
+  dlaev2(A.toDouble(), B.abs(), C.toDouble(), RT1, RT2, CS1, T);
   SN1.value = W * T.value.toComplex();
 }

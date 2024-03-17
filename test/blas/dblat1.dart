@@ -1076,7 +1076,7 @@ void _stest(
 
   for (var I = 1; I <= LEN; I++) {
     final SD = SCOMP[I] - STRUE[I];
-    if ((SFAC * SD).abs() <= (SSIZE[I]).abs() * epsilon(ZERO)) continue;
+    if ((SFAC * SD).abs() <= SSIZE[I].abs() * epsilon(ZERO)) continue;
 
     // HERE    SCOMP[I] IS NOT CLOSE TO STRUE[I].
 
@@ -1256,13 +1256,13 @@ void _db1nrm2(
 
   for (IV = 1; IV <= NV; IV++) {
     V0 = VALUES[IV];
-    if ((V0).abs() > ONE) {
+    if (V0.abs() > ONE) {
       V0 *= HALF;
     }
     Z[1] = V0;
     for (IW = 1; IW <= NV; IW++) {
       V1 = VALUES[IW];
-      if ((V1).abs() > ONE) {
+      if (V1.abs() > ONE) {
         V1 = (V1 * HALF) / sqrt(N.toDouble());
       }
       for (I = 2; I <= N; I++) {
@@ -1271,9 +1271,9 @@ void _db1nrm2(
 
       // Compute the expected value of the 2-norm
 
-      Y1 = (V0).abs();
+      Y1 = V0.abs();
       if (N > 1) {
-        Y2 = (V1).abs() * sqrt(WORKSSQ);
+        Y2 = V1.abs() * sqrt(WORKSSQ);
       } else {
         Y2 = ZERO;
       }

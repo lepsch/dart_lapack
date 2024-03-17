@@ -507,7 +507,7 @@ void ddrves(
           }
           for (I = 1; I <= N - 1; I++) {
             if (H[I + 1][I] != ZERO) {
-              TMP = sqrt((H[I + 1][I]).abs()) * sqrt((H[I][I + 1]).abs());
+              TMP = sqrt(H[I + 1][I].abs()) * sqrt(H[I][I + 1].abs());
               RESULT[4 + RSUB] = max(
                   RESULT[4 + RSUB], (WI[I] - TMP).abs() / max(ULP * TMP, UNFL));
               RESULT[4 + RSUB] = max(RESULT[4 + RSUB],

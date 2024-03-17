@@ -55,13 +55,13 @@ void dstt21(
   for (J = 1; J <= N - 1; J++) {
     WORK[(N + 1) * (J - 1) + 1] = AD[J];
     WORK[(N + 1) * (J - 1) + 2] = AE[J];
-    TEMP2 = (AE[J]).abs();
-    ANORM = max(ANORM, (AD[J]).abs() + TEMP1 + TEMP2);
+    TEMP2 = AE[J].abs();
+    ANORM = max(ANORM, AD[J].abs() + TEMP1 + TEMP2);
     TEMP1 = TEMP2;
   }
 
   WORK[pow(N, 2).toInt()] = AD[N];
-  ANORM = max(ANORM, max((AD[N]).abs() + TEMP1, UNFL));
+  ANORM = max(ANORM, max(AD[N].abs() + TEMP1, UNFL));
 
   // Norm of A - USU'
 

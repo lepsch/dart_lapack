@@ -152,7 +152,7 @@ void zlaed8(
   K2 = N + 1;
   var deflate = false;
   for (J = 1; J <= N; J++) {
-    if (RHO.value * (Z[J]).abs() <= TOL) {
+    if (RHO.value * Z[J].abs() <= TOL) {
       // Deflate due to small z component.
 
       K2--;
@@ -170,7 +170,7 @@ void zlaed8(
   while (!deflate) {
     J++;
     if (J > N) break;
-    if (RHO.value * (Z[J]).abs() <= TOL) {
+    if (RHO.value * Z[J].abs() <= TOL) {
       // Deflate due to small z component.
 
       K2--;

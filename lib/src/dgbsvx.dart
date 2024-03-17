@@ -200,7 +200,7 @@ void dgbsvx(
         for (I = max(KU + 2 - J, 1);
             I <= min(N + KU + 1 - J, KL + KU + 1);
             I++) {
-          ANORM = max(ANORM, (AB[I][J]).abs());
+          ANORM = max(ANORM, AB[I][J].abs());
         }
       }
       RPVGRW = dlantb('M', 'U', 'N', INFO.value, min(INFO.value - 1, KL + KU),

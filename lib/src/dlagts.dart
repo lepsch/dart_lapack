@@ -32,7 +32,7 @@ void dlagts(
   double ABSAK = 0, AK = 0, BIGNUM = 0, EPS = 0, PERT = 0, SFMIN = 0, TEMP = 0;
 
   INFO.value = 0;
-  if (((JOB).abs() > 2) || (JOB == 0)) {
+  if ((JOB.abs() > 2) || (JOB == 0)) {
     INFO.value = -1;
   } else if (N < 0) {
     INFO.value = -2;
@@ -50,18 +50,18 @@ void dlagts(
 
   if (JOB < 0) {
     if (TOL.value <= ZERO) {
-      TOL.value = (A[1]).abs();
-      if (N > 1) TOL.value = max(TOL.value, max((A[2]).abs(), (B[1]).abs()));
+      TOL.value = A[1].abs();
+      if (N > 1) TOL.value = max(TOL.value, max(A[2].abs(), B[1].abs()));
       for (K = 3; K <= N; K++) {
-        TOL.value = max(max(TOL.value, (A[K]).abs()),
-            max((B[K - 1]).abs(), (D[K - 2]).abs()));
+        TOL.value = max(
+            max(TOL.value, A[K].abs()), max(B[K - 1].abs(), D[K - 2].abs()));
       }
       TOL.value *= EPS;
       if (TOL.value == ZERO) TOL.value = EPS;
     }
   }
 
-  if ((JOB).abs() == 1) {
+  if (JOB.abs() == 1) {
     for (K = 2; K <= N; K++) {
       if (IN[K - 1] == 0) {
         Y[K] -= C[K - 1] * Y[K - 1];
@@ -81,17 +81,17 @@ void dlagts(
           TEMP = Y[K];
         }
         AK = A[K];
-        ABSAK = (AK).abs();
+        ABSAK = AK.abs();
         if (ABSAK < ONE) {
           if (ABSAK < SFMIN) {
-            if (ABSAK == ZERO || (TEMP).abs() * SFMIN > ABSAK) {
+            if (ABSAK == ZERO || TEMP.abs() * SFMIN > ABSAK) {
               INFO.value = K;
               return;
             } else {
               TEMP *= BIGNUM;
               AK *= BIGNUM;
             }
-          } else if ((TEMP).abs() > ABSAK * BIGNUM) {
+          } else if (TEMP.abs() > ABSAK * BIGNUM) {
             INFO.value = K;
             return;
           }
@@ -111,10 +111,10 @@ void dlagts(
         PERT = sign(TOL.value, AK).toDouble();
         //  }
         while (true) {
-          ABSAK = (AK).abs();
+          ABSAK = AK.abs();
           if (ABSAK < ONE) {
             if (ABSAK < SFMIN) {
-              if (ABSAK == ZERO || (TEMP).abs() * SFMIN > ABSAK) {
+              if (ABSAK == ZERO || TEMP.abs() * SFMIN > ABSAK) {
                 AK += PERT;
                 PERT = 2 * PERT;
                 continue;
@@ -122,7 +122,7 @@ void dlagts(
                 TEMP *= BIGNUM;
                 AK *= BIGNUM;
               }
-            } else if ((TEMP).abs() > ABSAK * BIGNUM) {
+            } else if (TEMP.abs() > ABSAK * BIGNUM) {
               AK += PERT;
               PERT = 2 * PERT;
               continue;
@@ -146,17 +146,17 @@ void dlagts(
           TEMP = Y[K];
         }
         AK = A[K];
-        ABSAK = (AK).abs();
+        ABSAK = AK.abs();
         if (ABSAK < ONE) {
           if (ABSAK < SFMIN) {
-            if (ABSAK == ZERO || (TEMP).abs() * SFMIN > ABSAK) {
+            if (ABSAK == ZERO || TEMP.abs() * SFMIN > ABSAK) {
               INFO.value = K;
               return;
             } else {
               TEMP *= BIGNUM;
               AK *= BIGNUM;
             }
-          } else if ((TEMP).abs() > ABSAK * BIGNUM) {
+          } else if (TEMP.abs() > ABSAK * BIGNUM) {
             INFO.value = K;
             return;
           }
@@ -175,10 +175,10 @@ void dlagts(
         AK = A[K];
         PERT = sign(TOL.value, AK).toDouble();
         while (true) {
-          ABSAK = (AK).abs();
+          ABSAK = AK.abs();
           if (ABSAK < ONE) {
             if (ABSAK < SFMIN) {
-              if (ABSAK == ZERO || (TEMP).abs() * SFMIN > ABSAK) {
+              if (ABSAK == ZERO || TEMP.abs() * SFMIN > ABSAK) {
                 AK += PERT;
                 PERT = 2 * PERT;
                 continue;
@@ -186,7 +186,7 @@ void dlagts(
                 TEMP *= BIGNUM;
                 AK *= BIGNUM;
               }
-            } else if ((TEMP).abs() > ABSAK * BIGNUM) {
+            } else if (TEMP.abs() > ABSAK * BIGNUM) {
               AK += PERT;
               PERT = 2 * PERT;
               continue;

@@ -173,7 +173,7 @@ void zsytrf_rk(
 
       if (K > 1) {
         for (I = K; I <= (K + KB.value - 1); I++) {
-          IP = (IPIV[I]).abs();
+          IP = IPIV[I].abs();
           if (IP != I) {
             zswap(K - 1, A(I, 1).asArray(), LDA, A(IP, 1).asArray(), LDA);
           }

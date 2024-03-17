@@ -210,7 +210,7 @@ void zsyl01(
               RES1 = zlange('M', M, N, CC, MAXM, DUM);
               RES = RES1 /
                   max(SMLNUM,
-                      max(SMLNUM * XNRM, (((RMUL).abs() * TNRM) * EPS) * XNRM));
+                      max(SMLNUM * XNRM, ((RMUL.abs() * TNRM) * EPS) * XNRM));
               if (RES > THRESH) NFAIL[1]++;
               if (RES > RMAX[1]) RMAX[1] = RES;
 
@@ -233,7 +233,7 @@ void zsyl01(
               RES1 = zlange('M', M, N, CC, MAXM, DUM);
               RES = RES1 /
                   max(SMLNUM,
-                      max(SMLNUM * XNRM, (((RMUL).abs() * TNRM) * EPS) * XNRM));
+                      max(SMLNUM * XNRM, ((RMUL.abs() * TNRM) * EPS) * XNRM));
               // Verify that TRSYL3 only flushes if TRSYL flushes (but
               // there may be cases where TRSYL3 avoid flushing).
               if (SCALE3.value == ZERO && SCALE.value > ZERO ||

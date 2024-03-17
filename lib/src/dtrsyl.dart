@@ -152,13 +152,13 @@ void dtrsyl(
           SCALOC.value = ONE;
 
           A11 = A[K1][K1] + SGN * B[L1][L1];
-          DA11 = (A11).abs();
+          DA11 = A11.abs();
           if (DA11 <= SMIN) {
             A11 = SMIN;
             DA11 = SMIN;
             INFO.value = 1;
           }
-          DB = (VEC[1][1]).abs();
+          DB = VEC[1][1].abs();
           if (DA11 < ONE && DB > ONE) {
             if (DB > BIGNUM * DA11) SCALOC.value = ONE / DB;
           }
@@ -317,13 +317,13 @@ void dtrsyl(
           SCALOC.value = ONE;
 
           A11 = A[K1][K1] + SGN * B[L1][L1];
-          DA11 = (A11).abs();
+          DA11 = A11.abs();
           if (DA11 <= SMIN) {
             A11 = SMIN;
             DA11 = SMIN;
             INFO.value = 1;
           }
-          DB = (VEC[1][1]).abs();
+          DB = VEC[1][1].abs();
           if (DA11 < ONE && DB > ONE) {
             if (DB > BIGNUM * DA11) SCALOC.value = ONE / DB;
           }
@@ -475,13 +475,13 @@ void dtrsyl(
           SCALOC.value = ONE;
 
           A11 = A[K1][K1] + SGN * B[L1][L1];
-          DA11 = (A11).abs();
+          DA11 = A11.abs();
           if (DA11 <= SMIN) {
             A11 = SMIN;
             DA11 = SMIN;
             INFO.value = 1;
           }
-          DB = (VEC[1][1]).abs();
+          DB = VEC[1][1].abs();
           if (DA11 < ONE && DB > ONE) {
             if (DB > BIGNUM * DA11) SCALOC.value = ONE / DB;
           }
@@ -642,13 +642,13 @@ void dtrsyl(
           SCALOC.value = ONE;
 
           A11 = A[K1][K1] + SGN * B[L1][L1];
-          DA11 = (A11).abs();
+          DA11 = A11.abs();
           if (DA11 <= SMIN) {
             A11 = SMIN;
             DA11 = SMIN;
             INFO.value = 1;
           }
-          DB = (VEC[1][1]).abs();
+          DB = VEC[1][1].abs();
           if (DA11 < ONE && DB > ONE) {
             if (DB > BIGNUM * DA11) SCALOC.value = ONE / DB;
           }

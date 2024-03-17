@@ -151,8 +151,8 @@ void zheequb(
       T = CABS1(A[I][I]);
       SI = S[I];
       C2 = (N - 1) * T;
-      C1 = (N - 2) * ((WORK[I]).toDouble() - T * SI);
-      C0 = -(T * SI) * SI + 2 * (WORK[I]).toDouble() * SI - N * AVG;
+      C1 = (N - 2) * (WORK[I].toDouble() - T * SI);
+      C0 = -(T * SI) * SI + 2 * WORK[I].toDouble() * SI - N * AVG;
       D = C1 * C1 - 4 * C0 * C2;
 
       if (D <= 0) {
@@ -187,7 +187,7 @@ void zheequb(
         }
       }
 
-      AVG += (U + (WORK[I]).toDouble()) * D / N;
+      AVG += (U + WORK[I].toDouble()) * D / N;
       S[I] = SI;
     }
   }

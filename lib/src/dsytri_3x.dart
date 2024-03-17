@@ -256,7 +256,7 @@ void dsytri_3x(
     // for 1x1 and 2x2 pivot cases )
 
     for (I = 1; I <= N; I++) {
-      IP = (IPIV[I]).abs();
+      IP = IPIV[I].abs();
       if (IP != I) {
         if (I < IP) dsyswapr(UPLO, N, A, LDA, I, IP);
         if (I > IP) dsyswapr(UPLO, N, A, LDA, IP, I);
@@ -440,7 +440,7 @@ void dsytri_3x(
     // for 1x1 and 2x2 pivot cases )
 
     for (I = N; I >= 1; I--) {
-      IP = (IPIV[I]).abs();
+      IP = IPIV[I].abs();
       if (IP != I) {
         if (I < IP) dsyswapr(UPLO, N, A, LDA, I, IP);
         if (I > IP) dsyswapr(UPLO, N, A, LDA, IP, I);

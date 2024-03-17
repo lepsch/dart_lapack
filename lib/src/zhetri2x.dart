@@ -281,7 +281,7 @@ void zhetri2x(
         K--;
       } else {
         // 2 x 2 diagonal NNB
-        T = (WORK[K - 1][1]).abs().toComplex();
+        T = WORK[K - 1][1].abs().toComplex();
         AK = A[K - 1][K - 1].real.toComplex() / T;
         AKP1 = A[K][K].real.toComplex() / T;
         AKKP1 = WORK[K - 1][1] / T;

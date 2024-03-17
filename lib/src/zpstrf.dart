@@ -77,10 +77,10 @@ void zpstrf(
     // Compute stopping value
 
     for (I = 1; I <= N; I++) {
-      WORK[I] = (A[I][I]).toDouble();
+      WORK[I] = A[I][I].toDouble();
     }
     PVT = WORK.maxloc(1, N);
-    AJJ = (A[PVT][PVT]).toDouble();
+    AJJ = A[PVT][PVT].toDouble();
     if (AJJ <= ZERO || disnan(AJJ)) {
       RANK.value = 0;
       INFO.value = 1;
@@ -120,7 +120,7 @@ void zpstrf(
               WORK[I] =
                   WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).toDouble();
             }
-            WORK[N + I] = (A[I][I]).toDouble() - WORK[I];
+            WORK[N + I] = A[I][I].toDouble() - WORK[I];
           }
 
           if (J > 1) {
@@ -210,7 +210,7 @@ void zpstrf(
               WORK[I] =
                   WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).toDouble();
             }
-            WORK[N + I] = (A[I][I]).toDouble() - WORK[I];
+            WORK[N + I] = A[I][I].toDouble() - WORK[I];
           }
 
           if (J > 1) {

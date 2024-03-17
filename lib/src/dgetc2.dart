@@ -46,7 +46,7 @@ void dgetc2(
   if (N == 1) {
     IPIV[1] = 1;
     JPIV[1] = 1;
-    if ((A[1][1]).abs() < SMLNUM) {
+    if (A[1][1].abs() < SMLNUM) {
       INFO.value = 1;
       A[1][1] = SMLNUM;
     }
@@ -83,7 +83,7 @@ void dgetc2(
 
     // Check for singularity
 
-    if ((A[I][I]).abs() < SMIN) {
+    if (A[I][I].abs() < SMIN) {
       INFO.value = I;
       A[I][I] = SMIN;
     }
@@ -94,7 +94,7 @@ void dgetc2(
         LDA, A(I + 1, I + 1), LDA);
   }
 
-  if ((A[N][N]).abs() < SMIN) {
+  if (A[N][N].abs() < SMIN) {
     INFO.value = N;
     A[N][N] = SMIN;
   }

@@ -126,11 +126,11 @@ void zhpevx(
   if (N == 1) {
     if (ALLEIG || INDEIG) {
       M.value = 1;
-      W[1] = (AP[1]).toDouble();
+      W[1] = AP[1].toDouble();
     } else {
-      if (VL < (AP[1]).toDouble() && VU >= (AP[1]).toDouble()) {
+      if (VL < AP[1].toDouble() && VU >= AP[1].toDouble()) {
         M.value = 1;
-        W[1] = (AP[1]).toDouble();
+        W[1] = AP[1].toDouble();
       }
     }
     if (WANTZ) Z[1][1] = Complex.one;

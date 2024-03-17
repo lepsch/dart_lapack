@@ -171,9 +171,9 @@ void zgebal(
       C = dznrm2(L - K + 1, A(K, I).asArray(), 1);
       R = dznrm2(L - K + 1, A(I, K).asArray(), LDA);
       ICA = izamax(L, A(1, I).asArray(), 1);
-      CA = (A[ICA][I]).abs();
+      CA = A[ICA][I].abs();
       IRA = izamax(N - K + 1, A(I, K).asArray(), LDA);
-      RA = (A[I][IRA + K - 1]).abs();
+      RA = A[I][IRA + K - 1].abs();
 
       // Guard against zero C or R due to underflow.
 

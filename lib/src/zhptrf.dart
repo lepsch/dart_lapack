@@ -173,7 +173,7 @@ void zhptrf(
           //
           // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
-          R1 = ONE / (AP[KC + K - 1]).toDouble();
+          R1 = ONE / AP[KC + K - 1].toDouble();
           zhpr(UPLO, K - 1, -R1, AP(KC), 1, AP);
 
           // Store U(k) in column k
@@ -359,7 +359,7 @@ void zhptrf(
 
             // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
-            R1 = ONE / (AP[KC]).toDouble();
+            R1 = ONE / AP[KC].toDouble();
             zhpr(UPLO, N - K, -R1, AP(KC + 1), 1, AP(KC + N - K + 1));
 
             // Store L(k) in column K

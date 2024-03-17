@@ -287,7 +287,7 @@ void zhbtrd(
 
       for (I = 1; I <= N - 1; I++) {
         T = AB[KD][I + 1];
-        ABST = (T).abs();
+        ABST = T.abs();
         AB[KD][I + 1] = ABST.toComplex();
         E[I] = ABST;
         if (ABST != ZERO) {
@@ -487,7 +487,7 @@ void zhbtrd(
 
       for (I = 1; I <= N - 1; I++) {
         T = AB[2][I];
-        ABST = (T).abs();
+        ABST = T.abs();
         AB[2][I] = ABST.toComplex();
         E[I] = ABST;
         if (ABST != ZERO) {

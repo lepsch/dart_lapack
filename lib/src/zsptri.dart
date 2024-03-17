@@ -211,7 +211,7 @@ void zsptri(
         KCNEXT -= (N - K + 3);
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the trailing
         // submatrix A(k-1:n,k-1:n)

@@ -213,9 +213,9 @@ void dtgevc(
   // blocks) of A and B to check for possible overflow in the
   // triangular solver.
 
-  ANORM = (S[1][1]).abs();
-  if (N > 1) ANORM += (S[2][1]).abs();
-  BNORM = (P[1][1]).abs();
+  ANORM = S[1][1].abs();
+  if (N > 1) ANORM += S[2][1].abs();
+  BNORM = P[1][1].abs();
   WORK[1] = ZERO;
   WORK[N + 1] = ZERO;
 
@@ -228,14 +228,14 @@ void dtgevc(
       IEND = J - 2;
     }
     for (I = 1; I <= IEND; I++) {
-      TEMP.value += (S[I][J]).abs();
-      TEMP2.value += (P[I][J]).abs();
+      TEMP.value += S[I][J].abs();
+      TEMP2.value += P[I][J].abs();
     }
     WORK[J] = TEMP.value;
     WORK[N + J] = TEMP2.value;
     for (I = IEND + 1; I <= min(J + 1, N); I++) {
-      TEMP.value += (S[I][J]).abs();
-      TEMP2.value += (P[I][J]).abs();
+      TEMP.value += S[I][J].abs();
+      TEMP2.value += P[I][J].abs();
     }
     ANORM = max(ANORM, TEMP.value);
     BNORM = max(BNORM, TEMP2.value);
@@ -282,7 +282,7 @@ void dtgevc(
       // (c) complex eigenvalue.
 
       if (!ILCPLX) {
-        if ((S[JE][JE]).abs() <= SAFMIN && (P[JE][JE]).abs() <= SAFMIN) {
+        if (S[JE][JE].abs() <= SAFMIN && P[JE][JE].abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
 
           IEIG++;
@@ -308,7 +308,7 @@ void dtgevc(
         // Real eigenvalue
 
         TEMP.value = ONE /
-            max((S[JE][JE]).abs() * ASCALE,
+            max(S[JE][JE].abs() * ASCALE,
                 max(P[JE][JE].abs() * BSCALE, SAFMIN));
         SALFAR = (TEMP.value * S[JE][JE]) * ASCALE;
         SBETA = (TEMP.value * P[JE][JE]) * BSCALE;
@@ -319,12 +319,12 @@ void dtgevc(
         // Scale to avoid underflow
 
         SCALE.value = ONE;
-        LSA = (SBETA).abs() >= SAFMIN && (ACOEF.value).abs() < SMALL;
-        LSB = (SALFAR).abs() >= SAFMIN && (BCOEFR.value).abs() < SMALL;
-        if (LSA) SCALE.value = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
+        LSA = SBETA.abs() >= SAFMIN && (ACOEF.value).abs() < SMALL;
+        LSB = SALFAR.abs() >= SAFMIN && (BCOEFR.value).abs() < SMALL;
+        if (LSA) SCALE.value = (SMALL / SBETA.abs()) * min(ANORM, BIG);
         if (LSB) {
           SCALE.value =
-              max(SCALE.value, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
+              max(SCALE.value, (SMALL / SALFAR.abs()) * min(BNORM, BIG));
         }
         if (LSA || LSB) {
           SCALE.value = min(
@@ -389,7 +389,7 @@ void dtgevc(
         TEMP.value = ACOEF.value * S[JE + 1][JE];
         TEMP2R = ACOEF.value * S[JE][JE] - BCOEFR.value * P[JE][JE];
         TEMP2I = -BCOEFI.value * P[JE][JE];
-        if ((TEMP.value).abs() > (TEMP2R).abs() + (TEMP2I).abs()) {
+        if ((TEMP.value).abs() > TEMP2R.abs() + TEMP2I.abs()) {
           WORK[2 * N + JE] = ONE;
           WORK[3 * N + JE] = ZERO;
           WORK[2 * N + JE + 1] = -TEMP2R / TEMP.value;
@@ -404,8 +404,8 @@ void dtgevc(
           WORK[3 * N + JE] = BCOEFI.value * P[JE + 1][JE + 1] / TEMP.value;
         }
         XMAX = max(
-          (WORK[2 * N + JE]).abs() + (WORK[3 * N + JE]).abs(),
-          (WORK[2 * N + JE + 1]).abs() + (WORK[3 * N + JE + 1]),
+          WORK[2 * N + JE].abs() + WORK[3 * N + JE].abs(),
+          WORK[2 * N + JE + 1].abs() + (WORK[3 * N + JE + 1]),
         ).abs();
       }
 
@@ -558,11 +558,11 @@ void dtgevc(
       XMAX = ZERO;
       if (ILCPLX) {
         for (J = IBEG; J <= N; J++) {
-          XMAX = max(XMAX, (VL[J][IEIG]).abs() + (VL[J][IEIG + 1]).abs());
+          XMAX = max(XMAX, VL[J][IEIG].abs() + VL[J][IEIG + 1].abs());
         }
       } else {
         for (J = IBEG; J <= N; J++) {
-          XMAX = max(XMAX, (VL[J][IEIG]).abs());
+          XMAX = max(XMAX, VL[J][IEIG].abs());
         }
       }
 
@@ -620,7 +620,7 @@ void dtgevc(
       // (c) complex eigenvalue.
 
       if (!ILCPLX) {
-        if ((S[JE][JE]).abs() <= SAFMIN && (P[JE][JE]).abs() <= SAFMIN) {
+        if (S[JE][JE].abs() <= SAFMIN && P[JE][JE].abs() <= SAFMIN) {
           // Singular matrix pencil -- unit eigenvector
 
           IEIG--;
@@ -648,8 +648,8 @@ void dtgevc(
         // Real eigenvalue
 
         TEMP.value = ONE /
-            max((S[JE][JE]).abs() * ASCALE,
-                max((P[JE][JE]).abs() * BSCALE, SAFMIN));
+            max(S[JE][JE].abs() * ASCALE,
+                max(P[JE][JE].abs() * BSCALE, SAFMIN));
         SALFAR = (TEMP.value * S[JE][JE]) * ASCALE;
         SBETA = (TEMP.value * P[JE][JE]) * BSCALE;
         ACOEF.value = SBETA * ASCALE;
@@ -659,12 +659,12 @@ void dtgevc(
         // Scale to avoid underflow
 
         SCALE.value = ONE;
-        LSA = (SBETA).abs() >= SAFMIN && (ACOEF.value).abs() < SMALL;
-        LSB = (SALFAR).abs() >= SAFMIN && (BCOEFR.value).abs() < SMALL;
-        if (LSA) SCALE.value = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
+        LSA = SBETA.abs() >= SAFMIN && (ACOEF.value).abs() < SMALL;
+        LSB = SALFAR.abs() >= SAFMIN && (BCOEFR.value).abs() < SMALL;
+        if (LSA) SCALE.value = (SMALL / SBETA.abs()) * min(ANORM, BIG);
         if (LSB) {
           SCALE.value =
-              max(SCALE.value, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
+              max(SCALE.value, (SMALL / SALFAR.abs()) * min(BNORM, BIG));
         }
         if (LSA || LSB) {
           SCALE.value = min(
@@ -736,7 +736,7 @@ void dtgevc(
         TEMP.value = ACOEF.value * S[JE][JE - 1];
         TEMP2R = ACOEF.value * S[JE][JE] - BCOEFR.value * P[JE][JE];
         TEMP2I = -BCOEFI.value * P[JE][JE];
-        if ((TEMP.value).abs() >= (TEMP2R).abs() + (TEMP2I).abs()) {
+        if ((TEMP.value).abs() >= TEMP2R.abs() + TEMP2I.abs()) {
           WORK[2 * N + JE] = ONE;
           WORK[3 * N + JE] = ZERO;
           WORK[2 * N + JE - 1] = -TEMP2R / TEMP.value;
@@ -752,8 +752,8 @@ void dtgevc(
         }
 
         XMAX = max(
-          (WORK[2 * N + JE]).abs() + (WORK[3 * N + JE]).abs(),
-          (WORK[2 * N + JE - 1]).abs() + (WORK[3 * N + JE - 1]),
+          WORK[2 * N + JE].abs() + WORK[3 * N + JE].abs(),
+          WORK[2 * N + JE - 1].abs() + (WORK[3 * N + JE - 1]),
         ).abs();
 
         // Compute contribution from columns JE and JE-1
@@ -937,11 +937,11 @@ void dtgevc(
       XMAX = ZERO;
       if (ILCPLX) {
         for (J = 1; J <= IEND; J++) {
-          XMAX = max(XMAX, (VR[J][IEIG]).abs() + (VR[J][IEIG + 1]).abs());
+          XMAX = max(XMAX, VR[J][IEIG].abs() + VR[J][IEIG + 1].abs());
         }
       } else {
         for (J = 1; J <= IEND; J++) {
-          XMAX = max(XMAX, (VR[J][IEIG]).abs());
+          XMAX = max(XMAX, VR[J][IEIG].abs());
         }
       }
 

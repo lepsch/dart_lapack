@@ -45,7 +45,7 @@ void dlacon(
 
       if (N == 1) {
         V[1] = X[1];
-        EST.value = (V[1]).abs();
+        EST.value = V[1].abs();
         KASE.value = 0;
         return;
       }

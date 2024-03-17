@@ -269,7 +269,7 @@ void zlavsy_rook(
           if (K > 2) {
             // Swap the second of pair with Pth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }

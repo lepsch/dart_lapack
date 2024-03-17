@@ -153,7 +153,7 @@ Future<void> zget37(
         // Sort by increasing real part
 
         for (I = 1; I <= N; I++) {
-          WSRT[I] = (W[I]).toDouble();
+          WSRT[I] = W[I].toDouble();
         }
       } else {
         // Sort by increasing imaginary part
@@ -176,7 +176,7 @@ Future<void> zget37(
         }
         WSRT[KMIN] = WSRT[I];
         WSRT[I] = VMIN;
-        VCMIN = (WTMP[I]).toDouble();
+        VCMIN = WTMP[I].toDouble();
         WTMP[I] = W[KMIN];
         WTMP[KMIN] = VCMIN.toComplex();
         VMIN = STMP[KMIN];

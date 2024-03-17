@@ -134,6 +134,6 @@ void zhetd2(
       D[I] = A[I][I].toDouble();
       TAU[I] = TAUI.value;
     }
-    D[N] = (A[N][N]).toDouble();
+    D[N] = A[N][N].toDouble();
   }
 }

@@ -94,7 +94,7 @@ void dsytri(
 
         // Invert the diagonal block.
 
-        T = (A[K][K + 1]).abs();
+        T = A[K][K + 1].abs();
         AK = A[K][K] / T;
         AKP1 = A[K + 1][K + 1] / T;
         AKKP1 = A[K][K + 1] / T;
@@ -120,7 +120,7 @@ void dsytri(
         KSTEP = 2;
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the leading
         // submatrix A(1:k+1,1:k+1)

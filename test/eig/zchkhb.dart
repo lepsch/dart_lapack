@@ -330,7 +330,7 @@ void zchkhb(
                 A(K, 1), LDA, WORK, IINFO);
             for (I = 2; I <= N; I++) {
               TEMP1 =
-                  (A[K][I]).abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
+                  A[K][I].abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
               if (TEMP1 > HALF) {
                 A[K][I] = (HALF * sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs()))
                     .toComplex();

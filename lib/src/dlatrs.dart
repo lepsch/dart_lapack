@@ -150,11 +150,11 @@ void dlatrs(
             CNORM[J] = ZERO;
             if (UPPER) {
               for (I = 1; I <= J - 1; I++) {
-                CNORM[J] += TSCAL * (A[I][J]).abs();
+                CNORM[J] += TSCAL * A[I][J].abs();
               }
             } else {
               for (I = J + 1; I <= N; I++) {
-                CNORM[J] += TSCAL * (A[I][J]).abs();
+                CNORM[J] += TSCAL * A[I][J].abs();
               }
             }
           }
@@ -172,7 +172,7 @@ void dlatrs(
   // Level 2 BLAS routine DTRSV can be used.
 
   J = idamax(N, X, 1);
-  XMAX = (X[J]).abs();
+  XMAX = X[J].abs();
   XBND = XMAX;
   if (NOTRAN) {
     // Compute the growth in A * x = b.
@@ -209,7 +209,7 @@ void dlatrs(
 
           // M(j) = G(j-1) / abs(A[j][j])
 
-          TJJ = (A[J][J]).abs();
+          TJJ = A[J][J].abs();
           XBND = min(XBND, min(ONE, TJJ) * GROW);
           if (TJJ + CNORM[J] >= SMLNUM) {
             // G(j) = G(j-1)*( 1 + CNORM[j] / abs(A[j][j]) )
@@ -281,7 +281,7 @@ void dlatrs(
 
           // M(j) = M(j-1)*( 1 + CNORM[j] ) / abs(A[j][j])
 
-          TJJ = (A[J][J]).abs();
+          TJJ = A[J][J].abs();
           if (XJ > TJJ) XBND *= (TJJ / XJ);
         }
         if (!isTooSmall) {
@@ -330,7 +330,7 @@ void dlatrs(
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
         // Compute x[j] = b(j) / A[j][j], scaling x if necessary.
 
-        XJ = (X[J]).abs();
+        XJ = X[J].abs();
         var scale = true;
         if (NOUNIT) {
           TJJS = A[J][J] * TSCAL;
@@ -340,7 +340,7 @@ void dlatrs(
         }
 
         if (scale) {
-          TJJ = (TJJS).abs();
+          TJJ = TJJS.abs();
           if (TJJ > SMLNUM) {
             // abs(A[j][j]) > SMLNUM:
 
@@ -355,7 +355,7 @@ void dlatrs(
               }
             }
             X[J] /= TJJS;
-            XJ = (X[J]).abs();
+            XJ = X[J].abs();
           } else if (TJJ > ZERO) {
             // 0 < abs(A[j][j]) <= SMLNUM:
 
@@ -375,7 +375,7 @@ void dlatrs(
               XMAX *= REC;
             }
             X[J] /= TJJS;
-            XJ = (X[J]).abs();
+            XJ = X[J].abs();
           } else {
             // A[j][j] = 0:  Set x[1:n] = 0, x[j] = 1, and
             // scale = 0, and compute a solution to A*x = 0.
@@ -416,7 +416,7 @@ void dlatrs(
 
             daxpy(J - 1, -X[J] * TSCAL, A(1, J).asArray(), 1, X, 1);
             I = idamax(J - 1, X, 1);
-            XMAX = (X[I]).abs();
+            XMAX = X[I].abs();
           }
         } else {
           if (J < N) {
@@ -425,7 +425,7 @@ void dlatrs(
 
             daxpy(N - J, -X[J] * TSCAL, A(J + 1, J).asArray(), 1, X(J + 1), 1);
             I = J + idamax(N - J, X(J + 1), 1);
-            XMAX = (X[I]).abs();
+            XMAX = X[I].abs();
           }
         }
       }
@@ -436,7 +436,7 @@ void dlatrs(
         // Compute x[j] = b(j) - sum A[k][j]*x[k].
         // k<>j
 
-        XJ = (X[J]).abs();
+        XJ = X[J].abs();
         USCAL = TSCAL;
         REC = ONE / max(XMAX, ONE);
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
@@ -448,7 +448,7 @@ void dlatrs(
           } else {
             TJJS = TSCAL;
           }
-          TJJ = (TJJS).abs();
+          TJJ = TJJS.abs();
           if (TJJ > ONE) {
             // Divide by A[j][j] when scaling x if A[j][j] > 1.
 
@@ -491,7 +491,7 @@ void dlatrs(
           // was not used to scale the dotproduct.
 
           X[J] -= SUMJ;
-          XJ = (X[J]).abs();
+          XJ = X[J].abs();
           var scale = true;
           if (NOUNIT) {
             TJJS = A[J][J] * TSCAL;
@@ -505,7 +505,7 @@ void dlatrs(
           if (scale) {
             // Compute x[j] /= A[j][j], scaling if necessary.
 
-            TJJ = (TJJS).abs();
+            TJJ = TJJS.abs();
             if (TJJ > SMLNUM) {
               // abs(A[j][j]) > SMLNUM:
 
@@ -550,7 +550,7 @@ void dlatrs(
 
           X[J] /= TJJS - SUMJ;
         }
-        XMAX = max(XMAX, (X[J]).abs());
+        XMAX = max(XMAX, X[J].abs());
       }
     }
     SCALE.value /= TSCAL;

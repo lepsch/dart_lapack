@@ -171,7 +171,7 @@ void dlaqtr(
           // Scale V[1][1] (= X[J1]) and/or V[2][1] (=X[J2])
           // to avoid overflow in updating right-hand side.
 
-          XJ = max((V[1][1]).abs(), (V[2][1]).abs());
+          XJ = max(V[1][1].abs(), V[2][1].abs());
           if (XJ > ONE) {
             REC = ONE / XJ;
             if (max(WORK[J1], WORK[J2]) > (BIGNUM - XMAX) * REC) {
@@ -186,7 +186,7 @@ void dlaqtr(
             daxpy(J1 - 1, -X[J1], T(1, J1).asArray(), 1, X, 1);
             daxpy(J1 - 1, -X[J2], T(1, J2).asArray(), 1, X, 1);
             K = idamax(J1 - 1, X, 1);
-            XMAX = (X[K]).abs();
+            XMAX = X[K].abs();
           }
         }
       }
@@ -212,7 +212,7 @@ void dlaqtr(
           // Scale if necessary to avoid overflow in forming the
           // right-hand side element by inner product.
 
-          XJ = (X[J1]).abs();
+          XJ = X[J1].abs();
           if (XMAX > ONE) {
             REC = ONE / XMAX;
             if (WORK[J1] > (BIGNUM - XJ) * REC) {
@@ -242,14 +242,14 @@ void dlaqtr(
             }
           }
           X[J1] /= TMP;
-          XMAX = max(XMAX, (X[J1]).abs());
+          XMAX = max(XMAX, X[J1].abs());
         } else {
           // 2 by 2 diagonal block
 
           // Scale if necessary to avoid overflow in forming the
           // right-hand side elements by inner product.
 
-          XJ = max((X[J1]).abs(), (X[J2]).abs());
+          XJ = max(X[J1].abs(), X[J2].abs());
           if (XMAX > ONE) {
             REC = ONE / XMAX;
             if (max(WORK[J2], WORK[J1]) > (BIGNUM - XJ) * REC) {
@@ -277,7 +277,7 @@ void dlaqtr(
       }
     }
   } else {
-    SMINW = max(EPS * (W).abs(), SMIN);
+    SMINW = max(EPS * W.abs(), SMIN);
     if (NOTRAN) {
       // Solve (T + iB)*(p+iq) = c+id
 
@@ -345,7 +345,7 @@ void dlaqtr(
 
             XMAX = ZERO;
             for (K = 1; K <= J1 - 1; K++) {
-              XMAX = max(XMAX, (X[K]).abs() + (X[K + N]).abs());
+              XMAX = max(XMAX, X[K].abs() + X[K + N].abs());
             }
           }
         } else {
@@ -395,7 +395,7 @@ void dlaqtr(
 
             XMAX = ZERO;
             for (K = 1; K <= J1 - 1; K++) {
-              XMAX = max((X[K]).abs() + (X[K + N]).abs(), XMAX);
+              XMAX = max(X[K].abs() + X[K + N].abs(), XMAX);
             }
           }
         }
@@ -422,7 +422,7 @@ void dlaqtr(
           // Scale if necessary to avoid overflow in forming the
           // right-hand side element by inner product.
 
-          XJ = (X[J1]).abs() + (X[J1 + N]).abs();
+          XJ = X[J1].abs() + X[J1 + N].abs();
           if (XMAX > ONE) {
             REC = ONE / XMAX;
             if (WORK[J1] > (BIGNUM - XJ) * REC) {
@@ -439,7 +439,7 @@ void dlaqtr(
             X[J1] -= B[J1] * X[N + 1];
             X[N + J1] += B[J1] * X[1];
           }
-          XJ = (X[J1]).abs() + (X[J1 + N]).abs();
+          XJ = X[J1].abs() + X[J1 + N].abs();
 
           Z = W;
           if (J1 == 1) Z = B[1];
@@ -447,7 +447,7 @@ void dlaqtr(
           // Scale if necessary to avoid overflow in
           // complex division
 
-          TJJ = (T[J1][J1]).abs() + (Z).abs();
+          TJJ = T[J1][J1].abs() + Z.abs();
           TMP = T[J1][J1];
           if (TJJ < SMINW) {
             TMP = SMINW;
@@ -466,7 +466,7 @@ void dlaqtr(
           dladiv(X[J1], X[N + J1], TMP, -Z, SR, SI);
           X[J1] = SR.value;
           X[J1 + N] = SI.value;
-          XMAX = max((X[J1]).abs() + (X[J1 + N]).abs(), XMAX);
+          XMAX = max(X[J1].abs() + X[J1 + N].abs(), XMAX);
         } else {
           // 2 by 2 diagonal block
 
@@ -474,8 +474,8 @@ void dlaqtr(
           // right-hand side element by inner product.
 
           XJ = max(
-            (X[J1]).abs() + (X[N + J1]).abs(),
-            (X[J2]).abs() + (X[N + J2]),
+            X[J1].abs() + X[N + J1].abs(),
+            X[J2].abs() + (X[N + J2]),
           ).abs();
           if (XMAX > ONE) {
             REC = ONE / XMAX;
@@ -509,8 +509,8 @@ void dlaqtr(
           X[J2] = V[2][1];
           X[N + J1] = V[1][2];
           X[N + J2] = V[2][2];
-          XMAX = max((X[J1]).abs() + (X[N + J1]).abs(),
-              max((X[J2]).abs() + (X[N + J2]).abs(), XMAX));
+          XMAX = max(X[J1].abs() + X[N + J1].abs(),
+              max(X[J2].abs() + X[N + J2].abs(), XMAX));
         }
       }
     }

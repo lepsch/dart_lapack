@@ -77,7 +77,7 @@ void dlaorhr_col_getrfnp2(
 
     // Construct the subdiagonal elements of L
 
-    if ((A[1][1]).abs() >= SFMIN) {
+    if (A[1][1].abs() >= SFMIN) {
       dscal(M - 1, ONE / A[1][1], A(2, 1).asArray(), 1);
     } else {
       for (I = 2; I <= M; I++) {

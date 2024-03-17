@@ -24,7 +24,7 @@ void dlaqr1(
   }
 
   if (N == 2) {
-    S = (H[1][1] - SR2).abs() + (SI2).abs() + (H[2][1]).abs();
+    S = (H[1][1] - SR2).abs() + SI2.abs() + H[2][1].abs();
     if (S == ZERO) {
       V[1] = ZERO;
       V[2] = ZERO;
@@ -36,7 +36,7 @@ void dlaqr1(
       V[2] = H21S * (H[1][1] + H[2][2] - SR1 - SR2);
     }
   } else {
-    S = (H[1][1] - SR2).abs() + (SI2).abs() + (H[2][1]).abs() + (H[3][1]).abs();
+    S = (H[1][1] - SR2).abs() + SI2.abs() + H[2][1].abs() + H[3][1].abs();
     if (S == ZERO) {
       V[1] = ZERO;
       V[2] = ZERO;

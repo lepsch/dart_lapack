@@ -51,8 +51,8 @@ void zgesc2(
   // Check for scaling
 
   I = izamax(N, RHS, 1);
-  if (TWO * SMLNUM * (RHS[I]).abs() > A[N][N].abs()) {
-    TEMP = Complex(ONE / TWO, ZERO) / (RHS[I]).abs().toComplex();
+  if (TWO * SMLNUM * RHS[I].abs() > A[N][N].abs()) {
+    TEMP = Complex(ONE / TWO, ZERO) / RHS[I].abs().toComplex();
     zscal(N, TEMP, RHS(1), 1);
     SCALE.value *= TEMP.toDouble();
   }

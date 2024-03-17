@@ -97,7 +97,7 @@ void zlar1v(
     S = WORK[INDS + B1 - 1] - LAMBDA;
     for (I = B1; I <= R1 - 1; I++) {
       DPLUS = D[I] + S;
-      if ((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
+      if (DPLUS.abs() < PIVMIN) DPLUS = -PIVMIN;
       WORK[INDLPL + I] = LD[I] / DPLUS;
       if (DPLUS < ZERO) NEG1++;
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
@@ -106,7 +106,7 @@ void zlar1v(
     }
     for (I = R1; I <= R2 - 1; I++) {
       DPLUS = D[I] + S;
-      if ((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
+      if (DPLUS.abs() < PIVMIN) DPLUS = -PIVMIN;
       WORK[INDLPL + I] = LD[I] / DPLUS;
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
       if (WORK[INDLPL + I] == ZERO) WORK[INDS + I] = LLD[I];
@@ -135,7 +135,7 @@ void zlar1v(
     NEG2 = 0;
     for (I = BN - 1; I >= R1; I--) {
       DMINUS = LLD[I] + WORK[INDP + I];
-      if ((DMINUS).abs() < PIVMIN) DMINUS = -PIVMIN;
+      if (DMINUS.abs() < PIVMIN) DMINUS = -PIVMIN;
       TMP = D[I] / DMINUS;
       if (DMINUS < ZERO) NEG2++;
       WORK[INDUMN + I] = L[I] * TMP;
@@ -159,7 +159,7 @@ void zlar1v(
   for (I = R1; I <= R2 - 1; I++) {
     TMP = WORK[INDS + I] + WORK[INDP + I];
     if (TMP == ZERO) TMP = EPS * WORK[INDS + I];
-    if ((TMP).abs() <= (MINGMA.value).abs()) {
+    if (TMP.abs() <= (MINGMA.value).abs()) {
       MINGMA.value = TMP;
       R.value = I + 1;
     }
@@ -192,7 +192,7 @@ void zlar1v(
       } else {
         Z[I] = -(WORK[INDLPL + I].toComplex() * Z[I + 1]);
       }
-      if ((Z[I].abs() + (Z[I + 1]).abs()) * LD[I].abs() < GAPTOL) {
+      if ((Z[I].abs() + Z[I + 1].abs()) * LD[I].abs() < GAPTOL) {
         Z[I] = Complex.zero;
         ISUPPZ[1] = I + 1;
         break;
@@ -205,7 +205,7 @@ void zlar1v(
   if (!SAWNAN1 && !SAWNAN2) {
     for (I = R.value; I <= BN - 1; I++) {
       Z[I + 1] = -(WORK[INDUMN + I].toComplex() * Z[I]);
-      if ((Z[I].abs() + (Z[I + 1]).abs()) * LD[I].abs() < GAPTOL) {
+      if ((Z[I].abs() + Z[I + 1].abs()) * LD[I].abs() < GAPTOL) {
         Z[I + 1] = Complex.zero;
         ISUPPZ[2] = I;
         break;
@@ -220,7 +220,7 @@ void zlar1v(
       } else {
         Z[I + 1] = -(WORK[INDUMN + I].toComplex() * Z[I]);
       }
-      if ((Z[I].abs() + (Z[I + 1]).abs()) * LD[I].abs() < GAPTOL) {
+      if ((Z[I].abs() + Z[I + 1].abs()) * LD[I].abs() < GAPTOL) {
         Z[I + 1] = Complex.zero;
         ISUPPZ[2] = I;
         break;

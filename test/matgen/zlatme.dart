@@ -129,9 +129,9 @@ void zlatme(
     INFO.value = -1;
   } else if (IDIST == -1) {
     INFO.value = -2;
-  } else if ((MODE).abs() > 6) {
+  } else if (MODE.abs() > 6) {
     INFO.value = -5;
-  } else if ((MODE != 0 && (MODE).abs() != 6) && COND < ONE) {
+  } else if ((MODE != 0 && MODE.abs() != 6) && COND < ONE) {
     INFO.value = -6;
   } else if (IRSIGN == -1) {
     INFO.value = -9;
@@ -141,7 +141,7 @@ void zlatme(
     INFO.value = -11;
   } else if (BADS) {
     INFO.value = -12;
-  } else if (ISIM == 1 && (MODES).abs() > 5) {
+  } else if (ISIM == 1 && MODES.abs() > 5) {
     INFO.value = -13;
   } else if (ISIM == 1 && MODES != 0 && CONDS < ONE) {
     INFO.value = -14;
@@ -175,7 +175,7 @@ void zlatme(
     INFO.value = 1;
     return;
   }
-  if (MODE != 0 && (MODE).abs() != 6) {
+  if (MODE != 0 && MODE.abs() != 6) {
     // Scale by DMAX
 
     TEMP = D[1].abs();

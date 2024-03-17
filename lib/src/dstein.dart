@@ -153,10 +153,10 @@ void dstein(
 
       // Compute reorthogonalization criterion and stopping criterion.
 
-      ONENRM = (D[B1]).abs() + (E[B1]).abs();
-      ONENRM = max(ONENRM, (D[BN]).abs() + (E[BN - 1]).abs());
+      ONENRM = D[B1].abs() + E[B1].abs();
+      ONENRM = max(ONENRM, D[BN].abs() + E[BN - 1].abs());
       for (I = B1 + 1; I <= BN - 1; I++) {
-        ONENRM = max(ONENRM, (D[I]).abs() + (E[I - 1]).abs() + (E[I]).abs());
+        ONENRM = max(ONENRM, D[I].abs() + E[I - 1].abs() + E[I].abs());
       }
       ORTOL = ODM3 * ONENRM;
 
@@ -222,7 +222,7 @@ void dstein(
           JMAX = idamax(BLKSIZ, WORK(INDRV1 + 1), 1);
           SCL = BLKSIZ *
               ONENRM *
-              max(EPS, (WORK[INDRV4 + BLKSIZ]).abs()) /
+              max(EPS, WORK[INDRV4 + BLKSIZ].abs()) /
               (WORK[INDRV1 + JMAX].abs());
           dscal(BLKSIZ, SCL, WORK(INDRV1 + 1), 1);
 
@@ -256,7 +256,7 @@ void dstein(
           // Check the infinity norm of the iterate.
 
           JMAX = idamax(BLKSIZ, WORK(INDRV1 + 1), 1);
-          NRM = (WORK[INDRV1 + JMAX]).abs();
+          NRM = WORK[INDRV1 + JMAX].abs();
 
           // Continue for additional iterations after norm reaches
           // stopping criterion.

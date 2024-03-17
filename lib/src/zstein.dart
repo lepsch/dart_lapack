@@ -220,7 +220,7 @@ void zstein(
           JMAX = idamax(BLKSIZ, WORK(INDRV1 + 1), 1);
           SCL = BLKSIZ *
               ONENRM *
-              max(EPS, (WORK[INDRV4 + BLKSIZ]).abs()) /
+              max(EPS, WORK[INDRV4 + BLKSIZ].abs()) /
               (WORK[INDRV1 + JMAX].abs());
           dscal(BLKSIZ, SCL, WORK(INDRV1 + 1), 1);
 
@@ -247,12 +247,11 @@ void zstein(
               for (I = GPIND; I <= J - 1; I++) {
                 ZTR = ZERO;
                 for (JR = 1; JR <= BLKSIZ; JR++) {
-                  ZTR =
-                      ZTR + WORK[INDRV1 + JR] * (Z[B1 - 1 + JR][I]).toDouble();
+                  ZTR = ZTR + WORK[INDRV1 + JR] * Z[B1 - 1 + JR][I].toDouble();
                 }
                 for (JR = 1; JR <= BLKSIZ; JR++) {
                   WORK[INDRV1 + JR] =
-                      WORK[INDRV1 + JR] - ZTR * (Z[B1 - 1 + JR][I]).toDouble();
+                      WORK[INDRV1 + JR] - ZTR * Z[B1 - 1 + JR][I].toDouble();
                 }
               }
             }
@@ -261,7 +260,7 @@ void zstein(
           // Check the infinity norm of the iterate.
 
           JMAX = idamax(BLKSIZ, WORK(INDRV1 + 1), 1);
-          NRM = (WORK[INDRV1 + JMAX]).abs();
+          NRM = WORK[INDRV1 + JMAX].abs();
 
           // Continue for additional iterations after norm reaches
           // stopping criterion.

@@ -77,7 +77,7 @@ double dla_gbrcond(
         }
       } else if (CMODE == 0) {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP += (AB[KD + I - J][J]).abs();
+          TMP += AB[KD + I - J][J].abs();
         }
       } else {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
@@ -95,7 +95,7 @@ double dla_gbrcond(
         }
       } else if (CMODE == 0) {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP += (AB[KE - I + J][I]).abs();
+          TMP += AB[KE - I + J][I].abs();
         }
       } else {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {

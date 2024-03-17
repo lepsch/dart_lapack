@@ -194,9 +194,9 @@ void dlatmt(
     INFO.value = -3;
   } else if (ISYM == -1) {
     INFO.value = -5;
-  } else if ((MODE).abs() > 6) {
+  } else if (MODE.abs() > 6) {
     INFO.value = -7;
-  } else if ((MODE != 0 && (MODE).abs() != 6) && COND < ONE) {
+  } else if ((MODE != 0 && MODE.abs() != 6) && COND < ONE) {
     INFO.value = -8;
   } else if (KL < 0) {
     INFO.value = -10;
@@ -249,7 +249,7 @@ void dlatmt(
 
     TEMP.value = D[1].abs();
     for (I = 2; I <= RANK; I++) {
-      TEMP.value = max(TEMP.value, (D[I]).abs());
+      TEMP.value = max(TEMP.value, D[I].abs());
     }
 
     if (TEMP.value > ZERO) {

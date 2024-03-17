@@ -188,7 +188,7 @@ void dlasd4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -202,7 +202,7 @@ void dlasd4(
 
     // Test for convergence
 
-    if ((W).abs() <= EPS * ERRETM) {
+    if (W.abs() <= EPS * ERRETM) {
       return;
     }
 
@@ -214,7 +214,7 @@ void dlasd4(
     C = W - DTNSQ1 * DPSI - DTNSQ * DPHI;
     A = (DTNSQ + DTNSQ1) * W - DTNSQ * DTNSQ1 * (DPSI + DPHI);
     B = DTNSQ * DTNSQ1 * W;
-    if (C < ZERO) C = (C).abs();
+    if (C < ZERO) C = C.abs();
     if (C == ZERO) {
       ETA.value = RHO - SIGMA.value * SIGMA.value;
     } else if (A >= ZERO) {
@@ -254,7 +254,7 @@ void dlasd4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -274,7 +274,7 @@ void dlasd4(
     for (NITER = ITER; NITER <= MAXIT; NITER++) {
       // Test for convergence
 
-      if ((W).abs() <= EPS * ERRETM) {
+      if (W.abs() <= EPS * ERRETM) {
         return;
       }
 
@@ -321,7 +321,7 @@ void dlasd4(
         DPSI += TEMP * TEMP;
         ERRETM += PSI;
       }
-      ERRETM = (ERRETM).abs();
+      ERRETM = ERRETM.abs();
 
       // Evaluate PHI and the derivative DPHI
 
@@ -396,7 +396,7 @@ void dlasd4(
 
       TAU = TAU2 / (D[I] + sqrt(D[I] * D[I] + TAU2));
       TEMP = sqrt(EPS);
-      if ((D[I] <= TEMP * D[IP1]) && ((Z[I]).abs() <= TEMP) && (D[I] > ZERO)) {
+      if ((D[I] <= TEMP * D[IP1]) && (Z[I].abs() <= TEMP) && (D[I] > ZERO)) {
         TAU = min(TEN * D[I], SGUB);
         GEOMAVG = true;
       }
@@ -443,7 +443,7 @@ void dlasd4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -473,12 +473,12 @@ void dlasd4(
     DW = DPSI + DPHI + TEMP * TEMP;
     TEMP = Z[II] * TEMP;
     W += TEMP;
-    ERRETM = EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * (TEMP).abs();
+    ERRETM = EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * TEMP.abs();
 // $          + ABS( TAU2 )*DW
 
     // Test for convergence
 
-    if ((W).abs() <= EPS * ERRETM) {
+    if (W.abs() <= EPS * ERRETM) {
       return;
     }
 
@@ -633,7 +633,7 @@ void dlasd4(
       DPSI += TEMP * TEMP;
       ERRETM += PSI;
     }
-    ERRETM = (ERRETM).abs();
+    ERRETM = ERRETM.abs();
 
     // Evaluate PHI and the derivative DPHI
 
@@ -651,14 +651,14 @@ void dlasd4(
     DW = DPSI + DPHI + TEMP * TEMP;
     TEMP = Z[II] * TEMP;
     W = RHOINV + PHI + PSI + TEMP;
-    ERRETM = EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * (TEMP).abs();
+    ERRETM = EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * TEMP.abs();
 // $          + ABS( TAU2 )*DW
 
     SWTCH = false;
     if (ORGATI) {
-      if (-W > (PREW).abs() / TEN) SWTCH = true;
+      if (-W > PREW.abs() / TEN) SWTCH = true;
     } else {
-      if (W > (PREW).abs() / TEN) SWTCH = true;
+      if (W > PREW.abs() / TEN) SWTCH = true;
     }
 
     // Main loop to update the values of the array   DELTA and WORK
@@ -668,7 +668,7 @@ void dlasd4(
     for (NITER = ITER; NITER <= MAXIT; NITER++) {
       // Test for convergence
 
-      if ((W).abs() <= EPS * ERRETM) {
+      if (W.abs() <= EPS * ERRETM) {
         // $ || (SGUB-SGLB) <= EIGHT*ABS(SGUB+SGLB) ) THEN
         return;
       }
@@ -855,7 +855,7 @@ void dlasd4(
         DPSI += TEMP * TEMP;
         ERRETM += PSI;
       }
-      ERRETM = (ERRETM).abs();
+      ERRETM = ERRETM.abs();
 
       // Evaluate PHI and the derivative DPHI
 
@@ -873,11 +873,10 @@ void dlasd4(
       DW = DPSI + DPHI + TEMP * TEMP;
       TEMP = Z[II] * TEMP;
       W = RHOINV + PHI + PSI + TEMP;
-      ERRETM =
-          EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * (TEMP).abs();
+      ERRETM = EIGHT * (PHI - PSI) + ERRETM + TWO * RHOINV + THREE * TEMP.abs();
       // $             + ABS( TAU2 )*DW
 
-      if (W * PREW > ZERO && (W).abs() > (PREW).abs() / TEN) SWTCH = !SWTCH;
+      if (W * PREW > ZERO && W.abs() > PREW.abs() / TEN) SWTCH = !SWTCH;
     }
 
     // Return with INFO.value = 1, NITER = MAXIT and not converged

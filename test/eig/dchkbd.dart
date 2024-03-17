@@ -640,7 +640,7 @@ void dchkbd(
         for (J = 1; J <= MNMIN; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(sqrt(UNFL) * max(S1[1], ONE),
-                  ULP * max((S1[J]).abs(), (S2[J]).abs()));
+                  ULP * max(S1[J].abs(), S2[J].abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
 
@@ -755,7 +755,7 @@ void dchkbd(
         for (J = 1; J <= MNMIN; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(sqrt(UNFL) * max(S1[1], ONE),
-                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
+                  ULP * max(S1[1].abs(), S2[1].abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
 
@@ -902,7 +902,7 @@ void dchkbd(
         for (J = 1; J <= MNMIN; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(sqrt(UNFL) * max(S1[1], ONE),
-                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
+                  ULP * max(S1[1].abs(), S2[1].abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
         RESULT[24] = TEMP2;
@@ -1037,7 +1037,7 @@ void dchkbd(
         for (J = 1; J <= NS1.value; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(sqrt(UNFL) * max(S1[1], ONE),
-                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
+                  ULP * max(S1[1].abs(), S2[1].abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
         RESULT[29] = TEMP2;
@@ -1184,7 +1184,7 @@ void dchkbd(
         for (J = 1; J <= NS1.value; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(sqrt(UNFL) * max(S1[1], ONE),
-                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
+                  ULP * max(S1[1].abs(), S2[1].abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
         RESULT[34] = TEMP2;

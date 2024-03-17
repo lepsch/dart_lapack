@@ -102,7 +102,7 @@ void dlaln2(
       // C = ca A - w D
 
       CSR = CA * A[1][1] - WR * D1;
-      CNORM = (CSR).abs();
+      CNORM = CSR.abs();
 
       // If | C | < SMINI, use C = SMINI
 
@@ -114,7 +114,7 @@ void dlaln2(
 
       // Check scaling for  X = B / C
 
-      BNORM = (B[1][1]).abs();
+      BNORM = B[1][1].abs();
       if (CNORM < ONE && BNORM > ONE) {
         if (BNORM > BIGNUM * CNORM) SCALE.value = ONE / BNORM;
       }
@@ -122,7 +122,7 @@ void dlaln2(
       // Compute X
 
       X[1][1] = (B[1][1] * SCALE.value) / CSR;
-      XNORM.value = (X[1][1]).abs();
+      XNORM.value = X[1][1].abs();
     } else {
       // Complex 1x1 system (w is complex)
 
@@ -130,7 +130,7 @@ void dlaln2(
 
       CSR = CA * A[1][1] - WR * D1;
       CSI = -WI * D1;
-      CNORM = (CSR).abs() + (CSI).abs();
+      CNORM = CSR.abs() + CSI.abs();
 
       // If | C | < SMINI, use C = SMINI
 
@@ -143,7 +143,7 @@ void dlaln2(
 
       // Check scaling for  X = B / C
 
-      BNORM = (B[1][1]).abs() + (B[1][2]).abs();
+      BNORM = B[1][1].abs() + B[1][2].abs();
       if (CNORM < ONE && BNORM > ONE) {
         if (BNORM > BIGNUM * CNORM) SCALE.value = ONE / BNORM;
       }
@@ -152,7 +152,7 @@ void dlaln2(
 
       dladiv(SCALE.value * B[1][1], SCALE.value * B[1][2], CSR, CSI,
           X.box(1, 1), X.box(1, 2));
-      XNORM.value = (X[1][1]).abs() + (X[1][2]).abs();
+      XNORM.value = X[1][1].abs() + X[1][2].abs();
     }
   } else {
     // 2x2 System
@@ -178,8 +178,8 @@ void dlaln2(
       ICMAX = 0;
 
       for (J = 1; J <= 4; J++) {
-        if ((CRV[J]).abs() > CMAX) {
-          CMAX = (CRV[J]).abs();
+        if (CRV[J].abs() > CMAX) {
+          CMAX = CRV[J].abs();
           ICMAX = J;
         }
       }
@@ -187,7 +187,7 @@ void dlaln2(
       // If norm(C) < SMINI, use SMINI*identity.
 
       if (CMAX < SMINI) {
-        BNORM = max((B[1][1]).abs(), (B[2][1]).abs());
+        BNORM = max(B[1][1].abs(), B[2][1].abs());
         if (SMINI < ONE && BNORM > ONE) {
           if (BNORM > BIGNUM * SMINI) SCALE.value = ONE / BNORM;
         }
@@ -211,7 +211,7 @@ void dlaln2(
 
       // If smaller pivot < SMINI, use SMINI
 
-      if ((UR22).abs() < SMINI) {
+      if (UR22.abs() < SMINI) {
         UR22 = SMINI;
         INFO.value = 1;
       }
@@ -223,9 +223,9 @@ void dlaln2(
         BR2 = B[2][1];
       }
       BR2 -= LR21 * BR1;
-      BBND = max((BR1 * (UR22 * UR11R).abs()), (BR2).abs());
-      if (BBND > ONE && (UR22).abs() < ONE) {
-        if (BBND >= BIGNUM * (UR22).abs()) SCALE.value = ONE / BBND;
+      BBND = max((BR1 * (UR22 * UR11R).abs()), BR2.abs());
+      if (BBND > ONE && UR22.abs() < ONE) {
+        if (BBND >= BIGNUM * UR22.abs()) SCALE.value = ONE / BBND;
       }
 
       XR2.value = (BR2 * SCALE.value) / UR22;
@@ -237,7 +237,7 @@ void dlaln2(
         X[1][1] = XR1;
         X[2][1] = XR2.value;
       }
-      XNORM.value = max((XR1).abs(), (XR2.value).abs());
+      XNORM.value = max(XR1.abs(), (XR2.value).abs());
 
       // Further scaling if  norm(A) norm(X) > overflow
 
@@ -263,8 +263,8 @@ void dlaln2(
       ICMAX = 0;
 
       for (J = 1; J <= 4; J++) {
-        if ((CRV[J]).abs() + (CIV[J]).abs() > CMAX) {
-          CMAX = (CRV[J]).abs() + (CIV[J]).abs();
+        if (CRV[J].abs() + CIV[J].abs() > CMAX) {
+          CMAX = CRV[J].abs() + CIV[J].abs();
           ICMAX = J;
         }
       }
@@ -273,8 +273,7 @@ void dlaln2(
 
       if (CMAX < SMINI) {
         BNORM =
-            max((B[1][1]).abs() + (B[1][2]).abs(), (B[2][1]).abs() + (B[2][2]))
-                .abs();
+            max(B[1][1].abs() + B[1][2].abs(), B[2][1].abs() + (B[2][2])).abs();
         if (SMINI < ONE && BNORM > ONE) {
           if (BNORM > BIGNUM * SMINI) SCALE.value = ONE / BNORM;
         }

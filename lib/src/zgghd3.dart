@@ -303,7 +303,7 @@ void zgghd3(
 
         if (JJ > 0) {
           for (I = JJ; I >= 1; I--) {
-            C.value = (A[J + 1 + I][J]).toDouble();
+            C.value = A[J + 1 + I][J].toDouble();
             zrot(
                 IHI - TOP,
                 A(TOP + 1, J + I + 1).asArray(),

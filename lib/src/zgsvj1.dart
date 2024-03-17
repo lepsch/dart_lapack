@@ -253,12 +253,12 @@ void zgsvj1(
                 }
 
                 // AAPQ *= CONJG(CWORK(p))*CWORK(q)
-                AAPQ1 = -(AAPQ).abs();
+                AAPQ1 = -AAPQ.abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
                 // TO rotate or NOT to rotate, THAT is the question ...
 
-                if ((AAPQ1).abs() > TOL) {
+                if (AAPQ1.abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
                   NOTROT = 0;
 // [RTD]      ROTATED++
@@ -271,7 +271,7 @@ void zgsvj1(
                     THETA = -HALF * (AQOAP - APOAQ).abs() / AAPQ1;
                     if (AAQQ.value > AAPP0) THETA = -THETA;
 
-                    if ((THETA).abs() > BIGTHETA) {
+                    if (THETA.abs() > BIGTHETA) {
                       T.value = HALF / THETA;
                       CS = ONE;
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,
@@ -294,7 +294,7 @@ void zgsvj1(
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));
                       CS = sqrt(ONE / (ONE + T.value * T.value));
                       SN = T.value * CS;
-                      MXSINJ = max(MXSINJ, (SN).abs());
+                      MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
                       AAPP.value *=
@@ -401,7 +401,7 @@ void zgsvj1(
       // end of the jbc-loop
       // 2011 bailed out of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-        SVA[p] = (SVA[p]).abs();
+        SVA[p] = SVA[p].abs();
       }
     }
     // 2000 :: end of the ibr-loop
@@ -421,7 +421,7 @@ void zgsvj1(
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
 
     if ((i > SWBAND + 1) &&
-        (MXAAPQ < sqrt((N).toDouble()) * TOL) &&
+        (MXAAPQ < sqrt(N.toDouble()) * TOL) &&
         (N.toDouble() * MXAAPQ * MXSINJ < TOL)) {
       exhausted = false;
       break;

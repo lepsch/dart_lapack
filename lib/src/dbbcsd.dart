@@ -571,7 +571,7 @@ void dbbcsd(
         cos(THETA[IMAX - 1]) * B22D[IMAX - 1];
     Y2 = sin(THETA[IMAX - 1]) * B12BULGE + cos(THETA[IMAX - 1]) * B22BULGE;
 
-    PHI[IMAX - 1] = atan2((X1).abs(), sqrt(pow(Y1, 2) + pow(Y2, 2)));
+    PHI[IMAX - 1] = atan2(X1.abs(), sqrt(pow(Y1, 2) + pow(Y2, 2)));
 
     // Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
 
@@ -672,7 +672,7 @@ void dbbcsd(
     X1 = cos(PHI[IMAX - 1]) * B11D[IMAX] + sin(PHI[IMAX - 1]) * B12E[IMAX - 1];
     Y1 = cos(PHI[IMAX - 1]) * B21D[IMAX] + sin(PHI[IMAX - 1]) * B22E[IMAX - 1];
 
-    THETA[IMAX] = atan2((Y1).abs(), (X1).abs());
+    THETA[IMAX] = atan2(Y1.abs(), X1.abs());
 
     // Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
     // and B22(IMAX,IMAX-1)

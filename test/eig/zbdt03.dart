@@ -59,9 +59,9 @@ void zbdt03(
         WORK[J] += D[J].toComplex();
         if (J > 1) {
           WORK[J - 1] += E[J - 1].toComplex();
-          BNORM = max(BNORM, (D[J]).abs() + (E[J - 1]).abs());
+          BNORM = max(BNORM, D[J].abs() + E[J - 1].abs());
         } else {
-          BNORM = max(BNORM, (D[J]).abs());
+          BNORM = max(BNORM, D[J].abs());
         }
         RESID.value = max(RESID.value, dzasum(N, WORK, 1));
       }
@@ -77,9 +77,9 @@ void zbdt03(
         WORK[J] += D[J].toComplex();
         if (J < N) {
           WORK[J + 1] += E[J].toComplex();
-          BNORM = max(BNORM, (D[J]).abs() + (E[J]).abs());
+          BNORM = max(BNORM, D[J].abs() + E[J].abs());
         } else {
-          BNORM = max(BNORM, (D[J]).abs());
+          BNORM = max(BNORM, D[J].abs());
         }
         RESID.value = max(RESID.value, dzasum(N, WORK, 1));
       }
@@ -97,7 +97,7 @@ void zbdt03(
       RESID.value = max(RESID.value, dzasum(N, WORK, 1));
     }
     J = idamax(N, D, 1);
-    BNORM = (D[J]).abs();
+    BNORM = D[J].abs();
   }
 
   // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
@@ -111,11 +111,11 @@ void zbdt03(
       RESID.value = (RESID.value / BNORM) / (N.toDouble() * EPS);
     } else {
       if (BNORM < ONE) {
-        RESID.value = (min(RESID.value, (N).toDouble() * BNORM) / BNORM) /
+        RESID.value = (min(RESID.value, N.toDouble() * BNORM) / BNORM) /
             (N.toDouble() * EPS);
       } else {
         RESID.value =
-            min(RESID.value / BNORM, (N).toDouble()) / (N.toDouble() * EPS);
+            min(RESID.value / BNORM, N.toDouble()) / (N.toDouble() * EPS);
       }
     }
   }

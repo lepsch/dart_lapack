@@ -262,7 +262,7 @@ void dlasyf_rook(
 
           dcopy(K, W(1, KW).asArray(), 1, A(1, K).asArray(), 1);
           if (K > 1) {
-            if ((A[K][K]).abs() >= SFMIN) {
+            if (A[K][K].abs() >= SFMIN) {
               R1 = ONE / A[K][K];
               dscal(K - 1, R1, A(1, K).asArray(), 1);
             } else if (A[K][K] != ZERO) {
@@ -396,7 +396,7 @@ void dlasyf_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (W[K][K]).abs();
+      ABSAKK = W[K][K].abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -551,7 +551,7 @@ void dlasyf_rook(
 
           dcopy(N - K + 1, W(K, K).asArray(), 1, A(K, K).asArray(), 1);
           if (K < N) {
-            if ((A[K][K]).abs() >= SFMIN) {
+            if (A[K][K].abs() >= SFMIN) {
               R1 = ONE / A[K][K];
               dscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else if (A[K][K] != ZERO) {

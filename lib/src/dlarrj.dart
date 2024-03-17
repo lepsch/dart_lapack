@@ -63,7 +63,7 @@ void dlarrj(
     MID = W[II];
     RIGHT = W[II] + WERR[II];
     WIDTH = RIGHT - MID;
-    TMP = max((LEFT).abs(), (RIGHT).abs());
+    TMP = max(LEFT.abs(), RIGHT.abs());
 
     // The following test prevents the test of converged intervals
     if (WIDTH < RTOL * TMP) {
@@ -148,7 +148,7 @@ void dlarrj(
 
       // semiwidth of interval
       WIDTH = RIGHT - MID;
-      TMP = max((LEFT).abs(), (RIGHT).abs());
+      TMP = max(LEFT.abs(), RIGHT.abs());
       if ((WIDTH < RTOL * TMP) || (ITER == MAXITR)) {
         // reduce number of unconverged intervals
         NINT--;

@@ -379,7 +379,7 @@ void zgbbrd(
 
   T = AB[KU + 1][1];
   for (I = 1; I <= MINMN; I++) {
-    ABST = (T).abs();
+    ABST = T.abs();
     D[I] = ABST;
     if (ABST != ZERO) {
       T /= ABST.toComplex();
@@ -398,7 +398,7 @@ void zgbbrd(
         } else {
           T = AB[KU][I + 1] * T.conjugate();
         }
-        ABST = (T).abs();
+        ABST = T.abs();
         E[I] = ABST;
         if (ABST != ZERO) {
           T /= ABST.toComplex();

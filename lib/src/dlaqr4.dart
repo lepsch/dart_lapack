@@ -257,7 +257,7 @@ void dlaqr4(
           NW = NH;
         } else {
           KWTOP = KBOT - NW + 1;
-          if ((H[KWTOP][KWTOP - 1]).abs() > (H[KWTOP - 1][KWTOP - 2]).abs()) {
+          if (H[KWTOP][KWTOP - 1].abs() > H[KWTOP - 1][KWTOP - 2].abs()) {
             NW++;
           }
         }
@@ -351,7 +351,7 @@ void dlaqr4(
         if ((NDFL % KEXSH) == 0) {
           KS = KBOT - NS + 1;
           for (I = KBOT; I >= max(KS + 1, KTOP + 2); I -= 2) {
-            SS = (H[I][I - 1]).abs() + (H[I - 1][I - 2]).abs();
+            SS = H[I][I - 1].abs() + H[I - 1][I - 2].abs();
             AA.value = WILK1 * SS + H[I][I];
             BB.value = SS;
             CC.value = WILK2 * SS;
@@ -405,8 +405,8 @@ void dlaqr4(
               if (SORTED) break;
               SORTED = true;
               for (I = KS; I <= K - 1; I++) {
-                if ((WR[I]).abs() + (WI[I]).abs() <
-                    (WR[I + 1]).abs() + (WI[I + 1]).abs()) {
+                if (WR[I].abs() + WI[I].abs() <
+                    WR[I + 1].abs() + WI[I + 1].abs()) {
                   SORTED = false;
 
                   SWAP = WR[I];

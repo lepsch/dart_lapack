@@ -93,7 +93,7 @@ void dtbt05(
       if (UPPER) {
         if (!NOTRAN) {
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
-            TMP += (AB[KD + 1 - I + J][I]).abs() * X[J][K].abs();
+            TMP += AB[KD + 1 - I + J][I].abs() * X[J][K].abs();
           }
           if (UNIT) TMP += X[I][K].abs();
         } else {

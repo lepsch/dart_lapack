@@ -68,10 +68,10 @@ void dget33(
                   T[2][1] = -VAL[I3] * VM[IM3];
                   T[2][2] = VAL[I4] * VM[IM4];
                   TNRM = max(
-                      (T[1][1]).abs(),
+                      T[1][1].abs(),
                       max(
-                        (T[1][2]).abs(),
-                        max((T[2][1]).abs(), (T[2][2]).abs()),
+                        T[1][2].abs(),
+                        max(T[2][1].abs(), T[2][2].abs()),
                       ));
                   T1[1][1] = T[1][1];
                   T1[1][2] = T[1][2];
@@ -109,7 +109,7 @@ void dget33(
                       for (J3 = 1; J3 <= 2; J3++) {
                         SUM -= Q[J3][J1] * T2[J3][J2];
                       }
-                      RES += (SUM).abs() / EPS / TNRM;
+                      RES += SUM.abs() / EPS / TNRM;
                     }
                   }
                   if (T[2][1] != ZERO &&

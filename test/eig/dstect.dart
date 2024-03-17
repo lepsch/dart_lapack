@@ -27,9 +27,9 @@ void dstect(
 
   // Find largest entry
 
-  MX = (A[1]).abs();
+  MX = A[1].abs();
   for (I = 1; I <= N - 1; I++) {
-    MX = max(MX, max((A[I + 1]).abs(), (B[I]).abs()));
+    MX = max(MX, max(A[I + 1].abs(), B[I].abs()));
   }
 
   // Handle easy cases, including zero matrix

@@ -202,9 +202,9 @@ void zlatmt(
     INFO.value = -3;
   } else if (ISYM == -1) {
     INFO.value = -5;
-  } else if ((MODE).abs() > 6) {
+  } else if (MODE.abs() > 6) {
     INFO.value = -7;
-  } else if ((MODE != 0 && (MODE).abs() != 6) && COND < ONE) {
+  } else if ((MODE != 0 && MODE.abs() != 6) && COND < ONE) {
     INFO.value = -8;
   } else if (KL < 0) {
     INFO.value = -10;
@@ -252,12 +252,12 @@ void zlatmt(
     TOPDWN = false;
   }
 
-  if (MODE != 0 && (MODE).abs() != 6) {
+  if (MODE != 0 && MODE.abs() != 6) {
     // Scale by DMAX
 
     TEMP = D[1].abs();
     for (I = 2; I <= RANK; I++) {
-      TEMP = max(TEMP, (D[I]).abs());
+      TEMP = max(TEMP, D[I].abs());
     }
 
     if (TEMP > ZERO) {

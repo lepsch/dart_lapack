@@ -34,7 +34,7 @@ double zlanhe(
     if (lsame(UPLO, 'U')) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J - 1; I++) {
-          SUM.value = (A[I][J]).abs();
+          SUM.value = A[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
         SUM.value = A[J][J].toDouble().abs();
@@ -45,7 +45,7 @@ double zlanhe(
         SUM.value = A[J][J].toDouble().abs();
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         for (I = J + 1; I <= N; I++) {
-          SUM.value = (A[I][J]).abs();
+          SUM.value = A[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
       }
@@ -58,7 +58,7 @@ double zlanhe(
       for (J = 1; J <= N; J++) {
         SUM.value = ZERO;
         for (I = 1; I <= J - 1; I++) {
-          ABSA = (A[I][J]).abs();
+          ABSA = A[I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }
@@ -75,7 +75,7 @@ double zlanhe(
       for (J = 1; J <= N; J++) {
         SUM.value = WORK[J] + A[J][J].toDouble().abs();
         for (I = J + 1; I <= N; I++) {
-          ABSA = (A[I][J]).abs();
+          ABSA = A[I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }
@@ -98,7 +98,7 @@ double zlanhe(
     }
     SUM.value = 2 * SUM.value;
     for (I = 1; I <= N; I++) {
-      if ((A[I][I]).toDouble() != ZERO) {
+      if (A[I][I].toDouble() != ZERO) {
         ABSA = A[I][I].toDouble().abs();
         if (SCALE.value < ABSA) {
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);

@@ -30,23 +30,23 @@ double zlangt(
   } else if (lsame(NORM, 'M')) {
     // Find max(abs(A(i,j))).
 
-    ANORM = (D[N]).abs();
+    ANORM = D[N].abs();
     for (I = 1; I <= N - 1; I++) {
-      if (ANORM < (DL[I]).abs() || disnan((DL[I]).abs())) ANORM = (DL[I]).abs();
-      if (ANORM < (D[I]).abs() || disnan((D[I]).abs())) ANORM = (D[I]).abs();
-      if (ANORM < (DU[I]).abs() || disnan((DU[I]).abs())) ANORM = (DU[I]).abs();
+      if (ANORM < DL[I].abs() || disnan(DL[I].abs())) ANORM = DL[I].abs();
+      if (ANORM < D[I].abs() || disnan(D[I].abs())) ANORM = D[I].abs();
+      if (ANORM < DU[I].abs() || disnan(DU[I].abs())) ANORM = DU[I].abs();
     }
   } else if (lsame(NORM, 'O') || NORM == '1') {
     // Find norm1(A).
 
     if (N == 1) {
-      ANORM = (D[1]).abs();
+      ANORM = D[1].abs();
     } else {
-      ANORM = (D[1]).abs() + (DL[1]).abs();
-      TEMP = (D[N]).abs() + (DU[N - 1]).abs();
+      ANORM = D[1].abs() + DL[1].abs();
+      TEMP = D[N].abs() + DU[N - 1].abs();
       if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
       for (I = 2; I <= N - 1; I++) {
-        TEMP = (D[I]).abs() + (DL[I]).abs() + (DU[I - 1]).abs();
+        TEMP = D[I].abs() + DL[I].abs() + DU[I - 1].abs();
         if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
       }
     }
@@ -54,13 +54,13 @@ double zlangt(
     // Find normI(A).
 
     if (N == 1) {
-      ANORM = (D[1]).abs();
+      ANORM = D[1].abs();
     } else {
-      ANORM = (D[1]).abs() + (DU[1]).abs();
-      TEMP = (D[N]).abs() + (DL[N - 1]).abs();
+      ANORM = D[1].abs() + DU[1].abs();
+      TEMP = D[N].abs() + DL[N - 1].abs();
       if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
       for (I = 2; I <= N - 1; I++) {
-        TEMP = (D[I]).abs() + (DU[I]).abs() + (DL[I - 1]).abs();
+        TEMP = D[I].abs() + DU[I].abs() + DL[I - 1].abs();
         if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
       }
     }

@@ -224,7 +224,7 @@ void dsytf2_rook(
             // Perform a rank-1 update of A(1:k-1,1:k-1) and
             // store U(k) in column k
 
-            if ((A[K][K]).abs() >= SFMIN) {
+            if (A[K][K].abs() >= SFMIN) {
               // Perform a rank-1 update of A(1:k-1,1:k-1) as
               // A := A - U(k)*D(k)*U(k)**T
               //    = A - W(k)*1/D(k)*W(k)**T
@@ -325,7 +325,7 @@ void dsytf2_rook(
 
       if (K < N) {
         IMAX = K + idamax(N - K, A(K + 1, K).asArray(), 1);
-        COLMAX = (A[IMAX][K]).abs();
+        COLMAX = A[IMAX][K].abs();
       } else {
         COLMAX = ZERO;
       }
@@ -359,14 +359,14 @@ void dsytf2_rook(
 
             if (IMAX != K) {
               JMAX = K - 1 + idamax(IMAX - K, A(IMAX, K).asArray(), LDA);
-              ROWMAX = (A[IMAX][JMAX]).abs();
+              ROWMAX = A[IMAX][JMAX].abs();
             } else {
               ROWMAX = ZERO;
             }
 
             if (IMAX < N) {
               ITEMP = IMAX + idamax(N - IMAX, A(IMAX + 1, IMAX).asArray(), 1);
-              DTEMP = (A[ITEMP][IMAX]).abs();
+              DTEMP = A[ITEMP][IMAX].abs();
               if (DTEMP > ROWMAX) {
                 ROWMAX = DTEMP;
                 JMAX = ITEMP;
@@ -376,7 +376,7 @@ void dsytf2_rook(
             // Equivalent to testing for (used to handle NaN and Inf)
             // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-            if (!((A[IMAX][IMAX]).abs() < ALPHA * ROWMAX)) {
+            if (!(A[IMAX][IMAX].abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -462,7 +462,7 @@ void dsytf2_rook(
             // Perform a rank-1 update of A(k+1:n,k+1:n) and
             // store L(k) in column k
 
-            if ((A[K][K]).abs() >= SFMIN) {
+            if (A[K][K].abs() >= SFMIN) {
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
               // A := A - L(k)*D(k)*L(k)**T
               //    = A - W(k)*(1/D(k))*W(k)**T

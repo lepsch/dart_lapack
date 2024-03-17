@@ -201,9 +201,9 @@ void zlatms(
     INFO.value = -3;
   } else if (ISYM == -1) {
     INFO.value = -5;
-  } else if ((MODE).abs() > 6) {
+  } else if (MODE.abs() > 6) {
     INFO.value = -7;
-  } else if ((MODE != 0 && (MODE).abs() != 6) && COND < ONE) {
+  } else if ((MODE != 0 && MODE.abs() != 6) && COND < ONE) {
     INFO.value = -8;
   } else if (KL < 0) {
     INFO.value = -10;
@@ -227,7 +227,7 @@ void zlatms(
   // Initialize random number generator
 
   for (I = 1; I <= 4; I++) {
-    ISEED[I] = ((ISEED[I]).abs() % 4096);
+    ISEED[I] = (ISEED[I].abs() % 4096);
   }
 
   if ((ISEED[4] % 2) != 1) ISEED[4]++;
@@ -245,18 +245,18 @@ void zlatms(
   // Choose Top-Down if D is (apparently) increasing,
   // Bottom-Up if D is (apparently) decreasing.
 
-  if ((D[1]).abs() <= (D[MNMIN]).abs()) {
+  if (D[1].abs() <= D[MNMIN].abs()) {
     TOPDWN = true;
   } else {
     TOPDWN = false;
   }
 
-  if (MODE != 0 && (MODE).abs() != 6) {
+  if (MODE != 0 && MODE.abs() != 6) {
     // Scale by DMAX
 
-    TEMP = (D[1]).abs();
+    TEMP = D[1].abs();
     for (I = 2; I <= MNMIN; I++) {
-      TEMP = max(TEMP, (D[I]).abs());
+      TEMP = max(TEMP, D[I].abs());
     }
 
     if (TEMP > ZERO) {

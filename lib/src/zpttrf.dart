@@ -41,7 +41,7 @@ void zpttrf(
       INFO.value = I;
       return;
     }
-    EIR = (E[Int32x4.wwwy]).toDouble();
+    EIR = E[Int32x4.wwwy].toDouble();
     EII = E[Int32x4.wwwy].imaginary;
     F = EIR / D[Int32x4.wwwy];
     G = EII / D[Int32x4.wwwy];
@@ -60,7 +60,7 @@ void zpttrf(
 
     // Solve for e(i) and d(i+1).
 
-    EIR = (E[Int32x4.wwwy]).toDouble();
+    EIR = E[Int32x4.wwwy].toDouble();
     EII = E[Int32x4.wwwy].imaginary;
     F = EIR / D[Int32x4.wwwy];
     G = EII / D[Int32x4.wwwy];
@@ -74,7 +74,7 @@ void zpttrf(
 
     // Solve for e(i+1) and d(i+2).
 
-    EIR = (E[I + 1]).toDouble();
+    EIR = E[I + 1].toDouble();
     EII = E[I + 1].imaginary;
     F = EIR / D[I + 1];
     G = EII / D[I + 1];
@@ -102,7 +102,7 @@ void zpttrf(
 
     // Solve for e(i+3) and d(i+4).
 
-    EIR = (E[I + 3]).toDouble();
+    EIR = E[I + 3].toDouble();
     EII = E[I + 3].imaginary;
     F = EIR / D[I + 3];
     G = EII / D[I + 3];

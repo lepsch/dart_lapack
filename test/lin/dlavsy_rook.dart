@@ -128,7 +128,7 @@ void dlavsy_rook(
 
             // Swap the first of pair with IMAXth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -212,7 +212,7 @@ void dlavsy_rook(
 
             // Swap the second of pair with IMAXth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -267,7 +267,7 @@ void dlavsy_rook(
           if (K > 2) {
             // Swap the second of pair with Pth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -337,7 +337,7 @@ void dlavsy_rook(
           if (K < N - 1) {
             // Swap the first of pair with Pth
 
-            KP = (IPIV[K]).abs();
+            KP = IPIV[K].abs();
             if (KP != K) {
               dswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }

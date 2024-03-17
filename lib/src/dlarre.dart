@@ -167,7 +167,7 @@ void dlarre(
   for (I = 1; I <= N; I++) {
     WERR[I] = ZERO;
     WGAP[I] = ZERO;
-    EABS = (E[I]).abs();
+    EABS = E[I].abs();
     if (EABS >= EMAX) {
       EMAX = EABS;
     }
@@ -444,7 +444,7 @@ void dlarre(
       // The initial SIGMA was to the outer end of the spectrum
       // the matrix is definite and we need not retreat.
       TAU = SPDIAM * EPS * N + TWO * PIVMIN.value;
-      TAU = max(TAU, TWO * EPS * (SIGMA).abs());
+      TAU = max(TAU, TWO * EPS * SIGMA.abs());
     } else {
       if (MB > 1) {
         CLWDTH = W[WEND] + WERR[WEND] - W[WBEGIN] - WERR[WBEGIN];
@@ -467,7 +467,7 @@ void dlarre(
       // pivots in WORK[2*IN+1:3*IN]
       DPIVOT = D[IBEGIN] - SIGMA;
       WORK[1] = DPIVOT;
-      DMAX = (WORK[1]).abs();
+      DMAX = WORK[1].abs();
       J = IBEGIN;
       for (I = 1; I <= IN - 1; I++) {
         WORK[2 * IN + I] = ONE / WORK[I];
@@ -475,7 +475,7 @@ void dlarre(
         WORK[IN + I] = TMP.value;
         DPIVOT = (D[J + 1] - SIGMA) - TMP.value * E[J];
         WORK[I + 1] = DPIVOT;
-        DMAX = max(DMAX, (DPIVOT).abs());
+        DMAX = max(DMAX, DPIVOT.abs());
         J++;
       }
       // check for element growth
@@ -560,7 +560,7 @@ void dlarre(
       // UNshifted eigenvalue approximation.
       for (J = WBEGIN; J <= WEND; J++) {
         W[J] -= SIGMA;
-        WERR[J] += (W[J]).abs() * EPS;
+        WERR[J] += W[J].abs() * EPS;
       }
       // call DLARRB to reduce eigenvalue error of the approximations
       // from DLARRD
@@ -613,11 +613,11 @@ void dlarre(
       RTOL = log(IN) * FOUR * EPS;
       J = IBEGIN;
       for (I = 1; I <= IN - 1; I++) {
-        WORK[2 * I - 1] = (D[J]).abs();
+        WORK[2 * I - 1] = D[J].abs();
         WORK[2 * I] = E[J] * E[J] * WORK[2 * I - 1];
         J++;
       }
-      WORK[2 * IN - 1] = (D[IEND]).abs();
+      WORK[2 * IN - 1] = D[IEND].abs();
       WORK[2 * IN] = ZERO;
       dlasq2(IN, WORK, IINFO);
       if (IINFO.value != 0) {
@@ -653,7 +653,7 @@ void dlarre(
 
       for (I = M.value - MB + 1; I <= M.value; I++) {
         // the value of RTOL below should be the tolerance in DLASQ2
-        WERR[I] = RTOL * (W[I]).abs();
+        WERR[I] = RTOL * W[I].abs();
       }
       for (I = M.value - MB + 1; I <= M.value - 1; I++) {
         // compute the right gap between the intervals

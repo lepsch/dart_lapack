@@ -48,9 +48,9 @@ void dstech(
 
   // Compute maximum absolute eigenvalue, error tolerance
 
-  MX = (EIG[1]).abs();
+  MX = EIG[1].abs();
   for (I = 2; I <= N; I++) {
-    MX = max(MX, (EIG[I]).abs());
+    MX = max(MX, EIG[I].abs());
   }
   EPS = max(EPS * MX, UNFLEP);
 

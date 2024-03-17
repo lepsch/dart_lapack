@@ -138,11 +138,11 @@ void dbdsvdx(
   if (N == 1) {
     if (ALLSV || INDSV) {
       NS.value = 1;
-      S[1] = (D[1]).abs();
+      S[1] = D[1].abs();
     } else {
-      if (VL < (D[1]).abs() && VU >= (D[1]).abs()) {
+      if (VL < D[1].abs() && VU >= D[1].abs()) {
         NS.value = 1;
-        S[1] = (D[1]).abs();
+        S[1] = D[1].abs();
       }
     }
     if (WANTZ) {
@@ -168,17 +168,17 @@ void dbdsvdx(
   // Compute approximate maximum, minimum singular values.
 
   I = idamax(N, D, 1);
-  SMAX = (D[I]).abs();
+  SMAX = D[I].abs();
   I = idamax(N - 1, E, 1);
-  SMAX = max(SMAX, (E[I]).abs());
+  SMAX = max(SMAX, E[I].abs());
 
   // Compute threshold for neglecting D's and E's.
 
-  SMIN = (D[1]).abs();
+  SMIN = D[1].abs();
   if (SMIN != ZERO) {
     MU = SMIN;
     for (I = 2; I <= N; I++) {
-      MU = (D[I]).abs() * (MU / (MU + (E[I - 1]).abs()));
+      MU = D[I].abs() * (MU / (MU + E[I - 1].abs()));
       SMIN = min(SMIN, MU);
       if (SMIN == ZERO) break;
     }
@@ -189,10 +189,10 @@ void dbdsvdx(
   // Check for zeros in D and E (splits), i.e. submatrices.
 
   for (I = 1; I <= N - 1; I++) {
-    if ((D[I]).abs() <= THRESH) D[I] = ZERO;
-    if ((E[I]).abs() <= THRESH) E[I] = ZERO;
+    if (D[I].abs() <= THRESH) D[I] = ZERO;
+    if (E[I].abs() <= THRESH) E[I] = ZERO;
   }
-  if ((D[N]).abs() <= THRESH) D[N] = ZERO;
+  if (D[N].abs() <= THRESH) D[N] = ZERO;
 
   // Pointers for arrays used by DSTEVX.
 
@@ -554,7 +554,7 @@ void dbdsvdx(
           // Absolute values of the eigenvalues of TGK.
 
           for (I = 0; I <= NSL.value - 1; I++) {
-            S[ISBEG + I] = (S[ISBEG + I]).abs();
+            S[ISBEG + I] = S[ISBEG + I].abs();
           }
 
           // Update pointers for TGK, S and Z.

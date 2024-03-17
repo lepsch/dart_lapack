@@ -98,7 +98,7 @@ void zlaror(
     // Generate a Householder transformation from the random vector X
 
     XNORM = dznrm2(IXFRM, X(KBEG), 1);
-    XABS = (X[KBEG]).abs();
+    XABS = X[KBEG].abs();
     if (XABS != ZERO) {
       CSIGN = X[KBEG] / XABS.toComplex();
     } else {
@@ -107,7 +107,7 @@ void zlaror(
     XNORMS = CSIGN * XNORM.toComplex();
     X[NXFRM + KBEG] = -CSIGN;
     FACTOR = XNORM * (XNORM + XABS);
-    if ((FACTOR).abs() < TOOSML) {
+    if (FACTOR.abs() < TOOSML) {
       INFO.value = 1;
       xerbla('ZLAROR', -INFO.value);
       return;
@@ -142,7 +142,7 @@ void zlaror(
   }
 
   X[1] = zlarnd(3, ISEED);
-  XABS = (X[1]).abs();
+  XABS = X[1].abs();
   if (XABS != ZERO) {
     CSIGN = X[1] / XABS.toComplex();
   } else {

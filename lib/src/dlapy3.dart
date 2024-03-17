@@ -10,9 +10,9 @@ double dlapy3(final double X, final double Y, final double Z) {
   double W, XABS, YABS, ZABS, HUGEVAL;
 
   HUGEVAL = dlamch('Overflow');
-  XABS = (X).abs();
-  YABS = (Y).abs();
-  ZABS = (Z).abs();
+  XABS = X.abs();
+  YABS = Y.abs();
+  ZABS = Z.abs();
   W = max(XABS, max(YABS, ZABS));
   if (W == ZERO || W > HUGEVAL) {
     // W can be zero for max(0,nan,0)

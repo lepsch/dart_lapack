@@ -99,7 +99,7 @@ void dsptri(
 
         // Invert the diagonal block.
 
-        T = (AP[KCNEXT + K - 1]).abs();
+        T = AP[KCNEXT + K - 1].abs();
         AK = AP[KC + K - 1] / T;
         AKP1 = AP[KCNEXT + K] / T;
         AKKP1 = AP[KCNEXT + K - 1] / T;
@@ -124,7 +124,7 @@ void dsptri(
         KCNEXT += K + 1;
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the leading
         // submatrix A(1:k+1,1:k+1)
@@ -187,7 +187,7 @@ void dsptri(
 
         // Invert the diagonal block.
 
-        T = (AP[KCNEXT + 1]).abs();
+        T = AP[KCNEXT + 1].abs();
         AK = AP[KCNEXT] / T;
         AKP1 = AP[KC] / T;
         AKKP1 = AP[KCNEXT + 1] / T;
@@ -214,7 +214,7 @@ void dsptri(
         KCNEXT -= (N - K + 3);
       }
 
-      KP = (IPIV[K]).abs();
+      KP = IPIV[K].abs();
       if (KP != K) {
         // Interchange rows and columns K and KP in the trailing
         // submatrix A(k-1:n,k-1:n)

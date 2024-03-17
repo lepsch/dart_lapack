@@ -67,17 +67,17 @@ void zlahef(
       // Copy column K of A to column KW of W and update it
 
       zcopy(K - 1, A(1, K).asArray(), 1, W(1, KW).asArray(), 1);
-      W[K][KW] = (A[K][K]).toDouble().toComplex();
+      W[K][KW] = A[K][K].toDouble().toComplex();
       if (K < N) {
         zgemv('No transpose', K, N - K, -Complex.one, A(1, K + 1), LDA,
             W(K, KW + 1).asArray(), LDW, Complex.one, W(1, KW).asArray(), 1);
-        W[K][KW] = (W[K][KW]).toDouble().toComplex();
+        W[K][KW] = W[K][KW].toDouble().toComplex();
       }
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (W[K][KW]).toDouble().abs();
+      ABSAKK = W[K][KW].toDouble().abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -95,7 +95,7 @@ void zlahef(
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
-        A[K][K] = (A[K][K]).toDouble().toComplex();
+        A[K][K] = A[K][K].toDouble().toComplex();
       } else {
         // ============================================================
 
@@ -237,7 +237,7 @@ void zlahef(
             //  since that was ensured earlier in pivot search:
             //  case A(k,k) = 0 falls into 2x2 pivot case(4))
 
-            R1 = ONE / (A[K][K]).toDouble();
+            R1 = ONE / A[K][K].toDouble();
             zdscal(K - 1, R1, A(1, K).asArray(), 1);
 
             // (2) Conjugate column W(kw)
@@ -359,10 +359,10 @@ void zlahef(
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        A[JJ][JJ] = (A[JJ][JJ]).toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
         zgemv('No transpose', JJ - J + 1, N - K, -Complex.one, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, Complex.one, A(J, JJ).asArray(), 1);
-        A[JJ][JJ] = (A[JJ][JJ]).toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
       }
 
       // Update the rectangular superdiagonal block
@@ -414,13 +414,13 @@ void zlahef(
 
       // Copy column K of A to column K of W and update it
 
-      W[K][K] = (A[K][K]).toDouble().toComplex();
+      W[K][K] = A[K][K].toDouble().toComplex();
       if (K < N) {
         zcopy(N - K, A(K + 1, K).asArray(), 1, W(K + 1, K).asArray(), 1);
       }
       zgemv('No transpose', N - K + 1, K - 1, -Complex.one, A(K, 1), LDA,
           W(K, 1).asArray(), LDW, Complex.one, W(K, K).asArray(), 1);
-      W[K][K] = (W[K][K]).toDouble().toComplex();
+      W[K][K] = W[K][K].toDouble().toComplex();
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
@@ -443,7 +443,7 @@ void zlahef(
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
-        A[K][K] = (A[K][K]).toDouble().toComplex();
+        A[K][K] = A[K][K].toDouble().toComplex();
       } else {
         // ============================================================
 
@@ -570,7 +570,7 @@ void zlahef(
             //  since that was ensured earlier in pivot search:
             //  case A(k,k) = 0 falls into 2x2 pivot case(4))
 
-            R1 = ONE / (A[K][K]).toDouble();
+            R1 = ONE / A[K][K].toDouble();
             zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
 
             // (2) Conjugate column W(k)

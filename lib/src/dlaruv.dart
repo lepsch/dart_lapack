@@ -174,10 +174,8 @@ void dlaruv(
       // Convert 48-bit integer to a real number in the interval (0,1)
 
       X[I] = R *
-          ((IT1).toDouble() +
-              R *
-                  ((IT2).toDouble() +
-                      R * ((IT3).toDouble() + R * IT4.toDouble())));
+          (IT1.toDouble() +
+              R * (IT2.toDouble() + R * (IT3.toDouble() + R * IT4.toDouble())));
 
       if (X[I] != 1.0) break;
 

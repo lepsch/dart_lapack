@@ -47,5 +47,5 @@ void zlapll(
 
   // Compute the SVD of 2-by-2 Upper triangular matrix.
 
-  dlas2((A11).abs(), (A12).abs(), (A22).abs(), SSMIN, SSMAX);
+  dlas2(A11.abs(), A12.abs(), A22.abs(), SSMIN, SSMAX);
 }

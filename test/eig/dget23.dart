@@ -192,8 +192,8 @@ void dget23(
       for (JJ = 1; JJ <= N; JJ++) {
         VTST = dlapy2(VR[JJ][J], VR[JJ][J + 1]);
         if (VTST > VMX) VMX = VTST;
-        if (VR[JJ][J + 1] == ZERO && (VR[JJ][J]).abs() > VRMX) {
-          VRMX = (VR[JJ][J]).abs();
+        if (VR[JJ][J + 1] == ZERO && VR[JJ][J].abs() > VRMX) {
+          VRMX = VR[JJ][J].abs();
         }
       }
       if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
@@ -217,8 +217,8 @@ void dget23(
       for (JJ = 1; JJ <= N; JJ++) {
         VTST = dlapy2(VL[JJ][J], VL[JJ][J + 1]);
         if (VTST > VMX) VMX = VTST;
-        if (VL[JJ][J + 1] == ZERO && (VL[JJ][J]).abs() > VRMX) {
-          VRMX = (VL[JJ][J]).abs();
+        if (VL[JJ][J + 1] == ZERO && VL[JJ][J].abs() > VRMX) {
+          VRMX = VL[JJ][J].abs();
         }
       }
       if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;

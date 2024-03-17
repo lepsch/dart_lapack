@@ -322,7 +322,7 @@ void dhgeqz(
         H[ILAST][ILAST - 1] = ZERO;
       } else {
         var splitOff1x1Block = true;
-        if ((T[ILAST][ILAST]).abs() <= BTOL) {
+        if (T[ILAST][ILAST].abs() <= BTOL) {
           T[ILAST][ILAST] = ZERO;
         } else {
           // General case: j<ILAST
@@ -335,7 +335,7 @@ void dhgeqz(
             if (J == ILO) {
               ILAZRO = true;
             } else {
-              if ((H[J][J - 1]).abs() <=
+              if (H[J][J - 1].abs() <=
                   max(SAFMIN, ULP * (H[J][J].abs() + H[J - 1][J - 1].abs()))) {
                 H[J][J - 1] = ZERO;
                 ILAZRO = true;
@@ -346,21 +346,21 @@ void dhgeqz(
 
             // Test 2: for T[j][j]=0
 
-            if ((T[J][J]).abs() < BTOL) {
+            if (T[J][J].abs() < BTOL) {
               T[J][J] = ZERO;
 
               // Test 1a: Check for 2 consecutive small subdiagonals in A
 
               ILAZR2 = false;
               if (!ILAZRO) {
-                TEMP.value = (H[J][J - 1]).abs();
-                TEMP2.value = (H[J][J]).abs();
+                TEMP.value = H[J][J - 1].abs();
+                TEMP2.value = H[J][J].abs();
                 TEMPR.value = max(TEMP.value, TEMP2.value);
                 if (TEMPR.value < ONE && TEMPR.value != ZERO) {
                   TEMP.value /= TEMPR.value;
                   TEMP2.value /= TEMPR.value;
                 }
-                if (TEMP.value * (ASCALE * (H[J + 1][J]).abs()) <=
+                if (TEMP.value * (ASCALE * H[J + 1][J].abs()) <=
                     TEMP2.value * (ASCALE * ATOL)) ILAZR2 = true;
               }
 
@@ -385,7 +385,7 @@ void dhgeqz(
                   }
                   if (ILAZR2) H[JCH][JCH - 1] *= C.value;
                   ILAZR2 = false;
-                  if ((T[JCH + 1][JCH + 1]).abs() >= BTOL) {
+                  if (T[JCH + 1][JCH + 1].abs() >= BTOL) {
                     isDropThroughImpossible = false;
                     splitOff1x1Block = false;
                     if (JCH + 1 < ILAST) {
@@ -799,7 +799,7 @@ void dhgeqz(
         // (  __      )  A or B
         // ( -SQ   CQ )
 
-        AN = (A11).abs() + (A12).abs() + (A21).abs() + (A22).abs();
+        AN = A11.abs() + A12.abs() + A21.abs() + A22.abs();
         BN = (B11.value).abs() + (B22.value).abs();
         WABS = (WR.value).abs() + (WI.value).abs();
         if (S1.value * AN > WABS * BN) {
@@ -956,8 +956,8 @@ void dhgeqz(
           // Swap rows to pivot
 
           ILPIVT = false;
-          TEMP.value = max((T[J + 1][J + 1]).abs(), (T[J + 1][J + 2]).abs());
-          TEMP2.value = max((T[J + 2][J + 1]).abs(), (T[J + 2][J + 2]).abs());
+          TEMP.value = max(T[J + 1][J + 1].abs(), T[J + 1][J + 2].abs());
+          TEMP2.value = max(T[J + 2][J + 1].abs(), T[J + 2][J + 2].abs());
           if (max(TEMP.value, TEMP2.value) < SAFMIN) {
             SCALE = ZERO;
             U1 = ONE;
@@ -981,7 +981,7 @@ void dhgeqz(
 
           // Swap columns if nec.
 
-          if ((W12).abs() > (W11).abs()) {
+          if (W12.abs() > W11.abs()) {
             ILPIVT = true;
             TEMP.value = W12;
             TEMP2.value = W22;
@@ -1001,13 +1001,13 @@ void dhgeqz(
           // Compute SCALE
 
           SCALE = ONE;
-          if ((W22).abs() < SAFMIN) {
+          if (W22.abs() < SAFMIN) {
             SCALE = ZERO;
             U2 = ONE;
             U1 = -W12 / W11;
           } else {
-            if ((W22).abs() < (U2).abs()) SCALE = (W22 / U2).abs();
-            if ((W11).abs() < (U1).abs()) SCALE = min(SCALE, (W11 / U1).abs());
+            if (W22.abs() < U2.abs()) SCALE = (W22 / U2).abs();
+            if (W11.abs() < U1.abs()) SCALE = min(SCALE, (W11 / U1).abs());
 
             // Solve
 

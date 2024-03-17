@@ -327,7 +327,7 @@ void zlatmr(
 
     TEMP = D[1].abs();
     for (I = 2; I <= MNMIN; I++) {
-      TEMP = max(TEMP, (D[I]).abs());
+      TEMP = max(TEMP, D[I].abs());
     }
     if (TEMP == ZERO && DMAX != Complex.zero) {
       INFO.value = 2;

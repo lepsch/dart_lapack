@@ -349,7 +349,7 @@ void dchksb2stg(
                 A(K, 1), LDA, WORK(N + 1), IINFO);
             for (I = 2; I <= N; I++) {
               TEMP1 =
-                  (A[K][I]).abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
+                  A[K][I].abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
               if (TEMP1 > HALF) {
                 A[K][I] = HALF * sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
               }
@@ -527,9 +527,9 @@ void dchksb2stg(
           TEMP4 = ZERO;
 
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-            TEMP3 = max(TEMP3, max((D1[J]).abs(), (D3[J]).abs()));
+            TEMP3 = max(TEMP3, max(D1[J].abs(), D3[J].abs()));
             TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
           }
 

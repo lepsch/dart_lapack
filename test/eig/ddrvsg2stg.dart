@@ -463,7 +463,7 @@ void ddrvsg2stg(
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) {
-              TEMP1 = max(TEMP1, max((D[J]).abs(), (D2[J]).abs()));
+              TEMP1 = max(TEMP1, max(D[J].abs(), D2[J].abs()));
               TEMP2 = max(TEMP2, (D[J] - D2[J]).abs());
             }
 

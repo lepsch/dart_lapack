@@ -130,21 +130,21 @@ void dlahqr(
       // Look for a single small subdiagonal element.
 
       for (K = I; K >= L + 1; K--) {
-        if ((H[K][K - 1]).abs() <= SMLNUM) break;
-        TST = (H[K - 1][K - 1]).abs() + (H[K][K]).abs();
+        if (H[K][K - 1].abs() <= SMLNUM) break;
+        TST = H[K - 1][K - 1].abs() + H[K][K].abs();
         if (TST == ZERO) {
-          if (K - 2 >= ILO) TST += (H[K - 1][K - 2]).abs();
-          if (K + 1 <= IHI) TST += (H[K + 1][K]).abs();
+          if (K - 2 >= ILO) TST += H[K - 1][K - 2].abs();
+          if (K + 1 <= IHI) TST += H[K + 1][K].abs();
         }
         // ==== The following is a conservative small subdiagonal
         // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
         // .    1997). It has better mathematical foundation and
         // .    improves accuracy in some cases.  ====
-        if ((H[K][K - 1]).abs() <= ULP * TST) {
-          AB = max((H[K][K - 1]).abs(), (H[K - 1][K]).abs());
-          BA = min((H[K][K - 1]).abs(), (H[K - 1][K]).abs());
-          AA = max((H[K][K]).abs(), (H[K - 1][K - 1] - H[K][K]).abs());
-          BB = min((H[K][K]).abs(), (H[K - 1][K - 1] - H[K][K]).abs());
+        if (H[K][K - 1].abs() <= ULP * TST) {
+          AB = max(H[K][K - 1].abs(), H[K - 1][K].abs());
+          BA = min(H[K][K - 1].abs(), H[K - 1][K].abs());
+          AA = max(H[K][K].abs(), (H[K - 1][K - 1] - H[K][K]).abs());
+          BB = min(H[K][K].abs(), (H[K - 1][K - 1] - H[K][K]).abs());
           S = AA + AB;
           if (BA * (AB / S) <= max(SMLNUM, ULP * (BB * (AA / S)))) break;
         }
@@ -177,7 +177,7 @@ void dlahqr(
       if (KDEFL % (2 * KEXSH) == 0) {
         // Exceptional shift.
 
-        S = (H[I][I - 1]).abs() + (H[I - 1][I - 2]).abs();
+        S = H[I][I - 1].abs() + H[I - 1][I - 2].abs();
         H11 = DAT1 * S + H[I][I];
         H12 = DAT2 * S;
         H21 = S;
@@ -185,7 +185,7 @@ void dlahqr(
       } else if ((KDEFL % KEXSH) == 0) {
         // Exceptional shift.
 
-        S = (H[L + 1][L]).abs() + (H[L + 2][L + 1]).abs();
+        S = H[L + 1][L].abs() + H[L + 2][L + 1].abs();
         H11 = DAT1 * S + H[L][L];
         H12 = DAT2 * S;
         H21 = S;
@@ -199,7 +199,7 @@ void dlahqr(
         H12 = H[I - 1][I];
         H22 = H[I][I];
       }
-      S = (H11).abs() + (H12).abs() + (H21).abs() + (H22).abs();
+      S = H11.abs() + H12.abs() + H21.abs() + H22.abs();
       if (S == ZERO) {
         RT1R = ZERO;
         RT1I = ZERO;
@@ -246,24 +246,23 @@ void dlahqr(
         // overflows and most underflows.)
 
         H21S = H[M + 1][M];
-        S = (H[M][M] - RT2R).abs() + (RT2I).abs() + (H21S).abs();
+        S = (H[M][M] - RT2R).abs() + RT2I.abs() + H21S.abs();
         H21S = H[M + 1][M] / S;
         V[1] = H21S * H[M][M + 1] +
             (H[M][M] - RT1R) * ((H[M][M] - RT2R) / S) -
             RT1I * (RT2I / S);
         V[2] = H21S * (H[M][M] + H[M + 1][M + 1] - RT1R - RT2R);
         V[3] = H21S * H[M + 2][M + 1];
-        S = (V[1]).abs() + (V[2]).abs() + (V[3]).abs();
+        S = V[1].abs() + V[2].abs() + V[3].abs();
         V[1] /= S;
         V[2] /= S;
         V[3] /= S;
         if (M == L) break;
-        if ((H[M][M - 1]).abs() * ((V[2]).abs() + (V[3]).abs()) <=
+        if (H[M][M - 1].abs() * (V[2].abs() + V[3].abs()) <=
             ULP *
-                (V[1]).abs() *
-                ((H[M - 1][M - 1]).abs() +
-                    (H[M][M]).abs() +
-                    (H[M + 1][M + 1]).abs())) break;
+                V[1].abs() *
+                (H[M - 1][M - 1].abs() + H[M][M].abs() + H[M + 1][M + 1].abs()))
+          break;
       }
 
       // Double-shift QR step

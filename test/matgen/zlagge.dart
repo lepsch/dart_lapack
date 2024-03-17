@@ -127,7 +127,7 @@ void zlagge(
         // generate reflection to annihilate A(kl+i+1:m,i)
 
         WN = dznrm2(M - KL - I + 1, A(KL + I, I).asArray(), 1);
-        WA = (WN / (A[KL + I][I]).abs()).toComplex() * A[KL + I][I];
+        WA = (WN / A[KL + I][I].abs()).toComplex() * A[KL + I][I];
         if (WN == ZERO) {
           TAU = Complex.zero;
         } else {
@@ -160,7 +160,7 @@ void zlagge(
         // generate reflection to annihilate A(i,ku+i+1:n)
 
         WN = dznrm2(N - KU - I + 1, A(I, KU + I).asArray(), LDA);
-        WA = (WN / (A[I][KU + I]).abs()).toComplex() * A[I][KU + I];
+        WA = (WN / A[I][KU + I].abs()).toComplex() * A[I][KU + I];
         if (WN == ZERO) {
           TAU = Complex.zero;
         } else {
@@ -197,7 +197,7 @@ void zlagge(
         // generate reflection to annihilate A(i,ku+i+1:n)
 
         WN = dznrm2(N - KU - I + 1, A(I, KU + I).asArray(), LDA);
-        WA = (WN / (A[I][KU + I]).abs()).toComplex() * A[I][KU + I];
+        WA = (WN / A[I][KU + I].abs()).toComplex() * A[I][KU + I];
         if (WN == ZERO) {
           TAU = Complex.zero;
         } else {
@@ -231,7 +231,7 @@ void zlagge(
         // generate reflection to annihilate A(kl+i+1:m,i)
 
         WN = dznrm2(M - KL - I + 1, A(KL + I, I).asArray(), 1);
-        WA = (WN / (A[KL + I][I]).abs()).toComplex() * A[KL + I][I];
+        WA = (WN / A[KL + I][I].abs()).toComplex() * A[KL + I][I];
         if (WN == ZERO) {
           TAU = Complex.zero;
         } else {

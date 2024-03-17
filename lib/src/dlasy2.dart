@@ -78,7 +78,7 @@ void dlasy2(
     // 1 by 1: TL11*X + SGN*X*TR11 = B11
 
     TAU1 = TL[1][1] + SGN * TR[1][1];
-    BET = (TAU1).abs();
+    BET = TAU1.abs();
     if (BET <= SMLNUM) {
       TAU1 = SMLNUM;
       BET = SMLNUM;
@@ -160,7 +160,7 @@ void dlasy2(
 
     IPIV = idamax(4, TMP, 1);
     U11 = TMP[IPIV];
-    if ((U11).abs() <= SMIN) {
+    if (U11.abs() <= SMIN) {
       INFO.value = 1;
       U11 = SMIN;
     }
@@ -169,7 +169,7 @@ void dlasy2(
     U22 = TMP[LOCU22[IPIV]] - U12 * L21;
     XSWAP = XSWPIV[IPIV];
     BSWAP = BSWPIV[IPIV];
-    if ((U22).abs() <= SMIN) {
+    if (U22.abs() <= SMIN) {
       INFO.value = 1;
       U22 = SMIN;
     }
@@ -181,8 +181,8 @@ void dlasy2(
       BTMP[2] -= L21 * BTMP[1];
     }
     SCALE.value = ONE;
-    if ((TWO * SMLNUM) * BTMP[2].abs() > (U22).abs() ||
-        (TWO * SMLNUM) * BTMP[1].abs() > (U11).abs()) {
+    if ((TWO * SMLNUM) * BTMP[2].abs() > U22.abs() ||
+        (TWO * SMLNUM) * BTMP[1].abs() > U11.abs()) {
       SCALE.value = HALF / max(BTMP[1].abs(), BTMP[2]).abs();
       BTMP[1] *= SCALE.value;
       BTMP[2] *= SCALE.value;

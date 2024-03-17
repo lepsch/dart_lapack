@@ -158,7 +158,7 @@ void dlaqr3(
     SI[KWTOP] = ZERO;
     NS.value = 1;
     ND.value = 0;
-    if ((S).abs() <= max(SMLNUM, ULP * (H[KWTOP][KWTOP]).abs())) {
+    if (S.abs() <= max(SMLNUM, ULP * H[KWTOP][KWTOP].abs())) {
       NS.value = 0;
       ND.value = 1;
       if (KWTOP > KTOP) H[KWTOP][KWTOP - 1] = ZERO;
@@ -211,8 +211,8 @@ void dlaqr3(
     if (!BULGE) {
       // ==== Real eigenvalue ====
 
-      FOO = (T[NS.value][NS.value]).abs();
-      if (FOO == ZERO) FOO = (S).abs();
+      FOO = T[NS.value][NS.value].abs();
+      if (FOO == ZERO) FOO = S.abs();
       if ((S * V[1][NS.value]).abs() <= max(SMLNUM, ULP * FOO)) {
         // ==== Deflatable ====
 
@@ -228,10 +228,10 @@ void dlaqr3(
     } else {
       // ==== Complex conjugate pair ====
 
-      FOO = (T[NS.value][NS.value]).abs() +
-          sqrt((T[NS.value][NS.value - 1]).abs()) *
-              sqrt((T[NS.value - 1][NS.value]).abs());
-      if (FOO == ZERO) FOO = (S).abs();
+      FOO = T[NS.value][NS.value].abs() +
+          sqrt(T[NS.value][NS.value - 1].abs()) *
+              sqrt(T[NS.value - 1][NS.value].abs());
+      if (FOO == ZERO) FOO = S.abs();
       if (max((S * V[1][NS.value]).abs(), (S * V[1][NS.value - 1]).abs()) <=
           max(SMLNUM, ULP * FOO)) {
         // ==== Deflatable ====
@@ -277,19 +277,19 @@ void dlaqr3(
       }
       while (K <= KEND) {
         if (K == I + 1) {
-          EVI = (T[I][I]).abs();
+          EVI = T[I][I].abs();
         } else {
-          EVI = (T[I][I]).abs() +
-              sqrt((T[I + 1][I]).abs()) * sqrt((T[I][I + 1]).abs());
+          EVI =
+              T[I][I].abs() + sqrt(T[I + 1][I].abs()) * sqrt(T[I][I + 1].abs());
         }
 
         if (K == KEND) {
-          EVK = (T[K][K]).abs();
+          EVK = T[K][K].abs();
         } else if (T[K + 1][K] == ZERO) {
-          EVK = (T[K][K]).abs();
+          EVK = T[K][K].abs();
         } else {
-          EVK = (T[K][K]).abs() +
-              sqrt((T[K + 1][K]).abs()) * sqrt((T[K][K + 1]).abs());
+          EVK =
+              T[K][K].abs() + sqrt(T[K + 1][K].abs()) * sqrt(T[K][K + 1].abs());
         }
 
         if (EVI >= EVK) {

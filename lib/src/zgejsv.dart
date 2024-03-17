@@ -543,7 +543,7 @@ void zgejsv(
   // overflow. It is possible that this scaling pushes the smallest
   // column norm left from the underflow threshold (extreme case).
 
-  SCALEM = ONE / sqrt((M).toDouble() * N.toDouble());
+  SCALEM = ONE / sqrt(M.toDouble() * N.toDouble());
   NOSCAL = true;
   GOSCAL = true;
   for (p = 1; p <= N; p++) {
@@ -886,7 +886,7 @@ void zgejsv(
     // backward error of the order of N*EPSLN*||A||.
     TEMP1.value = sqrt(N.toDouble()) * EPSLN;
     for (p = 2; p <= N; p++) {
-      if ((A[p][p]).abs() >= (TEMP1.value * (A[1][1]).abs())) {
+      if (A[p][p].abs() >= (TEMP1.value * A[1][1].abs())) {
         NR++;
       } else {
         break;
@@ -898,9 +898,9 @@ void zgejsv(
     // close-to-rank-deficient.
     TEMP1.value = sqrt(SFMIN);
     for (p = 2; p <= N; p++) {
-      if (((A[p][p]).abs() < (EPSLN * (A[p - 1][p - 1]).abs())) ||
-          ((A[p][p]).abs() < SMALL) ||
-          (L2KILL && ((A[p][p]).abs() < TEMP1.value))) break;
+      if ((A[p][p].abs() < (EPSLN * A[p - 1][p - 1].abs())) ||
+          (A[p][p].abs() < SMALL) ||
+          (L2KILL && (A[p][p].abs() < TEMP1.value))) break;
       NR++;
     }
   } else {
@@ -913,8 +913,8 @@ void zgejsv(
     // working hard to get the accuracy not warranted by the data.
     TEMP1.value = sqrt(SFMIN);
     for (p = 2; p <= N; p++) {
-      if (((A[p][p]).abs() < SMALL) ||
-          (L2KILL && ((A[p][p]).abs() < TEMP1.value))) break;
+      if ((A[p][p].abs() < SMALL) || (L2KILL && (A[p][p].abs() < TEMP1.value)))
+        break;
       NR++;
     }
   }
@@ -923,7 +923,7 @@ void zgejsv(
   if (NR == N) {
     MAXPRJ = ONE;
     for (p = 2; p <= N; p++) {
-      TEMP1.value = (A[p][p]).abs() / SVA[IWORK[p]];
+      TEMP1.value = A[p][p].abs() / SVA[IWORK[p]];
       MAXPRJ = min(MAXPRJ, TEMP1.value);
     }
     if (pow(MAXPRJ, 2) >= ONE - N.toDouble() * EPSLN) ALMORT = true;
@@ -1015,9 +1015,9 @@ void zgejsv(
         // XSC.value = sqrt(SMALL)
         XSC.value = EPSLN / N.toDouble();
         for (q = 1; q <= NR; q++) {
-          CTEMP = Complex(XSC.value * (A[q][q]).abs(), ZERO);
+          CTEMP = Complex(XSC.value * A[q][q].abs(), ZERO);
           for (p = 1; p <= N; p++) {
-            if (((p > q) && ((A[p][q]).abs() <= TEMP1.value)) || (p < q)) {
+            if (((p > q) && (A[p][q].abs() <= TEMP1.value)) || (p < q)) {
               // $                     A[p][q] = TEMP1.value * ( A[p][q] / ABS(A[p][q]) )
               A[p][q] = CTEMP;
             }
@@ -1046,9 +1046,9 @@ void zgejsv(
       // XSC.value = sqrt(SMALL)
       XSC.value = EPSLN / N.toDouble();
       for (q = 1; q <= NR; q++) {
-        CTEMP = Complex(XSC.value * (A[q][q]).abs(), ZERO);
+        CTEMP = Complex(XSC.value * A[q][q].abs(), ZERO);
         for (p = 1; p <= NR; p++) {
-          if (((p > q) && ((A[p][q]).abs() <= TEMP1.value)) || (p < q)) {
+          if (((p > q) && (A[p][q].abs() <= TEMP1.value)) || (p < q)) {
             // $                   A[p][q] = TEMP1.value * ( A[p][q] / ABS(A[p][q]) )
             A[p][q] = CTEMP;
           }
@@ -1209,9 +1209,9 @@ void zgejsv(
         if (L2PERT) {
           XSC.value = sqrt(SMALL);
           for (q = 1; q <= NR; q++) {
-            CTEMP = Complex(XSC.value * (V[q][q]).abs(), ZERO);
+            CTEMP = Complex(XSC.value * V[q][q].abs(), ZERO);
             for (p = 1; p <= N; p++) {
-              if ((p > q) && ((V[p][q]).abs() <= TEMP1.value) || (p < q)) {
+              if ((p > q) && (V[p][q].abs() <= TEMP1.value) || (p < q)) {
                 // $                   V[p][q] = TEMP1.value * ( V[p][q] / ABS(V[p][q]) )
                 V[p][q] = CTEMP;
               }
@@ -1256,8 +1256,8 @@ void zgejsv(
             for (p = 2; p <= NR; p++) {
               for (q = 1; q <= p - 1; q++) {
                 CTEMP = Complex(
-                    XSC.value * min((V[p][p]).abs(), (V[q][q]).abs()), ZERO);
-                if ((V[q][p]).abs() <= TEMP1.value) {
+                    XSC.value * min(V[p][p].abs(), V[q][q].abs()), ZERO);
+                if (V[q][p].abs() <= TEMP1.value) {
                   // $                     V[q][p] = TEMP1.value * ( V[q][p] / ABS(V[q][p]) )
                   V[q][p] = CTEMP;
                 }
@@ -1299,8 +1299,8 @@ void zgejsv(
             for (p = 2; p <= NR; p++) {
               for (q = 1; q <= p - 1; q++) {
                 CTEMP = Complex(
-                    XSC.value * min((V[p][p]).abs(), (V[q][q]).abs()), ZERO);
-                if ((V[q][p]).abs() <= TEMP1.value) {
+                    XSC.value * min(V[p][p].abs(), V[q][q].abs()), ZERO);
+                if (V[q][p].abs() <= TEMP1.value) {
                   // V[q][p] = TEMP1.value * ( V[q][p] / ABS(V[q][p]) )
                   V[q][p] = CTEMP;
                 }
@@ -1315,7 +1315,7 @@ void zgejsv(
             for (p = 2; p <= NR; p++) {
               for (q = 1; q <= p - 1; q++) {
                 CTEMP = Complex(
-                    XSC.value * min((V[p][p]).abs(), (V[q][q]).abs()), ZERO);
+                    XSC.value * min(V[p][p].abs(), V[q][q].abs()), ZERO);
                 // V[p][q] = - TEMP1.value*( V[q][p] / ABS(V[q][p]) )
                 V[p][q] = -CTEMP;
               }
@@ -1718,9 +1718,9 @@ void zgejsv(
       if (L2PERT) {
         XSC.value = sqrt(SMALL / EPSLN);
         for (q = 1; q <= NR; q++) {
-          CTEMP = Complex(XSC.value * (V[q][q]).abs(), ZERO);
+          CTEMP = Complex(XSC.value * V[q][q].abs(), ZERO);
           for (p = 1; p <= N; p++) {
-            if ((p > q) && ((V[p][q]).abs() <= TEMP1.value) || (p < q)) {
+            if ((p > q) && (V[p][q].abs() <= TEMP1.value) || (p < q)) {
               // $                V[p][q] = TEMP1.value * ( V[p][q] / ABS(V[p][q]) )
               V[p][q] = CTEMP;
             }
@@ -1743,8 +1743,8 @@ void zgejsv(
         XSC.value = sqrt(SMALL / EPSLN);
         for (q = 2; q <= NR; q++) {
           for (p = 1; p <= q - 1; p++) {
-            CTEMP = Complex(
-                XSC.value * min((U[p][p]).abs(), (U[q][q]).abs()), ZERO);
+            CTEMP =
+                Complex(XSC.value * min(U[p][p].abs(), U[q][q].abs()), ZERO);
             // U[p][q] = - TEMP1.value * ( U[q][p] / ABS(U[q][p]) )
             U[p][q] = -CTEMP;
           }

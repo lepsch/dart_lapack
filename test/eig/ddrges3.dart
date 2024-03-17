@@ -271,7 +271,7 @@ void ddrges3(
         if (KCLASS[JTYPE] < 3) {
           // Generate A (w/o rotation)
 
-          if ((KATYPE[JTYPE]).abs() == 3) {
+          if (KATYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) dlaset('Full', N, N, ZERO, ZERO, A, LDA);
           } else {
@@ -295,7 +295,7 @@ void ddrges3(
 
           // Generate B (w/o rotation)
 
-          if ((KBTYPE[JTYPE]).abs() == 3) {
+          if (KBTYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) dlaset('Full', N, N, ZERO, ZERO, B, LDA);
           } else {
@@ -452,10 +452,10 @@ void ddrges3(
             TEMP2.value = ((ALPHAR[J] - S[J][J]).abs() /
                         max(
                           SAFMIN,
-                          max((ALPHAR[J]).abs(), (S[J][J]).abs()),
+                          max(ALPHAR[J].abs(), S[J][J].abs()),
                         ) +
                     (BETA[J] - T[J][J]).abs() /
-                        max(SAFMIN, max((BETA[J]).abs(), (T[J][J]).abs()))) /
+                        max(SAFMIN, max(BETA[J].abs(), T[J][J].abs()))) /
                 ULP;
 
             if (J < N) {

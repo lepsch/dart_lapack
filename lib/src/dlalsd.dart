@@ -114,7 +114,7 @@ void dlalsd(
     } else {
       RANK.value = 1;
       dlascl('G', 0, 0, D[1], ONE, 1, NRHS, B, LDB, INFO);
-      D[1] = (D[1]).abs();
+      D[1] = D[1].abs();
     }
     return;
   }
@@ -224,13 +224,13 @@ void dlalsd(
   NSUB = 0;
 
   for (I = 1; I <= N; I++) {
-    if ((D[I]).abs() < EPS) {
+    if (D[I].abs() < EPS) {
       D[I] = sign(EPS, D[I]).toDouble();
     }
   }
 
   for (I = 1; I <= NM1; I++) {
-    if (((E[I]).abs() < EPS) || (I == NM1)) {
+    if ((E[I].abs() < EPS) || (I == NM1)) {
       NSUB++;
       IWORK[NSUB] = ST;
 
@@ -242,7 +242,7 @@ void dlalsd(
 
         NSIZE = I - ST + 1;
         IWORK[SIZEI + NSUB - 1] = NSIZE;
-      } else if ((E[I]).abs() >= EPS) {
+      } else if (E[I].abs() >= EPS) {
         // A subproblem with E[NM1] not too small but I = NM1.
 
         NSIZE = N - ST + 1;
@@ -365,14 +365,14 @@ void dlalsd(
     // Some of the elements in D can be negative because 1-by-1
     // subproblems were not solved explicitly.
 
-    if ((D[I]).abs() <= TOL) {
+    if (D[I].abs() <= TOL) {
       dlaset('A', 1, NRHS, ZERO, ZERO, WORK(BX + I - 1).asMatrix(N), N);
     } else {
       RANK.value++;
       dlascl(
           'G', 0, 0, D[I], ONE, 1, NRHS, WORK(BX + I - 1).asMatrix(N), N, INFO);
     }
-    D[I] = (D[I]).abs();
+    D[I] = D[I].abs();
   }
 
   // Now apply back the right singular vectors.

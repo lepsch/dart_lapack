@@ -125,11 +125,11 @@ void ztgsja(
         A1 = ZERO;
         A2 = Complex.zero;
         A3 = ZERO;
-        if (K + I <= M) A1 = (A[K + I][N - L + I]).toDouble();
-        if (K + J <= M) A3 = (A[K + J][N - L + J]).toDouble();
+        if (K + I <= M) A1 = A[K + I][N - L + I].toDouble();
+        if (K + J <= M) A3 = A[K + J][N - L + J].toDouble();
 
-        B1 = (B[I][N - L + I]).toDouble();
-        B3 = (B[J][N - L + J]).toDouble();
+        B1 = B[I][N - L + I].toDouble();
+        B3 = B[J][N - L + J].toDouble();
 
         if (UPPER) {
           if (K + I <= M) A2 = A[K + I][N - L + J];
@@ -179,13 +179,13 @@ void ztgsja(
         // Ensure that the diagonal elements of A and B are real.
 
         if (K + I <= M) {
-          A[K + I][N - L + I] = (A[K + I][N - L + I]).real.toComplex();
+          A[K + I][N - L + I] = A[K + I][N - L + I].real.toComplex();
         }
         if (K + J <= M) {
-          A[K + J][N - L + J] = (A[K + J][N - L + J]).real.toComplex();
+          A[K + J][N - L + J] = A[K + J][N - L + J].real.toComplex();
         }
-        B[I][N - L + I] = (B[I][N - L + I]).real.toComplex();
-        B[J][N - L + J] = (B[J][N - L + J]).real.toComplex();
+        B[I][N - L + I] = B[I][N - L + I].real.toComplex();
+        B[J][N - L + J] = B[J][N - L + J].real.toComplex();
 
         // Update unitary matrices U, V, Q, if desired.
 
@@ -221,7 +221,7 @@ void ztgsja(
         ERROR = max(ERROR, SSMIN.value);
       }
 
-      if ((ERROR).abs() <= min(TOLA, TOLB)) {
+      if (ERROR.abs() <= min(TOLA, TOLB)) {
         converged = true;
         break;
       }
@@ -245,8 +245,8 @@ void ztgsja(
     }
 
     for (I = 1; I <= min(L, M - K); I++) {
-      A1 = (A[K + I][N - L + I]).toDouble();
-      B1 = (B[I][N - L + I]).toDouble();
+      A1 = A[K + I][N - L + I].toDouble();
+      B1 = B[I][N - L + I].toDouble();
       GAMMA = B1 / A1;
 
       if ((GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM)) {
@@ -255,7 +255,7 @@ void ztgsja(
           if (WANTV) zdscal(P, -ONE, V(1, I).asArray(), 1);
         }
 
-        dlartg((GAMMA).abs(), ONE, BETA(K + I), ALPHA(K + I), RWK);
+        dlartg(GAMMA.abs(), ONE, BETA(K + I), ALPHA(K + I), RWK);
 
         if (ALPHA[K + I] >= BETA[K + I]) {
           zdscal(L - I + 1, ONE / ALPHA[K + I], A(K + I, N - L + I).asArray(),

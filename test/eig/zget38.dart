@@ -135,7 +135,7 @@ Future<void> zget38(
       }
       if (ISRT == 0) {
         for (I = 1; I <= N; I++) {
-          WSRT[I] = (W[I]).toDouble();
+          WSRT[I] = W[I].toDouble();
         }
       } else {
         for (I = 1; I <= N; I++) {

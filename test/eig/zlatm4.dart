@@ -53,7 +53,7 @@ void zlatm4(
   // and RCOND
 
   if (ITYPE != 0) {
-    if ((ITYPE).abs() >= 4) {
+    if (ITYPE.abs() >= 4) {
       KBEG = max(1, min(N, NZ1 + 1));
       KEND = max(KBEG, min(N, N - NZ2));
       KLEN = KEND + 1 - KBEG;
@@ -180,7 +180,7 @@ void zlatm4(
     // Scale by AMAGN
 
     for (JD = KBEG; JD <= KEND; JD++) {
-      A[JD][JD] = (AMAGN * (A[JD][JD]).toDouble()).toComplex();
+      A[JD][JD] = (AMAGN * A[JD][JD].toDouble()).toComplex();
     }
     for (JD = ISDB; JD <= ISDE; JD++) {
       A[JD + 1][JD] = AMAGN.toComplex() * A[JD + 1][JD].real.toComplex();
@@ -191,16 +191,16 @@ void zlatm4(
 
     if (RSIGN) {
       for (JD = KBEG; JD <= KEND; JD++) {
-        if ((A[JD][JD]).toDouble() != ZERO) {
+        if (A[JD][JD].toDouble() != ZERO) {
           CTEMP = zlarnd(3, ISEED);
-          CTEMP /= (CTEMP).abs().toComplex();
+          CTEMP /= CTEMP.abs().toComplex();
           A[JD][JD] = CTEMP * A[JD][JD].real.toComplex();
         }
       }
       for (JD = ISDB; JD <= ISDE; JD++) {
-        if ((A[JD + 1][JD]).toDouble() != ZERO) {
+        if (A[JD + 1][JD].toDouble() != ZERO) {
           CTEMP = zlarnd(3, ISEED);
-          CTEMP /= (CTEMP).abs().toComplex();
+          CTEMP /= CTEMP.abs().toComplex();
           A[JD + 1][JD] = CTEMP * A[JD + 1][JD].real.toComplex();
         }
       }

@@ -42,7 +42,7 @@ void dlatm4(
   // and RCOND
 
   if (ITYPE != 0) {
-    if ((ITYPE).abs() >= 4) {
+    if (ITYPE.abs() >= 4) {
       KBEG = max(1, min(N, NZ1 + 1));
       KEND = max(KBEG, min(N, N - NZ2));
       KLEN = KEND + 1 - KBEG;
@@ -156,10 +156,10 @@ void dlatm4(
     // Scale by AMAGN
 
     for (JD = KBEG; JD <= KEND; JD++) {
-      A[JD][JD] = AMAGN * (A[JD][JD]).toDouble();
+      A[JD][JD] = AMAGN * A[JD][JD].toDouble();
     }
     for (JD = ISDB; JD <= ISDE; JD++) {
-      A[JD + 1][JD] = AMAGN * (A[JD + 1][JD]).toDouble();
+      A[JD + 1][JD] = AMAGN * A[JD + 1][JD].toDouble();
     }
 
     // If ISIGN = 1 or 2, assign random signs to diagonal and
@@ -167,12 +167,12 @@ void dlatm4(
 
     if (ISIGN > 0) {
       for (JD = KBEG; JD <= KEND; JD++) {
-        if ((A[JD][JD]).toDouble() != ZERO) {
+        if (A[JD][JD].toDouble() != ZERO) {
           if (dlaran(ISEED) > HALF) A[JD][JD] = -A[JD][JD];
         }
       }
       for (JD = ISDB; JD <= ISDE; JD++) {
-        if ((A[JD + 1][JD]).toDouble() != ZERO) {
+        if (A[JD + 1][JD].toDouble() != ZERO) {
           if (dlaran(ISEED) > HALF) A[JD + 1][JD] = -A[JD + 1][JD];
         }
       }

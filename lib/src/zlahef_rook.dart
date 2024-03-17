@@ -325,8 +325,8 @@ void zlahef_rook(
 
             // Handle division by a small number
 
-            T = (A[K][K]).toDouble();
-            if ((T).abs() >= SFMIN) {
+            T = A[K][K].toDouble();
+            if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(K - 1, R1, A(1, K).asArray(), 1);
             } else {
@@ -458,10 +458,10 @@ void zlahef_rook(
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        A[JJ][JJ] = (A[JJ][JJ]).real.toComplex();
+        A[JJ][JJ] = A[JJ][JJ].real.toComplex();
         zgemv('No transpose', JJ - J + 1, N - K, -Complex.one, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, Complex.one, A(J, JJ).asArray(), 1);
-        A[JJ][JJ] = (A[JJ][JJ]).real.toComplex();
+        A[JJ][JJ] = A[JJ][JJ].real.toComplex();
       }
 
       // Update the rectangular superdiagonal block
@@ -534,7 +534,7 @@ void zlahef_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = (W[K][K]).toDouble().abs();
+      ABSAKK = W[K][K].toDouble().abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -627,7 +627,7 @@ void zlahef_rook(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( (W[ IMAX][K+1 ]).toDouble() ) >= ALPHA*ROWMAX
+            // ABS( W[ IMAX][K+1 ].toDouble() ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
             if (!(W[IMAX][K + 1].toDouble().abs() < ALPHA * ROWMAX)) {
@@ -687,7 +687,7 @@ void zlahef_rook(
           // K and K+1 of A for 2-by-2 pivot, since these columns
           // will be later overwritten.
 
-          A[P][P] = (A[K][K]).real.toComplex();
+          A[P][P] = A[K][K].real.toComplex();
           zcopy(
               P - K - 1, A(K + 1, K).asArray(), 1, A(P, K + 1).asArray(), LDA);
           zlacgv(P - K - 1, A(P, K + 1).asArray(), LDA);
@@ -715,7 +715,7 @@ void zlahef_rook(
           // (or K and K+1 for 2-by-2 pivot) of A, since these columns
           // will be later overwritten.
 
-          A[KP][KP] = (A[KK][KK]).real.toComplex();
+          A[KP][KP] = A[KK][KK].real.toComplex();
           zcopy(KP - KK - 1, A(KK + 1, KK).asArray(), 1,
               A(KP, KK + 1).asArray(), LDA);
           zlacgv(KP - KK - 1, A(KP, KK + 1).asArray(), LDA);
@@ -760,8 +760,8 @@ void zlahef_rook(
 
             // Handle division by a small number
 
-            T = (A[K][K]).toDouble();
-            if ((T).abs() >= SFMIN) {
+            T = A[K][K].toDouble();
+            if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else {

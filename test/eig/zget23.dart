@@ -188,7 +188,7 @@ void zget23(
     VMX = ZERO;
     VRMX = ZERO;
     for (JJ = 1; JJ <= N; JJ++) {
-      VTST = (VR[JJ][J]).abs();
+      VTST = VR[JJ][J].abs();
       if (VTST > VMX) VMX = VTST;
       if (VR[JJ][J].imaginary == ZERO && VR[JJ][J].toDouble().abs() > VRMX) {
         VRMX = VR[JJ][J].toDouble().abs();
@@ -205,7 +205,7 @@ void zget23(
     VMX = ZERO;
     VRMX = ZERO;
     for (JJ = 1; JJ <= N; JJ++) {
-      VTST = (VL[JJ][J]).abs();
+      VTST = VL[JJ][J].abs();
       if (VTST > VMX) VMX = VTST;
       if (VL[JJ][J].imaginary == ZERO && VL[JJ][J].toDouble().abs() > VRMX) {
         VRMX = VL[JJ][J].toDouble().abs();
@@ -441,13 +441,13 @@ void zget23(
     for (I = 1; I <= N - 1; I++) {
       KMIN = I;
       if (ISRT == 0) {
-        VRIMIN = (W[I]).toDouble();
+        VRIMIN = W[I].toDouble();
       } else {
         VRIMIN = W[I].imaginary;
       }
       for (J = I + 1; J <= N; J++) {
         if (ISRT == 0) {
-          VRICMP = (W[J]).toDouble();
+          VRICMP = W[J].toDouble();
         } else {
           VRICMP = W[J].imaginary;
         }

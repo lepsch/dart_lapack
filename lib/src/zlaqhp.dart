@@ -50,7 +50,7 @@ void zlaqhp(
         for (I = 1; I <= J - 1; I++) {
           AP[JC + I - 1] = (CJ * S[I]).toComplex() * AP[JC + I - 1];
         }
-        AP[JC + J - 1] = (CJ * CJ * (AP[JC + J - 1]).toDouble()).toComplex();
+        AP[JC + J - 1] = (CJ * CJ * AP[JC + J - 1].toDouble()).toComplex();
         JC += J;
       }
     } else {

@@ -466,7 +466,7 @@ void zdrvst(
         NTEST++;
 
         if (N > 0) {
-          TEMP3 = max((D1[1]).abs(), D1[N].abs());
+          TEMP3 = max(D1[1].abs(), D1[N].abs());
           if (IL != 1) {
             VL = D1[IL] -
                 max(HALF * (D1[IL] - D1[IL - 1]),
@@ -590,7 +590,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -651,7 +651,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -780,7 +780,7 @@ void zdrvst(
         NTEST++;
 
         if (N > 0) {
-          TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
+          TEMP3 = max(D1[1].abs(), D1[N].abs());
           if (IL != 1) {
             VL = D1[IL] -
                 max(HALF * (D1[IL] - D1[IL - 1]),
@@ -954,7 +954,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1048,7 +1048,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1306,7 +1306,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1394,7 +1394,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }
@@ -1926,7 +1926,7 @@ void zdrvst(
           TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
           TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
-            TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
+            TEMP3 = max(WA1[1].abs(), WA1[N].abs());
           } else {
             TEMP3 = ZERO;
           }

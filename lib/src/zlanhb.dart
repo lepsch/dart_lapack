@@ -35,7 +35,7 @@ double zlanhb(
     if (lsame(UPLO, 'U')) {
       for (J = 1; J <= N; J++) {
         for (I = max(K + 2 - J, 1); I <= K; I++) {
-          SUM.value = (AB[I][J]).abs();
+          SUM.value = AB[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
         SUM.value = AB[K + 1][J].toDouble().abs();
@@ -46,7 +46,7 @@ double zlanhb(
         SUM.value = AB[1][J].toDouble().abs();
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         for (I = 2; I <= min(N + 1 - J, K + 1); I++) {
-          SUM.value = (AB[I][J]).abs();
+          SUM.value = AB[I][J].abs();
           if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
         }
       }
@@ -78,7 +78,7 @@ double zlanhb(
         SUM.value = WORK[J] + AB[1][J].toDouble().abs();
         L = 1 - J;
         for (I = J + 1; I <= min(N, J + K); I++) {
-          ABSA = (AB[L + I][J]).abs();
+          ABSA = AB[L + I][J].abs();
           SUM.value += ABSA;
           WORK[I] += ABSA;
         }

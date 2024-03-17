@@ -448,19 +448,19 @@ void zget24(
     for (I = 1; I <= N; I++) {
       IPNT[I] = I;
       sslct.SELVAL[I] = false;
-      sslct.SELWR[I] = (WTMP[I]).toDouble();
+      sslct.SELWR[I] = WTMP[I].toDouble();
       sslct.SELWI[I] = WTMP[I].imaginary;
     }
     for (I = 1; I <= N - 1; I++) {
       KMIN = I;
       if (ISRT == 0) {
-        VRIMIN = (WTMP[I]).toDouble();
+        VRIMIN = WTMP[I].toDouble();
       } else {
         VRIMIN = WTMP[I].imaginary;
       }
       for (J = I + 1; J <= N; J++) {
         if (ISRT == 0) {
-          VRICMP = (WTMP[J]).toDouble();
+          VRICMP = WTMP[J].toDouble();
         } else {
           VRICMP = WTMP[J].imaginary;
         }

@@ -53,7 +53,7 @@ void dtrt03(
   var TNORM = ZERO;
   if (lsame(DIAG, 'N')) {
     for (var J = 1; J <= N; J++) {
-      TNORM = max(TNORM, TSCAL * (A[J][J]).abs() + CNORM[J]);
+      TNORM = max(TNORM, TSCAL * A[J][J].abs() + CNORM[J]);
     }
   } else {
     for (var J = 1; J <= N; J++) {
@@ -68,15 +68,15 @@ void dtrt03(
   for (var J = 1; J <= NRHS; J++) {
     dcopy(N, X(1, J).asArray(), 1, WORK, 1);
     var IX = idamax(N, WORK, 1);
-    var XNORM = max(ONE, (X[IX][J]).abs());
+    var XNORM = max(ONE, X[IX][J].abs());
     final XSCAL = (ONE / XNORM) / N;
     dscal(N, XSCAL, WORK, 1);
     dtrmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1);
     daxpy(N, -SCALE * XSCAL, B(1, J).asArray(), 1, WORK, 1);
     IX = idamax(N, WORK, 1);
-    var ERR = TSCAL * (WORK[IX]).abs();
+    var ERR = TSCAL * WORK[IX].abs();
     IX = idamax(N, X(1, J).asArray(), 1);
-    XNORM = (X[IX][J]).abs();
+    XNORM = X[IX][J].abs();
     if (ERR * SMLNUM <= XNORM) {
       if (XNORM > ZERO) ERR /= XNORM;
     } else {

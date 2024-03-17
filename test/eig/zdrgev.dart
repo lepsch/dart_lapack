@@ -259,7 +259,7 @@ void zdrgev(
         if (KCLASS[JTYPE] < 3) {
           // Generate A (w/o rotation)
 
-          if ((KATYPE[JTYPE]).abs() == 3) {
+          if (KATYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, A, LDA);
@@ -287,7 +287,7 @@ void zdrgev(
 
           // Generate B (w/o rotation)
 
-          if ((KBTYPE[JTYPE]).abs() == 3) {
+          if (KBTYPE[JTYPE].abs() == 3) {
             IN = 2 * ((N - 1) ~/ 2) + 1;
             if (IN != N) {
               zlaset('Full', N, N, Complex.zero, Complex.zero, B, LDA);
@@ -326,11 +326,11 @@ void zdrgev(
               }
               zlarfg(
                   N + 1 - JC, Q(JC, JC), Q(JC + 1, JC).asArray(), 1, WORK(JC));
-              WORK[2 * N + JC] = sign(ONE, (Q[JC][JC]).toDouble()).toComplex();
+              WORK[2 * N + JC] = sign(ONE, Q[JC][JC].toDouble()).toComplex();
               Q[JC][JC] = Complex.one;
               zlarfg(N + 1 - JC, Z(JC, JC), Z(JC + 1, JC).asArray(), 1,
                   WORK(N + JC));
-              WORK[3 * N + JC] = sign(ONE, (Z[JC][JC]).toDouble()).toComplex();
+              WORK[3 * N + JC] = sign(ONE, Z[JC][JC].toDouble()).toComplex();
               Z[JC][JC] = Complex.one;
             }
             CTEMP = zlarnd(3, ISEED);

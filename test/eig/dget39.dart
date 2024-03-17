@@ -123,7 +123,7 @@ void dget39(
 
               NORM = dlange('1', N, N, T, LDT, WORK);
               K = idamax(N, B, 1);
-              NORMTB = NORM + (B[K]).abs() + (W).abs();
+              NORMTB = NORM + B[K].abs() + W.abs();
 
               dcopy(N, D, 1, X, 1);
               KNT.value++;

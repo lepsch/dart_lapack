@@ -108,7 +108,7 @@ void dlag2(
   BINV22 = ONE / B22;
   S1 = A11 * BINV11;
   S2 = A22 * BINV22;
-  if ((S1).abs() <= (S2).abs()) {
+  if (S1.abs() <= S2.abs()) {
     AS12 = A12 - S1 * B12;
     AS22 = A22 - S1 * B22;
     SS = A21 * (BINV11 * BINV22);
@@ -126,14 +126,14 @@ void dlag2(
   QQ = SS * AS12;
   if ((PP * RTMIN).abs() >= ONE) {
     DISCR = pow(RTMIN * PP, 2) + QQ * SAFMIN;
-    R = sqrt((DISCR).abs()) * RTMAX;
+    R = sqrt(DISCR.abs()) * RTMAX;
   } else {
-    if (pow(PP, 2) + (QQ).abs() <= SAFMIN) {
+    if (pow(PP, 2) + QQ.abs() <= SAFMIN) {
       DISCR = pow(RTMAX * PP, 2) + QQ * SAFMAX;
-      R = sqrt((DISCR).abs()) * RTMIN;
+      R = sqrt(DISCR.abs()) * RTMIN;
     } else {
       DISCR = pow(PP, 2) + QQ;
-      R = sqrt((DISCR).abs());
+      R = sqrt(DISCR.abs());
     }
   }
 
@@ -151,7 +151,7 @@ void dlag2(
     // Compute smaller eigenvalue
 
     WSMALL = SHIFT + DIFF;
-    if (HALF * (WBIG).abs() > max((WSMALL).abs(), SAFMIN)) {
+    if (HALF * WBIG.abs() > max(WSMALL.abs(), SAFMIN)) {
       WDET = (A11 * A22 - A12 * A21) * (BINV11 * BINV22);
       WSMALL = WDET / WBIG;
     }

@@ -102,7 +102,7 @@ void dlaein(
 
       for (I = 1; I <= N - 1; I++) {
         EI = H[I + 1][I];
-        if ((B[I][I]).abs() < (EI).abs()) {
+        if (B[I][I].abs() < EI.abs()) {
           // Interchange rows and eliminate.
 
           X = B[I][I] / EI;
@@ -133,7 +133,7 @@ void dlaein(
 
       for (J = N; J >= 2; J--) {
         EJ = H[J][J - 1];
-        if ((B[J][J]).abs() < (EJ).abs()) {
+        if (B[J][J].abs() < EJ.abs()) {
           // Interchange columns and eliminate.
 
           X = B[J][J] / EJ;
@@ -197,7 +197,7 @@ void dlaein(
     // Normalize eigenvector.
 
     I = idamax(N, VR, 1);
-    dscal(N, ONE / (VR[I]).abs(), VR, 1);
+    dscal(N, ONE / VR[I].abs(), VR, 1);
   } else {
     // Complex eigenvalue.
 
@@ -232,7 +232,7 @@ void dlaein(
       for (I = 1; I <= N - 1; I++) {
         ABSBII = dlapy2(B[I][I], B[I + 1][I]);
         EI = H[I + 1][I];
-        if (ABSBII < (EI).abs()) {
+        if (ABSBII < EI.abs()) {
           // Interchange rows and eliminate.
 
           XR = B[I][I] / EI;
@@ -293,7 +293,7 @@ void dlaein(
       for (J = N; J >= 2; J--) {
         EJ = H[J][J - 1];
         ABSBJJ = dlapy2(B[J][J], B[J + 1][J]);
-        if (ABSBJJ < (EJ).abs()) {
+        if (ABSBJJ < EJ.abs()) {
           // Interchange columns and eliminate
 
           XR = B[J][J] / EJ;
@@ -375,10 +375,10 @@ void dlaein(
           }
         }
 
-        W = (B[I][I]).abs() + (B[I + 1][I]).abs();
+        W = B[I][I].abs() + B[I + 1][I].abs();
         if (W > SMLNUM) {
           if (W < ONE) {
-            W1 = (XR).abs() + (XI).abs();
+            W1 = XR.abs() + XI.abs();
             if (W1 > W * BIGNUM) {
               REC = ONE / W1;
               dscal(N, REC, VR, 1);
@@ -393,7 +393,7 @@ void dlaein(
           // Divide by diagonal element of B.
 
           dladiv(XR, XI, B[I][I], B[I + 1][I], VR.box(I), VI.box(I));
-          VMAX = max((VR[I]).abs() + (VI[I]).abs(), VMAX);
+          VMAX = max(VR[I].abs() + VI[I].abs(), VMAX);
           VCRIT = BIGNUM / VMAX;
         } else {
           for (J = 1; J <= N; J++) {
@@ -438,7 +438,7 @@ void dlaein(
 
     VNORM = ZERO;
     for (I = 1; I <= N; I++) {
-      VNORM = max(VNORM, (VR[I]).abs() + (VI[I]).abs());
+      VNORM = max(VNORM, VR[I].abs() + VI[I].abs());
     }
     dscal(N, ONE / VNORM, VR, 1);
     dscal(N, ONE / VNORM, VI, 1);

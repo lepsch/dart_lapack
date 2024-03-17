@@ -51,7 +51,7 @@ void zlacn2(
       EST.value = dzsum1(N, X, 1);
 
       for (I = 1; I <= N; I++) {
-        ABSXI = (X[I]).abs();
+        ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
           X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
         } else {
@@ -94,9 +94,9 @@ void zlacn2(
       if (EST.value <= ESTOLD) continue L100;
 
       for (I = 1; I <= N; I++) {
-        ABSXI = (X[I]).abs();
+        ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex((X[I]).toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }

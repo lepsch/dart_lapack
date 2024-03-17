@@ -659,7 +659,7 @@ void _zb1nrm2(
 
   // Check that the arrays are large enough
 
-  if (N * (INCX).abs() > NMAX) {
+  if (N * INCX.abs() > NMAX) {
     nout.println(
         ' Not enough space to test DZNRM2: NMAX = ${NMAX.i6}, INCX = ${INCX.i6}\n   N = ${N.i6}, must be at least ${(N * INCX.abs()).i6}');
     return;
@@ -690,13 +690,13 @@ void _zb1nrm2(
 
   for (IV = 1; IV <= NV; IV++) {
     V0 = VALUES[IV];
-    if ((V0).abs() > ONE) {
+    if (V0.abs() > ONE) {
       V0 *= HALF * HALF;
     }
     Z[1] = Complex(V0, -THREE * V0);
     for (IW = 1; IW <= NV; IW++) {
       V1 = VALUES[IW];
-      if ((V1).abs() > ONE) {
+      if (V1.abs() > ONE) {
         V1 = (V1 * HALF) / sqrt((KS + 1));
       }
       for (I = 1; I <= N - 1; I++) {
@@ -705,9 +705,9 @@ void _zb1nrm2(
 
       // Compute the expected value of the 2-norm
 
-      Y1 = (V0).abs() * sqrt(10.0);
+      Y1 = V0.abs() * sqrt(10.0);
       if (N > 1) {
-        Y2 = (V1).abs() * sqrt(WORKSSQ);
+        Y2 = V1.abs() * sqrt(WORKSSQ);
       } else {
         Y2 = ZERO;
       }

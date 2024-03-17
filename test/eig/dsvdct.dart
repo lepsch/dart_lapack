@@ -29,7 +29,7 @@ void dsvdct(
 
   // Find largest entry
 
-  MX = (S[1]).abs();
+  MX = S[1].abs();
   for (I = 1; I <= N - 1; I++) {
     MX = max(MX, max(S[I + 1].abs(), E[I].abs()));
   }

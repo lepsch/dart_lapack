@@ -179,20 +179,20 @@ void zbdsqr(
 
     SMAX = ZERO;
     for (I = 1; I <= N; I++) {
-      SMAX = max(SMAX, (D[I]).abs());
+      SMAX = max(SMAX, D[I].abs());
     }
     for (I = 1; I <= N - 1; I++) {
-      SMAX = max(SMAX, (E[I]).abs());
+      SMAX = max(SMAX, E[I].abs());
     }
     SMIN = ZERO;
     if (TOL >= ZERO) {
       // Relative accuracy desired
 
-      SMINOA = (D[1]).abs();
+      SMINOA = D[1].abs();
       if (SMINOA != ZERO) {
         MU = SMINOA;
         for (I = 2; I <= N; I++) {
-          MU = (D[I]).abs() * (MU / (MU + (E[I - 1]).abs()));
+          MU = D[I].abs() * (MU / (MU + E[I - 1].abs()));
           SMINOA = min(SMINOA, MU);
           if (SMINOA == ZERO) break;
         }
@@ -202,7 +202,7 @@ void zbdsqr(
     } else {
       // Absolute accuracy desired
 
-      THRESH = max((TOL).abs() * SMAX, MAXITR * (N * (N * UNFL)));
+      THRESH = max(TOL.abs() * SMAX, MAXITR * (N * (N * UNFL)));
     }
 
     // Prepare for main iteration loop for the singular values
@@ -241,13 +241,13 @@ void zbdsqr(
 
       // Find diagonal block of matrix to work on
 
-      if (TOL < ZERO && (D[M]).abs() <= THRESH) D[M] = ZERO;
-      SMAX = (D[M]).abs();
+      if (TOL < ZERO && D[M].abs() <= THRESH) D[M] = ZERO;
+      SMAX = D[M].abs();
       var diagonalBlockFound = false;
       for (LLL = 1; LLL <= M - 1; LLL++) {
         LL = M - LLL;
-        ABSS = (D[LL]).abs();
-        ABSE = (E[LL]).abs();
+        ABSS = D[LL].abs();
+        ABSE = E[LL].abs();
         if (TOL < ZERO && ABSS <= THRESH) D[LL] = ZERO;
         if (ABSE <= THRESH) {
           diagonalBlockFound = true;
@@ -304,7 +304,7 @@ void zbdsqr(
       // (from larger end diagonal element towards smaller)
 
       if (LL > OLDM || M < OLDLL) {
-        if ((D[LL]).abs() >= (D[M]).abs()) {
+        if (D[LL].abs() >= D[M].abs()) {
           // Chase bulge from top (big end) to bottom (small end)
 
           IDIR = 1;
@@ -321,8 +321,8 @@ void zbdsqr(
         // Run convergence test in forward direction
         // First apply standard test to bottom of matrix
 
-        if ((E[M - 1]).abs() <= (TOL).abs() * (D[M]).abs() ||
-            (TOL < ZERO && (E[M - 1]).abs() <= THRESH)) {
+        if (E[M - 1].abs() <= TOL.abs() * D[M].abs() ||
+            (TOL < ZERO && E[M - 1].abs() <= THRESH)) {
           E[M - 1] = ZERO;
           continue mainLoop;
         }
@@ -331,14 +331,14 @@ void zbdsqr(
           // If relative accuracy desired,
           // apply convergence criterion forward
 
-          MU = (D[LL]).abs();
+          MU = D[LL].abs();
           SMIN = MU;
           for (LLL = LL; LLL <= M - 1; LLL++) {
-            if ((E[LLL]).abs() <= TOL * MU) {
+            if (E[LLL].abs() <= TOL * MU) {
               E[LLL] = ZERO;
               continue mainLoop;
             }
-            MU = (D[LLL + 1]).abs() * (MU / (MU + (E[LLL]).abs()));
+            MU = D[LLL + 1].abs() * (MU / (MU + E[LLL].abs()));
             SMIN = min(SMIN, MU);
           }
         }
@@ -346,8 +346,8 @@ void zbdsqr(
         // Run convergence test in backward direction
         // First apply standard test to top of matrix
 
-        if ((E[LL]).abs() <= (TOL).abs() * (D[LL]).abs() ||
-            (TOL < ZERO && (E[LL]).abs() <= THRESH)) {
+        if (E[LL].abs() <= TOL.abs() * D[LL].abs() ||
+            (TOL < ZERO && E[LL].abs() <= THRESH)) {
           E[LL] = ZERO;
           continue mainLoop;
         }
@@ -356,14 +356,14 @@ void zbdsqr(
           // If relative accuracy desired,
           // apply convergence criterion backward
 
-          MU = (D[M]).abs();
+          MU = D[M].abs();
           SMIN = MU;
           for (LLL = M - 1; LLL >= LL; LLL--) {
-            if ((E[LLL]).abs() <= TOL * MU) {
+            if (E[LLL].abs() <= TOL * MU) {
               E[LLL] = ZERO;
               continue mainLoop;
             }
-            MU = (D[LLL]).abs() * (MU / (MU + (E[LLL]).abs()));
+            MU = D[LLL].abs() * (MU / (MU + E[LLL].abs()));
             SMIN = min(SMIN, MU);
           }
         }
@@ -382,10 +382,10 @@ void zbdsqr(
         // Compute the shift from 2-by-2 block at end of matrix
 
         if (IDIR == 1) {
-          SLL = (D[LL]).abs();
+          SLL = D[LL].abs();
           dlas2(D[M - 1], E[M - 1], D[M], SHIFT, R);
         } else {
-          SLL = (D[M]).abs();
+          SLL = D[M].abs();
           dlas2(D[LL], E[LL], D[LL + 1], SHIFT, R);
         }
 
@@ -440,7 +440,7 @@ void zbdsqr(
 
           // Test convergence
 
-          if ((E[M - 1]).abs() <= THRESH) E[M - 1] = ZERO;
+          if (E[M - 1].abs() <= THRESH) E[M - 1] = ZERO;
         } else {
           // Chase bulge from bottom to top
           // Save cosines and sines for later singular vector updates
@@ -478,7 +478,7 @@ void zbdsqr(
 
           // Test convergence
 
-          if ((E[LL]).abs() <= THRESH) E[LL] = ZERO;
+          if (E[LL].abs() <= THRESH) E[LL] = ZERO;
         }
       } else {
         // Use nonzero shift
@@ -487,7 +487,7 @@ void zbdsqr(
           // Chase bulge from top to bottom
           // Save cosines and sines for later singular vector updates
 
-          F = ((D[LL]).abs() - SHIFT.value) *
+          F = (D[LL].abs() - SHIFT.value) *
               (sign(ONE, D[LL]) + SHIFT.value / D[LL]);
           G = E[LL];
           for (I = LL; I <= M - 1; I++) {
@@ -529,12 +529,12 @@ void zbdsqr(
 
           // Test convergence
 
-          if ((E[M - 1]).abs() <= THRESH) E[M - 1] = ZERO;
+          if (E[M - 1].abs() <= THRESH) E[M - 1] = ZERO;
         } else {
           // Chase bulge from bottom to top
           // Save cosines and sines for later singular vector updates
 
-          F = ((D[M]).abs() - SHIFT.value) *
+          F = (D[M].abs() - SHIFT.value) *
               (sign(ONE, D[M]) + SHIFT.value / D[M]);
           G = E[M - 1];
           for (I = M; I >= LL + 1; I--) {
@@ -561,7 +561,7 @@ void zbdsqr(
 
           // Test convergence
 
-          if ((E[LL]).abs() <= THRESH) E[LL] = ZERO;
+          if (E[LL].abs() <= THRESH) E[LL] = ZERO;
 
           // Update singular vectors if desired
 

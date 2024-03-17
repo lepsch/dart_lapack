@@ -42,7 +42,7 @@ void zgetc2(
   if (N == 1) {
     IPIV[1] = 1;
     JPIV[1] = 1;
-    if ((A[1][1]).abs() < SMLNUM) {
+    if (A[1][1].abs() < SMLNUM) {
       INFO.value = 1;
       A[1][1] = Complex(SMLNUM, ZERO);
     }
@@ -58,8 +58,8 @@ void zgetc2(
     XMAX = ZERO;
     for (IP = I; IP <= N; IP++) {
       for (JP = I; JP <= N; JP++) {
-        if ((A[IP][JP]).abs() >= XMAX) {
-          XMAX = (A[IP][JP]).abs();
+        if (A[IP][JP].abs() >= XMAX) {
+          XMAX = A[IP][JP].abs();
           IPV = IP;
           JPV = JP;
         }
@@ -79,7 +79,7 @@ void zgetc2(
 
     // Check for singularity
 
-    if ((A[I][I]).abs() < SMIN) {
+    if (A[I][I].abs() < SMIN) {
       INFO.value = I;
       A[I][I] = Complex(SMIN, ZERO);
     }
@@ -90,7 +90,7 @@ void zgetc2(
         A(I, I + 1).asArray(), LDA, A(I + 1, I + 1), LDA);
   }
 
-  if ((A[N][N]).abs() < SMIN) {
+  if (A[N][N].abs() < SMIN) {
     INFO.value = N;
     A[N][N] = Complex(SMIN, ZERO);
   }

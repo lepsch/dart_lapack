@@ -159,7 +159,7 @@ void zgbmv(
           }
         } else {
           for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            TEMP += (A[K + I][J]).conjugate() * X[IX];
+            TEMP += A[K + I][J].conjugate() * X[IX];
             IX += INCX;
           }
         }

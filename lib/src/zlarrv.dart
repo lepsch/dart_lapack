@@ -346,8 +346,8 @@ void zlarrv(
             D[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J].toDouble();
             L[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J + 1].toDouble();
           }
-          D[IEND] = (Z[IEND][J]).toDouble();
-          SIGMA = (Z[IEND][J + 1]).toDouble();
+          D[IEND] = Z[IEND][J].toDouble();
+          SIGMA = Z[IEND][J + 1].toDouble();
 
           // Set the corresponding entries in Z to zero
           zlaset('Full', IN, 2, Complex.zero, Complex.zero, Z(IBEGIN, J), LDZ);
@@ -624,7 +624,7 @@ void zlarrv(
                 // can lead to an overestimation of the left gap and
                 // thus to inadequately early RQI 'convergence'.
                 // Prevent this by forcing a small left gap.
-                LGAP = EPS * max((LEFT).abs(), (RIGHT).abs());
+                LGAP = EPS * max(LEFT.abs(), RIGHT.abs());
               } else {
                 LGAP = WGAP[WINDMN];
               }
@@ -634,7 +634,7 @@ void zlarrv(
                 // can lead to an overestimation of the right gap and
                 // thus to inadequately early RQI 'convergence'.
                 // Prevent this by forcing a small right gap.
-                RGAP = EPS * max((LEFT).abs(), (RIGHT).abs());
+                RGAP = EPS * max(LEFT.abs(), RIGHT.abs());
               } else {
                 RGAP = WGAP[WINDEX];
               }
@@ -744,7 +744,7 @@ void zlarrv(
                 // (omitted when Bisection has been used)
 
                 if (RESID.value > TOL * GAP &&
-                    (RQCORR.value).abs() > RQTOL * (LAMBDA).abs() &&
+                    (RQCORR.value).abs() > RQTOL * LAMBDA.abs() &&
                     !USEDBS) {
                   // We need to check that the RQCORR.value update doesn't
                   // move the eigenvalue away from the desired one and
@@ -790,7 +790,7 @@ void zlarrv(
                   } else {
                     NEEDBS = true;
                   }
-                  if (RIGHT - LEFT < RQTOL * (LAMBDA).abs()) {
+                  if (RIGHT - LEFT < RQTOL * LAMBDA.abs()) {
                     // The eigenvalue is computed to bisection accuracy
                     // compute eigenvector and stop
                     USEDBS = true;

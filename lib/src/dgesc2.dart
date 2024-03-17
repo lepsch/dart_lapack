@@ -54,8 +54,8 @@ void dgesc2(
   // Check for scaling
 
   I = idamax(N, RHS, 1);
-  if (TWO * SMLNUM * (RHS[I]).abs() > (A[N][N]).abs()) {
-    TEMP = (ONE / TWO) / (RHS[I]).abs();
+  if (TWO * SMLNUM * RHS[I].abs() > A[N][N].abs()) {
+    TEMP = (ONE / TWO) / RHS[I].abs();
     dscal(N, TEMP, RHS(1), 1);
     SCALE.value *= TEMP;
   }

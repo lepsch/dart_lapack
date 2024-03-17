@@ -87,7 +87,7 @@ void zgetrf(
     zlaswp(KCOLS, A(1, J + 1), LDA, KSTART, J, IPIV, 1);
 
     // Factor the current column
-    PIVMAG = (A[J][J]).abs();
+    PIVMAG = A[J][J].abs();
     if (PIVMAG != ZERO && !disnan(PIVMAG)) {
       if (PIVMAG >= SFMIN) {
         zscal(M - J, Complex.one / A[J][J], A(J + 1, J).asArray(), 1);

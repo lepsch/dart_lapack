@@ -93,8 +93,8 @@ void ztgex2(
 
   F = S[2][2] * T[1][1] - T[2][2] * S[1][1];
   G = S[2][2] * T[1][2] - T[2][2] * S[1][2];
-  SA = (S[2][2]).abs() * (T[1][1]).abs();
-  SB = (S[1][1]).abs() * (T[2][2]).abs();
+  SA = S[2][2].abs() * T[1][1].abs();
+  SB = S[1][1].abs() * T[2][2].abs();
   zlartg(G, F, CZ, SZ, CDUM);
   SZ.value = -SZ.value;
   zrot(2, S(1, 1).asArray(), 1, S(1, 2).asArray(), 1, CZ.value,

@@ -138,7 +138,7 @@ Future<void> dblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
     }
     await NIN.readArray(INC, NINC);
     for (I = 1; I <= NINC; I++) {
-      if (INC[I] == 0 || (INC[I]).abs() > INCMAX) {
+      if (INC[I] == 0 || INC[I].abs() > INCMAX) {
         NOUT.main.print9994(INCMAX);
         NOUT.main.print9987();
         return;
@@ -1536,7 +1536,7 @@ void _dchk3(
               // Generate the vector X.
 
               TRANSL = HALF;
-              _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, (INCX).abs(), 0,
+              _dmake('GE', ' ', ' ', 1, N, X.asMatrix(), 1, XX, INCX.abs(), 0,
                   N - 1, RESET, TRANSL);
               if (N > 1) {
                 X[N ~/ 2] = ZERO;
@@ -1899,7 +1899,7 @@ void _dchk4(
           // Generate the vector Y.
 
           TRANSL = ZERO;
-          _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, (INCY).abs(), 0,
+          _dmake('GE', ' ', ' ', 1, N, Y.asMatrix(), 1, YY, INCY.abs(), 0,
               N - 1, RESET, TRANSL);
           if (N > 1) {
             Y[N ~/ 2] = ZERO;

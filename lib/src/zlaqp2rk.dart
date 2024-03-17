@@ -246,7 +246,7 @@ void zlaqp2rk(
     // by ZLARFG is covered by checking TAU(KK) for NaN.
 
     if (disnan(TAU[KK].toDouble())) {
-      TAUNAN = (TAU[KK]).toDouble();
+      TAUNAN = TAU[KK].toDouble();
     } else if (disnan(TAU[KK].imaginary)) {
       TAUNAN = TAU[KK].imaginary;
     } else {
@@ -298,7 +298,7 @@ void zlaqp2rk(
           // NOTE: The following lines follow from the analysis in
           // Lapack Working Note 176.
 
-          TEMP = ONE - pow((A[I][J]).abs() / VN1[J], 2);
+          TEMP = ONE - pow(A[I][J].abs() / VN1[J], 2);
           TEMP = max(TEMP, ZERO);
           TEMP2 = TEMP * pow(VN1[J] / VN2[J], 2);
           if (TEMP2 <= TOL3Z) {

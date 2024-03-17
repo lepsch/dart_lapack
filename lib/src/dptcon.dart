@@ -63,20 +63,20 @@ void dptcon(
 
   WORK[1] = ONE;
   for (I = 2; I <= N; I++) {
-    WORK[I] = ONE + WORK[I - 1] * (E[I - 1]).abs();
+    WORK[I] = ONE + WORK[I - 1] * E[I - 1].abs();
   }
 
   // Solve D * M(L)**T * x = b.
 
   WORK[N] /= D[N];
   for (I = N - 1; I >= 1; I--) {
-    WORK[I] /= D[I] + WORK[I + 1] * (E[I]).abs();
+    WORK[I] /= D[I] + WORK[I + 1] * E[I].abs();
   }
 
   // Compute AINVNM = max(x(i)), 1<=i<=n.
 
   IX = idamax(N, WORK, 1);
-  AINVNM = (WORK[IX]).abs();
+  AINVNM = WORK[IX].abs();
 
   // Compute the reciprocal condition number.
 

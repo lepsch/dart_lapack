@@ -34,13 +34,13 @@ void zdrscl(
   do {
     CDEN1 = CDEN * SMLNUM;
     CNUM1 = CNUM / BIGNUM;
-    if ((CDEN1).abs() > (CNUM).abs() && CNUM != ZERO) {
+    if (CDEN1.abs() > CNUM.abs() && CNUM != ZERO) {
       // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 
       MUL = SMLNUM;
       DONE = false;
       CDEN = CDEN1;
-    } else if ((CNUM1).abs() > (CDEN).abs()) {
+    } else if (CNUM1.abs() > CDEN.abs()) {
       // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
 
       MUL = BIGNUM;

@@ -50,14 +50,14 @@ void zlaqhe(
         for (I = 1; I <= J - 1; I++) {
           A[I][J] = (CJ * S[I]).toComplex() * A[I][J];
         }
-        A[J][J] = (CJ * CJ * (A[J][J]).toDouble()).toComplex();
+        A[J][J] = (CJ * CJ * A[J][J].toDouble()).toComplex();
       }
     } else {
       // Lower triangle of A is stored.
 
       for (J = 1; J <= N; J++) {
         CJ = S[J];
-        A[J][J] = (CJ * CJ * (A[J][J]).toDouble()).toComplex();
+        A[J][J] = (CJ * CJ * A[J][J].toDouble()).toComplex();
         for (I = J + 1; I <= N; I++) {
           A[I][J] = (CJ * S[I]).toComplex() * A[I][J];
         }

@@ -38,14 +38,14 @@ double dlantb(
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
           for (I = max(K + 2 - J, 1); I <= K; I++) {
-            SUM.value = (AB[I][J]).abs();
+            SUM.value = AB[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
       } else {
         for (J = 1; J <= N; J++) {
           for (I = 2; I <= min(N + 1 - J, K + 1); I++) {
-            SUM.value = (AB[I][J]).abs();
+            SUM.value = AB[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
@@ -55,14 +55,14 @@ double dlantb(
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
           for (I = max(K + 2 - J, 1); I <= K + 1; I++) {
-            SUM.value = (AB[I][J]).abs();
+            SUM.value = AB[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
       } else {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= min(N + 1 - J, K + 1); I++) {
-            SUM.value = (AB[I][J]).abs();
+            SUM.value = AB[I][J].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
           }
         }
@@ -78,12 +78,12 @@ double dlantb(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = max(K + 2 - J, 1); I <= K; I++) {
-            SUM.value += (AB[I][J]).abs();
+            SUM.value += AB[I][J].abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = max(K + 2 - J, 1); I <= K + 1; I++) {
-            SUM.value += (AB[I][J]).abs();
+            SUM.value += AB[I][J].abs();
           }
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -93,12 +93,12 @@ double dlantb(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = 2; I <= min(N + 1 - J, K + 1); I++) {
-            SUM.value += (AB[I][J]).abs();
+            SUM.value += AB[I][J].abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = 1; I <= min(N + 1 - J, K + 1); I++) {
-            SUM.value += (AB[I][J]).abs();
+            SUM.value += AB[I][J].abs();
           }
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -116,7 +116,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = K + 1 - J;
           for (I = max(1, J - K); I <= J - 1; I++) {
-            WORK[I] += (AB[L + I][J]).abs();
+            WORK[I] += AB[L + I][J].abs();
           }
         }
       } else {
@@ -126,7 +126,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = K + 1 - J;
           for (I = max(1, J - K); I <= J; I++) {
-            WORK[I] += (AB[L + I][J]).abs();
+            WORK[I] += AB[L + I][J].abs();
           }
         }
       }
@@ -138,7 +138,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = 1 - J;
           for (I = J + 1; I <= min(N, J + K); I++) {
-            WORK[I] += (AB[L + I][J]).abs();
+            WORK[I] += AB[L + I][J].abs();
           }
         }
       } else {
@@ -148,7 +148,7 @@ double dlantb(
         for (J = 1; J <= N; J++) {
           L = 1 - J;
           for (I = J; I <= min(N, J + K); I++) {
-            WORK[I] += (AB[L + I][J]).abs();
+            WORK[I] += AB[L + I][J].abs();
           }
         }
       }

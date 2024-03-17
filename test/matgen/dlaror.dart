@@ -94,7 +94,7 @@ void dlaror(
     XNORMS = sign(XNORM, X[KBEG]).toDouble();
     X[KBEG + NXFRM] = sign(ONE, -X[KBEG]).toDouble();
     FACTOR = XNORMS * (XNORMS + X[KBEG]);
-    if ((FACTOR).abs() < TOOSML) {
+    if (FACTOR.abs() < TOOSML) {
       INFO.value = 1;
       xerbla('DLAROR', INFO.value);
       return;

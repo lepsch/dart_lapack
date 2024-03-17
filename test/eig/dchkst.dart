@@ -384,8 +384,7 @@ void dchkst(
           dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A,
               LDA, WORK(N + 1), IINFO);
           for (I = 2; I <= N; I++) {
-            TEMP1 =
-                (A[I - 1][I]).abs() / sqrt((A[I - 1][I - 1] * A[I][I]).abs());
+            TEMP1 = A[I - 1][I].abs() / sqrt((A[I - 1][I - 1] * A[I][I]).abs());
             if (TEMP1 > HALF) {
               A[I - 1][I] = HALF * sqrt((A[I - 1][I - 1] * A[I][I]).abs());
               A[I][I - 1] = A[I - 1][I];
@@ -644,9 +643,9 @@ void dchkst(
         TEMP4 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+          TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
           TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-          TEMP3 = max(TEMP3, max((D1[J]).abs(), (D3[J]).abs()));
+          TEMP3 = max(TEMP3, max(D1[J].abs(), D3[J].abs()));
           TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
         }
 
@@ -717,7 +716,7 @@ void dchkst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D4[J]).abs(), (D5[J]).abs()));
+            TEMP1 = max(TEMP1, max(D4[J].abs(), D5[J].abs()));
             TEMP2 = max(TEMP2, (D4[J] - D5[J]).abs());
           }
 
@@ -763,8 +762,8 @@ void dchkst(
 
           TEMP1 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1,
-                (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
+            TEMP1 = max(
+                TEMP1, (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + D4[J].abs()));
           }
 
           RESULT[17] = TEMP1 / TEMP2;
@@ -794,7 +793,7 @@ void dchkst(
         TEMP1 = ZERO;
         TEMP2 = ZERO;
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, max((D3[J]).abs(), (WA1[J]).abs()));
+          TEMP1 = max(TEMP1, max(D3[J].abs(), WA1[J].abs()));
           TEMP2 = max(TEMP2, (D3[J] - WA1[J]).abs());
         }
 
@@ -878,7 +877,7 @@ void dchkst(
         TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
         TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
         if (N > 0) {
-          TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
+          TEMP3 = max(WA1[N].abs(), WA1[1].abs());
         } else {
           TEMP3 = ZERO;
         }
@@ -1002,7 +1001,7 @@ void dchkst(
         TEMP2 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+          TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
           TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
         }
 
@@ -1070,7 +1069,7 @@ void dchkst(
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) {
               TEMP1 = max(TEMP1,
-                  (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
+                  (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + D4[J].abs()));
             }
 
             RESULT[27] = TEMP1 / TEMP2;
@@ -1134,7 +1133,7 @@ void dchkst(
                 TEMP1 = max(
                     TEMP1,
                     (WR[J - IL + 1] - D4[N - J + 1]).abs() /
-                        (ABSTOL + (WR[J - IL + 1]).abs()));
+                        (ABSTOL + WR[J - IL + 1].abs()));
               }
 
               RESULT[28] = TEMP1 / TEMP2;
@@ -1249,7 +1248,7 @@ void dchkst(
             TEMP2 = ZERO;
 
             for (J = 1; J <= IU - IL + 1; J++) {
-              TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+              TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
             }
 
@@ -1372,7 +1371,7 @@ void dchkst(
             TEMP2 = ZERO;
 
             for (J = 1; J <= IU - IL + 1; J++) {
-              TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+              TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
             }
 
@@ -1480,7 +1479,7 @@ void dchkst(
           TEMP2 = ZERO;
 
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
           }
 

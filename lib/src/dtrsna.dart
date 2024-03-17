@@ -134,7 +134,7 @@ void dtrsna(
       if (!SELECT[1]) return;
     }
     if (WANTS) S[1] = ONE;
-    if (WANTSP) SEP[1] = (T[1][1]).abs();
+    if (WANTSP) SEP[1] = T[1][1].abs();
     return;
   }
 
@@ -179,7 +179,7 @@ void dtrsna(
         PROD = ddot(N, VR(1, KS).asArray(), 1, VL(1, KS).asArray(), 1);
         RNRM = dnrm2(N, VR(1, KS).asArray(), 1);
         LNRM = dnrm2(N, VL(1, KS).asArray(), 1);
-        S[KS] = (PROD).abs() / (RNRM * LNRM);
+        S[KS] = PROD.abs() / (RNRM * LNRM);
       } else {
         // Complex eigenvalue.
 

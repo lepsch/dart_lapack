@@ -45,7 +45,7 @@ void dgttrf(
   }
 
   for (I = 1; I <= N - 2; I++) {
-    if ((D[I]).abs() >= (DL[I]).abs()) {
+    if (D[I].abs() >= DL[I].abs()) {
       // No row interchange required, eliminate DL(I)
 
       if (D[I] != ZERO) {
@@ -69,7 +69,7 @@ void dgttrf(
   }
   if (N > 1) {
     I = N - 1;
-    if ((D[I]).abs() >= (DL[I]).abs()) {
+    if (D[I].abs() >= DL[I].abs()) {
       if (D[I] != ZERO) {
         FACT = DL[I] / D[I];
         DL[I] = FACT;

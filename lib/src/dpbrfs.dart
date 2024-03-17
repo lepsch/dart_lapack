@@ -128,23 +128,23 @@ void dpbrfs(
       if (UPPER) {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = (X[K][J]).abs();
+          XK = X[K][J].abs();
           L = KD + 1 - K;
           for (I = max(1, K - KD); I <= K - 1; I++) {
-            WORK[I] += (AB[L + I][K]).abs() * XK;
-            S += (AB[L + I][K]).abs() * (X[I][J]).abs();
+            WORK[I] += AB[L + I][K].abs() * XK;
+            S += AB[L + I][K].abs() * X[I][J].abs();
           }
-          WORK[K] += (AB[KD + 1][K]).abs() * XK + S;
+          WORK[K] += AB[KD + 1][K].abs() * XK + S;
         }
       } else {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = (X[K][J]).abs();
-          WORK[K] += (AB[1][K]).abs() * XK;
+          XK = X[K][J].abs();
+          WORK[K] += AB[1][K].abs() * XK;
           L = 1 - K;
           for (I = K + 1; I <= min(N, K + KD); I++) {
-            WORK[I] += (AB[L + I][K]).abs() * XK;
-            S += (AB[L + I][K]).abs() * (X[I][J]).abs();
+            WORK[I] += AB[L + I][K].abs() * XK;
+            S += AB[L + I][K].abs() * X[I][J].abs();
           }
           WORK[K] += S;
         }
@@ -152,9 +152,9 @@ void dpbrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (WORK[I] > SAFE2) {
-          S = max(S, (WORK[N + I]).abs() / WORK[I]);
+          S = max(S, WORK[N + I].abs() / WORK[I]);
         } else {
-          S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+          S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -200,9 +200,9 @@ void dpbrfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 
@@ -231,7 +231,7 @@ void dpbrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

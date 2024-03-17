@@ -127,35 +127,33 @@ void dgtrfs(
 
       if (NOTRAN) {
         if (N == 1) {
-          WORK[1] = (B[1][J]).abs() + (D[1] * X[1][J]).abs();
+          WORK[1] = B[1][J].abs() + (D[1] * X[1][J]).abs();
         } else {
-          WORK[1] = (B[1][J]).abs() +
-              (D[1] * X[1][J]).abs() +
-              (DU[1] * X[2][J]).abs();
+          WORK[1] =
+              B[1][J].abs() + (D[1] * X[1][J]).abs() + (DU[1] * X[2][J]).abs();
           for (I = 2; I <= N - 1; I++) {
-            WORK[I] = (B[I][J]).abs() +
+            WORK[I] = B[I][J].abs() +
                 (DL[I - 1] * X[I - 1][J]).abs() +
                 (D[I] * X[I][J]).abs() +
                 (DU[I] * X[I + 1][J]).abs();
           }
-          WORK[N] = (B[N][J]).abs() +
+          WORK[N] = B[N][J].abs() +
               (DL[N - 1] * X[N - 1][J]).abs() +
               (D[N] * X[N][J]).abs();
         }
       } else {
         if (N == 1) {
-          WORK[1] = (B[1][J]).abs() + (D[1] * X[1][J]).abs();
+          WORK[1] = B[1][J].abs() + (D[1] * X[1][J]).abs();
         } else {
-          WORK[1] = (B[1][J]).abs() +
-              (D[1] * X[1][J]).abs() +
-              (DL[1] * X[2][J]).abs();
+          WORK[1] =
+              B[1][J].abs() + (D[1] * X[1][J]).abs() + (DL[1] * X[2][J]).abs();
           for (I = 2; I <= N - 1; I++) {
-            WORK[I] = (B[I][J]).abs() +
+            WORK[I] = B[I][J].abs() +
                 (DU[I - 1] * X[I - 1][J]).abs() +
                 (D[I] * X[I][J]).abs() +
                 (DL[I] * X[I + 1][J]).abs();
           }
-          WORK[N] = (B[N][J]).abs() +
+          WORK[N] = B[N][J].abs() +
               (DU[N - 1] * X[N - 1][J]).abs() +
               (D[N] * X[N][J]).abs();
         }
@@ -173,9 +171,9 @@ void dgtrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (WORK[I] > SAFE2) {
-          S = max(S, (WORK[N + I]).abs() / WORK[I]);
+          S = max(S, WORK[N + I].abs() / WORK[I]);
         } else {
-          S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
+          S = max(S, (WORK[N + I].abs() + SAFE1) / (WORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -223,9 +221,9 @@ void dgtrfs(
 
     for (I = 1; I <= N; I++) {
       if (WORK[I] > SAFE2) {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I];
       } else {
-        WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
+        WORK[I] = WORK[N + I].abs() + NZ * EPS * WORK[I] + SAFE1;
       }
     }
 
@@ -257,7 +255,7 @@ void dgtrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, (X[I][J]).abs());
+      LSTRES = max(LSTRES, X[I][J].abs());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

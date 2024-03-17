@@ -130,12 +130,12 @@ void dsteqr(
     var isSmall = false;
     if (L1 <= NM1) {
       for (M = L1; M <= NM1; M++) {
-        TST = (E[M]).abs();
+        TST = E[M].abs();
         if (TST == ZERO) {
           isSmall = true;
           break;
         }
-        if (TST <= (sqrt((D[M]).abs()) * sqrt((D[M + 1]).abs())) * EPS) {
+        if (TST <= (sqrt(D[M].abs()) * sqrt(D[M + 1].abs())) * EPS) {
           E[M] = ZERO;
           isSmall = true;
           break;
@@ -172,7 +172,7 @@ void dsteqr(
 
     // Choose between QL and QR iteration
 
-    if ((D[LEND]).abs() < (D[L]).abs()) {
+    if (D[LEND].abs() < D[L].abs()) {
       LEND = LSV;
       L = LENDSV;
     }
@@ -187,8 +187,8 @@ void dsteqr(
         if (L != LEND) {
           LENDM1 = LEND - 1;
           for (M = L; M <= LENDM1; M++) {
-            TST = pow((E[M]).abs(), 2).toDouble();
-            if (TST <= (EPS2 * (D[M]).abs()) * (D[M + 1]).abs() + SAFMIN) {
+            TST = pow(E[M].abs(), 2).toDouble();
+            if (TST <= (EPS2 * D[M].abs()) * D[M + 1].abs() + SAFMIN) {
               hasSmallSubdiagonalElement = true;
               break;
             }
@@ -284,8 +284,8 @@ void dsteqr(
         if (L != LEND) {
           LENDP1 = LEND + 1;
           for (M = L; M >= LENDP1; M--) {
-            TST = pow((E[M - 1]).abs(), 2).toDouble();
-            if (TST <= (EPS2 * (D[M]).abs()) * (D[M - 1]).abs() + SAFMIN) {
+            TST = pow(E[M - 1].abs(), 2).toDouble();
+            if (TST <= (EPS2 * D[M].abs()) * D[M - 1].abs() + SAFMIN) {
               hasSmallSuperdiagonalElement = true;
               break;
             }
