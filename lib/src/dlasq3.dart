@@ -92,7 +92,7 @@ void dlasq3(
     }
     Z[4 * N0.value - 7] = Z[NN - 7] + SIGMA.value;
     Z[4 * N0.value - 3] = Z[NN - 3] + SIGMA.value;
-    N0.value = N0.value - 2;
+    N0.value -= 2;
   }
 
   if (PP.value == 2) PP.value = 0;
@@ -143,7 +143,7 @@ void dlasq3(
     dlasq5(I0, N0.value, Z, PP.value, TAU.value, SIGMA.value, DMIN, DMIN1,
         DMIN2, DN, DN1, DN2, IEEE, EPS);
 
-    NDIV.value = NDIV.value + (N0.value - I0 + 2);
+    NDIV.value += (N0.value - I0 + 2);
     ITER.value++;
 
     // Check status.
@@ -176,12 +176,12 @@ void dlasq3(
         // Late failure. Gives excellent shift.
 
         TAU.value = (TAU.value + DMIN.value) * (ONE - TWO * EPS);
-        TTYPE.value = TTYPE.value - 11;
+        TTYPE.value -= 11;
       } else {
         // Early failure. Divide by 4.
 
         TAU.value = QURTR * TAU.value;
-        TTYPE.value = TTYPE.value - 12;
+        TTYPE.value -= 12;
       }
       continue;
     } else if (disnan(DMIN.value)) {
@@ -203,15 +203,15 @@ void dlasq3(
 
   if (!success) {
     dlasq6(I0, N0.value, Z, PP.value, DMIN, DMIN1, DMIN2, DN, DN1, DN2);
-    NDIV.value = NDIV.value + (N0.value - I0 + 2);
+    NDIV.value += (N0.value - I0 + 2);
     ITER.value++;
     TAU.value = ZERO;
   }
 
   if (TAU.value < SIGMA.value) {
-    DESIG.value = DESIG.value + TAU.value;
+    DESIG.value += TAU.value;
     T = SIGMA.value + DESIG.value;
-    DESIG.value = DESIG.value - (T - SIGMA.value);
+    DESIG.value -= (T - SIGMA.value);
   } else {
     T = SIGMA.value + TAU.value;
     DESIG.value = SIGMA.value - (T - TAU.value) + DESIG.value;

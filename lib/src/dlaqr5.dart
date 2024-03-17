@@ -258,12 +258,12 @@ void dlaqr5(
           if (H[K + 1][K] != ZERO) {
             TST1 = (H[K][K]).abs() + (H[K + 1][K + 1]).abs();
             if (TST1 == ZERO) {
-              if (K >= KTOP + 1) TST1 = TST1 + (H[K][K - 1]).abs();
-              if (K >= KTOP + 2) TST1 = TST1 + (H[K][K - 2]).abs();
-              if (K >= KTOP + 3) TST1 = TST1 + (H[K][K - 3]).abs();
-              if (K <= KBOT - 2) TST1 = TST1 + (H[K + 2][K + 1]).abs();
-              if (K <= KBOT - 3) TST1 = TST1 + (H[K + 3][K + 1]).abs();
-              if (K <= KBOT - 4) TST1 = TST1 + (H[K + 4][K + 1]).abs();
+              if (K >= KTOP + 1) TST1 += (H[K][K - 1]).abs();
+              if (K >= KTOP + 2) TST1 += (H[K][K - 2]).abs();
+              if (K >= KTOP + 3) TST1 += (H[K][K - 3]).abs();
+              if (K <= KBOT - 2) TST1 += (H[K + 2][K + 1]).abs();
+              if (K <= KBOT - 3) TST1 += (H[K + 3][K + 1]).abs();
+              if (K <= KBOT - 4) TST1 += (H[K + 4][K + 1]).abs();
             }
             if ((H[K + 1][K]).abs() <= max(SMLNUM, ULP * TST1)) {
               H12 = max((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
@@ -431,12 +431,12 @@ void dlaqr5(
         if (H[K + 1][K] != ZERO) {
           TST1 = (H[K][K]).abs() + (H[K + 1][K + 1]).abs();
           if (TST1 == ZERO) {
-            if (K >= KTOP + 1) TST1 = TST1 + (H[K][K - 1]).abs();
-            if (K >= KTOP + 2) TST1 = TST1 + (H[K][K - 2]).abs();
-            if (K >= KTOP + 3) TST1 = TST1 + (H[K][K - 3]).abs();
-            if (K <= KBOT - 2) TST1 = TST1 + (H[K + 2][K + 1]).abs();
-            if (K <= KBOT - 3) TST1 = TST1 + (H[K + 3][K + 1]).abs();
-            if (K <= KBOT - 4) TST1 = TST1 + (H[K + 4][K + 1]).abs();
+            if (K >= KTOP + 1) TST1 += (H[K][K - 1]).abs();
+            if (K >= KTOP + 2) TST1 += (H[K][K - 2]).abs();
+            if (K >= KTOP + 3) TST1 += (H[K][K - 3]).abs();
+            if (K <= KBOT - 2) TST1 += (H[K + 2][K + 1]).abs();
+            if (K <= KBOT - 3) TST1 += (H[K + 3][K + 1]).abs();
+            if (K <= KBOT - 4) TST1 += (H[K + 4][K + 1]).abs();
           }
           if ((H[K + 1][K]).abs() <= max(SMLNUM, ULP * TST1)) {
             H12 = max((H[K + 1][K]).abs(), (H[K][K + 1]).abs());

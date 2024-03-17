@@ -59,7 +59,7 @@ void dsygs2(
 
         AKK = A[K][K];
         BKK = B[K][K];
-        AKK = AKK / pow(BKK, 2);
+        AKK /= pow(BKK, 2);
         A[K][K] = AKK;
         if (K < N) {
           dscal(N - K, ONE / BKK, A(K, K + 1).asArray(), LDA);
@@ -82,7 +82,7 @@ void dsygs2(
 
         AKK = A[K][K];
         BKK = B[K][K];
-        AKK = AKK / pow(BKK, 2);
+        AKK /= pow(BKK, 2);
         A[K][K] = AKK;
         if (K < N) {
           dscal(N - K, ONE / BKK, A(K + 1, K).asArray(), 1);

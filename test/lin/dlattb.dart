@@ -399,7 +399,7 @@ void dlattb(
               AB[KD + 1][I - 1] = ONE;
               B[I - 1] = TEXP * (KD + 1) * (KD + 1) + KD;
             }
-            TEXP = TEXP * TWO;
+            TEXP *= TWO;
           }
           B[max(1, J - KD + 1)] = ((KD + 2) / (KD + 3)) * TSCAL;
         }
@@ -418,7 +418,7 @@ void dlattb(
               AB[1][I + 1] = ONE;
               B[I + 1] = TEXP * (KD + 1) * (KD + 1) + KD;
             }
-            TEXP = TEXP * TWO;
+            TEXP *= TWO;
           }
           B[min(N, J + KD - 1)] = ((KD + 2) / (KD + 3)) * TSCAL;
         }

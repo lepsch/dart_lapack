@@ -185,7 +185,7 @@ void dlattp(
         WORK[N + J + 1] = ZERO;
         PLUS1 = STAR1 / PLUS2;
         final REXP = dlarnd(2, ISEED);
-        STAR1 = STAR1 * pow(SFAC, REXP);
+        STAR1 *= pow(SFAC, REXP);
         if (REXP < ZERO) {
           STAR1 = pow(-SFAC, ONE - REXP).toDouble();
         } else {
@@ -514,7 +514,7 @@ void dlattp(
         A[JC] = -(TSCAL / (N + 1)) / (N + 2);
         A[JC + J - 2] = ONE;
         B[J - 1] = TEXP * (N * N + N - 1);
-        TEXP = TEXP * TWO;
+        TEXP *= TWO;
         JC -= J + 2;
       }
       B[1] = ((N + 1) / (N + 2)) * TSCAL;
@@ -528,7 +528,7 @@ void dlattp(
         A[JC + N - J - 1] = -(TSCAL / (N + 1)) / (N + 2);
         A[JC] = ONE;
         B[J + 1] = TEXP * (N * N + N - 1);
-        TEXP = TEXP * TWO;
+        TEXP *= TWO;
         JC += N - J;
       }
       B[N] = ((N + 1) / (N + 2)) * TSCAL;

@@ -85,12 +85,12 @@ void dtbt03(
     IX = idamax(N, X(1, J).asArray(), 1);
     XNORM = X[IX][J].abs();
     if (ERR * SMLNUM <= XNORM) {
-      if (XNORM > ZERO) ERR = ERR / XNORM;
+      if (XNORM > ZERO) ERR /= XNORM;
     } else {
       if (ERR > ZERO) ERR = ONE / EPS;
     }
     if (ERR * SMLNUM <= TNORM) {
-      if (TNORM > ZERO) ERR = ERR / TNORM;
+      if (TNORM > ZERO) ERR /= TNORM;
     } else {
       if (ERR > ZERO) ERR = ONE / EPS;
     }

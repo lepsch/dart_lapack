@@ -197,7 +197,7 @@ void zbdsqr(
           if (SMINOA == ZERO) break;
         }
       }
-      SMINOA = SMINOA / sqrt(N.toDouble());
+      SMINOA /= sqrt(N.toDouble());
       THRESH = max(TOL * SMINOA, MAXITR * (N * (N * UNFL)));
     } else {
       // Absolute accuracy desired

@@ -138,7 +138,7 @@ void main() {
           }
           _print9999('a', i, Xj, '(1+0*I)', R, Xj);
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   }
@@ -163,7 +163,7 @@ void main() {
           }
           _print9999('b', i, Xj, '(0+1*I)', R, Xj);
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   }
@@ -194,7 +194,7 @@ void main() {
           }
           _print9999('c', i, Xj, '(3/4+I)', R, answerC);
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   }
@@ -232,7 +232,7 @@ void main() {
             _print9999('d', i, (oneHalf * Xj), '(1+1*I)', R, answerD);
           }
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   }

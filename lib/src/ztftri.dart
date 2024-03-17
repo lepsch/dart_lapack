@@ -82,7 +82,7 @@ void ztftri(
         ztrmm('R', 'L', 'N', DIAG, N2, N1, -Complex.one, A(0).asMatrix(), N,
             A(N1).asMatrix(), N);
         ztrtri('U', DIAG, N2, A(N).asMatrix(), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         ztrmm('L', 'U', 'C', DIAG, N2, N1, Complex.one, A(N).asMatrix(), N,
             A(N1).asMatrix(), N);
@@ -96,7 +96,7 @@ void ztftri(
         ztrmm('L', 'L', 'C', DIAG, N1, N2, -Complex.one, A(N2).asMatrix(), N,
             A(0).asMatrix(), N);
         ztrtri('U', DIAG, N2, A(N1).asMatrix(), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         ztrmm('R', 'U', 'N', DIAG, N1, N2, Complex.one, A(N1).asMatrix(), N,
             A(0).asMatrix(), N);
@@ -113,7 +113,7 @@ void ztftri(
         ztrmm('L', 'U', 'N', DIAG, N1, N2, -Complex.one, A(0).asMatrix(), N1,
             A(N1 * N1).asMatrix(), N1);
         ztrtri('L', DIAG, N2, A(1).asMatrix(), N1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         ztrmm('R', 'L', 'C', DIAG, N1, N2, Complex.one, A(1).asMatrix(), N1,
             A(N1 * N1).asMatrix(), N1);
@@ -126,7 +126,7 @@ void ztftri(
         ztrmm('R', 'U', 'C', DIAG, N2, N1, -Complex.one, A(N2 * N2).asMatrix(),
             N2, A(0).asMatrix(), N2);
         ztrtri('L', DIAG, N2, A(N1 * N2).asMatrix(), N2, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         ztrmm('L', 'L', 'N', DIAG, N2, N1, Complex.one, A(N1 * N2).asMatrix(),
             N2, A(0).asMatrix(), N2);
@@ -148,7 +148,7 @@ void ztftri(
         ztrmm('R', 'L', 'N', DIAG, K, K, -Complex.one, A(1).asMatrix(), N + 1,
             A(K + 1).asMatrix(), N + 1);
         ztrtri('U', DIAG, K, A(0).asMatrix(), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         ztrmm('L', 'U', 'C', DIAG, K, K, Complex.one, A(0).asMatrix(), N + 1,
             A(K + 1).asMatrix(), N + 1);
@@ -162,7 +162,7 @@ void ztftri(
         ztrmm('L', 'L', 'C', DIAG, K, K, -Complex.one, A(K + 1).asMatrix(),
             N + 1, A(0).asMatrix(), N + 1);
         ztrtri('U', DIAG, K, A(K).asMatrix(), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         ztrmm('R', 'U', 'N', DIAG, K, K, Complex.one, A(K).asMatrix(), N + 1,
             A(0).asMatrix(), N + 1);
@@ -180,7 +180,7 @@ void ztftri(
         ztrmm('L', 'U', 'N', DIAG, K, K, -Complex.one, A(K).asMatrix(), K,
             A(K * (K + 1)).asMatrix(), K);
         ztrtri('L', DIAG, K, A(0).asMatrix(), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         ztrmm('R', 'L', 'C', DIAG, K, K, Complex.one, A(0).asMatrix(), K,
             A(K * (K + 1)).asMatrix(), K);
@@ -194,7 +194,7 @@ void ztftri(
         ztrmm('R', 'U', 'C', DIAG, K, K, -Complex.one,
             A(K * (K + 1)).asMatrix(), K, A(0).asMatrix(), K);
         ztrtri('L', DIAG, K, A(K * K).asMatrix(), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         ztrmm('L', 'L', 'N', DIAG, K, K, Complex.one, A(K * K).asMatrix(), K,
             A(0).asMatrix(), K);

@@ -155,7 +155,7 @@ void dlarrf(
     MAX1 = (DPLUS[1]).abs();
     for (I = 1; I <= N - 1; I++) {
       LPLUS[I] = LD[I] / DPLUS[I];
-      S = S * LPLUS[I] * L[I] - LSIGMA;
+      S *= LPLUS[I] * L[I] - LSIGMA;
       DPLUS[I + 1] = D[I + 1] + S;
       if ((DPLUS[I + 1]).abs() < PIVMIN) {
         DPLUS[I + 1] = -PIVMIN;
@@ -184,7 +184,7 @@ void dlarrf(
     MAX2 = (WORK[1]).abs();
     for (I = 1; I <= N - 1; I++) {
       WORK[N + I] = LD[I] / WORK[I];
-      S = S * WORK[N + I] * L[I] - RSIGMA;
+      S *= WORK[N + I] * L[I] - RSIGMA;
       WORK[I + 1] = D[I + 1] + S;
       if ((WORK[I + 1]).abs() < PIVMIN) {
         WORK[I + 1] = -PIVMIN;
@@ -246,7 +246,7 @@ void dlarrf(
                       (DPLUS[I] * WORK[N + I])) *
                   OLDP;
             } else {
-              PROD = PROD * (WORK[N + I]).abs();
+              PROD *= (WORK[N + I]).abs();
             }
             OLDP = PROD;
             ZNM2 += pow(PROD, 2);
@@ -268,7 +268,7 @@ void dlarrf(
               PROD =
                   ((WORK[I + 1] * LPLUS[I + 1]) / (WORK[I] * LPLUS[I])) * OLDP;
             } else {
-              PROD = PROD * (LPLUS[I]).abs();
+              PROD *= (LPLUS[I]).abs();
             }
             OLDP = PROD;
             ZNM2 += pow(PROD, 2);

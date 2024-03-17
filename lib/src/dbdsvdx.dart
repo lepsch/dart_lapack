@@ -183,7 +183,7 @@ void dbdsvdx(
       if (SMIN == ZERO) break;
     }
   }
-  SMIN = SMIN / sqrt(N.toDouble());
+  SMIN /= sqrt(N.toDouble());
   THRESH = TOL * SMIN;
 
   // Check for zeros in D and E (splits), i.e. submatrices.
@@ -261,8 +261,8 @@ void dbdsvdx(
     // at -s (see leading comments) and indices are mapped into
     // values, therefore mimicking DSTEBZ, where
 
-    // GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN
-    // GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN
+    // GL -= FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN
+    // GU += FUDGE*TNORM*ULP*N + FUDGE*PIVMIN
 
     ILTGK = IL;
     IUTGK = IU;
@@ -322,7 +322,7 @@ void dbdsvdx(
     // If VLTGK=VUTGK, DSTEVX returns an error message,
     // so if needed we change VUTGK slightly.
 
-    if (VLTGK == VUTGK) VLTGK = VLTGK - TOL;
+    if (VLTGK == VUTGK) VLTGK -= TOL;
 
     if (WANTZ) dlaset('F', N * 2, IU - IL + 1, ZERO, ZERO, Z, LDZ);
   }
@@ -565,7 +565,7 @@ void dbdsvdx(
           IROWU = IROWZ;
           IROWV = IROWZ + 1;
           ISPLT = IDPTR + 1;
-          NS.value = NS.value + NSL.value;
+          NS.value += NSL.value;
           NRU = 0;
           NRV = 0;
         } // !** NTGK > 0 **!;

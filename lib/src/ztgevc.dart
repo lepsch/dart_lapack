@@ -467,7 +467,7 @@ void ztgevc(
           WORK[J] = zladiv(-WORK[J], D);
 
           if (J > 1) {
-            // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
+            // w += x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
             if (ABS1(WORK[J]) > ONE) {
               TEMP = ONE / ABS1(WORK[J]);

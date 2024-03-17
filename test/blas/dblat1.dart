@@ -1257,7 +1257,7 @@ void _db1nrm2(
   for (IV = 1; IV <= NV; IV++) {
     V0 = VALUES[IV];
     if ((V0).abs() > ONE) {
-      V0 = V0 * HALF;
+      V0 *= HALF;
     }
     Z[1] = V0;
     for (IW = 1; IW <= NV; IW++) {

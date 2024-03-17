@@ -58,10 +58,9 @@ void dlatdf(
       // Look-ahead for L-part RHS[1:N-1] = + or -1, SPLUS and
       // SMIN computed more efficiently than in BSOLVE [1].
 
-      SPLUS = SPLUS +
-          ddot(N - J, Z(J + 1, J).asArray(), 1, Z(J + 1, J).asArray(), 1);
+      SPLUS += ddot(N - J, Z(J + 1, J).asArray(), 1, Z(J + 1, J).asArray(), 1);
       SMINU = ddot(N - J, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1);
-      SPLUS = SPLUS * RHS[J];
+      SPLUS *= RHS[J];
       if (SPLUS > SMINU) {
         RHS[J] = BP;
       } else if (SMINU > SPLUS) {

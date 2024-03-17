@@ -532,13 +532,11 @@ void zhgeqz(
 
         if ((IITER / 20) * 20 == IITER &&
             BSCALE * ABS1(T[ILAST][ILAST]) > SAFMIN) {
-          ESHIFT = ESHIFT +
-              (ASCALE.toComplex() * H[ILAST][ILAST]) /
-                  (BSCALE.toComplex() * T[ILAST][ILAST]);
+          ESHIFT += (ASCALE.toComplex() * H[ILAST][ILAST]) /
+              (BSCALE.toComplex() * T[ILAST][ILAST]);
         } else {
-          ESHIFT = ESHIFT +
-              (ASCALE.toComplex() * H[ILAST][ILAST - 1]) /
-                  (BSCALE.toComplex() * T[ILAST - 1][ILAST - 1]);
+          ESHIFT += (ASCALE.toComplex() * H[ILAST][ILAST - 1]) /
+              (BSCALE.toComplex() * T[ILAST - 1][ILAST - 1]);
         }
         SHIFT = ESHIFT;
       }
@@ -554,8 +552,8 @@ void zhgeqz(
         TEMP2 = ASCALE * ABS1(H[J + 1][J]);
         TEMPR = max(TEMP, TEMP2);
         if (TEMPR < ONE && TEMPR != ZERO) {
-          TEMP = TEMP / TEMPR;
-          TEMP2 = TEMP2 / TEMPR;
+          TEMP /= TEMPR;
+          TEMP2 /= TEMPR;
         }
         if (ABS1(H[J][J - 1]) * TEMP2 <= TEMP * ATOL) {
           consecutive = true;

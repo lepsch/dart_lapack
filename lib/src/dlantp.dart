@@ -82,12 +82,12 @@ double dlantp(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = K; I <= K + J - 2; I++) {
-            SUM.value = SUM.value + (AP[I]).abs();
+            SUM.value += (AP[I]).abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + J - 1; I++) {
-            SUM.value = SUM.value + (AP[I]).abs();
+            SUM.value += (AP[I]).abs();
           }
         }
         K += J;
@@ -98,12 +98,12 @@ double dlantp(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = K + 1; I <= K + N - J; I++) {
-            SUM.value = SUM.value + (AP[I]).abs();
+            SUM.value += (AP[I]).abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + N - J; I++) {
-            SUM.value = SUM.value + (AP[I]).abs();
+            SUM.value += (AP[I]).abs();
           }
         }
         K += N - J + 1;

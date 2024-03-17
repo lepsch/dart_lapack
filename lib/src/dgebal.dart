@@ -190,12 +190,12 @@ void dgebal(
 
       while (
           C < G && max(F, max(C, CA)) < SFMAX2 && min(R, max(G, RA)) > SFMIN2) {
-        F = F * SCLFAC;
-        C = C * SCLFAC;
-        CA = CA * SCLFAC;
-        R = R / SCLFAC;
-        G = G / SCLFAC;
-        RA = RA / SCLFAC;
+        F *= SCLFAC;
+        C *= SCLFAC;
+        CA *= SCLFAC;
+        R /= SCLFAC;
+        G /= SCLFAC;
+        RA /= SCLFAC;
       }
 
       G = C / SCLFAC;
@@ -203,12 +203,12 @@ void dgebal(
       while (G >= R &&
           max(R, RA) < SFMAX2 &&
           min(max(F, C), max(G, CA)) > SFMIN2) {
-        F = F / SCLFAC;
-        C = C / SCLFAC;
-        G = G / SCLFAC;
-        CA = CA / SCLFAC;
-        R = R * SCLFAC;
-        RA = RA * SCLFAC;
+        F /= SCLFAC;
+        C /= SCLFAC;
+        G /= SCLFAC;
+        CA /= SCLFAC;
+        R *= SCLFAC;
+        RA *= SCLFAC;
       }
 
       // Now balance.

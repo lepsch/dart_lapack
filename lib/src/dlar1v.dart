@@ -181,7 +181,7 @@ void dlar1v(
         ISUPPZ[1] = I + 1;
         break;
       }
-      ZTZ.value = ZTZ.value + Z[I] * Z[I];
+      ZTZ.value += Z[I] * Z[I];
     }
   } else {
     // Run slower loop if NaN occurred.
@@ -196,7 +196,7 @@ void dlar1v(
         ISUPPZ[1] = I + 1;
         break;
       }
-      ZTZ.value = ZTZ.value + Z[I] * Z[I];
+      ZTZ.value += Z[I] * Z[I];
     }
   }
 
@@ -209,7 +209,7 @@ void dlar1v(
         ISUPPZ[2] = I;
         break;
       }
-      ZTZ.value = ZTZ.value + Z[I + 1] * Z[I + 1];
+      ZTZ.value += Z[I + 1] * Z[I + 1];
     }
   } else {
     // Run slower loop if NaN occurred.
@@ -224,7 +224,7 @@ void dlar1v(
         ISUPPZ[2] = I;
         break;
       }
-      ZTZ.value = ZTZ.value + Z[I + 1] * Z[I + 1];
+      ZTZ.value += Z[I + 1] * Z[I + 1];
     }
   }
 

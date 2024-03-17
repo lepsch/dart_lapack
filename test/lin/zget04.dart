@@ -59,5 +59,5 @@ void zget04(
       RESID.value = max(RESID.value, (DIFFNM / XNORM) * RCOND);
     }
   }
-  if (RESID.value * EPS < 1.0) RESID.value = RESID.value / EPS;
+  if (RESID.value * EPS < 1.0) RESID.value /= EPS;
 }

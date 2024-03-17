@@ -81,17 +81,17 @@ Complex zlatm3(
     CTEMP = zlarnd(IDIST, ISEED);
   }
   if (IGRADE == 1) {
-    CTEMP = CTEMP * DL[I];
+    CTEMP *= DL[I];
   } else if (IGRADE == 2) {
-    CTEMP = CTEMP * DR[J];
+    CTEMP *= DR[J];
   } else if (IGRADE == 3) {
-    CTEMP = CTEMP * DL[I] * DR[J];
+    CTEMP *= DL[I] * DR[J];
   } else if (IGRADE == 4 && I != J) {
-    CTEMP = CTEMP * DL[I] / DL[J];
+    CTEMP *= DL[I] / DL[J];
   } else if (IGRADE == 5) {
-    CTEMP = CTEMP * DL[I] * DL[J].conjugate();
+    CTEMP *= DL[I] * DL[J].conjugate();
   } else if (IGRADE == 6) {
-    CTEMP = CTEMP * DL[I] * DL[J];
+    CTEMP *= DL[I] * DL[J];
   }
   return CTEMP;
 }

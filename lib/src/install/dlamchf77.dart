@@ -238,7 +238,7 @@ void dlamc1(
 
     while (C == ONE) {
       _dlamc1Cache.LT += 1;
-      A = A * _dlamc1Cache.LBETA;
+      A *= _dlamc1Cache.LBETA;
       C = dlamc3(A, ONE);
       C = dlamc3(C, -A);
     }
@@ -728,7 +728,7 @@ void dlamc5(
   Z = BETA - ONE;
   Y = ZERO;
   for (I = 1; I <= P; I++) {
-    Z = Z * RECBAS;
+    Z *= RECBAS;
     if (Y < ONE) OLDY = Y;
     Y = dlamc3(Y, Z);
   }

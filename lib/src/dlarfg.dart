@@ -46,8 +46,8 @@ void dlarfg(
     do {
       KNT++;
       dscal(N - 1, RSAFMN, X, INCX);
-      BETA = BETA * RSAFMN;
-      ALPHA.value = ALPHA.value * RSAFMN;
+      BETA *= RSAFMN;
+      ALPHA.value *= RSAFMN;
     } while (((BETA).abs() < SAFMIN) && (KNT < 20));
 
     // New BETA is at most 1, at least SAFMIN
@@ -61,7 +61,7 @@ void dlarfg(
   // If ALPHA.value is subnormal, it may lose relative accuracy
 
   for (J = 1; J <= KNT; J++) {
-    BETA = BETA * SAFMIN;
+    BETA *= SAFMIN;
   }
   ALPHA.value = BETA;
 }

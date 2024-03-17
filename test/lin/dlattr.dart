@@ -180,7 +180,7 @@ void dlattr(
         WORK[N + J + 1] = ZERO;
         PLUS1 = STAR1 / PLUS2;
         final REXP = dlarnd(2, ISEED);
-        STAR1 = STAR1 * pow(SFAC, REXP);
+        STAR1 *= pow(SFAC, REXP);
         if (REXP < ZERO) {
           STAR1 = pow(-SFAC, ONE - REXP).toDouble();
         } else {
@@ -460,7 +460,7 @@ void dlattr(
         A[1][J - 1] = -(TSCAL / (N + 1)) / (N + 2).toDouble();
         A[J - 1][J - 1] = ONE;
         B[J - 1] = TEXP * (N * N + N - 1).toDouble();
-        TEXP = TEXP * 2.0;
+        TEXP *= 2.0;
       }
       B[1] = ((N + 1) / (N + 2)) * TSCAL;
     } else {
@@ -471,7 +471,7 @@ void dlattr(
         A[N][J + 1] = -(TSCAL / (N + 1)) / (N + 2).toDouble();
         A[J + 1][J + 1] = ONE;
         B[J + 1] = TEXP * (N * N + N - 1).toDouble();
-        TEXP = TEXP * 2.0;
+        TEXP *= 2.0;
       }
       B[N] = ((N + 1) / (N + 2).toDouble()) * TSCAL;
     }

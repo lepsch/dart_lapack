@@ -308,7 +308,7 @@ void dlatrs3(
           // Set WORK( J+KK*LDS ) to smallest valid scale
           // factor and increase SCALOC.value accordingly.
           SCAL = WORK[J + KK * LDS] / SMLNUM;
-          SCALOC.value = SCALOC.value * SCAL;
+          SCALOC.value *= SCAL;
           WORK[J + KK * LDS] = SMLNUM;
           // If LATRS overestimated the growth, x may be
           // rescaled to preserve a valid combined scale
@@ -335,7 +335,7 @@ void dlatrs3(
             SCALOC.value = ONE;
           }
         }
-        SCALOC.value = SCALOC.value * WORK[J + KK * LDS];
+        SCALOC.value *= WORK[J + KK * LDS];
         WORK[J + KK * LDS] = SCALOC.value;
       }
 
@@ -385,7 +385,7 @@ void dlatrs3(
           // simulating consistent scaling.
 
           BNRM = dlange('I', I2 - I1, 1, X(I1, RHS), LDX, W);
-          BNRM = BNRM * (SCAMIN / WORK[I + KK * LDS]);
+          BNRM *= (SCAMIN / WORK[I + KK * LDS]);
           XNRM[KK] *= (SCAMIN / WORK[J + KK * LDS]);
           ANRM = WORK[AWRK + I + (J - 1) * NBA];
           SCALOC.value = dlarmm(ANRM, XNRM[KK], BNRM);

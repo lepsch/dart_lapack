@@ -78,7 +78,7 @@ void dgetrf(
     while (NTOPIV < KAHEAD) {
       dlaswp(NTOPIV, A(1, JPIVSTART), LDA, IPIVSTART, J, IPIV, 1);
       IPIVSTART -= NTOPIV;
-      NTOPIV = NTOPIV * 2;
+      NTOPIV *= 2;
       JPIVSTART -= NTOPIV;
     }
 

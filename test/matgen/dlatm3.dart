@@ -80,15 +80,15 @@ double dlatm3(
     TEMP = dlarnd(IDIST, ISEED);
   }
   if (IGRADE == 1) {
-    TEMP = TEMP * DL[I];
+    TEMP *= DL[I];
   } else if (IGRADE == 2) {
-    TEMP = TEMP * DR[J];
+    TEMP *= DR[J];
   } else if (IGRADE == 3) {
-    TEMP = TEMP * DL[I] * DR[J];
+    TEMP *= DL[I] * DR[J];
   } else if (IGRADE == 4 && I != J) {
-    TEMP = TEMP * DL[I] / DL[J];
+    TEMP *= DL[I] / DL[J];
   } else if (IGRADE == 5) {
-    TEMP = TEMP * DL[I] * DL[J];
+    TEMP *= DL[I] * DL[J];
   }
   return TEMP;
 }

@@ -200,7 +200,7 @@ void zlatm4(
         // 250
         if ((A[JD][JD]).toDouble() != ZERO) {
           CTEMP = zlarnd(3, ISEED);
-          CTEMP = CTEMP / (CTEMP).abs().toComplex();
+          CTEMP /= (CTEMP).abs().toComplex();
           A[JD][JD] = CTEMP * A[JD][JD].real.toComplex();
         }
       } // 250
@@ -208,7 +208,7 @@ void zlatm4(
         // 260
         if ((A[JD + 1][JD]).toDouble() != ZERO) {
           CTEMP = zlarnd(3, ISEED);
-          CTEMP = CTEMP / (CTEMP).abs().toComplex();
+          CTEMP /= (CTEMP).abs().toComplex();
           A[JD + 1][JD] = CTEMP * A[JD + 1][JD].real.toComplex();
         }
       } // 260

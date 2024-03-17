@@ -203,7 +203,7 @@ void zchkgg(
 
   SAFMIN = dlamch('Safe minimum');
   ULP = dlamch('Epsilon') * dlamch('Base');
-  SAFMIN = SAFMIN / ULP;
+  SAFMIN /= ULP;
   SAFMAX = ONE / SAFMIN;
   ULPINV = ONE / ULP;
 
@@ -683,8 +683,8 @@ void zchkgg(
             TEMP2 = max(TEMP2, (BETA1[J] - BETA3[J]).abs());
           } // 200
 
-          TEMP1 = TEMP1 / max(SAFMIN, ULP * max(TEMP1, ANORM));
-          TEMP2 = TEMP2 / max(SAFMIN, ULP * max(TEMP2, BNORM));
+          TEMP1 /= max(SAFMIN, ULP * max(TEMP1, ANORM));
+          TEMP2 /= max(SAFMIN, ULP * max(TEMP2, BNORM));
           RESULT[15] = max(TEMP1, TEMP2);
           NTEST = 15;
         } else {

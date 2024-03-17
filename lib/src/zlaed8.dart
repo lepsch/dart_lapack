@@ -192,7 +192,7 @@ void zlaed8(
 
       TAU = dlapy2(C, S);
       T = D[J] - D[JLAM];
-      C = C / TAU;
+      C /= TAU;
       S = -S / TAU;
       if ((T * C * S).abs() <= TOL) {
         // Deflation is possible.

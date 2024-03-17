@@ -237,7 +237,7 @@ void dsbtrd(
               IQEND = max(IQEND, J2);
               I2 = max(0, K - 3);
               IQAEND = 1 + I * KD;
-              if (K == 2) IQAEND = IQAEND + KD;
+              if (K == 2) IQAEND += KD;
               IQAEND = min(IQAEND, IQEND);
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
                 IBL = I - I2 ~/ KDM1;
@@ -422,7 +422,7 @@ void dsbtrd(
               IQEND = max(IQEND, J2);
               I2 = max(0, K - 3);
               IQAEND = 1 + I * KD;
-              if (K == 2) IQAEND = IQAEND + KD;
+              if (K == 2) IQAEND += KD;
               IQAEND = min(IQAEND, IQEND);
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
                 IBL = I - I2 ~/ KDM1;

@@ -86,14 +86,14 @@ void dlanv2(
 
       Z = P + sign(sqrt(SCALE) * sqrt(Z), P);
       A.value = D.value + Z;
-      D.value = D.value - (BCMAX / Z) * BCMIS;
+      D.value -= (BCMAX / Z) * BCMIS;
 
       // Compute B.value and the rotation matrix
 
       TAU = dlapy2(C.value, Z);
       CS.value = Z / TAU;
       SN.value = C.value / TAU;
-      B.value = B.value - C.value;
+      B.value -= C.value;
       C.value = ZERO;
     } else {
       // Complex eigenvalues, or real (almost) equal eigenvalues.
@@ -105,13 +105,13 @@ void dlanv2(
         COUNT++;
         SCALE = max(TEMP.abs(), SIGMA.abs());
         if (SCALE >= SAFMX2) {
-          SIGMA = SIGMA * SAFMN2;
-          TEMP = TEMP * SAFMN2;
+          SIGMA *= SAFMN2;
+          TEMP *= SAFMN2;
           if (COUNT <= 20) continue;
         }
         if (SCALE <= SAFMN2) {
-          SIGMA = SIGMA * SAFMX2;
-          TEMP = TEMP * SAFMX2;
+          SIGMA *= SAFMX2;
+          TEMP *= SAFMX2;
           if (COUNT <= 20) continue;
         }
         break;
@@ -152,7 +152,7 @@ void dlanv2(
             TAU = ONE / sqrt((B.value + C.value).abs());
             A.value = TEMP + P;
             D.value = TEMP - P;
-            B.value = B.value - C.value;
+            B.value -= C.value;
             C.value = ZERO;
             CS1 = SAB * TAU;
             SN1 = SAC * TAU;

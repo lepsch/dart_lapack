@@ -301,7 +301,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       }
     }
 
-    RNORM = RNORM / CABS1(A[1][1]);
+    RNORM /= CABS1(A[1][1]);
     final RCOND = 1.0 / (RNORM * RINORM);
 
     // Calculating the R for normwise rcond.
@@ -366,8 +366,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       for (var I = 1; I <= N; I++) {
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMRI = SUMRI +
-              CABS1(INVHILB[I][J] * RINV[J].toComplex() / INVHILB[I][K]);
+          SUMRI += CABS1(INVHILB[I][J] * RINV[J].toComplex() / INVHILB[I][K]);
         }
         RINORM = max(RINORM, SUMRI);
       }

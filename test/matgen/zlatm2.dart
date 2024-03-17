@@ -77,17 +77,17 @@ Complex zlatm2(
     CTEMP = zlarnd(IDIST, ISEED);
   }
   if (IGRADE == 1) {
-    CTEMP = CTEMP * DL[ISUB];
+    CTEMP *= DL[ISUB];
   } else if (IGRADE == 2) {
-    CTEMP = CTEMP * DR[JSUB];
+    CTEMP *= DR[JSUB];
   } else if (IGRADE == 3) {
-    CTEMP = CTEMP * DL[ISUB] * DR[JSUB];
+    CTEMP *= DL[ISUB] * DR[JSUB];
   } else if (IGRADE == 4 && ISUB != JSUB) {
-    CTEMP = CTEMP * DL[ISUB] / DL[JSUB];
+    CTEMP *= DL[ISUB] / DL[JSUB];
   } else if (IGRADE == 5) {
-    CTEMP = CTEMP * DL[ISUB] * DL[JSUB].conjugate();
+    CTEMP *= DL[ISUB] * DL[JSUB].conjugate();
   } else if (IGRADE == 6) {
-    CTEMP = CTEMP * DL[ISUB] * DL[JSUB];
+    CTEMP *= DL[ISUB] * DL[JSUB];
   }
   return CTEMP;
 }

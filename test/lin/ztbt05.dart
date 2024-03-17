@@ -98,9 +98,9 @@ void ztbt05(
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
             TMP += CABS1(AB[KD + 1 - I + J][I]) * CABS1(X[J][K]);
           }
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
         } else {
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
           for (var J = I + IFU; J <= min(I + KD, N); J++) {
             TMP += CABS1(AB[KD + 1 + I - J][J]) * CABS1(X[J][K]);
           }
@@ -110,9 +110,9 @@ void ztbt05(
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
             TMP += CABS1(AB[1 + I - J][J]) * CABS1(X[J][K]);
           }
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
         } else {
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
           for (var J = I + IFU; J <= min(I + KD, N); J++) {
             TMP += CABS1(AB[1 + J - I][I]) * CABS1(X[J][K]);
           }

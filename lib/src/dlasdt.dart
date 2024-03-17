@@ -50,7 +50,7 @@ void dlasdt(
       NDIMR[IR] = NDIMR[NCRNT] - NDIML[IR] - 1;
       INODE[IR] = INODE[NCRNT] + NDIML[IR] + 1;
     }
-    LLST = LLST * 2;
+    LLST *= 2;
   }
   ND.value = LLST * 2 - 1;
 }

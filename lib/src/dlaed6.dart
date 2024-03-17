@@ -79,9 +79,9 @@ void dlaed6(
       B = C * D[1] * D[2] + Z[1] * D[2] + Z[2] * D[1];
     }
     TEMP = max(A.abs(), max(B.abs(), C.abs()));
-    A = A / TEMP;
-    B = B / TEMP;
-    C = C / TEMP;
+    A /= TEMP;
+    B /= TEMP;
+    C /= TEMP;
     if (C == ZERO) {
       TAU.value = B / A;
     } else if (A <= ZERO) {
@@ -148,9 +148,9 @@ void dlaed6(
       DSCALE[I] = D[I] * SCLFAC;
       ZSCALE[I] = Z[I] * SCLFAC;
     }
-    TAU.value = TAU.value * SCLFAC;
-    LBD = LBD * SCLFAC;
-    UBD = UBD * SCLFAC;
+    TAU.value *= SCLFAC;
+    LBD *= SCLFAC;
+    UBD *= SCLFAC;
   } else {
     // Copy D and Z to DSCALE and ZSCALE
 
@@ -208,9 +208,9 @@ void dlaed6(
       B = TEMP1 * TEMP2 * F;
       C = F - (TEMP1 + TEMP2) * DF + TEMP1 * TEMP2 * DDF;
       TEMP = max(A.abs(), max(B.abs(), C.abs()));
-      A = A / TEMP;
-      B = B / TEMP;
-      C = C / TEMP;
+      A /= TEMP;
+      B /= TEMP;
+      C /= TEMP;
       if (C == ZERO) {
         ETA = B / A;
       } else if (A <= ZERO) {
@@ -222,7 +222,7 @@ void dlaed6(
         ETA = -F / DF;
       }
 
-      TAU.value = TAU.value + ETA;
+      TAU.value += ETA;
       if (TAU.value < LBD || TAU.value > UBD) TAU.value = (LBD + UBD) / TWO;
 
       FC = ZERO;
@@ -260,5 +260,5 @@ void dlaed6(
   }
 
   // Undo scaling
-  if (SCALE) TAU.value = TAU.value * SCLINV;
+  if (SCALE) TAU.value *= SCLINV;
 }

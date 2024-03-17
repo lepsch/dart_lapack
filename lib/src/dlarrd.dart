@@ -352,8 +352,8 @@ void dlarrd(
       // change SPDIAM by TNORM in lines 2 and 3 thereafter
       // line 1: remove computation of SPDIAM (not useful anymore)
       // SPDIAM = GU - GL
-      // GL = GL - FUDGE*SPDIAM*EPS*IN - FUDGE*PIVMIN
-      // GU = GU + FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
+      // GL -= FUDGE*SPDIAM*EPS*IN - FUDGE*PIVMIN
+      // GU += FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
       GL -= FUDGE * TNORM * EPS * IN - FUDGE * PIVMIN;
       GU += FUDGE * TNORM * EPS * IN + FUDGE * PIVMIN;
 
@@ -454,7 +454,7 @@ void dlarrd(
         }
       }
 
-      M.value = M.value + IM.value;
+      M.value += IM.value;
     }
   }
 
@@ -504,7 +504,7 @@ void dlarrd(
         INDEXW[JEE] = INDEXW[JE];
         IBLOCK[JEE] = IBLOCK[JE];
       }
-      M.value = M.value - IM.value + 1;
+      M.value -= IM.value + 1;
     }
 
     if (IDISCL > 0 || IDISCU > 0) {
@@ -595,5 +595,5 @@ void dlarrd(
 
   INFO.value = 0;
   if (NCNVRG) INFO.value++;
-  if (TOOFEW) INFO.value = INFO.value + 2;
+  if (TOOFEW) INFO.value += 2;
 }

@@ -351,7 +351,7 @@ void dgejsv(
     ENTRA = ZERO;
     for (p = 1; p <= N; p++) {
       BIG1 = (pow((SVA[p] / XSC.value), 2)) * TEMP1.value;
-      if (BIG1 != ZERO) ENTRA = ENTRA + BIG1 * log(BIG1);
+      if (BIG1 != ZERO) ENTRA += BIG1 * log(BIG1);
     }
     ENTRA = -ENTRA / log(N.toDouble());
 
@@ -364,7 +364,7 @@ void dgejsv(
     ENTRAT = ZERO;
     for (p = N + 1; p <= N + M; p++) {
       BIG1 = (pow((WORK[p] / XSC.value), 2)) * TEMP1.value;
-      if (BIG1 != ZERO) ENTRAT = ENTRAT + BIG1 * log(BIG1);
+      if (BIG1 != ZERO) ENTRAT += BIG1 * log(BIG1);
     }
     ENTRAT = -ENTRAT / log(M.toDouble());
 
@@ -424,7 +424,7 @@ void dgejsv(
   } else {
     AAQQ.value = (AAQQ.value * TEMP1.value) / AAPP.value;
   }
-  TEMP1.value = TEMP1.value * SCALEM;
+  TEMP1.value *= SCALEM;
   dlascl('G', 0, 0, AAPP.value, TEMP1.value, M, N, A, LDA, IERR);
 
   // To undo scaling at the end of this procedure, multiply the

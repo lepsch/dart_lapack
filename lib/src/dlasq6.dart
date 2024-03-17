@@ -44,7 +44,7 @@ void dlasq6(
           SAFMIN * Z[J4 - 2] < Z[J4 + 1]) {
         TEMP = Z[J4 + 1] / Z[J4 - 2];
         Z[J4] = Z[J4 - 1] * TEMP;
-        D = D * TEMP;
+        D *= TEMP;
       } else {
         Z[J4] = Z[J4 + 1] * (Z[J4 - 1] / Z[J4 - 2]);
         D = Z[J4 + 1] * (D / Z[J4 - 2]);
@@ -64,7 +64,7 @@ void dlasq6(
           SAFMIN * Z[J4 - 3] < Z[J4 + 2]) {
         TEMP = Z[J4 + 2] / Z[J4 - 3];
         Z[J4 - 1] = Z[J4] * TEMP;
-        D = D * TEMP;
+        D *= TEMP;
       } else {
         Z[J4 - 1] = Z[J4 + 2] * (Z[J4] / Z[J4 - 3]);
         D = Z[J4 + 2] * (D / Z[J4 - 3]);

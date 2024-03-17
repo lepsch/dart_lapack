@@ -48,7 +48,7 @@ double zlange(
       SUM.value = ZERO;
       for (I = 1; I <= M; I++) {
         // 30
-        SUM.value = SUM.value + A[I][J].abs();
+        SUM.value += A[I][J].abs();
       } // 30
       if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
     } // 40

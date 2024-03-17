@@ -144,12 +144,12 @@ void ztbsv(
             for (I = max(1, J - K); I <= J - 1; I++) {
               TEMP -= A[L + I][J] * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[KPLUS1][J];
+            if (NOUNIT) TEMP /= A[KPLUS1][J];
           } else {
             for (I = max(1, J - K); I <= J - 1; I++) {
               TEMP -= A[L + I][J].conjugate() * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[KPLUS1][J].conjugate();
+            if (NOUNIT) TEMP /= A[KPLUS1][J].conjugate();
           }
           X[J] = TEMP;
         }
@@ -164,17 +164,17 @@ void ztbsv(
               TEMP -= A[L + I][J] * X[IX];
               IX += INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[KPLUS1][J];
+            if (NOUNIT) TEMP /= A[KPLUS1][J];
           } else {
             for (I = max(1, J - K); I <= J - 1; I++) {
               TEMP -= A[L + I][J].conjugate() * X[IX];
               IX += INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[KPLUS1][J].conjugate();
+            if (NOUNIT) TEMP /= A[KPLUS1][J].conjugate();
           }
           X[JX] = TEMP;
           JX += INCX;
-          if (J > K) KX = KX + INCX;
+          if (J > K) KX += INCX;
         }
       }
     } else {
@@ -186,12 +186,12 @@ void ztbsv(
             for (I = min(N, J + K); I >= J + 1; I--) {
               TEMP -= A[L + I][J] * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[1][J];
+            if (NOUNIT) TEMP /= A[1][J];
           } else {
             for (I = min(N, J + K); I >= J + 1; I--) {
               TEMP -= A[L + I][J].conjugate() * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[1][J].conjugate();
+            if (NOUNIT) TEMP /= A[1][J].conjugate();
           }
           X[J] = TEMP;
         }
@@ -207,17 +207,17 @@ void ztbsv(
               TEMP -= A[L + I][J] * X[IX];
               IX -= INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[1][J];
+            if (NOUNIT) TEMP /= A[1][J];
           } else {
             for (I = min(N, J + K); I >= J + 1; I--) {
               TEMP -= A[L + I][J].conjugate() * X[IX];
               IX -= INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[1][J].conjugate();
+            if (NOUNIT) TEMP /= A[1][J].conjugate();
           }
           X[JX] = TEMP;
           JX -= INCX;
-          if ((N - J) >= K) KX = KX - INCX;
+          if ((N - J) >= K) KX -= INCX;
         }
       }
     }

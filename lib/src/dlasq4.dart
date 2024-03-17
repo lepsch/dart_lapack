@@ -99,7 +99,7 @@ void dlasq4(
           if (B2 == ZERO) break;
           B1 = B2;
           if (Z[I4] > Z[I4 - 2]) return;
-          B2 = B2 * (Z[I4] / Z[I4 - 2]);
+          B2 *= (Z[I4] / Z[I4 - 2]);
           A2 += B2;
           if (HUNDRD * max(B2, B1) < A2 || CNST1 < A2) break;
         }
@@ -133,7 +133,7 @@ void dlasq4(
           if (B2 == ZERO) break;
           B1 = B2;
           if (Z[I4] > Z[I4 - 2]) return;
-          B2 = B2 * (Z[I4] / Z[I4 - 2]);
+          B2 *= (Z[I4] / Z[I4 - 2]);
           A2 += B2;
           if (HUNDRD * max(B2, B1) < A2 || CNST1 < A2) break;
         }
@@ -145,7 +145,7 @@ void dlasq4(
       // Case 6, no information to guide us.
 
       if (TTYPE.value == -6) {
-        G.value = G.value + THIRD * (ONE - G.value);
+        G.value += THIRD * (ONE - G.value);
       } else if (TTYPE.value == -18) {
         G.value = QURTR * THIRD;
       } else {
@@ -169,7 +169,7 @@ void dlasq4(
         for (I4 = 4 * N0 - 9 + PP; I4 >= 4 * I0 - 1 + PP; I4 -= 4) {
           A2 = B1;
           if (Z[I4] > Z[I4 - 2]) return;
-          B1 = B1 * (Z[I4] / Z[I4 - 2]);
+          B1 *= (Z[I4] / Z[I4 - 2]);
           B2 += B1;
           if (HUNDRD * max(B1, A2) < B2) break;
         }
@@ -204,7 +204,7 @@ void dlasq4(
       if (B2 != ZERO) {
         for (I4 = 4 * N0 - 9 + PP; I4 >= 4 * I0 - 1 + PP; I4 -= 4) {
           if (Z[I4] > Z[I4 - 2]) return;
-          B1 = B1 * (Z[I4] / Z[I4 - 2]);
+          B1 *= (Z[I4] / Z[I4 - 2]);
           B2 += B1;
           if (HUNDRD * B1 < B2) break;
         }

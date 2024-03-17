@@ -84,7 +84,7 @@ void zhpgst(
 
         AKK = AP[KK].toDouble();
         BKK = BP[KK].toDouble();
-        AKK = AKK / pow(BKK, 2);
+        AKK /= pow(BKK, 2);
         AP[KK] = AKK.toComplex();
         if (K < N) {
           zdscal(N - K, ONE / BKK, AP(KK + 1), 1);

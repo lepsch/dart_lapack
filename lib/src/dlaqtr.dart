@@ -127,8 +127,8 @@ void dlaqtr(
             if (XJ > BIGNUM * TJJ) {
               REC = ONE / XJ;
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
           X[J1] /= TMP;
@@ -141,7 +141,7 @@ void dlaqtr(
             REC = ONE / XJ;
             if (WORK[J1] > (BIGNUM - XMAX) * REC) {
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
+              SCALE.value *= REC;
             }
           }
           if (J1 > 1) {
@@ -163,7 +163,7 @@ void dlaqtr(
 
           if (SCALOC.value != ONE) {
             dscal(N, SCALOC.value, X, 1);
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           X[J1] = V[1][1];
           X[J2] = V[2][1];
@@ -176,7 +176,7 @@ void dlaqtr(
             REC = ONE / XJ;
             if (max(WORK[J1], WORK[J2]) > (BIGNUM - XMAX) * REC) {
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
+              SCALE.value *= REC;
             }
           }
 
@@ -217,8 +217,8 @@ void dlaqtr(
             REC = ONE / XMAX;
             if (WORK[J1] > (BIGNUM - XJ) * REC) {
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
 
@@ -237,8 +237,8 @@ void dlaqtr(
             if (XJ > BIGNUM * TJJ) {
               REC = ONE / XJ;
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
           X[J1] /= TMP;
@@ -254,8 +254,8 @@ void dlaqtr(
             REC = ONE / XMAX;
             if (max(WORK[J2], WORK[J1]) > (BIGNUM - XJ) * REC) {
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
 
@@ -268,7 +268,7 @@ void dlaqtr(
 
           if (SCALOC.value != ONE) {
             dscal(N, SCALOC.value, X, 1);
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           X[J1] = V[1][1];
           X[J2] = V[2][1];
@@ -316,8 +316,8 @@ void dlaqtr(
             if (XJ > BIGNUM * TJJ) {
               REC = ONE / XJ;
               dscal(N2, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
           dladiv(X[J1], X[N + J1], TMP, Z, SR, SI);
@@ -332,7 +332,7 @@ void dlaqtr(
             REC = ONE / XJ;
             if (WORK[J1] > (BIGNUM - XMAX) * REC) {
               dscal(N2, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
+              SCALE.value *= REC;
             }
           }
 
@@ -377,7 +377,7 @@ void dlaqtr(
             REC = ONE / XJ;
             if (max(WORK[J1], WORK[J2]) > (BIGNUM - XMAX) * REC) {
               dscal(N2, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
+              SCALE.value *= REC;
             }
           }
 
@@ -427,8 +427,8 @@ void dlaqtr(
             REC = ONE / XMAX;
             if (WORK[J1] > (BIGNUM - XJ) * REC) {
               dscal(N2, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
 
@@ -459,8 +459,8 @@ void dlaqtr(
             if (XJ > BIGNUM * TJJ) {
               REC = ONE / XJ;
               dscal(N2, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
           dladiv(X[J1], X[N + J1], TMP, -Z, SR, SI);
@@ -481,8 +481,8 @@ void dlaqtr(
             REC = ONE / XMAX;
             if (max(WORK[J1], WORK[J2]) > (BIGNUM - XJ) / XMAX) {
               dscal(N2, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
           }
 

@@ -646,7 +646,7 @@ void zchkbd(
             // 130
             dsvdch(MNMIN, BD, BE, S1, TEMP1, IINFO);
             if (IINFO.value == 0) break;
-            TEMP1 = TEMP1 * TWO;
+            TEMP1 *= TWO;
           } // 130
 
           // } // 140

@@ -53,7 +53,7 @@ Future<void> zchkbk(final Nin NIN, final Nout NOUT) async {
       for (J = 1; J <= N; J++) {
         // 40
         X = CABS1(E[I][J] - EIN[I][J]) / EPS;
-        if (CABS1(E[I][J]) > SAFMIN) X = X / CABS1(E[I][J]);
+        if (CABS1(E[I][J]) > SAFMIN) X /= CABS1(E[I][J]);
         VMAX = max(VMAX, X);
       } // 40
     } // 50

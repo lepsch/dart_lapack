@@ -69,9 +69,9 @@ void dget53(
 
     INFO.value = 1;
     TEMP = ONE / TEMP;
-    SCALES = SCALES * TEMP;
-    WRS = WRS * TEMP;
-    WIS = WIS * TEMP;
+    SCALES *= TEMP;
+    WRS *= TEMP;
+    WIS *= TEMP;
     ABSW = (WRS).abs() + (WIS).abs();
   }
   S1 = max(ULP * max(SCALES * ANORM, ABSW * BNORM), SAFMIN * max(SCALES, ABSW));
@@ -89,9 +89,9 @@ void dget53(
     // Scale up to avoid underflow
 
     TEMP = ONE / max(SCALES * ANORM + ABSW * BNORM, SAFMIN);
-    SCALES = SCALES * TEMP;
-    WRS = WRS * TEMP;
-    WIS = WIS * TEMP;
+    SCALES *= TEMP;
+    WRS *= TEMP;
+    WIS *= TEMP;
     ABSW = (WRS).abs() + (WIS).abs();
     S1 = max(
         ULP * max(SCALES * ANORM, ABSW * BNORM), SAFMIN * max(SCALES, ABSW));

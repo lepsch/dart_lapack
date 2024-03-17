@@ -199,7 +199,7 @@ void ddrges3(
 
   SAFMIN = dlamch('Safe minimum');
   ULP = dlamch('Epsilon') * dlamch('Base');
-  SAFMIN = SAFMIN / ULP;
+  SAFMIN /= ULP;
   SAFMAX = ONE / SAFMIN;
   ULPINV = ONE / ULP;
 

@@ -82,7 +82,7 @@ void zrotg(
         // safmin <= f2/h2 <= 1, and h2/f2 is finite
         c.value = sqrt(f2 / h2);
         r = f / c.value.toComplex();
-        rtmax = rtmax * 2;
+        rtmax *= 2;
         if (f2 > rtmin && h2 < rtmax) {
           // safmin <= sqrt( f2*h2 ) <= safmax
           s.value = g.conjugate() * (f / sqrt(f2 * h2).toComplex());
@@ -137,7 +137,7 @@ void zrotg(
         // safmin <= f2/h2 <= 1, and h2/f2 is finite
         c.value = sqrt(f2 / h2);
         r = fs / c.value.toComplex();
-        rtmax = rtmax * 2;
+        rtmax *= 2;
         if (f2 > rtmin && h2 < rtmax) {
           // safmin <= sqrt( f2*h2 ) <= safmax
           s.value = gs.conjugate() * (fs / sqrt(f2 * h2).toComplex());
@@ -163,8 +163,8 @@ void zrotg(
         s.value = gs.conjugate() * (fs / d.toComplex());
       }
       // Rescale c.value and r
-      c.value = c.value * w;
-      r = r * u.toComplex();
+      c.value *= w;
+      r *= u.toComplex();
     }
   }
   a.value = r;

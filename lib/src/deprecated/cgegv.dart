@@ -350,7 +350,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*max( ( SALFAR ).abs(), ( SALFAI ).abs(), ( SBETA ).abs() )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*max( ( SALFAR ).abs(), ( SALFAI ).abs(), ( SBETA ).abs() )             IF( TEMP > ONE ) SCALE /= TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHA, BETA if necessary.

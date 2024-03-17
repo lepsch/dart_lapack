@@ -397,7 +397,7 @@ void zlattb(
               AB[KD + 1][I - 1] = Complex.one;
               B[I - 1] = (TEXP * ((KD + 1) * (KD + 1) + KD)).toComplex();
             }
-            TEXP = TEXP * TWO;
+            TEXP *= TWO;
           }
           B[max(1, J - KD + 1)] = (((KD + 2) / (KD + 3)) * TSCAL).toComplex();
         }
@@ -417,7 +417,7 @@ void zlattb(
               AB[1][I + 1] = Complex.one;
               B[I + 1] = (TEXP * ((KD + 1) * (KD + 1) + KD)).toComplex();
             }
-            TEXP = TEXP * TWO;
+            TEXP *= TWO;
           }
           B[min(N, J + KD - 1)] = (((KD + 2) / (KD + 3)) * TSCAL).toComplex();
         }

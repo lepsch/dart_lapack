@@ -43,7 +43,7 @@ double dlange(
     for (J = 1; J <= N; J++) {
       SUM.value = ZERO;
       for (I = 1; I <= M; I++) {
-        SUM.value = SUM.value + A[I][J].abs();
+        SUM.value += A[I][J].abs();
       }
       if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
     }

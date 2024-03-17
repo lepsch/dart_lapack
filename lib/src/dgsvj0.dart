@@ -272,7 +272,7 @@ void dgsvj0(
 
                 if (AAPQ.abs() > TOL) {
                   // .. rotate
-                  // ROTATED = ROTATED + ONE
+                  // ROTATED += ONE
 
                   if (ir1 == 0) {
                     NOTROT = 0;
@@ -297,7 +297,7 @@ void dgsvj0(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
@@ -312,7 +312,7 @@ void dgsvj0(
                       MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
 
                       APOAQ = D[p] / D[q];
@@ -563,7 +563,7 @@ void dgsvj0(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
@@ -578,7 +578,7 @@ void dgsvj0(
                       MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
 
                       APOAQ = D[p] / D[q];

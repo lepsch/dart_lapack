@@ -147,7 +147,7 @@ void main() {
           }
           _print9999('a', i, Xj, '(x+0*I)/(x+0*I)', R, Complex.one);
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   } // 10
@@ -173,7 +173,7 @@ void main() {
           }
           _print9999('b', i, Xj, '(0+x*I)/(0+x*I)', R, Complex.one);
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   } // 20
@@ -199,7 +199,7 @@ void main() {
           }
           _print9999('c', i, Xj, '(x+x*I)/(x+x*I)', R, Complex.one);
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   } // 30
@@ -226,7 +226,7 @@ void main() {
           }
           _print9999('d', i, Xj, '(0+x*I)/(x+0*I)', R, Complex(0.0, 1.0));
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   } // 40
@@ -253,7 +253,7 @@ void main() {
           }
           _print9999('e', i, Xj, '(x+0*I)/(0+x*I)', R, Complex(0.0, -1.0));
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   } // 50
@@ -279,7 +279,7 @@ void main() {
           }
           _print9999('f', i, Xj, '(x+x*I)/(x-x*I)', R, Complex(0.0, 1.0));
         }
-        Xj = Xj * stepX[i];
+        Xj *= stepX[i];
       }
     }
   } // 60

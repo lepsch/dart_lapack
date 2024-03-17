@@ -80,14 +80,14 @@ void dlarrc(
       if (TMP2 == ZERO) {
         SL = TMP - VL;
       } else {
-        SL = SL * TMP2 - VL;
+        SL *= TMP2 - VL;
       }
 
       TMP2 = TMP / RPIVOT;
       if (TMP2 == ZERO) {
         SU = TMP - VU;
       } else {
-        SU = SU * TMP2 - VU;
+        SU *= TMP2 - VU;
       }
     }
     LPIVOT = D[N] + SL;

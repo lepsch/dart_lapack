@@ -207,7 +207,7 @@ void dlasd2(
           // destructive underflow.
 
           TAU = dlapy2(C, S);
-          C = C / TAU;
+          C /= TAU;
           S = -S / TAU;
           Z[J] = TAU;
           Z[JPREV] = ZERO;

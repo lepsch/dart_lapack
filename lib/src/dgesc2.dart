@@ -57,7 +57,7 @@ void dgesc2(
   if (TWO * SMLNUM * (RHS[I]).abs() > (A[N][N]).abs()) {
     TEMP = (ONE / TWO) / (RHS[I]).abs();
     dscal(N, TEMP, RHS(1), 1);
-    SCALE.value = SCALE.value * TEMP;
+    SCALE.value *= TEMP;
   }
 
   for (I = N; I >= 1; I--) {

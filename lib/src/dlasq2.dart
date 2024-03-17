@@ -240,7 +240,7 @@ void dlasq2(
           SAFMIN * Z[I4 - 2 * PP.value - 2] < Z[I4 + 1]) {
         TEMP = Z[I4 + 1] / Z[I4 - 2 * PP.value - 2];
         Z[I4 - 2 * PP.value] = Z[I4 - 1] * TEMP;
-        D = D * TEMP;
+        D *= TEMP;
       } else {
         Z[I4 - 2 * PP.value] =
             Z[I4 + 1] * (Z[I4 - 1] / Z[I4 - 2 * PP.value - 2]);

@@ -283,7 +283,7 @@ void zgsvj0(
                   }
                 }
 
-                // AAPQ = AAPQ * CONJG( CWORK(p) ) * CWORK(q)
+                // AAPQ *= CONJG( CWORK(p) ) * CWORK(q)
                 AAPQ1 = -(AAPQ).abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
@@ -293,7 +293,7 @@ void zgsvj0(
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
 
                   // .. rotate
-                  // [RTD]      ROTATED = ROTATED + ONE
+                  // [RTD]      ROTATED += ONE
 
                   if (ir1 == 0) {
                     NOTROT = 0;
@@ -317,7 +317,7 @@ void zgsvj0(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
                       MXSINJ = max(MXSINJ, (T.value).abs());
                     } else {
@@ -332,7 +332,7 @@ void zgsvj0(
                       MXSINJ = max(MXSINJ, (SN).abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
 
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,
@@ -486,7 +486,7 @@ void zgsvj0(
                   }
                 }
 
-                // AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
+                // AAPQ *= CONJG(CWORK(p))*CWORK(q)
                 AAPQ1 = -(AAPQ).abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
@@ -516,7 +516,7 @@ void zgsvj0(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
                       MXSINJ = max(MXSINJ, (T.value).abs());
                     } else {
@@ -531,7 +531,7 @@ void zgsvj0(
                       MXSINJ = max(MXSINJ, (SN).abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
 
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,

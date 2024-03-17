@@ -45,7 +45,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 2] = D + Z[J4 - 1];
           TEMP = Z[J4 + 1] / Z[J4 - 2];
-          D = D * TEMP - TAU;
+          D *= TEMP - TAU;
           DMIN.value = min(DMIN.value, D);
           Z[J4] = Z[J4 - 1] * TEMP;
           EMIN = min(Z[J4], EMIN);
@@ -54,7 +54,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 3] = D + Z[J4];
           TEMP = Z[J4 + 2] / Z[J4 - 3];
-          D = D * TEMP - TAU;
+          D *= TEMP - TAU;
           DMIN.value = min(DMIN.value, D);
           Z[J4 - 1] = Z[J4] * TEMP;
           EMIN = min(Z[J4 - 1], EMIN);
@@ -149,7 +149,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 2] = D + Z[J4 - 1];
           TEMP = Z[J4 + 1] / Z[J4 - 2];
-          D = D * TEMP - TAU;
+          D *= TEMP - TAU;
           if (D < DTHRESH) D = ZERO;
           DMIN.value = min(DMIN.value, D);
           Z[J4] = Z[J4 - 1] * TEMP;
@@ -159,7 +159,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 3] = D + Z[J4];
           TEMP = Z[J4 + 2] / Z[J4 - 3];
-          D = D * TEMP - TAU;
+          D *= TEMP - TAU;
           if (D < DTHRESH) D = ZERO;
           DMIN.value = min(DMIN.value, D);
           Z[J4 - 1] = Z[J4] * TEMP;

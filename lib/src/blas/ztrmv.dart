@@ -129,12 +129,12 @@ void ztrmv(
         for (J = N; J >= 1; J--) {
           TEMP = X[J];
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[J][J];
+            if (NOUNIT) TEMP *= A[J][J];
             for (I = J - 1; I >= 1; I--) {
               TEMP += A[I][J] * X[I];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[J][J].conjugate();
+            if (NOUNIT) TEMP *= A[J][J].conjugate();
             for (I = J - 1; I >= 1; I--) {
               TEMP += A[I][J].conjugate() * X[I];
             }
@@ -147,13 +147,13 @@ void ztrmv(
           TEMP = X[JX];
           IX = JX;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[J][J];
+            if (NOUNIT) TEMP *= A[J][J];
             for (I = J - 1; I >= 1; I--) {
               IX -= INCX;
               TEMP += A[I][J] * X[IX];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[J][J].conjugate();
+            if (NOUNIT) TEMP *= A[J][J].conjugate();
             for (I = J - 1; I >= 1; I--) {
               IX -= INCX;
               TEMP += A[I][J].conjugate() * X[IX];
@@ -168,12 +168,12 @@ void ztrmv(
         for (J = 1; J <= N; J++) {
           TEMP = X[J];
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[J][J];
+            if (NOUNIT) TEMP *= A[J][J];
             for (I = J + 1; I <= N; I++) {
               TEMP += A[I][J] * X[I];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[J][J].conjugate();
+            if (NOUNIT) TEMP *= A[J][J].conjugate();
             for (I = J + 1; I <= N; I++) {
               TEMP += A[I][J].conjugate() * X[I];
             }
@@ -186,13 +186,13 @@ void ztrmv(
           TEMP = X[JX];
           IX = JX;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[J][J];
+            if (NOUNIT) TEMP *= A[J][J];
             for (I = J + 1; I <= N; I++) {
               IX += INCX;
               TEMP += A[I][J] * X[IX];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[J][J].conjugate();
+            if (NOUNIT) TEMP *= A[J][J].conjugate();
             for (I = J + 1; I <= N; I++) {
               IX += INCX;
               TEMP += A[I][J].conjugate() * X[IX];

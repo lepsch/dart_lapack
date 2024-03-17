@@ -691,7 +691,7 @@ void _zb1nrm2(
   for (IV = 1; IV <= NV; IV++) {
     V0 = VALUES[IV];
     if ((V0).abs() > ONE) {
-      V0 = V0 * HALF * HALF;
+      V0 *= HALF * HALF;
     }
     Z[1] = Complex(V0, -THREE * V0);
     for (IW = 1; IW <= NV; IW++) {

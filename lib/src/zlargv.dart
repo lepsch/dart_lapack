@@ -75,9 +75,9 @@ void zlargv(
     if (SCALE >= SAFMX2) {
       do {
         COUNT++;
-        FS = FS * SAFMN2.toComplex();
-        GS = GS * SAFMN2.toComplex();
-        SCALE = SCALE * SAFMN2;
+        FS *= SAFMN2.toComplex();
+        GS *= SAFMN2.toComplex();
+        SCALE *= SAFMN2;
       } while (SCALE >= SAFMX2 && COUNT < 20);
     } else if (SCALE <= SAFMN2) {
       if (G == Complex.zero) {
@@ -88,9 +88,9 @@ void zlargv(
       } else {
         do {
           COUNT--;
-          FS = FS * SAFMX2.toComplex();
-          GS = GS * SAFMX2.toComplex();
-          SCALE = SCALE * SAFMX2;
+          FS *= SAFMX2.toComplex();
+          GS *= SAFMX2.toComplex();
+          SCALE *= SAFMX2;
         } while (SCALE <= SAFMN2);
       }
     }
@@ -148,17 +148,17 @@ void zlargv(
       D = F2 + G2;
       // Do complex/real division explicitly with two real divisions
       SN = Complex(R.toDouble() / D, R.imaginary / D);
-      SN = SN * GS.conjugate();
+      SN *= GS.conjugate();
       if (COUNT != 0) {
         if (COUNT > 0) {
           for (J = 1; J <= COUNT; J++) {
             // 30
-            R = R * SAFMX2.toComplex();
+            R *= SAFMX2.toComplex();
           } // 30
         } else {
           for (J = 1; J <= -COUNT; J++) {
             // 40
-            R = R * SAFMN2.toComplex();
+            R *= SAFMN2.toComplex();
           } // 40
         }
       }

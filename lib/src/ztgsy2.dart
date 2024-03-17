@@ -124,7 +124,7 @@ void ztgsy2(
               zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
               zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
             } // 10
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
         } else {
           zlatdf(IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -186,7 +186,7 @@ void ztgsy2(
             zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
             zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
           } // 40
-          SCALE.value = SCALE.value * SCALOC.value;
+          SCALE.value *= SCALOC.value;
         }
 
         // Unpack solution vector(s)

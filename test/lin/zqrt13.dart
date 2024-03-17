@@ -46,7 +46,7 @@ void zqrt13(
     NORMA.value = zlange('Max', M, N, A, LDA, DUMMY);
     var SMLNUM = dlamch('Safe minimum');
     var BIGNUM = ONE / SMLNUM;
-    SMLNUM = SMLNUM / dlamch('Epsilon');
+    SMLNUM /= dlamch('Epsilon');
     BIGNUM = ONE / SMLNUM;
 
     if (SCALE == 2) {

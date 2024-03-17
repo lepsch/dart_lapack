@@ -223,7 +223,7 @@ void zhetri2x(
       zgemm('C', 'N', NNB, NNB, CUT, Complex.one, A(1, CUT + 1), LDA, WORK,
           N + NB + 1, Complex.zero, WORK(U11 + 1, 1), N + NB + 1);
 
-      // U11 =  U11**H*invD1*U11 + U01**H*invD*U01
+      // U11 *=*H*invD1*U11 + U01**H*invD*U01
 
       for (I = 1; I <= NNB; I++) {
         for (J = I; J <= NNB; J++) {
@@ -402,7 +402,7 @@ void zhetri2x(
             WORK(U11 + 1, 1),
             N + NB + 1);
 
-        // L11 =  L11**H*invD1*L11 + U01**H*invD*U01
+        // L11 *=*H*invD1*L11 + U01**H*invD*U01
 
         for (I = 1; I <= NNB; I++) {
           for (J = 1; J <= I; J++) {
@@ -422,7 +422,7 @@ void zhetri2x(
           }
         }
       } else {
-        // L11 =  L11**H*invD1*L11
+        // L11 *=*H*invD1*L11
 
         for (I = 1; I <= NNB; I++) {
           for (J = 1; J <= I; J++) {

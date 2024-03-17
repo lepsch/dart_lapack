@@ -64,8 +64,8 @@ void zlaic1(
         TMP = (S.value * S.value.conjugate() + C.value * C.value.conjugate())
             .sqrt()
             .toDouble();
-        S.value = S.value / TMP.toComplex();
-        C.value = C.value / TMP.toComplex();
+        S.value /= TMP.toComplex();
+        C.value /= TMP.toComplex();
         SESTPR.value = S1 * TMP;
       }
       return;
@@ -153,8 +153,8 @@ void zlaic1(
       TMP = (S.value * S.value.conjugate() + C.value * C.value.conjugate())
           .sqrt()
           .toDouble();
-      S.value = S.value / TMP.toComplex();
-      C.value = C.value / TMP.toComplex();
+      S.value /= TMP.toComplex();
+      C.value /= TMP.toComplex();
       return;
     } else if (ABSGAM <= EPS * ABSEST) {
       S.value = Complex.zero;

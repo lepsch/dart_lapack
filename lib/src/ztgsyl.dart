@@ -291,7 +291,7 @@ void ztgsyl(
               zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
               zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
             } // 110
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
 
           // Substitute R(I,J) and L(I,J) into remaining equation.
@@ -395,7 +395,7 @@ void ztgsyl(
             zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
             zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
           } // 190
-          SCALE.value = SCALE.value * SCALOC.value;
+          SCALE.value *= SCALOC.value;
         }
 
         // Substitute R(I,J) and L(I,J) into remaining equation.

@@ -78,7 +78,7 @@ void ztrsyl(
   EPS = dlamch('P');
   SMLNUM = dlamch('S');
   BIGNUM = ONE / SMLNUM;
-  SMLNUM = SMLNUM * (M * N).toDouble() / EPS;
+  SMLNUM *= (M * N).toDouble() / EPS;
   BIGNUM = ONE / SMLNUM;
   SMIN = max(
       SMLNUM,
@@ -128,7 +128,7 @@ void ztrsyl(
             // 10
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
           } // 10
-          SCALE.value = SCALE.value * SCALOC;
+          SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
       } // 20
@@ -175,7 +175,7 @@ void ztrsyl(
             // 40
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
           } // 40
-          SCALE.value = SCALE.value * SCALOC;
+          SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
       } // 50
@@ -226,7 +226,7 @@ void ztrsyl(
             // 70
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
           } // 70
-          SCALE.value = SCALE.value * SCALOC;
+          SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
       } // 80
@@ -275,7 +275,7 @@ void ztrsyl(
             // 100
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
           } // 100
-          SCALE.value = SCALE.value * SCALOC;
+          SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
       } // 110

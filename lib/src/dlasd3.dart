@@ -108,7 +108,7 @@ void dlasd3(
 
   RHO = dnrm2(K, Z, 1);
   dlascl('G', 0, 0, RHO, ONE, K, 1, Z.asMatrix(K), K, INFO);
-  RHO = RHO * RHO;
+  RHO *= RHO;
 
   // Find the new singular values.
 

@@ -3375,7 +3375,7 @@ void _dmvch(
   ERR.value = ZERO;
   for (I = 1; I <= ML; I++) {
     ERRI = (YT[I] - YY[1 + (I - 1) * INCY.abs()]).abs() / EPS;
-    if (G[I] != ZERO) ERRI = ERRI / G[I];
+    if (G[I] != ZERO) ERRI /= G[I];
     ERR.value = max(ERR.value, ERRI);
     if (ERR.value * sqrt(EPS) >= ONE) {
       isHalfAccurate = false;
@@ -3498,7 +3498,7 @@ double _dbeg(final Box<bool> RESET) {
   _dbegIC++;
 
   while (true) {
-    _dbegI = _dbegI * _dbegMI;
+    _dbegI *= _dbegMI;
     _dbegI -= 1000 * (_dbegI ~/ 1000);
     if (_dbegIC < 5) break;
     _dbegIC = 0;

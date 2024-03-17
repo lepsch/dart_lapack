@@ -84,13 +84,12 @@ void dget32(
               } else {
                 DEN = SMLNUM * max(X[1][1].abs(), ONE);
               }
-              RES = RES / DEN;
-              if (SCALE.value > ONE) RES = RES + ONE / EPS;
-              RES = RES +
-                  (XNORM.value - X[1][1].abs()).abs() /
-                      max(SMLNUM, XNORM.value) /
-                      EPS;
-              if (INFO.value != 0 && INFO.value != 1) RES = RES + ONE / EPS;
+              RES /= DEN;
+              if (SCALE.value > ONE) RES += ONE / EPS;
+              RES += (XNORM.value - X[1][1].abs()).abs() /
+                  max(SMLNUM, XNORM.value) /
+                  EPS;
+              if (INFO.value != 0 && INFO.value != 1) RES += ONE / EPS;
               if (RES > RMAX.value) {
                 LMAX.value = KNT.value;
                 RMAX.value = RES;
@@ -126,11 +125,10 @@ void dget32(
                           TL[1][2] * X[2][1] -
                           SCALE.value * B[1][1])
                       .abs();
-                  RES = RES +
-                      ((TL[2][2] + SGN * TR[1][1]) * X[2][1] +
-                              TL[2][1] * X[1][1] -
-                              SCALE.value * B[2][1])
-                          .abs();
+                  RES += ((TL[2][2] + SGN * TR[1][1]) * X[2][1] +
+                          TL[2][1] * X[1][1] -
+                          SCALE.value * B[2][1])
+                      .abs();
                   TNRM = TR[1][1].abs() +
                       TL[1][1].abs() +
                       TL[1][2].abs() +
@@ -138,12 +136,11 @@ void dget32(
                       TL[2][2].abs();
                   XNRM = max(X[1][1].abs(), X[2][1]).abs();
                   DEN = max(SMLNUM, max(SMLNUM * XNRM, (TNRM * EPS) * XNRM));
-                  RES = RES / DEN;
-                  if (SCALE.value > ONE) RES = RES + ONE / EPS;
-                  RES = RES +
-                      (XNORM.value - XNRM).abs() /
-                          max(SMLNUM, XNORM.value) /
-                          EPS;
+                  RES /= DEN;
+                  if (SCALE.value > ONE) RES += ONE / EPS;
+                  RES += (XNORM.value - XNRM).abs() /
+                      max(SMLNUM, XNORM.value) /
+                      EPS;
                   if (RES > RMAX.value) {
                     LMAX.value = KNT.value;
                     RMAX.value = RES;
@@ -187,18 +184,16 @@ void dget32(
                           (SGN * TR[2][1]) * X[1][2] -
                           (SCALE.value * B[1][1]))
                       .abs();
-                  RES = RES +
-                      (((TL[1][1] + SGN * TR[2][2])) * X[1][2] +
-                              (SGN * TR[1][2]) * X[1][1] -
-                              (SCALE.value * B[1][2]))
-                          .abs();
+                  RES += (((TL[1][1] + SGN * TR[2][2])) * X[1][2] +
+                          (SGN * TR[1][2]) * X[1][1] -
+                          (SCALE.value * B[1][2]))
+                      .abs();
                   DEN = max(SMLNUM, max(SMLNUM * XNRM, (TNRM * EPS) * XNRM));
-                  RES = RES / DEN;
-                  if (SCALE.value > ONE) RES = RES + ONE / EPS;
-                  RES = RES +
-                      (XNORM.value - XNRM).abs() /
-                          max(SMLNUM, XNORM.value) /
-                          EPS;
+                  RES /= DEN;
+                  if (SCALE.value > ONE) RES += ONE / EPS;
+                  RES += (XNORM.value - XNRM).abs() /
+                      max(SMLNUM, XNORM.value) /
+                      EPS;
                   if (RES > RMAX.value) {
                     LMAX.value = KNT.value;
                     RMAX.value = RES;
@@ -261,34 +256,30 @@ void dget32(
                               TL[1][2] * X[2][1] -
                               (SCALE.value * B[1][1]))
                           .abs();
-                      RES = RES +
-                          (TL[1][1] * X[1][2] +
-                                  (SGN * TR[1][2]) * X[1][1] +
-                                  (SGN * TR[2][2]) * X[1][2] +
-                                  TL[1][2] * X[2][2] -
-                                  (SCALE.value * B[1][2]))
-                              .abs();
-                      RES = RES +
-                          (TL[2][1] * X[1][1] +
-                                  (SGN * TR[1][1]) * X[2][1] +
-                                  (SGN * TR[2][1]) * X[2][2] +
-                                  TL[2][2] * X[2][1] -
-                                  (SCALE.value * B[2][1]))
-                              .abs();
-                      RES = RES +
-                          (((TL[2][2] + SGN * TR[2][2])) * X[2][2] +
-                                  (SGN * TR[1][2]) * X[2][1] +
-                                  TL[2][1] * X[1][2] -
-                                  (SCALE.value * B[2][2]))
-                              .abs();
+                      RES += (TL[1][1] * X[1][2] +
+                              (SGN * TR[1][2]) * X[1][1] +
+                              (SGN * TR[2][2]) * X[1][2] +
+                              TL[1][2] * X[2][2] -
+                              (SCALE.value * B[1][2]))
+                          .abs();
+                      RES += (TL[2][1] * X[1][1] +
+                              (SGN * TR[1][1]) * X[2][1] +
+                              (SGN * TR[2][1]) * X[2][2] +
+                              TL[2][2] * X[2][1] -
+                              (SCALE.value * B[2][1]))
+                          .abs();
+                      RES += (((TL[2][2] + SGN * TR[2][2])) * X[2][2] +
+                              (SGN * TR[1][2]) * X[2][1] +
+                              TL[2][1] * X[1][2] -
+                              (SCALE.value * B[2][2]))
+                          .abs();
                       DEN =
                           max(SMLNUM, max(SMLNUM * XNRM, (TNRM * EPS) * XNRM));
-                      RES = RES / DEN;
-                      if (SCALE.value > ONE) RES = RES + ONE / EPS;
-                      RES = RES +
-                          (XNORM.value - XNRM).abs() /
-                              max(SMLNUM, XNORM.value) /
-                              EPS;
+                      RES /= DEN;
+                      if (SCALE.value > ONE) RES += ONE / EPS;
+                      RES += (XNORM.value - XNRM).abs() /
+                          max(SMLNUM, XNORM.value) /
+                          EPS;
                       if (RES > RMAX.value) {
                         LMAX.value = KNT.value;
                         RMAX.value = RES;

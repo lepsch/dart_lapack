@@ -76,15 +76,15 @@ double dlatm2(
     TEMP = dlarnd(IDIST, ISEED);
   }
   if (IGRADE == 1) {
-    TEMP = TEMP * DL[ISUB];
+    TEMP *= DL[ISUB];
   } else if (IGRADE == 2) {
-    TEMP = TEMP * DR[JSUB];
+    TEMP *= DR[JSUB];
   } else if (IGRADE == 3) {
-    TEMP = TEMP * DL[ISUB] * DR[JSUB];
+    TEMP *= DL[ISUB] * DR[JSUB];
   } else if (IGRADE == 4 && ISUB != JSUB) {
-    TEMP = TEMP * DL[ISUB] / DL[JSUB];
+    TEMP *= DL[ISUB] / DL[JSUB];
   } else if (IGRADE == 5) {
-    TEMP = TEMP * DL[ISUB] * DL[JSUB];
+    TEMP *= DL[ISUB] * DL[JSUB];
   }
   return TEMP;
 }

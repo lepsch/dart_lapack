@@ -654,7 +654,7 @@ void dchkbd(
         for (J = 0; J <= LOG2UI; J++) {
           // CALL DSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO.value )
           if (IINFO.value == 0) break;
-          TEMP1 = TEMP1 * TWO;
+          TEMP1 *= TWO;
         }
 
         RESULT[10] = TEMP1;

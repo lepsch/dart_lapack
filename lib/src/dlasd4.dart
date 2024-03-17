@@ -236,7 +236,7 @@ void dlasd4(
     ETA.value =
         ETA.value / (SIGMA.value + sqrt(ETA.value + SIGMA.value * SIGMA.value));
     TAU += ETA.value;
-    SIGMA.value = SIGMA.value + ETA.value;
+    SIGMA.value += ETA.value;
 
     for (J = 1; J <= N; J++) {
       DELTA[J] -= ETA.value;
@@ -299,12 +299,11 @@ void dlasd4(
 
       if (W * ETA.value > ZERO) ETA.value = -W / (DPSI + DPHI);
       TEMP = ETA.value - DTNSQ;
-      if (TEMP <= ZERO) ETA.value = ETA.value / TWO;
+      if (TEMP <= ZERO) ETA.value /= TWO;
 
-      ETA.value = ETA.value /
-          (SIGMA.value + sqrt(ETA.value + SIGMA.value * SIGMA.value));
+      ETA.value /= (SIGMA.value + sqrt(ETA.value + SIGMA.value * SIGMA.value));
       TAU += ETA.value;
-      SIGMA.value = SIGMA.value + ETA.value;
+      SIGMA.value += ETA.value;
 
       for (J = 1; J <= N; J++) {
         DELTA[J] -= ETA.value;
@@ -524,7 +523,7 @@ void dlasd4(
       TEMP = RHOINV + PSI + PHI;
       if (ORGATI) {
         TEMP1 = Z[IIM1] / DTIIM;
-        TEMP1 = TEMP1 * TEMP1;
+        TEMP1 *= TEMP1;
         C = (TEMP - DTIIP * (DPSI + DPHI)) -
             (D[IIM1] - D[IIP1]) * (D[IIM1] + D[IIP1]) * TEMP1;
         ZZ[1] = Z[IIM1] * Z[IIM1];
@@ -535,7 +534,7 @@ void dlasd4(
         }
       } else {
         TEMP1 = Z[IIP1] / DTIIP;
-        TEMP1 = TEMP1 * TEMP1;
+        TEMP1 *= TEMP1;
         C = (TEMP - DTIIM * (DPSI + DPHI)) -
             (D[IIP1] - D[IIM1]) * (D[IIM1] + D[IIP1]) * TEMP1;
         if (DPHI < TEMP1) {
@@ -616,7 +615,7 @@ void dlasd4(
     PREW = W;
 
     TAU += ETA.value;
-    SIGMA.value = SIGMA.value + ETA.value;
+    SIGMA.value += ETA.value;
 
     for (J = 1; J <= N; J++) {
       WORK[J] += ETA.value;
@@ -733,7 +732,7 @@ void dlasd4(
         } else {
           if (ORGATI) {
             TEMP1 = Z[IIM1] / DTIIM;
-            TEMP1 = TEMP1 * TEMP1;
+            TEMP1 *= TEMP1;
             TEMP2 = (D[IIM1] - D[IIP1]) * (D[IIM1] + D[IIP1]) * TEMP1;
             C = TEMP - DTIIP * (DPSI + DPHI) - TEMP2;
             ZZ[1] = Z[IIM1] * Z[IIM1];
@@ -744,7 +743,7 @@ void dlasd4(
             }
           } else {
             TEMP1 = Z[IIP1] / DTIIP;
-            TEMP1 = TEMP1 * TEMP1;
+            TEMP1 *= TEMP1;
             TEMP2 = (D[IIP1] - D[IIM1]) * (D[IIM1] + D[IIP1]) * TEMP1;
             C = TEMP - DTIIM * (DPSI + DPHI) - TEMP2;
             if (DPHI < TEMP1) {
@@ -814,8 +813,7 @@ void dlasd4(
 
       if (W * ETA.value >= ZERO) ETA.value = -W / DW;
 
-      ETA.value = ETA.value /
-          (SIGMA.value + sqrt(SIGMA.value * SIGMA.value + ETA.value));
+      ETA.value /= (SIGMA.value + sqrt(SIGMA.value * SIGMA.value + ETA.value));
       TEMP = TAU + ETA.value;
       if (TEMP > SGUB || TEMP < SGLB) {
         if (W < ZERO) {
@@ -839,7 +837,7 @@ void dlasd4(
       PREW = W;
 
       TAU += ETA.value;
-      SIGMA.value = SIGMA.value + ETA.value;
+      SIGMA.value += ETA.value;
 
       for (J = 1; J <= N; J++) {
         WORK[J] += ETA.value;

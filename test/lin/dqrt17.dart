@@ -84,15 +84,15 @@ double dqrt17(
   // compute and properly scale error
 
   var ERR = dlange('One-norm', NRHS, NCOLS, WORK.asMatrix(), NRHS, RWORK);
-  if (NORMA != ZERO) ERR = ERR / NORMA;
+  if (NORMA != ZERO) ERR /= NORMA;
 
-  if (ISCL == 1) ERR = ERR * NORMRS;
+  if (ISCL == 1) ERR *= NORMRS;
 
   if (IRESID == 1) {
     final NORMB = dlange('One-norm', NROWS, NRHS, B, LDB, RWORK);
-    if (NORMB != ZERO) ERR = ERR / NORMB;
+    if (NORMB != ZERO) ERR /= NORMB;
   } else {
-    if (NORMRS != ZERO) ERR = ERR / NORMRS;
+    if (NORMRS != ZERO) ERR /= NORMRS;
   }
 
   return ERR / (dlamch('Epsilon') * max(M, max(N, NRHS)));

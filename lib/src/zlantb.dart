@@ -89,13 +89,13 @@ double zlantb(
           SUM.value = ONE;
           for (I = max(K + 2 - J, 1); I <= K; I++) {
             // 90
-            SUM.value = SUM.value + AB[I][J].abs();
+            SUM.value += AB[I][J].abs();
           } // 90
         } else {
           SUM.value = ZERO;
           for (I = max(K + 2 - J, 1); I <= K + 1; I++) {
             // 100
-            SUM.value = SUM.value + AB[I][J].abs();
+            SUM.value += AB[I][J].abs();
           } // 100
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -107,13 +107,13 @@ double zlantb(
           SUM.value = ONE;
           for (I = 2; I <= min(N + 1 - J, K + 1); I++) {
             // 120
-            SUM.value = SUM.value + AB[I][J].abs();
+            SUM.value += AB[I][J].abs();
           } // 120
         } else {
           SUM.value = ZERO;
           for (I = 1; I <= min(N + 1 - J, K + 1); I++) {
             // 130
-            SUM.value = SUM.value + AB[I][J].abs();
+            SUM.value += AB[I][J].abs();
           } // 130
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

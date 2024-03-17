@@ -50,8 +50,8 @@ void zdrvrf1(
   final EPS = dlamch('Precision');
   var SMALL = dlamch('Safe minimum');
   var LARGE = ONE / SMALL;
-  SMALL = SMALL * LDA * LDA;
-  LARGE = LARGE / LDA / LDA;
+  SMALL *= LDA * LDA;
+  LARGE /= LDA / LDA;
 
   for (var IIN = 1; IIN <= NN; IIN++) {
     final N = NVAL[IIN];

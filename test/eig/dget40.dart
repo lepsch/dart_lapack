@@ -79,10 +79,10 @@ Future<void> dget40(
         WORK, LWORK, NINFO.box(1));
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        if (I == J && Q[I][J] != ONE) RES = RES + ONE / EPS;
-        if (I != J && Q[I][J] != ZERO) RES = RES + ONE / EPS;
-        if (I == J && Z[I][J] != ONE) RES = RES + ONE / EPS;
-        if (I != J && Z[I][J] != ZERO) RES = RES + ONE / EPS;
+        if (I == J && Q[I][J] != ONE) RES += ONE / EPS;
+        if (I != J && Q[I][J] != ZERO) RES += ONE / EPS;
+        if (I == J && Z[I][J] != ONE) RES += ONE / EPS;
+        if (I != J && Z[I][J] != ZERO) RES += ONE / EPS;
       }
     }
 
@@ -97,13 +97,13 @@ Future<void> dget40(
 
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        if (T1[I][J] != T2[I][J]) RES = RES + ONE / EPS;
-        if (S1[I][J] != S2[I][J]) RES = RES + ONE / EPS;
+        if (T1[I][J] != T2[I][J]) RES += ONE / EPS;
+        if (S1[I][J] != S2[I][J]) RES += ONE / EPS;
       }
     }
-    if (IFST1.value != IFST2.value) RES = RES + ONE / EPS;
-    if (ILST1.value != ILST2.value) RES = RES + ONE / EPS;
-    if (NINFO(1) != NINFO(2)) RES = RES + ONE / EPS;
+    if (IFST1.value != IFST2.value) RES += ONE / EPS;
+    if (ILST1.value != ILST2.value) RES += ONE / EPS;
+    if (NINFO(1) != NINFO(2)) RES += ONE / EPS;
 
     // Test orthogonality of Q and Z and backward error on T2 and S2
 

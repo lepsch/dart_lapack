@@ -51,9 +51,9 @@ void zlarfg(
       do {
         KNT++;
         zdscal(N - 1, RSAFMN, X, INCX);
-        BETA = BETA * RSAFMN;
-        ALPHI = ALPHI * RSAFMN;
-        ALPHR = ALPHR * RSAFMN;
+        BETA *= RSAFMN;
+        ALPHI *= RSAFMN;
+        ALPHR *= RSAFMN;
       } while ((BETA.abs() < SAFMIN) && (KNT < 20));
 
       // New BETA is at most 1, at least SAFMIN
@@ -70,7 +70,7 @@ void zlarfg(
 
     for (J = 1; J <= KNT; J++) {
       // 20
-      BETA = BETA * SAFMIN;
+      BETA *= SAFMIN;
     } // 20
     ALPHA.value = BETA.toComplex();
   }

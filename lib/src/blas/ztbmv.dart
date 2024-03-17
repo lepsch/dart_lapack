@@ -97,7 +97,7 @@ void ztbmv(
             if (NOUNIT) X[JX] *= A[KPLUS1][J];
           }
           JX += INCX;
-          if (J > K) KX = KX + INCX;
+          if (J > K) KX += INCX;
         }
       }
     } else {
@@ -127,7 +127,7 @@ void ztbmv(
             if (NOUNIT) X[JX] *= A[1][J];
           }
           JX -= INCX;
-          if ((N - J) >= K) KX = KX - INCX;
+          if ((N - J) >= K) KX -= INCX;
         }
       }
     }
@@ -141,12 +141,12 @@ void ztbmv(
           TEMP = X[J];
           L = KPLUS1 - J;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[KPLUS1][J];
+            if (NOUNIT) TEMP *= A[KPLUS1][J];
             for (I = J - 1; I >= max(1, J - K); I--) {
               TEMP += A[L + I][J] * X[I];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[KPLUS1][J].conjugate();
+            if (NOUNIT) TEMP *= A[KPLUS1][J].conjugate();
             for (I = J - 1; I >= max(1, J - K); I--) {
               TEMP += A[L + I][J].conjugate() * X[I];
             }
@@ -162,13 +162,13 @@ void ztbmv(
           IX = KX;
           L = KPLUS1 - J;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[KPLUS1][J];
+            if (NOUNIT) TEMP *= A[KPLUS1][J];
             for (I = J - 1; I >= max(1, J - K); I--) {
               TEMP += A[L + I][J] * X[IX];
               IX -= INCX;
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[KPLUS1][J].conjugate();
+            if (NOUNIT) TEMP *= A[KPLUS1][J].conjugate();
             for (I = J - 1; I >= max(1, J - K); I--) {
               TEMP += A[L + I][J].conjugate() * X[IX];
               IX -= INCX;
@@ -184,12 +184,12 @@ void ztbmv(
           TEMP = X[J];
           L = 1 - J;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[1][J];
+            if (NOUNIT) TEMP *= A[1][J];
             for (I = J + 1; I <= min(N, J + K); I++) {
               TEMP += A[L + I][J] * X[I];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[1][J].conjugate();
+            if (NOUNIT) TEMP *= A[1][J].conjugate();
             for (I = J + 1; I <= min(N, J + K); I++) {
               TEMP += A[L + I][J].conjugate() * X[I];
             }
@@ -204,13 +204,13 @@ void ztbmv(
           IX = KX;
           L = 1 - J;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * A[1][J];
+            if (NOUNIT) TEMP *= A[1][J];
             for (I = J + 1; I <= min(N, J + K); I++) {
               TEMP += A[L + I][J] * X[IX];
               IX += INCX;
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * A[1][J].conjugate();
+            if (NOUNIT) TEMP *= A[1][J].conjugate();
             for (I = J + 1; I <= min(N, J + K); I++) {
               TEMP += A[L + I][J].conjugate() * X[IX];
               IX += INCX;

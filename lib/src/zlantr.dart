@@ -89,13 +89,13 @@ double zlantr(
           SUM.value = ONE;
           for (I = 1; I <= J - 1; I++) {
             // 90
-            SUM.value = SUM.value + A[I][J].abs();
+            SUM.value += A[I][J].abs();
           } // 90
         } else {
           SUM.value = ZERO;
           for (I = 1; I <= min(M, J); I++) {
             // 100
-            SUM.value = SUM.value + A[I][J].abs();
+            SUM.value += A[I][J].abs();
           } // 100
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -107,13 +107,13 @@ double zlantr(
           SUM.value = ONE;
           for (I = J + 1; I <= M; I++) {
             // 120
-            SUM.value = SUM.value + A[I][J].abs();
+            SUM.value += A[I][J].abs();
           } // 120
         } else {
           SUM.value = ZERO;
           for (I = J; I <= M; I++) {
             // 130
-            SUM.value = SUM.value + A[I][J].abs();
+            SUM.value += A[I][J].abs();
           } // 130
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

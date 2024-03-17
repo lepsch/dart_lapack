@@ -522,7 +522,7 @@ void zlattp(
         AP[JC] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
         AP[JC + J - 2] = Complex.one;
         B[J - 1] = (TEXP * (N * N + N - 1)).toComplex();
-        TEXP = TEXP * TWO;
+        TEXP *= TWO;
         JC -= J + 2;
       }
       B[1] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
@@ -536,7 +536,7 @@ void zlattp(
         AP[JC + N - J - 1] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
         AP[JC] = Complex.one;
         B[J + 1] = (TEXP * (N * N + N - 1)).toComplex();
-        TEXP = TEXP * TWO;
+        TEXP *= TWO;
         JC += N - J;
       }
       B[N] = (((N + 1) / (N + 2)) * TSCAL).toComplex();

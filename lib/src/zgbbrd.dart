@@ -397,7 +397,7 @@ void zgbbrd(
     ABST = (T).abs();
     D[I] = ABST;
     if (ABST != ZERO) {
-      T = T / ABST.toComplex();
+      T /= ABST.toComplex();
     } else {
       T = Complex.one;
     }
@@ -416,7 +416,7 @@ void zgbbrd(
         ABST = (T).abs();
         E[I] = ABST;
         if (ABST != ZERO) {
-          T = T / ABST.toComplex();
+          T /= ABST.toComplex();
         } else {
           T = Complex.one;
         }

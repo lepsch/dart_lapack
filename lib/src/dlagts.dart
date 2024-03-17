@@ -56,7 +56,7 @@ void dlagts(
         TOL.value = max(max(TOL.value, (A[K]).abs()),
             max((B[K - 1]).abs(), (D[K - 2]).abs()));
       }
-      TOL.value = TOL.value * EPS;
+      TOL.value *= EPS;
       if (TOL.value == ZERO) TOL.value = EPS;
     }
   }
@@ -88,8 +88,8 @@ void dlagts(
               INFO.value = K;
               return;
             } else {
-              TEMP = TEMP * BIGNUM;
-              AK = AK * BIGNUM;
+              TEMP *= BIGNUM;
+              AK *= BIGNUM;
             }
           } else if ((TEMP).abs() > ABSAK * BIGNUM) {
             INFO.value = K;
@@ -119,8 +119,8 @@ void dlagts(
                 PERT = 2 * PERT;
                 continue;
               } else {
-                TEMP = TEMP * BIGNUM;
-                AK = AK * BIGNUM;
+                TEMP *= BIGNUM;
+                AK *= BIGNUM;
               }
             } else if ((TEMP).abs() > ABSAK * BIGNUM) {
               AK += PERT;
@@ -153,8 +153,8 @@ void dlagts(
               INFO.value = K;
               return;
             } else {
-              TEMP = TEMP * BIGNUM;
-              AK = AK * BIGNUM;
+              TEMP *= BIGNUM;
+              AK *= BIGNUM;
             }
           } else if ((TEMP).abs() > ABSAK * BIGNUM) {
             INFO.value = K;
@@ -183,8 +183,8 @@ void dlagts(
                 PERT = 2 * PERT;
                 continue;
               } else {
-                TEMP = TEMP * BIGNUM;
-                AK = AK * BIGNUM;
+                TEMP *= BIGNUM;
+                AK *= BIGNUM;
               }
             } else if ((TEMP).abs() > ABSAK * BIGNUM) {
               AK += PERT;

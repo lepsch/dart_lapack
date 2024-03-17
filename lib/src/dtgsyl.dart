@@ -254,7 +254,7 @@ void dtgsyl(
               LINFO);
           if (LINFO.value > 0) INFO.value = LINFO.value;
 
-          PQ.value = PQ.value + PPQQ.value;
+          PQ.value += PPQQ.value;
           if (SCALOC.value != ONE) {
             for (K = 1; K <= JS - 1; K++) {
               dscal(M, SCALOC.value, C(1, K).asArray(), 1);
@@ -272,7 +272,7 @@ void dtgsyl(
               dscal(M, SCALOC.value, C(1, K).asArray(), 1);
               dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
 
           // Substitute R(I, J) and L(I, J) into remaining
@@ -372,7 +372,7 @@ void dtgsyl(
             dscal(M, SCALOC.value, C(1, K).asArray(), 1);
             dscal(M, SCALOC.value, F(1, K).asArray(), 1);
           }
-          SCALE.value = SCALE.value * SCALOC.value;
+          SCALE.value *= SCALOC.value;
         }
 
         // Substitute R(I, J) and L(I, J) into remaining equation.

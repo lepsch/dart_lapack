@@ -210,7 +210,7 @@ void dlasd7(
           TAU = dlapy2(C.value, S.value);
           Z[J] = TAU;
           Z[JPREV] = ZERO;
-          C.value = C.value / TAU;
+          C.value /= TAU;
           S.value = -S.value / TAU;
 
           // Record the appropriate Givens rotation

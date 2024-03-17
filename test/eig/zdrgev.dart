@@ -199,7 +199,7 @@ void zdrgev(
 
   ULP = dlamch('Precision');
   SAFMIN = dlamch('Safe minimum');
-  SAFMIN = SAFMIN / ULP;
+  SAFMIN /= ULP;
   SAFMAX = ONE / SAFMIN;
   ULPINV = ONE / ULP;
 

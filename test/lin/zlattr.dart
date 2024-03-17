@@ -468,7 +468,7 @@ void zlattr(
         A[1][J - 1] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
         A[J - 1][J - 1] = Complex.one;
         B[J - 1] = (TEXP * (N * N + N - 1)).toComplex();
-        TEXP = TEXP * 2.0;
+        TEXP *= 2.0;
       }
       B[1] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
     } else {
@@ -479,7 +479,7 @@ void zlattr(
         A[N][J + 1] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
         A[J + 1][J + 1] = Complex.one;
         B[J + 1] = (TEXP * (N * N + N - 1)).toComplex();
-        TEXP = TEXP * 2.0;
+        TEXP *= 2.0;
       }
       B[N] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
     }

@@ -42,7 +42,7 @@ void dlasd5(
 
       // The following TAU is DSIGMA.value - D[ 1 ]
 
-      TAU = TAU / (D[1] + sqrt(D[1] * D[1] + TAU));
+      TAU /= (D[1] + sqrt(D[1] * D[1] + TAU));
       DSIGMA.value = D[1] + TAU;
       DELTA[1] = -TAU;
       DELTA[2] = DEL - TAU;
@@ -64,7 +64,7 @@ void dlasd5(
 
       // The following TAU is DSIGMA.value - D[ 2 ]
 
-      TAU = TAU / (D[2] + sqrt((D[2] * D[2] + TAU).abs()));
+      TAU /= (D[2] + sqrt((D[2] * D[2] + TAU).abs()));
       DSIGMA.value = D[2] + TAU;
       DELTA[1] = -(DEL + TAU);
       DELTA[2] = -TAU;
@@ -92,7 +92,7 @@ void dlasd5(
 
     // The following TAU is DSIGMA.value - D[ 2 ]
 
-    TAU = TAU / (D[2] + sqrt(D[2] * D[2] + TAU));
+    TAU /= (D[2] + sqrt(D[2] * D[2] + TAU));
     DSIGMA.value = D[2] + TAU;
     DELTA[1] = -(DEL + TAU);
     DELTA[2] = -TAU;

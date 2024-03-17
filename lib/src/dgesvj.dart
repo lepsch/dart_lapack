@@ -354,20 +354,20 @@ void dgesvj(
       (AAQQ.value >= TEMP1.value) ||
       ((SN <= AAQQ.value) && (AAPP.value <= TEMP1.value))) {
     TEMP1.value = min(BIG, TEMP1.value / AAPP.value);
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value <= TEMP1.value)) {
     TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N.toDouble())));
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value >= SN) && (AAPP.value >= TEMP1.value)) {
     TEMP1.value = max(SN / AAQQ.value, TEMP1.value / AAPP.value);
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value >= TEMP1.value)) {
     TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N.toDouble()) * AAPP.value));
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else {
     TEMP1.value = ONE;
   }
@@ -389,7 +389,7 @@ void dgesvj(
   NOTROT = 0;
   FASTR[1] = ZERO;
 
-  // A is represented in factored form A = A * diag(WORK), where diag(WORK)
+  // A is represented in factored form A *= diag(WORK), where diag(WORK)
   // is initialized to identity. WORK is updated during fast scaled
   // rotations.
 
@@ -692,7 +692,7 @@ void dgesvj(
 
                 if (AAPQ.abs() > TOL) {
                   // .. rotate
-                  // [RTD]      ROTATED = ROTATED + ONE
+                  // [RTD]      ROTATED += ONE
 
                   if (ir1 == 0) {
                     NOTROT = 0;
@@ -717,7 +717,7 @@ void dgesvj(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
@@ -732,7 +732,7 @@ void dgesvj(
                       MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
 
                       APOAQ = WORK[p] / WORK[q];
@@ -978,7 +978,7 @@ void dgesvj(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
@@ -993,7 +993,7 @@ void dgesvj(
                       MXSINJ = max(MXSINJ, SN.abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
 
                       APOAQ = WORK[p] / WORK[q];

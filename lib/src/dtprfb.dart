@@ -87,8 +87,8 @@ void dtprfb(
 
     // H = I - W T W**T          or  H**T = I - W T**T W**T
 
-    // A = A -   T (A + V**T B)  or  A = A -   T**T (A + V**T B)
-    // B = B - V T (A + V**T B)  or  B = B - V T**T (A + V**T B)
+    // A -=   T (A + V**T B)  or  A -=   T**T (A + V**T B)
+    // B -= V T (A + V**T B)  or  B -= V T**T (A + V**T B)
 
 // ---------------------------------------------------------------------------
 
@@ -140,8 +140,8 @@ void dtprfb(
 
     // H = I - W T W**T          or  H**T = I - W T**T W**T
 
-    // A = A - (A + B V) T      or  A = A - (A + B V) T**T
-    // B = B - (A + B V) T V**T  or  B = B - (A + B V) T**T V**T
+    // A -= (A + B V) T      or  A -= (A + B V) T**T
+    // B -= (A + B V) T V**T  or  B -= (A + B V) T**T V**T
 
 // ---------------------------------------------------------------------------
 
@@ -194,8 +194,8 @@ void dtprfb(
 
     // H = I - W T W**T          or  H**T = I - W T**T W**T
 
-    // A = A -   T (A + V**T B)  or  A = A -   T**T (A + V**T B)
-    // B = B - V T (A + V**T B)  or  B = B - V T**T (A + V**T B)
+    // A -=   T (A + V**T B)  or  A -=   T**T (A + V**T B)
+    // B -= V T (A + V**T B)  or  B -= V T**T (A + V**T B)
 
 // ---------------------------------------------------------------------------
 
@@ -248,8 +248,8 @@ void dtprfb(
 
     // H = I - W T W**T          or  H**T = I - W T**T W**T
 
-    // A = A - (A + B V) T      or  A = A - (A + B V) T**T
-    // B = B - (A + B V) T V**T  or  B = B - (A + B V) T**T V**T
+    // A -= (A + B V) T      or  A -= (A + B V) T**T
+    // B -= (A + B V) T V**T  or  B -= (A + B V) T**T V**T
 
 // ---------------------------------------------------------------------------
 
@@ -301,8 +301,8 @@ void dtprfb(
 
     // H = I - W**T T W          or  H**T = I - W**T T**T W
 
-    // A = A -     T (A + V B)  or  A = A -     T**T (A + V B)
-    // B = B - V**T T (A + V B)  or  B = B - V**T T**T (A + V B)
+    // A -=     T (A + V B)  or  A -=     T**T (A + V B)
+    // B -= V**T T (A + V B)  or  B -= V**T T**T (A + V B)
 
 // ---------------------------------------------------------------------------
 
@@ -353,8 +353,8 @@ void dtprfb(
 
     // H = I - W**T T W            or  H**T = I - W**T T**T W
 
-    // A = A - (A + B V**T) T      or  A = A - (A + B V**T) T**T
-    // B = B - (A + B V**T) T V    or  B = B - (A + B V**T) T**T V
+    // A -= (A + B V**T) T      or  A -= (A + B V**T) T**T
+    // B -= (A + B V**T) T V    or  B -= (A + B V**T) T**T V
 
 // ---------------------------------------------------------------------------
 
@@ -406,8 +406,8 @@ void dtprfb(
 
     // H = I - W**T T W          or  H**T = I - W**T T**T W
 
-    // A = A -     T (A + V B)  or  A = A -     T**T (A + V B)
-    // B = B - V**T T (A + V B)  or  B = B - V**T T**T (A + V B)
+    // A -=     T (A + V B)  or  A -=     T**T (A + V B)
+    // B -= V**T T (A + V B)  or  B -= V**T T**T (A + V B)
 
 // ---------------------------------------------------------------------------
 
@@ -458,8 +458,8 @@ void dtprfb(
 
     // H = I - W**T T W            or  H**T = I - W**T T**T W
 
-    // A = A - (A + B V**T) T      or  A = A - (A + B V**T) T**T
-    // B = B - (A + B V**T) T V    or  B = B - (A + B V**T) T**T V
+    // A -= (A + B V**T) T      or  A -= (A + B V**T) T**T
+    // B -= (A + B V**T) T V    or  B -= (A + B V**T) T**T V
 
 // ---------------------------------------------------------------------------
 

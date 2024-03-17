@@ -50,13 +50,13 @@ double drzt01(
     }
   }
 
-  // R = R * P(1) * ... *P(m)
+  // R *= P(1) * ... *P(m)
 
   final INFO = Box(0);
   dormrz('Right', 'No transpose', M, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(),
       M, WORK(M * N + 1), LWORK - M * N, INFO);
 
-  // R = R - A
+  // R -= A
 
   for (var I = 1; I <= N; I++) {
     daxpy(M, -ONE, A(1, I).asArray(), 1, WORK((I - 1) * M + 1), 1);
@@ -64,6 +64,6 @@ double drzt01(
 
   var result = dlange('One-norm', M, N, WORK.asMatrix(), M, RWORK);
 
-  result = result / (dlamch('Epsilon') * max(M, N));
+  result /= (dlamch('Epsilon') * max(M, N));
   return NORMA != ZERO ? result / NORMA : result;
 }

@@ -51,7 +51,7 @@ void dlagtf(
   for (K = 1; K <= N - 1; K++) {
     A[K + 1] -= LAMBDA;
     SCALE2 = (C[K]).abs() + (A[K + 1]).abs();
-    if (K < (N - 1)) SCALE2 = SCALE2 + (B[K + 1]).abs();
+    if (K < (N - 1)) SCALE2 += (B[K + 1]).abs();
     if (A[K] == ZERO) {
       PIV1 = ZERO;
     } else {

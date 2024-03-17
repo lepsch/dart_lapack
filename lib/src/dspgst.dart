@@ -78,7 +78,7 @@ void dspgst(
 
         AKK = AP[KK];
         BKK = BP[KK];
-        AKK = AKK / pow(BKK, 2);
+        AKK /= pow(BKK, 2);
         AP[KK] = AKK;
         if (K < N) {
           dscal(N - K, ONE / BKK, AP(KK + 1), 1);

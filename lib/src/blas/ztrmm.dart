@@ -93,7 +93,7 @@ void ztrmm(
               for (I = 1; I <= K - 1; I++) {
                 B[I][J] += TEMP * A[I][K];
               }
-              if (NOUNIT) TEMP = TEMP * A[K][K];
+              if (NOUNIT) TEMP *= A[K][K];
               B[K][J] = TEMP;
             }
           }
@@ -120,12 +120,12 @@ void ztrmm(
           for (I = M; I >= 1; I--) {
             TEMP = B[I][J];
             if (NOCONJ) {
-              if (NOUNIT) TEMP = TEMP * A[I][I];
+              if (NOUNIT) TEMP *= A[I][I];
               for (K = 1; K <= I - 1; K++) {
                 TEMP += A[K][I] * B[K][J];
               }
             } else {
-              if (NOUNIT) TEMP = TEMP * A[I][I].conjugate();
+              if (NOUNIT) TEMP *= A[I][I].conjugate();
               for (K = 1; K <= I - 1; K++) {
                 TEMP += A[K][I].conjugate() * B[K][J];
               }
@@ -138,12 +138,12 @@ void ztrmm(
           for (I = 1; I <= M; I++) {
             TEMP = B[I][J];
             if (NOCONJ) {
-              if (NOUNIT) TEMP = TEMP * A[I][I];
+              if (NOUNIT) TEMP *= A[I][I];
               for (K = I + 1; K <= M; K++) {
                 TEMP += A[K][I] * B[K][J];
               }
             } else {
-              if (NOUNIT) TEMP = TEMP * A[I][I].conjugate();
+              if (NOUNIT) TEMP *= A[I][I].conjugate();
               for (K = I + 1; K <= M; K++) {
                 TEMP += A[K][I].conjugate() * B[K][J];
               }
@@ -160,7 +160,7 @@ void ztrmm(
       if (UPPER) {
         for (J = N; J >= 1; J--) {
           TEMP = ALPHA;
-          if (NOUNIT) TEMP = TEMP * A[J][J];
+          if (NOUNIT) TEMP *= A[J][J];
           for (I = 1; I <= M; I++) {
             B[I][J] = TEMP * B[I][J];
           }
@@ -176,7 +176,7 @@ void ztrmm(
       } else {
         for (J = 1; J <= N; J++) {
           TEMP = ALPHA;
-          if (NOUNIT) TEMP = TEMP * A[J][J];
+          if (NOUNIT) TEMP *= A[J][J];
           for (I = 1; I <= M; I++) {
             B[I][J] = TEMP * B[I][J];
           }
@@ -210,9 +210,9 @@ void ztrmm(
           TEMP = ALPHA;
           if (NOUNIT) {
             if (NOCONJ) {
-              TEMP = TEMP * A[K][K];
+              TEMP *= A[K][K];
             } else {
-              TEMP = TEMP * A[K][K].conjugate();
+              TEMP *= A[K][K].conjugate();
             }
           }
           if (TEMP != Complex.one) {
@@ -238,9 +238,9 @@ void ztrmm(
           TEMP = ALPHA;
           if (NOUNIT) {
             if (NOCONJ) {
-              TEMP = TEMP * A[K][K];
+              TEMP *= A[K][K];
             } else {
-              TEMP = TEMP * A[K][K].conjugate();
+              TEMP *= A[K][K].conjugate();
             }
           }
           if (TEMP != Complex.one) {

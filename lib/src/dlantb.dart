@@ -78,12 +78,12 @@ double dlantb(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = max(K + 2 - J, 1); I <= K; I++) {
-            SUM.value = SUM.value + (AB[I][J]).abs();
+            SUM.value += (AB[I][J]).abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = max(K + 2 - J, 1); I <= K + 1; I++) {
-            SUM.value = SUM.value + (AB[I][J]).abs();
+            SUM.value += (AB[I][J]).abs();
           }
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -93,12 +93,12 @@ double dlantb(
         if (UDIAG) {
           SUM.value = ONE;
           for (I = 2; I <= min(N + 1 - J, K + 1); I++) {
-            SUM.value = SUM.value + (AB[I][J]).abs();
+            SUM.value += (AB[I][J]).abs();
           }
         } else {
           SUM.value = ZERO;
           for (I = 1; I <= min(N + 1 - J, K + 1); I++) {
-            SUM.value = SUM.value + (AB[I][J]).abs();
+            SUM.value += (AB[I][J]).abs();
           }
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

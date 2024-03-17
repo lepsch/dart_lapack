@@ -164,7 +164,7 @@ void zlatrs(
                 CNORM[J] += TSCAL * CABS2(A[I][J]);
               }
             }
-            TSCAL = TSCAL * HALF;
+            TSCAL *= HALF;
           }
         }
       } else {
@@ -235,7 +235,7 @@ void zlatrs(
         if (TJJ + CNORM[J] >= SMLNUM) {
           // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 
-          GROW = GROW * (TJJ / (TJJ + CNORM[J]));
+          GROW *= (TJJ / (TJJ + CNORM[J]));
         } else {
           // G(j) could overflow, set GROW to 0.
 
@@ -260,7 +260,7 @@ void zlatrs(
 
         // G(j) = G(j-1)*( 1 + CNORM(j) )
 
-        GROW = GROW * (ONE / (ONE + CNORM[J]));
+        GROW *= (ONE / (ONE + CNORM[J]));
       } // 50
     }
   } else {
@@ -307,7 +307,7 @@ void zlatrs(
         if (TJJ >= SMLNUM) {
           // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
-          if (XJ > TJJ) XBND = XBND * (TJJ / XJ);
+          if (XJ > TJJ) XBND *= (TJJ / XJ);
         } else {
           // M(j) could overflow, set XBND to 0.
 
@@ -333,7 +333,7 @@ void zlatrs(
         // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
         XJ = ONE + CNORM[J];
-        GROW = GROW / XJ;
+        GROW /= XJ;
       } // 80
     }
     //  } // 90
@@ -355,7 +355,7 @@ void zlatrs(
       zdscal(N, SCALE.value, X, 1);
       XMAX = BIGNUM;
     } else {
-      XMAX = XMAX * TWO;
+      XMAX *= TWO;
     }
 
     if (NOTRAN) {
@@ -384,8 +384,8 @@ void zlatrs(
 
                 REC = ONE / XJ;
                 zdscal(N, REC, X, 1);
-                SCALE.value = SCALE.value * REC;
-                XMAX = XMAX * REC;
+                SCALE.value *= REC;
+                XMAX *= REC;
               }
             }
             X[J] = zladiv(X[J], TJJS);
@@ -402,11 +402,11 @@ void zlatrs(
                 // Scale by 1/CNORM(j) to avoid overflow when
                 // multiplying x(j) times column j.
 
-                REC = REC / CNORM[J];
+                REC /= CNORM[J];
               }
               zdscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
             X[J] = zladiv(X[J], TJJS);
             XJ = CABS1(X[J]);
@@ -433,15 +433,15 @@ void zlatrs(
           if (CNORM[J] > (BIGNUM - XMAX) * REC) {
             // Scale x by 1/(2*abs(x(j))).
 
-            REC = REC * HALF;
+            REC *= HALF;
             zdscal(N, REC, X, 1);
-            SCALE.value = SCALE.value * REC;
+            SCALE.value *= REC;
           }
         } else if (XJ * CNORM[J] > (BIGNUM - XMAX)) {
           // Scale x by 1/2.
 
           zdscal(N, HALF, X, 1);
-          SCALE.value = SCALE.value * HALF;
+          SCALE.value *= HALF;
         }
 
         if (UPPER) {
@@ -480,7 +480,7 @@ void zlatrs(
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
           // If x(j) could overflow, scale x by 1/(2*XMAX).
 
-          REC = REC * HALF;
+          REC *= HALF;
           if (NOUNIT) {
             TJJS = A[J][J] * TSCAL.toComplex();
           } else {
@@ -495,8 +495,8 @@ void zlatrs(
           }
           if (REC < ONE) {
             zdscal(N, REC, X, 1);
-            SCALE.value = SCALE.value * REC;
-            XMAX = XMAX * REC;
+            SCALE.value *= REC;
+            XMAX *= REC;
           }
         }
 
@@ -540,7 +540,7 @@ void zlatrs(
           }
 
           if (scale) {
-            // Compute x(j) = x(j) / A(j,j), scaling if necessary.
+            // Compute x(j) /= A(j,j), scaling if necessary.
 
             TJJ = CABS1(TJJS);
             if (TJJ > SMLNUM) {
@@ -552,8 +552,8 @@ void zlatrs(
 
                   REC = ONE / XJ;
                   zdscal(N, REC, X, 1);
-                  SCALE.value = SCALE.value * REC;
-                  XMAX = XMAX * REC;
+                  SCALE.value *= REC;
+                  XMAX *= REC;
                 }
               }
               X[J] = zladiv(X[J], TJJS);
@@ -565,8 +565,8 @@ void zlatrs(
 
                 REC = (TJJ * BIGNUM) / XJ;
                 zdscal(N, REC, X, 1);
-                SCALE.value = SCALE.value * REC;
-                XMAX = XMAX * REC;
+                SCALE.value *= REC;
+                XMAX *= REC;
               }
               X[J] = zladiv(X[J], TJJS);
             } else {
@@ -605,7 +605,7 @@ void zlatrs(
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
           // If x(j) could overflow, scale x by 1/(2*XMAX).
 
-          REC = REC * HALF;
+          REC *= HALF;
           if (NOUNIT) {
             TJJS = A[J][J].conjugate() * TSCAL.toComplex();
           } else {
@@ -620,8 +620,8 @@ void zlatrs(
           }
           if (REC < ONE) {
             zdscal(N, REC, X, 1);
-            SCALE.value = SCALE.value * REC;
-            XMAX = XMAX * REC;
+            SCALE.value *= REC;
+            XMAX *= REC;
           }
         }
 
@@ -665,7 +665,7 @@ void zlatrs(
           }
 
           if (scale) {
-            // Compute x(j) = x(j) / A(j,j), scaling if necessary.
+            // Compute x(j) /= A(j,j), scaling if necessary.
 
             TJJ = CABS1(TJJS);
             if (TJJ > SMLNUM) {
@@ -677,8 +677,8 @@ void zlatrs(
 
                   REC = ONE / XJ;
                   zdscal(N, REC, X, 1);
-                  SCALE.value = SCALE.value * REC;
-                  XMAX = XMAX * REC;
+                  SCALE.value *= REC;
+                  XMAX *= REC;
                 }
               }
               X[J] = zladiv(X[J], TJJS);
@@ -690,8 +690,8 @@ void zlatrs(
 
                 REC = (TJJ * BIGNUM) / XJ;
                 zdscal(N, REC, X, 1);
-                SCALE.value = SCALE.value * REC;
-                XMAX = XMAX * REC;
+                SCALE.value *= REC;
+                XMAX *= REC;
               }
               X[J] = zladiv(X[J], TJJS);
             } else {
@@ -716,7 +716,7 @@ void zlatrs(
         XMAX = max(XMAX, CABS1(X[J]));
       } // 220
     }
-    SCALE.value = SCALE.value / TSCAL;
+    SCALE.value /= TSCAL;
   }
 
   // Scale the column norms by 1/TSCAL for return.

@@ -102,6 +102,6 @@ void dpotrf(
   }
 
   if (INFO.value != 0) {
-    INFO.value = INFO.value + J - 1;
+    INFO.value += J - 1;
   }
 }

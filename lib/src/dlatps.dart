@@ -162,7 +162,7 @@ void dlatps(
         if (TJJ + CNORM[J] >= SMLNUM) {
           // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 
-          GROW = GROW * (TJJ / (TJJ + CNORM[J]));
+          GROW *= (TJJ / (TJJ + CNORM[J]));
         } else {
           // G(j) could overflow, set GROW to 0.
 
@@ -185,7 +185,7 @@ void dlatps(
 
         // G(j) = G(j-1)*( 1 + CNORM(j) )
 
-        GROW = GROW * (ONE / (ONE + CNORM[J]));
+        GROW *= (ONE / (ONE + CNORM[J]));
       }
     }
     //  }
@@ -231,7 +231,7 @@ void dlatps(
         // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
         TJJ = (AP[IP]).abs();
-        if (XJ > TJJ) XBND = XBND * (TJJ / XJ);
+        if (XJ > TJJ) XBND *= (TJJ / XJ);
         JLEN++;
         IP += JINC * JLEN;
       }
@@ -250,7 +250,7 @@ void dlatps(
         // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
         XJ = ONE + CNORM[J];
-        GROW = GROW / XJ;
+        GROW /= XJ;
       }
     }
     //  }
@@ -300,8 +300,8 @@ void dlatps(
 
                 REC = ONE / XJ;
                 dscal(N, REC, X, 1);
-                SCALE.value = SCALE.value * REC;
-                XMAX = XMAX * REC;
+                SCALE.value *= REC;
+                XMAX *= REC;
               }
             }
             X[J] /= TJJS;
@@ -318,11 +318,11 @@ void dlatps(
                 // Scale by 1/CNORM(j) to avoid overflow when
                 // multiplying x(j) times column j.
 
-                REC = REC / CNORM[J];
+                REC /= CNORM[J];
               }
               dscal(N, REC, X, 1);
-              SCALE.value = SCALE.value * REC;
-              XMAX = XMAX * REC;
+              SCALE.value *= REC;
+              XMAX *= REC;
             }
             X[J] /= TJJS;
             XJ = (X[J]).abs();
@@ -348,15 +348,15 @@ void dlatps(
           if (CNORM[J] > (BIGNUM - XMAX) * REC) {
             // Scale x by 1/(2*abs(x(j))).
 
-            REC = REC * HALF;
+            REC *= HALF;
             dscal(N, REC, X, 1);
-            SCALE.value = SCALE.value * REC;
+            SCALE.value *= REC;
           }
         } else if (XJ * CNORM[J] > (BIGNUM - XMAX)) {
           // Scale x by 1/2.
 
           dscal(N, HALF, X, 1);
-          SCALE.value = SCALE.value * HALF;
+          SCALE.value *= HALF;
         }
 
         if (UPPER) {
@@ -396,7 +396,7 @@ void dlatps(
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
           // If x(j) could overflow, scale x by 1/(2*XMAX).
 
-          REC = REC * HALF;
+          REC *= HALF;
           if (NOUNIT) {
             TJJS = AP[IP] * TSCAL;
           } else {
@@ -407,12 +407,12 @@ void dlatps(
             // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
             REC = min(ONE, REC * TJJ);
-            USCAL = USCAL / TJJS;
+            USCAL /= TJJS;
           }
           if (REC < ONE) {
             dscal(N, REC, X, 1);
-            SCALE.value = SCALE.value * REC;
-            XMAX = XMAX * REC;
+            SCALE.value *= REC;
+            XMAX *= REC;
           }
         }
 
@@ -448,7 +448,7 @@ void dlatps(
           XJ = (X[J]).abs();
           var scale = true;
           if (NOUNIT) {
-            // Compute x(j) = x(j) / A(j,j), scaling if necessary.
+            // Compute x(j) /= A(j,j), scaling if necessary.
 
             TJJS = AP[IP] * TSCAL;
           } else {
@@ -466,8 +466,8 @@ void dlatps(
 
                   REC = ONE / XJ;
                   dscal(N, REC, X, 1);
-                  SCALE.value = SCALE.value * REC;
-                  XMAX = XMAX * REC;
+                  SCALE.value *= REC;
+                  XMAX *= REC;
                 }
               }
               X[J] /= TJJS;
@@ -479,8 +479,8 @@ void dlatps(
 
                 REC = (TJJ * BIGNUM) / XJ;
                 dscal(N, REC, X, 1);
-                SCALE.value = SCALE.value * REC;
-                XMAX = XMAX * REC;
+                SCALE.value *= REC;
+                XMAX *= REC;
               }
               X[J] /= TJJS;
             } else {
@@ -506,7 +506,7 @@ void dlatps(
         IP += JINC * JLEN;
       }
     }
-    SCALE.value = SCALE.value / TSCAL;
+    SCALE.value /= TSCAL;
   }
 
   // Scale the column norms by 1/TSCAL for return.

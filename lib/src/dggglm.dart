@@ -138,7 +138,7 @@ void dggglm(
     Y[I] = ZERO;
   } // 10
 
-  // Update d1 = d1 - T12*y2
+  // Update d1 -= T12*y2
 
   dgemv('No transpose', M, N - M, -ONE, B(1, M + P - N + 1), LDB,
       Y(M + P - N + 1), 1, ONE, D, 1);

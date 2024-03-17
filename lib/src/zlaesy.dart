@@ -88,7 +88,7 @@ void zlaesy(
     if (EVNORM >= THRESH) {
       EVSCAL.value = Complex.one / T;
       CS1.value = EVSCAL.value;
-      SN1.value = SN1.value * EVSCAL.value;
+      SN1.value *= EVSCAL.value;
     } else {
       EVSCAL.value = Complex.zero;
     }

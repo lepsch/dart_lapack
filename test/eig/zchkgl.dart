@@ -91,7 +91,7 @@ Future<void> zchkgl(
         VMAX = max(VMAX, (RSCALE[I] - RSCLIN[I]).abs());
       } // 80
 
-      VMAX = VMAX / (EPS * max(ANORM, BNORM));
+      VMAX /= (EPS * max(ANORM, BNORM));
 
       if (VMAX > RMAX) {
         LMAX[3] = KNT;

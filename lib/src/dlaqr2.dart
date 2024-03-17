@@ -208,7 +208,7 @@ void dlaqr2(
           max(SMLNUM, ULP * FOO)) {
         // ==== Deflatable ====
 
-        NS.value = NS.value - 2;
+        NS.value -= 2;
       } else {
         // ==== Undeflatable. Move them up out of the way.
         // .    Fortunately, DTREXC does the right thing with
@@ -216,7 +216,7 @@ void dlaqr2(
 
         IFST.value = NS.value;
         dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO);
-        ILST.value = ILST.value + 2;
+        ILST.value += 2;
       }
     }
 
@@ -392,7 +392,7 @@ void dlaqr2(
   // .    calculating eigenvalues of the deflation
   // .    window.)  ====
 
-  NS.value = NS.value - INFQR.value;
+  NS.value -= INFQR.value;
 
   // ==== Return optimal workspace. ====
 

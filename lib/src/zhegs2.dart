@@ -65,7 +65,7 @@ void zhegs2(
 
         AKK = A[K][K].toDouble();
         BKK = B[K][K].toDouble();
-        AKK = AKK / pow(BKK, 2);
+        AKK /= pow(BKK, 2);
         A[K][K] = AKK.toComplex();
         if (K < N) {
           zdscal(N - K, ONE / BKK, A(K, K + 1).asArray(), LDA);
@@ -94,7 +94,7 @@ void zhegs2(
 
         AKK = A[K][K].toDouble();
         BKK = B[K][K].toDouble();
-        AKK = AKK / pow(BKK, 2);
+        AKK /= pow(BKK, 2);
         A[K][K] = AKK.toComplex();
         if (K < N) {
           zdscal(N - K, ONE / BKK, A(K + 1, K).asArray(), 1);

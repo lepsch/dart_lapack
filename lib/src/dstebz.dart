@@ -184,7 +184,7 @@ void dstebz(
     }
   }
   ISPLIT[NSPLIT.value] = N;
-  PIVMIN = PIVMIN * SAFEMN;
+  PIVMIN *= SAFEMN;
 
   // Compute Interval and ATOLI
 
@@ -444,7 +444,7 @@ void dstebz(
         }
       }
 
-      M.value = M.value + IM.value;
+      M.value += IM.value;
     }
   }
 
@@ -549,5 +549,5 @@ void dstebz(
 
   INFO.value = 0;
   if (NCNVRG) INFO.value++;
-  if (TOOFEW) INFO.value = INFO.value + 2;
+  if (TOOFEW) INFO.value += 2;
 }

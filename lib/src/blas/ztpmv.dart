@@ -136,13 +136,13 @@ void ztpmv(
           TEMP = X[J];
           K = KK - 1;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * AP[KK];
+            if (NOUNIT) TEMP *= AP[KK];
             for (I = J - 1; I >= 1; I--) {
               TEMP += AP[K] * X[I];
               K--;
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * AP[KK].conjugate();
+            if (NOUNIT) TEMP *= AP[KK].conjugate();
             for (I = J - 1; I >= 1; I--) {
               TEMP += AP[K].conjugate() * X[I];
               K--;
@@ -157,13 +157,13 @@ void ztpmv(
           TEMP = X[JX];
           IX = JX;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * AP[KK];
+            if (NOUNIT) TEMP *= AP[KK];
             for (K = KK - 1; K >= KK - J + 1; K--) {
               IX -= INCX;
               TEMP += AP[K] * X[IX];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * AP[KK].conjugate();
+            if (NOUNIT) TEMP *= AP[KK].conjugate();
             for (K = KK - 1; K >= KK - J + 1; K--) {
               IX -= INCX;
               TEMP += AP[K].conjugate() * X[IX];
@@ -181,13 +181,13 @@ void ztpmv(
           TEMP = X[J];
           K = KK + 1;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * AP[KK];
+            if (NOUNIT) TEMP *= AP[KK];
             for (I = J + 1; I <= N; I++) {
               TEMP += AP[K] * X[I];
               K++;
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * AP[KK].conjugate();
+            if (NOUNIT) TEMP *= AP[KK].conjugate();
             for (I = J + 1; I <= N; I++) {
               TEMP += AP[K].conjugate() * X[I];
               K++;
@@ -202,13 +202,13 @@ void ztpmv(
           TEMP = X[JX];
           IX = JX;
           if (NOCONJ) {
-            if (NOUNIT) TEMP = TEMP * AP[KK];
+            if (NOUNIT) TEMP *= AP[KK];
             for (K = KK + 1; K <= KK + N - J; K++) {
               IX += INCX;
               TEMP += AP[K] * X[IX];
             }
           } else {
-            if (NOUNIT) TEMP = TEMP * AP[KK].conjugate();
+            if (NOUNIT) TEMP *= AP[KK].conjugate();
             for (K = KK + 1; K <= KK + N - J; K++) {
               IX += INCX;
               TEMP += AP[K].conjugate() * X[IX];

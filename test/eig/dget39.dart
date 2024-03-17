@@ -93,7 +93,7 @@ void dget39(
   KNT.value = 0;
   RMAX.value = ZERO;
   NINFO.value = 0;
-  SMLNUM = SMLNUM / EPS;
+  SMLNUM /= EPS;
 
   // Begin test loop
 
@@ -140,7 +140,7 @@ void dget39(
               RESID = dasum(N, Y, 1);
               DOMIN =
                   max(SMLNUM, max((SMLNUM / EPS) * NORM, (NORM * EPS) * XNORM));
-              RESID = RESID / DOMIN;
+              RESID /= DOMIN;
               if (RESID > RMAX.value) {
                 RMAX.value = RESID;
                 LMAX.value = KNT.value;
@@ -160,7 +160,7 @@ void dget39(
               RESID = dasum(N, Y, 1);
               DOMIN =
                   max(SMLNUM, max((SMLNUM / EPS) * NORM, (NORM * EPS) * XNORM));
-              RESID = RESID / DOMIN;
+              RESID /= DOMIN;
               if (RESID > RMAX.value) {
                 RMAX.value = RESID;
                 LMAX.value = KNT.value;
@@ -196,7 +196,7 @@ void dget39(
                     (SMLNUM / EPS) * NORMTB,
                     EPS * (NORMTB * dasum(2 * N, X, 1)),
                   ));
-              RESID = RESID / DOMIN;
+              RESID /= DOMIN;
               if (RESID > RMAX.value) {
                 RMAX.value = RESID;
                 LMAX.value = KNT.value;
@@ -232,7 +232,7 @@ void dget39(
                     (SMLNUM / EPS) * NORMTB,
                     EPS * (NORMTB * dasum(2 * N, X, 1)),
                   ));
-              RESID = RESID / DOMIN;
+              RESID /= DOMIN;
               if (RESID > RMAX.value) {
                 RMAX.value = RESID;
                 LMAX.value = KNT.value;

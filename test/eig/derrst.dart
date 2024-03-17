@@ -1110,7 +1110,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     // CALL DSBEVD_2STAGE( 'V', 'U', 2, 0, A, 1, X, Z, 2, W,
     // $                                      25, IW, 11, INFO )
     // CALL CHKXER( 'DSBEVD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK )
-    // NT = NT + 12
+    // NT += 12
     NT += 9;
 
     // DSBEV
@@ -1285,7 +1285,7 @@ void derrst(final String PATH, final Nout NUNIT) {
     dsbevx_2stage('N', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z,
         1, W, 0, IW, I3, INFO);
     chkxer('DSBEVX_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    // NT = NT + 15
+    // NT += 15
     NT += 13;
   }
 

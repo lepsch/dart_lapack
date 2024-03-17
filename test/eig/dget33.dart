@@ -91,10 +91,8 @@ void dget33(
                   }
 
                   RES = ZERO;
-                  RES = RES +
-                      (pow(Q[1][1], 2) + pow(Q[1][2], 2) - ONE).abs() / EPS;
-                  RES = RES +
-                      (pow(Q[2][2], 2) + pow(Q[2][1], 2) - ONE).abs() / EPS;
+                  RES += (pow(Q[1][1], 2) + pow(Q[1][2], 2) - ONE).abs() / EPS;
+                  RES += (pow(Q[2][2], 2) + pow(Q[2][1], 2) - ONE).abs() / EPS;
                   RES =
                       RES + (Q[1][1] * Q[2][1] + Q[1][2] * Q[2][2]).abs() / EPS;
                   for (J1 = 1; J1 <= 2; J1++) {

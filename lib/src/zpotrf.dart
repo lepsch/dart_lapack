@@ -70,7 +70,7 @@ void zpotrf(
             ONE, A(J, J), LDA);
         zpotrf2('Upper', JB, A(J, J), LDA, INFO);
         if (INFO.value != 0) {
-          INFO.value = INFO.value + J - 1;
+          INFO.value += J - 1;
           return;
         }
         if (J + JB <= N) {
@@ -108,7 +108,7 @@ void zpotrf(
             A(J, J), LDA);
         zpotrf2('Lower', JB, A(J, J), LDA, INFO);
         if (INFO.value != 0) {
-          INFO.value = INFO.value + J - 1;
+          INFO.value += J - 1;
           return;
         }
         if (J + JB <= N) {

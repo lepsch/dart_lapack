@@ -52,7 +52,7 @@ void dlas2(
         AT = (FHMX - FHMN) / FHMX;
         C = ONE / (sqrt(ONE + pow(AS * AU, 2)) + sqrt(ONE + pow(AT * AU, 2)));
         SSMIN.value = (FHMN * C) * AU;
-        SSMIN.value = SSMIN.value + SSMIN.value;
+        SSMIN.value += SSMIN.value;
         SSMAX.value = GA / (C + C);
       }
     }

@@ -458,7 +458,7 @@ void dgges3(
 
             CURSL = CURSL || LASTSL;
             LASTSL = CURSL;
-            if (CURSL) SDIM.value = SDIM.value + 2;
+            if (CURSL) SDIM.value += 2;
             IP = -1;
             if (CURSL && !LST2SL) INFO.value = N + 2;
           } else {

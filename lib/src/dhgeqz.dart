@@ -357,8 +357,8 @@ void dhgeqz(
                 TEMP2.value = (H[J][J]).abs();
                 TEMPR.value = max(TEMP.value, TEMP2.value);
                 if (TEMPR.value < ONE && TEMPR.value != ZERO) {
-                  TEMP.value = TEMP.value / TEMPR.value;
-                  TEMP2.value = TEMP2.value / TEMPR.value;
+                  TEMP.value /= TEMPR.value;
+                  TEMP2.value /= TEMPR.value;
                 }
                 if (TEMP.value * (ASCALE * (H[J + 1][J]).abs()) <=
                     TEMP2.value * (ASCALE * ATOL)) ILAZR2 = true;
@@ -594,8 +594,8 @@ void dhgeqz(
           TEMP2.value = (S1.value * H[J][J] - WR.value * T[J][J]).abs();
           TEMPR.value = max(TEMP.value, TEMP2.value);
           if (TEMPR.value < ONE && TEMPR.value != ZERO) {
-            TEMP.value = TEMP.value / TEMPR.value;
-            TEMP2.value = TEMP2.value / TEMPR.value;
+            TEMP.value /= TEMPR.value;
+            TEMP2.value /= TEMPR.value;
           }
           if (((ASCALE * H[J + 1][J]) * TEMP.value).abs() <=
               (ASCALE * ATOL) * TEMP2.value) {
@@ -787,7 +787,7 @@ void dhgeqz(
             TEMPR.value = C22R / CZ;
             TEMPI = C22I / CZ;
             T1 = dlapy2(CZ, C21);
-            CZ = CZ / T1;
+            CZ /= T1;
             SZR = -C21 * TEMPR.value / T1;
             SZI = C21 * TEMPI / T1;
           }
@@ -824,9 +824,9 @@ void dhgeqz(
           }
         }
         T1 = dlapy3(CQ, SQR, SQI);
-        CQ = CQ / T1;
-        SQR = SQR / T1;
-        SQI = SQI / T1;
+        CQ /= T1;
+        SQR /= T1;
+        SQI /= T1;
 
         // Compute diagonal elements of QBZ
 

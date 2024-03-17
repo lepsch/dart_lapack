@@ -104,8 +104,8 @@ void dlasd6(
     }
   }
   dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D.asMatrix(N), N, INFO);
-  ALPHA.value = ALPHA.value / ORGNRM;
-  BETA.value = BETA.value / ORGNRM;
+  ALPHA.value /= ORGNRM;
+  BETA.value /= ORGNRM;
 
   // Sort and Deflate singular values.
 

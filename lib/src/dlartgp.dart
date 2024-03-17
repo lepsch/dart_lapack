@@ -45,29 +45,29 @@ void dlartgp(
       COUNT = 0;
       do {
         COUNT += 1;
-        F1 = F1 * SAFMN2;
-        G1 = G1 * SAFMN2;
+        F1 *= SAFMN2;
+        G1 *= SAFMN2;
         SCALE = max((F1).abs(), (G1).abs());
       } while (SCALE >= SAFMX2 && COUNT < 20);
       R.value = sqrt(pow(F1, 2) + pow(G1, 2));
       CS.value = F1 / R.value;
       SN.value = G1 / R.value;
       for (I = 1; I <= COUNT; I++) {
-        R.value = R.value * SAFMX2;
+        R.value *= SAFMX2;
       }
     } else if (SCALE <= SAFMN2) {
       COUNT = 0;
       do {
         COUNT++;
-        F1 = F1 * SAFMX2;
-        G1 = G1 * SAFMX2;
+        F1 *= SAFMX2;
+        G1 *= SAFMX2;
         SCALE = max((F1).abs(), (G1).abs());
       } while (SCALE <= SAFMN2);
       R.value = sqrt(pow(F1, 2) + pow(G1, 2));
       CS.value = F1 / R.value;
       SN.value = G1 / R.value;
       for (I = 1; I <= COUNT; I++) {
-        R.value = R.value * SAFMN2;
+        R.value *= SAFMN2;
       }
     } else {
       R.value = sqrt(pow(F1, 2) + pow(G1, 2));

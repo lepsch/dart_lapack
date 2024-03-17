@@ -74,7 +74,7 @@ void dhsein(
         PAIR = true;
         if (SELECT[K] || SELECT[K + 1]) {
           SELECT[K] = true;
-          M.value = M.value + 2;
+          M.value += 2;
         }
       }
     }
@@ -217,7 +217,7 @@ void dhsein(
             IINFO);
         if (IINFO.value > 0) {
           if (PAIR) {
-            INFO.value = INFO.value + 2;
+            INFO.value += 2;
           } else {
             INFO.value++;
           }
@@ -258,7 +258,7 @@ void dhsein(
             IINFO);
         if (IINFO.value > 0) {
           if (PAIR) {
-            INFO.value = INFO.value + 2;
+            INFO.value += 2;
           } else {
             INFO.value++;
           }

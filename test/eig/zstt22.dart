@@ -71,8 +71,8 @@ void zstt22(
       for (K = 1; K <= N; K++) {
         // 20
         AUKJ = AD[K].toComplex() * U[K][J];
-        if (K != N) AUKJ = AUKJ + AE[K].toComplex() * U[K + 1][J];
-        if (K != 1) AUKJ = AUKJ + AE[K - 1].toComplex() * U[K - 1][J];
+        if (K != N) AUKJ += AE[K].toComplex() * U[K + 1][J];
+        if (K != 1) AUKJ += AE[K - 1].toComplex() * U[K - 1][J];
         WORK[I][J] += U[K][I] * AUKJ;
       } // 20
     } // 30

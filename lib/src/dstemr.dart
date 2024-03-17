@@ -321,12 +321,12 @@ void dstemr(
     if (SCALE != ONE) {
       dscal(N, SCALE, D, 1);
       dscal(N - 1, SCALE, E, 1);
-      TNRM = TNRM * SCALE;
+      TNRM *= SCALE;
       if (VALEIG) {
         // If eigenvalues in interval have to be found,
         // scale (WL.value, WU.value] accordingly
-        WL.value = WL.value * SCALE;
-        WU.value = WU.value * SCALE;
+        WL.value *= SCALE;
+        WU.value *= SCALE;
       }
     }
 

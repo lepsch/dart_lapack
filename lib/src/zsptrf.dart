@@ -128,7 +128,7 @@ void zsptrf(
         }
 
         KK = K - KSTEP + 1;
-        if (KSTEP == 2) KNC = KNC - K + 1;
+        if (KSTEP == 2) KNC -= K + 1;
         if (KP != KK) {
           // Interchange rows and columns KK and KP in the leading
           // submatrix A(1:k,1:k)
@@ -306,7 +306,7 @@ void zsptrf(
         }
 
         KK = K + KSTEP - 1;
-        if (KSTEP == 2) KNC = KNC + N - K + 1;
+        if (KSTEP == 2) KNC += N - K + 1;
         if (KP != KK) {
           // Interchange rows and columns KK and KP in the trailing
           // submatrix A(k:n,k:n)

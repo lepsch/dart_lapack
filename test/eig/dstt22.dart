@@ -62,8 +62,8 @@ void dstt22(
       WORK[I][J] = ZERO;
       for (K = 1; K <= N; K++) {
         AUKJ = AD[K] * U[K][J];
-        if (K != N) AUKJ = AUKJ + AE[K] * U[K + 1][J];
-        if (K != 1) AUKJ = AUKJ + AE[K - 1] * U[K - 1][J];
+        if (K != N) AUKJ += AE[K] * U[K + 1][J];
+        if (K != 1) AUKJ += AE[K - 1] * U[K - 1][J];
         WORK[I][J] += U[K][I] * AUKJ;
       }
     }

@@ -154,7 +154,7 @@ void dtgevc(
         if (S[J + 1][J] != ZERO) ILCPLX = true;
       }
       if (ILCPLX) {
-        if (SELECT[J] || SELECT[J + 1]) IM = IM + 2;
+        if (SELECT[J] || SELECT[J + 1]) IM += 2;
       } else {
         if (SELECT[J]) IM++;
       }
@@ -214,7 +214,7 @@ void dtgevc(
   // triangular solver.
 
   ANORM = (S[1][1]).abs();
-  if (N > 1) ANORM = ANORM + (S[2][1]).abs();
+  if (N > 1) ANORM += (S[2][1]).abs();
   BNORM = (P[1][1]).abs();
   WORK[1] = ZERO;
   WORK[N + 1] = ZERO;
@@ -228,14 +228,14 @@ void dtgevc(
       IEND = J - 2;
     }
     for (I = 1; I <= IEND; I++) {
-      TEMP.value = TEMP.value + (S[I][J]).abs();
-      TEMP2.value = TEMP2.value + (P[I][J]).abs();
+      TEMP.value += (S[I][J]).abs();
+      TEMP2.value += (P[I][J]).abs();
     }
     WORK[J] = TEMP.value;
     WORK[N + J] = TEMP2.value;
     for (I = IEND + 1; I <= min(J + 1, N); I++) {
-      TEMP.value = TEMP.value + (S[I][J]).abs();
-      TEMP2.value = TEMP2.value + (P[I][J]).abs();
+      TEMP.value += (S[I][J]).abs();
+      TEMP2.value += (P[I][J]).abs();
     }
     ANORM = max(ANORM, TEMP.value);
     BNORM = max(BNORM, TEMP2.value);
@@ -457,7 +457,7 @@ void dtgevc(
               WORK[(JW + 2) * N + JR] = XSCALE * WORK[(JW + 2) * N + JR];
             }
           }
-          XMAX = XMAX * XSCALE;
+          XMAX *= XSCALE;
         }
 
         // Compute dot products
@@ -842,7 +842,7 @@ void dtgevc(
           }
         }
 
-        // w = w + x(j)*(a S[*][j] - b P[*][j] ) with scaling
+        // w += x(j)*(a S[*][j] - b P[*][j] ) with scaling
 
         if (J > 1) {
           // Check whether scaling is necessary for sum.
@@ -860,7 +860,7 @@ void dtgevc(
                 WORK[(JW + 2) * N + JR] = XSCALE * WORK[(JW + 2) * N + JR];
               }
             }
-            XMAX = XMAX * XSCALE;
+            XMAX *= XSCALE;
           }
 
           // Compute the contributions of the off-diagonals of

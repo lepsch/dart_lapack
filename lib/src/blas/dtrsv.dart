@@ -138,7 +138,7 @@ void dtrsv(
             TEMP -= A[I][J] * X[IX];
             IX += INCX;
           }
-          if (NOUNIT) TEMP = TEMP / A[J][J];
+          if (NOUNIT) TEMP /= A[J][J];
           X[JX] = TEMP;
           JX += INCX;
         }

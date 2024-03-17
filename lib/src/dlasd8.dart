@@ -81,7 +81,7 @@ void dlasd8(
 
   RHO = dnrm2(K, Z, 1);
   dlascl('G', 0, 0, RHO, ONE, K, 1, Z.asMatrix(K), K, INFO);
-  RHO = RHO * RHO;
+  RHO *= RHO;
 
   // Initialize WORK(IWK3).
 

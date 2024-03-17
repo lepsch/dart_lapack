@@ -176,7 +176,7 @@ void dtgsy2(
                 dscal(M, SCALOC.value, C(1, K).asArray(), 1);
                 dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC.value;
+              SCALE.value *= SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -243,7 +243,7 @@ void dtgsy2(
                 dscal(M, SCALOC.value, C(1, K).asArray(), 1);
                 dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC.value;
+              SCALE.value *= SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -316,7 +316,7 @@ void dtgsy2(
                 dscal(M, SCALOC.value, C(1, K).asArray(), 1);
                 dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC.value;
+              SCALE.value *= SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -407,7 +407,7 @@ void dtgsy2(
                 dscal(M, SCALOC.value, C(1, K).asArray(), 1);
                 dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC.value;
+              SCALE.value *= SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -486,7 +486,7 @@ void dtgsy2(
               dscal(M, SCALOC.value, C(1, K).asArray(), 1);
               dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
 
           // Unpack solution vector(s)
@@ -553,7 +553,7 @@ void dtgsy2(
               dscal(M, SCALOC.value, C(1, K).asArray(), 1);
               dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
 
           // Unpack solution vector(s)
@@ -623,7 +623,7 @@ void dtgsy2(
               dscal(M, SCALOC.value, C(1, K).asArray(), 1);
               dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
 
           // Unpack solution vector(s)
@@ -711,7 +711,7 @@ void dtgsy2(
               dscal(M, SCALOC.value, C(1, K).asArray(), 1);
               dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
 
           // Unpack solution vector(s)

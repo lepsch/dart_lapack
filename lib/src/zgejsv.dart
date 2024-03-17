@@ -251,7 +251,7 @@ void zgejsv(
           MINRWRK = max(7, max(LRWQP3, LRWSVDJ));
         }
       }
-      if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
+      if (ROWPIV || L2TRAN) MINIWRK += M;
     } else if (RSVEC && (!LSVEC)) {
       // .. minimal and optimal sizes of the complex workspace if the
       // singular values and the right singular vectors are requested
@@ -293,7 +293,7 @@ void zgejsv(
           MINRWRK = max(7, max(LRWQP3, LRWSVDJ));
         }
       }
-      if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
+      if (ROWPIV || L2TRAN) MINIWRK += M;
     } else if (LSVEC && (!RSVEC)) {
       // .. minimal and optimal sizes of the complex workspace if the
       // singular values and the left singular vectors are requested
@@ -334,7 +334,7 @@ void zgejsv(
           MINRWRK = max(7, max(LRWQP3, LRWSVDJ));
         }
       }
-      if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
+      if (ROWPIV || L2TRAN) MINIWRK += M;
     } else {
       // .. minimal and optimal sizes of the complex workspace if the
       // full SVD is requested
@@ -381,7 +381,7 @@ void zgejsv(
                       max(N + pow(N, 2).toInt() + LWSVDJ, N + LWUNMQRM))));
         }
         MINIWRK += N;
-        if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
+        if (ROWPIV || L2TRAN) MINIWRK += M;
       } else {
         if (ERREST) {
           MINWRK = max(
@@ -394,7 +394,7 @@ void zgejsv(
               max(max(2 * N + LWQRF, 2 * N + pow(N, 2).toInt() + LWSVDJV),
                   max(2 * N + pow(N, 2).toInt() + N + LWUNMQR, N + LWUNMQRM)));
         }
-        if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
+        if (ROWPIV || L2TRAN) MINIWRK += M;
       }
       if (LQUERY) {
         zunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR);
@@ -712,7 +712,7 @@ void zgejsv(
     for (p = 1; p <= N; p++) {
       // 1113
       BIG1 = (pow(SVA[p] / XSC.value, 2)) * TEMP1.value;
-      if (BIG1 != ZERO) ENTRA = ENTRA + BIG1 * log(BIG1);
+      if (BIG1 != ZERO) ENTRA += BIG1 * log(BIG1);
     } // 1113
     ENTRA = -ENTRA / log(N);
 
@@ -726,7 +726,7 @@ void zgejsv(
     for (p = 1; p <= M; p++) {
       // 1114
       BIG1 = (pow(RWORK[p] / XSC.value, 2)) * TEMP1.value;
-      if (BIG1 != ZERO) ENTRAT = ENTRAT + BIG1 * log(BIG1);
+      if (BIG1 != ZERO) ENTRAT += BIG1 * log(BIG1);
     } // 1114
     ENTRAT = -ENTRAT / log(M);
 
@@ -795,7 +795,7 @@ void zgejsv(
   } else {
     AAQQ.value = (AAQQ.value * TEMP1.value) / AAPP.value;
   }
-  TEMP1.value = TEMP1.value * SCALEM;
+  TEMP1.value *= SCALEM;
   zlascl('G', 0, 0, AAPP.value, TEMP1.value, M, N, A, LDA, IERR);
 
   // To undo scaling at the end of this procedure, multiply the

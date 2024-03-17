@@ -115,7 +115,7 @@ void dtrevc3(
               PAIR = true;
               if (SELECT[J] || SELECT[J + 1]) {
                 SELECT[J] = true;
-                M.value = M.value + 2;
+                M.value += 2;
               }
             }
           } else {
@@ -290,7 +290,7 @@ void dtrevc3(
             if (XNORM.value > ONE) {
               if (WORK[J] > BIGNUM / XNORM.value) {
                 X[1][1] /= XNORM.value;
-                SCALE.value = SCALE.value / XNORM.value;
+                SCALE.value /= XNORM.value;
               }
             }
 
@@ -333,7 +333,7 @@ void dtrevc3(
               if (BETA > BIGNUM / XNORM.value) {
                 X[1][1] /= XNORM.value;
                 X[2][1] /= XNORM.value;
-                SCALE.value = SCALE.value / XNORM.value;
+                SCALE.value /= XNORM.value;
               }
             }
 
@@ -460,7 +460,7 @@ void dtrevc3(
               if (WORK[J] > BIGNUM / XNORM.value) {
                 X[1][1] /= XNORM.value;
                 X[1][2] /= XNORM.value;
-                SCALE.value = SCALE.value / XNORM.value;
+                SCALE.value /= XNORM.value;
               }
             }
 
@@ -512,7 +512,7 @@ void dtrevc3(
                 X[1][2] *= REC;
                 X[2][1] *= REC;
                 X[2][2] *= REC;
-                SCALE.value = SCALE.value * REC;
+                SCALE.value *= REC;
               }
             }
 

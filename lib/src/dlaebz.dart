@@ -68,7 +68,7 @@ void dlaebz(
           if (TMP1 <= ZERO) NAB[JI][JP]++;
         }
       }
-      MOUT.value = MOUT.value + NAB[JI][2] - NAB[JI][1];
+      MOUT.value += NAB[JI][2] - NAB[JI][1];
     }
     return;
   }

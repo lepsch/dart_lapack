@@ -122,7 +122,7 @@ void zla_syrfsx_extended(
   EPS = dlamch('Epsilon');
   HUGEVAL = dlamch('Overflow');
   // Force HUGEVAL to Inf
-  HUGEVAL = HUGEVAL * HUGEVAL;
+  HUGEVAL *= HUGEVAL;
   // Using HUGEVAL may lead to spurious underflows.
   INCR_THRESH = N.toDouble() * EPS;
 

@@ -94,9 +94,9 @@ void dtrt05(
           for (var J = 1; J <= I - IFU; J++) {
             TMP += (A[J][I]).abs() * (X[J][K]).abs();
           }
-          if (UNIT) TMP = TMP + (X[I][K]).abs();
+          if (UNIT) TMP += (X[I][K]).abs();
         } else {
-          if (UNIT) TMP = TMP + (X[I][K]).abs();
+          if (UNIT) TMP += (X[I][K]).abs();
           for (var J = I + IFU; J <= N; J++) {
             TMP += (A[I][J]).abs() * (X[J][K]).abs();
           }
@@ -106,9 +106,9 @@ void dtrt05(
           for (var J = 1; J <= I - IFU; J++) {
             TMP += (A[I][J]).abs() * (X[J][K]).abs();
           }
-          if (UNIT) TMP = TMP + (X[I][K]).abs();
+          if (UNIT) TMP += (X[I][K]).abs();
         } else {
-          if (UNIT) TMP = TMP + (X[I][K]).abs();
+          if (UNIT) TMP += (X[I][K]).abs();
           for (var J = I + IFU; J <= N; J++) {
             TMP += (A[J][I]).abs() * (X[J][K]).abs();
           }

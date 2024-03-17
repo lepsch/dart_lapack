@@ -87,8 +87,8 @@ void ztprfb(
 
     // H = I - W T W**H          or  H**H = I - W T**H W**H
 
-    // A = A -   T (A + V**H B)  or  A = A -   T**H (A + V**H B)
-    // B = B - V T (A + V**H B)  or  B = B - V T**H (A + V**H B)
+    // A -=   T (A + V**H B)  or  A -=   T**H (A + V**H B)
+    // B -= V T (A + V**H B)  or  B -= V T**H (A + V**H B)
 
     // ---------------------------------------------------------------------------
 
@@ -142,8 +142,8 @@ void ztprfb(
 
     // H = I - W T W**H          or  H**H = I - W T**H W**H
 
-    // A = A - (A + B V) T      or  A = A - (A + B V) T**H
-    // B = B - (A + B V) T V**H  or  B = B - (A + B V) T**H V**H
+    // A -= (A + B V) T      or  A -= (A + B V) T**H
+    // B -= (A + B V) T V**H  or  B -= (A + B V) T**H V**H
 
     // ---------------------------------------------------------------------------
 
@@ -198,8 +198,8 @@ void ztprfb(
 
     // H = I - W T W**H          or  H**H = I - W T**H W**H
 
-    // A = A -   T (A + V**H B)  or  A = A -   T**H (A + V**H B)
-    // B = B - V T (A + V**H B)  or  B = B - V T**H (A + V**H B)
+    // A -=   T (A + V**H B)  or  A -=   T**H (A + V**H B)
+    // B -= V T (A + V**H B)  or  B -= V T**H (A + V**H B)
 
     // ---------------------------------------------------------------------------
 
@@ -256,8 +256,8 @@ void ztprfb(
 
     // H = I - W T W**H          or  H**H = I - W T**H W**H
 
-    // A = A - (A + B V) T      or  A = A - (A + B V) T**H
-    // B = B - (A + B V) T V**H  or  B = B - (A + B V) T**H V**H
+    // A -= (A + B V) T      or  A -= (A + B V) T**H
+    // B -= (A + B V) T V**H  or  B -= (A + B V) T**H V**H
 
     // ---------------------------------------------------------------------------
 
@@ -313,8 +313,8 @@ void ztprfb(
 
     // H = I - W**H T W          or  H**H = I - W**H T**H W
 
-    // A = A -     T (A + V B)  or  A = A -     T**H (A + V B)
-    // B = B - V**H T (A + V B)  or  B = B - V**H T**H (A + V B)
+    // A -=     T (A + V B)  or  A -=     T**H (A + V B)
+    // B -= V**H T (A + V B)  or  B -= V**H T**H (A + V B)
 
     // ---------------------------------------------------------------------------
 
@@ -367,8 +367,8 @@ void ztprfb(
 
     // H = I - W**H T W            or  H**H = I - W**H T**H W
 
-    // A = A - (A + B V**H) T      or  A = A - (A + B V**H) T**H
-    // B = B - (A + B V**H) T V    or  B = B - (A + B V**H) T**H V
+    // A -= (A + B V**H) T      or  A -= (A + B V**H) T**H
+    // B -= (A + B V**H) T V    or  B -= (A + B V**H) T**H V
 
     // ---------------------------------------------------------------------------
 
@@ -422,8 +422,8 @@ void ztprfb(
 
     // H = I - W**H T W          or  H**H = I - W**H T**H W
 
-    // A = A -     T (A + V B)  or  A = A -     T**H (A + V B)
-    // B = B - V**H T (A + V B)  or  B = B - V**H T**H (A + V B)
+    // A -=     T (A + V B)  or  A -=     T**H (A + V B)
+    // B -= V**H T (A + V B)  or  B -= V**H T**H (A + V B)
 
     // ---------------------------------------------------------------------------
 
@@ -478,8 +478,8 @@ void ztprfb(
 
     // H = I - W**H T W            or  H**H = I - W**H T**H W
 
-    // A = A - (A + B V**H) T      or  A = A - (A + B V**H) T**H
-    // B = B - (A + B V**H) T V    or  B = B - (A + B V**H) T**H V
+    // A -= (A + B V**H) T      or  A -= (A + B V**H) T**H
+    // B -= (A + B V**H) T V    or  B -= (A + B V**H) T**H V
 
     // ---------------------------------------------------------------------------
 

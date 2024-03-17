@@ -52,12 +52,12 @@ double zrzt01(
     }
   }
 
-  // R = R * P(1) * ... *P(m)
+  // R *= P(1) * ... *P(m)
 
   zunmrz('Right', 'No transpose', M, N, M, N - M, AF, LDA, TAU, WORK.asMatrix(),
       M, WORK(M * N + 1), LWORK - M * N, INFO);
 
-  // R = R - A
+  // R -= A
 
   for (var I = 1; I <= N; I++) {
     zaxpy(M, Complex(-ONE), A(1, I).asArray(), 1, WORK((I - 1) * M + 1), 1);
@@ -65,6 +65,6 @@ double zrzt01(
 
   var result = zlange('One-norm', M, N, WORK.asMatrix(), M, RWORK);
 
-  result = result / (dlamch('Epsilon') * max(M, N));
+  result /= (dlamch('Epsilon') * max(M, N));
   return NORMA != ZERO ? result / NORMA : result;
 }

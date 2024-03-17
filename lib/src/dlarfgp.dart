@@ -59,8 +59,8 @@ void dlarfgp(
       do {
         KNT++;
         dscal(N - 1, BIGNUM, X, INCX);
-        BETA = BETA * BIGNUM;
-        ALPHA.value = ALPHA.value * BIGNUM;
+        BETA *= BIGNUM;
+        ALPHA.value *= BIGNUM;
       } while (((BETA).abs() < SMLNUM) && (KNT < 20));
 
       // New BETA is at most 1, at least SMLNUM
@@ -69,7 +69,7 @@ void dlarfgp(
       BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
     }
     SAVEALPHA = ALPHA.value;
-    ALPHA.value = ALPHA.value + BETA;
+    ALPHA.value += BETA;
     if (BETA < ZERO) {
       BETA = -BETA;
       TAU.value = -ALPHA.value / BETA;
@@ -106,7 +106,7 @@ void dlarfgp(
 
     for (J = 1; J <= KNT; J++) {
       // 20
-      BETA = BETA * SMLNUM;
+      BETA *= SMLNUM;
     } // 20
     ALPHA.value = BETA;
   }

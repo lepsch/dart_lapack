@@ -63,8 +63,8 @@ void dlaic1(
         S.value = ALPHA / S1;
         C.value = GAMMA / S1;
         TMP = sqrt(S.value * S.value + C.value * C.value);
-        S.value = S.value / TMP;
-        C.value = C.value / TMP;
+        S.value /= TMP;
+        C.value /= TMP;
         SESTPR.value = S1 * TMP;
       }
       return;
@@ -146,8 +146,8 @@ void dlaic1(
       S.value = SINE / S1;
       C.value = COSINE / S1;
       TMP = sqrt(S.value * S.value + C.value * C.value);
-      S.value = S.value / TMP;
-      C.value = C.value / TMP;
+      S.value /= TMP;
+      C.value /= TMP;
       return;
     } else if (ABSGAM <= EPS * ABSEST) {
       S.value = ZERO;

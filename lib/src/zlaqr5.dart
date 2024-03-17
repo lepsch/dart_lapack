@@ -228,12 +228,12 @@ void zlaqr5(
           if (H[K + 1][K] != Complex.zero) {
             TST1 = CABS1(H[K][K]) + CABS1(H[K + 1][K + 1]);
             if (TST1 == RZERO) {
-              if (K >= KTOP + 1) TST1 = TST1 + CABS1(H[K][K - 1]);
-              if (K >= KTOP + 2) TST1 = TST1 + CABS1(H[K][K - 2]);
-              if (K >= KTOP + 3) TST1 = TST1 + CABS1(H[K][K - 3]);
-              if (K <= KBOT - 2) TST1 = TST1 + CABS1(H[K + 2][K + 1]);
-              if (K <= KBOT - 3) TST1 = TST1 + CABS1(H[K + 3][K + 1]);
-              if (K <= KBOT - 4) TST1 = TST1 + CABS1(H[K + 4][K + 1]);
+              if (K >= KTOP + 1) TST1 += CABS1(H[K][K - 1]);
+              if (K >= KTOP + 2) TST1 += CABS1(H[K][K - 2]);
+              if (K >= KTOP + 3) TST1 += CABS1(H[K][K - 3]);
+              if (K <= KBOT - 2) TST1 += CABS1(H[K + 2][K + 1]);
+              if (K <= KBOT - 3) TST1 += CABS1(H[K + 3][K + 1]);
+              if (K <= KBOT - 4) TST1 += CABS1(H[K + 4][K + 1]);
             }
             if (CABS1(H[K + 1][K]) <= max(SMLNUM, ULP * TST1)) {
               H12 = max(CABS1(H[K + 1][K]), CABS1(H[K][K + 1]));
@@ -403,12 +403,12 @@ void zlaqr5(
         if (H[K + 1][K] != Complex.zero) {
           TST1 = CABS1(H[K][K]) + CABS1(H[K + 1][K + 1]);
           if (TST1 == RZERO) {
-            if (K >= KTOP + 1) TST1 = TST1 + CABS1(H[K][K - 1]);
-            if (K >= KTOP + 2) TST1 = TST1 + CABS1(H[K][K - 2]);
-            if (K >= KTOP + 3) TST1 = TST1 + CABS1(H[K][K - 3]);
-            if (K <= KBOT - 2) TST1 = TST1 + CABS1(H[K + 2][K + 1]);
-            if (K <= KBOT - 3) TST1 = TST1 + CABS1(H[K + 3][K + 1]);
-            if (K <= KBOT - 4) TST1 = TST1 + CABS1(H[K + 4][K + 1]);
+            if (K >= KTOP + 1) TST1 += CABS1(H[K][K - 1]);
+            if (K >= KTOP + 2) TST1 += CABS1(H[K][K - 2]);
+            if (K >= KTOP + 3) TST1 += CABS1(H[K][K - 3]);
+            if (K <= KBOT - 2) TST1 += CABS1(H[K + 2][K + 1]);
+            if (K <= KBOT - 3) TST1 += CABS1(H[K + 3][K + 1]);
+            if (K <= KBOT - 4) TST1 += CABS1(H[K + 4][K + 1]);
           }
           if (CABS1(H[K + 1][K]) <= max(SMLNUM, ULP * TST1)) {
             H12 = max(CABS1(H[K + 1][K]), CABS1(H[K][K + 1]));

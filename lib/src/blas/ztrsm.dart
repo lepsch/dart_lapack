@@ -130,12 +130,12 @@ void ztrsm(
               for (K = 1; K <= I - 1; K++) {
                 TEMP -= A[K][I] * B[K][J];
               }
-              if (NOUNIT) TEMP = TEMP / A[I][I];
+              if (NOUNIT) TEMP /= A[I][I];
             } else {
               for (K = 1; K <= I - 1; K++) {
                 TEMP -= A[K][I].conjugate() * B[K][J];
               }
-              if (NOUNIT) TEMP = TEMP / A[I][I].conjugate();
+              if (NOUNIT) TEMP /= A[I][I].conjugate();
             }
             B[I][J] = TEMP;
           }
@@ -148,12 +148,12 @@ void ztrsm(
               for (K = I + 1; K <= M; K++) {
                 TEMP -= A[K][I] * B[K][J];
               }
-              if (NOUNIT) TEMP = TEMP / A[I][I];
+              if (NOUNIT) TEMP /= A[I][I];
             } else {
               for (K = I + 1; K <= M; K++) {
                 TEMP -= A[K][I].conjugate() * B[K][J];
               }
-              if (NOUNIT) TEMP = TEMP / A[I][I].conjugate();
+              if (NOUNIT) TEMP /= A[I][I].conjugate();
             }
             B[I][J] = TEMP;
           }

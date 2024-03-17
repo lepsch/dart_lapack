@@ -504,13 +504,13 @@ void dlaed4(
       TEMP = RHOINV + PSI + PHI;
       if (ORGATI) {
         TEMP1 = Z[IIM1] / DELTA[IIM1];
-        TEMP1 = TEMP1 * TEMP1;
+        TEMP1 *= TEMP1;
         C = TEMP - DELTA[IIP1] * (DPSI + DPHI) - (D[IIM1] - D[IIP1]) * TEMP1;
         ZZ[1] = Z[IIM1] * Z[IIM1];
         ZZ[3] = DELTA[IIP1] * DELTA[IIP1] * ((DPSI - TEMP1) + DPHI);
       } else {
         TEMP1 = Z[IIP1] / DELTA[IIP1];
-        TEMP1 = TEMP1 * TEMP1;
+        TEMP1 *= TEMP1;
         C = TEMP - DELTA[IIM1] * (DPSI + DPHI) - (D[IIP1] - D[IIM1]) * TEMP1;
         ZZ[1] = DELTA[IIM1] * DELTA[IIM1] * (DPSI + (DPHI - TEMP1));
         ZZ[3] = Z[IIP1] * Z[IIP1];
@@ -660,7 +660,7 @@ void dlaed4(
         } else {
           if (ORGATI) {
             TEMP1 = Z[IIM1] / DELTA[IIM1];
-            TEMP1 = TEMP1 * TEMP1;
+            TEMP1 *= TEMP1;
             C = TEMP -
                 DELTA[IIP1] * (DPSI + DPHI) -
                 (D[IIM1] - D[IIP1]) * TEMP1;
@@ -668,7 +668,7 @@ void dlaed4(
             ZZ[3] = DELTA[IIP1] * DELTA[IIP1] * ((DPSI - TEMP1) + DPHI);
           } else {
             TEMP1 = Z[IIP1] / DELTA[IIP1];
-            TEMP1 = TEMP1 * TEMP1;
+            TEMP1 *= TEMP1;
             C = TEMP -
                 DELTA[IIM1] * (DPSI + DPHI) -
                 (D[IIP1] - D[IIM1]) * TEMP1;

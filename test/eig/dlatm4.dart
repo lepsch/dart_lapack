@@ -205,16 +205,16 @@ void dlatm4(
           CL = TWO * dlaran(ISEED) - ONE;
           SL = TWO * dlaran(ISEED) - ONE;
           TEMP = ONE / max(SAFMIN, sqrt(pow(CL, 2) + pow(SL, 2)));
-          CL = CL * TEMP;
-          SL = SL * TEMP;
+          CL *= TEMP;
+          SL *= TEMP;
 
           // Rotation on right.
 
           CR = TWO * dlaran(ISEED) - ONE;
           SR = TWO * dlaran(ISEED) - ONE;
           TEMP = ONE / max(SAFMIN, sqrt(pow(CR, 2) + pow(SR, 2)));
-          CR = CR * TEMP;
-          SR = SR * TEMP;
+          CR *= TEMP;
+          SR *= TEMP;
 
           // Apply
 

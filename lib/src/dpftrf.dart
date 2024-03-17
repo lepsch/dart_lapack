@@ -82,7 +82,7 @@ void dpftrf(
         dsyrk('U', 'N', N2, N1, -ONE, A(N1).asMatrix(N), N, ONE,
             A(N).asMatrix(N), N);
         dpotrf('U', N2, A(N).asMatrix(N), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       } else {
         // SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:n2-1)
         // T1 -> a(n1+1,0), T2 -> a(n1,0), S -> a(0,0)
@@ -95,7 +95,7 @@ void dpftrf(
         dsyrk('U', 'T', N2, N1, -ONE, A(0).asMatrix(N), N, ONE,
             A(N1).asMatrix(N), N);
         dpotrf('U', N2, A(N1).asMatrix(N), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       }
     } else {
       // N is odd and TRANSR = 'T'
@@ -112,7 +112,7 @@ void dpftrf(
         dsyrk('L', 'T', N2, N1, -ONE, A(N1 * N1).asMatrix(N1), N1, ONE,
             A(1).asMatrix(N1), N1);
         dpotrf('L', N2, A(1).asMatrix(N1), N1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       } else {
         // SRPA for UPPER, TRANSPOSE and N is odd
         // T1 -> A(0,n1+1), T2 -> A(0,n1), S -> A(0,0)
@@ -125,7 +125,7 @@ void dpftrf(
         dsyrk('L', 'N', N2, N1, -ONE, A(0).asMatrix(N2), N2, ONE,
             A(N1 * N2).asMatrix(N2), N2);
         dpotrf('L', N2, A(N1 * N2).asMatrix(N2), N2, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       }
     }
   } else {
@@ -146,7 +146,7 @@ void dpftrf(
         dsyrk('U', 'N', K, K, -ONE, A(K + 1).asMatrix(N + 1), N + 1, ONE,
             A(0).asMatrix(N + 1), N + 1);
         dpotrf('U', K, A(0).asMatrix(N + 1), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       } else {
         // SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
         // T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
@@ -159,7 +159,7 @@ void dpftrf(
         dsyrk('U', 'T', K, K, -ONE, A(0).asMatrix(N + 1), N + 1, ONE,
             A(K).asMatrix(N + 1), N + 1);
         dpotrf('U', K, A(K).asMatrix(N + 1), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       }
     } else {
       // N is even and TRANSR = 'T'
@@ -176,7 +176,7 @@ void dpftrf(
         dsyrk('L', 'T', K, K, -ONE, A(K * (K + 1)).asMatrix(K), K, ONE,
             A(0).asMatrix(K), K);
         dpotrf('L', K, A(0).asMatrix(K), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       } else {
         // SRPA for UPPER, TRANSPOSE and N is even (see paper)
         // T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0)
@@ -189,7 +189,7 @@ void dpftrf(
         dsyrk('L', 'N', K, K, -ONE, A(0).asMatrix(K), K, ONE,
             A(K * K).asMatrix(K), K);
         dpotrf('L', K, A(K * K).asMatrix(K), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       }
     }
   }

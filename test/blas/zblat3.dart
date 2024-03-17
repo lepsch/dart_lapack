@@ -2454,7 +2454,7 @@ void _zchk5(
                     JC += LDC;
                   } else {
                     JC += LDC + 1;
-                    if (TRAN) JJAB = JJAB + 2 * NMAX;
+                    if (TRAN) JJAB += 2 * NMAX;
                   }
                   ERRMAX = max(ERRMAX, ERR.value);
                   // If got really bad answer, report and
@@ -3729,7 +3729,7 @@ void _zmmch(
     ERR.value = RZERO;
     for (I = 1; I <= M; I++) {
       ERRI = ABS1(CT[I] - CC[I][J]) / EPS;
-      if (G[I] != RZERO) ERRI = ERRI / G[I];
+      if (G[I] != RZERO) ERRI /= G[I];
       ERR.value = max(ERR.value, ERRI);
       if (ERR.value * sqrt(EPS) >= RONE) {
         FATAL.value = true;
@@ -3868,8 +3868,8 @@ Complex _zbeg(final Box<bool> RESET) {
 
   _zbegIC++;
   while (true) {
-    _zbegI = _zbegI * _zbegMI;
-    _zbegJ = _zbegJ * _zbegMJ;
+    _zbegI *= _zbegMI;
+    _zbegJ *= _zbegMJ;
     _zbegI -= 1000 * (_zbegI ~/ 1000);
     _zbegJ -= 1000 * (_zbegJ ~/ 1000);
     if (_zbegIC < 5) break;

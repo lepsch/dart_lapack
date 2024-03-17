@@ -150,8 +150,8 @@ void zlahqr(
         if (CABS1(H[K][K - 1]) <= SMLNUM) break;
         TST = CABS1(H[K - 1][K - 1]) + CABS1(H[K][K]);
         if (TST == RZERO) {
-          if (K - 2 >= ILO) TST = TST + (H[K - 1][K - 2].abs().toDouble());
-          if (K + 1 <= IHI) TST = TST + (H[K + 1][K].abs().toDouble());
+          if (K - 2 >= ILO) TST += (H[K - 1][K - 2].abs().toDouble());
+          if (K + 1 <= IHI) TST += (H[K + 1][K].abs().toDouble());
         }
         // ==== The following is a conservative small subdiagonal
         // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
@@ -236,8 +236,8 @@ void zlahqr(
         H11S = H11 - T;
         H21 = H[M + 1][M].toDouble();
         S = CABS1(H11S) + (H21).abs();
-        H11S = H11S / S.toComplex();
-        H21 = H21 / S;
+        H11S /= S.toComplex();
+        H21 /= S;
         V[1] = H11S;
         V[2] = H21.toComplex();
         H10 = (H[M][M - 1]).toDouble();
@@ -253,8 +253,8 @@ void zlahqr(
         H11S = H11 - T;
         H21 = (H[L + 1][L]).toDouble();
         S = CABS1(H11S) + (H21).abs();
-        H11S = H11S / S.toComplex();
-        H21 = H21 / S;
+        H11S /= S.toComplex();
+        H21 /= S;
         V[1] = H11S;
         V[2] = H21.toComplex();
       }
@@ -324,7 +324,7 @@ void zlahqr(
           // real.
 
           TEMP = Complex.one - T1.value;
-          TEMP = TEMP / TEMP.abs().toComplex();
+          TEMP /= TEMP.abs().toComplex();
           H[M + 1][M] *= TEMP.conjugate();
           if (M + 2 <= I) H[M + 2][M + 1] *= TEMP;
           for (J = M; J <= I; J++) {
@@ -346,7 +346,7 @@ void zlahqr(
       if (TEMP.imaginary != RZERO) {
         RTEMP = (TEMP).abs();
         H[I][I - 1] = RTEMP.toComplex();
-        TEMP = TEMP / RTEMP.toComplex();
+        TEMP /= RTEMP.toComplex();
         if (I2 > I) zscal(I2 - I, TEMP.conjugate(), H(I, I + 1).asArray(), LDH);
         zscal(I - I1, TEMP, H(I1, I).asArray(), 1);
         if (WANTZ) {

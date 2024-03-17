@@ -63,7 +63,7 @@ double zlansb(
         for (I = max(1, J - K); I <= J - 1; I++) {
           // 50
           ABSA = (AB[L + I][J]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
         } // 50
         WORK[J] = SUM.value + (AB[K + 1][J]).abs();
@@ -85,7 +85,7 @@ double zlansb(
         for (I = J + 1; I <= min(N, J + K); I++) {
           // 90
           ABSA = (AB[L + I][J]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
         } // 90
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

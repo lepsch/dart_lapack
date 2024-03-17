@@ -9,7 +9,7 @@ double droundup_lwork(int LWORK) {
 
   if (result.toInt() < LWORK) {
     // Force round up of LWORK
-    result = result * (1.0 + epsilon(0.0));
+    result *= (1.0 + epsilon(0.0));
   }
   return result;
 }

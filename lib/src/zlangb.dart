@@ -49,7 +49,7 @@ double zlangb(
       SUM.value = ZERO;
       for (I = max(KU + 2 - J, 1); I <= min(N + KU + 1 - J, KL + KU + 1); I++) {
         // 30
-        SUM.value = SUM.value + (AB[I][J]).abs();
+        SUM.value += (AB[I][J]).abs();
       } // 30
       if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
     } // 40

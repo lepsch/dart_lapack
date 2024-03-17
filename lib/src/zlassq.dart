@@ -57,7 +57,7 @@ void zlassq(
       abig += pow((ax * sbig), 2);
       notbig = false;
     } else if (ax < tsml) {
-      if (notbig) asml = asml + pow((ax * ssml), 2);
+      if (notbig) asml += pow((ax * ssml), 2);
     } else {
       amed += pow(ax, 2);
     }
@@ -66,7 +66,7 @@ void zlassq(
       abig += pow((ax * sbig), 2);
       notbig = false;
     } else if (ax < tsml) {
-      if (notbig) asml = asml + pow((ax * ssml), 2);
+      if (notbig) asml += pow((ax * ssml), 2);
     } else {
       amed += pow(ax, 2);
     }
@@ -79,7 +79,7 @@ void zlassq(
     ax = scale.value * sqrt(sumsq.value);
     if (ax > tbig) {
       if (scale.value > one) {
-        scale.value = scale.value * sbig;
+        scale.value *= sbig;
         abig += scale.value * (scale.value * sumsq.value);
       } else {
         // sumsq.value > tbig^2 => (sbig * (sbig * sumsq.value)) is representable
@@ -89,12 +89,11 @@ void zlassq(
     } else if (ax < tsml) {
       if (notbig) {
         if (scale.value < one) {
-          scale.value = scale.value * ssml;
+          scale.value *= ssml;
           asml += scale.value * (scale.value * sumsq.value);
         } else {
           // sumsq.value < tsml^2 => (ssml * (ssml * sumsq.value)) is representable
-          asml = asml +
-              scale.value * (scale.value * (ssml * (ssml * sumsq.value)));
+          asml += scale.value * (scale.value * (ssml * (ssml * sumsq.value)));
         }
       }
     } else {

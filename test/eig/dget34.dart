@@ -92,10 +92,10 @@ void dget34(
           if (INFO.value != 0) NINFO[INFO.value]++;
           dhst01(2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
           RES = RESULT[1] + RESULT[2];
-          if (INFO.value != 0) RES = RES + ONE / EPS;
-          if (T[1][1] != T1[2][2]) RES = RES + ONE / EPS;
-          if (T[2][2] != T1[1][1]) RES = RES + ONE / EPS;
-          if (T[2][1] != ZERO) RES = RES + ONE / EPS;
+          if (INFO.value != 0) RES += ONE / EPS;
+          if (T[1][1] != T1[2][2]) RES += ONE / EPS;
+          if (T[2][2] != T1[1][1]) RES += ONE / EPS;
+          if (T[2][1] != ZERO) RES += ONE / EPS;
           KNT.value++;
           if (RES > RMAX.value) {
             LMAX.value = KNT.value;
@@ -145,9 +145,9 @@ void dget34(
                 dhst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                 RES = RESULT[1] + RESULT[2];
                 if (INFO.value == 0) {
-                  if (T1[1][1] != T[3][3]) RES = RES + ONE / EPS;
-                  if (T[3][1] != ZERO) RES = RES + ONE / EPS;
-                  if (T[3][2] != ZERO) RES = RES + ONE / EPS;
+                  if (T1[1][1] != T[3][3]) RES += ONE / EPS;
+                  if (T[3][1] != ZERO) RES += ONE / EPS;
+                  if (T[3][2] != ZERO) RES += ONE / EPS;
                   if (T[2][1] != 0 &&
                       (T[1][1] != T[2][2] ||
                           sign(ONE, T[1][2]) == sign(ONE, T[2][1]))) {
@@ -206,9 +206,9 @@ void dget34(
                 dhst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                 RES = RESULT[1] + RESULT[2];
                 if (INFO.value == 0) {
-                  if (T1[3][3] != T[1][1]) RES = RES + ONE / EPS;
-                  if (T[2][1] != ZERO) RES = RES + ONE / EPS;
-                  if (T[3][1] != ZERO) RES = RES + ONE / EPS;
+                  if (T1[3][3] != T[1][1]) RES += ONE / EPS;
+                  if (T[2][1] != ZERO) RES += ONE / EPS;
+                  if (T[3][1] != ZERO) RES += ONE / EPS;
                   if (T[3][2] != 0 &&
                       (T[2][2] != T[3][3] ||
                           sign(ONE, T[2][3]) == sign(ONE, T[3][2]))) {
@@ -271,10 +271,10 @@ void dget34(
                       dhst01(4, 1, 4, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                       RES = RESULT[1] + RESULT[2];
                       if (INFO.value == 0) {
-                        if (T[3][1] != ZERO) RES = RES + ONE / EPS;
-                        if (T[4][1] != ZERO) RES = RES + ONE / EPS;
-                        if (T[3][2] != ZERO) RES = RES + ONE / EPS;
-                        if (T[4][2] != ZERO) RES = RES + ONE / EPS;
+                        if (T[3][1] != ZERO) RES += ONE / EPS;
+                        if (T[4][1] != ZERO) RES += ONE / EPS;
+                        if (T[3][2] != ZERO) RES += ONE / EPS;
+                        if (T[4][2] != ZERO) RES += ONE / EPS;
                         if (T[2][1] != 0 &&
                             (T[1][1] != T[2][2] ||
                                 sign(ONE, T[1][2]) == sign(ONE, T[2][1]))) {

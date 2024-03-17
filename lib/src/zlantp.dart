@@ -92,13 +92,13 @@ double zlantp(
           SUM.value = ONE;
           for (I = K; I <= K + J - 2; I++) {
             // 90
-            SUM.value = SUM.value + AP[I].abs();
+            SUM.value += AP[I].abs();
           } // 90
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + J - 1; I++) {
             // 100
-            SUM.value = SUM.value + AP[I].abs();
+            SUM.value += AP[I].abs();
           } // 100
         }
         K += J;
@@ -111,13 +111,13 @@ double zlantp(
           SUM.value = ONE;
           for (I = K + 1; I <= K + N - J; I++) {
             // 120
-            SUM.value = SUM.value + AP[I].abs();
+            SUM.value += AP[I].abs();
           } // 120
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + N - J; I++) {
             // 130
-            SUM.value = SUM.value + AP[I].abs();
+            SUM.value += AP[I].abs();
           } // 130
         }
         K += N - J + 1;

@@ -115,7 +115,7 @@ void dtgsna(
               if (SELECT[K]) M.value++;
             } else {
               PAIR = true;
-              if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
+              if (SELECT[K] || SELECT[K + 1]) M.value += 2;
             }
           } else {
             if (SELECT[N]) M.value++;
@@ -264,7 +264,7 @@ void dtgsna(
                 BETA.value * BETA.value);
         C2 = FOUR * BETA.value * BETA.value * ALPHAI.value * ALPHAI.value;
         ROOT1 = C1 + sqrt(C1 * C1 - 4.0 * C2);
-        ROOT1 = ROOT1 / TWO;
+        ROOT1 /= TWO;
         ROOT2 = C2 / ROOT1;
         COND = min(sqrt(ROOT1), sqrt(ROOT2));
       }

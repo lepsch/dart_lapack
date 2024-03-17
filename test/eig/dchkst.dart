@@ -673,7 +673,7 @@ void dchkst(
           // 160
           dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
           if (IINFO.value == 0) break;
-          TEMP1 = TEMP1 * TWO;
+          TEMP1 *= TWO;
         } // 160
 
         RESULT[13] = TEMP1;

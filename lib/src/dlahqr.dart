@@ -137,8 +137,8 @@ void dlahqr(
         if ((H[K][K - 1]).abs() <= SMLNUM) break;
         TST = (H[K - 1][K - 1]).abs() + (H[K][K]).abs();
         if (TST == ZERO) {
-          if (K - 2 >= ILO) TST = TST + (H[K - 1][K - 2]).abs();
-          if (K + 1 <= IHI) TST = TST + (H[K + 1][K]).abs();
+          if (K - 2 >= ILO) TST += (H[K - 1][K - 2]).abs();
+          if (K + 1 <= IHI) TST += (H[K + 1][K]).abs();
         }
         // ==== The following is a conservative small subdiagonal
         // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
@@ -210,10 +210,10 @@ void dlahqr(
         RT2R = ZERO;
         RT2I = ZERO;
       } else {
-        H11 = H11 / S;
-        H21 = H21 / S;
-        H12 = H12 / S;
-        H22 = H22 / S;
+        H11 /= S;
+        H21 /= S;
+        H12 /= S;
+        H22 /= S;
         TR = (H11 + H22) / TWO;
         DET = (H11 - TR) * (H22 - TR) - H12 * H21;
         RTDISC = sqrt(DET.abs());
@@ -230,10 +230,10 @@ void dlahqr(
           RT1R = TR + RTDISC;
           RT2R = TR - RTDISC;
           if ((RT1R - H22).abs() <= (RT2R - H22).abs()) {
-            RT1R = RT1R * S;
+            RT1R *= S;
             RT2R = RT1R;
           } else {
-            RT2R = RT2R * S;
+            RT2R *= S;
             RT1R = RT2R;
           }
           RT1I = ZERO;

@@ -55,7 +55,7 @@ double dlansb(
         L = K + 1 - J;
         for (I = max(1, J - K); I <= J - 1; I++) {
           ABSA = (AB[L + I][J]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
         }
         WORK[J] = SUM.value + (AB[K + 1][J]).abs();
@@ -73,7 +73,7 @@ double dlansb(
         L = 1 - J;
         for (I = J + 1; I <= min(N, J + K); I++) {
           ABSA = (AB[L + I][J]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
         }
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;

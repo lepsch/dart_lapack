@@ -260,7 +260,7 @@ void zlavhe_rook(
             }
 
             // Apply the transformation
-            //    y = y - B' DCONJG(x),
+            //    y -= B' DCONJG(x),
             // where x is a column of A and y is a row of B.
 
             zlacgv(NRHS, B(K, 1).asArray(), LDB);
@@ -289,7 +289,7 @@ void zlavhe_rook(
             }
 
             // Apply the transformations
-            //    y = y - B' DCONJG(x),
+            //    y -= B' DCONJG(x),
             // where x is a block column of A and y is a block
             // row of B.
 

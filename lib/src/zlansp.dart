@@ -65,7 +65,7 @@ double zlansp(
         for (I = 1; I <= J - 1; I++) {
           // 50
           ABSA = (AP[K]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
         } // 50
@@ -89,7 +89,7 @@ double zlansp(
         for (I = J + 1; I <= N; I++) {
           // 90
           ABSA = (AP[K]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
         } // 90
@@ -125,7 +125,7 @@ double zlansp(
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);
           SCALE.value = ABSA;
         } else {
-          SUM.value = SUM.value + pow(ABSA / SCALE.value, 2);
+          SUM.value += pow(ABSA / SCALE.value, 2);
         }
       }
       if (AP[K].imaginary != ZERO) {
@@ -134,7 +134,7 @@ double zlansp(
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);
           SCALE.value = ABSA;
         } else {
-          SUM.value = SUM.value + pow(ABSA / SCALE.value, 2);
+          SUM.value += pow(ABSA / SCALE.value, 2);
         }
       }
       if (lsame(UPLO, 'U')) {

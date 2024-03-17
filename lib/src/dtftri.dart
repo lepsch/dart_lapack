@@ -82,7 +82,7 @@ void dtftri(
         dtrmm('R', 'L', 'N', DIAG, N2, N1, -ONE, A(0).asMatrix(N), N,
             A(N1).asMatrix(N), N);
         dtrtri('U', DIAG, N2, A(N).asMatrix(N), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         dtrmm('L', 'U', 'T', DIAG, N2, N1, ONE, A(N).asMatrix(N), N,
             A(N1).asMatrix(N), N);
@@ -96,7 +96,7 @@ void dtftri(
         dtrmm('L', 'L', 'T', DIAG, N1, N2, -ONE, A(N2).asMatrix(N), N,
             A(0).asMatrix(N), N);
         dtrtri('U', DIAG, N2, A(N1).asMatrix(N), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         dtrmm('R', 'U', 'N', DIAG, N1, N2, ONE, A(N1).asMatrix(N), N,
             A(0).asMatrix(N), N);
@@ -113,7 +113,7 @@ void dtftri(
         dtrmm('L', 'U', 'N', DIAG, N1, N2, -ONE, A(0).asMatrix(N1), N1,
             A(N1 * N1).asMatrix(N1), N1);
         dtrtri('L', DIAG, N2, A(1).asMatrix(N1), N1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         dtrmm('R', 'L', 'T', DIAG, N1, N2, ONE, A(1).asMatrix(N1), N1,
             A(N1 * N1).asMatrix(N1), N1);
@@ -126,7 +126,7 @@ void dtftri(
         dtrmm('R', 'U', 'T', DIAG, N2, N1, -ONE, A(N2 * N2).asMatrix(N2), N2,
             A(0).asMatrix(N2), N2);
         dtrtri('L', DIAG, N2, A(N1 * N2).asMatrix(N2), N2, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
         if (INFO.value > 0) return;
         dtrmm('L', 'L', 'N', DIAG, N2, N1, ONE, A(N1 * N2).asMatrix(N2), N2,
             A(0).asMatrix(N2), N2);
@@ -148,7 +148,7 @@ void dtftri(
         dtrmm('R', 'L', 'N', DIAG, K, K, -ONE, A(1).asMatrix(N + 1), N + 1,
             A(K + 1).asMatrix(N + 1), N + 1);
         dtrtri('U', DIAG, K, A(0).asMatrix(N + 1), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         dtrmm('L', 'U', 'T', DIAG, K, K, ONE, A(0).asMatrix(N + 1), N + 1,
             A(K + 1).asMatrix(N + 1), N + 1);
@@ -162,7 +162,7 @@ void dtftri(
         dtrmm('L', 'L', 'T', DIAG, K, K, -ONE, A(K + 1).asMatrix(N + 1), N + 1,
             A(0).asMatrix(N + 1), N + 1);
         dtrtri('U', DIAG, K, A(K).asMatrix(N + 1), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         dtrmm('R', 'U', 'N', DIAG, K, K, ONE, A(K).asMatrix(N + 1), N + 1,
             A(0).asMatrix(N + 1), N + 1);
@@ -180,7 +180,7 @@ void dtftri(
         dtrmm('L', 'U', 'N', DIAG, K, K, -ONE, A(K).asMatrix(K), K,
             A(K * (K + 1)).asMatrix(K), K);
         dtrtri('L', DIAG, K, A(0).asMatrix(K), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         dtrmm('R', 'L', 'T', DIAG, K, K, ONE, A(0).asMatrix(K), K,
             A(K * (K + 1)).asMatrix(K), K);
@@ -194,7 +194,7 @@ void dtftri(
         dtrmm('R', 'U', 'T', DIAG, K, K, -ONE, A(K * (K + 1)).asMatrix(K), K,
             A(0).asMatrix(K), K);
         dtrtri('L', DIAG, K, A(K * K).asMatrix(K), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
         if (INFO.value > 0) return;
         dtrmm('L', 'L', 'N', DIAG, K, K, ONE, A(K * K).asMatrix(K), K,
             A(0).asMatrix(K), K);

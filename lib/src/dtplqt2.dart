@@ -69,7 +69,7 @@ void dtplqt2(
       dgemv('N', M - I, P, ONE, B(I + 1, 1), LDB, B(I, 1).asArray(), LDB, ONE,
           T(M, 1).asArray(), LDT);
 
-      // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
+      // C(I+1:M,I:N) += alpha * C(I,I:N)*W(M-1:1)^H
 
       ALPHA = -(T[1][I]);
       for (J = 1; J <= M - I; J++) {

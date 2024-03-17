@@ -57,7 +57,7 @@ double dlansp(
         SUM.value = ZERO;
         for (I = 1; I <= J - 1; I++) {
           ABSA = AP[K].abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
         }
@@ -77,7 +77,7 @@ double dlansp(
         K++;
         for (I = J + 1; I <= N; I++) {
           ABSA = AP[K].abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
           K++;
         }
@@ -110,7 +110,7 @@ double dlansp(
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);
           SCALE.value = ABSA;
         } else {
-          SUM.value = SUM.value + pow(ABSA / SCALE.value, 2);
+          SUM.value += pow(ABSA / SCALE.value, 2);
         }
       }
       if (lsame(UPLO, 'U')) {

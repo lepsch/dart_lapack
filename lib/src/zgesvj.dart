@@ -371,20 +371,20 @@ void zgesvj(
       (AAQQ.value >= TEMP1.value) ||
       ((SN <= AAQQ.value) && (AAPP.value <= TEMP1.value))) {
     TEMP1.value = min(BIG, TEMP1.value / AAPP.value);
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value <= TEMP1.value)) {
     TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N.toDouble())));
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value >= SN) && (AAPP.value >= TEMP1.value)) {
     TEMP1.value = max(SN / AAQQ.value, TEMP1.value / AAPP.value);
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value >= TEMP1.value)) {
     TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N.toDouble()) * AAPP.value));
-    // AAQQ.value  = AAQQ.value*TEMP1.value
-    // AAPP.value  = AAPP.value*TEMP1.value
+    // AAQQ.value *=TEMP1.value
+    // AAPP.value *=TEMP1.value
   } else {
     TEMP1.value = ONE;
   }
@@ -700,7 +700,7 @@ void zgesvj(
                   }
                 }
 
-                // AAPQ = AAPQ * CONJG( CWORK(p) ) * CWORK(q)
+                // AAPQ *= CONJG( CWORK(p) ) * CWORK(q)
                 AAPQ1 = -(AAPQ).abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
@@ -710,7 +710,7 @@ void zgesvj(
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
 
                   // .. rotate
-// [RTD]      ROTATED = ROTATED + ONE
+// [RTD]      ROTATED += ONE
 
                   if (ir1 == 0) {
                     NOTROT = 0;
@@ -734,7 +734,7 @@ void zgesvj(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
                       MXSINJ = max(MXSINJ, (T.value).abs());
                     } else {
@@ -749,7 +749,7 @@ void zgesvj(
                       MXSINJ = max(MXSINJ, (SN).abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
 
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,
@@ -903,7 +903,7 @@ void zgesvj(
                   }
                 }
 
-                // AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
+                // AAPQ *= CONJG(CWORK(p))*CWORK(q)
                 AAPQ1 = -(AAPQ).abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
@@ -933,7 +933,7 @@ void zgesvj(
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
                       MXSINJ = max(MXSINJ, (T.value).abs());
                     } else {
@@ -948,7 +948,7 @@ void zgesvj(
                       MXSINJ = max(MXSINJ, (SN).abs());
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
-                      AAPP.value = AAPP.value *
+                      AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
 
                       zrot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, CS,

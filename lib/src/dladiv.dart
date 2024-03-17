@@ -44,14 +44,14 @@ void dladiv(
     S = HALF * S;
   }
   if (AB <= UN * BS / EPS) {
-    AA.value = AA.value * BE;
-    BB.value = BB.value * BE;
-    S = S / BE;
+    AA.value *= BE;
+    BB.value *= BE;
+    S /= BE;
   }
   if (CD <= UN * BS / EPS) {
-    CC = CC * BE;
-    DD = DD * BE;
-    S = S * BE;
+    CC *= BE;
+    DD *= BE;
+    S *= BE;
   }
   if ((D).abs() <= (C).abs()) {
     dladiv1(AA, BB.value, CC, DD, P, Q);
@@ -59,8 +59,8 @@ void dladiv(
     dladiv1(BB, AA.value, DD, CC, P, Q);
     Q.value = -Q.value;
   }
-  P.value = P.value * S;
-  Q.value = Q.value * S;
+  P.value *= S;
+  Q.value *= S;
 }
 
 void dladiv1(

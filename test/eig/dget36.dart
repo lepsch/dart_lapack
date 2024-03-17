@@ -67,8 +67,8 @@ Future<void> dget36(
     dtrexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1);
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        if (I == J && Q[I][J] != ONE) RES = RES + ONE / EPS;
-        if (I != J && Q[I][J] != ZERO) RES = RES + ONE / EPS;
+        if (I == J && Q[I][J] != ONE) RES += ONE / EPS;
+        if (I != J && Q[I][J] != ZERO) RES += ONE / EPS;
       }
     }
 
@@ -81,20 +81,20 @@ Future<void> dget36(
 
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        if (T1[I][J] != T2[I][J]) RES = RES + ONE / EPS;
+        if (T1[I][J] != T2[I][J]) RES += ONE / EPS;
       }
     }
-    if (IFST1.value != IFST2.value) RES = RES + ONE / EPS;
-    if (ILST1.value != ILST2.value) RES = RES + ONE / EPS;
-    if (INFO1.value != INFO2.value) RES = RES + ONE / EPS;
+    if (IFST1.value != IFST2.value) RES += ONE / EPS;
+    if (ILST1.value != ILST2.value) RES += ONE / EPS;
+    if (INFO1.value != INFO2.value) RES += ONE / EPS;
 
     // Test for successful reordering of T2
 
     if (INFO2.value != 0) {
       NINFO[INFO2.value]++;
     } else {
-      if ((IFST2.value - IFSTSV).abs() > 1) RES = RES + ONE / EPS;
-      if ((ILST2.value - ILSTSV).abs() > 1) RES = RES + ONE / EPS;
+      if ((IFST2.value - IFSTSV).abs() > 1) RES += ONE / EPS;
+      if ((ILST2.value - ILSTSV).abs() > 1) RES += ONE / EPS;
     }
 
     // Test for small residual, and orthogonality of Q
@@ -116,15 +116,15 @@ Future<void> dget36(
           RES += ONE / EPS;
         }
         for (I = LOC + 2; I <= N; I++) {
-          if (T2[I][LOC] != ZERO) RES = RES + ONE / RES;
-          if (T2[I][LOC + 1] != ZERO) RES = RES + ONE / RES;
+          if (T2[I][LOC] != ZERO) RES += ONE / RES;
+          if (T2[I][LOC + 1] != ZERO) RES += ONE / RES;
         }
         LOC += 2;
       } else {
         // 1 by 1 block
 
         for (I = LOC + 1; I <= N; I++) {
-          if (T2[I][LOC] != ZERO) RES = RES + ONE / RES;
+          if (T2[I][LOC] != ZERO) RES += ONE / RES;
         }
         LOC++;
       }

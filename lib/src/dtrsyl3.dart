@@ -300,7 +300,7 @@ void dtrsyl3(
             BUF = ZERO;
           } else {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
           }
           for (JJ = 1; JJ <= NBB; JJ++) {
             for (LL = 1; LL <= NBA; LL++) {
@@ -326,24 +326,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', I2 - I1, L2 - L1, C(I1, L1), LDC, WNRM);
           SCAMIN = min(SWORK[I][L], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[I][L]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[I][L]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           ANRM = SWORK[I][AWRK + K];
           SCALOC.value = dlarmm(ANRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to C( I, L ) and C( K, L ).
@@ -382,24 +382,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', K2 - K1, J2 - J1, C(K1, J1), LDC, WNRM);
           SCAMIN = min(SWORK[K][J], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[K][J]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[K][J]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           BNRM = SWORK[L][BWRK + J];
           SCALOC.value = dlarmm(BNRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to C( K, J ) and C( K, L).
@@ -471,7 +471,7 @@ void dtrsyl3(
             BUF = ZERO;
           } else {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
           }
           for (JJ = 1; JJ <= NBB; JJ++) {
             for (LL = 1; LL <= NBA; LL++) {
@@ -497,24 +497,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', I2 - I1, L2 - L1, C(I1, L1), LDC, WNRM);
           SCAMIN = min(SWORK[I][L], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[I][L]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[I][L]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           ANRM = SWORK[I][AWRK + K];
           SCALOC.value = dlarmm(ANRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to to C( I, L ) and C( K, L ).
@@ -553,24 +553,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', K2 - K1, J2 - J1, C(K1, J1), LDC, WNRM);
           SCAMIN = min(SWORK[K][J], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[K][J]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[K][J]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           BNRM = SWORK[L][BWRK + J];
           SCALOC.value = dlarmm(BNRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to to C( K, J ) and C( K, L ).
@@ -643,7 +643,7 @@ void dtrsyl3(
             BUF = ZERO;
           } else {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
           }
           for (JJ = 1; JJ <= NBB; JJ++) {
             for (LL = 1; LL <= NBA; LL++) {
@@ -668,24 +668,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', I2 - I1, L2 - L1, C(I1, L1), LDC, WNRM);
           SCAMIN = min(SWORK[I][L], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[I][L]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[I][L]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           ANRM = SWORK[I][AWRK + K];
           SCALOC.value = dlarmm(ANRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to C( I, L ) and C( K, L ).
@@ -724,24 +724,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', K2 - K1, J2 - J1, C(K1, J1), LDC, WNRM);
           SCAMIN = min(SWORK[K][J], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[K][J]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[K][J]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           BNRM = SWORK[L][BWRK + J];
           SCALOC.value = dlarmm(BNRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to C( K, J ) and C( K, L ).
@@ -813,7 +813,7 @@ void dtrsyl3(
             BUF = ZERO;
           } else {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
           }
           for (JJ = 1; JJ <= NBB; JJ++) {
             for (LL = 1; LL <= NBA; LL++) {
@@ -839,24 +839,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', I2 - I1, L2 - L1, C(I1, L1), LDC, WNRM);
           SCAMIN = min(SWORK[I][L], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[I][L]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[I][L]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           ANRM = SWORK[I][AWRK + K];
           SCALOC.value = dlarmm(ANRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to C( I, L ) and C( K, L ).
@@ -895,24 +895,24 @@ void dtrsyl3(
 
           CNRM = dlange('I', K2 - K1, J2 - J1, C(K1, J1), LDC, WNRM);
           SCAMIN = min(SWORK[K][J], SWORK[K][L]);
-          CNRM = CNRM * (SCAMIN / SWORK[K][J]);
-          XNRM = XNRM * (SCAMIN / SWORK[K][L]);
+          CNRM *= (SCAMIN / SWORK[K][J]);
+          XNRM *= (SCAMIN / SWORK[K][L]);
           BNRM = SWORK[L][BWRK + J];
           SCALOC.value = dlarmm(BNRM, XNRM, CNRM);
           if (SCALOC.value * SCAMIN == ZERO) {
             // Use second scaling factor to prevent flushing to zero.
-            BUF = BUF * pow(2.0, exponent(SCALOC.value));
+            BUF *= pow(2.0, exponent(SCALOC.value));
             for (JJ = 1; JJ <= NBB; JJ++) {
               for (LL = 1; LL <= NBA; LL++) {
                 SWORK[LL][JJ] = min(
                     BIGNUM, SWORK[LL][JJ] / pow(2.0, exponent(SCALOC.value)));
               }
             }
-            SCAMIN = SCAMIN / pow(2.0, exponent(SCALOC.value));
-            SCALOC.value = SCALOC.value / pow(2.0, exponent(SCALOC.value));
+            SCAMIN /= pow(2.0, exponent(SCALOC.value));
+            SCALOC.value /= pow(2.0, exponent(SCALOC.value));
           }
-          CNRM = CNRM * SCALOC.value;
-          XNRM = XNRM * SCALOC.value;
+          CNRM *= SCALOC.value;
+          XNRM *= SCALOC.value;
 
           // Simultaneously apply the robust update factor and the
           // consistency scaling factor to C( K, J ) and C( K, L ).
@@ -985,8 +985,8 @@ void dtrsyl3(
     // Decrease SCALE.value as much as possible.
 
     SCALOC.value = min(SCALE.value / SMLNUM, ONE / BUF);
-    BUF = BUF * SCALOC.value;
-    SCALE.value = SCALE.value / SCALOC.value;
+    BUF *= SCALOC.value;
+    SCALE.value /= SCALOC.value;
   }
 
   if (BUF != ONE && BUF > ZERO) {
@@ -1008,14 +1008,14 @@ void dtrsyl3(
     // Increase BUF as close to 1 as possible and apply scaling.
 
     SCALOC.value = min(BIGNUM / SCAL, ONE / BUF);
-    BUF = BUF * SCALOC.value;
+    BUF *= SCALOC.value;
     dlascl('G', -1, -1, ONE, SCALOC.value, M, N, C, LDC, IWORK.box(1));
   }
 
   // Combine with buffer scaling factor. SCALE.value will be flushed if
   // BUF is less than one here.
 
-  SCALE.value = SCALE.value * BUF;
+  SCALE.value *= BUF;
 
   // Restore workspace dimensions
 

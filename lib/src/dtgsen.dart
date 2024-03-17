@@ -114,7 +114,7 @@ void dtgsen(
           if (SELECT[K]) M.value++;
         } else {
           PAIR = true;
-          if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
+          if (SELECT[K] || SELECT[K + 1]) M.value += 2;
         }
       } else {
         if (SELECT[N]) M.value++;

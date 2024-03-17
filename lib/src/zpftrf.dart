@@ -83,7 +83,7 @@ void zpftrf(
         zherk('U', 'N', N2, N1, -ONE, A(N1).asMatrix(), N, ONE, A(N).asMatrix(),
             N);
         zpotrf('U', N2, A(N).asMatrix(), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       } else {
         // SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:n2-1)
         // T1 -> a(n1+1,0), T2 -> a(n1,0), S -> a(0,0)
@@ -96,7 +96,7 @@ void zpftrf(
         zherk('U', 'C', N2, N1, -ONE, A(0).asMatrix(), N, ONE, A(N1).asMatrix(),
             N);
         zpotrf('U', N2, A(N1).asMatrix(), N, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       }
     } else {
       // N is odd and TRANSR = 'C'
@@ -113,7 +113,7 @@ void zpftrf(
         zherk('L', 'C', N2, N1, -ONE, A(N1 * N1).asMatrix(), N1, ONE,
             A(1).asMatrix(), N1);
         zpotrf('L', N2, A(1).asMatrix(), N1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       } else {
         // SRPA for UPPER, TRANSPOSE and N is odd
         // T1 -> A(0,n1+1), T2 -> A(0,n1), S -> A(0,0)
@@ -126,7 +126,7 @@ void zpftrf(
         zherk('L', 'N', N2, N1, -ONE, A(0).asMatrix(), N2, ONE,
             A(N1 * N2).asMatrix(), N2);
         zpotrf('L', N2, A(N1 * N2).asMatrix(), N2, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + N1;
+        if (INFO.value > 0) INFO.value += N1;
       }
     }
   } else {
@@ -147,7 +147,7 @@ void zpftrf(
         zherk('U', 'N', K, K, -ONE, A(K + 1).asMatrix(), N + 1, ONE,
             A(0).asMatrix(), N + 1);
         zpotrf('U', K, A(0).asMatrix(), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       } else {
         // SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
         // T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
@@ -160,7 +160,7 @@ void zpftrf(
         zherk('U', 'C', K, K, -ONE, A(0).asMatrix(), N + 1, ONE,
             A(K).asMatrix(), N + 1);
         zpotrf('U', K, A(K).asMatrix(), N + 1, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       }
     } else {
       // N is even and TRANSR = 'C'
@@ -177,7 +177,7 @@ void zpftrf(
         zherk('L', 'C', K, K, -ONE, A(K * (K + 1)).asMatrix(), K, ONE,
             A(0).asMatrix(), K);
         zpotrf('L', K, A(0).asMatrix(), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       } else {
         // SRPA for UPPER, TRANSPOSE and N is even (see paper)
         // T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0)
@@ -190,7 +190,7 @@ void zpftrf(
         zherk('L', 'N', K, K, -ONE, A(0).asMatrix(), K, ONE,
             A(K * K).asMatrix(), K);
         zpotrf('L', K, A(K * K).asMatrix(), K, INFO);
-        if (INFO.value > 0) INFO.value = INFO.value + K;
+        if (INFO.value > 0) INFO.value += K;
       }
     }
   }

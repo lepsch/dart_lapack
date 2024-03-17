@@ -552,7 +552,7 @@ void zlatms(
                     DUMMY);
                 DUMMY.value = zlarnd(5, ISEED);
                 C = REALC.value.toComplex() * DUMMY.value;
-                S.value = S.value * DUMMY.value;
+                S.value *= DUMMY.value;
               }
               IC = max(1, IC);
               ICOL = min(N - 1, JCH + JKU);
@@ -574,7 +574,7 @@ void zlatms(
                     S, DUMMY);
                 DUMMY.value = zlarnd(5, ISEED);
                 C = REALC.value.toComplex() * DUMMY.value;
-                S.value = S.value * DUMMY.value;
+                S.value *= DUMMY.value;
                 IL = min(IENDCH, JCH + JKL + JKU) + 2 - JCH;
                 EXTRA.value = Complex.zero;
                 zlarot(
@@ -639,7 +639,7 @@ void zlatms(
                     DUMMY);
                 DUMMY.value = zlarnd(5, ISEED);
                 C = REALC.value.toComplex() * DUMMY.value;
-                S.value = S.value * DUMMY.value;
+                S.value *= DUMMY.value;
               }
               IR = max(1, IR);
               IROW = min(M - 1, JCH + JKL);
@@ -661,7 +661,7 @@ void zlatms(
                     S, DUMMY);
                 DUMMY.value = zlarnd(5, ISEED);
                 C = REALC.value.toComplex() * DUMMY.value;
-                S.value = S.value * DUMMY.value;
+                S.value *= DUMMY.value;
                 IL = min(IENDCH, JCH + JKL + JKU) + 2 - JCH;
                 EXTRA.value = Complex.zero;
                 zlarot(
@@ -867,7 +867,7 @@ void zlatms(
                   DUMMY);
               DUMMY.value = zlarnd(5, ISEED);
               C = REALC.value.toComplex() * DUMMY.value;
-              S.value = S.value * DUMMY.value;
+              S.value *= DUMMY.value;
               CTEMP.value = A[1 + (1 - ISKEW) * JCH + IOFFG][JCH];
               if (ZSYM) {
                 CT = C;

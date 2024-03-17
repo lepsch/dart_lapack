@@ -96,9 +96,9 @@ void ztrt05(
           for (var J = 1; J <= I - IFU; J++) {
             TMP += CABS1(A[J][I]) * CABS1(X[J][K]);
           }
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
         } else {
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
           for (var J = I + IFU; J <= N; J++) {
             TMP += CABS1(A[I][J]) * CABS1(X[J][K]);
           }
@@ -108,9 +108,9 @@ void ztrt05(
           for (var J = 1; J <= I - IFU; J++) {
             TMP += CABS1(A[I][J]) * CABS1(X[J][K]);
           }
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
         } else {
-          if (UNIT) TMP = TMP + CABS1(X[I][K]);
+          if (UNIT) TMP += CABS1(X[I][K]);
           for (var J = I + IFU; J <= N; J++) {
             TMP += CABS1(A[J][I]) * CABS1(X[J][K]);
           }

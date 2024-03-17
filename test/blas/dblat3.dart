@@ -2224,7 +2224,7 @@ void _dchk5(
                     JC += LDC;
                   } else {
                     JC += LDC + 1;
-                    if (TRAN) JJAB = JJAB + 2 * NMAX;
+                    if (TRAN) JJAB += 2 * NMAX;
                   }
                   ERRMAX = max(ERRMAX, ERR.value);
                   // If got really bad answer, report and
@@ -3044,7 +3044,7 @@ void _dmmch(
     ERR.value = ZERO;
     for (I = 1; I <= M; I++) {
       ERRI = (CT[I] - CC[I][J]).abs() / EPS;
-      if (G[I] != ZERO) ERRI = ERRI / G[I];
+      if (G[I] != ZERO) ERRI /= G[I];
       ERR.value = max(ERR.value, ERRI);
       if (ERR.value * sqrt(EPS) >= ONE) {
         isHalfAccurate = false;
@@ -3171,7 +3171,7 @@ double _dbeg(final Box<bool> RESET) {
 
   _dbegIC++;
   while (true) {
-    _dbegI = _dbegI * _dbegMI;
+    _dbegI *= _dbegMI;
     _dbegI -= 1000 * (_dbegI ~/ 1000);
     if (_dbegIC < 5) break;
     _dbegIC = 0;

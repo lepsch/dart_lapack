@@ -56,7 +56,7 @@ void zgesc2(
   if (TWO * SMLNUM * (RHS[I]).abs() > A[N][N].abs()) {
     TEMP = Complex(ONE / TWO, ZERO) / (RHS[I]).abs().toComplex();
     zscal(N, TEMP, RHS(1), 1);
-    SCALE.value = SCALE.value * TEMP.toDouble();
+    SCALE.value *= TEMP.toDouble();
   }
   for (I = N; I >= 1; I--) {
     // 40

@@ -79,7 +79,7 @@ void zgetrf(
     while (NTOPIV < KAHEAD) {
       zlaswp(NTOPIV, A(1, JPIVSTART), LDA, IPIVSTART, J, IPIV, 1);
       IPIVSTART -= NTOPIV;
-      NTOPIV = NTOPIV * 2;
+      NTOPIV *= 2;
       JPIVSTART -= NTOPIV;
     }
 

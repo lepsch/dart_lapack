@@ -34,12 +34,12 @@ bool ieeeck(final int ISPEC, final double ZERO, final double ONE) {
     return false;
   }
 
-  NEGINF = NEGINF * POSINF;
+  NEGINF *= POSINF;
   if (NEGINF >= ZERO) {
     return false;
   }
 
-  POSINF = POSINF * POSINF;
+  POSINF *= POSINF;
   if (POSINF <= ONE) {
     return false;
   }

@@ -45,7 +45,7 @@ double dlanhs(
     for (J = 1; J <= N; J++) {
       SUM.value = ZERO;
       for (I = 1; I <= min(N, J + 1); I++) {
-        SUM.value = SUM.value + A[I][J].abs();
+        SUM.value += A[I][J].abs();
       }
       if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
     }

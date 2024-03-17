@@ -356,7 +356,7 @@ void dlaein(
           REC = ONE / VMAX;
           dscal(N, REC, VR, 1);
           dscal(N, REC, VI, 1);
-          SCALE.value = SCALE.value * REC;
+          SCALE.value *= REC;
           VMAX = ONE;
           VCRIT = BIGNUM;
         }
@@ -385,8 +385,8 @@ void dlaein(
               dscal(N, REC, VI, 1);
               XR = VR[I];
               XI = VI[I];
-              SCALE.value = SCALE.value * REC;
-              VMAX = VMAX * REC;
+              SCALE.value *= REC;
+              VMAX *= REC;
             }
           }
 

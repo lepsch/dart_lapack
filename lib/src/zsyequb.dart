@@ -135,7 +135,7 @@ void zsyequb(
     for (I = 1; I <= N; I++) {
       AVG += S[I] * (WORK[I]).toDouble();
     }
-    AVG = AVG / N;
+    AVG /= N;
 
     STD = 0.0;
     for (I = N + 1; I <= 2 * N; I++) {

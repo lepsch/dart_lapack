@@ -265,7 +265,7 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       }
     }
 
-    RNORM = RNORM / A[1][1].abs();
+    RNORM /= A[1][1].abs();
     final RCOND = 1.0 / (RNORM * RINORM);
 
     // Calculating the R for normwise rcond.

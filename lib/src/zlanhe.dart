@@ -65,7 +65,7 @@ double zlanhe(
         for (I = 1; I <= J - 1; I++) {
           // 50
           ABSA = (A[I][J]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
         } // 50
         WORK[J] = SUM.value + A[J][J].toDouble().abs();
@@ -86,7 +86,7 @@ double zlanhe(
         for (I = J + 1; I <= N; I++) {
           // 90
           ABSA = (A[I][J]).abs();
-          SUM.value = SUM.value + ABSA;
+          SUM.value += ABSA;
           WORK[I] += ABSA;
         } // 90
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
@@ -117,7 +117,7 @@ double zlanhe(
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);
           SCALE.value = ABSA;
         } else {
-          SUM.value = SUM.value + pow(ABSA / SCALE.value, 2);
+          SUM.value += pow(ABSA / SCALE.value, 2);
         }
       }
     } // 130

@@ -79,7 +79,7 @@ void dtrsyl(
   EPS = dlamch('P');
   SMLNUM = dlamch('S');
   BIGNUM = ONE / SMLNUM;
-  SMLNUM = SMLNUM * (M * N).toDouble() / EPS;
+  SMLNUM *= (M * N).toDouble() / EPS;
   BIGNUM = ONE / SMLNUM;
 
   SMIN = max(
@@ -168,7 +168,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
         } else if (L1 == L2 && K1 != K2) {
@@ -190,7 +190,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K2][L1] = X[2][1];
@@ -213,7 +213,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[2][1];
@@ -246,7 +246,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[1][2];
@@ -333,7 +333,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
         } else if (L1 == L2 && K1 != K2) {
@@ -353,7 +353,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K2][L1] = X[2][1];
@@ -374,7 +374,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[2][1];
@@ -403,7 +403,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[1][2];
@@ -491,7 +491,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
         } else if (L1 == L2 && K1 != K2) {
@@ -513,7 +513,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K2][L1] = X[2][1];
@@ -536,7 +536,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[2][1];
@@ -569,7 +569,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[1][2];
@@ -658,7 +658,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
         } else if (L1 == L2 && K1 != K2) {
@@ -682,7 +682,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K2][L1] = X[2][1];
@@ -707,7 +707,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[2][1];
@@ -744,7 +744,7 @@ void dtrsyl(
             for (J = 1; J <= N; J++) {
               dscal(M, SCALOC.value, C(1, J).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC.value;
+            SCALE.value *= SCALOC.value;
           }
           C[K1][L1] = X[1][1];
           C[K1][L2] = X[1][2];

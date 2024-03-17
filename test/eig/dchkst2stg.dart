@@ -727,7 +727,7 @@ void dchkst2stg(
         for (J = 0; J <= LOG2UI; J++) {
           dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
           if (IINFO.value == 0) break;
-          TEMP1 = TEMP1 * TWO;
+          TEMP1 *= TWO;
         }
 
         RESULT[13] = TEMP1;

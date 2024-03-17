@@ -67,9 +67,9 @@ void zlarfgp(
       do {
         KNT++;
         zdscal(N - 1, BIGNUM, X, INCX);
-        BETA = BETA * BIGNUM;
-        ALPHI = ALPHI * BIGNUM;
-        ALPHR = ALPHR * BIGNUM;
+        BETA *= BIGNUM;
+        ALPHI *= BIGNUM;
+        ALPHR *= BIGNUM;
       } while (((BETA).abs() < SMLNUM) && (KNT < 20));
 
       // New BETA is at most 1, at least SMLNUM
@@ -79,7 +79,7 @@ void zlarfgp(
       BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR).toDouble();
     }
     SAVEALPHA = ALPHA.value;
-    ALPHA.value = ALPHA.value + BETA.toComplex();
+    ALPHA.value += BETA.toComplex();
     if (BETA < ZERO) {
       BETA = -BETA;
       TAU.value = -ALPHA.value / BETA.toComplex();
@@ -129,7 +129,7 @@ void zlarfgp(
 
     for (J = 1; J <= KNT; J++) {
       // 20
-      BETA = BETA * SMLNUM;
+      BETA *= SMLNUM;
     } // 20
     ALPHA.value = BETA.toComplex();
   }

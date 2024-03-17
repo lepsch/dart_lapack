@@ -332,7 +332,7 @@ void main() async {
         }
         if (!isDigit) break;
 
-        NMATS = NMATS * 10 + IC;
+        NMATS *= 10 + IC;
         I++;
         if (I > 72) break;
       }

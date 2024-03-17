@@ -131,12 +131,12 @@ void ztrsv(
             for (I = 1; I <= J - 1; I++) {
               TEMP -= A[I][J] * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J];
+            if (NOUNIT) TEMP /= A[J][J];
           } else {
             for (I = 1; I <= J - 1; I++) {
               TEMP -= A[I][J].conjugate() * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+            if (NOUNIT) TEMP /= A[J][J].conjugate();
           }
           X[J] = TEMP;
         }
@@ -150,13 +150,13 @@ void ztrsv(
               TEMP -= A[I][J] * X[IX];
               IX += INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J];
+            if (NOUNIT) TEMP /= A[J][J];
           } else {
             for (I = 1; I <= J - 1; I++) {
               TEMP -= A[I][J].conjugate() * X[IX];
               IX += INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+            if (NOUNIT) TEMP /= A[J][J].conjugate();
           }
           X[JX] = TEMP;
           JX += INCX;
@@ -170,12 +170,12 @@ void ztrsv(
             for (I = N; I >= J + 1; I--) {
               TEMP -= A[I][J] * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J];
+            if (NOUNIT) TEMP /= A[J][J];
           } else {
             for (I = N; I >= J + 1; I--) {
               TEMP -= A[I][J].conjugate() * X[I];
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+            if (NOUNIT) TEMP /= A[J][J].conjugate();
           }
           X[J] = TEMP;
         }
@@ -190,13 +190,13 @@ void ztrsv(
               TEMP -= A[I][J] * X[IX];
               IX -= INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J];
+            if (NOUNIT) TEMP /= A[J][J];
           } else {
             for (I = N; I >= J + 1; I--) {
               TEMP -= A[I][J].conjugate() * X[IX];
               IX -= INCX;
             }
-            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+            if (NOUNIT) TEMP /= A[J][J].conjugate();
           }
           X[JX] = TEMP;
           JX -= INCX;

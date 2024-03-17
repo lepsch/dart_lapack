@@ -46,6 +46,6 @@ void dlartg(
     c.value = fs.abs() / d;
     r.value = sign(d, f).toDouble();
     s.value = gs / r.value;
-    r.value = r.value * u;
+    r.value *= u;
   }
 }

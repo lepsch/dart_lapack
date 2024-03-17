@@ -239,7 +239,7 @@ void zlavhe(
             }
 
             // Apply the transformation
-            //    y = y - B' conjg(x),
+            //    y -= B' conjg(x),
             // where x is a column of A and y is a row of B.
 
             zlacgv(NRHS, B(K, 1).asArray(), LDB);
@@ -261,7 +261,7 @@ void zlavhe(
             }
 
             // Apply the transformations
-            //    y = y - B' conjg(x),
+            //    y -= B' conjg(x),
             // where x is a block column of A and y is a block
             // row of B.
 

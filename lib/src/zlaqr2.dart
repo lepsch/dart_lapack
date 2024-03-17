@@ -302,7 +302,7 @@ void zlaqr2(
   // .    calculating eigenvalues of the deflation
   // .    window.)  ====
 
-  NS.value = NS.value - INFQR.value;
+  NS.value -= INFQR.value;
 
   // ==== Return optimal workspace. ====
 

@@ -58,8 +58,8 @@ Future<void> zget36(
       // 40
       for (J = 1; J <= N; J++) {
         // 30
-        if (I == J && Q[I][J] != Complex.one) RES = RES + ONE / EPS;
-        if (I != J && Q[I][J] != Complex.zero) RES = RES + ONE / EPS;
+        if (I == J && Q[I][J] != Complex.one) RES += ONE / EPS;
+        if (I != J && Q[I][J] != Complex.zero) RES += ONE / EPS;
       } // 30
     } // 40
 
@@ -74,11 +74,11 @@ Future<void> zget36(
       // 60
       for (J = 1; J <= N; J++) {
         // 50
-        if (T1[I][J] != T2[I][J]) RES = RES + ONE / EPS;
+        if (T1[I][J] != T2[I][J]) RES += ONE / EPS;
       } // 50
     } // 60
     if (INFO1.value != 0 || INFO2.value != 0) NINFO.value++;
-    if (INFO1.value != INFO2.value) RES = RES + ONE / EPS;
+    if (INFO1.value != INFO2.value) RES += ONE / EPS;
 
     // Test for successful reordering of T2
 
@@ -100,7 +100,7 @@ Future<void> zget36(
     }
     for (I = 1; I <= N; I++) {
       // 90
-      if (T2[I][I] != DIAG[I]) RES = RES + ONE / EPS;
+      if (T2[I][I] != DIAG[I]) RES += ONE / EPS;
     } // 90
 
     // Test for small residual, and orthogonality of Q
@@ -114,7 +114,7 @@ Future<void> zget36(
       // 110
       for (I = J + 1; I <= N; I++) {
         // 100
-        if (T2[I][J] != Complex.zero) RES = RES + ONE / EPS;
+        if (T2[I][J] != Complex.zero) RES += ONE / EPS;
       } // 100
     } // 110
     if (RES > RMAX.value) {

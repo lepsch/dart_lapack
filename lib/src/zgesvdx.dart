@@ -291,7 +291,7 @@ void zgesvdx(
           WORK(ITAUP), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       ITEMPR = ITGKZ + N * (N * 2 + 1);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 2*N*N+14*N)
 
       dbdsvdx(
@@ -377,7 +377,7 @@ void zgesvdx(
           WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       ITEMPR = ITGKZ + N * (N * 2 + 1);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 2*N*N+14*N)
 
       dbdsvdx(
@@ -473,7 +473,7 @@ void zgesvdx(
           WORK(ITAUP), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       ITEMPR = ITGKZ + M * (M * 2 + 1);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 2*M*M+14*M)
 
       dbdsvdx(
@@ -559,7 +559,7 @@ void zgesvdx(
           WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       ITEMPR = ITGKZ + M * (M * 2 + 1);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 2*M*M+14*M)
 
       dbdsvdx(

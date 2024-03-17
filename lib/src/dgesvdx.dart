@@ -304,7 +304,7 @@ void dgesvdx(
       dgebrd(N, N, WORK(IQRF).asMatrix(N), N, WORK(ID), WORK(IE), WORK(ITAUQ),
           WORK(ITAUP), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 14*N + 2*N*(N+1))
 
       ITGKZ = ITEMP;
@@ -367,7 +367,7 @@ void dgesvdx(
       dgebrd(M, N, A, LDA, WORK(ID), WORK(IE), WORK(ITAUQ), WORK(ITAUP),
           WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 14*N + 2*N*(N+1))
 
       ITGKZ = ITEMP;
@@ -439,7 +439,7 @@ void dgesvdx(
       dgebrd(M, M, WORK(ILQF).asMatrix(M), M, WORK(ID), WORK(IE), WORK(ITAUQ),
           WORK(ITAUP), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 2*M*M+14*M)
 
       ITGKZ = ITEMP;
@@ -502,7 +502,7 @@ void dgesvdx(
       dgebrd(M, N, A, LDA, WORK(ID), WORK(IE), WORK(ITAUQ), WORK(ITAUP),
           WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
-      // Solve eigenvalue problem TGK*Z=Z*S.
+      // Solve eigenvalue problem TGK*Z *=S.
       // (Workspace: need 2*M*M+14*M)
 
       ITGKZ = ITEMP;

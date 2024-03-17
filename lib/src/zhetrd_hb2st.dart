@@ -220,7 +220,7 @@ void zhetrd_hb2st(
         AB[ABOFDPOS][I + 1] = ABSTMP.toComplex();
         E[I] = ABSTMP;
         if (ABSTMP != RZERO) {
-          TMP = TMP / ABSTMP.toComplex();
+          TMP /= ABSTMP.toComplex();
         } else {
           TMP = Complex.one;
         }
@@ -237,7 +237,7 @@ void zhetrd_hb2st(
         AB[ABOFDPOS][I] = ABSTMP.toComplex();
         E[I] = ABSTMP;
         if (ABSTMP != RZERO) {
-          TMP = TMP / ABSTMP.toComplex();
+          TMP /= ABSTMP.toComplex();
         } else {
           TMP = Complex.one;
         }

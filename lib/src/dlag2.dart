@@ -96,9 +96,9 @@ void dlag2(
   BNORM = max(B11.abs(), max(B12.abs() + B22.abs(), SAFMIN));
   BSIZE = max(B11.abs(), B22.abs());
   BSCALE = ONE / BSIZE;
-  B11 = B11 * BSCALE;
-  B12 = B12 * BSCALE;
-  B22 = B22 * BSCALE;
+  B11 *= BSCALE;
+  B12 *= BSCALE;
+  B22 *= BSCALE;
 
   // Compute larger eigenvalue by method described by C. van Loan
 
@@ -213,9 +213,9 @@ void dlag2(
     } else {
       SCALE1.value = (min(ASCALE, BSIZE) * WSCALE) * max(ASCALE, BSIZE);
     }
-    WR1.value = WR1.value * WSCALE;
+    WR1.value *= WSCALE;
     if (WI.value != ZERO) {
-      WI.value = WI.value * WSCALE;
+      WI.value *= WSCALE;
       WR2.value = WR1.value;
       SCALE2.value = SCALE1.value;
     }
@@ -243,7 +243,7 @@ void dlag2(
       } else {
         SCALE2.value = (min(ASCALE, BSIZE) * WSCALE) * max(ASCALE, BSIZE);
       }
-      WR2.value = WR2.value * WSCALE;
+      WR2.value *= WSCALE;
     } else {
       SCALE2.value = ASCALE * BSIZE;
     }

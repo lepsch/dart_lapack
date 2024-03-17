@@ -138,7 +138,7 @@ void zggglm(
     Y[I] = Complex.zero;
   } // 10
 
-  // Update d1 = d1 - T12*y2
+  // Update d1 -= T12*y2
 
   zgemv('No transpose', M, N - M, -Complex.one, B(1, M + P - N + 1), LDB,
       Y(M + P - N + 1), 1, Complex.one, D, 1);
