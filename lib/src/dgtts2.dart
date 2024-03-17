@@ -45,7 +45,7 @@ void dgtts2(
 
         // Solve U*x = b.
 
-        B[N][J] = B[N][J] / D[N];
+        B[N][J] /= D[N];
         if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
         for (I = N - 2; I >= 1; I--) {
           B[I][J] =
@@ -58,7 +58,7 @@ void dgtts2(
 
         for (I = 1; I <= N - 1; I++) {
           if (IPIV[I] == I) {
-            B[I + 1][J] = B[I + 1][J] - DL[I] * B[I][J];
+            B[I + 1][J] -= DL[I] * B[I][J];
           } else {
             TEMP = B[I][J];
             B[I][J] = B[I + 1][J];
@@ -68,7 +68,7 @@ void dgtts2(
 
         // Solve U*x = b.
 
-        B[N][J] = B[N][J] / D[N];
+        B[N][J] /= D[N];
         if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
         for (I = N - 2; I >= 1; I--) {
           B[I][J] =
@@ -83,7 +83,7 @@ void dgtts2(
       // Solve U**T*x = b.
 
       for (J = 1; J <= NRHS; J++) {
-        B[1][J] = B[1][J] / D[1];
+        B[1][J] /= D[1];
         if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
         for (I = 3; I <= N; I++) {
           B[I][J] =
@@ -104,7 +104,7 @@ void dgtts2(
       for (J = 1; J <= NRHS; J++) {
         // Solve U**T*x = b.
 
-        B[1][J] = B[1][J] / D[1];
+        B[1][J] /= D[1];
         if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
         for (I = 3; I <= N; I++) {
           B[I][J] =
@@ -113,7 +113,7 @@ void dgtts2(
         }
         for (I = N - 1; I >= 1; I--) {
           if (IPIV[I] == I) {
-            B[I][J] = B[I][J] - DL[I] * B[I + 1][J];
+            B[I][J] -= DL[I] * B[I + 1][J];
           } else {
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - DL[I] * TEMP;

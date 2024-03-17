@@ -222,7 +222,7 @@ void dtrsna(
           // Form C = T22 - lambda*I in WORK[2:N][2:N].
 
           for (I = 2; I <= N; I++) {
-            WORK[I][I] = WORK[I][I] - WORK[1][1];
+            WORK[I][I] -= WORK[1][1];
           }
           N2 = 1;
           NN = N - 1;
@@ -253,7 +253,7 @@ void dtrsna(
 
           for (J = 3; J <= N; J++) {
             WORK[2][J] = CS * WORK[2][J];
-            WORK[J][J] = WORK[J][J] - WORK[1][1];
+            WORK[J][J] -= WORK[1][1];
           }
           WORK[2][2] = ZERO;
 

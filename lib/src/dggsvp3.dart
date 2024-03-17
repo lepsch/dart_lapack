@@ -227,7 +227,7 @@ void dggsvp3(
   }
 
   if (WANTQ) {
-    // Update Q[ 1:N][ 1:N-L.value ]  = Q[ 1:N][ 1:N-L.value ]*P1
+    // Update Q[ 1:N][ 1:N-L.value ] *=P1
 
     dlapmt(FORWRD, N, N - L.value, Q, LDQ, IWORK);
   }
@@ -251,7 +251,7 @@ void dggsvp3(
     dgerq2(K.value, N - L.value, A, LDA, TAU, WORK, INFO);
 
     if (WANTQ) {
-      // Update Q[ 1:N][1:N-L.value ] = Q[ 1:N][1:N-L.value ]*Z1**T
+      // Update Q[ 1:N][1:N-L.value ] *=Z1**T
 
       dormr2('Right', 'Transpose', N, N - L.value, K.value, A, LDA, TAU, Q, LDQ,
           WORK, INFO);

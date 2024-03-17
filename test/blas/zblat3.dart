@@ -3536,7 +3536,7 @@ void _zmake(
       }
     }
     if (HER) A[J][J] = A[J][J].real.toComplex();
-    if (TRI) A[J][J] = A[J][J] + Complex.one;
+    if (TRI) A[J][J] += Complex.one;
     if (UNIT) A[J][J] = Complex.one;
   }
 

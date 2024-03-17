@@ -332,12 +332,12 @@ void dggev3(
             TEMP = ONE / TEMP;
             if (ALPHAI[JC] == ZERO) {
               for (JR = 1; JR <= N; JR++) {
-                VL[JR][JC] = VL[JR][JC] * TEMP;
+                VL[JR][JC] *= TEMP;
               }
             } else {
               for (JR = 1; JR <= N; JR++) {
-                VL[JR][JC] = VL[JR][JC] * TEMP;
-                VL[JR][JC + 1] = VL[JR][JC + 1] * TEMP;
+                VL[JR][JC] *= TEMP;
+                VL[JR][JC + 1] *= TEMP;
               }
             }
           }
@@ -361,12 +361,12 @@ void dggev3(
             TEMP = ONE / TEMP;
             if (ALPHAI[JC] == ZERO) {
               for (JR = 1; JR <= N; JR++) {
-                VR[JR][JC] = VR[JR][JC] * TEMP;
+                VR[JR][JC] *= TEMP;
               }
             } else {
               for (JR = 1; JR <= N; JR++) {
-                VR[JR][JC] = VR[JR][JC] * TEMP;
-                VR[JR][JC + 1] = VR[JR][JC + 1] * TEMP;
+                VR[JR][JC] *= TEMP;
+                VR[JR][JC + 1] *= TEMP;
               }
             }
           }

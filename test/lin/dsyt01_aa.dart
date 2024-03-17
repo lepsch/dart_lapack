@@ -81,11 +81,11 @@ void dsyt01_aa(
   // Apply symmetric pivots
 
   for (var J = N; J >= 1; J--) {
-   var I = IPIV[J];
+    var I = IPIV[J];
     if (I != J) dswap(N, C(J, 1).asArray(), LDC, C(I, 1).asArray(), LDC);
   }
   for (var J = N; J >= 1; J--) {
-   var I = IPIV[J];
+    var I = IPIV[J];
     if (I != J) dswap(N, C(1, J).asArray(), 1, C(1, I).asArray(), 1);
   }
 
@@ -94,13 +94,13 @@ void dsyt01_aa(
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= J; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   } else {
     for (var J = 1; J <= N; J++) {
       for (var I = J; I <= N; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   }

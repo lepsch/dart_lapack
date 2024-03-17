@@ -99,7 +99,7 @@ void dppt03(
   // Add the identity matrix to WORK .
 
   for (var I = 1; I <= N; I++) {
-    WORK[I][I] = WORK[I][I] + ONE;
+    WORK[I][I] += ONE;
   }
 
   // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

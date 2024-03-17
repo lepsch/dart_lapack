@@ -78,7 +78,7 @@ void zget01(
 
   for (var J = 1; J <= N; J++) {
     for (var I = 1; I <= M; I++) {
-      AFAC[I][J] = AFAC[I][J] - A[I][J];
+      AFAC[I][J] -= A[I][J];
     }
   }
 

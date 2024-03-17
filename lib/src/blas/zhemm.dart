@@ -97,7 +97,7 @@ void zhemm(
           TEMP1 = ALPHA * B[I][J];
           TEMP2 = Complex.zero;
           for (K = 1; K <= I - 1; K++) {
-            C[K][J] = C[K][J] + TEMP1 * A[K][I];
+            C[K][J] += TEMP1 * A[K][I];
             TEMP2 += B[K][J] * A[K][I].conjugate();
           }
           if (BETA == Complex.zero) {
@@ -115,7 +115,7 @@ void zhemm(
           TEMP1 = ALPHA * B[I][J];
           TEMP2 = Complex.zero;
           for (K = I + 1; K <= M; K++) {
-            C[K][J] = C[K][J] + TEMP1 * A[K][I];
+            C[K][J] += TEMP1 * A[K][I];
             TEMP2 += B[K][J] * A[K][I].conjugate();
           }
           if (BETA == Complex.zero) {
@@ -149,7 +149,7 @@ void zhemm(
           TEMP1 = ALPHA * A[J][K].conjugate();
         }
         for (I = 1; I <= M; I++) {
-          C[I][J] = C[I][J] + TEMP1 * B[I][K];
+          C[I][J] += TEMP1 * B[I][K];
         }
       }
       for (K = J + 1; K <= N; K++) {
@@ -159,7 +159,7 @@ void zhemm(
           TEMP1 = ALPHA * A[K][J];
         }
         for (I = 1; I <= M; I++) {
-          C[I][J] = C[I][J] + TEMP1 * B[I][K];
+          C[I][J] += TEMP1 * B[I][K];
         }
       }
     }

@@ -132,7 +132,7 @@ void zlascl(
         // 30
         for (I = 1; I <= M; I++) {
           // 20
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 20
       } // 30
     } else if (ITYPE == 1) {
@@ -142,7 +142,7 @@ void zlascl(
         // 50
         for (I = J; I <= M; I++) {
           // 40
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 40
       } // 50
     } else if (ITYPE == 2) {
@@ -152,7 +152,7 @@ void zlascl(
         // 70
         for (I = 1; I <= min(J, M); I++) {
           // 60
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 60
       } // 70
     } else if (ITYPE == 3) {
@@ -162,7 +162,7 @@ void zlascl(
         // 90
         for (I = 1; I <= min(J + 1, M); I++) {
           // 80
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 80
       } // 90
     } else if (ITYPE == 4) {
@@ -174,7 +174,7 @@ void zlascl(
         // 110
         for (I = 1; I <= min(K3, K4 - J); I++) {
           // 100
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 100
       } // 110
     } else if (ITYPE == 5) {
@@ -186,7 +186,7 @@ void zlascl(
         // 130
         for (I = max(K1 - J, 1); I <= K3; I++) {
           // 120
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 120
       } // 130
     } else if (ITYPE == 6) {
@@ -200,7 +200,7 @@ void zlascl(
         // 150
         for (I = max(K1 - J, K2); I <= min(K3, K4 - J); I++) {
           // 140
-          A[I][J] = A[I][J] * MUL.toComplex();
+          A[I][J] *= MUL.toComplex();
         } // 140
       } // 150
     }

@@ -129,7 +129,7 @@ void dlascl(
 
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     } else if (ITYPE == 1) {
@@ -137,7 +137,7 @@ void dlascl(
 
       for (J = 1; J <= N; J++) {
         for (I = J; I <= M; I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     } else if (ITYPE == 2) {
@@ -145,7 +145,7 @@ void dlascl(
 
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= min(J, M); I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     } else if (ITYPE == 3) {
@@ -153,7 +153,7 @@ void dlascl(
 
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= min(J + 1, M); I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     } else if (ITYPE == 4) {
@@ -163,7 +163,7 @@ void dlascl(
       K4 = N + 1;
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= min(K3, K4 - J); I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     } else if (ITYPE == 5) {
@@ -173,7 +173,7 @@ void dlascl(
       K3 = KU + 1;
       for (J = 1; J <= N; J++) {
         for (I = max(K1 - J, 1); I <= K3; I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     } else if (ITYPE == 6) {
@@ -185,7 +185,7 @@ void dlascl(
       K4 = KL + KU + 1 + M;
       for (J = 1; J <= N; J++) {
         for (I = max(K1 - J, K2); I <= min(K3, K4 - J); I++) {
-          A[I][J] = A[I][J] * MUL;
+          A[I][J] *= MUL;
         }
       }
     }

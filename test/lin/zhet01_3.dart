@@ -80,15 +80,15 @@ void zhet01_3(
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= J - 1; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
-      C[J][J] = C[J][J] - A[J][J].real.toComplex();
+      C[J][J] -= A[J][J].real.toComplex();
     }
   } else {
     for (var J = 1; J <= N; J++) {
-      C[J][J] = C[J][J] - A[J][J].real.toComplex();
+      C[J][J] -= A[J][J].real.toComplex();
       for (var I = J + 1; I <= N; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   }

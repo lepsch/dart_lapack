@@ -91,7 +91,7 @@ void dgetrf(
         dscal(M - J, ONE / A[J][J], A(J + 1, J).asArray(), 1);
       } else {
         for (I = 1; I <= M - J; I++) {
-          A[J + I][J] = A[J + I][J] / A[J][J];
+          A[J + I][J] /= A[J][J];
         }
       }
     } else if (A[J][J] == ZERO && INFO.value == 0) {

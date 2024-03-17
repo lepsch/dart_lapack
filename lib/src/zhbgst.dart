@@ -201,26 +201,26 @@ void zhbgst(
         AB[KA1][I] = (((AB[KA1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I + 1; J <= I1; J++) {
           // 20
-          AB[I - J + KA1][J] = AB[I - J + KA1][J] / BII.toComplex();
+          AB[I - J + KA1][J] /= BII.toComplex();
         } // 20
         for (J = max(1, I - KA); J <= I - 1; J++) {
           // 30
-          AB[J - I + KA1][I] = AB[J - I + KA1][I] / BII.toComplex();
+          AB[J - I + KA1][I] /= BII.toComplex();
         } // 30
         for (K = I - KBT; K <= I - 1; K++) {
           // 60
           for (J = I - KBT; J <= K; J++) {
             // 40
-            AB[J - K + KA1][K] = AB[J - K + KA1][K] -
+            AB[J - K + KA1][K] -=
                 BB[J - I + KB1][I] * AB[K - I + KA1][I].conjugate() -
-                BB[K - I + KB1][I].conjugate() * AB[J - I + KA1][I] +
-                AB[KA1][I].real.toComplex() *
-                    BB[J - I + KB1][I] *
-                    BB[K - I + KB1][I].conjugate();
+                    BB[K - I + KB1][I].conjugate() * AB[J - I + KA1][I] +
+                    AB[KA1][I].real.toComplex() *
+                        BB[J - I + KB1][I] *
+                        BB[K - I + KB1][I].conjugate();
           } // 40
           for (J = max(1, I - KA); J <= I - KBT - 1; J++) {
             // 50
-            AB[J - K + KA1][K] = AB[J - K + KA1][K] -
+            AB[J - K + KA1][K] -=
                 BB[K - I + KB1][I].conjugate() * AB[J - I + KA1][I];
           } // 50
         } // 60
@@ -507,27 +507,26 @@ void zhbgst(
         AB[1][I] = (((AB[1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I + 1; J <= I1; J++) {
           // 250
-          AB[J - I + 1][I] = AB[J - I + 1][I] / BII.toComplex();
+          AB[J - I + 1][I] /= BII.toComplex();
         } // 250
         for (J = max(1, I - KA); J <= I - 1; J++) {
           // 260
-          AB[I - J + 1][J] = AB[I - J + 1][J] / BII.toComplex();
+          AB[I - J + 1][J] /= BII.toComplex();
         } // 260
         for (K = I - KBT; K <= I - 1; K++) {
           // 290
           for (J = I - KBT; J <= K; J++) {
             // 270
-            AB[K - J + 1][J] = AB[K - J + 1][J] -
+            AB[K - J + 1][J] -=
                 BB[I - J + 1][J] * AB[I - K + 1][K].conjugate() -
-                BB[I - K + 1][K].conjugate() * AB[I - J + 1][J] +
-                (AB[1][I]).real.toComplex() *
-                    BB[I - J + 1][J] *
-                    BB[I - K + 1][K].conjugate();
+                    BB[I - K + 1][K].conjugate() * AB[I - J + 1][J] +
+                    (AB[1][I]).real.toComplex() *
+                        BB[I - J + 1][J] *
+                        BB[I - K + 1][K].conjugate();
           } // 270
           for (J = max(1, I - KA); J <= I - KBT - 1; J++) {
             // 280
-            AB[K - J + 1][J] = AB[K - J + 1][J] -
-                BB[I - K + 1][K].conjugate() * AB[I - J + 1][J];
+            AB[K - J + 1][J] -= BB[I - K + 1][K].conjugate() * AB[I - J + 1][J];
           } // 280
         } // 290
         for (J = I; J <= I1; J++) {
@@ -862,26 +861,26 @@ void zhbgst(
         AB[KA1][I] = (((AB[KA1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I1; J <= I - 1; J++) {
           // 500
-          AB[J - I + KA1][I] = AB[J - I + KA1][I] / BII.toComplex();
+          AB[J - I + KA1][I] /= BII.toComplex();
         } // 500
         for (J = I + 1; J <= min(N, I + KA); J++) {
           // 510
-          AB[I - J + KA1][J] = AB[I - J + KA1][J] / BII.toComplex();
+          AB[I - J + KA1][J] /= BII.toComplex();
         } // 510
         for (K = I + 1; K <= I + KBT; K++) {
           // 540
           for (J = K; J <= I + KBT; J++) {
             // 520
-            AB[K - J + KA1][J] = AB[K - J + KA1][J] -
+            AB[K - J + KA1][J] -=
                 BB[I - J + KB1][J] * AB[I - K + KA1][K].conjugate() -
-                BB[I - K + KB1][K].conjugate() * AB[I - J + KA1][J] +
-                (AB[KA1][I]).real.toComplex() *
-                    BB[I - J + KB1][J] *
-                    BB[I - K + KB1][K].conjugate();
+                    BB[I - K + KB1][K].conjugate() * AB[I - J + KA1][J] +
+                    (AB[KA1][I]).real.toComplex() *
+                        BB[I - J + KB1][J] *
+                        BB[I - K + KB1][K].conjugate();
           } // 520
           for (J = I + KBT + 1; J <= min(N, I + KA); J++) {
             // 530
-            AB[K - J + KA1][J] = AB[K - J + KA1][J] -
+            AB[K - J + KA1][J] -=
                 BB[I - K + KB1][K].conjugate() * AB[I - J + KA1][J];
           } // 530
         } // 540
@@ -1166,27 +1165,26 @@ void zhbgst(
         AB[1][I] = (((AB[1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I1; J <= I - 1; J++) {
           // 730
-          AB[I - J + 1][J] = AB[I - J + 1][J] / BII.toComplex();
+          AB[I - J + 1][J] /= BII.toComplex();
         } // 730
         for (J = I + 1; J <= min(N, I + KA); J++) {
           // 740
-          AB[J - I + 1][I] = AB[J - I + 1][I] / BII.toComplex();
+          AB[J - I + 1][I] /= BII.toComplex();
         } // 740
         for (K = I + 1; K <= I + KBT; K++) {
           // 770
           for (J = K; J <= I + KBT; J++) {
             // 750
-            AB[J - K + 1][K] = AB[J - K + 1][K] -
+            AB[J - K + 1][K] -=
                 BB[J - I + 1][I] * AB[K - I + 1][I].conjugate() -
-                BB[K - I + 1][I].conjugate() * AB[J - I + 1][I] +
-                (AB[1][I]).real.toComplex() *
-                    BB[J - I + 1][I] *
-                    BB[K - I + 1][I].conjugate();
+                    BB[K - I + 1][I].conjugate() * AB[J - I + 1][I] +
+                    (AB[1][I]).real.toComplex() *
+                        BB[J - I + 1][I] *
+                        BB[K - I + 1][I].conjugate();
           } // 750
           for (J = I + KBT + 1; J <= min(N, I + KA); J++) {
             // 760
-            AB[J - K + 1][K] = AB[J - K + 1][K] -
-                BB[K - I + 1][I].conjugate() * AB[J - I + 1][I];
+            AB[J - K + 1][K] -= BB[K - I + 1][I].conjugate() * AB[J - I + 1][I];
           } // 760
         } // 770
         for (J = I1; J <= I; J++) {

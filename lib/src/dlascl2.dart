@@ -16,7 +16,7 @@ void dlascl2(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      X[I][J] = X[I][J] * D[I];
+      X[I][J] *= D[I];
     }
   }
 }

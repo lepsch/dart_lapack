@@ -119,7 +119,7 @@ void dcsdts(
       WORK.asMatrix(LDX), LDX, ZERO, XF, LDX);
 
   for (I = 1; I <= min(P, Q) - R; I++) {
-    XF[I][I] = XF[I][I] - ONE;
+    XF[I][I] -= ONE;
   }
   for (I = 1; I <= R; I++) {
     XF[min(P, Q) - R + I][min(P, Q) - R + I] =
@@ -133,7 +133,7 @@ void dcsdts(
       WORK.asMatrix(LDX), LDX, ZERO, XF(1, Q + 1), LDX);
 
   for (I = 1; I <= min(P, M - Q) - R; I++) {
-    XF[P - I + 1][M - I + 1] = XF[P - I + 1][M - I + 1] + ONE;
+    XF[P - I + 1][M - I + 1] += ONE;
   }
   for (I = 1; I <= R; I++) {
     XF[P - (min(P, M - Q) - R) + 1 - I][M - (min(P, M - Q) - R) + 1 - I] =
@@ -148,7 +148,7 @@ void dcsdts(
       WORK.asMatrix(LDX), LDX, ZERO, XF(P + 1, 1), LDX);
 
   for (I = 1; I <= min(M - P, Q) - R; I++) {
-    XF[M - I + 1][Q - I + 1] = XF[M - I + 1][Q - I + 1] - ONE;
+    XF[M - I + 1][Q - I + 1] -= ONE;
   }
   for (I = 1; I <= R; I++) {
     XF[M - (min(M - P, Q) - R) + 1 - I][Q - (min(M - P, Q) - R) + 1 - I] =
@@ -163,7 +163,7 @@ void dcsdts(
       LDU2, WORK.asMatrix(LDX), LDX, ZERO, XF(P + 1, Q + 1), LDX);
 
   for (I = 1; I <= min(M - P, M - Q) - R; I++) {
-    XF[P + I][Q + I] = XF[P + I][Q + I] - ONE;
+    XF[P + I][Q + I] -= ONE;
   }
   for (I = 1; I <= R; I++) {
     XF[P + (min(M - P, M - Q) - R) + I][Q + (min(M - P, M - Q) - R) + I] =
@@ -280,7 +280,7 @@ void dcsdts(
       WORK.asMatrix(LDX), LDX, ZERO, X, LDX);
 
   for (I = 1; I <= min(P, Q) - R; I++) {
-    X[I][I] = X[I][I] - ONE;
+    X[I][I] -= ONE;
   }
   for (I = 1; I <= R; I++) {
     X[min(P, Q) - R + I][min(P, Q) - R + I] =
@@ -294,7 +294,7 @@ void dcsdts(
       WORK.asMatrix(LDX), LDX, ZERO, X(P + 1, 1), LDX);
 
   for (I = 1; I <= min(M - P, Q) - R; I++) {
-    X[M - I + 1][Q - I + 1] = X[M - I + 1][Q - I + 1] - ONE;
+    X[M - I + 1][Q - I + 1] -= ONE;
   }
   for (I = 1; I <= R; I++) {
     X[M - (min(M - P, Q) - R) + 1 - I][Q - (min(M - P, Q) - R) + 1 - I] =

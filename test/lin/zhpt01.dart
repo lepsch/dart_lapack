@@ -83,17 +83,17 @@ void zhpt01(
     var JC = 0;
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= J - 1; I++) {
-        C[I][J] = C[I][J] - A[JC + I];
+        C[I][J] -= A[JC + I];
       }
-      C[J][J] = C[J][J] - A[JC + J].real.toComplex();
+      C[J][J] -= A[JC + J].real.toComplex();
       JC += J;
     }
   } else {
     var JC = 1;
     for (var J = 1; J <= N; J++) {
-      C[J][J] = C[J][J] - A[JC].real.toComplex();
+      C[J][J] -= A[JC].real.toComplex();
       for (var I = J + 1; I <= N; I++) {
-        C[I][J] = C[I][J] - A[JC + I - J];
+        C[I][J] -= A[JC + I - J];
       }
       JC += N - J + 1;
     }

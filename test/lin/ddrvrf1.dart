@@ -78,7 +78,7 @@ void ddrvrf1(
       if (IIT == 2) {
         for (var J = 1; J <= N; J++) {
           for (var I = 1; I <= N; I++) {
-            A[I][J] = A[I][J] * LARGE;
+            A[I][J] *= LARGE;
           }
         }
       }
@@ -86,7 +86,7 @@ void ddrvrf1(
       if (IIT == 3) {
         for (var J = 1; J <= N; J++) {
           for (var I = 1; I <= N; I++) {
-            A[I][J] = A[I][J] * SMALL;
+            A[I][J] *= SMALL;
           }
         }
       }

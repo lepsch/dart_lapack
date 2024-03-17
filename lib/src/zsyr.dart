@@ -65,7 +65,7 @@ void zsyr(
           TEMP = ALPHA * X[J];
           for (I = 1; I <= J; I++) {
             // 10
-            A[I][J] = A[I][J] + X[I] * TEMP;
+            A[I][J] += X[I] * TEMP;
           } // 10
         }
       } // 20
@@ -78,7 +78,7 @@ void zsyr(
           IX = KX;
           for (I = 1; I <= J; I++) {
             // 30
-            A[I][J] = A[I][J] + X[IX] * TEMP;
+            A[I][J] += X[IX] * TEMP;
             IX += INCX;
           } // 30
         }
@@ -95,7 +95,7 @@ void zsyr(
           TEMP = ALPHA * X[J];
           for (I = J; I <= N; I++) {
             // 50
-            A[I][J] = A[I][J] + X[I] * TEMP;
+            A[I][J] += X[I] * TEMP;
           } // 50
         }
       } // 60
@@ -108,7 +108,7 @@ void zsyr(
           IX = JX;
           for (I = J; I <= N; I++) {
             // 70
-            A[I][J] = A[I][J] + X[IX] * TEMP;
+            A[I][J] += X[IX] * TEMP;
             IX += INCX;
           } // 70
         }

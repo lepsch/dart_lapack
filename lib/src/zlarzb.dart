@@ -98,7 +98,7 @@ void zlarzb(
       // 30
       for (I = 1; I <= K; I++) {
         // 20
-        C[I][J] = C[I][J] - WORK[J][I];
+        C[I][J] -= WORK[J][I];
       } // 20
     } // 30
 
@@ -147,7 +147,7 @@ void zlarzb(
       // 80
       for (I = 1; I <= M; I++) {
         // 70
-        C[I][J] = C[I][J] - WORK[I][J];
+        C[I][J] -= WORK[I][J];
       } // 70
     } // 80
 

@@ -109,7 +109,7 @@ void dsyl01(
             IWORK,
             IINFO);
         for (I = 1; I <= M; I++) {
-          A[I][I] = A[I][I] * VM[J];
+          A[I][I] *= VM[J];
         }
         ANRM = dlange('M', M, M, A, MAXM, DUM);
         for (N = 51; N <= MAXN; N += 47) {

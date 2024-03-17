@@ -119,7 +119,7 @@ void zgemm(
         for (L = 1; L <= K; L++) {
           TEMP = ALPHA * B[L][J];
           for (I = 1; I <= M; I++) {
-            C[I][J] = C[I][J] + TEMP * A[I][L];
+            C[I][J] += TEMP * A[I][L];
           }
         }
       }
@@ -173,7 +173,7 @@ void zgemm(
         for (L = 1; L <= K; L++) {
           TEMP = ALPHA * B[J][L].conjugate();
           for (I = 1; I <= M; I++) {
-            C[I][J] = C[I][J] + TEMP * A[I][L];
+            C[I][J] += TEMP * A[I][L];
           }
         }
       }
@@ -193,7 +193,7 @@ void zgemm(
         for (L = 1; L <= K; L++) {
           TEMP = ALPHA * B[J][L];
           for (I = 1; I <= M; I++) {
-            C[I][J] = C[I][J] + TEMP * A[I][L];
+            C[I][J] += TEMP * A[I][L];
           }
         }
       }

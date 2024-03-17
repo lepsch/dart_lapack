@@ -282,7 +282,7 @@ void zlasyf_rk(
             } else if (A[K][K] != Complex.zero) {
               for (II = 1; II <= K - 1; II++) {
                 // 14
-                A[II][K] = A[II][K] / A[K][K];
+                A[II][K] /= A[K][K];
               } // 14
             }
 
@@ -572,7 +572,7 @@ void zlasyf_rk(
             } else if (A[K][K] != Complex.zero) {
               for (II = K + 1; II <= N; II++) {
                 // 74
-                A[II][K] = A[II][K] / A[K][K];
+                A[II][K] /= A[K][K];
               } // 74
             }
 

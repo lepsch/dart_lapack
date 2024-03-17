@@ -59,7 +59,7 @@ void zlaunhr_col_getrfnp2(
 
     // Construct the row of U
 
-    A[1][1] = A[1][1] - D[1];
+    A[1][1] -= D[1];
   } else if (N == 1) {
     // One column case, (also recursion termination case),
     // use unblocked code
@@ -70,7 +70,7 @@ void zlaunhr_col_getrfnp2(
 
     // Construct the row of U
 
-    A[1][1] = A[1][1] - D[1];
+    A[1][1] -= D[1];
 
     // Scale the elements 2:M of the column
 
@@ -84,7 +84,7 @@ void zlaunhr_col_getrfnp2(
       zscal(M - 1, Complex.one / A[1][1], A(2, 1).asArray(), 1);
     } else {
       for (I = 2; I <= M; I++) {
-        A[I][1] = A[I][1] / A[1][1];
+        A[I][1] /= A[1][1];
       }
     }
   } else {

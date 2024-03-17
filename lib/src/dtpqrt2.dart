@@ -73,7 +73,7 @@ void dtpqrt2(
 
       ALPHA = -(T[I][1]);
       for (J = 1; J <= N - I; J++) {
-        A[I][I + J] = A[I][I + J] + ALPHA * (T[J][N]);
+        A[I][I + J] += ALPHA * (T[J][N]);
       }
       dger(P, N - I, ALPHA, B(1, I).asArray(), 1, T(1, N).asArray(), 1,
           B(1, I + 1), LDB);

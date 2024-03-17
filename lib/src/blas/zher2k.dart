@@ -128,7 +128,7 @@ void zher2k(
             TEMP1 = ALPHA * B[J][L].conjugate();
             TEMP2 = (ALPHA * A[J][L]).conjugate();
             for (I = 1; I <= J - 1; I++) {
-              C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
+              C[I][J] += A[I][L] * TEMP1 + B[I][L] * TEMP2;
             }
             C[J][J] = (C[J][J].real + (A[J][L] * TEMP1 + B[J][L] * TEMP2).real)
                 .toComplex();
@@ -154,7 +154,7 @@ void zher2k(
             TEMP1 = ALPHA * B[J][L].conjugate();
             TEMP2 = (ALPHA * A[J][L]).conjugate();
             for (I = J + 1; I <= N; I++) {
-              C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
+              C[I][J] += A[I][L] * TEMP1 + B[I][L] * TEMP2;
             }
             C[J][J] = (C[J][J].real + (A[J][L] * TEMP1 + B[J][L] * TEMP2).real)
                 .toComplex();

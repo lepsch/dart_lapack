@@ -95,7 +95,7 @@ void zhetri_rook(
           zcopy(K - 1, A(1, K).asArray(), 1, WORK, 1);
           zhemv(UPLO, K - 1, -Complex.one, A, LDA, WORK, 1, Complex.zero,
               A(1, K).asArray(), 1);
-          A[K][K] = A[K][K] -
+          A[K][K] -=
               zdotc(K - 1, WORK, 1, A(1, K).asArray(), 1).real.toComplex();
         }
         KSTEP = 1;
@@ -119,14 +119,14 @@ void zhetri_rook(
           zcopy(K - 1, A(1, K).asArray(), 1, WORK, 1);
           zhemv(UPLO, K - 1, -Complex.one, A, LDA, WORK, 1, Complex.zero,
               A(1, K).asArray(), 1);
-          A[K][K] = A[K][K] -
+          A[K][K] -=
               zdotc(K - 1, WORK, 1, A(1, K).asArray(), 1).real.toComplex();
-          A[K][K + 1] = A[K][K + 1] -
+          A[K][K + 1] -=
               zdotc(K - 1, A(1, K).asArray(), 1, A(1, K + 1).asArray(), 1);
           zcopy(K - 1, A(1, K + 1).asArray(), 1, WORK, 1);
           zhemv(UPLO, K - 1, -Complex.one, A, LDA, WORK, 1, Complex.zero,
               A(1, K + 1).asArray(), 1);
-          A[K + 1][K + 1] = A[K + 1][K + 1] -
+          A[K + 1][K + 1] -=
               zdotc(K - 1, WORK, 1, A(1, K + 1).asArray(), 1).real.toComplex();
         }
         KSTEP = 2;
@@ -232,7 +232,7 @@ void zhetri_rook(
           zcopy(N - K, A(K + 1, K).asArray(), 1, WORK, 1);
           zhemv(UPLO, N - K, -Complex.one, A(K + 1, K + 1), LDA, WORK, 1,
               Complex.zero, A(K + 1, K).asArray(), 1);
-          A[K][K] = A[K][K] -
+          A[K][K] -=
               zdotc(N - K, WORK, 1, A(K + 1, K).asArray(), 1).real.toComplex();
         }
         KSTEP = 1;
@@ -256,18 +256,16 @@ void zhetri_rook(
           zcopy(N - K, A(K + 1, K).asArray(), 1, WORK, 1);
           zhemv(UPLO, N - K, -Complex.one, A(K + 1, K + 1), LDA, WORK, 1,
               Complex.zero, A(K + 1, K).asArray(), 1);
-          A[K][K] = A[K][K] -
+          A[K][K] -=
               zdotc(N - K, WORK, 1, A(K + 1, K).asArray(), 1).real.toComplex();
-          A[K][K - 1] = A[K][K - 1] -
-              zdotc(N - K, A(K + 1, K).asArray(), 1, A(K + 1, K - 1).asArray(),
-                  1);
+          A[K][K - 1] -= zdotc(
+              N - K, A(K + 1, K).asArray(), 1, A(K + 1, K - 1).asArray(), 1);
           zcopy(N - K, A(K + 1, K - 1).asArray(), 1, WORK, 1);
           zhemv(UPLO, N - K, -Complex.one, A(K + 1, K + 1), LDA, WORK, 1,
               Complex.zero, A(K + 1, K - 1).asArray(), 1);
-          A[K - 1][K - 1] = A[K - 1][K - 1] -
-              zdotc(N - K, WORK, 1, A(K + 1, K - 1).asArray(), 1)
-                  .real
-                  .toComplex();
+          A[K - 1][K - 1] -= zdotc(N - K, WORK, 1, A(K + 1, K - 1).asArray(), 1)
+              .real
+              .toComplex();
         }
         KSTEP = 2;
       }

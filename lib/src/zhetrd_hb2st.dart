@@ -224,7 +224,7 @@ void zhetrd_hb2st(
         } else {
           TMP = Complex.one;
         }
-        if (I < N - 1) AB[ABOFDPOS][I + 2] = AB[ABOFDPOS][I + 2] * TMP;
+        if (I < N - 1) AB[ABOFDPOS][I + 2] *= TMP;
         // IF( WANTZ ) THEN
         //    CALL ZSCAL( N, DCONJG( TMP ), Q( 1, I+1 ), 1 )
         // END IF
@@ -241,7 +241,7 @@ void zhetrd_hb2st(
         } else {
           TMP = Complex.one;
         }
-        if (I < N - 1) AB[ABOFDPOS][I + 1] = AB[ABOFDPOS][I + 1] * TMP;
+        if (I < N - 1) AB[ABOFDPOS][I + 1] *= TMP;
         // IF( WANTQ ) THEN
         //    CALL ZSCAL( N, TMP, Q( 1, I+1 ), 1 )
         // END IF

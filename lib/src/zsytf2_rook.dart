@@ -231,7 +231,7 @@ void zsytf2_rook(
               D11 = A[K][K];
               for (II = 1; II <= K - 1; II++) {
                 // 16
-                A[II][K] = A[II][K] / D11;
+                A[II][K] /= D11;
               } // 16
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -474,7 +474,7 @@ void zsytf2_rook(
               D11 = A[K][K];
               for (II = K + 1; II <= N; II++) {
                 // 46
-                A[II][K] = A[II][K] / D11;
+                A[II][K] /= D11;
               } // 46
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as

@@ -339,7 +339,7 @@ void zlahef_rk(
             } else {
               for (II = 1; II <= K - 1; II++) {
                 // 14
-                A[II][K] = A[II][K] / T.toComplex();
+                A[II][K] /= T.toComplex();
               } // 14
             }
 
@@ -764,7 +764,7 @@ void zlahef_rk(
             } else {
               for (II = K + 1; II <= N; II++) {
                 // 74
-                A[II][K] = A[II][K] / T.toComplex();
+                A[II][K] /= T.toComplex();
               } // 74
             }
 

@@ -102,10 +102,10 @@ void dget35(
                       for (J = 1; J <= M; J++) {
                         A[I][J] = IVAL[I][J][IMA];
                         if ((I - J).abs() <= 1) {
-                          A[I][J] = A[I][J] * VM1[IMLDA1];
-                          A[I][J] = A[I][J] * VM2[IMLDA2];
+                          A[I][J] *= VM1[IMLDA1];
+                          A[I][J] *= VM2[IMLDA2];
                         } else {
-                          A[I][J] = A[I][J] * VM1[IMLOFF];
+                          A[I][J] *= VM1[IMLOFF];
                         }
                         TNRM = max(TNRM, (A[I][J]).abs());
                       }
@@ -114,9 +114,9 @@ void dget35(
                       for (J = 1; J <= N; J++) {
                         B[I][J] = IVAL[I][J][IMB];
                         if ((I - J).abs() <= 1) {
-                          B[I][J] = B[I][J] * VM1[IMLDB1];
+                          B[I][J] *= VM1[IMLDB1];
                         } else {
-                          B[I][J] = B[I][J] * VM1[IMLOFF];
+                          B[I][J] *= VM1[IMLOFF];
                         }
                         TNRM = max(TNRM, (B[I][J]).abs());
                       }

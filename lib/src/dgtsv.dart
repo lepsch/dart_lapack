@@ -48,7 +48,7 @@ void dgtsv(
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
           D[I + 1] = D[I + 1] - FACT * DU[I];
-          B[I + 1][1] = B[I + 1][1] - FACT * B[I][1];
+          B[I + 1][1] -= FACT * B[I][1];
         } else {
           INFO.value = I;
           return;
@@ -75,7 +75,7 @@ void dgtsv(
         if (D[I] != ZERO) {
           FACT = DL[I] / D[I];
           D[I + 1] = D[I + 1] - FACT * DU[I];
-          B[I + 1][1] = B[I + 1][1] - FACT * B[I][1];
+          B[I + 1][1] -= FACT * B[I][1];
         } else {
           INFO.value = I;
           return;
@@ -104,7 +104,7 @@ void dgtsv(
           FACT = DL[I] / D[I];
           D[I + 1] = D[I + 1] - FACT * DU[I];
           for (J = 1; J <= NRHS; J++) {
-            B[I + 1][J] = B[I + 1][J] - FACT * B[I][J];
+            B[I + 1][J] -= FACT * B[I][J];
           }
         } else {
           INFO.value = I;
@@ -135,7 +135,7 @@ void dgtsv(
           FACT = DL[I] / D[I];
           D[I + 1] = D[I + 1] - FACT * DU[I];
           for (J = 1; J <= NRHS; J++) {
-            B[I + 1][J] = B[I + 1][J] - FACT * B[I][J];
+            B[I + 1][J] -= FACT * B[I][J];
           }
         } else {
           INFO.value = I;
@@ -165,7 +165,7 @@ void dgtsv(
   if (NRHS <= 2) {
     J = 1;
     while (true) {
-      B[N][J] = B[N][J] / D[N];
+      B[N][J] /= D[N];
       if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
       for (I = N - 2; I >= 1; I--) {
         B[I][J] = (B[I][J] - DU[I] * B[I + 1][J] - DL[I] * B[I + 2][J]) / D[I];
@@ -178,7 +178,7 @@ void dgtsv(
     }
   } else {
     for (J = 1; J <= NRHS; J++) {
-      B[N][J] = B[N][J] / D[N];
+      B[N][J] /= D[N];
       if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
       for (I = N - 2; I >= 1; I--) {
         B[I][J] = (B[I][J] - DU[I] * B[I + 1][J] - DL[I] * B[I + 2][J]) / D[I];

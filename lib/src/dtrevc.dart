@@ -236,7 +236,7 @@ void dtrevc(
 
               if (XNORM.value > ONE) {
                 if (WORK[J] > BIGNUM / XNORM.value) {
-                  X[1][1] = X[1][1] / XNORM.value;
+                  X[1][1] /= XNORM.value;
                   SCALE.value = SCALE.value / XNORM.value;
                 }
               }
@@ -278,8 +278,8 @@ void dtrevc(
               if (XNORM.value > ONE) {
                 BETA = max(WORK[J - 1], WORK[J]);
                 if (BETA > BIGNUM / XNORM.value) {
-                  X[1][1] = X[1][1] / XNORM.value;
-                  X[2][1] = X[2][1] / XNORM.value;
+                  X[1][1] /= XNORM.value;
+                  X[2][1] /= XNORM.value;
                   SCALE.value = SCALE.value / XNORM.value;
                 }
               }
@@ -370,8 +370,8 @@ void dtrevc(
 
               if (XNORM.value > ONE) {
                 if (WORK[J] > BIGNUM / XNORM.value) {
-                  X[1][1] = X[1][1] / XNORM.value;
-                  X[1][2] = X[1][2] / XNORM.value;
+                  X[1][1] /= XNORM.value;
+                  X[1][2] /= XNORM.value;
                   SCALE.value = SCALE.value / XNORM.value;
                 }
               }
@@ -419,10 +419,10 @@ void dtrevc(
                 BETA = max(WORK[J - 1], WORK[J]);
                 if (BETA > BIGNUM / XNORM.value) {
                   REC = ONE / XNORM.value;
-                  X[1][1] = X[1][1] * REC;
-                  X[1][2] = X[1][2] * REC;
-                  X[2][1] = X[2][1] * REC;
-                  X[2][2] = X[2][2] * REC;
+                  X[1][1] *= REC;
+                  X[1][2] *= REC;
+                  X[2][1] *= REC;
+                  X[2][2] *= REC;
                   SCALE.value = SCALE.value * REC;
                 }
               }

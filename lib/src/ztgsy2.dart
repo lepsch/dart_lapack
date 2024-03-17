@@ -198,15 +198,13 @@ void ztgsy2(
 
         for (K = 1; K <= J - 1; K++) {
           // 50
-          F[I][K] = F[I][K] +
-              RHS[1] * B[K][J].conjugate() +
-              RHS[2] * E[K][J].conjugate();
+          F[I][K] +=
+              RHS[1] * B[K][J].conjugate() + RHS[2] * E[K][J].conjugate();
         } // 50
         for (K = I + 1; K <= M; K++) {
           // 60
-          C[K][J] = C[K][J] -
-              A[I][K].conjugate() * RHS[1] -
-              D[I][K].conjugate() * RHS[2];
+          C[K][J] -=
+              A[I][K].conjugate() * RHS[1] - D[I][K].conjugate() * RHS[2];
         } // 60
       } // 70
     } // 80

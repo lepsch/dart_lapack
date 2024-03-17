@@ -141,7 +141,7 @@ void zdrvrf3(
                     if (lsame(DIAG, 'U')) {
                       for (var J = 1; J <= NA; J++) {
                         for (var I = 1; I <= J; I++) {
-                          A[I][J] = A[I][J] / (2.0.toComplex() * A[J][J]);
+                          A[I][J] /= (2.0.toComplex() * A[J][J]);
                         }
                       }
                     }
@@ -159,7 +159,7 @@ void zdrvrf3(
                     if (lsame(DIAG, 'U')) {
                       for (var I = 1; I <= NA; I++) {
                         for (var J = 1; J <= I; J++) {
-                          A[I][J] = A[I][J] / (2.0.toComplex() * A[I][I]);
+                          A[I][J] /= (2.0.toComplex() * A[I][I]);
                         }
                       }
                     }
@@ -171,7 +171,7 @@ void zdrvrf3(
                   // value 1.0e+00.
 
                   for (var J = 1; J <= NA; J++) {
-                    A[J][J] = A[J][J] * zlarnd(5, ISEED);
+                    A[J][J] *= zlarnd(5, ISEED);
                   }
 
                   // Store a copy of A in RFP format (in ARF).

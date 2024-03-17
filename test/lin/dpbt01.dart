@@ -91,14 +91,14 @@ void dpbt01(
     for (var J = 1; J <= N; J++) {
       final MU = max(1, KD + 2 - J);
       for (var I = MU; I <= KD + 1; I++) {
-        AFAC[I][J] = AFAC[I][J] - A[I][J];
+        AFAC[I][J] -= A[I][J];
       }
     }
   } else {
     for (var J = 1; J <= N; J++) {
       final ML = min(KD + 1, N - J + 1);
       for (var I = 1; I <= ML; I++) {
-        AFAC[I][J] = AFAC[I][J] - A[I][J];
+        AFAC[I][J] -= A[I][J];
       }
     }
   }

@@ -120,7 +120,7 @@ void zsyr2k(
             TEMP1 = ALPHA * B[J][L];
             TEMP2 = ALPHA * A[J][L];
             for (I = 1; I <= J; I++) {
-              C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
+              C[I][J] += A[I][L] * TEMP1 + B[I][L] * TEMP2;
             }
           }
         }
@@ -141,7 +141,7 @@ void zsyr2k(
             TEMP1 = ALPHA * B[J][L];
             TEMP2 = ALPHA * A[J][L];
             for (I = J; I <= N; I++) {
-              C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
+              C[I][J] += A[I][L] * TEMP1 + B[I][L] * TEMP2;
             }
           }
         }

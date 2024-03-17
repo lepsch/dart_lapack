@@ -109,7 +109,7 @@ void zppt03(
   // Add the identity matrix to WORK .
 
   for (var I = 1; I <= N; I++) {
-    WORK[I][I] = WORK[I][I] + Complex.one;
+    WORK[I][I] += Complex.one;
   }
 
   // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

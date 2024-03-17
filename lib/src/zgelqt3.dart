@@ -78,7 +78,7 @@ void zgelqt3(
 
     for (I = 1; I <= M2; I++) {
       for (J = 1; J <= M1; J++) {
-        A[I + M1][J] = A[I + M1][J] - T[I + M1][J];
+        A[I + M1][J] -= T[I + M1][J];
         T[I + M1][J] = Complex.zero;
       }
     }

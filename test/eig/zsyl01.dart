@@ -114,7 +114,7 @@ void zsyl01(
             IWORK,
             IINFO);
         for (I = 1; I <= M; I++) {
-          A[I][I] = A[I][I] * VM[J].toComplex();
+          A[I][I] *= VM[J].toComplex();
         }
         ANRM = zlange('M', M, M, A, MAXM, DUM);
         for (N = 51; N <= MAXN; N += 47) {
@@ -150,7 +150,7 @@ void zsyl01(
               IWORK,
               IINFO);
           for (I = 1; I <= N; I++) {
-            B[I][I] = B[I][I] * VM[J].toComplex();
+            B[I][I] *= VM[J].toComplex();
           }
           BNRM = zlange('M', N, N, B, MAXN, DUM);
           TNRM = max(ANRM, BNRM);

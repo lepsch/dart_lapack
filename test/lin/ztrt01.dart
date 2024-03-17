@@ -70,7 +70,7 @@ void ztrt01(
   // Subtract 1 from each diagonal element to form A*AINV - I.
 
   for (var J = 1; J <= N; J++) {
-    AINV[J][J] = AINV[J][J] - Complex.one;
+    AINV[J][J] -= Complex.one;
   }
 
   // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)

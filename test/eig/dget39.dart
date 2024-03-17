@@ -107,7 +107,7 @@ void dget39(
               for (I = 1; I <= N; I++) {
                 for (J = 1; J <= N; J++) {
                   T[I][J] = IVAL[I][J][NDIM].toDouble() * VM1[IVM1];
-                  if (I >= J) T[I][J] = T[I][J] * VM5[IVM5];
+                  if (I >= J) T[I][J] *= VM5[IVM5];
                 }
               }
 

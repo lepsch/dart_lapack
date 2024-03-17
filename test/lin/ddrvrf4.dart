@@ -155,7 +155,7 @@ void ddrvrf4(
 
               for (var J = 1; J <= N; J++) {
                 for (var I = 1; I <= N; I++) {
-                  C1[I][J] = C1[I][J] - C2[I][J];
+                  C1[I][J] -= C2[I][J];
                 }
               }
 

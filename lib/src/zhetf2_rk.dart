@@ -290,7 +290,7 @@ void zhetf2_rk(
               D11 = (A[K][K]).toDouble();
               for (II = 1; II <= K - 1; II++) {
                 // 16
-                A[II][K] = A[II][K] / D11.toComplex();
+                A[II][K] /= D11.toComplex();
               } // 16
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -342,8 +342,7 @@ void zhetf2_rk(
 
               for (I = J; I >= 1; I--) {
                 // 20
-                A[I][J] = A[I][J] -
-                    (A[I][K] / D.toComplex()) * WK.conjugate() -
+                A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() -
                     (A[I][K - 1] / D.toComplex()) * WKM1.conjugate();
               } // 20
 
@@ -613,7 +612,7 @@ void zhetf2_rk(
               D11 = (A[K][K]).toDouble();
               for (II = K + 1; II <= N; II++) {
                 // 46
-                A[II][K] = A[II][K] / D11.toComplex();
+                A[II][K] /= D11.toComplex();
               } // 46
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -666,8 +665,7 @@ void zhetf2_rk(
 
               for (I = J; I <= N; I++) {
                 // 50
-                A[I][J] = A[I][J] -
-                    (A[I][K] / D.toComplex()) * WK.conjugate() -
+                A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() -
                     (A[I][K + 1] / D.toComplex()) * WKP1.conjugate();
               } // 50
 

@@ -95,7 +95,7 @@ void zlarfb_gett(
 
     for (J = 1; J <= N - K; J++) {
       for (I = 1; I <= K; I++) {
-        A[I][K + J] = A[I][K + J] - WORK[I][J];
+        A[I][K + J] -= WORK[I][J];
       }
     }
   }
@@ -175,7 +175,7 @@ void zlarfb_gett(
 
   for (J = 1; J <= K; J++) {
     for (I = 1; I <= J; I++) {
-      A[I][J] = A[I][J] - WORK[I][J];
+      A[I][J] -= WORK[I][J];
     }
   }
 }

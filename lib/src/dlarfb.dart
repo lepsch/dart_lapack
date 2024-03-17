@@ -94,7 +94,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= N; I++) {
-            C[J][I] = C[J][I] - WORK[I][J];
+            C[J][I] -= WORK[I][J];
           }
         }
       } else if (lsame(SIDE, 'R')) {
@@ -142,7 +142,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= M; I++) {
-            C[I][J] = C[I][J] - WORK[I][J];
+            C[I][J] -= WORK[I][J];
           }
         }
       }
@@ -197,7 +197,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= N; I++) {
-            C[M - K + J][I] = C[M - K + J][I] - WORK[I][J];
+            C[M - K + J][I] -= WORK[I][J];
           }
         }
       } else if (lsame(SIDE, 'R')) {
@@ -245,7 +245,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= M; I++) {
-            C[I][N - K + J] = C[I][N - K + J] - WORK[I][J];
+            C[I][N - K + J] -= WORK[I][J];
           }
         }
       }
@@ -301,7 +301,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= N; I++) {
-            C[J][I] = C[J][I] - WORK[I][J];
+            C[J][I] -= WORK[I][J];
           }
         }
       } else if (lsame(SIDE, 'R')) {
@@ -349,7 +349,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= M; I++) {
-            C[I][J] = C[I][J] - WORK[I][J];
+            C[I][J] -= WORK[I][J];
           }
         }
       }
@@ -403,7 +403,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= N; I++) {
-            C[M - K + J][I] = C[M - K + J][I] - WORK[I][J];
+            C[M - K + J][I] -= WORK[I][J];
           }
         }
       } else if (lsame(SIDE, 'R')) {
@@ -451,7 +451,7 @@ void dlarfb(
 
         for (J = 1; J <= K; J++) {
           for (I = 1; I <= M; I++) {
-            C[I][N - K + J] = C[I][N - K + J] - WORK[I][J];
+            C[I][N - K + J] -= WORK[I][J];
           }
         }
       }

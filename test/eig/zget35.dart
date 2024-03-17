@@ -91,7 +91,7 @@ Future<void> zget35(
                       A[I][J] = ATMP[I][J] * VM1[IMLA].toComplex();
                       TNRM = max(TNRM, (A[I][J]).abs());
                     } // 50
-                    A[I][I] = A[I][I] * VM2[IMLAD].toComplex();
+                    A[I][I] *= VM2[IMLAD].toComplex();
                     TNRM = max(TNRM, (A[I][I]).abs());
                   } // 60
                   for (I = 1; I <= N; I++) {

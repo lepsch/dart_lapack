@@ -145,7 +145,7 @@ void zgsvts3(
     // 100
     for (J = I; J <= L.value; J++) {
       // 90
-      B[I][N - L.value + J] = B[I][N - L.value + J] -
+      B[I][N - L.value + J] -=
           BETA[K.value + I].toComplex() * R[K.value + I][K.value + J];
     } // 90
   } // 100

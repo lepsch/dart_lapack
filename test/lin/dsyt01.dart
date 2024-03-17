@@ -60,13 +60,13 @@ void dsyt01(
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= J; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   } else {
     for (var J = 1; J <= N; J++) {
       for (var I = J; I <= N; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   }

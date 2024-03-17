@@ -79,7 +79,7 @@ void ztplqt2(
 
       ALPHA = -T[1][I];
       for (J = 1; J <= M - I; J++) {
-        A[I + J][I] = A[I + J][I] + ALPHA * T[M][J];
+        A[I + J][I] += ALPHA * T[M][J];
       }
       zgerc(M - I, P, (ALPHA), T(M, 1).asArray(), LDT, B(I, 1).asArray(), LDB,
           B(I + 1, 1), LDB);

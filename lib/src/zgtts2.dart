@@ -44,7 +44,7 @@ void zgtts2(
         for (I = 1; I <= N - 1; I++) {
           // 20
           if (IPIV[I] == I) {
-            B[I + 1][J] = B[I + 1][J] - DL[I] * B[I][J];
+            B[I + 1][J] -= DL[I] * B[I][J];
           } else {
             TEMP = B[I][J];
             B[I][J] = B[I + 1][J];
@@ -54,7 +54,7 @@ void zgtts2(
 
         // Solve U*x = b.
 
-        B[N][J] = B[N][J] / D[N];
+        B[N][J] /= D[N];
         if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
         for (I = N - 2; I >= 1; I--) {
           // 30
@@ -76,7 +76,7 @@ void zgtts2(
         for (I = 1; I <= N - 1; I++) {
           // 40
           if (IPIV[I] == I) {
-            B[I + 1][J] = B[I + 1][J] - DL[I] * B[I][J];
+            B[I + 1][J] -= DL[I] * B[I][J];
           } else {
             TEMP = B[I][J];
             B[I][J] = B[I + 1][J];
@@ -86,7 +86,7 @@ void zgtts2(
 
         // Solve U*x = b.
 
-        B[N][J] = B[N][J] / D[N];
+        B[N][J] /= D[N];
         if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
         for (I = N - 2; I >= 1; I--) {
           // 50
@@ -103,7 +103,7 @@ void zgtts2(
       while (true) {
         // Solve U**T * x = b.
 
-        B[1][J] = B[1][J] / D[1];
+        B[1][J] /= D[1];
         if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
         for (I = 3; I <= N; I++) {
           // 80
@@ -117,7 +117,7 @@ void zgtts2(
         for (I = N - 1; I >= 1; I--) {
           // 90
           if (IPIV[I] == I) {
-            B[I][J] = B[I][J] - DL[I] * B[I + 1][J];
+            B[I][J] -= DL[I] * B[I + 1][J];
           } else {
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - DL[I] * TEMP;
@@ -136,7 +136,7 @@ void zgtts2(
 
         // Solve U**T * x = b.
 
-        B[1][J] = B[1][J] / D[1];
+        B[1][J] /= D[1];
         if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
         for (I = 3; I <= N; I++) {
           // 100
@@ -150,7 +150,7 @@ void zgtts2(
         for (I = N - 1; I >= 1; I--) {
           // 110
           if (IPIV[I] == I) {
-            B[I][J] = B[I][J] - DL[I] * B[I + 1][J];
+            B[I][J] -= DL[I] * B[I + 1][J];
           } else {
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - DL[I] * TEMP;
@@ -167,7 +167,7 @@ void zgtts2(
       while (true) {
         // Solve U**H * x = b.
 
-        B[1][J] = B[1][J] / D[1].conjugate();
+        B[1][J] /= D[1].conjugate();
         if (N > 1) {
           B[2][J] = (B[2][J] - DU[1].conjugate() * B[1][J]) / D[2].conjugate();
         }
@@ -184,7 +184,7 @@ void zgtts2(
         for (I = N - 1; I >= 1; I--) {
           // 150
           if (IPIV[I] == I) {
-            B[I][J] = B[I][J] - DL[I].conjugate() * B[I + 1][J];
+            B[I][J] -= DL[I].conjugate() * B[I + 1][J];
           } else {
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - DL[I].conjugate() * TEMP;
@@ -203,7 +203,7 @@ void zgtts2(
 
         // Solve U**H * x = b.
 
-        B[1][J] = B[1][J] / D[1].conjugate();
+        B[1][J] /= D[1].conjugate();
         if (N > 1) {
           B[2][J] = (B[2][J] - DU[1].conjugate() * B[1][J]) / D[2].conjugate();
         }
@@ -220,7 +220,7 @@ void zgtts2(
         for (I = N - 1; I >= 1; I--) {
           // 170
           if (IPIV[I] == I) {
-            B[I][J] = B[I][J] - DL[I].conjugate() * B[I + 1][J];
+            B[I][J] -= DL[I].conjugate() * B[I + 1][J];
           } else {
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - DL[I].conjugate() * TEMP;

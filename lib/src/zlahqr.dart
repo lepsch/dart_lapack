@@ -292,8 +292,8 @@ void zlahqr(
         for (J = K; J <= I2; J++) {
           // 80
           SUM = T1.value.conjugate() * H[K][J] + T2.toComplex() * H[K + 1][J];
-          H[K][J] = H[K][J] - SUM;
-          H[K + 1][J] = H[K + 1][J] - SUM * V2;
+          H[K][J] -= SUM;
+          H[K + 1][J] -= SUM * V2;
         } // 80
 
         // Apply G from the right to transform the columns of the
@@ -302,8 +302,8 @@ void zlahqr(
         for (J = I1; J <= min(K + 2, I); J++) {
           // 90
           SUM = T1.value * H[J][K] + T2.toComplex() * H[J][K + 1];
-          H[J][K] = H[J][K] - SUM;
-          H[J][K + 1] = H[J][K + 1] - SUM * V2.conjugate();
+          H[J][K] -= SUM;
+          H[J][K + 1] -= SUM * V2.conjugate();
         } // 90
 
         if (WANTZ) {
@@ -312,8 +312,8 @@ void zlahqr(
           for (J = ILOZ; J <= IHIZ; J++) {
             // 100
             SUM = T1.value * Z[J][K] + T2.toComplex() * Z[J][K + 1];
-            Z[J][K] = Z[J][K] - SUM;
-            Z[J][K + 1] = Z[J][K + 1] - SUM * V2.conjugate();
+            Z[J][K] -= SUM;
+            Z[J][K + 1] -= SUM * V2.conjugate();
           } // 100
         }
 
@@ -325,8 +325,8 @@ void zlahqr(
 
           TEMP = Complex.one - T1.value;
           TEMP = TEMP / TEMP.abs().toComplex();
-          H[M + 1][M] = H[M + 1][M] * TEMP.conjugate();
-          if (M + 2 <= I) H[M + 2][M + 1] = H[M + 2][M + 1] * TEMP;
+          H[M + 1][M] *= TEMP.conjugate();
+          if (M + 2 <= I) H[M + 2][M + 1] *= TEMP;
           for (J = M; J <= I; J++) {
             // 110
             if (J != M + 1) {

@@ -92,15 +92,15 @@ void zpot01(
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= J - 1; I++) {
-        AFAC[I][J] = AFAC[I][J] - A[I][J];
+        AFAC[I][J] -= A[I][J];
       }
-      AFAC[J][J] = AFAC[J][J] - A[J][J].real.toComplex();
+      AFAC[J][J] -= A[J][J].real.toComplex();
     }
   } else {
     for (var J = 1; J <= N; J++) {
-      AFAC[J][J] = AFAC[J][J] - A[J][J].real.toComplex();
+      AFAC[J][J] -= A[J][J].real.toComplex();
       for (var I = J + 1; I <= N; I++) {
-        AFAC[I][J] = AFAC[I][J] - A[I][J];
+        AFAC[I][J] -= A[I][J];
       }
     }
   }

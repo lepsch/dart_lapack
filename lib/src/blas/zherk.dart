@@ -120,7 +120,7 @@ void zherk(
           if (A[J][L] != Complex.zero) {
             TEMP = ALPHA.toComplex() * A[J][L].conjugate();
             for (I = 1; I <= J - 1; I++) {
-              C[I][J] = C[I][J] + TEMP * A[I][L];
+              C[I][J] += TEMP * A[I][L];
             }
             C[J][J] =
                 (C[J][J].toDouble() + (TEMP * A[I][L]).toDouble()).toComplex();
@@ -147,7 +147,7 @@ void zherk(
             C[J][J] =
                 (C[J][J].toDouble() + (TEMP * A[J][L]).toDouble()).toComplex();
             for (I = J + 1; I <= N; I++) {
-              C[I][J] = C[I][J] + TEMP * A[I][L];
+              C[I][J] += TEMP * A[I][L];
             }
           }
         }

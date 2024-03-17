@@ -94,9 +94,9 @@ void ztrsm(
           }
           for (K = M; K >= 1; K--) {
             if (B[K][J] != Complex.zero) {
-              if (NOUNIT) B[K][J] = B[K][J] / A[K][K];
+              if (NOUNIT) B[K][J] /= A[K][K];
               for (I = 1; I <= K - 1; I++) {
-                B[I][J] = B[I][J] - B[K][J] * A[I][K];
+                B[I][J] -= B[K][J] * A[I][K];
               }
             }
           }
@@ -110,9 +110,9 @@ void ztrsm(
           }
           for (K = 1; K <= M; K++) {
             if (B[K][J] != Complex.zero) {
-              if (NOUNIT) B[K][J] = B[K][J] / A[K][K];
+              if (NOUNIT) B[K][J] /= A[K][K];
               for (I = K + 1; I <= M; I++) {
-                B[I][J] = B[I][J] - B[K][J] * A[I][K];
+                B[I][J] -= B[K][J] * A[I][K];
               }
             }
           }
@@ -174,7 +174,7 @@ void ztrsm(
           for (K = 1; K <= J - 1; K++) {
             if (A[K][J] != Complex.zero) {
               for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] - A[K][J] * B[I][K];
+                B[I][J] -= A[K][J] * B[I][K];
               }
             }
           }
@@ -195,7 +195,7 @@ void ztrsm(
           for (K = J + 1; K <= N; K++) {
             if (A[K][J] != Complex.zero) {
               for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] - A[K][J] * B[I][K];
+                B[I][J] -= A[K][J] * B[I][K];
               }
             }
           }
@@ -231,7 +231,7 @@ void ztrsm(
                 TEMP = A[J][K].conjugate();
               }
               for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] - TEMP * B[I][K];
+                B[I][J] -= TEMP * B[I][K];
               }
             }
           }
@@ -261,7 +261,7 @@ void ztrsm(
                 TEMP = A[J][K].conjugate();
               }
               for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] - TEMP * B[I][K];
+                B[I][J] -= TEMP * B[I][K];
               }
             }
           }

@@ -88,7 +88,7 @@ void dgetc2(
       A[I][I] = SMIN;
     }
     for (J = I + 1; J <= N; J++) {
-      A[J][I] = A[J][I] / A[I][I];
+      A[J][I] /= A[I][I];
     }
     dger(N - I, N - I, -ONE, A(I + 1, I).asArray(), 1, A(I, I + 1).asArray(),
         LDA, A(I + 1, I + 1), LDA);

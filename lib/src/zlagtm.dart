@@ -56,16 +56,14 @@ void zlagtm(
       for (J = 1; J <= NRHS; J++) {
         // 60
         if (N == 1) {
-          B[1][J] = B[1][J] + D[1] * X[1][J];
+          B[1][J] += D[1] * X[1][J];
         } else {
-          B[1][J] = B[1][J] + D[1] * X[1][J] + DU[1] * X[2][J];
-          B[N][J] = B[N][J] + DL[N - 1] * X[N - 1][J] + D[N] * X[N][J];
+          B[1][J] += D[1] * X[1][J] + DU[1] * X[2][J];
+          B[N][J] += DL[N - 1] * X[N - 1][J] + D[N] * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             // 50
-            B[I][J] = B[I][J] +
-                DL[I - 1] * X[I - 1][J] +
-                D[I] * X[I][J] +
-                DU[I] * X[I + 1][J];
+            B[I][J] +=
+                DL[I - 1] * X[I - 1][J] + D[I] * X[I][J] + DU[I] * X[I + 1][J];
           } // 50
         }
       } // 60
@@ -75,16 +73,14 @@ void zlagtm(
       for (J = 1; J <= NRHS; J++) {
         // 80
         if (N == 1) {
-          B[1][J] = B[1][J] + D[1] * X[1][J];
+          B[1][J] += D[1] * X[1][J];
         } else {
-          B[1][J] = B[1][J] + D[1] * X[1][J] + DL[1] * X[2][J];
-          B[N][J] = B[N][J] + DU[N - 1] * X[N - 1][J] + D[N] * X[N][J];
+          B[1][J] += D[1] * X[1][J] + DL[1] * X[2][J];
+          B[N][J] += DU[N - 1] * X[N - 1][J] + D[N] * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             // 70
-            B[I][J] = B[I][J] +
-                DU[I - 1] * X[I - 1][J] +
-                D[I] * X[I][J] +
-                DL[I] * X[I + 1][J];
+            B[I][J] +=
+                DU[I - 1] * X[I - 1][J] + D[I] * X[I][J] + DL[I] * X[I + 1][J];
           } // 70
         }
       } // 80
@@ -94,18 +90,15 @@ void zlagtm(
       for (J = 1; J <= NRHS; J++) {
         // 100
         if (N == 1) {
-          B[1][J] = B[1][J] + (D[1].conjugate()) * X[1][J];
+          B[1][J] += (D[1].conjugate()) * X[1][J];
         } else {
-          B[1][J] = B[1][J] +
-              (D[1].conjugate()) * X[1][J] +
-              (DL[1].conjugate()) * X[2][J];
-          B[N][J] = B[N][J] +
-              (DU[N - 1].conjugate()) * X[N - 1][J] +
+          B[1][J] +=
+              (D[1].conjugate()) * X[1][J] + (DL[1].conjugate()) * X[2][J];
+          B[N][J] += (DU[N - 1].conjugate()) * X[N - 1][J] +
               (D[N].conjugate()) * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             // 90
-            B[I][J] = B[I][J] +
-                (DU[I - 1].conjugate()) * X[I - 1][J] +
+            B[I][J] += (DU[I - 1].conjugate()) * X[I - 1][J] +
                 (D[I].conjugate()) * X[I][J] +
                 (DL[I].conjugate()) * X[I + 1][J];
           } // 90
@@ -119,16 +112,14 @@ void zlagtm(
       for (J = 1; J <= NRHS; J++) {
         // 120
         if (N == 1) {
-          B[1][J] = B[1][J] - D[1] * X[1][J];
+          B[1][J] -= D[1] * X[1][J];
         } else {
-          B[1][J] = B[1][J] - D[1] * X[1][J] - DU[1] * X[2][J];
-          B[N][J] = B[N][J] - DL[N - 1] * X[N - 1][J] - D[N] * X[N][J];
+          B[1][J] -= D[1] * X[1][J] - DU[1] * X[2][J];
+          B[N][J] -= DL[N - 1] * X[N - 1][J] - D[N] * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             // 110
-            B[I][J] = B[I][J] -
-                DL[I - 1] * X[I - 1][J] -
-                D[I] * X[I][J] -
-                DU[I] * X[I + 1][J];
+            B[I][J] -=
+                DL[I - 1] * X[I - 1][J] - D[I] * X[I][J] - DU[I] * X[I + 1][J];
           } // 110
         }
       } // 120
@@ -138,16 +129,14 @@ void zlagtm(
       for (J = 1; J <= NRHS; J++) {
         // 140
         if (N == 1) {
-          B[1][J] = B[1][J] - D[1] * X[1][J];
+          B[1][J] -= D[1] * X[1][J];
         } else {
-          B[1][J] = B[1][J] - D[1] * X[1][J] - DL[1] * X[2][J];
-          B[N][J] = B[N][J] - DU[N - 1] * X[N - 1][J] - D[N] * X[N][J];
+          B[1][J] -= D[1] * X[1][J] - DL[1] * X[2][J];
+          B[N][J] -= DU[N - 1] * X[N - 1][J] - D[N] * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             // 130
-            B[I][J] = B[I][J] -
-                DU[I - 1] * X[I - 1][J] -
-                D[I] * X[I][J] -
-                DL[I] * X[I + 1][J];
+            B[I][J] -=
+                DU[I - 1] * X[I - 1][J] - D[I] * X[I][J] - DL[I] * X[I + 1][J];
           } // 130
         }
       } // 140
@@ -157,18 +146,15 @@ void zlagtm(
       for (J = 1; J <= NRHS; J++) {
         // 160
         if (N == 1) {
-          B[1][J] = B[1][J] - (D[1].conjugate()) * X[1][J];
+          B[1][J] -= (D[1].conjugate()) * X[1][J];
         } else {
-          B[1][J] = B[1][J] -
-              (D[1].conjugate()) * X[1][J] -
-              (DL[1].conjugate()) * X[2][J];
-          B[N][J] = B[N][J] -
-              (DU[N - 1].conjugate()) * X[N - 1][J] -
+          B[1][J] -=
+              (D[1].conjugate()) * X[1][J] - (DL[1].conjugate()) * X[2][J];
+          B[N][J] -= (DU[N - 1].conjugate()) * X[N - 1][J] -
               (D[N].conjugate()) * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             // 150
-            B[I][J] = B[I][J] -
-                (DU[I - 1].conjugate()) * X[I - 1][J] -
+            B[I][J] -= (DU[I - 1].conjugate()) * X[I - 1][J] -
                 (D[I].conjugate()) * X[I][J] -
                 (DL[I].conjugate()) * X[I + 1][J];
           } // 150

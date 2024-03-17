@@ -61,7 +61,7 @@ void zgtsv(
       D[K + 1] = D[K + 1] - MULT * DU[K];
       for (J = 1; J <= NRHS; J++) {
         // 10
-        B[K + 1][J] = B[K + 1][J] - MULT * B[K][J];
+        B[K + 1][J] -= MULT * B[K][J];
       } // 10
       if (K < (N - 1)) DL[K] = Complex.zero;
     } else {
@@ -93,7 +93,7 @@ void zgtsv(
 
   for (J = 1; J <= NRHS; J++) {
     // 50
-    B[N][J] = B[N][J] / D[N];
+    B[N][J] /= D[N];
     if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
     for (K = N - 2; K >= 1; K--) {
       // 40

@@ -87,15 +87,15 @@ void zgtt01(
 
   // Subtract the matrix A.
 
-  WORK[1][1] = WORK[1][1] - D[1];
+  WORK[1][1] -= D[1];
   if (N > 1) {
-    WORK[1][2] = WORK[1][2] - DU[1];
-    WORK[N][N - 1] = WORK[N][N - 1] - DL[N - 1];
-    WORK[N][N] = WORK[N][N] - D[N];
+    WORK[1][2] -= DU[1];
+    WORK[N][N - 1] -= DL[N - 1];
+    WORK[N][N] -= D[N];
     for (var I = 2; I <= N - 1; I++) {
-      WORK[I][I - 1] = WORK[I][I - 1] - DL[I - 1];
-      WORK[I][I] = WORK[I][I] - D[I];
-      WORK[I][I + 1] = WORK[I][I + 1] - DU[I];
+      WORK[I][I - 1] -= DL[I - 1];
+      WORK[I][I] -= D[I];
+      WORK[I][I + 1] -= DU[I];
     }
   }
 

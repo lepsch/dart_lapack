@@ -15,7 +15,7 @@ void zlascl2(
 
   for (var J = 1; J <= N; J++) {
     for (var I = 1; I <= M; I++) {
-      X[I][J] = X[I][J] * D[I].toComplex();
+      X[I][J] *= D[I].toComplex();
     }
   }
 }

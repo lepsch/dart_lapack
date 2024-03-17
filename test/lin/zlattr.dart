@@ -520,7 +520,7 @@ void zlattr(
         zlarnv(5, ISEED, J, A(1, J).asArray());
         dlarnv(1, ISEED, J, RWORK);
         for (var I = 1; I <= J; I++) {
-          A[I][J] = A[I][J] * (TLEFT + RWORK[I] * TSCAL).toComplex();
+          A[I][J] *= (TLEFT + RWORK[I] * TSCAL).toComplex();
         }
       }
     } else {
@@ -528,7 +528,7 @@ void zlattr(
         zlarnv(5, ISEED, N - J + 1, A(J, J).asArray());
         dlarnv(1, ISEED, N - J + 1, RWORK);
         for (var I = J; I <= N; I++) {
-          A[I][J] = A[I][J] * (TLEFT + RWORK[I - J + 1] * TSCAL).toComplex();
+          A[I][J] *= (TLEFT + RWORK[I - J + 1] * TSCAL).toComplex();
         }
       }
     }

@@ -69,7 +69,7 @@ void dtrt01(
   // Subtract 1 from each diagonal element to form A*AINV - I.
 
   for (var J = 1; J <= N; J++) {
-    AINV[J][J] = AINV[J][J] - ONE;
+    AINV[J][J] -= ONE;
   }
 
   // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)

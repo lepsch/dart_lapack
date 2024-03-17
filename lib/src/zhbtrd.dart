@@ -307,7 +307,7 @@ void zhbtrd(
         } else {
           T = Complex.one;
         }
-        if (I < N - 1) AB[KD][I + 2] = AB[KD][I + 2] * T;
+        if (I < N - 1) AB[KD][I + 2] *= T;
         if (WANTQ) {
           zscal(N, T.conjugate(), Q(1, I + 1).asArray(), 1);
         }
@@ -521,7 +521,7 @@ void zhbtrd(
         } else {
           T = Complex.one;
         }
-        if (I < N - 1) AB[2][I + 1] = AB[2][I + 1] * T;
+        if (I < N - 1) AB[2][I + 1] *= T;
         if (WANTQ) {
           zscal(N, T, Q(1, I + 1).asArray(), 1);
         }

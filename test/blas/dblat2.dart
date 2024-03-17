@@ -3178,7 +3178,7 @@ void _dmake(
         }
       }
     }
-    if (TRI) A[J][J] = A[J][J] + ONE;
+    if (TRI) A[J][J] += ONE;
     if (UNIT) A[J][J] = ONE;
   }
 

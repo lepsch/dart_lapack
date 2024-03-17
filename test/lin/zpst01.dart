@@ -142,15 +142,15 @@ void zpst01(
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= J - 1; I++) {
-        PERM[I][J] = PERM[I][J] - A[I][J];
+        PERM[I][J] -= A[I][J];
       }
-      PERM[J][J] = PERM[J][J] - A[J][J].real.toComplex();
+      PERM[J][J] -= A[J][J].real.toComplex();
     }
   } else {
     for (var J = 1; J <= N; J++) {
-      PERM[J][J] = PERM[J][J] - A[J][J].real.toComplex();
+      PERM[J][J] -= A[J][J].real.toComplex();
       for (var I = J + 1; I <= N; I++) {
-        PERM[I][J] = PERM[I][J] - A[I][J];
+        PERM[I][J] -= A[I][J];
       }
     }
   }

@@ -340,7 +340,7 @@ void zhgeqz(
                         C.value, S.value.conjugate());
                   }
                   if (ILAZR2) {
-                    H[JCH][JCH - 1] = H[JCH][JCH - 1] * C.value.toComplex();
+                    H[JCH][JCH - 1] *= C.value.toComplex();
                   }
                   ILAZR2 = false;
                   if (ABS1(T[JCH + 1][JCH + 1]) >= BTOL) {

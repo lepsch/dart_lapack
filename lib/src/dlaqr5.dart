@@ -223,8 +223,8 @@ void dlaqr5(
         T2 = T1 * V[2][M22];
         for (J = JTOP; J <= min(KBOT, K + 3); J++) {
           REFSUM = H[J][K + 1] + V[2][M22] * H[J][K + 2];
-          H[J][K + 1] = H[J][K + 1] - REFSUM * T1;
-          H[J][K + 2] = H[J][K + 2] - REFSUM * T2;
+          H[J][K + 1] -= REFSUM * T1;
+          H[J][K + 2] -= REFSUM * T2;
         }
 
         // ==== Perform update from left within
@@ -241,8 +241,8 @@ void dlaqr5(
         T2 = T1 * V[2][M22];
         for (J = K + 1; J <= JBOT; J++) {
           REFSUM = H[K + 1][J] + V[2][M22] * H[K + 2][J];
-          H[K + 1][J] = H[K + 1][J] - REFSUM * T1;
-          H[K + 2][J] = H[K + 2][J] - REFSUM * T2;
+          H[K + 1][J] -= REFSUM * T1;
+          H[K + 2][J] -= REFSUM * T2;
         }
 
         // ==== The following convergence test requires that
@@ -291,16 +291,16 @@ void dlaqr5(
           T2 = T1 * V[2][M22];
           for (J = max(1, KTOP - INCOL); J <= KDU; J++) {
             REFSUM = U[J][KMS + 1] + V[2][M22] * U[J][KMS + 2];
-            U[J][KMS + 1] = U[J][KMS + 1] - REFSUM * T1;
-            U[J][KMS + 2] = U[J][KMS + 2] - REFSUM * T2;
+            U[J][KMS + 1] -= REFSUM * T1;
+            U[J][KMS + 2] -= REFSUM * T2;
           }
         } else if (WANTZ) {
           T1 = V[1][M22];
           T2 = T1 * V[2][M22];
           for (J = ILOZ; J <= IHIZ; J++) {
             REFSUM = Z[J][K + 1] + V[2][M22] * Z[J][K + 2];
-            Z[J][K + 1] = Z[J][K + 1] - REFSUM * T1;
-            Z[J][K + 2] = Z[J][K + 2] - REFSUM * T2;
+            Z[J][K + 1] -= REFSUM * T1;
+            Z[J][K + 2] -= REFSUM * T2;
           }
         }
       }
@@ -325,7 +325,7 @@ void dlaqr5(
           REFSUM = V[3][M] * H[K + 3][K + 2];
           H[K + 3][K] = -REFSUM * T1;
           H[K + 3][K + 1] = -REFSUM * T2;
-          H[K + 3][K + 2] = H[K + 3][K + 2] - REFSUM * T3;
+          H[K + 3][K + 2] -= REFSUM * T3;
 
           // ==== Calculate reflection to move
           // .    Mth bulge one step. ====
@@ -382,7 +382,7 @@ void dlaqr5(
               // .    Replace the old reflector with
               // .    the new one. ====
 
-              H[K + 1][K] = H[K + 1][K] - REFSUM * T1;
+              H[K + 1][K] -= REFSUM * T1;
               H[K + 2][K] = ZERO;
               H[K + 3][K] = ZERO;
               V[1][M] = VT[1];
@@ -403,9 +403,9 @@ void dlaqr5(
         T3 = T1 * V[3][M];
         for (J = JTOP; J <= min(KBOT, K + 3); J++) {
           REFSUM = H[J][K + 1] + V[2][M] * H[J][K + 2] + V[3][M] * H[J][K + 3];
-          H[J][K + 1] = H[J][K + 1] - REFSUM * T1;
-          H[J][K + 2] = H[J][K + 2] - REFSUM * T2;
-          H[J][K + 3] = H[J][K + 3] - REFSUM * T3;
+          H[J][K + 1] -= REFSUM * T1;
+          H[J][K + 2] -= REFSUM * T2;
+          H[J][K + 3] -= REFSUM * T3;
         }
 
         // ==== Perform update from left for subsequent
@@ -414,9 +414,9 @@ void dlaqr5(
         REFSUM = H[K + 1][K + 1] +
             V[2][M] * H[K + 2][K + 1] +
             V[3][M] * H[K + 3][K + 1];
-        H[K + 1][K + 1] = H[K + 1][K + 1] - REFSUM * T1;
-        H[K + 2][K + 1] = H[K + 2][K + 1] - REFSUM * T2;
-        H[K + 3][K + 1] = H[K + 3][K + 1] - REFSUM * T3;
+        H[K + 1][K + 1] -= REFSUM * T1;
+        H[K + 2][K + 1] -= REFSUM * T2;
+        H[K + 3][K + 1] -= REFSUM * T3;
 
         // ==== The following convergence test requires that
         // .    the tradition small-compared-to-nearby-diagonals
@@ -472,9 +472,9 @@ void dlaqr5(
         T3 = T1 * V[3][M];
         for (J = max(KTOP, KRCOL + 2 * M); J <= JBOT; J++) {
           REFSUM = H[K + 1][J] + V[2][M] * H[K + 2][J] + V[3][M] * H[K + 3][J];
-          H[K + 1][J] = H[K + 1][J] - REFSUM * T1;
-          H[K + 2][J] = H[K + 2][J] - REFSUM * T2;
-          H[K + 3][J] = H[K + 3][J] - REFSUM * T3;
+          H[K + 1][J] -= REFSUM * T1;
+          H[K + 2][J] -= REFSUM * T2;
+          H[K + 3][J] -= REFSUM * T3;
         }
       }
 
@@ -498,9 +498,9 @@ void dlaqr5(
             REFSUM = U[J][KMS + 1] +
                 V[2][M] * U[J][KMS + 2] +
                 V[3][M] * U[J][KMS + 3];
-            U[J][KMS + 1] = U[J][KMS + 1] - REFSUM * T1;
-            U[J][KMS + 2] = U[J][KMS + 2] - REFSUM * T2;
-            U[J][KMS + 3] = U[J][KMS + 3] - REFSUM * T3;
+            U[J][KMS + 1] -= REFSUM * T1;
+            U[J][KMS + 2] -= REFSUM * T2;
+            U[J][KMS + 3] -= REFSUM * T3;
           }
         }
       } else if (WANTZ) {
@@ -516,9 +516,9 @@ void dlaqr5(
           for (J = ILOZ; J <= IHIZ; J++) {
             REFSUM =
                 Z[J][K + 1] + V[2][M] * Z[J][K + 2] + V[3][M] * Z[J][K + 3];
-            Z[J][K + 1] = Z[J][K + 1] - REFSUM * T1;
-            Z[J][K + 2] = Z[J][K + 2] - REFSUM * T2;
-            Z[J][K + 3] = Z[J][K + 3] - REFSUM * T3;
+            Z[J][K + 1] -= REFSUM * T1;
+            Z[J][K + 2] -= REFSUM * T2;
+            Z[J][K + 3] -= REFSUM * T3;
           }
         }
       }

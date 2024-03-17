@@ -108,7 +108,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -116,7 +116,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -127,7 +127,7 @@ void ztprfb(
     ztrmm('L', 'U', 'N', 'N', L, N, Complex.one, V(MP, 1), LDV, WORK, LDWORK);
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= L; I++) {
-        B[M - L + I][J] = B[M - L + I][J] - WORK[I][J];
+        B[M - L + I][J] -= WORK[I][J];
       }
     }
 
@@ -163,7 +163,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -171,7 +171,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -182,7 +182,7 @@ void ztprfb(
     ztrmm('R', 'U', 'C', 'N', M, L, Complex.one, V(NP, 1), LDV, WORK, LDWORK);
     for (J = 1; J <= L; J++) {
       for (I = 1; I <= M; I++) {
-        B[I][N - L + J] = B[I][N - L + J] - WORK[I][J];
+        B[I][N - L + J] -= WORK[I][J];
       }
     }
 
@@ -221,7 +221,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -229,7 +229,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -241,7 +241,7 @@ void ztprfb(
         LDWORK);
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= L; I++) {
-        B[I][J] = B[I][J] - WORK[K - L + I][J];
+        B[I][J] -= WORK[K - L + I][J];
       }
     }
 
@@ -278,7 +278,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -286,7 +286,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -298,7 +298,7 @@ void ztprfb(
         LDWORK);
     for (J = 1; J <= L; J++) {
       for (I = 1; I <= M; I++) {
-        B[I][J] = B[I][J] - WORK[I][K - L + J];
+        B[I][J] -= WORK[I][K - L + J];
       }
     }
 
@@ -334,7 +334,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -342,7 +342,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -353,7 +353,7 @@ void ztprfb(
     ztrmm('L', 'L', 'C', 'N', L, N, Complex.one, V(1, MP), LDV, WORK, LDWORK);
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= L; I++) {
-        B[M - L + I][J] = B[M - L + I][J] - WORK[I][J];
+        B[M - L + I][J] -= WORK[I][J];
       }
     }
 
@@ -388,7 +388,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -396,7 +396,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -407,7 +407,7 @@ void ztprfb(
     ztrmm('R', 'L', 'N', 'N', M, L, Complex.one, V(1, NP), LDV, WORK, LDWORK);
     for (J = 1; J <= L; J++) {
       for (I = 1; I <= M; I++) {
-        B[I][N - L + J] = B[I][N - L + J] - WORK[I][J];
+        B[I][N - L + J] -= WORK[I][J];
       }
     }
 
@@ -444,7 +444,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -452,7 +452,7 @@ void ztprfb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -464,7 +464,7 @@ void ztprfb(
         LDWORK);
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= L; I++) {
-        B[I][J] = B[I][J] - WORK[K - L + I][J];
+        B[I][J] -= WORK[K - L + I][J];
       }
     }
 
@@ -500,7 +500,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        WORK[I][J] = WORK[I][J] + A[I][J];
+        WORK[I][J] += A[I][J];
       }
     }
 
@@ -508,7 +508,7 @@ void ztprfb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        A[I][J] = A[I][J] - WORK[I][J];
+        A[I][J] -= WORK[I][J];
       }
     }
 
@@ -520,7 +520,7 @@ void ztprfb(
         LDWORK);
     for (J = 1; J <= L; J++) {
       for (I = 1; I <= M; I++) {
-        B[I][J] = B[I][J] - WORK[I][K - L + J];
+        B[I][J] -= WORK[I][K - L + J];
       }
     }
   }

@@ -84,7 +84,7 @@ void dlarzb(
 
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= K; I++) {
-        C[I][J] = C[I][J] - WORK[J][I];
+        C[I][J] -= WORK[J][I];
       }
     }
 
@@ -120,7 +120,7 @@ void dlarzb(
 
     for (J = 1; J <= K; J++) {
       for (I = 1; I <= M; I++) {
-        C[I][J] = C[I][J] - WORK[I][J];
+        C[I][J] -= WORK[I][J];
       }
     }
 

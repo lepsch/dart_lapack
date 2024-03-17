@@ -119,7 +119,7 @@ void dlaein(
           X = EI / B[I][I];
           if (X != ZERO) {
             for (J = I + 1; J <= N; J++) {
-              B[I + 1][J] = B[I + 1][J] - X * B[I][J];
+              B[I + 1][J] -= X * B[I][J];
             }
           }
         }
@@ -150,7 +150,7 @@ void dlaein(
           X = EJ / B[J][J];
           if (X != ZERO) {
             for (I = 1; I <= J - 1; I++) {
-              B[I][J - 1] = B[I][J - 1] - X * B[I][J];
+              B[I][J - 1] -= X * B[I][J];
             }
           }
         }
@@ -247,8 +247,8 @@ void dlaein(
             B[J + 1][I] = ZERO;
           }
           B[I + 2][I] = -WI;
-          B[I + 1][I + 1] = B[I + 1][I + 1] - XI * WI;
-          B[I + 2][I + 1] = B[I + 2][I + 1] + XR * WI;
+          B[I + 1][I + 1] -= XI * WI;
+          B[I + 2][I + 1] += XR * WI;
         } else {
           // Eliminate without interchanging rows.
 
@@ -261,10 +261,10 @@ void dlaein(
           XR = B[I][I] * EI;
           XI = -B[I + 1][I] * EI;
           for (J = I + 1; J <= N; J++) {
-            B[I + 1][J] = B[I + 1][J] - XR * B[I][J] + XI * B[J + 1][I];
+            B[I + 1][J] -= XR * B[I][J] + XI * B[J + 1][I];
             B[J + 1][I + 1] = -XR * B[J + 1][I] - XI * B[I][J];
           }
-          B[I + 2][I + 1] = B[I + 2][I + 1] - WI;
+          B[I + 2][I + 1] -= WI;
         }
 
         // Compute 1-norm of offdiagonal elements of i-th row.
@@ -308,8 +308,8 @@ void dlaein(
             B[J + 1][I] = ZERO;
           }
           B[J + 1][J - 1] = WI;
-          B[J - 1][J - 1] = B[J - 1][J - 1] + XI * WI;
-          B[J][J - 1] = B[J][J - 1] - XR * WI;
+          B[J - 1][J - 1] += XI * WI;
+          B[J][J - 1] -= XR * WI;
         } else {
           // Eliminate without interchange.
 
@@ -322,10 +322,10 @@ void dlaein(
           XR = B[J][J] * EJ;
           XI = -B[J + 1][J] * EJ;
           for (I = 1; I <= J - 1; I++) {
-            B[I][J - 1] = B[I][J - 1] - XR * B[I][J] + XI * B[J + 1][I];
+            B[I][J - 1] -= XR * B[I][J] + XI * B[J + 1][I];
             B[J][I] = -XR * B[J + 1][I] - XI * B[I][J];
           }
-          B[J][J - 1] = B[J][J - 1] + WI;
+          B[J][J - 1] += WI;
         }
 
         // Compute 1-norm of offdiagonal elements of j-th column.

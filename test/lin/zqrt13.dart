@@ -35,9 +35,8 @@ void zqrt13(
     // 10
     zlarnv(2, ISEED, M, A(1, J).asArray());
     if (J <= M) {
-      A[J][J] = A[J][J] +
-          Complex(
-              sign(dzasum(M, A(1, J).asArray(), 1), A[J][J].real).toDouble());
+      A[J][J] += Complex(
+          sign(dzasum(M, A(1, J).asArray(), 1), A[J][J].real).toDouble());
     }
   } // 10
 

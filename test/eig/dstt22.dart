@@ -64,13 +64,13 @@ void dstt22(
         AUKJ = AD[K] * U[K][J];
         if (K != N) AUKJ = AUKJ + AE[K] * U[K + 1][J];
         if (K != 1) AUKJ = AUKJ + AE[K - 1] * U[K - 1][J];
-        WORK[I][J] = WORK[I][J] + U[K][I] * AUKJ;
+        WORK[I][J] += U[K][I] * AUKJ;
       }
     }
-    WORK[I][I] = WORK[I][I] - SD[I];
+    WORK[I][I] -= SD[I];
     if (KBAND == 1) {
-      if (I != 1) WORK[I][I - 1] = WORK[I][I - 1] - SE[I - 1];
-      if (I != N) WORK[I][I + 1] = WORK[I][I + 1] - SE[I];
+      if (I != 1) WORK[I][I - 1] -= SE[I - 1];
+      if (I != N) WORK[I][I + 1] -= SE[I];
     }
   }
 
@@ -93,7 +93,7 @@ void dstt22(
   dgemm('T', 'N', M, M, N, ONE, U, LDU, U, LDU, ZERO, WORK, M);
 
   for (J = 1; J <= M; J++) {
-    WORK[J][J] = WORK[J][J] - ONE;
+    WORK[J][J] -= ONE;
   }
 
   RESULT[2] =

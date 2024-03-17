@@ -153,7 +153,7 @@ void ztrsna(
 
       for (I = 2; I <= N; I++) {
         // 20
-        WORK[I][I] = WORK[I][I] - WORK[1][1];
+        WORK[I][I] -= WORK[1][1];
       } // 20
 
       // Estimate a lower bound for the 1-norm of inv(C**H). The 1st

@@ -230,7 +230,7 @@ void zsytri_3x(
 
       for (I = 1; I <= NNB; I++) {
         for (J = I; J <= NNB; J++) {
-          A[CUT + I][CUT + J] = A[CUT + I][CUT + J] + WORK[U11 + I][J];
+          A[CUT + I][CUT + J] += WORK[U11 + I][J];
         }
       }
 
@@ -415,7 +415,7 @@ void zsytri_3x(
 
         for (I = 1; I <= NNB; I++) {
           for (J = 1; J <= I; J++) {
-            A[CUT + I][CUT + J] = A[CUT + I][CUT + J] + WORK[U11 + I][J];
+            A[CUT + I][CUT + J] += WORK[U11 + I][J];
           }
         }
 

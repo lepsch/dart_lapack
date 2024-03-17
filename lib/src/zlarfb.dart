@@ -111,7 +111,7 @@ void zlarfb(
           // 30
           for (I = 1; I <= N; I++) {
             // 20
-            C[J][I] = C[J][I] - WORK[I][J].conjugate();
+            C[J][I] -= WORK[I][J].conjugate();
           } // 20
         } // 30
       } else if (lsame(SIDE, 'R')) {
@@ -174,7 +174,7 @@ void zlarfb(
           // 60
           for (I = 1; I <= M; I++) {
             // 50
-            C[I][J] = C[I][J] - WORK[I][J];
+            C[I][J] -= WORK[I][J];
           } // 50
         } // 60
       }
@@ -233,7 +233,7 @@ void zlarfb(
           // 90
           for (I = 1; I <= N; I++) {
             // 80
-            C[M - K + J][I] = C[M - K + J][I] - WORK[I][J].conjugate();
+            C[M - K + J][I] -= WORK[I][J].conjugate();
           } // 80
         } // 90
       } else if (lsame(SIDE, 'R')) {
@@ -284,7 +284,7 @@ void zlarfb(
           // 120
           for (I = 1; I <= M; I++) {
             // 110
-            C[I][N - K + J] = C[I][N - K + J] - WORK[I][J];
+            C[I][N - K + J] -= WORK[I][J];
           } // 110
         } // 120
       }
@@ -368,7 +368,7 @@ void zlarfb(
           // 150
           for (I = 1; I <= N; I++) {
             // 140
-            C[J][I] = C[J][I] - WORK[I][J].conjugate();
+            C[J][I] -= WORK[I][J].conjugate();
           } // 140
         } // 150
       } else if (lsame(SIDE, 'R')) {
@@ -419,7 +419,7 @@ void zlarfb(
           // 180
           for (I = 1; I <= M; I++) {
             // 170
-            C[I][J] = C[I][J] - WORK[I][J];
+            C[I][J] -= WORK[I][J];
           } // 170
         } // 180
       }
@@ -477,7 +477,7 @@ void zlarfb(
           // 210
           for (I = 1; I <= N; I++) {
             // 200
-            C[M - K + J][I] = C[M - K + J][I] - WORK[I][J].conjugate();
+            C[M - K + J][I] -= WORK[I][J].conjugate();
           } // 200
         } // 210
       } else if (lsame(SIDE, 'R')) {
@@ -528,7 +528,7 @@ void zlarfb(
           // 240
           for (I = 1; I <= M; I++) {
             // 230
-            C[I][N - K + J] = C[I][N - K + J] - WORK[I][J];
+            C[I][N - K + J] -= WORK[I][J];
           } // 230
         } // 240
       }

@@ -114,7 +114,7 @@ void zsyrk(
           if (A[J][L] != Complex.zero) {
             TEMP = ALPHA * A[J][L];
             for (I = 1; I <= J; I++) {
-              C[I][J] = C[I][J] + TEMP * A[I][L];
+              C[I][J] += TEMP * A[I][L];
             }
           }
         }
@@ -134,7 +134,7 @@ void zsyrk(
           if (A[J][L] != Complex.zero) {
             TEMP = ALPHA * A[J][L];
             for (I = J; I <= N; I++) {
-              C[I][J] = C[I][J] + TEMP * A[I][L];
+              C[I][J] += TEMP * A[I][L];
             }
           }
         }

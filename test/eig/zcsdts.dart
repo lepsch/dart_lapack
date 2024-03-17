@@ -124,7 +124,7 @@ void zcsdts(
       WORK.asMatrix(), LDX, Complex.zero, XF, LDX);
 
   for (I = 1; I <= min(P, Q) - R; I++) {
-    XF[I][I] = XF[I][I] - Complex.one;
+    XF[I][I] -= Complex.one;
   }
   for (I = 1; I <= R; I++) {
     XF[min(P, Q) - R + I][min(P, Q) - R + I] =
@@ -138,7 +138,7 @@ void zcsdts(
       LDU1, WORK.asMatrix(), LDX, Complex.zero, XF(1, Q + 1), LDX);
 
   for (I = 1; I <= min(P, M - Q) - R; I++) {
-    XF[P - I + 1][M - I + 1] = XF[P - I + 1][M - I + 1] + Complex.one;
+    XF[P - I + 1][M - I + 1] += Complex.one;
   }
   for (I = 1; I <= R; I++) {
     XF[P - (min(P, M - Q) - R) + 1 - I][M - (min(P, M - Q) - R) + 1 - I] =
@@ -153,7 +153,7 @@ void zcsdts(
       LDU2, WORK.asMatrix(), LDX, Complex.zero, XF(P + 1, 1), LDX);
 
   for (I = 1; I <= min(M - P, Q) - R; I++) {
-    XF[M - I + 1][Q - I + 1] = XF[M - I + 1][Q - I + 1] - Complex.one;
+    XF[M - I + 1][Q - I + 1] -= Complex.one;
   }
   for (I = 1; I <= R; I++) {
     XF[M - (min(M - P, Q) - R) + 1 - I][Q - (min(M - P, Q) - R) + 1 - I] =
@@ -168,7 +168,7 @@ void zcsdts(
       U2, LDU2, WORK.asMatrix(), LDX, Complex.zero, XF(P + 1, Q + 1), LDX);
 
   for (I = 1; I <= min(M - P, M - Q) - R; I++) {
-    XF[P + I][Q + I] = XF[P + I][Q + I] - Complex.one;
+    XF[P + I][Q + I] -= Complex.one;
   }
   for (I = 1; I <= R; I++) {
     XF[P + (min(M - P, M - Q) - R) + I][Q + (min(M - P, M - Q) - R) + I] =
@@ -309,7 +309,7 @@ void zcsdts(
       WORK.asMatrix(), LDX, Complex.zero, X, LDX);
 
   for (I = 1; I <= min(P, Q) - R; I++) {
-    X[I][I] = X[I][I] - Complex.one;
+    X[I][I] -= Complex.one;
   }
   for (I = 1; I <= R; I++) {
     X[min(P, Q) - R + I][min(P, Q) - R + I] =
@@ -323,7 +323,7 @@ void zcsdts(
       LDU2, WORK.asMatrix(), LDX, Complex.zero, X(P + 1, 1), LDX);
 
   for (I = 1; I <= min(M - P, Q) - R; I++) {
-    X[M - I + 1][Q - I + 1] = X[M - I + 1][Q - I + 1] - Complex.one;
+    X[M - I + 1][Q - I + 1] -= Complex.one;
   }
   for (I = 1; I <= R; I++) {
     X[M - (min(M - P, Q) - R) + 1 - I][Q - (min(M - P, Q) - R) + 1 - I] =

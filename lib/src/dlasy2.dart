@@ -280,10 +280,10 @@ void dlasy2(
       T16[I][I] = SMIN;
     }
     for (J = I + 1; J <= 4; J++) {
-      T16[J][I] = T16[J][I] / T16[I][I];
+      T16[J][I] /= T16[I][I];
       BTMP[J] = BTMP[J] - T16[J][I] * BTMP[I];
       for (K = I + 1; K <= 4; K++) {
-        T16[J][K] = T16[J][K] - T16[J][I] * T16[I][K];
+        T16[J][K] -= T16[J][I] * T16[I][K];
       }
     }
   }

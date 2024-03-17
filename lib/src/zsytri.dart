@@ -93,7 +93,7 @@ void zsytri(
           zcopy(K - 1, A(1, K).asArray(), 1, WORK, 1);
           zsymv(UPLO, K - 1, -Complex.one, A, LDA, WORK, 1, Complex.zero,
               A(1, K).asArray(), 1);
-          A[K][K] = A[K][K] - zdotu(K - 1, WORK, 1, A(1, K).asArray(), 1);
+          A[K][K] -= zdotu(K - 1, WORK, 1, A(1, K).asArray(), 1);
         }
         KSTEP = 1;
       } else {
@@ -116,8 +116,8 @@ void zsytri(
           zcopy(K - 1, A(1, K).asArray(), 1, WORK, 1);
           zsymv(UPLO, K - 1, -Complex.one, A, LDA, WORK, 1, Complex.zero,
               A(1, K).asArray(), 1);
-          A[K][K] = A[K][K] - zdotu(K - 1, WORK, 1, A(1, K).asArray(), 1);
-          A[K][K + 1] = A[K][K + 1] -
+          A[K][K] -= zdotu(K - 1, WORK, 1, A(1, K).asArray(), 1);
+          A[K][K + 1] -=
               zdotu(K - 1, A(1, K).asArray(), 1, A(1, K + 1).asArray(), 1);
           zcopy(K - 1, A(1, K + 1).asArray(), 1, WORK, 1);
           zsymv(UPLO, K - 1, -Complex.one, A, LDA, WORK, 1, Complex.zero,
@@ -169,7 +169,7 @@ void zsytri(
           zcopy(N - K, A(K + 1, K).asArray(), 1, WORK, 1);
           zsymv(UPLO, N - K, -Complex.one, A(K + 1, K + 1), LDA, WORK, 1,
               Complex.zero, A(K + 1, K).asArray(), 1);
-          A[K][K] = A[K][K] - zdotu(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
+          A[K][K] -= zdotu(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
         }
         KSTEP = 1;
       } else {
@@ -192,14 +192,13 @@ void zsytri(
           zcopy(N - K, A(K + 1, K).asArray(), 1, WORK, 1);
           zsymv(UPLO, N - K, -Complex.one, A(K + 1, K + 1), LDA, WORK, 1,
               Complex.zero, A(K + 1, K).asArray(), 1);
-          A[K][K] = A[K][K] - zdotu(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
-          A[K][K - 1] = A[K][K - 1] -
-              zdotu(N - K, A(K + 1, K).asArray(), 1, A(K + 1, K - 1).asArray(),
-                  1);
+          A[K][K] -= zdotu(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
+          A[K][K - 1] -= zdotu(
+              N - K, A(K + 1, K).asArray(), 1, A(K + 1, K - 1).asArray(), 1);
           zcopy(N - K, A(K + 1, K - 1).asArray(), 1, WORK, 1);
           zsymv(UPLO, N - K, -Complex.one, A(K + 1, K + 1), LDA, WORK, 1,
               Complex.zero, A(K + 1, K - 1).asArray(), 1);
-          A[K - 1][K - 1] = A[K - 1][K - 1] -
+          A[K - 1][K - 1] -=
               zdotu(N - K, WORK, 1, A(K + 1, K - 1).asArray(), 1);
         }
         KSTEP = 2;

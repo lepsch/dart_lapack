@@ -134,8 +134,7 @@ void dgsvts3(
 
   for (I = 1; I <= L.value; I++) {
     for (J = I; J <= L.value; J++) {
-      B[I][N - L.value + J] = B[I][N - L.value + J] -
-          BETA[K.value + I] * R[K.value + I][K.value + J];
+      B[I][N - L.value + J] -= BETA[K.value + I] * R[K.value + I][K.value + J];
     }
   }
 

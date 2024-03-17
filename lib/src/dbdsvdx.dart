@@ -580,7 +580,7 @@ void dbdsvdx(
         // to eigenvalue equal to zero.
 
         for (var i = IDBEG; i <= IDEND - NTGK + 1; i++) {
-          Z[i][ISBEG - 1] = Z[i][ISBEG - 1] + Z[i][N + 1];
+          Z[i][ISBEG - 1] += Z[i][N + 1];
           Z[i][N + 1] = ZERO;
         }
       }

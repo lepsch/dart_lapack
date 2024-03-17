@@ -88,7 +88,7 @@ void dsytri_rook(
         if (K > 1) {
           dcopy(K - 1, A(1, K).asArray(), 1, WORK, 1);
           dsymv(UPLO, K - 1, -ONE, A, LDA, WORK, 1, ZERO, A(1, K).asArray(), 1);
-          A[K][K] = A[K][K] - ddot(K - 1, WORK, 1, A(1, K).asArray(), 1);
+          A[K][K] -= ddot(K - 1, WORK, 1, A(1, K).asArray(), 1);
         }
         KSTEP = 1;
       } else {
@@ -110,8 +110,8 @@ void dsytri_rook(
         if (K > 1) {
           dcopy(K - 1, A(1, K).asArray(), 1, WORK, 1);
           dsymv(UPLO, K - 1, -ONE, A, LDA, WORK, 1, ZERO, A(1, K).asArray(), 1);
-          A[K][K] = A[K][K] - ddot(K - 1, WORK, 1, A(1, K).asArray(), 1);
-          A[K][K + 1] = A[K][K + 1] -
+          A[K][K] -= ddot(K - 1, WORK, 1, A(1, K).asArray(), 1);
+          A[K][K + 1] -=
               ddot(K - 1, A(1, K).asArray(), 1, A(1, K + 1).asArray(), 1);
           dcopy(K - 1, A(1, K + 1).asArray(), 1, WORK, 1);
           dsymv(UPLO, K - 1, -ONE, A, LDA, WORK, 1, ZERO, A(1, K + 1).asArray(),
@@ -194,7 +194,7 @@ void dsytri_rook(
           dcopy(N - K, A(K + 1, K).asArray(), 1, WORK, 1);
           dsymv(UPLO, N - K, -ONE, A(K + 1, K + 1), LDA, WORK, 1, ZERO,
               A(K + 1, K).asArray(), 1);
-          A[K][K] = A[K][K] - ddot(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
+          A[K][K] -= ddot(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
         }
         KSTEP = 1;
       } else {
@@ -217,15 +217,13 @@ void dsytri_rook(
           dcopy(N - K, A(K + 1, K).asArray(), 1, WORK, 1);
           dsymv(UPLO, N - K, -ONE, A(K + 1, K + 1), LDA, WORK, 1, ZERO,
               A(K + 1, K).asArray(), 1);
-          A[K][K] = A[K][K] - ddot(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
-          A[K][K - 1] = A[K][K - 1] -
-              ddot(N - K, A(K + 1, K).asArray(), 1, A(K + 1, K - 1).asArray(),
-                  1);
+          A[K][K] -= ddot(N - K, WORK, 1, A(K + 1, K).asArray(), 1);
+          A[K][K - 1] -= ddot(
+              N - K, A(K + 1, K).asArray(), 1, A(K + 1, K - 1).asArray(), 1);
           dcopy(N - K, A(K + 1, K - 1).asArray(), 1, WORK, 1);
           dsymv(UPLO, N - K, -ONE, A(K + 1, K + 1), LDA, WORK, 1, ZERO,
               A(K + 1, K - 1).asArray(), 1);
-          A[K - 1][K - 1] = A[K - 1][K - 1] -
-              ddot(N - K, WORK, 1, A(K + 1, K - 1).asArray(), 1);
+          A[K - 1][K - 1] -= ddot(N - K, WORK, 1, A(K + 1, K - 1).asArray(), 1);
         }
         KSTEP = 2;
       }

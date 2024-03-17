@@ -60,7 +60,7 @@ void zgeru(
       if (Y[JY] != Complex.zero) {
         TEMP = ALPHA * Y[JY];
         for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] + X[I] * TEMP;
+          A[I][J] += X[I] * TEMP;
         }
       }
       JY += INCY;
@@ -76,7 +76,7 @@ void zgeru(
         TEMP = ALPHA * Y[JY];
         IX = KX;
         for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] + X[IX] * TEMP;
+          A[I][J] += X[IX] * TEMP;
           IX += INCX;
         }
       }

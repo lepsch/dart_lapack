@@ -72,13 +72,13 @@ void zsyt01_3(
   if (lsame(UPLO, 'U')) {
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= J; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   } else {
     for (J = 1; J <= N; J++) {
       for (I = J; I <= N; I++) {
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       }
     }
   }

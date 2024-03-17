@@ -64,7 +64,7 @@ void dsyt01_rook(
       // 20
       for (var I = 1; I <= J; I++) {
         // 10
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       } // 10
     } // 20
   } else {
@@ -72,7 +72,7 @@ void dsyt01_rook(
       // 40
       for (var I = J; I <= N; I++) {
         // 30
-        C[I][J] = C[I][J] - A[I][J];
+        C[I][J] -= A[I][J];
       } // 30
     } // 40
   }

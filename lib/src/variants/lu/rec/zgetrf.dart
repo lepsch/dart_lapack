@@ -93,7 +93,7 @@ void zgetrf(
         zscal(M - J, Complex.one / A[J][J], A(J + 1, J).asArray(), 1);
       } else {
         for (I = 1; I <= M - J; I++) {
-          A[J + I][J] = A[J + I][J] / A[J][J];
+          A[J + I][J] /= A[J][J];
         }
       }
     } else if (PIVMAG == ZERO && INFO.value == 0) {

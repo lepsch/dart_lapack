@@ -267,7 +267,7 @@ void dlasyf_rook(
               dscal(K - 1, R1, A(1, K).asArray(), 1);
             } else if (A[K][K] != ZERO) {
               for (II = 1; II <= K - 1; II++) {
-                A[II][K] = A[II][K] / A[K][K];
+                A[II][K] /= A[K][K];
               }
             }
           }
@@ -556,7 +556,7 @@ void dlasyf_rook(
               dscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else if (A[K][K] != ZERO) {
               for (II = K + 1; II <= N; II++) {
-                A[II][K] = A[II][K] / A[K][K];
+                A[II][K] /= A[K][K];
               }
             }
           }

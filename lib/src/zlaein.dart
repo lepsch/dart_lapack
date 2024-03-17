@@ -104,7 +104,7 @@ void zlaein(
         if (X != Complex.zero) {
           for (J = I + 1; J <= N; J++) {
             // 50
-            B[I + 1][J] = B[I + 1][J] - X * B[I][J];
+            B[I + 1][J] -= X * B[I][J];
           } // 50
         }
       }
@@ -138,7 +138,7 @@ void zlaein(
         if (X != Complex.zero) {
           for (I = 1; I <= J - 1; I++) {
             // 80
-            B[I][J - 1] = B[I][J - 1] - X * B[I][J];
+            B[I][J - 1] -= X * B[I][J];
           } // 80
         }
       }

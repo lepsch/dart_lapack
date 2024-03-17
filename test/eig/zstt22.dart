@@ -73,13 +73,13 @@ void zstt22(
         AUKJ = AD[K].toComplex() * U[K][J];
         if (K != N) AUKJ = AUKJ + AE[K].toComplex() * U[K + 1][J];
         if (K != 1) AUKJ = AUKJ + AE[K - 1].toComplex() * U[K - 1][J];
-        WORK[I][J] = WORK[I][J] + U[K][I] * AUKJ;
+        WORK[I][J] += U[K][I] * AUKJ;
       } // 20
     } // 30
-    WORK[I][I] = WORK[I][I] - SD[I].toComplex();
+    WORK[I][I] -= SD[I].toComplex();
     if (KBAND == 1) {
-      if (I != 1) WORK[I][I - 1] = WORK[I][I - 1] - SE[I - 1].toComplex();
-      if (I != N) WORK[I][I + 1] = WORK[I][I + 1] - SE[I].toComplex();
+      if (I != 1) WORK[I][I - 1] -= SE[I - 1].toComplex();
+      if (I != N) WORK[I][I + 1] -= SE[I].toComplex();
     }
   } // 40
 
@@ -103,7 +103,7 @@ void zstt22(
 
   for (J = 1; J <= M; J++) {
     // 50
-    WORK[J][J] = WORK[J][J] - Complex.one;
+    WORK[J][J] -= Complex.one;
   } // 50
 
   RESULT[2] = min(M.toDouble(), zlange('1', M, M, WORK, M, RWORK)) / (M * ULP);

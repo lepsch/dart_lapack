@@ -78,7 +78,7 @@ void zgeqrt3(
 
     for (J = 1; J <= N2; J++) {
       for (I = 1; I <= N1; I++) {
-        A[I][J + N1] = A[I][J + N1] - T[I][J + N1];
+        A[I][J + N1] -= T[I][J + N1];
       }
     }
 

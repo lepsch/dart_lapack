@@ -61,7 +61,7 @@ void zgerc(
       if (Y[JY] != Complex.zero) {
         TEMP = ALPHA * Y[JY].conjugate();
         for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] + X[I] * TEMP;
+          A[I][J] += X[I] * TEMP;
         }
       }
       JY += INCY;
@@ -77,7 +77,7 @@ void zgerc(
         TEMP = ALPHA * Y[JY].conjugate();
         IX = KX;
         for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] + X[IX] * TEMP;
+          A[I][J] += X[IX] * TEMP;
           IX += INCX;
         }
       }

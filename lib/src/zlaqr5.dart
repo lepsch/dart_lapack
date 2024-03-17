@@ -192,8 +192,8 @@ void zlaqr5(
         for (J = JTOP; J <= min(KBOT, K + 3); J++) {
           // 30
           REFSUM = H[J][K + 1] + V[2][M22] * H[J][K + 2];
-          H[J][K + 1] = H[J][K + 1] - REFSUM * T1;
-          H[J][K + 2] = H[J][K + 2] - REFSUM * T2;
+          H[J][K + 1] -= REFSUM * T1;
+          H[J][K + 2] -= REFSUM * T2;
         } // 30
 
         // ==== Perform update from left within
@@ -211,8 +211,8 @@ void zlaqr5(
         for (J = K + 1; J <= JBOT; J++) {
           // 40
           REFSUM = H[K + 1][J] + V[2][M22].conjugate() * H[K + 2][J];
-          H[K + 1][J] = H[K + 1][J] - REFSUM * T1;
-          H[K + 2][J] = H[K + 2][J] - REFSUM * T2;
+          H[K + 1][J] -= REFSUM * T1;
+          H[K + 2][J] -= REFSUM * T2;
         } // 40
 
         // ==== The following convergence test requires that
@@ -260,15 +260,15 @@ void zlaqr5(
           for (J = max(1, KTOP - INCOL); J <= KDU; J++) {
             // 50
             REFSUM = V[1][M22] * (U[J][KMS + 1] + V[2][M22] * U[J][KMS + 2]);
-            U[J][KMS + 1] = U[J][KMS + 1] - REFSUM;
-            U[J][KMS + 2] = U[J][KMS + 2] - REFSUM * V[2][M22].conjugate();
+            U[J][KMS + 1] -= REFSUM;
+            U[J][KMS + 2] -= REFSUM * V[2][M22].conjugate();
           } // 50
         } else if (WANTZ) {
           for (J = ILOZ; J <= IHIZ; J++) {
             // 60
             REFSUM = V[1][M22] * (Z[J][K + 1] + V[2][M22] * Z[J][K + 2]);
-            Z[J][K + 1] = Z[J][K + 1] - REFSUM;
-            Z[J][K + 2] = Z[J][K + 2] - REFSUM * V[2][M22].conjugate();
+            Z[J][K + 1] -= REFSUM;
+            Z[J][K + 2] -= REFSUM * V[2][M22].conjugate();
           } // 60
         }
       }
@@ -294,7 +294,7 @@ void zlaqr5(
           REFSUM = V[3][M] * H[K + 3][K + 2];
           H[K + 3][K] = -REFSUM * T1;
           H[K + 3][K + 1] = -REFSUM * T2;
-          H[K + 3][K + 2] = H[K + 3][K + 2] - REFSUM * T3;
+          H[K + 3][K + 2] -= REFSUM * T3;
 
           // ==== Calculate reflection to move
           // .    Mth bulge one step. ====
@@ -350,7 +350,7 @@ void zlaqr5(
               // .    Replace the old reflector with
               // .    the new one. ====
 
-              H[K + 1][K] = H[K + 1][K] - REFSUM * T1;
+              H[K + 1][K] -= REFSUM * T1;
               H[K + 2][K] = Complex.zero;
               H[K + 3][K] = Complex.zero;
               V[1][M] = VT[1];
@@ -372,9 +372,9 @@ void zlaqr5(
         for (J = JTOP; J <= min(KBOT, K + 3); J++) {
           // 70
           REFSUM = H[J][K + 1] + V[2][M] * H[J][K + 2] + V[3][M] * H[J][K + 3];
-          H[J][K + 1] = H[J][K + 1] - REFSUM * T1;
-          H[J][K + 2] = H[J][K + 2] - REFSUM * T2;
-          H[J][K + 3] = H[J][K + 3] - REFSUM * T3;
+          H[J][K + 1] -= REFSUM * T1;
+          H[J][K + 2] -= REFSUM * T2;
+          H[J][K + 3] -= REFSUM * T3;
         } // 70
 
         // ==== Perform update from left for subsequent
@@ -386,9 +386,9 @@ void zlaqr5(
         REFSUM = H[K + 1][K + 1] +
             V[2][M].conjugate() * H[K + 2][K + 1] +
             V[3][M].conjugate() * H[K + 3][K + 1];
-        H[K + 1][K + 1] = H[K + 1][K + 1] - REFSUM * T1;
-        H[K + 2][K + 1] = H[K + 2][K + 1] - REFSUM * T2;
-        H[K + 3][K + 1] = H[K + 3][K + 1] - REFSUM * T3;
+        H[K + 1][K + 1] -= REFSUM * T1;
+        H[K + 2][K + 1] -= REFSUM * T2;
+        H[K + 3][K + 1] -= REFSUM * T3;
 
         // ==== The following convergence test requires that
         // .    the tradition small-compared-to-nearby-diagonals
@@ -446,9 +446,9 @@ void zlaqr5(
           REFSUM = H[K + 1][J] +
               V[2][M].conjugate() * H[K + 2][J] +
               V[3][M].conjugate() * H[K + 3][J];
-          H[K + 1][J] = H[K + 1][J] - REFSUM * T1;
-          H[K + 2][J] = H[K + 2][J] - REFSUM * T2;
-          H[K + 3][J] = H[K + 3][J] - REFSUM * T3;
+          H[K + 1][J] -= REFSUM * T1;
+          H[K + 2][J] -= REFSUM * T2;
+          H[K + 3][J] -= REFSUM * T3;
         } // 90
       } // 100
 
@@ -474,9 +474,9 @@ void zlaqr5(
             REFSUM = U[J][KMS + 1] +
                 V[2][M] * U[J][KMS + 2] +
                 V[3][M] * U[J][KMS + 3];
-            U[J][KMS + 1] = U[J][KMS + 1] - REFSUM * T1;
-            U[J][KMS + 2] = U[J][KMS + 2] - REFSUM * T2;
-            U[J][KMS + 3] = U[J][KMS + 3] - REFSUM * T3;
+            U[J][KMS + 1] -= REFSUM * T1;
+            U[J][KMS + 2] -= REFSUM * T2;
+            U[J][KMS + 3] -= REFSUM * T3;
           } // 110
         } // 120
       } else if (WANTZ) {
@@ -494,9 +494,9 @@ void zlaqr5(
             // 130
             REFSUM =
                 Z[J][K + 1] + V[2][M] * Z[J][K + 2] + V[3][M] * Z[J][K + 3];
-            Z[J][K + 1] = Z[J][K + 1] - REFSUM * T1;
-            Z[J][K + 2] = Z[J][K + 2] - REFSUM * T2;
-            Z[J][K + 3] = Z[J][K + 3] - REFSUM * T3;
+            Z[J][K + 1] -= REFSUM * T1;
+            Z[J][K + 2] -= REFSUM * T2;
+            Z[J][K + 3] -= REFSUM * T3;
           } // 130
         } // 140
       }

@@ -492,10 +492,10 @@ void dlaqtr(
               X[N + J1] - ddot(J1 - 1, T(1, J1).asArray(), 1, X(N + 1), 1);
           D[2][2] =
               X[N + J2] - ddot(J1 - 1, T(1, J2).asArray(), 1, X(N + 1), 1);
-          D[1][1] = D[1][1] - B[J1] * X[N + 1];
-          D[2][1] = D[2][1] - B[J2] * X[N + 1];
-          D[1][2] = D[1][2] + B[J1] * X[1];
-          D[2][2] = D[2][2] + B[J2] * X[1];
+          D[1][1] -= B[J1] * X[N + 1];
+          D[2][1] -= B[J2] * X[N + 1];
+          D[1][2] += B[J1] * X[1];
+          D[2][2] += B[J2] * X[1];
 
           dlaln2(true, 2, 2, SMINW, ONE, T(J1, J1), LDT, ONE, ONE, D, 2, ZERO,
               W, V, 2, SCALOC, XNORM, IERR);

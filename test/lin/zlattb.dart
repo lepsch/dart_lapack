@@ -463,7 +463,7 @@ void zlattb(
         zlarnv(5, ISEED, LENJ, AB(KD + 2 - LENJ, J).asArray());
         dlarnv(1, ISEED, LENJ, RWORK(KD + 2 - LENJ));
         for (var I = KD + 2 - LENJ; I <= KD + 1; I++) {
-          AB[I][J] = AB[I][J] * (TLEFT + RWORK[I] * TSCAL).toComplex();
+          AB[I][J] *= (TLEFT + RWORK[I] * TSCAL).toComplex();
         }
       }
     } else {
@@ -472,7 +472,7 @@ void zlattb(
         zlarnv(5, ISEED, LENJ, AB(1, J).asArray());
         dlarnv(1, ISEED, LENJ, RWORK);
         for (var I = 1; I <= LENJ; I++) {
-          AB[I][J] = AB[I][J] * (TLEFT + RWORK[I] * TSCAL).toComplex();
+          AB[I][J] *= (TLEFT + RWORK[I] * TSCAL).toComplex();
         }
       }
     }

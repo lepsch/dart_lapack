@@ -332,7 +332,7 @@ void zggev(
           TEMP = ONE / TEMP;
           for (JR = 1; JR <= N; JR++) {
             // 20
-            VL[JR][JC] = VL[JR][JC] * TEMP.toComplex();
+            VL[JR][JC] *= TEMP.toComplex();
           } // 20
         } // 30
       }
@@ -350,7 +350,7 @@ void zggev(
           TEMP = ONE / TEMP;
           for (JR = 1; JR <= N; JR++) {
             // 50
-            VR[JR][JC] = VR[JR][JC] * TEMP.toComplex();
+            VR[JR][JC] *= TEMP.toComplex();
           } // 50
         } // 60
       }
