@@ -514,7 +514,7 @@ void zdrves(
             KNTEIG = 0;
             for (I = 1; I <= N; I++) {
               // 170
-              if (zslect(W[I])) KNTEIG = KNTEIG + 1;
+              if (zslect(W[I])) KNTEIG++;
               if (I < N) {
                 if (zslect(W[I + 1]) && (!zslect(W[I]))) RESULT[13] = ULPINV;
               }

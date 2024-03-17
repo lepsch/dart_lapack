@@ -65,12 +65,12 @@ void dlarrk(
     NEGCNT = 0;
     TMP1 = D[1] - MID;
     if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
-    if (TMP1 <= ZERO) NEGCNT = NEGCNT + 1;
+    if (TMP1 <= ZERO) NEGCNT++;
 
     for (I = 2; I <= N; I++) {
       TMP1 = D[I] - E2[I - 1] / TMP1 - MID;
       if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
-      if (TMP1 <= ZERO) NEGCNT = NEGCNT + 1;
+      if (TMP1 <= ZERO) NEGCNT++;
     }
 
     if (NEGCNT >= IW) {

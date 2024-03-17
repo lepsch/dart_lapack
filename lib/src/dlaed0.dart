@@ -124,8 +124,8 @@ void dlaed0(
 
     TEMP = log(N.toDouble()) / log(TWO);
     LGN = TEMP.toInt();
-    if (pow(2, LGN) < N) LGN = LGN + 1;
-    if (pow(2, LGN) < N) LGN = LGN + 1;
+    if (pow(2, LGN) < N) LGN++;
+    if (pow(2, LGN) < N) LGN++;
     IPRMPT = INDXQ + N + 1;
     IPERM = IPRMPT + N * LGN;
     IQPTR = IPERM + N * LGN;

@@ -119,7 +119,7 @@ void dget33(
                           sign(ONE, T[1][2]) * sign(ONE, T[2][1]) > ZERO)) {
                     RES += ONE / EPS;
                   }
-                  KNT.value = KNT.value + 1;
+                  KNT.value++;
                   if (RES > RMAX.value) {
                     LMAX.value = KNT.value;
                     RMAX.value = RES;

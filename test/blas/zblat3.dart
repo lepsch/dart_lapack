@@ -693,7 +693,7 @@ void _zchk1(
       N = IDIM[IN];
       // Set LDC to 1 more than minimum value if room.
       LDC = M;
-      if (LDC < NMAX) LDC = LDC + 1;
+      if (LDC < NMAX) LDC++;
       // Skip tests if not enough room.
       if (LDC > NMAX) continue;
       LCC = LDC * N;
@@ -715,7 +715,7 @@ void _zchk1(
           }
           // Set LDA to 1 more than minimum value if room.
           LDA = MA;
-          if (LDA < NMAX) LDA = LDA + 1;
+          if (LDA < NMAX) LDA++;
           // Skip tests if not enough room.
           if (LDA > NMAX) continue;
           LAA = LDA * NA;
@@ -737,7 +737,7 @@ void _zchk1(
             }
             // Set LDB to 1 more than minimum value if room.
             LDB = MB;
-            if (LDB < NMAX) LDB = LDB + 1;
+            if (LDB < NMAX) LDB++;
             // Skip tests if not enough room.
             if (LDB > NMAX) continue;
             LBB = LDB * NB;
@@ -1024,14 +1024,14 @@ void _zchk2(
       N = IDIM[IN];
       // Set LDC to 1 more than minimum value if room.
       LDC = M;
-      if (LDC < NMAX) LDC = LDC + 1;
+      if (LDC < NMAX) LDC++;
       // Skip tests if not enough room.
       if (LDC > NMAX) continue;
       LCC = LDC * N;
       NULL = N <= 0 || M <= 0;
       // Set LDB to 1 more than minimum value if room.
       LDB = M;
-      if (LDB < NMAX) LDB = LDB + 1;
+      if (LDB < NMAX) LDB++;
       // Skip tests if not enough room.
       if (LDB > NMAX) continue;
       LBB = LDB * N;
@@ -1051,7 +1051,7 @@ void _zchk2(
         }
         // Set LDA to 1 more than minimum value if room.
         LDA = NA;
-        if (LDA < NMAX) LDA = LDA + 1;
+        if (LDA < NMAX) LDA++;
         // Skip tests if not enough room.
         if (LDA > NMAX) continue;
         LAA = LDA * NA;
@@ -1376,7 +1376,7 @@ void _zchk3(
       N = IDIM[IN];
       // Set LDB to 1 more than minimum value if room.
       LDB = M;
-      if (LDB < NMAX) LDB = LDB + 1;
+      if (LDB < NMAX) LDB++;
       // Skip tests if not enough room.
       if (LDB > NMAX) continue;
       LBB = LDB * N;
@@ -1392,7 +1392,7 @@ void _zchk3(
         }
         // Set LDA to 1 more than minimum value if room.
         LDA = NA;
-        if (LDA < NMAX) LDA = LDA + 1;
+        if (LDA < NMAX) LDA++;
         // Skip tests if not enough room.
         if (LDA > NMAX) continue idimLoop;
         LAA = LDA * NA;
@@ -1784,7 +1784,7 @@ void _zchk4(
     N = IDIM[IN];
     // Set LDC to 1 more than minimum value if room.
     LDC = N;
-    if (LDC < NMAX) LDC = LDC + 1;
+    if (LDC < NMAX) LDC++;
     // Skip tests if not enough room.
     if (LDC > NMAX) continue;
     LCC = LDC * N;
@@ -1805,7 +1805,7 @@ void _zchk4(
         }
         // Set LDA to 1 more than minimum value if room.
         LDA = MA;
-        if (LDA < NMAX) LDA = LDA + 1;
+        if (LDA < NMAX) LDA++;
         // Skip tests if not enough room.
         if (LDA > NMAX) continue;
         LAA = LDA * NA;
@@ -2201,7 +2201,7 @@ void _zchk5(
     N = IDIM[IN];
     // Set LDC to 1 more than minimum value if room.
     LDC = N;
-    if (LDC < NMAX) LDC = LDC + 1;
+    if (LDC < NMAX) LDC++;
     // Skip tests if not enough room.
     if (LDC > NMAX) continue;
     LCC = LDC * N;
@@ -2222,7 +2222,7 @@ void _zchk5(
         }
         // Set LDA to 1 more than minimum value if room.
         LDA = MA;
-        if (LDA < NMAX) LDA = LDA + 1;
+        if (LDA < NMAX) LDA++;
         // Skip tests if not enough room.
         if (LDA > NMAX) continue;
         LAA = LDA * NA;

@@ -681,10 +681,10 @@ void zlatmr(
         // 430
         for (I = 1; I <= J; I++) {
           // 420
-          ISUB.value = ISUB.value + 1;
+          ISUB.value++;
           if (ISUB.value > LDA) {
             ISUB.value = 1;
-            JSUB.value = JSUB.value + 1;
+            JSUB.value++;
           }
           A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
               D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
@@ -724,10 +724,10 @@ void zlatmr(
           // 470
           for (I = J; I <= M; I++) {
             // 460
-            ISUB.value = ISUB.value + 1;
+            ISUB.value++;
             if (ISUB.value > LDA) {
               ISUB.value = 1;
-              JSUB.value = JSUB.value + 1;
+              JSUB.value++;
             }
             A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
                 D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);

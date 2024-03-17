@@ -79,13 +79,13 @@ void dtrsen(
       } else {
         if (K < N) {
           if (T[K + 1][K] == ZERO) {
-            if (SELECT[K]) M.value = M.value + 1;
+            if (SELECT[K]) M.value++;
           } else {
             PAIR = true;
             if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
           }
         } else {
-          if (SELECT[N]) M.value = M.value + 1;
+          if (SELECT[N]) M.value++;
         }
       }
     }
@@ -147,7 +147,7 @@ void dtrsen(
           }
         }
         if (SWAP) {
-          KS.value = KS.value + 1;
+          KS.value++;
 
           // Swap the K-th block to position KS.value.
 
@@ -165,7 +165,7 @@ void dtrsen(
             error = true;
             break;
           }
-          if (PAIR) KS.value = KS.value + 1;
+          if (PAIR) KS.value++;
         }
       }
     }

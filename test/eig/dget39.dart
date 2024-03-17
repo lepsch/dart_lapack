@@ -126,9 +126,9 @@ void dget39(
               NORMTB = NORM + (B[K]).abs() + (W).abs();
 
               dcopy(N, D, 1, X, 1);
-              KNT.value = KNT.value + 1;
+              KNT.value++;
               dlaqtr(false, true, N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO);
-              if (INFO.value != 0) NINFO.value = NINFO.value + 1;
+              if (INFO.value != 0) NINFO.value++;
 
               // || T*x - scale*d || /
               //    max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
@@ -147,9 +147,9 @@ void dget39(
               }
 
               dcopy(N, D, 1, X, 1);
-              KNT.value = KNT.value + 1;
+              KNT.value++;
               dlaqtr(true, true, N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO);
-              if (INFO.value != 0) NINFO.value = NINFO.value + 1;
+              if (INFO.value != 0) NINFO.value++;
 
               // || T*x - scale*d || /
               //    max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
@@ -167,9 +167,9 @@ void dget39(
               }
 
               dcopy(2 * N, D, 1, X, 1);
-              KNT.value = KNT.value + 1;
+              KNT.value++;
               dlaqtr(false, false, N, T, LDT, B, W, SCALE, X, WORK, INFO);
-              if (INFO.value != 0) NINFO.value = NINFO.value + 1;
+              if (INFO.value != 0) NINFO.value++;
 
               // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
               //    max(ulp*(||T||+||B||)*(||x1||+||x2||),
@@ -203,9 +203,9 @@ void dget39(
               }
 
               dcopy(2 * N, D, 1, X, 1);
-              KNT.value = KNT.value + 1;
+              KNT.value++;
               dlaqtr(true, false, N, T, LDT, B, W, SCALE, X, WORK, INFO);
-              if (INFO.value != 0) NINFO.value = NINFO.value + 1;
+              if (INFO.value != 0) NINFO.value++;
 
               // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
               //    max(ulp*(||T||+||B||)*(||x1||+||x2||),

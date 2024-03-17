@@ -237,7 +237,7 @@ void zstemr(
     if (ALLEIG ||
         (VALEIG && (R2.value > WL.value) && (R2.value <= WU.value)) ||
         (INDEIG && (IIL == 1))) {
-      M.value = M.value + 1;
+      M.value++;
       W[M.value] = R2.value;
       if (WANTZ && (!ZQUERY)) {
         if (LAESWAP) {
@@ -265,7 +265,7 @@ void zstemr(
     if (ALLEIG ||
         (VALEIG && (R1.value > WL.value) && (R1.value <= WU.value)) ||
         (INDEIG && (IIU == 2))) {
-      M.value = M.value + 1;
+      M.value++;
       W[M.value] = R1.value;
       if (WANTZ && (!ZQUERY)) {
         if (LAESWAP) {

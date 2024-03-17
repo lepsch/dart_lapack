@@ -133,10 +133,10 @@ void dsytri_3x(
         ICOUNT = 0;
         // count negative elements,
         for (I = CUT + 1 - NNB; I <= CUT; I++) {
-          if (IPIV[I] < 0) ICOUNT = ICOUNT + 1;
+          if (IPIV[I] < 0) ICOUNT++;
         }
         // need a even number for a clear cut
-        if ((ICOUNT % 2) == 1) NNB = NNB + 1;
+        if ((ICOUNT % 2) == 1) NNB++;
       }
 
       CUT -= NNB;
@@ -306,10 +306,10 @@ void dsytri_3x(
         ICOUNT = 0;
         // count negative elements,
         for (I = CUT + 1; I <= CUT + NNB; I++) {
-          if (IPIV[I] < 0) ICOUNT = ICOUNT + 1;
+          if (IPIV[I] < 0) ICOUNT++;
         }
         // need a even number for a clear cut
-        if ((ICOUNT % 2) == 1) NNB = NNB + 1;
+        if ((ICOUNT % 2) == 1) NNB++;
       }
 
       // L21 Block

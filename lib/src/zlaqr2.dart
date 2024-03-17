@@ -174,7 +174,7 @@ void zlaqr2(
     if (CABS1(S) * CABS1(V[1][NS.value]) <= max(SMLNUM, ULP * FOO)) {
       // ==== One more converged eigenvalue ====
 
-      NS.value = NS.value - 1;
+      NS.value--;
     } else {
       // ==== One undeflatable eigenvalue.  Move it up out of the
       // .    way.   (ZTREXC can not fail in this case.) ====

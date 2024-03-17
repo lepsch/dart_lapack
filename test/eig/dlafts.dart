@@ -52,7 +52,7 @@ void dlafts(
         // to print a header to the data file.
 
         if (IE.value == 0) dlahd2(IOUNIT, TYPE);
-        IE.value = IE.value + 1;
+        IE.value++;
         if (RESULT[K] < 10000.0) {
           IOUNIT.println(
               ' ${M.i5} x${N.i5} matrix, type=${IMAT.i2}, seed=${ISEED.i4(4, ',')}: result ${K.i3} is${RESULT[K].f8_2}');

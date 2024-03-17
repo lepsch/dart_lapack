@@ -90,8 +90,8 @@ void dstedc(
       LWMIN = 2 * (N - 1);
     } else {
       LGN = log(N.toDouble()) ~/ log(TWO);
-      if (pow(2, LGN) < N) LGN = LGN + 1;
-      if (pow(2, LGN) < N) LGN = LGN + 1;
+      if (pow(2, LGN) < N) LGN++;
+      if (pow(2, LGN) < N) LGN++;
       if (ICOMPZ == 1) {
         LWMIN = 1 + 3 * N + 2 * N * LGN + 4 * pow(N, 2).toInt();
         LIWMIN = 6 + 6 * N + 5 * N * LGN;

@@ -155,7 +155,7 @@ void zgsvj0(
   // parameters of the computer's memory.
 
   NBL = N ~/ KBL;
-  if ((NBL * KBL) != N) NBL = NBL + 1;
+  if ((NBL * KBL) != N) NBL++;
 
   BLSKIP = pow(KBL, 2).toInt();
   // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
@@ -384,13 +384,13 @@ void zgsvj0(
                   }
                 } else {
                   // A(:,p) and A(:,q) already numerically orthogonal
-                  if (ir1 == 0) NOTROT = NOTROT + 1;
-                  // [RTD]      SKIPPED  = SKIPPED  + 1
+                  if (ir1 == 0) NOTROT++;
+                  // [RTD]      SKIPPED++
                   PSKIPPED++;
                 }
               } else {
                 // A(:,q) is zero column
-                if (ir1 == 0) NOTROT = NOTROT + 1;
+                if (ir1 == 0) NOTROT++;
                 PSKIPPED++;
               }
 
@@ -495,7 +495,7 @@ void zgsvj0(
                 if ((AAPQ1).abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
                   NOTROT = 0;
-                  // [RTD]      ROTATED  = ROTATED + 1
+                  // [RTD]      ROTATED++
                   PSKIPPED = 0;
                   ISWROT++;
 
@@ -599,7 +599,7 @@ void zgsvj0(
                   // end of OK rotation
                 } else {
                   NOTROT++;
-                  // [RTD]      SKIPPED  = SKIPPED  + 1
+                  // [RTD]      SKIPPED++
                   PSKIPPED++;
                   IJBLSK++;
                 }

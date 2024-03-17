@@ -47,7 +47,7 @@ void zlatm4(
 
   // Insure a correct ISEED
 
-  if ((ISEED[4] % 2) != 1) ISEED[4] = ISEED[4] + 1;
+  if ((ISEED[4] % 2) != 1) ISEED[4]++;
 
   // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
   // and RCOND

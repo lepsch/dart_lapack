@@ -189,13 +189,13 @@ void zsyl01(
             for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
               if (ITRANB == 1) TRANB = 'N';
               if (ITRANB == 2) TRANB = 'C';
-              KNT.value = KNT.value + 1;
+              KNT.value++;
 
               zlacpy('All', M, N, C, MAXM, X, MAXM);
               zlacpy('All', M, N, C, MAXM, CC, MAXM);
               ztrsyl(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE,
                   IINFO);
-              if (IINFO.value != 0) NINFO[1] = NINFO[1] + 1;
+              if (IINFO.value != 0) NINFO[1]++;
               XNRM = zlange('M', M, N, X, MAXM, DUM);
               RMUL = Complex.one;
               if (XNRM > ONE && TNRM > ONE) {
@@ -211,14 +211,14 @@ void zsyl01(
               RES = RES1 /
                   max(SMLNUM,
                       max(SMLNUM * XNRM, (((RMUL).abs() * TNRM) * EPS) * XNRM));
-              if (RES > THRESH) NFAIL[1] = NFAIL[1] + 1;
+              if (RES > THRESH) NFAIL[1]++;
               if (RES > RMAX[1]) RMAX[1] = RES;
 
               zlacpy('All', M, N, C, MAXM, X, MAXM);
               zlacpy('All', M, N, C, MAXM, CC, MAXM);
               ztrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
                   SCALE3, SWORK, Box(LDSWORK), INFO);
-              if (INFO.value != 0) NINFO[2] = NINFO[2] + 1;
+              if (INFO.value != 0) NINFO[2]++;
               XNRM = zlange('M', M, N, X, MAXM, DUM);
               RMUL = Complex.one;
               if (XNRM > ONE && TNRM > ONE) {
@@ -238,9 +238,9 @@ void zsyl01(
               // there may be cases where TRSYL3 avoid flushing).
               if (SCALE3.value == ZERO && SCALE.value > ZERO ||
                   IINFO.value != INFO.value) {
-                NFAIL[3] = NFAIL[3] + 1;
+                NFAIL[3]++;
               }
-              if (RES > THRESH || disnan(RES)) NFAIL[2] = NFAIL[2] + 1;
+              if (RES > THRESH || disnan(RES)) NFAIL[2]++;
               if (RES > RMAX[2]) RMAX[2] = RES;
             }
           }

@@ -152,12 +152,12 @@ void ddrvgb(
           if (LDA * N > LA) {
             NOUT.println(
                 ' *** In DDRVGB, LA=${LA.i5} is too small for N=${N.i5}, KU=${KU.i5}, KL=${KL.i5}\n ==> Increase LA to at least ${(N * (KL + KU + 1)).i5}');
-            NERRS.value = NERRS.value + 1;
+            NERRS.value++;
           }
           if (LDAFB * N > LAFB) {
             NOUT.println(
                 ' *** In DDRVGB, LAFB=${LAFB.i5} is too small for N=${N.i5}, KU=${KU.i5}, KL=${KL.i5}\n ==> Increase LAFB to at least ${(N * (2 * KL + KU + 1)).i5}');
-            NERRS.value = NERRS.value + 1;
+            NERRS.value++;
           }
           continue;
         }

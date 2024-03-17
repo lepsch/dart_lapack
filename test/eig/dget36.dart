@@ -49,7 +49,7 @@ Future<void> dget36(
   while (true) {
     (N, IFST, ILST) = await NIN.readInt3();
     if (N == 0) return;
-    KNT.value = KNT.value + 1;
+    KNT.value++;
     await NIN.readMatrix(TMP, N, N);
     dlacpy('F', N, N, TMP, LDT, T1, LDT);
     dlacpy('F', N, N, TMP, LDT, T2, LDT);
@@ -91,7 +91,7 @@ Future<void> dget36(
     // Test for successful reordering of T2
 
     if (INFO2.value != 0) {
-      NINFO[INFO2.value] = NINFO[INFO2.value] + 1;
+      NINFO[INFO2.value]++;
     } else {
       if ((IFST2.value - IFSTSV).abs() > 1) RES = RES + ONE / EPS;
       if ((ILST2.value - ILSTSV).abs() > 1) RES = RES + ONE / EPS;

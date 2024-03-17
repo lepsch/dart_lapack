@@ -218,7 +218,7 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       // Either factorization failed or the matrix is flagged, and 1 <=
       // INFO <= N+1. We don't decide based on rcond anymore.
       //     IF (INFO == 0 || INFO > N+1) THEN
-      //        NFAIL = NFAIL + 1
+      //        NFAIL++
       //        WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
       //     END IF
     } else {

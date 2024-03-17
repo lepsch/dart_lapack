@@ -222,7 +222,7 @@ void dlatms(
     ISEED[I] = ((ISEED[I]).abs() % 4096);
   }
 
-  if ((ISEED[4] % 2) != 1) ISEED[4] = ISEED[4] + 1;
+  if ((ISEED[4] % 2) != 1) ISEED[4]++;
 
   // 2)      Set up D  if indicated.
 

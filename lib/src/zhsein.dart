@@ -68,7 +68,7 @@ void zhsein(
   M.value = 0;
   for (K = 1; K <= N; K++) {
     // 10
-    if (SELECT[K]) M.value = M.value + 1;
+    if (SELECT[K]) M.value++;
   } // 10
 
   INFO.value = 0;
@@ -199,7 +199,7 @@ void zhsein(
             SMLNUM,
             IINFO);
         if (IINFO.value > 0) {
-          INFO.value = INFO.value + 1;
+          INFO.value++;
           IFAILL[KS] = K;
         } else {
           IFAILL[KS] = 0;
@@ -215,7 +215,7 @@ void zhsein(
         zlaein(true, NOINIT, KR, H, LDH, WK, VR(1, KS).asArray(),
             WORK.asMatrix(), LDWORK, RWORK, EPS3, SMLNUM, IINFO);
         if (IINFO.value > 0) {
-          INFO.value = INFO.value + 1;
+          INFO.value++;
           IFAILR[KS] = K;
         } else {
           IFAILR[KS] = 0;

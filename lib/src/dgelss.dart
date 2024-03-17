@@ -344,7 +344,7 @@ void dgelss(
     for (I = 1; I <= N; I++) {
       if (S[I] > THR) {
         drscl(NRHS, S[I], B(I, 1).asArray(), LDB);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       } else {
         dlaset('F', 1, NRHS, ZERO, ZERO, B(I, 1), LDB);
       }
@@ -436,7 +436,7 @@ void dgelss(
     for (I = 1; I <= M; I++) {
       if (S[I] > THR) {
         drscl(NRHS, S[I], B(I, 1).asArray(), LDB);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       } else {
         dlaset('F', 1, NRHS, ZERO, ZERO, B(I, 1), LDB);
       }
@@ -521,7 +521,7 @@ void dgelss(
     for (I = 1; I <= M; I++) {
       if (S[I] > THR) {
         drscl(NRHS, S[I], B(I, 1).asArray(), LDB);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       } else {
         dlaset('F', 1, NRHS, ZERO, ZERO, B(I, 1), LDB);
       }

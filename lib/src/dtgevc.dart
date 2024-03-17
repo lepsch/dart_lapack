@@ -156,7 +156,7 @@ void dtgevc(
       if (ILCPLX) {
         if (SELECT[J] || SELECT[J + 1]) IM = IM + 2;
       } else {
-        if (SELECT[J]) IM = IM + 1;
+        if (SELECT[J]) IM++;
       }
     }
   } else {

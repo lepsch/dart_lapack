@@ -283,7 +283,7 @@ void zstein(
         if (maxIterationsReached) {
           // If stopping criterion was not satisfied, update info and
           // store eigenvector number in array ifail.
-          INFO.value = INFO.value + 1;
+          INFO.value++;
           IFAIL[INFO.value] = J;
         }
 

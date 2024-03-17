@@ -186,7 +186,7 @@ void ddrvac(
 
           if (INFO.value != IZERO) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-            NERRS.value = NERRS.value + 1;
+            NERRS.value++;
 
             if (INFO.value != IZERO && IZERO != 0) {
               NOUT.println(

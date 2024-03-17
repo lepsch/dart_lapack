@@ -256,7 +256,7 @@ void zlalsd(
         zlaset('A', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       } else {
         zlascl('G', 0, 0, D[I], ONE, 1, NRHS, B(I, 1), LDB, INFO);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       }
     } // 100
 
@@ -559,7 +559,7 @@ void zlalsd(
       zlaset('A', 1, NRHS, Complex.zero, Complex.zero,
           WORK(BX + I - 1).asMatrix(N), N);
     } else {
-      RANK.value = RANK.value + 1;
+      RANK.value++;
       zlascl(
           'G', 0, 0, D[I], ONE, 1, NRHS, WORK(BX + I - 1).asMatrix(N), N, INFO);
     }

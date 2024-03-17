@@ -114,7 +114,7 @@ void ddrvrf1(
             }
             NOUT.println(
                 '      Error in ${srnamc.SRNAMT.a6} with UPLO=\'${UPLO.a1}\', FORM=\'${CFORM.a1}\', N=${N.i5}');
-            NERRS.value = NERRS.value + 1;
+            NERRS.value++;
             continue;
           }
 

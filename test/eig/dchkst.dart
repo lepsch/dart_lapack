@@ -221,8 +221,8 @@ void dchkst(
     N = NN[JSIZE];
     if (N > 0) {
       LGN = log(N) ~/ log(TWO);
-      if (pow(2, LGN) < N) LGN = LGN + 1;
-      if (pow(2, LGN) < N) LGN = LGN + 1;
+      if (pow(2, LGN) < N) LGN++;
+      if (pow(2, LGN) < N) LGN++;
       LWEDC = 1 + 4 * N + 2 * N * LGN + 4 * pow(N, 2).toInt();
       LIWEDC = 6 + 6 * N + 5 * N * LGN;
     } else {

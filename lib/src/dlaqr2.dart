@@ -188,14 +188,14 @@ void dlaqr2(
       if ((S * V[1][NS.value]).abs() <= max(SMLNUM, ULP * FOO)) {
         // ==== Deflatable ====
 
-        NS.value = NS.value - 1;
+        NS.value--;
       } else {
         // ==== Undeflatable.   Move it up out of the way.
         // .    (DTREXC can not fail in this case.) ====
 
         IFST.value = NS.value;
         dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO);
-        ILST.value = ILST.value + 1;
+        ILST.value++;
       }
     } else {
       // ==== Complex conjugate pair ====

@@ -187,11 +187,11 @@ void dtgsyl(
     IWORK[P] = I;
     I += MB;
     if (I >= M) break;
-    if (A[I][I - 1] != ZERO) I = I + 1;
+    if (A[I][I - 1] != ZERO) I++;
   }
 
   IWORK[P + 1] = M + 1;
-  if (IWORK[P] == IWORK[P + 1]) P = P - 1;
+  if (IWORK[P] == IWORK[P + 1]) P--;
 
   // Determine block structure of B
 
@@ -203,11 +203,11 @@ void dtgsyl(
     IWORK[Q] = J;
     J += NB;
     if (J >= N) break;
-    if (B[J][J - 1] != ZERO) J = J + 1;
+    if (B[J][J - 1] != ZERO) J++;
   }
 
   IWORK[Q + 1] = N + 1;
-  if (IWORK[Q] == IWORK[Q + 1]) Q = Q - 1;
+  if (IWORK[Q] == IWORK[Q + 1]) Q--;
 
   if (NOTRAN) {
     for (IROUND = 1; IROUND <= ISOLVE; IROUND++) {

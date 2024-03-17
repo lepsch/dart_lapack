@@ -277,11 +277,11 @@ void dlarrd(
 
     if (IN == 1) {
       // 1x1 block
-      if (WL.value >= D[IBEGIN] - PIVMIN) NWL = NWL + 1;
-      if (WU.value >= D[IBEGIN] - PIVMIN) NWU = NWU + 1;
+      if (WL.value >= D[IBEGIN] - PIVMIN) NWL++;
+      if (WU.value >= D[IBEGIN] - PIVMIN) NWU++;
       if (IRANGE == ALLRNG ||
           (WL.value < D[IBEGIN] - PIVMIN && WU.value >= D[IBEGIN] - PIVMIN)) {
-        M.value = M.value + 1;
+        M.value++;
         W[M.value] = D[IBEGIN];
         WERR[M.value] = ZERO;
         // The gap for a single block doesn't matter for the later
@@ -310,12 +310,12 @@ void dlarrd(
       //    TMP1 = HALF*(D[IBEGIN]+D[IEND])
       //    L1 = TMP1 - DISC
       //    if( WL.value >= L1-PIVMIN )
-      //        NWL = NWL + 1
+      //        NWL++
       //    if( WU.value >= L1-PIVMIN )
-      //        NWU = NWU + 1
+      //        NWU++
       //    if( IRANGE == ALLRNG || ( WL.value < L1-PIVMIN && WU.value.GE.
       //        L1-PIVMIN ) ) THEN
-      //        M.value = M.value + 1
+      //        M.value++
       //        W[ M.value ] = L1
       //        // The uncertainty of eigenvalues of a 2x2 matrix is very small
       //        WERR[ M.value ] = EPS * ABS( W[ M.value ] ) * TWO
@@ -324,12 +324,12 @@ void dlarrd(
       //     ENDIF
       //     L2 = TMP1 + DISC
       //     if( WL.value >= L2-PIVMIN )
-      //         NWL = NWL + 1
+      //         NWL++
       //     if( WU.value >= L2-PIVMIN )
-      //         NWU = NWU + 1
+      //         NWU++
       //     if( IRANGE == ALLRNG || ( WL.value < L2-PIVMIN && WU.value.GE.
       //         L2-PIVMIN ) ) THEN
-      //        M.value = M.value + 1
+      //        M.value++
       //        W[ M.value ] = L2
       //        // The uncertainty of eigenvalues of a 2x2 matrix is very small
       //        WERR[ M.value ] = EPS * ABS( W[ M.value ] ) * TWO
@@ -472,7 +472,7 @@ void dlarrd(
         if (W[JE] <= WLU && IDISCL > 0) {
           IDISCL--;
         } else {
-          IM.value = IM.value + 1;
+          IM.value++;
           W[IM.value] = W[JE];
           WERR[IM.value] = WERR[JE];
           INDEXW[IM.value] = INDEXW[JE];
@@ -489,7 +489,7 @@ void dlarrd(
         if (W[JE] >= WUL && IDISCU > 0) {
           IDISCU--;
         } else {
-          IM.value = IM.value - 1;
+          IM.value--;
           W[IM.value] = W[JE];
           WERR[IM.value] = WERR[JE];
           INDEXW[IM.value] = INDEXW[JE];
@@ -544,7 +544,7 @@ void dlarrd(
       IM.value = 0;
       for (JE = 1; JE <= M.value; JE++) {
         if (IBLOCK[JE] != 0) {
-          IM.value = IM.value + 1;
+          IM.value++;
           W[IM.value] = W[JE];
           WERR[IM.value] = WERR[JE];
           INDEXW[IM.value] = INDEXW[JE];
@@ -594,6 +594,6 @@ void dlarrd(
   }
 
   INFO.value = 0;
-  if (NCNVRG) INFO.value = INFO.value + 1;
+  if (NCNVRG) INFO.value++;
   if (TOOFEW) INFO.value = INFO.value + 2;
 }

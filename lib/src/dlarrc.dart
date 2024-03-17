@@ -45,20 +45,20 @@ void dlarrc(
     LPIVOT = D[1] - VL;
     RPIVOT = D[1] - VU;
     if (LPIVOT <= ZERO) {
-      LCNT.value = LCNT.value + 1;
+      LCNT.value++;
     }
     if (RPIVOT <= ZERO) {
-      RCNT.value = RCNT.value + 1;
+      RCNT.value++;
     }
     for (I = 1; I <= N - 1; I++) {
       TMP = pow(E[I], 2).toDouble();
       LPIVOT = (D[I + 1] - VL) - TMP / LPIVOT;
       RPIVOT = (D[I + 1] - VU) - TMP / RPIVOT;
       if (LPIVOT <= ZERO) {
-        LCNT.value = LCNT.value + 1;
+        LCNT.value++;
       }
       if (RPIVOT <= ZERO) {
-        RCNT.value = RCNT.value + 1;
+        RCNT.value++;
       }
     }
   } else {
@@ -69,10 +69,10 @@ void dlarrc(
       LPIVOT = D[I] + SL;
       RPIVOT = D[I] + SU;
       if (LPIVOT <= ZERO) {
-        LCNT.value = LCNT.value + 1;
+        LCNT.value++;
       }
       if (RPIVOT <= ZERO) {
-        RCNT.value = RCNT.value + 1;
+        RCNT.value++;
       }
       TMP = E[I] * D[I] * E[I];
 
@@ -93,10 +93,10 @@ void dlarrc(
     LPIVOT = D[N] + SL;
     RPIVOT = D[N] + SU;
     if (LPIVOT <= ZERO) {
-      LCNT.value = LCNT.value + 1;
+      LCNT.value++;
     }
     if (RPIVOT <= ZERO) {
-      RCNT.value = RCNT.value + 1;
+      RCNT.value++;
     }
   }
   EIGCNT.value = RCNT.value - LCNT.value;

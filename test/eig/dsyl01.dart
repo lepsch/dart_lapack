@@ -189,13 +189,13 @@ void dsyl01(
               if (ITRANB == 2) {
                 TRANB = 'T';
               }
-              KNT.value = KNT.value + 1;
+              KNT.value++;
 
               dlacpy('All', M, N, C, MAXM, X, MAXM);
               dlacpy('All', M, N, C, MAXM, CC, MAXM);
               dtrsyl(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE,
                   IINFO);
-              if (IINFO.value != 0) NINFO[1] = NINFO[1] + 1;
+              if (IINFO.value != 0) NINFO[1]++;
               XNRM = dlange('M', M, N, X, MAXM, DUM);
               RMUL = ONE;
               if (XNRM > ONE && TNRM > ONE) {
@@ -210,7 +210,7 @@ void dsyl01(
               RES1 = dlange('M', M, N, CC, MAXM, DUM);
               RES = RES1 /
                   max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
-              if (RES > THRESH) NFAIL[1] = NFAIL[1] + 1;
+              if (RES > THRESH) NFAIL[1]++;
               if (RES > RMAX[1]) RMAX[1] = RES;
 
               dlacpy('All', M, N, C, MAXM, X, MAXM);
@@ -218,7 +218,7 @@ void dsyl01(
               final LDSWORKINOUT = Box(LDSWORK);
               dtrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
                   SCALE3, IWORK, LIWORK, SWORK, LDSWORKINOUT, INFO);
-              if (INFO.value != 0) NINFO[2] = NINFO[2] + 1;
+              if (INFO.value != 0) NINFO[2]++;
               XNRM = dlange('M', M, N, X, MAXM, DUM);
               RMUL = ONE;
               if (XNRM > ONE && TNRM > ONE) {
@@ -237,9 +237,9 @@ void dsyl01(
               // there may be cases where TRSYL3 avoid flushing).
               if (SCALE3.value == ZERO && SCALE.value > ZERO ||
                   IINFO.value != INFO.value) {
-                NFAIL[3] = NFAIL[3] + 1;
+                NFAIL[3]++;
               }
-              if (RES > THRESH || disnan(RES)) NFAIL[2] = NFAIL[2] + 1;
+              if (RES > THRESH || disnan(RES)) NFAIL[2]++;
               if (RES > RMAX[2]) RMAX[2] = RES;
             }
           }

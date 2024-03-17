@@ -36,7 +36,7 @@ int dlaneg(
     BSAV = T;
     for (J = BJ; J <= min(BJ + BLKLEN - 1, R - 1); J++) {
       DPLUS = D[J] + T;
-      if (DPLUS < ZERO) NEG1 = NEG1 + 1;
+      if (DPLUS < ZERO) NEG1++;
       TMP = T / DPLUS;
       T = TMP * LLD[J] - SIGMA;
     }
@@ -50,7 +50,7 @@ int dlaneg(
       T = BSAV;
       for (J = BJ; J <= min(BJ + BLKLEN - 1, R - 1); J++) {
         DPLUS = D[J] + T;
-        if (DPLUS < ZERO) NEG1 = NEG1 + 1;
+        if (DPLUS < ZERO) NEG1++;
         TMP = T / DPLUS;
         if (disnan(TMP)) TMP = ONE;
         T = TMP * LLD[J] - SIGMA;
@@ -66,7 +66,7 @@ int dlaneg(
     BSAV = P;
     for (J = BJ; J >= max(BJ - BLKLEN + 1, R); J--) {
       DMINUS = LLD[J] + P;
-      if (DMINUS < ZERO) NEG2 = NEG2 + 1;
+      if (DMINUS < ZERO) NEG2++;
       TMP = P / DMINUS;
       P = TMP * D[J] - SIGMA;
     }
@@ -78,7 +78,7 @@ int dlaneg(
       P = BSAV;
       for (J = BJ; J >= max(BJ - BLKLEN + 1, R); J--) {
         DMINUS = LLD[J] + P;
-        if (DMINUS < ZERO) NEG2 = NEG2 + 1;
+        if (DMINUS < ZERO) NEG2++;
         TMP = P / DMINUS;
         if (disnan(TMP)) TMP = ONE;
         P = TMP * D[J] - SIGMA;
@@ -90,7 +90,7 @@ int dlaneg(
   // III) Twist index
   //   T was shifted by SIGMA initially.
   GAMMA = (T + SIGMA) + P;
-  if (GAMMA < ZERO) NEGCNT = NEGCNT + 1;
+  if (GAMMA < ZERO) NEGCNT++;
 
   return NEGCNT;
 }

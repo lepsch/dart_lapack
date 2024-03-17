@@ -176,7 +176,7 @@ void dstebz(
     TMP1 = pow(E[J - 1], 2).toDouble();
     if ((D[J] * D[J - 1]).abs() * pow(ULP, 2) + SAFEMN > TMP1) {
       ISPLIT[NSPLIT.value] = J - 1;
-      NSPLIT.value = NSPLIT.value + 1;
+      NSPLIT.value++;
       WORK[J - 1] = ZERO;
     } else {
       WORK[J - 1] = TMP1;
@@ -319,11 +319,11 @@ void dstebz(
     if (IN == 1) {
       // Special Case -- IN=1
 
-      if (IRANGE == 1 || WL >= D[IBEGIN] - PIVMIN) NWL = NWL + 1;
-      if (IRANGE == 1 || WU >= D[IBEGIN] - PIVMIN) NWU = NWU + 1;
+      if (IRANGE == 1 || WL >= D[IBEGIN] - PIVMIN) NWL++;
+      if (IRANGE == 1 || WU >= D[IBEGIN] - PIVMIN) NWU++;
       if (IRANGE == 1 ||
           (WL < D[IBEGIN] - PIVMIN && WU >= D[IBEGIN] - PIVMIN)) {
-        M.value = M.value + 1;
+        M.value++;
         W[M.value] = D[IBEGIN];
         IBLOCK[M.value] = JB;
       }
@@ -463,7 +463,7 @@ void dstebz(
         } else if (W[JE] >= WUL && IDISCU > 0) {
           IDISCU--;
         } else {
-          IM.value = IM.value + 1;
+          IM.value++;
           W[IM.value] = W[JE];
           IBLOCK[IM.value] = IBLOCK[JE];
         }
@@ -510,7 +510,7 @@ void dstebz(
       IM.value = 0;
       for (JE = 1; JE <= M.value; JE++) {
         if (IBLOCK[JE] != 0) {
-          IM.value = IM.value + 1;
+          IM.value++;
           W[IM.value] = W[JE];
           IBLOCK[IM.value] = IBLOCK[JE];
         }
@@ -548,6 +548,6 @@ void dstebz(
   }
 
   INFO.value = 0;
-  if (NCNVRG) INFO.value = INFO.value + 1;
+  if (NCNVRG) INFO.value++;
   if (TOOFEW) INFO.value = INFO.value + 2;
 }

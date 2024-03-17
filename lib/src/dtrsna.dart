@@ -100,13 +100,13 @@ void dtrsna(
         } else {
           if (K < N) {
             if (T[K + 1][K] == ZERO) {
-              if (SELECT[K]) M.value = M.value + 1;
+              if (SELECT[K]) M.value++;
             } else {
               PAIR = true;
               if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
             }
           } else {
-            if (SELECT[N]) M.value = M.value + 1;
+            if (SELECT[N]) M.value++;
           }
         }
       }
@@ -327,6 +327,6 @@ void dtrsna(
       if (PAIR) SEP[KS + 1] = SEP[KS];
     }
 
-    if (PAIR) KS = KS + 1;
+    if (PAIR) KS++;
   }
 }

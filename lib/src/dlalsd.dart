@@ -176,7 +176,7 @@ void dlalsd(
         dlaset('A', 1, NRHS, ZERO, ZERO, B(I, 1), LDB);
       } else {
         dlascl('G', 0, 0, D[I], ONE, 1, NRHS, B(I, 1), LDB, INFO);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       }
     }
     dgemm('T', 'N', N, NRHS, N, ONE, WORK.asMatrix(N), N, B, LDB, ZERO,
@@ -368,7 +368,7 @@ void dlalsd(
     if ((D[I]).abs() <= TOL) {
       dlaset('A', 1, NRHS, ZERO, ZERO, WORK(BX + I - 1).asMatrix(N), N);
     } else {
-      RANK.value = RANK.value + 1;
+      RANK.value++;
       dlascl(
           'G', 0, 0, D[I], ONE, 1, NRHS, WORK(BX + I - 1).asMatrix(N), N, INFO);
     }

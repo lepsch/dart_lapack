@@ -93,7 +93,7 @@
 
       L = 0;
       for (I = 1; I <= min( P, N ); I++) { // 20
-         if( CABS1( B( I, I ) ) > TOLB ) L = L + 1;
+         if( CABS1( B( I, I ) ) > TOLB ) L++;
       } // 20
 
       if ( WANTV ) {
@@ -166,7 +166,7 @@
 
       K = 0;
       for (I = 1; I <= min( M, N-L ); I++) { // 80
-         if( CABS1( A( I, I ) ) > TOLA ) K = K + 1;
+         if( CABS1( A( I, I ) ) > TOLA ) K++;
       } // 80
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )

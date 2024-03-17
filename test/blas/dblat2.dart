@@ -735,7 +735,7 @@ void _dchk1(
         } else {
           LDA = M;
         }
-        if (LDA < NMAX) LDA = LDA + 1;
+        if (LDA < NMAX) LDA++;
         // Skip tests if not enough room.
         if (LDA > NMAX) continue;
         LAA = LDA * N;
@@ -1132,7 +1132,7 @@ void _dchk2(
       } else {
         LDA = N;
       }
-      if (LDA < NMAX) LDA = LDA + 1;
+      if (LDA < NMAX) LDA++;
       // Skip tests if not enough room.
       if (LDA > NMAX) continue;
       if (PACKED) {
@@ -1504,7 +1504,7 @@ void _dchk3(
       } else {
         LDA = N;
       }
-      if (LDA < NMAX) LDA = LDA + 1;
+      if (LDA < NMAX) LDA++;
       // Skip tests if not enough room.
       if (LDA > NMAX) continue;
       if (PACKED) {
@@ -1872,7 +1872,7 @@ void _dchk4(
 
       // Set LDA to 1 more than minimum value if room.
       LDA = M;
-      if (LDA < NMAX) LDA = LDA + 1;
+      if (LDA < NMAX) LDA++;
       // Skip tests if not enough room.
       if (LDA > NMAX) continue;
       LAA = LDA * N;
@@ -2191,7 +2191,7 @@ void _dchk5(
     N = IDIM[IN];
     // Set LDA to 1 more than minimum value if room.
     LDA = N;
-    if (LDA < NMAX) LDA = LDA + 1;
+    if (LDA < NMAX) LDA++;
     // Skip tests if not enough room.
     if (LDA > NMAX) continue;
     if (PACKED) {
@@ -2530,7 +2530,7 @@ void _dchk6(
     N = IDIM[IN];
     // Set LDA to 1 more than minimum value if room.
     LDA = N;
-    if (LDA < NMAX) LDA = LDA + 1;
+    if (LDA < NMAX) LDA++;
     // Skip tests if not enough room.
     if (LDA > NMAX) continue;
     if (PACKED) {

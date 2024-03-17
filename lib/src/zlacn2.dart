@@ -112,7 +112,7 @@ void zlacn2(
       JLAST = ISAVE[2];
       ISAVE[2] = izmax1(N, X, 1);
       if ((X[JLAST].abs() != X[ISAVE[2]].abs()) && (ISAVE[3] < ITMAX)) {
-        ISAVE[3] = ISAVE[3] + 1;
+        ISAVE[3]++;
         continue L50;
       }
 

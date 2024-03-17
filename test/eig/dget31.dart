@@ -101,8 +101,8 @@ void dget31(
                   WI = ZERO;
                   dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
                       WR, WI, X, 2, SCALE, XNORM, INFO);
-                  if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
-                  if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
+                  if (INFO.value < 0) NINFO[1]++;
+                  if (INFO.value > 0) NINFO[2]++;
                   RES = ((CA * A[1][1] - WR * D1) * X[1][1] -
                           SCALE.value * B[1][1])
                       .abs();
@@ -124,7 +124,7 @@ void dget31(
                           max(SMLNUM, XNORM.value) /
                           EPS;
                   if (INFO.value != 0 && INFO.value != 1) RES = RES + ONE / EPS;
-                  KNT.value = KNT.value + 1;
+                  KNT.value++;
                   if (RES > RMAX.value) {
                     LMAX.value = KNT.value;
                     RMAX.value = RES;
@@ -154,8 +154,8 @@ void dget31(
                     }
                     dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
                         WR, WI, X, 2, SCALE, XNORM, INFO);
-                    if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
-                    if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
+                    if (INFO.value < 0) NINFO[1]++;
+                    if (INFO.value > 0) NINFO[2]++;
                     RES = ((CA * A[1][1] - WR * D1) * X[1][1] +
                             (WI * D1) * X[1][2] -
                             SCALE.value * B[1][1])
@@ -190,7 +190,7 @@ void dget31(
                     if (INFO.value != 0 && INFO.value != 1) {
                       RES += ONE / EPS;
                     }
-                    KNT.value = KNT.value + 1;
+                    KNT.value++;
                     if (RES > RMAX.value) {
                       LMAX.value = KNT.value;
                       RMAX.value = RES;
@@ -219,8 +219,8 @@ void dget31(
                   WI = ZERO;
                   dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
                       WR, WI, X, 2, SCALE, XNORM, INFO);
-                  if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
-                  if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
+                  if (INFO.value < 0) NINFO[1]++;
+                  if (INFO.value > 0) NINFO[2]++;
                   if (ITRANS == 1) {
                     TMP = A[1][2];
                     A[1][2] = A[2][1];
@@ -276,7 +276,7 @@ void dget31(
                           max(SMLNUM, XNORM.value) /
                           EPS;
                   if (INFO.value != 0 && INFO.value != 1) RES = RES + ONE / EPS;
-                  KNT.value = KNT.value + 1;
+                  KNT.value++;
                   if (RES > RMAX.value) {
                     LMAX.value = KNT.value;
                     RMAX.value = RES;
@@ -311,8 +311,8 @@ void dget31(
                     }
                     dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
                         WR, WI, X, 2, SCALE, XNORM, INFO);
-                    if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
-                    if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
+                    if (INFO.value < 0) NINFO[1]++;
+                    if (INFO.value > 0) NINFO[2]++;
                     if (ITRANS == 1) {
                       TMP = A[1][2];
                       A[1][2] = A[2][1];
@@ -403,7 +403,7 @@ void dget31(
                     if (INFO.value != 0 && INFO.value != 1) {
                       RES += ONE / EPS;
                     }
-                    KNT.value = KNT.value + 1;
+                    KNT.value++;
                     if (RES > RMAX.value) {
                       LMAX.value = KNT.value;
                       RMAX.value = RES;

@@ -216,7 +216,7 @@ void dlasd7(
           // Record the appropriate Givens rotation
 
           if (ICOMPQ == 1) {
-            GIVPTR.value = GIVPTR.value + 1;
+            GIVPTR.value++;
             IDXJP = IDXQ[IDX[JPREV] + 1];
             IDXJ = IDXQ[IDX[J] + 1];
             if (IDXJP <= NLP1) {
@@ -236,7 +236,7 @@ void dlasd7(
           IDXP[K2] = JPREV;
           JPREV = J;
         } else {
-          K.value = K.value + 1;
+          K.value++;
           ZW[K.value] = Z[JPREV];
           DSIGMA[K.value] = D[JPREV];
           IDXP[K.value] = JPREV;
@@ -248,7 +248,7 @@ void dlasd7(
 
     // Record the last singular value.
 
-    K.value = K.value + 1;
+    K.value++;
     ZW[K.value] = Z[JPREV];
     DSIGMA[K.value] = D[JPREV];
     IDXP[K.value] = JPREV;
@@ -271,7 +271,7 @@ void dlasd7(
       JP = IDXP[J];
       PERM[J] = IDXQ[IDX[JP] + 1];
       if (PERM[J] <= NLP1) {
-        PERM[J] = PERM[J] - 1;
+        PERM[J]--;
       }
     } // 120
   }

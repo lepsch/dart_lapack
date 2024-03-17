@@ -96,7 +96,7 @@ void dtrevc(
         } else {
           if (J < N) {
             if (T[J + 1][J] == ZERO) {
-              if (SELECT[J]) M.value = M.value + 1;
+              if (SELECT[J]) M.value++;
             } else {
               PAIR = true;
               if (SELECT[J] || SELECT[J + 1]) {
@@ -105,7 +105,7 @@ void dtrevc(
               }
             }
           } else {
-            if (SELECT[N]) M.value = M.value + 1;
+            if (SELECT[N]) M.value++;
           }
         }
       }
@@ -488,7 +488,7 @@ void dtrevc(
         }
 
         IS--;
-        if (IP != 0) IS = IS - 1;
+        if (IP != 0) IS--;
         break;
       }
       if (IP == 1) IP = 0;
@@ -832,7 +832,7 @@ void dtrevc(
       }
 
       IS++;
-      if (IP != 0) IS = IS + 1;
+      if (IP != 0) IS++;
       break;
     }
     if (IP == -1) IP = 0;

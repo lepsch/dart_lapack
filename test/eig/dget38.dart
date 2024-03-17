@@ -108,7 +108,7 @@ Future<void> dget38(
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
 
-      KNT.value = KNT.value + 1;
+      KNT.value++;
       dlacpy('F', N, N, TMP, LDT, T, LDT);
       VMUL = VAL[ISCL];
       for (I = 1; I <= N; I++) {
@@ -122,7 +122,7 @@ Future<void> dget38(
       dgehrd(N, 1, N, T, LDT, WORK, WORK(N + 1), LWORK - N, INFO);
       if (INFO.value != 0) {
         LMAX[1] = KNT.value;
-        NINFO[1] = NINFO[1] + 1;
+        NINFO[1]++;
         continue;
       }
 
@@ -137,7 +137,7 @@ Future<void> dget38(
           'S.value', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
-        NINFO[2] = NINFO[2] + 1;
+        NINFO[2]++;
         continue;
       }
 
@@ -180,7 +180,7 @@ Future<void> dget38(
           LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       SEPTMP.value = SEP.value / VMUL;
@@ -314,7 +314,7 @@ Future<void> dget38(
           SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (S.value != STMP.value) VMAX = ONE / EPS;
@@ -337,7 +337,7 @@ Future<void> dget38(
           SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (-ONE != STMP.value) VMAX = ONE / EPS;
@@ -360,7 +360,7 @@ Future<void> dget38(
           SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (S.value != STMP.value) VMAX = ONE / EPS;
@@ -383,7 +383,7 @@ Future<void> dget38(
           SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (-ONE != STMP.value) VMAX = ONE / EPS;

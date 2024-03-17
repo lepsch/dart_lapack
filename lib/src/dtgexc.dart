@@ -83,7 +83,7 @@ void dtgexc(
   // if it is 1-by-1 or 2-by-2.
 
   if (IFST.value > 1) {
-    if (A[IFST.value][IFST.value - 1] != ZERO) IFST.value = IFST.value - 1;
+    if (A[IFST.value][IFST.value - 1] != ZERO) IFST.value--;
   }
   NBF = 1;
   if (IFST.value < N) {
@@ -94,7 +94,7 @@ void dtgexc(
   // and find out if it is 1-by-1 or 2-by-2.
 
   if (ILST.value > 1) {
-    if (A[ILST.value][ILST.value - 1] != ZERO) ILST.value = ILST.value - 1;
+    if (A[ILST.value][ILST.value - 1] != ZERO) ILST.value--;
   }
   NBL = 1;
   if (ILST.value < N) {
@@ -105,8 +105,8 @@ void dtgexc(
   if (IFST.value < ILST.value) {
     // Update ILST.value.
 
-    if (NBF == 2 && NBL == 1) ILST.value = ILST.value - 1;
-    if (NBF == 1 && NBL == 2) ILST.value = ILST.value + 1;
+    if (NBF == 2 && NBL == 1) ILST.value--;
+    if (NBF == 1 && NBL == 2) ILST.value++;
 
     HERE = IFST.value;
 

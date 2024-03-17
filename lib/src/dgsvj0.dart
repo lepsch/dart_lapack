@@ -152,7 +152,7 @@ void dgsvj0(
   // parameters of the computer's memory.
 
   NBL = N ~/ KBL;
-  if ((NBL * KBL) != N) NBL = NBL + 1;
+  if ((NBL * KBL) != N) NBL++;
 
   BLSKIP = pow(KBL, 2).toInt() + 1;
   // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
@@ -429,12 +429,12 @@ void dgsvj0(
                   }
                 } else {
                   // A[:][p] and A[:][q] already numerically orthogonal
-                  if (ir1 == 0) NOTROT = NOTROT + 1;
+                  if (ir1 == 0) NOTROT++;
                   PSKIPPED++;
                 }
               } else {
                 // A[:][q] is zero column
-                if (ir1 == 0) NOTROT = NOTROT + 1;
+                if (ir1 == 0) NOTROT++;
                 PSKIPPED++;
               }
 
@@ -541,7 +541,7 @@ void dgsvj0(
 
                 if (AAPQ.abs() > TOL) {
                   NOTROT = 0;
-                  // ROTATED  = ROTATED + 1
+                  // ROTATED++
                   PSKIPPED = 0;
                   ISWROT++;
 

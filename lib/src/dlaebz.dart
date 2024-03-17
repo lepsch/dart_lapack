@@ -65,7 +65,7 @@ void dlaebz(
         for (J = 2; J <= N; J++) {
           TMP1 = D[J] - E2[J - 1] / TMP1 - AB[JI][JP];
           if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
-          if (TMP1 <= ZERO) NAB[JI][JP] = NAB[JI][JP] + 1;
+          if (TMP1 <= ZERO) NAB[JI][JP]++;
         }
       }
       MOUT.value = MOUT.value + NAB[JI][2] - NAB[JI][1];
@@ -112,7 +112,7 @@ void dlaebz(
         for (J = 2; J <= N; J++) {
           WORK[JI] = D[J] - E2[J - 1] / WORK[JI] - C[JI];
           if (WORK[JI] <= PIVMIN) {
-            IWORK[JI] = IWORK[JI] + 1;
+            IWORK[JI]++;
             WORK[JI] = min(WORK[JI], -PIVMIN);
           }
         }

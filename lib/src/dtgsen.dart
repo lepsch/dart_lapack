@@ -111,13 +111,13 @@ void dtgsen(
 
       if (K < N) {
         if (A[K + 1][K] == ZERO) {
-          if (SELECT[K]) M.value = M.value + 1;
+          if (SELECT[K]) M.value++;
         } else {
           PAIR = true;
           if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
         }
       } else {
-        if (SELECT[N]) M.value = M.value + 1;
+        if (SELECT[N]) M.value++;
       }
     }
   }
@@ -187,7 +187,7 @@ void dtgsen(
       }
 
       if (SWAP) {
-        KS.value = KS.value + 1;
+        KS.value++;
 
         // Swap the K-th block to position KS.value.
         // Perform the reordering of diagonal blocks in (A, B)
@@ -216,7 +216,7 @@ void dtgsen(
           break;
         }
 
-        if (PAIR) KS.value = KS.value + 1;
+        if (PAIR) KS.value++;
       }
     }
     if (!isRejected) {

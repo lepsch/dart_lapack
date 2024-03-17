@@ -157,12 +157,12 @@ void dchkgb(
             if (N * (KL + KU + 1) > LA) {
               NOUT.println(
                   ' *** In DCHKGB, LA=${LA.i5} is too small for M=${M.i5}, N=${N.i5}, KL=${KL.i4}, KU=${KU.i4}\n ==> Increase LA to at least ${(N * (KL + KU + 1)).i5}');
-              NERRS.value = NERRS.value + 1;
+              NERRS.value++;
             }
             if (N * (2 * KL + KU + 1) > LAFAC) {
               NOUT.println(
                   ' *** In DCHKGB, LAFAC=${LAFAC.i5} is too small for M=${M.i5}, N=${N.i5}, KL=${KL.i4}, KU=${KU.i4}\n ==> Increase LAFAC to at least ${(N * (2 * KL + KU + 1)).i5}');
-              NERRS.value = NERRS.value + 1;
+              NERRS.value++;
             }
             continue;
           }

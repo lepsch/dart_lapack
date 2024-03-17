@@ -255,7 +255,7 @@ void dbbcsd(
     if (ITER > MAXIT) {
       INFO.value = 0;
       for (I = 1; I <= Q; I++) {
-        if (PHI[I] != ZERO) INFO.value = INFO.value + 1;
+        if (PHI[I] != ZERO) INFO.value++;
       }
       return;
     }

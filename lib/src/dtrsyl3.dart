@@ -158,7 +158,7 @@ void dtrsyl3(
       if (A[L][L + 1] != ZERO && A[L + 1][L] != ZERO) {
         // Check if 2-by-2 block is split
         if (L + 1 == IWORK[K + 1]) {
-          IWORK[K + 1] = IWORK[K + 1] + 1;
+          IWORK[K + 1]++;
           continue;
         }
         SKIP = true;
@@ -194,7 +194,7 @@ void dtrsyl3(
       if (B[L][L + 1] != ZERO && B[L + 1][L] != ZERO) {
         // Check if 2-by-2 block is split
         if (L + 1 == IWORK[PC + K + 1]) {
-          IWORK[PC + K + 1] = IWORK[PC + K + 1] + 1;
+          IWORK[PC + K + 1]++;
           continue;
         }
         SKIP = true;

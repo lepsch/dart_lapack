@@ -479,7 +479,7 @@ void dggesx(
         // 50
         CURSL = SELCTG(ALPHAR[I], ALPHAI[I], BETA[I]);
         if (ALPHAI[I] == ZERO) {
-          if (CURSL) SDIM.value = SDIM.value + 1;
+          if (CURSL) SDIM.value++;
           IP = 0;
           if (CURSL && !LASTSL) INFO.value = N + 2;
         } else {

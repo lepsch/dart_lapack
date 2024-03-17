@@ -207,7 +207,7 @@ void dgelsy(
       WORK[ISMAX + RANK.value] = C2.value;
       SMIN = SMINPR.value;
       SMAX = SMAXPR.value;
-      RANK.value = RANK.value + 1;
+      RANK.value++;
       continue;
     }
     break;

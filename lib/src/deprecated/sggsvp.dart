@@ -84,7 +84,7 @@
 
       L = 0;
       for (I = 1; I <= min( P, N ); I++) { // 20
-         if( ( B( I, I ) ).abs() > TOLB ) L = L + 1;
+         if( ( B( I, I ) ).abs() > TOLB ) L++;
       } // 20
 
       if ( WANTV ) {
@@ -158,7 +158,7 @@
 
       K = 0;
       for (I = 1; I <= min( M, N-L ); I++) { // 80
-         if( ( A( I, I ) ).abs() > TOLA ) K = K + 1;
+         if( ( A( I, I ) ).abs() > TOLA ) K++;
       } // 80
 
       // Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )

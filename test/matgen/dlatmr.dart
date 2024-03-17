@@ -549,10 +549,10 @@ void dlatmr(
       JSUB.value = 1;
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          ISUB.value = ISUB.value + 1;
+          ISUB.value++;
           if (ISUB.value > LDA) {
             ISUB.value = 1;
-            JSUB.value = JSUB.value + 1;
+            JSUB.value++;
           }
           A[ISUB.value][JSUB.value] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
               D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
@@ -584,10 +584,10 @@ void dlatmr(
         JSUB.value = 1;
         for (J = 1; J <= N; J++) {
           for (I = J; I <= M; I++) {
-            ISUB.value = ISUB.value + 1;
+            ISUB.value++;
             if (ISUB.value > LDA) {
               ISUB.value = 1;
-              JSUB.value = JSUB.value + 1;
+              JSUB.value++;
             }
             A[ISUB.value][JSUB.value] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
                 D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);

@@ -127,7 +127,7 @@ void ztgevc(
     IM = 0;
     for (J = 1; J <= N; J++) {
       // 10
-      if (SELECT[J]) IM = IM + 1;
+      if (SELECT[J]) IM++;
     } // 10
   } else {
     IM = N;

@@ -257,7 +257,7 @@ void dchksy_aa(
           //       K = J
           //    END IF
           //    IF( J < K ) THEN
-          //       J = J + 1
+          //       J++
           //       GO TO 100
           //    END IF
           // ELSE

@@ -425,7 +425,7 @@ void zgesvj(
   // parameters of the computer's memory.
 
   NBL = N ~/ KBL;
-  if ((NBL * KBL) != N) NBL = NBL + 1;
+  if ((NBL * KBL) != N) NBL++;
 
   BLSKIP = pow(KBL, 2).toInt();
   // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
@@ -801,13 +801,13 @@ void zgesvj(
                   }
                 } else {
                   // A(:,p) and A(:,q) already numerically orthogonal
-                  if (ir1 == 0) NOTROT = NOTROT + 1;
-                  // [RTD]      SKIPPED  = SKIPPED + 1
+                  if (ir1 == 0) NOTROT++;
+                  // [RTD]      SKIPPED++
                   PSKIPPED++;
                 }
               } else {
                 // A(:,q) is zero column
-                if (ir1 == 0) NOTROT = NOTROT + 1;
+                if (ir1 == 0) NOTROT++;
                 PSKIPPED++;
               }
 
@@ -912,7 +912,7 @@ void zgesvj(
                 if ((AAPQ1).abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
                   NOTROT = 0;
-                  // [RTD]      ROTATED  = ROTATED + 1
+                  // [RTD]      ROTATED++
                   PSKIPPED = 0;
                   ISWROT++;
 
@@ -1016,7 +1016,7 @@ void zgesvj(
                   // end of OK rotation
                 } else {
                   NOTROT++;
-                  // [RTD]      SKIPPED  = SKIPPED  + 1
+                  // [RTD]      SKIPPED++
                   PSKIPPED++;
                   IJBLSK++;
                 }
@@ -1116,12 +1116,12 @@ void zgesvj(
     }
     if (SVA[p] != ZERO) {
       N4++;
-      if (SVA[p] * SKL > SFMIN) N2 = N2 + 1;
+      if (SVA[p] * SKL > SFMIN) N2++;
     }
   } // 5991
   if (SVA[N] != ZERO) {
     N4++;
-    if (SVA[N] * SKL > SFMIN) N2 = N2 + 1;
+    if (SVA[N] * SKL > SFMIN) N2++;
   }
 
   // Normalize the left singular vectors.

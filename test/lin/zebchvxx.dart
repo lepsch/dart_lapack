@@ -76,7 +76,8 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
 
     // Generate the Hilbert matrix, its inverse, and the
     // right hand side, all scaled by the LCM(1,..,2N-1).
-    zlahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK.cast<double>(), INFO, PATH);
+    zlahilb(
+        N, N, A, LDA, INVHILB, LDA, B, LDA, WORK.cast<double>(), INFO, PATH);
 
     // Copy A into ACOPY.
     zlacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);
@@ -253,7 +254,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       // Either factorization failed or the matrix is flagged, and 1 <=
       // INFO.value <= N+1. We don't decide based on rcond anymore.
       //     IF (INFO == 0 || INFO > N+1) THEN
-      //        NFAIL = NFAIL + 1
+      //        NFAIL++
       //        WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
       //     END IF
     } else {

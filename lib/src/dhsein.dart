@@ -69,7 +69,7 @@ void dhsein(
       SELECT[K] = false;
     } else {
       if (WI[K] == ZERO) {
-        if (SELECT[K]) M.value = M.value + 1;
+        if (SELECT[K]) M.value++;
       } else {
         PAIR = true;
         if (SELECT[K] || SELECT[K + 1]) {
@@ -219,7 +219,7 @@ void dhsein(
           if (PAIR) {
             INFO.value = INFO.value + 2;
           } else {
-            INFO.value = INFO.value + 1;
+            INFO.value++;
           }
           IFAILL[KSR] = K;
           IFAILL[KSI] = K;
@@ -260,7 +260,7 @@ void dhsein(
           if (PAIR) {
             INFO.value = INFO.value + 2;
           } else {
-            INFO.value = INFO.value + 1;
+            INFO.value++;
           }
           IFAILR[KSR] = K;
           IFAILR[KSI] = K;

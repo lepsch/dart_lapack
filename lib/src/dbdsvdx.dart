@@ -493,7 +493,7 @@ void dbdsvdx(
 
               // if( IUTGK*2 > NTGK ) THEN
               // Eigenvalue equal to zero or very small.
-              // NSL.value = NSL.value - 1
+              // NSL.value--
               // END if
             }
 

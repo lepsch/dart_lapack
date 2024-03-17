@@ -137,7 +137,7 @@ void dggsvp3(
 
   L.value = 0;
   for (I = 1; I <= min(P, N); I++) {
-    if ((B[I][I]).abs() > TOLB) L.value = L.value + 1;
+    if ((B[I][I]).abs() > TOLB) L.value++;
   }
 
   if (WANTV) {
@@ -210,7 +210,7 @@ void dggsvp3(
 
   K.value = 0;
   for (I = 1; I <= min(M, N - L.value); I++) {
-    if ((A[I][I]).abs() > TOLA) K.value = K.value + 1;
+    if ((A[I][I]).abs() > TOLA) K.value++;
   }
 
   // Update A12 := U**T*A12, where A12 = A[ 1:M][ N-L.value+1:N ]

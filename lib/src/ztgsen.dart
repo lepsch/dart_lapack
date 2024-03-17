@@ -102,9 +102,9 @@ void ztgsen(
       ALPHA[K] = A[K][K];
       BETA[K] = B[K][K];
       if (K < N) {
-        if (SELECT[K]) M.value = M.value + 1;
+        if (SELECT[K]) M.value++;
       } else {
-        if (SELECT[N]) M.value = M.value + 1;
+        if (SELECT[N]) M.value++;
       }
     } // 10
   }
@@ -170,7 +170,7 @@ void ztgsen(
     // 30
     SWAP = SELECT[K];
     if (SWAP) {
-      KS.value = KS.value + 1;
+      KS.value++;
 
       // Swap the K-th block to position KS. Compute unitary Q
       // and Z that will swap adjacent diagonal blocks in (A, B).

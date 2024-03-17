@@ -89,14 +89,14 @@ void dget34(
           dcopy(16, VAL(1), 0, Q.asArray(), 1);
           dcopy(4, VAL(3), 0, Q.asArray(), 5);
           dlaexc(true, 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO);
-          if (INFO.value != 0) NINFO[INFO.value] = NINFO[INFO.value] + 1;
+          if (INFO.value != 0) NINFO[INFO.value]++;
           dhst01(2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
           RES = RESULT[1] + RESULT[2];
           if (INFO.value != 0) RES = RES + ONE / EPS;
           if (T[1][1] != T1[2][2]) RES = RES + ONE / EPS;
           if (T[2][2] != T1[1][1]) RES = RES + ONE / EPS;
           if (T[2][1] != ZERO) RES = RES + ONE / EPS;
-          KNT.value = KNT.value + 1;
+          KNT.value++;
           if (RES > RMAX.value) {
             LMAX.value = KNT.value;
             RMAX.value = RES;
@@ -141,7 +141,7 @@ void dget34(
                 dcopy(16, VAL(1), 0, Q.asArray(), 1);
                 dcopy(4, VAL(3), 0, Q.asArray(), 5);
                 dlaexc(true, 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO);
-                if (INFO.value != 0) NINFO[INFO.value] = NINFO[INFO.value] + 1;
+                if (INFO.value != 0) NINFO[INFO.value]++;
                 dhst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                 RES = RESULT[1] + RESULT[2];
                 if (INFO.value == 0) {
@@ -154,7 +154,7 @@ void dget34(
                     RES += ONE / EPS;
                   }
                 }
-                KNT.value = KNT.value + 1;
+                KNT.value++;
                 if (RES > RMAX.value) {
                   LMAX.value = KNT.value;
                   RMAX.value = RES;
@@ -202,7 +202,7 @@ void dget34(
                 dcopy(16, VAL(1), 0, Q.asArray(), 1);
                 dcopy(4, VAL(3), 0, Q.asArray(), 5);
                 dlaexc(true, 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO);
-                if (INFO.value != 0) NINFO[INFO.value] = NINFO[INFO.value] + 1;
+                if (INFO.value != 0) NINFO[INFO.value]++;
                 dhst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                 RES = RESULT[1] + RESULT[2];
                 if (INFO.value == 0) {
@@ -215,7 +215,7 @@ void dget34(
                     RES += ONE / EPS;
                   }
                 }
-                KNT.value = KNT.value + 1;
+                KNT.value++;
                 if (RES > RMAX.value) {
                   LMAX.value = KNT.value;
                   RMAX.value = RES;
@@ -266,7 +266,7 @@ void dget34(
                       dcopy(4, VAL(3), 0, Q.asArray(), 5);
                       dlaexc(true, 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO);
                       if (INFO.value != 0) {
-                        NINFO[INFO.value] = NINFO[INFO.value] + 1;
+                        NINFO[INFO.value]++;
                       }
                       dhst01(4, 1, 4, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                       RES = RESULT[1] + RESULT[2];
@@ -286,7 +286,7 @@ void dget34(
                           RES += ONE / EPS;
                         }
                       }
-                      KNT.value = KNT.value + 1;
+                      KNT.value++;
                       if (RES > RMAX.value) {
                         LMAX.value = KNT.value;
                         RMAX.value = RES;

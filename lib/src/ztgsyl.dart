@@ -205,7 +205,7 @@ void ztgsyl(
   } while (I < M);
 
   IWORK[P + 1] = M + 1;
-  if (IWORK(P) == IWORK(P + 1)) P = P - 1;
+  if (IWORK(P) == IWORK(P + 1)) P--;
 
   // Determine block structure of B
 
@@ -220,7 +220,7 @@ void ztgsyl(
   } while (J < N);
 
   IWORK[Q + 1] = N + 1;
-  if (IWORK(Q) == IWORK(Q + 1)) Q = Q - 1;
+  if (IWORK(Q) == IWORK(Q + 1)) Q--;
 
   if (NOTRAN) {
     for (IROUND = 1; IROUND <= ISOLVE; IROUND++) {

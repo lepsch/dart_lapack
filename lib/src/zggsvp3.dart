@@ -141,7 +141,7 @@ void zggsvp3(
   L.value = 0;
   for (I = 1; I <= min(P, N); I++) {
     // 20
-    if ((B[I][I]).abs() > TOLB) L.value = L.value + 1;
+    if ((B[I][I]).abs() > TOLB) L.value++;
   } // 20
 
   if (WANTV) {
@@ -220,7 +220,7 @@ void zggsvp3(
   K.value = 0;
   for (I = 1; I <= min(M, N - L.value); I++) {
     // 80
-    if ((A[I][I]).abs() > TOLA) K.value = K.value + 1;
+    if ((A[I][I]).abs() > TOLA) K.value++;
   } // 80
 
   // Update A12 := U**H*A12, where A12 = A( 1:M, N-L.value+1:N )

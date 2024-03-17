@@ -54,7 +54,7 @@ Future<void> dget40(
   while (true) {
     (N, IFST, ILST) = await NIN.readInt3();
     if (N == 0) return;
-    KNT.value = KNT.value + 1;
+    KNT.value++;
     await NIN.readMatrix(TMP, N, N);
     dlacpy('F', N, N, TMP, LDT, T, LDT);
     dlacpy('F', N, N, TMP, LDT, T1, LDT);

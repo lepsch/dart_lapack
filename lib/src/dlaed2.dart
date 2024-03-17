@@ -208,7 +208,7 @@ void dlaed2(
 
         PJ = NJ;
       } else {
-        K.value = K.value + 1;
+        K.value++;
         DLAMBDA[K.value] = D[PJ];
         W[K.value] = Z[PJ];
         INDXP[K.value] = PJ;
@@ -219,7 +219,7 @@ void dlaed2(
 
   // Record the last eigenvalue.
 
-  K.value = K.value + 1;
+  K.value++;
   DLAMBDA[K.value] = D[PJ];
   W[K.value] = Z[PJ];
   INDXP[K.value] = PJ;
@@ -234,7 +234,7 @@ void dlaed2(
   }
   for (J = 1; J <= N; J++) {
     CT = COLTYP[J];
-    CTOT[CT] = CTOT[CT] + 1;
+    CTOT[CT]++;
   }
 
   // PSM[*] = Position in SubMatrix (of types 1 through 4)
@@ -254,7 +254,7 @@ void dlaed2(
     CT = COLTYP[JS];
     INDX[PSM[CT]] = JS;
     INDXC[PSM[CT]] = J;
-    PSM[CT] = PSM[CT] + 1;
+    PSM[CT]++;
   }
 
   // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA

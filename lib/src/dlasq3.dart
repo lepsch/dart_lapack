@@ -55,7 +55,7 @@ void dlasq3(
     if (N0.value < I0) return;
     if (N0.value == I0) {
       Z[4 * N0.value - 3] = Z[4 * N0.value + PP.value - 3] + SIGMA.value;
-      N0.value = N0.value - 1;
+      N0.value--;
       continue;
     }
     NN = 4 * N0.value + PP.value;
@@ -64,7 +64,7 @@ void dlasq3(
       if (Z[NN - 5] <= TOL2 * (SIGMA.value + Z[NN - 3]) ||
           Z[NN - 2 * PP.value - 4] <= TOL2 * Z[NN - 7]) {
         Z[4 * N0.value - 3] = Z[4 * N0.value + PP.value - 3] + SIGMA.value;
-        N0.value = N0.value - 1;
+        N0.value--;
         continue;
       }
 
@@ -144,7 +144,7 @@ void dlasq3(
         DMIN2, DN, DN1, DN2, IEEE, EPS);
 
     NDIV.value = NDIV.value + (N0.value - I0 + 2);
-    ITER.value = ITER.value + 1;
+    ITER.value++;
 
     // Check status.
 
@@ -167,7 +167,7 @@ void dlasq3(
     } else if (DMIN.value < ZERO) {
       // TAU.value too big. Select new TAU.value and try again.
 
-      NFAIL.value = NFAIL.value + 1;
+      NFAIL.value++;
       if (TTYPE.value < -22) {
         // Failed twice. Play it safe.
 
@@ -204,7 +204,7 @@ void dlasq3(
   if (!success) {
     dlasq6(I0, N0.value, Z, PP.value, DMIN, DMIN1, DMIN2, DN, DN1, DN2);
     NDIV.value = NDIV.value + (N0.value - I0 + 2);
-    ITER.value = ITER.value + 1;
+    ITER.value++;
     TAU.value = ZERO;
   }
 

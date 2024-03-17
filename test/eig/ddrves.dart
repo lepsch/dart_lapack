@@ -167,7 +167,7 @@ void ddrves(
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
     MTYPES = MAXTYP;
-    if (NSIZES == 1 && NTYPES == MAXTYP + 1) MTYPES = MTYPES + 1;
+    if (NSIZES == 1 && NTYPES == MAXTYP + 1) MTYPES++;
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;

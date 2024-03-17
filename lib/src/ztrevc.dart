@@ -64,7 +64,7 @@ void ztrevc(
     M.value = 0;
     for (J = 1; J <= N; J++) {
       // 10
-      if (SELECT[J]) M.value = M.value + 1;
+      if (SELECT[J]) M.value++;
     } // 10
   } else {
     M.value = N;

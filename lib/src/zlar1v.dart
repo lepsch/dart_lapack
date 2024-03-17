@@ -77,7 +77,7 @@ void zlar1v(
     // 50
     DPLUS = D[I] + S;
     WORK[INDLPL + I] = LD[I] / DPLUS;
-    if (DPLUS < ZERO) NEG1 = NEG1 + 1;
+    if (DPLUS < ZERO) NEG1++;
     WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
     S = WORK[INDS + I] - LAMBDA;
   } // 50
@@ -102,7 +102,7 @@ void zlar1v(
       DPLUS = D[I] + S;
       if ((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
       WORK[INDLPL + I] = LD[I] / DPLUS;
-      if (DPLUS < ZERO) NEG1 = NEG1 + 1;
+      if (DPLUS < ZERO) NEG1++;
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
       if (WORK[INDLPL + I] == ZERO) WORK[INDS + I] = LLD[I];
       S = WORK[INDS + I] - LAMBDA;
@@ -128,7 +128,7 @@ void zlar1v(
     // 80
     DMINUS = LLD[I] + WORK[INDP + I];
     TMP = D[I] / DMINUS;
-    if (DMINUS < ZERO) NEG2 = NEG2 + 1;
+    if (DMINUS < ZERO) NEG2++;
     WORK[INDUMN + I] = L[I] * TMP;
     WORK[INDP + I - 1] = WORK[INDP + I] * TMP - LAMBDA;
   } // 80
@@ -143,7 +143,7 @@ void zlar1v(
       DMINUS = LLD[I] + WORK[INDP + I];
       if ((DMINUS).abs() < PIVMIN) DMINUS = -PIVMIN;
       TMP = D[I] / DMINUS;
-      if (DMINUS < ZERO) NEG2 = NEG2 + 1;
+      if (DMINUS < ZERO) NEG2++;
       WORK[INDUMN + I] = L[I] * TMP;
       WORK[INDP + I - 1] = WORK[INDP + I] * TMP - LAMBDA;
       if (TMP == ZERO) WORK[INDP + I - 1] = D[I] - LAMBDA;
@@ -154,7 +154,7 @@ void zlar1v(
   // diagonal element of the inverse
 
   MINGMA.value = WORK[INDS + R1 - 1] + WORK[INDP + R1 - 1];
-  if (MINGMA.value < ZERO) NEG1 = NEG1 + 1;
+  if (MINGMA.value < ZERO) NEG1++;
   if (WANTNC) {
     NEGCNT.value = NEG1 + NEG2;
   } else {

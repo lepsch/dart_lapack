@@ -204,7 +204,7 @@ void dlaed8(
 
         // Record the appropriate Givens rotation
 
-        GIVPTR.value = GIVPTR.value + 1;
+        GIVPTR.value++;
         GIVCOL[1][GIVPTR.value] = INDXQ[INDX[JLAM]];
         GIVCOL[2][GIVPTR.value] = INDXQ[INDX[J]];
         GIVNUM[1][GIVPTR.value] = C;
@@ -228,7 +228,7 @@ void dlaed8(
 
         JLAM = J;
       } else {
-        K.value = K.value + 1;
+        K.value++;
         W[K.value] = Z[JLAM];
         DLAMBDA[K.value] = D[JLAM];
         INDXP[K.value] = JLAM;
@@ -239,7 +239,7 @@ void dlaed8(
 
   // Record the last eigenvalue.
   if (!isLastItem) {
-    K.value = K.value + 1;
+    K.value++;
     W[K.value] = Z[JLAM];
     DLAMBDA[K.value] = D[JLAM];
     INDXP[K.value] = JLAM;

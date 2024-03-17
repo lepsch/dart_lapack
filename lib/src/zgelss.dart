@@ -342,7 +342,7 @@ void zgelss(
       // 10
       if (S[I] > THR) {
         zdrscl(NRHS, S[I], B(I, 1).asArray(), LDB);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       } else {
         zlaset('F', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       }
@@ -443,7 +443,7 @@ void zgelss(
       // 30
       if (S[I] > THR) {
         zdrscl(NRHS, S[I], B(I, 1).asArray(), LDB);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       } else {
         zlaset('F', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       }
@@ -536,7 +536,7 @@ void zgelss(
       // 50
       if (S[I] > THR) {
         zdrscl(NRHS, S[I], B(I, 1).asArray(), LDB);
-        RANK.value = RANK.value + 1;
+        RANK.value++;
       } else {
         zlaset('F', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       }

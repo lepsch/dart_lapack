@@ -147,12 +147,12 @@ void zgsvj1(
 
   KBL = min(8, N);
   NBLR = N1 ~/ KBL;
-  if ((NBLR * KBL) != N1) NBLR = NBLR + 1;
+  if ((NBLR * KBL) != N1) NBLR++;
 
   // .. the tiling is NBLR-by-NBLC [tiles]
 
   NBLC = (N - N1) ~/ KBL;
-  if ((NBLC * KBL) != (N - N1)) NBLC = NBLC + 1;
+  if ((NBLC * KBL) != (N - N1)) NBLC++;
   BLSKIP = pow(KBL, 2).toInt() + 1;
   // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
@@ -271,7 +271,7 @@ void zgsvj1(
                 if ((AAPQ1).abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
                   NOTROT = 0;
-// [RTD]      ROTATED  = ROTATED + 1
+// [RTD]      ROTATED++
                   PSKIPPED = 0;
                   ISWROT++;
 
@@ -375,7 +375,7 @@ void zgsvj1(
                   // end of OK rotation
                 } else {
                   NOTROT++;
-// [RTD]      SKIPPED  = SKIPPED  + 1
+// [RTD]      SKIPPED++
                   PSKIPPED++;
                   IJBLSK++;
                 }

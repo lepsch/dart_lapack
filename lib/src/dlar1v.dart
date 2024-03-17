@@ -75,7 +75,7 @@ void dlar1v(
   for (I = B1; I <= R1 - 1; I++) {
     DPLUS = D[I] + S;
     WORK[INDLPL + I] = LD[I] / DPLUS;
-    if (DPLUS < ZERO) NEG1 = NEG1 + 1;
+    if (DPLUS < ZERO) NEG1++;
     WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
     S = WORK[INDS + I] - LAMBDA;
   }
@@ -98,7 +98,7 @@ void dlar1v(
       DPLUS = D[I] + S;
       if ((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
       WORK[INDLPL + I] = LD[I] / DPLUS;
-      if (DPLUS < ZERO) NEG1 = NEG1 + 1;
+      if (DPLUS < ZERO) NEG1++;
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
       if (WORK[INDLPL + I] == ZERO) WORK[INDS + I] = LLD[I];
       S = WORK[INDS + I] - LAMBDA;
@@ -122,7 +122,7 @@ void dlar1v(
   for (I = BN - 1; I >= R1; I--) {
     DMINUS = LLD[I] + WORK[INDP + I];
     TMP = D[I] / DMINUS;
-    if (DMINUS < ZERO) NEG2 = NEG2 + 1;
+    if (DMINUS < ZERO) NEG2++;
     WORK[INDUMN + I] = L[I] * TMP;
     WORK[INDP + I - 1] = WORK[INDP + I] * TMP - LAMBDA;
   }
@@ -136,7 +136,7 @@ void dlar1v(
       DMINUS = LLD[I] + WORK[INDP + I];
       if ((DMINUS).abs() < PIVMIN) DMINUS = -PIVMIN;
       TMP = D[I] / DMINUS;
-      if (DMINUS < ZERO) NEG2 = NEG2 + 1;
+      if (DMINUS < ZERO) NEG2++;
       WORK[INDUMN + I] = L[I] * TMP;
       WORK[INDP + I - 1] = WORK[INDP + I] * TMP - LAMBDA;
       if (TMP == ZERO) WORK[INDP + I - 1] = D[I] - LAMBDA;
@@ -147,7 +147,7 @@ void dlar1v(
   // diagonal element of the inverse
 
   MINGMA.value = WORK[INDS + R1 - 1] + WORK[INDP + R1 - 1];
-  if (MINGMA.value < ZERO) NEG1 = NEG1 + 1;
+  if (MINGMA.value < ZERO) NEG1++;
   if (WANTNC) {
     NEGCNT.value = NEG1 + NEG2;
   } else {

@@ -57,7 +57,7 @@ void ztrsen(
   M.value = 0;
   for (K = 1; K <= N; K++) {
     // 10
-    if (SELECT[K]) M.value = M.value + 1;
+    if (SELECT[K]) M.value++;
   } // 10
 
   N1 = M.value;

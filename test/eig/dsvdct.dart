@@ -65,7 +65,7 @@ void dsvdct(
   U = -SSHIFT;
   if (U <= SUN) {
     if (U <= ZERO) {
-      NUM.value = NUM.value + 1;
+      NUM.value++;
       if (U > -SUN) U = -SUN;
     } else {
       U = SUN;
@@ -75,7 +75,7 @@ void dsvdct(
   U = -TMP * (TMP / U) - SSHIFT;
   if (U <= SUN) {
     if (U <= ZERO) {
-      NUM.value = NUM.value + 1;
+      NUM.value++;
       if (U > -SUN) U = -SUN;
     } else {
       U = SUN;
@@ -86,7 +86,7 @@ void dsvdct(
     U = -TMP * (TMP / U) - SSHIFT;
     if (U <= SUN) {
       if (U <= ZERO) {
-        NUM.value = NUM.value + 1;
+        NUM.value++;
         if (U > -SUN) U = -SUN;
       } else {
         U = SUN;
@@ -96,7 +96,7 @@ void dsvdct(
     U = -TMP * (TMP / U) - SSHIFT;
     if (U <= SUN) {
       if (U <= ZERO) {
-        NUM.value = NUM.value + 1;
+        NUM.value++;
         if (U > -SUN) U = -SUN;
       } else {
         U = SUN;

@@ -199,8 +199,8 @@ void zdrvst(
     N = NN[JSIZE];
     if (N > 0) {
       LGN = log(N.toDouble()) ~/ log(TWO);
-      if (pow(2, LGN) < N) LGN = LGN + 1;
-      if (pow(2, LGN) < N) LGN = LGN + 1;
+      if (pow(2, LGN) < N) LGN++;
+      if (pow(2, LGN) < N) LGN++;
       LWEDC = max(2 * N + N * N, 2 * N * N);
       LRWEDC = 1 + 4 * N + 2 * N * LGN + 3 * pow(N, 2).toInt();
       LIWEDC = 3 + 5 * N;

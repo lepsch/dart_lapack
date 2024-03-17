@@ -44,7 +44,7 @@ void dlarra(
         E[I] = ZERO;
         E2[I] = ZERO;
         ISPLIT[NSPLIT.value] = I;
-        NSPLIT.value = NSPLIT.value + 1;
+        NSPLIT.value++;
       }
     }
   } else {
@@ -55,7 +55,7 @@ void dlarra(
         E[I] = ZERO;
         E2[I] = ZERO;
         ISPLIT[NSPLIT.value] = I;
-        NSPLIT.value = NSPLIT.value + 1;
+        NSPLIT.value++;
       }
     }
   }

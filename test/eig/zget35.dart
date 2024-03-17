@@ -111,10 +111,10 @@ Future<void> zget35(
                       CSAV[I][J] = C[I][J];
                     } // 90
                   } // 100
-                  KNT.value = KNT.value + 1;
+                  KNT.value++;
                   ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT,
                       SCALE, INFO);
-                  if (INFO.value != 0) NINFO.value = NINFO.value + 1;
+                  if (INFO.value != 0) NINFO.value++;
                   XNRM = zlange('M', M, N, C, LDT, DUM);
                   RMUL = Complex.one;
                   if (XNRM > ONE && TNRM > ONE) {

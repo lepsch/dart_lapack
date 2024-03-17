@@ -112,13 +112,13 @@ void dtgsna(
         } else {
           if (K < N) {
             if (A[K + 1][K] == ZERO) {
-              if (SELECT[K]) M.value = M.value + 1;
+              if (SELECT[K]) M.value++;
             } else {
               PAIR = true;
               if (SELECT[K] || SELECT[K + 1]) M.value = M.value + 2;
             }
           } else {
-            if (SELECT[N]) M.value = M.value + 1;
+            if (SELECT[N]) M.value++;
           }
         }
       }
@@ -343,7 +343,7 @@ void dtgsna(
       }
       if (PAIR) DIF[KS + 1] = DIF[KS];
     }
-    if (PAIR) KS = KS + 1;
+    if (PAIR) KS++;
   }
   WORK[1] = LWMIN.toDouble();
 }

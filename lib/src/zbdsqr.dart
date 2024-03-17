@@ -233,7 +233,7 @@ void zbdsqr(
           // Maximum number of iterations exceeded, failure to converge
           INFO.value = 0;
           for (I = 1; I <= N - 1; I++) {
-            if (E[I] != ZERO) INFO.value = INFO.value + 1;
+            if (E[I] != ZERO) INFO.value++;
           }
           return;
         }

@@ -449,7 +449,7 @@ void dgges3(
       for (I = 1; I <= N; I++) {
         CURSL = SELCTG(ALPHAR[I], ALPHAI[I], BETA[I]);
         if (ALPHAI[I] == ZERO) {
-          if (CURSL) SDIM.value = SDIM.value + 1;
+          if (CURSL) SDIM.value++;
           IP = 0;
           if (CURSL && !LASTSL) INFO.value = N + 2;
         } else {

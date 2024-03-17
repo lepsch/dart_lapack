@@ -65,7 +65,7 @@ void dstect(
   U = (A[1] * M1) * M2 - SSHIFT;
   if (U <= SUN) {
     if (U <= ZERO) {
-      NUM.value = NUM.value + 1;
+      NUM.value++;
       if (U > -SUN) U = -SUN;
     } else {
       U = SUN;
@@ -76,7 +76,7 @@ void dstect(
     U = ((A[I] * M1) * M2 - TMP * (TMP / U)) - SSHIFT;
     if (U <= SUN) {
       if (U <= ZERO) {
-        NUM.value = NUM.value + 1;
+        NUM.value++;
         if (U > -SUN) U = -SUN;
       } else {
         U = SUN;

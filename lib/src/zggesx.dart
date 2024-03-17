@@ -443,7 +443,7 @@ void zggesx(
       for (I = 1; I <= N; I++) {
         // 30
         CURSL = SELCTG(ALPHA[I], BETA[I]);
-        if (CURSL) SDIM.value = SDIM.value + 1;
+        if (CURSL) SDIM.value++;
         if (CURSL && !LASTSL) INFO.value = N + 2;
         LASTSL = CURSL;
       } // 30

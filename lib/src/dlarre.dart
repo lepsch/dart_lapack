@@ -260,7 +260,7 @@ void dlarre(
               (D[IBEGIN] > VL.value) &&
               (D[IBEGIN] <= VU.value)) ||
           ((IRANGE == INDRNG) && (IBLOCK[WBEGIN] == JBLK))) {
-        M.value = M.value + 1;
+        M.value++;
         W[M.value] = D[IBEGIN];
         WERR[M.value] = ZERO;
         // The gap for a single block doesn't matter for the later
@@ -594,7 +594,7 @@ void dlarre(
       // Record distance to VU.value/GU
       WGAP[WEND] = max(ZERO, (VU.value - SIGMA) - (W[WEND] + WERR[WEND]));
       for (I = INDL; I <= INDU; I++) {
-        M.value = M.value + 1;
+        M.value++;
         IBLOCK[M.value] = JBLK;
         INDEXW[M.value] = I;
       }
@@ -637,14 +637,14 @@ void dlarre(
       }
       if (SGNDEF > ZERO) {
         for (I = INDL; I <= INDU; I++) {
-          M.value = M.value + 1;
+          M.value++;
           W[M.value] = WORK[IN - I + 1];
           IBLOCK[M.value] = JBLK;
           INDEXW[M.value] = I;
         }
       } else {
         for (I = INDL; I <= INDU; I++) {
-          M.value = M.value + 1;
+          M.value++;
           W[M.value] = -WORK[I];
           IBLOCK[M.value] = JBLK;
           INDEXW[M.value] = I;

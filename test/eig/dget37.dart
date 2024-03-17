@@ -97,7 +97,7 @@ Future<void> dget37(
     // Begin test
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
-      KNT.value = KNT.value + 1;
+      KNT.value++;
       dlacpy('F', N, N, TMP, LDT, T, LDT);
       VMUL = VAL[ISCL];
       for (I = 1; I <= N; I++) {
@@ -109,7 +109,7 @@ Future<void> dget37(
       dgehrd(N, 1, N, T, LDT, WORK(1), WORK(N + 1), LWORK - N, INFO);
       if (INFO.value != 0) {
         LMAX[1] = KNT.value;
-        NINFO[1] = NINFO[1] + 1;
+        NINFO[1]++;
         continue;
       }
       for (J = 1; J <= N - 2; J++) {
@@ -124,7 +124,7 @@ Future<void> dget37(
           INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
-        NINFO[2] = NINFO[2] + 1;
+        NINFO[2]++;
         continue;
       }
 
@@ -139,7 +139,7 @@ Future<void> dget37(
           WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
 
@@ -299,7 +299,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= N; I++) {
@@ -315,7 +315,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= N; I++) {
@@ -334,7 +334,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= N; I++) {
@@ -350,7 +350,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= N; I++) {
@@ -366,7 +366,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= N; I++) {
@@ -430,7 +430,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= ICMP; I++) {
@@ -447,7 +447,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= ICMP; I++) {
@@ -464,7 +464,7 @@ Future<void> dget37(
           SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       for (I = 1; I <= ICMP; I++) {

@@ -234,7 +234,7 @@ void dlasd2(
           IDXP[K2] = JPREV;
           JPREV = J;
         } else {
-          K.value = K.value + 1;
+          K.value++;
           U2[K.value][1] = Z[JPREV];
           DSIGMA[K.value] = D[JPREV];
           IDXP[K.value] = JPREV;
@@ -246,7 +246,7 @@ void dlasd2(
 
     // Record the last singular value.
 
-    K.value = K.value + 1;
+    K.value++;
     U2[K.value][1] = Z[JPREV];
     DSIGMA[K.value] = D[JPREV];
     IDXP[K.value] = JPREV;
@@ -262,7 +262,7 @@ void dlasd2(
   }
   for (J = 2; J <= N; J++) {
     CT = COLTYP[J];
-    CTOT[CT] = CTOT[CT] + 1;
+    CTOT[CT]++;
   }
 
   // PSM[*] = Position in SubMatrix (of types 1 through 4)
@@ -281,7 +281,7 @@ void dlasd2(
     JP = IDXP[J];
     CT = COLTYP[JP];
     IDXC[PSM[CT]] = J;
-    PSM[CT] = PSM[CT] + 1;
+    PSM[CT]++;
   }
 
   // Sort the singular values and corresponding singular vectors into

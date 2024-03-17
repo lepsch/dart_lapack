@@ -9,7 +9,7 @@ bool zlctsx(final Complex ALPHA, final Complex BETA) {
 
   bool result;
   if (mn.FS) {
-    mn.I = mn.I + 1;
+    mn.I++;
     if (mn.I <= mn.M) {
       result = false;
     } else {
@@ -20,7 +20,7 @@ bool zlctsx(final Complex ALPHA, final Complex BETA) {
       mn.I = 0;
     }
   } else {
-    mn.I = mn.I + 1;
+    mn.I++;
     if (mn.I <= mn.N) {
       result = true;
     } else {

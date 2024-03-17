@@ -87,10 +87,10 @@ void dlarrj(
         CNT = 0;
         S = LEFT;
         DPLUS = D[1] - S;
-        if (DPLUS < ZERO) CNT = CNT + 1;
+        if (DPLUS < ZERO) CNT++;
         for (J = 2; J <= N; J++) {
           DPLUS = D[J] - S - E2[J - 1] / DPLUS;
-          if (DPLUS < ZERO) CNT = CNT + 1;
+          if (DPLUS < ZERO) CNT++;
         }
         if (CNT > I - 1) {
           LEFT -= WERR[II] * FAC;
@@ -107,10 +107,10 @@ void dlarrj(
         CNT = 0;
         S = RIGHT;
         DPLUS = D[1] - S;
-        if (DPLUS < ZERO) CNT = CNT + 1;
+        if (DPLUS < ZERO) CNT++;
         for (J = 2; J <= N; J++) {
           DPLUS = D[J] - S - E2[J - 1] / DPLUS;
-          if (DPLUS < ZERO) CNT = CNT + 1;
+          if (DPLUS < ZERO) CNT++;
         }
         if (CNT < I) {
           RIGHT += WERR[II] * FAC;
@@ -170,10 +170,10 @@ void dlarrj(
       CNT = 0;
       S = MID;
       DPLUS = D[1] - S;
-      if (DPLUS < ZERO) CNT = CNT + 1;
+      if (DPLUS < ZERO) CNT++;
       for (J = 2; J <= N; J++) {
         DPLUS = D[J] - S - E2[J - 1] / DPLUS;
-        if (DPLUS < ZERO) CNT = CNT + 1;
+        if (DPLUS < ZERO) CNT++;
       }
       if (CNT <= I - 1) {
         WORK[K - 1] = MID;

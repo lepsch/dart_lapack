@@ -277,7 +277,7 @@ void dgees(
     for (I = 1; I <= N; I++) {
       CURSL = SELECT(WR[I], WI[I]);
       if (WI[I] == ZERO) {
-        if (CURSL) SDIM.value = SDIM.value + 1;
+        if (CURSL) SDIM.value++;
         IP = 0;
         if (CURSL && !LASTSL) INFO.value = N + 2;
       } else {

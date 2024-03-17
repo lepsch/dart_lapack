@@ -1,13 +1,17 @@
 import 'common.dart';
 
-bool dlctsx(double AR, double AI, double BETA,) {
+bool dlctsx(
+  double AR,
+  double AI,
+  double BETA,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final bool result;
 
   if (mn.FS) {
-    mn.I = mn.I + 1;
+    mn.I++;
     if (mn.I <= mn.M) {
       result = false;
     } else {
@@ -18,7 +22,7 @@ bool dlctsx(double AR, double AI, double BETA,) {
       mn.I = 0;
     }
   } else {
-    mn.I = mn.I + 1;
+    mn.I++;
     if (mn.I <= mn.N) {
       result = true;
     } else {

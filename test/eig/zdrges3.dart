@@ -512,7 +512,7 @@ void zdrges3(
           KNTEIG = 0;
           for (I = 1; I <= N; I++) {
             // 140
-            if (zlctes(ALPHA[I], BETA[I])) KNTEIG = KNTEIG + 1;
+            if (zlctes(ALPHA[I], BETA[I])) KNTEIG++;
           } // 140
           if (SDIM.value != KNTEIG) RESULT[13] = ULPINV;
         }

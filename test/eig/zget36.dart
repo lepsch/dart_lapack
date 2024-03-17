@@ -44,7 +44,7 @@ Future<void> zget36(
   while (true) {
     (N, IFST, ILST) = await NIN.readInt3();
     if (N == 0) return;
-    KNT.value = KNT.value + 1;
+    KNT.value++;
     await NIN.readMatrix(TMP, N, N);
     zlacpy('F', N, N, TMP, LDT, T1, LDT);
     zlacpy('F', N, N, TMP, LDT, T2, LDT);
@@ -77,7 +77,7 @@ Future<void> zget36(
         if (T1[I][J] != T2[I][J]) RES = RES + ONE / EPS;
       } // 50
     } // 60
-    if (INFO1.value != 0 || INFO2.value != 0) NINFO.value = NINFO.value + 1;
+    if (INFO1.value != 0 || INFO2.value != 0) NINFO.value++;
     if (INFO1.value != INFO2.value) RES = RES + ONE / EPS;
 
     // Test for successful reordering of T2

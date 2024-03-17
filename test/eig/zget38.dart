@@ -92,7 +92,7 @@ Future<void> zget38(
 
       // Scale input matrix
 
-      KNT.value = KNT.value + 1;
+      KNT.value++;
       zlacpy('F', N, N, TMP, LDT, T, LDT);
       VMUL = VAL[ISCL];
       for (I = 1; I <= N; I++) {
@@ -107,7 +107,7 @@ Future<void> zget38(
       zgehrd(N, 1, N, T, LDT, WORK(1), WORK(N + 1), LWORK - N, INFO);
       if (INFO.value != 0) {
         LMAX[1] = KNT.value;
-        NINFO[1] = NINFO[1] + 1;
+        NINFO[1]++;
         continue;
       }
 
@@ -128,7 +128,7 @@ Future<void> zget38(
       zhseqr('S.value', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
-        NINFO[2] = NINFO[2] + 1;
+        NINFO[2]++;
         continue;
       }
 
@@ -180,7 +180,7 @@ Future<void> zget38(
           INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       SEPTMP.value = SEP.value / VMUL;
@@ -313,7 +313,7 @@ Future<void> zget38(
           WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (S.value != STMP.value) VMAX = ONE / EPS;
@@ -338,7 +338,7 @@ Future<void> zget38(
           WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (-ONE != STMP.value) VMAX = ONE / EPS;
@@ -363,7 +363,7 @@ Future<void> zget38(
           WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (S.value != STMP.value) VMAX = ONE / EPS;
@@ -388,7 +388,7 @@ Future<void> zget38(
           WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
-        NINFO[3] = NINFO[3] + 1;
+        NINFO[3]++;
         continue;
       }
       if (-ONE != STMP.value) VMAX = ONE / EPS;
