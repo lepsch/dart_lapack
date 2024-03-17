@@ -22,23 +22,16 @@ void dtrmm(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
-  double TEMP;
-  int I, INFO, J, K, NROWA;
-  bool LSIDE, NOUNIT, UPPER;
   const ONE = 1.0, ZERO = 0.0;
 
   // Test the input parameters.
 
-  LSIDE = lsame(SIDE, 'L');
-  if (LSIDE) {
-    NROWA = M;
-  } else {
-    NROWA = N;
-  }
-  NOUNIT = lsame(DIAG, 'N');
-  UPPER = lsame(UPLO, 'U');
+  final LSIDE = lsame(SIDE, 'L');
+  final NROWA = LSIDE ? M : N;
+  final NOUNIT = lsame(DIAG, 'N');
+  final UPPER = lsame(UPLO, 'U');
 
-  INFO = 0;
+  var INFO = 0;
   if ((!LSIDE) && (!lsame(SIDE, 'R'))) {
     INFO = 1;
   } else if ((!UPPER) && (!lsame(UPLO, 'L'))) {
@@ -70,8 +63,8 @@ void dtrmm(
   // And when  alpha == zero.
 
   if (ALPHA == ZERO) {
-    for (J = 1; J <= N; J++) {
-      for (I = 1; I <= M; I++) {
+    for (var J = 1; J <= N; J++) {
+      for (var I = 1; I <= M; I++) {
         B[I][J] = ZERO;
       }
     }
@@ -85,27 +78,27 @@ void dtrmm(
       // Form  B := alpha*A*B.
 
       if (UPPER) {
-        for (J = 1; J <= N; J++) {
-          for (K = 1; K <= M; K++) {
+        for (var J = 1; J <= N; J++) {
+          for (var K = 1; K <= M; K++) {
             if (B[K][J] != ZERO) {
-              TEMP = ALPHA * B[K][J];
-              for (I = 1; I <= K - 1; I++) {
-                B[I][J] = B[I][J] + TEMP * A[I][K];
+              var TEMP = ALPHA * B[K][J];
+              for (var I = 1; I <= K - 1; I++) {
+                B[I][J] += TEMP * A[I][K];
               }
-              if (NOUNIT) TEMP = TEMP * A[K][K];
+              if (NOUNIT) TEMP *= A[K][K];
               B[K][J] = TEMP;
             }
           }
         }
       } else {
-        for (J = 1; J <= N; J++) {
-          for (K = M; K >= 1; K--) {
+        for (var J = 1; J <= N; J++) {
+          for (var K = M; K >= 1; K--) {
             if (B[K][J] != ZERO) {
-              TEMP = ALPHA * B[K][J];
+              final TEMP = ALPHA * B[K][J];
               B[K][J] = TEMP;
-              if (NOUNIT) B[K][J] = B[K][J] * A[K][K];
-              for (I = K + 1; I <= M; I++) {
-                B[I][J] = B[I][J] + TEMP * A[I][K];
+              if (NOUNIT) B[K][J] *= A[K][K];
+              for (var I = K + 1; I <= M; I++) {
+                B[I][J] += TEMP * A[I][K];
               }
             }
           }
@@ -115,22 +108,22 @@ void dtrmm(
       // Form  B := alpha*A**T*B.
 
       if (UPPER) {
-        for (J = 1; J <= N; J++) {
-          for (I = M; I >= 1; I--) {
-            TEMP = B[I][J];
-            if (NOUNIT) TEMP = TEMP * A[I][I];
-            for (K = 1; K <= I - 1; K++) {
+        for (var J = 1; J <= N; J++) {
+          for (var I = M; I >= 1; I--) {
+            var TEMP = B[I][J];
+            if (NOUNIT) TEMP *= A[I][I];
+            for (var K = 1; K <= I - 1; K++) {
               TEMP += A[K][I] * B[K][J];
             }
             B[I][J] = ALPHA * TEMP;
           }
         }
       } else {
-        for (J = 1; J <= N; J++) {
-          for (I = 1; I <= M; I++) {
-            TEMP = B[I][J];
-            if (NOUNIT) TEMP = TEMP * A[I][I];
-            for (K = I + 1; K <= M; K++) {
+        for (var J = 1; J <= N; J++) {
+          for (var I = 1; I <= M; I++) {
+            var TEMP = B[I][J];
+            if (NOUNIT) TEMP *= A[I][I];
+            for (var K = I + 1; K <= M; K++) {
               TEMP += A[K][I] * B[K][J];
             }
             B[I][J] = ALPHA * TEMP;
@@ -143,33 +136,33 @@ void dtrmm(
       // Form  B := alpha*B*A.
 
       if (UPPER) {
-        for (J = N; J >= 1; J--) {
-          TEMP = ALPHA;
-          if (NOUNIT) TEMP = TEMP * A[J][J];
-          for (I = 1; I <= M; I++) {
-            B[I][J] = TEMP * B[I][J];
+        for (var J = N; J >= 1; J--) {
+          var TEMP = ALPHA;
+          if (NOUNIT) TEMP *= A[J][J];
+          for (var I = 1; I <= M; I++) {
+            B[I][J] *= TEMP;
           }
-          for (K = 1; K <= J - 1; K++) {
+          for (var K = 1; K <= J - 1; K++) {
             if (A[K][J] != ZERO) {
               TEMP = ALPHA * A[K][J];
-              for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] + TEMP * B[I][K];
+              for (var I = 1; I <= M; I++) {
+                B[I][J] += TEMP * B[I][K];
               }
             }
           }
         }
       } else {
-        for (J = 1; J <= N; J++) {
-          TEMP = ALPHA;
-          if (NOUNIT) TEMP = TEMP * A[J][J];
-          for (I = 1; I <= M; I++) {
-            B[I][J] = TEMP * B[I][J];
+        for (var J = 1; J <= N; J++) {
+          var TEMP = ALPHA;
+          if (NOUNIT) TEMP *= A[J][J];
+          for (var I = 1; I <= M; I++) {
+            B[I][J] *= TEMP;
           }
-          for (K = J + 1; K <= N; K++) {
+          for (var K = J + 1; K <= N; K++) {
             if (A[K][J] != ZERO) {
               TEMP = ALPHA * A[K][J];
-              for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] + TEMP * B[I][K];
+              for (var I = 1; I <= M; I++) {
+                B[I][J] += TEMP * B[I][K];
               }
             }
           }
@@ -179,38 +172,38 @@ void dtrmm(
       // Form  B := alpha*B*A**T.
 
       if (UPPER) {
-        for (K = 1; K <= N; K++) {
-          for (J = 1; J <= K - 1; J++) {
+        for (var K = 1; K <= N; K++) {
+          for (var J = 1; J <= K - 1; J++) {
             if (A[J][K] != ZERO) {
-              TEMP = ALPHA * A[J][K];
-              for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] + TEMP * B[I][K];
+              final TEMP = ALPHA * A[J][K];
+              for (var I = 1; I <= M; I++) {
+                B[I][J] += TEMP * B[I][K];
               }
             }
           }
-          TEMP = ALPHA;
-          if (NOUNIT) TEMP = TEMP * A[K][K];
+          var TEMP = ALPHA;
+          if (NOUNIT) TEMP *= A[K][K];
           if (TEMP != ONE) {
-            for (I = 1; I <= M; I++) {
-              B[I][K] = TEMP * B[I][K];
+            for (var I = 1; I <= M; I++) {
+              B[I][K] *= TEMP;
             }
           }
         }
       } else {
-        for (K = N; K >= 1; K--) {
-          for (J = K + 1; J <= N; J++) {
+        for (var K = N; K >= 1; K--) {
+          for (var J = K + 1; J <= N; J++) {
             if (A[J][K] != ZERO) {
-              TEMP = ALPHA * A[J][K];
-              for (I = 1; I <= M; I++) {
-                B[I][J] = B[I][J] + TEMP * B[I][K];
+              final TEMP = ALPHA * A[J][K];
+              for (var I = 1; I <= M; I++) {
+                B[I][J] += TEMP * B[I][K];
               }
             }
           }
-          TEMP = ALPHA;
-          if (NOUNIT) TEMP = TEMP * A[K][K];
+          var TEMP = ALPHA;
+          if (NOUNIT) TEMP *= A[K][K];
           if (TEMP != ONE) {
-            for (I = 1; I <= M; I++) {
-              B[I][K] = TEMP * B[I][K];
+            for (var I = 1; I <= M; I++) {
+              B[I][K] *= TEMP;
             }
           }
         }

@@ -16,19 +16,15 @@ void drotg(
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  const zero = 0.0;
-  const one = 1.0;
-  // const wp = 1.0;
-  final safmin =
-      pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)))
-          .toDouble();
-  final safmax =
-      pow(radix(0.0), max(1 - minexponent(0.0), maxexponent(0.0) - 1))
-          .toDouble();
-  double anorm, bnorm, scl, sigma, r, z;
+  const zero = 0.0, one = 1.0;
 
-  anorm = a.value.abs();
-  bnorm = b.value.abs();
+  final safmin =
+      pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)));
+  final safmax =
+      pow(radix(0.0), max(1 - minexponent(0.0), maxexponent(0.0) - 1));
+
+  final anorm = a.value.abs();
+  final bnorm = b.value.abs();
   if (bnorm == zero) {
     c.value = one;
     s.value = zero;
@@ -39,15 +35,14 @@ void drotg(
     a.value = b.value;
     b.value = one;
   } else {
-    scl = min(safmax, max(safmin, max(anorm, bnorm)));
-    if (anorm > bnorm) {
-      sigma = sign(one, a.value).toDouble();
-    } else {
-      sigma = sign(one, b.value).toDouble();
-    }
-    r = sigma * (scl * sqrt(pow((a.value / scl), 2) + pow((b.value / scl), 2)));
+    final scl = min(safmax, max(safmin, max(anorm, bnorm)));
+    final sigma = sign(one, anorm > bnorm ? a.value : b.value);
+
+    final r =
+        sigma * (scl * sqrt(pow(a.value / scl, 2) + pow(b.value / scl, 2)));
     c.value = a.value / r;
     s.value = b.value / r;
+    final double z;
     if (anorm > bnorm) {
       z = s.value;
     } else if (c.value != zero) {

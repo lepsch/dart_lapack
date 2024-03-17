@@ -17,13 +17,10 @@ void dtpsv(
   final AP = AP_.having();
   final X = X_.having();
   const ZERO = 0.0;
-  double TEMP;
-  int I, INFO, IX, J, JX, K, KK, KX = 0;
-  bool NOUNIT;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
@@ -44,16 +41,16 @@ void dtpsv(
 
   if (N == 0) return;
 
-  NOUNIT = lsame(DIAG, 'N');
+  final NOUNIT = lsame(DIAG, 'N');
 
   // Set up the start point in X if the increment is not unity. This
   // will be  ( N - 1 )*INCX  too small for descending loops.
 
-  if (INCX <= 0) {
-    KX = 1 - (N - 1) * INCX;
-  } else if (INCX != 1) {
-    KX = 1;
-  }
+  var KX = switch (INCX) {
+    <= 0 => 1 - (N - 1) * INCX,
+    1 => 0,
+    _ => 1,
+  };
 
   // Start the operations. In this version the elements of AP are
   // accessed sequentially with one pass through AP.
@@ -62,30 +59,28 @@ void dtpsv(
     // Form  x := inv( A )*x.
 
     if (lsame(UPLO, 'U')) {
-      KK = (N * (N + 1)) ~/ 2;
+      var KK = (N * (N + 1)) ~/ 2;
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
+        for (var J = N; J >= 1; J--) {
           if (X[J] != ZERO) {
-            if (NOUNIT) X[J] = X[J] / AP[KK];
-            TEMP = X[J];
-            K = KK - 1;
-            for (I = J - 1; I >= 1; I--) {
-              X[I] = X[I] - TEMP * AP[K];
-              K--;
+            if (NOUNIT) X[J] /= AP[KK];
+            final TEMP = X[J];
+            for (var I = J - 1, K = KK - 1; I >= 1; I--, K--) {
+              X[I] -= TEMP * AP[K];
             }
           }
           KK -= J;
         }
       } else {
-        JX = KX + (N - 1) * INCX;
-        for (J = N; J >= 1; J--) {
+        var JX = KX + (N - 1) * INCX;
+        for (var J = N; J >= 1; J--) {
           if (X[JX] != ZERO) {
-            if (NOUNIT) X[JX] = X[JX] / AP[KK];
-            TEMP = X[JX];
-            IX = JX;
-            for (K = KK - 1; K >= KK - J + 1; K--) {
+            if (NOUNIT) X[JX] /= AP[KK];
+            final TEMP = X[JX];
+            var IX = JX;
+            for (var K = KK - 1; K >= KK - J + 1; K--) {
               IX -= INCX;
-              X[IX] = X[IX] - TEMP * AP[K];
+              X[IX] -= TEMP * AP[K];
             }
           }
           JX -= INCX;
@@ -93,34 +88,32 @@ void dtpsv(
         }
       }
     } else {
-      KK = 1;
+      var KK = 1;
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
+        for (var J = 1; J <= N; J++) {
           if (X[J] != ZERO) {
-            if (NOUNIT) X[J] = X[J] / AP[KK];
-            TEMP = X[J];
-            K = KK + 1;
-            for (I = J + 1; I <= N; I++) {
-              X[I] = X[I] - TEMP * AP[K];
-              K++;
+            if (NOUNIT) X[J] /= AP[KK];
+            final TEMP = X[J];
+            for (var I = J + 1, K = KK + 1; I <= N; I++, K++) {
+              X[I] -= TEMP * AP[K];
             }
           }
-          KK += (N - J + 1);
+          KK += N - J + 1;
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
           if (X[JX] != ZERO) {
-            if (NOUNIT) X[JX] = X[JX] / AP[KK];
-            TEMP = X[JX];
-            IX = JX;
-            for (K = KK + 1; K <= KK + N - J; K++) {
+            if (NOUNIT) X[JX] /= AP[KK];
+            final TEMP = X[JX];
+            var IX = JX;
+            for (var K = KK + 1; K <= KK + N - J; K++) {
               IX += INCX;
-              X[IX] = X[IX] - TEMP * AP[K];
+              X[IX] -= TEMP * AP[K];
             }
           }
           JX += INCX;
-          KK += (N - J + 1);
+          KK += N - J + 1;
         }
       }
     }
@@ -128,62 +121,58 @@ void dtpsv(
     // Form  x := inv( A**T )*x.
 
     if (lsame(UPLO, 'U')) {
-      KK = 1;
+      var KK = 1;
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
-          TEMP = X[J];
-          K = KK;
-          for (I = 1; I <= J - 1; I++) {
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[J];
+          for (var I = 1, K = KK; I <= J - 1; I++, K++) {
             TEMP -= AP[K] * X[I];
-            K++;
           }
-          if (NOUNIT) TEMP = TEMP / AP[KK + J - 1];
+          if (NOUNIT) TEMP /= AP[KK + J - 1];
           X[J] = TEMP;
           KK += J;
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
-          TEMP = X[JX];
-          IX = KX;
-          for (K = KK; K <= KK + J - 2; K++) {
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[JX];
+          var IX = KX;
+          for (var K = KK; K <= KK + J - 2; K++) {
             TEMP -= AP[K] * X[IX];
             IX += INCX;
           }
-          if (NOUNIT) TEMP = TEMP / AP[KK + J - 1];
+          if (NOUNIT) TEMP /= AP[KK + J - 1];
           X[JX] = TEMP;
           JX += INCX;
           KK += J;
         }
       }
     } else {
-      KK = (N * (N + 1)) ~/ 2;
+      var KK = (N * (N + 1)) ~/ 2;
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
-          TEMP = X[J];
-          K = KK;
-          for (I = N; I >= J + 1; I--) {
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[J];
+          for (var I = N, K = KK; I >= J + 1; I--, K--) {
             TEMP -= AP[K] * X[I];
-            K--;
           }
-          if (NOUNIT) TEMP = TEMP / AP[KK - N + J];
+          if (NOUNIT) TEMP /= AP[KK - N + J];
           X[J] = TEMP;
-          KK -= (N - J + 1);
+          KK -= N - J + 1;
         }
       } else {
         KX += (N - 1) * INCX;
-        JX = KX;
-        for (J = N; J >= 1; J--) {
-          TEMP = X[JX];
-          IX = KX;
-          for (K = KK; K >= KK - (N - (J + 1)); K--) {
+        var JX = KX;
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[JX];
+          var IX = KX;
+          for (var K = KK; K >= KK - (N - (J + 1)); K--) {
             TEMP -= AP[K] * X[IX];
             IX -= INCX;
           }
-          if (NOUNIT) TEMP = TEMP / AP[KK - N + J];
+          if (NOUNIT) TEMP /= AP[KK - N + J];
           X[JX] = TEMP;
           JX -= INCX;
-          KK -= (N - J + 1);
+          KK -= N - J + 1;
         }
       }
     }

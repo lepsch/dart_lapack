@@ -88,7 +88,7 @@ final dtbig =
 // ssml >= 1/s, where s was defined in https://doi.org/10.1145/355769.355771
 // The correction was added in https://doi.org/10.1145/3061665 to scale denormalized numbers correctly
 final dssml =
-    pow(radix(0.0), (-((minexponent(0.0) - digits(0.0)) * 0.5).floor()));
+    pow(radix(0.0), -((minexponent(0.0) - digits(0.0)) * 0.5).floor());
 // sbig = 1/S, where S was defined in https://doi.org/10.1145/355769.355771
 final dsbig =
-    pow(radix(0.0), (-((maxexponent(0.0) + digits(0.0) - 1) * 0.5).ceil()));
+    pow(radix(0.0), -((maxexponent(0.0) + digits(0.0) - 1) * 0.5).ceil());

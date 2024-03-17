@@ -22,12 +22,10 @@ void dsyr2(
   final Y = Y_.having();
   final A = A_.having(ld: LDA);
   const ZERO = 0.0;
-  double TEMP1, TEMP2;
-  int I, INFO, IX, IY, J, JX = 0, JY = 0, KX = 0, KY = 0;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (N < 0) {
@@ -51,17 +49,10 @@ void dsyr2(
   // Set up the start points in X and Y if the increments are not both
   // unity.
 
+  int JX = 0, JY = 0, KX = 0, KY = 0;
   if ((INCX != 1) || (INCY != 1)) {
-    if (INCX > 0) {
-      KX = 1;
-    } else {
-      KX = 1 - (N - 1) * INCX;
-    }
-    if (INCY > 0) {
-      KY = 1;
-    } else {
-      KY = 1 - (N - 1) * INCY;
-    }
+    KX = INCX > 0 ? 1 : 1 - (N - 1) * INCX;
+    KY = INCY > 0 ? 1 : 1 - (N - 1) * INCY;
     JX = KX;
     JY = KY;
   }
@@ -74,24 +65,23 @@ void dsyr2(
     // Form  A  when A is stored in the upper triangle.
 
     if ((INCX == 1) && (INCY == 1)) {
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         if ((X[J] != ZERO) || (Y[J] != ZERO)) {
-          TEMP1 = ALPHA * Y[J];
-          TEMP2 = ALPHA * X[J];
-          for (I = 1; I <= J; I++) {
-            A[I][J] = A[I][J] + X[I] * TEMP1 + Y[I] * TEMP2;
+          final TEMP1 = ALPHA * Y[J];
+          final TEMP2 = ALPHA * X[J];
+          for (var I = 1; I <= J; I++) {
+            A[I][J] += X[I] * TEMP1 + Y[I] * TEMP2;
           }
         }
       }
     } else {
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         if ((X[JX] != ZERO) || (Y[JY] != ZERO)) {
-          TEMP1 = ALPHA * Y[JY];
-          TEMP2 = ALPHA * X[JX];
-          IX = KX;
-          IY = KY;
-          for (I = 1; I <= J; I++) {
-            A[I][J] = A[I][J] + X[IX] * TEMP1 + Y[IY] * TEMP2;
+          final TEMP1 = ALPHA * Y[JY];
+          final TEMP2 = ALPHA * X[JX];
+          var IX = KX, IY = KY;
+          for (var I = 1; I <= J; I++) {
+            A[I][J] += X[IX] * TEMP1 + Y[IY] * TEMP2;
             IX += INCX;
             IY += INCY;
           }
@@ -104,24 +94,23 @@ void dsyr2(
     // Form  A  when A is stored in the lower triangle.
 
     if ((INCX == 1) && (INCY == 1)) {
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         if ((X[J] != ZERO) || (Y[J] != ZERO)) {
-          TEMP1 = ALPHA * Y[J];
-          TEMP2 = ALPHA * X[J];
-          for (I = J; I <= N; I++) {
-            A[I][J] = A[I][J] + X[I] * TEMP1 + Y[I] * TEMP2;
+          final TEMP1 = ALPHA * Y[J];
+          final TEMP2 = ALPHA * X[J];
+          for (var I = J; I <= N; I++) {
+            A[I][J] += X[I] * TEMP1 + Y[I] * TEMP2;
           }
         }
       }
     } else {
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         if ((X[JX] != ZERO) || (Y[JY] != ZERO)) {
-          TEMP1 = ALPHA * Y[JY];
-          TEMP2 = ALPHA * X[JX];
-          IX = JX;
-          IY = JY;
-          for (I = J; I <= N; I++) {
-            A[I][J] = A[I][J] + X[IX] * TEMP1 + Y[IY] * TEMP2;
+          final TEMP1 = ALPHA * Y[JY];
+          final TEMP2 = ALPHA * X[JX];
+          var IX = JX, IY = JY;
+          for (var I = J; I <= N; I++) {
+            A[I][J] += X[IX] * TEMP1 + Y[IY] * TEMP2;
             IX += INCX;
             IY += INCY;
           }

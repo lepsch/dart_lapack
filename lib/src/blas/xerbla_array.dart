@@ -10,11 +10,9 @@ void xerbla_array(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  int I;
-  String SRNAME;
 
-  SRNAME = ' ';
-  for (I = 1; I <= min(SRNAME_LEN, SRNAME.length); I++) {
+  var SRNAME = ' ';
+  for (var I = 1; I <= min(SRNAME_LEN, SRNAME.length); I++) {
     SRNAME += String.fromCharCode(SRNAME_ARRAY[I]);
   }
 

@@ -20,13 +20,10 @@ void dtrsv(
   final A = A_.having(ld: LDA);
   final X = X_.having();
   const ZERO = 0.0;
-  double TEMP;
-  int I, INFO, IX, J, JX, KX = 0;
-  bool NOUNIT;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
@@ -49,16 +46,16 @@ void dtrsv(
 
   if (N == 0) return;
 
-  NOUNIT = lsame(DIAG, 'N');
+  final NOUNIT = lsame(DIAG, 'N');
 
   // Set up the start point in X if the increment is not unity. This
   // will be  ( N - 1 )*INCX  too small for descending loops.
 
-  if (INCX <= 0) {
-    KX = 1 - (N - 1) * INCX;
-  } else if (INCX != 1) {
-    KX = 1;
-  }
+  var KX = switch (INCX) {
+    <= 0 => 1 - (N - 1) * INCX,
+    1 => 0,
+    _ => 1,
+  };
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through A.
@@ -68,25 +65,25 @@ void dtrsv(
 
     if (lsame(UPLO, 'U')) {
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
+        for (var J = N; J >= 1; J--) {
           if (X[J] != ZERO) {
-            if (NOUNIT) X[J] = X[J] / A[J][J];
-            TEMP = X[J];
-            for (I = J - 1; I >= 1; I--) {
-              X[I] = X[I] - TEMP * A[I][J];
+            if (NOUNIT) X[J] /= A[J][J];
+            final TEMP = X[J];
+            for (var I = J - 1; I >= 1; I--) {
+              X[I] -= TEMP * A[I][J];
             }
           }
         }
       } else {
-        JX = KX + (N - 1) * INCX;
-        for (J = N; J >= 1; J--) {
+        var JX = KX + (N - 1) * INCX;
+        for (var J = N; J >= 1; J--) {
           if (X[JX] != ZERO) {
-            if (NOUNIT) X[JX] = X[JX] / A[J][J];
-            TEMP = X[JX];
-            IX = JX;
-            for (I = J - 1; I >= 1; I--) {
+            if (NOUNIT) X[JX] /= A[J][J];
+            final TEMP = X[JX];
+            var IX = JX;
+            for (var I = J - 1; I >= 1; I--) {
               IX -= INCX;
-              X[IX] = X[IX] - TEMP * A[I][J];
+              X[IX] -= TEMP * A[I][J];
             }
           }
           JX -= INCX;
@@ -94,25 +91,25 @@ void dtrsv(
       }
     } else {
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
+        for (var J = 1; J <= N; J++) {
           if (X[J] != ZERO) {
-            if (NOUNIT) X[J] = X[J] / A[J][J];
-            TEMP = X[J];
-            for (I = J + 1; I <= N; I++) {
-              X[I] = X[I] - TEMP * A[I][J];
+            if (NOUNIT) X[J] /= A[J][J];
+            final TEMP = X[J];
+            for (var I = J + 1; I <= N; I++) {
+              X[I] -= TEMP * A[I][J];
             }
           }
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
           if (X[JX] != ZERO) {
-            if (NOUNIT) X[JX] = X[JX] / A[J][J];
-            TEMP = X[JX];
-            IX = JX;
-            for (I = J + 1; I <= N; I++) {
+            if (NOUNIT) X[JX] /= A[J][J];
+            final TEMP = X[JX];
+            var IX = JX;
+            for (var I = J + 1; I <= N; I++) {
               IX += INCX;
-              X[IX] = X[IX] - TEMP * A[I][J];
+              X[IX] -= TEMP * A[I][J];
             }
           }
           JX += INCX;
@@ -124,20 +121,20 @@ void dtrsv(
 
     if (lsame(UPLO, 'U')) {
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
-          TEMP = X[J];
-          for (I = 1; I <= J - 1; I++) {
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[J];
+          for (var I = 1; I <= J - 1; I++) {
             TEMP -= A[I][J] * X[I];
           }
-          if (NOUNIT) TEMP = TEMP / A[J][J];
+          if (NOUNIT) TEMP /= A[J][J];
           X[J] = TEMP;
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
-          TEMP = X[JX];
-          IX = KX;
-          for (I = 1; I <= J - 1; I++) {
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[JX];
+          var IX = KX;
+          for (var I = 1; I <= J - 1; I++) {
             TEMP -= A[I][J] * X[IX];
             IX += INCX;
           }
@@ -148,25 +145,25 @@ void dtrsv(
       }
     } else {
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
-          TEMP = X[J];
-          for (I = N; I >= J + 1; I--) {
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[J];
+          for (var I = N; I >= J + 1; I--) {
             TEMP -= A[I][J] * X[I];
           }
-          if (NOUNIT) TEMP = TEMP / A[J][J];
+          if (NOUNIT) TEMP /= A[J][J];
           X[J] = TEMP;
         }
       } else {
         KX += (N - 1) * INCX;
-        JX = KX;
-        for (J = N; J >= 1; J--) {
-          TEMP = X[JX];
-          IX = KX;
-          for (I = N; I >= J + 1; I--) {
+        var JX = KX;
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[JX];
+          var IX = KX;
+          for (var I = N; I >= J + 1; I--) {
             TEMP -= A[I][J] * X[IX];
             IX -= INCX;
           }
-          if (NOUNIT) TEMP = TEMP / A[J][J];
+          if (NOUNIT) TEMP /= A[J][J];
           X[JX] = TEMP;
           JX -= INCX;
         }

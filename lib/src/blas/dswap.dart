@@ -12,8 +12,6 @@ void dswap(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DX = DX_.having();
   final DY = DY_.having();
-  double DTEMP;
-  int I, IX, IY, M, MP1;
 
   if (N <= 0) return;
   if (INCX == 1 && INCY == 1) {
@@ -21,18 +19,18 @@ void dswap(
 
     // clean-up loop
 
-    M = (N % 3);
+    final M = N % 3;
     if (M != 0) {
-      for (I = 1; I <= M; I++) {
-        DTEMP = DX[I];
+      for (var I = 1; I <= M; I++) {
+        final DTEMP = DX[I];
         DX[I] = DY[I];
         DY[I] = DTEMP;
       }
       if (N < 3) return;
     }
-    MP1 = M + 1;
-    for (I = MP1; I <= N; I += 3) {
-      DTEMP = DX[I];
+    final MP1 = M + 1;
+    for (var I = MP1; I <= N; I += 3) {
+      var DTEMP = DX[I];
       DX[I] = DY[I];
       DY[I] = DTEMP;
       DTEMP = DX[I + 1];
@@ -46,12 +44,10 @@ void dswap(
     // code for unequal increments or equal increments not equal
     // to 1
 
-    IX = 1;
-    IY = 1;
-    if (INCX < 0) IX = (-N + 1) * INCX + 1;
-    if (INCY < 0) IY = (-N + 1) * INCY + 1;
-    for (I = 1; I <= N; I++) {
-      DTEMP = DX[IX];
+    var IX = INCX < 0 ? (-N + 1) * INCX + 1 : 1;
+    var IY = INCY < 0 ? (-N + 1) * INCY + 1 : 1;
+    for (var I = 1; I <= N; I++) {
+      final DTEMP = DX[IX];
       DX[IX] = DY[IY];
       DY[IY] = DTEMP;
       IX += INCX;

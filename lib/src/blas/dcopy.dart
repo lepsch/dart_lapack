@@ -13,26 +13,21 @@ void dcopy(
   final DX = DX_.having();
   final DY = DY_.having();
 
-  int I, IX, IY, M, MP1;
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC MOD
-  // ..
   if (N <= 0) return;
   if (INCX == 1 && INCY == 1) {
     // code for both increments equal to 1
 
     // clean-up loop
 
-    M = (N % 7);
+    final M = N % 7;
     if (M != 0) {
-      for (I = 1; I <= M; I++) {
+      for (var I = 1; I <= M; I++) {
         DY[I] = DX[I];
       }
       if (N < 7) return;
     }
-    MP1 = M + 1;
-    for (I = MP1; I <= N; I += 7) {
+    final MP1 = M + 1;
+    for (var I = MP1; I <= N; I += 7) {
       DY[I] = DX[I];
       DY[I + 1] = DX[I + 1];
       DY[I + 2] = DX[I + 2];
@@ -45,11 +40,11 @@ void dcopy(
     // code for unequal increments or equal increments
     // not equal to 1
 
-    IX = 1;
-    IY = 1;
+    var IX = 1;
+    var IY = 1;
     if (INCX < 0) IX = (-N + 1) * INCX + 1;
     if (INCY < 0) IY = (-N + 1) * INCY + 1;
-    for (I = 1; I <= N; I++) {
+    for (var I = 1; I <= N; I++) {
       DY[IY] = DX[IX];
       IX += INCX;
       IY += INCY;

@@ -19,12 +19,10 @@ void dsyr(
   final X = X_.having();
   final A = A_.having(ld: LDA);
   const ZERO = 0.0;
-  double TEMP;
-  int I, INFO, IX, J, JX, KX = 0;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (N < 0) {
@@ -45,11 +43,11 @@ void dsyr(
 
   // Set the start point in X if the increment is not unity.
 
-  if (INCX <= 0) {
-    KX = 1 - (N - 1) * INCX;
-  } else if (INCX != 1) {
-    KX = 1;
-  }
+  final KX = switch (INCX) {
+    <= 0 => 1 - (N - 1) * INCX,
+    1 => 0,
+    _ => 1,
+  };
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through the triangular part
@@ -59,22 +57,22 @@ void dsyr(
     // Form  A  when A is stored in upper triangle.
 
     if (INCX == 1) {
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         if (X[J] != ZERO) {
-          TEMP = ALPHA * X[J];
-          for (I = 1; I <= J; I++) {
-            A[I][J] = A[I][J] + X[I] * TEMP;
+          final TEMP = ALPHA * X[J];
+          for (var I = 1; I <= J; I++) {
+            A[I][J] += X[I] * TEMP;
           }
         }
       }
     } else {
-      JX = KX;
-      for (J = 1; J <= N; J++) {
+      var JX = KX;
+      for (var J = 1; J <= N; J++) {
         if (X[JX] != ZERO) {
-          TEMP = ALPHA * X[JX];
-          IX = KX;
-          for (I = 1; I <= J; I++) {
-            A[I][J] = A[I][J] + X[IX] * TEMP;
+          final TEMP = ALPHA * X[JX];
+          var IX = KX;
+          for (var I = 1; I <= J; I++) {
+            A[I][J] += X[IX] * TEMP;
             IX += INCX;
           }
         }
@@ -85,22 +83,22 @@ void dsyr(
     // Form  A  when A is stored in lower triangle.
 
     if (INCX == 1) {
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         if (X[J] != ZERO) {
-          TEMP = ALPHA * X[J];
-          for (I = J; I <= N; I++) {
-            A[I][J] = A[I][J] + X[I] * TEMP;
+          final TEMP = ALPHA * X[J];
+          for (var I = J; I <= N; I++) {
+            A[I][J] += X[I] * TEMP;
           }
         }
       }
     } else {
-      JX = KX;
-      for (J = 1; J <= N; J++) {
+      var JX = KX;
+      for (var J = 1; J <= N; J++) {
         if (X[JX] != ZERO) {
-          TEMP = ALPHA * X[JX];
-          IX = JX;
-          for (I = J; I <= N; I++) {
-            A[I][J] = A[I][J] + X[IX] * TEMP;
+          final TEMP = ALPHA * X[JX];
+          var IX = JX;
+          for (var I = J; I <= N; I++) {
+            A[I][J] += X[IX] * TEMP;
             IX += INCX;
           }
         }

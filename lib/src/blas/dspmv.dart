@@ -20,12 +20,10 @@ void dspmv(
   final X = X_.having();
   final Y = Y_.having();
   const ONE = 1.0, ZERO = 0.0;
-  double TEMP1, TEMP2;
-  int I, INFO, IX, IY, J, JX, JY, K, KK, KX, KY;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (N < 0) {
@@ -46,16 +44,8 @@ void dspmv(
 
   // Set up the start points in  X  and  Y.
 
-  if (INCX > 0) {
-    KX = 1;
-  } else {
-    KX = 1 - (N - 1) * INCX;
-  }
-  if (INCY > 0) {
-    KY = 1;
-  } else {
-    KY = 1 - (N - 1) * INCY;
-  }
+  final KX = INCX > 0 ? 1 : 1 - (N - 1) * INCX;
+  final KY = INCY > 0 ? 1 : 1 - (N - 1) * INCY;
 
   // Start the operations. In this version the elements of the array AP
   // are accessed sequentially with one pass through AP.
@@ -65,62 +55,59 @@ void dspmv(
   if (BETA != ONE) {
     if (INCY == 1) {
       if (BETA == ZERO) {
-        for (I = 1; I <= N; I++) {
+        for (var I = 1; I <= N; I++) {
           Y[I] = ZERO;
         }
       } else {
-        for (I = 1; I <= N; I++) {
-          Y[I] = BETA * Y[I];
+        for (var I = 1; I <= N; I++) {
+          Y[I] *= BETA;
         }
       }
     } else {
-      IY = KY;
+      var IY = KY;
       if (BETA == ZERO) {
-        for (I = 1; I <= N; I++) {
+        for (var I = 1; I <= N; I++) {
           Y[IY] = ZERO;
           IY += INCY;
         }
       } else {
-        for (I = 1; I <= N; I++) {
-          Y[IY] = BETA * Y[IY];
+        for (var I = 1; I <= N; I++) {
+          Y[IY] *= BETA;
           IY += INCY;
         }
       }
     }
   }
   if (ALPHA == ZERO) return;
-  KK = 1;
+  var KK = 1;
   if (lsame(UPLO, 'U')) {
     // Form  y  when AP contains the upper triangle.
 
     if ((INCX == 1) && (INCY == 1)) {
-      for (J = 1; J <= N; J++) {
-        TEMP1 = ALPHA * X[J];
-        TEMP2 = ZERO;
-        K = KK;
-        for (I = 1; I <= J - 1; I++) {
-          Y[I] = Y[I] + TEMP1 * AP[K];
+      for (var J = 1; J <= N; J++) {
+        final TEMP1 = ALPHA * X[J];
+        var TEMP2 = ZERO;
+        for (var I = 1, K = KK; I <= J - 1; I++, K++) {
+          Y[I] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[I];
-          K++;
         }
-        Y[J] = Y[J] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
+        Y[J] += TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
         KK += J;
       }
     } else {
-      JX = KX;
-      JY = KY;
-      for (J = 1; J <= N; J++) {
-        TEMP1 = ALPHA * X[JX];
-        TEMP2 = ZERO;
-        IX = KX;
-        IY = KY;
-        for (K = KK; K <= KK + J - 2; K++) {
-          Y[IY] = Y[IY] + TEMP1 * AP[K];
+      var JX = KX;
+      var JY = KY;
+      for (var J = 1; J <= N; J++) {
+        final TEMP1 = ALPHA * X[JX];
+        var TEMP2 = ZERO;
+        var IX = KX, IY = KY;
+        for (var K = KK; K <= KK + J - 2; K++) {
+          Y[IY] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[IX];
           IX += INCX;
           IY += INCY;
         }
-        Y[JY] = Y[JY] + TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
+        Y[JY] += TEMP1 * AP[KK + J - 1] + ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
         KK += J;
@@ -130,38 +117,34 @@ void dspmv(
     // Form  y  when AP contains the lower triangle.
 
     if ((INCX == 1) && (INCY == 1)) {
-      for (J = 1; J <= N; J++) {
-        TEMP1 = ALPHA * X[J];
-        TEMP2 = ZERO;
-        Y[J] = Y[J] + TEMP1 * AP[KK];
-        K = KK + 1;
-        for (I = J + 1; I <= N; I++) {
-          Y[I] = Y[I] + TEMP1 * AP[K];
+      for (var J = 1; J <= N; J++) {
+        final TEMP1 = ALPHA * X[J];
+        var TEMP2 = ZERO;
+        Y[J] += TEMP1 * AP[KK];
+        for (var I = J + 1, K = KK + 1; I <= N; I++, K++) {
+          Y[I] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[I];
-          K++;
         }
-        Y[J] = Y[J] + ALPHA * TEMP2;
+        Y[J] += ALPHA * TEMP2;
         KK += (N - J + 1);
       }
     } else {
-      JX = KX;
-      JY = KY;
-      for (J = 1; J <= N; J++) {
-        TEMP1 = ALPHA * X[JX];
-        TEMP2 = ZERO;
-        Y[JY] = Y[JY] + TEMP1 * AP[KK];
-        IX = JX;
-        IY = JY;
-        for (K = KK + 1; K <= KK + N - J; K++) {
+      var JX = KX, JY = KY;
+      for (var J = 1; J <= N; J++) {
+        final TEMP1 = ALPHA * X[JX];
+        var TEMP2 = ZERO;
+        Y[JY] += TEMP1 * AP[KK];
+        var IX = JX, IY = JY;
+        for (var K = KK + 1; K <= KK + N - J; K++) {
           IX += INCX;
           IY += INCY;
-          Y[IY] = Y[IY] + TEMP1 * AP[K];
+          Y[IY] += TEMP1 * AP[K];
           TEMP2 += AP[K] * X[IX];
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP2;
+        Y[JY] += ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
-        KK += (N - J + 1);
+        KK += N - J + 1;
       }
     }
   }

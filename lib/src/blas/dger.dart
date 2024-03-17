@@ -21,12 +21,10 @@ void dger(
   final Y = Y_.having();
   final A = A_.having(ld: LDA);
   const ZERO = 0.0;
-  double TEMP;
-  int I, INFO, IX, J, JY, KX;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (M < 0) {
     INFO = 1;
   } else if (N < 0) {
@@ -50,33 +48,27 @@ void dger(
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through A.
 
-  if (INCY > 0) {
-    JY = 1;
-  } else {
-    JY = 1 - (N - 1) * INCY;
-  }
+  var JY = INCY > 0 ? 1 : 1 - (N - 1) * INCY;
+
   if (INCX == 1) {
-    for (J = 1; J <= N; J++) {
+    for (var J = 1; J <= N; J++) {
       if (Y[JY] != ZERO) {
-        TEMP = ALPHA * Y[JY];
-        for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] + X[I] * TEMP;
+        final TEMP = ALPHA * Y[JY];
+        for (var I = 1; I <= M; I++) {
+          A[I][J] += X[I] * TEMP;
         }
       }
       JY += INCY;
     }
   } else {
-    if (INCX > 0) {
-      KX = 1;
-    } else {
-      KX = 1 - (M - 1) * INCX;
-    }
-    for (J = 1; J <= N; J++) {
+    final KX = INCX > 0 ? 1 : 1 - (M - 1) * INCX;
+
+    for (var J = 1; J <= N; J++) {
       if (Y[JY] != ZERO) {
-        TEMP = ALPHA * Y[JY];
-        IX = KX;
-        for (I = 1; I <= M; I++) {
-          A[I][J] = A[I][J] + X[IX] * TEMP;
+        final TEMP = ALPHA * Y[JY];
+        var IX = KX;
+        for (var I = 1; I <= M; I++) {
+          A[I][J] += X[IX] * TEMP;
           IX += INCX;
         }
       }

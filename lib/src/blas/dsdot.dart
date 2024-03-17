@@ -10,33 +10,31 @@ double dsdot(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final SX = SX_.having();
-  final SY = SY_.having();
-
+//
 // Authors:
 // ========
 // Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
 // Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
 
-  int I, KX, KY, NS;
+  final SX = SX_.having();
+  final SY = SY_.having();
+
   var result = 0.0;
   if (N <= 0) return result;
   if (INCX == INCY && INCX > 0) {
     // Code for equal, positive, non-unit increments.
 
-    NS = N * INCX;
-    for (I = 1; INCX < 0 ? I >= NS : I <= NS; I += INCX) {
-      result += SX[I].toDouble() * SY[I].toDouble();
+    final NS = N * INCX;
+    for (var I = 1; I <= NS; I += INCX) {
+      result += SX[I] * SY[I];
     }
   } else {
     // Code for unequal or nonpositive increments.
 
-    KX = 1;
-    KY = 1;
-    if (INCX < 0) KX = 1 + (1 - N) * INCX;
-    if (INCY < 0) KY = 1 + (1 - N) * INCY;
-    for (I = 1; I <= N; I++) {
-      result += SX[KX].toDouble() * SY[KY].toDouble();
+    var KX = INCX < 0 ? 1 + (1 - N) * INCX : 1;
+    var KY = INCY < 0 ? 1 + (1 - N) * INCY : 1;
+    for (var I = 1; I <= N; I++) {
+      result += SX[KX] * SY[KY];
       KX += INCX;
       KY += INCY;
     }

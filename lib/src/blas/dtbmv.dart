@@ -21,11 +21,8 @@ void dtbmv(
   final A = A_.having(ld: LDA);
   final X = X_.having();
   const ZERO = 0.0;
-  double TEMP;
-  int I, INFO, IX, J, JX, KPLUS1, KX = 0, L;
-  bool NOUNIT;
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
     INFO = 1;
   } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
@@ -50,16 +47,16 @@ void dtbmv(
 
   if (N == 0) return;
 
-  NOUNIT = lsame(DIAG, 'N');
+  final NOUNIT = lsame(DIAG, 'N');
 
   // Set up the start point in X if the increment is not unity. This
   // will be  ( N - 1 )*INCX   too small for descending loops.
 
-  if (INCX <= 0) {
-    KX = 1 - (N - 1) * INCX;
-  } else if (INCX != 1) {
-    KX = 1;
-  }
+  var KX = switch (INCX) {
+    <= 0 => 1 - (N - 1) * INCX,
+    1 => 0,
+    _ => 1,
+  };
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through A.
@@ -68,63 +65,63 @@ void dtbmv(
     // Form  x := A*x.
 
     if (lsame(UPLO, 'U')) {
-      KPLUS1 = K + 1;
+      final KPLUS1 = K + 1;
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
+        for (var J = 1; J <= N; J++) {
           if (X[J] != ZERO) {
-            TEMP = X[J];
-            L = KPLUS1 - J;
-            for (I = max(1, J - K); I <= J - 1; I++) {
-              X[I] = X[I] + TEMP * A[L + I][J];
+            final TEMP = X[J];
+            final L = KPLUS1 - J;
+            for (var I = max(1, J - K); I <= J - 1; I++) {
+              X[I] += TEMP * A[L + I][J];
             }
-            if (NOUNIT) X[J] = X[J] * A[KPLUS1][J];
+            if (NOUNIT) X[J] *= A[KPLUS1][J];
           }
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
           if (X[JX] != ZERO) {
-            TEMP = X[JX];
-            IX = KX;
-            L = KPLUS1 - J;
-            for (I = max(1, J - K); I <= J - 1; I++) {
-              X[IX] = X[IX] + TEMP * A[L + I][J];
+            final TEMP = X[JX];
+            var IX = KX;
+            final L = KPLUS1 - J;
+            for (var I = max(1, J - K); I <= J - 1; I++) {
+              X[IX] += TEMP * A[L + I][J];
               IX += INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * A[KPLUS1][J];
+            if (NOUNIT) X[JX] *= A[KPLUS1][J];
           }
           JX += INCX;
-          if (J > K) KX = KX + INCX;
+          if (J > K) KX += INCX;
         }
       }
     } else {
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
+        for (var J = N; J >= 1; J--) {
           if (X[J] != ZERO) {
-            TEMP = X[J];
-            L = 1 - J;
-            for (I = min(N, J + K); I >= J + 1; I--) {
-              X[I] = X[I] + TEMP * A[L + I][J];
+            final TEMP = X[J];
+            final L = 1 - J;
+            for (var I = min(N, J + K); I >= J + 1; I--) {
+              X[I] += TEMP * A[L + I][J];
             }
-            if (NOUNIT) X[J] = X[J] * A[1][J];
+            if (NOUNIT) X[J] *= A[1][J];
           }
         }
       } else {
         KX += (N - 1) * INCX;
-        JX = KX;
-        for (J = N; J >= 1; J--) {
+        var JX = KX;
+        for (var J = N; J >= 1; J--) {
           if (X[JX] != ZERO) {
-            TEMP = X[JX];
-            IX = KX;
-            L = 1 - J;
-            for (I = min(N, J + K); I >= J + 1; I--) {
-              X[IX] = X[IX] + TEMP * A[L + I][J];
+            final TEMP = X[JX];
+            var IX = KX;
+            final L = 1 - J;
+            for (var I = min(N, J + K); I >= J + 1; I--) {
+              X[IX] += TEMP * A[L + I][J];
               IX -= INCX;
             }
-            if (NOUNIT) X[JX] = X[JX] * A[1][J];
+            if (NOUNIT) X[JX] *= A[1][J];
           }
           JX -= INCX;
-          if ((N - J) >= K) KX = KX - INCX;
+          if ((N - J) >= K) KX -= INCX;
         }
       }
     }
@@ -132,27 +129,27 @@ void dtbmv(
     // Form  x := A**T*x.
 
     if (lsame(UPLO, 'U')) {
-      KPLUS1 = K + 1;
+      final KPLUS1 = K + 1;
       if (INCX == 1) {
-        for (J = N; J >= 1; J--) {
-          TEMP = X[J];
-          L = KPLUS1 - J;
-          if (NOUNIT) TEMP = TEMP * A[KPLUS1][J];
-          for (I = J - 1; I >= max(1, J - K); I--) {
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[J];
+          final L = KPLUS1 - J;
+          if (NOUNIT) TEMP *= A[KPLUS1][J];
+          for (var I = J - 1; I >= max(1, J - K); I--) {
             TEMP += A[L + I][J] * X[I];
           }
           X[J] = TEMP;
         }
       } else {
         KX += (N - 1) * INCX;
-        JX = KX;
-        for (J = N; J >= 1; J--) {
-          TEMP = X[JX];
+        var JX = KX;
+        for (var J = N; J >= 1; J--) {
+          var TEMP = X[JX];
           KX -= INCX;
-          IX = KX;
-          L = KPLUS1 - J;
-          if (NOUNIT) TEMP = TEMP * A[KPLUS1][J];
-          for (I = J - 1; I >= max(1, J - K); I--) {
+          var IX = KX;
+          final L = KPLUS1 - J;
+          if (NOUNIT) TEMP *= A[KPLUS1][J];
+          for (var I = J - 1; I >= max(1, J - K); I--) {
             TEMP += A[L + I][J] * X[IX];
             IX -= INCX;
           }
@@ -162,24 +159,24 @@ void dtbmv(
       }
     } else {
       if (INCX == 1) {
-        for (J = 1; J <= N; J++) {
-          TEMP = X[J];
-          L = 1 - J;
-          if (NOUNIT) TEMP = TEMP * A[1][J];
-          for (I = J + 1; I <= min(N, J + K); I++) {
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[J];
+          final L = 1 - J;
+          if (NOUNIT) TEMP *= A[1][J];
+          for (var I = J + 1; I <= min(N, J + K); I++) {
             TEMP += A[L + I][J] * X[I];
           }
           X[J] = TEMP;
         }
       } else {
-        JX = KX;
-        for (J = 1; J <= N; J++) {
-          TEMP = X[JX];
+        var JX = KX;
+        for (var J = 1; J <= N; J++) {
+          var TEMP = X[JX];
           KX += INCX;
-          IX = KX;
-          L = 1 - J;
-          if (NOUNIT) TEMP = TEMP * A[1][J];
-          for (I = J + 1; I <= min(N, J + K); I++) {
+          var IX = KX;
+          final L = 1 - J;
+          if (NOUNIT) TEMP *= A[1][J];
+          for (var I = J + 1; I <= min(N, J + K); I++) {
             TEMP += A[L + I][J] * X[IX];
             IX += INCX;
           }

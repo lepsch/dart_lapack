@@ -26,12 +26,10 @@ void dgbmv(
   final X = X_.having();
   final Y = Y_.having();
   const ONE = 1.0, ZERO = 0.0;
-  double TEMP;
-  int I, INFO, IX, IY, J, JX, JY, K, KUP1, KX, KY, LENX, LENY;
 
   // Test the input parameters.
 
-  INFO = 0;
+  var INFO = 0;
   if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
     INFO = 1;
   } else if (M < 0) {
@@ -61,23 +59,9 @@ void dgbmv(
   // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
   // up the start points in  X  and  Y.
 
-  if (lsame(TRANS, 'N')) {
-    LENX = N;
-    LENY = M;
-  } else {
-    LENX = M;
-    LENY = N;
-  }
-  if (INCX > 0) {
-    KX = 1;
-  } else {
-    KX = 1 - (LENX - 1) * INCX;
-  }
-  if (INCY > 0) {
-    KY = 1;
-  } else {
-    KY = 1 - (LENY - 1) * INCY;
-  }
+  final (LENX, LENY) = lsame(TRANS, 'N') ? (N, M) : (M, N);
+  var KX = INCX > 0 ? 1 : 1 - (LENX - 1) * INCX;
+  var KY = INCY > 0 ? 1 : 1 - (LENY - 1) * INCY;
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through the band part of A.
@@ -87,82 +71,82 @@ void dgbmv(
   if (BETA != ONE) {
     if (INCY == 1) {
       if (BETA == ZERO) {
-        for (I = 1; I <= LENY; I++) {
+        for (var I = 1; I <= LENY; I++) {
           Y[I] = ZERO;
         }
       } else {
-        for (I = 1; I <= LENY; I++) {
-          Y[I] = BETA * Y[I];
+        for (var I = 1; I <= LENY; I++) {
+          Y[I] *= BETA;
         }
       }
     } else {
-      IY = KY;
+      var IY = KY;
       if (BETA == ZERO) {
-        for (I = 1; I <= LENY; I++) {
+        for (var I = 1; I <= LENY; I++) {
           Y[IY] = ZERO;
           IY += INCY;
         }
       } else {
-        for (I = 1; I <= LENY; I++) {
-          Y[IY] = BETA * Y[IY];
+        for (var I = 1; I <= LENY; I++) {
+          Y[IY] *= BETA;
           IY += INCY;
         }
       }
     }
   }
   if (ALPHA == ZERO) return;
-  KUP1 = KU + 1;
+  final KUP1 = KU + 1;
   if (lsame(TRANS, 'N')) {
     // Form  y := alpha*A*x + y.
-    JX = KX;
+    var JX = KX;
     if (INCY == 1) {
-      for (J = 1; J <= N; J++) {
-        TEMP = ALPHA * X[JX];
-        K = KUP1 - J;
-        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          Y[I] = Y[I] + TEMP * A[K + I][J];
+      for (var J = 1; J <= N; J++) {
+        var TEMP = ALPHA * X[JX];
+        final K = KUP1 - J;
+        for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          Y[I] += TEMP * A[K + I][J];
         }
         JX += INCX;
       }
     } else {
-      for (J = 1; J <= N; J++) {
-        TEMP = ALPHA * X[JX];
-        IY = KY;
-        K = KUP1 - J;
-        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          Y[IY] = Y[IY] + TEMP * A[K + I][J];
+      for (var J = 1; J <= N; J++) {
+        var TEMP = ALPHA * X[JX];
+        var IY = KY;
+        final K = KUP1 - J;
+        for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          Y[IY] += TEMP * A[K + I][J];
           IY += INCY;
         }
         JX += INCX;
-        if (J > KU) KY = KY + INCY;
+        if (J > KU) KY += INCY;
       }
     }
   } else {
     // Form  y := alpha*A**T*x + y.
 
-    JY = KY;
+    var JY = KY;
     if (INCX == 1) {
-      for (J = 1; J <= N; J++) {
-        TEMP = ZERO;
-        K = KUP1 - J;
-        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+      for (var J = 1; J <= N; J++) {
+        var TEMP = ZERO;
+        final K = KUP1 - J;
+        for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
           TEMP += A[K + I][J] * X[I];
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP;
+        Y[JY] += ALPHA * TEMP;
         JY += INCY;
       }
     } else {
-      for (J = 1; J <= N; J++) {
-        TEMP = ZERO;
-        IX = KX;
-        K = KUP1 - J;
-        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+      for (var J = 1; J <= N; J++) {
+        var TEMP = ZERO;
+        var IX = KX;
+        final K = KUP1 - J;
+        for (var I = max(1, J - KU); I <= min(M, J + KL); I++) {
           TEMP += A[K + I][J] * X[IX];
           IX += INCX;
         }
-        Y[JY] = Y[JY] + ALPHA * TEMP;
+        Y[JY] += ALPHA * TEMP;
         JY += INCY;
-        if (J > KU) KX = KX + INCX;
+        if (J > KU) KX += INCX;
       }
     }
   }
