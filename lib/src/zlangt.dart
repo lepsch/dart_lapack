@@ -32,11 +32,10 @@ double zlangt(
 
     ANORM = (D[N]).abs();
     for (I = 1; I <= N - 1; I++) {
-      // 10
       if (ANORM < (DL[I]).abs() || disnan((DL[I]).abs())) ANORM = (DL[I]).abs();
       if (ANORM < (D[I]).abs() || disnan((D[I]).abs())) ANORM = (D[I]).abs();
       if (ANORM < (DU[I]).abs() || disnan((DU[I]).abs())) ANORM = (DU[I]).abs();
-    } // 10
+    }
   } else if (lsame(NORM, 'O') || NORM == '1') {
     // Find norm1(A).
 
@@ -47,10 +46,9 @@ double zlangt(
       TEMP = (D[N]).abs() + (DU[N - 1]).abs();
       if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
       for (I = 2; I <= N - 1; I++) {
-        // 20
         TEMP = (D[I]).abs() + (DL[I]).abs() + (DU[I - 1]).abs();
         if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
-      } // 20
+      }
     }
   } else if (lsame(NORM, 'I')) {
     // Find normI(A).
@@ -62,10 +60,9 @@ double zlangt(
       TEMP = (D[N]).abs() + (DL[N - 1]).abs();
       if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
       for (I = 2; I <= N - 1; I++) {
-        // 30
         TEMP = (D[I]).abs() + (DU[I]).abs() + (DL[I - 1]).abs();
         if (ANORM < TEMP || disnan(TEMP)) ANORM = TEMP;
-      } // 30
+      }
     }
   } else if ((lsame(NORM, 'F')) || (lsame(NORM, 'E'))) {
     // Find normF(A).

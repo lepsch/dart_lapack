@@ -67,9 +67,8 @@ void zhsein(
 
   M.value = 0;
   for (K = 1; K <= N; K++) {
-    // 10
     if (SELECT[K]) M.value++;
-  } // 10
+  }
 
   INFO.value = 0;
   if (!RIGHTV && !LEFTV) {
@@ -116,7 +115,6 @@ void zhsein(
   KS = 1;
 
   for (K = 1; K <= N; K++) {
-    // 100
     if (SELECT[K]) {
       // Compute eigenvector(s) corresponding to W(K).
 
@@ -133,15 +131,13 @@ void zhsein(
         // the submatrix H(1:KR,1:KR) for a right eigenvector.
 
         for (I = K; I >= KL + 1; I--) {
-          // 20
           if (H[I][I - 1] == Complex.zero) break;
-        } // 20
+        }
         KL = I;
         if (K > KR) {
           for (I = K; I <= N - 1; I++) {
-            // 40
             if (H[I + 1][I] == Complex.zero) break;
-          } // 40
+          }
           KR = I;
         }
       }
@@ -171,12 +167,11 @@ void zhsein(
       repeat:
       while (true) {
         for (I = K - 1; I >= KL; I--) {
-          // 70
           if (SELECT[I] && CABS1(W[I] - WK) < EPS3) {
             WK += EPS3.toComplex();
             continue repeat;
           }
-        } // 70
+        }
         break;
       }
       W[K] = WK;
@@ -205,9 +200,8 @@ void zhsein(
           IFAILL[KS] = 0;
         }
         for (I = 1; I <= KL - 1; I++) {
-          // 80
           VL[I][KS] = Complex.zero;
-        } // 80
+        }
       }
       if (RIGHTV) {
         // Compute right eigenvector.
@@ -221,11 +215,10 @@ void zhsein(
           IFAILR[KS] = 0;
         }
         for (I = KR + 1; I <= N; I++) {
-          // 90
           VR[I][KS] = Complex.zero;
-        } // 90
+        }
       }
       KS++;
     }
-  } // 100
+  }
 }

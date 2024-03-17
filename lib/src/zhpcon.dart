@@ -62,19 +62,17 @@ void zhpcon(
 
     IP = N * (N + 1) ~/ 2;
     for (I = N; I >= 1; I--) {
-      // 10
       if (IPIV[I] > 0 && AP[IP] == Complex.zero) return;
       IP -= I;
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     IP = 1;
     for (I = 1; I <= N; I++) {
-      // 20
       if (IPIV[I] > 0 && AP[IP] == Complex.zero) return;
       IP += N - I + 1;
-    } // 20
+    }
   }
 
   // Estimate the 1-norm of the inverse.

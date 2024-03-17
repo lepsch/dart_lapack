@@ -120,10 +120,9 @@ void zgbsvxx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         RCMIN = min(RCMIN, R[J]);
         RCMAX = max(RCMAX, R[J]);
-      } // 10
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -13;
       } else if (N > 0) {
@@ -136,10 +135,9 @@ void zgbsvxx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 20
         RCMIN = min(RCMIN, C[J]);
         RCMAX = max(RCMAX, C[J]);
-      } // 20
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -14;
       } else if (N > 0) {
@@ -203,8 +201,8 @@ void zgbsvxx(
     for (J = 1; J <= N; J++) {
       for (I = KL + 1; J <= 2 * KL + KU + 1; J++) {
         AFB[I][J] = AB[I - KL][J];
-      } // 30
-    } // 40
+      }
+    }
     zgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO);
 
     // Return if INFO.value is non-zero.

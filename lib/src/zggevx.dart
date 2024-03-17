@@ -380,12 +380,9 @@ void zggevx(
         // one at a time.
 
         for (I = 1; I <= N; I++) {
-          // 20
-
           for (J = 1; J <= N; J++) {
-            // 10
             BWORK[J] = false;
-          } // 10
+          }
           BWORK[I] = true;
 
           IWRK = N + 1;
@@ -421,7 +418,7 @@ void zggevx(
               LWORK - IWRK1 + 1,
               IWORK,
               IERR);
-        } // 20
+        }
       }
     }
 
@@ -433,40 +430,34 @@ void zggevx(
           IERR);
 
       for (JC = 1; JC <= N; JC++) {
-        // 50
         TEMP = ZERO;
         for (JR = 1; JR <= N; JR++) {
-          // 30
           TEMP = max(TEMP, ABS1(VL[JR][JC]));
-        } // 30
+        }
         if (TEMP < SMLNUM) continue;
         TEMP = ONE / TEMP;
         for (JR = 1; JR <= N; JR++) {
-          // 40
           VL[JR][JC] *= TEMP.toComplex();
-        } // 40
-      } // 50
+        }
+      }
     }
 
     if (ILVR) {
       zggbak(BALANC, 'R', N, ILO.value, IHI.value, LSCALE, RSCALE, N, VR, LDVR,
           IERR);
       for (JC = 1; JC <= N; JC++) {
-        // 80
         TEMP = ZERO;
         for (JR = 1; JR <= N; JR++) {
-          // 60
           TEMP = max(TEMP, ABS1(VR[JR][JC]));
-        } // 60
+        }
         if (TEMP < SMLNUM) continue;
         TEMP = ONE / TEMP;
         for (JR = 1; JR <= N; JR++) {
-          // 70
           VR[JR][JC] *= TEMP.toComplex();
-        } // 70
-      } // 80
+        }
+      }
     }
-  } // 90
+  }
 
   // Undo scaling if necessary
 

@@ -75,17 +75,14 @@ void zpbtrf(
       // Zero the upper triangle of the work array.
 
       for (J = 1; J <= NB; J++) {
-        // 20
         for (I = 1; I <= J - 1; I++) {
-          // 10
           WORK[I][J] = Complex.zero;
-        } // 10
-      } // 20
+        }
+      }
 
       // Process the band matrix one diagonal block at a time.
 
       for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
-        // 70
         IB = min(NB, N - I + 1);
 
         // Factorize the diagonal block
@@ -148,12 +145,10 @@ void zpbtrf(
             // Copy the lower triangle of A13 into the work array.
 
             for (JJ = 1; JJ <= I3; JJ++) {
-              // 40
               for (II.value = JJ; II.value <= IB; II.value++) {
-                // 30
                 WORK[II.value][JJ] = AB[II.value - JJ + 1][JJ + I + KD - 1];
-              } // 30
-            } // 40
+              }
+            }
 
             // Update A13 (in the work array).
 
@@ -187,15 +182,13 @@ void zpbtrf(
             // Copy the lower triangle of A13 back into place.
 
             for (JJ = 1; JJ <= I3; JJ++) {
-              // 60
               for (II.value = JJ; II.value <= IB; II.value++) {
-                // 50
                 AB[II.value - JJ + 1][JJ + I + KD - 1] = WORK[II.value][JJ];
-              } // 50
-            } // 60
+              }
+            }
           }
         }
-      } // 70
+      }
     } else {
       // Compute the Cholesky factorization of a Hermitian band
       // matrix, given the lower triangle of the matrix in band
@@ -204,17 +197,14 @@ void zpbtrf(
       // Zero the lower triangle of the work array.
 
       for (J = 1; J <= NB; J++) {
-        // 90
         for (I = J + 1; I <= NB; I++) {
-          // 80
           WORK[I][J] = Complex.zero;
-        } // 80
-      } // 90
+        }
+      }
 
       // Process the band matrix one diagonal block at a time.
 
       for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
-        // 140
         IB = min(NB, N - I + 1);
 
         // Factorize the diagonal block
@@ -258,12 +248,10 @@ void zpbtrf(
             // Copy the upper triangle of A31 into the work array.
 
             for (JJ = 1; JJ <= IB; JJ++) {
-              // 110
               for (II.value = 1; II.value <= min(JJ, I3); II.value++) {
-                // 100
                 WORK[II.value][JJ] = AB[KD + 1 - JJ + II.value][JJ + I - 1];
-              } // 100
-            } // 110
+              }
+            }
 
             // Update A31 (in the work array).
 
@@ -297,15 +285,13 @@ void zpbtrf(
             // Copy the upper triangle of A31 back into place.
 
             for (JJ = 1; JJ <= IB; JJ++) {
-              // 130
               for (II.value = 1; II.value <= min(JJ, I3); II.value++) {
-                // 120
                 AB[KD + 1 - JJ + II.value][JJ + I - 1] = WORK[II.value][JJ];
-              } // 120
-            } // 130
+              }
+            }
           }
         }
-      } // 140
+      }
     }
   }
 }

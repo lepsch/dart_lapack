@@ -92,9 +92,8 @@ void zhpgv(
       }
 
       for (J = 1; J <= NEIG; J++) {
-        // 10
         ztpsv(UPLO, TRANS, 'Non-unit', N, BP, Z(1, J).asArray(), 1);
-      } // 10
+      }
     } else if (ITYPE == 3) {
       // For B*A*x=(lambda)*x;
       // backtransform eigenvectors: x = L*y or U**H *y
@@ -106,9 +105,8 @@ void zhpgv(
       }
 
       for (J = 1; J <= NEIG; J++) {
-        // 20
         ztpmv(UPLO, TRANS, 'Non-unit', N, BP, Z(1, J).asArray(), 1);
-      } // 20
+      }
     }
   }
 }

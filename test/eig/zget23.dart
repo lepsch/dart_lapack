@@ -136,9 +136,8 @@ void zget23(
   // Quick return if nothing to do
 
   for (I = 1; I <= 11; I++) {
-    // 10
     RESULT[I] = -ONE;
-  } // 10
+  }
 
   if (N == 0) return;
 
@@ -184,46 +183,40 @@ void zget23(
   // Do Test (3)
 
   for (J = 1; J <= N; J++) {
-    // 30
     TNRM = dznrm2(N, VR(1, J).asArray(), 1);
     RESULT[3] = max(RESULT[3], min(ULPINV, (TNRM - ONE).abs() / ULP));
     VMX = ZERO;
     VRMX = ZERO;
     for (JJ = 1; JJ <= N; JJ++) {
-      // 20
       VTST = (VR[JJ][J]).abs();
       if (VTST > VMX) VMX = VTST;
       if (VR[JJ][J].imaginary == ZERO && VR[JJ][J].toDouble().abs() > VRMX) {
         VRMX = VR[JJ][J].toDouble().abs();
       }
-    } // 20
+    }
     if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
-  } // 30
+  }
 
   // Do Test (4)
 
   for (J = 1; J <= N; J++) {
-    // 50
     TNRM = dznrm2(N, VL(1, J).asArray(), 1);
     RESULT[4] = max(RESULT[4], min(ULPINV, (TNRM - ONE).abs() / ULP));
     VMX = ZERO;
     VRMX = ZERO;
     for (JJ = 1; JJ <= N; JJ++) {
-      // 40
       VTST = (VL[JJ][J]).abs();
       if (VTST > VMX) VMX = VTST;
       if (VL[JJ][J].imaginary == ZERO && VL[JJ][J].toDouble().abs() > VRMX) {
         VRMX = VL[JJ][J].toDouble().abs();
       }
-    } // 40
+    }
     if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;
-  } // 50
+  }
 
   // Test for all options of computing condition numbers
 
   for (ISENS = 1; ISENS <= ISENSM; ISENS++) {
-    // 200
-
     SENSE = SENS[ISENS - 1];
 
     // Compute eigenvalues only, and test them
@@ -266,17 +259,15 @@ void zget23(
     // Do Test (5)
 
     for (J = 1; J <= N; J++) {
-      // 60
       if (W[J] != W1[J]) RESULT[5] = ULPINV;
-    } // 60
+    }
 
     // Do Test (8)
 
     if (!NOBAL) {
       for (J = 1; J <= N; J++) {
-        // 70
         if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
-      } // 70
+      }
       if (ILO.value != ILO1.value) RESULT[8] = ULPINV;
       if (IHI.value != IHI1.value) RESULT[8] = ULPINV;
       if (ABNRM.value != ABNRM1.value) RESULT[8] = ULPINV;
@@ -286,9 +277,8 @@ void zget23(
 
     if (ISENS == 2 && N > 1) {
       for (J = 1; J <= N; J++) {
-        // 80
         if (RCONDV[J] != RCNDV1[J]) RESULT[9] = ULPINV;
-      } // 80
+      }
     }
 
     // Compute eigenvalues and right eigenvectors, and test them
@@ -331,27 +321,23 @@ void zget23(
     // Do Test (5) again
 
     for (J = 1; J <= N; J++) {
-      // 90
       if (W[J] != W1[J]) RESULT[5] = ULPINV;
-    } // 90
+    }
 
     // Do Test (6)
 
     for (J = 1; J <= N; J++) {
-      // 110
       for (JJ = 1; JJ <= N; JJ++) {
-        // 100
         if (VR(J, JJ) != LRE(J, JJ)) RESULT[6] = ULPINV;
-      } // 100
-    } // 110
+      }
+    }
 
     // Do Test (8) again
 
     if (!NOBAL) {
       for (J = 1; J <= N; J++) {
-        // 120
         if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
-      } // 120
+      }
       if (ILO.value != ILO1.value) RESULT[8] = ULPINV;
       if (IHI.value != IHI1.value) RESULT[8] = ULPINV;
       if (ABNRM.value != ABNRM1.value) RESULT[8] = ULPINV;
@@ -361,9 +347,8 @@ void zget23(
 
     if (ISENS == 2 && N > 1) {
       for (J = 1; J <= N; J++) {
-        // 130
         if (RCONDV[J] != RCNDV1[J]) RESULT[9] = ULPINV;
-      } // 130
+      }
     }
 
     // Compute eigenvalues and left eigenvectors, and test them
@@ -406,27 +391,23 @@ void zget23(
     // Do Test (5) again
 
     for (J = 1; J <= N; J++) {
-      // 140
       if (W[J] != W1[J]) RESULT[5] = ULPINV;
-    } // 140
+    }
 
     // Do Test (7)
 
     for (J = 1; J <= N; J++) {
-      // 160
       for (JJ = 1; JJ <= N; JJ++) {
-        // 150
         if (VL(J, JJ) != LRE(J, JJ)) RESULT[7] = ULPINV;
-      } // 150
-    } // 160
+      }
+    }
 
     // Do Test (8) again
 
     if (!NOBAL) {
       for (J = 1; J <= N; J++) {
-        // 170
         if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
-      } // 170
+      }
       if (ILO.value != ILO1.value) RESULT[8] = ULPINV;
       if (IHI.value != IHI1.value) RESULT[8] = ULPINV;
       if (ABNRM.value != ABNRM1.value) RESULT[8] = ULPINV;
@@ -436,13 +417,10 @@ void zget23(
 
     if (ISENS == 2 && N > 1) {
       for (J = 1; J <= N; J++) {
-        // 180
         if (RCONDV[J] != RCNDV1[J]) RESULT[9] = ULPINV;
-      } // 180
+      }
     }
-
-    //  } // 190
-  } // 200
+  }
 
   // If COMP, compare condition numbers to precomputed ones
 
@@ -461,7 +439,6 @@ void zget23(
     // to compare with inputs
 
     for (I = 1; I <= N - 1; I++) {
-      // 220
       KMIN = I;
       if (ISRT == 0) {
         VRIMIN = (W[I]).toDouble();
@@ -469,7 +446,6 @@ void zget23(
         VRIMIN = W[I].imaginary;
       }
       for (J = I + 1; J <= N; J++) {
-        // 210
         if (ISRT == 0) {
           VRICMP = (W[J]).toDouble();
         } else {
@@ -479,7 +455,7 @@ void zget23(
           KMIN = J;
           VRIMIN = VRICMP;
         }
-      } // 210
+      }
       CTMP = W[KMIN];
       W[KMIN] = W[I];
       W[I] = CTMP;
@@ -489,7 +465,7 @@ void zget23(
       VRIMIN = RCONDV[KMIN];
       RCONDV[KMIN] = RCONDV[I];
       RCONDV[I] = VRIMIN;
-    } // 220
+    }
 
     // Compare condition numbers for eigenvectors
     // taking their condition numbers into account
@@ -499,7 +475,6 @@ void zget23(
     V = max(N.toDouble() * EPS * ABNRM.value, SMLNUM);
     if (ABNRM.value == ZERO) V = ONE;
     for (I = 1; I <= N; I++) {
-      // 230
       if (V > RCONDV[I] * RCONDE[I]) {
         TOL = RCONDV[I];
       } else {
@@ -524,14 +499,13 @@ void zget23(
         VMAX = ONE;
       }
       RESULT[10] = max(RESULT[10], VMAX);
-    } // 230
+    }
 
     // Compare condition numbers for eigenvalues
     // taking their condition numbers into account
 
     RESULT[11] = ZERO;
     for (I = 1; I <= N; I++) {
-      // 240
       if (V > RCONDV[I]) {
         TOL = ONE;
       } else {
@@ -556,8 +530,7 @@ void zget23(
         VMAX = ONE;
       }
       RESULT[11] = max(RESULT[11], VMAX);
-    } // 240
-    //  } // 250
+    }
   }
 }
 

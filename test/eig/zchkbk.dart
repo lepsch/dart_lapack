@@ -49,20 +49,18 @@ Future<void> zchkbk(final Nin NIN, final Nout NOUT) async {
 
     VMAX = ZERO;
     for (I = 1; I <= N; I++) {
-      // 50
       for (J = 1; J <= N; J++) {
-        // 40
         X = CABS1(E[I][J] - EIN[I][J]) / EPS;
         if (CABS1(E[I][J]) > SAFMIN) X /= CABS1(E[I][J]);
         VMAX = max(VMAX, X);
-      } // 40
-    } // 50
+      }
+    }
 
     if (VMAX > RMAX) {
       LMAX[2] = KNT;
       RMAX = VMAX;
     }
-  } // 60
+  }
 
   NOUT.println(' .. test output of ZGEBAK .. ');
   NOUT.println(' value of largest test error             = ${RMAX.d12_3}');

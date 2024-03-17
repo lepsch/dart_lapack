@@ -104,8 +104,6 @@ void zgebrd(
   }
 
   for (I = 1; NB < 0 ? I >= MINMN - NX : I <= MINMN - NX; I += NB) {
-    // 30
-
     // Reduce rows and columns i:i+ib-1 to bidiagonal form and return;
     // the matrices X and Y which are needed to update the unreduced
     // part of the matrix
@@ -161,18 +159,16 @@ void zgebrd(
 
     if (M >= N) {
       for (J = I; J <= I + NB - 1; J++) {
-        // 10
         A[J][J] = D[J].toComplex();
         A[J][J + 1] = E[J].toComplex();
-      } // 10
+      }
     } else {
       for (J = I; J <= I + NB - 1; J++) {
-        // 20
         A[J][J] = D[J].toComplex();
         A[J + 1][J] = E[J].toComplex();
-      } // 20
+      }
     }
-  } // 30
+  }
 
   // Use unblocked code to reduce the remainder of the matrix
 

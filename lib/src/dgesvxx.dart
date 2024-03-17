@@ -112,10 +112,9 @@ void dgesvxx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         RCMIN = min(RCMIN, R[J]);
         RCMAX = max(RCMAX, R[J]);
-      } // 10
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -11;
       } else if (N > 0) {
@@ -128,10 +127,9 @@ void dgesvxx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 20
         RCMIN = min(RCMIN, C[J]);
         RCMAX = max(RCMAX, C[J]);
-      } // 20
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -12;
       } else if (N > 0) {

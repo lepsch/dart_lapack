@@ -167,8 +167,6 @@ void zcposv(
     }
 
     for (IITER = 1; IITER <= ITERMAX; IITER++) {
-      // 30
-
       // Convert R (in WORK) from double precision to single precision
       // and store the result in SX.
 
@@ -220,9 +218,7 @@ void zcposv(
 
         return;
       }
-
-      //  } // 20
-    } // 30
+    }
 
     // If we are at this place of the code, this is because we have
     // performed ITER=ITERMAX iterations and never satisfied the

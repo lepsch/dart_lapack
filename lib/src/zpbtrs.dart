@@ -56,8 +56,6 @@ void zpbtrs(
     // Solve A*X = B where A = U**H *U.
 
     for (J = 1; J <= NRHS; J++) {
-      // 10
-
       // Solve U**H *X = B, overwriting B with X.
 
       ztbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB,
@@ -67,13 +65,11 @@ void zpbtrs(
 
       ztbsv('Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB,
           B(1, J).asArray(), 1);
-    } // 10
+    }
   } else {
     // Solve A*X = B where A = L*L**H.
 
     for (J = 1; J <= NRHS; J++) {
-      // 20
-
       // Solve L*X = B, overwriting B with X.
 
       ztbsv('Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB,
@@ -83,6 +79,6 @@ void zpbtrs(
 
       ztbsv('Lower', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB,
           B(1, J).asArray(), 1);
-    } // 20
+    }
   }
 }

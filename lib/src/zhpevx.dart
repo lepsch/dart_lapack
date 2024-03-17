@@ -206,9 +206,8 @@ void zhpevx(
       zsteqr(JOBZ, N, W, RWORK(INDEE), Z, LDZ, RWORK(INDRWK), INFO);
       if (INFO.value == 0) {
         for (I = 1; I <= N; I++) {
-          // 10
           IFAIL[I] = 0;
-        } // 10
+        }
       }
     }
     if (INFO.value == 0) {
@@ -259,7 +258,7 @@ void zhpevx(
       zupmtr('L', UPLO, 'N', N, M.value, AP, WORK(INDTAU), Z, LDZ, WORK(INDWRK),
           IINFO);
     }
-  } // 20
+  }
 
   // If matrix was scaled, then rescale eigenvalues appropriately.
 
@@ -277,16 +276,14 @@ void zhpevx(
 
   if (WANTZ) {
     for (J = 1; J <= M.value - 1; J++) {
-      // 40
       I = 0;
       TMP1 = W[J];
       for (JJ = J + 1; JJ <= M.value; JJ++) {
-        // 30
         if (W[JJ] < TMP1) {
           I = JJ;
           TMP1 = W[JJ];
         }
-      } // 30
+      }
 
       if (I != 0) {
         ITMP1 = IWORK[1 + I - 1];
@@ -301,6 +298,6 @@ void zhpevx(
           IFAIL[J] = ITMP1;
         }
       }
-    } // 40
+    }
   }
 }

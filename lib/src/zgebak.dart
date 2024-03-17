@@ -71,18 +71,16 @@ void zgebak(
     if (lsame(JOB, 'S') || lsame(JOB, 'B')) {
       if (RIGHTV) {
         for (I = ILO; I <= IHI; I++) {
-          // 10
           S = SCALE[I];
           zdscal(M, S, V(I, 1).asArray(), LDV);
-        } // 10
+        }
       }
 
       if (LEFTV) {
         for (I = ILO; I <= IHI; I++) {
-          // 20
           S = ONE / SCALE[I];
           zdscal(M, S, V(I, 1).asArray(), LDV);
-        } // 20
+        }
       }
     }
   }
@@ -95,26 +93,24 @@ void zgebak(
   if (lsame(JOB, 'P') || lsame(JOB, 'B')) {
     if (RIGHTV) {
       for (II = 1; II <= N; II++) {
-        // 40
         I = II;
         if (I >= ILO && I <= IHI) continue;
         if (I < ILO) I = ILO - II;
         K = SCALE[I].toInt();
         if (K == I) continue;
         zswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
-      } // 40
+      }
     }
 
     if (LEFTV) {
       for (II = 1; II <= N; II++) {
-        // 50
         I = II;
         if (I >= ILO && I <= IHI) continue;
         if (I < ILO) I = ILO - II;
         K = SCALE[I].toInt();
         if (K == I) continue;
         zswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
-      } // 50
+      }
     }
   }
 }

@@ -257,9 +257,8 @@ void zhbevx_2stage(
       zsteqr(JOBZ, N, W, RWORK(INDEE), Z, LDZ, RWORK(INDRWK), INFO);
       if (INFO.value == 0) {
         for (I = 1; I <= N; I++) {
-          // 10
           IFAIL[I] = 0;
-        } // 10
+        }
       }
     }
     if (INFO.value == 0) {
@@ -308,13 +307,12 @@ void zhbevx_2stage(
       // form to eigenvectors returned by ZSTEIN.
 
       for (J = 1; J <= M.value; J++) {
-        // 20
         zcopy(N, Z(1, J).asArray(), 1, WORK(1), 1);
         zgemv('N', N, N, Complex.one, Q, LDQ, WORK, 1, Complex.zero,
             Z(1, J).asArray(), 1);
-      } // 20
+      }
     }
-  } // 30
+  }
 
   // If matrix was scaled, then rescale eigenvalues appropriately.
 
@@ -332,16 +330,14 @@ void zhbevx_2stage(
 
   if (WANTZ) {
     for (J = 1; J <= M.value - 1; J++) {
-      // 50
       I = 0;
       TMP1 = W[J];
       for (JJ = J + 1; JJ <= M.value; JJ++) {
-        // 40
         if (W[JJ] < TMP1) {
           I = JJ;
           TMP1 = W[JJ];
         }
-      } // 40
+      }
 
       if (I != 0) {
         ITMP1 = IWORK[INDIBL + I - 1];
@@ -356,7 +352,7 @@ void zhbevx_2stage(
           IFAIL[J] = ITMP1;
         }
       }
-    } // 50
+    }
   }
 
   // Set WORK(1) to optimal workspace size.

@@ -58,10 +58,9 @@ void zlarfb(
         // W := C1**H
 
         for (J = 1; J <= K; J++) {
-          // 10
           zcopy(N, C(J, 1).asArray(), LDC, WORK(1, J).asArray(), 1);
           zlacgv(N, WORK(1, J).asArray(), 1);
-        } // 10
+        }
 
         // W := W * V1
 
@@ -108,12 +107,10 @@ void zlarfb(
         // C1 := C1 - W**H
 
         for (J = 1; J <= K; J++) {
-          // 30
           for (I = 1; I <= N; I++) {
-            // 20
             C[J][I] -= WORK[I][J].conjugate();
-          } // 20
-        } // 30
+          }
+        }
       } else if (lsame(SIDE, 'R')) {
         // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 
@@ -122,9 +119,8 @@ void zlarfb(
         // W := C1
 
         for (J = 1; J <= K; J++) {
-          // 40
           zcopy(M, C(1, J).asArray(), 1, WORK(1, J).asArray(), 1);
-        } // 40
+        }
 
         // W := W * V1
 
@@ -171,12 +167,10 @@ void zlarfb(
         // C1 := C1 - W
 
         for (J = 1; J <= K; J++) {
-          // 60
           for (I = 1; I <= M; I++) {
-            // 50
             C[I][J] -= WORK[I][J];
-          } // 50
-        } // 60
+          }
+        }
       }
     } else {
       // Let  V =  ( V1 )
@@ -192,10 +186,9 @@ void zlarfb(
         // W := C2**H
 
         for (J = 1; J <= K; J++) {
-          // 70
           zcopy(N, C(M - K + J, 1).asArray(), LDC, WORK(1, J).asArray(), 1);
           zlacgv(N, WORK(1, J).asArray(), 1);
-        } // 70
+        }
 
         // W := W * V2
 
@@ -230,12 +223,10 @@ void zlarfb(
         // C2 := C2 - W**H
 
         for (J = 1; J <= K; J++) {
-          // 90
           for (I = 1; I <= N; I++) {
-            // 80
             C[M - K + J][I] -= WORK[I][J].conjugate();
-          } // 80
-        } // 90
+          }
+        }
       } else if (lsame(SIDE, 'R')) {
         // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 
@@ -244,9 +235,8 @@ void zlarfb(
         // W := C2
 
         for (J = 1; J <= K; J++) {
-          // 100
           zcopy(M, C(1, N - K + J).asArray(), 1, WORK(1, J).asArray(), 1);
-        } // 100
+        }
 
         // W := W * V2
 
@@ -281,12 +271,10 @@ void zlarfb(
         // C2 := C2 - W
 
         for (J = 1; J <= K; J++) {
-          // 120
           for (I = 1; I <= M; I++) {
-            // 110
             C[I][N - K + J] -= WORK[I][J];
-          } // 110
-        } // 120
+          }
+        }
       }
     }
   } else if (lsame(STOREV, 'R')) {
@@ -303,10 +291,9 @@ void zlarfb(
         // W := C1**H
 
         for (J = 1; J <= K; J++) {
-          // 130
           zcopy(N, C(J, 1).asArray(), LDC, WORK(1, J).asArray(), 1);
           zlacgv(N, WORK(1, J).asArray(), 1);
-        } // 130
+        }
 
         // W := W * V1**H
 
@@ -365,12 +352,10 @@ void zlarfb(
         // C1 := C1 - W**H
 
         for (J = 1; J <= K; J++) {
-          // 150
           for (I = 1; I <= N; I++) {
-            // 140
             C[J][I] -= WORK[I][J].conjugate();
-          } // 140
-        } // 150
+          }
+        }
       } else if (lsame(SIDE, 'R')) {
         // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 
@@ -379,9 +364,8 @@ void zlarfb(
         // W := C1
 
         for (J = 1; J <= K; J++) {
-          // 160
           zcopy(M, C(1, J).asArray(), 1, WORK(1, J).asArray(), 1);
-        } // 160
+        }
 
         // W := W * V1**H
 
@@ -416,12 +400,10 @@ void zlarfb(
         // C1 := C1 - W
 
         for (J = 1; J <= K; J++) {
-          // 180
           for (I = 1; I <= M; I++) {
-            // 170
             C[I][J] -= WORK[I][J];
-          } // 170
-        } // 180
+          }
+        }
       }
     } else {
       // Let  V =  ( V1  V2 )    (V2: last K columns)
@@ -436,10 +418,9 @@ void zlarfb(
         // W := C2**H
 
         for (J = 1; J <= K; J++) {
-          // 190
           zcopy(N, C(M - K + J, 1).asArray(), LDC, WORK(1, J).asArray(), 1);
           zlacgv(N, WORK(1, J).asArray(), 1);
-        } // 190
+        }
 
         // W := W * V2**H
 
@@ -474,12 +455,10 @@ void zlarfb(
         // C2 := C2 - W**H
 
         for (J = 1; J <= K; J++) {
-          // 210
           for (I = 1; I <= N; I++) {
-            // 200
             C[M - K + J][I] -= WORK[I][J].conjugate();
-          } // 200
-        } // 210
+          }
+        }
       } else if (lsame(SIDE, 'R')) {
         // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 
@@ -488,9 +467,8 @@ void zlarfb(
         // W := C2
 
         for (J = 1; J <= K; J++) {
-          // 220
           zcopy(M, C(1, N - K + J).asArray(), 1, WORK(1, J).asArray(), 1);
-        } // 220
+        }
 
         // W := W * V2**H
 
@@ -525,12 +503,10 @@ void zlarfb(
         // C1 := C1 - W
 
         for (J = 1; J <= K; J++) {
-          // 240
           for (I = 1; I <= M; I++) {
-            // 230
             C[I][N - K + J] -= WORK[I][J];
-          } // 230
-        } // 240
+          }
+        }
       }
     }
   }

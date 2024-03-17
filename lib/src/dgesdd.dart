@@ -545,13 +545,12 @@ void dgesdd(
         // Workspace: prefer M*N [R] + 3*N [e, tauq, taup] + N*N [U]
 
         for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) {
-          // 10
           CHUNK = min(M - I + 1, LDWRKR);
           dgemm('N', 'N', CHUNK, N, N, ONE, A(I, 1), LDA, WORK(IU).asMatrix(N),
               N, ZERO, WORK(IR).asMatrix(LDWRKR), LDWRKR);
           dlacpy(
               'F', CHUNK, N, WORK(IR).asMatrix(LDWRKR), LDWRKR, A(I, 1), LDA);
-        } // 10
+        }
       } else if (WNTQS) {
         // Path 3 (M >> N, JOBZ='S')
         // N left singular vectors to be computed in U and
@@ -808,7 +807,6 @@ void dgesdd(
           // Workspace: prefer 3*N [e, tauq, taup] + N*N [U] + M*N  [R]
 
           for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) {
-            // 20
             CHUNK = min(M - I + 1, LDWRKR);
             dgemm(
                 'N',
@@ -826,7 +824,7 @@ void dgesdd(
                 LDWRKR);
             dlacpy(
                 'F', CHUNK, N, WORK(IR).asMatrix(LDWRKR), LDWRKR, A(I, 1), LDA);
-          } // 20
+          }
         }
       } else if (WNTQS) {
         // Path 5s (M >= N, JOBZ='S')
@@ -1005,12 +1003,11 @@ void dgesdd(
         // At this point, L is resized as M by chunk.
 
         for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-          // 30
           BLK = min(N - I + 1, CHUNK);
           dgemm('N', 'N', M, BLK, M, ONE, WORK(IVT).asMatrix(M), M, A(1, I),
               LDA, ZERO, WORK(IL).asMatrix(LDWRKL), LDWRKL);
           dlacpy('F', M, BLK, WORK(IL).asMatrix(LDWRKL), LDWRKL, A(1, I), LDA);
-        } // 30
+        }
       } else if (WNTQS) {
         // Path 3t (N >> M, JOBZ='S')
         // M right singular vectors to be computed in VT and
@@ -1265,12 +1262,11 @@ void dgesdd(
           // Workspace: prefer 3*M [e, tauq, taup] + M*M [VT] + M*N  [L]
 
           for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-            // 40
             BLK = min(N - I + 1, CHUNK);
             dgemm('N', 'N', M, BLK, M, ONE, WORK(IVT).asMatrix(LDWKVT), LDWKVT,
                 A(1, I), LDA, ZERO, WORK(IL).asMatrix(M), M);
             dlacpy('F', M, BLK, WORK(IL).asMatrix(M), M, A(1, I), LDA);
-          } // 40
+          }
         }
       } else if (WNTQS) {
         // Path 5ts (N > M, JOBZ='S')

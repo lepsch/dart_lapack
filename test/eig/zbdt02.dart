@@ -44,12 +44,11 @@ void zbdt02(
   // Compute norm(B - U * C)
 
   for (J = 1; J <= N; J++) {
-    // 10
     zcopy(M, B(1, J).asArray(), 1, WORK, 1);
     zgemv('No transpose', M, M, -Complex.one, U, LDU, C(1, J).asArray(), 1,
         Complex.one, WORK, 1);
     RESID.value = max(RESID.value, dzasum(M, WORK, 1));
-  } // 10
+  }
 
   // Compute norm of B.
 

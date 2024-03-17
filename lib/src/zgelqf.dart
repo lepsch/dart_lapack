@@ -90,7 +90,6 @@ void zgelqf(
     // Use blocked code initially
 
     for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) {
-      // 10
       IB = min(K - I + 1, NB);
 
       // Compute the LQ factorization of the current block
@@ -123,7 +122,7 @@ void zgelqf(
             WORK(IB + 1).asMatrix(LDWORK),
             LDWORK);
       }
-    } // 10
+    }
   } else {
     I = 1;
   }

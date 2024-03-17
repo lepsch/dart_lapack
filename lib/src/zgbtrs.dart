@@ -76,64 +76,55 @@ void zgbtrs(
 
     if (LNOTI) {
       for (J = 1; J <= N - 1; J++) {
-        // 10
         LM = min(KL, N - J);
         L = IPIV[J];
         if (L != J) zswap(NRHS, B(L, 1).asArray(), LDB, B(J, 1).asArray(), LDB);
         zgeru(LM, NRHS, -Complex.one, AB(KD + 1, J).asArray(), 1,
             B(J, 1).asArray(), LDB, B(J + 1, 1), LDB);
-      } // 10
+      }
     }
 
     for (I = 1; I <= NRHS; I++) {
-      // 20
-
       // Solve U*X = B, overwriting B with X.
 
       ztbsv('Upper', 'No transpose', 'Non-unit', N, KL + KU, AB, LDAB,
           B(1, I).asArray(), 1);
-    } // 20
+    }
   } else if (lsame(TRANS, 'T')) {
     // Solve A**T * X = B.
 
     for (I = 1; I <= NRHS; I++) {
-      // 30
-
       // Solve U**T * X = B, overwriting B with X.
 
       ztbsv('Upper', 'Transpose', 'Non-unit', N, KL + KU, AB, LDAB,
           B(1, I).asArray(), 1);
-    } // 30
+    }
 
     // Solve L**T * X = B, overwriting B with X.
 
     if (LNOTI) {
       for (J = N - 1; J >= 1; J--) {
-        // 40
         LM = min(KL, N - J);
         zgemv('Transpose', LM, NRHS, -Complex.one, B(J + 1, 1), LDB,
             AB(KD + 1, J).asArray(), 1, Complex.one, B(J, 1).asArray(), LDB);
         L = IPIV[J];
         if (L != J) zswap(NRHS, B(L, 1).asArray(), LDB, B(J, 1).asArray(), LDB);
-      } // 40
+      }
     }
   } else {
     // Solve A**H * X = B.
 
     for (I = 1; I <= NRHS; I++) {
-      // 50
-
       // Solve U**H * X = B, overwriting B with X.
 
       ztbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KL + KU, AB, LDAB,
           B(1, I).asArray(), 1);
-    } // 50
+    }
 
     // Solve L**H * X = B, overwriting B with X.
 
     if (LNOTI) {
       for (J = N - 1; J >= 1; J--) {
-        // 60
         LM = min(KL, N - J);
         zlacgv(NRHS, B(J, 1).asArray(), LDB);
         zgemv('Conjugate transpose', LM, NRHS, -Complex.one, B(J + 1, 1), LDB,
@@ -141,7 +132,7 @@ void zgbtrs(
         zlacgv(NRHS, B(J, 1).asArray(), LDB);
         L = IPIV[J];
         if (L != J) zswap(NRHS, B(L, 1).asArray(), LDB, B(J, 1).asArray(), LDB);
-      } // 60
+      }
     }
   }
 }

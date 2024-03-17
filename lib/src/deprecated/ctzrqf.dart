@@ -38,12 +38,12 @@
 
       if (M == 0) return;
       if ( M == N ) {
-         for (I = 1; I <= N; I++) { // 10
+         for (I = 1; I <= N; I++) {
             TAU[I] = CZERO;
-         } // 10
+         }
       } else {
          M1 = min( M+1, N );
-         for (K = M; K >= 1; K--) { // 20
+         for (K = M; K >= 1; K--) {
 
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.
@@ -76,7 +76,7 @@
                caxpy(K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 );
                cgerc(K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
-         } // 20
+         }
       }
 
       }

@@ -60,60 +60,52 @@ void zsyr(
 
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-        // 20
         if (X[J] != Complex.zero) {
           TEMP = ALPHA * X[J];
           for (I = 1; I <= J; I++) {
-            // 10
             A[I][J] += X[I] * TEMP;
-          } // 10
+          }
         }
-      } // 20
+      }
     } else {
       JX = KX;
       for (J = 1; J <= N; J++) {
-        // 40
         if (X[JX] != Complex.zero) {
           TEMP = ALPHA * X[JX];
           IX = KX;
           for (I = 1; I <= J; I++) {
-            // 30
             A[I][J] += X[IX] * TEMP;
             IX += INCX;
-          } // 30
+          }
         }
         JX += INCX;
-      } // 40
+      }
     }
   } else {
     // Form  A  when A is stored in lower triangle.
 
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-        // 60
         if (X[J] != Complex.zero) {
           TEMP = ALPHA * X[J];
           for (I = J; I <= N; I++) {
-            // 50
             A[I][J] += X[I] * TEMP;
-          } // 50
+          }
         }
-      } // 60
+      }
     } else {
       JX = KX;
       for (J = 1; J <= N; J++) {
-        // 80
         if (X[JX] != Complex.zero) {
           TEMP = ALPHA * X[JX];
           IX = JX;
           for (I = J; I <= N; I++) {
-            // 70
             A[I][J] += X[IX] * TEMP;
             IX += INCX;
-          } // 70
+          }
         }
         JX += INCX;
-      } // 80
+      }
     }
   }
 }

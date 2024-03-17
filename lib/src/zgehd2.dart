@@ -44,8 +44,6 @@ void zgehd2(
   }
 
   for (I = ILO; I <= IHI - 1; I++) {
-    // 10
-
     // Compute elementary reflector H(i) to annihilate A(i+2:ihi,i)
 
     ALPHA.value = A[I + 1][I];
@@ -63,5 +61,5 @@ void zgehd2(
         A(I + 1, I + 1), LDA, WORK);
 
     A[I + 1][I] = ALPHA.value;
-  } // 10
+  }
 }

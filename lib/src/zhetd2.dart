@@ -58,8 +58,6 @@ void zhetd2(
 
     A[N][N] = A[N][N].real.toComplex();
     for (I = N - 1; I >= 1; I--) {
-      // 10
-
       // Generate elementary reflector H(i) = I - tau * v * v**H
       // to annihilate A(1:i-1,i+1)
 
@@ -93,15 +91,13 @@ void zhetd2(
       A[I][I + 1] = E[I].toComplex();
       D[I + 1] = A[I + 1][I + 1].toDouble();
       TAU[I] = TAUI.value;
-    } // 10
+    }
     D[1] = A[1][1].toDouble();
   } else {
     // Reduce the lower triangle of A
 
     A[1][1] = A[1][1].real.toComplex();
     for (I = 1; I <= N - 1; I++) {
-      // 20
-
       // Generate elementary reflector H(i) = I - tau * v * v**H
       // to annihilate A(i+2:n,i)
 
@@ -137,7 +133,7 @@ void zhetd2(
       A[I + 1][I] = E[I].toComplex();
       D[I] = A[I][I].toDouble();
       TAU[I] = TAUI.value;
-    } // 20
+    }
     D[N] = (A[N][N]).toDouble();
   }
 }

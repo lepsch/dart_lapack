@@ -59,12 +59,10 @@ void zgbtf2(
   // Set fill-in elements in columns KU+2 to KV to zero.
 
   for (J = KU + 2; J <= min(KV, N); J++) {
-    // 20
     for (I = KV - J + 2; I <= KL; I++) {
-      // 10
       AB[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
 
   // JU is the index of the last column affected by the current stage
   // of the factorization.
@@ -72,15 +70,12 @@ void zgbtf2(
   JU = 1;
 
   for (J = 1; J <= min(M, N); J++) {
-    // 40
-
     // Set fill-in elements in column J+KV to zero.
 
     if (J + KV <= N) {
       for (I = 1; I <= KL; I++) {
-        // 30
         AB[I][J + KV] = Complex.zero;
-      } // 30
+      }
     }
 
     // Find pivot and test for singularity. KM is the number of
@@ -116,5 +111,5 @@ void zgbtf2(
 
       if (INFO.value == 0) INFO.value = J;
     }
-  } // 40
+  }
 }

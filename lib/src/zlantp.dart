@@ -36,47 +36,39 @@ double zlantp(
       VALUE = ONE;
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
-          // 20
           for (I = K; I <= K + J - 2; I++) {
-            // 10
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-          } // 10
+          }
           K += J;
-        } // 20
+        }
       } else {
         for (J = 1; J <= N; J++) {
-          // 40
           for (I = K + 1; I <= K + N - J; I++) {
-            // 30
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-          } // 30
+          }
           K += N - J + 1;
-        } // 40
+        }
       }
     } else {
       VALUE = ZERO;
       if (lsame(UPLO, 'U')) {
         for (J = 1; J <= N; J++) {
-          // 60
           for (I = K; I <= K + J - 1; I++) {
-            // 50
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-          } // 50
+          }
           K += J;
-        } // 60
+        }
       } else {
         for (J = 1; J <= N; J++) {
-          // 80
           for (I = K; I <= K + N - J; I++) {
-            // 70
             SUM.value = AP[I].abs();
             if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-          } // 70
+          }
           K += N - J + 1;
-        } // 80
+        }
       }
     }
   } else if ((lsame(NORM, 'O')) || (NORM == '1')) {
@@ -87,42 +79,36 @@ double zlantp(
     UDIAG = lsame(DIAG, 'U');
     if (lsame(UPLO, 'U')) {
       for (J = 1; J <= N; J++) {
-        // 110
         if (UDIAG) {
           SUM.value = ONE;
           for (I = K; I <= K + J - 2; I++) {
-            // 90
             SUM.value += AP[I].abs();
-          } // 90
+          }
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + J - 1; I++) {
-            // 100
             SUM.value += AP[I].abs();
-          } // 100
+          }
         }
         K += J;
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-      } // 110
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 140
         if (UDIAG) {
           SUM.value = ONE;
           for (I = K + 1; I <= K + N - J; I++) {
-            // 120
             SUM.value += AP[I].abs();
-          } // 120
+          }
         } else {
           SUM.value = ZERO;
           for (I = K; I <= K + N - J; I++) {
-            // 130
             SUM.value += AP[I].abs();
-          } // 130
+          }
         }
         K += N - J + 1;
         if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-      } // 140
+      }
     }
   } else if (lsame(NORM, 'I')) {
     // Find normI(A).
@@ -131,68 +117,55 @@ double zlantp(
     if (lsame(UPLO, 'U')) {
       if (lsame(DIAG, 'U')) {
         for (I = 1; I <= N; I++) {
-          // 150
           WORK[I] = ONE;
-        } // 150
+        }
         for (J = 1; J <= N; J++) {
-          // 170
           for (I = 1; I <= J - 1; I++) {
-            // 160
             WORK[I] += AP[K].abs();
             K++;
-          } // 160
+          }
           K++;
-        } // 170
+        }
       } else {
         for (I = 1; I <= N; I++) {
-          // 180
           WORK[I] = ZERO;
-        } // 180
+        }
         for (J = 1; J <= N; J++) {
-          // 200
           for (I = 1; I <= J; I++) {
-            // 190
             WORK[I] += AP[K].abs();
             K++;
-          } // 190
-        } // 200
+          }
+        }
       }
     } else {
       if (lsame(DIAG, 'U')) {
         for (I = 1; I <= N; I++) {
-          // 210
           WORK[I] = ONE;
-        } // 210
+        }
         for (J = 1; J <= N; J++) {
-          // 230
           K++;
           for (I = J + 1; I <= N; I++) {
-            // 220
             WORK[I] += AP[K].abs();
             K++;
-          } // 220
-        } // 230
+          }
+        }
       } else {
         for (I = 1; I <= N; I++) {
-          // 240
           WORK[I] = ZERO;
-        } // 240
+        }
         for (J = 1; J <= N; J++) {
-          // 260
           for (I = J; I <= N; I++) {
-            // 250
             WORK[I] += AP[K].abs();
             K++;
-          } // 250
-        } // 260
+          }
+        }
       }
     }
     VALUE = ZERO;
     for (I = 1; I <= N; I++) {
-      // 270
       SUM.value = WORK[I];
       if (VALUE < SUM.value || disnan(SUM.value)) VALUE = SUM.value;
-    } // 270
+    }
   } else if ((lsame(NORM, 'F')) || (lsame(NORM, 'E'))) {
     // Find normF(A).
 
@@ -202,19 +175,17 @@ double zlantp(
         SUM.value = N.toDouble();
         K = 2;
         for (J = 2; J <= N; J++) {
-          // 280
           zlassq(J - 1, AP(K), 1, SCALE, SUM);
           K += J;
-        } // 280
+        }
       } else {
         SCALE.value = ZERO;
         SUM.value = ONE;
         K = 1;
         for (J = 1; J <= N; J++) {
-          // 290
           zlassq(J, AP(K), 1, SCALE, SUM);
           K += J;
-        } // 290
+        }
       }
     } else {
       if (lsame(DIAG, 'U')) {
@@ -222,19 +193,17 @@ double zlantp(
         SUM.value = N.toDouble();
         K = 2;
         for (J = 1; J <= N - 1; J++) {
-          // 300
           zlassq(N - J, AP(K), 1, SCALE, SUM);
           K += N - J + 1;
-        } // 300
+        }
       } else {
         SCALE.value = ZERO;
         SUM.value = ONE;
         K = 1;
         for (J = 1; J <= N; J++) {
-          // 310
           zlassq(N - J + 1, AP(K), 1, SCALE, SUM);
           K += N - J + 1;
-        } // 310
+        }
       }
     }
     VALUE = SCALE.value * sqrt(SUM.value);

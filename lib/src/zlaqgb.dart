@@ -52,37 +52,31 @@ void zlaqgb(
       // Column scaling
 
       for (J = 1; J <= N; J++) {
-        // 20
         CJ = C[J];
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          // 10
           AB[KU + 1 + I - J][J] = CJ.toComplex() * AB[KU + 1 + I - J][J];
-        } // 10
-      } // 20
+        }
+      }
       EQUED.value = 'C';
     }
   } else if (COLCND >= THRESH) {
     // Row scaling, no column scaling
 
     for (J = 1; J <= N; J++) {
-      // 40
       for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-        // 30
         AB[KU + 1 + I - J][J] = R[I].toComplex() * AB[KU + 1 + I - J][J];
-      } // 30
-    } // 40
+      }
+    }
     EQUED.value = 'R';
   } else {
     // Row and column scaling
 
     for (J = 1; J <= N; J++) {
-      // 60
       CJ = C[J];
       for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-        // 50
         AB[KU + 1 + I - J][J] = (CJ * R[I]).toComplex() * AB[KU + 1 + I - J][J];
-      } // 50
-    } // 60
+      }
+    }
     EQUED.value = 'B';
   }
 }

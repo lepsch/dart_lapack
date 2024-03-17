@@ -66,51 +66,38 @@ Future<void> zget35(
     await NIN.readMatrix(BTMP, N, N);
     await NIN.readMatrix(CTMP, M, N);
     for (IMLA = 1; IMLA <= 3; IMLA++) {
-      // 170
       for (IMLAD = 1; IMLAD <= 3; IMLAD++) {
-        // 160
         for (IMLB = 1; IMLB <= 3; IMLB++) {
-          // 150
           for (IMLC = 1; IMLC <= 3; IMLC++) {
-            // 140
             for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
-              // 130
               for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-                // 120
                 for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
-                  // 110
                   if (ITRANA == 1) TRANA = 'N';
                   if (ITRANA == 2) TRANA = 'C';
                   if (ITRANB == 1) TRANB = 'N';
                   if (ITRANB == 2) TRANB = 'C';
                   TNRM = ZERO;
                   for (I = 1; I <= M; I++) {
-                    // 60
                     for (J = 1; J <= M; J++) {
-                      // 50
                       A[I][J] = ATMP[I][J] * VM1[IMLA].toComplex();
                       TNRM = max(TNRM, (A[I][J]).abs());
-                    } // 50
+                    }
                     A[I][I] *= VM2[IMLAD].toComplex();
                     TNRM = max(TNRM, (A[I][I]).abs());
-                  } // 60
+                  }
                   for (I = 1; I <= N; I++) {
-                    // 80
                     for (J = 1; J <= N; J++) {
-                      // 70
                       B[I][J] = BTMP[I][J] * VM1[IMLB].toComplex();
                       TNRM = max(TNRM, (B[I][J]).abs());
-                    } // 70
-                  } // 80
+                    }
+                  }
                   if (TNRM == ZERO) TNRM = ONE;
                   for (I = 1; I <= M; I++) {
-                    // 100
                     for (J = 1; J <= N; J++) {
-                      // 90
                       C[I][J] = CTMP[I][J] * VM1[IMLC].toComplex();
                       CSAV[I][J] = C[I][J];
-                    } // 90
-                  } // 100
+                    }
+                  }
                   KNT.value++;
                   ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT,
                       SCALE, INFO);
@@ -137,12 +124,12 @@ Future<void> zget35(
                     LMAX.value = KNT.value;
                     RMAX.value = RES;
                   }
-                } // 110
-              } // 120
-            } // 130
-          } // 140
-        } // 150
-      } // 160
-    } // 170
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

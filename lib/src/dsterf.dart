@@ -262,7 +262,6 @@ void dsterf(
           // Inner loop
 
           for (I = M; I <= L - 1; I++) {
-            // 130
             BB = E[I];
             R = P + BB;
             if (I != M) E[I - 1] = S * R;
@@ -278,7 +277,7 @@ void dsterf(
             } else {
               P = OLDC * BB;
             }
-          } // 130
+          }
 
           E[L - 1] = S * P;
           D[L] = SIGMA + GAMMA;
@@ -292,8 +291,6 @@ void dsterf(
     }
 
     // Undo scaling if necessary
-
-    // } // 150
     if (ISCALE == 1) {
       dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV - LSV + 1, 1, D(LSV).asMatrix(N),
           N, INFO);

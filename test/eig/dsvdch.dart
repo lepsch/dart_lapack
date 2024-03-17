@@ -51,8 +51,6 @@ void dsvdch(
   BPNT = 1;
 
   // Begin loop over all intervals
-
-  // } // 10
   do {
     UPPER = (ONE + EPS) * SVD[TPNT] + UNFLEP;
     LOWER = (ONE - EPS) * SVD[BPNT] - UNFLEP;

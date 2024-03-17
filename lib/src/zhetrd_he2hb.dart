@@ -98,17 +98,15 @@ void zhetrd_he2hb(
   if (N <= KD + 1) {
     if (UPPER) {
       for (I = 1; I <= N; I++) {
-        // 100
         LK = min(KD + 1, I);
         zcopy(LK, A(I - LK + 1, I).asArray(), 1,
             AB(KD + 1 - LK + 1, I).asArray(), 1);
-      } // 100
+      }
     } else {
       for (I = 1; I <= N; I++) {
-        // 110
         LK = min(KD + 1, N - I + 1);
         zcopy(LK, A(I, I).asArray(), 1, AB(1, I).asArray(), 1);
-      } // 110
+      }
     }
     WORK[1] = Complex.one;
     return;
@@ -143,7 +141,6 @@ void zhetrd_he2hb(
 
   if (UPPER) {
     for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
-      // 10
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 
@@ -154,10 +151,9 @@ void zhetrd_he2hb(
       // Copy the upper portion of A into AB
 
       for (J = I; J <= I + PK - 1; J++) {
-        // 20
         LK = min(KD, N - J) + 1;
         zcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
-      } // 20
+      }
 
       zlaset('Lower', PK, PK, Complex.zero, Complex.one, A(I, I + KD), LDA);
 
@@ -232,20 +228,18 @@ void zhetrd_he2hb(
 
       zher2k(UPLO, 'Conjugate', PN, PK, -Complex.one, A(I, I + KD), LDA,
           WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
-    } // 10
+    }
 
     // Copy the upper band to AB which is the band storage matrix
 
     for (J = N - KD + 1; J <= N; J++) {
-      // 30
       LK = min(KD, N - J) + 1;
       zcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
-    } // 30
+    }
   } else {
     // Reduce the lower triangle of A to lower band matrix
 
     for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
-      // 40
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 
@@ -256,10 +250,9 @@ void zhetrd_he2hb(
       // Copy the upper portion of A into AB
 
       for (J = I; J <= I + PK - 1; J++) {
-        // 50
         LK = min(KD, N - J) + 1;
         zcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);
-      } // 50
+      }
 
       zlaset('Upper', PK, PK, Complex.zero, Complex.one, A(I + KD, I), LDA);
 
@@ -341,15 +334,14 @@ void zhetrd_he2hb(
       //     CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
       // 45        CONTINUE
       // ==================================================================
-    } // 40
+    }
 
     // Copy the lower band to AB which is the band storage matrix
 
     for (J = N - KD + 1; J <= N; J++) {
-      // 60
       LK = min(KD, N - J) + 1;
       zcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);
-    } // 60
+    }
   }
 
   WORK[1] = LWMIN.toComplex();

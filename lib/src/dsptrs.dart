@@ -110,12 +110,11 @@ void dsptrs(
         AK = AP[KC + K - 1] / AKM1K;
         DENOM = AKM1 * AK - ONE;
         for (J = 1; J <= NRHS; J++) {
-          // 20
           BKM1 = B[K - 1][J] / AKM1K;
           BK = B[K][J] / AKM1K;
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 20
+        }
         KC -= K + 1;
         K -= 2;
       }

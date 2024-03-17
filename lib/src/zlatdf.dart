@@ -51,7 +51,6 @@ void zlatdf(
 
     PMONE = -Complex.one;
     for (J = 1; J <= N - 1; J++) {
-      // 10
       BP = RHS[J] + Complex.one;
       BM = RHS[J] - Complex.one;
       SPLUS = ONE;
@@ -82,7 +81,7 @@ void zlatdf(
 
       TEMP = -RHS[J];
       zaxpy(N - J, TEMP, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1);
-    } // 10
+    }
 
     // Solve for U- part, lockahead for RHS(N) = +-1. This is not done
     // In BSOLVE and will hopefully give us a better estimate because
@@ -95,18 +94,16 @@ void zlatdf(
     SPLUS = ZERO;
     SMINU = ZERO;
     for (I = N; I >= 1; I--) {
-      // 30
       TEMP = Complex.one / Z[I][I];
       WORK[I] *= TEMP;
       RHS[I] *= TEMP;
       for (K = I + 1; K <= N; K++) {
-        // 20
         WORK[I] -= WORK[K] * (Z[I][K] * TEMP);
         RHS[I] -= RHS[K] * (Z[I][K] * TEMP);
-      } // 20
+      }
       SPLUS += WORK[I].abs();
       SMINU += RHS[I].abs();
-    } // 30
+    }
     if (SPLUS > SMINU) zcopy(N, WORK, 1, RHS, 1);
 
     // Apply the permutations JPIV to the computed solution (RHS)

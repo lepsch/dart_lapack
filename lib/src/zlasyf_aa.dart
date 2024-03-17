@@ -174,7 +174,7 @@ void zlasyf_aa(
         }
       }
       J++;
-    } // 20
+    }
   } else {
     // .....................................................
     // Factorize A as L*D*L**T using the lower triangle of A
@@ -310,6 +310,6 @@ void zlasyf_aa(
         }
       }
       J++;
-    } // 40
+    }
   }
 }

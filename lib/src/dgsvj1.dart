@@ -174,7 +174,6 @@ void dgsvj1(
 
   var isBelowTolerance = false;
   for (i = 1; i <= NSWEEP; i++) {
-    // 1993
     // .. go go go ...
 
     MXAAPQ = ZERO;
@@ -185,8 +184,6 @@ void dgsvj1(
     PSKIPPED = 0;
 
     for (ibr = 1; ibr <= NBLR; ibr++) {
-      // 2000
-
       igl = (ibr - 1) * KBL + 1;
 
 // ........................................................
@@ -196,24 +193,18 @@ void dgsvj1(
 
       jbcLoop:
       for (jbc = 1; jbc <= NBLC; jbc++) {
-        // 2010
-
         jgl = N1 + (jbc - 1) * KBL + 1;
 
         // doing the block at ( ibr, jbc )
 
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N1); p++) {
-          // 2100
-
           AAPP.value = SVA[p];
 
           if (AAPP.value > ZERO) {
             PSKIPPED = 0;
 
             for (q = jgl; q <= min(jgl + KBL - 1, N); q++) {
-              // 2200
-
               AAQQ.value = SVA[q];
 
               if (AAQQ.value > ZERO) {
@@ -462,7 +453,7 @@ void dgsvj1(
                 NOTROT = 0;
                 break;
               }
-            } // 2200
+            }
             // end of the q-loop
 
             SVA[p] = AAPP.value;
@@ -473,16 +464,15 @@ void dgsvj1(
             if (AAPP.value < ZERO) NOTROT = 0;
             // **      if ( NOTROT >= EMPTSW )  GO TO 2011
           }
-        } // 2100
+        }
         // end of the p-loop
-      } // 2010
+      }
       // end of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-        // 2012
         SVA[p] = SVA[p].abs();
-      } // 2012
+      }
       // **   if ( NOTROT >= EMPTSW ) GO TO 1994
-    } // 2000
+    }
     // end of the ibr-loop
 
     // .. update SVA[N]
@@ -509,25 +499,23 @@ void dgsvj1(
       isBelowTolerance = true;
       break;
     }
-  } // 1993
+  }
   // end i=1:NSWEEP loop
   if (!isBelowTolerance) {
     // #:) Reaching this point means that the procedure has completed the given
     // number of sweeps.
     INFO.value = NSWEEP - 1;
   } else {
-    // } // 1994
     // #:) Reaching this point means that during the i-th sweep all pivots were
     // below the given threshold, causing early exit.
 
     INFO.value = 0;
     // #:) INFO.value = 0 confirms successful iterations.
-  } // } // 1995
+  }
 
   // Sort the vector D
 
   for (p = 1; p <= N - 1; p++) {
-    // 5991
     q = idamax(N - p + 1, SVA(p), 1) + p - 1;
     if (p != q) {
       TEMP1 = SVA[p];
@@ -539,5 +527,5 @@ void dgsvj1(
       dswap(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1);
       if (RSVEC) dswap(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1);
     }
-  } // 5991
+  }
 }

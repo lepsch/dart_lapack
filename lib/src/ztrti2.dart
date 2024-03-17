@@ -47,7 +47,6 @@ void ztrti2(
     // Compute inverse of upper triangular matrix.
 
     for (J = 1; J <= N; J++) {
-      // 10
       if (NOUNIT) {
         A[J][J] = Complex.one / A[J][J];
         AJJ = -A[J][J];
@@ -59,12 +58,11 @@ void ztrti2(
 
       ztrmv('Upper', 'No transpose', DIAG, J - 1, A, LDA, A(1, J).asArray(), 1);
       zscal(J - 1, AJJ, A(1, J).asArray(), 1);
-    } // 10
+    }
   } else {
     // Compute inverse of lower triangular matrix.
 
     for (J = N; J >= 1; J--) {
-      // 20
       if (NOUNIT) {
         A[J][J] = Complex.one / A[J][J];
         AJJ = -A[J][J];
@@ -78,6 +76,6 @@ void ztrti2(
             A(J + 1, J).asArray(), 1);
         zscal(N - J, AJJ, A(J + 1, J).asArray(), 1);
       }
-    } // 20
+    }
   }
 }

@@ -129,14 +129,11 @@ void dgeqrf(
     // Use blocked code initially
 
     for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) {
-      // 10
       IB = min(K - I + 1, NB);
 
       // Update the current column using old T's
 
       for (J = 1; NB < 0 ? J >= I - NB : J <= I - NB; J += NB) {
-        // 20
-
         // Apply H' to A(J:M,I:I+IB-1) from the left
 
         dlarfb(
@@ -170,7 +167,7 @@ void dgeqrf(
         dlarft('Forward', 'Columnwise', M - I + 1, IB, A(I, I), LDA, TAU(I),
             WORK(I).asMatrix(LBWORK), LBWORK);
       }
-    } // 10
+    }
   } else {
     I = 1;
   }
@@ -180,8 +177,6 @@ void dgeqrf(
   if (I <= K) {
     if (I != 1) {
       for (J = 1; NB < 0 ? J >= I - NB : J <= I - NB; J += NB) {
-        // 30
-
         // Apply H' to A(J:M,I:K) from the left
 
         dlarfb(
@@ -227,8 +222,6 @@ void dgeqrf(
     // Apply H' to A(1:M,M+1:N) from the left
 
     for (J = 1; NB < 0 ? J >= K - NX : J <= K - NX; J += NB) {
-      // 40
-
       IB = min(K - J + 1, NB);
       dlarfb(
           'Left',

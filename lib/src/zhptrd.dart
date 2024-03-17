@@ -55,8 +55,6 @@ void zhptrd(
     I1 = N * (N - 1) ~/ 2 + 1;
     AP[I1 + N - 1] = AP[I1 + N - 1].real.toComplex();
     for (I = N - 1; I >= 1; I--) {
-      // 10
-
       // Generate elementary reflector H(i) = I - tau * v * v**H
       // to annihilate A(1:i-1,i+1)
 
@@ -87,7 +85,7 @@ void zhptrd(
       D[I + 1] = AP[I1 + I].toDouble();
       TAU[I] = TAUI.value;
       I1 -= I;
-    } // 10
+    }
     D[1] = AP[1].toDouble();
   } else {
     // Reduce the lower triangle of A. II is the index in AP of
@@ -96,7 +94,6 @@ void zhptrd(
     II = 1;
     AP[1] = AP[1].real.toComplex();
     for (I = 1; I <= N - 1; I++) {
-      // 20
       I1I1 = II + N - I + 1;
 
       // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -131,7 +128,7 @@ void zhptrd(
       D[I] = AP[II].toDouble();
       TAU[I] = TAUI.value;
       II = I1I1;
-    } // 20
+    }
     D[N] = AP[II].toDouble();
   }
 }

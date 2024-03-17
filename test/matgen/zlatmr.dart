@@ -202,9 +202,8 @@ void zlatmr(
   DZERO = false;
   if (IGRADE == 4 && MODEL == 0) {
     for (I = 1; I <= M; I++) {
-      // 10
       if (DL[I] == Complex.zero) DZERO = true;
-    } // 10
+    }
   }
 
   // Check values in IPIVOT
@@ -212,9 +211,8 @@ void zlatmr(
   BADPVT = false;
   if (IPVTNG > 0) {
     for (J = 1; J <= NPVTS; J++) {
-      // 20
       if (IPIVOT[J] <= 0 || IPIVOT[J] > NPVTS) BADPVT = true;
-    } // 20
+    }
   }
 
   // Set INFO.value if an error
@@ -310,9 +308,8 @@ void zlatmr(
   // Initialize random number generator
 
   for (I = 1; I <= 4; I++) {
-    // 30
     ISEED[I] = ISEED[I].abs() % 4096;
-  } // 30
+  }
 
   ISEED[4] = 2 * (ISEED[4] ~/ 2) + 1;
 
@@ -330,9 +327,8 @@ void zlatmr(
 
     TEMP = D[1].abs();
     for (I = 2; I <= MNMIN; I++) {
-      // 40
       TEMP = max(TEMP, (D[I]).abs());
-    } // 40
+    }
     if (TEMP == ZERO && DMAX != Complex.zero) {
       INFO.value = 2;
       return;
@@ -343,18 +339,16 @@ void zlatmr(
       CALPHA = Complex.one;
     }
     for (I = 1; I <= MNMIN; I++) {
-      // 50
       D[I] = CALPHA * D[I];
-    } // 50
+    }
   }
 
   // If matrix Hermitian, make D real
 
   if (ISYM == 0) {
     for (I = 1; I <= MNMIN; I++) {
-      // 60
       D[I] = D[I].toDouble().toComplex();
-    } // 60
+    }
   }
 
   // Compute DL if grading set
@@ -381,25 +375,22 @@ void zlatmr(
 
   if (IPVTNG > 0) {
     for (I = 1; I <= NPVTS; I++) {
-      // 70
       IWORK[I] = I;
-    } // 70
+    }
     if (FULBND) {
       for (I = 1; I <= NPVTS; I++) {
-        // 80
         K = IPIVOT[I];
         J = IWORK[I];
         IWORK[I] = IWORK[K];
         IWORK[K] = J;
-      } // 80
+      }
     } else {
       for (I = NPVTS; I >= 1; I--) {
-        // 90
         K = IPIVOT[I];
         J = IWORK[I];
         IWORK[I] = IWORK[K];
         IWORK[K] = J;
-      } // 90
+      }
     }
   }
 
@@ -415,42 +406,34 @@ void zlatmr(
     if (IPACK == 0) {
       if (ISYM == 0) {
         for (J = 1; J <= N; J++) {
-          // 110
           for (I = 1; I <= J; I++) {
-            // 100
             CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value][JSUB.value] = CTEMP;
             A[JSUB.value][ISUB.value] = CTEMP.conjugate();
-          } // 100
-        } // 110
+          }
+        }
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
-          // 130
           for (I = 1; I <= M; I++) {
-            // 120
             CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value][JSUB.value] = CTEMP;
-          } // 120
-        } // 130
+          }
+        }
       } else if (ISYM == 2) {
         for (J = 1; J <= N; J++) {
-          // 150
           for (I = 1; I <= J; I++) {
-            // 140
             CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value][JSUB.value] = CTEMP;
             A[JSUB.value][ISUB.value] = CTEMP;
-          } // 140
-        } // 150
+          }
+        }
       }
     } else if (IPACK == 1) {
       for (J = 1; J <= N; J++) {
-        // 170
         for (I = 1; I <= J; I++) {
-          // 160
           CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
               IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           MNSUB = min(ISUB.value, JSUB.value);
@@ -461,13 +444,11 @@ void zlatmr(
             A[MNSUB][MXSUB] = CTEMP;
           }
           if (MNSUB != MXSUB) A[MXSUB][MNSUB] = Complex.zero;
-        } // 160
-      } // 170
+        }
+      }
     } else if (IPACK == 2) {
       for (J = 1; J <= N; J++) {
-        // 190
         for (I = 1; I <= J; I++) {
-          // 180
           CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
               IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           MNSUB = min(ISUB.value, JSUB.value);
@@ -478,13 +459,11 @@ void zlatmr(
             A[MXSUB][MNSUB] = CTEMP;
           }
           if (MNSUB != MXSUB) A[MNSUB][MXSUB] = Complex.zero;
-        } // 180
-      } // 190
+        }
+      }
     } else if (IPACK == 3) {
       for (J = 1; J <= N; J++) {
-        // 210
         for (I = 1; I <= J; I++) {
-          // 200
           CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
               IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
 
@@ -505,13 +484,11 @@ void zlatmr(
           } else {
             A[IISUB][JJSUB] = CTEMP;
           }
-        } // 200
-      } // 210
+        }
+      }
     } else if (IPACK == 4) {
       for (J = 1; J <= N; J++) {
-        // 230
         for (I = 1; I <= J; I++) {
-          // 220
           CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
               IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
 
@@ -539,13 +516,11 @@ void zlatmr(
           } else {
             A[IISUB][JJSUB] = CTEMP;
           }
-        } // 220
-      } // 230
+        }
+      }
     } else if (IPACK == 5) {
       for (J = 1; J <= N; J++) {
-        // 250
         for (I = J - KUU; I <= J; I++) {
-          // 240
           if (I < 1) {
             A[J - I + 1][I + N] = Complex.zero;
           } else {
@@ -559,13 +534,11 @@ void zlatmr(
               A[MXSUB - MNSUB + 1][MNSUB] = CTEMP;
             }
           }
-        } // 240
-      } // 250
+        }
+      }
     } else if (IPACK == 6) {
       for (J = 1; J <= N; J++) {
-        // 270
         for (I = J - KUU; I <= J; I++) {
-          // 260
           CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
               IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           MNSUB = min(ISUB.value, JSUB.value);
@@ -575,14 +548,12 @@ void zlatmr(
           } else {
             A[MNSUB - MXSUB + KUU + 1][MXSUB] = CTEMP;
           }
-        } // 260
-      } // 270
+        }
+      }
     } else if (IPACK == 7) {
       if (ISYM != 1) {
         for (J = 1; J <= N; J++) {
-          // 290
           for (I = J - KUU; I <= J; I++) {
-            // 280
             CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             MNSUB = min(ISUB.value, JSUB.value);
@@ -600,18 +571,16 @@ void zlatmr(
                 A[MXSUB - MNSUB + 1 + KUU][MNSUB] = CTEMP;
               }
             }
-          } // 280
-        } // 290
+          }
+        }
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
-          // 310
           for (I = J - KUU; I <= J + KLL; I++) {
-            // 300
             CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value - JSUB.value + KUU + 1][JSUB.value] = CTEMP;
-          } // 300
-        } // 310
+          }
+        }
       }
     }
   } else {
@@ -620,49 +589,39 @@ void zlatmr(
     if (IPACK == 0) {
       if (ISYM == 0) {
         for (J = 1; J <= N; J++) {
-          // 330
           for (I = 1; I <= J; I++) {
-            // 320
             A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
                 DR, IPVTNG, IWORK, SPARSE);
             A[J][I] = A[I][J].conjugate();
-          } // 320
-        } // 330
+          }
+        }
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
-          // 350
           for (I = 1; I <= M; I++) {
-            // 340
             A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
                 DR, IPVTNG, IWORK, SPARSE);
-          } // 340
-        } // 350
+          }
+        }
       } else if (ISYM == 2) {
         for (J = 1; J <= N; J++) {
-          // 370
           for (I = 1; I <= J; I++) {
-            // 360
             A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
                 DR, IPVTNG, IWORK, SPARSE);
             A[J][I] = A[I][J];
-          } // 360
-        } // 370
+          }
+        }
       }
     } else if (IPACK == 1) {
       for (J = 1; J <= N; J++) {
-        // 390
         for (I = 1; I <= J; I++) {
-          // 380
           A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR,
               IPVTNG, IWORK, SPARSE);
           if (I != J) A[J][I] = Complex.zero;
-        } // 380
-      } // 390
+        }
+      }
     } else if (IPACK == 2) {
       for (J = 1; J <= N; J++) {
-        // 410
         for (I = 1; I <= J; I++) {
-          // 400
           if (ISYM == 0) {
             A[J][I] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
                     DR, IPVTNG, IWORK, SPARSE)
@@ -672,15 +631,13 @@ void zlatmr(
                 DR, IPVTNG, IWORK, SPARSE);
           }
           if (I != J) A[I][J] = Complex.zero;
-        } // 400
-      } // 410
+        }
+      }
     } else if (IPACK == 3) {
       ISUB.value = 0;
       JSUB.value = 1;
       for (J = 1; J <= N; J++) {
-        // 430
         for (I = 1; I <= J; I++) {
-          // 420
           ISUB.value++;
           if (ISUB.value > LDA) {
             ISUB.value = 1;
@@ -688,15 +645,12 @@ void zlatmr(
           }
           A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
               D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
-        } // 420
-      } // 430
+        }
+      }
     } else if (IPACK == 4) {
       if (ISYM == 0 || ISYM == 2) {
         for (J = 1; J <= N; J++) {
-          // 450
           for (I = 1; I <= J; I++) {
-            // 440
-
             // Compute K = location of (I,J) entry in packed array
 
             if (I == 1) {
@@ -715,15 +669,13 @@ void zlatmr(
             if (ISYM == 0) {
               A[ISUB.value][JSUB.value] = A[ISUB.value][JSUB.value].conjugate();
             }
-          } // 440
-        } // 450
+          }
+        }
       } else {
         ISUB.value = 0;
         JSUB.value = 1;
         for (J = 1; J <= N; J++) {
-          // 470
           for (I = J; I <= M; I++) {
-            // 460
             ISUB.value++;
             if (ISUB.value > LDA) {
               ISUB.value = 1;
@@ -731,14 +683,12 @@ void zlatmr(
             }
             A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
                 D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
-          } // 460
-        } // 470
+          }
+        }
       }
     } else if (IPACK == 5) {
       for (J = 1; J <= N; J++) {
-        // 490
         for (I = J - KUU; I <= J; I++) {
-          // 480
           if (I < 1) {
             A[J - I + 1][I + N] = Complex.zero;
           } else {
@@ -751,23 +701,19 @@ void zlatmr(
                   IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             }
           }
-        } // 480
-      } // 490
+        }
+      }
     } else if (IPACK == 6) {
       for (J = 1; J <= N; J++) {
-        // 510
         for (I = J - KUU; I <= J; I++) {
-          // 500
           A[I - J + KUU + 1][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
               IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
-        } // 500
-      } // 510
+        }
+      }
     } else if (IPACK == 7) {
       if (ISYM != 1) {
         for (J = 1; J <= N; J++) {
-          // 530
           for (I = J - KUU; I <= J; I++) {
-            // 520
             A[I - J + KUU + 1][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             if (I < 1) A[J - I + 1 + KUU][I + N] = Complex.zero;
@@ -778,17 +724,15 @@ void zlatmr(
                 A[J - I + 1 + KUU][I] = A[I - J + KUU + 1][J];
               }
             }
-          } // 520
-        } // 530
+          }
+        }
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
-          // 550
           for (I = J - KUU; I <= J + KLL; I++) {
-            // 540
             A[I - J + KUU + 1][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
                 IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
-          } // 540
-        } // 550
+          }
+        }
       }
     }
   }
@@ -824,35 +768,31 @@ void zlatmr(
 
       if (IPACK <= 2) {
         for (J = 1; J <= N; J++) {
-          // 560
           zdscal(M, ONE / ONORM, A(1, J).asArray(), 1);
           zdscal(M, ANORM, A(1, J).asArray(), 1);
-        } // 560
+        }
       } else if (IPACK == 3 || IPACK == 4) {
         zdscal(N * (N + 1) ~/ 2, ONE / ONORM, A.asArray(), 1);
         zdscal(N * (N + 1) ~/ 2, ANORM, A.asArray(), 1);
       } else if (IPACK >= 5) {
         for (J = 1; J <= N; J++) {
-          // 570
           zdscal(KLL + KUU + 1, ONE / ONORM, A(1, J).asArray(), 1);
           zdscal(KLL + KUU + 1, ANORM, A(1, J).asArray(), 1);
-        } // 570
+        }
       }
     } else {
       // Scale straightforwardly
 
       if (IPACK <= 2) {
         for (J = 1; J <= N; J++) {
-          // 580
           zdscal(M, ANORM / ONORM, A(1, J).asArray(), 1);
-        } // 580
+        }
       } else if (IPACK == 3 || IPACK == 4) {
         zdscal(N * (N + 1) ~/ 2, ANORM / ONORM, A.asArray(), 1);
       } else if (IPACK >= 5) {
         for (J = 1; J <= N; J++) {
-          // 590
           zdscal(KLL + KUU + 1, ANORM / ONORM, A(1, J).asArray(), 1);
-        } // 590
+        }
       }
     }
   }

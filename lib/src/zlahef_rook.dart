@@ -331,9 +331,8 @@ void zlahef_rook(
               zdscal(K - 1, R1, A(1, K).asArray(), 1);
             } else {
               for (II = 1; II <= K - 1; II++) {
-                // 14
                 A[II][K] /= T.toComplex();
-              } // 14
+              }
             }
 
             // (2) Conjugate column W(kw)
@@ -412,12 +411,11 @@ void zlahef_rook(
             // of D**(-1)
 
             for (J = 1; J <= K - 2; J++) {
-              // 20
               A[J][K - 1] =
                   T.toComplex() * ((D11 * W[J][KW - 1] - W[J][KW]) / D21);
               A[J][K] = T.toComplex() *
                   ((D22 * W[J][KW] - W[J][KW - 1]) / D21.conjugate());
-            } // 20
+            }
           }
 
           // Copy D(k) to A
@@ -445,7 +443,7 @@ void zlahef_rook(
       // Decrease K and return to the start of the main loop
 
       K -= KSTEP;
-    } // 30
+    }
 
     // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -455,18 +453,16 @@ void zlahef_rook(
     // actually stored)
 
     for (J = ((K - 1) ~/ NB) * NB + 1; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
-      // 50
       JB = min(NB, K - J + 1);
 
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 40
         A[JJ][JJ] = (A[JJ][JJ]).real.toComplex();
         zgemv('No transpose', JJ - J + 1, N - K, -Complex.one, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, Complex.one, A(J, JJ).asArray(), 1);
         A[JJ][JJ] = (A[JJ][JJ]).real.toComplex();
-      } // 40
+      }
 
       // Update the rectangular superdiagonal block
 
@@ -474,7 +470,7 @@ void zlahef_rook(
         zgemm('No transpose', 'Transpose', J - 1, JB, N - K, -Complex.one,
             A(1, K + 1), LDA, W(J, KW + 1), LDW, Complex.one, A(1, J), LDA);
       }
-    } // 50
+    }
 
     // Put U12 in standard form by partially undoing the interchanges
     // in of rows in columns k+1:n looping backwards from k+1 to n
@@ -770,9 +766,8 @@ void zlahef_rook(
               zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else {
               for (II = K + 1; II <= N; II++) {
-                // 74
                 A[II][K] /= T.toComplex();
-              } // 74
+              }
             }
 
             // (2) Conjugate column W(k)
@@ -851,12 +846,11 @@ void zlahef_rook(
             // of D**(-1)
 
             for (J = K + 2; J <= N; J++) {
-              // 80
               A[J][K] = T.toComplex() *
                   ((D11 * W[J][K] - W[J][K + 1]) / D21.conjugate());
               A[J][K + 1] =
                   T.toComplex() * ((D22 * W[J][K + 1] - W[J][K]) / D21);
-            } // 80
+            }
           }
 
           // Copy D(k) to A
@@ -884,7 +878,7 @@ void zlahef_rook(
       // Increase K and return to the start of the main loop
 
       K += KSTEP;
-    } // 90
+    }
 
     // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -894,18 +888,16 @@ void zlahef_rook(
     // actually stored)
 
     for (J = K; NB < 0 ? J >= N : J <= N; J += NB) {
-      // 110
       JB = min(NB, N - J + 1);
 
       // Update the lower triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 100
         A[JJ][JJ] = A[JJ][JJ].real.toComplex();
         zgemv('No transpose', J + JB - JJ, K - 1, -Complex.one, A(JJ, 1), LDA,
             W(JJ, 1).asArray(), LDW, Complex.one, A(JJ, JJ).asArray(), 1);
         A[JJ][JJ] = A[JJ][JJ].real.toComplex();
-      } // 100
+      }
 
       // Update the rectangular subdiagonal block
 
@@ -925,7 +917,7 @@ void zlahef_rook(
             A(J + JB, J),
             LDA);
       }
-    } // 110
+    }
 
     // Put L21 in standard form by partially undoing the interchanges
     // of rows in columns 1:k-1 looping backwards from k-1 to 1

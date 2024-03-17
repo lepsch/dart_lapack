@@ -83,7 +83,6 @@ void zunt03(
 
     RES1 = ZERO;
     for (I = 1; I <= K; I++) {
-      // 20
       LMX = izamax(N, U(I, 1).asArray(), LDU);
       if (V[I][LMX] == Complex.zero) {
         SV = Complex.one;
@@ -97,10 +96,9 @@ void zunt03(
       }
       S = SV / SU;
       for (J = 1; J <= N; J++) {
-        // 10
         RES1 = max(RES1, (U[I][J] - S * V[I][J]).abs());
-      } // 10
-    } // 20
+      }
+    }
     RES1 /= (N.toDouble() * ULP);
 
     // Compute orthogonality of rows of V.
@@ -111,7 +109,6 @@ void zunt03(
 
     RES1 = ZERO;
     for (I = 1; I <= K; I++) {
-      // 40
       LMX = izamax(N, U(1, I).asArray(), 1);
       if (V[LMX][I] == Complex.zero) {
         SV = Complex.one;
@@ -125,10 +122,9 @@ void zunt03(
       }
       S = SV / SU;
       for (J = 1; J <= N; J++) {
-        // 30
         RES1 = max(RES1, (U[J][I] - S * V[J][I]).abs());
-      } // 30
-    } // 40
+      }
+    }
     RES1 /= (N.toDouble() * ULP);
 
     // Compute orthogonality of columns of V.

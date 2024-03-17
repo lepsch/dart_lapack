@@ -39,12 +39,10 @@ void zgesc2(
   // Solve for L part
 
   for (I = 1; I <= N - 1; I++) {
-    // 20
     for (J = I + 1; J <= N; J++) {
-      // 10
       RHS[J] -= A[J][I] * RHS[I];
-    } // 10
-  } // 20
+    }
+  }
 
   // Solve for U part
 
@@ -59,14 +57,12 @@ void zgesc2(
     SCALE.value *= TEMP.toDouble();
   }
   for (I = N; I >= 1; I--) {
-    // 40
     TEMP = Complex(ONE, ZERO) / A[I][I];
     RHS[I] *= TEMP;
     for (J = I + 1; J <= N; J++) {
-      // 30
       RHS[I] -= RHS[J] * (A[I][J] * TEMP);
-    } // 30
-  } // 40
+    }
+  }
 
   // Apply permutations JPIV to the solution (RHS)
 

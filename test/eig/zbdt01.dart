@@ -56,78 +56,68 @@ void zbdt01(
       // B is upper bidiagonal and M >= N.
 
       for (J = 1; J <= N; J++) {
-        // 20
         zcopy(M, A(1, J).asArray(), 1, WORK, 1);
         for (I = 1; I <= N - 1; I++) {
-          // 10
           WORK[M + I] =
               D[I].toComplex() * PT[I][J] + E[I].toComplex() * PT[I + 1][J];
-        } // 10
+        }
         WORK[M + N] = D[N].toComplex() * PT[N][J];
         zgemv('No transpose', M, N, -Complex.one, Q, LDQ, WORK(M + 1), 1,
             Complex.one, WORK, 1);
         RESID.value = max(RESID.value, dzasum(M, WORK, 1));
-      } // 20
+      }
     } else if (KD < 0) {
       // B is upper bidiagonal and M < N.
 
       for (J = 1; J <= N; J++) {
-        // 40
         zcopy(M, A(1, J).asArray(), 1, WORK, 1);
         for (I = 1; I <= M - 1; I++) {
-          // 30
           WORK[M + I] =
               D[I].toComplex() * PT[I][J] + E[I].toComplex() * PT[I + 1][J];
-        } // 30
+        }
         WORK[M + M] = D[M].toComplex() * PT[M][J];
         zgemv('No transpose', M, M, -Complex.one, Q, LDQ, WORK(M + 1), 1,
             Complex.one, WORK, 1);
         RESID.value = max(RESID.value, dzasum(M, WORK, 1));
-      } // 40
+      }
     } else {
       // B is lower bidiagonal.
 
       for (J = 1; J <= N; J++) {
-        // 60
         zcopy(M, A(1, J).asArray(), 1, WORK, 1);
         WORK[M + 1] = D[1].toComplex() * PT[1][J];
         for (I = 2; I <= M; I++) {
-          // 50
           WORK[M + I] =
               E[I - 1].toComplex() * PT[I - 1][J] + D[I].toComplex() * PT[I][J];
-        } // 50
+        }
         zgemv('No transpose', M, M, -Complex.one, Q, LDQ, WORK(M + 1), 1,
             Complex.one, WORK, 1);
         RESID.value = max(RESID.value, dzasum(M, WORK, 1));
-      } // 60
+      }
     }
   } else {
     // B is diagonal.
 
     if (M >= N) {
       for (J = 1; J <= N; J++) {
-        // 80
         zcopy(M, A(1, J).asArray(), 1, WORK, 1);
         for (I = 1; I <= N; I++) {
-          // 70
           WORK[M + I] = D[I].toComplex() * PT[I][J];
-        } // 70
+        }
         zgemv('No transpose', M, N, -Complex.one, Q, LDQ, WORK(M + 1), 1,
             Complex.one, WORK, 1);
         RESID.value = max(RESID.value, dzasum(M, WORK, 1));
-      } // 80
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 100
         zcopy(M, A(1, J).asArray(), 1, WORK, 1);
         for (I = 1; I <= M; I++) {
-          // 90
           WORK[M + I] = D[I].toComplex() * PT[I][J];
-        } // 90
+        }
         zgemv('No transpose', M, M, -Complex.one, Q, LDQ, WORK(M + 1), 1,
             Complex.one, WORK, 1);
         RESID.value = max(RESID.value, dzasum(M, WORK, 1));
-      } // 100
+      }
     }
   }
 

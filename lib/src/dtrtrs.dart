@@ -58,9 +58,8 @@ void dtrtrs(
 
   if (NOUNIT) {
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 10
       if (A[INFO.value][INFO.value] == ZERO) return;
-    } // 10
+    }
   }
   INFO.value = 0;
 

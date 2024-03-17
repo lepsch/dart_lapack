@@ -59,8 +59,6 @@ void zpotrf(
       // Compute the Cholesky factorization A = U'*U.
 
       for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
-        // 10
-
         // Update and factorize the current diagonal block and test
         // for non-positive-definiteness.
 
@@ -77,13 +75,11 @@ void zpotrf(
           zherk('Upper', 'Conjugate transpose', N - J - JB + 1, JB, -ONE,
               A(J, J + JB), LDA, ONE, A(J + JB, J + JB), LDA);
         }
-      } // 10
+      }
     } else {
       // Compute the Cholesky factorization A = L*L'.
 
       for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
-        // 20
-
         // Update and factorize the current diagonal block and test
         // for non-positive-definiteness.
 
@@ -100,7 +96,7 @@ void zpotrf(
           zherk('Lower', 'No Transpose', N - J - JB + 1, JB, -ONE, A(J + JB, J),
               LDA, ONE, A(J + JB, J + JB), LDA);
         }
-      } // 20
+      }
     }
   }
   if (INFO.value != 0) {

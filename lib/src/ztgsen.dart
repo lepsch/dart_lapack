@@ -98,7 +98,6 @@ void ztgsen(
   M.value = 0;
   if (!LQUERY || IJOB != 0) {
     for (K = 1; K <= N; K++) {
-      // 10
       ALPHA[K] = A[K][K];
       BETA[K] = B[K][K];
       if (K < N) {
@@ -106,7 +105,7 @@ void ztgsen(
       } else {
         if (SELECT[N]) M.value++;
       }
-    } // 10
+    }
   }
 
   if (IJOB == 1 || IJOB == 2 || IJOB == 4) {
@@ -147,10 +146,9 @@ void ztgsen(
       DSCALE.value = ZERO;
       DSUM.value = ONE;
       for (I = 1; I <= N; I++) {
-        // 20
         zlassq(N, A(1, I).asArray(), 1, DSCALE, DSUM);
         zlassq(N, B(1, I).asArray(), 1, DSCALE, DSUM);
-      } // 20
+      }
       DIF[1] = DSCALE.value * sqrt(DSUM.value);
       DIF[2] = DIF[1];
     }
@@ -167,7 +165,6 @@ void ztgsen(
 
   KS.value = 0;
   for (K = 1; K <= N; K++) {
-    // 30
     SWAP = SELECT[K];
     if (SWAP) {
       KS.value++;
@@ -196,7 +193,7 @@ void ztgsen(
         return;
       }
     }
-  } // 30
+  }
   if (WANTP) {
     // Solve generalized Sylvester equation for R and L:
     //            A11 * R - L * A22 = A12
@@ -460,7 +457,6 @@ void ztgsen(
   // eigenvalues of reordered pair (A, B)
 
   for (K = 1; K <= N; K++) {
-    // 60
     DSCALE.value = (B[K][K]).abs();
     if (DSCALE.value > SAFMIN) {
       TEMP1 = (B[K][K] / DSCALE.value.toComplex()).conjugate();
@@ -475,9 +471,7 @@ void ztgsen(
 
     ALPHA[K] = A[K][K];
     BETA[K] = B[K][K];
-  } // 60
-
-  // } // 70
+  }
 
   WORK[1] = LWMIN.toComplex();
   IWORK[1] = LIWMIN;

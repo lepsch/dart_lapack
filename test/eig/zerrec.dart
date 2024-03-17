@@ -43,18 +43,15 @@ void zerrec(
   // Initialize A, B and SEL
 
   for (J = 1; J <= NMAX.value; J++) {
-    // 20
     for (I = 1; I <= NMAX.value; I++) {
-      // 10
       A[I][J] = Complex.zero;
       B[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= NMAX.value; I++) {
-    // 30
     A[I][I] = Complex.one;
     SEL[I] = true;
-  } // 30
+  }
 
   // Test ZTRSYL
 

@@ -128,10 +128,9 @@ void zdrvsg(
   BADNN = false;
   NMAX = 0;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -172,16 +171,14 @@ void zdrvsg(
   RTOVFL = sqrt(OVFL);
 
   for (I = 1; I <= 4; I++) {
-    // 20
     ISEED2[I] = ISEED[I];
-  } // 20
+  }
 
   // Loop over sizes, types
 
   NERRS.value = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 650
     N = NN[JSIZE];
     ANINV = ONE / (max(1, N)).toDouble();
 
@@ -194,14 +191,12 @@ void zdrvsg(
     KA9 = 0;
     KB9 = 0;
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 640
       if (!DOTYPE[JTYPE]) continue;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
-        // 30
         IOLDSD[J] = ISEED[J];
-      } // 30
+      }
 
       // 2)      Compute "A"
       //
@@ -236,7 +231,7 @@ void zdrvsg(
           case 3:
             ANORM = RTUNFL * N * ULPINV;
             break;
-        } // 70
+        }
 
         IINFO.value = 0;
         COND = ULPINV;
@@ -256,9 +251,8 @@ void zdrvsg(
           KB = 0;
           zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 80
             A[JCOL][JCOL] = ANORM.toComplex();
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -371,7 +365,7 @@ void zdrvsg(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 90
+      }
 
       ABSTOL = UNFL + UNFL;
       if (N <= 1) {
@@ -396,12 +390,9 @@ void zdrvsg(
       //       IBTYPE = 3: B*A*x = (lambda)*x
 
       for (IBTYPE = 1; IBTYPE <= 3; IBTYPE++) {
-        // 630
-
         // loop over the setting UPLO
 
         for (IBUPLO = 1; IBUPLO <= 2; IBUPLO++) {
-          // 620
           if (IBUPLO == 1) UPLO = 'U';
           if (IBUPLO == 2) UPLO = 'L';
 
@@ -615,7 +606,7 @@ void zdrvsg(
                 RWORK, RESULT(NTEST));
 
             break;
-          } // 100
+          }
 
           // Test ZHPGV
 
@@ -626,25 +617,21 @@ void zdrvsg(
           if (lsame(UPLO, 'U')) {
             IJ = 1;
             for (J = 1; J <= N; J++) {
-              // 120
               for (I = 1; I <= J; I++) {
-                // 110
                 AP[IJ] = A[I][J];
                 BP[IJ] = B[I][J];
                 IJ++;
-              } // 110
-            } // 120
+              }
+            }
           } else {
             IJ = 1;
             for (J = 1; J <= N; J++) {
-              // 140
               for (I = J; I <= N; I++) {
-                // 130
                 AP[IJ] = A[I][J];
                 BP[IJ] = B[I][J];
                 IJ++;
-              } // 130
-            } // 140
+              }
+            }
           }
 
           while (true) {
@@ -675,25 +662,21 @@ void zdrvsg(
             if (lsame(UPLO, 'U')) {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 160
                 for (I = 1; I <= J; I++) {
-                  // 150
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 150
-              } // 160
+                }
+              }
             } else {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 180
                 for (I = J; I <= N; I++) {
-                  // 170
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 170
-              } // 180
+                }
+              }
             }
 
             zhpgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK,
@@ -724,25 +707,21 @@ void zdrvsg(
             if (lsame(UPLO, 'U')) {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 200
                 for (I = 1; I <= J; I++) {
-                  // 190
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 190
-              } // 200
+                }
+              }
             } else {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 220
                 for (I = J; I <= N; I++) {
-                  // 210
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 210
-              } // 220
+                }
+              }
             }
 
             zhpgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M,
@@ -771,25 +750,21 @@ void zdrvsg(
             if (lsame(UPLO, 'U')) {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 240
                 for (I = 1; I <= J; I++) {
-                  // 230
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 230
-              } // 240
+                }
+              }
             } else {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 260
                 for (I = J; I <= N; I++) {
-                  // 250
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 250
-              } // 260
+                }
+              }
             }
 
             VL = ZERO;
@@ -820,25 +795,21 @@ void zdrvsg(
             if (lsame(UPLO, 'U')) {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 280
                 for (I = 1; I <= J; I++) {
-                  // 270
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 270
-              } // 280
+                }
+              }
             } else {
               IJ = 1;
               for (J = 1; J <= N; J++) {
-                // 300
                 for (I = J; I <= N; I++) {
-                  // 290
                   AP[IJ] = A[I][J];
                   BP[IJ] = B[I][J];
                   IJ++;
-                } // 290
-              } // 300
+                }
+              }
             }
 
             zhpgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M,
@@ -861,7 +832,7 @@ void zdrvsg(
                 RWORK, RESULT(NTEST));
 
             break;
-          } // 310
+          }
 
           if (IBTYPE == 1) {
             // TEST ZHBGV
@@ -872,28 +843,22 @@ void zdrvsg(
 
             if (lsame(UPLO, 'U')) {
               for (J = 1; J <= N; J++) {
-                // 340
                 for (I = max(1, J - KA); I <= J; I++) {
-                  // 320
                   AB[KA + 1 + I - J][J] = A[I][J];
-                } // 320
+                }
                 for (I = max(1, J - KB); I <= J; I++) {
-                  // 330
                   BB[KB + 1 + I - J][J] = B[I][J];
-                } // 330
-              } // 340
+                }
+              }
             } else {
               for (J = 1; J <= N; J++) {
-                // 370
                 for (I = J; I <= min(N, J + KA); I++) {
-                  // 350
                   AB[1 + I - J][J] = A[I][J];
-                } // 350
+                }
                 for (I = J; I <= min(N, J + KB); I++) {
-                  // 360
                   BB[1 + I - J][J] = B[I][J];
-                } // 360
-              } // 370
+                }
+              }
             }
 
             while (true) {
@@ -924,28 +889,22 @@ void zdrvsg(
 
               if (lsame(UPLO, 'U')) {
                 for (J = 1; J <= N; J++) {
-                  // 400
                   for (I = max(1, J - KA); I <= J; I++) {
-                    // 380
                     AB[KA + 1 + I - J][J] = A[I][J];
-                  } // 380
+                  }
                   for (I = max(1, J - KB); I <= J; I++) {
-                    // 390
                     BB[KB + 1 + I - J][J] = B[I][J];
-                  } // 390
-                } // 400
+                  }
+                }
               } else {
                 for (J = 1; J <= N; J++) {
-                  // 430
                   for (I = J; I <= min(N, J + KA); I++) {
-                    // 410
                     AB[1 + I - J][J] = A[I][J];
-                  } // 410
+                  }
                   for (I = J; I <= min(N, J + KB); I++) {
-                    // 420
                     BB[1 + I - J][J] = B[I][J];
-                  } // 420
-                } // 430
+                  }
+                }
               }
 
               zhbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK,
@@ -975,28 +934,22 @@ void zdrvsg(
 
               if (lsame(UPLO, 'U')) {
                 for (J = 1; J <= N; J++) {
-                  // 460
                   for (I = max(1, J - KA); I <= J; I++) {
-                    // 440
                     AB[KA + 1 + I - J][J] = A[I][J];
-                  } // 440
+                  }
                   for (I = max(1, J - KB); I <= J; I++) {
-                    // 450
                     BB[KB + 1 + I - J][J] = B[I][J];
-                  } // 450
-                } // 460
+                  }
+                }
               } else {
                 for (J = 1; J <= N; J++) {
-                  // 490
                   for (I = J; I <= min(N, J + KA); I++) {
-                    // 470
                     AB[1 + I - J][J] = A[I][J];
-                  } // 470
+                  }
                   for (I = J; I <= min(N, J + KB); I++) {
-                    // 480
                     BB[1 + I - J][J] = B[I][J];
-                  } // 480
-                } // 490
+                  }
+                }
               }
 
               zhbgvx(
@@ -1049,28 +1002,22 @@ void zdrvsg(
 
               if (lsame(UPLO, 'U')) {
                 for (J = 1; J <= N; J++) {
-                  // 520
                   for (I = max(1, J - KA); I <= J; I++) {
-                    // 500
                     AB[KA + 1 + I - J][J] = A[I][J];
-                  } // 500
+                  }
                   for (I = max(1, J - KB); I <= J; I++) {
-                    // 510
                     BB[KB + 1 + I - J][J] = B[I][J];
-                  } // 510
-                } // 520
+                  }
+                }
               } else {
                 for (J = 1; J <= N; J++) {
-                  // 550
                   for (I = J; I <= min(N, J + KA); I++) {
-                    // 530
                     AB[1 + I - J][J] = A[I][J];
-                  } // 530
+                  }
                   for (I = J; I <= min(N, J + KB); I++) {
-                    // 540
                     BB[1 + I - J][J] = B[I][J];
-                  } // 540
-                } // 550
+                  }
+                }
               }
 
               VL = ZERO;
@@ -1125,28 +1072,22 @@ void zdrvsg(
 
               if (lsame(UPLO, 'U')) {
                 for (J = 1; J <= N; J++) {
-                  // 580
                   for (I = max(1, J - KA); I <= J; I++) {
-                    // 560
                     AB[KA + 1 + I - J][J] = A[I][J];
-                  } // 560
+                  }
                   for (I = max(1, J - KB); I <= J; I++) {
-                    // 570
                     BB[KB + 1 + I - J][J] = B[I][J];
-                  } // 570
-                } // 580
+                  }
+                }
               } else {
                 for (J = 1; J <= N; J++) {
-                  // 610
                   for (I = J; I <= min(N, J + KA); I++) {
-                    // 590
                     AB[1 + I - J][J] = A[I][J];
-                  } // 590
+                  }
                   for (I = J; I <= min(N, J + KB); I++) {
-                    // 600
                     BB[1 + I - J][J] = B[I][J];
-                  } // 600
-                } // 610
+                  }
+                }
               }
 
               zhbgvx(
@@ -1194,15 +1135,15 @@ void zdrvsg(
                   RWORK, RESULT(NTEST));
             }
           }
-        } // 620
-      } // 630
+        }
+      }
 
       // End of Loop -- Check for RESULT(j) > THRESH
 
       NTESTT += NTEST;
       dlafts('ZSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
-    } // 640
-  } // 650
+    }
+  }
 
   // Summary
 

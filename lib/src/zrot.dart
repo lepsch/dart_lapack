@@ -25,22 +25,20 @@ void zrot(
     if (INCX < 0) IX = (-N + 1) * INCX + 1;
     if (INCY < 0) IY = (-N + 1) * INCY + 1;
     for (I = 1; I <= N; I++) {
-      // 10
       STEMP = C.toComplex() * CX[IX] + S * CY[IY];
       CY[IY] = C.toComplex() * CY[IY] - S.conjugate() * CX[IX];
       CX[IX] = STEMP;
       IX += INCX;
       IY += INCY;
-    } // 10
+    }
     return;
-  } // 20
+  }
 
   // Code for both increments equal to 1
 
   for (I = 1; I <= N; I++) {
-    // 30
     STEMP = C.toComplex() * CX[I] + S * CY[I];
     CY[I] = C.toComplex() * CY[I] - S.conjugate() * CX[I];
     CX[I] = STEMP;
-  } // 30
+  }
 }

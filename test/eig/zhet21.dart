@@ -95,16 +95,14 @@ void zhet21(
     zlacpy(CUPLO, N, N, A, LDA, WORK.asMatrix(), N);
 
     for (J = 1; J <= N; J++) {
-      // 10
       zher(CUPLO, N, -D[J], U(1, J).asArray(), 1, WORK.asMatrix(), N);
-    } // 10
+    }
 
     if (N > 1 && KBAND == 1) {
       for (J = 1; J <= N - 1; J++) {
-        // 20
         zher2(CUPLO, N, -E[J].toComplex(), U(1, J).asArray(), 1,
             U(1, J + 1).asArray(), 1, WORK.asMatrix(), N);
-      } // 20
+      }
     }
     WNORM = zlanhe('1', CUPLO, N, WORK.asMatrix(), N, RWORK);
   } else if (ITYPE == 2) {
@@ -115,14 +113,12 @@ void zhet21(
     if (LOWER) {
       WORK[pow(N, 2).toInt()] = D[N].toComplex();
       for (J = N - 1; J >= 1; J--) {
-        // 40
         if (KBAND == 1) {
           WORK[(N + 1) * (J - 1) + 2] =
               (Complex.one - TAU[J]) * E[J].toComplex();
           for (JR = J + 2; JR <= N; JR++) {
-            // 30
             WORK[(J - 1) * N + JR] = -TAU[J] * E[J].toComplex() * V[JR][J];
-          } // 30
+          }
         }
 
         VSAVE = V[J + 1][J];
@@ -131,17 +127,15 @@ void zhet21(
             WORK((N + 1) * J + 1).asMatrix(), N, WORK(pow(N, 2).toInt() + 1));
         V[J + 1][J] = VSAVE;
         WORK[(N + 1) * (J - 1) + 1] = D[J].toComplex();
-      } // 40
+      }
     } else {
       WORK[1] = D[1].toComplex();
       for (J = 1; J <= N - 1; J++) {
-        // 60
         if (KBAND == 1) {
           WORK[(N + 1) * J] = (Complex.one - TAU[J]) * E[J].toComplex();
           for (JR = 1; JR <= J - 1; JR++) {
-            // 50
             WORK[J * N + JR] = -TAU[J] * E[J].toComplex() * V[JR][J + 1];
-          } // 50
+          }
         }
 
         VSAVE = V[J][J + 1];
@@ -150,25 +144,22 @@ void zhet21(
             WORK(pow(N, 2).toInt() + 1));
         V[J][J + 1] = VSAVE;
         WORK[(N + 1) * J + 1] = D[J + 1].toComplex();
-      } // 60
+      }
     }
 
     for (JCOL = 1; JCOL <= N; JCOL++) {
-      // 90
       if (LOWER) {
         for (JROW = JCOL; JROW <= N; JROW++) {
-          // 70
           WORK[JROW + N * (JCOL - 1)] =
               WORK[JROW + N * (JCOL - 1)] - A[JROW][JCOL];
-        } // 70
+        }
       } else {
         for (JROW = 1; JROW <= JCOL; JROW++) {
-          // 80
           WORK[JROW + N * (JCOL - 1)] =
               WORK[JROW + N * (JCOL - 1)] - A[JROW][JCOL];
-        } // 80
+        }
       }
-    } // 90
+    }
     WNORM = zlanhe('1', CUPLO, N, WORK.asMatrix(), N, RWORK);
   } else if (ITYPE == 3) {
     // ITYPE=3: error = U V**H - I
@@ -188,9 +179,8 @@ void zhet21(
     }
 
     for (J = 1; J <= N; J++) {
-      // 100
       WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
-    } // 100
+    }
 
     WNORM = zlange('1', N, N, WORK.asMatrix(), N, RWORK);
   }
@@ -214,9 +204,8 @@ void zhet21(
         WORK.asMatrix(), N);
 
     for (J = 1; J <= N; J++) {
-      // 110
       WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
-    } // 110
+    }
 
     RESULT[2] =
         min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N.toDouble()) /

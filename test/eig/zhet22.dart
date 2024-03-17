@@ -68,18 +68,16 @@ void zhet22(
   zgemm('C', 'N', M, M, N, Complex.one, U, LDU, WORK.asMatrix(), N,
       Complex.zero, WORK(NNP1).asMatrix(), N);
   for (J = 1; J <= M; J++) {
-    // 10
     JJ = NN + (J - 1) * N + J;
     WORK[JJ] -= D[J].toComplex();
-  } // 10
+  }
   if (KBAND == 1 && N > 1) {
     for (J = 2; J <= M; J++) {
-      // 20
       JJ1 = NN + (J - 1) * N + J - 1;
       JJ2 = NN + (J - 2) * N + J;
       WORK[JJ1] -= E[J - 1].toComplex();
       WORK[JJ2] -= E[J - 1].toComplex();
-    } // 20
+    }
   }
   WNORM = zlanhe('1', UPLO, M, WORK(NNP1).asMatrix(), N, RWORK);
 

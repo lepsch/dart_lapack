@@ -74,13 +74,11 @@ void zgehrd(
   // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
 
   for (I = 1; I <= ILO - 1; I++) {
-    // 10
     TAU[I] = Complex.zero;
-  } // 10
+  }
   for (I = max(1, IHI); I <= N - 1; I++) {
-    // 20
     TAU[I] = Complex.zero;
-  } // 20
+  }
 
   // Quick return if possible
 
@@ -126,7 +124,6 @@ void zgehrd(
 
     IWT = 1 + N * NB;
     for (I = ILO; NB < 0 ? I >= IHI - 1 - NX : I <= IHI - 1 - NX; I += NB) {
-      // 40
       IB = min(NB, IHI - I);
 
       // Reduce columns i:i+ib-1 to Hessenberg form, returning the
@@ -164,10 +161,9 @@ void zgehrd(
       ztrmm('Right', 'Lower', 'Conjugate transpose', 'Unit', I, IB - 1,
           Complex.one, A(I + 1, I), LDA, WORK.asMatrix(LDWORK), LDWORK);
       for (J = 0; J <= IB - 2; J++) {
-        // 30
         zaxpy(I, -Complex.one, WORK(LDWORK * J + 1), 1,
             A(1, I + J + 1).asArray(), 1);
-      } // 30
+      }
 
       // Apply the block reflector H to A(i+1:ihi,i+ib:n) from the
       // left
@@ -188,7 +184,7 @@ void zgehrd(
           LDA,
           WORK.asMatrix(LDWORK),
           LDWORK);
-    } // 40
+    }
   }
 
   // Use unblocked code to reduce the rest of the matrix

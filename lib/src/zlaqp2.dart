@@ -41,8 +41,6 @@ void zlaqp2(
   // Compute factorization.
 
   for (I = 1; I <= MN; I++) {
-    // 20
-
     OFFPI = OFFSET + I;
 
     // Determine ith pivot column and swap if necessary.
@@ -79,7 +77,6 @@ void zlaqp2(
     // Update partial column norms.
 
     for (J = I + 1; J <= N; J++) {
-      // 10
       if (VN1[J] != ZERO) {
         // NOTE: The following 4 lines follow from the analysis in
         // Lapack Working Note 176.
@@ -99,6 +96,6 @@ void zlaqp2(
           VN1[J] *= sqrt(TEMP);
         }
       }
-    } // 10
-  } // 20
+    }
+  }
 }

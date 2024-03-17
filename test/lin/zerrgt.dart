@@ -43,12 +43,11 @@ void zerrgt(final String PATH, final Nout NUNIT) {
   NOUT.println();
   final C2 = PATH.substring(1, 3);
   for (var I = 1; I <= NMAX; I++) {
-    // 10
     D[I] = 1.0;
     E[I] = 2.0.toComplex();
     DL[I] = 3.0.toComplex();
     DU[I] = 4.0.toComplex();
-  } // 10
+  }
   final ANORM = 1.0;
   infoc.OK.value = true;
 

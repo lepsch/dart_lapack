@@ -106,12 +106,11 @@ void dlavsy_rook(
             D12 = A[K][K + 1];
             D21 = D12;
             for (J = 1; J <= NRHS; J++) {
-              // 20
               T1 = B[K][J];
               T2 = B[K + 1][J];
               B[K][J] = D11 * T1 + D12 * T2;
               B[K + 1][J] = D21 * T1 + D22 * T2;
-            } // 20
+            }
           }
 
           // Multiply by  P(K) * inv(U(K))  if K > 1.
@@ -143,7 +142,7 @@ void dlavsy_rook(
           }
           K += 2;
         }
-      } // 30
+      }
 
       // Compute  B := L*B
       // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
@@ -191,12 +190,11 @@ void dlavsy_rook(
             D21 = A[K][K - 1];
             D12 = D21;
             for (J = 1; J <= NRHS; J++) {
-              // 50
               T1 = B[K - 1][J];
               T2 = B[K][J];
               B[K - 1][J] = D11 * T1 + D12 * T2;
               B[K][J] = D21 * T1 + D22 * T2;
-            } // 50
+            }
           }
 
           // Multiply by  P(K) * inv(L(K))  if K < N.
@@ -228,7 +226,7 @@ void dlavsy_rook(
           }
           K -= 2;
         }
-      } // 60
+      }
     }
     // ----------------------------------------
     //
@@ -297,16 +295,15 @@ void dlavsy_rook(
             D12 = A[K - 1][K];
             D21 = D12;
             for (J = 1; J <= NRHS; J++) {
-              // 80
               T1 = B[K - 1][J];
               T2 = B[K][J];
               B[K - 1][J] = D11 * T1 + D12 * T2;
               B[K][J] = D21 * T1 + D22 * T2;
-            } // 80
+            }
           }
           K -= 2;
         }
-      } // 90
+      }
 
       // Form  B := L'*B
       // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
@@ -368,16 +365,15 @@ void dlavsy_rook(
             D21 = A[K + 1][K];
             D12 = D21;
             for (J = 1; J <= NRHS; J++) {
-              // 110
               T1 = B[K][J];
               T2 = B[K + 1][J];
               B[K][J] = D11 * T1 + D12 * T2;
               B[K + 1][J] = D21 * T1 + D22 * T2;
-            } // 110
+            }
           }
           K += 2;
         }
-      } // 120
+      }
     }
   }
 }

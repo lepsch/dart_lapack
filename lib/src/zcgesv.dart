@@ -166,8 +166,6 @@ void zcgesv(
     }
 
     for (IITER = 1; IITER <= ITERMAX; IITER++) {
-      // 30
-
       // Convert R (in WORK) from double precision to single precision
       // and store the result in SX.
 
@@ -219,7 +217,7 @@ void zcgesv(
 
         return;
       }
-    } // 30
+    }
 
     // If we are at this place of the code, this is because we have
     // performed ITER.value=ITERMAX iterations and never satisfied the stopping
@@ -227,7 +225,7 @@ void zcgesv(
     // precision routine.
 
     ITER.value = -ITERMAX - 1;
-  } // 40
+  }
 
   // Single-precision iterative refinement failed to converge to a
   // satisfactory solution, so we resort to double precision.

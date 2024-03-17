@@ -50,7 +50,6 @@ void zlauu2(
     // Compute the product U * U**H.
 
     for (I = 1; I <= N; I++) {
-      // 10
       AII = A[I][I].toDouble();
       if (I < N) {
         A[I][I] = (AII * AII +
@@ -65,12 +64,11 @@ void zlauu2(
       } else {
         zdscal(I, AII, A(1, I).asArray(), 1);
       }
-    } // 10
+    }
   } else {
     // Compute the product L**H * L.
 
     for (I = 1; I <= N; I++) {
-      // 20
       AII = A[I][I].toDouble();
       if (I < N) {
         A[I][I] = (AII * AII +
@@ -94,6 +92,6 @@ void zlauu2(
       } else {
         zdscal(I, AII, A(I, 1).asArray(), LDA);
       }
-    } // 20
+    }
   }
 }

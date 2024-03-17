@@ -98,18 +98,16 @@ void zlals0(
     // Step (1L): apply back the Givens rotations performed.
 
     for (I = 1; I <= GIVPTR; I++) {
-      // 10
       zdrot(NRHS, B(GIVCOL[I][2], 1).asArray(), LDB,
           B(GIVCOL[I][1], 1).asArray(), LDB, GIVNUM[I][2], GIVNUM[I][1]);
-    } // 10
+    }
 
     // Step (2L): permute rows of B.
 
     zcopy(NRHS, B(NLP1, 1).asArray(), LDB, BX(1, 1).asArray(), LDBX);
     for (I = 2; I <= N; I++) {
-      // 20
       zcopy(NRHS, B(PERM[I], 1).asArray(), LDB, BX(I, 1).asArray(), LDBX);
-    } // 20
+    }
 
     // Step (3L): apply the inverse of the left singular vector
     // matrix to BX.
@@ -121,7 +119,6 @@ void zlals0(
       }
     } else {
       for (J = 1; J <= K; J++) {
-        // 100
         DIFLJ = DIFL[J];
         DJ = POLES[J][1];
         DSIGJ = -POLES[J][2];
@@ -135,7 +132,6 @@ void zlals0(
           RWORK[J] = -POLES[J][2] * Z[J] / DIFLJ / (POLES[J][2] + DJ);
         }
         for (I = 1; I <= J - 1; I++) {
-          // 30
           if ((Z[I] == ZERO) || (POLES[I][2] == ZERO)) {
             RWORK[I] = ZERO;
           } else {
@@ -148,9 +144,8 @@ void zlals0(
                 (dlamc3(POLES[I][2], DSIGJ) - DIFLJ) /
                 (POLES[I][2] + DJ);
           }
-        } // 30
+        }
         for (I = J + 1; I <= K; I++) {
-          // 40
           if ((Z[I] == ZERO) || (POLES[I][2] == ZERO)) {
             RWORK[I] = ZERO;
           } else {
@@ -159,7 +154,7 @@ void zlals0(
                 (dlamc3(POLES[I][2], DSIGJP) + DIFRJ) /
                 (POLES[I][2] + DJ);
           }
-        } // 40
+        }
         RWORK[1] = NEGONE;
         TEMP = dnrm2(K, RWORK, 1);
 
@@ -171,32 +166,27 @@ void zlals0(
 
         I = K + NRHS * 2;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 60
           for (JROW = 1; JROW <= K; JROW++) {
-            // 50
             I++;
             RWORK[I] = (BX[JROW][JCOL]).toDouble();
-          } // 50
-        } // 60
+          }
+        }
         dgemv('T', K, NRHS, ONE, RWORK(1 + K + NRHS * 2).asMatrix(K), K,
             RWORK(1), 1, ZERO, RWORK(1 + K), 1);
         I = K + NRHS * 2;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 80
           for (JROW = 1; JROW <= K; JROW++) {
-            // 70
             I++;
             RWORK[I] = BX[JROW][JCOL].imaginary;
-          } // 70
-        } // 80
+          }
+        }
         dgemv('T', K, NRHS, ONE, RWORK(1 + K + NRHS * 2).asMatrix(K), K,
             RWORK(1), 1, ZERO, RWORK(1 + K + NRHS), 1);
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 90
           B[J][JCOL] = Complex(RWORK[JCOL + K], RWORK[JCOL + K + NRHS]);
-        } // 90
+        }
         zlascl('G', 0, 0, TEMP, ONE, 1, NRHS, B(J, 1), LDB, INFO);
-      } // 100
+      }
     }
 
     // Move the deflated rows of BX to B also.
@@ -214,7 +204,6 @@ void zlals0(
       zcopy(NRHS, B.asArray(), LDB, BX.asArray(), LDBX);
     } else {
       for (J = 1; J <= K; J++) {
-        // 180
         DSIGJ = POLES[J][2];
         if (Z[J] == ZERO) {
           RWORK[J] = ZERO;
@@ -222,7 +211,6 @@ void zlals0(
           RWORK[J] = -Z[J] / DIFL[J] / (DSIGJ + POLES[J][1]) / DIFR[J][2];
         }
         for (I = 1; I <= J - 1; I++) {
-          // 110
           if (Z[J] == ZERO) {
             RWORK[I] = ZERO;
           } else {
@@ -235,9 +223,8 @@ void zlals0(
                 (DSIGJ + POLES[I][1]) /
                 DIFR[I][2];
           }
-        } // 110
+        }
         for (I = J + 1; I <= K; I++) {
-          // 120
           if (Z[J] == ZERO) {
             RWORK[I] = ZERO;
           } else {
@@ -246,7 +233,7 @@ void zlals0(
                 (DSIGJ + POLES[I][1]) /
                 DIFR[I][2];
           }
-        } // 120
+        }
 
         // Since B and BX are complex, the following call to DGEMV
         // is performed in two steps (real and imaginary parts).
@@ -256,31 +243,26 @@ void zlals0(
 
         I = K + NRHS * 2;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 140
           for (JROW = 1; JROW <= K; JROW++) {
-            // 130
             I++;
             RWORK[I] = (B[JROW][JCOL]).toDouble();
-          } // 130
-        } // 140
+          }
+        }
         dgemv('T', K, NRHS, ONE, RWORK(1 + K + NRHS * 2).asMatrix(K), K,
             RWORK(1), 1, ZERO, RWORK(1 + K), 1);
         I = K + NRHS * 2;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 160
           for (JROW = 1; JROW <= K; JROW++) {
-            // 150
             I++;
             RWORK[I] = B[JROW][JCOL].imaginary;
-          } // 150
-        } // 160
+          }
+        }
         dgemv('T', K, NRHS, ONE, RWORK(1 + K + NRHS * 2).asMatrix(K), K,
             RWORK(1), 1, ZERO, RWORK(1 + K + NRHS), 1);
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 170
           BX[J][JCOL] = Complex(RWORK[JCOL + K], RWORK[JCOL + K + NRHS]);
-        } // 170
-      } // 180
+        }
+      }
     }
 
     // Step (2R): if SQRE = 1, apply back the rotation that is
@@ -301,16 +283,14 @@ void zlals0(
       zcopy(NRHS, BX(M, 1).asArray(), LDBX, B(M, 1).asArray(), LDB);
     }
     for (I = 2; I <= N; I++) {
-      // 190
       zcopy(NRHS, BX(I, 1).asArray(), LDBX, B(PERM[I], 1).asArray(), LDB);
-    } // 190
+    }
 
     // Step (4R): apply back the Givens rotations performed.
 
     for (I = GIVPTR; I >= 1; I--) {
-      // 200
       zdrot(NRHS, B(GIVCOL[I][2], 1).asArray(), LDB,
           B(GIVCOL[I][1], 1).asArray(), LDB, GIVNUM[I][2], -GIVNUM[I][1]);
-    } // 200
+    }
   }
 }

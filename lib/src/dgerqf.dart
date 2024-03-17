@@ -100,7 +100,6 @@ void dgerqf(
     for (I = K - KK + KI + 1;
         -NB < 0 ? I >= K - KK + 1 : I <= K - KK + 1;
         I += -NB) {
-      // 10
       IB = min(K - I + 1, NB);
 
       // Compute the RQ factorization of the current block
@@ -133,7 +132,7 @@ void dgerqf(
             WORK(IB + 1).asMatrix(LDWORK),
             LDWORK);
       }
-    } // 10
+    }
     MU = M - K + I + NB - 1;
     NU = N - K + I + NB - 1;
   } else {

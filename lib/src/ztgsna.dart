@@ -88,9 +88,8 @@ void ztgsna(
     if (SOMCON) {
       M.value = 0;
       for (K = 1; K <= N; K++) {
-        // 10
         if (SELECT[K]) M.value++;
-      } // 10
+      }
     } else {
       M.value = N;
     }
@@ -124,8 +123,6 @@ void ztgsna(
 
   KS = 0;
   for (K = 1; K <= N; K++) {
-    // 20
-
     // Determine whether condition numbers are required for the k-th
     // eigenpair.
 
@@ -226,6 +223,6 @@ void ztgsna(
         }
       }
     }
-  } // 20
+  }
   WORK[1] = LWMIN.toComplex();
 }

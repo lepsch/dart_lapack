@@ -126,9 +126,8 @@ void ztgevc(
   if (!ILALL) {
     IM = 0;
     for (J = 1; J <= N; J++) {
-      // 10
       if (SELECT[J]) IM++;
-    } // 10
+    }
   } else {
     IM = N;
   }
@@ -137,9 +136,8 @@ void ztgevc(
 
   ILBBAD = false;
   for (J = 1; J <= N; J++) {
-    // 20
     if (P[J][J].imaginary != ZERO) ILBBAD = true;
-  } // 20
+  }
 
   if (ILBBAD) {
     INFO.value = -7;
@@ -178,17 +176,15 @@ void ztgevc(
   RWORK[1] = ZERO;
   RWORK[N + 1] = ZERO;
   for (J = 2; J <= N; J++) {
-    // 40
     RWORK[J] = ZERO;
     RWORK[N + J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
-      // 30
       RWORK[J] += ABS1(S[I][J]);
       RWORK[N + J] += ABS1(P[I][J]);
-    } // 30
+    }
     ANORM = max(ANORM, RWORK[J] + ABS1(S[J][J]));
     BNORM = max(BNORM, RWORK[N + J] + ABS1(P[J][J]));
-  } // 40
+  }
 
   ASCALE = ONE / max(ANORM, SAFMIN);
   BSCALE = ONE / max(BNORM, SAFMIN);
@@ -201,7 +197,6 @@ void ztgevc(
     // Main loop over eigenvalues
 
     for (JE = 1; JE <= N; JE++) {
-      // 140
       if (ILALL) {
         ILCOMP = true;
       } else {
@@ -214,9 +209,8 @@ void ztgevc(
           // Singular matrix pencil -- return unit eigenvector
 
           for (JR = 1; JR <= N; JR++) {
-            // 50
             VL[JR][IEIG] = Complex.zero;
-          } // 50
+          }
           VL[IEIG][IEIG] = Complex.one;
           continue;
         }
@@ -261,9 +255,8 @@ void ztgevc(
         BCOEFA = ABS1(BCOEFF);
         XMAX = ONE;
         for (JR = 1; JR <= N; JR++) {
-          // 60
           WORK[JR] = Complex.zero;
-        } // 60
+        }
         WORK[JE] = Complex.one;
         DMIN = max(ULP * ACOEFA * ANORM, max(ULP * BCOEFA * BNORM, SAFMIN));
 
@@ -274,8 +267,6 @@ void ztgevc(
         // (rowwise in  (a A - b B) , or columnwise in a A - b B)
 
         for (J = JE + 1; J <= N; J++) {
-          // 100
-
           // Compute
           //       j-1
           // SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
@@ -285,19 +276,17 @@ void ztgevc(
           TEMP = ONE / XMAX;
           if (ACOEFA * RWORK[J] + BCOEFA * RWORK[N + J] > BIGNUM * TEMP) {
             for (JR = JE; JR <= J - 1; JR++) {
-              // 70
               WORK[JR] = TEMP.toComplex() * WORK[JR];
-            } // 70
+            }
             XMAX = ONE;
           }
           SUMA = Complex.zero;
           SUMB = Complex.zero;
 
           for (JR = JE; JR <= J - 1; JR++) {
-            // 80
             SUMA += S[JR][J].conjugate() * WORK[JR];
             SUMB += P[JR][J].conjugate() * WORK[JR];
-          } // 80
+          }
           SUM = ACOEFF.toComplex() * SUMA - BCOEFF.conjugate() * SUMB;
 
           // Form x(j) = - SUM / conjg( a*S(j,j) - b*P(j,j) )
@@ -311,16 +300,15 @@ void ztgevc(
             if (ABS1(SUM) >= BIGNUM * ABS1(D)) {
               TEMP = ONE / ABS1(SUM);
               for (JR = JE; JR <= J - 1; JR++) {
-                // 90
                 WORK[JR] = TEMP.toComplex() * WORK[JR];
-              } // 90
+              }
               XMAX = TEMP * XMAX;
               SUM = TEMP.toComplex() * SUM;
             }
           }
           WORK[J] = zladiv(-SUM, D);
           XMAX = max(XMAX, ABS1(WORK[J]));
-        } // 100
+        }
 
         // Back transform eigenvector if HOWMNY='B'.
 
@@ -338,26 +326,23 @@ void ztgevc(
 
         XMAX = ZERO;
         for (JR = IBEG; JR <= N; JR++) {
-          // 110
           XMAX = max(XMAX, ABS1(WORK[(ISRC - 1) * N + JR]));
-        } // 110
+        }
 
         if (XMAX > SAFMIN) {
           TEMP = ONE / XMAX;
           for (JR = IBEG; JR <= N; JR++) {
-            // 120
             VL[JR][IEIG] = TEMP.toComplex() * WORK[(ISRC - 1) * N + JR];
-          } // 120
+          }
         } else {
           IBEG = N + 1;
         }
 
         for (JR = 1; JR <= IBEG - 1; JR++) {
-          // 130
           VL[JR][IEIG] = Complex.zero;
-        } // 130
+        }
       }
-    } // 140
+    }
   }
 
   // Right eigenvectors
@@ -368,7 +353,6 @@ void ztgevc(
     // Main loop over eigenvalues
 
     for (JE = N; JE >= 1; JE--) {
-      // 250
       if (ILALL) {
         ILCOMP = true;
       } else {
@@ -381,9 +365,8 @@ void ztgevc(
           // Singular matrix pencil -- return unit eigenvector
 
           for (JR = 1; JR <= N; JR++) {
-            // 150
             VR[JR][IEIG] = Complex.zero;
-          } // 150
+          }
           VR[IEIG][IEIG] = Complex.one;
           continue;
         }
@@ -428,9 +411,8 @@ void ztgevc(
         BCOEFA = ABS1(BCOEFF);
         XMAX = ONE;
         for (JR = 1; JR <= N; JR++) {
-          // 160
           WORK[JR] = Complex.zero;
-        } // 160
+        }
         WORK[JE] = Complex.one;
         DMIN = max(ULP * ACOEFA * ANORM, max(ULP * BCOEFA * BNORM, SAFMIN));
 
@@ -440,14 +422,11 @@ void ztgevc(
         // WORK(j+1:JE) contains x
 
         for (JR = 1; JR <= JE - 1; JR++) {
-          // 170
           WORK[JR] = ACOEFF.toComplex() * S[JR][JE] - BCOEFF * P[JR][JE];
-        } // 170
+        }
         WORK[JE] = Complex.one;
 
         for (J = JE - 1; J >= 1; J--) {
-          // 210
-
           // Form x(j) := - w(j) / d
           // with scaling and perturbation of the denominator
 
@@ -458,9 +437,8 @@ void ztgevc(
             if (ABS1(WORK[J]) >= BIGNUM * ABS1(D)) {
               TEMP = ONE / ABS1(WORK[J]);
               for (JR = 1; JR <= JE; JR++) {
-                // 180
                 WORK[JR] = TEMP.toComplex() * WORK[JR];
-              } // 180
+              }
             }
           }
 
@@ -473,20 +451,18 @@ void ztgevc(
               TEMP = ONE / ABS1(WORK[J]);
               if (ACOEFA * RWORK[J] + BCOEFA * RWORK[N + J] >= BIGNUM * TEMP) {
                 for (JR = 1; JR <= JE; JR++) {
-                  // 190
                   WORK[JR] = TEMP.toComplex() * WORK[JR];
-                } // 190
+                }
               }
             }
 
             CA = ACOEFF.toComplex() * WORK[J];
             CB = BCOEFF * WORK[J];
             for (JR = 1; JR <= J - 1; JR++) {
-              // 200
               WORK[JR] += CA * S[JR][J] - CB * P[JR][J];
-            } // 200
+            }
           }
-        } // 210
+        }
 
         // Back transform eigenvector if HOWMNY='B'.
 
@@ -504,25 +480,22 @@ void ztgevc(
 
         XMAX = ZERO;
         for (JR = 1; JR <= IEND; JR++) {
-          // 220
           XMAX = max(XMAX, ABS1(WORK[(ISRC - 1) * N + JR]));
-        } // 220
+        }
 
         if (XMAX > SAFMIN) {
           TEMP = ONE / XMAX;
           for (JR = 1; JR <= IEND; JR++) {
-            // 230
             VR[JR][IEIG] = TEMP.toComplex() * WORK[(ISRC - 1) * N + JR];
-          } // 230
+          }
         } else {
           IEND = 0;
         }
 
         for (JR = IEND + 1; JR <= N; JR++) {
-          // 240
           VR[JR][IEIG] = Complex.zero;
-        } // 240
+        }
       }
-    } // 250
+    }
   }
 }

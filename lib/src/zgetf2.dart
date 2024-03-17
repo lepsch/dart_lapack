@@ -45,8 +45,6 @@ void zgetf2(
   if (M == 0 || N == 0) return;
 
   for (J = 1; J <= min(M, N); J++) {
-    // 10
-
     // Find pivot and test for singularity.
 
     JP = J - 1 + izamax(M - J + 1, A(J, J).asArray(), 1);
@@ -69,5 +67,5 @@ void zgetf2(
       zgeru(M - J, N - J, -Complex.one, A(J + 1, J).asArray(), 1,
           A(J, J + 1).asArray(), LDA, A(J + 1, J + 1), LDA);
     }
-  } // 10
+  }
 }

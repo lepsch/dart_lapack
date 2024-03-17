@@ -73,7 +73,6 @@ void zhegst(
         // Compute inv(U**H)*A*inv(U)
 
         for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-          // 10
           KB = min(N - K + 1, NB);
 
           // Update the upper triangle of A(k:n,k:n)
@@ -102,12 +101,11 @@ void zhegst(
             ztrsm('Right', UPLO, 'No transpose', 'Non-unit', KB, N - K - KB + 1,
                 Complex.one, B(K + KB, K + KB), LDB, A(K, K + KB), LDA);
           }
-        } // 10
+        }
       } else {
         // Compute inv(L)*A*inv(L**H)
 
         for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-          // 20
           KB = min(N - K + 1, NB);
 
           // Update the lower triangle of A(k:n,k:n)
@@ -146,14 +144,13 @@ void zhegst(
             ztrsm('Left', UPLO, 'No transpose', 'Non-unit', N - K - KB + 1, KB,
                 Complex.one, B(K + KB, K + KB), LDB, A(K + KB, K), LDA);
           }
-        } // 20
+        }
       }
     } else {
       if (UPPER) {
         // Compute U*A*U**H
 
         for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-          // 30
           KB = min(N - K + 1, NB);
 
           // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
@@ -169,12 +166,11 @@ void zhegst(
           ztrmm('Right', UPLO, 'Conjugate transpose', 'Non-unit', K - 1, KB,
               Complex.one, B(K, K), LDB, A(1, K), LDA);
           zhegs2(ITYPE, UPLO, KB, A(K, K), LDA, B(K, K), LDB, INFO);
-        } // 30
+        }
       } else {
         // Compute L**H*A*L
 
         for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-          // 40
           KB = min(N - K + 1, NB);
 
           // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
@@ -190,7 +186,7 @@ void zhegst(
           ztrmm('Left', UPLO, 'Conjugate transpose', 'Non-unit', KB, K - 1,
               Complex.one, B(K, K), LDB, A(K, 1), LDA);
           zhegs2(ITYPE, UPLO, KB, A(K, K), LDA, B(K, K), LDB, INFO);
-        } // 40
+        }
       }
     }
   }

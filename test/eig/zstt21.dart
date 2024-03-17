@@ -57,13 +57,12 @@ void zstt21(
   TEMP1 = ZERO;
 
   for (J = 1; J <= N - 1; J++) {
-    // 10
     WORK[(N + 1) * (J - 1) + 1] = AD[J].toComplex();
     WORK[(N + 1) * (J - 1) + 2] = AE[J].toComplex();
     TEMP2 = AE[J].abs();
     ANORM = max(ANORM, AD[J].abs() + TEMP1 + TEMP2);
     TEMP1 = TEMP2;
-  } // 10
+  }
 
   WORK[pow(N, 2).toInt()] = AD[N].toComplex();
   ANORM = max(ANORM, max(AD[N].abs() + TEMP1, UNFL));
@@ -71,16 +70,14 @@ void zstt21(
   // Norm of A - USU*
 
   for (J = 1; J <= N; J++) {
-    // 20
     zher('L', N, -SD[J], U(1, J).asArray(), 1, WORK.asMatrix(), N);
-  } // 20
+  }
 
   if (N > 1 && KBAND == 1) {
     for (J = 1; J <= N - 1; J++) {
-      // 30
       zher2('L', N, -SE[J].toComplex(), U(1, J).asArray(), 1,
           U(1, J + 1).asArray(), 1, WORK.asMatrix(), N);
-    } // 30
+    }
   }
 
   WNORM = zlanhe('1', 'L', N, WORK.asMatrix(), N, RWORK);
@@ -103,9 +100,8 @@ void zstt21(
       WORK.asMatrix(), N);
 
   for (J = 1; J <= N; J++) {
-    // 40
     WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
-  } // 40
+  }
 
   RESULT[2] = min(N.toDouble(), zlange('1', N, N, WORK.asMatrix(), N, RWORK)) /
       (N * ULP);

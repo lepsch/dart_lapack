@@ -80,9 +80,8 @@ void zgetrf2(
         zscal(M - 1, Complex.one / A[1][1], A(2, 1).asArray(), 1);
       } else {
         for (I = 1; I <= M - 1; I++) {
-          // 10
           A[1 + I][1] /= A[1][1];
-        } // 10
+        }
       }
     } else {
       INFO.value = 1;
@@ -123,9 +122,8 @@ void zgetrf2(
 
     if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + N1;
     for (I = N1 + 1; I <= min(M, N); I++) {
-      // 20
       IPIV[I] += N1;
-    } // 20
+    }
 
     // Apply interchanges to A21
 

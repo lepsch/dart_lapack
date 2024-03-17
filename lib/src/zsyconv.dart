@@ -78,21 +78,19 @@ void zsyconv(
           IP = IPIV[I];
           if (I < N) {
             for (J = I + 1; J <= N; J++) {
-              // 12
               TEMP = A[IP][J];
               A[IP][J] = A[I][J];
               A[I][J] = TEMP;
-            } // 12
+            }
           }
         } else {
           IP = -IPIV[I];
           if (I < N) {
             for (J = I + 1; J <= N; J++) {
-              // 13
               TEMP = A[IP][J];
               A[IP][J] = A[I - 1][J];
               A[I - 1][J] = TEMP;
-            } // 13
+            }
           }
           I--;
         }
@@ -169,21 +167,19 @@ void zsyconv(
           IP = IPIV[I];
           if (I > 1) {
             for (J = 1; J <= I - 1; J++) {
-              // 22
               TEMP = A[IP][J];
               A[IP][J] = A[I][J];
               A[I][J] = TEMP;
-            } // 22
+            }
           }
         } else {
           IP = -IPIV[I];
           if (I > 1) {
             for (J = 1; J <= I - 1; J++) {
-              // 23
               TEMP = A[IP][J];
               A[IP][J] = A[I + 1][J];
               A[I + 1][J] = TEMP;
-            } // 23
+            }
           }
           I++;
         }

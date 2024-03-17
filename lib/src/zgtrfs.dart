@@ -88,10 +88,9 @@ void zgtrfs(
 
   if (N == 0 || NRHS == 0) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       FERR[J] = ZERO;
       BERR[J] = ZERO;
-    } // 10
+    }
     return;
   }
 
@@ -114,8 +113,6 @@ void zgtrfs(
   // Do for each right hand side
 
   for (J = 1; J <= NRHS; J++) {
-    // 110
-
     COUNT = 1;
     LSTRES = THREE;
     while (true) {
@@ -139,12 +136,11 @@ void zgtrfs(
               CABS1(D[1]) * CABS1(X[1][J]) +
               CABS1(DU[1]) * CABS1(X[2][J]);
           for (I = 2; I <= N - 1; I++) {
-            // 30
             RWORK[I] = CABS1(B[I][J]) +
                 CABS1(DL[I - 1]) * CABS1(X[I - 1][J]) +
                 CABS1(D[I]) * CABS1(X[I][J]) +
                 CABS1(DU[I]) * CABS1(X[I + 1][J]);
-          } // 30
+          }
           RWORK[N] = CABS1(B[N][J]) +
               CABS1(DL[N - 1]) * CABS1(X[N - 1][J]) +
               CABS1(D[N]) * CABS1(X[N][J]);
@@ -157,12 +153,11 @@ void zgtrfs(
               CABS1(D[1]) * CABS1(X[1][J]) +
               CABS1(DL[1]) * CABS1(X[2][J]);
           for (I = 2; I <= N - 1; I++) {
-            // 40
             RWORK[I] = CABS1(B[I][J]) +
                 CABS1(DU[I - 1]) * CABS1(X[I - 1][J]) +
                 CABS1(D[I]) * CABS1(X[I][J]) +
                 CABS1(DL[I]) * CABS1(X[I + 1][J]);
-          } // 40
+          }
           RWORK[N] = CABS1(B[N][J]) +
               CABS1(DU[N - 1]) * CABS1(X[N - 1][J]) +
               CABS1(D[N]) * CABS1(X[N][J]);
@@ -180,13 +175,12 @@ void zgtrfs(
 
       S = ZERO;
       for (I = 1; I <= N; I++) {
-        // 50
         if (RWORK[I] > SAFE2) {
           S = max(S, CABS1(WORK[I]) / RWORK[I]);
         } else {
           S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
         }
-      } // 50
+      }
       BERR[J] = S;
 
       // Test stopping criterion. Continue iterating if
@@ -230,13 +224,12 @@ void zgtrfs(
     // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
     for (I = 1; I <= N; I++) {
-      // 60
       if (RWORK[I] > SAFE2) {
         RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
       } else {
         RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
       }
-    } // 60
+    }
 
     KASE.value = 0;
     while (true) {
@@ -248,16 +241,14 @@ void zgtrfs(
         zgttrs(
             TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK.asMatrix(N), N, INFO);
         for (I = 1; I <= N; I++) {
-          // 80
           WORK[I] = RWORK[I].toComplex() * WORK[I];
-        } // 80
+        }
       } else {
         // Multiply by inv(op(A))*diag(W).
 
         for (I = 1; I <= N; I++) {
-          // 90
           WORK[I] = RWORK[I].toComplex() * WORK[I];
-        } // 90
+        }
         zgttrs(
             TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK.asMatrix(N), N, INFO);
       }
@@ -267,9 +258,8 @@ void zgtrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      // 100
       LSTRES = max(LSTRES, CABS1(X[I][J]));
-    } // 100
+    }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
-  } // 110
+  }
 }

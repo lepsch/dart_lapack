@@ -88,7 +88,6 @@ void zunmr2(
   }
 
   for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-    // 10
     if (LEFT) {
       // H(i) or H(i)**H is applied to C(1:m-k+i,1:n)
 
@@ -112,5 +111,5 @@ void zunmr2(
     zlarf(SIDE, MI, NI, A(I, 1).asArray(), LDA, TAUI, C, LDC, WORK);
     A[I][NQ - K + I] = AII;
     zlacgv(NQ - K + I - 1, A(I, 1).asArray(), LDA);
-  } // 10
+  }
 }

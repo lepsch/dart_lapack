@@ -195,11 +195,10 @@ void zhetf2_rk(
           if (P > 1) zswap(P - 1, A(1, K).asArray(), 1, A(1, P).asArray(), 1);
           // (2) Swap and conjugate middle parts
           for (J = P + 1; J <= K - 1; J++) {
-            // 14
             T = A[J][K].conjugate();
             A[J][K] = A[P][J].conjugate();
             A[P][J] = T;
-          } // 14
+          }
           // (3) Swap and conjugate corner elements at row-col intersection
           A[P][K] = A[P][K].conjugate();
           // (4) Swap diagonal elements at row-col intersection
@@ -226,11 +225,10 @@ void zhetf2_rk(
           }
           // (2) Swap and conjugate middle parts
           for (J = KP + 1; J <= KK - 1; J++) {
-            // 15
             T = A[J][KK].conjugate();
             A[J][KK] = A[KP][J].conjugate();
             A[KP][J] = T;
-          } // 15
+          }
           // (3) Swap and conjugate corner elements at row-col intersection
           A[KP][KK] = A[KP][KK].conjugate();
           // (4) Swap diagonal elements at row-col intersection
@@ -289,9 +287,8 @@ void zhetf2_rk(
 
               D11 = (A[K][K]).toDouble();
               for (II = 1; II <= K - 1; II++) {
-                // 16
                 A[II][K] /= D11.toComplex();
-              } // 16
+              }
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
               // A := A - U(k)*D(k)*U(k)**T
@@ -329,8 +326,6 @@ void zhetf2_rk(
             TT = ONE / (D11 * D22 - ONE);
 
             for (J = K - 2; J >= 1; J--) {
-              // 30
-
               // Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 
               WKM1 = TT.toComplex() *
@@ -341,10 +336,9 @@ void zhetf2_rk(
               // Perform a rank-2 update of A(1:k-2,1:k-2)
 
               for (I = J; I >= 1; I--) {
-                // 20
                 A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() -
                     (A[I][K - 1] / D.toComplex()) * WKM1.conjugate();
-              } // 20
+              }
 
               // Store U(k) and U(k-1) in cols k and k-1 for row J
 
@@ -352,7 +346,7 @@ void zhetf2_rk(
               A[J][K - 1] = WKM1 / D.toComplex();
               // (*) Make sure that diagonal element of pivot is real
               A[J][J] = A[J][J].real.toComplex();
-            } // 30
+            }
           }
 
           // Copy superdiagonal elements of D(K) to E(K) and
@@ -378,7 +372,7 @@ void zhetf2_rk(
       // Decrease K and return to the start of the main loop
 
       K -= KSTEP;
-    } // 34
+    }
   } else {
     // Factorize A as L*D*L**H using the lower triangle of A
 
@@ -515,11 +509,10 @@ void zhetf2_rk(
           }
           // (2) Swap and conjugate middle parts
           for (J = K + 1; J <= P - 1; J++) {
-            // 44
             T = A[J][K].conjugate();
             A[J][K] = A[P][J].conjugate();
             A[P][J] = T;
-          } // 44
+          }
           // (3) Swap and conjugate corner elements at row-col intersection
           A[P][K] = A[P][K].conjugate();
           // (4) Swap diagonal elements at row-col intersection
@@ -546,11 +539,10 @@ void zhetf2_rk(
           }
           // (2) Swap and conjugate middle parts
           for (J = KK + 1; J <= KP - 1; J++) {
-            // 45
             T = A[J][KK].conjugate();
             A[J][KK] = A[KP][J].conjugate();
             A[KP][J] = T;
-          } // 45
+          }
           // (3) Swap and conjugate corner elements at row-col intersection
           A[KP][KK] = A[KP][KK].conjugate();
           // (4) Swap diagonal elements at row-col intersection
@@ -611,9 +603,8 @@ void zhetf2_rk(
 
               D11 = (A[K][K]).toDouble();
               for (II = K + 1; II <= N; II++) {
-                // 46
                 A[II][K] /= D11.toComplex();
-              } // 46
+              }
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
               // A := A - L(k)*D(k)*L(k)**T
@@ -652,8 +643,6 @@ void zhetf2_rk(
             TT = ONE / (D11 * D22 - ONE);
 
             for (J = K + 2; J <= N; J++) {
-              // 60
-
               // Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 
               WK = TT.toComplex() *
@@ -664,10 +653,9 @@ void zhetf2_rk(
               // Perform a rank-2 update of A(k+2:n,k+2:n)
 
               for (I = J; I <= N; I++) {
-                // 50
                 A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() -
                     (A[I][K + 1] / D.toComplex()) * WKP1.conjugate();
-              } // 50
+              }
 
               // Store L(k) and L(k+1) in cols k and k+1 for row J
 
@@ -675,7 +663,7 @@ void zhetf2_rk(
               A[J][K + 1] = WKP1 / D.toComplex();
               // (*) Make sure that diagonal element of pivot is real
               A[J][J] = A[J][J].real.toComplex();
-            } // 60
+            }
           }
 
           // Copy subdiagonal elements of D(K) to E(K) and
@@ -701,6 +689,6 @@ void zhetf2_rk(
       // Increase K and return to the start of the main loop
 
       K += KSTEP;
-    } // 64
+    }
   }
 }

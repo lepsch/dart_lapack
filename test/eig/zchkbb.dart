@@ -122,21 +122,19 @@ void zchkbb(
   NMAX = 1;
   MNMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     MMAX = max(MMAX, MVAL[J]);
     if (MVAL[J] < 0) BADMM = true;
     NMAX = max(NMAX, NVAL[J]);
     if (NVAL[J] < 0) BADNN = true;
     MNMAX = max(MNMAX, min(MVAL[J], NVAL[J]));
-  } // 10
+  }
 
   BADNNB = false;
   KMAX = 0;
   for (J = 1; J <= NWDTHS; J++) {
-    // 20
     KMAX = max(KMAX, KK[J]);
     if (KK[J] < 0) BADNNB = true;
-  } // 20
+  }
 
   // Check for errors
 
@@ -191,14 +189,12 @@ void zchkbb(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 160
     M = MVAL[JSIZE];
     N = NVAL[JSIZE];
     //  MNMIN = min( M, N );
     AMNINV = ONE / (max(1, max(M, N))).toDouble();
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
-      // 150
       K = KK[JWIDTH];
       if (K >= M && K >= N) continue;
       KL = max(0, min(M - 1, K));
@@ -211,14 +207,12 @@ void zchkbb(
       }
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-        // 140
         if (!DOTYPE[JTYPE]) continue;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
-          // 30
           IOLDSD[J] = ISEED[J];
-        } // 30
+        }
 
         // Compute "A".
 
@@ -270,9 +264,8 @@ void zchkbb(
             // Identity
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 80
               A[JCOL][JCOL] = ANORM.toComplex();
-            } // 80
+            }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, singular values specified
 
@@ -362,12 +355,10 @@ void zchkbb(
         // Copy A to band storage.
 
         for (J = 1; J <= N; J++) {
-          // 110
           for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            // 100
             AB[KU + 1 + I - J][J] = A[I][J];
-          } // 100
-        } // 110
+          }
+        }
 
         // Copy C
 
@@ -400,24 +391,21 @@ void zchkbb(
           // End of Loop -- Check for RESULT(j) > THRESH
 
           NTEST = 4;
-        } // 120
+        }
         NTESTT += NTEST;
 
         // Print out tests which fail.
 
         for (JR = 1; JR <= NTEST; JR++) {
-          // 130
           if (RESULT[JR] >= THRESH) {
             if (NERRS == 0) dlahd2(NOUNIT, 'ZBB');
             NERRS++;
             NOUNIT.println(
                 ' M =${M.i4} N=${N.i4}, K=${K.i3}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }
-        } // 130
-
-        // } // 140
-      } // 150
-    } // 160
+        }
+      }
+    }
 
     // Summary
 

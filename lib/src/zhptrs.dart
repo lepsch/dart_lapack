@@ -111,12 +111,11 @@ void zhptrs(
         AK = AP[KC + K - 1] / AKM1K.conjugate();
         DENOM = AKM1 * AK - Complex.one;
         for (J = 1; J <= NRHS; J++) {
-          // 20
           BKM1 = B[K - 1][J] / AKM1K;
           BK = B[K][J] / AKM1K.conjugate();
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 20
+        }
         KC -= K + 1;
         K -= 2;
       }
@@ -178,7 +177,7 @@ void zhptrs(
         KC += 2 * K + 1;
         K += 2;
       }
-    } // 50
+    }
   } else {
     // Solve A*X = B, where A = L*D*L**H.
 
@@ -241,16 +240,15 @@ void zhptrs(
         AK = AP[KC + N - K + 1] / AKM1K;
         DENOM = AKM1 * AK - Complex.one;
         for (J = 1; J <= NRHS; J++) {
-          // 70
           BKM1 = B[K][J] / AKM1K.conjugate();
           BK = B[K + 1][J] / AKM1K;
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 70
+        }
         KC += 2 * (N - K) + 1;
         K += 2;
       }
-    } // 80
+    }
 
     // Next solve L**H *X = B, overwriting B with X.
 
@@ -259,7 +257,6 @@ void zhptrs(
 
     K = N;
     KC = N * (N + 1) ~/ 2 + 1;
-    //  } // 90
 
     // If K < 1, exit from loop.
 
@@ -322,6 +319,6 @@ void zhptrs(
         KC -= (N - K + 2);
         K -= 2;
       }
-    } // 100
+    }
   }
 }

@@ -119,8 +119,6 @@ void zlaqr5(
   for (INCOL = KTOP - 2 * NBMPS + 1;
       2 * NBMPS < 0 ? INCOL >= KBOT - 2 : INCOL <= KBOT - 2;
       INCOL += 2 * NBMPS) {
-    // 180
-
     // JTOP = Index from which updates from the right start.
 
     if (ACCUM) {
@@ -149,8 +147,6 @@ void zlaqr5(
     for (KRCOL = INCOL;
         KRCOL <= min(INCOL + 2 * NBMPS - 1, KBOT - 2);
         KRCOL++) {
-      // 145
-
       // ==== Bulges number MTOP to MBOT are active double implicit
       // .    shift bulges.  There may or may not also be small
       // .    2-by-2 bulge, if there is room.  The inactive bulges
@@ -190,11 +186,10 @@ void zlaqr5(
         T1 = V[1][M22];
         T2 = T1 * V[2][M22].conjugate();
         for (J = JTOP; J <= min(KBOT, K + 3); J++) {
-          // 30
           REFSUM = H[J][K + 1] + V[2][M22] * H[J][K + 2];
           H[J][K + 1] -= REFSUM * T1;
           H[J][K + 2] -= REFSUM * T2;
-        } // 30
+        }
 
         // ==== Perform update from left within
         // .    computational window. ====
@@ -209,11 +204,10 @@ void zlaqr5(
         T1 = V[1][M22].conjugate();
         T2 = T1 * V[2][M22];
         for (J = K + 1; J <= JBOT; J++) {
-          // 40
           REFSUM = H[K + 1][J] + V[2][M22].conjugate() * H[K + 2][J];
           H[K + 1][J] -= REFSUM * T1;
           H[K + 2][J] -= REFSUM * T2;
-        } // 40
+        }
 
         // ==== The following convergence test requires that
         // .    the tradition small-compared-to-nearby-diagonals
@@ -258,25 +252,22 @@ void zlaqr5(
         if (ACCUM) {
           KMS = K - INCOL;
           for (J = max(1, KTOP - INCOL); J <= KDU; J++) {
-            // 50
             REFSUM = V[1][M22] * (U[J][KMS + 1] + V[2][M22] * U[J][KMS + 2]);
             U[J][KMS + 1] -= REFSUM;
             U[J][KMS + 2] -= REFSUM * V[2][M22].conjugate();
-          } // 50
+          }
         } else if (WANTZ) {
           for (J = ILOZ; J <= IHIZ; J++) {
-            // 60
             REFSUM = V[1][M22] * (Z[J][K + 1] + V[2][M22] * Z[J][K + 2]);
             Z[J][K + 1] -= REFSUM;
             Z[J][K + 2] -= REFSUM * V[2][M22].conjugate();
-          } // 60
+          }
         }
       }
 
       // ==== Normal case: Chain of 3-by-3 reflections ====
 
       for (M = MBOT; M >= MTOP; M--) {
-        // 80
         K = KRCOL + 2 * (M - 1);
         if (K == KTOP - 1) {
           zlaqr1(
@@ -370,12 +361,11 @@ void zlaqr5(
         T2 = T1 * V[2][M].conjugate();
         T3 = T1 * V[3][M].conjugate();
         for (J = JTOP; J <= min(KBOT, K + 3); J++) {
-          // 70
           REFSUM = H[J][K + 1] + V[2][M] * H[J][K + 2] + V[3][M] * H[J][K + 3];
           H[J][K + 1] -= REFSUM * T1;
           H[J][K + 2] -= REFSUM * T2;
           H[J][K + 3] -= REFSUM * T3;
-        } // 70
+        }
 
         // ==== Perform update from left for subsequent
         // .    column. ====
@@ -423,7 +413,7 @@ void zlaqr5(
             }
           }
         }
-      } // 80
+      }
 
       // ==== Multiply H by reflections from the left ====
 
@@ -436,21 +426,19 @@ void zlaqr5(
       }
 
       for (M = MBOT; M >= MTOP; M--) {
-        // 100
         K = KRCOL + 2 * (M - 1);
         T1 = V[1][M].conjugate();
         T2 = T1 * V[2][M];
         T3 = T1 * V[3][M];
         for (J = max(KTOP, KRCOL + 2 * M); J <= JBOT; J++) {
-          // 90
           REFSUM = H[K + 1][J] +
               V[2][M].conjugate() * H[K + 2][J] +
               V[3][M].conjugate() * H[K + 3][J];
           H[K + 1][J] -= REFSUM * T1;
           H[K + 2][J] -= REFSUM * T2;
           H[K + 3][J] -= REFSUM * T3;
-        } // 90
-      } // 100
+        }
+      }
 
       // ==== Accumulate orthogonal transformations. ====
 
@@ -460,7 +448,6 @@ void zlaqr5(
         // .    multiply.) ====
 
         for (M = MBOT; M >= MTOP; M--) {
-          // 120
           K = KRCOL + 2 * (M - 1);
           KMS = K - INCOL;
           I2 = max(1, KTOP - INCOL);
@@ -470,39 +457,36 @@ void zlaqr5(
           T2 = T1 * V[2][M].conjugate();
           T3 = T1 * V[3][M].conjugate();
           for (J = I2; J <= I4; J++) {
-            // 110
             REFSUM = U[J][KMS + 1] +
                 V[2][M] * U[J][KMS + 2] +
                 V[3][M] * U[J][KMS + 3];
             U[J][KMS + 1] -= REFSUM * T1;
             U[J][KMS + 2] -= REFSUM * T2;
             U[J][KMS + 3] -= REFSUM * T3;
-          } // 110
-        } // 120
+          }
+        }
       } else if (WANTZ) {
         // ==== U is not accumulated, so update Z
         // .    now by multiplying by reflections
         // .    from the right. ====
 
         for (M = MBOT; M >= MTOP; M--) {
-          // 140
           K = KRCOL + 2 * (M - 1);
           T1 = V[1][M];
           T2 = T1 * V[2][M].conjugate();
           T3 = T1 * V[3][M].conjugate();
           for (J = ILOZ; J <= IHIZ; J++) {
-            // 130
             REFSUM =
                 Z[J][K + 1] + V[2][M] * Z[J][K + 2] + V[3][M] * Z[J][K + 3];
             Z[J][K + 1] -= REFSUM * T1;
             Z[J][K + 2] -= REFSUM * T2;
             Z[J][K + 3] -= REFSUM * T3;
-          } // 130
-        } // 140
+          }
+        }
       }
 
       // ==== End of near-the-diagonal bulge chase. ====
-    } // 145
+    }
 
     // ==== Use U (if accumulated) to update far-from-diagonal
     // .    entries in H.  If required, use U to update Z as
@@ -524,36 +508,33 @@ void zlaqr5(
       for (JCOL = min(NDCOL, KBOT) + 1;
           NH < 0 ? JCOL >= JBOT : JCOL <= JBOT;
           JCOL += NH) {
-        // 150
         JLEN = min(NH, JBOT - JCOL + 1);
         zgemm('C', 'N', NU, JLEN, NU, Complex.one, U(K1, K1), LDU,
             H(INCOL + K1, JCOL), LDH, Complex.zero, WH, LDWH);
         zlacpy('ALL', NU, JLEN, WH, LDWH, H(INCOL + K1, JCOL), LDH);
-      } // 150
+      }
 
       // ==== Vertical multiply ====
 
       for (JROW = JTOP;
           NV < 0 ? JROW >= max(KTOP, INCOL) - 1 : JROW <= max(KTOP, INCOL) - 1;
           JROW += NV) {
-        // 160
         JLEN = min(NV, max(KTOP, INCOL) - JROW);
         zgemm('N', 'N', JLEN, NU, NU, Complex.one, H(JROW, INCOL + K1), LDH,
             U(K1, K1), LDU, Complex.zero, WV, LDWV);
         zlacpy('ALL', JLEN, NU, WV, LDWV, H(JROW, INCOL + K1), LDH);
-      } // 160
+      }
 
       // ==== Z multiply (also vertical) ====
 
       if (WANTZ) {
         for (JROW = ILOZ; NV < 0 ? JROW >= IHIZ : JROW <= IHIZ; JROW += NV) {
-          // 170
           JLEN = min(NV, IHIZ - JROW + 1);
           zgemm('N', 'N', JLEN, NU, NU, Complex.one, Z(JROW, INCOL + K1), LDZ,
               U(K1, K1), LDU, Complex.zero, WV, LDWV);
           zlacpy('ALL', JLEN, NU, WV, LDWV, Z(JROW, INCOL + K1), LDZ);
-        } // 170
+        }
       }
     }
-  } // 180
+  }
 }

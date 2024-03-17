@@ -49,17 +49,13 @@ void zung2r(
   // Initialise columns k+1:n to columns of the unit matrix
 
   for (J = K + 1; J <= N; J++) {
-    // 20
     for (L = 1; L <= M; L++) {
-      // 10
       A[L][J] = Complex.zero;
-    } // 10
+    }
     A[J][J] = Complex.one;
-  } // 20
+  }
 
   for (I = K; I >= 1; I--) {
-    // 40
-
     // Apply H(i) to A(i:m,i:n) from the left
 
     if (I < N) {
@@ -73,8 +69,7 @@ void zung2r(
     // Set A(1:i-1,i) to zero
 
     for (L = 1; L <= I - 1; L++) {
-      // 30
       A[L][I] = Complex.zero;
-    } // 30
-  } // 40
+    }
+  }
 }

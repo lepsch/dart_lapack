@@ -64,14 +64,12 @@ void ztbtrs(
   if (NOUNIT) {
     if (UPPER) {
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 10
         if (AB[KD + 1][INFO.value] == Complex.zero) return;
-      } // 10
+      }
     } else {
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 20
         if (AB[1][INFO.value] == Complex.zero) return;
-      } // 20
+      }
     }
   }
   INFO.value = 0;
@@ -79,7 +77,6 @@ void ztbtrs(
   // Solve A * X = B,  A**T * X = B,  or  A**H * X = B.
 
   for (J = 1; J <= NRHS; J++) {
-    // 30
     ztbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B(1, J).asArray(), 1);
-  } // 30
+  }
 }

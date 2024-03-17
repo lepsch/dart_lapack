@@ -431,8 +431,6 @@ void dgelsd(
   } else if (IBSCL == 2) {
     dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO);
   }
-
-  // } // 10
   WORK[1] = MAXWRK.toDouble();
   IWORK[1] = LIWORK;
 }

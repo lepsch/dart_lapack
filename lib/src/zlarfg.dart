@@ -69,9 +69,8 @@ void zlarfg(
     // If ALPHA.value is subnormal, it may lose relative accuracy
 
     for (J = 1; J <= KNT; J++) {
-      // 20
       BETA *= SAFMIN;
-    } // 20
+    }
     ALPHA.value = BETA.toComplex();
   }
 }

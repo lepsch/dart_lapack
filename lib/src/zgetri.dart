@@ -78,15 +78,12 @@ void zgetri(
     // Use unblocked code.
 
     for (J = N; J >= 1; J--) {
-      // 20
-
       // Copy current column of L to WORK and replace with zeros.
 
       for (I = J + 1; I <= N; I++) {
-        // 10
         WORK[I] = A[I][J];
         A[I][J] = Complex.zero;
-      } // 10
+      }
 
       // Compute current column of inv(A).
 
@@ -94,26 +91,23 @@ void zgetri(
         zgemv('No transpose', N, N - J, -Complex.one, A(1, J + 1), LDA,
             WORK(J + 1), 1, Complex.one, A(1, J).asArray(), 1);
       }
-    } // 20
+    }
   } else {
     // Use blocked code.
 
     NN = ((N - 1) ~/ NB) * NB + 1;
     for (J = NN; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
-      // 50
       JB = min(NB, N - J + 1);
 
       // Copy current block column of L to WORK and replace with
       // zeros.
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 40
         for (I = JJ + 1; I <= N; I++) {
-          // 30
           WORK[I + (JJ - J) * LDWORK] = A[I][JJ];
           A[I][JJ] = Complex.zero;
-        } // 30
-      } // 40
+        }
+      }
 
       // Compute current block column of inv(A).
 
@@ -135,16 +129,15 @@ void zgetri(
       }
       ztrsm('Right', 'Lower', 'No transpose', 'Unit', N, JB, Complex.one,
           WORK(J).asMatrix(LDWORK), LDWORK, A(1, J), LDA);
-    } // 50
+    }
   }
 
   // Apply column interchanges.
 
   for (J = N - 1; J >= 1; J--) {
-    // 60
     JP = IPIV[J];
     if (JP != J) zswap(N, A(1, J).asArray(), 1, A(1, JP).asArray(), 1);
-  } // 60
+  }
 
   WORK[1] = IWS.toComplex();
 }

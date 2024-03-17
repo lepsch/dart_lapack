@@ -306,9 +306,8 @@ void zgges(
       // Select eigenvalues
 
       for (I = 1; I <= N; I++) {
-        // 10
         BWORK[I] = SELCTG(ALPHA[I], BETA[I]);
-      } // 10
+      }
 
       ztgsen(
           0,
@@ -368,14 +367,13 @@ void zgges(
       LASTSL = true;
       SDIM.value = 0;
       for (I = 1; I <= N; I++) {
-        // 20
         CURSL = SELCTG(ALPHA[I], BETA[I]);
         if (CURSL) SDIM.value++;
         if (CURSL && !LASTSL) INFO.value = N + 2;
         LASTSL = CURSL;
-      } // 20
+      }
     }
-  } // 30
+  }
 
   WORK[1] = LWKOPT.toComplex();
 }

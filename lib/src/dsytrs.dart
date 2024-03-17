@@ -112,15 +112,14 @@ void dsytrs(
         AK = A[K][K] / AKM1K;
         DENOM = AKM1 * AK - ONE;
         for (J = 1; J <= NRHS; J++) {
-          // 20
           BKM1 = B[K - 1][J] / AKM1K;
           BK = B[K][J] / AKM1K;
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 20
+        }
         K -= 2;
       }
-    } // 30
+    }
 
     // Next solve U**T *X = B, overwriting B with X.
 
@@ -167,7 +166,7 @@ void dsytrs(
         }
         K += 2;
       }
-    } // 50
+    }
   } else {
     // Solve A*X = B, where A = L*D*L**T.
 
@@ -230,15 +229,14 @@ void dsytrs(
         AK = A[K + 1][K + 1] / AKM1K;
         DENOM = AKM1 * AK - ONE;
         for (J = 1; J <= NRHS; J++) {
-          // 70
           BKM1 = B[K][J] / AKM1K;
           BK = B[K + 1][J] / AKM1K;
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 70
+        }
         K += 2;
       }
-    } // 80
+    }
 
     // Next solve L**T *X = B, overwriting B with X.
 
@@ -289,6 +287,6 @@ void dsytrs(
         }
         K -= 2;
       }
-    } // 100
+    }
   }
 }

@@ -174,8 +174,6 @@ void zgsvj0(
   // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
   var exhausted = true;
   for (i = 1; i <= NSWEEP; i++) {
-    // 1993
-
     // .. go go go ...
 
     MXAAPQ = ZERO;
@@ -191,18 +189,12 @@ void zgsvj0(
     // is under development.
 
     for (ibr = 1; ibr <= NBL; ibr++) {
-      // 2000
-
       igl = (ibr - 1) * KBL + 1;
 
       for (ir1 = 0; ir1 <= min(LKAHEAD, NBL - ibr); ir1++) {
-        // 1002
-
         igl += ir1 * KBL;
 
         for (p = igl; p <= min(igl + KBL - 1, N - 1); p++) {
-          // 2001
-
           // .. de Rijk's pivoting
 
           q = idamax(N - p + 1, SVA(p), 1) + p - 1;
@@ -247,8 +239,6 @@ void zgsvj0(
             PSKIPPED = 0;
 
             for (q = p + 1; q <= min(igl + KBL - 1, N); q++) {
-              // 2002
-
               AAQQ.value = SVA[q];
 
               if (AAQQ.value > ZERO) {
@@ -399,10 +389,8 @@ void zgsvj0(
                 NOTROT = 0;
                 break;
               }
-            } // 2002
+            }
             // END q-LOOP
-
-            //  } // 2103
             // bailed out of q-loop
 
             SVA[p] = AAPP.value;
@@ -412,10 +400,10 @@ void zgsvj0(
               NOTROT += min(igl + KBL - 1, N).toInt() - p;
             }
           }
-        } // 2001
+        }
         // end of the p-loop
         // end of doing the block ( ibr, ibr )
-      } // 1002
+      }
       // end of ir1-loop
 
       // ... go to the off diagonal blocks
@@ -423,23 +411,17 @@ void zgsvj0(
       igl = (ibr - 1) * KBL + 1;
       jbcLoop:
       for (jbc = ibr + 1; jbc <= NBL; jbc++) {
-        // 2010
-
         jgl = (jbc - 1) * KBL + 1;
 
         // doing the block at ( ibr, jbc )
 
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-          // 2100
-
           AAPP.value = SVA[p];
           if (AAPP.value > ZERO) {
             PSKIPPED = 0;
 
             for (q = jgl; q <= min(jgl + KBL - 1, N); q++) {
-              // 2200
-
               AAQQ.value = SVA[q];
               if (AAQQ.value > ZERO) {
                 AAPP0 = AAPP.value;
@@ -619,9 +601,8 @@ void zgsvj0(
                 NOTROT = 0;
                 break;
               }
-            } // 2200
+            }
             // end of the q-loop
-            //  } // 2203
 
             SVA[p] = AAPP.value;
           } else {
@@ -630,17 +611,15 @@ void zgsvj0(
             }
             if (AAPP.value < ZERO) NOTROT = 0;
           }
-        } // 2100
+        }
         // end of the p-loop
-      } // 2010
+      }
       // end of the jbc-loop
-      //} // 2011
       // 2011 bailed out of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-        // 2012
         SVA[p] = (SVA[p]).abs();
-      } // 2012
-    } // 2000
+      }
+    }
     // 2000 :: end of the ibr-loop
 
     // .. update SVA(N)
@@ -668,7 +647,7 @@ void zgsvj0(
       exhausted = false;
       break;
     }
-  } // 1993
+  }
   // end i=1:NSWEEP loop
   if (exhausted) {
     // #:( Reaching this point means that the procedure has not converged.
@@ -679,11 +658,10 @@ void zgsvj0(
 
     INFO.value = 0;
     // #:) INFO.value = 0 confirms successful iterations.
-  } // 1995
+  }
 
   // Sort the vector SVA() of column norms.
   for (p = 1; p <= N - 1; p++) {
-    // 5991
     q = idamax(N - p + 1, SVA(p), 1) + p - 1;
     if (p != q) {
       TEMP1.value = SVA[p];
@@ -695,5 +673,5 @@ void zgsvj0(
       zswap(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1);
       if (RSVEC) zswap(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1);
     }
-  } // 5991
+  }
 }

@@ -119,7 +119,6 @@ double zla_hercond_c(
   AINVNM.value = 0.0;
 
   KASE.value = 0;
-  // } // 10
   zlacn2(N, WORK(N + 1), WORK, AINVNM, KASE, ISAVE);
   if (KASE.value != 0) {
     if (KASE.value == 2) {

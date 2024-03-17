@@ -58,7 +58,6 @@ void zptt02(
 
   RESID.value = ZERO;
   for (var J = 1; J <= NRHS; J++) {
-    // 10
     final BNORM = dzasum(N, B(1, J).asArray(), 1);
     final XNORM = dzasum(N, X(1, J).asArray(), 1);
     if (XNORM <= ZERO) {
@@ -66,5 +65,5 @@ void zptt02(
     } else {
       RESID.value = max(RESID.value, ((BNORM / ANORM) / XNORM) / EPS);
     }
-  } // 10
+  }
 }

@@ -71,16 +71,14 @@ void zpstrf(
     // Initialize PIV
 
     for (I = 1; I <= N; I++) {
-      // 100
       PIV[I] = I;
-    } // 100
+    }
 
     // Compute stopping value
 
     for (I = 1; I <= N; I++) {
-      // 110
       WORK[I] = (A[I][I]).toDouble();
-    } // 110
+    }
     PVT = WORK.maxloc(1, N);
     AJJ = (A[PVT][PVT]).toDouble();
     if (AJJ <= ZERO || disnan(AJJ)) {
@@ -101,8 +99,6 @@ void zpstrf(
       // Compute the Cholesky factorization P**T * A * P = U**H * U
 
       for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-        // 160
-
         // Account for last block not being NB wide
 
         JB = min(NB, N - K + 1);
@@ -111,26 +107,21 @@ void zpstrf(
         // holds dot products
 
         for (I = K; I <= N; I++) {
-          // 120
           WORK[I] = 0;
-        } // 120
+        }
 
         for (J = K; J <= K + JB - 1; J++) {
-          // 150
-
           // Find pivot, test for exit, else swap rows and columns
           // Update dot products, compute possible pivots which are
           // stored in the second half of WORK
 
           for (I = J; I <= N; I++) {
-            // 130
-
             if (J > K) {
               WORK[I] =
                   WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).toDouble();
             }
             WORK[N + I] = (A[I][I]).toDouble() - WORK[I];
-          } // 130
+          }
 
           if (J > 1) {
             ITEMP = WORK.maxloc(N + J, 2 * N);
@@ -157,11 +148,10 @@ void zpstrf(
                   A(PVT, PVT + 1).asArray(), LDA);
             }
             for (I = J + 1; I <= PVT - 1; I++) {
-              // 140
               ZTEMP = A[J][I].conjugate();
               A[J][I] = A[I][PVT].conjugate();
               A[I][PVT] = ZTEMP;
-            } // 140
+            }
             A[J][PVT] = A[J][PVT].conjugate();
 
             // Swap dot products and PIV
@@ -186,7 +176,7 @@ void zpstrf(
             zlacgv(J - 1, A(1, J).asArray(), 1);
             zdscal(N - J, ONE / AJJ, A(J, J + 1).asArray(), LDA);
           }
-        } // 150
+        }
 
         // Update trailing matrix, J already incremented
 
@@ -194,13 +184,11 @@ void zpstrf(
           zherk('Upper', 'Conj Trans', N - J + 1, JB, -ONE, A(K, J), LDA, ONE,
               A(J, J), LDA);
         }
-      } // 160
+      }
     } else {
       // Compute the Cholesky factorization P**T * A * P = L * L**H
 
       for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-        // 210
-
         // Account for last block not being NB wide
 
         JB = min(NB, N - K + 1);
@@ -209,26 +197,21 @@ void zpstrf(
         // holds dot products
 
         for (I = K; I <= N; I++) {
-          // 170
           WORK[I] = 0;
-        } // 170
+        }
 
         for (J = K; J <= K + JB - 1; J++) {
-          // 200
-
           // Find pivot, test for exit, else swap rows and columns
           // Update dot products, compute possible pivots which are
           // stored in the second half of WORK
 
           for (I = J; I <= N; I++) {
-            // 180
-
             if (J > K) {
               WORK[I] =
                   WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).toDouble();
             }
             WORK[N + I] = (A[I][I]).toDouble() - WORK[I];
-          } // 180
+          }
 
           if (J > 1) {
             ITEMP = WORK.maxloc(N + J, 2 * N);
@@ -255,11 +238,10 @@ void zpstrf(
                   A(PVT + 1, PVT).asArray(), 1);
             }
             for (I = J + 1; I <= PVT - 1; I++) {
-              // 190
               ZTEMP = A[I][J].conjugate();
               A[I][J] = A[PVT][I].conjugate();
               A[PVT][I] = ZTEMP;
-            } // 190
+            }
             A[PVT][J] = A[PVT][J].conjugate();
 
             // Swap dot products and PIV
@@ -284,7 +266,7 @@ void zpstrf(
             zlacgv(J - 1, A(J, 1).asArray(), LDA);
             zdscal(N - J, ONE / AJJ, A(J + 1, J).asArray(), 1);
           }
-        } // 200
+        }
 
         // Update trailing matrix, J already incremented
 
@@ -292,7 +274,7 @@ void zpstrf(
           zherk('Lower', 'No Trans', N - J + 1, JB, -ONE, A(J, K), LDA, ONE,
               A(J, J), LDA);
         }
-      } // 210
+      }
     }
   }
 

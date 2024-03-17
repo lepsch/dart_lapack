@@ -55,13 +55,11 @@ Future<void> zget36(
     zlaset('Full', N, N, Complex.zero, Complex.one, Q, LDT);
     ztrexc('N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1);
     for (I = 1; I <= N; I++) {
-      // 40
       for (J = 1; J <= N; J++) {
-        // 30
         if (I == J && Q[I][J] != Complex.one) RES += ONE / EPS;
         if (I != J && Q[I][J] != Complex.zero) RES += ONE / EPS;
-      } // 30
-    } // 40
+      }
+    }
 
     // Test with accumulating Q
 
@@ -71,12 +69,10 @@ Future<void> zget36(
     // Compare T1 with T2
 
     for (I = 1; I <= N; I++) {
-      // 60
       for (J = 1; J <= N; J++) {
-        // 50
         if (T1[I][J] != T2[I][J]) RES += ONE / EPS;
-      } // 50
-    } // 60
+      }
+    }
     if (INFO1.value != 0 || INFO2.value != 0) NINFO.value++;
     if (INFO1.value != INFO2.value) RES += ONE / EPS;
 
@@ -85,23 +81,20 @@ Future<void> zget36(
     zcopy(N, TMP.asArray(), LDT + 1, DIAG, 1);
     if (IFST < ILST) {
       for (I = IFST + 1; I <= ILST; I++) {
-        // 70
         CTEMP = DIAG[I];
         DIAG[I] = DIAG[I - 1];
         DIAG[I - 1] = CTEMP;
-      } // 70
+      }
     } else if (IFST > ILST) {
       for (I = IFST - 1; I >= ILST; I--) {
-        // 80
         CTEMP = DIAG[I + 1];
         DIAG[I + 1] = DIAG[I];
         DIAG[I] = CTEMP;
-      } // 80
+      }
     }
     for (I = 1; I <= N; I++) {
-      // 90
       if (T2[I][I] != DIAG[I]) RES += ONE / EPS;
-    } // 90
+    }
 
     // Test for small residual, and orthogonality of Q
 
@@ -111,12 +104,10 @@ Future<void> zget36(
     // Test for T2 being in Schur form
 
     for (J = 1; J <= N - 1; J++) {
-      // 110
       for (I = J + 1; I <= N; I++) {
-        // 100
         if (T2[I][J] != Complex.zero) RES += ONE / EPS;
-      } // 100
-    } // 110
+      }
+    }
     if (RES > RMAX.value) {
       RMAX.value = RES;
       LMAX.value = KNT.value;

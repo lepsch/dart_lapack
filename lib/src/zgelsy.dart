@@ -160,8 +160,6 @@ void zgelsy(
   } else {
     RANK.value = 1;
   }
-
-  // } // 10
   while (RANK.value < MN) {
     I = RANK.value + 1;
     zlaic1(IMIN, RANK.value, WORK(ISMIN), SMIN, A(1, I).asArray(), A[I][I],
@@ -171,10 +169,9 @@ void zgelsy(
 
     if (SMAXPR.value * RCOND <= SMINPR.value) {
       for (I = 1; I <= RANK.value; I++) {
-        // 20
         WORK[ISMIN + I - 1] = S1.value * WORK[ISMIN + I - 1];
         WORK[ISMAX + I - 1] = S2.value * WORK[ISMAX + I - 1];
-      } // 20
+      }
       WORK[ISMIN + RANK.value] = C1.value;
       WORK[ISMAX + RANK.value] = C2.value;
       SMIN = SMINPR.value;
@@ -215,12 +212,10 @@ void zgelsy(
       Complex.one, A, LDA, B, LDB);
 
   for (J = 1; J <= NRHS; J++) {
-    // 40
     for (I = RANK.value + 1; I <= N; I++) {
-      // 30
       B[I][J] = Complex.zero;
-    } // 30
-  } // 40
+    }
+  }
 
   // B(1:N,1:NRHS) := Y**H * B(1:N,1:NRHS)
 
@@ -234,13 +229,11 @@ void zgelsy(
   // B(1:N,1:NRHS) := P * B(1:N,1:NRHS)
 
   for (J = 1; J <= NRHS; J++) {
-    // 60
     for (I = 1; I <= N; I++) {
-      // 50
       WORK[JPVT[I]] = B[I][J];
-    } // 50
+    }
     zcopy(N, WORK(1), 1, B(1, J).asArray(), 1);
-  } // 60
+  }
 
   // complex workspace: N.
 

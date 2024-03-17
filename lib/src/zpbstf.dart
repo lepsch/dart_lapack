@@ -58,8 +58,6 @@ void zpbstf(
     // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
     for (J = N; J >= M + 1; J--) {
-      // 10
-
       // Compute s(j,j) and test for non-positive-definiteness.
 
       AJJ = AB[KD + 1][J].toDouble();
@@ -78,13 +76,11 @@ void zpbstf(
       zdscal(KM, ONE / AJJ, AB(KD + 1 - KM, J).asArray(), 1);
       zher('Upper', KM, -ONE, AB(KD + 1 - KM, J).asArray(), 1,
           AB(KD + 1, J - KM), KLD);
-    } // 10
+    }
 
     // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
 
     for (J = 1; J <= M; J++) {
-      // 20
-
       // Compute s(j,j) and test for non-positive-definiteness.
 
       AJJ = AB[KD + 1][J].toDouble();
@@ -107,13 +103,11 @@ void zpbstf(
             KLD);
         zlacgv(KM, AB(KD, J + 1).asArray(), KLD);
       }
-    } // 20
+    }
   } else {
     // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
     for (J = N; J >= M + 1; J--) {
-      // 30
-
       // Compute s(j,j) and test for non-positive-definiteness.
 
       AJJ = AB[1][J].toDouble();
@@ -134,13 +128,11 @@ void zpbstf(
       zher('Lower', KM, -ONE, AB(KM + 1, J - KM).asArray(), KLD, AB(1, J - KM),
           KLD);
       zlacgv(KM, AB(KM + 1, J - KM).asArray(), KLD);
-    } // 30
+    }
 
     // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
 
     for (J = 1; J <= M; J++) {
-      // 40
-
       // Compute s(j,j) and test for non-positive-definiteness.
 
       AJJ = AB[1][J].toDouble();
@@ -160,6 +152,6 @@ void zpbstf(
         zdscal(KM, ONE / AJJ, AB(2, J).asArray(), 1);
         zher('Lower', KM, -ONE, AB(2, J).asArray(), 1, AB(1, J + 1), KLD);
       }
-    } // 40
+    }
   }
 }

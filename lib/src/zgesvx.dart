@@ -99,10 +99,9 @@ void zgesvx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         RCMIN = min(RCMIN, R[J]);
         RCMAX = max(RCMAX, R[J]);
-      } // 10
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -11;
       } else if (N > 0) {
@@ -115,10 +114,9 @@ void zgesvx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 20
         RCMIN = min(RCMIN, C[J]);
         RCMAX = max(RCMAX, C[J]);
-      } // 20
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -12;
       } else if (N > 0) {
@@ -159,21 +157,17 @@ void zgesvx(
   if (NOTRAN) {
     if (ROWEQU) {
       for (J = 1; J <= NRHS; J++) {
-        // 40
         for (I = 1; I <= N; I++) {
-          // 30
           B[I][J] = R[I].toComplex() * B[I][J];
-        } // 30
-      } // 40
+        }
+      }
     }
   } else if (COLEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 60
       for (I = 1; I <= N; I++) {
-        // 50
         B[I][J] = C[I].toComplex() * B[I][J];
-      } // 50
-    } // 60
+      }
+    }
   }
 
   if (NOFACT || EQUIL) {
@@ -237,29 +231,23 @@ void zgesvx(
   if (NOTRAN) {
     if (COLEQU) {
       for (J = 1; J <= NRHS; J++) {
-        // 80
         for (I = 1; I <= N; I++) {
-          // 70
           X[I][J] = C[I].toComplex() * X[I][J];
-        } // 70
-      } // 80
+        }
+      }
       for (J = 1; J <= NRHS; J++) {
-        // 90
         FERR[J] /= COLCND.value;
-      } // 90
+      }
     }
   } else if (ROWEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 110
       for (I = 1; I <= N; I++) {
-        // 100
         X[I][J] = R[I].toComplex() * X[I][J];
-      } // 100
-    } // 110
+      }
+    }
     for (J = 1; J <= NRHS; J++) {
-      // 120
       FERR[J] /= ROWCND.value;
-    } // 120
+    }
   }
 
   // Set INFO.value = N+1 if the matrix is singular to working precision.

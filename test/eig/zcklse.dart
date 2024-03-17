@@ -83,7 +83,6 @@ Future<void> zcklse(
   // Check for valid input values.
 
   for (IK = 1; IK <= NN; IK++) {
-    // 10
     M = MVAL[IK];
     P = PVAL[IK];
     N = NVAL[IK];
@@ -95,21 +94,18 @@ Future<void> zcklse(
       NOUT.println(
           ' *** Invalid input  for LSE:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n     must satisfy P <= N <= P+M  (this set of values will be skipped)');
     }
-  } // 10
+  }
   FIRSTT = true;
 
   // Do for each value of M in MVAL.
 
   for (IK = 1; IK <= NN; IK++) {
-    // 40
     M = MVAL[IK];
     P = PVAL[IK];
     N = NVAL[IK];
     if (P > N || N > M + P) continue;
 
     for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-      // 30
-
       // Do the tests only if DOTYPE[ IMAT ] is true.
 
       if (!DOTYPE[IMAT]) continue;
@@ -232,7 +228,6 @@ Future<void> zcklse(
       // pass the threshold.
 
       for (I = 1; I <= NT; I++) {
-        // 20
         if (RESULT[I] >= THRESH) {
           if (NFAIL == 0 && FIRSTT) {
             FIRSTT = false;
@@ -242,10 +237,10 @@ Future<void> zcklse(
               ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
           NFAIL++;
         }
-      } // 20
+      }
       NRUN += NT;
-    } // 30
-  } // 40
+    }
+  }
 
   // Print a summary of the results.
 

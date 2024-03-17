@@ -124,12 +124,9 @@ void zhbtrd(
 
       AB[KD1][1] = AB[KD1][1].real.toComplex();
       for (I = 1; I <= N - 2; I++) {
-        // 90
-
         // Reduce i-th row of matrix to tridiagonal form
 
         for (K = KDN + 1; K >= 2; K--) {
-          // 80
           J1 += KDN;
           J2 += KDN;
 
@@ -147,19 +144,17 @@ void zhbtrd(
 
             if (NR >= 2 * KD - 1) {
               for (L = 1; L <= KD - 1; L++) {
-                // 10
                 zlartv(NR, AB(L + 1, J1 - 1).asArray(), INCA,
                     AB(L, J1).asArray(), INCA, D(J1), WORK(J1), KD1);
-              } // 10
+              }
             } else {
               JEND = J1 + (NR - 1) * KD1;
               for (JINC = J1;
                   KD1 < 0 ? JINC >= JEND : JINC <= JEND;
                   JINC += KD1) {
-                // 20
                 zrot(KDM1, AB(2, JINC - 1).asArray(), 1, AB(1, JINC).asArray(),
                     1, D[JINC], WORK[JINC]);
-              } // 20
+              }
             }
           }
 
@@ -204,7 +199,6 @@ void zhbtrd(
               // ZLARTV or ZROT is used
 
               for (L = 1; L <= KD - 1; L++) {
-                // 30
                 if (J2 + L > N) {
                   NRT = NR - 1;
                 } else {
@@ -221,17 +215,16 @@ void zhbtrd(
                       WORK(J1),
                       KD1);
                 }
-              } // 30
+              }
             } else {
               J1END = J1 + KD1 * (NR - 2);
               if (J1END >= J1) {
                 for (JIN = J1;
                     KD1 < 0 ? JIN >= J1END : JIN <= J1END;
                     JIN += KD1) {
-                  // 40
                   zrot(KD - 1, AB(KD - 1, JIN + 1).asArray(), INCX,
                       AB(KD, JIN + 1).asArray(), INCX, D[JIN], WORK[JIN]);
-                } // 40
+                }
               }
               LEND = min(KDM1, N - J2);
               LAST = J1END + KD1;
@@ -255,7 +248,6 @@ void zhbtrd(
               if (K == 2) IQAEND += KD;
               IQAEND = min(IQAEND, IQEND);
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-                // 50
                 IBL = I - I2 ~/ KDM1;
                 I2++;
                 IQB = max(1, J - IBL);
@@ -263,13 +255,12 @@ void zhbtrd(
                 IQAEND = min(IQAEND + KD, IQEND);
                 zrot(NQ, Q(IQB, J - 1).asArray(), 1, Q(IQB, J).asArray(), 1,
                     D[J], WORK[J].conjugate());
-              } // 50
+              }
             } else {
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-                // 60
                 zrot(N, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, D[J],
                     WORK[J].conjugate());
-              } // 60
+              }
             }
           }
 
@@ -281,23 +272,20 @@ void zhbtrd(
           }
 
           for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-            // 70
-
             // create nonzero element a(j-1,j+kd) outside the band
             // and store it in WORK
 
             WORK[J + KD] = WORK[J] * AB[1][J + KD];
             AB[1][J + KD] = D[J].toComplex() * AB[1][J + KD];
-          } // 70
-        } // 80
-      } // 90
+          }
+        }
+      }
     }
 
     if (KD > 0) {
       // make off-diagonal elements real and copy them to E
 
       for (I = 1; I <= N - 1; I++) {
-        // 100
         T = AB[KD][I + 1];
         ABST = (T).abs();
         AB[KD][I + 1] = ABST.toComplex();
@@ -311,22 +299,20 @@ void zhbtrd(
         if (WANTQ) {
           zscal(N, T.conjugate(), Q(1, I + 1).asArray(), 1);
         }
-      } // 100
+      }
     } else {
       // set E to zero if original matrix was diagonal
 
       for (I = 1; I <= N - 1; I++) {
-        // 110
         E[I] = ZERO;
-      } // 110
+      }
     }
 
     // copy diagonal elements to D
 
     for (I = 1; I <= N; I++) {
-      // 120
       D[I] = AB[KD1][I].toDouble();
-    } // 120
+    }
   } else {
     if (KD > 1) {
       // Reduce to complex Hermitian tridiagonal form, working with
@@ -338,12 +324,9 @@ void zhbtrd(
 
       AB[1][1] = AB[1][1].real.toComplex();
       for (I = 1; I <= N - 2; I++) {
-        // 210
-
         // Reduce i-th column of matrix to tridiagonal form
 
         for (K = KDN + 1; K >= 2; K--) {
-          // 200
           J1 += KDN;
           J2 += KDN;
 
@@ -361,7 +344,6 @@ void zhbtrd(
 
             if (NR > 2 * KD - 1) {
               for (L = 1; L <= KD - 1; L++) {
-                // 130
                 zlartv(
                     NR,
                     AB(KD1 - L, J1 - KD1 + L).asArray(),
@@ -371,16 +353,15 @@ void zhbtrd(
                     D(J1),
                     WORK(J1),
                     KD1);
-              } // 130
+              }
             } else {
               JEND = J1 + KD1 * (NR - 1);
               for (JINC = J1;
                   KD1 < 0 ? JINC >= JEND : JINC <= JEND;
                   JINC += KD1) {
-                // 140
                 zrot(KDM1, AB(KD, JINC - KD).asArray(), INCX,
                     AB(KD1, JINC - KD).asArray(), INCX, D[JINC], WORK[JINC]);
-              } // 140
+              }
             }
           }
 
@@ -425,7 +406,6 @@ void zhbtrd(
             zlacgv(NR, WORK(J1), KD1);
             if (NR > 2 * KD - 1) {
               for (L = 1; L <= KD - 1; L++) {
-                // 150
                 if (J2 + L > N) {
                   NRT = NR - 1;
                 } else {
@@ -435,17 +415,16 @@ void zhbtrd(
                   zlartv(NRT, AB(L + 2, J1 - 1).asArray(), INCA,
                       AB(L + 1, J1).asArray(), INCA, D(J1), WORK(J1), KD1);
                 }
-              } // 150
+              }
             } else {
               J1END = J1 + KD1 * (NR - 2);
               if (J1END >= J1) {
                 for (J1INC = J1;
                     KD1 < 0 ? J1INC >= J1END : J1INC <= J1END;
                     J1INC += KD1) {
-                  // 160
                   zrot(KDM1, AB(3, J1INC - 1).asArray(), 1,
                       AB(2, J1INC).asArray(), 1, D[J1INC], WORK[J1INC]);
-                } // 160
+                }
               }
               LEND = min(KDM1, N - J2);
               LAST = J1END + KD1;
@@ -469,7 +448,6 @@ void zhbtrd(
               if (K == 2) IQAEND += KD;
               IQAEND = min(IQAEND, IQEND);
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-                // 170
                 IBL = I - I2 ~/ KDM1;
                 I2++;
                 IQB = max(1, J - IBL);
@@ -477,13 +455,12 @@ void zhbtrd(
                 IQAEND = min(IQAEND + KD, IQEND);
                 zrot(NQ, Q(IQB, J - 1).asArray(), 1, Q(IQB, J).asArray(), 1,
                     D[J], WORK[J]);
-              } // 170
+              }
             } else {
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-                // 180
                 zrot(N, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, D[J],
                     WORK[J]);
-              } // 180
+              }
             }
           }
 
@@ -495,23 +472,20 @@ void zhbtrd(
           }
 
           for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-            // 190
-
             // create nonzero element a(j+kd,j-1) outside the
             // band and store it in WORK
 
             WORK[J + KD] = WORK[J] * AB[KD1][J];
             AB[KD1][J] = D[J].toComplex() * AB[KD1][J];
-          } // 190
-        } // 200
-      } // 210
+          }
+        }
+      }
     }
 
     if (KD > 0) {
       // make off-diagonal elements real and copy them to E
 
       for (I = 1; I <= N - 1; I++) {
-        // 220
         T = AB[2][I];
         ABST = (T).abs();
         AB[2][I] = ABST.toComplex();
@@ -525,21 +499,19 @@ void zhbtrd(
         if (WANTQ) {
           zscal(N, T, Q(1, I + 1).asArray(), 1);
         }
-      } // 220
+      }
     } else {
       // set E to zero if original matrix was diagonal
 
       for (I = 1; I <= N - 1; I++) {
-        // 230
         E[I] = ZERO;
-      } // 230
+      }
     }
 
     // copy diagonal elements to D
 
     for (I = 1; I <= N; I++) {
-      // 240
       D[I] = AB[1][I].toDouble();
-    } // 240
+    }
   }
 }

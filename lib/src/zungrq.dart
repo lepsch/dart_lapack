@@ -102,12 +102,10 @@ void zungrq(
     // Set A(1:m-kk,n-kk+1:n) to zero.
 
     for (J = N - KK + 1; J <= N; J++) {
-      // 20
       for (I = 1; I <= M - KK; I++) {
-        // 10
         A[I][J] = Complex.zero;
-      } // 10
-    } // 20
+      }
+    }
   } else {
     KK = 0;
   }
@@ -120,7 +118,6 @@ void zungrq(
     // Use blocked code
 
     for (I = K - KK + 1; NB < 0 ? I >= K : I <= K; I += NB) {
-      // 50
       IB = min(NB, K - I + 1);
       II = M - K + I;
       if (II > 1) {
@@ -157,13 +154,11 @@ void zungrq(
       // Set columns n-k+i+ib:n of current block to zero
 
       for (L = N - K + I + IB; L <= N; L++) {
-        // 40
         for (J = II; J <= II + IB - 1; J++) {
-          // 30
           A[J][L] = Complex.zero;
-        } // 30
-      } // 40
-    } // 50
+        }
+      }
+    }
   }
 
   WORK[1] = IWS.toComplex();

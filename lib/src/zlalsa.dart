@@ -130,8 +130,6 @@ void zlalsa(
 
     NDB1 = (ND.value + 1) ~/ 2;
     for (I = NDB1; I <= ND.value; I++) {
-      // 130
-
       // IC : center row of each node
       // NL : number of rows of left  subproblem
       // NR : number of rows of right subproblem
@@ -153,13 +151,11 @@ void zlalsa(
 
       J = NL * NRHS * 2;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 20
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
-          // 10
           J++;
           RWORK[J] = (B[JROW][JCOL]).toDouble();
-        } // 10
-      } // 20
+        }
+      }
       dgemm(
           'T',
           'N',
@@ -176,13 +172,11 @@ void zlalsa(
           NL);
       J = NL * NRHS * 2;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 40
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
-          // 30
           J++;
           RWORK[J] = B[JROW][JCOL].imaginary;
-        } // 30
-      } // 40
+        }
+      }
       dgemm(
           'T',
           'N',
@@ -200,14 +194,12 @@ void zlalsa(
       JREAL = 0;
       JIMAG = NL * NRHS;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 60
         for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) {
-          // 50
           JREAL++;
           JIMAG++;
           BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-        } // 50
-      } // 60
+        }
+      }
 
       // Since B and BX are complex, the following call to DGEMM
       // is performed in two steps (real and imaginary parts).
@@ -217,13 +209,11 @@ void zlalsa(
 
       J = NR * NRHS * 2;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 80
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
-          // 70
           J++;
           RWORK[J] = (B[JROW][JCOL]).toDouble();
-        } // 70
-      } // 80
+        }
+      }
       dgemm(
           'T',
           'N',
@@ -240,13 +230,11 @@ void zlalsa(
           NR);
       J = NR * NRHS * 2;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 100
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
-          // 90
           J++;
           RWORK[J] = B[JROW][JCOL].imaginary;
-        } // 90
-      } // 100
+        }
+      }
       dgemm(
           'T',
           'N',
@@ -264,24 +252,21 @@ void zlalsa(
       JREAL = 0;
       JIMAG = NR * NRHS;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 120
         for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) {
-          // 110
           JREAL++;
           JIMAG++;
           BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-        } // 110
-      } // 120
-    } // 130
+        }
+      }
+    }
 
     // Next copy the rows of B that correspond to unchanged rows
     // in the bidiagonal matrix to BX.
 
     for (I = 1; I <= ND.value; I++) {
-      // 140
       IC = IWORK[INODE + I - 1];
       zcopy(NRHS, B(IC, 1).asArray(), LDB, BX(IC, 1).asArray(), LDBX);
-    } // 140
+    }
 
     // Finally go through the left singular vector matrices of all
     // the other subproblems bottom-up on the tree.
@@ -290,7 +275,6 @@ void zlalsa(
     SQRE = 0;
 
     for (LVL = NLVL.value; LVL >= 1; LVL--) {
-      // 160
       LVL2 = 2 * LVL - 1;
 
       // find the first node LF and last node LL on
@@ -304,7 +288,6 @@ void zlalsa(
         LL = 2 * LF - 1;
       }
       for (I = LF; I <= LL; I++) {
-        // 150
         IM1 = I - 1;
         IC = IWORK[INODE + IM1];
         NL = IWORK[NDIML + IM1];
@@ -337,19 +320,18 @@ void zlalsa(
             S[J],
             RWORK,
             INFO);
-      } // 150
-    } // 160
+      }
+    }
     return;
 
     // ICOMPQ = 1: applying back the right singular vector factors.
-  } // 170
+  }
 
   // First now go through the right singular vector matrices of all
   // the tree nodes top-down.
 
   J = 0;
   for (LVL = 1; LVL <= NLVL.value; LVL++) {
-    // 190
     LVL2 = 2 * LVL - 1;
 
     // Find the first node LF and last node LL on
@@ -363,7 +345,6 @@ void zlalsa(
       LL = 2 * LF - 1;
     }
     for (I = LL; I >= LF; I--) {
-      // 180
       IM1 = I - 1;
       IC = IWORK[INODE + IM1];
       NL = IWORK[NDIML + IM1];
@@ -401,8 +382,8 @@ void zlalsa(
           S[J],
           RWORK,
           INFO);
-    } // 180
-  } // 190
+    }
+  }
 
   // The nodes on the bottom level of the tree were solved
   // by DLASDQ. The corresponding right singular vector
@@ -410,7 +391,6 @@ void zlalsa(
 
   NDB1 = (ND.value + 1) ~/ 2;
   for (I = NDB1; I <= ND.value; I++) {
-    // 320
     I1 = I - 1;
     IC = IWORK[INODE + I1];
     NL = IWORK[NDIML + I1];
@@ -432,13 +412,11 @@ void zlalsa(
 
     J = NLP1 * NRHS * 2;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 210
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
-        // 200
         J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
-      } // 200
-    } // 210
+      }
+    }
     dgemm(
         'T',
         'N',
@@ -455,13 +433,11 @@ void zlalsa(
         NLP1);
     J = NLP1 * NRHS * 2;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 230
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
-        // 220
         J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
-      } // 220
-    } // 230
+      }
+    }
     dgemm(
         'T',
         'N',
@@ -479,14 +455,12 @@ void zlalsa(
     JREAL = 0;
     JIMAG = NLP1 * NRHS;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 250
       for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) {
-        // 240
         JREAL++;
         JIMAG++;
         BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-      } // 240
-    } // 250
+      }
+    }
 
     // Since B and BX are complex, the following call to DGEMM is
     // performed in two steps (real and imaginary parts).
@@ -496,13 +470,11 @@ void zlalsa(
 
     J = NRP1 * NRHS * 2;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 270
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
-        // 260
         J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
-      } // 260
-    } // 270
+      }
+    }
     dgemm(
         'T',
         'N',
@@ -519,13 +491,11 @@ void zlalsa(
         NRP1);
     J = NRP1 * NRHS * 2;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 290
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
-        // 280
         J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
-      } // 280
-    } // 290
+      }
+    }
     dgemm(
         'T',
         'N',
@@ -543,15 +513,11 @@ void zlalsa(
     JREAL = 0;
     JIMAG = NRP1 * NRHS;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 310
       for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) {
-        // 300
         JREAL++;
         JIMAG++;
         BX[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-      } // 300
-    } // 310
-  } // 320
-
-  // } // 330
+      }
+    }
+  }
 }

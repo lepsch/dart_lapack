@@ -272,9 +272,8 @@ void zlasyf_rook(
               zscal(K - 1, R1, A(1, K).asArray(), 1);
             } else if (A[K][K] != Complex.zero) {
               for (II = 1; II <= K - 1; II++) {
-                // 14
                 A[II][K] /= A[K][K];
-              } // 14
+              }
             }
           }
         } else {
@@ -294,10 +293,9 @@ void zlasyf_rook(
             D22 = W[K - 1][KW - 1] / D12;
             T = Complex.one / (D11 * D22 - Complex.one);
             for (J = 1; J <= K - 2; J++) {
-              // 20
               A[J][K - 1] = T * ((D11 * W[J][KW - 1] - W[J][KW]) / D12);
               A[J][K] = T * ((D22 * W[J][KW] - W[J][KW - 1]) / D12);
-            } // 20
+            }
           }
 
           // Copy D(k) to A
@@ -320,7 +318,7 @@ void zlasyf_rook(
       // Decrease K and return to the start of the main loop
 
       K -= KSTEP;
-    } // 30
+    }
 
     // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -329,16 +327,14 @@ void zlasyf_rook(
     // computing blocks of NB columns at a time
 
     for (J = ((K - 1) ~/ NB) * NB + 1; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
-      // 50
       JB = min(NB, K - J + 1);
 
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 40
         zgemv('No transpose', JJ - J + 1, N - K, -Complex.one, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, Complex.one, A(J, JJ).asArray(), 1);
-      } // 40
+      }
 
       // Update the rectangular superdiagonal block
 
@@ -346,7 +342,7 @@ void zlasyf_rook(
         zgemm('No transpose', 'Transpose', J - 1, JB, N - K, -Complex.one,
             A(1, K + 1), LDA, W(J, KW + 1), LDW, Complex.one, A(1, J), LDA);
       }
-    } // 50
+    }
 
     // Put U12 in standard form by partially undoing the interchanges
     // in columns k+1:n
@@ -570,9 +566,8 @@ void zlasyf_rook(
               zscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else if (A[K][K] != Complex.zero) {
               for (II = K + 1; II <= N; II++) {
-                // 74
                 A[II][K] /= A[K][K];
-              } // 74
+              }
             }
           }
         } else {
@@ -591,10 +586,9 @@ void zlasyf_rook(
             D22 = W[K][K] / D21;
             T = Complex.one / (D11 * D22 - Complex.one);
             for (J = K + 2; J <= N; J++) {
-              // 80
               A[J][K] = T * ((D11 * W[J][K] - W[J][K + 1]) / D21);
               A[J][K + 1] = T * ((D22 * W[J][K + 1] - W[J][K]) / D21);
-            } // 80
+            }
           }
 
           // Copy D(k) to A
@@ -617,7 +611,7 @@ void zlasyf_rook(
       // Increase K and return to the start of the main loop
 
       K += KSTEP;
-    } // 90
+    }
 
     // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -626,16 +620,14 @@ void zlasyf_rook(
     // computing blocks of NB columns at a time
 
     for (J = K; NB < 0 ? J >= N : J <= N; J += NB) {
-      // 110
       JB = min(NB, N - J + 1);
 
       // Update the lower triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 100
         zgemv('No transpose', J + JB - JJ, K - 1, -Complex.one, A(JJ, 1), LDA,
             W(JJ, 1).asArray(), LDW, Complex.one, A(JJ, JJ).asArray(), 1);
-      } // 100
+      }
 
       // Update the rectangular subdiagonal block
 
@@ -655,7 +647,7 @@ void zlasyf_rook(
             A(J + JB, J),
             LDA);
       }
-    } // 110
+    }
 
     // Put L21 in standard form by partially undoing the interchanges
     // in columns 1:k-1

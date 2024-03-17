@@ -68,9 +68,8 @@ void zpttrs(
     zptts2(IUPLO, N, NRHS, D, E, B, LDB);
   } else {
     for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) {
-      // 10
       JB = min(NRHS - J + 1, NB);
       zptts2(IUPLO, N, JB, D, E, B(1, J), LDB);
-    } // 10
+    }
   }
 }

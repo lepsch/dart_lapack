@@ -44,8 +44,6 @@ void zlabrd(
     // Reduce to upper bidiagonal form
 
     for (I = 1; I <= NB; I++) {
-      // 10
-
       // Update A(i:m,i)
 
       zlacgv(I - 1, Y(I, 1).asArray(), LDY);
@@ -121,13 +119,11 @@ void zlabrd(
         zscal(M - I, TAUP[I], X(I + 1, I).asArray(), 1);
         zlacgv(N - I, A(I, I + 1).asArray(), LDA);
       }
-    } // 10
+    }
   } else {
     // Reduce to lower bidiagonal form
 
     for (I = 1; I <= NB; I++) {
-      // 20
-
       // Update A(i,i:n)
 
       zlacgv(N - I + 1, A(I, I).asArray(), LDA);
@@ -205,6 +201,6 @@ void zlabrd(
       } else {
         zlacgv(N - I + 1, A(I, I).asArray(), LDA);
       }
-    } // 20
+    }
   }
 }

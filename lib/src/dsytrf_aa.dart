@@ -104,7 +104,6 @@ void dsytrf_aa(
     // JB is either NB, or N-J+1 for the last block
 
     J = 0;
-    //  } // 10
     while (J < N) {
       // each step of the main loop
       //  J is the last column of the previous panel

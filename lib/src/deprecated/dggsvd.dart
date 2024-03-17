@@ -95,19 +95,19 @@
 
       dcopy(N, ALPHA, 1, WORK, 1 );
       IBND = min( L, M-K );
-      for (I = 1; I <= IBND; I++) { // 20
+      for (I = 1; I <= IBND; I++) {
 
          // Scan for largest ALPHA(K+I)
 
          ISUB = I;
          SMAX = WORK( K+I );
-         for (J = I + 1; J <= IBND; J++) { // 10
+         for (J = I + 1; J <= IBND; J++) {
             TEMP = WORK( K+J );
             if ( TEMP > SMAX ) {
                ISUB = J;
                SMAX = TEMP;
             }
-         } // 10
+         }
          if ( ISUB != I ) {
             WORK[K+ISUB] = WORK( K+I );
             WORK[K+I] = SMAX;
@@ -115,6 +115,6 @@
          } else {
             IWORK[K+I] = K + I;
          }
-      } // 20
+      }
 
       }

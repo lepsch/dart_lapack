@@ -39,7 +39,6 @@ void dlahr2(
   if (N <= 1) return;
 
   for (I = 1; I <= NB; I++) {
-    // 10
     if (I > 1) {
       // Update A(K+1:N,I)
 
@@ -110,7 +109,7 @@ void dlahr2(
     dtrmv('Upper', 'No Transpose', 'NON-UNIT', I - 1, T, LDT, T(1, I).asArray(),
         1);
     T[I][I] = TAU[I];
-  } // 10
+  }
   A[K + NB][NB] = EI;
 
   // Compute Y(1:K,1:NB)

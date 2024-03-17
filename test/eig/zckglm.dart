@@ -82,7 +82,6 @@ Future<void> zckglm(
   // Check for valid input values.
 
   for (IK = 1; IK <= NN; IK++) {
-    // 10
     M = MVAL[IK];
     P = PVAL[IK];
     N = NVAL[IK];
@@ -94,21 +93,18 @@ Future<void> zckglm(
       NOUT.println(
           ' *** Invalid input  for GLM:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n     must satisfy M <= N <= M+P  (this set of values will be skipped)');
     }
-  } // 10
+  }
   FIRSTT = true;
 
   // Do for each value of M in MVAL.
 
   for (IK = 1; IK <= NN; IK++) {
-    // 40
     M = MVAL[IK];
     P = PVAL[IK];
     N = NVAL[IK];
     if (M > N || N > M + P) continue;
 
     for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-      // 30
-
       // Do the tests only if DOTYPE( IMAT ) is true.
 
       if (!DOTYPE[IMAT]) continue;
@@ -168,9 +164,8 @@ Future<void> zckglm(
       // Generate random left hand side vector of GLM
 
       for (I = 1; I <= N; I++) {
-        // 20
         X[I] = zlarnd(2, ISEED);
-      } // 20
+      }
 
       zglmts(
           N,
@@ -204,8 +199,8 @@ Future<void> zckglm(
         NFAIL++;
       }
       NRUN++;
-    } // 30
-  } // 40
+    }
+  }
 
   // Print a summary of the results.
 

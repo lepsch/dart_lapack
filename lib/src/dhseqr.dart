@@ -102,15 +102,13 @@ void dhseqr(
     // ==== copy eigenvalues isolated by DGEBAL ====
 
     for (I = 1; I <= ILO - 1; I++) {
-      // 10
       WR[I] = H[I][I];
       WI[I] = ZERO;
-    } // 10
+    }
     for (I = IHI + 1; I <= N; I++) {
-      // 20
       WR[I] = H[I][I];
       WI[I] = ZERO;
-    } // 20
+    }
 
     // ==== Initialize Z, if requested ====
 

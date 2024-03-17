@@ -77,10 +77,9 @@ void zptrfs(
 
   if (N == 0 || NRHS == 0) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       FERR[J] = ZERO;
       BERR[J] = ZERO;
-    } // 10
+    }
     return;
   }
 
@@ -95,8 +94,6 @@ void zptrfs(
   // Do for each right hand side
 
   for (J = 1; J <= NRHS; J++) {
-    // 100
-
     COUNT = 1;
     LSTRES = THREE;
     while (true) {
@@ -118,7 +115,6 @@ void zptrfs(
           WORK[1] = BI - DX - EX;
           RWORK[1] = CABS1(BI) + CABS1(DX) + CABS1(E[1]) * CABS1(X[2][J]);
           for (I = 2; I <= N - 1; I++) {
-            // 30
             BI = B[I][J];
             CX = E[I - 1].conjugate() * X[I - 1][J];
             DX = D[I].toComplex() * X[I][J];
@@ -128,7 +124,7 @@ void zptrfs(
                 CABS1(E[I - 1]) * CABS1(X[I - 1][J]) +
                 CABS1(DX) +
                 CABS1(E[I]) * CABS1(X[I + 1][J]);
-          } // 30
+          }
           BI = B[N][J];
           CX = E[N - 1].conjugate() * X[N - 1][J];
           DX = D[N].toComplex() * X[N][J];
@@ -149,7 +145,6 @@ void zptrfs(
           WORK[1] = BI - DX - EX;
           RWORK[1] = CABS1(BI) + CABS1(DX) + CABS1(E[1]) * CABS1(X[2][J]);
           for (I = 2; I <= N - 1; I++) {
-            // 40
             BI = B[I][J];
             CX = E[I - 1] * X[I - 1][J];
             DX = D[I].toComplex() * X[I][J];
@@ -159,7 +154,7 @@ void zptrfs(
                 CABS1(E[I - 1]) * CABS1(X[I - 1][J]) +
                 CABS1(DX) +
                 CABS1(E[I]) * CABS1(X[I + 1][J]);
-          } // 40
+          }
           BI = B[N][J];
           CX = E[N - 1] * X[N - 1][J];
           DX = D[N].toComplex() * X[N][J];
@@ -180,13 +175,12 @@ void zptrfs(
 
       S = ZERO;
       for (I = 1; I <= N; I++) {
-        // 50
         if (RWORK[I] > SAFE2) {
           S = max(S, CABS1(WORK[I]) / RWORK[I]);
         } else {
           S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
         }
-      } // 50
+      }
       BERR[J] = S;
 
       // Test stopping criterion. Continue iterating if
@@ -226,13 +220,12 @@ void zptrfs(
     // abs(A)*abs(X) + abs(B) is less than SAFE2.
 
     for (I = 1; I <= N; I++) {
-      // 60
       if (RWORK[I] > SAFE2) {
         RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
       } else {
         RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
       }
-    } // 60
+    }
     IX = idamax(N, RWORK, 1);
     FERR[J] = RWORK[IX];
 
@@ -249,17 +242,15 @@ void zptrfs(
 
     RWORK[1] = ONE;
     for (I = 2; I <= N; I++) {
-      // 70
       RWORK[I] = ONE + RWORK[I - 1] * (EF[I - 1]).abs();
-    } // 70
+    }
 
     // Solve D * M(L)**H * x = b.
 
     RWORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
-      // 80
       RWORK[I] /= DF[I] + RWORK[I + 1] * (EF[I]).abs();
-    } // 80
+    }
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
@@ -270,9 +261,8 @@ void zptrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      // 90
       LSTRES = max(LSTRES, (X[I][J]).abs());
-    } // 90
+    }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
-  } // 100
+  }
 }

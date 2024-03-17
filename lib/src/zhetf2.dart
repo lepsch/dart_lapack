@@ -136,11 +136,10 @@ void zhetf2(
 
           zswap(KP - 1, A(1, KK).asArray(), 1, A(1, KP).asArray(), 1);
           for (J = KP + 1; J <= KK - 1; J++) {
-            // 20
             T = A[J][KK].conjugate();
             A[J][KK] = A[KP][J].conjugate();
             A[KP][J] = T;
-          } // 20
+          }
           A[KP][KK] = A[KP][KK].conjugate();
           R1 = (A[KK][KK]).toDouble();
           A[KK][KK] = (A[KP][KP]).real.toComplex();
@@ -197,20 +196,18 @@ void zhetf2(
             D = TT / D;
 
             for (J = K - 2; J >= 1; J--) {
-              // 40
               WKM1 = D.toComplex() *
                   (D11.toComplex() * A[J][K - 1] - D12.conjugate() * A[J][K]);
               WK = D.toComplex() *
                   (D22.toComplex() * A[J][K] - D12 * A[J][K - 1]);
               for (I = J; I >= 1; I--) {
-                // 30
                 A[I][J] -=
                     A[I][K] * WK.conjugate() - A[I][K - 1] * WKM1.conjugate();
-              } // 30
+              }
               A[J][K] = WK;
               A[J][K - 1] = WKM1;
               A[J][J] = A[J][J].real.toComplex();
-            } // 40
+            }
           }
         }
       }
@@ -312,11 +309,10 @@ void zhetf2(
                 N - KP, A(KP + 1, KK).asArray(), 1, A(KP + 1, KP).asArray(), 1);
           }
           for (J = KK + 1; J <= KP - 1; J++) {
-            // 60
             T = A[J][KK].conjugate();
             A[J][KK] = A[KP][J].conjugate();
             A[KP][J] = T;
-          } // 60
+          }
           A[KP][KK] = A[KP][KK].conjugate();
           R1 = (A[KK][KK]).toDouble();
           A[KK][KK] = (A[KP][KP]).real.toComplex();
@@ -374,20 +370,18 @@ void zhetf2(
             D = TT / D;
 
             for (J = K + 2; J <= N; J++) {
-              // 80
               WK = D.toComplex() *
                   (D11.toComplex() * A[J][K] - D21 * A[J][K + 1]);
               WKP1 = D.toComplex() *
                   (D22.toComplex() * A[J][K + 1] - D21.conjugate() * A[J][K]);
               for (I = J; I <= N; I++) {
-                // 70
                 A[I][J] -=
                     A[I][K] * WK.conjugate() - A[I][K + 1] * WKP1.conjugate();
-              } // 70
+              }
               A[J][K] = WK;
               A[J][K + 1] = WKP1;
               A[J][J] = A[J][J].real.toComplex();
-            } // 80
+            }
           }
         }
       }
@@ -406,6 +400,4 @@ void zhetf2(
       K += KSTEP;
     }
   }
-
-  // } // 90
 }

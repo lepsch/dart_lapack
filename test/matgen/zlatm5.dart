@@ -46,9 +46,7 @@ void zlatm5(
 
   if (PRTYPE == 1) {
     for (I = 1; I <= M; I++) {
-      // 20
       for (J = 1; J <= M; J++) {
-        // 10
         if (I == J) {
           A[I][J] = Complex.one;
           D[I][J] = Complex.one;
@@ -59,13 +57,11 @@ void zlatm5(
           A[I][J] = Complex.zero;
           D[I][J] = Complex.zero;
         }
-      } // 10
-    } // 20
+      }
+    }
 
     for (I = 1; I <= N; I++) {
-      // 40
       for (J = 1; J <= N; J++) {
-        // 30
         if (I == J) {
           B[I][J] = Complex.one - ALPHA.toComplex();
           E[I][J] = Complex.one;
@@ -76,22 +72,18 @@ void zlatm5(
           B[I][J] = Complex.zero;
           E[I][J] = Complex.zero;
         }
-      } // 30
-    } // 40
+      }
+    }
 
     for (I = 1; I <= M; I++) {
-      // 60
       for (J = 1; J <= N; J++) {
-        // 50
         R[I][J] = (HALF - (I / J).toComplex()).sin() * TWENTY;
         L[I][J] = R[I][J];
-      } // 50
-    } // 60
+      }
+    }
   } else if (PRTYPE == 2 || PRTYPE == 3) {
     for (I = 1; I <= M; I++) {
-      // 80
       for (J = 1; J <= M; J++) {
-        // 70
         if (I <= J) {
           A[I][J] = (HALF - I.toComplex().sin()) * TWO;
           D[I][J] = (HALF - (I * J).toComplex().sin()) * TWO;
@@ -99,13 +91,11 @@ void zlatm5(
           A[I][J] = Complex.zero;
           D[I][J] = Complex.zero;
         }
-      } // 70
-    } // 80
+      }
+    }
 
     for (I = 1; I <= N; I++) {
-      // 100
       for (J = 1; J <= N; J++) {
-        // 90
         if (I <= J) {
           B[I][J] = (HALF - (I + J).toComplex()).sin() * TWO;
           E[I][J] = (HALF - J.toComplex()).sin() * TWO;
@@ -113,85 +103,71 @@ void zlatm5(
           B[I][J] = Complex.zero;
           E[I][J] = Complex.zero;
         }
-      } // 90
-    } // 100
+      }
+    }
 
     for (I = 1; I <= M; I++) {
-      // 120
       for (J = 1; J <= N; J++) {
-        // 110
         R[I][J] = (HALF - (I * J).toComplex().sin()) * TWENTY;
         L[I][J] = (HALF - (I + J).toComplex().sin()) * TWENTY;
-      } // 110
-    } // 120
+      }
+    }
 
     if (PRTYPE == 3) {
       if (QBLCKA.value <= 1) QBLCKA.value = 2;
       for (K = 1;
           QBLCKA.value < 0 ? K >= M - 1 : K <= M - 1;
           K += QBLCKA.value) {
-        // 130
         A[K + 1][K + 1] = A[K][K];
         A[K + 1][K] = -A[K][K + 1].sin();
-      } // 130
+      }
 
       if (QBLCKB.value <= 1) QBLCKB.value = 2;
       for (K = 1;
           QBLCKB.value < 0 ? K >= N - 1 : K <= N - 1;
           K += QBLCKB.value) {
-        // 140
         B[K + 1][K + 1] = B[K][K];
         B[K + 1][K] = -B[K][K + 1].sin();
-      } // 140
+      }
     }
   } else if (PRTYPE == 4) {
     for (I = 1; I <= M; I++) {
-      // 160
       for (J = 1; J <= M; J++) {
-        // 150
         A[I][J] = (HALF - (I * J).toComplex().sin()) * TWENTY;
         D[I][J] = (HALF - (I + J).toComplex().sin()) * TWO;
-      } // 150
-    } // 160
+      }
+    }
 
     for (I = 1; I <= N; I++) {
-      // 180
       for (J = 1; J <= N; J++) {
-        // 170
         B[I][J] = (HALF - (I + J).toComplex().sin()) * TWENTY;
         E[I][J] = (HALF - (I * J).toComplex().sin()) * TWO;
-      } // 170
-    } // 180
+      }
+    }
 
     for (I = 1; I <= M; I++) {
-      // 200
       for (J = 1; J <= N; J++) {
-        // 190
         R[I][J] = (HALF - (J / I).toComplex().sin()) * TWENTY;
         L[I][J] = (HALF - (I * J).toComplex().sin()) * TWO;
-      } // 190
-    } // 200
+      }
+    }
   } else if (PRTYPE >= 5) {
     REEPS = HALF * TWO * TWENTY / ALPHA.toComplex();
     IMEPS = (HALF - TWO) / ALPHA.toComplex();
     for (I = 1; I <= M; I++) {
-      // 220
       for (J = 1; J <= N; J++) {
-        // 210
         R[I][J] =
             (HALF - (I * J).toComplex().sin()) * ALPHA.toComplex() / TWENTY;
         L[I][J] =
             (HALF - (I + J).toComplex().sin()) * ALPHA.toComplex() / TWENTY;
-      } // 210
-    } // 220
+      }
+    }
 
     for (I = 1; I <= M; I++) {
-      // 230
       D[I][I] = Complex.one;
-    } // 230
+    }
 
     for (I = 1; I <= M; I++) {
-      // 240
       if (I <= 4) {
         A[I][I] = Complex.one;
         if (I > 2) A[I][I] = Complex.one + REEPS;
@@ -219,10 +195,9 @@ void zlatm5(
           A[I][I - 1] = -IMEPS * 2.toComplex();
         }
       }
-    } // 240
+    }
 
     for (I = 1; I <= N; I++) {
-      // 250
       E[I][I] = Complex.one;
       if (I <= 4) {
         B[I][I] = -Complex.one;
@@ -251,7 +226,7 @@ void zlatm5(
           B[I][I - 1] = -IMEPS * 2.toComplex();
         }
       }
-    } // 250
+    }
   }
 
   // Compute rhs (C, F)

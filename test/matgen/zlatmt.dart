@@ -228,9 +228,8 @@ void zlatmt(
   // Initialize random number generator
 
   for (I = 1; I <= 4; I++) {
-    // 100
     ISEED[I] = ISEED[I].abs() % 4096;
-  } // 100
+  }
 
   if ((ISEED[4] % 2) != 1) ISEED[4]++;
 
@@ -258,9 +257,8 @@ void zlatmt(
 
     TEMP = D[1].abs();
     for (I = 2; I <= RANK; I++) {
-      // 110
       TEMP = max(TEMP, (D[I]).abs());
-    } // 110
+    }
 
     if (TEMP > ZERO) {
       ALPHA = DMAX / TEMP;
@@ -308,9 +306,8 @@ void zlatmt(
 
   if (LLB == 0 && UUB == 0) {
     for (J = 1; J <= MNMIN; J++) {
-      // 120
       A[(1 - ISKEW) * J + IOFFST][J] = D[J].toComplex();
-    } // 120
+    }
 
     if (IPACK <= 2 || IPACK >= 5) IPACKG = IPACK;
   } else if (GIVENS) {
@@ -327,22 +324,18 @@ void zlatmt(
       }
 
       for (J = 1; J <= MNMIN; J++) {
-        // 130
         A[(1 - ISKEW) * J + IOFFST][J] = D[J].toComplex();
-      } // 130
+      }
 
       if (TOPDWN) {
         JKL = 0;
         for (JKU = 1; JKU <= UUB; JKU++) {
-          // 160
-
           // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
           // Last row actually rotated is M
           // Last column actually rotated is min( M+JKU, N )
 
           for (JR = 1; JR <= min(M + JKU, N) + JKL - 1; JR++) {
-            // 150
             EXTRA.value = Complex.zero;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C = cos(ANGLE).toComplex() * zlarnd(5, ISEED);
@@ -370,7 +363,6 @@ void zlatmt(
             for (JCH = JR - JKL;
                 -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1;
                 JCH += -JKL - JKU) {
-              // 140
               if (IR < M) {
                 zlartg(A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
                     EXTRA.value, REALC, S, DUMMY);
@@ -417,18 +409,15 @@ void zlatmt(
                 IC = ICOL;
                 IR = IROW;
               }
-            } // 140
-          } // 150
-        } // 160
+            }
+          }
+        }
 
         JKU = UUB;
         for (JKL = 1; JKL <= LLB; JKL++) {
-          // 190
-
           // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
           for (JC = 1; JC <= min(N + JKL, M) + JKU - 1; JC++) {
-            // 180
             EXTRA.value = Complex.zero;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C = cos(ANGLE).toComplex() * zlarnd(5, ISEED);
@@ -456,7 +445,6 @@ void zlatmt(
             for (JCH = JC - JKU;
                 -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1;
                 JCH += -JKL - JKU) {
-              // 170
               if (IC < N) {
                 zlartg(A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
                     EXTRA.value, REALC, S, DUMMY);
@@ -502,16 +490,14 @@ void zlatmt(
                 IC = ICOL;
                 IR = IROW;
               }
-            } // 170
-          } // 180
-        } // 190
+            }
+          }
+        }
       } else {
         // Bottom-Up -- Start at the bottom right.
 
         JKL = 0;
         for (JKU = 1; JKU <= UUB; JKU++) {
-          // 220
-
           // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
           // First row actually rotated is M
@@ -519,7 +505,6 @@ void zlatmt(
 
           IENDCH = min(M, N + JKL) - 1;
           for (JC = min(M + JKU, N) - 1; JC >= 1 - JKL; JC--) {
-            // 210
             EXTRA.value = Complex.zero;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C = cos(ANGLE).toComplex() * zlarnd(5, ISEED);
@@ -546,7 +531,6 @@ void zlatmt(
             for (JCH = JC + JKL;
                 JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH;
                 JCH += JKL + JKU) {
-              // 200
               ILEXTR = IC > 0;
               if (ILEXTR) {
                 zlartg(A[JCH - ISKEW * IC + IOFFST][IC], EXTRA.value, REALC, S,
@@ -591,14 +575,12 @@ void zlatmt(
                     EXTRA);
                 IC = ICOL;
               }
-            } // 200
-          } // 210
-        } // 220
+            }
+          }
+        }
 
         JKU = UUB;
         for (JKL = 1; JKL <= LLB; JKL++) {
-          // 250
-
           // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
           // First row actually rotated is min( N+JKL, M )
@@ -606,7 +588,6 @@ void zlatmt(
 
           IENDCH = min(N, M + JKU) - 1;
           for (JR = min(N + JKL, M) - 1; JR >= 1 - JKU; JR--) {
-            // 240
             EXTRA.value = Complex.zero;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C = cos(ANGLE).toComplex() * zlarnd(5, ISEED);
@@ -633,7 +614,6 @@ void zlatmt(
             for (JCH = JR + JKU;
                 JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH;
                 JCH += JKL + JKU) {
-              // 230
               ILEXTR = IR > 0;
               if (ILEXTR) {
                 zlartg(A[IR - ISKEW * JCH + IOFFST][JCH], EXTRA.value, REALC, S,
@@ -678,9 +658,9 @@ void zlatmt(
                     EXTRA);
                 IR = IROW;
               }
-            } // 230
-          } // 240
-        } // 250
+            }
+          }
+        }
       }
     } else {
       // Symmetric -- A = U D U'
@@ -700,14 +680,11 @@ void zlatmt(
         }
 
         for (J = 1; J <= MNMIN; J++) {
-          // 260
           A[(1 - ISKEW) * J + IOFFG][J] = D[J].toComplex();
-        } // 260
+        }
 
         for (K = 1; K <= UUB; K++) {
-          // 290
           for (JC = 1; JC <= N - 1; JC++) {
-            // 280
             IROW = max(1, JC - K);
             IL = min(JC + 1, K + 2);
             EXTRA.value = Complex.zero;
@@ -732,7 +709,6 @@ void zlatmt(
 
             ICOL = JC;
             for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) {
-              // 270
               zlartg(A[JCH + 1 - ISKEW * (ICOL + 1) + IOFFG][ICOL + 1],
                   EXTRA.value, REALC, S, DUMMY);
               DUMMY.value = zlarnd(5, ISEED);
@@ -773,37 +749,32 @@ void zlatmt(
                   EXTRA,
                   ZTEMP);
               ICOL = JCH;
-            } // 270
-          } // 280
-        } // 290
+            }
+          }
+        }
 
         // If we need lower triangle, copy from upper. Note that
         // the order of copying is chosen to work for 'q' -> 'b'
 
         if (IPACK != IPACKG && IPACK != 3) {
           for (JC = 1; JC <= N; JC++) {
-            // 320
             IROW = IOFFST - ISKEW * JC;
             if (CSYM) {
               for (JR = JC; JR <= min(N, JC + UUB); JR++) {
-                // 300
                 A[JR + IROW][JC] = A[JC - ISKEW * JR + IOFFG][JR];
-              } // 300
+              }
             } else {
               for (JR = JC; JR <= min(N, JC + UUB); JR++) {
-                // 310
                 A[JR + IROW][JC] = A[JC - ISKEW * JR + IOFFG][JR].conjugate();
-              } // 310
+              }
             }
-          } // 320
+          }
           if (IPACK == 5) {
             for (JC = N - UUB + 1; JC <= N; JC++) {
-              // 340
               for (JR = N + 2 - JC; JR <= UUB + 1; JR++) {
-                // 330
                 A[JR][JC] = Complex.zero;
-              } // 330
-            } // 340
+              }
+            }
           }
           if (IPACKG == 6) {
             IPACKG = IPACK;
@@ -822,14 +793,11 @@ void zlatmt(
         }
 
         for (J = 1; J <= MNMIN; J++) {
-          // 350
           A[(1 - ISKEW) * J + IOFFG][J] = D[J].toComplex();
-        } // 350
+        }
 
         for (K = 1; K <= UUB; K++) {
-          // 380
           for (JC = N - 1; JC >= 1; JC--) {
-            // 370
             IL = min(N + 1 - JC, K + 2);
             EXTRA.value = Complex.zero;
             ZTEMP.value = A[1 + (1 - ISKEW) * JC + IOFFG][JC];
@@ -863,7 +831,6 @@ void zlatmt(
 
             ICOL = JC;
             for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) {
-              // 360
               zlartg(A[JCH - ISKEW * ICOL + IOFFG][ICOL], EXTRA.value, REALC, S,
                   DUMMY);
               DUMMY.value = zlarnd(5, ISEED);
@@ -903,37 +870,32 @@ void zlatmt(
                   ZTEMP,
                   EXTRA);
               ICOL = JCH;
-            } // 360
-          } // 370
-        } // 380
+            }
+          }
+        }
 
         // If we need upper triangle, copy from lower. Note that
         // the order of copying is chosen to work for 'b' -> 'q'
 
         if (IPACK != IPACKG && IPACK != 4) {
           for (JC = N; JC >= 1; JC--) {
-            // 410
             IROW = IOFFST - ISKEW * JC;
             if (CSYM) {
               for (JR = JC; JR >= max(1, JC - UUB); JR--) {
-                // 390
                 A[JR + IROW][JC] = A[JC - ISKEW * JR + IOFFG][JR];
-              } // 390
+              }
             } else {
               for (JR = JC; JR >= max(1, JC - UUB); JR--) {
-                // 400
                 A[JR + IROW][JC] = A[JC - ISKEW * JR + IOFFG][JR].conjugate();
-              } // 400
+              }
             }
-          } // 410
+          }
           if (IPACK == 6) {
             for (JC = 1; JC <= UUB; JC++) {
-              // 430
               for (JR = 1; JR <= UUB + 1 - JC; JR++) {
-                // 420
                 A[JR][JC] = Complex.zero;
-              } // 420
-            } // 430
+              }
+            }
           }
           if (IPACKG == 5) {
             IPACKG = IPACK;
@@ -947,10 +909,9 @@ void zlatmt(
 
       if (!CSYM) {
         for (JC = 1; JC <= N; JC++) {
-          // 440
           IROW = IOFFST + (1 - ISKEW) * JC;
           A[IROW][JC] = A[IROW][JC].real.toComplex();
-        } // 440
+        }
       }
     }
   } else {
@@ -989,56 +950,48 @@ void zlatmt(
       // 'U' -- Upper triangular, not packed
 
       for (J = 1; J <= M; J++) {
-        // 460
         for (I = J + 1; I <= M; I++) {
-          // 450
           A[I][J] = Complex.zero;
-        } // 450
-      } // 460
+        }
+      }
     } else if (IPACK == 2) {
       // 'L' -- Lower triangular, not packed
 
       for (J = 2; J <= M; J++) {
-        // 480
         for (I = 1; I <= J - 1; I++) {
-          // 470
           A[I][J] = Complex.zero;
-        } // 470
-      } // 480
+        }
+      }
     } else if (IPACK == 3) {
       // 'C' -- Upper triangle packed Columnwise.
 
       ICOL = 1;
       IROW = 0;
       for (J = 1; J <= M; J++) {
-        // 500
         for (I = 1; I <= J; I++) {
-          // 490
           IROW++;
           if (IROW > LDA) {
             IROW = 1;
             ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
-        } // 490
-      } // 500
+        }
+      }
     } else if (IPACK == 4) {
       // 'R' -- Lower triangle packed Columnwise.
 
       ICOL = 1;
       IROW = 0;
       for (J = 1; J <= M; J++) {
-        // 520
         for (I = J; I <= M; I++) {
-          // 510
           IROW++;
           if (IROW > LDA) {
             IROW = 1;
             ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
-        } // 510
-      } // 520
+        }
+      }
     } else if (IPACK >= 5) {
       // 'B' -- The lower triangle is packed as a band matrix.
       // 'Q' -- The upper triangle is packed as a band matrix.
@@ -1048,20 +1001,16 @@ void zlatmt(
       if (IPACK == 6) LLB = 0;
 
       for (J = 1; J <= UUB; J++) {
-        // 540
         for (I = min(J + LLB, M); I >= 1; I--) {
-          // 530
           A[I - J + UUB + 1][J] = A[I][J];
-        } // 530
-      } // 540
+        }
+      }
 
       for (J = UUB + 2; J <= N; J++) {
-        // 560
         for (I = J - UUB; I <= min(J + LLB, M); I++) {
-          // 550
           A[I - J + UUB + 1][J] = A[I][J];
-        } // 550
-      } // 560
+        }
+      }
     }
 
     // If packed, zero out extraneous elements.
@@ -1071,13 +1020,11 @@ void zlatmt(
 
     if (IPACK == 3 || IPACK == 4) {
       for (JC = ICOL; JC <= M; JC++) {
-        // 580
         for (JR = IROW + 1; JR <= LDA; JR++) {
-          // 570
           A[JR][JC] = Complex.zero;
-        } // 570
+        }
         IROW = 0;
-      } // 580
+      }
     } else if (IPACK >= 5) {
       // Packed Band --
       //    1st row is now in A( UUB+2-j, j), zero above it
@@ -1088,15 +1035,13 @@ void zlatmt(
       IR1 = UUB + LLB + 2;
       IR2 = UUB + M + 2;
       for (JC = 1; JC <= N; JC++) {
-        // 610
         for (JR = 1; JR <= UUB + 1 - JC; JR++) {
-          // 590
           A[JR][JC] = Complex.zero;
-        } // 590
+        }
         for (JR = max(1, min(IR1, IR2 - JC)); JR <= LDA; JR++) {
           A[JR][JC] = Complex.zero;
-        } // 600
-      } // 610
+        }
+      }
     }
   }
 }

@@ -89,22 +89,18 @@ Future<void> zget37(
     await NIN.readMatrix(TMP, N, N);
 
     for (I = 1; I <= N; I++) {
-      // 30
       await NIN.readBoxes(WRIN(I), WIIN(I), SIN(I), SEPIN(I));
-    } // 30
+    }
     TNRM = zlange('M.value', N, N, TMP, LDT, RWORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {
-      // 260
-
       // Scale input matrix
 
       KNT.value++;
       zlacpy('F', N, N, TMP, LDT, T, LDT);
       VMUL = VAL[ISCL];
       for (I = 1; I <= N; I++) {
-        // 40
         zdscal(N, VMUL, T(1, I).asArray(), 1);
-      } // 40
+      }
       if (TNRM == ZERO) VMUL = ONE;
 
       // Compute eigenvalues and eigenvectors
@@ -116,12 +112,10 @@ Future<void> zget37(
         continue;
       }
       for (J = 1; J <= N - 2; J++) {
-        // 60
         for (I = J + 2; I <= N; I++) {
-          // 50
           T[I][J] = Complex.zero;
-        } // 50
-      } // 60
+        }
+      }
 
       // Compute Schur form
 
@@ -136,9 +130,8 @@ Future<void> zget37(
       // Compute eigenvectors
 
       for (I = 1; I <= N; I++) {
-        // 70
         SELECT[I] = true;
-      } // 70
+      }
       ztrevc('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK,
           INFO);
 
@@ -160,31 +153,27 @@ Future<void> zget37(
         // Sort by increasing real part
 
         for (I = 1; I <= N; I++) {
-          // 80
           WSRT[I] = (W[I]).toDouble();
-        } // 80
+        }
       } else {
         // Sort by increasing imaginary part
 
         for (I = 1; I <= N; I++) {
-          // 90
           WSRT[I] = W[I].imaginary;
-        } // 90
+        }
       }
       dcopy(N, S, 1, STMP, 1);
       dcopy(N, SEP, 1, SEPTMP, 1);
       dscal(N, ONE / VMUL, SEPTMP, 1);
       for (I = 1; I <= N - 1; I++) {
-        // 110
         KMIN = I;
         VMIN = WSRT[I];
         for (J = I + 1; J <= N; J++) {
-          // 100
           if (WSRT[J] < VMIN) {
             KMIN = J;
             VMIN = WSRT[J];
           }
-        } // 100
+        }
         WSRT[KMIN] = WSRT[I];
         WSRT[I] = VMIN;
         VCMIN = (WTMP[I]).toDouble();
@@ -196,7 +185,7 @@ Future<void> zget37(
         VMIN = SEPTMP[KMIN];
         SEPTMP[KMIN] = SEPTMP[I];
         SEPTMP[I] = VMIN;
-      } // 110
+      }
 
       // Compare condition numbers for eigenvalues
       // taking their condition numbers into account
@@ -204,7 +193,6 @@ Future<void> zget37(
       V = max(TWO * N.toDouble() * EPS * TNRM, SMLNUM);
       if (TNRM == ZERO) V = ONE;
       for (I = 1; I <= N; I++) {
-        // 120
         if (V > SEPTMP[I]) {
           TOL = ONE;
         } else {
@@ -232,13 +220,12 @@ Future<void> zget37(
           RMAX[2] = VMAX;
           if (NINFO[2] == 0) LMAX[2] = KNT.value;
         }
-      } // 120
+      }
 
       // Compare condition numbers for eigenvectors
       // taking their condition numbers into account
 
       for (I = 1; I <= N; I++) {
-        // 130
         if (V > SEPTMP[I] * STMP[I]) {
           TOL = SEPTMP[I];
         } else {
@@ -266,13 +253,12 @@ Future<void> zget37(
           RMAX[2] = VMAX;
           if (NINFO[2] == 0) LMAX[2] = KNT.value;
         }
-      } // 130
+      }
 
       // Compare condition numbers for eigenvalues
       // without taking their condition numbers into account
 
       for (I = 1; I <= N; I++) {
-        // 140
         if (SIN[I] <= 2 * N * EPS && STMP[I] <= 2 * N * EPS) {
           VMAX = ONE;
         } else if (EPS * SIN[I] > STMP[I]) {
@@ -290,13 +276,12 @@ Future<void> zget37(
           RMAX[3] = VMAX;
           if (NINFO[3] == 0) LMAX[3] = KNT.value;
         }
-      } // 140
+      }
 
       // Compare condition numbers for eigenvectors
       // without taking their condition numbers into account
 
       for (I = 1; I <= N; I++) {
-        // 150
         if (SEPIN[I] <= V && SEPTMP[I] <= V) {
           VMAX = ONE;
         } else if (EPS * SEPIN[I] > SEPTMP[I]) {
@@ -314,7 +299,7 @@ Future<void> zget37(
           RMAX[3] = VMAX;
           if (NINFO[3] == 0) LMAX[3] = KNT.value;
         }
-      } // 150
+      }
 
       // Compute eigenvalue condition numbers only and compare
 
@@ -330,10 +315,9 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= N; I++) {
-        // 160
         if (STMP[I] != S[I]) VMAX = ONE / EPS;
         if (SEPTMP[I] != DUM[1]) VMAX = ONE / EPS;
-      } // 160
+      }
 
       // Compute eigenvector condition numbers only and compare
 
@@ -347,17 +331,15 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= N; I++) {
-        // 170
         if (STMP[I] != DUM[1]) VMAX = ONE / EPS;
         if (SEPTMP[I] != SEP[I]) VMAX = ONE / EPS;
-      } // 170
+      }
 
       // Compute all condition numbers using SELECT and compare
 
       for (I = 1; I <= N; I++) {
-        // 180
         SELECT[I] = true;
-      } // 180
+      }
       dcopy(N, DUM, 0, STMP, 1);
       dcopy(N, DUM, 0, SEPTMP, 1);
       ztrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M,
@@ -368,10 +350,9 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= N; I++) {
-        // 190
         if (SEPTMP[I] != SEP[I]) VMAX = ONE / EPS;
         if (STMP[I] != S[I]) VMAX = ONE / EPS;
-      } // 190
+      }
 
       // Compute eigenvalue condition numbers using SELECT and compare
 
@@ -385,10 +366,9 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= N; I++) {
-        // 200
         if (STMP[I] != S[I]) VMAX = ONE / EPS;
         if (SEPTMP[I] != DUM[1]) VMAX = ONE / EPS;
-      } // 200
+      }
 
       // Compute eigenvector condition numbers using SELECT and compare
 
@@ -402,10 +382,9 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= N; I++) {
-        // 210
         if (STMP[I] != DUM[1]) VMAX = ONE / EPS;
         if (SEPTMP[I] != SEP[I]) VMAX = ONE / EPS;
-      } // 210
+      }
       if (VMAX > RMAX[1]) {
         RMAX[1] = VMAX;
         if (NINFO[1] == 0) LMAX[1] = KNT.value;
@@ -414,9 +393,8 @@ Future<void> zget37(
       // Select second and next to last eigenvalues
 
       for (I = 1; I <= N; I++) {
-        // 220
         SELECT[I] = false;
-      } // 220
+      }
       ICMP = 0;
       if (N > 1) {
         ICMP = 1;
@@ -445,11 +423,10 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= ICMP; I++) {
-        // 230
         J = LCMP[I];
         if (SEPTMP[I] != SEP[J]) VMAX = ONE / EPS;
         if (STMP[I] != S[J]) VMAX = ONE / EPS;
-      } // 230
+      }
 
       // Compute selected eigenvalue condition numbers
 
@@ -463,11 +440,10 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= ICMP; I++) {
-        // 240
         J = LCMP[I];
         if (STMP[I] != S[J]) VMAX = ONE / EPS;
         if (SEPTMP[I] != DUM[1]) VMAX = ONE / EPS;
-      } // 240
+      }
 
       // Compute selected eigenvector condition numbers
 
@@ -481,15 +457,14 @@ Future<void> zget37(
         continue;
       }
       for (I = 1; I <= ICMP; I++) {
-        // 250
         J = LCMP[I];
         if (STMP[I] != DUM[1]) VMAX = ONE / EPS;
         if (SEPTMP[I] != SEP[J]) VMAX = ONE / EPS;
-      } // 250
+      }
       if (VMAX > RMAX[1]) {
         RMAX[1] = VMAX;
         if (NINFO[1] == 0) LMAX[1] = KNT.value;
       }
-    } // 260
+    }
   }
 }

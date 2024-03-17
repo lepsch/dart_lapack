@@ -43,8 +43,6 @@ void zgeqr2p(
   K = min(M, N);
 
   for (I = 1; I <= K; I++) {
-    // 10
-
     // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
     zlarfgp(M - I + 1, A(I, I), A(min(I + 1, M), I).asArray(), 1, TAU(I));
@@ -57,5 +55,5 @@ void zgeqr2p(
           A(I, I + 1), LDA, WORK);
       A[I][I] = ALPHA;
     }
-  } // 10
+  }
 }

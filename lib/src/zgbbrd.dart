@@ -145,14 +145,11 @@ void zgbbrd(
     J2 = 1 - KUN;
 
     for (I = 1; I <= MINMN; I++) {
-      // 90
-
       // Reduce i-th column and i-th row of matrix to bidiagonal form
 
       ML = KLM + 1;
       MU = KUN + 1;
       for (KK = 1; KK <= KB; KK++) {
-        // 80
         J1 += KB;
         J2 += KB;
 
@@ -167,7 +164,6 @@ void zgbbrd(
         // apply plane rotations from the left
 
         for (L = 1; L <= KB; L++) {
-          // 10
           if (J2 - KLM + L - 1 > N) {
             NRT = NR - 1;
           } else {
@@ -184,7 +180,7 @@ void zgbbrd(
                 WORK(J1),
                 KB1);
           }
-        } // 10
+        }
 
         if (ML > ML0) {
           if (ML <= M - I + 1) {
@@ -213,20 +209,18 @@ void zgbbrd(
           // accumulate product of plane rotations in Q
 
           for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
-            // 20
             zrot(M, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, RWORK[J],
                 WORK[J].conjugate());
-          } // 20
+          }
         }
 
         if (WANTC) {
           // apply plane rotations to C
 
           for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
-            // 30
             zrot(NCC, C(J - 1, 1).asArray(), LDC, C(J, 1).asArray(), LDC,
                 RWORK[J], WORK[J]);
-          } // 30
+          }
         }
 
         if (J2 + KUN > N) {
@@ -237,14 +231,12 @@ void zgbbrd(
         }
 
         for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
-          // 40
-
           // create nonzero element a(j-1,j+ku) above the band
           // and store it in WORK(n+1:2*n)
 
           WORK[J + KUN] = WORK[J] * AB[1][J + KUN];
           AB[1][J + KUN] = RWORK[J].toComplex() * AB[1][J + KUN];
-        } // 40
+        }
 
         // generate plane rotations to annihilate nonzero elements
         // which have been generated above the band
@@ -257,7 +249,6 @@ void zgbbrd(
         // apply plane rotations from the right
 
         for (L = 1; L <= KB; L++) {
-          // 50
           if (J2 + L - 1 > M) {
             NRT = NR - 1;
           } else {
@@ -274,7 +265,7 @@ void zgbbrd(
                 WORK(J1 + KUN),
                 KB1);
           }
-        } // 50
+        }
 
         if (ML == ML0 && MU > MU0) {
           if (MU <= N - I + 1) {
@@ -301,7 +292,6 @@ void zgbbrd(
           // accumulate product of plane rotations in P**H
 
           for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
-            // 60
             zrot(
                 N,
                 PT(J + KUN - 1, 1).asArray(),
@@ -310,7 +300,7 @@ void zgbbrd(
                 LDPT,
                 RWORK[J + KUN],
                 WORK[J + KUN].conjugate());
-          } // 60
+          }
         }
 
         if (J2 + KB > M) {
@@ -321,22 +311,20 @@ void zgbbrd(
         }
 
         for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
-          // 70
-
           // create nonzero element a(j+kl+ku,j+ku-1) below the
           // band and store it in WORK(1:n)
 
           WORK[J + KB] = WORK[J + KUN] * AB[KLU1][J + KUN];
           AB[KLU1][J + KUN] = RWORK[J + KUN].toComplex() * AB[KLU1][J + KUN];
-        } // 70
+        }
 
         if (ML > ML0) {
           ML--;
         } else {
           MU--;
         }
-      } // 80
-    } // 90
+      }
+    }
   }
 
   if (KU == 0 && KL > 0) {
@@ -347,7 +335,6 @@ void zgbbrd(
     // elements on subdiagonal elements
 
     for (I = 1; I <= min(M - 1, N); I++) {
-      // 100
       zlartg(AB[1][I], AB[2][I], RC, RS, RA);
       AB[1][I] = RA.value;
       if (I < N) {
@@ -362,7 +349,7 @@ void zgbbrd(
         zrot(NCC, C(I, 1).asArray(), LDC, C(I + 1, 1).asArray(), LDC,
             RC as double, RS as Complex);
       }
-    } // 100
+    }
   } else {
     // A has been reduced to complex upper bidiagonal form or is
     // diagonal
@@ -373,7 +360,6 @@ void zgbbrd(
 
       RB = AB[KU][M + 1];
       for (I = M; I >= 1; I--) {
-        // 110
         zlartg(AB[KU + 1][I], RB, RC, RS, RA);
         AB[KU + 1][I] = RA.value;
         if (I > 1) {
@@ -384,7 +370,7 @@ void zgbbrd(
           zrot(N, PT(I, 1).asArray(), LDPT, PT(M + 1, 1).asArray(), LDPT,
               RC.value, RS.value.conjugate());
         }
-      } // 110
+      }
     }
   }
 
@@ -393,7 +379,6 @@ void zgbbrd(
 
   T = AB[KU + 1][1];
   for (I = 1; I <= MINMN; I++) {
-    // 120
     ABST = (T).abs();
     D[I] = ABST;
     if (ABST != ZERO) {
@@ -424,5 +409,5 @@ void zgbbrd(
         T = AB[KU + 1][I + 1] * T.conjugate();
       }
     }
-  } // 120
+  }
 }

@@ -178,16 +178,14 @@ void zsytf2(
             D12 = T / D12;
 
             for (J = K - 2; J >= 1; J--) {
-              // 30
               WKM1 = D12 * (D11 * A[J][K - 1] - A[J][K]);
               WK = D12 * (D22 * A[J][K] - A[J][K - 1]);
               for (I = J; I >= 1; I--) {
-                // 20
                 A[I][J] -= A[I][K] * WK - A[I][K - 1] * WKM1;
-              } // 20
+              }
               A[J][K] = WK;
               A[J][K - 1] = WKM1;
-            } // 30
+            }
           }
         }
       }
@@ -333,16 +331,14 @@ void zsytf2(
             D21 = T / D21;
 
             for (J = K + 2; J <= N; J++) {
-              // 60
               WK = D21 * (D11 * A[J][K] - A[J][K + 1]);
               WKP1 = D21 * (D22 * A[J][K + 1] - A[J][K]);
               for (I = J; I <= N; I++) {
-                // 50
                 A[I][J] -= A[I][K] * WK - A[I][K + 1] * WKP1;
-              } // 50
+              }
               A[J][K] = WK;
               A[J][K + 1] = WKP1;
-            } // 60
+            }
           }
         }
       }

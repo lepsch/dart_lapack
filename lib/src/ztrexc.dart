@@ -71,8 +71,6 @@ void ztrexc(
   }
 
   for (K = IFST + M1; M3 < 0 ? K >= ILST + M2 : K <= ILST + M2; K += M3) {
-    // 10
-
     // Interchange the k-th and (k+1)-th diagonal elements.
 
     T11 = T[K][K];
@@ -100,5 +98,5 @@ void ztrexc(
       zrot(N, Q(1, K).asArray(), 1, Q(1, K + 1).asArray(), 1, CS.value,
           SN.value.conjugate());
     }
-  } // 10
+  }
 }

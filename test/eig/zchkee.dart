@@ -324,7 +324,6 @@ void main() async {
           VNAME = '    N ';
         }
         for (I = 1; I <= NN; I++) {
-          // 20
           if (MVAL[I] < 0) {
             _print9989(NOUT, VNAME, MVAL[I], 0);
             FATAL = true;
@@ -332,7 +331,7 @@ void main() async {
             _print9988(NOUT, VNAME, MVAL[I], NMAX);
             FATAL = true;
           }
-        } // 20
+        }
         _print9983(NOUT, 'M:    ', MVAL, NN);
       }
 
@@ -341,7 +340,6 @@ void main() async {
       if (GLM || GQR || GSV || CSD || LSE) {
         await NIN.readArray(PVAL, NN);
         for (I = 1; I <= NN; I++) {
-          // 30
           if (PVAL[I] < 0) {
             _print9989(NOUT, ' P  ', PVAL[I], 0);
             FATAL = true;
@@ -349,7 +347,7 @@ void main() async {
             _print9988(NOUT, ' P  ', PVAL[I], NMAX);
             FATAL = true;
           }
-        } // 30
+        }
         _print9983(NOUT, 'P:    ', PVAL, NN);
       }
 
@@ -358,7 +356,6 @@ void main() async {
       if (SVD || ZBB || GLM || GQR || GSV || CSD || LSE) {
         await NIN.readArray(NVAL, NN);
         for (I = 1; I <= NN; I++) {
-          // 40
           if (NVAL[I] < 0) {
             _print9989(NOUT, '    N ', NVAL[I], 0);
             FATAL = true;
@@ -366,12 +363,11 @@ void main() async {
             _print9988(NOUT, '    N ', NVAL[I], NMAX);
             FATAL = true;
           }
-        } // 40
+        }
       } else {
         for (I = 1; I <= NN; I++) {
-          // 50
           NVAL[I] = MVAL[I];
-        } // 50
+        }
       }
       if (!(ZGX || ZXV)) {
         _print9983(NOUT, 'N:    ', NVAL, NN);
@@ -385,7 +381,6 @@ void main() async {
         NK = await NIN.readInt();
         await NIN.readArray(KVAL, NK);
         for (I = 1; I <= NK; I++) {
-          // 60
           if (KVAL[I] < 0) {
             _print9989(NOUT, '    K ', KVAL[I], 0);
             FATAL = true;
@@ -393,7 +388,7 @@ void main() async {
             _print9988(NOUT, '    K ', KVAL[I], NMAX);
             FATAL = true;
           }
-        } // 60
+        }
         _print9983(NOUT, 'K:    ', KVAL, NK);
       }
 
@@ -495,7 +490,6 @@ void main() async {
         if (!ZBB) {
           await NIN.readArray(NBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 70
             if (NBVAL[I] < 0) {
               _print9989(NOUT, '   NB ', NBVAL[I], 0);
               FATAL = true;
@@ -503,7 +497,7 @@ void main() async {
               _print9988(NOUT, '   NB ', NBVAL[I], NMAX);
               FATAL = true;
             }
-          } // 70
+          }
           _print9983(NOUT, 'NB:   ', NBVAL, NPARMS);
         }
 
@@ -512,7 +506,6 @@ void main() async {
         if (NEP || SEP || SVD || ZGG) {
           await NIN.readArray(NBMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 80
             if (NBMIN[I] < 0) {
               _print9989(NOUT, 'NBMIN ', NBMIN[I], 0);
               FATAL = true;
@@ -520,13 +513,12 @@ void main() async {
               _print9988(NOUT, 'NBMIN ', NBMIN[I], NMAX);
               FATAL = true;
             }
-          } // 80
+          }
           _print9983(NOUT, 'NBMIN:', NBMIN, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 90
             NBMIN[I] = 1;
-          } // 90
+          }
         }
 
         // Read the values of NX
@@ -534,7 +526,6 @@ void main() async {
         if (NEP || SEP || SVD) {
           await NIN.readArray(NXVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 100
             if (NXVAL[I] < 0) {
               _print9989(NOUT, '   NX ', NXVAL[I], 0);
               FATAL = true;
@@ -542,13 +533,12 @@ void main() async {
               _print9988(NOUT, '   NX ', NXVAL[I], NMAX);
               FATAL = true;
             }
-          } // 100
+          }
           _print9983(NOUT, 'NX:   ', NXVAL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 110
             NXVAL[I] = 1;
-          } // 110
+          }
         }
 
         // Read the values of cenvir.NSHIFT (if ZGG) or NRHS (if SVD
@@ -557,7 +547,6 @@ void main() async {
         if (SVD || ZBB || ZGG) {
           await NIN.readArray(NSVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 120
             if (NSVAL[I] < 0) {
               _print9989(NOUT, '   NS ', NSVAL[I], 0);
               FATAL = true;
@@ -565,13 +554,12 @@ void main() async {
               _print9988(NOUT, '   NS ', NSVAL[I], NMAX);
               FATAL = true;
             }
-          } // 120
+          }
           _print9983(NOUT, 'NS:   ', NSVAL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 130
             NSVAL[I] = 1;
-          } // 130
+          }
         }
 
         // Read the values for cenvir.MAXB.
@@ -579,7 +567,6 @@ void main() async {
         if (ZGG) {
           await NIN.readArray(MXBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 140
             if (MXBVAL[I] < 0) {
               _print9989(NOUT, ' cenvir.MAXB ', MXBVAL[I], 0);
               FATAL = true;
@@ -587,13 +574,12 @@ void main() async {
               _print9988(NOUT, ' cenvir.MAXB ', MXBVAL[I], NMAX);
               FATAL = true;
             }
-          } // 140
+          }
           _print9983(NOUT, 'cenvir.MAXB: ', MXBVAL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 150
             MXBVAL[I] = 1;
-          } // 150
+          }
         }
 
         // Read the values for INMIN.
@@ -601,18 +587,16 @@ void main() async {
         if (NEP) {
           await NIN.readArray(INMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 540
             if (INMIN[I] < 0) {
               _print9989(NOUT, ' INMIN ', INMIN[I], 0);
               FATAL = true;
             }
-          } // 540
+          }
           _print9983(NOUT, 'INMIN: ', INMIN, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 550
             INMIN[I] = 1;
-          } // 550
+          }
         }
 
         // Read the values for INWIN.
@@ -620,18 +604,16 @@ void main() async {
         if (NEP) {
           await NIN.readArray(INWIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 560
             if (INWIN[I] < 0) {
               _print9989(NOUT, ' INWIN ', INWIN[I], 0);
               FATAL = true;
             }
-          } // 560
+          }
           _print9983(NOUT, 'INWIN: ', INWIN, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 570
             INWIN[I] = 1;
-          } // 570
+          }
         }
 
         // Read the values for INIBL.
@@ -639,18 +621,16 @@ void main() async {
         if (NEP) {
           await NIN.readArray(INIBL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 580
             if (INIBL[I] < 0) {
               _print9989(NOUT, ' INIBL ', INIBL[I], 0);
               FATAL = true;
             }
-          } // 580
+          }
           _print9983(NOUT, 'INIBL: ', INIBL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 590
             INIBL[I] = 1;
-          } // 590
+          }
         }
 
         // Read the values for ISHFTS.
@@ -658,18 +638,16 @@ void main() async {
         if (NEP) {
           await NIN.readArray(ISHFTS, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 600
             if (ISHFTS[I] < 0) {
               _print9989(NOUT, ' ISHFTS ', ISHFTS[I], 0);
               FATAL = true;
             }
-          } // 600
+          }
           _print9983(NOUT, 'ISHFTS: ', ISHFTS, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 610
             ISHFTS[I] = 1;
-          } // 610
+          }
         }
 
         // Read the values for IACC22.
@@ -677,18 +655,16 @@ void main() async {
         if (NEP || ZGG) {
           await NIN.readArray(IACC22, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 620
             if (IACC22[I] < 0) {
               _print9989(NOUT, ' IACC22 ', IACC22[I], 0);
               FATAL = true;
             }
-          } // 620
+          }
           _print9983(NOUT, 'IACC22: ', IACC22, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 630
             IACC22[I] = 1;
-          } // 630
+          }
         }
 
         // Read the values for NBCOL.
@@ -696,7 +672,6 @@ void main() async {
         if (ZGG) {
           await NIN.readArray(NBCOL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
-            // 160
             if (NBCOL[I] < 0) {
               _print9989(NOUT, 'NBCOL ', NBCOL[I], 0);
               FATAL = true;
@@ -704,13 +679,12 @@ void main() async {
               _print9988(NOUT, 'NBCOL ', NBCOL[I], NMAX);
               FATAL = true;
             }
-          } // 160
+          }
           _print9983(NOUT, 'NBCOL:', NBCOL, NPARMS);
         } else {
           for (I = 1; I <= NPARMS; I++) {
-            // 170
             NBCOL[I] = 1;
-          } // 170
+          }
         }
       }
 
@@ -752,9 +726,8 @@ void main() async {
       if (NEWSD == 2) await NIN.readArray(IOLDSD, 4);
 
       for (I = 1; I <= 4; I++) {
-        // 180
         ISEED[I] = IOLDSD[I];
-      } // 180
+      }
 
       if (FATAL) {
         NOUT.println('\n Execution not attempted due to input errors');
@@ -768,7 +741,6 @@ void main() async {
 
       do {
         if (!(ZGX || ZXV)) {
-          //  } // 200
           nextLine:
           while (true) {
             LINE = await NIN.readLine();
@@ -777,7 +749,6 @@ void main() async {
             I = 3;
             ITMP = 0;
             I1 = 0;
-            //  } // 210
             nextChar:
             while (true) {
               I++;
@@ -797,26 +768,23 @@ void main() async {
                 // Check that a valid integer was read
                 var isValidDigit = false;
                 for (K = 1; K <= 10; K++) {
-                  // 220
                   if (C1 == INTSTR[K - 1]) {
                     IC = K - 1;
                     isValidDigit = true;
                     break;
                   }
-                } // 220
+                }
                 if (!isValidDigit) {
                   NOUT.println(
                       '\n\n *** Invalid integer value in column ${I.i2} of input line:\n${LINE.a79}');
                   continue nextLine;
                 }
-                // } // 230
                 ITMP = 10 * ITMP + IC;
                 continue nextChar;
               } else if (I1 > 0) {
                 break nextChar;
               }
             }
-            //  } // 240
             NTYPES = ITMP;
 
             // Skip the tests if NTYPES is <= 0.
@@ -836,9 +804,8 @@ void main() async {
 
         if (NEWSD == 0) {
           for (K = 1; K <= 4; K++) {
-            // 250
             ISEED[K] = IOLDSD[K];
-          } // 250
+          }
         }
 
         if (lsamen(3, C3, 'ZHS') || lsamen(3, C3, 'NEP')) {
@@ -858,7 +825,6 @@ void main() async {
           xlaenv(1, 1);
           if (TSTERR) zerrhs('ZHSEQR', NOUT);
           for (I = 1; I <= NPARMS; I++) {
-            // 270
             xlaenv(1, NBVAL[I]);
             xlaenv(2, NBMIN[I]);
             xlaenv(3, NXVAL[I]);
@@ -870,9 +836,8 @@ void main() async {
 
             if (NEWSD == 0) {
               for (K = 1; K <= 4; K++) {
-                // 260
                 ISEED[K] = IOLDSD[K];
-              } // 260
+              }
             }
             NOUT.println(
                 '\n\n ${C3.a3}:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN[I]).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}');
@@ -909,7 +874,7 @@ void main() async {
                 RESULT,
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'ZCHKHS', INFO.value);
-          } // 270
+          }
         } else if (lsamen(3, C3, 'ZST') ||
             lsamen(3, C3, 'SEP') ||
             lsamen(3, C3, 'SE2')) {
@@ -938,16 +903,14 @@ void main() async {
             // #endif
           }
           for (I = 1; I <= NPARMS; I++) {
-            // 290
             xlaenv(1, NBVAL[I]);
             xlaenv(2, NBMIN[I]);
             xlaenv(3, NXVAL[I]);
 
             if (NEWSD == 0) {
               for (K = 1; K <= 4; K++) {
-                // 280
                 ISEED[K] = IOLDSD[K];
-              } // 280
+              }
             }
             _print9997(NOUT, C3, NBVAL[I], NBMIN[I], NXVAL[I]);
             if (TSTCHK) {
@@ -1092,7 +1055,7 @@ void main() async {
               }
               if (INFO.value != 0) _print9980(NOUT, 'ZDRVST', INFO.value);
             }
-          } // 290
+          }
         } else if (lsamen(3, C3, 'ZSG')) {
           // ----------------------------------------------
           // ZSG:  Hermitian Generalized Eigenvalue Problem
@@ -1107,16 +1070,14 @@ void main() async {
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           xlaenv(9, 25);
           for (I = 1; I <= NPARMS; I++) {
-            // 310
             xlaenv(1, NBVAL[I]);
             xlaenv(2, NBMIN[I]);
             xlaenv(3, NXVAL[I]);
 
             if (NEWSD == 0) {
               for (K = 1; K <= 4; K++) {
-                // 300
                 ISEED[K] = IOLDSD[K];
-              } // 300
+              }
             }
             _print9997(NOUT, C3, NBVAL[I], NBMIN[I], NXVAL[I]);
             if (TSTCHK) {
@@ -1156,7 +1117,7 @@ void main() async {
                   INFO);
               if (INFO.value != 0) _print9980(NOUT, 'ZDRVSG', INFO.value);
             }
-          } // 310
+          }
         } else if (lsamen(3, C3, 'ZBD') || lsamen(3, C3, 'SVD')) {
           // ----------------------------------
           // SVD:  Singular Value Decomposition
@@ -1179,16 +1140,14 @@ void main() async {
           if (TSTERR && TSTDRV) zerred('ZBD', NOUT);
 
           for (I = 1; I <= NPARMS; I++) {
-            // 330
             NRHS = NSVAL[I];
             xlaenv(1, NBVAL[I]);
             xlaenv(2, NBMIN[I]);
             xlaenv(3, NXVAL[I]);
             if (NEWSD == 0) {
               for (K = 1; K <= 4; K++) {
-                // 320
                 ISEED[K] = IOLDSD[K];
-              } // 320
+              }
             }
             NOUT.println(
                 '\n\n ${C3.a3}:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS =${NRHS.i4}');
@@ -1253,7 +1212,7 @@ void main() async {
                   NOUT,
                   INFO);
             }
-          } // 330
+          }
         } else if (lsamen(3, C3, 'ZEV')) {
           // --------------------------------------------
           // ZEV:  Nonsymmetric Eigenvalue Problem Driver
@@ -1446,7 +1405,6 @@ void main() async {
           xlaenv(1, 1);
           if (TSTCHK && TSTERR) zerrgg(C3, NOUT);
           for (I = 1; I <= NPARMS; I++) {
-            // 350
             xlaenv(1, NBVAL[I]);
             xlaenv(2, NBMIN[I]);
             xlaenv(4, NSVAL[I]);
@@ -1456,9 +1414,8 @@ void main() async {
 
             if (NEWSD == 0) {
               for (K = 1; K <= 4; K++) {
-                // 340
                 ISEED[K] = IOLDSD[K];
-              } // 340
+              }
             }
             NOUT.println(
                 '\n\n ${C3.a3}:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, cenvir.MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}');
@@ -1503,7 +1460,7 @@ void main() async {
                   INFO);
               if (INFO.value != 0) _print9980(NOUT, 'ZCHKGG', INFO.value);
             }
-          } // 350
+          }
         } else if (lsamen(3, C3, 'ZGS')) {
           // -------------------------------------------------
           // ZGS:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1799,14 +1756,12 @@ void main() async {
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           for (I = 1; I <= NPARMS; I++) {
-            // 370
             NRHS = NSVAL[I];
 
             if (NEWSD == 0) {
               for (K = 1; K <= 4; K++) {
-                // 360
                 ISEED[K] = IOLDSD[K];
-              } // 360
+              }
             }
             NOUT.println('\n\n ${C3.a3}:  NRHS =${NRHS.i4}');
             zchkbb(
@@ -1840,7 +1795,7 @@ void main() async {
                 RESULT,
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'ZCHKBB', INFO.value);
-          } // 370
+          }
         } else if (lsamen(3, C3, 'GLM')) {
           // -----------------------------------------
           // GLM:  Generalized Linear Regression Model

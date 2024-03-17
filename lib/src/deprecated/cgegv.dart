@@ -273,17 +273,17 @@
                INFO = N + 8;
                GO TO 80;
             }
-            for (JC = 1; JC <= N; JC++) { // 30
+            for (JC = 1; JC <= N; JC++) {
                TEMP = ZERO;
-               for (JR = 1; JR <= N; JR++) { // 10
+               for (JR = 1; JR <= N; JR++) {
                   TEMP = max( TEMP, ABS1( VL( JR, JC ) ) );
-               } // 10
+               }
                if (TEMP < SAFMIN) GO TO 30;
                TEMP = ONE / TEMP;
-               for (JR = 1; JR <= N; JR++) { // 20
+               for (JR = 1; JR <= N; JR++) {
                   VL[JR][JC] = VL( JR, JC )*TEMP;
-               } // 20
-            } // 30
+               }
+            }
          }
          if ( ILVR ) {
             cggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IINFO );
@@ -291,17 +291,17 @@
                INFO = N + 9;
                GO TO 80;
             }
-            for (JC = 1; JC <= N; JC++) { // 60
+            for (JC = 1; JC <= N; JC++) {
                TEMP = ZERO;
-               for (JR = 1; JR <= N; JR++) { // 40
+               for (JR = 1; JR <= N; JR++) {
                   TEMP = max( TEMP, ABS1( VR( JR, JC ) ) );
-               } // 40
+               }
                if (TEMP < SAFMIN) GO TO 60;
                TEMP = ONE / TEMP;
-               for (JR = 1; JR <= N; JR++) { // 50
+               for (JR = 1; JR <= N; JR++) {
                   VR[JR][JC] = VR( JR, JC )*TEMP;
-               } // 50
-            } // 60
+               }
+            }
          }
 
          // End of eigenvector calculation
@@ -316,7 +316,7 @@
       // Un-scaling is limited to avoid underflow in alpha and beta
       // if they are significant.
 
-      for (JC = 1; JC <= N; JC++) { // 70
+      for (JC = 1; JC <= N; JC++) {
          ABSAR = ABS( double( ALPHA( JC ) ) );
          ABSAI = ABS( AIMAG( ALPHA( JC ) ) );
          ABSB = ABS( double( BETA( JC ) ) );
@@ -362,9 +362,9 @@
          }
          ALPHA[JC] = CMPLX( SALFAR, SALFAI );
          BETA[JC] = SBETA;
-      } // 70
+      }
 
-      } // 80
+      }
       WORK[1] = LWKOPT;
 
       }

@@ -56,22 +56,17 @@ void zlaghe(
   // initialize lower triangle of A to diagonal matrix
 
   for (J = 1; J <= N; J++) {
-    // 20
     for (I = J + 1; I <= N; I++) {
-      // 10
       A[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= N; I++) {
-    // 30
     A[I][I] = D[I].toComplex();
-  } // 30
+  }
 
   // Generate lower triangle of hermitian matrix
 
   for (I = N - 1; I >= 1; I--) {
-    // 40
-
     // generate random reflection
 
     zlarnv(3, ISEED, N - I + 1, WORK);
@@ -103,13 +98,11 @@ void zlaghe(
 
     zher2('Lower', N - I + 1, -Complex.one, WORK, 1, WORK(N + 1), 1, A(I, I),
         LDA);
-  } // 40
+  }
 
   // Reduce number of subdiagonals to K
 
   for (I = 1; I <= N - 1 - K; I++) {
-    // 60
-
     // generate reflection to annihilate A(k+i+1:n,i)
 
     WN = dznrm2(N - K - I + 1, A(K + I, I).asArray(), 1);
@@ -150,18 +143,15 @@ void zlaghe(
 
     A[K + I][I] = -WA;
     for (J = K + I + 1; J <= N; J++) {
-      // 50
       A[J][I] = Complex.zero;
-    } // 50
-  } // 60
+    }
+  }
 
   // Store full hermitian matrix
 
   for (J = 1; J <= N; J++) {
-    // 80
     for (I = J + 1; I <= N; I++) {
-      // 70
       A[J][I] = A[I][J].abs().toComplex();
-    } // 70
-  } // 80
+    }
+  }
 }

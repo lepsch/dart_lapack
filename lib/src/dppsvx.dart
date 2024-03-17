@@ -124,12 +124,10 @@ void dppsvx(
 
   if (RCEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 30
       for (I = 1; I <= N; I++) {
-        // 20
         B[I][J] = S[I] * B[I][J];
-      } // 20
-    } // 30
+      }
+    }
   }
 
   if (NOFACT || EQUIL) {
@@ -169,16 +167,13 @@ void dppsvx(
 
   if (RCEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 50
       for (I = 1; I <= N; I++) {
-        // 40
         X[I][J] = S[I] * X[I][J];
-      } // 40
-    } // 50
+      }
+    }
     for (J = 1; J <= NRHS; J++) {
-      // 60
       FERR[J] /= SCOND.value;
-    } // 60
+    }
   }
 
   // Set INFO.value = N+1 if the matrix is singular to working precision.

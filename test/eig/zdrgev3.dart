@@ -148,10 +148,9 @@ void zdrgev3(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   if (NSIZES < 0) {
     INFO.value = -1;
@@ -217,7 +216,6 @@ void zdrgev3(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 220
     N = NN[JSIZE];
     N1 = max(1, N);
     RMAGN[2] = SAFMAX * ULP / N1.toDouble();
@@ -230,15 +228,13 @@ void zdrgev3(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 210
       if (!DOTYPE[JTYPE]) continue;
 
       // Save ISEED in case of an error.
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Generate test matrices A and B
 
@@ -327,12 +323,10 @@ void zdrgev3(
             // a diagonal matrix.
 
             for (JC = 1; JC <= N - 1; JC++) {
-              // 40
               for (JR = JC; JR <= N; JR++) {
-                // 30
                 Q[JR][JC] = zlarnd(3, ISEED);
                 Z[JR][JC] = zlarnd(3, ISEED);
-              } // 30
+              }
               zlarfg(
                   N + 1 - JC, Q(JC, JC), Q(JC + 1, JC).asArray(), 1, WORK(JC));
               WORK[2 * N + JC] = sign(ONE, Q[JC][JC].toDouble()).toComplex();
@@ -341,7 +335,7 @@ void zdrgev3(
                   WORK(N + JC));
               WORK[3 * N + JC] = sign(ONE, Z[JC][JC].toDouble()).toComplex();
               Z[JC][JC] = Complex.one;
-            } // 40
+            }
             CTEMP = zlarnd(3, ISEED);
             Q[N][N] = Complex.one;
             WORK[N] = Complex.zero;
@@ -354,15 +348,13 @@ void zdrgev3(
             // Apply the diagonal matrices
 
             for (JC = 1; JC <= N; JC++) {
-              // 60
               for (JR = 1; JR <= N; JR++) {
-                // 50
                 A[JR][JC] =
                     WORK[2 * N + JR] * WORK[3 * N + JC].conjugate() * A[JR][JC];
                 B[JR][JC] =
                     WORK[2 * N + JR] * WORK[3 * N + JC].conjugate() * B[JR][JC];
-              } // 50
-            } // 60
+              }
+            }
             zunm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, A, LDA, WORK(2 * N + 1),
                 IERR);
             if (IERR.value == 0) {
@@ -382,16 +374,12 @@ void zdrgev3(
           // Random matrices
 
           for (JC = 1; JC <= N; JC++) {
-            // 80
             for (JR = 1; JR <= N; JR++) {
-              // 70
               A[JR][JC] = RMAGN[KAMAGN[JTYPE]].toComplex() * zlarnd(4, ISEED);
               B[JR][JC] = RMAGN[KBMAGN[JTYPE]].toComplex() * zlarnd(4, ISEED);
-            } // 70
-          } // 80
+            }
+          }
         }
-
-        // } // 90
 
         if (IERR.value != 0) {
           _print9999(NOUNIT, 'Generator', IERR.value, N, JTYPE, IOLDSD);
@@ -401,9 +389,8 @@ void zdrgev3(
       }
 
       for (I = 1; I <= 7; I++) {
-        // 110
         RESULT[I] = -ONE;
-      } // 110
+      }
 
       // Call XLAENV to set the parameters used in ZLAQZ0
 
@@ -457,9 +444,8 @@ void zdrgev3(
         }
 
         for (J = 1; J <= N; J++) {
-          // 120
           if (ALPHA[J] != ALPHA1[J] || BETA[J] != BETA1[J]) RESULT[5] = ULPINV;
-        } // 120
+        }
 
         // Do test (6): Compute eigenvalues and left eigenvectors,
         // and test them
@@ -476,17 +462,14 @@ void zdrgev3(
         }
 
         for (J = 1; J <= N; J++) {
-          // 130
           if (ALPHA[J] != ALPHA1[J] || BETA[J] != BETA1[J]) RESULT[6] = ULPINV;
-        } // 130
+        }
 
         for (J = 1; J <= N; J++) {
-          // 150
           for (JC = 1; JC <= N; JC++) {
-            // 140
             if (Q(J, JC) != QE(J, JC)) RESULT[6] = ULPINV;
-          } // 140
-        } // 150
+          }
+        }
 
         // Do test (7): Compute eigenvalues and right eigenvectors,
         // and test them
@@ -503,20 +486,17 @@ void zdrgev3(
         }
 
         for (J = 1; J <= N; J++) {
-          // 160
           if (ALPHA[J] != ALPHA1[J] || BETA[J] != BETA1[J]) RESULT[7] = ULPINV;
-        } // 160
+        }
 
         for (J = 1; J <= N; J++) {
-          // 180
           for (JC = 1; JC <= N; JC++) {
-            // 170
             if (Z(J, JC) != QE(J, JC)) RESULT[7] = ULPINV;
-          } // 170
-        } // 180
+          }
+        }
 
         break;
-      } // 190
+      }
 
       // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -525,7 +505,6 @@ void zdrgev3(
       // Print out tests which fail.
 
       for (JR = 1; JR <= 7; JR++) {
-        // 200
         if (RESULT[JR] >= THRESH) {
           // If this is the first test to fail,
           // print a header to the data file.
@@ -560,9 +539,9 @@ void zdrgev3(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}');
           }
         }
-      } // 200
-    } // 210
-  } // 220
+      }
+    }
+  }
 
   // Summary
 

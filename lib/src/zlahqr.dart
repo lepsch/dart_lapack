@@ -67,10 +67,9 @@ void zlahqr(
 
   // ==== clear out the trash ====
   for (J = ILO; J <= IHI - 3; J++) {
-    // 10
     H[J + 2][J] = Complex.zero;
     H[J + 3][J] = Complex.zero;
-  } // 10
+  }
   if (ILO <= IHI - 2) H[IHI][IHI - 2] = Complex.zero;
   // ==== ensure that subdiagonal entries are real ====
   if (WANTT) {
@@ -81,7 +80,6 @@ void zlahqr(
     JHI = IHI;
   }
   for (I = ILO + 1; I <= IHI; I++) {
-    // 20
     if (H[I][I - 1].imaginary != RZERO) {
       // ==== The following redundant normalization
       // .    avoids problems with both gradual and
@@ -95,7 +93,7 @@ void zlahqr(
         zscal(IHIZ - ILOZ + 1, SC.conjugate(), Z(ILOZ, I).asArray(), 1);
       }
     }
-  } // 20
+  }
 
   NH = IHI - ILO + 1;
   NZ = IHIZ - ILOZ + 1;
@@ -141,12 +139,9 @@ void zlahqr(
     L = ILO;
     var converged = false;
     for (ITS = 0; ITS <= ITMAX; ITS++) {
-      // 130
-
       // Look for a single small subdiagonal element.
 
       for (K = I; K >= L + 1; K--) {
-        // 40
         if (CABS1(H[K][K - 1]) <= SMLNUM) break;
         TST = CABS1(H[K - 1][K - 1]) + CABS1(H[K][K]);
         if (TST == RZERO) {
@@ -165,8 +160,7 @@ void zlahqr(
           S = AA + AB;
           if (BA * (AB / S) <= max(SMLNUM, ULP * (BB * (AA / S)))) break;
         }
-      } // 40
-      //  } // 50
+      }
       L = K;
       if (L > ILO) {
         // H(L,L-1) is negligible
@@ -225,8 +219,6 @@ void zlahqr(
       // Look for two consecutive small subdiagonal elements.
       var found = false;
       for (M = I - 1; M >= L + 1; M--) {
-        // 60
-
         // Determine the effect of starting the single-shift QR
         // iteration at row M, and see if this would make H(M,M-1)
         // negligible.
@@ -246,7 +238,7 @@ void zlahqr(
           found = true;
           break;
         }
-      } // 60
+      }
       if (!found) {
         H11 = H[L][L];
         H22 = H[L + 1][L + 1];
@@ -258,13 +250,10 @@ void zlahqr(
         V[1] = H11S;
         V[2] = H21.toComplex();
       }
-      //  } // 70
 
       // Single-shift QR step
 
       for (K = M; K <= I - 1; K++) {
-        // 120
-
         // The first iteration of this loop determines a reflection G
         // from the vector V and applies it from left and right to H,
         // thus creating a nonzero bulge below the subdiagonal.
@@ -290,31 +279,28 @@ void zlahqr(
         // in columns K to I2.
 
         for (J = K; J <= I2; J++) {
-          // 80
           SUM = T1.value.conjugate() * H[K][J] + T2.toComplex() * H[K + 1][J];
           H[K][J] -= SUM;
           H[K + 1][J] -= SUM * V2;
-        } // 80
+        }
 
         // Apply G from the right to transform the columns of the
         // matrix in rows I1 to min(K+2,I).
 
         for (J = I1; J <= min(K + 2, I); J++) {
-          // 90
           SUM = T1.value * H[J][K] + T2.toComplex() * H[J][K + 1];
           H[J][K] -= SUM;
           H[J][K + 1] -= SUM * V2.conjugate();
-        } // 90
+        }
 
         if (WANTZ) {
           // Accumulate transformations in the matrix Z
 
           for (J = ILOZ; J <= IHIZ; J++) {
-            // 100
             SUM = T1.value * Z[J][K] + T2.toComplex() * Z[J][K + 1];
             Z[J][K] -= SUM;
             Z[J][K + 1] -= SUM * V2.conjugate();
-          } // 100
+          }
         }
 
         if (K == M && M > L) {
@@ -328,7 +314,6 @@ void zlahqr(
           H[M + 1][M] *= TEMP.conjugate();
           if (M + 2 <= I) H[M + 2][M + 1] *= TEMP;
           for (J = M; J <= I; J++) {
-            // 110
             if (J != M + 1) {
               if (I2 > J) zscal(I2 - J, TEMP, H(J, J + 1).asArray(), LDH);
               zscal(J - I1, TEMP.conjugate(), H(I1, J).asArray(), 1);
@@ -336,9 +321,9 @@ void zlahqr(
                 zscal(NZ, TEMP.conjugate(), Z(ILOZ, J).asArray(), 1);
               }
             }
-          } // 110
+          }
         }
-      } // 120
+      }
 
       // Ensure that H(I,I-1) is real.
 
@@ -353,7 +338,7 @@ void zlahqr(
           zscal(NZ, TEMP, Z(ILOZ, I).asArray(), 1);
         }
       }
-    } // 130
+    }
 
     if (!converged) {
       // Failure to converge in remaining number of iterations
@@ -361,8 +346,6 @@ void zlahqr(
       INFO.value = I;
       return;
     }
-
-    // } // 140
 
     // H(I,I-1) is negligible: one eigenvalue has converged.
 

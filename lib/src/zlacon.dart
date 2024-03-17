@@ -30,9 +30,8 @@ void zlacon(
   SAFMIN = dlamch('Safe minimum');
   if (KASE.value == 0) {
     for (I = 1; I <= N; I++) {
-      // 10
       X[I] = Complex(ONE / N.toDouble());
-    } // 10
+    }
     KASE.value = 1;
     _JUMP = 1;
     return;
@@ -52,14 +51,13 @@ void zlacon(
       EST.value = dzsum1(N, X, 1);
 
       for (I = 1; I <= N; I++) {
-        // 30
         ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
           X[I] = Complex((X[I]).toDouble() / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
-      } // 30
+      }
       KASE.value = 2;
       _JUMP = 2;
       return;
@@ -77,9 +75,8 @@ void zlacon(
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
       for (I = 1; I <= N; I++) {
-        // 60
         X[I] = Complex.zero;
-      } // 60
+      }
       X[J] = Complex.one;
       KASE.value = 1;
       _JUMP = 3;
@@ -96,14 +93,13 @@ void zlacon(
       if (EST.value <= ESTOLD) continue L100;
 
       for (I = 1; I <= N; I++) {
-        // 80
         ABSXI = (X[I]).abs();
         if (ABSXI > SAFMIN) {
           X[I] = Complex((X[I]).toDouble() / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
-      } // 80
+      }
       KASE.value = 2;
       _JUMP = 4;
       return;
@@ -126,10 +122,9 @@ void zlacon(
 
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) {
-        // 110
         X[I] = Complex(ALTSGN * (ONE + (I - 1) / (N - 1)));
         ALTSGN = -ALTSGN;
-      } // 110
+      }
       KASE.value = 1;
       _JUMP = 5;
       return;
@@ -142,6 +137,6 @@ void zlacon(
         zcopy(N, X, 1, V, 1);
         EST.value = TEMP;
       }
-  } // 130
+  }
   KASE.value = 0;
 }

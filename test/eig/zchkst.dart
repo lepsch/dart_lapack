@@ -174,10 +174,9 @@ void zchkst(
   TRYRAC.value = true;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   NBLOCK = ilaenv(1, 'ZHETRD', 'L', NMAX, -1, -1, -1);
   NBLOCK = min(NMAX, max(1, NBLOCK));
@@ -220,13 +219,11 @@ void zchkst(
   // Loop over sizes, types
 
   for (I = 1; I <= 4; I++) {
-    // 20
     ISEED2[I] = ISEED[I];
-  } // 20
+  }
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 310
     N = NN[JSIZE];
     if (N > 0) {
       LGN = log(N.toDouble()) ~/ log(TWO);
@@ -250,14 +247,12 @@ void zchkst(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 300
       if (!DOTYPE[JTYPE]) continue;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
-        // 30
         IOLDSD[J] = ISEED[J];
-      } // 30
+      }
 
       // Compute "A"
 
@@ -313,9 +308,8 @@ void zchkst(
           // Identity
 
           for (JC = 1; JC <= N; JC++) {
-            // 80
             A[JC][JC] = ANORM.toComplex();
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -401,7 +395,6 @@ void zchkst(
           zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A,
               LDA, WORK, IINFO);
           for (I = 2; I <= N; I++) {
-            // 90
             TEMP1 = (A[I - 1][I]).abs();
             TEMP2 = sqrt((A[I - 1][I - 1] * A[I][I]).abs());
             if (TEMP1 > HALF * TEMP2) {
@@ -409,7 +402,7 @@ void zchkst(
                   A[I - 1][I] * (HALF * TEMP2 / (UNFL + TEMP1)).toComplex();
               A[I][I - 1] = A[I - 1][I].conjugate();
             }
-          } // 90
+          }
         } else {
           IINFO.value = 1;
         }
@@ -419,7 +412,7 @@ void zchkst(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 100
+      }
 
       tests:
       while (true) {
@@ -507,13 +500,11 @@ void zchkst(
 
         I = 0;
         for (JC = 1; JC <= N; JC++) {
-          // 120
           for (JR = 1; JR <= JC; JR++) {
-            // 110
             I++;
             AP[I] = A[JR][JC];
-          } // 110
-        } // 120
+          }
+        }
 
         // Call ZHPTRD and ZUPGTR to compute S and U from AP
 
@@ -557,13 +548,11 @@ void zchkst(
 
         I = 0;
         for (JC = 1; JC <= N; JC++) {
-          // 140
           for (JR = JC; JR <= N; JR++) {
-            // 130
             I++;
             AP[I] = A[JR][JC];
-          } // 130
-        } // 140
+          }
+        }
 
         // Call ZHPTRD and ZUPGTR to compute S and U from AP
 
@@ -670,12 +659,11 @@ void zchkst(
         TEMP4 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          // 150
           TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
           TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
           TEMP3 = max(TEMP3, max(D1[J].abs(), D3[J].abs()));
           TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
-        } // 150
+        }
 
         RESULT[11] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
         RESULT[12] = TEMP4 / max(UNFL, ULP * max(TEMP3, TEMP4));
@@ -687,11 +675,10 @@ void zchkst(
         TEMP1 = THRESH * (HALF - ULP);
 
         for (J = 0; J <= LOG2UI; J++) {
-          // 160
           dstech(N, SD, SE, D1, TEMP1, RWORK, IINFO);
           if (IINFO.value == 0) break;
           TEMP1 *= TWO;
-        } // 160
+        }
 
         RESULT[13] = TEMP1;
 
@@ -745,10 +732,9 @@ void zchkst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 180
             TEMP1 = max(TEMP1, max(D4[J].abs(), D5[J].abs()));
             TEMP2 = max(TEMP2, (D4[J] - D5[J]).abs());
-          } // 180
+          }
 
           RESULT[16] = TEMP2 / max(UNFL, HUN * ULP * max(TEMP1, TEMP2));
         } else {
@@ -792,10 +778,9 @@ void zchkst(
 
           TEMP1 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 190
             TEMP1 = max(
                 TEMP1, (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + D4[J].abs()));
-          } // 190
+          }
 
           RESULT[17] = TEMP1 / TEMP2;
         } else {
@@ -824,10 +809,9 @@ void zchkst(
         TEMP1 = ZERO;
         TEMP2 = ZERO;
         for (J = 1; J <= N; J++) {
-          // 200
           TEMP1 = max(TEMP1, max(D3[J].abs(), WA1[J].abs()));
           TEMP2 = max(TEMP2, (D3[J] - WA1[J]).abs());
-        } // 200
+        }
 
         RESULT[18] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -1035,10 +1019,9 @@ void zchkst(
         TEMP2 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          // 210
           TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
           TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-        } // 210
+        }
 
         RESULT[26] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -1103,10 +1086,9 @@ void zchkst(
 
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) {
-              // 220
               TEMP1 = max(TEMP1,
                   (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
-            } // 220
+            }
 
             RESULT[27] = TEMP1 / TEMP2;
 
@@ -1166,12 +1148,11 @@ void zchkst(
 
               TEMP1 = ZERO;
               for (J = IL; J <= IU; J++) {
-                // 230
                 TEMP1 = max(
                     TEMP1,
                     (WR[J - IL + 1] - D4[N - J + 1]).abs() /
                         (ABSTOL + (WR[J - IL + 1]).abs()));
-              } // 230
+              }
 
               RESULT[28] = TEMP1 / TEMP2;
             } else {
@@ -1282,10 +1263,9 @@ void zchkst(
             TEMP2 = ZERO;
 
             for (J = 1; J <= IU - IL + 1; J++) {
-              // 240
               TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-            } // 240
+            }
 
             RESULT[31] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -1406,10 +1386,9 @@ void zchkst(
             TEMP2 = ZERO;
 
             for (J = 1; J <= IU - IL + 1; J++) {
-              // 250
               TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-            } // 250
+            }
 
             RESULT[34] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           } else {
@@ -1515,15 +1494,13 @@ void zchkst(
           TEMP2 = ZERO;
 
           for (J = 1; J <= N; J++) {
-            // 260
             TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-          } // 260
+          }
 
           RESULT[37] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
         }
-        // } // 270
-      } // 280
+      }
       NTESTT += NTEST;
 
       // End of Loop -- Check for RESULT(j) > THRESH
@@ -1531,7 +1508,6 @@ void zchkst(
       // Print out tests which fail.
 
       for (JR = 1; JR <= NTEST; JR++) {
-        // 290
         if (RESULT[JR] >= THRESH) {
           // If this is the first test to fail,
           // print a header to the data file.
@@ -1559,9 +1535,9 @@ void zchkst(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i3} is${(RESULT[JR] * 10).d10_3}');
           }
         }
-      } // 290
-    } // 300
-  } // 310
+      }
+    }
+  }
 
   // Summary
 

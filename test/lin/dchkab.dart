@@ -69,7 +69,6 @@ void main() async {
   }
   await NIN.readArray(MVAL, NM);
   for (var I = 1; I <= NM; I++) {
-    // 10
     if (MVAL[I] < 0) {
       NOUT.print9996(' M  ', MVAL[I], 0);
       FATAL = true;
@@ -77,7 +76,7 @@ void main() async {
       NOUT.print9995(' M  ', MVAL[I], NMAX);
       FATAL = true;
     }
-  } // 10
+  }
   if (NM > 0) NOUT.print9993('M   ', MVAL, NM);
 
   // Read the values of NRHS
@@ -94,7 +93,6 @@ void main() async {
   }
   await NIN.readArray(NSVAL, NNS);
   for (var I = 1; I <= NNS; I++) {
-    // 30
     if (NSVAL[I] < 0) {
       NOUT.print9996('NRHS', NSVAL[I], 0);
       FATAL = true;
@@ -102,7 +100,7 @@ void main() async {
       NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
       FATAL = true;
     }
-  } // 30
+  }
   if (NNS > 0) NOUT.print9993('NRHS', NSVAL, NNS);
 
   // Read the threshold value for the test ratios.
@@ -146,7 +144,7 @@ void main() async {
     // Read a test path and the number of matrix types to use.
     final String ALINE;
     try {
-      ALINE = await NIN.readLine(); // 140
+      ALINE = await NIN.readLine();
     } on EOF catch (_) {
       break;
     }
@@ -168,13 +166,12 @@ void main() async {
         var isDigit = false;
         var IC = 0;
         for (var K = 1; K <= 10; K++) {
-          // 110
           if (C1 == INTSTR[K - 1]) {
             IC = K - 1;
             isDigit = true;
             break;
           }
-        } // 110
+        }
         if (!isDigit) break;
 
         NMATS *= 10 + IC;

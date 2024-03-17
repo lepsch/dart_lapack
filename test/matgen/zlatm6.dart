@@ -44,10 +44,7 @@ void zlatm6(
   // (Da, Db) ...
 
   for (I = 1; I <= N; I++) {
-    // 20
     for (J = 1; J <= N; J++) {
-      // 10
-
       if (I == J) {
         A[I][I] = I.toComplex() + ALPHA;
         B[I][I] = Complex.one;
@@ -55,8 +52,8 @@ void zlatm6(
         A[I][J] = Complex.zero;
         B[I][J] = Complex.zero;
       }
-    } // 10
-  } // 20
+    }
+  }
   if (TYPE == 2) {
     A[1][1] = Complex(RONE, RONE);
     A[2][2] = A[1][1].conjugate();

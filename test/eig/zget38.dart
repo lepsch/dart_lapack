@@ -88,17 +88,14 @@ Future<void> zget38(
 
     TNRM = zlange('M.value', N, N, TMP, LDT, RWORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {
-      // 200
-
       // Scale input matrix
 
       KNT.value++;
       zlacpy('F', N, N, TMP, LDT, T, LDT);
       VMUL = VAL[ISCL];
       for (I = 1; I <= N; I++) {
-        // 30
         zdscal(N, VMUL, T(1, I).asArray(), 1);
-      } // 30
+      }
       if (TNRM == ZERO) VMUL = ONE;
       zlacpy('F', N, N, T, LDT, TSAV, LDT);
 
@@ -119,12 +116,10 @@ Future<void> zget38(
       // Compute Schur form
 
       for (J = 1; J <= N - 2; J++) {
-        // 50
         for (I = J + 2; I <= N; I++) {
-          // 40
           T[I][J] = Complex.zero;
-        } // 40
-      } // 50
+        }
+      }
       zhseqr('S.value', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
@@ -135,42 +130,36 @@ Future<void> zget38(
       // Sort, select eigenvalues
 
       for (I = 1; I <= N; I++) {
-        // 60
         IPNT[I] = I;
         SELECT[I] = false;
-      } // 60
+      }
       if (ISRT == 0) {
         for (I = 1; I <= N; I++) {
-          // 70
           WSRT[I] = (W[I]).toDouble();
-        } // 70
+        }
       } else {
         for (I = 1; I <= N; I++) {
-          // 80
           WSRT[I] = W[I].imaginary;
-        } // 80
+        }
       }
       for (I = 1; I <= N - 1; I++) {
-        // 100
         KMIN = I;
         VMIN = WSRT[I];
         for (J = I + 1; J <= N; J++) {
-          // 90
           if (WSRT[J] < VMIN) {
             KMIN = J;
             VMIN = WSRT[J];
           }
-        } // 90
+        }
         WSRT[KMIN] = WSRT[I];
         WSRT[I] = VMIN;
         ITMP = IPNT[I];
         IPNT[I] = IPNT[KMIN];
         IPNT[KMIN] = ITMP;
-      } // 100
+      }
       for (I = 1; I <= NDIM; I++) {
-        // 110
         SELECT[IPNT[ISELEC[I]]] = true;
-      } // 110
+      }
 
       // Compute condition numbers
 
@@ -319,13 +308,11 @@ Future<void> zget38(
       if (S.value != STMP.value) VMAX = ONE / EPS;
       if (-ONE != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
-        // 130
         for (J = 1; J <= N; J++) {
-          // 120
           if (TTMP(I, J) != T(I, J)) VMAX = ONE / EPS;
           if (QTMP(I, J) != Q(I, J)) VMAX = ONE / EPS;
-        } // 120
-      } // 130
+        }
+      }
 
       // Compute invariant subspace condition number only and compare
       // Update Q
@@ -344,13 +331,11 @@ Future<void> zget38(
       if (-ONE != STMP.value) VMAX = ONE / EPS;
       if (SEP.value != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
-        // 150
         for (J = 1; J <= N; J++) {
-          // 140
           if (TTMP(I, J) != T(I, J)) VMAX = ONE / EPS;
           if (QTMP(I, J) != Q(I, J)) VMAX = ONE / EPS;
-        } // 140
-      } // 150
+        }
+      }
 
       // Compute eigenvalue condition number only and compare
       // Do not update Q
@@ -369,13 +354,11 @@ Future<void> zget38(
       if (S.value != STMP.value) VMAX = ONE / EPS;
       if (-ONE != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
-        // 170
         for (J = 1; J <= N; J++) {
-          // 160
           if (TTMP(I, J) != T(I, J)) VMAX = ONE / EPS;
           if (QTMP(I, J) != QSAV(I, J)) VMAX = ONE / EPS;
-        } // 160
-      } // 170
+        }
+      }
 
       // Compute invariant subspace condition number only and compare
       // Do not update Q
@@ -394,17 +377,15 @@ Future<void> zget38(
       if (-ONE != STMP.value) VMAX = ONE / EPS;
       if (SEP.value != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
-        // 190
         for (J = 1; J <= N; J++) {
-          // 180
           if (TTMP(I, J) != T(I, J)) VMAX = ONE / EPS;
           if (QTMP(I, J) != QSAV(I, J)) VMAX = ONE / EPS;
-        } // 180
-      } // 190
+        }
+      }
       if (VMAX > RMAX[1]) {
         RMAX[1] = VMAX;
         if (NINFO[1] == 0) LMAX[1] = KNT.value;
       }
-    } // 200
+    }
   }
 }

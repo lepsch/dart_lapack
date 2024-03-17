@@ -65,9 +65,8 @@ void zgtcon(
   // Check that D(1:N) is non-zero.
 
   for (I = 1; I <= N; I++) {
-    // 10
     if (D[I] == Complex.zero) return;
-  } // 10
+  }
 
   AINVNM.value = ZERO;
   if (ONENRM) {

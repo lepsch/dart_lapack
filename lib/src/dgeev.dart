@@ -253,7 +253,6 @@ void dgeev(
       // Normalize left eigenvectors and make largest component real
 
       for (I = 1; I <= N; I++) {
-        // 20
         if (WI[I] == ZERO) {
           SCL = ONE / dnrm2(N, VL(1, I).asArray(), 1);
           dscal(N, SCL, VL(1, I).asArray(), 1);
@@ -264,17 +263,16 @@ void dgeev(
           dscal(N, SCL, VL(1, I).asArray(), 1);
           dscal(N, SCL, VL(1, I + 1).asArray(), 1);
           for (K = 1; K <= N; K++) {
-            // 10
             WORK[IWRK + K - 1] =
                 pow(VL[K][I], 2).toDouble() + pow(VL[K][I + 1], 2);
-          } // 10
+          }
           K = idamax(N, WORK(IWRK), 1);
           dlartg(VL[K][I], VL[K][I + 1], CS, SN, R);
           drot(N, VL(1, I).asArray(), 1, VL(1, I + 1).asArray(), 1, CS.value,
               SN.value);
           VL[K][I + 1] = ZERO;
         }
-      } // 20
+      }
     }
 
     if (WANTVR) {
@@ -286,7 +284,6 @@ void dgeev(
       // Normalize right eigenvectors and make largest component real
 
       for (I = 1; I <= N; I++) {
-        // 40
         if (WI[I] == ZERO) {
           SCL = ONE / dnrm2(N, VR(1, I).asArray(), 1);
           dscal(N, SCL, VR(1, I).asArray(), 1);
@@ -297,19 +294,18 @@ void dgeev(
           dscal(N, SCL, VR(1, I).asArray(), 1);
           dscal(N, SCL, VR(1, I + 1).asArray(), 1);
           for (K = 1; K <= N; K++) {
-            // 30
             WORK[IWRK + K - 1] =
                 pow(VR[K][I], 2).toDouble() + pow(VR[K][I + 1], 2);
-          } // 30
+          }
           K = idamax(N, WORK(IWRK), 1);
           dlartg(VR[K][I], VR[K][I + 1], CS, SN, R);
           drot(N, VR(1, I).asArray(), 1, VR(1, I + 1).asArray(), 1, CS.value,
               SN.value);
           VR[K][I + 1] = ZERO;
         }
-      } // 40
+      }
     }
-  } // 50
+  }
 
   // Undo scaling if necessary
 

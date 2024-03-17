@@ -90,9 +90,8 @@ void zdrvgb(
   var NFAIL = 0;
   final NERRS = Box(0);
   for (var I = 1; I <= 4; I++) {
-    // 10
     ISEED[I] = ISEEDY[I - 1];
-  } // 10
+  }
 
   // Test the error exits
 
@@ -109,7 +108,6 @@ void zdrvgb(
   // Do for each value of N in NVAL
 
   for (var IN = 1; IN <= NN; IN++) {
-    // 150
     final N = NVAL[IN];
     final LDB = max(N, 1);
     var XTYPE = 'N';
@@ -121,8 +119,6 @@ void zdrvgb(
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     for (var IKL = 1; IKL <= NKL; IKL++) {
-      // 140
-
       // Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
       // it easier to skip redundant values for small values of N.
 
@@ -135,8 +131,6 @@ void zdrvgb(
       };
 
       for (var IKU = 1; IKU <= NKU; IKU++) {
-        // 130
-
         // Do for KU = 0, N-1, (3N-1)/4, and (N+1)/4. This order
         // makes it easier to skip redundant values for small
         // values of N.
@@ -170,8 +164,6 @@ void zdrvgb(
         }
 
         for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
-          // 120
-
           // Do the tests only if DOTYPE( IMAT ) is true.
 
           if (!DOTYPE[IMAT]) continue;
@@ -217,19 +209,17 @@ void zdrvgb(
               final I1 = max(1, KU + 2 - IZERO);
               final I2 = min(KL + KU + 1, KU + 1 + (N - IZERO));
               for (var I = I1; I <= I2; I++) {
-                // 20
                 A[IOFF + I] = Complex.zero;
-              } // 20
+              }
             } else {
               for (var J = IZERO; J <= N; J++) {
-                // 40
                 for (var I = max(1, KU + 2 - J);
                     I <= min(KL + KU + 1, KU + 1 + (N - J));
                     I++) {
                   A[IOFF + I] = Complex.zero;
-                } // 30
+                }
                 IOFF += LDA;
-              } // 40
+              }
             }
           } else {
             IZERO = 0;
@@ -241,14 +231,12 @@ void zdrvgb(
               'Full', KL + KU + 1, N, A.asMatrix(), LDA, ASAV.asMatrix(), LDA);
 
           for (var IEQUED = 1; IEQUED <= 4; IEQUED++) {
-            // 110
             final EQUED = Box(EQUEDS[IEQUED - 1]);
             final NFACT = IEQUED == 1 ? 3 : 1;
 
             var RCONDO = ZERO, RCONDI = ZERO, ROLDO = ZERO, ROLDI = ZERO;
             final ROWCND = Box(ZERO), COLCND = Box(ZERO), AMAX = Box(ZERO);
             for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
-              // 100
               final FACT = FACTS[IFACT - 1];
               final PREFAC = lsame(FACT, 'F');
               final NOFACT = lsame(FACT, 'N');
@@ -350,8 +338,6 @@ void zdrvgb(
               }
 
               for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
-                // 90
-
                 // Do for each value of TRANS.
 
                 final TRANS = TRANSS[ITRAN - 1];
@@ -451,14 +437,13 @@ void zdrvgb(
                   // not pass the threshold.
 
                   for (var K = 1; K <= NT; K++) {
-                    // 50
                     if (RESULT[K] >= THRESH) {
                       if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                       NOUT.println(
                           ' ZGBSV, N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
                       NFAIL++;
                     }
-                  } // 50
+                  }
                   NRUN += NT;
                 }
 
@@ -522,14 +507,12 @@ void zdrvgb(
                 if (INFO.value != 0 && INFO.value <= N) {
                   var ANRMPV = ZERO;
                   for (var J = 1; J <= INFO.value; J++) {
-                    // 70
                     for (var I = max(KU + 2 - J, 1);
                         I <= min(N + KU + 1 - J, KL + KU + 1);
                         I++) {
-                      // 60
                       ANRMPV = max(ANRMPV, A[I + (J - 1) * LDA].abs());
-                    } // 60
-                  } // 70
+                    }
+                  }
                   RPVGRW = zlantb(
                       'M',
                       'U',
@@ -640,7 +623,6 @@ void zdrvgb(
 
                 if (!TRFCON) {
                   for (var K = K1; K <= NTESTS; K++) {
-                    // 80
                     if (RESULT[K] >= THRESH) {
                       if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                       if (PREFAC) {
@@ -652,7 +634,7 @@ void zdrvgb(
                       }
                       NFAIL++;
                     }
-                  } // 80
+                  }
                   NRUN += NTESTS - K1 + 1;
                 } else {
                   if (RESULT[1] >= THRESH && !PREFAC) {
@@ -692,13 +674,13 @@ void zdrvgb(
                     NRUN++;
                   }
                 }
-              } // 90
-            } // 100
-          } // 110
-        } // 120
-      } // 130
-    } // 140
-  } // 150
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   // Print a summary of the results.
 

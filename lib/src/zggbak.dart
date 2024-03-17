@@ -77,42 +77,38 @@ void zggbak(
 
       if (RIGHTV) {
         for (I = ILO; I <= IHI; I++) {
-          // 10
           zdscal(M, RSCALE[I], V(I, 1).asArray(), LDV);
-        } // 10
+        }
       }
 
       // Backward transformation on left eigenvectors
 
       if (LEFTV) {
         for (I = ILO; I <= IHI; I++) {
-          // 20
           zdscal(M, LSCALE[I], V(I, 1).asArray(), LDV);
-        } // 20
+        }
       }
     }
 
     // Backward permutation
-  } // 30
+  }
   if (lsame(JOB, 'P') || lsame(JOB, 'B')) {
     // Backward permutation on right eigenvectors
 
     if (RIGHTV) {
       if (ILO != 1) {
         for (I = ILO - 1; I >= 1; I--) {
-          // 40
           K = RSCALE[I].toInt();
           if (K == I) continue;
           zswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
-        } // 40
-      } // 50
+        }
+      }
       if (IHI != N) {
         for (I = IHI + 1; I <= N; I++) {
-          // 60
           K = RSCALE[I].toInt();
           if (K == I) continue;
           zswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
-        } // 60
+        }
       }
     }
 
@@ -121,19 +117,17 @@ void zggbak(
     if (LEFTV) {
       if (ILO != 1) {
         for (I = ILO - 1; I >= 1; I--) {
-          // 80
           K = LSCALE[I].toInt();
           if (K == I) continue;
           zswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
-        } // 80
-      } // 90
+        }
+      }
       if (IHI == N) {
         for (I = IHI + 1; I <= N; I++) {
-          // 100
           K = LSCALE[I].toInt();
           if (K == I) continue;
           zswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
-        } // 100
+        }
       }
     }
   }

@@ -80,9 +80,8 @@ void zstein(
 
   INFO.value = 0;
   for (I = 1; I <= M; I++) {
-    // 10
     IFAIL[I] = 0;
-  } // 10
+  }
 
   if (N < 0) {
     INFO.value = -1;
@@ -92,7 +91,6 @@ void zstein(
     INFO.value = -9;
   } else {
     for (J = 2; J <= M; J++) {
-      // 20
       if (IBLOCK[J] < IBLOCK[J - 1]) {
         INFO.value = -6;
         break;
@@ -101,7 +99,7 @@ void zstein(
         INFO.value = -5;
         break;
       }
-    } // 20
+    }
   }
 
   if (INFO.value != 0) {
@@ -125,9 +123,8 @@ void zstein(
   // Initialize seed for random number generator DLARNV.
 
   for (I = 1; I <= 4; I++) {
-    // 40
     ISEED[I] = 1;
-  } // 40
+  }
 
   // Initialize pointers.
 
@@ -142,8 +139,6 @@ void zstein(
   J1 = 1;
   computeEigenvectors:
   for (NBLK = 1; NBLK <= IBLOCK[M]; NBLK++) {
-    // 180
-
     // Find starting and ending indices of block nblk.
 
     if (NBLK == 1) {
@@ -161,18 +156,16 @@ void zstein(
       ONENRM = D[B1].abs() + E[B1].abs();
       ONENRM = max(ONENRM, D[BN].abs() + E[BN - 1].abs());
       for (I = B1 + 1; I <= BN - 1; I++) {
-        // 50
         ONENRM = max(ONENRM, D[I].abs() + E[I - 1].abs() + E[I].abs());
-      } // 50
+      }
       ORTOL = ODM3 * ONENRM;
 
       DTPCRT = sqrt(ODM1 / BLKSIZ);
 
       // Loop through eigenvalues of block nblk.
-    } // 60
+    }
     JBLK = 0;
     for (J = J1; J <= M; J++) {
-      // 170
       if (IBLOCK[J] != NBLK) {
         J1 = J;
         continue computeEigenvectors;
@@ -252,21 +245,18 @@ void zstein(
             if ((XJ - XJM).abs() > ORTOL) GPIND = J;
             if (GPIND != J) {
               for (I = GPIND; I <= J - 1; I++) {
-                // 100
                 ZTR = ZERO;
                 for (JR = 1; JR <= BLKSIZ; JR++) {
-                  // 80
                   ZTR =
                       ZTR + WORK[INDRV1 + JR] * (Z[B1 - 1 + JR][I]).toDouble();
-                } // 80
+                }
                 for (JR = 1; JR <= BLKSIZ; JR++) {
-                  // 90
                   WORK[INDRV1 + JR] =
                       WORK[INDRV1 + JR] - ZTR * (Z[B1 - 1 + JR][I]).toDouble();
-                } // 90
-              } // 100
+                }
+              }
             }
-          } // 110
+          }
 
           // Check the infinity norm of the iterate.
 
@@ -293,21 +283,19 @@ void zstein(
         JMAX = idamax(BLKSIZ, WORK(INDRV1 + 1), 1);
         if (WORK[INDRV1 + JMAX] < ZERO) SCL = -SCL;
         dscal(BLKSIZ, SCL, WORK(INDRV1 + 1), 1);
-      } // 140
+      }
 
       for (I = 1; I <= N; I++) {
-        // 150
         Z[I][J] = Complex.zero;
-      } // 150
+      }
       for (I = 1; I <= BLKSIZ; I++) {
-        // 160
         Z[B1 + I - 1][J] = WORK[INDRV1 + I].toComplex();
-      } // 160
+      }
 
       // Save the shift to check eigenvalue spacing at next
       // iteration.
 
       XJM = XJ;
-    } // 170
-  } // 180
+    }
+  }
 }

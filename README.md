@@ -569,6 +569,24 @@ Vars
 $1$2=
 ```
 
+### GOTOs
+```
+^\s*// \d+\n
+```
+
+```
+^\s*//\s*\} // \d+\n
+```
+
+```
+^(\s*\}) // \d+
+```
+
+FORs
+```
+\{ //\s*\d+
+```
+
 ### Functios
 ```
 ^\s*\b(void|String|int|double|Complex|bool)\s+\w+\((((\s*\n?\s*final\s+\w+(<\w+>)?\s+\w+),\s*)*(\4\n?,?)?)\)\s*\{

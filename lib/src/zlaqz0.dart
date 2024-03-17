@@ -541,7 +541,6 @@ void zlaqz0(
 
   zhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ,
       Z, LDZ, WORK, LWORK, RWORK, NORM_INFO);
-  // } // 80
 
   INFO.value = NORM_INFO.value;
 }

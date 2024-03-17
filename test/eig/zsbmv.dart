@@ -74,29 +74,25 @@ void zsbmv(
     if (INCY == 1) {
       if (BETA == Complex.zero) {
         for (I = 1; I <= N; I++) {
-          // 10
           Y[I] = Complex.zero;
-        } // 10
+        }
       } else {
         for (I = 1; I <= N; I++) {
-          // 20
           Y[I] = BETA * Y[I];
-        } // 20
+        }
       }
     } else {
       IY = KY;
       if (BETA == Complex.zero) {
         for (I = 1; I <= N; I++) {
-          // 30
           Y[IY] = Complex.zero;
           IY += INCY;
-        } // 30
+        }
       } else {
         for (I = 1; I <= N; I++) {
-          // 40
           Y[IY] = BETA * Y[IY];
           IY += INCY;
-        } // 40
+        }
       }
     }
   }
@@ -107,34 +103,30 @@ void zsbmv(
     KPLUS1 = K + 1;
     if ((INCX == 1) && (INCY == 1)) {
       for (J = 1; J <= N; J++) {
-        // 60
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
         L = KPLUS1 - J;
         for (I = max(1, J - K); I <= J - 1; I++) {
-          // 50
           Y[I] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[I];
-        } // 50
+        }
         Y[J] += TEMP1 * A[KPLUS1][J] + ALPHA * TEMP2;
-      } // 60
+      }
     } else {
       JX = KX;
       JY = KY;
       for (J = 1; J <= N; J++) {
-        // 80
         TEMP1 = ALPHA * X[JX];
         TEMP2 = Complex.zero;
         IX = KX;
         IY = KY;
         L = KPLUS1 - J;
         for (I = max(1, J - K); I <= J - 1; I++) {
-          // 70
           Y[IY] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[IX];
           IX += INCX;
           IY += INCY;
-        } // 70
+        }
         Y[JY] += TEMP1 * A[KPLUS1][J] + ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
@@ -142,30 +134,27 @@ void zsbmv(
           KX += INCX;
           KY += INCY;
         }
-      } // 80
+      }
     }
   } else {
     // Form  y  when lower triangle of A is stored.
 
     if ((INCX == 1) && (INCY == 1)) {
       for (J = 1; J <= N; J++) {
-        // 100
         TEMP1 = ALPHA * X[J];
         TEMP2 = Complex.zero;
         Y[J] += TEMP1 * A[1][J];
         L = 1 - J;
         for (I = J + 1; I <= min(N, J + K); I++) {
-          // 90
           Y[I] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[I];
-        } // 90
+        }
         Y[J] += ALPHA * TEMP2;
-      } // 100
+      }
     } else {
       JX = KX;
       JY = KY;
       for (J = 1; J <= N; J++) {
-        // 120
         TEMP1 = ALPHA * X[JX];
         TEMP2 = Complex.zero;
         Y[JY] += TEMP1 * A[1][J];
@@ -173,16 +162,15 @@ void zsbmv(
         IX = JX;
         IY = JY;
         for (I = J + 1; I <= min(N, J + K); I++) {
-          // 110
           IX += INCX;
           IY += INCY;
           Y[IY] += TEMP1 * A[L + I][J];
           TEMP2 += A[L + I][J] * X[IX];
-        } // 110
+        }
         Y[JY] += ALPHA * TEMP2;
         JX += INCX;
         JY += INCY;
-      } // 120
+      }
     }
   }
 }

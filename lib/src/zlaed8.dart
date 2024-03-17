@@ -99,31 +99,27 @@ void zlaed8(
 
   T = ONE / sqrt(TWO);
   for (J = 1; J <= N; J++) {
-    // 10
     INDX[J] = J;
-  } // 10
+  }
   dscal(N, T, Z, 1);
   RHO.value = (TWO * RHO.value).abs();
 
   // Sort the eigenvalues into increasing order
 
   for (I = CUTPNT + 1; I <= N; I++) {
-    // 20
     INDXQ[I] += CUTPNT;
-  } // 20
+  }
   for (I = 1; I <= N; I++) {
-    // 30
     DLAMBDA[I] = D[INDXQ[I]];
     W[I] = Z[INDXQ[I]];
-  } // 30
+  }
   I = 1;
   J = CUTPNT + 1;
   dlamrg(N1, N2, DLAMBDA, 1, 1, INDX);
   for (I = 1; I <= N; I++) {
-    // 40
     D[I] = DLAMBDA[INDX[I]];
     Z[I] = W[INDX[I]];
-  } // 40
+  }
 
   // Calculate the allowable deflation tolerance
 
@@ -139,10 +135,9 @@ void zlaed8(
   if (RHO.value * Z[IMAX].abs() <= TOL) {
     K.value = 0;
     for (J = 1; J <= N; J++) {
-      // 50
       PERM[J] = INDXQ[INDX[J]];
       zcopy(QSIZ, Q(1, PERM[J]).asArray(), 1, Q2(1, J).asArray(), 1);
-    } // 50
+    }
     zlacpy('A', QSIZ, N, Q2(1, 1), LDQ2, Q(1, 1), LDQ);
     return;
   }
@@ -157,7 +152,6 @@ void zlaed8(
   K2 = N + 1;
   var deflate = false;
   for (J = 1; J <= N; J++) {
-    // 60
     if (RHO.value * (Z[J]).abs() <= TOL) {
       // Deflate due to small z component.
 
@@ -171,7 +165,7 @@ void zlaed8(
       JLAM = J;
       break;
     }
-  } // 60
+  }
 
   while (!deflate) {
     J++;
@@ -255,12 +249,11 @@ void zlaed8(
   // while those which were deflated go into the last N - K.value slots.
 
   for (J = 1; J <= N; J++) {
-    // 110
     JP = INDXP[J];
     DLAMBDA[J] = D[JP];
     PERM[J] = INDXQ[INDX[JP]];
     zcopy(QSIZ, Q(1, PERM[J]).asArray(), 1, Q2(1, J).asArray(), 1);
-  } // 110
+  }
 
   // The deflated eigenvalues and their corresponding vectors go back
   // into the last N - K.value slots of D and Q respectively.

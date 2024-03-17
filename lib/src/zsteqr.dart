@@ -238,7 +238,6 @@ void zsteqr(
 
           MM1 = M - 1;
           for (I = MM1; I >= L; I--) {
-            // 70
             F = S.value * E[I];
             B = C.value * E[I];
             dlartg(G, F, C, S, R);
@@ -255,7 +254,7 @@ void zsteqr(
               WORK[I] = C.value;
               WORK[N - 1 + I] = -S.value;
             }
-          } // 70
+          }
 
           // If eigenvectors are desired, then apply saved rotations.
 
@@ -338,7 +337,6 @@ void zsteqr(
 
           LM1 = L - 1;
           for (I = M; I <= LM1; I++) {
-            // 120
             F = S.value * E[I];
             B = C.value * E[I];
             dlartg(G, F, C, S, R);
@@ -355,7 +353,7 @@ void zsteqr(
               WORK[I] = C.value;
               WORK[N - 1 + I] = S.value;
             }
-          } // 120
+          }
 
           // If eigenvectors are desired, then apply saved rotations.
 
@@ -368,7 +366,7 @@ void zsteqr(
           D[L] -= P;
           E[LM1] = G;
           continue;
-        } // 130
+        }
 
         // Eigenvalue found.
 

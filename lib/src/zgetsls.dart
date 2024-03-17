@@ -224,12 +224,10 @@ void zgetsls(
       // B(N+1:M,1:NRHS) = Complex.zero
 
       for (J = 1; J <= NRHS; J++) {
-        // 20
         for (I = N + 1; I <= M; I++) {
-          // 10
           B[I][J] = Complex.zero;
-        } // 10
-      } // 20
+        }
+      }
 
       // B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 
@@ -259,12 +257,10 @@ void zgetsls(
       // B(M+1:N,1:NRHS) = 0
 
       for (J = 1; J <= NRHS; J++) {
-        // 40
         for (I = M + 1; I <= N; I++) {
-          // 30
           B[I][J] = Complex.zero;
-        } // 30
-      } // 40
+        }
+      }
 
       // B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS)
 

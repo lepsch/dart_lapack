@@ -32,16 +32,14 @@ void zerrrq(final String PATH, final Nout NUNIT) {
   // Set the variables to innocuous values.
 
   for (var J = 1; J <= NMAX; J++) {
-    // 20
     for (var I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = Complex(1.0 / (I + J), -1.0 / (I + J));
       AF[I][J] = Complex(1.0 / (I + J), -1.0 / (I + J));
-    } // 10
+    }
     B[J] = Complex.zero;
     W[J] = Complex.zero;
     X[J] = Complex.zero;
-  } // 20
+  }
   infoc.OK.value = true;
 
   // Error exits for RQ factorization

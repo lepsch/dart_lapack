@@ -245,10 +245,9 @@ void dlasyf(
             // of D**(-1)
 
             for (J = 1; J <= K - 2; J++) {
-              // 20
               A[J][K - 1] = D21 * (D11 * W[J][KW - 1] - W[J][KW]);
               A[J][K] = D21 * (D22 * W[J][KW] - W[J][KW - 1]);
-            } // 20
+            }
           }
 
           // Copy D(k) to A
@@ -273,8 +272,6 @@ void dlasyf(
       K -= KSTEP;
     }
 
-    //  } // 30
-
     // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
     // A11 := A11 - U12*D*U12**T = A11 - U12*W**T
@@ -282,22 +279,20 @@ void dlasyf(
     // computing blocks of NB columns at a time
 
     for (J = ((K - 1) ~/ NB) * NB + 1; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
-      // 50
       JB = min(NB, K - J + 1);
 
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 40
         dgemv('No transpose', JJ - J + 1, N - K, -ONE, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, ONE, A(J, JJ).asArray(), 1);
-      } // 40
+      }
 
       // Update the rectangular superdiagonal block
 
       dgemm('No transpose', 'Transpose', J - 1, JB, N - K, -ONE, A(1, K + 1),
           LDA, W(J, KW + 1), LDW, ONE, A(1, J), LDA);
-    } // 50
+    }
 
     // Put U12 in standard form by partially undoing the interchanges
     // in columns k+1:n looping backwards from k+1 to n
@@ -516,10 +511,9 @@ void dlasyf(
             // of D**(-1)
 
             for (J = K + 2; J <= N; J++) {
-              // 80
               A[J][K] = D21 * (D11 * W[J][K] - W[J][K + 1]);
               A[J][K + 1] = D21 * (D22 * W[J][K + 1] - W[J][K]);
-            } // 80
+            }
           }
 
           // Copy D(k) to A
@@ -544,8 +538,6 @@ void dlasyf(
       K += KSTEP;
     }
 
-    //  } // 90
-
     // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
     // A22 := A22 - L21*D*L21**T = A22 - L21*W**T
@@ -553,16 +545,14 @@ void dlasyf(
     // computing blocks of NB columns at a time
 
     for (J = K; NB < 0 ? J >= N : J <= N; J += NB) {
-      // 110
       JB = min(NB, N - J + 1);
 
       // Update the lower triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 100
         dgemv('No transpose', J + JB - JJ, K - 1, -ONE, A(JJ, 1), LDA,
             W(JJ, 1).asArray(), LDW, ONE, A(JJ, JJ).asArray(), 1);
-      } // 100
+      }
 
       // Update the rectangular subdiagonal block
 
@@ -570,7 +560,7 @@ void dlasyf(
         dgemm('No transpose', 'Transpose', N - J - JB + 1, JB, K - 1, -ONE,
             A(J + JB, 1), LDA, W(J, 1), LDW, ONE, A(J + JB, J), LDA);
       }
-    } // 110
+    }
 
     // Put L21 in standard form by partially undoing the interchanges
     // of rows in columns 1:k-1 looping backwards from k-1 to 1

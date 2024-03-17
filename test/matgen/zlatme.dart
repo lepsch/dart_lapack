@@ -119,9 +119,8 @@ void zlatme(
   BADS = false;
   if (MODES == 0 && ISIM == 1) {
     for (J = 1; J <= N; J++) {
-      // 10
       if (DS[J] == ZERO) BADS = true;
-    } // 10
+    }
   }
 
   // Set INFO.value if an error
@@ -162,9 +161,8 @@ void zlatme(
   // Initialize random number generator
 
   for (I = 1; I <= 4; I++) {
-    // 20
     ISEED[I] = ISEED[I].abs() % 4096;
-  } // 20
+  }
 
   if ((ISEED[4] % 2) != 1) ISEED[4]++;
 
@@ -182,9 +180,8 @@ void zlatme(
 
     TEMP = D[1].abs();
     for (I = 2; I <= N; I++) {
-      // 30
       TEMP = max(TEMP, D[I].abs());
-    } // 30
+    }
 
     if (TEMP > ZERO) {
       ALPHA = DMAX / TEMP.toComplex();
@@ -203,9 +200,8 @@ void zlatme(
 
   if (IUPPER != 0) {
     for (JC = 2; JC <= N; JC++) {
-      // 40
       zlarnv(IDIST, ISEED, JC - 1, A(1, JC).asArray());
-    } // 40
+    }
   }
 
   // 4)      If SIM='T', apply similarity transformation.
@@ -236,7 +232,6 @@ void zlatme(
     // Multiply by S and (1/S)
 
     for (J = 1; J <= N; J++) {
-      // 50
       zdscal(N, DS[J], A(J, 1).asArray(), LDA);
       if (DS[J] != ZERO) {
         zdscal(N, ONE / DS[J], A(1, J).asArray(), 1);
@@ -244,7 +239,7 @@ void zlatme(
         INFO.value = 5;
         return;
       }
-    } // 50
+    }
 
     // Multiply by U and U'
 
@@ -261,7 +256,6 @@ void zlatme(
     // Reduce bandwidth -- kill column
 
     for (JCR = KL + 1; JCR <= N - 1; JCR++) {
-      // 60
       IC = JCR - KL;
       IROWS = N + 1 - JCR;
       ICOLS = N + KL - JCR;
@@ -289,12 +283,11 @@ void zlatme(
 
       zscal(ICOLS + 1, ALPHA, A(JCR, IC).asArray(), LDA);
       zscal(N, ALPHA.conjugate(), A(1, JCR).asArray(), 1);
-    } // 60
+    }
   } else if (KU < N - 1) {
     // Reduce upper bandwidth -- kill a row at a time.
 
     for (JCR = KU + 1; JCR <= N - 1; JCR++) {
-      // 70
       IR = JCR - KU;
       IROWS = N + KU - JCR;
       ICOLS = N + 1 - JCR;
@@ -323,7 +316,7 @@ void zlatme(
 
       zscal(IROWS + 1, ALPHA, A(IR, JCR).asArray(), 1);
       zscal(N, ALPHA.conjugate(), A(JCR, 1).asArray(), LDA);
-    } // 70
+    }
   }
 
   // Scale the matrix to have norm ANORM
@@ -333,9 +326,8 @@ void zlatme(
     if (TEMP > ZERO) {
       RALPHA = ANORM / TEMP;
       for (J = 1; J <= N; J++) {
-        // 80
         zdscal(N, RALPHA, A(1, J).asArray(), 1);
-      } // 80
+      }
     }
   }
 }

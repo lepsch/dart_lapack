@@ -66,27 +66,24 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
     }
 
     for (I = 1; I <= N; I++) {
-      // 50
       for (J = 1; J <= N; J++) {
-        // 40
         TEMP = max(CABS1(A[I][J]), CABS1(AIN[I][J]));
         TEMP = max(TEMP, SFMIN);
         VMAX = max(VMAX, CABS1(A[I][J] - AIN[I][J]) / TEMP);
-      } // 40
-    } // 50
+      }
+    }
 
     for (I = 1; I <= N; I++) {
-      // 60
       TEMP = max(SCALE[I], SCALIN[I]);
       TEMP = max(TEMP, SFMIN);
       VMAX = max(VMAX, (SCALE[I] - SCALIN[I]).abs() / TEMP);
-    } // 60
+    }
 
     if (VMAX > RMAX) {
       LMAX[3] = KNT;
       RMAX = VMAX;
     }
-  } // 70
+  }
 
   NOUT.println(' .. test output of ZGEBAL .. ');
   NOUT.println(' value of largest test error            = ${RMAX.d12_3}');

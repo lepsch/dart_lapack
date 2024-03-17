@@ -49,7 +49,6 @@ void dtpt01(
   if (lsame(UPLO, 'U')) {
     var JC = 1;
     for (var J = 1; J <= N; J++) {
-      // 10
       if (UNITD) AINVP[JC + J - 1] = ONE;
 
       // Form the j-th column of A*AINV
@@ -60,11 +59,10 @@ void dtpt01(
 
       AINVP[JC + J - 1] -= ONE;
       JC += J;
-    } // 10
+    }
   } else {
     var JC = 1;
     for (var J = 1; J <= N; J++) {
-      // 20
       if (UNITD) AINVP[JC] = ONE;
 
       // Form the j-th column of A*AINV
@@ -75,7 +73,7 @@ void dtpt01(
 
       AINVP[JC] -= ONE;
       JC += N - J + 1;
-    } // 20
+    }
   }
 
   // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)

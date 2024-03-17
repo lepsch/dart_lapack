@@ -139,7 +139,6 @@ void zlalsd(
 
   if (UPLO == 'L') {
     for (I = 1; I <= N - 1; I++) {
-      // 10
       dlartg(D[I], E[I], CS, SN, R);
       D[I] = R.value;
       E[I] = SN.value * D[I + 1];
@@ -151,18 +150,16 @@ void zlalsd(
         RWORK[I * 2 - 1] = CS.value;
         RWORK[I * 2] = SN.value;
       }
-    } // 10
+    }
     if (NRHS > 1) {
       for (I = 1; I <= NRHS; I++) {
-        // 30
         for (J = 1; J <= N - 1; J++) {
-          // 20
           CS.value = RWORK[J * 2 - 1];
           SN.value = RWORK[J * 2];
           zdrot(1, B(J, I).asArray(), 1, B(J + 1, I).asArray(), 1, CS.value,
               SN.value);
-        } // 20
-      } // 30
+        }
+      }
     }
   }
 
@@ -217,48 +214,41 @@ void zlalsd(
 
     J = IRWB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 50
       for (JROW = 1; JROW <= N; JROW++) {
-        // 40
         J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
-      } // 40
-    } // 50
+      }
+    }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWU).asMatrix(N), N,
         RWORK(IRWB).asMatrix(N), N, ZERO, RWORK(IRWRB).asMatrix(N), N);
     J = IRWB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 70
       for (JROW = 1; JROW <= N; JROW++) {
-        // 60
         J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
-      } // 60
-    } // 70
+      }
+    }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWU).asMatrix(N), N,
         RWORK(IRWB).asMatrix(N), N, ZERO, RWORK(IRWIB).asMatrix(N), N);
     JREAL = IRWRB - 1;
     JIMAG = IRWIB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 90
       for (JROW = 1; JROW <= N; JROW++) {
-        // 80
         JREAL++;
         JIMAG++;
         B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-      } // 80
-    } // 90
+      }
+    }
 
     TOL = RCND * D[idamax(N, D, 1)].abs();
     for (I = 1; I <= N; I++) {
-      // 100
       if (D[I] <= TOL) {
         zlaset('A', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       } else {
         zlascl('G', 0, 0, D[I], ONE, 1, NRHS, B(I, 1), LDB, INFO);
         RANK.value++;
       }
-    } // 100
+    }
 
     // Since B is complex, the following call to DGEMM is performed
     // in two steps (real and imaginary parts). That is for V * B
@@ -269,37 +259,31 @@ void zlalsd(
 
     J = IRWB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 120
       for (JROW = 1; JROW <= N; JROW++) {
-        // 110
         J++;
         RWORK[J] = (B[JROW][JCOL]).toDouble();
-      } // 110
-    } // 120
+      }
+    }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWVT).asMatrix(N), N,
         RWORK(IRWB).asMatrix(N), N, ZERO, RWORK(IRWRB).asMatrix(N), N);
     J = IRWB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 140
       for (JROW = 1; JROW <= N; JROW++) {
-        // 130
         J++;
         RWORK[J] = B[JROW][JCOL].imaginary;
-      } // 130
-    } // 140
+      }
+    }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWVT).asMatrix(N), N,
         RWORK(IRWB).asMatrix(N), N, ZERO, RWORK(IRWIB).asMatrix(N), N);
     JREAL = IRWRB - 1;
     JIMAG = IRWIB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-      // 160
       for (JROW = 1; JROW <= N; JROW++) {
-        // 150
         JREAL++;
         JIMAG++;
         B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-      } // 150
-    } // 160
+      }
+    }
 
     // Unscale.
 
@@ -346,14 +330,12 @@ void zlalsd(
   NSUB = 0;
 
   for (I = 1; I <= N; I++) {
-    // 170
     if ((D[I]).abs() < EPS) {
       D[I] = sign(EPS, D[I]).toDouble();
     }
-  } // 170
+  }
 
   for (I = 1; I <= NM1; I++) {
-    // 240
     if ((E[I].abs() < EPS) || (I == NM1)) {
       NSUB++;
       IWORK[NSUB] = ST;
@@ -421,13 +403,11 @@ void zlalsd(
 
         J = IRWB - 1;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 190
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
-            // 180
             J++;
             RWORK[J] = B[JROW][JCOL].toDouble();
-          } // 180
-        } // 190
+          }
+        }
         dgemm(
             'T',
             'N',
@@ -444,13 +424,11 @@ void zlalsd(
             NSIZE);
         J = IRWB - 1;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 210
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
-            // 200
             J++;
             RWORK[J] = B[JROW][JCOL].imaginary;
-          } // 200
-        } // 210
+          }
+        }
         dgemm(
             'T',
             'N',
@@ -468,14 +446,12 @@ void zlalsd(
         JREAL = IRWRB - 1;
         JIMAG = IRWIB - 1;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-          // 230
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
-            // 220
             JREAL++;
             JIMAG++;
             B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-          } // 220
-        } // 230
+          }
+        }
 
         zlacpy('A', NSIZE, NRHS, B(ST, 1), LDB, WORK(BX + ST1).asMatrix(N), N);
       } else {
@@ -543,15 +519,13 @@ void zlalsd(
       }
       ST = I + 1;
     }
-  } // 240
+  }
 
   // Apply the singular values and treat the tiny ones as zero.
 
   TOL = RCND * D[idamax(N, D, 1)].abs();
 
   for (I = 1; I <= N; I++) {
-    // 250
-
     // Some of the elements in D can be negative because 1-by-1
     // subproblems were not solved explicitly.
 
@@ -564,13 +538,12 @@ void zlalsd(
           'G', 0, 0, D[I], ONE, 1, NRHS, WORK(BX + I - 1).asMatrix(N), N, INFO);
     }
     D[I] = (D[I]).abs();
-  } // 250
+  }
 
   // Now apply back the right singular vectors.
 
   ICMPQ2 = 1;
   for (I = 1; I <= NSUB; I++) {
-    // 320
     ST = IWORK[I];
     ST1 = ST - 1;
     NSIZE = IWORK[SIZEI + I - 1];
@@ -588,14 +561,12 @@ void zlalsd(
       J = BXST - N - 1;
       JREAL = IRWB - 1;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 270
         J += N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
-          // 260
           JREAL++;
           RWORK[JREAL] = (WORK[J + JROW]).toDouble();
-        } // 260
-      } // 270
+        }
+      }
       dgemm(
           'T',
           'N',
@@ -613,14 +584,12 @@ void zlalsd(
       J = BXST - N - 1;
       JIMAG = IRWB - 1;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 290
         J += N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
-          // 280
           JIMAG++;
           RWORK[JIMAG] = WORK[J + JROW].imaginary;
-        } // 280
-      } // 290
+        }
+      }
       dgemm(
           'T',
           'N',
@@ -638,14 +607,12 @@ void zlalsd(
       JREAL = IRWRB - 1;
       JIMAG = IRWIB - 1;
       for (JCOL = 1; JCOL <= NRHS; JCOL++) {
-        // 310
         for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
-          // 300
           JREAL++;
           JIMAG++;
           B[JROW][JCOL] = Complex(RWORK[JREAL], RWORK[JIMAG]);
-        } // 300
-      } // 310
+        }
+      }
     } else {
       zlalsa(
           ICMPQ2,
@@ -678,7 +645,7 @@ void zlalsd(
         return;
       }
     }
-  } // 320
+  }
 
   // Unscale and sort the singular values.
 

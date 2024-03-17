@@ -547,7 +547,6 @@ void zgejsv(
   NOSCAL = true;
   GOSCAL = true;
   for (p = 1; p <= N; p++) {
-    // 1874
     AAPP.value = ZERO;
     AAQQ.value = ONE;
     zlassq(M, A(1, p).asArray(), 1, AAPP, AAQQ);
@@ -567,17 +566,16 @@ void zgejsv(
         dscal(p - 1, SCALEM, SVA, 1);
       }
     }
-  } // 1874
+  }
 
   if (NOSCAL) SCALEM = ONE;
 
   AAPP.value = ZERO;
   AAQQ.value = BIG;
   for (p = 1; p <= N; p++) {
-    // 4781
     AAPP.value = max(AAPP.value, SVA[p]);
     if (SVA[p] != ZERO) AAQQ.value = min(AAQQ.value, SVA[p]);
-  } // 4781
+  }
 
   // Quick return for zero M x N matrix
 // #:)
@@ -672,7 +670,6 @@ void zgejsv(
 
     if (L2TRAN) {
       for (p = 1; p <= M; p++) {
-        // 1950
         XSC.value = ZERO;
         TEMP1.value = ONE;
         zlassq(N, A(p, 1).asArray(), LDA, XSC, TEMP1);
@@ -682,14 +679,13 @@ void zgejsv(
         RWORK[p] = XSC.value * (SCALEM * sqrt(TEMP1.value));
         AATMAX = max(AATMAX, RWORK[p]);
         if (RWORK[p] != ZERO) AATMIN = min(AATMIN, RWORK[p]);
-      } // 1950
+      }
     } else {
       for (p = 1; p <= M; p++) {
-        // 1904
         RWORK[M + p] = SCALEM * A[p][izamax(N, A(p, 1).asArray(), LDA)].abs();
         AATMAX = max(AATMAX, RWORK[M + p]);
         AATMIN = min(AATMIN, RWORK[M + p]);
-      } // 1904
+      }
     }
   }
 
@@ -710,10 +706,9 @@ void zgejsv(
 
     ENTRA = ZERO;
     for (p = 1; p <= N; p++) {
-      // 1113
       BIG1 = (pow(SVA[p] / XSC.value, 2)) * TEMP1.value;
       if (BIG1 != ZERO) ENTRA += BIG1 * log(BIG1);
-    } // 1113
+    }
     ENTRA = -ENTRA / log(N);
 
     // Now, SVA().^2/Trace(A^* * A) is a point in the probability simplex.
@@ -724,10 +719,9 @@ void zgejsv(
 
     ENTRAT = ZERO;
     for (p = 1; p <= M; p++) {
-      // 1114
       BIG1 = (pow(RWORK[p] / XSC.value, 2)) * TEMP1.value;
       if (BIG1 != ZERO) ENTRAT += BIG1 * log(BIG1);
-    } // 1114
+    }
     ENTRAT = -ENTRAT / log(M);
 
     // Analyze the entropies and decide A or A^*. Smaller entropy
@@ -741,23 +735,20 @@ void zgejsv(
       // In an optimal implementation, this trivial transpose
       // should be replaced with faster transpose.
       for (p = 1; p <= N - 1; p++) {
-        // 1115
         A[p][p] = A[p][p].conjugate();
         for (q = p + 1; q <= N; q++) {
-          // 1116
           CTEMP = A[q][p].conjugate();
           A[q][p] = A[p][q].conjugate();
           A[p][q] = CTEMP;
-        } // 1116
-      } // 1115
+        }
+      }
       A[N][N] = A[N][N].conjugate();
       for (p = 1; p <= N; p++) {
-        // 1117
         RWORK[M + p] = SVA[p];
         SVA[p] = RWORK[p];
         // previously computed row 2-norms are now column 2-norms
         // of the transposed matrix
-      } // 1117
+      }
       TEMP1.value = AAPP.value;
       AAPP.value = AATMAX;
       AATMAX = TEMP1.value;
@@ -826,12 +817,11 @@ void zgejsv(
   }
   if (AAQQ.value < XSC.value) {
     for (p = 1; p <= N; p++) {
-      // 700
       if (SVA[p] < XSC.value) {
         zlaset('A', M, 1, Complex.zero, Complex.zero, A(1, p), LDA);
         SVA[p] = ZERO;
       }
-    } // 700
+    }
   }
 
   // Preconditioning using QR factorization with pivoting
@@ -848,7 +838,6 @@ void zgejsv(
       IWOFF = N;
     }
     for (p = 1; p <= M - 1; p++) {
-      // 1952
       q = idamax(M - p + 1, RWORK(M + p), 1) + p - 1;
       IWORK[IWOFF + p] = q;
       if (p != q) {
@@ -856,7 +845,7 @@ void zgejsv(
         RWORK[M + p] = RWORK[M + q];
         RWORK[M + q] = TEMP1.value;
       }
-    } // 1952
+    }
     zlaswp(N, A, LDA, 1, M - 1, IWORK(IWOFF + 1), 1);
   }
 
@@ -876,10 +865,9 @@ void zgejsv(
 
   // A * P1 = Q1 * [ R1^* 0]^*:
   for (p = 1; p <= N; p++) {
-    // 1963
     // .. all columns are free columns
     IWORK[p] = 0;
-  } // 1963
+  }
   zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N + 1), LWORK - N, RWORK, IERR);
 
   // The upper triangular matrix R1 from the first QRF is inspected for
@@ -898,25 +886,23 @@ void zgejsv(
     // backward error of the order of N*EPSLN*||A||.
     TEMP1.value = sqrt(N.toDouble()) * EPSLN;
     for (p = 2; p <= N; p++) {
-      // 3001
       if ((A[p][p]).abs() >= (TEMP1.value * (A[1][1]).abs())) {
         NR++;
       } else {
         break;
       }
-    } // 3001
+    }
   } else if (L2RANK) {
     // .. similarly as above, only slightly more gentle (less aggressive).
     // Sudden drop on the diagonal of R1 is used as the criterion for
     // close-to-rank-deficient.
     TEMP1.value = sqrt(SFMIN);
     for (p = 2; p <= N; p++) {
-      // 3401
       if (((A[p][p]).abs() < (EPSLN * (A[p - 1][p - 1]).abs())) ||
           ((A[p][p]).abs() < SMALL) ||
           (L2KILL && ((A[p][p]).abs() < TEMP1.value))) break;
       NR++;
-    } // 3401
+    }
   } else {
     // The goal is high relative accuracy. However, if the matrix
     // has high scaled condition number the relative accuracy is in
@@ -927,21 +913,19 @@ void zgejsv(
     // working hard to get the accuracy not warranted by the data.
     TEMP1.value = sqrt(SFMIN);
     for (p = 2; p <= N; p++) {
-      // 3301
       if (((A[p][p]).abs() < SMALL) ||
           (L2KILL && ((A[p][p]).abs() < TEMP1.value))) break;
       NR++;
-    } // 3301
+    }
   }
 
   ALMORT = false;
   if (NR == N) {
     MAXPRJ = ONE;
     for (p = 2; p <= N; p++) {
-      // 3051
       TEMP1.value = (A[p][p]).abs() / SVA[IWORK[p]];
       MAXPRJ = min(MAXPRJ, TEMP1.value);
-    } // 3051
+    }
     if (pow(MAXPRJ, 2) >= ONE - N.toDouble() * EPSLN) ALMORT = true;
   }
 
@@ -955,10 +939,9 @@ void zgejsv(
         // .. V is available as workspace
         zlacpy('U', N, N, A, LDA, V, LDV);
         for (p = 1; p <= N; p++) {
-          // 3053
           TEMP1.value = SVA[IWORK[p]];
           zdscal(p, ONE / TEMP1.value, V(1, p).asArray(), 1);
-        } // 3053
+        }
         if (LSVEC) {
           zpocon('U', N, V, LDV, ONE, TEMP1, CWORK(N + 1), RWORK, IERR);
         } else {
@@ -968,10 +951,9 @@ void zgejsv(
         // .. U is available as workspace
         zlacpy('U', N, N, A, LDA, U, LDU);
         for (p = 1; p <= N; p++) {
-          // 3054
           TEMP1.value = SVA[IWORK[p]];
           zdscal(p, ONE / TEMP1.value, U(1, p).asArray(), 1);
-        } // 3054
+        }
         zpocon('U', N, U, LDU, ONE, TEMP1, CWORK(N + 1), RWORK, IERR);
       } else {
         zlacpy('U', N, N, A, LDA, CWORK.asMatrix(N), N);
@@ -979,11 +961,10 @@ void zgejsv(
         // Change: here index shifted by N to the left, CWORK(1:N)
         // not needed for SIGMA only computation
         for (p = 1; p <= N; p++) {
-          // 3052
           TEMP1.value = SVA[IWORK[p]];
           // []               CALL ZDSCAL( p, ONE/TEMP1.value, CWORK(N+(p-1)*N+1), 1 )
           zdscal(p, ONE / TEMP1.value, CWORK((p - 1) * N + 1), 1);
-        } // 3052
+        }
         // .. the columns of R are scaled to have unit Euclidean lengths.
         // []               CALL ZPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1.value,
         // []     $              CWORK(N+N*N+1), RWORK, IERR.value )
@@ -1012,10 +993,9 @@ void zgejsv(
 
     // .. transpose A(1:NR,1:N)
     for (p = 1; p <= min(N - 1, NR); p++) {
-      // 1946
       zcopy(N - p, A(p, p + 1).asArray(), LDA, A(p + 1, p).asArray(), 1);
       zlacgv(N - p + 1, A(p, p).asArray(), 1);
-    } // 1946
+    }
     if (NR == N) A[N][N] = A[N][N].conjugate();
 
     // The following two DO-loops introduce small relative perturbation
@@ -1035,16 +1015,14 @@ void zgejsv(
         // XSC.value = sqrt(SMALL)
         XSC.value = EPSLN / N.toDouble();
         for (q = 1; q <= NR; q++) {
-          // 4947
           CTEMP = Complex(XSC.value * (A[q][q]).abs(), ZERO);
           for (p = 1; p <= N; p++) {
-            // 4949
             if (((p > q) && ((A[p][q]).abs() <= TEMP1.value)) || (p < q)) {
               // $                     A[p][q] = TEMP1.value * ( A[p][q] / ABS(A[p][q]) )
               A[p][q] = CTEMP;
             }
-          } // 4949
-        } // 4947
+          }
+        }
       } else {
         zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, A(1, 2), LDA);
       }
@@ -1055,10 +1033,9 @@ void zgejsv(
 
       // .. and transpose upper to lower triangular
       for (p = 1; p <= NR - 1; p++) {
-        // 1948
         zcopy(NR - p, A(p, p + 1).asArray(), LDA, A(p + 1, p).asArray(), 1);
         zlacgv(NR - p + 1, A(p, p).asArray(), 1);
-      } // 1948
+      }
     }
 
     // Row-cyclic Jacobi SVD algorithm with column pivoting
@@ -1069,16 +1046,14 @@ void zgejsv(
       // XSC.value = sqrt(SMALL)
       XSC.value = EPSLN / N.toDouble();
       for (q = 1; q <= NR; q++) {
-        // 1947
         CTEMP = Complex(XSC.value * (A[q][q]).abs(), ZERO);
         for (p = 1; p <= NR; p++) {
-          // 1949
           if (((p > q) && ((A[p][q]).abs() <= TEMP1.value)) || (p < q)) {
             // $                   A[p][q] = TEMP1.value * ( A[p][q] / ABS(A[p][q]) )
             A[p][q] = CTEMP;
           }
-        } // 1949
-      } // 1947
+        }
+      }
     } else {
       zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, A(1, 2), LDA);
     }
@@ -1099,10 +1074,9 @@ void zgejsv(
     if (ALMORT) {
       // .. in this case NR equals N
       for (p = 1; p <= NR; p++) {
-        // 1998
         zcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
         zlacgv(N - p + 1, V(p, p).asArray(), 1);
-      } // 1998
+      }
       zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
 
       zgesvj('L', 'U', 'N', N, NR, V, LDV, SVA, NR, A, LDA, CWORK, LWORK, RWORK,
@@ -1120,10 +1094,9 @@ void zgejsv(
       zgeqrf(
           NR, NR, V, LDV, CWORK(N + 1), CWORK(2 * N + 1), LWORK - 2 * N, IERR);
       for (p = 1; p <= NR; p++) {
-        // 8998
         zcopy(NR - p + 1, V(p, p).asArray(), LDV, V(p, p).asArray(), 1);
         zlacgv(NR - p + 1, V(p, p).asArray(), 1);
-      } // 8998
+      }
       zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
 
       zgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(N + 1),
@@ -1164,19 +1137,17 @@ void zgejsv(
     // .. second preconditioning step to avoid need to accumulate
     // Jacobi rotations in the Jacobi iterations.
     for (p = 1; p <= NR; p++) {
-      // 1965
       zcopy(N - p + 1, A(p, p).asArray(), LDA, U(p, p).asArray(), 1);
       zlacgv(N - p + 1, U(p, p).asArray(), 1);
-    } // 1965
+    }
     zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, U(1, 2), LDU);
 
     zgeqrf(N, NR, U, LDU, CWORK(N + 1), CWORK(2 * N + 1), LWORK - 2 * N, IERR);
 
     for (p = 1; p <= NR - 1; p++) {
-      // 1967
       zcopy(NR - p, U(p, p + 1).asArray(), LDU, U(p + 1, p).asArray(), 1);
       zlacgv(N - p + 1, U(p, p).asArray(), 1);
-    } // 1967
+    }
     zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, U(1, 2), LDU);
 
     zgesvj('L', 'U', 'N', NR, NR, U, LDU, SVA, NR, A, LDA, CWORK(N + 1),
@@ -1199,10 +1170,9 @@ void zgejsv(
     if (ROWPIV) zlaswp(N1, U, LDU, 1, M - 1, IWORK(IWOFF + 1), -1);
 
     for (p = 1; p <= N1; p++) {
-      // 1974
       XSC.value = ONE / dznrm2(M, U(1, p).asArray(), 1);
       zdscal(M, XSC.value, U(1, p).asArray(), 1);
-    } // 1974
+    }
 
     if (TRANSP) {
       zlacpy('A', N, N, U, LDU, V, LDV);
@@ -1220,10 +1190,9 @@ void zgejsv(
         // optimized implementation of ZGEJSV.
 
         for (p = 1; p <= NR; p++) {
-          // 1968
           zcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
           zlacgv(N - p + 1, V(p, p).asArray(), 1);
-        } // 1968
+        }
 
         // .. the following two loops perturb small entries to avoid
         // denormals in the second QR factorization, where they are
@@ -1240,17 +1209,15 @@ void zgejsv(
         if (L2PERT) {
           XSC.value = sqrt(SMALL);
           for (q = 1; q <= NR; q++) {
-            // 2969
             CTEMP = Complex(XSC.value * (V[q][q]).abs(), ZERO);
             for (p = 1; p <= N; p++) {
-              // 2968
               if ((p > q) && ((V[p][q]).abs() <= TEMP1.value) || (p < q)) {
                 // $                   V[p][q] = TEMP1.value * ( V[p][q] / ABS(V[p][q]) )
                 V[p][q] = CTEMP;
               }
               if (p < q) V[p][q] = -V[p][q];
-            } // 2968
-          } // 2969
+            }
+          }
         } else {
           zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
         }
@@ -1261,11 +1228,10 @@ void zgejsv(
 
         zlacpy('L', NR, NR, V, LDV, CWORK(2 * N + 1).asMatrix(NR), NR);
         for (p = 1; p <= NR; p++) {
-          // 3950
           TEMP1.value = dznrm2(NR - p + 1, CWORK(2 * N + (p - 1) * NR + p), 1);
           zdscal(NR - p + 1, ONE / TEMP1.value, CWORK(2 * N + (p - 1) * NR + p),
               1);
-        } // 3950
+        }
         zpocon('L', NR, CWORK(2 * N + 1).asMatrix(NR), NR, ONE, TEMP1,
             CWORK(2 * N + NR * NR + 1), RWORK, IERR);
         CONDR1 = ONE / sqrt(TEMP1.value);
@@ -1288,17 +1254,15 @@ void zgejsv(
           if (L2PERT) {
             XSC.value = sqrt(SMALL) / EPSLN;
             for (p = 2; p <= NR; p++) {
-              // 3959
               for (q = 1; q <= p - 1; q++) {
-                // 3958
                 CTEMP = Complex(
                     XSC.value * min((V[p][p]).abs(), (V[q][q]).abs()), ZERO);
                 if ((V[q][p]).abs() <= TEMP1.value) {
                   // $                     V[q][p] = TEMP1.value * ( V[q][p] / ABS(V[q][p]) )
                   V[q][p] = CTEMP;
                 }
-              } // 3958
-            } // 3959
+              }
+            }
           }
 
           if (NR != N) {
@@ -1308,10 +1272,9 @@ void zgejsv(
 
           // .. this transposed copy should be better than naive
           for (p = 1; p <= NR - 1; p++) {
-            // 1969
             zcopy(NR - p, V(p, p + 1).asArray(), LDV, V(p + 1, p).asArray(), 1);
             zlacgv(NR - p + 1, V(p, p).asArray(), 1);
-          } // 1969
+          }
           V[NR][NR] = V[NR][NR].conjugate();
 
           CONDR2 = CONDR1;
@@ -1325,9 +1288,8 @@ void zgejsv(
 
           // R1^* * P2 = Q2 * R2
           for (p = 1; p <= NR; p++) {
-            // 3003
             IWORK[N + p] = 0;
-          } // 3003
+          }
           zgeqp3(N, NR, V, LDV, IWORK(N + 1), CWORK(N + 1), CWORK(2 * N + 1),
               LWORK - 2 * N, RWORK, IERR);
 // *               CALL ZGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
@@ -1335,17 +1297,15 @@ void zgejsv(
           if (L2PERT) {
             XSC.value = sqrt(SMALL);
             for (p = 2; p <= NR; p++) {
-              // 3969
               for (q = 1; q <= p - 1; q++) {
-                // 3968
                 CTEMP = Complex(
                     XSC.value * min((V[p][p]).abs(), (V[q][q]).abs()), ZERO);
                 if ((V[q][p]).abs() <= TEMP1.value) {
                   // V[q][p] = TEMP1.value * ( V[q][p] / ABS(V[q][p]) )
                   V[q][p] = CTEMP;
                 }
-              } // 3968
-            } // 3969
+              }
+            }
           }
 
           zlacpy('A', N, NR, V, LDV, CWORK(2 * N + 1).asMatrix(N), N);
@@ -1353,15 +1313,13 @@ void zgejsv(
           if (L2PERT) {
             XSC.value = sqrt(SMALL);
             for (p = 2; p <= NR; p++) {
-              // 8970
               for (q = 1; q <= p - 1; q++) {
-                // 8971
                 CTEMP = Complex(
                     XSC.value * min((V[p][p]).abs(), (V[q][q]).abs()), ZERO);
                 // V[p][q] = - TEMP1.value*( V[q][p] / ABS(V[q][p]) )
                 V[p][q] = -CTEMP;
-              } // 8971
-            } // 8970
+              }
+            }
           } else {
             zlaset(
                 'L', NR - 1, NR - 1, Complex.zero, Complex.zero, V(2, 1), LDV);
@@ -1380,10 +1338,9 @@ void zgejsv(
           zlacpy('L', NR, NR, V, LDV,
               CWORK(2 * N + N * NR + NR + 1).asMatrix(NR), NR);
           for (p = 1; p <= NR; p++) {
-            // 4950
             TEMP1.value = dznrm2(p, CWORK(2 * N + N * NR + NR + p), NR);
             zdscal(p, ONE / TEMP1.value, CWORK(2 * N + N * NR + NR + p), NR);
-          } // 4950
+          }
           zpocon('L', NR, CWORK(2 * N + N * NR + NR + 1).asMatrix(NR), NR, ONE,
               TEMP1, CWORK(2 * N + N * NR + NR + NR * NR + 1), RWORK, IERR);
           CONDR2 = ONE / sqrt(TEMP1.value);
@@ -1402,14 +1359,12 @@ void zgejsv(
         if (L2PERT) {
           XSC.value = sqrt(SMALL);
           for (q = 2; q <= NR; q++) {
-            // 4968
             CTEMP = XSC.value.toComplex() * V[q][q];
             for (p = 1; p <= q - 1; p++) {
-              // 4969
               // V[p][q] = - TEMP1.value*( V[p][q] / ABS(V[p][q]) )
               V[p][q] = -CTEMP;
-            } // 4969
-          } // 4968
+            }
+          }
         } else {
           zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
         }
@@ -1441,10 +1396,9 @@ void zgejsv(
           SCALEM = RWORK[1];
           NUMRANK = nint(RWORK[2]);
           for (p = 1; p <= NR; p++) {
-            // 3970
             zcopy(NR, V(1, p).asArray(), 1, U(1, p).asArray(), 1);
             zdscal(NR, SVA[p], V(1, p).asArray(), 1);
-          } // 3970
+          }
 
           // .. pick the right matrix equation and solve it
 
@@ -1509,24 +1463,20 @@ void zgejsv(
           SCALEM = RWORK[1];
           NUMRANK = nint(RWORK[2]);
           for (p = 1; p <= NR; p++) {
-            // 3870
             zcopy(NR, V(1, p).asArray(), 1, U(1, p).asArray(), 1);
             zdscal(NR, SVA[p], U(1, p).asArray(), 1);
-          } // 3870
+          }
           ztrsm('L', 'U', 'N', 'N', NR, NR, Complex.one,
               CWORK(2 * N + 1).asMatrix(N), N, U, LDU);
           // .. apply the permutation from the second QR factorization
           for (q = 1; q <= NR; q++) {
-            // 873
             for (p = 1; p <= NR; p++) {
-              // 872
               CWORK[2 * N + N * NR + NR + IWORK[N + p]] = U[p][q];
-            } // 872
+            }
             for (p = 1; p <= NR; p++) {
-              // 874
               U[p][q] = CWORK[2 * N + N * NR + NR + p];
-            } // 874
-          } // 873
+            }
+          }
           if (NR < N) {
             zlaset(
                 'A', N - NR, NR, Complex.zero, Complex.zero, V(NR + 1, 1), LDV);
@@ -1618,16 +1568,13 @@ void zgejsv(
               LWORK - 2 * N - N * NR - NR,
               IERR);
           for (q = 1; q <= NR; q++) {
-            // 773
             for (p = 1; p <= NR; p++) {
-              // 772
               CWORK[2 * N + N * NR + NR + IWORK[N + p]] = U[p][q];
-            } // 772
+            }
             for (p = 1; p <= NR; p++) {
-              // 774
               U[p][q] = CWORK[2 * N + N * NR + NR + p];
-            } // 774
-          } // 773
+            }
+          }
         }
 
         // Permute the rows of V using the (column) permutation from the
@@ -1636,21 +1583,18 @@ void zgejsv(
 
         TEMP1.value = sqrt(N.toDouble()) * EPSLN;
         for (q = 1; q <= N; q++) {
-          // 1972
           for (p = 1; p <= N; p++) {
-            // 972
             CWORK[2 * N + N * NR + NR + IWORK[p]] = V[p][q];
-          } // 972
+          }
           for (p = 1; p <= N; p++) {
-            // 973
             V[p][q] = CWORK[2 * N + N * NR + NR + p];
-          } // 973
+          }
           XSC.value = ONE / dznrm2(N, V(1, q).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
               (XSC.value > (ONE + TEMP1.value))) {
             zdscal(N, XSC.value, V(1, q).asArray(), 1);
           }
-        } // 1972
+        }
         // At this moment, V contains the right singular vectors of A.
         // Next, assemble the left singular vector matrix U (M x N).
         if (NR < M) {
@@ -1673,13 +1617,12 @@ void zgejsv(
         // The columns of U are normalized. The cost is O(M*N) flops.
         TEMP1.value = sqrt(M.toDouble()) * EPSLN;
         for (p = 1; p <= NR; p++) {
-          // 1973
           XSC.value = ONE / dznrm2(M, U(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
               (XSC.value > (ONE + TEMP1.value))) {
             zdscal(M, XSC.value, U(1, p).asArray(), 1);
           }
-        } // 1973
+        }
 
         // If the initial QRF is computed with row pivoting, the left
         // singular vectors must be adjusted.
@@ -1693,15 +1636,13 @@ void zgejsv(
         if (L2PERT) {
           XSC.value = sqrt(SMALL);
           for (p = 2; p <= N; p++) {
-            // 5970
             CTEMP = XSC.value.toComplex() * CWORK[N + (p - 1) * N + p];
             for (q = 1; q <= p - 1; q++) {
-              // 5971
               // CWORK(N+(q-1)*N+p)=-TEMP1.value * ( CWORK(N+(p-1)*N+q) /
               // $                                        ABS(CWORK(N+(p-1)*N+q)) )
               CWORK[N + (q - 1) * N + p] = -CTEMP;
-            } // 5971
-          } // 5970
+            }
+          }
         } else {
           zlaset('L', N - 1, N - 1, Complex.zero, Complex.zero,
               CWORK(N + 2).asMatrix(N), N);
@@ -1713,26 +1654,23 @@ void zgejsv(
         SCALEM = RWORK[1];
         NUMRANK = nint(RWORK[2]);
         for (p = 1; p <= N; p++) {
-          // 6970
           zcopy(N, CWORK(N + (p - 1) * N + 1), 1, U(1, p).asArray(), 1);
           zdscal(N, SVA[p], CWORK(N + (p - 1) * N + 1), 1);
-        } // 6970
+        }
 
         ztrsm('L', 'U', 'N', 'N', N, N, Complex.one, A, LDA,
             CWORK(N + 1).asMatrix(N), N);
         for (p = 1; p <= N; p++) {
-          // 6972
           zcopy(N, CWORK(N + p), N, V(IWORK[p], 1).asArray(), LDV);
-        } // 6972
+        }
         TEMP1.value = sqrt(N.toDouble()) * EPSLN;
         for (p = 1; p <= N; p++) {
-          // 6971
           XSC.value = ONE / dznrm2(N, V(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
               (XSC.value > (ONE + TEMP1.value))) {
             zdscal(N, XSC.value, V(1, p).asArray(), 1);
           }
-        } // 6971
+        }
 
         // Assemble the left singular vector matrix U (M x N).
 
@@ -1749,13 +1687,12 @@ void zgejsv(
             LWORK - N, IERR);
         TEMP1.value = sqrt(M.toDouble()) * EPSLN;
         for (p = 1; p <= N1; p++) {
-          // 6973
           XSC.value = ONE / dznrm2(M, U(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
               (XSC.value > (ONE + TEMP1.value))) {
             zdscal(M, XSC.value, U(1, p).asArray(), 1);
           }
-        } // 6973
+        }
 
         if (ROWPIV) zlaswp(N1, U, LDU, 1, M - 1, IWORK(IWOFF + 1), -1);
       }
@@ -1774,25 +1711,22 @@ void zgejsv(
       // the underflow to the overflow threshold.
 
       for (p = 1; p <= NR; p++) {
-        // 7968
         zcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
         zlacgv(N - p + 1, V(p, p).asArray(), 1);
-      } // 7968
+      }
 
       if (L2PERT) {
         XSC.value = sqrt(SMALL / EPSLN);
         for (q = 1; q <= NR; q++) {
-          // 5969
           CTEMP = Complex(XSC.value * (V[q][q]).abs(), ZERO);
           for (p = 1; p <= N; p++) {
-            // 5968
             if ((p > q) && ((V[p][q]).abs() <= TEMP1.value) || (p < q)) {
               // $                V[p][q] = TEMP1.value * ( V[p][q] / ABS(V[p][q]) )
               V[p][q] = CTEMP;
             }
             if (p < q) V[p][q] = -V[p][q];
-          } // 5968
-        } // 5969
+          }
+        }
       } else {
         zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, V(1, 2), LDV);
       }
@@ -1801,23 +1735,20 @@ void zgejsv(
       zlacpy('L', N, NR, V, LDV, CWORK(2 * N + 1).asMatrix(N), N);
 
       for (p = 1; p <= NR; p++) {
-        // 7969
         zcopy(NR - p + 1, V(p, p).asArray(), LDV, U(p, p).asArray(), 1);
         zlacgv(NR - p + 1, U(p, p).asArray(), 1);
-      } // 7969
+      }
 
       if (L2PERT) {
         XSC.value = sqrt(SMALL / EPSLN);
         for (q = 2; q <= NR; q++) {
-          // 9970
           for (p = 1; p <= q - 1; p++) {
-            // 9971
             CTEMP = Complex(
                 XSC.value * min((U[p][p]).abs(), (U[q][q]).abs()), ZERO);
             // U[p][q] = - TEMP1.value * ( U[q][p] / ABS(U[q][p]) )
             U[p][q] = -CTEMP;
-          } // 9971
-        } // 9970
+          }
+        }
       } else {
         zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, U(1, 2), LDU);
       }
@@ -1868,21 +1799,18 @@ void zgejsv(
 
       TEMP1.value = sqrt(N.toDouble()) * EPSLN;
       for (q = 1; q <= N; q++) {
-        // 7972
         for (p = 1; p <= N; p++) {
-          // 8972
           CWORK[2 * N + N * NR + NR + IWORK[p]] = V[p][q];
-        } // 8972
+        }
         for (p = 1; p <= N; p++) {
-          // 8973
           V[p][q] = CWORK[2 * N + N * NR + NR + p];
-        } // 8973
+        }
         XSC.value = ONE / dznrm2(N, V(1, q).asArray(), 1);
         if ((XSC.value < (ONE - TEMP1.value)) ||
             (XSC.value > (ONE + TEMP1.value))) {
           zdscal(N, XSC.value, V(1, q).asArray(), 1);
         }
-      } // 7972
+      }
 
       // At this moment, V contains the right singular vectors of A.
       // Next, assemble the left singular vector matrix U (M x N).
@@ -1905,9 +1833,8 @@ void zgejsv(
     if (TRANSP) {
       // .. swap U and V because the procedure worked on A^*
       for (p = 1; p <= N; p++) {
-        // 6974
         zswap(N, U(1, p).asArray(), 1, V(1, p).asArray(), 1);
-      } // 6974
+      }
     }
   }
   // end of the full SVD
@@ -1922,9 +1849,8 @@ void zgejsv(
 
   if (NR < N) {
     for (p = NR + 1; p <= N; p++) {
-      // 3004
       SVA[p] = ZERO;
-    } // 3004
+    }
   }
 
   RWORK[1] = USCAL2 * SCALEM;

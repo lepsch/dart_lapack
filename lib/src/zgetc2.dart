@@ -53,22 +53,18 @@ void zgetc2(
   // Set pivots less than SMIN to SMIN
 
   for (I = 1; I <= N - 1; I++) {
-    // 40
-
     // Find max element in matrix A
 
     XMAX = ZERO;
     for (IP = I; IP <= N; IP++) {
-      // 20
       for (JP = I; JP <= N; JP++) {
-        // 10
         if ((A[IP][JP]).abs() >= XMAX) {
           XMAX = (A[IP][JP]).abs();
           IPV = IP;
           JPV = JP;
         }
-      } // 10
-    } // 20
+      }
+    }
     if (I == 1) SMIN = max(EPS * XMAX, SMLNUM);
 
     // Swap rows
@@ -88,12 +84,11 @@ void zgetc2(
       A[I][I] = Complex(SMIN, ZERO);
     }
     for (J = I + 1; J <= N; J++) {
-      // 30
       A[J][I] /= A[I][I];
-    } // 30
+    }
     zgeru(N - I, N - I, -Complex(ONE), A(I + 1, I).asArray(), 1,
         A(I, I + 1).asArray(), LDA, A(I + 1, I + 1), LDA);
-  } // 40
+  }
 
   if ((A[N][N]).abs() < SMIN) {
     INFO.value = N;

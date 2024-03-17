@@ -602,7 +602,6 @@ void zgesdd(
         // RWorkspace: need   0
 
         for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) {
-          // 10
           CHUNK = min(M - I + 1, LDWRKR);
           zgemm(
               'N',
@@ -620,7 +619,7 @@ void zgesdd(
               LDWRKR);
           zlacpy(
               'F', CHUNK, N, WORK(IR).asMatrix(LDWRKR), LDWRKR, A(I, 1), LDA);
-        } // 10
+        }
       } else if (WNTQS) {
         // Path 3 (M >> N, JOBZ='S')
         // N left singular vectors to be computed in U and
@@ -900,13 +899,12 @@ void zgesdd(
 
         NRWORK = IRVT;
         for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
-          // 20
           CHUNK = min(M - I + 1, LDWRKU);
           zlacrm(CHUNK, N, A(I, 1), LDA, RWORK(IRU).asMatrix(N), N,
               WORK(IU).asMatrix(LDWRKU), LDWRKU, RWORK(NRWORK));
           zlacpy(
               'F', CHUNK, N, WORK(IU).asMatrix(LDWRKU), LDWRKU, A(I, 1), LDA);
-        } // 20
+        }
       } else if (WNTQS) {
         // Path 5s (M >> N, JOBZ='S')
         // Copy A to VT, generate P**H
@@ -1118,13 +1116,12 @@ void zgesdd(
 
           NRWORK = IRVT;
           for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
-            // 30
             CHUNK = min(M - I + 1, LDWRKU);
             zlacrm(CHUNK, N, A(I, 1), LDA, RWORK(IRU).asMatrix(N), N,
                 WORK(IU).asMatrix(LDWRKU), LDWRKU, RWORK(NRWORK));
             zlacpy(
                 'F', CHUNK, N, WORK(IU).asMatrix(LDWRKU), LDWRKU, A(I, 1), LDA);
-          } // 30
+          }
         }
       } else if (WNTQS) {
         // Path 6s (M >= N, JOBZ='S')
@@ -1357,12 +1354,11 @@ void zgesdd(
         // RWorkspace: need   0
 
         for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-          // 40
           BLK = min(N - I + 1, CHUNK);
           zgemm('N', 'N', M, BLK, M, Complex.one, WORK(IVT).asMatrix(M), M,
               A(1, I), LDA, Complex.zero, WORK(IL).asMatrix(LDWRKL), LDWRKL);
           zlacpy('F', M, BLK, WORK(IL).asMatrix(LDWRKL), LDWRKL, A(1, I), LDA);
-        } // 40
+        }
       } else if (WNTQS) {
         // Path 3t (N >> M, JOBZ='S')
         // M right singular vectors to be computed in VT and
@@ -1645,12 +1641,11 @@ void zgesdd(
 
         NRWORK = IRU;
         for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-          // 50
           BLK = min(N - I + 1, CHUNK);
           zlarcm(M, BLK, RWORK(IRVT).asMatrix(M), M, A(1, I), LDA,
               WORK(IVT).asMatrix(LDWKVT), LDWKVT, RWORK(NRWORK));
           zlacpy('F', M, BLK, WORK(IVT).asMatrix(LDWKVT), LDWKVT, A(1, I), LDA);
-        } // 50
+        }
       } else if (WNTQS) {
         // Path 5ts (N >> M, JOBZ='S')
         // Copy A to U, generate Q
@@ -1863,13 +1858,12 @@ void zgesdd(
 
           NRWORK = IRU;
           for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-            // 60
             BLK = min(N - I + 1, CHUNK);
             zlarcm(M, BLK, RWORK(IRVT).asMatrix(M), M, A(1, I), LDA,
                 WORK(IVT).asMatrix(LDWKVT), LDWKVT, RWORK(NRWORK));
             zlacpy(
                 'F', M, BLK, WORK(IVT).asMatrix(LDWKVT), LDWKVT, A(1, I), LDA);
-          } // 60
+          }
         }
       } else if (WNTQS) {
         // Path 6ts (N > M, JOBZ='S')

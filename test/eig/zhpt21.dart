@@ -100,16 +100,14 @@ void zhpt21(
     zcopy(LAP, AP, 1, WORK, 1);
 
     for (J = 1; J <= N; J++) {
-      // 10
       zhpr(CUPLO, N, -D[J], U(1, J).asArray(), 1, WORK);
-    } // 10
+    }
 
     if (N > 1 && KBAND == 1) {
       for (J = 2; J <= N - 1; J++) {
-        // 20
         zhpr2(CUPLO, N, -E[J].toComplex(), U(1, J).asArray(), 1,
             U(1, J - 1).asArray(), 1, WORK);
-      } // 20
+      }
     }
     WNORM = zlanhp('1', CUPLO, N, WORK, RWORK);
   } else if (ITYPE == 2) {
@@ -120,15 +118,13 @@ void zhpt21(
     if (LOWER) {
       WORK[LAP] = D[N].toComplex();
       for (J = N - 1; J >= 1; J--) {
-        // 40
         JP = ((2 * N - J) * (J - 1)) ~/ 2;
         JP1 = JP + N - J;
         if (KBAND == 1) {
           WORK[JP + J + 1] = (Complex.one - TAU[J]) * E[J].toComplex();
           for (JR = J + 2; JR <= N; JR++) {
-            // 30
             WORK[JP + JR] = -TAU[J] * E[J].toComplex() * VP[JP + JR];
-          } // 30
+          }
         }
 
         if (TAU[J] != Complex.zero) {
@@ -146,19 +142,17 @@ void zhpt21(
           VP[JP + J + 1] = VSAVE;
         }
         WORK[JP + J] = D[J].toComplex();
-      } // 40
+      }
     } else {
       WORK[1] = D[1].toComplex();
       for (J = 1; J <= N - 1; J++) {
-        // 60
         JP = (J * (J - 1)) ~/ 2;
         JP1 = JP + J;
         if (KBAND == 1) {
           WORK[JP1 + J] = (Complex.one - TAU[J]) * E[J].toComplex();
           for (JR = 1; JR <= J - 1; JR++) {
-            // 50
             WORK[JP1 + JR] = -TAU[J] * E[J].toComplex() * VP[JP1 + JR];
-          } // 50
+          }
         }
 
         if (TAU[J] != Complex.zero) {
@@ -174,13 +168,12 @@ void zhpt21(
           VP[JP1 + J] = VSAVE;
         }
         WORK[JP1 + J + 1] = D[J + 1].toComplex();
-      } // 60
+      }
     }
 
     for (J = 1; J <= LAP; J++) {
-      // 70
       WORK[J] -= AP[J];
-    } // 70
+    }
     WNORM = zlanhp('1', CUPLO, N, WORK, RWORK);
   } else if (ITYPE == 3) {
     // ITYPE=3: error = U V**H - I
@@ -195,9 +188,8 @@ void zhpt21(
     }
 
     for (J = 1; J <= N; J++) {
-      // 80
       WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
-    } // 80
+    }
 
     WNORM = zlange('1', N, N, WORK.asMatrix(), N, RWORK);
   }
@@ -221,9 +213,8 @@ void zhpt21(
         WORK.asMatrix(), N);
 
     for (J = 1; J <= N; J++) {
-      // 90
       WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
-    } // 90
+    }
 
     RESULT[2] =
         min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N.toDouble()) /

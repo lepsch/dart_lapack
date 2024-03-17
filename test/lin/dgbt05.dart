@@ -70,8 +70,6 @@ void dgbt05(
       ERRBND = ONE / EPS;
       continue;
     }
-
-    //  } // 20
     if (DIFF / XNORM <= FERR[J]) {
       ERRBND = max(ERRBND, (DIFF / XNORM) / FERR[J]);
     } else {

@@ -178,14 +178,9 @@ Future<void> zdrgsx(
     WEIGHT = sqrt(ULP);
 
     for (IFUNC = 0; IFUNC <= 3; IFUNC++) {
-      // 60
       for (PRTYPE = 1; PRTYPE <= 5; PRTYPE++) {
-        // 50
         for (mn.M = 1; mn.M <= NSIZE - 1; mn.M++) {
-          // 40
           for (mn.N = 1; mn.N <= NSIZE - mn.M; mn.N++) {
-            // 30
-
             WEIGHT = ONE / WEIGHT;
             mn.MPLUSN = mn.M + mn.N;
 
@@ -307,7 +302,6 @@ Future<void> zdrgsx(
             RESULT[6] = ZERO;
 
             for (J = 1; J <= mn.MPLUSN; J++) {
-              // 10
               ILABAD = false;
               TEMP2 = (ABS1(ALPHA[J] - AI[J][J]) /
                           max(SMLNUM, max(ABS1(ALPHA[J]), ABS1(AI[J][J]))) +
@@ -330,7 +324,7 @@ Future<void> zdrgsx(
               if (ILABAD) {
                 _print9997(NOUT, J, mn.MPLUSN, PRTYPE);
               }
-            } // 10
+            }
             RESULT[6] = TEMP1;
             NTEST += 2;
 
@@ -394,7 +388,6 @@ Future<void> zdrgsx(
             // Print out tests which fail.
 
             for (J = 1; J <= 9; J++) {
-              // 20
               if (RESULT[J] >= THRESH) {
                 // If this is the first test to fail,
                 // print a header to the data file.
@@ -420,18 +413,16 @@ Future<void> zdrgsx(
                       ' Matrix order=${mn.MPLUSN.i2}, type=${PRTYPE.i2}, a=${WEIGHT.d10_3}, order(A_11)=${mn.M.i2}, result ${J.i2} is ${RESULT[J].d10_3}');
                 }
               }
-            } // 20
-          } // 30
-        } // 40
-      } // 50
-    } // 60
+            }
+          }
+        }
+      }
+    }
   } else {
     // Read in data from file to check accuracy of condition estimation
     // Read input data until mn.N=0
 
     NPTKNT = 0;
-
-    // } // 80
     try {
       while (true) {
         mn.MPLUSN = await NIN.readInt();
@@ -518,7 +509,6 @@ Future<void> zdrgsx(
         RESULT[6] = ZERO;
 
         for (J = 1; J <= mn.MPLUSN; J++) {
-          // 110
           ILABAD = false;
           TEMP2 = (ABS1(ALPHA[J] - AI[J][J]) /
                       max(SMLNUM, max(ABS1(ALPHA[J]), ABS1(AI[J][J]))) +
@@ -541,7 +531,7 @@ Future<void> zdrgsx(
           if (ILABAD) {
             _print9997(NOUT, J, mn.MPLUSN, NPTKNT);
           }
-        } // 110
+        }
         RESULT[6] = TEMP1;
 
         // Test (7) (if sorting worked)  <--------- need to be checked.
@@ -590,7 +580,6 @@ Future<void> zdrgsx(
         // Print out tests which fail.
 
         for (J = 1; J <= NTEST; J++) {
-          // 120
           if (RESULT[J] >= THRESH) {
             // If this is the first test to fail,
             // print a header to the data file.
@@ -615,12 +604,10 @@ Future<void> zdrgsx(
                   ' Input example #${NPTKNT.i2}, matrix order=${mn.MPLUSN.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
             }
           }
-        } // 120
-
-        // } // 130
+        }
       }
-    } catch (_) {} // 140
-  } // 150
+    } catch (_) {}
+  }
 
   // Summary
 

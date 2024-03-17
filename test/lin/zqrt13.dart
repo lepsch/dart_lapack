@@ -32,13 +32,12 @@ void zqrt13(
   // benign matrix
 
   for (var J = 1; J <= N; J++) {
-    // 10
     zlarnv(2, ISEED, M, A(1, J).asArray());
     if (J <= M) {
       A[J][J] += Complex(
           sign(dzasum(M, A(1, J).asArray(), 1), A[J][J].real).toDouble());
     }
-  } // 10
+  }
 
   // scaled versions
 

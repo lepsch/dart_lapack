@@ -138,20 +138,17 @@ void dggsvd3(
   dcopy(N, ALPHA, 1, WORK, 1);
   IBND = min(L.value, M - K.value);
   for (I = 1; I <= IBND; I++) {
-    // 20
-
     // Scan for largest ALPHA[K.value+I]
 
     ISUB = I;
     SMAX = WORK[K.value + I];
     for (J = I + 1; J <= IBND; J++) {
-      // 10
       TEMP = WORK[K.value + J];
       if (TEMP > SMAX) {
         ISUB = J;
         SMAX = TEMP;
       }
-    } // 10
+    }
     if (ISUB != I) {
       WORK[K.value + ISUB] = WORK[K.value + I];
       WORK[K.value + I] = SMAX;
@@ -159,7 +156,7 @@ void dggsvd3(
     } else {
       IWORK[K.value + I] = K.value + I;
     }
-  } // 20
+  }
 
   WORK[1] = LWKOPT.toDouble();
 }

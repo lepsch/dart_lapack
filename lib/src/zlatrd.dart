@@ -42,7 +42,6 @@ void zlatrd(
     // Reduce last NB columns of upper triangle
 
     for (I = N; I >= N - NB + 1; I--) {
-      // 10
       IW = I - N + NB;
       if (I < N) {
         // Update A(1:i,i)
@@ -107,13 +106,11 @@ void zlatrd(
             zdotc(I - 1, W(1, IW).asArray(), 1, A(1, I).asArray(), 1);
         zaxpy(I - 1, ALPHA.value, A(1, I).asArray(), 1, W(1, IW).asArray(), 1);
       }
-    } // 10
+    }
   } else {
     // Reduce first NB columns of lower triangle
 
     for (I = 1; I <= NB; I++) {
-      // 20
-
       // Update A(i:n,i)
 
       A[I][I] = A[I][I].toDouble().toComplex();
@@ -154,6 +151,6 @@ void zlatrd(
         zaxpy(N - I, ALPHA.value, A(I + 1, I).asArray(), 1,
             W(I + 1, I).asArray(), 1);
       }
-    } // 20
+    }
   }
 }

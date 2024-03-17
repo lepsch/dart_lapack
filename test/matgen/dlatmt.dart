@@ -220,9 +220,8 @@ void dlatmt(
   // Initialize random number generator
 
   for (I = 1; I <= 4; I++) {
-    // 100
     ISEED[I] = ISEED[I].abs() % 4096;
-  } // 100
+  }
 
   if ((ISEED[4] % 2) != 1) ISEED[4]++;
 
@@ -250,9 +249,8 @@ void dlatmt(
 
     TEMP.value = D[1].abs();
     for (I = 2; I <= RANK; I++) {
-      // 110
       TEMP.value = max(TEMP.value, (D[I]).abs());
-    } // 110
+    }
 
     if (TEMP.value > ZERO) {
       ALPHA = DMAX / TEMP.value;
@@ -318,15 +316,12 @@ void dlatmt(
       if (TOPDWN) {
         JKL = 0;
         for (JKU = 1; JKU <= UUB; JKU++) {
-          // 140
-
           // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
           // Last row actually rotated is M
           // Last column actually rotated is min( M+JKU, N )
 
           for (JR = 1; JR <= min(M + JKU, N) + JKL - 1; JR++) {
-            // 130
             EXTRA.value = ZERO;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C.value = cos(ANGLE);
@@ -354,7 +349,6 @@ void dlatmt(
             for (JCH = JR - JKL;
                 -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1;
                 JCH += -JKL - JKU) {
-              // 120
               if (IR < M) {
                 dlartg(A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
                     EXTRA.value, C, S, DUMMY);
@@ -394,18 +388,15 @@ void dlatmt(
                 IC = ICOL;
                 IR = IROW;
               }
-            } // 120
-          } // 130
-        } // 140
+            }
+          }
+        }
 
         JKU = UUB;
         for (JKL = 1; JKL <= LLB; JKL++) {
-          // 170
-
           // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
           for (JC = 1; JC <= min(N + JKL, M) + JKU - 1; JC++) {
-            // 160
             EXTRA.value = ZERO;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C.value = cos(ANGLE);
@@ -433,7 +424,6 @@ void dlatmt(
             for (JCH = JC - JKU;
                 -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1;
                 JCH += -JKL - JKU) {
-              // 150
               if (IC < N) {
                 dlartg(A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
                     EXTRA.value, C, S, DUMMY);
@@ -473,16 +463,14 @@ void dlatmt(
                 IC = ICOL;
                 IR = IROW;
               }
-            } // 150
-          } // 160
-        } // 170
+            }
+          }
+        }
       } else {
         // Bottom-Up -- Start at the bottom right.
 
         JKL = 0;
         for (JKU = 1; JKU <= UUB; JKU++) {
-          // 200
-
           // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
           // First row actually rotated is M
@@ -490,7 +478,6 @@ void dlatmt(
 
           IENDCH = min(M, N + JKL) - 1;
           for (JC = min(M + JKU, N) - 1; JC >= 1 - JKL; JC--) {
-            // 190
             EXTRA.value = ZERO;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C.value = cos(ANGLE);
@@ -517,7 +504,6 @@ void dlatmt(
             for (JCH = JC + JKL;
                 JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH;
                 JCH += JKL + JKU) {
-              // 180
               ILEXTR = IC > 0;
               if (ILEXTR) {
                 dlartg(
@@ -556,14 +542,12 @@ void dlatmt(
                     EXTRA);
                 IC = ICOL;
               }
-            } // 180
-          } // 190
-        } // 200
+            }
+          }
+        }
 
         JKU = UUB;
         for (JKL = 1; JKL <= LLB; JKL++) {
-          // 230
-
           // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
           // First row actually rotated is min( N+JKL, M )
@@ -571,7 +555,6 @@ void dlatmt(
 
           IENDCH = min(N, M + JKU) - 1;
           for (JR = min(N + JKL, M) - 1; JR >= 1 - JKU; JR--) {
-            // 220
             EXTRA.value = ZERO;
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C.value = cos(ANGLE);
@@ -598,7 +581,6 @@ void dlatmt(
             for (JCH = JR + JKU;
                 JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH;
                 JCH += JKL + JKU) {
-              // 210
               ILEXTR = IR > 0;
               if (ILEXTR) {
                 dlartg(A[IR - ISKEW * JCH + IOFFST][JCH], EXTRA.value, C, S,
@@ -637,9 +619,9 @@ void dlatmt(
                     EXTRA);
                 IR = IROW;
               }
-            } // 210
-          } // 220
-        } // 230
+            }
+          }
+        }
       }
     } else {
       // Symmetric -- A = U D U'
@@ -659,9 +641,7 @@ void dlatmt(
         dcopy(MNMIN, D, 1, A(1 - ISKEW + IOFFG, 1).asArray(), ILDA + 1);
 
         for (K = 1; K <= UUB; K++) {
-          // 260
           for (JC = 1; JC <= N - 1; JC++) {
-            // 250
             IROW = max(1, JC - K);
             IL = min(JC + 1, K + 2);
             EXTRA.value = ZERO;
@@ -678,7 +658,6 @@ void dlatmt(
 
             ICOL = JC;
             for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) {
-              // 240
               dlartg(A[JCH + 1 - ISKEW * (ICOL + 1) + IOFFG][ICOL + 1],
                   EXTRA.value, C, S, DUMMY);
               TEMP.value = A[JCH - ISKEW * (JCH + 1) + IOFFG][JCH + 1];
@@ -708,30 +687,26 @@ void dlatmt(
                   EXTRA,
                   TEMP);
               ICOL = JCH;
-            } // 240
-          } // 250
-        } // 260
+            }
+          }
+        }
 
         // If we need lower triangle, copy from upper. Note that
         // the order of copying is chosen to work for 'q' -> 'b'
 
         if (IPACK != IPACKG && IPACK != 3) {
           for (JC = 1; JC <= N; JC++) {
-            // 280
             IROW = IOFFST - ISKEW * JC;
             for (JR = JC; JR <= min(N, JC + UUB); JR++) {
-              // 270
               A[JR + IROW][JC] = A[JC - ISKEW * JR + IOFFG][JR];
-            } // 270
-          } // 280
+            }
+          }
           if (IPACK == 5) {
             for (JC = N - UUB + 1; JC <= N; JC++) {
-              // 300
               for (JR = N + 2 - JC; JR <= UUB + 1; JR++) {
-                // 290
                 A[JR][JC] = ZERO;
-              } // 290
-            } // 300
+              }
+            }
           }
           if (IPACKG == 6) {
             IPACKG = IPACK;
@@ -751,9 +726,7 @@ void dlatmt(
         dcopy(MNMIN, D, 1, A(1 - ISKEW + IOFFG, 1).asArray(), ILDA + 1);
 
         for (K = 1; K <= UUB; K++) {
-          // 330
           for (JC = N - 1; JC >= 1; JC--) {
-            // 320
             IL = min(N + 1 - JC, K + 2);
             EXTRA.value = ZERO;
             TEMP.value = A[1 + (1 - ISKEW) * JC + IOFFG][JC];
@@ -779,7 +752,6 @@ void dlatmt(
 
             ICOL = JC;
             for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) {
-              // 310
               dlartg(A[JCH - ISKEW * ICOL + IOFFG][ICOL], EXTRA.value, C, S,
                   DUMMY);
               TEMP.value = A[1 + (1 - ISKEW) * JCH + IOFFG][JCH];
@@ -808,30 +780,26 @@ void dlatmt(
                   TEMP,
                   EXTRA);
               ICOL = JCH;
-            } // 310
-          } // 320
-        } // 330
+            }
+          }
+        }
 
         // If we need upper triangle, copy from lower. Note that
         // the order of copying is chosen to work for 'b' -> 'q'
 
         if (IPACK != IPACKG && IPACK != 4) {
           for (JC = N; JC >= 1; JC--) {
-            // 350
             IROW = IOFFST - ISKEW * JC;
             for (JR = JC; JR >= max(1, JC - UUB); JR--) {
-              // 340
               A[JR + IROW][JC] = A[JC - ISKEW * JR + IOFFG][JR];
-            } // 340
-          } // 350
+            }
+          }
           if (IPACK == 6) {
             for (JC = 1; JC <= UUB; JC++) {
-              // 370
               for (JR = 1; JR <= UUB + 1 - JC; JR++) {
-                // 360
                 A[JR][JC] = ZERO;
-              } // 360
-            } // 370
+              }
+            }
           }
           if (IPACKG == 5) {
             IPACKG = IPACK;
@@ -871,56 +839,48 @@ void dlatmt(
       // 'U' -- Upper triangular, not packed
 
       for (J = 1; J <= M; J++) {
-        // 390
         for (I = J + 1; I <= M; I++) {
-          // 380
           A[I][J] = ZERO;
-        } // 380
-      } // 390
+        }
+      }
     } else if (IPACK == 2) {
       // 'L' -- Lower triangular, not packed
 
       for (J = 2; J <= M; J++) {
-        // 410
         for (I = 1; I <= J - 1; I++) {
-          // 400
           A[I][J] = ZERO;
-        } // 400
-      } // 410
+        }
+      }
     } else if (IPACK == 3) {
       // 'C.value' -- Upper triangle packed Columnwise.
 
       ICOL = 1;
       IROW = 0;
       for (J = 1; J <= M; J++) {
-        // 430
         for (I = 1; I <= J; I++) {
-          // 420
           IROW++;
           if (IROW > LDA) {
             IROW = 1;
             ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
-        } // 420
-      } // 430
+        }
+      }
     } else if (IPACK == 4) {
       // 'R' -- Lower triangle packed Columnwise.
 
       ICOL = 1;
       IROW = 0;
       for (J = 1; J <= M; J++) {
-        // 450
         for (I = J; I <= M; I++) {
-          // 440
           IROW++;
           if (IROW > LDA) {
             IROW = 1;
             ICOL++;
           }
           A[IROW][ICOL] = A[I][J];
-        } // 440
-      } // 450
+        }
+      }
     } else if (IPACK >= 5) {
       // 'B' -- The lower triangle is packed as a band matrix.
       // 'Q' -- The upper triangle is packed as a band matrix.
@@ -930,20 +890,16 @@ void dlatmt(
       if (IPACK == 6) LLB = 0;
 
       for (J = 1; J <= UUB; J++) {
-        // 470
         for (I = min(J + LLB, M); I >= 1; I--) {
-          // 460
           A[I - J + UUB + 1][J] = A[I][J];
-        } // 460
-      } // 470
+        }
+      }
 
       for (J = UUB + 2; J <= N; J++) {
-        // 490
         for (I = J - UUB; I <= min(J + LLB, M); I++) {
-          // 480
           A[I - J + UUB + 1][J] = A[I][J];
-        } // 480
-      } // 490
+        }
+      }
     }
 
     // If packed, zero out extraneous elements.
@@ -953,13 +909,11 @@ void dlatmt(
 
     if (IPACK == 3 || IPACK == 4) {
       for (JC = ICOL; JC <= M; JC++) {
-        // 510
         for (JR = IROW + 1; JR <= LDA; JR++) {
-          // 500
           A[JR][JC] = ZERO;
-        } // 500
+        }
         IROW = 0;
-      } // 510
+      }
     } else if (IPACK >= 5) {
       // Packed Band --
       //    1st row is now in A( UUB+2-j, j), zero above it
@@ -970,16 +924,14 @@ void dlatmt(
       IR1 = UUB + LLB + 2;
       IR2 = UUB + M + 2;
       for (JC = 1; JC <= N; JC++) {
-        // 540
         for (JR = 1; JR <= UUB + 1 - JC; JR++) {
-          // 520
           A[JR][JC] = ZERO;
-        } // 520
-        //for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) { // 530
+        }
+        //for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) {
         for (JR = max(1, min(IR1, IR2 - JC)); JR <= LDA; JR++) {
           A[JR][JC] = ZERO;
-        } // 530
-      } // 540
+        }
+      }
     }
   }
 }

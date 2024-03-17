@@ -115,7 +115,6 @@ void main() {
     }
   } else {
     for (i = 1; i <= N; i++) {
-      // 100
       Xj = X[i];
       if (Xj == 0.0) {
         subnormalTreatedAs0++;
@@ -123,12 +122,11 @@ void main() {
           print('!! fl( subnormal ) may be 0');
         }
       }
-    } // 100
+    }
   }
 
   // Test (a) y = x + 0 * I, y/y = 1
   for (i = 1; i <= N; i++) {
-    // 10
     Xj = X[i];
     if (Xj == 0.0) {
       subnormalTreatedAs0++;
@@ -150,11 +148,10 @@ void main() {
         Xj *= stepX[i];
       }
     }
-  } // 10
+  }
 
   // Test (b) y = 0 + x * I, y/y = 1
   for (i = 1; i <= N; i++) {
-    // 20
     Xj = X[i];
     if (Xj == 0.0) {
       subnormalTreatedAs0++;
@@ -176,11 +173,10 @@ void main() {
         Xj *= stepX[i];
       }
     }
-  } // 20
+  }
 
   // Test (c) y = x + x * I, y/y = 1
   for (i = 1; i <= N; i++) {
-    // 30
     Xj = X[i];
     if (Xj == 0.0) {
       subnormalTreatedAs0++;
@@ -202,11 +198,10 @@ void main() {
         Xj *= stepX[i];
       }
     }
-  } // 30
+  }
 
   // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
   for (i = 1; i <= N; i++) {
-    // 40
     Xj = X[i];
     if (Xj == 0.0) {
       subnormalTreatedAs0++;
@@ -229,11 +224,10 @@ void main() {
         Xj *= stepX[i];
       }
     }
-  } // 40
+  }
 
   // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
   for (i = 1; i <= N; i++) {
-    // 50
     Xj = X[i];
     if (Xj == 0.0) {
       subnormalTreatedAs0++;
@@ -256,11 +250,10 @@ void main() {
         Xj *= stepX[i];
       }
     }
-  } // 50
+  }
 
   // Test (f) y = x + x * I, y/conj(y) = I
   for (i = 1; i <= N; i++) {
-    // 60
     Xj = X[i];
     if (Xj == 0.0) {
       subnormalTreatedAs0++;
@@ -282,11 +275,10 @@ void main() {
         Xj *= stepX[i];
       }
     }
-  } // 60
+  }
 
   // Test (g) Infs
   for (i = 1; i <= nInf; i++) {
-    // 70
     nTests += 3;
     Y = cInf[i];
     R = Complex.zero / Y;
@@ -304,11 +296,10 @@ void main() {
       caseInfFails++;
       _print9998('ic', i, Y, Y, R, 'NaN');
     }
-  } // 70
+  }
 
   // Test (h) NaNs
   for (i = 1; i <= nNaN; i++) {
-    // 80
     nTests += 3;
     Y = cNaN[i];
     R = Complex.zero / Y;
@@ -326,7 +317,7 @@ void main() {
       caseNaNFails++;
       _print9998('nc', i, Y, Y, R, 'NaN');
     }
-  } // 80
+  }
 
   // If any test fails, displays a message
   nFailingTests = caseAFails +

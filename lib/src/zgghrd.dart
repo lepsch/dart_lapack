@@ -107,21 +107,15 @@ void zgghrd(
   // Zero out lower triangle of B
 
   for (JCOL = 1; JCOL <= N - 1; JCOL++) {
-    // 20
     for (JROW = JCOL + 1; JROW <= N; JROW++) {
-      // 10
       B[JROW][JCOL] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
 
   // Reduce A and B
 
   for (JCOL = ILO; JCOL <= IHI - 2; JCOL++) {
-    // 40
-
     for (JROW = IHI; JROW >= JCOL + 2; JROW--) {
-      // 30
-
       // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 
       CTEMP = A[JROW - 1][JCOL];
@@ -149,6 +143,6 @@ void zgghrd(
         zrot(N, Z(1, JROW).asArray(), 1, Z(1, JROW - 1).asArray(), 1, C.value,
             S.value);
       }
-    } // 30
-  } // 40
+    }
+  }
 }

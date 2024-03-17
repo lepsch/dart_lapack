@@ -61,20 +61,16 @@ void dsyt01_rook(
 
   if (lsame(UPLO, 'U')) {
     for (var J = 1; J <= N; J++) {
-      // 20
       for (var I = 1; I <= J; I++) {
-        // 10
         C[I][J] -= A[I][J];
-      } // 10
-    } // 20
+      }
+    }
   } else {
     for (var J = 1; J <= N; J++) {
-      // 40
       for (var I = J; I <= N; I++) {
-        // 30
         C[I][J] -= A[I][J];
-      } // 30
-    } // 40
+      }
+    }
   }
 
   // Compute norm( C - A ) / ( N * norm(A) * EPS )

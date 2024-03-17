@@ -46,27 +46,23 @@ void zlaqsp(
 
       JC = 1;
       for (J = 1; J <= N; J++) {
-        // 20
         CJ = S[J];
         for (I = 1; I <= J; I++) {
-          // 10
           AP[JC + I - 1] = (CJ * S[I]).toComplex() * AP[JC + I - 1];
-        } // 10
+        }
         JC += J;
-      } // 20
+      }
     } else {
       // Lower triangle of A is stored.
 
       JC = 1;
       for (J = 1; J <= N; J++) {
-        // 40
         CJ = S[J];
         for (I = J; I <= N; I++) {
-          // 30
           AP[JC + I - J] = (CJ * S[I]).toComplex() * AP[JC + I - J];
-        } // 30
+        }
         JC += N - J + 1;
-      } // 40
+      }
     }
     EQUED.value = 'Y';
   }

@@ -129,7 +129,7 @@ void zhetrf_rk(
 
       // This label is the exit from main loop over K decreasing
       // from N to 1 in steps of KB.value
-    } // 15
+    }
   } else {
     // Factorize A as L*D*L**T using the lower triangle of A
 
@@ -187,7 +187,7 @@ void zhetrf_rk(
       // Increase K and return to the start of the main loop
 
       K += KB.value;
-    } // 35
+    }
   }
 
   WORK[1] = LWKOPT.toComplex();

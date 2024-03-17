@@ -264,19 +264,17 @@ void zgeev(
       // Normalize left eigenvectors and make largest component real
 
       for (I = 1; I <= N; I++) {
-        // 20
         SCL = ONE / dznrm2(N, VL(1, I).asArray(), 1);
         zdscal(N, SCL, VL(1, I).asArray(), 1);
         for (K = 1; K <= N; K++) {
-          // 10
           RWORK[IRWORK + K - 1] = pow(VL[K][I].toDouble(), 2).toDouble() +
               pow(VL[K][I].imaginary, 2);
-        } // 10
+        }
         K = idamax(N, RWORK(IRWORK), 1);
         TMP = VL[K][I].conjugate() / sqrt(RWORK[IRWORK + K - 1]).toComplex();
         zscal(N, TMP, VL(1, I).asArray(), 1);
         VL[K][I] = (VL[K][I]).toDouble().toComplex();
-      } // 20
+      }
     }
 
     if (WANTVR) {
@@ -289,23 +287,21 @@ void zgeev(
       // Normalize right eigenvectors and make largest component real
 
       for (I = 1; I <= N; I++) {
-        // 40
         SCL = ONE / dznrm2(N, VR(1, I).asArray(), 1);
         zdscal(N, SCL, VR(1, I).asArray(), 1);
         for (K = 1; K <= N; K++) {
-          // 30
           RWORK[IRWORK + K - 1] = pow(VR[K][I].toDouble(), 2).toDouble() +
               pow(VR[K][I].imaginary, 2);
-        } // 30
+        }
         K = idamax(N, RWORK(IRWORK), 1);
         TMP = VR[K][I].conjugate() / sqrt(RWORK[IRWORK + K - 1]).toComplex();
         zscal(N, TMP, VR(1, I).asArray(), 1);
         VR[K][I] = VR[K][I].toDouble().toComplex();
-      } // 40
+      }
     }
 
     // Undo scaling if necessary
-  } // 50
+  }
   if (SCALEA) {
     zlascl(
         'G',

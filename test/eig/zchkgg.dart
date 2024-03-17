@@ -167,10 +167,9 @@ void zchkgg(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   LWKOPT = max(2 * NMAX * NMAX, max(4 * NMAX, 1));
 
@@ -218,7 +217,6 @@ void zchkgg(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 240
     N = NN[JSIZE];
     N1 = max(1, N);
     RMAGN[2] = SAFMAX * ULP / N1.toDouble();
@@ -231,23 +229,20 @@ void zchkgg(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 230
       if (!DOTYPE[JTYPE]) continue;
       NTEST = 0;
 
       // Save ISEED in case of an error.
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Initialize RESULT
 
       for (J = 1; J <= 15; J++) {
-        // 30
         RESULT[J] = ZERO;
-      } // 30
+      }
 
       // Compute A and B
 
@@ -335,12 +330,10 @@ void zchkgg(
             // V(j,j) real.)
 
             for (JC = 1; JC <= N - 1; JC++) {
-              // 50
               for (JR = JC; JR <= N; JR++) {
-                // 40
                 U[JR][JC] = zlarnd(3, ISEED);
                 V[JR][JC] = zlarnd(3, ISEED);
-              } // 40
+              }
               zlarfg(
                   N + 1 - JC, U(JC, JC), U(JC + 1, JC).asArray(), 1, WORK(JC));
               WORK[2 * N + JC] = sign(ONE, (U[JC][JC]).toDouble()).toComplex();
@@ -349,7 +342,7 @@ void zchkgg(
                   WORK(N + JC));
               WORK[3 * N + JC] = sign(ONE, (V[JC][JC]).toDouble()).toComplex();
               V[JC][JC] = Complex.one;
-            } // 50
+            }
             CTEMP = zlarnd(3, ISEED);
             U[N][N] = Complex.one;
             WORK[N] = Complex.zero;
@@ -362,15 +355,13 @@ void zchkgg(
             // Apply the diagonal matrices
 
             for (JC = 1; JC <= N; JC++) {
-              // 70
               for (JR = 1; JR <= N; JR++) {
-                // 60
                 A[JR][JC] =
                     WORK[2 * N + JR] * WORK[3 * N + JC].conjugate() * A[JR][JC];
                 B[JR][JC] =
                     WORK[2 * N + JR] * WORK[3 * N + JC].conjugate() * B[JR][JC];
-              } // 60
-            } // 70
+              }
+            }
             zunm2r('L', 'N', N, N, N - 1, U, LDU, WORK, A, LDA, WORK(2 * N + 1),
                 IINFO);
             if (IINFO.value == 0) {
@@ -392,13 +383,11 @@ void zchkgg(
           // Random matrices
 
           for (JC = 1; JC <= N; JC++) {
-            // 90
             for (JR = 1; JR <= N; JR++) {
-              // 80
               A[JR][JC] = RMAGN[KAMAGN[JTYPE]].toComplex() * zlarnd(4, ISEED);
               B[JR][JC] = RMAGN[KBMAGN[JTYPE]].toComplex() * zlarnd(4, ISEED);
-            } // 80
-          } // 90
+            }
+          }
         }
 
         ANORM = zlange('1', N, N, A, LDA, RWORK);
@@ -409,7 +398,7 @@ void zchkgg(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 110
+      }
 
       tests:
       while (true) {
@@ -524,13 +513,11 @@ void zchkgg(
 
         I1 = N ~/ 2;
         for (J = 1; J <= I1; J++) {
-          // 120
           LLWORK[J] = true;
-        } // 120
+        }
         for (J = I1 + 1; J <= N; J++) {
-          // 130
           LLWORK[J] = false;
-        } // 130
+        }
 
         ztgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU,
             CDUMMA.asMatrix(), LDU, N, IN, WORK, RWORK, IINFO);
@@ -542,13 +529,11 @@ void zchkgg(
 
         I1 = IN.value;
         for (J = 1; J <= I1; J++) {
-          // 140
           LLWORK[J] = false;
-        } // 140
+        }
         for (J = I1 + 1; J <= N; J++) {
-          // 150
           LLWORK[J] = true;
-        } // 150
+        }
 
         ztgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL(1, I1 + 1), LDU,
             CDUMMA.asMatrix(), LDU, N, IN, WORK, RWORK, IINFO);
@@ -599,13 +584,11 @@ void zchkgg(
 
         I1 = N ~/ 2;
         for (J = 1; J <= I1; J++) {
-          // 160
           LLWORK[J] = true;
-        } // 160
+        }
         for (J = I1 + 1; J <= N; J++) {
-          // 170
           LLWORK[J] = false;
-        } // 170
+        }
 
         ztgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA.asMatrix(), LDU,
             EVECTR, LDU, N, IN, WORK, RWORK, IINFO);
@@ -617,13 +600,11 @@ void zchkgg(
 
         I1 = IN.value;
         for (J = 1; J <= I1; J++) {
-          // 180
           LLWORK[J] = false;
-        } // 180
+        }
         for (J = I1 + 1; J <= N; J++) {
-          // 190
           LLWORK[J] = true;
-        } // 190
+        }
 
         ztgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA.asMatrix(), LDU,
             EVECTR(1, I1 + 1), LDU, N, IN, WORK, RWORK, IINFO);
@@ -678,10 +659,9 @@ void zchkgg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 200
             TEMP1 = max(TEMP1, (ALPHA1[J] - ALPHA3[J]).abs());
             TEMP2 = max(TEMP2, (BETA1[J] - BETA3[J]).abs());
-          } // 200
+          }
 
           TEMP1 /= max(SAFMIN, ULP * max(TEMP1, ANORM));
           TEMP2 /= max(SAFMIN, ULP * max(TEMP2, BNORM));
@@ -704,7 +684,6 @@ void zchkgg(
       // Print out tests which fail.
 
       for (JR = 1; JR <= NTEST; JR++) {
-        // 220
         if (RESULT[JR] >= THRESH) {
           // If this is the first test to fail,
           // print a header to the data file.
@@ -738,9 +717,9 @@ void zchkgg(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}');
           }
         }
-      } // 220
-    } // 230
-  } // 240
+      }
+    }
+  }
 
   // Summary
 

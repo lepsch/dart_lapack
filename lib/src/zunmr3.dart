@@ -93,7 +93,6 @@ void zunmr3(
   }
 
   for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-    // 10
     if (LEFT) {
       // H(i) or H(i)**H is applied to C(i:m,1:n)
 
@@ -114,5 +113,5 @@ void zunmr3(
       TAUI = TAU[I].conjugate();
     }
     zlarz(SIDE, MI, NI, L, A(I, JA).asArray(), LDA, TAUI, C(IC, JC), LDC, WORK);
-  } // 10
+  }
 }

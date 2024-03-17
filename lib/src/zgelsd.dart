@@ -447,8 +447,6 @@ void zgelsd(
   } else if (IBSCL == 2) {
     zlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO);
   }
-
-  // } // 10
   WORK[1] = MAXWRK.toComplex();
   IWORK[1] = LIWORK;
   RWORK[1] = LRWORK.toDouble();

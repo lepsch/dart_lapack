@@ -41,8 +41,6 @@ Future<void> zchkgl(
   RMAX = ZERO;
 
   EPS = dlamch('Precision');
-
-  // } // 10
   try {
     while (true) {
       N = await NIN.readInt();
@@ -77,19 +75,16 @@ Future<void> zchkgl(
 
       VMAX = ZERO;
       for (I = 1; I <= N; I++) {
-        // 70
         for (J = 1; J <= N; J++) {
-          // 60
           VMAX = max(VMAX, (A[I][J] - AIN[I][J]).abs());
           VMAX = max(VMAX, (B[I][J] - BIN[I][J]).abs());
-        } // 60
-      } // 70
+        }
+      }
 
       for (I = 1; I <= N; I++) {
-        // 80
         VMAX = max(VMAX, (LSCALE[I] - LSCLIN[I]).abs());
         VMAX = max(VMAX, (RSCALE[I] - RSCLIN[I]).abs());
-      } // 80
+      }
 
       VMAX /= (EPS * max(ANORM, BNORM));
 
@@ -97,7 +92,7 @@ Future<void> zchkgl(
         LMAX[3] = KNT;
         RMAX = VMAX;
       }
-    } // 90
+    }
   } catch (_) {}
 
   NOUT.println(' .. test output of ZGGBAL .. ');

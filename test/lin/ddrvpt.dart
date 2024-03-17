@@ -74,9 +74,8 @@ void ddrvpt(
   var NFAIL = 0;
   final NERRS = Box(0);
   for (var I = 1; I <= 4; I++) {
-    // 10
     ISEED[I] = ISEEDY[I - 1];
-  } // 10
+  }
 
   // Test the error exits
 
@@ -84,8 +83,6 @@ void ddrvpt(
   infoc.INFOT = 0;
 
   for (var IN = 1; IN <= NN; IN++) {
-    // 120
-
     // Do for each value of N in NVAL.
 
     final N = NVAL[IN];
@@ -93,8 +90,6 @@ void ddrvpt(
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
-      // 110
-
       // Do the tests only if DOTYPE( IMAT ) is true.
 
       if (N > 0 && !DOTYPE[IMAT]) continue;
@@ -127,11 +122,10 @@ void ddrvpt(
 
         var IA = 1;
         for (var I = 1; I <= N - 1; I++) {
-          // 20
           D[I] = A[IA];
           E[I] = A[IA + 1];
           IA += 2;
-        } // 20
+        }
         if (N > 0) D[N] = A[IA];
       } else {
         // Type 7-12:  generate a diagonally dominant matrix with
@@ -151,9 +145,8 @@ void ddrvpt(
             D[1] = D[1].abs() + E[1].abs();
             D[N] = D[N].abs() + E[N - 1].abs();
             for (var I = 2; I <= N - 1; I++) {
-              // 30
               D[I] = D[I].abs() + E[I].abs() + E[I - 1].abs();
-            } // 30
+            }
           }
 
           // Scale D and E so the maximum element is ANORM.
@@ -216,17 +209,15 @@ void ddrvpt(
 
       var IX = 1;
       for (var J = 1; J <= NRHS; J++) {
-        // 40
         dlarnv(2, ISEED, N, XACT(IX));
         IX += LDA;
-      } // 40
+      }
 
       // Set the right hand side.
 
       dlaptm(N, NRHS, ONE, D, E, XACT.asMatrix(), LDA, ZERO, B.asMatrix(), LDA);
       var RCONDC = ZERO;
       for (var IFACT = 1; IFACT <= 2; IFACT++) {
-        // 100
         final FACT = IFACT == 1 ? 'F' : 'N';
 
         // Compute the condition number for comparison with
@@ -252,15 +243,13 @@ void ddrvpt(
 
           var AINVNM = ZERO;
           for (var I = 1; I <= N; I++) {
-            // 60
             for (var J = 1; J <= N; J++) {
-              // 50
               X[J] = ZERO;
-            } // 50
+            }
             X[I] = ONE;
             dpttrs(N, 1, D(N + 1), E(N + 1), X.asMatrix(), LDA, INFO);
             AINVNM = max(AINVNM, dasum(N, X, 1));
-          } // 60
+          }
 
           // Compute the 1-norm condition number of A.
 
@@ -315,14 +304,13 @@ void ddrvpt(
           // the threshold.
 
           for (var K = 1; K <= NT; K++) {
-            // 70
             if (RESULT[K] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
               NOUT.println(
                   ' DPTSV, N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio = ${RESULT[K].g12_5}');
               NFAIL++;
             }
-          } // 70
+          }
           NRUN += NT;
         }
 
@@ -332,10 +320,9 @@ void ddrvpt(
           // Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
 
           for (var I = 1; I <= N - 1; I++) {
-            // 80
             D[N + I] = ZERO;
             E[N + I] = ZERO;
-          } // 80
+          }
           if (N > 0) D[N + N] = ZERO;
         }
 
@@ -394,18 +381,17 @@ void ddrvpt(
         // the threshold.
 
         for (var K = K1; K <= 6; K++) {
-          // 90
           if (RESULT[K] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
             NOUT.println(
                 ' DPTSVX, FACT=\'${FACT.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio = ${RESULT[K].g12_5}');
             NFAIL++;
           }
-        } // 90
+        }
         NRUN += 7 - K1;
-      } // 100
-    } // 110
-  } // 120
+      }
+    }
+  }
 
   // Print a summary of the results.
 

@@ -90,7 +90,6 @@ void dopmtr(
     }
 
     for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-      // 10
       if (LEFT) {
         // H(i) is applied to C(1:i,1:n)
 
@@ -113,7 +112,7 @@ void dopmtr(
       } else {
         II -= I - 1;
       }
-    } // 10
+    }
   } else {
     // Q was determined by a call to DSPTRD with UPLO = 'L'.
 
@@ -140,7 +139,6 @@ void dopmtr(
     }
 
     for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-      // 20
       AII = AP[II];
       AP[II] = ONE;
       if (LEFT) {
@@ -165,6 +163,6 @@ void dopmtr(
       } else {
         II -= NQ + I - 2;
       }
-    } // 20
+    }
   }
 }

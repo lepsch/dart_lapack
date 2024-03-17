@@ -80,9 +80,9 @@
       // QR with column pivoting of B: B*P = V*( S11 S12 )
       //                                       (  0   0  )
 
-      for (I = 1; I <= N; I++) { // 10
+      for (I = 1; I <= N; I++) {
          IWORK[I] = 0;
-      } // 10
+      }
       zgeqpf(P, N, B, LDB, IWORK, TAU, WORK, RWORK, INFO );
 
       // Update A := A*P
@@ -92,9 +92,9 @@
       // Determine the effective rank of matrix B.
 
       L = 0;
-      for (I = 1; I <= min( P, N ); I++) { // 20
+      for (I = 1; I <= min( P, N ); I++) {
          if( CABS1( B( I, I ) ) > TOLB ) L++;
-      } // 20
+      }
 
       if ( WANTV ) {
 
@@ -107,11 +107,11 @@
 
       // Clean up B
 
-      for (J = 1; J <= L - 1; J++) { // 40
-         for (I = J + 1; I <= L; I++) { // 30
+      for (J = 1; J <= L - 1; J++) {
+         for (I = J + 1; I <= L; I++) {
             B[I][J] = CZERO;
-         } // 30
-      } // 40
+         }
+      }
       if (P > L) zlaset( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
 
       if ( WANTQ ) {
@@ -141,11 +141,11 @@
          // Clean up B
 
          zlaset('Full', L, N-L, CZERO, CZERO, B, LDB );
-         for (J = N - L + 1; J <= N; J++) { // 60
-            for (I = J - N + L + 1; I <= L; I++) { // 50
+         for (J = N - L + 1; J <= N; J++) {
+            for (I = J - N + L + 1; I <= L; I++) {
                B[I][J] = CZERO;
-            } // 50
-         } // 60
+            }
+         }
 
       }
 
@@ -157,17 +157,17 @@
                // A11 = U*(  0  T12 )*P1**H
                //         (  0   0  )
 
-      for (I = 1; I <= N - L; I++) { // 70
+      for (I = 1; I <= N - L; I++) {
          IWORK[I] = 0;
-      } // 70
+      }
       zgeqpf(M, N-L, A, LDA, IWORK, TAU, WORK, RWORK, INFO );
 
       // Determine the effective rank of A11
 
       K = 0;
-      for (I = 1; I <= min( M, N-L ); I++) { // 80
+      for (I = 1; I <= min( M, N-L ); I++) {
          if( CABS1( A( I, I ) ) > TOLA ) K++;
-      } // 80
+      }
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )
 
@@ -192,11 +192,11 @@
       // Clean up A: set the strictly lower triangular part of
       // A(1:K, 1:K) = 0, and A( K+1:M, 1:N-L ) = 0.
 
-      for (J = 1; J <= K - 1; J++) { // 100
-         for (I = J + 1; I <= K; I++) { // 90
+      for (J = 1; J <= K - 1; J++) {
+         for (I = J + 1; I <= K; I++) {
             A[I][J] = CZERO;
-         } // 90
-      } // 100
+         }
+      }
       if (M > K) zlaset( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
 
       if ( N-L > K ) {
@@ -215,11 +215,11 @@
          // Clean up A
 
          zlaset('Full', K, N-L-K, CZERO, CZERO, A, LDA );
-         for (J = N - L - K + 1; J <= N - L; J++) { // 120
-            for (I = J - N + L + K + 1; I <= K; I++) { // 110
+         for (J = N - L - K + 1; J <= N - L; J++) {
+            for (I = J - N + L + K + 1; I <= K; I++) {
                A[I][J] = CZERO;
-            } // 110
-         } // 120
+            }
+         }
 
       }
 
@@ -238,11 +238,11 @@
 
          // Clean up
 
-         for (J = N - L + 1; J <= N; J++) { // 140
-            for (I = J - N + K + L + 1; I <= M; I++) { // 130
+         for (J = N - L + 1; J <= N; J++) {
+            for (I = J - N + K + L + 1; I <= M; I++) {
                A[I][J] = CZERO;
-            } // 130
-         } // 140
+            }
+         }
 
       }
 

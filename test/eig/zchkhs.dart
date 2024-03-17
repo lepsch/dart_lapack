@@ -143,10 +143,9 @@ void zchkhs(
   BADNN = false;
   NMAX = 0;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -191,7 +190,6 @@ void zchkhs(
   NERRS.value = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 260
     N = NN[JSIZE];
     if (N == 0) continue;
     N1 = max(1, N);
@@ -205,23 +203,20 @@ void zchkhs(
 
     jTypeLoop:
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 250
       if (!DOTYPE[JTYPE]) continue;
       NTEST = 0;
 
       // Save ISEED in case of an error.
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Initialize RESULT
 
       for (J = 1; J <= 14; J++) {
-        // 30
         RESULT[J] = ZERO;
-      } // 30
+      }
 
       // Compute "A"
 
@@ -257,7 +252,7 @@ void zchkhs(
           case 3:
             ANORM = RTUNFL * N * ULPINV;
             break;
-        } // 70
+        }
 
         zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
         IINFO.value = 0;
@@ -273,17 +268,15 @@ void zchkhs(
           // Identity
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 80
             A[JCOL][JCOL] = ANORM.toComplex();
-          } // 80
+          }
         } else if (ITYPE == 3) {
           // Jordan Block
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 90
             A[JCOL][JCOL] = ANORM.toComplex();
             if (JCOL > 1) A[JCOL][JCOL - 1] = Complex.one;
-          } // 90
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -471,7 +464,7 @@ void zchkhs(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 100
+      }
 
       tests:
       while (true) {
@@ -493,15 +486,13 @@ void zchkhs(
         }
 
         for (J = 1; J <= N - 1; J++) {
-          // 120
           UU[J + 1][J] = Complex.zero;
           for (I = J + 2; I <= N; I++) {
-            // 110
             U[I][J] = H[I][J];
             UU[I][J] = H[I][J];
             H[I][J] = Complex.zero;
-          } // 110
-        } // 120
+          }
+        }
         zcopy(N - 1, WORK, 1, TAU, 1);
         zunghr(N, ILO, IHI, U, LDU, WORK, WORK(N + 1), NWORK - N, IINFO);
         NTEST = 2;
@@ -576,10 +567,9 @@ void zchkhs(
         TEMP1 = ZERO;
         TEMP2 = ZERO;
         for (J = 1; J <= N; J++) {
-          // 130
           TEMP1 = max(TEMP1, max(W1[J].abs(), W3[J].abs()));
           TEMP2 = max(TEMP2, (W1[J] - W3[J]).abs());
-        } // 130
+        }
 
         RESULT[8] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -593,13 +583,11 @@ void zchkhs(
         // Select every other eigenvector
 
         for (J = 1; J <= N; J++) {
-          // 140
           SELECT[J] = false;
-        } // 140
+        }
         for (J = 1; J <= N; J += 2) {
-          // 150
           SELECT[J] = true;
-        } // 150
+        }
         ztrevc('Right', 'All', SELECT, N, T1, LDA, CDUMMA.asMatrix(), LDU,
             EVECTR, LDU, N, IN, WORK, RWORK, IINFO);
         if (IINFO.value != 0) {
@@ -632,18 +620,16 @@ void zchkhs(
         MATCH = true;
         match:
         for (J = 1; J <= N; J++) {
-          // 170
           if (SELECT[J]) {
             for (JJ = 1; JJ <= N; JJ++) {
-              // 160
               if (EVECTR(JJ, J) != EVECTL(JJ, K)) {
                 MATCH = false;
                 break match;
               }
-            } // 160
+            }
             K++;
           }
-        } // 170
+        }
         if (!MATCH) _print9997(NOUNIT, 'Right', 'ZTREVC', N, JTYPE, IOLDSD);
 
         // Compute the Left eigenvector Matrix:
@@ -682,18 +668,16 @@ void zchkhs(
         MATCH = true;
         match:
         for (J = 1; J <= N; J++) {
-          // 200
           if (SELECT[J]) {
             for (JJ = 1; JJ <= N; JJ++) {
-              // 190
               if (EVECTL(JJ, J) != EVECTR(JJ, K)) {
                 MATCH = false;
                 break match;
               }
-            } // 190
+            }
             K++;
           }
-        } // 200
+        }
         if (!MATCH) _print9997(NOUNIT, 'Left', 'ZTREVC', N, JTYPE, IOLDSD);
 
         // Call ZHSEIN for Right eigenvectors of H, do test 11
@@ -701,9 +685,8 @@ void zchkhs(
         NTEST = 11;
         RESULT[11] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 220
           SELECT[J] = true;
-        } // 220
+        }
 
         zhsein(
             'Right',
@@ -747,9 +730,8 @@ void zchkhs(
         NTEST = 12;
         RESULT[12] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 230
           SELECT[J] = true;
-        } // 230
+        }
 
         zhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, EVECTY, LDU,
             CDUMMA.asMatrix(), LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO);
@@ -867,12 +849,12 @@ void zchkhs(
         }
 
         // End of Loop -- Check for RESULT(j) > THRESH
-      } // 240
+      }
 
       NTESTT += NTEST;
       dlafts('ZHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
-    } // 250
-  } // 260
+    }
+  }
 
   // Summary
 

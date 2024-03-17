@@ -67,9 +67,8 @@ void zlatm1(
         // One large D value:
 
         for (I = 1; I <= N; I++) {
-          // 20
           D[I] = (ONE / COND).toComplex();
-        } // 20
+        }
         D[1] = Complex.one;
         break;
 
@@ -78,9 +77,8 @@ void zlatm1(
         // One small D value:
 
         for (I = 1; I <= N; I++) {
-          // 40
           D[I] = Complex.one;
-        } // 40
+        }
         D[N] = (ONE / COND).toComplex();
         break;
 
@@ -92,9 +90,8 @@ void zlatm1(
         if (N > 1) {
           ALPHA = pow(COND, (-ONE / (N - 1).toDouble())).toDouble();
           for (I = 2; I <= N; I++) {
-            // 60
             D[I] = pow(ALPHA, I - 1).toComplex();
-          } // 60
+          }
         }
         break;
 
@@ -107,9 +104,8 @@ void zlatm1(
           TEMP = ONE / COND;
           ALPHA = (ONE - TEMP) / (N - 1).toDouble();
           for (I = 2; I <= N; I++) {
-            // 80
             D[I] = ((N - I).toDouble() * ALPHA + TEMP).toComplex();
-          } // 80
+          }
         }
         break;
 
@@ -119,9 +115,8 @@ void zlatm1(
 
         ALPHA = log(ONE / COND);
         for (I = 1; I <= N; I++) {
-          // 100
           D[I] = exp(ALPHA * dlaran(ISEED)).toComplex();
-        } // 100
+        }
         break;
 
       case 6:
@@ -130,28 +125,26 @@ void zlatm1(
 
         zlarnv(IDIST, ISEED, N, D);
         break;
-    } // 120
+    }
 
     // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
     // random signs to D
 
     if ((MODE != -6 && MODE != 0 && MODE != 6) && IRSIGN == 1) {
       for (I = 1; I <= N; I++) {
-        // 130
         CTEMP = zlarnd(3, ISEED);
         D[I] *= (CTEMP / CTEMP.abs().toComplex());
-      } // 130
+      }
     }
 
     // Reverse if MODE < 0
 
     if (MODE < 0) {
       for (I = 1; I <= N / 2; I++) {
-        // 140
         CTEMP = D[I];
         D[I] = D[N + 1 - I];
         D[N + 1 - I] = CTEMP;
-      } // 140
+      }
     }
   }
 }

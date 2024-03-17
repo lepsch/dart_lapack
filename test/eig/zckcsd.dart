@@ -104,14 +104,11 @@ Future<void> zckcsd(
   // Do for each value of M in MVAL.
 
   for (IM = 1; IM <= NM; IM++) {
-    // 30
     M = MVAL[IM];
     P = PVAL[IM];
     Q = QVAL[IM];
 
     for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-      // 20
-
       // Do the tests only if DOTYPE[ IMAT ] is true.
 
       if (!DOTYPE[IMAT]) continue;
@@ -189,7 +186,6 @@ Future<void> zckcsd(
       // pass the threshold.
 
       for (I = 1; I <= NT; I++) {
-        // 10
         if (RESULT[I] >= THRESH) {
           if (NFAIL == 0 && FIRSTT) {
             FIRSTT = false;
@@ -199,10 +195,10 @@ Future<void> zckcsd(
               ' M=${M.i4} P=${P.i4}, Q=${Q.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
           NFAIL++;
         }
-      } // 10
+      }
       NRUN += NT;
-    } // 20
-  } // 30
+    }
+  }
 
   // Print a summary of the results.
 

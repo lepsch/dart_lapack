@@ -82,9 +82,8 @@ void zdrvhe(
   var NFAIL = 0;
   final NERRS = Box(0);
   for (var I = 1; I <= 4; I++) {
-    // 10
     ISEED[I] = ISEEDY[I - 1];
-  } // 10
+  }
   var LWORK = max(2 * NMAX, NMAX * NRHS);
 
   // Test the error exits
@@ -102,15 +101,12 @@ void zdrvhe(
   // Do for each value of N in NVAL
 
   for (var IN = 1; IN <= NN; IN++) {
-    // 180
     final N = NVAL[IN];
     final LDA = max(N, 1);
     var XTYPE = 'N';
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
-      // 170
-
       // Do the tests only if DOTYPE( IMAT ) is true.
 
       if (!DOTYPE[IMAT]) continue;
@@ -123,7 +119,6 @@ void zdrvhe(
       // Do first for UPLO = 'U', then for UPLO = 'L'
 
       for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
-        // 160
         final UPLO = UPLOS[IUPLO - 1];
 
         // Set up parameters with ZLATB4 and generate a test matrix
@@ -163,27 +158,23 @@ void zdrvhe(
             if (IUPLO == 1) {
               var IOFF = (IZERO - 1) * LDA;
               for (var I = 1; I <= IZERO - 1; I++) {
-                // 20
                 A[IOFF + I] = Complex.zero;
-              } // 20
+              }
               IOFF += IZERO;
               for (var I = IZERO; I <= N; I++) {
-                // 30
                 A[IOFF] = Complex.zero;
                 IOFF += LDA;
-              } // 30
+              }
             } else {
               var IOFF = IZERO;
               for (var I = 1; I <= IZERO - 1; I++) {
-                // 40
                 A[IOFF] = Complex.zero;
                 IOFF += LDA;
-              } // 40
+              }
               IOFF -= IZERO;
               for (var I = IZERO; I <= N; I++) {
-                // 50
                 A[IOFF + I] = Complex.zero;
-              } // 50
+              }
             }
           } else {
             var IOFF = 0;
@@ -191,26 +182,22 @@ void zdrvhe(
               // Set the first IZERO rows and columns to zero.
 
               for (var J = 1; J <= N; J++) {
-                // 70
                 final I2 = min(J, IZERO);
                 for (var I = 1; I <= I2; I++) {
-                  // 60
                   A[IOFF + I] = Complex.zero;
-                } // 60
+                }
                 IOFF += LDA;
-              } // 70
+              }
             } else {
               // Set the last IZERO rows and columns to zero.
 
               for (var J = 1; J <= N; J++) {
-                // 90
                 final I1 = max(J, IZERO);
                 for (var I = I1; I <= N; I++) {
-                  // 80
                   A[IOFF + I] = Complex.zero;
-                } // 80
+                }
                 IOFF += LDA;
-              } // 90
+              }
             }
           }
         } else {
@@ -223,8 +210,6 @@ void zdrvhe(
 
         var RCONDC = ZERO;
         for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
-          // 150
-
           // Do first for FACT = 'F', then for other values.
 
           final FACT = FACTS[IFACT - 1];
@@ -331,16 +316,15 @@ void zdrvhe(
                 // the threshold.
 
                 for (var K = 1; K <= NT; K++) {
-                  // 110
                   if (RESULT[K] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                     NOUT.println(
                         ' ZHESV , UPLO=\'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
                     NFAIL++;
                   }
-                } // 110
+                }
                 NRUN += NT;
-              } // 120
+              }
             }
 
             // --- Test ZHESVX ---
@@ -460,13 +444,12 @@ void zdrvhe(
             // the threshold.
 
             for (var K = K1; K <= 6; K++) {
-              // 140
               if (RESULT[K] >= THRESH) {
                 if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                 NOUT.print9998('ZHESVX', FACT, UPLO, N, IMAT, K, RESULT[K]);
                 NFAIL++;
               }
-            } // 140
+            }
             NRUN += 7 - K1;
           }
 
@@ -599,19 +582,18 @@ void zdrvhe(
             // the threshold.
 
             for (var K = K1; K <= 6; K++) {
-              // 85
               if (RESULT[K] >= THRESH) {
                 if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                 NOUT.print9998('ZHESVXX', FACT, UPLO, N, IMAT, K, RESULT[K]);
                 NFAIL++;
               }
-            } // 85
+            }
             NRUN += 7 - K1;
           }
-        } // 150
-      } // 160
-    } // 170
-  } // 180
+        }
+      }
+    }
+  }
 
   // Print a summary of the results.
 

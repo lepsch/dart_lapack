@@ -59,8 +59,6 @@ void zhegs2(
       // Compute inv(U**H)*A*inv(U)
 
       for (K = 1; K <= N; K++) {
-        // 10
-
         // Update the upper triangle of A(k:n,k:n)
 
         AKK = A[K][K].toDouble();
@@ -83,13 +81,11 @@ void zhegs2(
               LDB, A(K, K + 1).asArray(), LDA);
           zlacgv(N - K, A(K, K + 1).asArray(), LDA);
         }
-      } // 10
+      }
     } else {
       // Compute inv(L)*A*inv(L**H)
 
       for (K = 1; K <= N; K++) {
-        // 20
-
         // Update the lower triangle of A(k:n,k:n)
 
         AKK = A[K][K].toDouble();
@@ -106,15 +102,13 @@ void zhegs2(
           ztrsv(UPLO, 'No transpose', 'Non-unit', N - K, B(K + 1, K + 1), LDB,
               A(K + 1, K).asArray(), 1);
         }
-      } // 20
+      }
     }
   } else {
     if (UPPER) {
       // Compute U*A*U**H
 
       for (K = 1; K <= N; K++) {
-        // 30
-
         // Update the upper triangle of A(1:k,1:k)
 
         AKK = A[K][K].toDouble();
@@ -128,13 +122,11 @@ void zhegs2(
         zaxpy(K - 1, CT, B(1, K).asArray(), 1, A(1, K).asArray(), 1);
         zdscal(K - 1, BKK, A(1, K).asArray(), 1);
         A[K][K] = (AKK * pow(BKK, 2)).toComplex();
-      } // 30
+      }
     } else {
       // Compute L**H *A*L
 
       for (K = 1; K <= N; K++) {
-        // 40
-
         // Update the lower triangle of A(1:k,1:k)
 
         AKK = A[K][K].toDouble();
@@ -152,7 +144,7 @@ void zhegs2(
         zdscal(K - 1, BKK, A(K, 1).asArray(), LDA);
         zlacgv(K - 1, A(K, 1).asArray(), LDA);
         A[K][K] = (AKK * pow(BKK, 2)).toComplex();
-      } // 40
+      }
     }
   }
 }

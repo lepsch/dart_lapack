@@ -51,18 +51,14 @@ void zungl2(
     // Initialise rows k+1:m to rows of the unit matrix
 
     for (J = 1; J <= N; J++) {
-      // 20
       for (L = K + 1; L <= M; L++) {
-        // 10
         A[L][J] = Complex.zero;
-      } // 10
+      }
       if (J > K && J <= M) A[J][J] = Complex.one;
-    } // 20
+    }
   }
 
   for (I = K; I >= 1; I--) {
-    // 40
-
     // Apply H(i)**H to A(i:m,i:n) from the right
 
     if (I < N) {
@@ -80,8 +76,7 @@ void zungl2(
     // Set A(i,1:i-1) to zero
 
     for (L = 1; L <= I - 1; L++) {
-      // 30
       A[I][L] = Complex.zero;
-    } // 30
-  } // 40
+    }
+  }
 }

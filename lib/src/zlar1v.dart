@@ -74,31 +74,28 @@ void zlar1v(
   NEG1 = 0;
   S = WORK[INDS + B1 - 1] - LAMBDA;
   for (I = B1; I <= R1 - 1; I++) {
-    // 50
     DPLUS = D[I] + S;
     WORK[INDLPL + I] = LD[I] / DPLUS;
     if (DPLUS < ZERO) NEG1++;
     WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
     S = WORK[INDS + I] - LAMBDA;
-  } // 50
+  }
   SAWNAN1 = disnan(S);
   if (!SAWNAN1) {
     for (I = R1; I <= R2 - 1; I++) {
-      // 51
       DPLUS = D[I] + S;
       WORK[INDLPL + I] = LD[I] / DPLUS;
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
       S = WORK[INDS + I] - LAMBDA;
-    } // 51
+    }
     SAWNAN1 = disnan(S);
-  } // 60
+  }
 
   if (SAWNAN1) {
     // Runs a slower version of the above loop if a NaN is detected
     NEG1 = 0;
     S = WORK[INDS + B1 - 1] - LAMBDA;
     for (I = B1; I <= R1 - 1; I++) {
-      // 70
       DPLUS = D[I] + S;
       if ((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
       WORK[INDLPL + I] = LD[I] / DPLUS;
@@ -106,16 +103,15 @@ void zlar1v(
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
       if (WORK[INDLPL + I] == ZERO) WORK[INDS + I] = LLD[I];
       S = WORK[INDS + I] - LAMBDA;
-    } // 70
+    }
     for (I = R1; I <= R2 - 1; I++) {
-      // 71
       DPLUS = D[I] + S;
       if ((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
       WORK[INDLPL + I] = LD[I] / DPLUS;
       WORK[INDS + I] = S * WORK[INDLPL + I] * L[I];
       if (WORK[INDLPL + I] == ZERO) WORK[INDS + I] = LLD[I];
       S = WORK[INDS + I] - LAMBDA;
-    } // 71
+    }
   }
 
   // Compute the progressive transform (using the differential form)
@@ -125,13 +121,12 @@ void zlar1v(
   NEG2 = 0;
   WORK[INDP + BN - 1] = D[BN] - LAMBDA;
   for (I = BN - 1; I >= R1; I--) {
-    // 80
     DMINUS = LLD[I] + WORK[INDP + I];
     TMP = D[I] / DMINUS;
     if (DMINUS < ZERO) NEG2++;
     WORK[INDUMN + I] = L[I] * TMP;
     WORK[INDP + I - 1] = WORK[INDP + I] * TMP - LAMBDA;
-  } // 80
+  }
   TMP = WORK[INDP + R1 - 1];
   SAWNAN2 = disnan(TMP);
 
@@ -139,7 +134,6 @@ void zlar1v(
     // Runs a slower version of the above loop if a NaN is detected
     NEG2 = 0;
     for (I = BN - 1; I >= R1; I--) {
-      // 100
       DMINUS = LLD[I] + WORK[INDP + I];
       if ((DMINUS).abs() < PIVMIN) DMINUS = -PIVMIN;
       TMP = D[I] / DMINUS;
@@ -147,7 +141,7 @@ void zlar1v(
       WORK[INDUMN + I] = L[I] * TMP;
       WORK[INDP + I - 1] = WORK[INDP + I] * TMP - LAMBDA;
       if (TMP == ZERO) WORK[INDP + I - 1] = D[I] - LAMBDA;
-    } // 100
+    }
   }
 
   // Find the index (from R1 to R2) of the largest (in magnitude)
@@ -163,14 +157,13 @@ void zlar1v(
   if ((MINGMA.value).abs() == ZERO) MINGMA.value = EPS * WORK[INDS + R1 - 1];
   R.value = R1;
   for (I = R1; I <= R2 - 1; I++) {
-    // 110
     TMP = WORK[INDS + I] + WORK[INDP + I];
     if (TMP == ZERO) TMP = EPS * WORK[INDS + I];
     if ((TMP).abs() <= (MINGMA.value).abs()) {
       MINGMA.value = TMP;
       R.value = I + 1;
     }
-  } // 110
+  }
 
   // Compute the FP vector: solve N^T v = e_r
 
@@ -183,7 +176,6 @@ void zlar1v(
 
   if (!SAWNAN1 && !SAWNAN2) {
     for (I = R.value - 1; I >= B1; I--) {
-      // 210
       Z[I] = -(WORK[INDLPL + I].toComplex() * Z[I + 1]);
       if ((Z[I].abs() + Z[I + 1].abs()) * LD[I].abs() < GAPTOL) {
         Z[I] = Complex.zero;
@@ -191,11 +183,10 @@ void zlar1v(
         break;
       }
       ZTZ.value += (Z[I] * Z[I]).toDouble();
-    } // 210
+    }
   } else {
     // Run slower loop if NaN occurred.
     for (I = R.value - 1; I >= B1; I--) {
-      // 230
       if (Z[I + 1] == Complex.zero) {
         Z[I] = -(LD[I + 1] / LD[I]).toComplex() * Z[I + 2];
       } else {
@@ -207,13 +198,12 @@ void zlar1v(
         break;
       }
       ZTZ.value += (Z[I] * Z[I]).toDouble();
-    } // 230
+    }
   }
 
   // Compute the FP vector downwards from R.value in blocks of size BLKSIZ
   if (!SAWNAN1 && !SAWNAN2) {
     for (I = R.value; I <= BN - 1; I++) {
-      // 250
       Z[I + 1] = -(WORK[INDUMN + I].toComplex() * Z[I]);
       if ((Z[I].abs() + (Z[I + 1]).abs()) * LD[I].abs() < GAPTOL) {
         Z[I + 1] = Complex.zero;
@@ -221,11 +211,10 @@ void zlar1v(
         break;
       }
       ZTZ.value += (Z[I + 1] * Z[I + 1]).toDouble();
-    } // 250
+    }
   } else {
     // Run slower loop if NaN occurred.
     for (I = R.value; I <= BN - 1; I++) {
-      // 270
       if (Z[I] == Complex.zero) {
         Z[I + 1] = -(LD[I - 1] / LD[I]).toComplex() * Z[I - 1];
       } else {
@@ -237,7 +226,7 @@ void zlar1v(
         break;
       }
       ZTZ.value += (Z[I + 1] * Z[I + 1]).toDouble();
-    } // 270
+    }
   }
 
   // Compute quantities for convergence test

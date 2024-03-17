@@ -64,19 +64,16 @@ void zgeequb(
   // Compute row scale factors.
 
   for (I = 1; I <= M; I++) {
-    // 10
     R[I] = ZERO;
-  } // 10
+  }
 
   // Find the maximum element in each row.
 
   for (J = 1; J <= N; J++) {
-    // 30
     for (I = 1; I <= M; I++) {
-      // 20
       R[I] = max(R[I], CABS1(A[I][J]));
-    } // 20
-  } // 30
+    }
+  }
   for (I = 1; I <= M; I++) {
     if (R[I] > ZERO) {
       R[I] = pow(RADIX, log(R[I]) ~/ LOGRDX).toDouble();
@@ -88,29 +85,26 @@ void zgeequb(
   RCMIN = BIGNUM;
   RCMAX = ZERO;
   for (I = 1; I <= M; I++) {
-    // 40
     RCMAX = max(RCMAX, R[I]);
     RCMIN = min(RCMIN, R[I]);
-  } // 40
+  }
   AMAX.value = RCMAX;
 
   if (RCMIN == ZERO) {
     // Find the first zero scale factor and return an error code.
 
     for (I = 1; I <= M; I++) {
-      // 50
       if (R[I] == ZERO) {
         INFO.value = I;
         return;
       }
-    } // 50
+    }
   } else {
     // Invert the scale factors.
 
     for (I = 1; I <= M; I++) {
-      // 60
       R[I] = ONE / min(max(R[I], SMLNUM), BIGNUM);
-    } // 60
+    }
 
     // Compute ROWCND.value = min(R(I)) / max(R(I)).
 
@@ -120,51 +114,45 @@ void zgeequb(
   // Compute column scale factors.
 
   for (J = 1; J <= N; J++) {
-    // 70
     C[J] = ZERO;
-  } // 70
+  }
 
   // Find the maximum element in each column,
   // assuming the row scaling computed above.
 
   for (J = 1; J <= N; J++) {
-    // 90
     for (I = 1; I <= M; I++) {
-      // 80
       C[J] = max(C[J], CABS1(A[I][J]) * R[I]);
-    } // 80
+    }
     if (C[J] > ZERO) {
       C[J] = pow(RADIX, log(C[J]) ~/ LOGRDX).toDouble();
     }
-  } // 90
+  }
 
   // Find the maximum and minimum scale factors.
 
   RCMIN = BIGNUM;
   RCMAX = ZERO;
   for (J = 1; J <= N; J++) {
-    // 100
     RCMIN = min(RCMIN, C[J]);
     RCMAX = max(RCMAX, C[J]);
-  } // 100
+  }
 
   if (RCMIN == ZERO) {
     // Find the first zero scale factor and return an error code.
 
     for (J = 1; J <= N; J++) {
-      // 110
       if (C[J] == ZERO) {
         INFO.value = M + J;
         return;
       }
-    } // 110
+    }
   } else {
     // Invert the scale factors.
 
     for (J = 1; J <= N; J++) {
-      // 120
       C[J] = ONE / min(max(C[J], SMLNUM), BIGNUM);
-    } // 120
+    }
 
     // Compute COLCND.value = min(C(J)) / max(C(J)).
 

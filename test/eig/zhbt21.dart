@@ -75,43 +75,36 @@ void zhbt21(
 
   J = 0;
   for (JC = 1; JC <= N; JC++) {
-    // 50
     if (LOWER) {
       for (JR = 1; JR <= min(IKA + 1, N + 1 - JC); JR++) {
-        // 10
         J++;
         WORK[J] = A[JR][JC];
-      } // 10
+      }
       for (JR = IKA + 2; JR <= N + 1 - JC; JR++) {
-        // 20
         J++;
         WORK[J] = Complex.zero;
-      } // 20
+      }
     } else {
       for (JR = IKA + 2; JR <= JC; JR++) {
-        // 30
         J++;
         WORK[J] = Complex.zero;
-      } // 30
+      }
       for (JR = min(IKA, JC - 1); JR >= 0; JR--) {
-        // 40
         J++;
         WORK[J] = A[IKA + 1 - JR][JC];
-      } // 40
+      }
     }
-  } // 50
+  }
 
   for (J = 1; J <= N; J++) {
-    // 60
     zhpr(CUPLO, N, -D[J], U(1, J).asArray(), 1, WORK);
-  } // 60
+  }
 
   if (N > 1 && KS == 1) {
     for (J = 1; J <= N - 1; J++) {
-      // 70
       zhpr2(CUPLO, N, -E[J].toComplex(), U(1, J).asArray(), 1,
           U(1, J + 1).asArray(), 1, WORK);
-    } // 70
+    }
   }
   WNORM = zlanhp('1', CUPLO, N, WORK, RWORK);
 
@@ -133,9 +126,8 @@ void zhbt21(
       WORK.asMatrix(), N);
 
   for (J = 1; J <= N; J++) {
-    // 80
     WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
-  } // 80
+  }
 
   RESULT[2] = min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N.toDouble()) /
       (N * ULP);

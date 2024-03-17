@@ -78,10 +78,9 @@ void dtprfs(
 
   if (N == 0 || NRHS == 0) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       FERR[J] = ZERO;
       BERR[J] = ZERO;
-    } // 10
+    }
     return;
   }
 
@@ -102,8 +101,6 @@ void dtprfs(
   // Do for each right hand side
 
   for (J = 1; J <= NRHS; J++) {
-    // 250
-
     // Compute residual R = B - op(A) * X,
     // where op(A) = A or A**T, depending on TRANS.
 
@@ -121,9 +118,8 @@ void dtprfs(
     // numerator and denominator before dividing.
 
     for (I = 1; I <= N; I++) {
-      // 20
       WORK[I] = (B[I][J]).abs();
-    } // 20
+    }
 
     if (NOTRAN) {
       // Compute abs(A)*abs(X) + abs(B).
@@ -132,49 +128,41 @@ void dtprfs(
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            // 40
             XK = (X[K][J]).abs();
             for (I = 1; I <= K; I++) {
-              // 30
               WORK[I] += (AP[KC + I - 1]).abs() * XK;
-            } // 30
+            }
             KC += K;
-          } // 40
+          }
         } else {
           for (K = 1; K <= N; K++) {
-            // 60
             XK = (X[K][J]).abs();
             for (I = 1; I <= K - 1; I++) {
-              // 50
               WORK[I] += (AP[KC + I - 1]).abs() * XK;
-            } // 50
+            }
             WORK[K] += XK;
             KC += K;
-          } // 60
+          }
         }
       } else {
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            // 80
             XK = (X[K][J]).abs();
             for (I = K; I <= N; I++) {
-              // 70
               WORK[I] += (AP[KC + I - K]).abs() * XK;
-            } // 70
+            }
             KC += N - K + 1;
-          } // 80
+          }
         } else {
           for (K = 1; K <= N; K++) {
-            // 100
             XK = (X[K][J]).abs();
             for (I = K + 1; I <= N; I++) {
-              // 90
               WORK[I] += (AP[KC + I - K]).abs() * XK;
-            } // 90
+            }
             WORK[K] += XK;
             KC += N - K + 1;
-          } // 100
+          }
         }
       }
     } else {
@@ -184,63 +172,54 @@ void dtprfs(
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            // 120
             S = ZERO;
             for (I = 1; I <= K; I++) {
-              // 110
               S += (AP[KC + I - 1]).abs() * (X[I][J]).abs();
-            } // 110
+            }
             WORK[K] += S;
             KC += K;
-          } // 120
+          }
         } else {
           for (K = 1; K <= N; K++) {
-            // 140
             S = (X[K][J]).abs();
             for (I = 1; I <= K - 1; I++) {
-              // 130
               S += (AP[KC + I - 1]).abs() * (X[I][J]).abs();
-            } // 130
+            }
             WORK[K] += S;
             KC += K;
-          } // 140
+          }
         }
       } else {
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            // 160
             S = ZERO;
             for (I = K; I <= N; I++) {
-              // 150
               S += (AP[KC + I - K]).abs() * (X[I][J]).abs();
-            } // 150
+            }
             WORK[K] += S;
             KC += N - K + 1;
-          } // 160
+          }
         } else {
           for (K = 1; K <= N; K++) {
-            // 180
             S = (X[K][J]).abs();
             for (I = K + 1; I <= N; I++) {
-              // 170
               S += (AP[KC + I - K]).abs() * (X[I][J]).abs();
-            } // 170
+            }
             WORK[K] += S;
             KC += N - K + 1;
-          } // 180
+          }
         }
       }
     }
     S = ZERO;
     for (I = 1; I <= N; I++) {
-      // 190
       if (WORK[I] > SAFE2) {
         S = max(S, (WORK[N + I]).abs() / WORK[I]);
       } else {
         S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
       }
-    } // 190
+    }
     BERR[J] = S;
 
     // Bound error from formula
@@ -266,13 +245,12 @@ void dtprfs(
     // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
     for (I = 1; I <= N; I++) {
-      // 200
       if (WORK[I] > SAFE2) {
         WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
       } else {
         WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
       }
-    } // 200
+    }
 
     KASE.value = 0;
     while (true) {
@@ -283,16 +261,14 @@ void dtprfs(
 
         dtpsv(UPLO, TRANST, DIAG, N, AP, WORK(N + 1), 1);
         for (I = 1; I <= N; I++) {
-          // 220
           WORK[N + I] = WORK[I] * WORK[N + I];
-        } // 220
+        }
       } else {
         // Multiply by inv(op(A))*diag(W).
 
         for (I = 1; I <= N; I++) {
-          // 230
           WORK[N + I] = WORK[I] * WORK[N + I];
-        } // 230
+        }
         dtpsv(UPLO, TRANS, DIAG, N, AP, WORK(N + 1), 1);
       }
     }
@@ -301,9 +277,8 @@ void dtprfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      // 240
       LSTRES = max(LSTRES, (X[I][J]).abs());
-    } // 240
+    }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
-  } // 250
+  }
 }

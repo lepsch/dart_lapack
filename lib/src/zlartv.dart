@@ -25,7 +25,6 @@ void zlartv(
   IY = 1;
   IC = 1;
   for (I = 1; I <= N; I++) {
-    // 10
     XI = X[IX];
     YI = Y[IY];
     X[IX] = C[IC].toComplex() * XI + S[IC] * YI;
@@ -33,5 +32,5 @@ void zlartv(
     IX += INCX;
     IY += INCY;
     IC += INCC;
-  } // 10
+  }
 }

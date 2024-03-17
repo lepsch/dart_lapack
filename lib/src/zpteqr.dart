@@ -69,13 +69,11 @@ void zpteqr(
   dpttrf(N, D, E, INFO);
   if (INFO.value != 0) return;
   for (I = 1; I <= N; I++) {
-    // 10
     D[I] = sqrt(D[I]);
-  } // 10
+  }
   for (I = 1; I <= N - 1; I++) {
-    // 20
     E[I] *= D[I];
-  } // 20
+  }
 
   // Call ZBDSQR to compute the singular values/vectors of the
   // bidiagonal factor.
@@ -91,9 +89,8 @@ void zpteqr(
 
   if (INFO.value == 0) {
     for (I = 1; I <= N; I++) {
-      // 30
       D[I] *= D[I];
-    } // 30
+    }
   } else {
     INFO.value = N + INFO.value;
   }

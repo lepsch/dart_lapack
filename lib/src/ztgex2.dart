@@ -132,12 +132,11 @@ void ztgex2(
     zrot(2, WORK, 2, WORK(2), 2, CQ.value, -SQ.value);
     zrot(2, WORK(5), 2, WORK(6), 2, CQ.value, -SQ.value);
     for (I = 1; I <= 2; I++) {
-      // 10
       WORK[I] -= A[J1 + I - 1][J1];
       WORK[I + 2] -= A[J1 + I - 1][J1 + 1];
       WORK[I + 4] -= B[J1 + I - 1][J1];
       WORK[I + 6] -= B[J1 + I - 1][J1 + 1];
-    } // 10
+    }
     SCALE.value = ZERO;
     SUM.value = ONE;
     zlassq(M * M, WORK, 1, SCALE, SUM);

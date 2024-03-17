@@ -96,15 +96,13 @@ void zlaed0(
   IWORK[1] = N;
   SUBPBS = 1;
   TLVLS = 0;
-  // } // 10
   repeat:
   while (true) {
     if (IWORK[SUBPBS] > SMLSIZ) {
       for (J = SUBPBS; J >= 1; J--) {
-        // 20
         IWORK[2 * J] = (IWORK[J] + 1) ~/ 2;
         IWORK[2 * J - 1] = IWORK[J] ~/ 2;
-      } // 20
+      }
       TLVLS++;
       SUBPBS = 2 * SUBPBS;
       continue repeat;
@@ -112,21 +110,19 @@ void zlaed0(
     break;
   }
   for (J = 2; J <= SUBPBS; J++) {
-    // 30
     IWORK[J] += IWORK[J - 1];
-  } // 30
+  }
 
   // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
   // using rank-1 modifications (cuts).
 
   SPM1 = SUBPBS - 1;
   for (I = 1; I <= SPM1; I++) {
-    // 40
     SUBMAT = IWORK[I] + 1;
     SMM1 = SUBMAT - 1;
     D[SMM1] -= (E[SMM1]).abs();
     D[SUBMAT] -= (E[SMM1]).abs();
-  } // 40
+  }
 
   INDXQ = 4 * N + 3;
 
@@ -148,10 +144,9 @@ void zlaed0(
   IWREM = IQ + pow(N, 2).toInt() + 1;
   // Initialize pointers
   for (I = 0; I <= SUBPBS; I++) {
-    // 50
     IWORK[IPRMPT + I] = 1;
     IWORK[IGIVPT + I] = 1;
-  } // 50
+  }
   IWORK[IQPTR] = 1;
 
   // Solve each submatrix eigenproblem at the bottom of the divide and
@@ -159,7 +154,6 @@ void zlaed0(
 
   CURR = 0;
   for (I = 0; I <= SPM1; I++) {
-    // 70
     if (I == 0) {
       SUBMAT = 1;
       MATSIZ = IWORK[1];
@@ -180,11 +174,10 @@ void zlaed0(
     }
     K = 1;
     for (J = SUBMAT; J <= IWORK[I + 1]; J++) {
-      // 60
       IWORK[INDXQ + J] = K;
       K++;
-    } // 60
-  } // 70
+    }
+  }
 
   // Successively merge eigensystems of adjacent submatrices
   // into eigensystem for the corresponding larger matrix.
@@ -195,7 +188,6 @@ void zlaed0(
   while (SUBPBS > 1) {
     SPM2 = SUBPBS - 2;
     for (I = 0; I <= SPM2; I += 2) {
-      // 90
       if (I == 0) {
         SUBMAT = 1;
         MATSIZ = IWORK[2];
@@ -243,7 +235,7 @@ void zlaed0(
         return;
       }
       IWORK[I ~/ 2 + 1] = IWORK[I + 2];
-    } // 90
+    }
     SUBPBS = SUBPBS ~/ 2;
     CURLVL++;
     //  GO TO 80;
@@ -255,10 +247,9 @@ void zlaed0(
   // merge step.
 
   for (I = 1; I <= N; I++) {
-    // 100
     J = IWORK[INDXQ + I];
     RWORK[I] = D[J];
     zcopy(QSIZ, QSTORE(1, J).asArray(), 1, Q(1, I).asArray(), 1);
-  } // 100
+  }
   dcopy(N, RWORK, 1, D, 1);
 }

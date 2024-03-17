@@ -47,7 +47,7 @@
       // Move initial columns up front
 
       ITEMP = 1;
-      for (I = 1; I <= N; I++) { // 10
+      for (I = 1; I <= N; I++) {
          if ( JPVT( I ) != 0 ) {
             if ( I != ITEMP ) {
                sswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
@@ -60,7 +60,7 @@
          } else {
             JPVT[I] = I;
          }
-      } // 10
+      }
       ITEMP--;
 
       // Compute the QR factorization and update remaining columns
@@ -78,14 +78,14 @@
          // Initialize partial column norms. The first n elements of
          // work store the exact column norms.
 
-         for (I = ITEMP + 1; I <= N; I++) { // 20
+         for (I = ITEMP + 1; I <= N; I++) {
             WORK[I] = SNRM2( M-ITEMP, A( ITEMP+1, I ), 1 );
             WORK[N+I] = WORK( I );
-         } // 20
+         }
 
          // Compute factorization
 
-         for (I = ITEMP + 1; I <= MN; I++) { // 40
+         for (I = ITEMP + 1; I <= MN; I++) {
 
             // Determine ith pivot column and swap if necessary
 
@@ -120,7 +120,7 @@
 
             // Update partial column norms
 
-            for (J = I + 1; J <= N; J++) { // 30
+            for (J = I + 1; J <= N; J++) {
                if ( WORK( J ) != ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in
@@ -141,8 +141,8 @@
                      WORK[J] = WORK( J )*sqrt( TEMP );
                   }
                }
-            } // 30
+            }
 
-         } // 40
+         }
       }
       }

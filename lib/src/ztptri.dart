@@ -44,17 +44,15 @@ void ztptri(
     if (UPPER) {
       JJ = 0;
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 10
         JJ += INFO.value;
         if (AP[JJ] == Complex.zero) return;
-      } // 10
+      }
     } else {
       JJ = 1;
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 20
         if (AP[JJ] == Complex.zero) return;
         JJ += N - INFO.value + 1;
-      } // 20
+      }
     }
     INFO.value = 0;
   }
@@ -64,7 +62,6 @@ void ztptri(
 
     JC = 1;
     for (J = 1; J <= N; J++) {
-      // 30
       if (NOUNIT) {
         AP[JC + J - 1] = Complex.one / AP[JC + J - 1];
         AJJ = -AP[JC + J - 1];
@@ -77,13 +74,12 @@ void ztptri(
       ztpmv('Upper', 'No transpose', DIAG, J - 1, AP, AP(JC), 1);
       zscal(J - 1, AJJ, AP(JC), 1);
       JC += J;
-    } // 30
+    }
   } else {
     // Compute inverse of lower triangular matrix.
 
     JC = N * (N + 1) ~/ 2;
     for (J = N; J >= 1; J--) {
-      // 40
       if (NOUNIT) {
         AP[JC] = Complex.one / AP[JC];
         AJJ = -AP[JC];
@@ -98,6 +94,6 @@ void ztptri(
       }
       JCLAST = JC;
       JC -= N + J - 2;
-    } // 40
+    }
   }
 }

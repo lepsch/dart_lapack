@@ -172,8 +172,6 @@ void zgsvj1(
 
   var exhausted = true;
   for (i = 1; i <= NSWEEP; i++) {
-    // 1993
-
     // .. go go go ...
 
     MXAAPQ = ZERO;
@@ -189,8 +187,6 @@ void zgsvj1(
     // is under development.
 
     for (ibr = 1; ibr <= NBLR; ibr++) {
-      // 2000
-
       igl = (ibr - 1) * KBL + 1;
 
       // ... go to the off diagonal blocks
@@ -199,23 +195,17 @@ void zgsvj1(
 
       jbcLoop:
       for (jbc = 1; jbc <= NBLC; jbc++) {
-        // 2010
-
         jgl = (jbc - 1) * KBL + N1 + 1;
 
         // doing the block at ( ibr, jbc )
 
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N1); p++) {
-          // 2100
-
           AAPP.value = SVA[p];
           if (AAPP.value > ZERO) {
             PSKIPPED = 0;
 
             for (q = jgl; q <= min(jgl + KBL - 1, N); q++) {
-              // 2200
-
               AAQQ.value = SVA[q];
               if (AAQQ.value > ZERO) {
                 AAPP0 = AAPP.value;
@@ -395,9 +385,8 @@ void zgsvj1(
                 NOTROT = 0;
                 break;
               }
-            } // 2200
+            }
             // end of the q-loop
-            //  } // 2203
 
             SVA[p] = AAPP.value;
           } else {
@@ -406,17 +395,15 @@ void zgsvj1(
             }
             if (AAPP.value < ZERO) NOTROT = 0;
           }
-        } // 2100
+        }
         // end of the p-loop
-      } // 2010
+      }
       // end of the jbc-loop
-      // } // 2011
       // 2011 bailed out of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-        // 2012
         SVA[p] = (SVA[p]).abs();
-      } // 2012
-    } // 2000
+      }
+    }
     // 2000 :: end of the ibr-loop
 
     // .. update SVA(N)
@@ -444,7 +431,7 @@ void zgsvj1(
       exhausted = false;
       break;
     }
-  } // 1993
+  }
   // end i=1:NSWEEP loop
   if (exhausted) {
     // #:( Reaching this point means that the procedure has not converged.
@@ -455,11 +442,10 @@ void zgsvj1(
 
     INFO.value = 0;
     // #:) INFO.value = 0 confirms successful iterations.
-  } // 1995
+  }
 
   // Sort the vector SVA() of column norms.
   for (p = 1; p <= N - 1; p++) {
-    // 5991
     q = idamax(N - p + 1, SVA(p), 1) + p - 1;
     if (p != q) {
       TEMP1 = SVA[p];
@@ -471,5 +457,5 @@ void zgsvj1(
       zswap(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1);
       if (RSVEC) zswap(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1);
     }
-  } // 5991
+  }
 }

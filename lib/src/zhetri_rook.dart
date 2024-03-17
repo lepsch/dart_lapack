@@ -57,20 +57,18 @@ void zhetri_rook(
     // Upper triangular storage: examine D from bottom to top
 
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
-      // 10
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
       }
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 20
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
       }
-    } // 20
+    }
   }
   INFO.value = 0;
 
@@ -143,11 +141,10 @@ void zhetri_rook(
           }
 
           for (J = KP + 1; J <= K - 1; J++) {
-            // 40
             TEMP = A[J][K].conjugate();
             A[J][K] = A[KP][J].conjugate();
             A[KP][J] = TEMP;
-          } // 40
+          }
 
           A[KP][K] = A[KP][K].conjugate();
 
@@ -168,11 +165,10 @@ void zhetri_rook(
           }
 
           for (J = KP + 1; J <= K - 1; J++) {
-            // 50
             TEMP = A[J][K].conjugate();
             A[J][K] = A[KP][J].conjugate();
             A[KP][J] = TEMP;
-          } // 50
+          }
 
           A[KP][K] = A[KP][K].conjugate();
 
@@ -195,11 +191,10 @@ void zhetri_rook(
           }
 
           for (J = KP + 1; J <= K - 1; J++) {
-            // 60
             TEMP = A[J][K].conjugate();
             A[J][K] = A[KP][J].conjugate();
             A[KP][J] = TEMP;
-          } // 60
+          }
 
           A[KP][K] = A[KP][K].conjugate();
 
@@ -210,7 +205,7 @@ void zhetri_rook(
       }
 
       K++;
-    } // 70
+    }
   } else {
     // Compute inv(A) from the factorization A = L*D*L**H.
 
@@ -282,11 +277,10 @@ void zhetri_rook(
           }
 
           for (J = K + 1; J <= KP - 1; J++) {
-            // 90
             TEMP = A[J][K].conjugate();
             A[J][K] = A[KP][J].conjugate();
             A[KP][J] = TEMP;
-          } // 90
+          }
 
           A[KP][K] = A[KP][K].conjugate();
 
@@ -308,11 +302,10 @@ void zhetri_rook(
           }
 
           for (J = K + 1; J <= KP - 1; J++) {
-            // 100
             TEMP = A[J][K].conjugate();
             A[J][K] = A[KP][J].conjugate();
             A[KP][J] = TEMP;
-          } // 100
+          }
 
           A[KP][K] = A[KP][K].conjugate();
 
@@ -336,11 +329,10 @@ void zhetri_rook(
           }
 
           for (J = K + 1; J <= KP - 1; J++) {
-            // 110
             TEMP = A[J][K].conjugate();
             A[J][K] = A[KP][J].conjugate();
             A[KP][J] = TEMP;
-          } // 110
+          }
 
           A[KP][K] = A[KP][K].conjugate();
 
@@ -351,6 +343,6 @@ void zhetri_rook(
       }
 
       K--;
-    } // 120
+    }
   }
 }

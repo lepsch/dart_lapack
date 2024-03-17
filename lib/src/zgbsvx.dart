@@ -106,10 +106,9 @@ void zgbsvx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         RCMIN = min(RCMIN, R[J]);
         RCMAX = max(RCMAX, R[J]);
-      } // 10
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -13;
       } else if (N > 0) {
@@ -122,10 +121,9 @@ void zgbsvx(
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 20
         RCMIN = min(RCMIN, C[J]);
         RCMAX = max(RCMAX, C[J]);
-      } // 20
+      }
       if (RCMIN <= ZERO) {
         INFO.value = -14;
       } else if (N > 0) {
@@ -167,33 +165,28 @@ void zgbsvx(
   if (NOTRAN) {
     if (ROWEQU) {
       for (J = 1; J <= NRHS; J++) {
-        // 40
         for (I = 1; I <= N; I++) {
-          // 30
           B[I][J] = R[I].toComplex() * B[I][J];
-        } // 30
-      } // 40
+        }
+      }
     }
   } else if (COLEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 60
       for (I = 1; I <= N; I++) {
-        // 50
         B[I][J] = C[I].toComplex() * B[I][J];
-      } // 50
-    } // 60
+      }
+    }
   }
 
   if (NOFACT || EQUIL) {
     // Compute the LU factorization of the band matrix A.
 
     for (J = 1; J <= N; J++) {
-      // 70
       J1 = max(J - KU, 1);
       J2 = min(J + KL, N);
       zcopy(J2 - J1 + 1, AB(KU + 1 - J + J1, J).asArray(), 1,
           AFB(KL + KU + 1 - J + J1, J).asArray(), 1);
-    } // 70
+    }
 
     zgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO);
 
@@ -205,14 +198,12 @@ void zgbsvx(
 
       ANORM = ZERO;
       for (J = 1; J <= INFO.value; J++) {
-        // 90
         for (I = max(KU + 2 - J, 1);
             I <= min(N + KU + 1 - J, KL + KU + 1);
             I++) {
-          // 80
           ANORM = max(ANORM, (AB[I][J]).abs());
-        } // 80
-      } // 90
+        }
+      }
       RPVGRW = zlantb('M', 'U', 'N', INFO.value, min(INFO.value - 1, KL + KU),
           AFB(max(1, KL + KU + 2 - INFO.value), 1), LDAFB, RWORK);
       if (RPVGRW == ZERO) {
@@ -263,29 +254,23 @@ void zgbsvx(
   if (NOTRAN) {
     if (COLEQU) {
       for (J = 1; J <= NRHS; J++) {
-        // 110
         for (I = 1; I <= N; I++) {
-          // 100
           X[I][J] = C[I].toComplex() * X[I][J];
-        } // 100
-      } // 110
+        }
+      }
       for (J = 1; J <= NRHS; J++) {
-        // 120
         FERR[J] /= COLCND.value;
-      } // 120
+      }
     }
   } else if (ROWEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 140
       for (I = 1; I <= N; I++) {
-        // 130
         X[I][J] = R[I].toComplex() * X[I][J];
-      } // 130
-    } // 140
+      }
+    }
     for (J = 1; J <= NRHS; J++) {
-      // 150
       FERR[J] /= ROWCND.value;
-    } // 150
+    }
   }
 
   // Set INFO.value = N+1 if the matrix is singular to working precision.

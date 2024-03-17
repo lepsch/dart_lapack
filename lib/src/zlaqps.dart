@@ -72,15 +72,13 @@ void zlaqps(
 
     if (K > 1) {
       for (J = 1; J <= K - 1; J++) {
-        // 20
         F[K][J] = F[K][J].conjugate();
-      } // 20
+      }
       zgemv('No transpose', M - RK + 1, K - 1, -Complex.one, A(RK, 1), LDA,
           F(K, 1).asArray(), LDF, Complex.one, A(RK, K).asArray(), 1);
       for (J = 1; J <= K - 1; J++) {
-        // 30
         F[K][J] = F[K][J].conjugate();
-      } // 30
+      }
     }
 
     // Generate elementary reflector H(k).
@@ -106,9 +104,8 @@ void zlaqps(
     // Padding F(1:K,K) with zeros.
 
     for (J = 1; J <= K; J++) {
-      // 40
       F[J][K] = Complex.zero;
-    } // 40
+    }
 
     // Incremental updating of F:
     // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**H
@@ -134,7 +131,6 @@ void zlaqps(
 
     if (RK < LASTRK) {
       for (J = K + 1; J <= N; J++) {
-        // 50
         if (VN1[J] != ZERO) {
           // NOTE: The following 4 lines follow from the analysis in
           // Lapack Working Note 176.
@@ -149,7 +145,7 @@ void zlaqps(
             VN1[J] *= sqrt(TEMP);
           }
         }
-      } // 50
+      }
     }
 
     A[RK][K] = AKK;

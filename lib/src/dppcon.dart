@@ -105,6 +105,4 @@ void dppcon(
   // Compute the estimate of the reciprocal condition number.
 
   if (AINVNM.value != ZERO) RCOND.value = (ONE / AINVNM.value) / ANORM;
-
-  // } // 20
 }

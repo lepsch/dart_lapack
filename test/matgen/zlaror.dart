@@ -83,20 +83,17 @@ void zlaror(
   //         order in which they are computed is irrelevant.
 
   for (J = 1; J <= NXFRM; J++) {
-    // 10
     X[J] = Complex.zero;
-  } // 10
+  }
 
   for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) {
-    // 30
     KBEG = NXFRM - IXFRM + 1;
 
     // Generate independent normal( 0, 1 ) random numbers
 
     for (J = KBEG; J <= NXFRM; J++) {
-      // 20
       X[J] = zlarnd(3, ISEED);
-    } // 20
+    }
 
     // Generate a Householder transformation from the random vector X
 
@@ -142,7 +139,7 @@ void zlaror(
       zgerc(M, IXFRM, -FACTOR.toComplex(), X(2 * NXFRM + 1), 1, X(KBEG), 1,
           A(1, KBEG), LDA);
     }
-  } // 30
+  }
 
   X[1] = zlarnd(3, ISEED);
   XABS = (X[1]).abs();
@@ -157,22 +154,19 @@ void zlaror(
 
   if (ITYPE == 1 || ITYPE == 3 || ITYPE == 4) {
     for (IROW = 1; IROW <= M; IROW++) {
-      // 40
       zscal(N, X[NXFRM + IROW].conjugate(), A(IROW, 1).asArray(), LDA);
-    } // 40
+    }
   }
 
   if (ITYPE == 2 || ITYPE == 3) {
     for (JCOL = 1; JCOL <= N; JCOL++) {
-      // 50
       zscal(M, X[NXFRM + JCOL], A(1, JCOL).asArray(), 1);
-    } // 50
+    }
   }
 
   if (ITYPE == 4) {
     for (JCOL = 1; JCOL <= N; JCOL++) {
-      // 60
       zscal(M, X[NXFRM + JCOL].conjugate(), A(1, JCOL).asArray(), 1);
-    } // 60
+    }
   }
 }

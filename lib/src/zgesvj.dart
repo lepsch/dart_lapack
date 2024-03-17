@@ -238,7 +238,6 @@ void zgesvj(
   if (LOWER) {
     // the input matrix is M-by-N lower triangular (trapezoidal)
     for (p = 1; p <= N; p++) {
-      // 1874
       AAPP.value = ZERO;
       AAQQ.value = ONE;
       zlassq(M - p + 1, A(p, p).asArray(), 1, AAPP, AAQQ);
@@ -256,16 +255,14 @@ void zgesvj(
         if (GOSCALE) {
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
-            // 1873
             SVA[q] *= SKL;
-          } // 1873
+          }
         }
       }
-    } // 1874
+    }
   } else if (UPPER) {
     // the input matrix is M-by-N upper triangular (trapezoidal)
     for (p = 1; p <= N; p++) {
-      // 2874
       AAPP.value = ZERO;
       AAQQ.value = ONE;
       zlassq(p, A(1, p).asArray(), 1, AAPP, AAQQ);
@@ -283,16 +280,14 @@ void zgesvj(
         if (GOSCALE) {
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
-            // 2873
             SVA[q] *= SKL;
-          } // 2873
+          }
         }
       }
-    } // 2874
+    }
   } else {
     // the input matrix is M-by-N general dense
     for (p = 1; p <= N; p++) {
-      // 3874
       AAPP.value = ZERO;
       AAQQ.value = ONE;
       zlassq(M, A(1, p).asArray(), 1, AAPP, AAQQ);
@@ -310,12 +305,11 @@ void zgesvj(
         if (GOSCALE) {
           GOSCALE = false;
           for (q = 1; q <= p - 1; q++) {
-            // 3873
             SVA[q] *= SKL;
-          } // 3873
+          }
         }
       }
-    } // 3874
+    }
   }
 
   if (NOSCALE) SKL = ONE;
@@ -327,10 +321,9 @@ void zgesvj(
   AAPP.value = ZERO;
   AAQQ.value = BIG;
   for (p = 1; p <= N; p++) {
-    // 4781
     if (SVA[p] != ZERO) AAQQ.value = min(AAQQ.value, SVA[p]);
     AAPP.value = max(AAPP.value, SVA[p]);
-  } // 4781
+  }
 
   // #:) Quick return for zero matrix
 
@@ -406,9 +399,8 @@ void zgesvj(
   NOTROT = 0;
 
   for (q = 1; q <= N; q++) {
-    // 1868
     CWORK[q] = Complex.one;
-  } // 1868
+  }
 
   SWBAND = 3;
   // [TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
@@ -591,8 +583,6 @@ void zgesvj(
   // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
   var exhausted = true;
   for (i = 1; i <= NSWEEP; i++) {
-    // 1993
-
     // .. go go go ...
 
     MXAAPQ = ZERO;
@@ -608,18 +598,12 @@ void zgesvj(
     // is under development.
 
     for (ibr = 1; ibr <= NBL; ibr++) {
-      // 2000
-
       igl = (ibr - 1) * KBL + 1;
 
       for (ir1 = 0; ir1 <= min(LKAHEAD, NBL - ibr); ir1++) {
-        // 1002
-
         igl += ir1 * KBL;
 
         for (p = igl; p <= min(igl + KBL - 1, N - 1); p++) {
-          // 2001
-
           // .. de Rijk's pivoting
 
           q = idamax(N - p + 1, SVA(p), 1) + p - 1;
@@ -664,8 +648,6 @@ void zgesvj(
             PSKIPPED = 0;
 
             for (q = p + 1; q <= min(igl + KBL - 1, N); q++) {
-              // 2002
-
               AAQQ.value = SVA[q];
 
               if (AAQQ.value > ZERO) {
@@ -816,10 +798,8 @@ void zgesvj(
                 NOTROT = 0;
                 break;
               }
-            } // 2002
+            }
             // END q-LOOP
-
-            //  } // 2103
             // bailed out of q-loop
 
             SVA[p] = AAPP.value;
@@ -829,10 +809,10 @@ void zgesvj(
               NOTROT += min(igl + KBL - 1, N).toInt() - p;
             }
           }
-        } // 2001
+        }
         // end of the p-loop
         // end of doing the block ( ibr, ibr )
-      } // 1002
+      }
       // end of ir1-loop
 
       // ... go to the off diagonal blocks
@@ -840,23 +820,17 @@ void zgesvj(
       igl = (ibr - 1) * KBL + 1;
       jbcLoop:
       for (jbc = ibr + 1; jbc <= NBL; jbc++) {
-        // 2010
-
         jgl = (jbc - 1) * KBL + 1;
 
         // doing the block at ( ibr, jbc )
 
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-          // 2100
-
           AAPP.value = SVA[p];
           if (AAPP.value > ZERO) {
             PSKIPPED = 0;
 
             for (q = jgl; q <= min(jgl + KBL - 1, N); q++) {
-              // 2200
-
               AAQQ.value = SVA[q];
               if (AAQQ.value > ZERO) {
                 AAPP0 = AAPP.value;
@@ -1036,9 +1010,8 @@ void zgesvj(
                 NOTROT = 0;
                 break;
               }
-            } // 2200
+            }
             // end of the q-loop
-            //  } // 2203
 
             SVA[p] = AAPP.value;
           } else {
@@ -1047,17 +1020,15 @@ void zgesvj(
             }
             if (AAPP.value < ZERO) NOTROT = 0;
           }
-        } // 2100
+        }
         // end of the p-loop
-      } // 2010
+      }
       // end of the jbc-loop
-      // } // 2011
       // 2011 bailed out of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
-        // 2012
         SVA[p] = (SVA[p]).abs();
-      } // 2012
-    } // 2000
+      }
+    }
     // 2000 :: end of the ibr-loop
 
     // .. update SVA(N)
@@ -1085,7 +1056,7 @@ void zgesvj(
       exhausted = false;
       break;
     }
-  } // 1993
+  }
   // end i=1:NSWEEP loop
 
   if (exhausted) {
@@ -1097,7 +1068,7 @@ void zgesvj(
 
     INFO.value = 0;
     // #:) INFO.value = 0 confirms successful iterations.
-  } // 1995
+  }
 
   // Sort the singular values and find how many are above
   // the underflow threshold.
@@ -1105,7 +1076,6 @@ void zgesvj(
   N2 = 0;
   N4 = 0;
   for (p = 1; p <= N - 1; p++) {
-    // 5991
     q = idamax(N - p + 1, SVA(p), 1) + p - 1;
     if (p != q) {
       TEMP1.value = SVA[p];
@@ -1118,7 +1088,7 @@ void zgesvj(
       N4++;
       if (SVA[p] * SKL > SFMIN) N2++;
     }
-  } // 5991
+  }
   if (SVA[N] != ZERO) {
     N4++;
     if (SVA[N] * SKL > SFMIN) N2++;
@@ -1128,29 +1098,26 @@ void zgesvj(
 
   if (LSVEC || UCTOL) {
     for (p = 1; p <= N4; p++) {
-      // 1998
       // CALL ZDSCAL( M, ONE / SVA[ p ], A( 1, p ), 1 )
       zlascl('G', 0, 0, SVA[p], ONE, M, 1, A(1, p), M, IERR);
-    } // 1998
+    }
   }
 
   // Scale the product of Jacobi rotations.
 
   if (RSVEC) {
     for (p = 1; p <= N; p++) {
-      // 2399
       TEMP1.value = ONE / dznrm2(MVL, V(1, p).asArray(), 1);
       zdscal(MVL, TEMP1.value, V(1, p).asArray(), 1);
-    } // 2399
+    }
   }
 
   // Undo scaling, if necessary (and possible).
   if (((SKL > ONE) && (SVA[1] < (BIG / SKL))) ||
       ((SKL < ONE) && (SVA[max(N2, 1)] > (SFMIN / SKL)))) {
     for (p = 1; p <= N; p++) {
-      // 2400
       SVA[p] = SKL * SVA[p];
-    } // 2400
+    }
     SKL = ONE;
   }
 

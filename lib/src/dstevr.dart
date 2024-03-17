@@ -271,7 +271,7 @@ void dstevr(
     }
 
     break;
-  } // 10
+  }
 
   // If matrix was scaled, then rescale eigenvalues appropriately.
 
@@ -289,16 +289,14 @@ void dstevr(
 
   if (WANTZ) {
     for (J = 1; J <= M.value - 1; J++) {
-      // 30
       I = 0;
       TMP1 = W[J];
       for (JJ = J + 1; JJ <= M.value; JJ++) {
-        // 20
         if (W[JJ] < TMP1) {
           I = JJ;
           TMP1 = W[JJ];
         }
-      } // 20
+      }
 
       if (I != 0) {
         ITMP1 = IWORK[I];
@@ -308,7 +306,7 @@ void dstevr(
         IWORK[J] = ITMP1;
         dswap(N, Z(1, I).asArray(), 1, Z(1, J).asArray(), 1);
       }
-    } // 30
+    }
   }
 
   // Causes problems with tests 19 & 20:

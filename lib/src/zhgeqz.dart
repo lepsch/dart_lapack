@@ -200,7 +200,6 @@ void zhgeqz(
   // Set Eigenvalues IHI+1:N
 
   for (J = IHI + 1; J <= N; J++) {
-    // 10
     ABSB = T[J][J].abs();
     if (ABSB > SAFMIN) {
       SIGNBC = (T[J][J] / ABSB.toComplex()).conjugate();
@@ -217,7 +216,7 @@ void zhgeqz(
     }
     ALPHA[J] = H[J][J];
     BETA[J] = T[J][J];
-  } // 10
+  }
 
   // If IHI < ILO, skip QZ steps
 
@@ -251,8 +250,6 @@ void zhgeqz(
     var exhausted = true;
     jiterLoop:
     for (JITER = 1; JITER <= MAXIT; JITER++) {
-      // 170
-
       // Check for too many iterations.
 
       if (JITER > MAXIT) break;
@@ -290,8 +287,6 @@ void zhgeqz(
           var exhausted = true;
           dropThrough:
           for (J = ILAST - 1; J >= ILO; J--) {
-            // 40
-
             // Test 1: for H(j,j-1)=0 or j=ILO
 
             if (J == ILO) {
@@ -327,7 +322,6 @@ void zhgeqz(
 
               if (ILAZRO || ILAZR2) {
                 for (JCH = J; JCH <= ILAST - 1; JCH++) {
-                  // 20
                   CTEMP = H[JCH][JCH];
                   zlartg(CTEMP, H[JCH + 1][JCH], C, S, H.box(JCH, JCH));
                   H[JCH + 1][JCH] = Complex.zero;
@@ -355,7 +349,7 @@ void zhgeqz(
                     }
                   }
                   T[JCH + 1][JCH + 1] = Complex.zero;
-                } // 20
+                }
                 splitOff = true;
                 exhausted = false;
                 break dropThrough;
@@ -364,7 +358,6 @@ void zhgeqz(
                 // Then process as in the case T(ILAST,ILAST)=0
 
                 for (JCH = J; JCH <= ILAST - 1; JCH++) {
-                  // 30
                   CTEMP = T[JCH][JCH + 1];
                   zlartg(CTEMP, T[JCH + 1][JCH + 1], C, S, T.box(JCH, JCH + 1));
                   T[JCH + 1][JCH + 1] = Complex.zero;
@@ -389,7 +382,7 @@ void zhgeqz(
                     zrot(N, Z(1, JCH).asArray(), 1, Z(1, JCH - 1).asArray(), 1,
                         C.value, S.value);
                   }
-                } // 30
+                }
                 splitOff = true;
                 exhausted = false;
                 break dropThrough;
@@ -403,7 +396,7 @@ void zhgeqz(
             }
 
             // Neither test passed -- try next J
-          } // 40
+          }
 
           if (exhausted) {
             // (Drop-through is "impossible")
@@ -475,8 +468,6 @@ void zhgeqz(
 
       // This iteration only involves rows/columns IFIRST:ILAST.  We
       // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
-
-      //  } // 70
       IITER++;
       if (!ILSCHR) {
         IFRSTM = IFIRST;
@@ -544,7 +535,6 @@ void zhgeqz(
       // Now check for two consecutive small subdiagonals.
       var consecutive = false;
       for (J = ILAST - 1; J >= IFIRST + 1; J--) {
-        // 80
         ISTART = J;
         CTEMP = ASCALE.toComplex() * H[J][J] -
             SHIFT * (BSCALE.toComplex() * T[J][J]);
@@ -559,13 +549,12 @@ void zhgeqz(
           consecutive = true;
           break;
         }
-      } // 80
+      }
       if (!consecutive) {
         ISTART = IFIRST;
         CTEMP = ASCALE.toComplex() * H[IFIRST][IFIRST] -
             SHIFT * (BSCALE.toComplex() * T[IFIRST][IFIRST]);
       }
-      //  } // 90
 
       // Do an implicit-shift QZ sweep.
 
@@ -577,7 +566,6 @@ void zhgeqz(
       // Sweep
 
       for (J = ISTART; J <= ILAST - 1; J++) {
-        // 150
         if (J > ISTART) {
           CTEMP = H[J][J - 1];
           zlartg(CTEMP, H[J + 1][J - 1], C, S, H.box(J, J - 1));
@@ -585,7 +573,6 @@ void zhgeqz(
         }
 
         for (JC = J; JC <= ILASTM; JC++) {
-          // 100
           CTEMP = C.value.toComplex() * H[J][JC] + S.value * H[J + 1][JC];
           H[J + 1][JC] = -S.value.conjugate() * H[J][JC] +
               C.value.toComplex() * H[J + 1][JC];
@@ -594,16 +581,15 @@ void zhgeqz(
           T[J + 1][JC] = -S.value.conjugate() * T[J][JC] +
               C.value.toComplex() * T[J + 1][JC];
           T[J][JC] = CTEMP2;
-        } // 100
+        }
         if (ILQ) {
           for (JR = 1; JR <= N; JR++) {
-            // 110
             CTEMP = C.value.toComplex() * Q[JR][J] +
                 S.value.conjugate() * Q[JR][J + 1];
             Q[JR][J + 1] =
                 -S.value * Q[JR][J] + C.value.toComplex() * Q[JR][J + 1];
             Q[JR][J] = CTEMP;
-          } // 110
+          }
         }
 
         CTEMP = T[J + 1][J + 1];
@@ -611,32 +597,27 @@ void zhgeqz(
         T[J + 1][J] = Complex.zero;
 
         for (JR = IFRSTM; JR <= min(J + 2, ILAST); JR++) {
-          // 120
           CTEMP = C.value.toComplex() * H[JR][J + 1] + S.value * H[JR][J];
           H[JR][J] = -S.value.conjugate() * H[JR][J + 1] +
               C.value.toComplex() * H[JR][J];
           H[JR][J + 1] = CTEMP;
-        } // 120
+        }
         for (JR = IFRSTM; JR <= J; JR++) {
-          // 130
           CTEMP = C.value.toComplex() * T[JR][J + 1] + S.value * T[JR][J];
           T[JR][J] = -S.value.conjugate() * T[JR][J + 1] +
               C.value.toComplex() * T[JR][J];
           T[JR][J + 1] = CTEMP;
-        } // 130
+        }
         if (ILZ) {
           for (JR = 1; JR <= N; JR++) {
-            // 140
             CTEMP = C.value.toComplex() * Z[JR][J + 1] + S.value * Z[JR][J];
             Z[JR][J] = -S.value.conjugate() * Z[JR][J + 1] +
                 C.value.toComplex() * Z[JR][J];
             Z[JR][J + 1] = CTEMP;
-          } // 140
+          }
         }
-      } // 150
-
-      //  } // 160
-    } // 170
+      }
+    }
 
     // Drop-through = non-convergence
 
@@ -645,14 +626,13 @@ void zhgeqz(
       WORK[1] = Complex(N.toDouble());
       return;
     }
-  } // 190
+  }
 
   // Successful completion of all QZ steps
 
   // Set Eigenvalues 1:ILO-1
 
   for (J = 1; J <= ILO - 1; J++) {
-    // 200
     ABSB = (T[J][J]).abs();
     if (ABSB > SAFMIN) {
       SIGNBC = T[J][J].conjugate() / ABSB.toComplex();
@@ -669,7 +649,7 @@ void zhgeqz(
     }
     ALPHA[J] = H[J][J];
     BETA[J] = T[J][J];
-  } // 200
+  }
 
   // Normal Termination
 

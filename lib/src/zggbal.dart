@@ -124,10 +124,9 @@ void zggbal(
     ILO.value = 1;
     IHI.value = N;
     for (I = 1; I <= N; I++) {
-      // 10
       LSCALE[I] = ONE;
       RSCALE[I] = ONE;
-    } // 10
+    }
     return;
   }
 
@@ -242,10 +241,9 @@ void zggbal(
 
   if (lsame(JOB, 'P')) {
     for (I = ILO.value; I <= IHI.value; I++) {
-      // 195
       LSCALE[I] = ONE;
       RSCALE[I] = ONE;
-    } // 195
+    }
     return;
   }
 
@@ -255,7 +253,6 @@ void zggbal(
 
   NR = IHI.value - ILO.value + 1;
   for (I = ILO.value; I <= IHI.value; I++) {
-    // 200
     RSCALE[I] = ZERO;
     LSCALE[I] = ZERO;
 
@@ -265,15 +262,13 @@ void zggbal(
     WORK[I + 3 * N] = ZERO;
     WORK[I + 4 * N] = ZERO;
     WORK[I + 5 * N] = ZERO;
-  } // 200
+  }
 
   // Compute right side vector in resulting linear equations
 
   BASL = log10(SCLFAC);
   for (I = ILO.value; I <= IHI.value; I++) {
-    // 240
     for (J = ILO.value; J <= IHI.value; J++) {
-      // 230
       if (A[I][J] == Complex.zero) {
         TA = ZERO;
       } else {
@@ -288,8 +283,8 @@ void zggbal(
 
       WORK[I + 4 * N] -= TA - TB;
       WORK[J + 5 * N] -= TA - TB;
-    } // 230
-  } // 240
+    }
+  }
 
   COEF = ONE / (2 * NR).toDouble();
   COEF2 = COEF * COEF;
@@ -307,10 +302,9 @@ void zggbal(
     EW = ZERO;
     EWC = ZERO;
     for (I = ILO.value; I <= IHI.value; I++) {
-      // 260
       EW += WORK[I + 4 * N];
       EWC += WORK[I + 5 * N];
-    } // 260
+    }
 
     GAMMA = COEF * GAMMA -
         COEF2 * (pow(EW, 2) + pow(EWC, 2)) -
@@ -327,38 +321,32 @@ void zggbal(
     daxpy(NR, COEF, WORK(ILO.value + 5 * N), 1, WORK(ILO.value), 1);
 
     for (I = ILO.value; I <= IHI.value; I++) {
-      // 270
       WORK[I] += TC;
       WORK[I + N] += T;
-    } // 270
+    }
 
     // Apply matrix to vector
 
     for (I = ILO.value; I <= IHI.value; I++) {
-      // 300
       KOUNT = 0;
       SUM = ZERO;
       for (J = ILO.value; J <= IHI.value; J++) {
-        // 290
         if (A[I][J] != Complex.zero) {
           KOUNT++;
           SUM += WORK[J];
         }
-        // } // 280
         if (B[I][J] != Complex.zero) {
           KOUNT++;
           SUM += WORK[J];
         }
-      } // 290
+      }
       WORK[I + 2 * N] = KOUNT.toDouble() * WORK[I + N] + SUM;
-    } // 300
+    }
 
     for (J = ILO.value; J <= IHI.value; J++) {
-      // 330
       KOUNT = 0;
       SUM = ZERO;
       for (I = ILO.value; I <= IHI.value; I++) {
-        // 320
         if (A[I][J] != Complex.zero) {
           KOUNT++;
           SUM += WORK[I + N];
@@ -366,9 +354,9 @@ void zggbal(
         if (B[I][J] == Complex.zero) continue;
         KOUNT++;
         SUM += WORK[I + N];
-      } // 320
+      }
       WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
-    } // 330
+    }
 
     SUM = ddot(NR, WORK(ILO.value + N), 1, WORK(ILO.value + 2 * N), 1) +
         ddot(NR, WORK(ILO.value), 1, WORK(ILO.value + 3 * N), 1);
@@ -378,14 +366,13 @@ void zggbal(
 
     CMAX = ZERO;
     for (I = ILO.value; I <= IHI.value; I++) {
-      // 340
       COR = ALPHA * WORK[I + N];
       if ((COR).abs() > CMAX) CMAX = (COR).abs();
       LSCALE[I] += COR;
       COR = ALPHA * WORK[I];
       if ((COR).abs() > CMAX) CMAX = (COR).abs();
       RSCALE[I] += COR;
-    } // 340
+    }
     if (CMAX < HALF) break;
 
     daxpy(NR, -ALPHA, WORK(ILO.value + 2 * N), 1, WORK(ILO.value + 4 * N), 1);
@@ -402,7 +389,6 @@ void zggbal(
   LSFMIN = (log10(SFMIN) / BASL + ONE).toInt();
   LSFMAX = log10(SFMAX) ~/ BASL;
   for (I = ILO.value; I <= IHI.value; I++) {
-    // 360
     IRAB = izamax(N - ILO.value + 1, A(I, ILO.value).asArray(), LDA);
     RAB = (A[I][IRAB + ILO.value - 1]).abs();
     IRAB = izamax(N - ILO.value + 1, B(I, ILO.value).asArray(), LDB);
@@ -419,21 +405,19 @@ void zggbal(
     JC = (RSCALE[I] + sign(HALF, RSCALE[I])).toInt();
     JC = min(max(JC, LSFMIN), min(LSFMAX, LSFMAX - LCAB));
     RSCALE[I] = pow(SCLFAC, JC).toDouble();
-  } // 360
+  }
 
   // Row scaling of matrices A and B
 
   for (I = ILO.value; I <= IHI.value; I++) {
-    // 370
     zdscal(N - ILO.value + 1, LSCALE[I], A(I, ILO.value).asArray(), LDA);
     zdscal(N - ILO.value + 1, LSCALE[I], B(I, ILO.value).asArray(), LDB);
-  } // 370
+  }
 
   // Column scaling of matrices A and B
 
   for (J = ILO.value; J <= IHI.value; J++) {
-    // 380
     zdscal(IHI.value, RSCALE[J], A(1, J).asArray(), 1);
     zdscal(IHI.value, RSCALE[J], B(1, J).asArray(), 1);
-  } // 380
+  }
 }

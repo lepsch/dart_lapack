@@ -165,10 +165,9 @@ void dchkst(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   NBLOCK = ilaenv(1, 'DSYTRD', 'L', NMAX, -1, -1, -1);
   NBLOCK = min(NMAX, max(1, NBLOCK));
@@ -211,13 +210,11 @@ void dchkst(
   // Loop over sizes, types
 
   for (I = 1; I <= 4; I++) {
-    // 20
     ISEED2[I] = ISEED[I];
-  } // 20
+  }
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 310
     N = NN[JSIZE];
     if (N > 0) {
       LGN = log(N) ~/ log(TWO);
@@ -300,9 +297,8 @@ void dchkst(
           // Identity
 
           for (JC = 1; JC <= N; JC++) {
-            // 80
             A[JC][JC] = ANORM;
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -388,14 +384,13 @@ void dchkst(
           dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A,
               LDA, WORK(N + 1), IINFO);
           for (I = 2; I <= N; I++) {
-            // 90
             TEMP1 =
                 (A[I - 1][I]).abs() / sqrt((A[I - 1][I - 1] * A[I][I]).abs());
             if (TEMP1 > HALF) {
               A[I - 1][I] = HALF * sqrt((A[I - 1][I - 1] * A[I][I]).abs());
               A[I][I - 1] = A[I - 1][I];
             }
-          } // 90
+          }
         } else {
           IINFO.value = 1;
         }
@@ -405,7 +400,7 @@ void dchkst(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 100
+      }
 
       failed:
       while (true) {
@@ -493,13 +488,11 @@ void dchkst(
 
         I = 0;
         for (JC = 1; JC <= N; JC++) {
-          // 120
           for (JR = 1; JR <= JC; JR++) {
-            // 110
             I++;
             AP[I] = A[JR][JC];
-          } // 110
-        } // 120
+          }
+        }
 
         // Call DSPTRD and DOPGTR to compute S and U from AP
 
@@ -541,13 +534,11 @@ void dchkst(
 
         I = 0;
         for (JC = 1; JC <= N; JC++) {
-          // 140
           for (JR = JC; JR <= N; JR++) {
-            // 130
             I++;
             AP[I] = A[JR][JC];
-          } // 130
-        } // 140
+          }
+        }
 
         // Call DSPTRD and DOPGTR to compute S and U from AP
 
@@ -653,12 +644,11 @@ void dchkst(
         TEMP4 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          // 150
           TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
           TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
           TEMP3 = max(TEMP3, max((D1[J]).abs(), (D3[J]).abs()));
           TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
-        } // 150
+        }
 
         RESULT[11] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
         RESULT[12] = TEMP4 / max(UNFL, ULP * max(TEMP3, TEMP4));
@@ -670,11 +660,10 @@ void dchkst(
         TEMP1 = THRESH * (HALF - ULP);
 
         for (J = 0; J <= LOG2UI; J++) {
-          // 160
           dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
           if (IINFO.value == 0) break;
           TEMP1 *= TWO;
-        } // 160
+        }
 
         RESULT[13] = TEMP1;
 
@@ -728,10 +717,9 @@ void dchkst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 180
             TEMP1 = max(TEMP1, max((D4[J]).abs(), (D5[J]).abs()));
             TEMP2 = max(TEMP2, (D4[J] - D5[J]).abs());
-          } // 180
+          }
 
           RESULT[16] = TEMP2 / max(UNFL, HUN * ULP * max(TEMP1, TEMP2));
         } else {
@@ -775,10 +763,9 @@ void dchkst(
 
           TEMP1 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 190
             TEMP1 = max(TEMP1,
                 (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
-          } // 190
+          }
 
           RESULT[17] = TEMP1 / TEMP2;
         } else {
@@ -807,10 +794,9 @@ void dchkst(
         TEMP1 = ZERO;
         TEMP2 = ZERO;
         for (J = 1; J <= N; J++) {
-          // 200
           TEMP1 = max(TEMP1, max((D3[J]).abs(), (WA1[J]).abs()));
           TEMP2 = max(TEMP2, (D3[J] - WA1[J]).abs());
-        } // 200
+        }
 
         RESULT[18] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -1016,10 +1002,9 @@ void dchkst(
         TEMP2 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          // 210
           TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
           TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-        } // 210
+        }
 
         RESULT[26] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -1084,10 +1069,9 @@ void dchkst(
 
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) {
-              // 220
               TEMP1 = max(TEMP1,
                   (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
-            } // 220
+            }
 
             RESULT[27] = TEMP1 / TEMP2;
 
@@ -1147,12 +1131,11 @@ void dchkst(
 
               TEMP1 = ZERO;
               for (J = IL; J <= IU; J++) {
-                // 230
                 TEMP1 = max(
                     TEMP1,
                     (WR[J - IL + 1] - D4[N - J + 1]).abs() /
                         (ABSTOL + (WR[J - IL + 1]).abs()));
-              } // 230
+              }
 
               RESULT[28] = TEMP1 / TEMP2;
             } else {
@@ -1266,10 +1249,9 @@ void dchkst(
             TEMP2 = ZERO;
 
             for (J = 1; J <= IU - IL + 1; J++) {
-              // 240
               TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-            } // 240
+            }
 
             RESULT[31] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
@@ -1390,10 +1372,9 @@ void dchkst(
             TEMP2 = ZERO;
 
             for (J = 1; J <= IU - IL + 1; J++) {
-              // 250
               TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-            } // 250
+            }
 
             RESULT[34] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           } else {
@@ -1515,7 +1496,6 @@ void dchkst(
       // Print out tests which fail.
 
       for (JR = 1; JR <= NTEST; JR++) {
-        // 290
         if (RESULT[JR] >= THRESH) {
           // If this is the first test to fail,
           // NOUNIT.println a header to the data file.
@@ -1537,9 +1517,9 @@ void dchkst(
           NERRS++;
           print9990(NOUNIT, N, IOLDSD, JTYPE, JR, RESULT[JR]);
         }
-      } // 290
+      }
     }
-  } // 310
+  }
 
   // Summary
 

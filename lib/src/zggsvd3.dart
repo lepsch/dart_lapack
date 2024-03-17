@@ -139,20 +139,17 @@ void zggsvd3(
   dcopy(N, ALPHA, 1, RWORK, 1);
   IBND = min(L.value, M - K.value);
   for (I = 1; I <= IBND; I++) {
-    // 20
-
     // Scan for largest ALPHA(K.value+I)
 
     ISUB = I;
     SMAX = RWORK[K.value + I];
     for (J = I + 1; J <= IBND; J++) {
-      // 10
       TEMP = RWORK[K.value + J];
       if (TEMP > SMAX) {
         ISUB = J;
         SMAX = TEMP;
       }
-    } // 10
+    }
     if (ISUB != I) {
       RWORK[K.value + ISUB] = RWORK[K.value + I];
       RWORK[K.value + I] = SMAX;
@@ -160,7 +157,7 @@ void zggsvd3(
     } else {
       IWORK[K.value + I] = K.value + I;
     }
-  } // 20
+  }
 
   WORK[1] = LWKOPT.toComplex();
 }

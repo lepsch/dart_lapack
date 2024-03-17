@@ -73,9 +73,8 @@ void ztrsna(
   if (SOMCON) {
     M.value = 0;
     for (J = 1; J <= N; J++) {
-      // 10
       if (SELECT[J]) M.value++;
-    } // 10
+    }
   } else {
     M.value = N;
   }
@@ -123,8 +122,6 @@ void ztrsna(
 
   KS = 1;
   for (K = 1; K <= N; K++) {
-    // 50
-
     if (SOMCON) {
       if (!SELECT[K]) continue;
     }
@@ -152,9 +149,8 @@ void ztrsna(
       // Form  C = T22 - lambda*I in WORK(2:N,2:N).
 
       for (I = 2; I <= N; I++) {
-        // 20
         WORK[I][I] -= WORK[1][1];
-      } // 20
+      }
 
       // Estimate a lower bound for the 1-norm of inv(C**H). The 1st
       // and (N+1)th columns of WORK are used to store work vectors.
@@ -200,5 +196,5 @@ void ztrsna(
     }
 
     KS++;
-  } // 50
+  }
 }

@@ -52,19 +52,17 @@ void zhptri(
 
     KP = N * (N + 1) ~/ 2;
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
-      // 10
       if (IPIV[INFO.value] > 0 && AP[KP] == Complex.zero) return;
       KP -= INFO.value;
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     KP = 1;
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 20
       if (IPIV[INFO.value] > 0 && AP[KP] == Complex.zero) return;
       KP += N - INFO.value + 1;
-    } // 20
+    }
   }
   INFO.value = 0;
 
@@ -138,12 +136,11 @@ void zhptri(
         zswap(KP - 1, AP(KC), 1, AP(KPC), 1);
         KX = KPC + KP - 1;
         for (J = KP + 1; J <= K - 1; J++) {
-          // 40
           KX += J - 1;
           TEMP = AP[KC + J - 1].conjugate();
           AP[KC + J - 1] = AP[KX].conjugate();
           AP[KX] = TEMP;
-        } // 40
+        }
         AP[KC + KP - 1] = AP[KC + KP - 1].conjugate();
         TEMP = AP[KC + K - 1];
         AP[KC + K - 1] = AP[KPC + KP - 1];
@@ -227,12 +224,11 @@ void zhptri(
         if (KP < N) zswap(N - KP, AP(KC + KP - K + 1), 1, AP(KPC + 1), 1);
         KX = KC + KP - K;
         for (J = K + 1; J <= KP - 1; J++) {
-          // 70
           KX += N - J + 1;
           TEMP = AP[KC + J - K].conjugate();
           AP[KC + J - K] = AP[KX].conjugate();
           AP[KX] = TEMP;
-        } // 70
+        }
         AP[KC + KP - K] = AP[KC + KP - K].conjugate();
         TEMP = AP[KC];
         AP[KC] = AP[KPC];
@@ -246,6 +242,6 @@ void zhptri(
 
       K -= KSTEP;
       KC = KCNEXT;
-    } // 80
+    }
   }
 }

@@ -178,12 +178,11 @@ void dlaln2(
       ICMAX = 0;
 
       for (J = 1; J <= 4; J++) {
-        // 10
         if ((CRV[J]).abs() > CMAX) {
           CMAX = (CRV[J]).abs();
           ICMAX = J;
         }
-      } // 10
+      }
 
       // If norm(C) < SMINI, use SMINI*identity.
 
@@ -264,12 +263,11 @@ void dlaln2(
       ICMAX = 0;
 
       for (J = 1; J <= 4; J++) {
-        // 20
         if ((CRV[J]).abs() + (CIV[J]).abs() > CMAX) {
           CMAX = (CRV[J]).abs() + (CIV[J]).abs();
           ICMAX = J;
         }
-      } // 20
+      }
 
       // If norm(C) < SMINI, use SMINI*identity.
 

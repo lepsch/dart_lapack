@@ -77,17 +77,14 @@ void zungtr(
     // those of the unit matrix
 
     for (J = 1; J <= N - 1; J++) {
-      // 20
       for (I = 1; I <= J - 1; I++) {
-        // 10
         A[I][J] = A[I][J + 1];
-      } // 10
+      }
       A[N][J] = Complex.zero;
-    } // 20
+    }
     for (I = 1; I <= N - 1; I++) {
-      // 30
       A[I][N] = Complex.zero;
-    } // 30
+    }
     A[N][N] = Complex.one;
 
     // Generate Q(1:n-1,1:n-1)
@@ -101,18 +98,15 @@ void zungtr(
     // those of the unit matrix
 
     for (J = N; J >= 2; J--) {
-      // 50
       A[1][J] = Complex.zero;
       for (I = J + 1; I <= N; I++) {
-        // 40
         A[I][J] = A[I][J - 1];
-      } // 40
-    } // 50
+      }
+    }
     A[1][1] = Complex.one;
     for (I = 2; I <= N; I++) {
-      // 60
       A[I][1] = Complex.zero;
-    } // 60
+    }
     if (N > 1) {
       // Generate Q(2:n,2:n)
 

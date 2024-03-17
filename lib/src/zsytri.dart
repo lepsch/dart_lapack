@@ -55,20 +55,18 @@ void zsytri(
     // Upper triangular storage: examine D from bottom to top
 
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
-      // 10
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
       }
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 20
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
       }
-    } // 20
+    }
   }
   INFO.value = 0;
 
@@ -147,7 +145,7 @@ void zsytri(
       }
 
       K += KSTEP;
-    } // 40
+    }
   } else {
     // Compute inv(A) from the factorization A = L*D*L**T.
 
@@ -225,6 +223,6 @@ void zsytri(
       }
 
       K -= KSTEP;
-    } // 60
+    }
   }
 }

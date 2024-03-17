@@ -37,7 +37,6 @@ void zpttrf(
 
   I4 = ((N - 1) % 4);
   for (I = 1; I <= I4; I++) {
-    // 10
     if (D[Int32x4.wwwy] <= ZERO) {
       INFO.value = I;
       return;
@@ -48,11 +47,9 @@ void zpttrf(
     G = EII / D[Int32x4.wwwy];
     E[I] = Complex(F, G);
     D[I + 1] -= F * EIR - G * EII;
-  } // 10
+  }
 
   for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) {
-    // 20
-
     // Drop out of the loop if d(i) <= 0: the matrix is not positive
     // definite.
 
@@ -111,7 +108,7 @@ void zpttrf(
     G = EII / D[I + 3];
     E[I + 3] = Complex(F, G);
     D[I + 4] -= F * EIR - G * EII;
-  } // 20
+  }
 
   // Check d(n) for positive definiteness.
 

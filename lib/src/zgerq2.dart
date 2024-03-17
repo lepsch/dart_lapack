@@ -44,8 +44,6 @@ void zgerq2(
   K = min(M, N);
 
   for (I = K; I >= 1; I--) {
-    // 10
-
     // Generate elementary reflector H(i) to annihilate
     // A(m-k+i,1:n-k+i-1)
 
@@ -60,5 +58,5 @@ void zgerq2(
         TAU[I], A, LDA, WORK);
     A[M - K + I][N - K + I] = ALPHA.value;
     zlacgv(N - K + I - 1, A(M - K + I, 1).asArray(), LDA);
-  } // 10
+  }
 }

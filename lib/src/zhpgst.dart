@@ -56,7 +56,6 @@ void zhpgst(
 
       JJ = 0;
       for (J = 1; J <= N; J++) {
-        // 10
         J1 = JJ + 1;
         JJ += J;
 
@@ -69,7 +68,7 @@ void zhpgst(
         zdscal(J - 1, ONE / BJJ, AP(J1), 1);
         AP[JJ] =
             (AP[JJ] - zdotc(J - 1, AP(J1), 1, BP(J1), 1)) / BJJ.toComplex();
-      } // 10
+      }
     } else {
       // Compute inv(L)*A*inv(L**H)
 
@@ -77,7 +76,6 @@ void zhpgst(
 
       KK = 1;
       for (K = 1; K <= N; K++) {
-        // 20
         K1K1 = KK + N - K + 1;
 
         // Update the lower triangle of A(k:n,k:n)
@@ -97,7 +95,7 @@ void zhpgst(
               UPLO, 'No transpose', 'Non-unit', N - K, BP(K1K1), AP(KK + 1), 1);
         }
         KK = K1K1;
-      } // 20
+      }
     }
   } else {
     if (UPPER) {
@@ -107,7 +105,6 @@ void zhpgst(
 
       KK = 0;
       for (K = 1; K <= N; K++) {
-        // 30
         K1 = KK + 1;
         KK += K;
 
@@ -122,7 +119,7 @@ void zhpgst(
         zaxpy(K - 1, CT, BP(K1), 1, AP(K1), 1);
         zdscal(K - 1, BKK, AP(K1), 1);
         AP[KK] = (AKK * pow(BKK, 2)).toComplex();
-      } // 30
+      }
     } else {
       // Compute L**H *A*L
 
@@ -130,7 +127,6 @@ void zhpgst(
 
       JJ = 1;
       for (J = 1; J <= N; J++) {
-        // 40
         J1J1 = JJ + N - J + 1;
 
         // Compute the j-th column of the lower triangle of A
@@ -145,7 +141,7 @@ void zhpgst(
         ztpmv(UPLO, 'Conjugate transpose', 'Non-unit', N - J + 1, BP(JJ),
             AP(JJ), 1);
         JJ = J1J1;
-      } // 40
+      }
     }
   }
 }

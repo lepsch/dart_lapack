@@ -131,7 +131,6 @@ void zdrvbd(
   MNMAX = 1;
   MINWRK = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     MMAX = max(MMAX, MM[J]);
     if (MM[J] < 0) BADMM = true;
     NMAX = max(NMAX, NN[J]);
@@ -143,7 +142,7 @@ void zdrvbd(
       5 * min(MM[J], NN[J]),
       3 * max(MM[J], NN[J])
     ].max.toInt();
-  } // 10
+  }
 
   // Check for errors
 
@@ -187,7 +186,6 @@ void zdrvbd(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 230
     M = MM[JSIZE];
     N = NN[JSIZE];
     MNMIN = min(M, N);
@@ -199,14 +197,12 @@ void zdrvbd(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 220
       if (!DOTYPE[JTYPE]) continue;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Compute "A"
 
@@ -216,17 +212,15 @@ void zdrvbd(
 
           zlaset('Full', M, N, Complex.zero, Complex.zero, A, LDA);
           for (I = 1; I <= min(M, N); I++) {
-            // 30
             S[I] = ZERO;
-          } // 30
+          }
         } else if (JTYPE == 2) {
           // Identity matrix
 
           zlaset('Full', M, N, Complex.zero, Complex.one, A, LDA);
           for (I = 1; I <= min(M, N); I++) {
-            // 40
             S[I] = ONE;
-          } // 40
+          }
         } else {
           // (Scaled) random matrix
 
@@ -248,8 +242,6 @@ void zdrvbd(
       // Do for minimal and adequate (for blocking) workspace
 
       for (IWSPC = 1; IWSPC <= 4; IWSPC++) {
-        // 210
-
         // Test for ZGESVD
 
         IWTMP = (2 * min(M, N) + max(M, N)).toInt();
@@ -259,9 +251,8 @@ void zdrvbd(
         if (IWSPC == 4) LSWORK = LWORK;
 
         for (J = 1; J <= 35; J++) {
-          // 60
           RESULT[J] = -ONE;
-        } // 60
+        }
 
         // Factorize A
 
@@ -285,10 +276,9 @@ void zdrvbd(
         }
         RESULT[4] = 0;
         for (I = 1; I <= MNMIN - 1; I++) {
-          // 70
           if (SSAV[I] < SSAV[I + 1]) RESULT[4] = ULPINV;
           if (SSAV[I] < ZERO) RESULT[4] = ULPINV;
-        } // 70
+        }
         if (MNMIN >= 1) {
           if (SSAV[MNMIN] < ZERO) RESULT[4] = ULPINV;
         }
@@ -299,9 +289,7 @@ void zdrvbd(
         RESULT[6] = ZERO;
         RESULT[7] = ZERO;
         for (IJU = 0; IJU <= 3; IJU++) {
-          // 100
           for (IJVT = 0; IJVT <= 3; IJVT++) {
-            // 90
             if ((IJU == 3 && IJVT == 3) || (IJU == 1 && IJVT == 1)) continue;
             JOBU = CJOB[IJU];
             JOBVT = CJOB[IJVT];
@@ -349,14 +337,13 @@ void zdrvbd(
             DIF.value = ZERO;
             DIV = max(MNMIN.toDouble() * ULP * S[1], dlamch('Safe minimum'));
             for (I = 1; I <= MNMIN - 1; I++) {
-              // 80
               if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
               if (SSAV[I] < ZERO) DIF.value = ULPINV;
               DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
-            } // 80
+            }
             RESULT[7] = max(RESULT[7], DIF.value);
-          } // 90
-        } // 100
+          }
+        }
 
         // Test for ZGESDD
 
@@ -388,10 +375,9 @@ void zdrvbd(
         }
         RESULT[11] = 0;
         for (I = 1; I <= MNMIN - 1; I++) {
-          // 110
           if (SSAV[I] < SSAV[I + 1]) RESULT[11] = ULPINV;
           if (SSAV[I] < ZERO) RESULT[11] = ULPINV;
-        } // 110
+        }
         if (MNMIN >= 1) {
           if (SSAV[MNMIN] < ZERO) RESULT[11] = ULPINV;
         }
@@ -402,7 +388,6 @@ void zdrvbd(
         RESULT[13] = ZERO;
         RESULT[14] = ZERO;
         for (IJQ = 0; IJQ <= 2; IJQ++) {
-          // 130
           JOBQ = CJOB[IJQ];
           zlacpy('F', M, N, ASAV, LDA, A, LDA);
           srnamc.SRNAMT = 'ZGESDD';
@@ -452,13 +437,12 @@ void zdrvbd(
           DIF.value = ZERO;
           DIV = max(MNMIN.toDouble() * ULP * S[1], dlamch('Safe minimum'));
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 120
             if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
             if (SSAV[I] < ZERO) DIF.value = ULPINV;
             DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
-          } // 120
+          }
           RESULT[14] = max(RESULT[14], DIF.value);
-        } // 130
+        }
 
         // Test ZGESVDQ
         // Note: ZGESVDQ only works for M >= N
@@ -501,10 +485,9 @@ void zdrvbd(
           }
           RESULT[39] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 199
             if (SSAV[I] < SSAV[I + 1]) RESULT[39] = ULPINV;
             if (SSAV[I] < ZERO) RESULT[39] = ULPINV;
-          } // 199
+          }
           if (MNMIN >= 1) {
             if (SSAV[MNMIN] < ZERO) RESULT[39] = ULPINV;
           }
@@ -556,10 +539,9 @@ void zdrvbd(
           }
           RESULT[18] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 131
             if (SSAV[I] < SSAV[I + 1]) RESULT[18] = ULPINV;
             if (SSAV[I] < ZERO) RESULT[18] = ULPINV;
-          } // 131
+          }
           if (MNMIN >= 1) {
             if (SSAV[MNMIN] < ZERO) RESULT[18] = ULPINV;
           }
@@ -588,9 +570,7 @@ void zdrvbd(
           // ZGEJSV returns V not VH
 
           for (J = 1; J <= N; J++) {
-            // 133
             for (I = 1; I <= N; I++) {
-              // 132
               VTSAV[J][I] = A[I][J].conjugate();
             }
           }
@@ -612,10 +592,9 @@ void zdrvbd(
           }
           RESULT[22] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 134
             if (SSAV[I] < SSAV[I + 1]) RESULT[22] = ULPINV;
             if (SSAV[I] < ZERO) RESULT[22] = ULPINV;
-          } // 134
+          }
           if (MNMIN >= 1) {
             if (SSAV[MNMIN] < ZERO) RESULT[22] = ULPINV;
           }
@@ -650,10 +629,9 @@ void zdrvbd(
         }
         RESULT[26] = ZERO;
         for (I = 1; I <= MNMIN - 1; I++) {
-          // 140
           if (SSAV[I] < SSAV[I + 1]) RESULT[26] = ULPINV;
           if (SSAV[I] < ZERO) RESULT[26] = ULPINV;
-        } // 140
+        }
         if (MNMIN >= 1) {
           if (SSAV[MNMIN] < ZERO) RESULT[26] = ULPINV;
         }
@@ -664,9 +642,7 @@ void zdrvbd(
         RESULT[28] = ZERO;
         RESULT[29] = ZERO;
         for (IJU = 0; IJU <= 1; IJU++) {
-          // 170
           for (IJVT = 0; IJVT <= 1; IJVT++) {
-            // 160
             if ((IJU == 0 && IJVT == 0) || (IJU == 1 && IJVT == 1)) continue;
             JOBU = CJOBV[IJU];
             JOBVT = CJOBV[IJVT];
@@ -703,21 +679,19 @@ void zdrvbd(
             DIF.value = ZERO;
             DIV = max(MNMIN.toDouble() * ULP * S[1], dlamch('Safe minimum'));
             for (I = 1; I <= MNMIN - 1; I++) {
-              // 150
               if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
               if (SSAV[I] < ZERO) DIF.value = ULPINV;
               DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
-            } // 150
+            }
             RESULT[29] = max(RESULT[29], DIF.value);
-          } // 160
-        } // 170
+          }
+        }
 
         // Do tests 8--10
 
         for (I = 1; I <= 4; I++) {
-          // 180
           ISEED2[I] = ISEED[I];
-        } // 180
+        }
         if (MNMIN <= 1) {
           IL = 1;
           IU = max(1, MNMIN);
@@ -809,10 +783,9 @@ void zdrvbd(
         NTEST = 0;
         NFAIL = 0;
         for (J = 1; J <= 39; J++) {
-          // 190
           if (RESULT[J] >= ZERO) NTEST++;
           if (RESULT[J] >= THRESH) NFAIL++;
-        } // 190
+        }
 
         if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
@@ -824,18 +797,17 @@ void zdrvbd(
         }
 
         for (J = 1; J <= 39; J++) {
-          // 200
           if (RESULT[J] >= THRESH) {
             NOUNIT.println(
                 ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i1}, IWS=${IWSPC.i1}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
           }
-        } // 200
+        }
 
         NERRS += NFAIL;
         NTESTT += NTEST;
-      } // 210
-    } // 220
-  } // 230
+      }
+    }
+  }
 
   // Summary
 

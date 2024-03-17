@@ -85,19 +85,16 @@ void zerrgg(
   // Set the variables to innocuous values.
 
   for (J = 1; J <= NMAX; J++) {
-    // 20
     SEL[J] = true;
     for (I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = Complex.zero;
       B[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= NMAX; I++) {
-    // 30
     A[I][I] = Complex.one;
     B[I][I] = Complex.one;
-  } // 30
+  }
   infoc.OK.value = true;
   TOLA.value = 1.0;
   TOLB.value = 1.0;

@@ -73,9 +73,7 @@ void zunt01(
     // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 
     for (J = 1; J <= N; J++) {
-      // 20
       for (I = 1; I <= J; I++) {
-        // 10
         if (I != J) {
           TMP = Complex.zero;
         } else {
@@ -83,16 +81,14 @@ void zunt01(
         }
         TMP -= zdotc(M, U(1, I).asArray(), 1, U(1, J).asArray(), 1);
         RESID.value = max(RESID.value, CABS1(TMP));
-      } // 10
-    } // 20
+      }
+    }
     RESID.value = (RESID.value / M.toDouble()) / EPS;
   } else {
     // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 
     for (J = 1; J <= M; J++) {
-      // 40
       for (I = 1; I <= J; I++) {
-        // 30
         if (I != J) {
           TMP = Complex.zero;
         } else {
@@ -100,8 +96,8 @@ void zunt01(
         }
         TMP -= zdotc(N, U(J, 1).asArray(), LDU, U(I, 1).asArray(), LDU);
         RESID.value = max(RESID.value, CABS1(TMP));
-      } // 30
-    } // 40
+      }
+    }
     RESID.value = (RESID.value / N) / EPS;
   }
 }

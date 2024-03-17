@@ -29,15 +29,12 @@ void zlatrz(
     return;
   } else if (M == N) {
     for (I = 1; I <= N; I++) {
-      // 10
       TAU[I] = Complex.zero;
-    } // 10
+    }
     return;
   }
 
   for (I = M; I >= 1; I--) {
-    // 20
-
     // Generate elementary reflector H(i) to annihilate
     // [ A(i,i) A(i,n-l+1:n) ]
 
@@ -51,5 +48,5 @@ void zlatrz(
     zlarz('Right', I - 1, N - I + 1, L, A(I, N - L + 1).asArray(), LDA,
         TAU[I].conjugate(), A(1, I), LDA, WORK);
     A[I][I] = ALPHA.value.conjugate();
-  } // 20
+  }
 }

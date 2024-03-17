@@ -106,18 +106,15 @@ void zungbr(
       // to those of the unit matrix
 
       for (J = M; J >= 2; J--) {
-        // 20
         A[1][J] = Complex.zero;
         for (I = J + 1; I <= M; I++) {
-          // 10
           A[I][J] = A[I][J - 1];
-        } // 10
-      } // 20
+        }
+      }
       A[1][1] = Complex.one;
       for (I = 2; I <= M; I++) {
-        // 30
         A[I][1] = Complex.zero;
-      } // 30
+      }
       if (M > 1) {
         // Form Q(2:m,2:m)
 
@@ -141,17 +138,14 @@ void zungbr(
 
       A[1][1] = Complex.one;
       for (I = 2; I <= N; I++) {
-        // 40
         A[I][1] = Complex.zero;
-      } // 40
+      }
       for (J = 2; J <= N; J++) {
-        // 60
         for (I = J - 1; I >= 2; I--) {
-          // 50
           A[I][J] = A[I - 1][J];
-        } // 50
+        }
         A[1][J] = Complex.zero;
-      } // 60
+      }
       if (N > 1) {
         // Form P**H(2:n,2:n)
 

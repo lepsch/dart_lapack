@@ -200,38 +200,31 @@ void zhbgst(
         BII = (BB[KB1][I]).toDouble();
         AB[KA1][I] = (((AB[KA1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I + 1; J <= I1; J++) {
-          // 20
           AB[I - J + KA1][J] /= BII.toComplex();
-        } // 20
+        }
         for (J = max(1, I - KA); J <= I - 1; J++) {
-          // 30
           AB[J - I + KA1][I] /= BII.toComplex();
-        } // 30
+        }
         for (K = I - KBT; K <= I - 1; K++) {
-          // 60
           for (J = I - KBT; J <= K; J++) {
-            // 40
             AB[J - K + KA1][K] -=
                 BB[J - I + KB1][I] * AB[K - I + KA1][I].conjugate() -
                     BB[K - I + KB1][I].conjugate() * AB[J - I + KA1][I] +
                     AB[KA1][I].real.toComplex() *
                         BB[J - I + KB1][I] *
                         BB[K - I + KB1][I].conjugate();
-          } // 40
+          }
           for (J = max(1, I - KA); J <= I - KBT - 1; J++) {
-            // 50
             AB[J - K + KA1][K] -=
                 BB[K - I + KB1][I].conjugate() * AB[J - I + KA1][I];
-          } // 50
-        } // 60
+          }
+        }
         for (J = I; J <= I1; J++) {
-          // 80
           for (K = max(J - KA, I - KBT); K <= I - 1; K++) {
-            // 70
             AB[K - J + KA1][J] =
                 AB[K - J + KA1][J] - BB[K - I + KB1][I] * AB[I - J + KA1][J];
-          } // 70
-        } // 80
+          }
+        }
 
         if (WANTX) {
           // post-multiply X by inv(S(i))
@@ -253,7 +246,6 @@ void zhbgst(
       // band
 
       for (K = 1; K <= KB - 1; K++) {
-        // 130
         if (UPDATE) {
           // Determine the rotations which would annihilate the bulge
           // which has in theory just been created
@@ -285,14 +277,12 @@ void zhbgst(
         }
         NRT = (N - J2T + KA) ~/ KA1;
         for (J = J2T; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-          // 90
-
           // create nonzero element a(j-ka,j+1) outside the band
           // and store it in WORK(j-m)
 
           WORK[J - M] *= AB[1][J + 1];
           AB[1][J + 1] = RWORK[J - M].toComplex() * AB[1][J + 1];
-        } // 90
+        }
 
         // generate rotations in 1st set to annihilate elements which
         // have been created outside the band
@@ -305,7 +295,6 @@ void zhbgst(
           // apply rotations in 1st set from the right
 
           for (L = 1; L <= KA - 1; L++) {
-            // 100
             zlartv(
                 NR,
                 AB(KA1 - L, J2).asArray(),
@@ -315,7 +304,7 @@ void zhbgst(
                 RWORK(J2 - M),
                 WORK(J2 - M),
                 KA1);
-          } // 100
+          }
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
@@ -329,7 +318,6 @@ void zhbgst(
         // start applying rotations in 1st set from the left
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 110
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -342,18 +330,17 @@ void zhbgst(
                 WORK(J2 - M),
                 KA1);
           }
-        } // 110
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-            // 120
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J - M], WORK[J - M].conjugate());
-          } // 120
+          }
         }
-      } // 130
+      }
 
       if (UPDATE) {
         if (I2 <= N && KBT > 0) {
@@ -365,7 +352,6 @@ void zhbgst(
       }
 
       for (K = KB; K >= 1; K--) {
-        // 170
         if (UPDATE) {
           J2 = I - K - 1 + max(2, K - I0 + 1) * KA1;
         } else {
@@ -375,7 +361,6 @@ void zhbgst(
         // finish applying rotations in 2nd set from the left
 
         for (L = KB - K; L >= 1; L--) {
-          // 140
           NRT = (N - J2 + KA + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -388,30 +373,26 @@ void zhbgst(
                 WORK(J2 - KA),
                 KA1);
           }
-        } // 140
+        }
         NR = (N - J2 + KA) ~/ KA1;
         J1 = J2 + (NR - 1) * KA1;
         for (J = J1; -KA1 < 0 ? J >= J2 : J <= J2; J += -KA1) {
-          // 150
           WORK[J] = WORK[J - KA];
           RWORK[J] = RWORK[J - KA];
-        } // 150
+        }
         for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-          // 160
-
           // create nonzero element a(j-ka,j+1) outside the band
           // and store it in WORK(j)
 
           WORK[J] *= AB[1][J + 1];
           AB[1][J + 1] = RWORK[J].toComplex() * AB[1][J + 1];
-        } // 160
+        }
         if (UPDATE) {
           if (I - K < N - KA && K <= KBT) WORK[I - K + KA] = WORK[I - K];
         }
-      } // 170
+      }
 
       for (K = KB; K >= 1; K--) {
-        // 210
         J2 = I - K - 1 + max(1, K - I0 + 1) * KA1;
         NR = (N - J2 + KA) ~/ KA1;
         J1 = J2 + (NR - 1) * KA1;
@@ -424,10 +405,9 @@ void zhbgst(
           // apply rotations in 2nd set from the right
 
           for (L = 1; L <= KA - 1; L++) {
-            // 180
             zlartv(NR, AB(KA1 - L, J2).asArray(), INCA,
                 AB(KA - L, J2 + 1).asArray(), INCA, RWORK(J2), WORK(J2), KA1);
-          } // 180
+          }
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
@@ -441,7 +421,6 @@ void zhbgst(
         // start applying rotations in 2nd set from the left
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 190
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -454,27 +433,24 @@ void zhbgst(
                 WORK(J2),
                 KA1);
           }
-        } // 190
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-            // 200
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J], WORK[J].conjugate());
-          } // 200
+          }
         }
-      } // 210
+      }
 
       for (K = 1; K <= KB - 1; K++) {
-        // 230
         J2 = I - K - 1 + max(1, K - I0 + 2) * KA1;
 
         // finish applying rotations in 1st set from the left
 
         for (L = KB - K; L >= 1; L--) {
-          // 220
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -487,15 +463,14 @@ void zhbgst(
                 WORK(J2 - M),
                 KA1);
           }
-        } // 220
-      } // 230
+        }
+      }
 
       if (KB > 1) {
         for (J = N - 1; J >= J2 + KA; J--) {
-          // 240
           RWORK[J - M] = RWORK[J - KA - M];
           WORK[J - M] = WORK[J - KA - M];
-        } // 240
+        }
       }
     } else {
       // Transform A, working with the lower triangle
@@ -506,37 +481,30 @@ void zhbgst(
         BII = (BB[1][I]).toDouble();
         AB[1][I] = (((AB[1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I + 1; J <= I1; J++) {
-          // 250
           AB[J - I + 1][I] /= BII.toComplex();
-        } // 250
+        }
         for (J = max(1, I - KA); J <= I - 1; J++) {
-          // 260
           AB[I - J + 1][J] /= BII.toComplex();
-        } // 260
+        }
         for (K = I - KBT; K <= I - 1; K++) {
-          // 290
           for (J = I - KBT; J <= K; J++) {
-            // 270
             AB[K - J + 1][J] -=
                 BB[I - J + 1][J] * AB[I - K + 1][K].conjugate() -
                     BB[I - K + 1][K].conjugate() * AB[I - J + 1][J] +
                     (AB[1][I]).real.toComplex() *
                         BB[I - J + 1][J] *
                         BB[I - K + 1][K].conjugate();
-          } // 270
+          }
           for (J = max(1, I - KA); J <= I - KBT - 1; J++) {
-            // 280
             AB[K - J + 1][J] -= BB[I - K + 1][K].conjugate() * AB[I - J + 1][J];
-          } // 280
-        } // 290
+          }
+        }
         for (J = I; J <= I1; J++) {
-          // 310
           for (K = max(J - KA, I - KBT); K <= I - 1; K++) {
-            // 300
             AB[J - K + 1][K] =
                 AB[J - K + 1][K] - BB[I - K + 1][K] * AB[J - I + 1][I];
-          } // 300
-        } // 310
+          }
+        }
 
         if (WANTX) {
           // post-multiply X by inv(S(i))
@@ -566,7 +534,6 @@ void zhbgst(
       // band
 
       for (K = 1; K <= KB - 1; K++) {
-        // 360
         if (UPDATE) {
           // Determine the rotations which would annihilate the bulge
           // which has in theory just been created
@@ -598,14 +565,12 @@ void zhbgst(
         }
         NRT = (N - J2T + KA) ~/ KA1;
         for (J = J2T; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-          // 320
-
           // create nonzero element a(j+1,j-ka) outside the band
           // and store it in WORK(j-m)
 
           WORK[J - M] *= AB[KA1][J - KA + 1];
           AB[KA1][J - KA + 1] = RWORK[J - M].toComplex() * AB[KA1][J - KA + 1];
-        } // 320
+        }
 
         // generate rotations in 1st set to annihilate elements which
         // have been created outside the band
@@ -618,7 +583,6 @@ void zhbgst(
           // apply rotations in 1st set from the left
 
           for (L = 1; L <= KA - 1; L++) {
-            // 330
             zlartv(
                 NR,
                 AB(L + 1, J2 - L).asArray(),
@@ -628,7 +592,7 @@ void zhbgst(
                 RWORK(J2 - M),
                 WORK(J2 - M),
                 KA1);
-          } // 330
+          }
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
@@ -642,7 +606,6 @@ void zhbgst(
         // start applying rotations in 1st set from the right
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 340
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -655,18 +618,17 @@ void zhbgst(
                 WORK(J2 - M),
                 KA1);
           }
-        } // 340
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-            // 350
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J - M], WORK[J - M]);
-          } // 350
+          }
         }
-      } // 360
+      }
 
       if (UPDATE) {
         if (I2 <= N && KBT > 0) {
@@ -678,7 +640,6 @@ void zhbgst(
       }
 
       for (K = KB; K >= 1; K--) {
-        // 400
         if (UPDATE) {
           J2 = I - K - 1 + max(2, K - I0 + 1) * KA1;
         } else {
@@ -688,7 +649,6 @@ void zhbgst(
         // finish applying rotations in 2nd set from the right
 
         for (L = KB - K; L >= 1; L--) {
-          // 370
           NRT = (N - J2 + KA + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -701,30 +661,26 @@ void zhbgst(
                 WORK(J2 - KA),
                 KA1);
           }
-        } // 370
+        }
         NR = (N - J2 + KA) ~/ KA1;
         J1 = J2 + (NR - 1) * KA1;
         for (J = J1; -KA1 < 0 ? J >= J2 : J <= J2; J += -KA1) {
-          // 380
           WORK[J] = WORK[J - KA];
           RWORK[J] = RWORK[J - KA];
-        } // 380
+        }
         for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-          // 390
-
           // create nonzero element a(j+1,j-ka) outside the band
           // and store it in WORK(j)
 
           WORK[J] *= AB[KA1][J - KA + 1];
           AB[KA1][J - KA + 1] = RWORK[J].toComplex() * AB[KA1][J - KA + 1];
-        } // 390
+        }
         if (UPDATE) {
           if (I - K < N - KA && K <= KBT) WORK[I - K + KA] = WORK[I - K];
         }
-      } // 400
+      }
 
       for (K = KB; K >= 1; K--) {
-        // 440
         J2 = I - K - 1 + max(1, K - I0 + 1) * KA1;
         NR = (N - J2 + KA) ~/ KA1;
         J1 = J2 + (NR - 1) * KA1;
@@ -738,10 +694,9 @@ void zhbgst(
           // apply rotations in 2nd set from the left
 
           for (L = 1; L <= KA - 1; L++) {
-            // 410
             zlartv(NR, AB(L + 1, J2 - L).asArray(), INCA,
                 AB(L + 2, J2 - L).asArray(), INCA, RWORK(J2), WORK(J2), KA1);
-          } // 410
+          }
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
@@ -755,33 +710,29 @@ void zhbgst(
         // start applying rotations in 2nd set from the right
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 420
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(NRT, AB(KA1 - L + 1, J2).asArray(), INCA,
                 AB(KA1 - L, J2 + 1).asArray(), INCA, RWORK(J2), WORK(J2), KA1);
           }
-        } // 420
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
-            // 430
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J], WORK[J]);
-          } // 430
+          }
         }
-      } // 440
+      }
 
       for (K = 1; K <= KB - 1; K++) {
-        // 460
         J2 = I - K - 1 + max(1, K - I0 + 2) * KA1;
 
         // finish applying rotations in 1st set from the right
 
         for (L = KB - K; L >= 1; L--) {
-          // 450
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             zlartv(
@@ -794,15 +745,14 @@ void zhbgst(
                 WORK(J2 - M),
                 KA1);
           }
-        } // 450
-      } // 460
+        }
+      }
 
       if (KB > 1) {
         for (J = N - 1; J >= J2 + KA; J--) {
-          // 470
           RWORK[J - M] = RWORK[J - KA - M];
           WORK[J - M] = WORK[J - KA - M];
-        } // 470
+        }
       }
     }
   }
@@ -824,9 +774,7 @@ void zhbgst(
 
   UPDATE = true;
   I = 0;
-  // } // 490
   while (true) {
-    // 480
     if (UPDATE) {
       I++;
       KBT = min(KB, M - I);
@@ -860,38 +808,31 @@ void zhbgst(
         BII = (BB[KB1][I]).toDouble();
         AB[KA1][I] = (((AB[KA1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I1; J <= I - 1; J++) {
-          // 500
           AB[J - I + KA1][I] /= BII.toComplex();
-        } // 500
+        }
         for (J = I + 1; J <= min(N, I + KA); J++) {
-          // 510
           AB[I - J + KA1][J] /= BII.toComplex();
-        } // 510
+        }
         for (K = I + 1; K <= I + KBT; K++) {
-          // 540
           for (J = K; J <= I + KBT; J++) {
-            // 520
             AB[K - J + KA1][J] -=
                 BB[I - J + KB1][J] * AB[I - K + KA1][K].conjugate() -
                     BB[I - K + KB1][K].conjugate() * AB[I - J + KA1][J] +
                     (AB[KA1][I]).real.toComplex() *
                         BB[I - J + KB1][J] *
                         BB[I - K + KB1][K].conjugate();
-          } // 520
+          }
           for (J = I + KBT + 1; J <= min(N, I + KA); J++) {
-            // 530
             AB[K - J + KA1][J] -=
                 BB[I - K + KB1][K].conjugate() * AB[I - J + KA1][J];
-          } // 530
-        } // 540
+          }
+        }
         for (J = I1; J <= I; J++) {
-          // 560
           for (K = I + 1; K <= min(J + KA, I + KBT); K++) {
-            // 550
             AB[J - K + KA1][K] =
                 AB[J - K + KA1][K] - BB[I - K + KB1][K] * AB[J - I + KA1][I];
-          } // 550
-        } // 560
+          }
+        }
 
         if (WANTX) {
           // post-multiply X by inv(S(i))
@@ -912,7 +853,6 @@ void zhbgst(
       // existing bulges KA positions up toward the top of the band
 
       for (K = 1; K <= KB - 1; K++) {
-        // 610
         if (UPDATE) {
           // Determine the rotations which would annihilate the bulge
           // which has in theory just been created
@@ -943,14 +883,12 @@ void zhbgst(
         }
         NRT = (J2T + KA - 1) ~/ KA1;
         for (J = J1; KA1 < 0 ? J >= J2T : J <= J2T; J += KA1) {
-          // 570
-
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK(j)
 
           WORK[J] *= AB[1][J + KA - 1];
           AB[1][J + KA - 1] = RWORK[J].toComplex() * AB[1][J + KA - 1];
-        } // 570
+        }
 
         // generate rotations in 1st set to annihilate elements which
         // have been created outside the band
@@ -963,10 +901,9 @@ void zhbgst(
           // apply rotations in 1st set from the left
 
           for (L = 1; L <= KA - 1; L++) {
-            // 580
             zlartv(NR, AB(KA1 - L, J1 + L).asArray(), INCA,
                 AB(KA - L, J1 + L).asArray(), INCA, RWORK(J1), WORK(J1), KA1);
-          } // 580
+          }
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
@@ -980,25 +917,23 @@ void zhbgst(
         // start applying rotations in 1st set from the right
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 590
           NRT = (J2 + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             zlartv(NRT, AB(L, J1T).asArray(), INCA,
                 AB(L + 1, J1T - 1).asArray(), INCA, RWORK(J1T), WORK(J1T), KA1);
           }
-        } // 590
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-            // 600
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1, RWORK[J],
                 WORK[J]);
-          } // 600
+          }
         }
-      } // 610
+      }
 
       if (UPDATE) {
         if (I2 > 0 && KBT > 0) {
@@ -1010,7 +945,6 @@ void zhbgst(
       }
 
       for (K = KB; K >= 1; K--) {
-        // 650
         if (UPDATE) {
           J2 = I + K + 1 - max(2, K + I0 - M) * KA1;
         } else {
@@ -1020,7 +954,6 @@ void zhbgst(
         // finish applying rotations in 2nd set from the right
 
         for (L = KB - K; L >= 1; L--) {
-          // 620
           NRT = (J2 + KA + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
@@ -1034,32 +967,28 @@ void zhbgst(
                 WORK(M - KB + J1T + KA),
                 KA1);
           }
-        } // 620
+        }
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
         for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-          // 630
           WORK[M - KB + J] = WORK[M - KB + J + KA];
           RWORK[M - KB + J] = RWORK[M - KB + J + KA];
-        } // 630
+        }
         for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-          // 640
-
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK(m-kb+j)
 
           WORK[M - KB + J] *= AB[1][J + KA - 1];
           AB[1][J + KA - 1] = RWORK[M - KB + J].toComplex() * AB[1][J + KA - 1];
-        } // 640
+        }
         if (UPDATE) {
           if (I + K > KA1 && K <= KBT) {
             WORK[M - KB + I + K - KA] = WORK[M - KB + I + K];
           }
         }
-      } // 650
+      }
 
       for (K = KB; K >= 1; K--) {
-        // 690
         J2 = I + K + 1 - max(1, K + I0 - M) * KA1;
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
@@ -1073,7 +1002,6 @@ void zhbgst(
           // apply rotations in 2nd set from the left
 
           for (L = 1; L <= KA - 1; L++) {
-            // 660
             zlartv(
                 NR,
                 AB(KA1 - L, J1 + L).asArray(),
@@ -1083,7 +1011,7 @@ void zhbgst(
                 RWORK(M - KB + J1),
                 WORK(M - KB + J1),
                 KA1);
-          } // 660
+          }
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
@@ -1104,7 +1032,6 @@ void zhbgst(
         // start applying rotations in 2nd set from the right
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 670
           NRT = (J2 + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
@@ -1118,42 +1045,38 @@ void zhbgst(
                 WORK(M - KB + J1T),
                 KA1);
           }
-        } // 670
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-            // 680
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 RWORK[M - KB + J], WORK[M - KB + J]);
-          } // 680
+          }
         }
-      } // 690
+      }
 
       for (K = 1; K <= KB - 1; K++) {
-        // 710
         J2 = I + K + 1 - max(1, K + I0 - M + 1) * KA1;
 
         // finish applying rotations in 1st set from the right
 
         for (L = KB - K; L >= 1; L--) {
-          // 700
           NRT = (J2 + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             zlartv(NRT, AB(L, J1T).asArray(), INCA,
                 AB(L + 1, J1T - 1).asArray(), INCA, RWORK(J1T), WORK(J1T), KA1);
           }
-        } // 700
-      } // 710
+        }
+      }
 
       if (KB > 1) {
         for (J = 2; J <= I2 - KA; J++) {
-          // 720
           RWORK[J] = RWORK[J + KA];
           WORK[J] = WORK[J + KA];
-        } // 720
+        }
       }
     } else {
       // Transform A, working with the lower triangle
@@ -1164,37 +1087,30 @@ void zhbgst(
         BII = (BB[1][I]).toDouble();
         AB[1][I] = (((AB[1][I]).toDouble() / BII) / BII).toComplex();
         for (J = I1; J <= I - 1; J++) {
-          // 730
           AB[I - J + 1][J] /= BII.toComplex();
-        } // 730
+        }
         for (J = I + 1; J <= min(N, I + KA); J++) {
-          // 740
           AB[J - I + 1][I] /= BII.toComplex();
-        } // 740
+        }
         for (K = I + 1; K <= I + KBT; K++) {
-          // 770
           for (J = K; J <= I + KBT; J++) {
-            // 750
             AB[J - K + 1][K] -=
                 BB[J - I + 1][I] * AB[K - I + 1][I].conjugate() -
                     BB[K - I + 1][I].conjugate() * AB[J - I + 1][I] +
                     (AB[1][I]).real.toComplex() *
                         BB[J - I + 1][I] *
                         BB[K - I + 1][I].conjugate();
-          } // 750
+          }
           for (J = I + KBT + 1; J <= min(N, I + KA); J++) {
-            // 760
             AB[J - K + 1][K] -= BB[K - I + 1][I].conjugate() * AB[J - I + 1][I];
-          } // 760
-        } // 770
+          }
+        }
         for (J = I1; J <= I; J++) {
-          // 790
           for (K = I + 1; K <= min(J + KA, I + KBT); K++) {
-            // 780
             AB[K - J + 1][J] =
                 AB[K - J + 1][J] - BB[K - I + 1][I] * AB[I - J + 1][J];
-          } // 780
-        } // 790
+          }
+        }
 
         if (WANTX) {
           // post-multiply X by inv(S(i))
@@ -1215,7 +1131,6 @@ void zhbgst(
       // existing bulges KA positions up toward the top of the band
 
       for (K = 1; K <= KB - 1; K++) {
-        // 840
         if (UPDATE) {
           // Determine the rotations which would annihilate the bulge
           // which has in theory just been created
@@ -1247,14 +1162,12 @@ void zhbgst(
         }
         NRT = (J2T + KA - 1) ~/ KA1;
         for (J = J1; KA1 < 0 ? J >= J2T : J <= J2T; J += KA1) {
-          // 800
-
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK(j)
 
           WORK[J] *= AB[KA1][J - 1];
           AB[KA1][J - 1] = RWORK[J].toComplex() * AB[KA1][J - 1];
-        } // 800
+        }
 
         // generate rotations in 1st set to annihilate elements which
         // have been created outside the band
@@ -1267,10 +1180,9 @@ void zhbgst(
           // apply rotations in 1st set from the right
 
           for (L = 1; L <= KA - 1; L++) {
-            // 810
             zlartv(NR, AB(L + 1, J1).asArray(), INCA,
                 AB(L + 2, J1 - 1).asArray(), INCA, RWORK(J1), WORK(J1), KA1);
-          } // 810
+          }
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
@@ -1284,7 +1196,6 @@ void zhbgst(
         // start applying rotations in 1st set from the left
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 820
           NRT = (J2 + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
@@ -1298,18 +1209,17 @@ void zhbgst(
                 WORK(J1T),
                 KA1);
           }
-        } // 820
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-            // 830
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1, RWORK[J],
                 WORK[J].conjugate());
-          } // 830
+          }
         }
-      } // 840
+      }
 
       if (UPDATE) {
         if (I2 > 0 && KBT > 0) {
@@ -1321,7 +1231,6 @@ void zhbgst(
       }
 
       for (K = KB; K >= 1; K--) {
-        // 880
         if (UPDATE) {
           J2 = I + K + 1 - max(2, K + I0 - M) * KA1;
         } else {
@@ -1331,7 +1240,6 @@ void zhbgst(
         // finish applying rotations in 2nd set from the left
 
         for (L = KB - K; L >= 1; L--) {
-          // 850
           NRT = (J2 + KA + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
@@ -1345,32 +1253,28 @@ void zhbgst(
                 WORK(M - KB + J1T + KA),
                 KA1);
           }
-        } // 850
+        }
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
         for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-          // 860
           WORK[M - KB + J] = WORK[M - KB + J + KA];
           RWORK[M - KB + J] = RWORK[M - KB + J + KA];
-        } // 860
+        }
         for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-          // 870
-
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK(m-kb+j)
 
           WORK[M - KB + J] *= AB[KA1][J - 1];
           AB[KA1][J - 1] = RWORK[M - KB + J].toComplex() * AB[KA1][J - 1];
-        } // 870
+        }
         if (UPDATE) {
           if (I + K > KA1 && K <= KBT) {
             WORK[M - KB + I + K - KA] = WORK[M - KB + I + K];
           }
         }
-      } // 880
+      }
 
       for (K = KB; K >= 1; K--) {
-        // 920
         J2 = I + K + 1 - max(1, K + I0 - M) * KA1;
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
@@ -1384,7 +1288,6 @@ void zhbgst(
           // apply rotations in 2nd set from the right
 
           for (L = 1; L <= KA - 1; L++) {
-            // 890
             zlartv(
                 NR,
                 AB(L + 1, J1).asArray(),
@@ -1394,7 +1297,7 @@ void zhbgst(
                 RWORK(M - KB + J1),
                 WORK(M - KB + J1),
                 KA1);
-          } // 890
+          }
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
@@ -1415,7 +1318,6 @@ void zhbgst(
         // start applying rotations in 2nd set from the left
 
         for (L = KA - 1; L >= KB - K + 1; L--) {
-          // 900
           NRT = (J2 + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
@@ -1429,27 +1331,24 @@ void zhbgst(
                 WORK(M - KB + J1T),
                 KA1);
           }
-        } // 900
+        }
 
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
-            // 910
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 RWORK[M - KB + J], WORK[M - KB + J].conjugate());
-          } // 910
+          }
         }
-      } // 920
+      }
 
       for (K = 1; K <= KB - 1; K++) {
-        // 940
         J2 = I + K + 1 - max(1, K + I0 - M + 1) * KA1;
 
         // finish applying rotations in 1st set from the left
 
         for (L = KB - K; L >= 1; L--) {
-          // 930
           NRT = (J2 + L - 1) ~/ KA1;
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
@@ -1463,15 +1362,14 @@ void zhbgst(
                 WORK(J1T),
                 KA1);
           }
-        } // 930
-      } // 940
+        }
+      }
 
       if (KB > 1) {
         for (J = 2; J <= I2 - KA; J++) {
-          // 950
           RWORK[J] = RWORK[J + KA];
           WORK[J] = WORK[J + KA];
-        } // 950
+        }
       }
     }
   }

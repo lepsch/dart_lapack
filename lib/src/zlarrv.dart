@@ -161,9 +161,8 @@ void zlarrv(
   MINWSIZE = 12 * N;
 
   for (I = 1; I <= MINWSIZE; I++) {
-    // 5
     WORK[I] = ZERO;
-  } // 5
+  }
 
   // IWORK(IINDR+1:IINDR+N) hold the twist indices R for the
   // factorization used to compute the FP vector
@@ -176,9 +175,8 @@ void zlarrv(
 
   MINIWSIZE = 7 * N;
   for (I = 1; I <= MINIWSIZE; I++) {
-    // 10
     IWORK[I] = 0;
-  } // 10
+  }
 
   ZUSEDL = 1;
   if (DOL > 1) {
@@ -219,7 +217,6 @@ void zlarrv(
   IBEGIN = 1;
   WBEGIN = 1;
   for (JBLK = 1; JBLK <= IBLOCK[M]; JBLK++) {
-    // 170
     IEND = ISPLIT[JBLK];
     SIGMA = L[IEND];
     // Find the eigenvectors of the submatrix indexed IBEGIN
@@ -242,10 +239,9 @@ void zlarrv(
     GL = GERS[2 * IBEGIN - 1];
     GU = GERS[2 * IBEGIN];
     for (I = IBEGIN + 1; I <= IEND; I++) {
-      // 20
       GL = min(GERS[2 * I - 1], GL);
       GU = max(GERS[2 * I], GU);
-    } // 20
+    }
     SPDIAM = GU - GL;
 
     // OLDIEN is the last index of the previous block
@@ -278,9 +274,8 @@ void zlarrv(
     // We store in W the eigenvalue approximations w.r.t. the original
     // matrix T.
     for (I = 1; I <= IM; I++) {
-      // 30
       W[WBEGIN + I - 1] += SIGMA;
-    } // 30
+    }
 
     // NDEPTH is the current depth of the representation tree
     NDEPTH = 0;
@@ -298,7 +293,6 @@ void zlarrv(
     // loop while( IDONE < IM )
     // generate the representation tree for the current block and
     // compute the eigenvectors
-    //  } // 40
     while (IDONE < IM) {
       // This is a crude protection against infinitely deep trees
       if (NDEPTH > M) {
@@ -321,7 +315,6 @@ void zlarrv(
       }
       // Process the clusters on the current level
       for (I = 1; I <= OLDNCL; I++) {
-        // 150
         J = OLDCLS + 2 * I;
         // OLDFST, OLDLST = first, last index of current cluster.
         //                  cluster indices start with 1 and are relative
@@ -350,10 +343,9 @@ void zlarrv(
             }
           }
           for (K = 1; K <= IN - 1; K++) {
-            // 45
             D[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J].toDouble();
             L[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J + 1].toDouble();
-          } // 45
+          }
           D[IEND] = (Z[IEND][J]).toDouble();
           SIGMA = (Z[IEND][J + 1]).toDouble();
 
@@ -363,11 +355,10 @@ void zlarrv(
 
         // Compute DL and DLL of current RRR
         for (J = IBEGIN; J <= IEND - 1; J++) {
-          // 50
           TMP = D[J] * L[J];
           WORK[INDLD - 1 + J] = TMP;
           WORK[INDLLD - 1 + J] = TMP * L[J];
-        } // 50
+        }
 
         if (NDEPTH > 0) {
           // P and Q are index of the first and last eigenvalue to compute
@@ -428,15 +419,13 @@ void zlarrv(
           // Each time the eigenvalues in WORK get refined, we store
           // the newly found approximation with all shifts applied in W
           for (J = OLDFST; J <= OLDLST; J++) {
-            // 53
             W[WBEGIN + J - 1] = WORK[WBEGIN + J - 1] + SIGMA;
-          } // 53
+          }
         }
 
         // Process the current node.
         NEWFST = OLDFST;
         for (J = OLDFST; J <= OLDLST; J++) {
-          // 140
           if (J == OLDLST) {
             // we are at the right end of the cluster, this is also the
             // boundary of the child cluster
@@ -499,7 +488,6 @@ void zlarrv(
             // as possible
 
             for (K = 1; K <= 2; K++) {
-              // 55
               if (K == 1) {
                 P = INDEXW[WBEGIN - 1 + NEWFST];
               } else {
@@ -524,7 +512,7 @@ void zlarrv(
                   SPDIAM,
                   IN,
                   IINFO);
-            } // 55
+            }
 
             if ((WBEGIN + NEWLST - 1 < DOL) || (WBEGIN + NEWFST - 1 > DOU)) {
               // if the cluster contains no desired eigenvalues
@@ -566,11 +554,10 @@ void zlarrv(
             // the new RRR directly into Z and needs an intermediate
             // workspace
             for (K = 1; K <= IN - 1; K++) {
-              // 56
               Z[IBEGIN + K - 1][NEWFTT] = Complex(WORK[INDIN1 + K - 1], ZERO);
               Z[IBEGIN + K - 1][NEWFTT + 1] =
                   Complex(WORK[INDIN2 + K - 1], ZERO);
-            } // 56
+            }
             Z[IEND][NEWFTT] = Complex(WORK[INDIN1 + IN - 1], ZERO);
             if (IINFO.value == 0) {
               // a new RRR for the cluster was found by DLARRF
@@ -580,7 +567,6 @@ void zlarrv(
               // WORK() are the midpoints and WERR() the semi-width
               // Note that the entries in W are unchanged.
               for (K = NEWFST; K <= NEWLST; K++) {
-                // 116
                 FUDGE = THREE * EPS * WORK[WBEGIN + K - 1].abs();
                 WORK[WBEGIN + K - 1] -= TAU.value;
                 FUDGE += FOUR * EPS * WORK[WBEGIN + K - 1].abs();
@@ -593,7 +579,7 @@ void zlarrv(
                 // of judging eigenvalues 'separated' which in
                 // reality are not. This could have a negative impact
                 // on the orthogonality of the computed eigenvectors.
-              } // 116
+              }
 
               NCLUS++;
               K = NEWCLS + 2 * NCLUS;
@@ -867,19 +853,17 @@ void zlarrv(
               // Ensure vector is ok if support in the RQI has changed
               if (ISUPMN < ZFROM) {
                 for (II = ISUPMN; II <= ZFROM - 1; II++) {
-                  // 122
                   Z[II][WINDEX] = Complex.zero;
-                } // 122
+                }
               }
               if (ISUPMX > ZTO) {
                 for (II = ZTO + 1; II <= ISUPMX; II++) {
-                  // 123
                   Z[II][WINDEX] = Complex.zero;
-                } // 123
+                }
               }
               zdscal(
                   ZTO - ZFROM + 1, NRMINV.value, Z(ZFROM, WINDEX).asArray(), 1);
-            } // 125
+            }
             // Update W
             W[WINDEX] = LAMBDA + SIGMA;
             // Recompute the gaps on the left and right
@@ -901,16 +885,14 @@ void zlarrv(
             IDONE++;
           }
           // here ends the code for the current child
-
-          // } // 139
           // Proceed to any remaining child nodes
           NEWFST = J + 1;
-        } // 140
-      } // 150
+        }
+      }
       NDEPTH++;
     }
     //  }
     IBEGIN = IEND + 1;
     WBEGIN = WEND + 1;
-  } // 170
+  }
 }

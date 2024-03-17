@@ -61,24 +61,20 @@ void ddrvac(
   var NFAIL = 0;
   final NERRS = Box(0);
   for (var I = 1; I <= 4; I++) {
-    // 10
     ISEED[I] = ISEEDY[I - 1];
-  } // 10
+  }
 
   infoc.INFOT = 0;
 
   // Do for each value of N in MVAL
 
   for (var IM = 1; IM <= NM; IM++) {
-    // 120
     final N = MVAL[IM];
     final LDA = max(N, 1);
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     imatLoop:
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
-      // 110
-
       // Do the tests only if DOTYPE( IMAT ) is true.
 
       if (!DOTYPE[IMAT]) continue;
@@ -91,7 +87,6 @@ void ddrvac(
       // Do first for UPLO = 'U', then for UPLO = 'L'
 
       for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
-        // 100
         final UPLO = UPLOS[IUPLO - 1];
 
         // Set up parameters with DLATB4 and generate a test matrix
@@ -130,34 +125,29 @@ void ddrvac(
 
           if (IUPLO == 1) {
             for (var I = 1; I <= IZERO - 1; I++) {
-              // 20
               A[IOFF + I] = ZERO;
-            } // 20
+            }
             IOFF += IZERO;
             for (var I = IZERO; I <= N; I++) {
-              // 30
               A[IOFF] = ZERO;
               IOFF += LDA;
-            } // 30
+            }
           } else {
             IOFF = IZERO;
             for (var I = 1; I <= IZERO - 1; I++) {
-              // 40
               A[IOFF] = ZERO;
               IOFF += LDA;
-            } // 40
+            }
             IOFF -= IZERO;
             for (var I = IZERO; I <= N; I++) {
-              // 50
               A[IOFF + I] = ZERO;
-            } // 50
+            }
           }
         } else {
           IZERO = 0;
         }
 
         for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-          // 60
           final NRHS = NSVAL[IRHS];
           final XTYPE = 'N';
 
@@ -243,10 +233,10 @@ void ddrvac(
           }
 
           NRUN++;
-        } // 60
-      } // 100
-    } // 110
-  } // 120
+        }
+      }
+    }
+  }
 
   // Print a summary of the results.
 

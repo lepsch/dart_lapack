@@ -112,12 +112,11 @@ void zhetrs(
         AK = A[K][K] / AKM1K.conjugate();
         DENOM = AKM1 * AK - Complex.one;
         for (J = 1; J <= NRHS; J++) {
-          // 20
           BKM1 = B[K - 1][J] / AKM1K;
           BK = B[K][J] / AKM1K.conjugate();
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 20
+        }
         K -= 2;
       }
     }
@@ -246,15 +245,14 @@ void zhetrs(
         AK = A[K + 1][K + 1] / AKM1K;
         DENOM = AKM1 * AK - Complex.one;
         for (J = 1; J <= NRHS; J++) {
-          // 70
           BKM1 = B[K][J] / AKM1K.conjugate();
           BK = B[K + 1][J] / AKM1K;
           B[K][J] = (AK * BKM1 - BK) / DENOM;
           B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 70
+        }
         K += 2;
       }
-    } // 80
+    }
 
     // Next solve L**H *X = B, overwriting B with X.
 
@@ -339,6 +337,6 @@ void zhetrs(
         }
         K -= 2;
       }
-    } // 100
+    }
   }
 }

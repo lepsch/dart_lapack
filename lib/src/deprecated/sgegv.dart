@@ -268,31 +268,31 @@
                INFO = N + 8;
                GO TO 120;
             }
-            for (JC = 1; JC <= N; JC++) { // 50
+            for (JC = 1; JC <= N; JC++) {
                if( ALPHAI( JC ) < ZERO ) GO TO 50;
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
-                  for (JR = 1; JR <= N; JR++) { // 10
+                  for (JR = 1; JR <= N; JR++) {
                      TEMP = max( TEMP, ( VL( JR, JC ) ).abs() );
-                  } // 10
+                  }
                } else {
-                  for (JR = 1; JR <= N; JR++) { // 20
+                  for (JR = 1; JR <= N; JR++) {
                      TEMP = max( TEMP, ( VL( JR, JC ) ).abs()+ ( VL( JR, JC+1 ) ).abs() );
-                  } // 20
+                  }
                }
                if (TEMP < SAFMIN) GO TO 50;
                TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
-                  for (JR = 1; JR <= N; JR++) { // 30
+                  for (JR = 1; JR <= N; JR++) {
                      VL[JR][JC] = VL( JR, JC )*TEMP;
-                  } // 30
+                  }
                } else {
-                  for (JR = 1; JR <= N; JR++) { // 40
+                  for (JR = 1; JR <= N; JR++) {
                      VL[JR][JC] = VL( JR, JC )*TEMP;
                      VL[JR][JC+1] = VL( JR, JC+1 )*TEMP;
-                  } // 40
+                  }
                }
-            } // 50
+            }
          }
          if ( ILVR ) {
             sggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO );
@@ -300,31 +300,31 @@
                INFO = N + 9;
                GO TO 120;
             }
-            for (JC = 1; JC <= N; JC++) { // 100
+            for (JC = 1; JC <= N; JC++) {
                if( ALPHAI( JC ) < ZERO ) GO TO 100;
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
-                  for (JR = 1; JR <= N; JR++) { // 60
+                  for (JR = 1; JR <= N; JR++) {
                      TEMP = max( TEMP, ( VR( JR, JC ) ).abs() );
-                  } // 60
+                  }
                } else {
-                  for (JR = 1; JR <= N; JR++) { // 70
+                  for (JR = 1; JR <= N; JR++) {
                      TEMP = max( TEMP, ( VR( JR, JC ) ).abs()+ ( VR( JR, JC+1 ) ).abs() );
-                  } // 70
+                  }
                }
                if (TEMP < SAFMIN) GO TO 100;
                TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
-                  for (JR = 1; JR <= N; JR++) { // 80
+                  for (JR = 1; JR <= N; JR++) {
                      VR[JR][JC] = VR( JR, JC )*TEMP;
-                  } // 80
+                  }
                } else {
-                  for (JR = 1; JR <= N; JR++) { // 90
+                  for (JR = 1; JR <= N; JR++) {
                      VR[JR][JC] = VR( JR, JC )*TEMP;
                      VR[JR][JC+1] = VR( JR, JC+1 )*TEMP;
-                  } // 90
+                  }
                }
-            } // 100
+            }
          }
 
          // End of eigenvector calculation
@@ -339,7 +339,7 @@
       // Un-scaling is limited to avoid underflow in alpha and beta
       // if they are significant.
 
-      for (JC = 1; JC <= N; JC++) { // 110
+      for (JC = 1; JC <= N; JC++) {
          ABSAR = ( ALPHAR( JC ) ).abs();
          ABSAI = ( ALPHAI( JC ) ).abs();
          ABSB = ( BETA( JC ) ).abs();
@@ -397,9 +397,9 @@
          ALPHAR[JC] = SALFAR;
          ALPHAI[JC] = SALFAI;
          BETA[JC] = SBETA;
-      } // 110
+      }
 
-      } // 120
+      }
       WORK[1] = LWKOPT;
 
       }

@@ -31,12 +31,11 @@ double zlanht(
 
     ANORM = D[N].abs();
     for (I = 1; I <= N - 1; I++) {
-      // 10
       SUM.value = D[I].abs();
       if (ANORM < SUM.value || disnan(SUM.value)) ANORM = SUM.value;
       SUM.value = E[I].abs();
       if (ANORM < SUM.value || disnan(SUM.value)) ANORM = SUM.value;
-    } // 10
+    }
   } else if (lsame(NORM, 'O') || NORM == '1' || lsame(NORM, 'I')) {
     // Find norm1(A).
 
@@ -47,10 +46,9 @@ double zlanht(
       SUM.value = E[N - 1].abs() + D[N].abs();
       if (ANORM < SUM.value || disnan(SUM.value)) ANORM = SUM.value;
       for (I = 2; I <= N - 1; I++) {
-        // 20
         SUM.value = D[I].abs() + E[I].abs() + E[I - 1].abs();
         if (ANORM < SUM.value || disnan(SUM.value)) ANORM = SUM.value;
-      } // 20
+      }
     }
   } else if ((lsame(NORM, 'F')) || (lsame(NORM, 'E'))) {
     // Find normF(A).

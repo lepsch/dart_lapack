@@ -63,10 +63,9 @@ void zhb2st_kernels(
 
       V[VPOS] = Complex.one;
       for (I = 1; I <= LM - 1; I++) {
-        // 10
         V[VPOS + I] = A[OFDPOS - I][ST + I].conjugate();
         A[OFDPOS - I][ST + I] = Complex.zero;
-      } // 10
+      }
       CTMP.value = A[OFDPOS][ST].conjugate();
       zlarfg(LM, CTMP, V(VPOS + 1), 1, TAU(TAUPOS));
       A[OFDPOS][ST] = CTMP.value;
@@ -101,10 +100,9 @@ void zhb2st_kernels(
 
         V[VPOS] = Complex.one;
         for (I = 1; I <= LM - 1; I++) {
-          // 30
           V[VPOS + I] = A[DPOS - NB - I][J1 + I].conjugate();
           A[DPOS - NB - I][J1 + I] = Complex.zero;
-        } // 30
+        }
         CTMP.value = A[DPOS - NB][J1];
         zlarfg(LM, CTMP, V(VPOS + 1), 1, TAU(TAUPOS));
         A[DPOS - NB][J1] = CTMP.value;
@@ -129,10 +127,9 @@ void zhb2st_kernels(
 
       V[VPOS] = Complex.one;
       for (I = 1; I <= LM - 1; I++) {
-        // 20
         V[VPOS + I] = A[OFDPOS + I][ST - 1];
         A[OFDPOS + I][ST - 1] = Complex.zero;
-      } // 20
+      }
       zlarfg(LM, A(OFDPOS, ST - 1), V(VPOS + 1), 1, TAU(TAUPOS));
 
       LM = ED - ST + 1;
@@ -168,10 +165,9 @@ void zhb2st_kernels(
 
         V[VPOS] = Complex.one;
         for (I = 1; I <= LM - 1; I++) {
-          // 40
           V[VPOS + I] = A[DPOS + NB + I][ST];
           A[DPOS + NB + I][ST] = Complex.zero;
-        } // 40
+        }
         zlarfg(LM, A(DPOS + NB, ST), V(VPOS + 1), 1, TAU(TAUPOS));
 
         zlarfx('Left', LM, LN - 1, V(VPOS), TAU[TAUPOS].conjugate(),

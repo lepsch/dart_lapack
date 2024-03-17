@@ -47,24 +47,20 @@ void zlaqsy(
       // Upper triangle of A is stored.
 
       for (J = 1; J <= N; J++) {
-        // 20
         CJ = S[J];
         for (I = 1; I <= J; I++) {
-          // 10
           A[I][J] = (CJ * S[I]).toComplex() * A[I][J];
-        } // 10
-      } // 20
+        }
+      }
     } else {
       // Lower triangle of A is stored.
 
       for (J = 1; J <= N; J++) {
-        // 40
         CJ = S[J];
         for (I = J; I <= N; I++) {
-          // 30
           A[I][J] = (CJ * S[I]).toComplex() * A[I][J];
-        } // 30
-      } // 40
+        }
+      }
     }
     EQUED.value = 'Y';
   }

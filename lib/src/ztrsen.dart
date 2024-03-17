@@ -56,9 +56,8 @@ void ztrsen(
 
   M.value = 0;
   for (K = 1; K <= N; K++) {
-    // 10
     if (SELECT[K]) M.value++;
-  } // 10
+  }
 
   N1 = M.value;
   N2 = N - M.value;
@@ -110,7 +109,6 @@ void ztrsen(
 
     KS = 0;
     for (K = 1; K <= N; K++) {
-      // 20
       if (SELECT[K]) {
         KS++;
 
@@ -118,7 +116,7 @@ void ztrsen(
 
         if (K != KS) ztrexc(COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR);
       }
-    } // 20
+    }
 
     if (WANTS) {
       // Solve the Sylvester equation for R:
@@ -164,7 +162,7 @@ void ztrsen(
 
       SEP.value = SCALE.value / EST.value;
     }
-  } // 40
+  }
 
   // Copy reordered eigenvalues to W.
 

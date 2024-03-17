@@ -87,9 +87,8 @@ void zdrvls(
   var NFAIL = 0;
   final NERRS = Box(0);
   for (var I = 1; I <= 4; I++) {
-    // 10
     ISEED[I] = ISEEDY[I - 1];
-  } // 10
+  }
   final EPS = dlamch('Epsilon');
 
   // Threshold for rank estimation
@@ -229,25 +228,20 @@ void zdrvls(
   final RWORK = Array<double>(LRWORK);
 
   for (var IM = 1; IM <= NM; IM++) {
-    // 140
     final M = MVAL[IM];
     final LDA = max(1, M);
 
     for (var IN = 1; IN <= NN; IN++) {
-      // 130
       final N = NVAL[IN];
       final MNMIN = max(min(M, N), 1);
       final LDB = max(1, max(M, N));
       // final MB = (MNMIN+1);
 
       for (var INS = 1; INS <= NNS; INS++) {
-        // 120
         final NRHS = NSVAL[INS];
 
         for (var IRANK = 1; IRANK <= 2; IRANK++) {
-          // 110
           for (var ISCALE = 1; ISCALE <= 3; ISCALE++) {
-            // 100
             final ITYPE = (IRANK - 1) * 3 + ISCALE;
             if (!DOTYPE[ITYPE]) continue;
             // =====================================================
@@ -653,7 +647,6 @@ void zdrvls(
             // Loop for testing different block sizes.
 
             for (var INB = 1; INB <= NNB; INB++) {
-              // 90
               final NB = NBVAL[INB];
               xlaenv(1, NB);
               xlaenv(3, NXVAL[INB]);
@@ -671,9 +664,8 @@ void zdrvls(
               // Initialize vector IWORK.
 
               for (var J = 1; J <= N; J++) {
-                // 70
                 IWORK[J] = 0;
-              } // 70
+              }
 
               final CRANK = Box(0);
               srnamc.SRNAMT = 'ZGELSY';
@@ -890,21 +882,20 @@ void zdrvls(
               // pass the threshold.
 
               for (var K = 7; K <= 18; K++) {
-                // 80
                 if (RESULT[K] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(
                       ' M=${M.i5}, N=${N.i5}, NRHS=${NRHS.i4}, NB=${NB.i4}, type${ITYPE.i2}, test(${K.i2})=${RESULT[K].g12_5}');
                   NFAIL++;
                 }
-              } // 80
+              }
               NRUN += 12;
-            } // 90
-          } // 100
-        } // 110
-      } // 120
-    } // 130
-  } // 140
+            }
+          }
+        }
+      }
+    }
+  }
 
   // Print a summary of the results.
 

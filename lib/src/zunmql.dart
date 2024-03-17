@@ -143,7 +143,6 @@ void zunmql(
     }
 
     for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-      // 10
       IB = min(NB, K - I + 1);
 
       // Form the triangular factor of the block reflector
@@ -165,7 +164,7 @@ void zunmql(
 
       zlarfb(SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A(1, I), LDA,
           WORK(IWT).asMatrix(), LDT, C, LDC, WORK.asMatrix(), LDWORK);
-    } // 10
+    }
   }
   WORK[1] = LWKOPT.toComplex();
 }

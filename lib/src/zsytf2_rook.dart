@@ -230,9 +230,8 @@ void zsytf2_rook(
 
               D11 = A[K][K];
               for (II = 1; II <= K - 1; II++) {
-                // 16
                 A[II][K] /= D11;
-              } // 16
+              }
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
               // A := A - U(k)*D(k)*U(k)**T
@@ -264,22 +263,19 @@ void zsytf2_rook(
             T = Complex.one / (D11 * D22 - Complex.one);
 
             for (J = K - 2; J >= 1; J--) {
-              // 30
-
               WKM1 = T * (D11 * A[J][K - 1] - A[J][K]);
               WK = T * (D22 * A[J][K] - A[J][K - 1]);
 
               for (I = J; I >= 1; I--) {
-                // 20
                 A[I][J] =
                     A[I][J] - (A[I][K] / D12) * WK - (A[I][K - 1] / D12) * WKM1;
-              } // 20
+              }
 
               // Store U(k) and U(k-1) in cols k and k-1 for row J
 
               A[J][K] = WK / D12;
               A[J][K - 1] = WKM1 / D12;
-            } // 30
+            }
           }
         }
       }
@@ -473,9 +469,8 @@ void zsytf2_rook(
 
               D11 = A[K][K];
               for (II = K + 1; II <= N; II++) {
-                // 46
                 A[II][K] /= D11;
-              } // 46
+              }
 
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
               // A := A - L(k)*D(k)*L(k)**T
@@ -508,8 +503,6 @@ void zsytf2_rook(
             T = Complex.one / (D11 * D22 - Complex.one);
 
             for (J = K + 2; J <= N; J++) {
-              // 60
-
               // Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 
               WK = T * (D11 * A[J][K] - A[J][K + 1]);
@@ -518,16 +511,15 @@ void zsytf2_rook(
               // Perform a rank-2 update of A(k+2:n,k+2:n)
 
               for (I = J; I <= N; I++) {
-                // 50
                 A[I][J] =
                     A[I][J] - (A[I][K] / D21) * WK - (A[I][K + 1] / D21) * WKP1;
-              } // 50
+              }
 
               // Store L(k) and L(k+1) in cols k and k+1 for row J
 
               A[J][K] = WK / D21;
               A[J][K + 1] = WKP1 / D21;
-            } // 60
+            }
           }
         }
       }
@@ -546,4 +538,4 @@ void zsytf2_rook(
       K += KSTEP;
     }
   }
-} // 70
+}

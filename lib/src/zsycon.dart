@@ -67,16 +67,14 @@ void zsycon(
     // Upper triangular storage: examine D from bottom to top
 
     for (I = N; I >= 1; I--) {
-      // 10
       if (IPIV[I] > 0 && A[I][I] == Complex.zero) return;
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     for (I = 1; I <= N; I++) {
-      // 20
       if (IPIV[I] > 0 && A[I][I] == Complex.zero) return;
-    } // 20
+    }
   }
 
   // Estimate the 1-norm of the inverse.

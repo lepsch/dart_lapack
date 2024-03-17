@@ -77,7 +77,6 @@ void main() async {
   }
   await NIN.readArray(NVAL, NN);
   for (var I = 1; I <= NN; I++) {
-    // 10
     if (NVAL[I] < 0) {
       NOUT.print9996(' M  ', NVAL[I], 0);
       FATAL = true;
@@ -85,7 +84,7 @@ void main() async {
       NOUT.print9995(' M  ', NVAL[I], NMAX);
       FATAL = true;
     }
-  } // 10
+  }
   if (NN > 0) NOUT.print9993('N   ', NVAL, NN);
 
   // Read the values of NRHS
@@ -102,7 +101,6 @@ void main() async {
   }
   await NIN.readArray(NSVAL, NNS);
   for (var I = 1; I <= NNS; I++) {
-    // 30
     if (NSVAL[I] < 0) {
       NOUT.print9996('NRHS', NSVAL[I], 0);
       FATAL = true;
@@ -110,7 +108,7 @@ void main() async {
       NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
       FATAL = true;
     }
-  } // 30
+  }
   if (NNS > 0) NOUT.print9993('NRHS', NSVAL, NNS);
 
   // Read the matrix types
@@ -127,7 +125,6 @@ void main() async {
   }
   await NIN.readArray(NTVAL, NNT);
   for (var I = 1; I <= NNT; I++) {
-    // 320
     if (NTVAL[I] < 0) {
       NOUT.print9996('TYPE', NTVAL[I], 0);
       FATAL = true;
@@ -135,7 +132,7 @@ void main() async {
       NOUT.print9995('TYPE', NTVAL[I], NTYPES);
       FATAL = true;
     }
-  } // 320
+  }
   if (NNT > 0) NOUT.print9993('TYPE', NTVAL, NNT);
 
   // Read the threshold value for the test ratios.

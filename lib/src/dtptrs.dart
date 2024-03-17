@@ -59,17 +59,15 @@ void dtptrs(
     if (UPPER) {
       JC = 1;
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 10
         if (AP[JC + INFO.value - 1] == ZERO) return;
         JC += INFO.value;
-      } // 10
+      }
     } else {
       JC = 1;
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 20
         if (AP[JC] == ZERO) return;
         JC += N - INFO.value + 1;
-      } // 20
+      }
     }
   }
   INFO.value = 0;
@@ -77,7 +75,6 @@ void dtptrs(
   // Solve A * x = b  or  A**T * x = b.
 
   for (J = 1; J <= NRHS; J++) {
-    // 30
     dtpsv(UPLO, TRANS, DIAG, N, AP, B(1, J).asArray(), 1);
-  } // 30
+  }
 }

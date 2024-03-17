@@ -88,7 +88,6 @@ void zunm2r(
   }
 
   for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-    // 10
     if (LEFT) {
       // H(i) or H(i)**H is applied to C(i:m,1:n)
 
@@ -112,5 +111,5 @@ void zunm2r(
     A[I][I] = Complex.one;
     zlarf(SIDE, MI, NI, A(I, I).asArray(), 1, TAUI, C(IC, JC), LDC, WORK);
     A[I][I] = AII;
-  } // 10
+  }
 }

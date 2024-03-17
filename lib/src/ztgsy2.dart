@@ -96,10 +96,7 @@ void ztgsy2(
     SCALE.value = ONE;
     SCALOC.value = ONE;
     for (J = 1; J <= N; J++) {
-      // 30
       for (I = M; I >= 1; I--) {
-        // 20
-
         // Build 2 by 2 system
 
         Z[1][1] = A[I][I];
@@ -120,10 +117,9 @@ void ztgsy2(
           zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
           if (SCALOC.value != ONE) {
             for (K = 1; K <= N; K++) {
-              // 10
               zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
               zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-            } // 10
+            }
             SCALE.value *= SCALOC.value;
           }
         } else {
@@ -148,8 +144,8 @@ void ztgsy2(
           zaxpy(N - J, RHS[2], E(J, J + 1).asArray(), LDE,
               F(I, J + 1).asArray(), LDF);
         }
-      } // 20
-    } // 30
+      }
+    }
   } else {
     // Solve transposed (I, J) - system:
     //    A(I, I)**H * R(I, J) + D(I, I)**H * L(J, J) = C(I, J)
@@ -159,10 +155,7 @@ void ztgsy2(
     SCALE.value = ONE;
     SCALOC.value = ONE;
     for (I = 1; I <= M; I++) {
-      // 80
       for (J = N; J >= 1; J--) {
-        // 70
-
         // Build 2 by 2 system Z**H
 
         Z[1][1] = A[I][I].conjugate();
@@ -182,10 +175,9 @@ void ztgsy2(
         zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
         if (SCALOC.value != ONE) {
           for (K = 1; K <= N; K++) {
-            // 40
             zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
             zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-          } // 40
+          }
           SCALE.value *= SCALOC.value;
         }
 
@@ -197,16 +189,14 @@ void ztgsy2(
         // Substitute R(I, J) and L(I, J) into remaining equation.
 
         for (K = 1; K <= J - 1; K++) {
-          // 50
           F[I][K] +=
               RHS[1] * B[K][J].conjugate() + RHS[2] * E[K][J].conjugate();
-        } // 50
+        }
         for (K = I + 1; K <= M; K++) {
-          // 60
           C[K][J] -=
               A[I][K].conjugate() * RHS[1] - D[I][K].conjugate() * RHS[2];
-        } // 60
-      } // 70
-    } // 80
+        }
+      }
+    }
   }
 }

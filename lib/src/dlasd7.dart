@@ -97,50 +97,45 @@ void dlasd7(
   VL[NLP1] = ZERO;
   TAU = VF[NLP1];
   for (I = NL; I >= 1; I--) {
-    // 10
     Z[I + 1] = ALPHA * VL[I];
     VL[I] = ZERO;
     VF[I + 1] = VF[I];
     D[I + 1] = D[I];
     IDXQ[I + 1] = IDXQ[I] + 1;
-  } // 10
+  }
   VF[1] = TAU;
 
   // Generate the second part of the vector Z.
 
   for (I = NLP2; I <= M; I++) {
-    // 20
     Z[I] = BETA * VF[I];
     VF[I] = ZERO;
-  } // 20
+  }
 
   // Sort the singular values into increasing order
 
   for (I = NLP2; I <= N; I++) {
-    // 30
     IDXQ[I] += NLP1;
-  } // 30
+  }
 
   // DSIGMA, IDXC, IDXC, and ZW are used as storage space.
 
   for (I = 2; I <= N; I++) {
-    // 40
     DSIGMA[I] = D[IDXQ[I]];
     ZW[I] = Z[IDXQ[I]];
     VFW[I] = VF[IDXQ[I]];
     VLW[I] = VL[IDXQ[I]];
-  } // 40
+  }
 
   dlamrg(NL, NR, DSIGMA(2), 1, 1, IDX(2));
 
   for (I = 2; I <= N; I++) {
-    // 50
     IDXI = 1 + IDX[I];
     D[I] = DSIGMA[IDXI];
     Z[I] = ZW[IDXI];
     VF[I] = VFW[IDXI];
     VL[I] = VLW[IDXI];
-  } // 50
+  }
 
   // Calculate the allowable deflation tolerance
 
@@ -244,7 +239,6 @@ void dlasd7(
         }
       }
     }
-    // } // 90
 
     // Record the last singular value.
 
@@ -259,21 +253,19 @@ void dlasd7(
   // that DSIGMA[1] is treated separately.
 
   for (J = 2; J <= N; J++) {
-    // 110
     JP = IDXP[J];
     DSIGMA[J] = D[JP];
     VFW[J] = VF[JP];
     VLW[J] = VL[JP];
-  } // 110
+  }
   if (ICOMPQ == 1) {
     for (J = 2; J <= N; J++) {
-      // 120
       JP = IDXP[J];
       PERM[J] = IDXQ[IDX[JP] + 1];
       if (PERM[J] <= NLP1) {
         PERM[J]--;
       }
-    } // 120
+    }
   }
 
   // The deflated singular values go back into the last N - K.value slots of

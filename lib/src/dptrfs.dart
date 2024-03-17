@@ -65,10 +65,9 @@ void dptrfs(
 
   if (N == 0 || NRHS == 0) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       FERR[J] = ZERO;
       BERR[J] = ZERO;
-    } // 10
+    }
     return;
   }
 
@@ -83,8 +82,6 @@ void dptrfs(
   // Do for each right hand side
 
   for (J = 1; J <= NRHS; J++) {
-    // 90
-
     COUNT = 1;
     LSTRES = THREE;
     while (true) {
@@ -105,14 +102,13 @@ void dptrfs(
         WORK[N + 1] = BI - DX - EX;
         WORK[1] = (BI).abs() + (DX).abs() + (EX).abs();
         for (I = 2; I <= N - 1; I++) {
-          // 30
           BI = B[I][J];
           CX = E[I - 1] * X[I - 1][J];
           DX = D[I] * X[I][J];
           EX = E[I] * X[I + 1][J];
           WORK[N + I] = BI - CX - DX - EX;
           WORK[I] = (BI).abs() + (CX).abs() + (DX).abs() + (EX).abs();
-        } // 30
+        }
         BI = B[N][J];
         CX = E[N - 1] * X[N - 1][J];
         DX = D[N] * X[N][J];
@@ -131,13 +127,12 @@ void dptrfs(
 
       S = ZERO;
       for (I = 1; I <= N; I++) {
-        // 40
         if (WORK[I] > SAFE2) {
           S = max(S, (WORK[N + I]).abs() / WORK[I]);
         } else {
           S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
         }
-      } // 40
+      }
       BERR[J] = S;
 
       // Test stopping criterion. Continue iterating if
@@ -177,13 +172,12 @@ void dptrfs(
     // abs(A)*abs(X) + abs(B) is less than SAFE2.
 
     for (I = 1; I <= N; I++) {
-      // 50
       if (WORK[I] > SAFE2) {
         WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
       } else {
         WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
       }
-    } // 50
+    }
     IX = idamax(N, WORK, 1);
     FERR[J] = WORK[IX];
 
@@ -200,17 +194,15 @@ void dptrfs(
 
     WORK[1] = ONE;
     for (I = 2; I <= N; I++) {
-      // 60
       WORK[I] = ONE + WORK[I - 1] * (EF[I - 1]).abs();
-    } // 60
+    }
 
     // Solve D * M(L)**T * x = b.
 
     WORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
-      // 70
       WORK[I] /= DF[I] + WORK[I + 1] * (EF[I]).abs();
-    } // 70
+    }
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
@@ -221,9 +213,8 @@ void dptrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      // 80
       LSTRES = max(LSTRES, (X[I][J]).abs());
-    } // 80
+    }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
-  } // 90
+  }
 }

@@ -103,7 +103,6 @@ void dtrevc3(
       M.value = 0;
       PAIR = false;
       for (J = 1; J <= N; J++) {
-        // 10
         if (PAIR) {
           PAIR = false;
           SELECT[J] = false;
@@ -122,7 +121,7 @@ void dtrevc3(
             if (SELECT[N]) M.value++;
           }
         }
-      } // 10
+      }
     } else {
       M.value = N;
     }
@@ -166,13 +165,11 @@ void dtrevc3(
 
   WORK[1] = ZERO;
   for (J = 2; J <= N; J++) {
-    // 30
     WORK[J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
-      // 20
       WORK[J] += (T[I][J]).abs();
-    } // 20
-  } // 30
+    }
+  }
 
   // Index IP is used to specify the real or complex eigenvalue:
   // IP = 0, real eigenvalue,
@@ -197,7 +194,6 @@ void dtrevc3(
     IP = 0;
     IS = M.value;
     for (KI = N; KI >= 1; KI--) {
-      // 140
       if (IP == -1) {
         // previous iteration (ki+1) was second of conjugate pair,
         // so this ki is first of conjugate pair; skip to end of loop
@@ -240,16 +236,14 @@ void dtrevc3(
         // Form right-hand side.
 
         for (K = 1; K <= KI - 1; K++) {
-          // 50
           WORK[K + IV * N] = -T[K][KI];
-        } // 50
+        }
 
         // Solve upper quasi-triangular system:
         // [ T[1:KI-1][1:KI-1] - WR ]*X = SCALE.value*WORK.
 
         JNXT = KI - 1;
         for (J = KI - 1; J >= 1; J--) {
-          // 60
           if (J > JNXT) continue;
           J1 = J;
           J2 = J;
@@ -349,7 +343,7 @@ void dtrevc3(
                 J - 2, -X[1][1], T(1, J - 1).asArray(), 1, WORK(1 + IV * N), 1);
             daxpy(J - 2, -X[2][1], T(1, J).asArray(), 1, WORK(1 + IV * N), 1);
           }
-        } // 60
+        }
 
         // Copy the vector x or Q*x to VR and normalize.
 
@@ -363,9 +357,8 @@ void dtrevc3(
           dscal(KI, REMAX, VR(1, IS).asArray(), 1);
 
           for (K = KI + 1; K <= N; K++) {
-            // 70
             VR[K][IS] = ZERO;
-          } // 70
+          }
         } else if (NB == 1) {
           // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
@@ -408,17 +401,15 @@ void dtrevc3(
         // Form right-hand side.
 
         for (K = 1; K <= KI - 2; K++) {
-          // 80
           WORK[K + (IV - 1) * N] = -WORK[KI - 1 + (IV - 1) * N] * T[K][KI - 1];
           WORK[K + (IV) * N] = -WORK[KI + (IV) * N] * T[K][KI];
-        } // 80
+        }
 
         // Solve upper quasi-triangular system:
         // [ T[1:KI-2][1:KI-2] - (WR+i*WI) ]*X = SCALE.value*(WORK+i*WORK2)
 
         JNXT = KI - 2;
         for (J = KI - 2; J >= 1; J--) {
-          // 90
           if (J > JNXT) continue;
           J1 = J;
           J2 = J;
@@ -537,7 +528,7 @@ void dtrevc3(
                 1);
             daxpy(J - 2, -X[2][2], T(1, J).asArray(), 1, WORK(1 + (IV) * N), 1);
           }
-        } // 90
+        }
 
         // Copy the vector x or Q*x to VR and normalize.
 
@@ -549,18 +540,16 @@ void dtrevc3(
 
           EMAX = ZERO;
           for (K = 1; K <= KI; K++) {
-            // 100
             EMAX = max(EMAX, (VR[K][IS - 1]).abs() + (VR[K][IS]).abs());
-          } // 100
+          }
           REMAX = ONE / EMAX;
           dscal(KI, REMAX, VR(1, IS - 1).asArray(), 1);
           dscal(KI, REMAX, VR(1, IS).asArray(), 1);
 
           for (K = KI + 1; K <= N; K++) {
-            // 110
             VR[K][IS - 1] = ZERO;
             VR[K][IS] = ZERO;
-          } // 110
+          }
         } else if (NB == 1) {
           // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
@@ -576,9 +565,8 @@ void dtrevc3(
 
           EMAX = ZERO;
           for (K = 1; K <= N; K++) {
-            // 120
             EMAX = max(EMAX, (VR[K][KI - 1]).abs() + (VR[K][KI]).abs());
-          } // 120
+          }
           REMAX = ONE / EMAX;
           dscal(N, REMAX, VR(1, KI - 1).asArray(), 1);
           dscal(N, REMAX, VR(1, KI).asArray(), 1);
@@ -657,7 +645,7 @@ void dtrevc3(
 
       IS--;
       if (IP != 0) IS--;
-    } // 140
+    }
   }
 
   if (LEFTV) {
@@ -673,7 +661,6 @@ void dtrevc3(
     IP = 0;
     IS = 1;
     for (KI = 1; KI <= N; KI++) {
-      // 260
       if (IP == 1) {
         // previous iteration (ki-1) was first of conjugate pair,
         // so this ki is second of conjugate pair; skip to end of loop
@@ -712,9 +699,8 @@ void dtrevc3(
         // Form right-hand side.
 
         for (K = KI + 1; K <= N; K++) {
-          // 160
           WORK[K + IV * N] = -T[KI][K];
-        } // 160
+        }
 
         // Solve transposed quasi-triangular system:
         // [ T[KI+1:N][KI+1:N] - WR ]**T * X = SCALE.value*WORK
@@ -724,7 +710,6 @@ void dtrevc3(
 
         JNXT = KI + 1;
         for (J = KI + 1; J <= N; J++) {
-          // 170
           if (J < JNXT) continue;
           J1 = J;
           J2 = J;
@@ -838,7 +823,7 @@ void dtrevc3(
                 max(WORK[J + 1 + IV * N].abs(), VMAX));
             VCRIT = BIGNUM / VMAX;
           }
-        } // 170
+        }
 
         // Copy the vector x or Q*x to VL and normalize.
 
@@ -852,9 +837,8 @@ void dtrevc3(
           dscal(N - KI + 1, REMAX, VL(KI, IS).asArray(), 1);
 
           for (K = 1; K <= KI - 1; K++) {
-            // 180
             VL[K][IS] = ZERO;
-          } // 180
+          }
         } else if (NB == 1) {
           // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
@@ -908,10 +892,9 @@ void dtrevc3(
         // Form right-hand side.
 
         for (K = KI + 2; K <= N; K++) {
-          // 190
           WORK[K + (IV) * N] = -WORK[KI + (IV) * N] * T[KI][K];
           WORK[K + (IV + 1) * N] = -WORK[KI + 1 + (IV + 1) * N] * T[KI + 1][K];
-        } // 190
+        }
 
         // Solve transposed quasi-triangular system:
         // [ T[KI+2:N][KI+2:N]**T - (WR-i*WI) ]*X = WORK1+i*WORK2
@@ -921,7 +904,6 @@ void dtrevc3(
 
         JNXT = KI + 2;
         for (J = KI + 2; J <= N; J++) {
-          // 200
           if (J < JNXT) continue;
           J1 = J;
           J2 = J;
@@ -1054,7 +1036,7 @@ void dtrevc3(
                 ));
             VCRIT = BIGNUM / VMAX;
           }
-        } // 200
+        }
 
         // Copy the vector x or Q*x to VL and normalize.
 
@@ -1067,18 +1049,16 @@ void dtrevc3(
 
           EMAX = ZERO;
           for (K = KI; K <= N; K++) {
-            // 220
             EMAX = max(EMAX, (VL[K][IS]).abs() + (VL[K][IS + 1]).abs());
-          } // 220
+          }
           REMAX = ONE / EMAX;
           dscal(N - KI + 1, REMAX, VL(KI, IS).asArray(), 1);
           dscal(N - KI + 1, REMAX, VL(KI, IS + 1).asArray(), 1);
 
           for (K = 1; K <= KI - 1; K++) {
-            // 230
             VL[K][IS] = ZERO;
             VL[K][IS + 1] = ZERO;
-          } // 230
+          }
         } else if (NB == 1) {
           // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
@@ -1114,9 +1094,8 @@ void dtrevc3(
 
           EMAX = ZERO;
           for (K = 1; K <= N; K++) {
-            // 240
             EMAX = max(EMAX, (VL[K][KI]).abs() + (VL[K][KI + 1]).abs());
-          } // 240
+          }
           REMAX = ONE / EMAX;
           dscal(N, REMAX, VL(1, KI).asArray(), 1);
           dscal(N, REMAX, VL(1, KI + 1).asArray(), 1);
@@ -1196,6 +1175,6 @@ void dtrevc3(
 
       IS++;
       if (IP != 0) IS++;
-    } // 260
+    }
   }
 }

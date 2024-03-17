@@ -128,9 +128,8 @@ void zlarfgp(
     // If BETA is subnormal, it may lose relative accuracy
 
     for (J = 1; J <= KNT; J++) {
-      // 20
       BETA *= SMLNUM;
-    } // 20
+    }
     ALPHA.value = BETA.toComplex();
   }
 }

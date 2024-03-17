@@ -102,12 +102,10 @@ void zungql(
     // Set A(m-kk+1:m,1:n-kk) to zero.
 
     for (J = 1; J <= N - KK; J++) {
-      // 20
       for (I = M - KK + 1; I <= M; I++) {
-        // 10
         A[I][J] = Complex.zero;
-      } // 10
-    } // 20
+      }
+    }
   } else {
     KK = 0;
   }
@@ -120,7 +118,6 @@ void zungql(
     // Use blocked code
 
     for (I = K - KK + 1; NB < 0 ? I >= K : I <= K; I += NB) {
-      // 50
       IB = min(NB, K - I + 1);
       if (N - K + I > 1) {
         // Form the triangular factor of the block reflector
@@ -157,13 +154,11 @@ void zungql(
       // Set rows m-k+i+ib:m of current block to zero
 
       for (J = N - K + I; J <= N - K + I + IB - 1; J++) {
-        // 40
         for (L = M - K + I + IB; L <= M; L++) {
-          // 30
           A[L][J] = Complex.zero;
-        } // 30
-      } // 40
-    } // 50
+        }
+      }
+    }
   }
 
   WORK[1] = IWS.toComplex();

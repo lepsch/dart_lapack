@@ -202,8 +202,6 @@ void zlaqr4(
     // ==== Main Loop ====
 
     for (IT = 1; IT <= ITMAX; IT++) {
-      // 70
-
       // ==== Done when KBOT falls below ILO ====
 
       if (KBOT < ILO) {
@@ -214,15 +212,14 @@ void zlaqr4(
       // ==== Locate active block ====
       var found = false;
       for (K = KBOT; K >= ILO + 1; K--) {
-        // 10
         if (H[K][K - 1] == Complex.zero) {
           found = true;
           break;
         }
-      } // 10
+      }
       if (!found) {
         K = ILO;
-      } // 20
+      }
       KTOP = K;
 
       // ==== Select deflation window size:
@@ -346,10 +343,9 @@ void zlaqr4(
         if ((NDFL % KEXSH) == 0) {
           KS = KBOT - NS + 1;
           for (I = KBOT; I >= KS + 1; I -= 2) {
-            // 30
             W[I] = H[I][I] + (WILK1 * CABS1(H[I][I - 1])).toComplex();
             W[I - 1] = W[I];
-          } // 30
+          }
         } else {
           // ==== Got NS/2 or fewer shifts? Use ZLAHQR
           // .    on a trailing principal submatrix to
@@ -396,19 +392,17 @@ void zlaqr4(
 
             SORTED = false;
             for (K = KBOT; K >= KS + 1; K--) {
-              // 50
               if (SORTED) break;
               SORTED = true;
               for (I = KS; I <= K - 1; I++) {
-                // 40
                 if (CABS1(W[I]) < CABS1(W[I + 1])) {
                   SORTED = false;
                   SWAP = W[I];
                   W[I] = W[I + 1];
                   W[I + 1] = SWAP;
                 }
-              } // 40
-            } // 50
+              }
+            }
           }
         }
 
@@ -489,13 +483,12 @@ void zlaqr4(
       }
 
       // ==== End of main loop ====
-    } // 70
+    }
 
     // ==== Iteration limit exceeded.  Set INFO.value to show where
     // .    the problem occurred and exit. ====
 
     INFO.value = KBOT;
-    //  } // 80
   }
 
   // ==== Return the optimal value of LWORK. ====

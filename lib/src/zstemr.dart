@@ -360,9 +360,8 @@ void zstemr(
     }
     // Store the squares of the offdiagonal values of T
     for (J = 1; J <= N - 1; J++) {
-      // 5
       WORK[INDE2 + J - 1] = pow(E[J], 2).toDouble();
-    } // 5
+    }
 
     // Set the tolerance parameters for bisection
     if (!WANTZ) {
@@ -452,10 +451,9 @@ void zstemr(
       // to apply the corresponding shifts from DLARRE to obtain the
       // eigenvalues of the original matrix.
       for (J = 1; J <= M.value; J++) {
-        // 20
         ITMP.value = IWORK[IINDBL + J - 1];
         W[J] += E[IWORK[IINSPL + ITMP.value - 1]];
-      } // 20
+      }
     }
 
     if (TRYRAC.value) {
@@ -464,7 +462,6 @@ void zstemr(
       IBEGIN = 1;
       WBEGIN = 1;
       for (JBLK = 1; JBLK <= IWORK[IINDBL + M.value - 1]; JBLK++) {
-        // 39
         IEND = IWORK[IINSPL + JBLK - 1];
         IN = IEND - IBEGIN + 1;
         WEND = WBEGIN - 1;
@@ -499,7 +496,7 @@ void zstemr(
             IINFO);
         IBEGIN = IEND + 1;
         WBEGIN = WEND + 1;
-      } // 39
+      }
     }
 
     // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -521,16 +518,14 @@ void zstemr(
       }
     } else {
       for (J = 1; J <= M.value - 1; J++) {
-        // 60
         I = 0;
         TMP = W[J];
         for (JJ = J + 1; JJ <= M.value; JJ++) {
-          // 50
           if (W[JJ] < TMP) {
             I = JJ;
             TMP = W[JJ];
           }
-        } // 50
+        }
         if (I != 0) {
           W[I] = W[J];
           W[J] = TMP;
@@ -544,7 +539,7 @@ void zstemr(
             ISUPPZ[2 * J] = ITMP.value;
           }
         }
-      } // 60
+      }
     }
   }
 

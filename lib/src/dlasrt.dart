@@ -55,9 +55,7 @@ void dlasrt(
         // Sort into decreasing order
 
         for (I = START + 1; I <= ENDD; I++) {
-          // 30
           for (J = I; J >= START + 1; J--) {
-            // 20
             if (D[J] > D[J - 1]) {
               DMNMX = D[J];
               D[J] = D[J - 1];
@@ -65,15 +63,13 @@ void dlasrt(
             } else {
               break;
             }
-          } // 20
-        } // 30
+          }
+        }
       } else {
         // Sort into increasing order
 
         for (I = START + 1; I <= ENDD; I++) {
-          // 50
           for (J = I; J >= START + 1; J--) {
-            // 40
             if (D[J] < D[J - 1]) {
               DMNMX = D[J];
               D[J] = D[J - 1];
@@ -81,8 +77,8 @@ void dlasrt(
             } else {
               break;
             }
-          } // 40
-        } // 50
+          }
+        }
       }
     } else if (ENDD - START > SELECT) {
       // Partition D[ START:ENDD ] and stack parts, largest one first

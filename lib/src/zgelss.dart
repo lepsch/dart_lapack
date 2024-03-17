@@ -339,14 +339,13 @@ void zgelss(
     if (RCOND < ZERO) THR = max(EPS * S[1], SFMIN);
     RANK.value = 0;
     for (I = 1; I <= N; I++) {
-      // 10
       if (S[I] > THR) {
         zdrscl(NRHS, S[I], B(I, 1).asArray(), LDB);
         RANK.value++;
       } else {
         zlaset('F', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       }
-    } // 10
+    }
 
     // Multiply B by right singular vectors
     // (CWorkspace: need N, prefer N*NRHS)
@@ -359,12 +358,11 @@ void zgelss(
     } else if (NRHS > 1) {
       CHUNK = LWORK ~/ N;
       for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
-        // 20
         BL = min(NRHS - I + 1, CHUNK);
         zgemm('C', 'N', N, BL, N, Complex.one, A, LDA, B(1, I), LDB,
             Complex.zero, WORK.asMatrix(N), N);
         zlacpy('G', N, BL, WORK.asMatrix(N), N, B(1, I), LDB);
-      } // 20
+      }
     } else if (NRHS == 1) {
       zgemv('C', N, N, Complex.one, A, LDA, B.asArray(), 1, Complex.zero, WORK,
           1);
@@ -440,14 +438,13 @@ void zgelss(
     if (RCOND < ZERO) THR = max(EPS * S[1], SFMIN);
     RANK.value = 0;
     for (I = 1; I <= M; I++) {
-      // 30
       if (S[I] > THR) {
         zdrscl(NRHS, S[I], B(I, 1).asArray(), LDB);
         RANK.value++;
       } else {
         zlaset('F', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       }
-    } // 30
+    }
     IWORK = IL + M * LDWORK;
 
     // Multiply B by right singular vectors of L in WORK(IL)
@@ -461,12 +458,11 @@ void zgelss(
     } else if (NRHS > 1) {
       CHUNK = (LWORK - IWORK + 1) ~/ M;
       for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
-        // 40
         BL = min(NRHS - I + 1, CHUNK);
         zgemm('C', 'N', M, BL, M, Complex.one, WORK(IL).asMatrix(LDWORK),
             LDWORK, B(1, I), LDB, Complex.zero, WORK(IWORK).asMatrix(M), M);
         zlacpy('G', M, BL, WORK(IWORK).asMatrix(M), M, B(1, I), LDB);
-      } // 40
+      }
     } else if (NRHS == 1) {
       zgemv('C', M, M, Complex.one, WORK(IL).asMatrix(LDWORK), LDWORK,
           B(1, 1).asArray(), 1, Complex.zero, WORK(IWORK), 1);
@@ -533,14 +529,13 @@ void zgelss(
     if (RCOND < ZERO) THR = max(EPS * S[1], SFMIN);
     RANK.value = 0;
     for (I = 1; I <= M; I++) {
-      // 50
       if (S[I] > THR) {
         zdrscl(NRHS, S[I], B(I, 1).asArray(), LDB);
         RANK.value++;
       } else {
         zlaset('F', 1, NRHS, Complex.zero, Complex.zero, B(I, 1), LDB);
       }
-    } // 50
+    }
 
     // Multiply B by right singular vectors of A
     // (CWorkspace: need N, prefer N*NRHS)
@@ -553,12 +548,11 @@ void zgelss(
     } else if (NRHS > 1) {
       CHUNK = LWORK ~/ N;
       for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
-        // 60
         BL = min(NRHS - I + 1, CHUNK);
         zgemm('C', 'N', N, BL, M, Complex.one, A, LDA, B(1, I), LDB,
             Complex.zero, WORK.asMatrix(N), N);
         zlacpy('F', N, BL, WORK.asMatrix(N), N, B(1, I), LDB);
-      } // 60
+      }
     } else if (NRHS == 1) {
       zgemv('C', M, N, Complex.one, A, LDA, B.asArray(), 1, Complex.zero, WORK,
           1);
@@ -580,6 +574,5 @@ void zgelss(
   } else if (IBSCL == 2) {
     zlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO);
   }
-  // } // 70
   WORK[1] = MAXWRK.toComplex();
 }

@@ -51,8 +51,6 @@ void zgebd2(
     // Reduce to upper bidiagonal form
 
     for (I = 1; I <= N; I++) {
-      // 10
-
       // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
       ALPHA.value = A[I][I];
@@ -87,13 +85,11 @@ void zgebd2(
       } else {
         TAUP[I] = Complex.zero;
       }
-    } // 10
+    }
   } else {
     // Reduce to lower bidiagonal form
 
     for (I = 1; I <= M; I++) {
-      // 20
-
       // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
       zlacgv(N - I + 1, A(I, I).asArray(), LDA);
@@ -128,6 +124,6 @@ void zgebd2(
       } else {
         TAUQ[I] = Complex.zero;
       }
-    } // 20
+    }
   }
 }

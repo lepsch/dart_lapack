@@ -118,15 +118,10 @@ void ztgsja(
   var converged = false;
   UPPER = false;
   for (KCYCLE = 1; KCYCLE <= MAXIT; KCYCLE++) {
-    // 40
-
     UPPER = !UPPER;
 
     for (I = 1; I <= L - 1; I++) {
-      // 20
       for (J = I + 1; J <= L; J++) {
-        // 10
-
         A1 = ZERO;
         A2 = Complex.zero;
         A3 = ZERO;
@@ -208,8 +203,8 @@ void ztgsja(
           zrot(N, Q(1, N - L + J).asArray(), 1, Q(1, N - L + I).asArray(), 1,
               CSQ.value, SNQ.value);
         }
-      } // 10
-    } // 20
+      }
+    }
 
     if (!UPPER) {
       // The matrices A13 and B13 were lower triangular at the start
@@ -220,12 +215,11 @@ void ztgsja(
 
       ERROR = ZERO;
       for (I = 1; I <= min(L, M - K); I++) {
-        // 30
         zcopy(L - I + 1, A(K + I, N - L + I).asArray(), LDA, WORK, 1);
         zcopy(L - I + 1, B(I, N - L + I).asArray(), LDB, WORK(L + 1), 1);
         zlapll(L - I + 1, WORK, 1, WORK(L + 1), 1, SSMIN);
         ERROR = max(ERROR, SSMIN.value);
-      } // 30
+      }
 
       if ((ERROR).abs() <= min(TOLA, TOLB)) {
         converged = true;
@@ -234,7 +228,7 @@ void ztgsja(
     }
 
     // End of cycle loop
-  } // 40
+  }
 
   if (!converged) {
     // The algorithm has not converged after MAXIT cycles.
@@ -246,14 +240,11 @@ void ztgsja(
     // set the triangular matrix R to array A.
 
     for (I = 1; I <= K; I++) {
-      // 60
       ALPHA[I] = ONE;
       BETA[I] = ZERO;
-    } // 60
+    }
 
     for (I = 1; I <= min(L, M - K); I++) {
-      // 70
-
       A1 = (A[K + I][N - L + I]).toDouble();
       B1 = (B[I][N - L + I]).toDouble();
       GAMMA = B1 / A1;
@@ -280,23 +271,21 @@ void ztgsja(
         zcopy(L - I + 1, B(I, N - L + I).asArray(), LDB,
             A(K + I, N - L + I).asArray(), LDA);
       }
-    } // 70
+    }
 
     // Post-assignment
 
     for (I = M + 1; I <= K + L; I++) {
-      // 80
       ALPHA[I] = ZERO;
       BETA[I] = ONE;
-    } // 80
+    }
 
     if (K + L < N) {
       for (I = K + L + 1; I <= N; I++) {
-        // 90
         ALPHA[I] = ZERO;
         BETA[I] = ZERO;
-      } // 90
+      }
     }
-  } // 100
+  }
   NCYCLE.value = KCYCLE;
 }

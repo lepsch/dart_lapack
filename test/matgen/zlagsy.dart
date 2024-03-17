@@ -55,22 +55,17 @@ void zlagsy(
   // initialize lower triangle of A to diagonal matrix
 
   for (J = 1; J <= N; J++) {
-    // 20
     for (I = J + 1; I <= N; I++) {
-      // 10
       A[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= N; I++) {
-    // 30
     A[I][I] = D[I].toComplex();
-  } // 30
+  }
 
   // Generate lower triangle of symmetric matrix
 
   for (I = N - 1; I >= 1; I--) {
-    // 60
-
     // generate random reflection
 
     zlarnv(3, ISEED, N - I + 1, WORK);
@@ -106,21 +101,16 @@ void zlagsy(
     // $               A( I, I ), LDA )
 
     for (JJ = I; JJ <= N; JJ++) {
-      // 50
       for (II = JJ; II <= N; II++) {
-        // 40
-        A[II][JJ] -=
-            WORK[II - I + 1] * WORK[N + JJ - I + 1] -
+        A[II][JJ] -= WORK[II - I + 1] * WORK[N + JJ - I + 1] -
             WORK[N + II - I + 1] * WORK[JJ - I + 1];
-      } // 40
-    } // 50
-  } // 60
+      }
+    }
+  }
 
   // Reduce number of subdiagonals to K
 
   for (I = 1; I <= N - 1 - K; I++) {
-    // 100
-
     // generate reflection to annihilate A(k+i+1:n,i)
 
     WN = dznrm2(N - K - I + 1, A(K + I, I).asArray(), 1);
@@ -162,29 +152,23 @@ void zlagsy(
     // $               A( K+I, K+I ), LDA )
 
     for (JJ = K + I; JJ <= N; JJ++) {
-      // 80
       for (II = JJ; II <= N; II++) {
-        // 70
         A[II][JJ] -=
-            A[II][I] * WORK[JJ - K - I + 1] -
-            WORK[II - K - I + 1] * A[JJ][I];
-      } // 70
-    } // 80
+            A[II][I] * WORK[JJ - K - I + 1] - WORK[II - K - I + 1] * A[JJ][I];
+      }
+    }
 
     A[K + I][I] = -WA;
     for (J = K + I + 1; J <= N; J++) {
-      // 90
       A[J][I] = Complex.zero;
-    } // 90
-  } // 100
+    }
+  }
 
   // Store full symmetric matrix
 
   for (J = 1; J <= N; J++) {
-    // 120
     for (I = J + 1; I <= N; I++) {
-      // 110
       A[J][I] = A[I][J];
-    } // 110
-  } // 120
+    }
+  }
 }

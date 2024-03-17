@@ -135,6 +135,4 @@ void dgecon(
   // Check for NaNs and Infs
 
   if (disnan(RCOND.value) || RCOND.value > HUGEVAL) INFO.value = 1;
-
-  // } // 20
 }

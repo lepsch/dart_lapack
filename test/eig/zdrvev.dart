@@ -122,10 +122,9 @@ void zdrvev(
   BADNN = false;
   NMAX = 0;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -174,7 +173,6 @@ void zdrvev(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 270
     N = NN[JSIZE];
     if (NSIZES != 1) {
       MTYPES = min(MAXTYP, NTYPES);
@@ -183,15 +181,13 @@ void zdrvev(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 260
       if (!DOTYPE[JTYPE]) continue;
 
       // Save ISEED in case of an error.
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Compute "A"
 
@@ -227,7 +223,7 @@ void zdrvev(
           case 3:
             ANORM = UNFL * ULPINV;
             break;
-        } // 60
+        }
 
         zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
         IINFO.value = 0;
@@ -243,17 +239,15 @@ void zdrvev(
           // Identity
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 70
             A[JCOL][JCOL] = ANORM.toComplex();
-          } // 70
+          }
         } else if (ITYPE == 3) {
           // Jordan Block
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 80
             A[JCOL][JCOL] = ANORM.toComplex();
             if (JCOL > 1) A[JCOL][JCOL - 1] = Complex.one;
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -421,12 +415,11 @@ void zdrvev(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 90
+      }
 
       // Test for minimal and generous workspace
 
       for (IWK = 1; IWK <= 2; IWK++) {
-        // 250
         if (IWK == 1) {
           NNWORK = 2 * N;
         } else {
@@ -437,9 +430,8 @@ void zdrvev(
         // Initialize RESULT
 
         for (J = 1; J <= 7; J++) {
-          // 100
           RESULT[J] = -ONE;
-        } // 100
+        }
 
         computeEigenvalues:
         while (true) {
@@ -468,42 +460,38 @@ void zdrvev(
           // Do Test (3)
 
           for (J = 1; J <= N; J++) {
-            // 120
             TNRM = dznrm2(N, VR(1, J).asArray(), 1);
             RESULT[3] = max(RESULT[3], min(ULPINV, (TNRM - ONE).abs() / ULP));
             VMX = ZERO;
             VRMX = ZERO;
             for (JJ = 1; JJ <= N; JJ++) {
-              // 110
               VTST = (VR[JJ][J]).abs();
               if (VTST > VMX) VMX = VTST;
               if (VR[JJ][J].imaginary == ZERO &&
                   VR[JJ][J].toDouble().abs() > VRMX) {
                 VRMX = VR[JJ][J].toDouble().abs();
               }
-            } // 110
+            }
             if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
-          } // 120
+          }
 
           // Do Test (4)
 
           for (J = 1; J <= N; J++) {
-            // 140
             TNRM = dznrm2(N, VL(1, J).asArray(), 1);
             RESULT[4] = max(RESULT[4], min(ULPINV, (TNRM - ONE).abs() / ULP));
             VMX = ZERO;
             VRMX = ZERO;
             for (JJ = 1; JJ <= N; JJ++) {
-              // 130
               VTST = (VL[JJ][J]).abs();
               if (VTST > VMX) VMX = VTST;
               if (VL[JJ][J].imaginary == ZERO &&
                   VL[JJ][J].toDouble().abs() > VRMX) {
                 VRMX = VL[JJ][J].toDouble().abs();
               }
-            } // 130
+            }
             if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;
-          } // 140
+          }
 
           // Compute eigenvalues only, and test them
 
@@ -520,9 +508,8 @@ void zdrvev(
           // Do Test (5)
 
           for (J = 1; J <= N; J++) {
-            // 150
             if (W[J] != W1[J]) RESULT[5] = ULPINV;
-          } // 150
+          }
 
           // Compute eigenvalues and right eigenvectors, and test them
 
@@ -539,19 +526,16 @@ void zdrvev(
           // Do Test (5) again
 
           for (J = 1; J <= N; J++) {
-            // 160
             if (W[J] != W1[J]) RESULT[5] = ULPINV;
-          } // 160
+          }
 
           // Do Test (6)
 
           for (J = 1; J <= N; J++) {
-            // 180
             for (JJ = 1; JJ <= N; JJ++) {
-              // 170
               if (VR(J, JJ) != LRE(J, JJ)) RESULT[6] = ULPINV;
-            } // 170
-          } // 180
+            }
+          }
 
           // Compute eigenvalues and left eigenvectors, and test them
 
@@ -568,32 +552,28 @@ void zdrvev(
           // Do Test (5) again
 
           for (J = 1; J <= N; J++) {
-            // 190
             if (W[J] != W1[J]) RESULT[5] = ULPINV;
-          } // 190
+          }
 
           // Do Test (7)
 
           for (J = 1; J <= N; J++) {
-            // 210
             for (JJ = 1; JJ <= N; JJ++) {
-              // 200
               if (VL(J, JJ) != LRE(J, JJ)) RESULT[7] = ULPINV;
-            } // 200
-          } // 210
+            }
+          }
 
           // End of Loop -- Check for RESULT(j) > THRESH
 
           break;
-        } // 220
+        }
 
         NTEST = 0;
         NFAIL = 0;
         for (J = 1; J <= 7; J++) {
-          // 230
           if (RESULT[J] >= ZERO) NTEST++;
           if (RESULT[J] >= THRESH) NFAIL++;
-        } // 230
+        }
 
         if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
@@ -611,18 +591,17 @@ void zdrvev(
         }
 
         for (J = 1; J <= 7; J++) {
-          // 240
           if (RESULT[J] >= THRESH) {
             NOUNIT.println(
                 ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
           }
-        } // 240
+        }
 
         NERRS += NFAIL;
         NTESTT += NTEST;
-      } // 250
-    } // 260
-  } // 270
+      }
+    }
+  }
 
   // Summary
 

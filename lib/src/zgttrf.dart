@@ -40,16 +40,13 @@ void zgttrf(
   // Initialize IPIV(i) = i and DU2(i) = 0
 
   for (I = 1; I <= N; I++) {
-    // 10
     IPIV[I] = I;
-  } // 10
+  }
   for (I = 1; I <= N - 2; I++) {
-    // 20
     DU2[I] = Complex.zero;
-  } // 20
+  }
 
   for (I = 1; I <= N - 2; I++) {
-    // 30
     if (CABS1(D[I]) >= CABS1(DL[I])) {
       // No row interchange required, eliminate DL(I)
 
@@ -71,7 +68,7 @@ void zgttrf(
       DU[I + 1] = -FACT * DU[I + 1];
       IPIV[I] = I + 1;
     }
-  } // 30
+  }
   if (N > 1) {
     I = N - 1;
     if (CABS1(D[I]) >= CABS1(DL[I])) {

@@ -49,9 +49,8 @@ void zptcon(
   // Check that D(1:N) is positive.
 
   for (I = 1; I <= N; I++) {
-    // 10
     if (D[I] <= ZERO) return;
-  } // 10
+  }
 
   // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
 
@@ -64,17 +63,15 @@ void zptcon(
 
   RWORK[1] = ONE;
   for (I = 2; I <= N; I++) {
-    // 20
     RWORK[I] = ONE + RWORK[I - 1] * E[I - 1].abs();
-  } // 20
+  }
 
   // Solve D * M(L)**H * x = b.
 
   RWORK[N] /= D[N];
   for (I = N - 1; I >= 1; I--) {
-    // 30
     RWORK[I] /= D[I] + RWORK[I + 1] * E[I].abs();
-  } // 30
+  }
 
   // Compute AINVNM = max(x[I]), 1<=i<=n.
 

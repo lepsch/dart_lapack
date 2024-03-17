@@ -56,7 +56,6 @@ void zgetrf(
     // Use blocked code.
 
     for (J = 1; NB < 0 ? J >= min(M, N) : J <= min(M, N); J += NB) {
-      // 20
       JB = min(min(M, N) - J + 1, NB);
 
       // Update current block.
@@ -73,9 +72,8 @@ void zgetrf(
 
       if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + J - 1;
       for (I = J; I <= min(M, J + JB - 1); I++) {
-        // 10
         IPIV[I] = J - 1 + IPIV[I];
-      } // 10
+      }
 
       // Apply interchanges to column 1:J-1
 
@@ -106,6 +104,6 @@ void zgetrf(
         ztrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N - J - JB + 1,
             Complex.one, A(J, J), LDA, A(J, J + JB), LDA);
       }
-    } // 20
+    }
   }
 }

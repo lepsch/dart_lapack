@@ -100,10 +100,7 @@ void ztrsyl(
     //           I=K+1                      J=1
 
     for (L = 1; L <= N; L++) {
-      // 30
       for (K = M; K >= 1; K--) {
-        // 20
-
         SUML = zdotu(M - K, A(K, min(K + 1, M)).asArray(), LDA,
             C(min(K + 1, M), L).asArray(), 1);
         SUMR = zdotu(L - 1, C(K, 1).asArray(), LDC, B(1, L).asArray(), 1);
@@ -125,14 +122,13 @@ void ztrsyl(
 
         if (SCALOC != ONE) {
           for (J = 1; J <= N; J++) {
-            // 10
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
-          } // 10
+          }
           SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
-      } // 20
-    } // 30
+      }
+    }
   } else if (!NOTRNA && NOTRNB) {
     // Solve    A**H *X + ISGN*X*B = scale*C.
 
@@ -147,10 +143,7 @@ void ztrsyl(
     //            I=1                           J=1
 
     for (L = 1; L <= N; L++) {
-      // 60
       for (K = 1; K <= M; K++) {
-        // 50
-
         SUML = zdotc(K - 1, A(1, K).asArray(), 1, C(1, L).asArray(), 1);
         SUMR = zdotu(L - 1, C(K, 1).asArray(), LDC, B(1, L).asArray(), 1);
         VEC = C[K][L] - (SUML + SGN.toComplex() * SUMR);
@@ -172,14 +165,13 @@ void ztrsyl(
 
         if (SCALOC != ONE) {
           for (J = 1; J <= N; J++) {
-            // 40
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
-          } // 40
+          }
           SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
-      } // 50
-    } // 60
+      }
+    }
   } else if (!NOTRNA && !NOTRNB) {
     // Solve    A**H*X + ISGN*X*B**H = C.
     //
@@ -197,10 +189,7 @@ void ztrsyl(
     //                   J=L+1
 
     for (L = N; L >= 1; L--) {
-      // 90
       for (K = 1; K <= M; K++) {
-        // 80
-
         SUML = zdotc(K - 1, A(1, K).asArray(), 1, C(1, L).asArray(), 1);
         SUMR = zdotc(N - L, C(K, min(L + 1, N)).asArray(), LDC,
             B(L, min(L + 1, N)).asArray(), LDB);
@@ -223,14 +212,13 @@ void ztrsyl(
 
         if (SCALOC != ONE) {
           for (J = 1; J <= N; J++) {
-            // 70
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
-          } // 70
+          }
           SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
-      } // 80
-    } // 90
+      }
+    }
   } else if (NOTRNA && !NOTRNB) {
     // Solve    A*X + ISGN*X*B**H = C.
 
@@ -245,10 +233,7 @@ void ztrsyl(
     //           I=K+1                      J=L+1
 
     for (L = N; L >= 1; L--) {
-      // 120
       for (K = M; K >= 1; K--) {
-        // 110
-
         SUML = zdotu(M - K, A(K, min(K + 1, M)).asArray(), LDA,
             C(min(K + 1, M), L).asArray(), 1);
         SUMR = zdotc(N - L, C(K, min(L + 1, N)).asArray(), LDC,
@@ -272,13 +257,12 @@ void ztrsyl(
 
         if (SCALOC != ONE) {
           for (J = 1; J <= N; J++) {
-            // 100
             zdscal(M, SCALOC, C(1, J).asArray(), 1);
-          } // 100
+          }
           SCALE.value *= SCALOC;
         }
         C[K][L] = X11;
-      } // 110
-    } // 120
+      }
+    }
   }
 }

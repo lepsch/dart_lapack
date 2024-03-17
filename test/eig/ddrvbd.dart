@@ -121,7 +121,6 @@ void ddrvbd(
   MNMAX = 1;
   MINWRK = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     MMAX = max(MMAX, MM[J]);
     if (MM[J] < 0) BADMM = true;
     NMAX = max(NMAX, NN[J]);
@@ -135,7 +134,7 @@ void ddrvbd(
           ) +
           2 * pow(min(MM[J], NN[J]), 2),
     ).toInt();
-  } // 10
+  }
 
   // Check for errors
 
@@ -177,7 +176,6 @@ void ddrvbd(
   // Loop over sizes, types
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 240
     M = MM[JSIZE];
     N = NN[JSIZE];
     MNMIN = min(M, N);
@@ -189,13 +187,11 @@ void ddrvbd(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 230
       if (!DOTYPE[JTYPE]) continue;
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Compute "A"
 
@@ -229,12 +225,9 @@ void ddrvbd(
       // Do for minimal and adequate (for blocking) workspace
 
       for (IWS = 1; IWS <= 4; IWS++) {
-        // 220
-
         for (J = 1; J <= 32; J++) {
-          // 40
           RESULT[J] = -ONE;
-        } // 40
+        }
 
         // Test DGESVD: Factorize A
 
@@ -264,10 +257,9 @@ void ddrvbd(
         }
         RESULT[4] = ZERO;
         for (I = 1; I <= MNMIN - 1; I++) {
-          // 50
           if (SSAV[I] < SSAV[I + 1]) RESULT[4] = ULPINV;
           if (SSAV[I] < ZERO) RESULT[4] = ULPINV;
-        } // 50
+        }
         if (MNMIN >= 1) {
           if (SSAV[MNMIN] < ZERO) RESULT[4] = ULPINV;
         }
@@ -278,9 +270,7 @@ void ddrvbd(
         RESULT[6] = ZERO;
         RESULT[7] = ZERO;
         for (IJU = 0; IJU <= 3; IJU++) {
-          // 80
           for (IJVT = 0; IJVT <= 3; IJVT++) {
-            // 70
             if ((IJU == 3 && IJVT == 3) || (IJU == 1 && IJVT == 1)) continue;
             JOBU = CJOB[IJU];
             JOBVT = CJOB[IJVT];
@@ -328,14 +318,13 @@ void ddrvbd(
             DIF.value = ZERO;
             DIV = max(MNMIN * ULP * S[1], UNFL);
             for (I = 1; I <= MNMIN - 1; I++) {
-              // 60
               if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
               if (SSAV[I] < ZERO) DIF.value = ULPINV;
               DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
-            } // 60
+            }
             RESULT[7] = max(RESULT[7], DIF.value);
-          } // 70
-        } // 80
+          }
+        }
 
         // Test DGESDD: Factorize A
 
@@ -365,10 +354,9 @@ void ddrvbd(
         }
         RESULT[11] = ZERO;
         for (I = 1; I <= MNMIN - 1; I++) {
-          // 90
           if (SSAV[I] < SSAV[I + 1]) RESULT[11] = ULPINV;
           if (SSAV[I] < ZERO) RESULT[11] = ULPINV;
-        } // 90
+        }
         if (MNMIN >= 1) {
           if (SSAV[MNMIN] < ZERO) RESULT[11] = ULPINV;
         }
@@ -379,7 +367,6 @@ void ddrvbd(
         RESULT[13] = ZERO;
         RESULT[14] = ZERO;
         for (IJQ = 0; IJQ <= 2; IJQ++) {
-          // 110
           JOBQ = CJOB[IJQ];
           dlacpy('F', M, N, ASAV, LDA, A, LDA);
           srnamc.SRNAMT = 'DGESDD';
@@ -429,13 +416,12 @@ void ddrvbd(
           DIF.value = ZERO;
           DIV = max(MNMIN * ULP * S[1], UNFL);
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 100
             if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
             if (SSAV[I] < ZERO) DIF.value = ULPINV;
             DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
-          } // 100
+          }
           RESULT[14] = max(RESULT[14], DIF.value);
-        } // 110
+        }
 
         // Test DGESVDQ
         // Note: DGESVDQ only works for M >= N
@@ -477,10 +463,9 @@ void ddrvbd(
           }
           RESULT[39] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 199
             if (SSAV[I] < SSAV[I + 1]) RESULT[39] = ULPINV;
             if (SSAV[I] < ZERO) RESULT[39] = ULPINV;
-          } // 199
+          }
           if (MNMIN >= 1) {
             if (SSAV[MNMIN] < ZERO) RESULT[39] = ULPINV;
           }
@@ -530,10 +515,9 @@ void ddrvbd(
           }
           RESULT[18] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 120
             if (SSAV[I] < SSAV[I + 1]) RESULT[18] = ULPINV;
             if (SSAV[I] < ZERO) RESULT[18] = ULPINV;
-          } // 120
+          }
           if (MNMIN >= 1) {
             if (SSAV[MNMIN] < ZERO) RESULT[18] = ULPINV;
           }
@@ -561,9 +545,7 @@ void ddrvbd(
           // DGEJSV returns V not VT
 
           for (J = 1; J <= N; J++) {
-            // 140
             for (I = 1; I <= N; I++) {
-              // 130
               VTSAV[J][I] = A[I][J];
             }
           }
@@ -584,10 +566,9 @@ void ddrvbd(
           }
           RESULT[22] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 150
             if (SSAV[I] < SSAV[I + 1]) RESULT[22] = ULPINV;
             if (SSAV[I] < ZERO) RESULT[22] = ULPINV;
-          } // 150
+          }
           if (MNMIN >= 1) {
             if (SSAV[MNMIN] < ZERO) RESULT[22] = ULPINV;
           }
@@ -617,10 +598,9 @@ void ddrvbd(
         }
         RESULT[26] = ZERO;
         for (I = 1; I <= MNMIN - 1; I++) {
-          // 160
           if (SSAV[I] < SSAV[I + 1]) RESULT[26] = ULPINV;
           if (SSAV[I] < ZERO) RESULT[26] = ULPINV;
-        } // 160
+        }
         if (MNMIN >= 1) {
           if (SSAV[MNMIN] < ZERO) RESULT[26] = ULPINV;
         }
@@ -631,9 +611,7 @@ void ddrvbd(
         RESULT[28] = ZERO;
         RESULT[29] = ZERO;
         for (IJU = 0; IJU <= 1; IJU++) {
-          // 180
           for (IJVT = 0; IJVT <= 1; IJVT++) {
-            // 170
             if ((IJU == 0 && IJVT == 0) || (IJU == 1 && IJVT == 1)) continue;
             JOBU = CJOBV[IJU];
             JOBVT = CJOBV[IJVT];
@@ -669,21 +647,19 @@ void ddrvbd(
             DIF.value = ZERO;
             DIV = max(MNMIN * ULP * S[1], UNFL);
             for (I = 1; I <= MNMIN - 1; I++) {
-              // 190
               if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
               if (SSAV[I] < ZERO) DIF.value = ULPINV;
               DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
-            } // 190
+            }
             RESULT[29] = max(RESULT[29], DIF.value);
-          } // 170
-        } // 180
+          }
+        }
 
         // Do tests 30--32: DGESVDX( 'V', 'V', 'I' )
 
         for (I = 1; I <= 4; I++) {
-          // 200
           ISEED2[I] = ISEED[I];
-        } // 200
+        }
         if (MNMIN <= 1) {
           IL = 1;
           IU = max(1, MNMIN);
@@ -761,7 +737,6 @@ void ddrvbd(
         // End of Loop -- Check for RESULT[j] > THRESH
 
         for (J = 1; J <= 39; J++) {
-          // 210
           if (RESULT[J] >= THRESH) {
             if (NFAIL == 0) {
               NOUT.println(
@@ -779,11 +754,11 @@ void ddrvbd(
                 ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i1}, IWS=${IWS.i1}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
             NFAIL++;
           }
-        } // 210
+        }
         NTEST += 39;
-      } // 220
-    } // 230
-  } // 240
+      }
+    }
+  }
 
   // Summary
 

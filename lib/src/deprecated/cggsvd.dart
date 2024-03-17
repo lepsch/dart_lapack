@@ -95,19 +95,19 @@
 
       scopy(N, ALPHA, 1, RWORK, 1 );
       IBND = min( L, M-K );
-      for (I = 1; I <= IBND; I++) { // 20
+      for (I = 1; I <= IBND; I++) {
 
          // Scan for largest ALPHA(K+I)
 
          ISUB = I;
          SMAX = RWORK( K+I );
-         for (J = I + 1; J <= IBND; J++) { // 10
+         for (J = I + 1; J <= IBND; J++) {
             TEMP = RWORK( K+J );
             if ( TEMP > SMAX ) {
                ISUB = J;
                SMAX = TEMP;
             }
-         } // 10
+         }
          if ( ISUB != I ) {
             RWORK[K+ISUB] = RWORK( K+I );
             RWORK[K+I] = SMAX;
@@ -115,6 +115,6 @@
          } else {
             IWORK[K+I] = K + I;
          }
-      } // 20
+      }
 
       }

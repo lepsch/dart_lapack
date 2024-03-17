@@ -280,10 +280,9 @@ void dtgex2(
     //                   [ SCALE.value * identity(N2) ]
 
     for (I = 1; I <= N2; I++) {
-      // 10
       dscal(N1, -ONE, LI(1, I).asArray(), 1);
       LI[N1 + I][I] = SCALE.value;
-    } // 10
+    }
     dgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
@@ -304,9 +303,8 @@ void dtgex2(
     // where IR = [ SCALE.value * identity(N1), R ]
 
     for (I = 1; I <= N1; I++) {
-      // 20
       IR[N2 + I][I] = SCALE.value;
-    } // 20
+    }
     dgerq2(N1, M, IR(N2 + 1, 1), LDST, TAUR, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
@@ -358,9 +356,8 @@ void dtgex2(
     DSCALE.value = ZERO;
     DSUM.value = ONE;
     for (I = 1; I <= N2; I++) {
-      // 30
       dlassq(N1, S(N2 + 1, I).asArray(), 1, DSCALE, DSUM);
-    } // 30
+    }
     BRQA21 = DSCALE.value * sqrt(DSUM.value);
 
     // Triangularize the B-part by a QR factorization.
@@ -385,9 +382,8 @@ void dtgex2(
     DSCALE.value = ZERO;
     DSUM.value = ONE;
     for (I = 1; I <= N2; I++) {
-      // 40
       dlassq(N1, SCPY(N2 + 1, I).asArray(), 1, DSCALE, DSUM);
-    } // 40
+    }
     BQRA21 = DSCALE.value * sqrt(DSUM.value);
 
     // Decide which method to use.

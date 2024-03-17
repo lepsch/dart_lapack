@@ -448,7 +448,6 @@ void zbdsqr(
           CS.value = ONE;
           OLDCS.value = ONE;
           for (I = M; I >= LL + 1; I--) {
-            // 130
             dlartg(D[I] * CS.value, E[I - 1], CS, SN, R);
             if (I < M) E[I] = OLDSN.value * R.value;
             dlartg(OLDCS.value * R.value, D[I - 1] * SN.value, OLDCS, OLDSN,
@@ -457,7 +456,7 @@ void zbdsqr(
             RWORK[I - LL + NM1] = -SN.value;
             RWORK[I - LL + NM12] = OLDCS.value;
             RWORK[I - LL + NM13] = -OLDSN.value;
-          } // 130
+          }
           H = D[LL] * CS.value;
           D[LL] = H * OLDCS.value;
           E[LL] = H * OLDSN.value;
@@ -492,7 +491,6 @@ void zbdsqr(
               (sign(ONE, D[LL]) + SHIFT.value / D[LL]);
           G = E[LL];
           for (I = LL; I <= M - 1; I++) {
-            // 140
             dlartg(F, G, COSR, SINR, R);
             if (I > LL) E[I - 1] = R.value;
             F = COSR.value * D[I] + SINR.value * E[I];
@@ -511,7 +509,7 @@ void zbdsqr(
             RWORK[I - LL + 1 + NM1] = SINR.value;
             RWORK[I - LL + 1 + NM12] = COSL.value;
             RWORK[I - LL + 1 + NM13] = SINL.value;
-          } // 140
+          }
           E[M - 1] = F;
 
           // Update singular vectors
@@ -540,7 +538,6 @@ void zbdsqr(
               (sign(ONE, D[M]) + SHIFT.value / D[M]);
           G = E[M - 1];
           for (I = M; I >= LL + 1; I--) {
-            // 150
             dlartg(F, G, COSR, SINR, R);
             if (I < M) E[I] = R.value;
             F = COSR.value * D[I] + SINR.value * E[I - 1];
@@ -559,7 +556,7 @@ void zbdsqr(
             RWORK[I - LL + NM1] = -SINR.value;
             RWORK[I - LL + NM12] = COSL.value;
             RWORK[I - LL + NM13] = -SINL.value;
-          } // 150
+          }
           E[LL] = F;
 
           // Test convergence
@@ -608,12 +605,11 @@ void zbdsqr(
     ISUB = 1;
     SMIN = D[1];
     for (J = 2; J <= N + 1 - I; J++) {
-      // 180
       if (D[J] <= SMIN) {
         ISUB = J;
         SMIN = D[J];
       }
-    } // 180
+    }
     if (ISUB != N + 1 - I) {
       // Swap singular values and vectors
 

@@ -91,22 +91,20 @@ void zlatbs(
       // A is upper triangular.
 
       for (J = 1; J <= N; J++) {
-        // 10
         JLEN = min(KD, J - 1);
         CNORM[J] = dzasum(JLEN, AB(KD + 1 - JLEN, J).asArray(), 1);
-      } // 10
+      }
     } else {
       // A is lower triangular.
 
       for (J = 1; J <= N; J++) {
-        // 20
         JLEN = min(KD, N - J);
         if (JLEN > 0) {
           CNORM[J] = dzasum(JLEN, AB(2, J).asArray(), 1);
         } else {
           CNORM[J] = ZERO;
         }
-      } // 20
+      }
     }
   }
 
@@ -127,9 +125,8 @@ void zlatbs(
 
   XMAX = ZERO;
   for (J = 1; J <= N; J++) {
-    // 30
     XMAX = max(XMAX, CABS2(X[J]));
-  } // 30
+  }
   XBND = XMAX;
   if (NOTRAN) {
     // Compute the growth in A * x = b.
@@ -158,8 +155,6 @@ void zlatbs(
       XBND = GROW;
       var isTooSmall = false;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 40
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) {
@@ -189,7 +184,7 @@ void zlatbs(
 
           GROW = ZERO;
         }
-      } // 40
+      }
       if (!isTooSmall) {
         GROW = XBND;
       }
@@ -200,8 +195,6 @@ void zlatbs(
 
       GROW = min(ONE, HALF / max(XBND, SMLNUM));
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 50
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) break;
@@ -209,9 +202,8 @@ void zlatbs(
         // G(j) = G(j-1)*( 1 + CNORM(j) )
 
         GROW *= (ONE / (ONE + CNORM[J]));
-      } // 50
+      }
     }
-    //  } // 60
   } else {
     // Compute the growth in A**T * x = b  or  A**H * x = b.
 
@@ -239,8 +231,6 @@ void zlatbs(
       XBND = GROW;
       var isTooSmall = false;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 70
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) {
@@ -265,7 +255,7 @@ void zlatbs(
 
           XBND = ZERO;
         }
-      } // 70
+      }
       if (!isTooSmall) {
         GROW = min(GROW, XBND);
       }
@@ -276,8 +266,6 @@ void zlatbs(
 
       GROW = min(ONE, HALF / max(XBND, SMLNUM));
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 80
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) break;
@@ -286,9 +274,8 @@ void zlatbs(
 
         XJ = ONE + CNORM[J];
         GROW /= XJ;
-      } // 80
+      }
     }
-    //  } // 90
   }
 
   if ((GROW * TSCAL) > SMLNUM) {
@@ -314,8 +301,6 @@ void zlatbs(
       // Solve A * x = b
 
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 120
-
         // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
         var scale = true;
@@ -368,15 +353,14 @@ void zlatbs(
             // scale = 0, and compute a solution to A*x = 0.
 
             for (I = 1; I <= N; I++) {
-              // 100
               X[I] = Complex.zero;
-            } // 100
+            }
             X[J] = Complex.one;
             XJ = ONE;
             SCALE.value = ZERO;
             XMAX = ZERO;
           }
-        } // 110
+        }
 
         // Scale x if necessary to avoid overflow when adding a
         // multiple of column j of A.
@@ -422,13 +406,11 @@ void zlatbs(
           I = J + izamax(N - J, X(J + 1), 1);
           XMAX = CABS1(X[I]);
         }
-      } // 120
+      }
     } else if (lsame(TRANS, 'T')) {
       // Solve A**T * x = b
 
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 170
-
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
@@ -479,16 +461,14 @@ void zlatbs(
           if (UPPER) {
             JLEN = min(KD, J - 1);
             for (I = 1; I <= JLEN; I++) {
-              // 130
               CSUMJ =
                   CSUMJ + (AB[KD + I - JLEN][J] * USCAL) * X[J - JLEN - 1 + I];
-            } // 130
+            }
           } else {
             JLEN = min(KD, N - J);
             for (I = 1; I <= JLEN; I++) {
-              // 140
               CSUMJ += (AB[I + 1][J] * USCAL) * X[J + I];
-            } // 140
+            }
           }
         }
 
@@ -540,14 +520,13 @@ void zlatbs(
               // scale = 0 and compute a solution to A**T *x = 0.
 
               for (I = 1; I <= N; I++) {
-                // 150
                 X[I] = Complex.zero;
-              } // 150
+              }
               X[J] = Complex.one;
               SCALE.value = ZERO;
               XMAX = ZERO;
             }
-          } // 160
+          }
         } else {
           // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
           // product has already been divided by 1/A(j,j).
@@ -555,13 +534,11 @@ void zlatbs(
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
         XMAX = max(XMAX, CABS1(X[J]));
-      } // 170
+      }
     } else {
       // Solve A**H * x = b
 
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 220
-
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
@@ -612,16 +589,14 @@ void zlatbs(
           if (UPPER) {
             JLEN = min(KD, J - 1);
             for (I = 1; I <= JLEN; I++) {
-              // 180
               CSUMJ += (AB[KD + I - JLEN][J].conjugate() * USCAL) *
                   X[J - JLEN - 1 + I];
-            } // 180
+            }
           } else {
             JLEN = min(KD, N - J);
             for (I = 1; I <= JLEN; I++) {
-              // 190
               CSUMJ += (AB[I + 1][J].conjugate() * USCAL) * X[J + I];
-            } // 190
+            }
           }
         }
 
@@ -672,14 +647,13 @@ void zlatbs(
               // scale = 0 and compute a solution to A**H *x = 0.
 
               for (I = 1; I <= N; I++) {
-                // 200
                 X[I] = Complex.zero;
-              } // 200
+              }
               X[J] = Complex.one;
               SCALE.value = ZERO;
               XMAX = ZERO;
             }
-          } // 210
+          }
         } else {
           // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
           // product has already been divided by 1/A(j,j).
@@ -687,7 +661,7 @@ void zlatbs(
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
         XMAX = max(XMAX, CABS1(X[J]));
-      } // 220
+      }
     }
     SCALE.value /= TSCAL;
   }

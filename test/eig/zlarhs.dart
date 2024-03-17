@@ -109,9 +109,8 @@ void zlarhs(
   }
   if (!lsame(XTYPE, 'C')) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       zlarnv(2, ISEED, N, X(1, J).asArray());
-    } // 10
+    }
   }
 
   // Multiply X by op(A) using an appropriate
@@ -140,42 +139,37 @@ void zlarhs(
     // General matrix, band storage
 
     for (J = 1; J <= NRHS; J++) {
-      // 20
       zgbmv(TRANS, M, N, KL, KU, Complex.one, A, LDA, X(1, J).asArray(), 1,
           Complex.zero, B(1, J).asArray(), 1);
-    } // 20
+    }
   } else if (lsamen(2, C2, 'PB') || lsamen(2, C2, 'HB')) {
     // Hermitian matrix, band storage
 
     for (J = 1; J <= NRHS; J++) {
-      // 30
       zhbmv(UPLO, N, KL, Complex.one, A, LDA, X(1, J).asArray(), 1,
           Complex.zero, B(1, J).asArray(), 1);
-    } // 30
+    }
   } else if (lsamen(2, C2, 'SB')) {
     // Symmetric matrix, band storage
 
     for (J = 1; J <= NRHS; J++) {
-      // 40
       zsbmv(UPLO, N, KL, Complex.one, A, LDA, X(1, J).asArray(), 1,
           Complex.zero, B(1, J).asArray(), 1);
-    } // 40
+    }
   } else if (lsamen(2, C2, 'PP') || lsamen(2, C2, 'HP')) {
     // Hermitian matrix, packed storage
 
     for (J = 1; J <= NRHS; J++) {
-      // 50
       zhpmv(UPLO, N, Complex.one, A.asArray(), X(1, J).asArray(), 1,
           Complex.zero, B(1, J).asArray(), 1);
-    } // 50
+    }
   } else if (lsamen(2, C2, 'SP')) {
     // Symmetric matrix, packed storage
 
     for (J = 1; J <= NRHS; J++) {
-      // 60
       zspmv(UPLO, N, Complex.one, A.asArray(), X(1, J).asArray(), 1,
           Complex.zero, B(1, J).asArray(), 1);
-    } // 60
+    }
   } else if (lsamen(2, C2, 'TR')) {
     // Triangular matrix.  Note that for triangular matrices,
     //    KU = 1 => non-unit triangular
@@ -198,9 +192,8 @@ void zlarhs(
       DIAG = 'N';
     }
     for (J = 1; J <= NRHS; J++) {
-      // 70
       ztpmv(UPLO, TRANS, DIAG, N, A.asArray(), B(1, J).asArray(), 1);
-    } // 70
+    }
   } else if (lsamen(2, C2, 'TB')) {
     // Triangular matrix, banded storage
 
@@ -211,9 +204,8 @@ void zlarhs(
       DIAG = 'N';
     }
     for (J = 1; J <= NRHS; J++) {
-      // 80
       ztbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B(1, J).asArray(), 1);
-    } // 80
+    }
   } else {
     // If none of the above, set INFO.value = -1 and return;
 

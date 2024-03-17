@@ -598,7 +598,6 @@ void zgesvd(
           // (RWorkspace: 0)
 
           for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
-            // 10
             CHUNK = min(M - I + 1, LDWRKU);
             zgemm(
                 'N',
@@ -616,7 +615,7 @@ void zgesvd(
                 LDWRKU);
             zlacpy(
                 'F', CHUNK, N, WORK(IU).asMatrix(LDWRKU), LDWRKU, A(I, 1), LDA);
-          } // 10
+          }
         } else {
           // Insufficient workspace for a fast algorithm
 
@@ -755,7 +754,6 @@ void zgesvd(
           // (RWorkspace: 0)
 
           for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
-            // 20
             CHUNK = min(M - I + 1, LDWRKU);
             zgemm(
                 'N',
@@ -773,7 +771,7 @@ void zgesvd(
                 LDWRKU);
             zlacpy(
                 'F', CHUNK, N, WORK(IU).asMatrix(LDWRKU), LDWRKU, A(I, 1), LDA);
-          } // 20
+          }
         } else {
           // Insufficient workspace for a fast algorithm
 
@@ -2083,7 +2081,6 @@ void zgesvd(
           // (RWorkspace: 0)
 
           for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-            // 30
             BLK = min(N - I + 1, CHUNK);
             zgemm(
                 'N',
@@ -2101,7 +2098,7 @@ void zgesvd(
                 LDWRKU);
             zlacpy(
                 'F', M, BLK, WORK(IU).asMatrix(LDWRKU), LDWRKU, A(1, I), LDA);
-          } // 30
+          }
         } else {
           // Insufficient workspace for a fast algorithm
 
@@ -2226,7 +2223,6 @@ void zgesvd(
           // (RWorkspace: 0)
 
           for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
-            // 40
             BLK = min(N - I + 1, CHUNK);
             zgemm(
                 'N',
@@ -2244,7 +2240,7 @@ void zgesvd(
                 LDWRKU);
             zlacpy(
                 'F', M, BLK, WORK(IU).asMatrix(LDWRKU), LDWRKU, A(1, I), LDA);
-          } // 40
+          }
         } else {
           // Insufficient workspace for a fast algorithm
 

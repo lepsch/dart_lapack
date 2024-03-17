@@ -130,13 +130,12 @@ void zhetrf(
       // Adjust IPIV
 
       for (J = K; J <= K + KB.value - 1; J++) {
-        // 30
         if (IPIV[J] > 0) {
           IPIV[J] += K - 1;
         } else {
           IPIV[J] -= K + 1;
         }
-      } // 30
+      }
 
       // Increase K and return to the start of the main loop
 

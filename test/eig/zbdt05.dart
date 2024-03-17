@@ -54,11 +54,10 @@ void zbdt05(
 
   J = 0;
   for (I = 1; I <= NS; I++) {
-    // 10
     WORK[J + I] += Complex(S[I], ZERO);
     RESID.value = max(RESID.value, dzasum(NS, WORK(J + 1), 1));
     J += NS;
-  } // 10
+  }
 
   if (ANORM <= ZERO) {
     if (RESID.value != ZERO) RESID.value = ONE / EPS;

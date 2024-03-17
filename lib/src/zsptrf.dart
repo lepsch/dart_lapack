@@ -96,13 +96,12 @@ void zsptrf(
           JMAX = IMAX;
           KX = IMAX * (IMAX + 1) ~/ 2 + IMAX;
           for (J = IMAX + 1; J <= K; J++) {
-            // 20
             if (CABS1(AP[KX]) > ROWMAX) {
               ROWMAX = CABS1(AP[KX]);
               JMAX = J;
             }
             KX += J;
-          } // 20
+          }
           KPC = (IMAX - 1) * IMAX ~/ 2 + 1;
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, AP(KPC), 1);
@@ -136,12 +135,11 @@ void zsptrf(
           zswap(KP - 1, AP(KNC), 1, AP(KPC), 1);
           KX = KPC + KP - 1;
           for (J = KP + 1; J <= KK - 1; J++) {
-            // 30
             KX += J - 1;
             T = AP[KNC + J - 1];
             AP[KNC + J - 1] = AP[KX];
             AP[KX] = T;
-          } // 30
+          }
           T = AP[KNC + KK - 1];
           AP[KNC + KK - 1] = AP[KPC + KP - 1];
           AP[KPC + KP - 1] = T;
@@ -192,7 +190,6 @@ void zsptrf(
             D12 = T / D12;
 
             for (J = K - 2; J >= 1; J--) {
-              // 50
               WKM1 = D12 *
                   (D11 * AP[J + (K - 2) * (K - 1) ~/ 2] -
                       AP[J + (K - 1) * K ~/ 2]);
@@ -200,13 +197,12 @@ void zsptrf(
                   (D22 * AP[J + (K - 1) * K ~/ 2] -
                       AP[J + (K - 2) * (K - 1) ~/ 2]);
               for (I = J; I >= 1; I--) {
-                // 40
                 AP[I + (J - 1) * J ~/ 2] -= AP[I + (K - 1) * K ~/ 2] * WK -
                     AP[I + (K - 2) * (K - 1) ~/ 2] * WKM1;
-              } // 40
+              }
               AP[J + (K - 1) * K ~/ 2] = WK;
               AP[J + (K - 2) * (K - 1) ~/ 2] = WKM1;
-            } // 50
+            }
           }
         }
       }
@@ -274,13 +270,12 @@ void zsptrf(
           ROWMAX = ZERO;
           KX = KC + IMAX - K;
           for (J = K; J <= IMAX - 1; J++) {
-            // 70
             if (CABS1(AP[KX]) > ROWMAX) {
               ROWMAX = CABS1(AP[KX]);
               JMAX = J;
             }
             KX += N - J;
-          } // 70
+          }
           KPC = NPP - (N - IMAX + 1) * (N - IMAX + 2) ~/ 2 + 1;
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, AP(KPC + 1), 1);
@@ -314,12 +309,11 @@ void zsptrf(
           if (KP < N) zswap(N - KP, AP(KNC + KP - KK + 1), 1, AP(KPC + 1), 1);
           KX = KNC + KP - KK;
           for (J = KK + 1; J <= KP - 1; J++) {
-            // 80
             KX += N - J + 1;
             T = AP[KNC + J - KK];
             AP[KNC + J - KK] = AP[KX];
             AP[KX] = T;
-          } // 80
+          }
           T = AP[KNC];
           AP[KNC] = AP[KPC];
           AP[KPC] = T;
@@ -375,7 +369,6 @@ void zsptrf(
             D21 = T / D21;
 
             for (J = K + 2; J <= N; J++) {
-              // 100
               WK = D21 *
                   (D11 * AP[J + (K - 1) * (2 * N - K) ~/ 2] -
                       AP[J + K * (2 * N - K - 1) ~/ 2]);
@@ -383,15 +376,14 @@ void zsptrf(
                   (D22 * AP[J + K * (2 * N - K - 1) ~/ 2] -
                       AP[J + (K - 1) * (2 * N - K) ~/ 2]);
               for (I = J; I <= N; I++) {
-                // 90
                 AP[I + (J - 1) * (2 * N - J) ~/ 2] =
                     AP[I + (J - 1) * (2 * N - J) ~/ 2] -
                         AP[I + (K - 1) * (2 * N - K) ~/ 2] * WK -
                         AP[I + K * (2 * N - K - 1) ~/ 2] * WKP1;
-              } // 90
+              }
               AP[J + (K - 1) * (2 * N - K) ~/ 2] = WK;
               AP[J + K * (2 * N - K - 1) ~/ 2] = WKP1;
-            } // 100
+            }
           }
         }
       }

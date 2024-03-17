@@ -149,16 +149,10 @@ Future<void> zdrgvx(
     WEIGHT[5] = Complex.one / WEIGHT[1];
 
     for (IPTYPE = 1; IPTYPE <= 2; IPTYPE++) {
-      // 80
       for (IWA = 1; IWA <= 5; IWA++) {
-        // 70
         for (IWB = 1; IWB <= 5; IWB++) {
-          // 60
           for (IWX = 1; IWX <= 5; IWX++) {
-            // 50
             for (IWY = 1; IWY <= 5; IWY++) {
-              // 40
-
               // generated a pair of test matrix
 
               zlatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT[IWA],
@@ -235,7 +229,6 @@ Future<void> zdrgvx(
 
               RESULT[3] = ZERO;
               for (I = 1; I <= N; I++) {
-                // 10
                 if (S[I] == ZERO) {
                   if (DTRU[I] > ABNORM * ULP) RESULT[3] = ULPINV;
                 } else if (DTRU[I] == ZERO) {
@@ -245,7 +238,7 @@ Future<void> zdrgvx(
                       max((DTRU[I] / S[I]).abs(), (S[I] / DTRU[I]).abs());
                   RESULT[3] = max(RESULT[3], RWORK[I]);
                 }
-              } // 10
+              }
 
               // Test (4)
 
@@ -271,7 +264,6 @@ Future<void> zdrgvx(
               // Print out tests which fail.
 
               for (J = 1; J <= 4; J++) {
-                // 20
                 if ((RESULT[J] >= THRSH2 && J >= 4) ||
                     (RESULT[J] >= THRESH && J <= 3)) {
                   // If this is the first test to fail,
@@ -303,12 +295,12 @@ Future<void> zdrgvx(
                         ' Type=${IPTYPE.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
                   }
                 }
-              } // 20
-            } // 40
-          } // 50
-        } // 60
-      } // 70
-    } // 80
+              }
+            }
+          }
+        }
+      }
+    }
   } else {
     try {
       while (true) {
@@ -395,7 +387,6 @@ Future<void> zdrgvx(
 
         RESULT[3] = ZERO;
         for (I = 1; I <= N; I++) {
-          // 120
           if (S[I] == ZERO) {
             if (DTRU[I] > ABNORM * ULP) RESULT[3] = ULPINV;
           } else if (DTRU[I] == ZERO) {
@@ -404,7 +395,7 @@ Future<void> zdrgvx(
             RWORK[I] = max((DTRU[I] / S[I]).abs(), (S[I] / DTRU[I]).abs());
             RESULT[3] = max(RESULT[3], RWORK[I]);
           }
-        } // 120
+        }
 
         // Test (4)
 
@@ -428,7 +419,6 @@ Future<void> zdrgvx(
         // Print out tests which fail.
 
         for (J = 1; J <= 4; J++) {
-          // 130
           if (RESULT[J] >= THRSH2) {
             // If this is the first test to fail,
             // print a header to the data file.
@@ -455,9 +445,7 @@ Future<void> zdrgvx(
                   ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
             }
           }
-        } // 130
-
-        // } // 140
+        }
       }
     } catch (_) {}
   }

@@ -192,9 +192,8 @@ void zgees(
   if (WANTST && INFO.value == 0) {
     if (SCALEA) zlascl('G', 0, 0, CSCALE, ANRM, N, 1, W.asMatrix(N), N, IERR);
     for (I = 1; I <= N; I++) {
-      // 10
       BWORK[I] = SELECT(W[I]);
-    } // 10
+    }
 
     // Reorder eigenvalues and transform Schur vectors
     // (CWorkspace: none)

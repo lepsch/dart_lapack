@@ -90,7 +90,6 @@ void zupmtr(
     }
 
     for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-      // 10
       if (LEFT) {
         // H(i) or H(i)**H is applied to C(1:i,1:n)
 
@@ -118,7 +117,7 @@ void zupmtr(
       } else {
         II -= I - 1;
       }
-    } // 10
+    }
   } else {
     // Q was determined by a call to ZHPTRD with UPLO = 'L'.
 
@@ -145,7 +144,6 @@ void zupmtr(
     }
 
     for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-      // 20
       AII = AP[II];
       AP[II] = Complex.one;
       if (LEFT) {
@@ -175,6 +173,6 @@ void zupmtr(
       } else {
         II -= NQ + I - 2;
       }
-    } // 20
+    }
   }
 }

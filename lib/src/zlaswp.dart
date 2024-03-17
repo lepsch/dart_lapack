@@ -38,38 +38,33 @@ void zlaswp(
   N32 = (N ~/ 32) * 32;
   if (N32 != 0) {
     for (J = 1; J <= N32; J += 32) {
-      // 30
       IX = IX0;
       for (I = I1; INC < 0 ? I >= I2 : I <= I2; I += INC) {
-        // 20
         IP = IPIV[IX];
         if (IP != I) {
           for (K = J; K <= J + 31; K++) {
-            // 10
             TEMP = A[I][K];
             A[I][K] = A[IP][K];
             A[IP][K] = TEMP;
-          } // 10
+          }
         }
         IX += INCX;
-      } // 20
-    } // 30
+      }
+    }
   }
   if (N32 != N) {
     N32++;
     IX = IX0;
     for (I = I1; INC < 0 ? I >= I2 : I <= I2; I += INC) {
-      // 50
       IP = IPIV[IX];
       if (IP != I) {
         for (K = N32; K <= N; K++) {
-          // 40
           TEMP = A[I][K];
           A[I][K] = A[IP][K];
           A[IP][K] = TEMP;
-        } // 40
+        }
       }
       IX += INCX;
-    } // 50
+    }
   }
 }

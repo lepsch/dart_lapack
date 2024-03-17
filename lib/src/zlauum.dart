@@ -61,7 +61,6 @@ void zlauum(
       // Compute the product U * U**H.
 
       for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
-        // 10
         IB = min(NB, N - I + 1);
         ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I - 1, IB,
             Complex.one, A(I, I), LDA, A(1, I), LDA);
@@ -84,12 +83,11 @@ void zlauum(
           zherk('Upper', 'No transpose', IB, N - I - IB + 1, ONE, A(I, I + IB),
               LDA, ONE, A(I, I), LDA);
         }
-      } // 10
+      }
     } else {
       // Compute the product L**H * L.
 
       for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
-        // 20
         IB = min(NB, N - I + 1);
         ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I - 1,
             Complex.one, A(I, I), LDA, A(I, 1), LDA);
@@ -112,7 +110,7 @@ void zlauum(
           zherk('Lower', 'Conjugate transpose', IB, N - I - IB + 1, ONE,
               A(I + IB, I), LDA, ONE, A(I, I), LDA);
         }
-      } // 20
+      }
     }
   }
 }

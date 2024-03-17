@@ -55,16 +55,14 @@ void dsytri_rook(
     // Upper triangular storage: examine D from bottom to top
 
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
-      // 10
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == ZERO) return;
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 20
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == ZERO) return;
-    } // 20
+    }
   }
   INFO.value = 0;
 

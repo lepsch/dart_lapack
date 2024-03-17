@@ -44,8 +44,6 @@ void zgelq2(
   K = min(M, N);
 
   for (I = 1; I <= K; I++) {
-    // 10
-
     // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 
     zlacgv(N - I + 1, A(I, I).asArray(), LDA);
@@ -60,5 +58,5 @@ void zgelq2(
     }
     A[I][I] = ALPHA.value;
     zlacgv(N - I + 1, A(I, I).asArray(), LDA);
-  } // 10
+  }
 }

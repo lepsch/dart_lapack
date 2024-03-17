@@ -51,19 +51,17 @@ void zpptri(
 
     JJ = 0;
     for (J = 1; J <= N; J++) {
-      // 10
       JC = JJ + 1;
       JJ += J;
       if (J > 1) zhpr('Upper', J - 1, ONE, AP(JC), 1, AP);
       AJJ = (AP[JJ]).toDouble();
       zdscal(J, AJJ, AP(JC), 1);
-    } // 10
+    }
   } else {
     // Compute the product inv(L)**H * inv(L).
 
     JJ = 1;
     for (J = 1; J <= N; J++) {
-      // 20
       JJN = JJ + N - J + 1;
       AP[JJ] = zdotc(N - J + 1, AP(JJ), 1, AP(JJ), 1).real.toComplex();
       if (J < N) {
@@ -71,6 +69,6 @@ void zpptri(
             AP(JJ + 1), 1);
       }
       JJ = JJN;
-    } // 20
+    }
   }
 }

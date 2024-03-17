@@ -96,24 +96,19 @@ Future<void> zckgqr(
   // Do for each value of M in MVAL.
 
   for (IM = 1; IM <= NM; IM++) {
-    // 60
     M = MVAL[IM];
 
     // Do for each value of P in PVAL.
 
     for (IP = 1; IP <= NP; IP++) {
-      // 50
       P = PVAL[IP];
 
       // Do for each value of N in NVAL.
 
       for (IN = 1; IN <= NN; IN++) {
-        // 40
         N = NVAL[IN];
 
         for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-          // 30
-
           // Do the tests only if DOTYPE( IMAT ) is true.
 
           if (!DOTYPE[IMAT]) continue;
@@ -200,7 +195,6 @@ Future<void> zckgqr(
           // pass the threshold.
 
           for (I = 1; I <= NT; I++) {
-            // 10
             if (RESULT[I] >= THRESH) {
               if (NFAIL == 0 && FIRSTT) {
                 FIRSTT = false;
@@ -210,7 +204,7 @@ Future<void> zckgqr(
                   ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
               NFAIL++;
             }
-          } // 10
+          }
           NRUN += NT;
 
           // Test ZGGQRF
@@ -295,7 +289,6 @@ Future<void> zckgqr(
           // pass the threshold.
 
           for (I = 1; I <= NT; I++) {
-            // 20
             if (RESULT[I] >= THRESH) {
               if (NFAIL == 0 && FIRSTT) {
                 FIRSTT = false;
@@ -305,12 +298,12 @@ Future<void> zckgqr(
                   ' N=${N.i4} M=${M.i4}, P=${P.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
               NFAIL++;
             }
-          } // 20
+          }
           NRUN += NT;
-        } // 30
-      } // 40
-    } // 50
-  } // 60
+        }
+      }
+    }
+  }
 
   // Print a summary of the results.
 

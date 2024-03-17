@@ -199,14 +199,12 @@ void zheevx(
   if (ISCALE == 1) {
     if (LOWER) {
       for (J = 1; J <= N; J++) {
-        // 10
         zdscal(N - J + 1, SIGMA, A(J, J).asArray(), 1);
-      } // 10
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 20
         zdscal(J, SIGMA, A(1, J).asArray(), 1);
-      } // 20
+      }
     }
     if (ABSTOL > 0) ABSTLL = ABSTOL * SIGMA;
     if (VALEIG) {
@@ -250,9 +248,8 @@ void zheevx(
       zsteqr(JOBZ, N, W, RWORK(INDEE), Z, LDZ, RWORK(INDRWK), INFO);
       if (INFO.value == 0) {
         for (I = 1; I <= N; I++) {
-          // 30
           IFAIL[I] = 0;
-        } // 30
+        }
       }
     }
     if (INFO.value == 0) {
@@ -303,7 +300,7 @@ void zheevx(
       zunmtr('L', UPLO, 'N', N, M.value, A, LDA, WORK(INDTAU), Z, LDZ,
           WORK(INDWRK), LLWORK, IINFO);
     }
-  } // 40
+  }
 
   // If matrix was scaled, then rescale eigenvalues appropriately.
 
@@ -321,16 +318,14 @@ void zheevx(
 
   if (WANTZ) {
     for (J = 1; J <= M.value - 1; J++) {
-      // 60
       I = 0;
       TMP1 = W[J];
       for (JJ = J + 1; JJ <= M.value; JJ++) {
-        // 50
         if (W[JJ] < TMP1) {
           I = JJ;
           TMP1 = W[JJ];
         }
-      } // 50
+      }
 
       if (I != 0) {
         ITMP1 = IWORK[INDIBL + I - 1];
@@ -345,7 +340,7 @@ void zheevx(
           IFAIL[J] = ITMP1;
         }
       }
-    } // 60
+    }
   }
 
   // Set WORK(1) to optimal complex workspace size.

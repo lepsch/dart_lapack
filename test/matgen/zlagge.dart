@@ -57,16 +57,13 @@ void zlagge(
   // initialize A to diagonal matrix
 
   for (J = 1; J <= N; J++) {
-    // 20
     for (I = 1; I <= M; I++) {
-      // 10
       A[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= min(M, N); I++) {
-    // 30
     A[I][I] = D[I].toComplex();
-  } // 30
+  }
 
   // Quick exit if the user wants a diagonal matrix
 
@@ -75,7 +72,6 @@ void zlagge(
   // pre- and post-multiply A by random unitary matrices
 
   for (I = min(M, N); I >= 1; I--) {
-    // 40
     if (I < M) {
       // generate random reflection
 
@@ -118,13 +114,12 @@ void zlagge(
           WORK, 1, Complex.zero, WORK(N + 1), 1);
       zgerc(M - I + 1, N - I + 1, -TAU, WORK(N + 1), 1, WORK, 1, A(I, I), LDA);
     }
-  } // 40
+  }
 
   // Reduce number of subdiagonals to KL and number of superdiagonals
   // to KU
 
   for (I = 1; I <= max(M - 1 - KL, N - 1 - KU); I++) {
-    // 70
     if (KL <= KU) {
       // annihilate subdiagonal elements first (necessary if KL = 0)
 
@@ -268,16 +263,14 @@ void zlagge(
 
     if (I <= N) {
       for (J = KL + I + 1; J <= M; J++) {
-        // 50
         A[J][I] = Complex.zero;
-      } // 50
+      }
     }
 
     if (I <= M) {
       for (J = KU + I + 1; J <= N; J++) {
-        // 60
         A[I][J] = Complex.zero;
-      } // 60
+      }
     }
-  } // 70
+  }
 }

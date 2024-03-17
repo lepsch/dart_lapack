@@ -94,10 +94,9 @@ void zpbsvx(
       SMIN = BIGNUM;
       SMAX = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         SMIN = min(SMIN, S[J]);
         SMAX = max(SMAX, S[J]);
-      } // 10
+      }
       if (SMIN <= ZERO) {
         INFO.value = -11;
       } else if (N > 0) {
@@ -136,12 +135,10 @@ void zpbsvx(
 
   if (RCEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 30
       for (I = 1; I <= N; I++) {
-        // 20
         B[I][J] = S[I].toComplex() * B[I][J];
-      } // 20
-    } // 30
+      }
+    }
   }
 
   if (NOFACT || EQUIL) {
@@ -149,17 +146,15 @@ void zpbsvx(
 
     if (UPPER) {
       for (J = 1; J <= N; J++) {
-        // 40
         J1 = max(J - KD, 1);
         zcopy(J - J1 + 1, AB(KD + 1 - J + J1, J).asArray(), 1,
             AFB(KD + 1 - J + J1, J).asArray(), 1);
-      } // 40
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 50
         J2 = min(J + KD, N);
         zcopy(J2 - J + 1, AB(1, J).asArray(), 1, AFB(1, J).asArray(), 1);
-      } // 50
+      }
     }
 
     zpbtrf(UPLO, N, KD, AFB, LDAFB, INFO);
@@ -196,16 +191,13 @@ void zpbsvx(
 
   if (RCEQU) {
     for (J = 1; J <= NRHS; J++) {
-      // 70
       for (I = 1; I <= N; I++) {
-        // 60
         X[I][J] = S[I].toComplex() * X[I][J];
-      } // 60
-    } // 70
+      }
+    }
     for (J = 1; J <= NRHS; J++) {
-      // 80
       FERR[J] /= SCOND.value;
-    } // 80
+    }
   }
 
   // Set INFO.value = N+1 if the matrix is singular to working precision.

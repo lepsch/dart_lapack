@@ -127,10 +127,9 @@ Future<void> zdrvvx(
 
   NMAX = 7;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -176,7 +175,6 @@ Future<void> zdrvvx(
     NERRS = 0;
 
     for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-      // 150
       N = NN[JSIZE];
       if (NSIZES != 1) {
         MTYPES = min(MAXTYP, NTYPES);
@@ -185,15 +183,13 @@ Future<void> zdrvvx(
       }
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-        // 140
         if (!DOTYPE[JTYPE]) continue;
 
         // Save ISEED in case of an error.
 
         for (J = 1; J <= 4; J++) {
-          // 20
           IOLDSD[J] = ISEED[J];
-        } // 20
+        }
 
         // Compute "A"
 
@@ -229,7 +225,7 @@ Future<void> zdrvvx(
             case 3:
               ANORM = UNFL * ULPINV;
               break;
-          } // 60
+          }
 
           zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
           IINFO.value = 0;
@@ -245,17 +241,15 @@ Future<void> zdrvvx(
             // Identity
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 70
               A[JCOL][JCOL] = ANORM.toComplex();
-            } // 70
+            }
           } else if (ITYPE == 3) {
             // Jordan Block
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 80
               A[JCOL][JCOL] = ANORM.toComplex();
               if (JCOL > 1) A[JCOL][JCOL - 1] = Complex.one;
-            } // 80
+            }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, [Eigen]values Specified
 
@@ -430,7 +424,6 @@ Future<void> zdrvvx(
         // Test for minimal and generous workspace
 
         for (IWK = 1; IWK <= 3; IWK++) {
-          // 130
           if (IWK == 1) {
             NNWORK = 2 * N;
           } else if (IWK == 2) {
@@ -443,7 +436,6 @@ Future<void> zdrvvx(
           // Test for all balancing options
 
           for (IBAL = 1; IBAL <= 4; IBAL++) {
-            // 120
             BALANC = BAL[IBAL - 1];
 
             // Perform tests
@@ -487,10 +479,9 @@ Future<void> zdrvvx(
             NTEST = 0;
             NFAIL = 0;
             for (J = 1; J <= 9; J++) {
-              // 100
               if (RESULT[J] >= ZERO) NTEST++;
               if (RESULT[J] >= THRESH) NFAIL++;
-            } // 100
+            }
 
             if (NFAIL > 0) NTESTF++;
             if (NTESTF == 1) {
@@ -499,21 +490,20 @@ Future<void> zdrvvx(
             }
 
             for (J = 1; J <= 9; J++) {
-              // 110
               if (RESULT[J] >= THRESH) {
                 NOUNIT.println(' BALANC='
                     '${BALANC.a1}'
                     ',N=${N.i4},IWK=${IWK.i1}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
               }
-            } // 110
+            }
 
             NERRS += NFAIL;
             NTESTT += NTEST;
-          } // 120
-        } // 130
-      } // 140
-    } // 150
-  } // 160
+          }
+        }
+      }
+    }
+  }
 
   // Read in data from file to check accuracy of condition estimation.
   // Assume input eigenvalues are sorted lexicographically (increasing
@@ -531,12 +521,11 @@ Future<void> zdrvvx(
       ISEED[1] = JTYPE;
       await NIUNIT.readMatrix(A, N, N);
       for (I = 1; I <= N; I++) {
-        // 190
         final (WR, WI, d3, d4) = await NIUNIT.readDouble4();
         RCDEIN[I] = d3;
         RCDVIN[I] = d4;
         W1[I] = Complex(WR, WI);
-      } // 190
+      }
       zget23(
           true,
           ISRT,
@@ -576,10 +565,9 @@ Future<void> zdrvvx(
       NTEST = 0;
       var NFAIL = 0;
       for (J = 1; J <= 11; J++) {
-        // 200
         if (RESULT[J] >= ZERO) NTEST++;
         if (RESULT[J] >= THRESH) NFAIL++;
-      } // 200
+      }
 
       if (NFAIL > 0) NTESTF++;
       if (NTESTF == 1) {
@@ -588,12 +576,11 @@ Future<void> zdrvvx(
       }
 
       for (J = 1; J <= 11; J++) {
-        // 210
         if (RESULT[J] >= THRESH) {
           NOUNIT.println(
               ' N=${N.i5}, input example =${JTYPE.i3},  test(${J.i2})=${RESULT[J].g10_3}');
         }
-      } // 210
+      }
 
       NERRS += NFAIL;
       NTESTT += NTEST;

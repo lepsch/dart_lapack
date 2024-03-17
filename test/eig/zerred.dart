@@ -51,16 +51,13 @@ void zerred(
   // Initialize A
 
   for (J = 1; J <= NMAX; J++) {
-    // 20
     for (I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = Complex.zero;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= NMAX; I++) {
-    // 30
     A[I][I] = Complex.one;
-  } // 30
+  }
   infoc.OK.value = true;
   NT = 0;
 

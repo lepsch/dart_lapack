@@ -73,20 +73,17 @@ void zerrst(
   // Set the variables to innocuous values.
 
   for (J = 1; J <= NMAX; J++) {
-    // 20
     for (I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = (1.0 / (I + J)).toComplex();
-    } // 10
-  } // 20
+    }
+  }
   for (J = 1; J <= NMAX; J++) {
-    // 30
     D[J] = J.toDouble();
     E[J] = 0.0;
     I1[J] = J;
     I2[J] = J;
     TAU[J] = Complex.one;
-  } // 30
+  }
   infoc.OK.value = true;
   NT = 0;
 

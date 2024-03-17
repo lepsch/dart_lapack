@@ -56,7 +56,6 @@ void dptt02(
 
   RESID.value = ZERO;
   for (var J = 1; J <= NRHS; J++) {
-    // 10
     final BNORM = dasum(N, B(1, J).asArray(), 1);
     final XNORM = dasum(N, X(1, J).asArray(), 1);
     if (XNORM <= ZERO) {
@@ -64,5 +63,5 @@ void dptt02(
     } else {
       RESID.value = max(RESID.value, ((BNORM / ANORM) / XNORM) / EPS);
     }
-  } // 10
+  }
 }

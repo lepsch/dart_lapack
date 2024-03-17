@@ -43,11 +43,10 @@ void zget10(
 
   WNORM = ZERO;
   for (J = 1; J <= N; J++) {
-    // 10
     zcopy(M, A(1, J).asArray(), 1, WORK, 1);
     zaxpy(M, -Complex.one, B(1, J).asArray(), 1, WORK, 1);
     WNORM = max(WNORM, dzasum(N, WORK, 1));
-  } // 10
+  }
 
   ANORM = max(zlange('1', M, N, A, LDA, RWORK), UNFL);
 

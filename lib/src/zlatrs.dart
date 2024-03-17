@@ -89,16 +89,14 @@ void zlatrs(
       // A is upper triangular.
 
       for (J = 1; J <= N; J++) {
-        // 10
         CNORM[J] = dzasum(J - 1, A(1, J).asArray(), 1);
-      } // 10
+      }
     } else {
       // A is lower triangular.
 
       for (J = 1; J <= N - 1; J++) {
-        // 20
         CNORM[J] = dzasum(N - J, A(J + 1, J).asArray(), 1);
-      } // 20
+      }
       CNORM[N] = ZERO;
     }
   }
@@ -181,9 +179,8 @@ void zlatrs(
 
   XMAX = ZERO;
   for (J = 1; J <= N; J++) {
-    // 30
     XMAX = max(XMAX, CABS2(X[J]));
-  } // 30
+  }
   XBND = XMAX;
 
   if (NOTRAN) {
@@ -210,8 +207,6 @@ void zlatrs(
       GROW = HALF / max(XBND, SMLNUM);
       XBND = GROW;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 40
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) {
@@ -241,7 +236,7 @@ void zlatrs(
 
           GROW = ZERO;
         }
-      } // 40
+      }
       if (!isTooSmall) {
         GROW = XBND;
       }
@@ -252,8 +247,6 @@ void zlatrs(
 
       GROW = min(ONE, HALF / max(XBND, SMLNUM));
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 50
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) break;
@@ -261,7 +254,7 @@ void zlatrs(
         // G(j) = G(j-1)*( 1 + CNORM(j) )
 
         GROW *= (ONE / (ONE + CNORM[J]));
-      } // 50
+      }
     }
   } else {
     // Compute the growth in A**T * x = b  or  A**H * x = b.
@@ -287,8 +280,6 @@ void zlatrs(
       GROW = HALF / max(XBND, SMLNUM);
       XBND = GROW;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 70
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) {
@@ -313,7 +304,7 @@ void zlatrs(
 
           XBND = ZERO;
         }
-      } // 70
+      }
       if (!isTooSmall) {
         GROW = min(GROW, XBND);
       }
@@ -324,8 +315,6 @@ void zlatrs(
 
       GROW = min(ONE, HALF / max(XBND, SMLNUM));
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 80
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) break;
@@ -334,9 +323,8 @@ void zlatrs(
 
         XJ = ONE + CNORM[J];
         GROW /= XJ;
-      } // 80
+      }
     }
-    //  } // 90
   }
 
   if ((GROW * TSCAL) > SMLNUM) {
@@ -362,8 +350,6 @@ void zlatrs(
       // Solve A * x = b
 
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 120
-
         // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
         var scale = true;
         XJ = CABS1(X[J]);
@@ -415,15 +401,14 @@ void zlatrs(
             // scale = 0, and compute a solution to A*x = 0.
 
             for (I = 1; I <= N; I++) {
-              // 100
               X[I] = Complex.zero;
-            } // 100
+            }
             X[J] = Complex.one;
             XJ = ONE;
             SCALE.value = ZERO;
             XMAX = ZERO;
           }
-        } // 110
+        }
 
         // Scale x if necessary to avoid overflow when adding a
         // multiple of column j of A.
@@ -464,13 +449,11 @@ void zlatrs(
             XMAX = CABS1(X[I]);
           }
         }
-      } // 120
+      }
     } else if (lsame(TRANS, 'T')) {
       // Solve A**T * x = b
 
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 170
-
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
@@ -515,14 +498,12 @@ void zlatrs(
 
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
-              // 130
               CSUMJ += (A[I][J] * USCAL) * X[I];
-            } // 130
+            }
           } else if (J < N) {
             for (I = J + 1; I <= N; I++) {
-              // 140
               CSUMJ += (A[I][J] * USCAL) * X[I];
-            } // 140
+            }
           }
         }
 
@@ -574,14 +555,13 @@ void zlatrs(
               // scale = 0 and compute a solution to A**T *x = 0.
 
               for (I = 1; I <= N; I++) {
-                // 150
                 X[I] = Complex.zero;
-              } // 150
+              }
               X[J] = Complex.one;
               SCALE.value = ZERO;
               XMAX = ZERO;
             }
-          } // 160
+          }
         } else {
           // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
           // product has already been divided by 1/A(j,j).
@@ -589,13 +569,11 @@ void zlatrs(
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
         XMAX = max(XMAX, CABS1(X[J]));
-      } // 170
+      }
     } else {
       // Solve A**H * x = b
 
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 220
-
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
@@ -640,14 +618,12 @@ void zlatrs(
 
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
-              // 180
               CSUMJ += (A[I][J].conjugate() * USCAL) * X[I];
-            } // 180
+            }
           } else if (J < N) {
             for (I = J + 1; I <= N; I++) {
-              // 190
               CSUMJ += (A[I][J].conjugate() * USCAL) * X[I];
-            } // 190
+            }
           }
         }
 
@@ -699,14 +675,13 @@ void zlatrs(
               // scale = 0 and compute a solution to A**H *x = 0.
 
               for (I = 1; I <= N; I++) {
-                // 200
                 X[I] = Complex.zero;
-              } // 200
+              }
               X[J] = Complex.one;
               SCALE.value = ZERO;
               XMAX = ZERO;
             }
-          } // 210
+          }
         } else {
           // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
           // product has already been divided by 1/A(j,j).
@@ -714,7 +689,7 @@ void zlatrs(
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
         XMAX = max(XMAX, CABS1(X[J]));
-      } // 220
+      }
     }
     SCALE.value /= TSCAL;
   }

@@ -41,14 +41,12 @@ void zlarzt(
   }
 
   for (I = K; I >= 1; I--) {
-    // 20
     if (TAU[I] == Complex.zero) {
       // H(i)  =  I
 
       for (J = I; J <= K; J++) {
-        // 10
         T[J][I] = Complex.zero;
-      } // 10
+      }
     } else {
       // general case
 
@@ -67,5 +65,5 @@ void zlarzt(
       }
       T[I][I] = TAU[I];
     }
-  } // 20
+  }
 }

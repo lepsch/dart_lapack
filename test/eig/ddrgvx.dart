@@ -237,7 +237,7 @@ Future<void> ddrgvx(
                   WORK[I] = max((DTRU[I] / S[I]).abs(), (S[I] / DTRU[I]).abs());
                   RESULT[3] = max(RESULT[3], WORK[I]);
                 }
-              } // 10
+              }
 
               // Test (4)
 
@@ -294,14 +294,12 @@ Future<void> ddrgvx(
                         ' Type=${IPTYPE.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
                   }
                 }
-              } // 20
-
-              //  } // 30
-            } // 40
-          } // 50
-        } // 60
-      } // 70
-    } // 80
+              }
+            }
+          }
+        }
+      }
+    }
   } else {
     while (true) {
       // Read in data from file to check accuracy of condition estimation
@@ -397,7 +395,7 @@ Future<void> ddrgvx(
           WORK[I] = max((DTRU[I] / S[I]).abs(), (S[I] / DTRU[I]).abs());
           RESULT[3] = max(RESULT[3], WORK[I]);
         }
-      } // 120
+      }
 
       // Test (4)
 
@@ -447,11 +445,9 @@ Future<void> ddrgvx(
                 ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
           }
         }
-      } // 130
-
-      // } // 140
-    } // 90
-  } // 150
+      }
+    }
+  }
 
   // Summary
   alasvm('DXV', NOUT, NERRS, NTESTT, 0);

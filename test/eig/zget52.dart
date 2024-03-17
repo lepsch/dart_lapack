@@ -81,7 +81,6 @@ void zget52(
   // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 
   for (JVEC = 1; JVEC <= N; JVEC++) {
-    // 10
     ALPHAI = ALPHA[JVEC];
     BETAI = BETA[JVEC];
     ABMAX = max(ABS1(ALPHAI), ABS1(BETAI));
@@ -101,7 +100,7 @@ void zget52(
         WORK(N * (JVEC - 1) + 1), 1);
     zgemv(TRANS, N, N, -BCOEFF, B, LDA, E(1, JVEC).asArray(), 1, Complex.one,
         WORK(N * (JVEC - 1) + 1), 1);
-  } // 10
+  }
 
   ERRNRM = zlange('One', N, N, WORK.asMatrix(), N, RWORK) / ENORM;
 
@@ -113,14 +112,12 @@ void zget52(
 
   ENRMER = ZERO;
   for (JVEC = 1; JVEC <= N; JVEC++) {
-    // 30
     TEMP1 = ZERO;
     for (J = 1; J <= N; J++) {
-      // 20
       TEMP1 = max(TEMP1, ABS1(E[J][JVEC]));
-    } // 20
+    }
     ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
-  } // 30
+  }
 
   // Compute RESULT(2) : the normalization error in E.
 

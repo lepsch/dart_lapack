@@ -55,80 +55,72 @@ void zspr(
 
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-        // 20
         if (X[J] != Complex.zero) {
           TEMP = ALPHA * X[J];
           K = KK;
           for (I = 1; I <= J - 1; I++) {
-            // 10
             AP[K] += X[I] * TEMP;
             K++;
-          } // 10
+          }
           AP[KK + J - 1] += X[J] * TEMP;
         } else {
           AP[KK + J - 1] = AP[KK + J - 1];
         }
         KK += J;
-      } // 20
+      }
     } else {
       JX = KX;
       for (J = 1; J <= N; J++) {
-        // 40
         if (X[JX] != Complex.zero) {
           TEMP = ALPHA * X[JX];
           IX = KX;
           for (K = KK; K <= KK + J - 2; K++) {
-            // 30
             AP[K] += X[IX] * TEMP;
             IX += INCX;
-          } // 30
+          }
           AP[KK + J - 1] += X[JX] * TEMP;
         } else {
           AP[KK + J - 1] = AP[KK + J - 1];
         }
         JX += INCX;
         KK += J;
-      } // 40
+      }
     }
   } else {
     // Form  A  when lower triangle is stored in AP.
 
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-        // 60
         if (X[J] != Complex.zero) {
           TEMP = ALPHA * X[J];
           AP[KK] += TEMP * X[J];
           K = KK + 1;
           for (I = J + 1; I <= N; I++) {
-            // 50
             AP[K] += X[I] * TEMP;
             K++;
-          } // 50
+          }
         } else {
           AP[KK] = AP[KK];
         }
         KK += N - J + 1;
-      } // 60
+      }
     } else {
       JX = KX;
       for (J = 1; J <= N; J++) {
-        // 80
         if (X[JX] != Complex.zero) {
           TEMP = ALPHA * X[JX];
           AP[KK] += TEMP * X[JX];
           IX = JX;
           for (K = KK + 1; K <= KK + N - J; K++) {
-            // 70
             IX += INCX;
             AP[K] += X[IX] * TEMP;
-          } // 70
+          }
         } else {
           AP[KK] = AP[KK];
         }
         JX += INCX;
         KK += N - J + 1;
-      } // 80
+      }
     }
   }
 }

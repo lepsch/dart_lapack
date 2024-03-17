@@ -83,34 +83,28 @@ void zgbtrf(
     // Zero the superdiagonal elements of the work array WORK13
 
     for (J = 1; J <= NB; J++) {
-      // 20
       for (I = 1; I <= J - 1; I++) {
-        // 10
         WORK13[I][J] = Complex.zero;
-      } // 10
-    } // 20
+      }
+    }
 
     // Zero the subdiagonal elements of the work array WORK31
 
     for (J = 1; J <= NB; J++) {
-      // 40
       for (I = J + 1; I <= NB; I++) {
-        // 30
         WORK31[I][J] = Complex.zero;
-      } // 30
-    } // 40
+      }
+    }
 
     // Gaussian elimination with partial pivoting
 
     // Set fill-in elements in columns KU+2 to KV to zero
 
     for (J = KU + 2; J <= min(KV, N); J++) {
-      // 60
       for (I = KV - J + 2; I <= KL; I++) {
-        // 50
         AB[I][J] = Complex.zero;
-      } // 50
-    } // 60
+      }
+    }
 
     // JU is the index of the last column affected by the current
     // stage of the factorization
@@ -118,7 +112,6 @@ void zgbtrf(
     JU = 1;
 
     for (J = 1; NB < 0 ? J >= min(M, N) : J <= min(M, N); J += NB) {
-      // 180
       JB = min(NB, min(M, N) - J + 1);
 
       // The active part of the matrix is partitioned
@@ -141,15 +134,12 @@ void zgbtrf(
       // Factorize the current block of JB columns
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        // 80
-
         // Set fill-in elements in column JJ+KV to zero
 
         if (JJ + KV <= N) {
           for (I = 1; I <= KL; I++) {
-            // 70
             AB[I][JJ + KV] = Complex.zero;
-          } // 70
+          }
         }
 
         // Find pivot and test for singularity. KM is the number of
@@ -212,7 +202,7 @@ void zgbtrf(
           zcopy(NW, AB(KV + KL + 1 - JJ + J, JJ).asArray(), 1,
               WORK31(1, JJ - J + 1).asArray(), 1);
         }
-      } // 80
+      }
       if (J + JB <= N) {
         // Apply the row interchanges to the other blocks.
 
@@ -227,27 +217,24 @@ void zgbtrf(
         // Adjust the pivot indices.
 
         for (I = J; I <= J + JB - 1; I++) {
-          // 90
           IPIV[I] += J - 1;
-        } // 90
+        }
 
         // Apply the row interchanges to A13, A23, and A33
         // columnwise.
 
         K2 = J - 1 + JB + J2;
         for (I = 1; I <= J3; I++) {
-          // 110
           JJ = K2 + I;
           for (II = J + I - 1; II <= J + JB - 1; II++) {
-            // 100
             IP = IPIV[II];
             if (IP != II) {
               TEMP = AB[KV + 1 + II - JJ][JJ];
               AB[KV + 1 + II - JJ][JJ] = AB[KV + 1 + IP - JJ][JJ];
               AB[KV + 1 + IP - JJ][JJ] = TEMP;
             }
-          } // 100
-        } // 110
+          }
+        }
 
         // Update the relevant part of the trailing submatrix
 
@@ -301,12 +288,10 @@ void zgbtrf(
           // WORK13
 
           for (JJ = 1; JJ <= J3; JJ++) {
-            // 130
             for (II = JJ; II <= JB; II++) {
-              // 120
               WORK13[II][JJ] = AB[II - JJ + 1][JJ + J + KV - 1];
-            } // 120
-          } // 130
+            }
+          }
 
           // Update A13 in the work array
 
@@ -354,20 +339,17 @@ void zgbtrf(
           // Copy the lower triangle of A13 back into place
 
           for (JJ = 1; JJ <= J3; JJ++) {
-            // 150
             for (II = JJ; II <= JB; II++) {
-              // 140
               AB[II - JJ + 1][JJ + J + KV - 1] = WORK13[II][JJ];
-            } // 140
-          } // 150
+            }
+          }
         }
       } else {
         // Adjust the pivot indices.
 
         for (I = J; I <= J + JB - 1; I++) {
-          // 160
           IPIV[I] += J - 1;
-        } // 160
+        }
       }
 
       // Partially undo the interchanges in the current block to
@@ -375,7 +357,6 @@ void zgbtrf(
       // triangle of A31 back into place
 
       for (JJ = J + JB - 1; JJ >= J; JJ--) {
-        // 170
         JP = IPIV[JJ] - JJ + 1;
         if (JP != 1) {
           // Apply interchange to columns J to JJ-1
@@ -400,7 +381,7 @@ void zgbtrf(
           zcopy(NW, WORK31(1, JJ - J + 1).asArray(), 1,
               AB(KV + KL + 1 - JJ + J, JJ).asArray(), 1);
         }
-      } // 170
-    } // 180
+      }
+    }
   }
 }

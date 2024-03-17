@@ -81,21 +81,17 @@ void zgsvts3(
   // Copy R
 
   for (I = 1; I <= min(K.value + L.value, M); I++) {
-    // 20
     for (J = I; J <= K.value + L.value; J++) {
-      // 10
       R[I][J] = AF[I][N - K.value - L.value + J];
-    } // 10
-  } // 20
+    }
+  }
 
   if (M - K.value - L.value < 0) {
     for (I = M + 1; I <= K.value + L.value; I++) {
-      // 40
       for (J = I; J <= K.value + L.value; J++) {
-        // 30
         R[I][J] = BF[I - K.value][N - K.value - L.value + J];
-      } // 30
-    } // 40
+      }
+    }
   }
 
   // Compute A:= U'*A*Q - D1*R
@@ -107,22 +103,18 @@ void zgsvts3(
       WORK.asMatrix(), LDA, Complex.zero, A, LDA);
 
   for (I = 1; I <= K.value; I++) {
-    // 60
     for (J = I; J <= K.value + L.value; J++) {
-      // 50
       A[I][N - K.value - L.value + J] =
           A[I][N - K.value - L.value + J] - R[I][J];
-    } // 50
-  } // 60
+    }
+  }
 
   for (I = K.value + 1; I <= min(K.value + L.value, M); I++) {
-    // 80
     for (J = I; J <= K.value + L.value; J++) {
-      // 70
       A[I][N - K.value - L.value + J] =
           A[I][N - K.value - L.value + J] - ALPHA[I].toComplex() * R[I][J];
-    } // 70
-  } // 80
+    }
+  }
 
   // Compute norm( U'*A*Q - D1*R ) / ( max(1,M,N)*norm(A)*ULP ) .
 
@@ -142,13 +134,11 @@ void zgsvts3(
       WORK.asMatrix(), LDB, Complex.zero, B, LDB);
 
   for (I = 1; I <= L.value; I++) {
-    // 100
     for (J = I; J <= L.value; J++) {
-      // 90
       B[I][N - L.value + J] -=
           BETA[K.value + I].toComplex() * R[K.value + I][K.value + J];
-    } // 90
-  } // 100
+    }
+  }
 
   // Compute norm( V'*B*Q - D2*R ) / ( max(P,N)*norm(B)*ULP ) .
 
@@ -196,18 +186,16 @@ void zgsvts3(
 
   dcopy(N, ALPHA, 1, RWORK, 1);
   for (I = K.value + 1; I <= min(K.value + L.value, M); I++) {
-    // 110
     J = IWORK[I];
     if (I != J) {
       TEMP = RWORK[I];
       RWORK[I] = RWORK[J];
       RWORK[J] = TEMP;
     }
-  } // 110
+  }
 
   RESULT[6] = ZERO;
   for (I = K.value + 1; I <= min(K.value + L.value, M) - 1; I++) {
-    // 120
     if (RWORK[I] < RWORK[I + 1]) RESULT[6] = ULPINV;
-  } // 120
+  }
 }

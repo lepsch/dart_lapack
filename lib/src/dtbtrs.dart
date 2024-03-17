@@ -64,14 +64,12 @@ void dtbtrs(
   if (NOUNIT) {
     if (UPPER) {
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 10
         if (AB[KD + 1][INFO.value] == ZERO) return;
-      } // 10
+      }
     } else {
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-        // 20
         if (AB[1][INFO.value] == ZERO) return;
-      } // 20
+      }
     }
   }
   INFO.value = 0;
@@ -79,7 +77,6 @@ void dtbtrs(
   // Solve A * X = B  or  A**T * X = B.
 
   for (J = 1; J <= NRHS; J++) {
-    // 30
     dtbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B(1, J).asArray(), 1);
-  } // 30
+  }
 }

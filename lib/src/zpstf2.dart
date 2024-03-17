@@ -59,16 +59,14 @@ void zpstf2(
   // Initialize PIV
 
   for (I = 1; I <= N; I++) {
-    // 100
     PIV[I] = I;
-  } // 100
+  }
 
   // Compute stopping value
 
   for (I = 1; I <= N; I++) {
-    // 110
     WORK[I] = A[I][I].toDouble();
-  } // 110
+  }
   PVT = WORK.maxloc(1, N);
   AJJ = A[PVT][PVT].toDouble();
   if (AJJ <= ZERO || disnan(AJJ)) {
@@ -88,29 +86,24 @@ void zpstf2(
   // Set first half of WORK to zero, holds dot products
 
   for (I = 1; I <= N; I++) {
-    // 120
     WORK[I] = 0;
-  } // 120
+  }
 
   if (UPPER) {
     // Compute the Cholesky factorization P**T * A * P = U**H* U
 
     for (J = 1; J <= N; J++) {
-      // 150
-
       // Find pivot, test for exit, else swap rows and columns
       // Update dot products, compute possible pivots which are
       // stored in the second half of WORK
 
       for (I = J; I <= N; I++) {
-        // 130
-
         if (J > 1) {
           WORK[I] =
               WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).toDouble();
         }
         WORK[N + I] = A[I][I].toDouble() - WORK[I];
-      } // 130
+      }
 
       if (J > 1) {
         ITEMP = WORK.maxloc(N + J, 2 * N);
@@ -137,11 +130,10 @@ void zpstf2(
               A(PVT, PVT + 1).asArray(), LDA);
         }
         for (I = J + 1; I <= PVT - 1; I++) {
-          // 140
           ZTEMP = A[J][I].conjugate();
           A[J][I] = A[I][PVT].conjugate();
           A[I][PVT] = ZTEMP;
-        } // 140
+        }
         A[J][PVT] = A[J][PVT].conjugate();
 
         // Swap dot products and PIV
@@ -166,26 +158,22 @@ void zpstf2(
         zlacgv(J - 1, A(1, J).asArray(), 1);
         zdscal(N - J, ONE / AJJ, A(J, J + 1).asArray(), LDA);
       }
-    } // 150
+    }
   } else {
     // Compute the Cholesky factorization P**T * A * P = L * L**H
 
     for (J = 1; J <= N; J++) {
-      // 180
-
       // Find pivot, test for exit, else swap rows and columns
       // Update dot products, compute possible pivots which are
       // stored in the second half of WORK
 
       for (I = J; I <= N; I++) {
-        // 160
-
         if (J > 1) {
           WORK[I] =
               WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).toDouble();
         }
         WORK[N + I] = A[I][I].toDouble() - WORK[I];
-      } // 160
+      }
 
       if (J > 1) {
         ITEMP = WORK.maxloc(N + J, 2 * N);
@@ -212,11 +200,10 @@ void zpstf2(
               1);
         }
         for (I = J + 1; I <= PVT - 1; I++) {
-          // 170
           ZTEMP = A[I][J].conjugate();
           A[I][J] = A[PVT][I].conjugate();
           A[PVT][I] = ZTEMP;
-        } // 170
+        }
         A[PVT][J] = A[PVT][J].conjugate();
 
         // Swap dot products and PIV
@@ -241,7 +228,7 @@ void zpstf2(
         zlacgv(J - 1, A(J, 1).asArray(), LDA);
         zdscal(N - J, ONE / AJJ, A(J + 1, J).asArray(), 1);
       }
-    } // 180
+    }
   }
 
   // Ran to completion, A has full rank

@@ -127,9 +127,8 @@ void zggsvp3(
   //                                       (  0   0  )
 
   for (I = 1; I <= N; I++) {
-    // 10
     IWORK[I] = 0;
-  } // 10
+  }
   zgeqp3(P, N, B, LDB, IWORK, TAU, WORK, LWORK, RWORK, INFO);
 
   // Update A := A*P
@@ -140,9 +139,8 @@ void zggsvp3(
 
   L.value = 0;
   for (I = 1; I <= min(P, N); I++) {
-    // 20
     if ((B[I][I]).abs() > TOLB) L.value++;
-  } // 20
+  }
 
   if (WANTV) {
     // Copy the details of V, and form V.
@@ -155,12 +153,10 @@ void zggsvp3(
   // Clean up B
 
   for (J = 1; J <= L.value - 1; J++) {
-    // 40
     for (I = J + 1; I <= L.value; I++) {
-      // 30
       B[I][J] = Complex.zero;
-    } // 30
-  } // 40
+    }
+  }
   if (P > L.value) {
     zlaset('Full', P - L.value, N, Complex.zero, Complex.zero,
         B(L.value + 1, 1), LDB);
@@ -193,12 +189,10 @@ void zggsvp3(
 
     zlaset('Full', L.value, N - L.value, Complex.zero, Complex.zero, B, LDB);
     for (J = N - L.value + 1; J <= N; J++) {
-      // 60
       for (I = J - N + L.value + 1; I <= L.value; I++) {
-        // 50
         B[I][J] = Complex.zero;
-      } // 50
-    } // 60
+      }
+    }
   }
 
   // Let              N-L.value     L.value
@@ -210,18 +204,16 @@ void zggsvp3(
   //         (  0   0  )
 
   for (I = 1; I <= N - L.value; I++) {
-    // 70
     IWORK[I] = 0;
-  } // 70
+  }
   zgeqp3(M, N - L.value, A, LDA, IWORK, TAU, WORK, LWORK, RWORK, INFO);
 
   // Determine the effective rank of A11
 
   K.value = 0;
   for (I = 1; I <= min(M, N - L.value); I++) {
-    // 80
     if ((A[I][I]).abs() > TOLA) K.value++;
-  } // 80
+  }
 
   // Update A12 := U**H*A12, where A12 = A( 1:M, N-L.value+1:N )
 
@@ -246,12 +238,10 @@ void zggsvp3(
   // A(1:K.value, 1:K.value) = 0, and A( K.value+1:M, 1:N-L.value ) = 0.
 
   for (J = 1; J <= K.value - 1; J++) {
-    // 100
     for (I = J + 1; I <= K.value; I++) {
-      // 90
       A[I][J] = Complex.zero;
-    } // 90
-  } // 100
+    }
+  }
   if (M > K.value) {
     zlaset('Full', M - K.value, N - L.value, Complex.zero, Complex.zero,
         A(K.value + 1, 1), LDA);
@@ -274,12 +264,10 @@ void zggsvp3(
     zlaset('Full', K.value, N - L.value - K.value, Complex.zero, Complex.zero,
         A, LDA);
     for (J = N - L.value - K.value + 1; J <= N - L.value; J++) {
-      // 120
       for (I = J - N + L.value + K.value + 1; I <= K.value; I++) {
-        // 110
         A[I][J] = Complex.zero;
-      } // 110
-    } // 120
+      }
+    }
   }
 
   if (M > K.value) {
@@ -309,12 +297,10 @@ void zggsvp3(
     // Clean up
 
     for (J = N - L.value + 1; J <= N; J++) {
-      // 140
       for (I = J - N + K.value + L.value + 1; I <= M; I++) {
-        // 130
         A[I][J] = Complex.zero;
-      } // 130
-    } // 140
+      }
+    }
   }
 
   WORK[1] = LWKOPT.toComplex();

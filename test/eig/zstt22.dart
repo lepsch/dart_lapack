@@ -52,9 +52,8 @@ void zstt22(
   if (N > 1) {
     ANORM = AD[1].abs() + AE[1].abs();
     for (J = 2; J <= N - 1; J++) {
-      // 10
       ANORM = max(ANORM, AD[J].abs() + AE[J].abs() + AE[J - 1].abs());
-    } // 10
+    }
     ANORM = max(ANORM, AD[N].abs() + AE[N - 1].abs());
   } else {
     ANORM = (AD[1]).abs();
@@ -64,24 +63,21 @@ void zstt22(
   // Norm of U*AU - S
 
   for (I = 1; I <= M; I++) {
-    // 40
     for (J = 1; J <= M; J++) {
-      // 30
       WORK[I][J] = Complex.zero;
       for (K = 1; K <= N; K++) {
-        // 20
         AUKJ = AD[K].toComplex() * U[K][J];
         if (K != N) AUKJ += AE[K].toComplex() * U[K + 1][J];
         if (K != 1) AUKJ += AE[K - 1].toComplex() * U[K - 1][J];
         WORK[I][J] += U[K][I] * AUKJ;
-      } // 20
-    } // 30
+      }
+    }
     WORK[I][I] -= SD[I].toComplex();
     if (KBAND == 1) {
       if (I != 1) WORK[I][I - 1] -= SE[I - 1].toComplex();
       if (I != N) WORK[I][I + 1] -= SE[I].toComplex();
     }
-  } // 40
+  }
 
   WNORM = zlansy('1', 'L', M, WORK, M, RWORK);
 
@@ -102,9 +98,8 @@ void zstt22(
   zgemm('T', 'N', M, M, N, Complex.one, U, LDU, U, LDU, Complex.zero, WORK, M);
 
   for (J = 1; J <= M; J++) {
-    // 50
     WORK[J][J] -= Complex.one;
-  } // 50
+  }
 
   RESULT[2] = min(M.toDouble(), zlange('1', M, M, WORK, M, RWORK)) / (M * ULP);
 }

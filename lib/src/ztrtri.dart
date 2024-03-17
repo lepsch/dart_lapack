@@ -52,9 +52,8 @@ void ztrtri(
 
   if (NOUNIT) {
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 10
       if (A[INFO.value][INFO.value] == Complex.zero) return;
-    } // 10
+    }
     INFO.value = 0;
   }
 
@@ -72,7 +71,6 @@ void ztrtri(
       // Compute inverse of upper triangular matrix
 
       for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
-        // 20
         JB = min(NB, N - J + 1);
 
         // Compute rows 1:j-1 of current block column
@@ -85,13 +83,12 @@ void ztrtri(
         // Compute inverse of current diagonal block
 
         ztrti2('Upper', DIAG, JB, A(J, J), LDA, INFO);
-      } // 20
+      }
     } else {
       // Compute inverse of lower triangular matrix
 
       NN = ((N - 1) ~/ NB) * NB + 1;
       for (J = NN; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
-        // 30
         JB = min(NB, N - J + 1);
         if (J + JB <= N) {
           // Compute rows j+jb:n of current block column
@@ -105,7 +102,7 @@ void ztrtri(
         // Compute inverse of current diagonal block
 
         ztrti2('Lower', DIAG, JB, A(J, J), LDA, INFO);
-      } // 30
+      }
     }
   }
 }

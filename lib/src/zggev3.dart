@@ -342,41 +342,35 @@ void zggev3(
           zggbak('P', 'L', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT),
               N, VL, LDVL, IERR);
           for (JC = 1; JC <= N; JC++) {
-            // 30
             TEMP = ZERO;
             for (JR = 1; JR <= N; JR++) {
-              // 10
               TEMP = max(TEMP, ABS1(VL[JR][JC]));
-            } // 10
+            }
             if (TEMP < SMLNUM) continue;
             TEMP = ONE / TEMP;
             for (JR = 1; JR <= N; JR++) {
-              // 20
               VL[JR][JC] *= TEMP.toComplex();
-            } // 20
-          } // 30
+            }
+          }
         }
         if (ILVR) {
           zggbak('P', 'R', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT),
               N, VR, LDVR, IERR);
           for (JC = 1; JC <= N; JC++) {
-            // 60
             TEMP = ZERO;
             for (JR = 1; JR <= N; JR++) {
-              // 40
               TEMP = max(TEMP, ABS1(VR[JR][JC]));
-            } // 40
+            }
             if (TEMP < SMLNUM) continue;
             TEMP = ONE / TEMP;
             for (JR = 1; JR <= N; JR++) {
-              // 50
               VR[JR][JC] *= TEMP.toComplex();
-            } // 50
-          } // 60
+            }
+          }
         }
       }
     }
-  } // 70
+  }
 
   // Undo scaling if necessary
 

@@ -105,12 +105,11 @@ void dlavsp(
             final D12 = A[KCNEXT + K - 1];
             final D21 = D12;
             for (var J = 1; J <= NRHS; J++) {
-              // 20
               final T1 = B[K][J];
               final T2 = B[K + 1][J];
               B[K][J] = D11 * T1 + D12 * T2;
               B[K + 1][J] = D21 * T1 + D22 * T2;
-            } // 20
+            }
           }
 
           // Multiply by  P(K) * inv(U(K))  if K > 1.
@@ -133,7 +132,7 @@ void dlavsp(
           KC = KCNEXT + K + 1;
           K += 2;
         }
-      } // 30
+      }
 
       // Compute  B := L*B
       // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
@@ -186,12 +185,11 @@ void dlavsp(
             final D21 = A[KCNEXT + 1];
             final D12 = D21;
             for (var J = 1; J <= NRHS; J++) {
-              // 50
               final T1 = B[K - 1][J];
               final T2 = B[K][J];
               B[K - 1][J] = D11 * T1 + D12 * T2;
               B[K][J] = D21 * T1 + D22 * T2;
-            } // 50
+            }
           }
 
           // Multiply by  P(K) * inv(L(K))  if K < N.
@@ -215,7 +213,7 @@ void dlavsp(
           KC = KCNEXT;
           K -= 2;
         }
-      } // 60
+      }
     }
     // ----------------------------------------
     //
@@ -281,17 +279,16 @@ void dlavsp(
             final D12 = A[KC + K - 2];
             final D21 = D12;
             for (var J = 1; J <= NRHS; J++) {
-              // 80
               final T1 = B[K - 1][J];
               final T2 = B[K][J];
               B[K - 1][J] = D11 * T1 + D12 * T2;
               B[K][J] = D21 * T1 + D22 * T2;
-            } // 80
+            }
           }
           KC = KCNEXT;
           K -= 2;
         }
-      } // 90
+      }
 
       // Form  B := L'*B
       // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
@@ -349,17 +346,16 @@ void dlavsp(
             final D21 = A[KC + 1];
             final D12 = D21;
             for (var J = 1; J <= NRHS; J++) {
-              // 110
               final T1 = B[K][J];
               final T2 = B[K + 1][J];
               B[K][J] = D11 * T1 + D12 * T2;
               B[K + 1][J] = D21 * T1 + D22 * T2;
-            } // 110
+            }
           }
           KC = KCNEXT + (N - K);
           K += 2;
         }
-      } // 120
+      }
     }
   }
 }

@@ -117,18 +117,16 @@
       } else {
          RANK = 1;
       }
-
-      // } // 10
       if ( RANK < MN ) {
          I = RANK + 1;
          dlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
          dlaic1(IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND <= SMINPR ) {
-            for (I = 1; I <= RANK; I++) { // 20
+            for (I = 1; I <= RANK; I++) {
                WORK[ISMIN+I-1] = S1*WORK( ISMIN+I-1 );
                WORK[ISMAX+I-1] = S2*WORK( ISMAX+I-1 );
-            } // 20
+            }
             WORK[ISMIN+RANK] = C1;
             WORK[ISMAX+RANK] = C2;
             SMIN = SMINPR;
@@ -158,35 +156,34 @@
 
       dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, ONE, A, LDA, B, LDB );
 
-      for (I = RANK + 1; I <= N; I++) { // 40
-         for (J = 1; J <= NRHS; J++) { // 30
+      for (I = RANK + 1; I <= N; I++) {
+         for (J = 1; J <= NRHS; J++) {
             B[I][J] = ZERO;
-         } // 30
-      } // 40
+         }
+      }
 
       // B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
 
       if ( RANK < N ) {
-         for (I = 1; I <= RANK; I++) { // 50
+         for (I = 1; I <= RANK; I++) {
             dlatzm('Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, WORK( MN+I ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) );
-         } // 50
+         }
       }
 
       // workspace NRHS
 
       // B(1:N,1:NRHS) := P * B(1:N,1:NRHS)
 
-      for (J = 1; J <= NRHS; J++) { // 90
-         for (I = 1; I <= N; I++) { // 60
+      for (J = 1; J <= NRHS; J++) {
+         for (I = 1; I <= N; I++) {
             WORK[2*MN+I] = NTDONE;
-         } // 60
-         for (I = 1; I <= N; I++) { // 80
+         }
+         for (I = 1; I <= N; I++) {
             if ( WORK( 2*MN+I ) == NTDONE ) {
                if ( JPVT( I ) != I ) {
                   K = I;
                   T1 = B( K, J );
                   T2 = B( JPVT( K ), J );
-                  // } // 70
                   B[JPVT( K )][J] = T1;
                   WORK[2*MN+K] = DONE;
                   T1 = T2;
@@ -197,8 +194,8 @@
                   WORK[2*MN+K] = DONE;
                }
             }
-         } // 80
-      } // 90
+         }
+      }
 
       // Undo scaling
 
@@ -214,7 +211,5 @@
       } else if ( IBSCL == 2 ) {
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
-
-      // } // 100
 
       }

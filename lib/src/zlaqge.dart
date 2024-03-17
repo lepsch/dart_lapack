@@ -49,37 +49,31 @@ void zlaqge(
       // Column scaling
 
       for (J = 1; J <= N; J++) {
-        // 20
         CJ = C[J];
         for (I = 1; I <= M; I++) {
-          // 10
           A[I][J] = CJ.toComplex() * A[I][J];
-        } // 10
-      } // 20
+        }
+      }
       EQUED.value = 'C';
     }
   } else if (COLCND >= THRESH) {
     // Row scaling, no column scaling
 
     for (J = 1; J <= N; J++) {
-      // 40
       for (I = 1; I <= M; I++) {
-        // 30
         A[I][J] = R[I].toComplex() * A[I][J];
-      } // 30
-    } // 40
+      }
+    }
     EQUED.value = 'R';
   } else {
     // Row and column scaling
 
     for (J = 1; J <= N; J++) {
-      // 60
       CJ = C[J];
       for (I = 1; I <= M; I++) {
-        // 50
         A[I][J] = (CJ * R[I]).toComplex() * A[I][J];
-      } // 50
-    } // 60
+      }
+    }
     EQUED.value = 'B';
   }
 }

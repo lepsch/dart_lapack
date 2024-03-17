@@ -181,13 +181,11 @@ void zhetrd_hb2st(
 
   if (KD == 0) {
     for (I = 1; I <= N; I++) {
-      // 30
       D[I] = (AB[ABDPOS][I]).toDouble();
-    } // 30
+    }
     for (I = 1; I <= N - 1; I++) {
-      // 40
       E[I] = RZERO;
-    } // 40
+    }
 
     HOUS[1] = Complex.one;
     WORK[1] = Complex.one;
@@ -206,15 +204,13 @@ void zhetrd_hb2st(
 
   if (KD == 1) {
     for (I = 1; I <= N; I++) {
-      // 50
       D[I] = (AB[ABDPOS][I]).toDouble();
-    } // 50
+    }
 
     // make off-diagonal elements real and copy them to E
 
     if (UPPER) {
       for (I = 1; I <= N - 1; I++) {
-        // 60
         TMP = AB[ABOFDPOS][I + 1];
         ABSTMP = TMP.abs();
         AB[ABOFDPOS][I + 1] = ABSTMP.toComplex();
@@ -228,10 +224,9 @@ void zhetrd_hb2st(
         // IF( WANTZ ) THEN
         //    CALL ZSCAL( N, DCONJG( TMP ), Q( 1, I+1 ), 1 )
         // END IF
-      } // 60
+      }
     } else {
       for (I = 1; I <= N - 1; I++) {
-        // 70
         TMP = AB[ABOFDPOS][I];
         ABSTMP = TMP.abs();
         AB[ABOFDPOS][I] = ABSTMP.toComplex();
@@ -245,7 +240,7 @@ void zhetrd_hb2st(
         // IF( WANTQ ) THEN
         //    CALL ZSCAL( N, TMP, Q( 1, I+1 ), 1 )
         // END IF
-      } // 70
+      }
     }
 
     HOUS[1] = Complex.one;
@@ -282,20 +277,15 @@ void zhetrd_hb2st(
   // main bulge chasing loop
 
   for (THGRID = 1; THGRID <= THGRNB; THGRID++) {
-    // 100
     STT = (THGRID - 1) * THGRSIZ + 1;
     THED = min((STT + THGRSIZ - 1), (N - 1));
     for (I = STT; I <= N - 1; I++) {
-      // 110
       ED = min(I, THED);
       if (STT > ED) break;
       for (M = 1; M <= STEPERCOL; M++) {
-        // 120
         ST = STT;
         for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) {
-          // 130
           for (K = 1; K <= GRSIZ; K++) {
-            // 140
             MYID = (I - SWEEPID) * (STEPERCOL * GRSIZ) + (M - 1) * GRSIZ + K;
             if (MYID == 1) {
               TTYPE = 1;
@@ -389,11 +379,11 @@ void zhetrd_hb2st(
               STT++;
               break;
             }
-          } // 140
-        } // 130
-      } // 120
-    } // 110
-  } // 100
+          }
+        }
+      }
+    }
+  }
 
 // #if defined(_OPENMP)
 // $OMP END MASTER
@@ -404,23 +394,20 @@ void zhetrd_hb2st(
   // the Real part is needed, the imaginary part should be zero.
 
   for (I = 1; I <= N; I++) {
-    // 150
     D[I] = WORK[DPOS + (I - 1) * LDA].real;
-  } // 150
+  }
 
   // Copy the off diagonal from A to E. Note that E is REAL thus only
   // the Real part is needed, the imaginary part should be zero.
 
   if (UPPER) {
     for (I = 1; I <= N - 1; I++) {
-      // 160
       E[I] = WORK[OFDPOS + I * LDA].real;
-    } // 160
+    }
   } else {
     for (I = 1; I <= N - 1; I++) {
-      // 170
       E[I] = WORK[OFDPOS + (I - 1) * LDA].real;
-    } // 170
+    }
   }
 
   WORK[1] = LWMIN.toComplex();

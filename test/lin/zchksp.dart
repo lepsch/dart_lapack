@@ -81,9 +81,8 @@ void zchksp(
   var NFAIL = 0;
   final NERRS = Box(0);
   for (var I = 1; I <= 4; I++) {
-    // 10
     ISEED[I] = ISEEDY[I - 1];
-  } // 10
+  }
 
   // Test the error exits
 
@@ -93,15 +92,12 @@ void zchksp(
   // Do for each value of N in NVAL
 
   for (var IN = 1; IN <= NN; IN++) {
-    // 170
     final N = NVAL[IN];
     final LDA = max(N, 1);
     var XTYPE = 'N';
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
-      // 160
-
       // Do the tests only if DOTYPE( IMAT ) is true.
 
       if (!DOTYPE[IMAT]) continue;
@@ -114,7 +110,6 @@ void zchksp(
       // Do first for UPLO = 'U', then for UPLO = 'L'
 
       for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
-        // 150
         final UPLO = UPLOS[IUPLO - 1];
         final PACKIT = lsame(UPLO, 'U') ? 'C' : 'R';
 
@@ -157,27 +152,23 @@ void zchksp(
               if (IUPLO == 1) {
                 var IOFF = (IZERO - 1) * IZERO ~/ 2;
                 for (var I = 1; I <= IZERO - 1; I++) {
-                  // 20
                   A[IOFF + I] = Complex.zero;
-                } // 20
+                }
                 IOFF += IZERO;
                 for (var I = IZERO; I <= N; I++) {
-                  // 30
                   A[IOFF] = Complex.zero;
                   IOFF += I;
-                } // 30
+                }
               } else {
                 var IOFF = IZERO;
                 for (var I = 1; I <= IZERO - 1; I++) {
-                  // 40
                   A[IOFF] = Complex.zero;
                   IOFF += N - I;
-                } // 40
+                }
                 IOFF -= IZERO;
                 for (var I = IZERO; I <= N; I++) {
-                  // 50
                   A[IOFF + I] = Complex.zero;
-                } // 50
+                }
               }
             } else {
               if (IUPLO == 1) {
@@ -185,27 +176,23 @@ void zchksp(
 
                 var IOFF = 0;
                 for (var J = 1; J <= N; J++) {
-                  // 70
                   final I2 = min(J, IZERO);
                   for (var I = 1; I <= I2; I++) {
-                    // 60
                     A[IOFF + I] = Complex.zero;
-                  } // 60
+                  }
                   IOFF += J;
-                } // 70
+                }
               } else {
                 // Set the last IZERO rows and columns to zero.
 
                 var IOFF = 0;
                 for (var J = 1; J <= N; J++) {
-                  // 90
                   final I1 = max(J, IZERO);
                   for (var I = I1; I <= N; I++) {
-                    // 80
                     A[IOFF + I] = Complex.zero;
-                  } // 80
+                  }
                   IOFF += N - J;
-                } // 90
+                }
               }
             }
           } else {
@@ -285,14 +272,13 @@ void zchksp(
         // the threshold.
 
         for (var K = 1; K <= NT; K++) {
-          // 110
           if (RESULT[K] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
             NOUT.println(
                 ' UPLO = \'${UPLO.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
             NFAIL++;
           }
-        } // 110
+        }
         NRUN += NT;
 
         // Do only the condition estimate if INFO.value is not 0.
@@ -301,7 +287,6 @@ void zchksp(
           RCONDC.value = ZERO;
         } else {
           for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-            // 130
             final NRHS = NSVAL[IRHS];
 
             // +    TEST 3
@@ -369,17 +354,16 @@ void zchksp(
             // the threshold.
 
             for (var K = 3; K <= 7; K++) {
-              // 120
               if (RESULT[K] >= THRESH) {
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                 NOUT.println(
                     ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
                 NFAIL++;
               }
-            } // 120
+            }
             NRUN += 5;
-          } // 130
-        } // 140
+          }
+        }
 
         // +    TEST 8
         // Get an estimate of RCOND = 1/CNDNUM.
@@ -407,9 +391,9 @@ void zchksp(
           NFAIL++;
         }
         NRUN++;
-      } // 150
-    } // 160
-  } // 170
+      }
+    }
+  }
 
   // Print a summary of the results.
 

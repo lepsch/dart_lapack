@@ -44,8 +44,6 @@ void zgeql2(
   K = min(M, N);
 
   for (I = K; I >= 1; I--) {
-    // 10
-
     // Generate elementary reflector H(i) to annihilate
     // A(1:m-k+i-1,n-k+i)
 
@@ -58,5 +56,5 @@ void zgeql2(
     zlarf('Left', M - K + I, N - K + I - 1, A(1, N - K + I).asArray(), 1,
         TAU[I].conjugate(), A, LDA, WORK);
     A[M - K + I][N - K + I] = ALPHA.value;
-  } // 10
+  }
 }

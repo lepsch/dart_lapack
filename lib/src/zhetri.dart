@@ -58,20 +58,18 @@ void zhetri(
     // Upper triangular storage: examine D from bottom to top
 
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
-      // 10
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
       }
-    } // 10
+    }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      // 20
       if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
       }
-    } // 20
+    }
   }
   INFO.value = 0;
 
@@ -140,11 +138,10 @@ void zhetri(
 
         zswap(KP - 1, A(1, K).asArray(), 1, A(1, KP).asArray(), 1);
         for (J = KP + 1; J <= K - 1; J++) {
-          // 40
           TEMP = A[J][K].conjugate();
           A[J][K] = A[KP][J].conjugate();
           A[KP][J] = TEMP;
-        } // 40
+        }
         A[KP][K] = A[KP][K].conjugate();
         TEMP = A[K][K];
         A[K][K] = A[KP][KP];
@@ -157,7 +154,7 @@ void zhetri(
       }
 
       K += KSTEP;
-    } // 50
+    }
   } else {
     // Compute inv(A) from the factorization A = L*D*L**H.
 
@@ -226,11 +223,10 @@ void zhetri(
           zswap(N - KP, A(KP + 1, K).asArray(), 1, A(KP + 1, KP).asArray(), 1);
         }
         for (J = K + 1; J <= KP - 1; J++) {
-          // 70
           TEMP = A[J][K].conjugate();
           A[J][K] = A[KP][J].conjugate();
           A[KP][J] = TEMP;
-        } // 70
+        }
         A[KP][K] = A[KP][K].conjugate();
         TEMP = A[K][K];
         A[K][K] = A[KP][KP];
@@ -243,6 +239,6 @@ void zhetri(
       }
 
       K -= KSTEP;
-    } // 80
+    }
   }
 }

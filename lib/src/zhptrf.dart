@@ -101,13 +101,12 @@ void zhptrf(
           JMAX = IMAX;
           KX = IMAX * (IMAX + 1) ~/ 2 + IMAX;
           for (J = IMAX + 1; J <= K; J++) {
-            // 20
             if (CABS1(AP[KX]) > ROWMAX) {
               ROWMAX = CABS1(AP[KX]);
               JMAX = J;
             }
             KX += J;
-          } // 20
+          }
           KPC = (IMAX - 1) * IMAX ~/ 2 + 1;
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, AP(KPC), 1);
@@ -141,12 +140,11 @@ void zhptrf(
           zswap(KP - 1, AP(KNC), 1, AP(KPC), 1);
           KX = KPC + KP - 1;
           for (J = KP + 1; J <= KK - 1; J++) {
-            // 30
             KX += J - 1;
             T = AP[KNC + J - 1].conjugate();
             AP[KNC + J - 1] = AP[KX].conjugate();
             AP[KX] = T;
-          } // 30
+          }
           AP[KX + KK - 1] = AP[KX + KK - 1].conjugate();
           R1 = AP[KNC + KK - 1].toDouble();
           AP[KNC + KK - 1] = AP[KPC + KP - 1].real.toComplex();
@@ -204,7 +202,6 @@ void zhptrf(
             D = TT / D;
 
             for (J = K - 2; J >= 1; J--) {
-              // 50
               WKM1 = D.toComplex() *
                   (D11.toComplex() * AP[J + (K - 2) * (K - 1) ~/ 2] -
                       D12.conjugate() * AP[J + (K - 1) * K ~/ 2]);
@@ -212,16 +209,15 @@ void zhptrf(
                   (D22.toComplex() * AP[J + (K - 1) * K ~/ 2] -
                       D12 * AP[J + (K - 2) * (K - 1) ~/ 2]);
               for (I = J; I >= 1; I--) {
-                // 40
                 AP[I + (J - 1) * J ~/ 2] -=
                     AP[I + (K - 1) * K ~/ 2] * WK.conjugate() -
                         AP[I + (K - 2) * (K - 1) ~/ 2] * WKM1.conjugate();
-              } // 40
+              }
               AP[J + (K - 1) * K ~/ 2] = WK;
               AP[J + (K - 2) * (K - 1) ~/ 2] = WKM1;
               AP[J + (J - 1) * J ~/ 2] =
                   AP[J + (J - 1) * J ~/ 2].real.toComplex();
-            } // 50
+            }
           }
         }
       }
@@ -290,13 +286,12 @@ void zhptrf(
           ROWMAX = ZERO;
           KX = KC + IMAX - K;
           for (J = K; J <= IMAX - 1; J++) {
-            // 70
             if (CABS1(AP[KX]) > ROWMAX) {
               ROWMAX = CABS1(AP[KX]);
               JMAX = J;
             }
             KX += N - J;
-          } // 70
+          }
           KPC = NPP - (N - IMAX + 1) * (N - IMAX + 2) ~/ 2 + 1;
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, AP(KPC + 1), 1);
@@ -330,12 +325,11 @@ void zhptrf(
           if (KP < N) zswap(N - KP, AP(KNC + KP - KK + 1), 1, AP(KPC + 1), 1);
           KX = KNC + KP - KK;
           for (J = KK + 1; J <= KP - 1; J++) {
-            // 80
             KX += N - J + 1;
             T = AP[KNC + J - KK].conjugate();
             AP[KNC + J - KK] = AP[KX].conjugate();
             AP[KX] = T;
-          } // 80
+          }
           AP[KNC + KP - KK] = AP[KNC + KP - KK].conjugate();
           R1 = AP[KNC].toDouble();
           AP[KNC] = AP[KPC].real.toComplex();
@@ -398,7 +392,6 @@ void zhptrf(
             D = TT / D;
 
             for (J = K + 2; J <= N; J++) {
-              // 100
               WK = D.toComplex() *
                   (D11.toComplex() * AP[J + (K - 1) * (2 * N - K) ~/ 2] -
                       D21 * AP[J + K * (2 * N - K - 1) ~/ 2]);
@@ -406,17 +399,16 @@ void zhptrf(
                   (D22.toComplex() * AP[J + K * (2 * N - K - 1) ~/ 2] -
                       D21.conjugate() * AP[J + (K - 1) * (2 * N - K) ~/ 2]);
               for (I = J; I <= N; I++) {
-                // 90
                 AP[I + (J - 1) * (2 * N - J) ~/ 2] =
                     AP[I + (J - 1) * (2 * N - J) ~/ 2] -
                         AP[I + (K - 1) * (2 * N - K) ~/ 2] * WK.conjugate() -
                         AP[I + K * (2 * N - K - 1) ~/ 2] * WKP1.conjugate();
-              } // 90
+              }
               AP[J + (K - 1) * (2 * N - K) ~/ 2] = WK;
               AP[J + K * (2 * N - K - 1) ~/ 2] = WKP1;
               AP[J + (J - 1) * (2 * N - J) ~/ 2] =
                   AP[J + (J - 1) * (2 * N - J) ~/ 2].real.toComplex();
-            } // 100
+            }
           }
         }
       }

@@ -54,8 +54,6 @@ void zpbtf2(
     // Compute the Cholesky factorization A = U**H * U.
 
     for (J = 1; J <= N; J++) {
-      // 10
-
       // Compute U(J,J) and test for non-positive-definiteness.
 
       AJJ = AB[KD + 1][J].toDouble();
@@ -78,13 +76,11 @@ void zpbtf2(
             KLD);
         zlacgv(KN, AB(KD, J + 1).asArray(), KLD);
       }
-    } // 10
+    }
   } else {
     // Compute the Cholesky factorization A = L*L**H.
 
     for (J = 1; J <= N; J++) {
-      // 20
-
       // Compute L(J,J) and test for non-positive-definiteness.
 
       AJJ = AB[1][J].toDouble();
@@ -104,6 +100,6 @@ void zpbtf2(
         zdscal(KN, ONE / AJJ, AB(2, J).asArray(), 1);
         zher('Lower', KN, -ONE, AB(2, J).asArray(), 1, AB(1, J + 1), KLD);
       }
-    } // 20
+    }
   }
 }

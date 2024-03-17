@@ -107,12 +107,11 @@ void zlavsp(
             D12 = A[KCNEXT + K - 1];
             D21 = D12;
             for (var J = 1; J <= NRHS; J++) {
-              // 20
               T1 = B[K][J];
               T2 = B[K + 1][J];
               B[K][J] = D11 * T1 + D12 * T2;
               B[K + 1][J] = D21 * T1 + D22 * T2;
-            } // 20
+            }
           }
 
           // Multiply by  P(K) * inv(U(K))  if K > 1.
@@ -135,7 +134,7 @@ void zlavsp(
           KC = KCNEXT + K + 1;
           K += 2;
         }
-      } // 30
+      }
 
       // Compute  B := L*B
       // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
@@ -188,12 +187,11 @@ void zlavsp(
             D21 = A[KCNEXT + 1];
             D12 = D21;
             for (var J = 1; J <= NRHS; J++) {
-              // 50
               T1 = B[K - 1][J];
               T2 = B[K][J];
               B[K - 1][J] = D11 * T1 + D12 * T2;
               B[K][J] = D21 * T1 + D22 * T2;
-            } // 50
+            }
           }
 
           // Multiply by  P(K) * inv(L(K))  if K < N.
@@ -217,7 +215,7 @@ void zlavsp(
           KC = KCNEXT;
           K -= 2;
         }
-      } // 60
+      }
     }
     // -------------------------------------------------
     //
@@ -264,7 +262,7 @@ void zlavsp(
           if (K > 2) {
             // Interchange if P(K) != I.
 
-           final KP = (IPIV[K]).abs();
+            final KP = (IPIV[K]).abs();
             if (KP != K - 1) {
               zswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -286,17 +284,16 @@ void zlavsp(
             D12 = A[KC + K - 2];
             D21 = D12;
             for (var J = 1; J <= NRHS; J++) {
-              // 80
               T1 = B[K - 1][J];
               T2 = B[K][J];
               B[K - 1][J] = D11 * T1 + D12 * T2;
               B[K][J] = D21 * T1 + D22 * T2;
-            } // 80
+            }
           }
           KC = KCNEXT;
           K -= 2;
         }
-      } // 90
+      }
 
       // Form  B := L^T*B
       // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
@@ -313,7 +310,7 @@ void zlavsp(
           if (K < N) {
             // Interchange if P(K) != I.
 
-           final KP = IPIV[K];
+            final KP = IPIV[K];
             if (KP != K) {
               zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -333,7 +330,7 @@ void zlavsp(
           if (K < N - 1) {
             // Interchange if P(K) != I.
 
-           final KP = (IPIV[K]).abs();
+            final KP = (IPIV[K]).abs();
             if (KP != K + 1) {
               zswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
             }
@@ -355,17 +352,16 @@ void zlavsp(
             D21 = A[KC + 1];
             D12 = D21;
             for (var J = 1; J <= NRHS; J++) {
-              // 110
               T1 = B[K][J];
               T2 = B[K + 1][J];
               B[K][J] = D11 * T1 + D12 * T2;
               B[K + 1][J] = D21 * T1 + D22 * T2;
-            } // 110
+            }
           }
           KC = KCNEXT + (N - K);
           K += 2;
         }
-      } // 120
+      }
     }
   }
 }

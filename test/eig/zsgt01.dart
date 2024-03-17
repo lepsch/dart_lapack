@@ -53,9 +53,8 @@ void zsgt01(
     zhemm('Left', UPLO, N, M, Complex.one, A, LDA, Z, LDZ, Complex.zero,
         WORK.asMatrix(), N);
     for (I = 1; I <= M; I++) {
-      // 10
       zdscal(N, D[I], Z(1, I).asArray(), 1);
-    } // 10
+    }
     zhemm('Left', UPLO, N, M, Complex.one, B, LDB, Z, LDZ, -Complex.one,
         WORK.asMatrix(), N);
 
@@ -67,9 +66,8 @@ void zsgt01(
     zhemm('Left', UPLO, N, M, Complex.one, B, LDB, Z, LDZ, Complex.zero,
         WORK.asMatrix(), N);
     for (I = 1; I <= M; I++) {
-      // 20
       zdscal(N, D[I], Z(1, I).asArray(), 1);
-    } // 20
+    }
     zhemm('Left', UPLO, N, M, Complex.one, A, LDA, WORK.asMatrix(), N,
         -Complex.one, Z, LDZ);
 
@@ -80,9 +78,8 @@ void zsgt01(
     zhemm('Left', UPLO, N, M, Complex.one, A, LDA, Z, LDZ, Complex.zero,
         WORK.asMatrix(), N);
     for (I = 1; I <= M; I++) {
-      // 30
       zdscal(N, D[I], Z(1, I).asArray(), 1);
-    } // 30
+    }
     zhemm('Left', UPLO, N, M, Complex.one, B, LDB, WORK.asMatrix(), N,
         -Complex.one, Z, LDZ);
 

@@ -177,13 +177,11 @@ void dsytrd_sb2st(
 
   if (KD == 0) {
     for (I = 1; I <= N; I++) {
-      // 30
       D[I] = (AB[ABDPOS][I]);
-    } // 30
+    }
     for (I = 1; I <= N - 1; I++) {
-      // 40
       E[I] = RZERO;
-    } // 40
+    }
 
     HOUS[1] = 1;
     WORK[1] = 1;
@@ -202,20 +200,17 @@ void dsytrd_sb2st(
 
   if (KD == 1) {
     for (I = 1; I <= N; I++) {
-      // 50
       D[I] = (AB[ABDPOS][I]);
-    } // 50
+    }
 
     if (UPPER) {
       for (I = 1; I <= N - 1; I++) {
-        // 60
         E[I] = (AB[ABOFDPOS][I + 1]);
-      } // 60
+      }
     } else {
       for (I = 1; I <= N - 1; I++) {
-        // 70
         E[I] = (AB[ABOFDPOS][I]);
-      } // 70
+      }
     }
 
     HOUS[1] = 1;
@@ -251,20 +246,15 @@ void dsytrd_sb2st(
   // main bulge chasing loop
 
   for (THGRID = 1; THGRID <= THGRNB; THGRID++) {
-    // 100
     STT = (THGRID - 1) * THGRSIZ + 1;
     THED = min((STT + THGRSIZ - 1), (N - 1));
     for (I = STT; I <= N - 1; I++) {
-      // 110
       ED = min(I, THED);
       if (STT > ED) break;
       for (M = 1; M <= STEPERCOL; M++) {
-        // 120
         ST = STT;
         for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) {
-          // 130
           for (K = 1; K <= GRSIZ; K++) {
-            // 140
             MYID = (I - SWEEPID) * (STEPERCOL * GRSIZ) + (M - 1) * GRSIZ + K;
             if (MYID == 1) {
               TTYPE = 1;
@@ -327,11 +317,11 @@ void dsytrd_sb2st(
               STT++;
               break;
             }
-          } // 140
-        } // 130
-      } // 120
-    } // 110
-  } // 100
+          }
+        }
+      }
+    }
+  }
 
 // #if defined(_OPENMP)
 // $OMP END MASTER
@@ -342,23 +332,20 @@ void dsytrd_sb2st(
   // the Real part is needed, the imaginary part should be zero.
 
   for (I = 1; I <= N; I++) {
-    // 150
     D[I] = WORK[DPOS + (I - 1) * LDA];
-  } // 150
+  }
 
   // Copy the off diagonal from A to E. Note that E is REAL thus only
   // the Real part is needed, the imaginary part should be zero.
 
   if (UPPER) {
     for (I = 1; I <= N - 1; I++) {
-      // 160
       E[I] = WORK[OFDPOS + I * LDA];
-    } // 160
+    }
   } else {
     for (I = 1; I <= N - 1; I++) {
-      // 170
       E[I] = WORK[OFDPOS + (I - 1) * LDA];
-    } // 170
+    }
   }
 
   WORK[1] = LWMIN.toDouble();

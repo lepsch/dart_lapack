@@ -134,9 +134,8 @@ void dggglm(
   // Set y1 = 0
 
   for (I = 1; I <= M + P - N; I++) {
-    // 10
     Y[I] = ZERO;
-  } // 10
+  }
 
   // Update d1 -= T12*y2
 

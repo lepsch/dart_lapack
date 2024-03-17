@@ -63,9 +63,8 @@ void ztrevc(
   if (SOMEV) {
     M.value = 0;
     for (J = 1; J <= N; J++) {
-      // 10
       if (SELECT[J]) M.value++;
-    } // 10
+    }
   } else {
     M.value = N;
   }
@@ -104,26 +103,22 @@ void ztrevc(
   // Store the diagonal elements of T in working array WORK.
 
   for (I = 1; I <= N; I++) {
-    // 20
     WORK[I + N] = T[I][I];
-  } // 20
+  }
 
   // Compute 1-norm of each column of strictly upper triangular
   // part of T to control overflow in triangular solver.
 
   RWORK[1] = ZERO;
   for (J = 2; J <= N; J++) {
-    // 30
     RWORK[J] = dzasum(J - 1, T(1, J).asArray(), 1);
-  } // 30
+  }
 
   if (RIGHTV) {
     // Compute right eigenvectors.
 
     IS = M.value;
     for (KI = N; KI >= 1; KI--) {
-      // 80
-
       if (SOMEV) {
         if (!SELECT[KI]) continue;
       }
@@ -134,18 +129,16 @@ void ztrevc(
       // Form right-hand side.
 
       for (K = 1; K <= KI - 1; K++) {
-        // 40
         WORK[K] = -T[K][KI];
-      } // 40
+      }
 
       // Solve the triangular system:
       //    (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE.value*WORK.
 
       for (K = 1; K <= KI - 1; K++) {
-        // 50
         T[K][K] -= T[KI][KI];
         if (CABS1(T[K][K]) < SMIN) T[K][K] = SMIN.toComplex();
-      } // 50
+      }
 
       if (KI > 1) {
         zlatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI - 1, T, LDT,
@@ -163,9 +156,8 @@ void ztrevc(
         zdscal(KI, REMAX, VR(1, IS).asArray(), 1);
 
         for (K = KI + 1; K <= N; K++) {
-          // 60
           VR[K][IS] = Complex.zero;
-        } // 60
+        }
       } else {
         if (KI > 1) {
           zgemv('N', N, KI - 1, Complex.one, VR, LDVR, WORK(1), 1,
@@ -180,12 +172,11 @@ void ztrevc(
       // Set back the original diagonal elements of T.
 
       for (K = 1; K <= KI - 1; K++) {
-        // 70
         T[K][K] = WORK[K + N];
-      } // 70
+      }
 
       IS--;
-    } // 80
+    }
   }
 
   if (LEFTV) {
@@ -193,8 +184,6 @@ void ztrevc(
 
     IS = 1;
     for (KI = 1; KI <= N; KI++) {
-      // 130
-
       if (SOMEV) {
         if (!SELECT[KI]) continue;
       }
@@ -205,18 +194,16 @@ void ztrevc(
       // Form right-hand side.
 
       for (K = KI + 1; K <= N; K++) {
-        // 90
         WORK[K] = -T[KI][K].conjugate();
-      } // 90
+      }
 
       // Solve the triangular system:
       //    (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE.value*WORK.
 
       for (K = KI + 1; K <= N; K++) {
-        // 100
         T[K][K] -= T[KI][KI];
         if (CABS1(T[K][K]) < SMIN) T[K][K] = SMIN.toComplex();
-      } // 100
+      }
 
       if (KI < N) {
         zlatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N - KI,
@@ -234,9 +221,8 @@ void ztrevc(
         zdscal(N - KI + 1, REMAX, VL(KI, IS).asArray(), 1);
 
         for (K = 1; K <= KI - 1; K++) {
-          // 110
           VL[K][IS] = Complex.zero;
-        } // 110
+        }
       } else {
         if (KI < N) {
           zgemv('N', N, N - KI, Complex.one, VL(1, KI + 1), LDVL, WORK(KI + 1),
@@ -251,11 +237,10 @@ void ztrevc(
       // Set back the original diagonal elements of T.
 
       for (K = KI + 1; K <= N; K++) {
-        // 120
         T[K][K] = WORK[K + N];
-      } // 120
+      }
 
       IS++;
-    } // 130
+    }
   }
 }

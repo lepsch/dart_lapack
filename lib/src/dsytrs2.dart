@@ -102,12 +102,11 @@ void dsytrs2(
           AK = A[I][I] / AKM1K;
           DENOM = AKM1 * AK - ONE;
           for (J = 1; J <= NRHS; J++) {
-            // 15
             BKM1 = B[I - 1][J] / AKM1K;
             BK = B[I][J] / AKM1K;
             B[I - 1][J] = (AK * BKM1 - BK) / DENOM;
             B[I][J] = (AKM1 * BK - BKM1) / DENOM;
-          } // 15
+          }
           I--;
         }
       }
@@ -181,12 +180,11 @@ void dsytrs2(
         AK = A[I + 1][I + 1] / AKM1K;
         DENOM = AKM1 * AK - ONE;
         for (J = 1; J <= NRHS; J++) {
-          // 25
           BKM1 = B[I][J] / AKM1K;
           BK = B[I + 1][J] / AKM1K;
           B[I][J] = (AK * BKM1 - BK) / DENOM;
           B[I + 1][J] = (AKM1 * BK - BKM1) / DENOM;
-        } // 25
+        }
         I++;
       }
       I++;

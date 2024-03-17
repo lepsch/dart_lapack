@@ -90,10 +90,9 @@ void zgbrfs(
 
   if (N == 0 || NRHS == 0) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       FERR[J] = ZERO;
       BERR[J] = ZERO;
-    } // 10
+    }
     return;
   }
 
@@ -116,8 +115,6 @@ void zgbrfs(
   // Do for each right hand side
 
   for (J = 1; J <= NRHS; J++) {
-    // 140
-
     COUNT = 1;
     LSTRES = THREE;
     while (true) {
@@ -140,43 +137,37 @@ void zgbrfs(
       // numerator and denominator before dividing.
 
       for (I = 1; I <= N; I++) {
-        // 30
         RWORK[I] = CABS1(B[I][J]);
-      } // 30
+      }
 
       // Compute abs(op(A))*abs(X) + abs(B).
 
       if (NOTRAN) {
         for (K = 1; K <= N; K++) {
-          // 50
           KK = KU + 1 - K;
           XK = CABS1(X[K][J]);
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
-            // 40
             RWORK[I] += CABS1(AB[KK + I][K]) * XK;
-          } // 40
-        } // 50
+          }
+        }
       } else {
         for (K = 1; K <= N; K++) {
-          // 70
           S = ZERO;
           KK = KU + 1 - K;
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
-            // 60
             S += CABS1(AB[KK + I][K]) * CABS1(X[I][J]);
-          } // 60
+          }
           RWORK[K] += S;
-        } // 70
+        }
       }
       S = ZERO;
       for (I = 1; I <= N; I++) {
-        // 80
         if (RWORK[I] > SAFE2) {
           S = max(S, CABS1(WORK[I]) / RWORK[I]);
         } else {
           S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
         }
-      } // 80
+      }
       BERR[J] = S;
 
       // Test stopping criterion. Continue iterating if
@@ -221,13 +212,12 @@ void zgbrfs(
     // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
     for (I = 1; I <= N; I++) {
-      // 90
       if (RWORK[I] > SAFE2) {
         RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
       } else {
         RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
       }
-    } // 90
+    }
 
     KASE.value = 0;
     while (true) {
@@ -239,16 +229,14 @@ void zgbrfs(
         zgbtrs(
             TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N, INFO);
         for (I = 1; I <= N; I++) {
-          // 110
           WORK[I] = RWORK[I].toComplex() * WORK[I];
-        } // 110
+        }
       } else {
         // Multiply by inv(op(A))*diag(W).
 
         for (I = 1; I <= N; I++) {
-          // 120
           WORK[I] = RWORK[I].toComplex() * WORK[I];
-        } // 120
+        }
         zgbtrs(
             TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N, INFO);
       }
@@ -258,9 +246,8 @@ void zgbrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      // 130
       LSTRES = max(LSTRES, CABS1(X[I][J]));
-    } // 130
+    }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
-  } // 140
+  }
 }

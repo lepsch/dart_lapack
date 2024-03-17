@@ -70,36 +70,28 @@ void zunghr(
   // rows and columns to those of the unit matrix
 
   for (J = IHI; J >= ILO + 1; J--) {
-    // 40
     for (I = 1; I <= J - 1; I++) {
-      // 10
       A[I][J] = Complex.zero;
-    } // 10
+    }
     for (I = J + 1; I <= IHI; I++) {
-      // 20
       A[I][J] = A[I][J - 1];
-    } // 20
+    }
     for (I = IHI + 1; I <= N; I++) {
-      // 30
       A[I][J] = Complex.zero;
-    } // 30
-  } // 40
+    }
+  }
   for (J = 1; J <= ILO; J++) {
-    // 60
     for (I = 1; I <= N; I++) {
-      // 50
       A[I][J] = Complex.zero;
-    } // 50
+    }
     A[J][J] = Complex.one;
-  } // 60
+  }
   for (J = IHI + 1; J <= N; J++) {
-    // 80
     for (I = 1; I <= N; I++) {
-      // 70
       A[I][J] = Complex.zero;
-    } // 70
+    }
     A[J][J] = Complex.one;
-  } // 80
+  }
 
   if (NH > 0) {
     // Generate Q(ilo+1:ihi,ilo+1:ihi)

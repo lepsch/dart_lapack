@@ -158,8 +158,6 @@ void ztgsyl(
     // Use unblocked Level 2 solver
 
     for (IROUND = 1; IROUND <= ISOLVE; IROUND++) {
-      // 30
-
       SCALE.value = ONE;
       DSCALE.value = ZERO;
       DSUM.value = ONE;
@@ -188,7 +186,7 @@ void ztgsyl(
         zlacpy('F', M, N, WORK(M * N + 1).asMatrix(M), M, F, LDF);
         SCALE.value = SCALE2;
       }
-    } // 30
+    }
 
     return;
   }
@@ -224,8 +222,6 @@ void ztgsyl(
 
   if (NOTRAN) {
     for (IROUND = 1; IROUND <= ISOLVE; IROUND++) {
-      // 150
-
       // Solve (I, J) - subsystem
       //     A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
       //     D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
@@ -236,12 +232,10 @@ void ztgsyl(
       DSCALE.value = ZERO;
       DSUM.value = ONE;
       for (J = P + 2; J <= Q; J++) {
-        // 130
         JS = IWORK[J];
         JE = IWORK[J + 1] - 1;
         NB = JE - JS + 1;
         for (I = P; I >= 1; I--) {
-          // 120
           IS = IWORK[I];
           IE = IWORK[I + 1] - 1;
           MB = IE - IS + 1;
@@ -270,27 +264,23 @@ void ztgsyl(
           PQ += MB * NB;
           if (SCALOC.value != ONE) {
             for (K = 1; K <= JS - 1; K++) {
-              // 80
               zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
               zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-            } // 80
+            }
             for (K = JS; K <= JE; K++) {
-              // 90
               zscal(IS - 1, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
               zscal(IS - 1, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-            } // 90
+            }
             for (K = JS; K <= JE; K++) {
-              // 100
               zscal(M - IE, Complex(SCALOC.value, ZERO), C(IE + 1, K).asArray(),
                   1);
               zscal(M - IE, Complex(SCALOC.value, ZERO), F(IE + 1, K).asArray(),
                   1);
-            } // 100
+            }
             for (K = JE + 1; K <= N; K++) {
-              // 110
               zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
               zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-            } // 110
+            }
             SCALE.value *= SCALOC.value;
           }
 
@@ -308,8 +298,8 @@ void ztgsyl(
             zgemm('N', 'N', MB, N - JE, NB, Complex(ONE, ZERO), F(IS, JS), LDF,
                 E(JS, JE + 1), LDE, Complex(ONE, ZERO), F(IS, JE + 1), LDF);
           }
-        } // 120
-      } // 130
+        }
+      }
       if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
           DIF.value =
@@ -332,7 +322,7 @@ void ztgsyl(
         zlacpy('F', M, N, WORK(M * N + 1).asMatrix(M), M, F, LDF);
         SCALE.value = SCALE2;
       }
-    } // 150
+    }
   } else {
     // Solve transposed (I, J)-subsystem
     //     A(I, I)**H * R(I, J) + D(I, I)**H * L(I, J) = C(I, J)
@@ -341,12 +331,10 @@ void ztgsyl(
 
     SCALE.value = ONE;
     for (I = 1; I <= P; I++) {
-      // 210
       IS = IWORK[I];
       IE = IWORK[I + 1] - 1;
       MB = IE - IS + 1;
       for (J = Q; J >= P + 2; J--) {
-        // 200
         JS = IWORK[J];
         JE = IWORK[J + 1] - 1;
         NB = JE - JS + 1;
@@ -374,27 +362,23 @@ void ztgsyl(
         if (LINFO.value > 0) INFO.value = LINFO.value;
         if (SCALOC.value != ONE) {
           for (K = 1; K <= JS - 1; K++) {
-            // 160
             zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
             zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-          } // 160
+          }
           for (K = JS; K <= JE; K++) {
-            // 170
             zscal(IS - 1, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
             zscal(IS - 1, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-          } // 170
+          }
           for (K = JS; K <= JE; K++) {
-            // 180
             zscal(
                 M - IE, Complex(SCALOC.value, ZERO), C(IE + 1, K).asArray(), 1);
             zscal(
                 M - IE, Complex(SCALOC.value, ZERO), F(IE + 1, K).asArray(), 1);
-          } // 180
+          }
           for (K = JE + 1; K <= N; K++) {
-            // 190
             zscal(M, Complex(SCALOC.value, ZERO), C(1, K).asArray(), 1);
             zscal(M, Complex(SCALOC.value, ZERO), F(1, K).asArray(), 1);
-          } // 190
+          }
           SCALE.value *= SCALOC.value;
         }
 
@@ -412,8 +396,8 @@ void ztgsyl(
           zgemm('C', 'N', M - IE, NB, MB, Complex(-ONE, ZERO), D(IS, IE + 1),
               LDD, F(IS, JS), LDF, Complex(ONE, ZERO), C(IE + 1, JS), LDC);
         }
-      } // 200
-    } // 210
+      }
+    }
   }
 
   WORK[1] = LWMIN.toComplex();

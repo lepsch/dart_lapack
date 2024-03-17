@@ -151,10 +151,9 @@ void zdrges(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   if (NSIZES < 0) {
     INFO.value = -1;
@@ -218,7 +217,6 @@ void zdrges(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 190
     N = NN[JSIZE];
     N1 = max(1, N);
     RMAGN[2] = SAFMAX * ULP / N1.toDouble();
@@ -233,23 +231,20 @@ void zdrges(
     // Loop over matrix types
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 180
       if (!DOTYPE[JTYPE]) continue;
       NTEST = 0;
 
       // Save ISEED in case of an error.
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Initialize RESULT
 
       for (J = 1; J <= 13; J++) {
-        // 30
         RESULT[J] = ZERO;
-      } // 30
+      }
 
       // Generate test matrices A and B
 
@@ -338,12 +333,10 @@ void zdrges(
             // a diagonal matrix.
 
             for (JC = 1; JC <= N - 1; JC++) {
-              // 50
               for (JR = JC; JR <= N; JR++) {
-                // 40
                 Q[JR][JC] = zlarnd(3, ISEED);
                 Z[JR][JC] = zlarnd(3, ISEED);
-              } // 40
+              }
               zlarfg(
                   N + 1 - JC, Q(JC, JC), Q(JC + 1, JC).asArray(), 1, WORK(JC));
               WORK[2 * N + JC] = sign(ONE, Q[JC][JC].toDouble()).toComplex();
@@ -352,7 +345,7 @@ void zdrges(
                   WORK(N + JC));
               WORK[3 * N + JC] = sign(ONE, Z[JC][JC].toDouble()).toComplex();
               Z[JC][JC] = Complex.one;
-            } // 50
+            }
             CTEMP = zlarnd(3, ISEED);
             Q[N][N] = Complex.one;
             WORK[N] = Complex.zero;
@@ -365,15 +358,13 @@ void zdrges(
             // Apply the diagonal matrices
 
             for (JC = 1; JC <= N; JC++) {
-              // 70
               for (JR = 1; JR <= N; JR++) {
-                // 60
                 A[JR][JC] =
                     WORK[2 * N + JR] * WORK[3 * N + JC].conjugate() * A[JR][JC];
                 B[JR][JC] =
                     WORK[2 * N + JR] * WORK[3 * N + JC].conjugate() * B[JR][JC];
-              } // 60
-            } // 70
+              }
+            }
             zunm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, A, LDA, WORK(2 * N + 1),
                 IINFO);
             if (IINFO.value == 0) {
@@ -393,13 +384,11 @@ void zdrges(
           // Random matrices
 
           for (JC = 1; JC <= N; JC++) {
-            // 90
             for (JR = 1; JR <= N; JR++) {
-              // 80
               A[JR][JC] = RMAGN[KAMAGN[JTYPE]].toComplex() * zlarnd(4, ISEED);
               B[JR][JC] = RMAGN[KBMAGN[JTYPE]].toComplex() * zlarnd(4, ISEED);
-            } // 80
-          } // 90
+            }
+          }
         }
 
         if (IINFO.value != 0) {
@@ -410,14 +399,12 @@ void zdrges(
       }
 
       for (I = 1; I <= 13; I++) {
-        // 120
         RESULT[I] = -ONE;
-      } // 120
+      }
 
       // Test with and without sorting of eigenvalues
 
       for (ISORT = 0; ISORT <= 1; ISORT++) {
-        // 150
         if (ISORT == 0) {
           SORT = 'N';
           RSUB = 0;
@@ -466,7 +453,6 @@ void zdrges(
         TEMP1 = ZERO;
 
         for (J = 1; J <= N; J++) {
-          // 130
           ILABAD = false;
           TEMP2 = (ABS1(ALPHA[J] - S[J][J]) /
                       max(SAFMIN, max(ABS1(ALPHA[J]), ABS1(S[J][J]))) +
@@ -491,7 +477,7 @@ void zdrges(
             NOUNIT.println(
                 ' ZDRGES: S not in Schur form at eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})');
           }
-        } // 130
+        }
         RESULT[6 + RSUB] = TEMP1;
 
         if (ISORT >= 1) {
@@ -501,23 +487,19 @@ void zdrges(
           RESULT[12] = ZERO;
           KNTEIG = 0;
           for (I = 1; I <= N; I++) {
-            // 140
             if (zlctes(ALPHA[I], BETA[I])) KNTEIG++;
-          } // 140
+          }
           if (SDIM.value != KNTEIG) RESULT[13] = ULPINV;
         }
-      } // 150
+      }
 
       // End of Loop -- Check for RESULT(j) > THRESH
-
-      // } // 160
 
       NTESTT += NTEST;
 
       // Print out tests which fail.
 
       for (JR = 1; JR <= NTEST; JR++) {
-        // 170
         if (RESULT[JR] >= THRESH) {
           // If this is the first test to fail,
           // print a header to the data file.
@@ -552,9 +534,9 @@ void zdrges(
                 ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}');
           }
         }
-      } // 170
-    } // 180
-  } // 190
+      }
+    }
+  }
 
   // Summary
 

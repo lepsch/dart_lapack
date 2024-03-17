@@ -82,10 +82,9 @@ void dpbrfs(
 
   if (N == 0 || NRHS == 0) {
     for (J = 1; J <= NRHS; J++) {
-      // 10
       FERR[J] = ZERO;
       BERR[J] = ZERO;
-    } // 10
+    }
     return;
   }
 
@@ -100,8 +99,6 @@ void dpbrfs(
   // Do for each right hand side
 
   for (J = 1; J <= NRHS; J++) {
-    // 140
-
     COUNT = 1;
     LSTRES = THREE;
     while (true) {
@@ -123,49 +120,43 @@ void dpbrfs(
       // numerator and denominator before dividing.
 
       for (I = 1; I <= N; I++) {
-        // 30
         WORK[I] = B[I][J].abs();
-      } // 30
+      }
 
       // Compute abs(A)*abs(X) + abs(B).
 
       if (UPPER) {
         for (K = 1; K <= N; K++) {
-          // 50
           S = ZERO;
           XK = (X[K][J]).abs();
           L = KD + 1 - K;
           for (I = max(1, K - KD); I <= K - 1; I++) {
-            // 40
             WORK[I] += (AB[L + I][K]).abs() * XK;
             S += (AB[L + I][K]).abs() * (X[I][J]).abs();
-          } // 40
+          }
           WORK[K] += (AB[KD + 1][K]).abs() * XK + S;
-        } // 50
+        }
       } else {
         for (K = 1; K <= N; K++) {
-          // 70
           S = ZERO;
           XK = (X[K][J]).abs();
           WORK[K] += (AB[1][K]).abs() * XK;
           L = 1 - K;
           for (I = K + 1; I <= min(N, K + KD); I++) {
-            // 60
             WORK[I] += (AB[L + I][K]).abs() * XK;
             S += (AB[L + I][K]).abs() * (X[I][J]).abs();
-          } // 60
+          }
           WORK[K] += S;
-        } // 70
+        }
       }
       S = ZERO;
       for (I = 1; I <= N; I++) {
-        // 80
         if (WORK[I] > SAFE2) {
           S = max(S, (WORK[N + I]).abs() / WORK[I]);
         } else {
           S = max(S, ((WORK[N + I]).abs() + SAFE1) / (WORK[I] + SAFE1));
         }
-      } // 80
+      }
       BERR[J] = S;
 
       // Test stopping criterion. Continue iterating if
@@ -208,13 +199,12 @@ void dpbrfs(
     // where W = abs(R) + NZ*EPS*( abs(A)*abs(X)+abs(B) )))
 
     for (I = 1; I <= N; I++) {
-      // 90
       if (WORK[I] > SAFE2) {
         WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I];
       } else {
         WORK[I] = (WORK[N + I]).abs() + NZ * EPS * WORK[I] + SAFE1;
       }
-    } // 90
+    }
 
     KASE.value = 0;
     while (true) {
@@ -225,16 +215,14 @@ void dpbrfs(
 
         dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK(N + 1).asMatrix(N), N, INFO);
         for (I = 1; I <= N; I++) {
-          // 110
           WORK[N + I] *= WORK[I];
-        } // 110
+        }
       } else if (KASE.value == 2) {
         // Multiply by inv(A)*diag(W).
 
         for (I = 1; I <= N; I++) {
-          // 120
           WORK[N + I] *= WORK[I];
-        } // 120
+        }
         dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK(N + 1).asMatrix(N), N, INFO);
       }
     }
@@ -243,9 +231,8 @@ void dpbrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      // 130
       LSTRES = max(LSTRES, (X[I][J]).abs());
-    } // 130
+    }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
-  } // 140
+  }
 }

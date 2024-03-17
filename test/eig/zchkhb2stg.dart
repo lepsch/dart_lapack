@@ -115,18 +115,16 @@ void zchkhb2stg(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   BADNNB = false;
   KMAX = 0;
   for (J = 1; J <= NSIZES; J++) {
-    // 20
     KMAX = max(KMAX, KK[J]);
     if (KK[J] < 0) BADNNB = true;
-  } // 20
+  }
   KMAX = min(NMAX - 1, KMAX);
 
   // Check for errors
@@ -172,12 +170,10 @@ void zchkhb2stg(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 190
     N = NN[JSIZE];
     ANINV = ONE / (max(1, N)).toDouble();
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
-      // 180
       K = KK[JWIDTH];
       if (K > N) continue;
       K = max(0, min(N - 1, K));
@@ -189,14 +185,12 @@ void zchkhb2stg(
       }
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-        // 170
         if (!DOTYPE[JTYPE]) continue;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
-          // 30
           IOLDSD[J] = ISEED[J];
-        } // 30
+        }
 
         // Compute "A".
         // Store as "Upper"; later, we will copy to other format.
@@ -233,7 +227,7 @@ void zchkhb2stg(
             case 3:
               ANORM = RTUNFL * N * ULPINV;
               break;
-          } // 70
+          }
 
           zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
           IINFO.value = 0;
@@ -253,9 +247,8 @@ void zchkhb2stg(
             // Identity
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 80
               A[K + 1][JCOL] = ANORM.toComplex();
-            } // 80
+            }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, [Eigen]values Specified
 
@@ -342,14 +335,13 @@ void zchkhb2stg(
             zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q',
                 A(K, 1), LDA, WORK, IINFO);
             for (I = 2; I <= N; I++) {
-              // 90
               TEMP1 =
                   (A[K][I]).abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
               if (TEMP1 > HALF) {
                 A[K][I] = (HALF * sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs()))
                     .toComplex();
               }
-            } // 90
+            }
           } else {
             IINFO.value = 1;
           }
@@ -448,19 +440,15 @@ void zchkhb2stg(
           // Lower-Triangle-Only storage.
 
           for (JC = 1; JC <= N; JC++) {
-            // 120
             for (JR = 0; JR <= min(K, N - JC); JR++) {
-              // 110
               A[JR + 1][JC] = A[K + 1 - JR][JC + JR].conjugate();
-            } // 110
-          } // 120
+            }
+          }
           for (JC = N + 1 - K; JC <= N; JC++) {
-            // 140
             for (JR = min(K, N - JC) + 1; JR <= K; JR++) {
-              // 130
               A[JR + 1][JC] = Complex.zero;
-            } // 130
-          } // 140
+            }
+          }
 
           // Call ZHBTRD to compute S and U from lower triangle
 
@@ -527,18 +515,17 @@ void zchkhb2stg(
           TEMP4 = ZERO;
 
           for (J = 1; J <= N; J++) {
-            // 151
             TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
             TEMP3 = max(TEMP3, max(D1[J].abs(), D3[J].abs()));
             TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
-          } // 151
+          }
 
           RESULT[5] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           RESULT[6] = TEMP4 / max(UNFL, ULP * max(TEMP3, TEMP4));
 
           break;
-        } // 150
+        }
 
         // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -547,7 +534,6 @@ void zchkhb2stg(
         // Print out tests which fail.
 
         for (JR = 1; JR <= NTEST; JR++) {
-          // 160
           if (RESULT[JR] >= THRESH) {
             // If this is the first test to fail,
             // print a header to the data file.
@@ -571,10 +557,10 @@ void zchkhb2stg(
             NOUNIT.println(
                 ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }
-        } // 160
-      } // 170
-    } // 180
-  } // 190
+        }
+      }
+    }
+  }
 
   // Summary
 

@@ -58,44 +58,40 @@ void dppequ(
 
     JJ = 1;
     for (I = 2; I <= N; I++) {
-      // 10
       JJ += I;
       S[I] = AP[JJ];
       SMIN = min(SMIN, S[I]);
       AMAX.value = max(AMAX.value, S[I]);
-    } // 10
+    }
   } else {
     // UPLO = 'L':  Lower triangle of A is stored.
     // Find the minimum and maximum diagonal elements.
 
     JJ = 1;
     for (I = 2; I <= N; I++) {
-      // 20
       JJ += N - I + 2;
       S[I] = AP[JJ];
       SMIN = min(SMIN, S[I]);
       AMAX.value = max(AMAX.value, S[I]);
-    } // 20
+    }
   }
 
   if (SMIN <= ZERO) {
     // Find the first non-positive diagonal element and return.
 
     for (I = 1; I <= N; I++) {
-      // 30
       if (S[I] <= ZERO) {
         INFO.value = I;
         return;
       }
-    } // 30
+    }
   } else {
     // Set the scale factors to the reciprocals
     // of the diagonal elements.
 
     for (I = 1; I <= N; I++) {
-      // 40
       S[I] = ONE / sqrt(S[I]);
-    } // 40
+    }
 
     // Compute SCOND.value = min(S(I)) / max(S(I))
 

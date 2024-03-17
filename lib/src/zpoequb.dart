@@ -56,30 +56,27 @@ void zpoequb(
   SMIN = S[1];
   AMAX.value = S[1];
   for (I = 2; I <= N; I++) {
-    // 10
     S[I] = A[I][I].toDouble();
     SMIN = min(SMIN, S[I]);
     AMAX.value = max(AMAX.value, S[I]);
-  } // 10
+  }
 
   if (SMIN <= ZERO) {
     // Find the first non-positive diagonal element and return.
 
     for (I = 1; I <= N; I++) {
-      // 20
       if (S[I] <= ZERO) {
         INFO.value = I;
         return;
       }
-    } // 20
+    }
   } else {
     // Set the scale factors to the reciprocals
     // of the diagonal elements.
 
     for (I = 1; I <= N; I++) {
-      // 30
       S[I] = pow(BASE, (TMP * log(S[I])).toInt()).toDouble();
-    } // 30
+    }
 
     // Compute SCOND.value = min(S(I)) / max(S(I)).
 

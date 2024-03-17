@@ -73,7 +73,6 @@ void zget02(
 
   RESID.value = ZERO;
   for (J = 1; J <= NRHS; J++) {
-    // 10
     BNORM = dzasum(N1, B(1, J).asArray(), 1);
     XNORM = dzasum(N2, X(1, J).asArray(), 1);
     if (XNORM <= ZERO) {
@@ -81,5 +80,5 @@ void zget02(
     } else {
       RESID.value = max(RESID.value, ((BNORM / ANORM) / XNORM) / EPS);
     }
-  } // 10
+  }
 }

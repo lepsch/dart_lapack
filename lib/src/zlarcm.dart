@@ -28,38 +28,30 @@ void zlarcm(
   if ((M == 0) || (N == 0)) return;
 
   for (J = 1; J <= N; J++) {
-    // 20
     for (I = 1; I <= M; I++) {
-      // 10
       RWORK[(J - 1) * M + I] = (B[I][J]).toDouble();
-    } // 10
-  } // 20
+    }
+  }
 
   L = M * N + 1;
   dgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK.asMatrix(M), M, ZERO,
       RWORK(L).asMatrix(M), M);
   for (J = 1; J <= N; J++) {
-    // 40
     for (I = 1; I <= M; I++) {
-      // 30
       C[I][J] = RWORK[L + (J - 1) * M + I - 1].toComplex();
-    } // 30
-  } // 40
+    }
+  }
 
   for (J = 1; J <= N; J++) {
-    // 60
     for (I = 1; I <= M; I++) {
-      // 50
       RWORK[(J - 1) * M + I] = B[I][J].imaginary;
-    } // 50
-  } // 60
+    }
+  }
   dgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK.asMatrix(M), M, ZERO,
       RWORK(L).asMatrix(M), M);
   for (J = 1; J <= N; J++) {
-    // 80
     for (I = 1; I <= M; I++) {
-      // 70
       C[I][J] = Complex(C[I][J].toDouble(), RWORK[L + (J - 1) * M + I - 1]);
-    } // 70
-  } // 80
+    }
+  }
 }

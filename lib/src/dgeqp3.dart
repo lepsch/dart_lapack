@@ -89,7 +89,6 @@ void dgeqp3(
 
   NFXD = 1;
   for (J = 1; J <= N; J++) {
-    // 10
     if (JPVT[J] != 0) {
       if (J != NFXD) {
         dswap(M, A(1, J).asArray(), 1, A(1, NFXD).asArray(), 1);
@@ -102,7 +101,7 @@ void dgeqp3(
     } else {
       JPVT[J] = J;
     }
-  } // 10
+  }
   NFXD--;
 
   // Factorize fixed columns
@@ -162,10 +161,9 @@ void dgeqp3(
     // store the exact column norms.
 
     for (J = NFXD + 1; J <= N; J++) {
-      // 20
       WORK[J] = dnrm2(SM, A(NFXD + 1, J).asArray(), 1);
       WORK[N + J] = WORK[J];
-    } // 20
+    }
 
     if ((NB >= NBMIN) && (NB < SMINMN) && (NX < SMINMN)) {
       // Use blocked code initially.

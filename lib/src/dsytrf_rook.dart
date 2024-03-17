@@ -79,7 +79,6 @@ void dsytrf_rook(
     // KB.value is either NB or NB-1, or K for the last block
 
     K = N;
-    //  } // 10
 
     // If K < 1, exit from loop
 
@@ -115,7 +114,6 @@ void dsytrf_rook(
     // KB.value is either NB or NB-1, or N-K+1 for the last block
 
     K = 1;
-    //  } // 20
 
     // If K > N, exit from loop
 
@@ -140,13 +138,12 @@ void dsytrf_rook(
       // Adjust IPIV
 
       for (J = K; J <= K + KB.value - 1; J++) {
-        // 30
         if (IPIV[J] > 0) {
           IPIV[J] += K - 1;
         } else {
           IPIV[J] -= K + 1;
         }
-      } // 30
+      }
 
       // Increase K and return to the start of the main loop
 

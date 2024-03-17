@@ -113,10 +113,9 @@ void zdrves(
   BADNN = false;
   NMAX = 0;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -161,7 +160,6 @@ void zdrves(
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 240
     N = NN[JSIZE];
     if (NSIZES != 1) {
       MTYPES = min(MAXTYP, NTYPES);
@@ -170,15 +168,13 @@ void zdrves(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 230
       if (!DOTYPE[JTYPE]) continue;
 
       // Save ISEED in case of an error.
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       // Compute "A"
 
@@ -214,7 +210,7 @@ void zdrves(
           case 3:
             ANORM = UNFL * ULPINV;
             break;
-        } // 60
+        }
 
         zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
         IINFO.value = 0;
@@ -230,17 +226,15 @@ void zdrves(
           // Identity
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 70
             A[JCOL][JCOL] = ANORM.toComplex();
-          } // 70
+          }
         } else if (ITYPE == 3) {
           // Jordan Block
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 80
             A[JCOL][JCOL] = ANORM.toComplex();
             if (JCOL > 1) A[JCOL][JCOL - 1] = Complex.one;
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -408,12 +402,11 @@ void zdrves(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 90
+      }
 
       // Test for minimal and generous workspace
 
       for (IWK = 1; IWK <= 2; IWK++) {
-        // 220
         if (IWK == 1) {
           NNWORK = 3 * N;
         } else {
@@ -424,14 +417,12 @@ void zdrves(
         // Initialize RESULT
 
         for (J = 1; J <= 13; J++) {
-          // 100
           RESULT[J] = -ONE;
-        } // 100
+        }
 
         // Test with and without sorting of eigenvalues
 
         for (ISORT = 0; ISORT <= 1; ISORT++) {
-          // 180
           if (ISORT == 0) {
             SORT = 'N';
             RSUB = 0;
@@ -456,12 +447,10 @@ void zdrves(
 
           RESULT[1 + RSUB] = ZERO;
           for (J = 1; J <= N - 1; J++) {
-            // 120
             for (I = J + 1; I <= N; I++) {
-              // 110
               if (H[I][J] != Complex.zero) RESULT[1 + RSUB] = ULPINV;
-            } // 110
-          } // 120
+            }
+          }
 
           // Do Tests (2) and (3) or Tests (8) and (9)
 
@@ -474,9 +463,8 @@ void zdrves(
 
           RESULT[4 + RSUB] = ZERO;
           for (I = 1; I <= N; I++) {
-            // 130
             if (H[I][I] != W[I]) RESULT[4 + RSUB] = ULPINV;
-          } // 130
+          }
 
           // Do Test (5) or Test (11)
 
@@ -492,20 +480,17 @@ void zdrves(
 
           RESULT[5 + RSUB] = ZERO;
           for (J = 1; J <= N; J++) {
-            // 150
             for (I = 1; I <= N; I++) {
-              // 140
               if (H[I][J] != HT[I][J]) RESULT[5 + RSUB] = ULPINV;
-            } // 140
-          } // 150
+            }
+          }
 
           // Do Test (6) or Test (12)
 
           RESULT[6 + RSUB] = ZERO;
           for (I = 1; I <= N; I++) {
-            // 160
             if (W[I] != WT[I]) RESULT[6 + RSUB] = ULPINV;
-          } // 160
+          }
 
           // Do Test (13)
 
@@ -513,27 +498,23 @@ void zdrves(
             RESULT[13] = ZERO;
             KNTEIG = 0;
             for (I = 1; I <= N; I++) {
-              // 170
               if (zslect(W[I])) KNTEIG++;
               if (I < N) {
                 if (zslect(W[I + 1]) && (!zslect(W[I]))) RESULT[13] = ULPINV;
               }
-            } // 170
+            }
             if (SDIM.value != KNTEIG) RESULT[13] = ULPINV;
           }
-        } // 180
+        }
 
         // End of Loop -- Check for RESULT(j) > THRESH
-
-        //  } // 190
 
         NTEST = 0;
         NFAIL = 0;
         for (J = 1; J <= 13; J++) {
-          // 200
           if (RESULT[J] >= ZERO) NTEST++;
           if (RESULT[J] >= THRESH) NFAIL++;
-        } // 200
+        }
 
         if (NFAIL > 0) NTESTF++;
         if (NTESTF == 1) {
@@ -553,18 +534,17 @@ void zdrves(
         }
 
         for (J = 1; J <= 13; J++) {
-          // 210
           if (RESULT[J] >= THRESH) {
             NOUNIT.println(
                 ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
           }
-        } // 210
+        }
 
         NERRS += NFAIL;
         NTESTT += NTEST;
-      } // 220
-    } // 230
-  } // 240
+      }
+    }
+  }
 
   // Summary
 

@@ -180,8 +180,6 @@ void zlaqr3(
   NS.value = JW;
   ILST = INFQR.value + 1;
   for (KNT = INFQR.value + 1; KNT <= JW; KNT++) {
-    // 10
-
     // ==== Small spike tip deflation test ====
 
     FOO = CABS1(T[NS.value][NS.value]);
@@ -198,7 +196,7 @@ void zlaqr3(
       ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);
       ILST++;
     }
-  } // 10
+  }
 
   // ==== Return to Hessenberg form ====
 
@@ -209,23 +207,20 @@ void zlaqr3(
     // .    graded matrices.  ====
 
     for (I = INFQR.value + 1; I <= NS.value; I++) {
-      // 30
       IFST = I;
       for (J = I + 1; J <= NS.value; J++) {
-        // 20
         if (CABS1(T[J][J]) > CABS1(T[IFST][IFST])) IFST = J;
-      } // 20
+      }
       ILST = I;
       if (IFST != ILST) ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);
-    } // 30
+    }
   }
 
   // ==== Restore shift/eigenvalue array from T ====
 
   for (I = INFQR.value + 1; I <= JW; I++) {
-    // 40
     SH[KWTOP + I - 1] = T[I][I];
-  } // 40
+  }
 
   if (NS.value < JW || S == Complex.zero) {
     if (NS.value > 1 && S != Complex.zero) {
@@ -233,9 +228,8 @@ void zlaqr3(
 
       zcopy(NS.value, V.asArray(), LDV, WORK, 1);
       for (I = 1; I <= NS.value; I++) {
-        // 50
         WORK[I] = WORK[I].conjugate();
-      } // 50
+      }
       BETA.value = WORK[1];
       zlarfg(NS.value, BETA, WORK(2), 1, TAU);
       WORK[1] = Complex.one;
@@ -275,35 +269,32 @@ void zlaqr3(
     for (KROW = LTOP;
         NV < 0 ? KROW >= KWTOP - 1 : KROW <= KWTOP - 1;
         KROW += NV) {
-      // 60
       KLN = min(NV, KWTOP - KROW);
       zgemm('N', 'N', KLN, JW, JW, Complex.one, H(KROW, KWTOP), LDH, V, LDV,
           Complex.zero, WV, LDWV);
       zlacpy('A', KLN, JW, WV, LDWV, H(KROW, KWTOP), LDH);
-    } // 60
+    }
 
     // ==== Update horizontal slab in H ====
 
     if (WANTT) {
       for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) {
-        // 70
         KLN = min(NH, N - KCOL + 1);
         zgemm('C', 'N', JW, KLN, JW, Complex.one, V, LDV, H(KWTOP, KCOL), LDH,
             Complex.zero, T, LDT);
         zlacpy('A', JW, KLN, T, LDT, H(KWTOP, KCOL), LDH);
-      } // 70
+      }
     }
 
     // ==== Update vertical slab in Z ====
 
     if (WANTZ) {
       for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) {
-        // 80
         KLN = min(NV, IHIZ - KROW + 1);
         zgemm('N', 'N', KLN, JW, JW, Complex.one, Z(KROW, KWTOP), LDZ, V, LDV,
             Complex.zero, WV, LDWV);
         zlacpy('A', KLN, JW, WV, LDWV, Z(KROW, KWTOP), LDZ);
-      } // 80
+      }
     }
   }
 

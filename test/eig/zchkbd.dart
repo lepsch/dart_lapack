@@ -138,7 +138,6 @@ void zchkbd(
   MNMAX = 1;
   MINWRK = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     MMAX = max(MMAX, MVAL[J]);
     if (MVAL[J] < 0) BADMM = true;
     NMAX = max(NMAX, NVAL[J]);
@@ -150,7 +149,7 @@ void zchkbd(
             3 * (MVAL[J] + NVAL[J]),
             MVAL[J] * (MVAL[J] + max(MVAL[J], max(NVAL[J], NRHS)) + 1).toInt() +
                 NVAL[J] * min(NVAL[J], MVAL[J])));
-  } // 10
+  }
 
   // Check for errors
 
@@ -198,7 +197,6 @@ void zchkbd(
   // Loop over sizes, types
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 180
     M = MVAL[JSIZE];
     N = NVAL[JSIZE];
     MNMIN = min(M, N);
@@ -211,18 +209,15 @@ void zchkbd(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 170
       if (!DOTYPE[JTYPE]) continue;
 
       for (J = 1; J <= 4; J++) {
-        // 20
         IOLDSD[J] = ISEED[J];
-      } // 20
+      }
 
       for (J = 1; J <= 14; J++) {
-        // 30
         RESULT[J] = -ONE;
-      } // 30
+      }
 
       UPLO = ' ';
 
@@ -275,9 +270,8 @@ void zchkbd(
           // Identity
 
           for (JCOL = 1; JCOL <= MNMIN; JCOL++) {
-            // 80
             A[JCOL][JCOL] = ANORM.toComplex();
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -394,10 +388,9 @@ void zchkbd(
 
           TEMP1 = -TWO * log(ULP);
           for (J = 1; J <= MNMIN; J++) {
-            // 90
             BD[J] = exp(TEMP1 * dlarnd(2, ISEED));
             if (J < MNMIN) BE[J] = exp(TEMP1 * dlarnd(2, ISEED));
-          } // 90
+          }
 
           IINFO.value = 0;
           BIDIAG = true;
@@ -483,7 +476,7 @@ void zchkbd(
           INFO.value = (IINFO.value).abs();
           return;
         }
-      } // 100
+      }
 
       // Call ZGEBRD and ZUNGBR to compute B, Q, and P, do tests.
 
@@ -615,10 +608,9 @@ void zchkbd(
 
           RESULT[8] = ZERO;
           for (I = 1; I <= MNMIN - 1; I++) {
-            // 110
             if (S1[I] < S1[I + 1]) RESULT[8] = ULPINV;
             if (S1[I] < ZERO) RESULT[8] = ULPINV;
-          } // 110
+          }
           if (MNMIN >= 1) {
             if (S1[MNMIN] < ZERO) RESULT[8] = ULPINV;
           }
@@ -628,12 +620,11 @@ void zchkbd(
           TEMP2 = ZERO;
 
           for (J = 1; J <= MNMIN; J++) {
-            // 120
             TEMP1 = (S1[J] - S2[J]).abs() /
                 max(sqrt(UNFL) * max(S1[1], ONE),
                     ULP * max((S1[J]).abs(), (S2[J]).abs()));
             TEMP2 = max(TEMP1, TEMP2);
-          } // 120
+          }
 
           RESULT[9] = TEMP2;
 
@@ -643,13 +634,10 @@ void zchkbd(
           TEMP1 = THRESH * (HALF - ULP);
 
           for (J = 0; J <= LOG2UI; J++) {
-            // 130
             dsvdch(MNMIN, BD, BE, S1, TEMP1, IINFO);
             if (IINFO.value == 0) break;
             TEMP1 *= TWO;
-          } // 130
-
-          // } // 140
+          }
           RESULT[10] = TEMP1;
 
           // Use ZBDSQR to form the decomposition A := (QU) S (VT PT)
@@ -682,21 +670,20 @@ void zchkbd(
       // End of Loop -- Check for RESULT(j) > THRESH
 
       for (J = 1; J <= 14; J++) {
-        // 160
         if (RESULT[J] >= THRESH) {
           if (NFAIL == 0) dlahd2(NOUT, PATH);
           NOUT.println(
               ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
           NFAIL++;
         }
-      } // 160
+      }
       if (!BIDIAG) {
         NTEST += 14;
       } else {
         NTEST += 5;
       }
-    } // 170
-  } // 180
+    }
+  }
 
   // Summary
 

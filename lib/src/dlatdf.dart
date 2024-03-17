@@ -50,7 +50,6 @@ void dlatdf(
     PMONE = -ONE;
 
     for (J = 1; J <= N - 1; J++) {
-      // 10
       BP = RHS[J] + ONE;
       BM = RHS[J] - ONE;
       SPLUS = ONE;
@@ -80,7 +79,7 @@ void dlatdf(
 
       TEMP.value = -RHS[J];
       daxpy(N - J, TEMP.value, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1);
-    } // 10
+    }
 
     // Solve for U-part, look-ahead for RHS[N] = +-1. This is not done
     // in BSOLVE and will hopefully give us a better estimate because
@@ -93,18 +92,16 @@ void dlatdf(
     SPLUS = ZERO;
     SMINU = ZERO;
     for (I = N; I >= 1; I--) {
-      // 30
       TEMP.value = ONE / Z[I][I];
       XP[I] *= TEMP.value;
       RHS[I] *= TEMP.value;
       for (K = I + 1; K <= N; K++) {
-        // 20
         XP[I] -= XP[K] * (Z[I][K] * TEMP.value);
         RHS[I] -= RHS[K] * (Z[I][K] * TEMP.value);
-      } // 20
+      }
       SPLUS += (XP[I]).abs();
       SMINU += (RHS[I]).abs();
-    } // 30
+    }
     if (SPLUS > SMINU) dcopy(N, XP, 1, RHS, 1);
 
     // Apply the permutations JPIV to the computed solution (RHS)

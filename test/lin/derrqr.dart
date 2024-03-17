@@ -32,16 +32,14 @@ void derrqr(final String PATH, final Nout NUNIT) {
   // Set the variables to innocuous values.
 
   for (var J = 1; J <= NMAX; J++) {
-    // 20
     for (var I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = 1.0 / (I + J);
       AF[I][J] = 1.0 / (I + J);
-    } // 10
+    }
     B[J] = 0.0;
     W[J] = 0.0;
     X[J] = 0.0;
-  } // 20
+  }
   infoc.OK.value = true;
 
   // Error exits for QR factorization

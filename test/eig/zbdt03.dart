@@ -51,11 +51,9 @@ void zbdt03(
       // B is upper bidiagonal.
 
       for (J = 1; J <= N; J++) {
-        // 20
         for (I = 1; I <= N; I++) {
-          // 10
           WORK[N + I] = S[I].toComplex() * VT[I][J];
-        } // 10
+        }
         zgemv('No transpose', N, N, -Complex.one, U, LDU, WORK(N + 1), 1,
             Complex.zero, WORK, 1);
         WORK[J] += D[J].toComplex();
@@ -66,16 +64,14 @@ void zbdt03(
           BNORM = max(BNORM, (D[J]).abs());
         }
         RESID.value = max(RESID.value, dzasum(N, WORK, 1));
-      } // 20
+      }
     } else {
       // B is lower bidiagonal.
 
       for (J = 1; J <= N; J++) {
-        // 40
         for (I = 1; I <= N; I++) {
-          // 30
           WORK[N + I] = S[I].toComplex() * VT[I][J];
-        } // 30
+        }
         zgemv('No transpose', N, N, -Complex.one, U, LDU, WORK(N + 1), 1,
             Complex.zero, WORK, 1);
         WORK[J] += D[J].toComplex();
@@ -86,22 +82,20 @@ void zbdt03(
           BNORM = max(BNORM, (D[J]).abs());
         }
         RESID.value = max(RESID.value, dzasum(N, WORK, 1));
-      } // 40
+      }
     }
   } else {
     // B is diagonal.
 
     for (J = 1; J <= N; J++) {
-      // 60
       for (I = 1; I <= N; I++) {
-        // 50
         WORK[N + I] = S[I].toComplex() * VT[I][J];
-      } // 50
+      }
       zgemv('No transpose', N, N, -Complex.one, U, LDU, WORK(N + 1), 1,
           Complex.zero, WORK, 1);
       WORK[J] += D[J].toComplex();
       RESID.value = max(RESID.value, dzasum(N, WORK, 1));
-    } // 60
+    }
     J = idamax(N, D, 1);
     BNORM = (D[J]).abs();
   }

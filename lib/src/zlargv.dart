@@ -61,7 +61,6 @@ void zlargv(
   IY = 1;
   IC = 1;
   for (I = 1; I <= N; I++) {
-    // 60
     F = X[IX];
     G = Y[IY];
 
@@ -152,14 +151,12 @@ void zlargv(
       if (COUNT != 0) {
         if (COUNT > 0) {
           for (J = 1; J <= COUNT; J++) {
-            // 30
             R *= SAFMX2.toComplex();
-          } // 30
+          }
         } else {
           for (J = 1; J <= -COUNT; J++) {
-            // 40
             R *= SAFMN2.toComplex();
-          } // 40
+          }
         }
       }
     }

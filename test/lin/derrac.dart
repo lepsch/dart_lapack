@@ -30,12 +30,10 @@ void derrac(final Nout NUNIT) {
   // Set the variables to innocuous values.
 
   for (var J = 1; J <= NMAX; J++) {
-    // 20
     for (var I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = 1.0 / (I + J);
       AF[I][J] = 1.0 / (I + J);
-    } // 10
+    }
     B[J] = 0.0;
     R1[J] = 0.0;
     R2[J] = 0.0;
@@ -43,7 +41,7 @@ void derrac(final Nout NUNIT) {
     X[J] = 0.0;
     C[J] = 0.0;
     R[J] = 0.0;
-  } // 20
+  }
   infoc.OK.value = true;
 
   srnamc.SRNAMT = 'DSPOSV';

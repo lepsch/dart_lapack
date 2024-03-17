@@ -74,36 +74,30 @@ void zget22(
   ENRMAX = ZERO;
   if (ITRNSE == 0) {
     for (JVEC = 1; JVEC <= N; JVEC++) {
-      // 20
       TEMP1 = ZERO;
       for (J = 1; J <= N; J++) {
-        // 10
         TEMP1 = max(
             TEMP1, E[J][JVEC].toDouble().abs() + E[J][JVEC].imaginary.abs());
-      } // 10
+      }
       ENRMIN = min(ENRMIN, TEMP1);
       ENRMAX = max(ENRMAX, TEMP1);
-    } // 20
+    }
   } else {
     for (JVEC = 1; JVEC <= N; JVEC++) {
-      // 30
       RWORK[JVEC] = ZERO;
-    } // 30
+    }
 
     for (J = 1; J <= N; J++) {
-      // 50
       for (JVEC = 1; JVEC <= N; JVEC++) {
-        // 40
         RWORK[JVEC] = max(RWORK[JVEC],
             E[JVEC][J].toDouble().abs() + E[JVEC][J].imaginary.abs());
-      } // 40
-    } // 50
+      }
+    }
 
     for (JVEC = 1; JVEC <= N; JVEC++) {
-      // 60
       ENRMIN = min(ENRMIN, RWORK[JVEC]);
       ENRMAX = max(ENRMAX, RWORK[JVEC]);
-    } // 60
+    }
   }
 
   // Norm of A:
@@ -122,7 +116,6 @@ void zget22(
 
   JOFF = 0;
   for (JCOL = 1; JCOL <= N; JCOL++) {
-    // 100
     if (ITRNSW == 0) {
       WTEMP = W[JCOL];
     } else {
@@ -131,22 +124,19 @@ void zget22(
 
     if (ITRNSE == 0) {
       for (JROW = 1; JROW <= N; JROW++) {
-        // 70
         WORK[JOFF + JROW] = E[JROW][JCOL] * WTEMP;
-      } // 70
+      }
     } else if (ITRNSE == 1) {
       for (JROW = 1; JROW <= N; JROW++) {
-        // 80
         WORK[JOFF + JROW] = E[JCOL][JROW] * WTEMP;
-      } // 80
+      }
     } else {
       for (JROW = 1; JROW <= N; JROW++) {
-        // 90
         WORK[JOFF + JROW] = E[JCOL][JROW].conjugate() * WTEMP;
-      } // 90
+      }
     }
     JOFF += N;
-  } // 100
+  }
 
   zgemm(TRANSA, TRANSE, N, N, N, Complex.one, A, LDA, E, LDE, -Complex.one,
       WORK.asMatrix(), N);

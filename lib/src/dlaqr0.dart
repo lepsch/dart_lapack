@@ -209,8 +209,6 @@ void dlaqr0(
     // ==== Main Loop ====
     var success = false;
     for (IT = 1; IT <= ITMAX; IT++) {
-      // 80
-
       // ==== Done when KBOT falls below ILO ====
 
       if (KBOT < ILO) {
@@ -221,12 +219,11 @@ void dlaqr0(
       // ==== Locate active block ====
       var hasActiveBlock = false;
       for (K = KBOT; K >= ILO + 1; K--) {
-        // 10
         if (H[K][K - 1] == ZERO) {
           hasActiveBlock = true;
           break;
         }
-      } // 10
+      }
       if (!hasActiveBlock) {
         K = ILO;
       }
@@ -354,7 +351,6 @@ void dlaqr0(
         if ((NDFL % KEXSH) == 0) {
           KS = KBOT - NS + 1;
           for (I = KBOT; I >= max(KS + 1, KTOP + 2); I -= 2) {
-            // 30
             SS = (H[I][I - 1]).abs() + (H[I - 1][I - 2]).abs();
             AA.value = WILK1 * SS + H[I][I];
             BB.value = SS;
@@ -362,7 +358,7 @@ void dlaqr0(
             DD.value = AA.value;
             dlanv2(AA, BB, CC, DD, WR.box(I - 1), WI.box(I - 1), WR.box(I),
                 WI.box(I), CS, SN);
-          } // 30
+          }
           if (KS == KTOP) {
             WR[KS + 1] = H[KS + 1][KS + 1];
             WI[KS + 1] = ZERO;
@@ -411,11 +407,9 @@ void dlaqr0(
 
             SORTED = false;
             for (K = KBOT; K >= KS + 1; K--) {
-              // 50
               if (SORTED) break;
               SORTED = true;
               for (I = KS; I <= K - 1; I++) {
-                // 40
                 if ((WR[I]).abs() + (WI[I]).abs() <
                     (WR[I + 1]).abs() + (WI[I + 1]).abs()) {
                   SORTED = false;
@@ -428,8 +422,8 @@ void dlaqr0(
                   WI[I] = WI[I + 1];
                   WI[I + 1] = SWAP;
                 }
-              } // 40
-            } // 50
+              }
+            }
           }
 
           // ==== Shuffle shifts into pairs of real shifts
@@ -439,7 +433,6 @@ void dlaqr0(
           // .    they are.)  ====
 
           for (I = KBOT; I >= KS + 2; I -= 2) {
-            // 70
             if (WI[I] != -WI[I - 1]) {
               SWAP = WR[I];
               WR[I] = WR[I - 1];
@@ -451,7 +444,7 @@ void dlaqr0(
               WI[I - 1] = WI[I - 2];
               WI[I - 2] = SWAP;
             }
-          } // 70
+          }
         }
 
         // ==== If there are only two shifts and both are
@@ -534,7 +527,7 @@ void dlaqr0(
       }
 
       // ==== End of main loop ====
-    } // 80
+    }
 
     if (!success) {
       // ==== Iteration limit exceeded.  Set INFO.value to show where

@@ -102,9 +102,8 @@ void zget24(
   // Quick return if nothing to do
 
   for (I = 1; I <= 17; I++) {
-    // 10
     RESULT[I] = -ONE;
-  } // 10
+  }
 
   if (N == 0) return;
 
@@ -119,7 +118,6 @@ void zget24(
 
     sslct.SELOPT = 0;
     for (ISORT = 0; ISORT <= 1; ISORT++) {
-      // 90
       if (ISORT == 0) {
         SORT = 'N';
         RSUB = 0;
@@ -151,12 +149,10 @@ void zget24(
 
       RESULT[1 + RSUB] = ZERO;
       for (J = 1; J <= N - 1; J++) {
-        // 30
         for (I = J + 1; I <= N; I++) {
-          // 20
           if (H[I][J] != Complex.zero) RESULT[1 + RSUB] = ULPINV;
-        } // 20
-      } // 30
+        }
+      }
 
       // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
 
@@ -195,9 +191,8 @@ void zget24(
 
       RESULT[4 + RSUB] = ZERO;
       for (I = 1; I <= N; I++) {
-        // 40
         if (H[I][I] != W[I]) RESULT[4 + RSUB] = ULPINV;
-      } // 40
+      }
 
       // Do Test (5) or Test (11)
 
@@ -217,20 +212,17 @@ void zget24(
 
       RESULT[5 + RSUB] = ZERO;
       for (J = 1; J <= N; J++) {
-        // 60
         for (I = 1; I <= N; I++) {
-          // 50
           if (H[I][J] != HT[I][J]) RESULT[5 + RSUB] = ULPINV;
-        } // 50
-      } // 60
+        }
+      }
 
       // Do Test (6) or Test (12)
 
       RESULT[6 + RSUB] = ZERO;
       for (I = 1; I <= N; I++) {
-        // 70
         if (W[I] != WT[I]) RESULT[6 + RSUB] = ULPINV;
-      } // 70
+      }
 
       // Do Test (13)
 
@@ -238,15 +230,14 @@ void zget24(
         RESULT[13] = ZERO;
         KNTEIG = 0;
         for (I = 1; I <= N; I++) {
-          // 80
           if (zslect(W[I])) KNTEIG++;
           if (I < N) {
             if (zslect(W[I + 1]) && (!zslect(W[I]))) RESULT[13] = ULPINV;
           }
-        } // 80
+        }
         if (SDIM.value != KNTEIG) RESULT[13] = ULPINV;
       }
-    } // 90
+    }
 
     // If there is enough workspace, perform tests (14) and (15)
     // as well as (10) through (13)
@@ -275,14 +266,12 @@ void zget24(
       // Perform tests (10), (11), (12), and (13)
 
       for (I = 1; I <= N; I++) {
-        // 110
         if (W[I] != WT[I]) RESULT[10] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 100
           if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
-        } // 100
-      } // 110
+        }
+      }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
       // Compute both RCONDE.value and RCONDV.value without VS, and compare
@@ -310,14 +299,12 @@ void zget24(
       // Perform tests (10), (11), (12), and (13)
 
       for (I = 1; I <= N; I++) {
-        // 130
         if (W[I] != WT[I]) RESULT[10] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 120
           if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
-        } // 120
-      } // 130
+        }
+      }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
       // Compute RCONDE.value with VS, and compare
@@ -343,14 +330,12 @@ void zget24(
       // Perform tests (10), (11), (12), and (13)
 
       for (I = 1; I <= N; I++) {
-        // 150
         if (W[I] != WT[I]) RESULT[10] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 140
           if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
-        } // 140
-      } // 150
+        }
+      }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
       // Compute RCONDE.value without VS, and compare
@@ -376,14 +361,12 @@ void zget24(
       // Perform tests (10), (11), (12), and (13)
 
       for (I = 1; I <= N; I++) {
-        // 170
         if (W[I] != WT[I]) RESULT[10] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 160
           if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
-        } // 160
-      } // 170
+        }
+      }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
       // Compute RCONDV.value with VS, and compare
@@ -409,14 +392,12 @@ void zget24(
       // Perform tests (10), (11), (12), and (13)
 
       for (I = 1; I <= N; I++) {
-        // 190
         if (W[I] != WT[I]) RESULT[10] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 180
           if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
-        } // 180
-      } // 190
+        }
+      }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
       // Compute RCONDV.value without VS, and compare
@@ -442,20 +423,16 @@ void zget24(
       // Perform tests (10), (11), (12), and (13)
 
       for (I = 1; I <= N; I++) {
-        // 210
         if (W[I] != WT[I]) RESULT[10] = ULPINV;
         for (J = 1; J <= N; J++) {
-          // 200
           if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
-        } // 200
-      } // 210
+        }
+      }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
     }
     break;
   }
-
-  // } // 220
 
   // If there are precomputed reciprocal condition numbers, compare
   // computed values with them.
@@ -469,14 +446,12 @@ void zget24(
     sslct.SELOPT = 1;
     EPS = max(ULP, EPSIN);
     for (I = 1; I <= N; I++) {
-      // 230
       IPNT[I] = I;
       sslct.SELVAL[I] = false;
       sslct.SELWR[I] = (WTMP[I]).toDouble();
       sslct.SELWI[I] = WTMP[I].imaginary;
-    } // 230
+    }
     for (I = 1; I <= N - 1; I++) {
-      // 250
       KMIN = I;
       if (ISRT == 0) {
         VRIMIN = (WTMP[I]).toDouble();
@@ -484,7 +459,6 @@ void zget24(
         VRIMIN = WTMP[I].imaginary;
       }
       for (J = I + 1; J <= N; J++) {
-        // 240
         if (ISRT == 0) {
           VRICMP = (WTMP[J]).toDouble();
         } else {
@@ -494,18 +468,17 @@ void zget24(
           KMIN = J;
           VRIMIN = VRICMP;
         }
-      } // 240
+      }
       CTMP = WTMP[KMIN];
       WTMP[KMIN] = WTMP[I];
       WTMP[I] = CTMP;
       ITMP = IPNT[I];
       IPNT[I] = IPNT[KMIN];
       IPNT[KMIN] = ITMP;
-    } // 250
+    }
     for (I = 1; I <= NSLCT; I++) {
-      // 260
       sslct.SELVAL[IPNT[ISLCT[I]]] = true;
-    } // 260
+    }
 
     // Compute condition numbers
 

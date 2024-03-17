@@ -84,9 +84,8 @@ void ztzrzf(
     return;
   } else if (M == N) {
     for (I = 1; I <= N; I++) {
-      // 10
       TAU[I] = Complex.zero;
-    } // 10
+    }
     return;
   }
 
@@ -123,7 +122,6 @@ void ztzrzf(
     for (I = M - KK + KI + 1;
         -NB < 0 ? I >= M - KK + 1 : I <= M - KK + 1;
         I += -NB) {
-      // 20
       IB = min(M - I + 1, NB);
 
       // Compute the TZ factorization of the current block
@@ -157,7 +155,7 @@ void ztzrzf(
             WORK(IB + 1).asMatrix(LDWORK),
             LDWORK);
       }
-    } // 20
+    }
     MU = I + NB - 1;
   } else {
     MU = M;

@@ -91,7 +91,6 @@ void zgeqp3(
 
   NFXD = 1;
   for (J = 1; J <= N; J++) {
-    // 10
     if (JPVT[J] != 0) {
       if (J != NFXD) {
         zswap(M, A(1, J).asArray(), 1, A(1, NFXD).asArray(), 1);
@@ -104,7 +103,7 @@ void zgeqp3(
     } else {
       JPVT[J] = J;
     }
-  } // 10
+  }
   NFXD--;
 
   // Factorize fixed columns
@@ -166,10 +165,9 @@ void zgeqp3(
     // store the exact column norms.
 
     for (J = NFXD + 1; J <= N; J++) {
-      // 20
       RWORK[J] = dznrm2(SM, A(NFXD + 1, J).asArray(), 1);
       RWORK[N + J] = RWORK[J];
-    } // 20
+    }
 
     if ((NB >= NBMIN) && (NB < SMINMN) && (NX < SMINMN)) {
       // Use blocked code initially.

@@ -135,7 +135,6 @@ void main() async {
   }
   await NIN.readArray(MVAL, NM);
   for (I = 1; I <= NM; I++) {
-    // 10
     if (MVAL[I] < 0) {
       NOUT.print9996(' M  ', MVAL[I], 0);
       FATAL = true;
@@ -143,7 +142,7 @@ void main() async {
       NOUT.print9995(' M  ', MVAL[I], NMAX);
       FATAL = true;
     }
-  } // 10
+  }
   if (NM > 0) NOUT.print9993('M   ', MVAL, NM);
 
   // Read the values of N
@@ -160,7 +159,6 @@ void main() async {
   }
   await NIN.readArray(NVAL, NN);
   for (I = 1; I <= NN; I++) {
-    // 20
     if (NVAL[I] < 0) {
       NOUT.print9996(' N  ', NVAL[I], 0);
       FATAL = true;
@@ -168,7 +166,7 @@ void main() async {
       NOUT.print9995(' N  ', NVAL[I], NMAX);
       FATAL = true;
     }
-  } // 20
+  }
   if (NN > 0) NOUT.print9993('N   ', NVAL, NN);
 
   // Read the values of NRHS
@@ -185,7 +183,6 @@ void main() async {
   }
   await NIN.readArray(NSVAL, NNS);
   for (I = 1; I <= NNS; I++) {
-    // 30
     if (NSVAL[I] < 0) {
       NOUT.print9996('NRHS', NSVAL[I], 0);
       FATAL = true;
@@ -193,7 +190,7 @@ void main() async {
       NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
       FATAL = true;
     }
-  } // 30
+  }
   if (NNS > 0) NOUT.print9993('NRHS', NSVAL, NNS);
 
   // Read the values of NB
@@ -210,12 +207,11 @@ void main() async {
   }
   await NIN.readArray(NBVAL, NNB);
   for (I = 1; I <= NNB; I++) {
-    // 40
     if (NBVAL[I] < 0) {
       NOUT.print9996(' NB ', NBVAL[I], 0);
       FATAL = true;
     }
-  } // 40
+  }
   if (NNB > 0) NOUT.print9993('NB  ', NBVAL, NNB);
 
   // Set NBVAL2 to be the set of unique values of NB
@@ -235,12 +231,11 @@ void main() async {
 
   await NIN.readArray(NXVAL, NNB);
   for (I = 1; I <= NNB; I++) {
-    // 70
     if (NXVAL[I] < 0) {
       NOUT.print9996(' NX ', NXVAL[I], 0);
       FATAL = true;
     }
-  } // 70
+  }
   if (NNB > 0) NOUT.print9993('NX  ', NXVAL, NNB);
 
   // Read the values of RANKVAL

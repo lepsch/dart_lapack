@@ -60,22 +60,19 @@ void dqrt03(
   dorgqr(M, M, K, Q, LDA, TAU, WORK, LWORK, INFO);
 
   for (var ISIDE = 1; ISIDE <= 2; ISIDE++) {
-    // 30
     final (SIDE, MC, NC) = ISIDE == 1 ? ('L', M, N) : ('R', N, M);
 
     // Generate MC by NC matrix C
 
     for (var J = 1; J <= NC; J++) {
-      // 10
       dlarnv(2, ISEED, MC, C(1, J).asArray());
-    } // 10
+    }
     final CNORM = switch (dlange('1', MC, NC, C, LDA, RWORK)) {
       ZERO => ONE,
       final d => d,
     };
 
     for (var ITRANS = 1; ITRANS <= 2; ITRANS++) {
-      // 20
       final TRANS = ITRANS == 1 ? 'N' : 'T';
 
       // Copy C
@@ -102,6 +99,6 @@ void dqrt03(
       final RESID = dlange('1', MC, NC, CC, LDA, RWORK);
       RESULT[(ISIDE - 1) * 2 + ITRANS] =
           RESID / ((max(1, M)).toDouble() * CNORM * EPS);
-    } // 20
-  } // 30
+    }
+  }
 }

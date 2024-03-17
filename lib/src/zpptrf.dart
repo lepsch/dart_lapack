@@ -48,7 +48,6 @@ void zpptrf(
 
     JJ = 0;
     for (J = 1; J <= N; J++) {
-      // 10
       JC = JJ + 1;
       JJ += J;
 
@@ -67,14 +66,12 @@ void zpptrf(
         return;
       }
       AP[JJ] = sqrt(AJJ).toComplex();
-    } // 10
+    }
   } else {
     // Compute the Cholesky factorization A = L * L**H.
 
     JJ = 1;
     for (J = 1; J <= N; J++) {
-      // 20
-
       // Compute L(J,J) and test for non-positive-definiteness.
 
       AJJ = AP[JJ].toDouble();
@@ -94,6 +91,6 @@ void zpptrf(
         zhpr('Lower', N - J, -ONE, AP(JJ + 1), 1, AP(JJ + N - J + 1));
         JJ += N - J + 1;
       }
-    } // 20
+    }
   }
 }

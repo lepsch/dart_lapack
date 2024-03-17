@@ -350,9 +350,8 @@ void dggesx(
       // Select eigenvalues
 
       for (I = 1; I <= N; I++) {
-        // 10
         BWORK[I] = SELCTG(ALPHAR[I], ALPHAI[I], BETA[I]);
-      } // 10
+      }
 
       // Reorder eigenvalues, transform Generalized Schur vectors, and
       // compute reciprocal condition numbers
@@ -421,7 +420,6 @@ void dggesx(
 
     if (ILASCL) {
       for (I = 1; I <= N; I++) {
-        // 20
         if (ALPHAI[I] != ZERO) {
           if ((ALPHAR[I] / SAFMAX) > (ANRMTO / ANRM) ||
               (SAFMIN / ALPHAR[I]) > (ANRM / ANRMTO)) {
@@ -437,12 +435,11 @@ void dggesx(
             ALPHAI[I] *= WORK[1];
           }
         }
-      } // 20
+      }
     }
 
     if (ILBSCL) {
       for (I = 1; I <= N; I++) {
-        // 30
         if (ALPHAI[I] != ZERO) {
           if ((BETA[I] / SAFMAX) > (BNRMTO / BNRM) ||
               (SAFMIN / BETA[I]) > (BNRM / BNRMTO)) {
@@ -452,7 +449,7 @@ void dggesx(
             ALPHAI[I] *= WORK[1];
           }
         }
-      } // 30
+      }
     }
 
     // Undo scaling
@@ -476,7 +473,6 @@ void dggesx(
       SDIM.value = 0;
       IP = 0;
       for (I = 1; I <= N; I++) {
-        // 50
         CURSL = SELCTG(ALPHAR[I], ALPHAI[I], BETA[I]);
         if (ALPHAI[I] == ZERO) {
           if (CURSL) SDIM.value++;
@@ -499,9 +495,9 @@ void dggesx(
         }
         LST2SL = LASTSL;
         LASTSL = CURSL;
-      } // 50
+      }
     }
-  } // 60
+  }
 
   WORK[1] = MAXWRK.toDouble();
   IWORK[1] = LIWMIN;

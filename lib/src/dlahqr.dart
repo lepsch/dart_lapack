@@ -78,10 +78,9 @@ void dlahqr(
 
   // ==== clear out the trash ====
   for (J = ILO; J <= IHI - 3; J++) {
-    // 10
     H[J + 2][J] = ZERO;
     H[J + 3][J] = ZERO;
-  } // 10
+  }
   if (ILO <= IHI - 2) H[IHI][IHI - 2] = ZERO;
 
   NH = IHI - ILO + 1;
@@ -128,12 +127,9 @@ void dlahqr(
 
     var hasSplitOff = false;
     for (ITS = 0; ITS <= ITMAX; ITS++) {
-      // 140
-
       // Look for a single small subdiagonal element.
 
       for (K = I; K >= L + 1; K--) {
-        // 30
         if ((H[K][K - 1]).abs() <= SMLNUM) break;
         TST = (H[K - 1][K - 1]).abs() + (H[K][K]).abs();
         if (TST == ZERO) {
@@ -152,7 +148,7 @@ void dlahqr(
           S = AA + AB;
           if (BA * (AB / S) <= max(SMLNUM, ULP * (BB * (AA / S)))) break;
         }
-      } // 30
+      }
 
       L = K;
       if (L > ILO) {
@@ -244,7 +240,6 @@ void dlahqr(
       // Look for two consecutive small subdiagonal elements.
 
       for (M = I - 2; M >= L; M--) {
-        // 50
         // Determine the effect of starting the double-shift QR
         // iteration at row M, and see if this would make H[M][M-1]
         // negligible.  (The following uses scaling to avoid
@@ -269,13 +264,11 @@ void dlahqr(
                 ((H[M - 1][M - 1]).abs() +
                     (H[M][M]).abs() +
                     (H[M + 1][M + 1]).abs())) break;
-      } // 50
+      }
 
       // Double-shift QR step
 
       for (K = M; K <= I - 1; K++) {
-        // 130
-
         // The first iteration of this loop determines a reflection G
         // from the vector V and applies it from left and right to H,
         // thus creating a nonzero bulge below the subdiagonal.
@@ -309,69 +302,63 @@ void dlahqr(
           // in columns K to I2.
 
           for (J = K; J <= I2; J++) {
-            // 70
             SUM = H[K][J] + V2 * H[K + 1][J] + V3 * H[K + 2][J];
             H[K][J] -= SUM * T1.value;
             H[K + 1][J] -= SUM * T2;
             H[K + 2][J] -= SUM * T3;
-          } // 70
+          }
 
           // Apply G from the right to transform the columns of the
           // matrix in rows I1 to min(K+3,I).
 
           for (J = I1; J <= min(K + 3, I); J++) {
-            // 80
             SUM = H[J][K] + V2 * H[J][K + 1] + V3 * H[J][K + 2];
             H[J][K] -= SUM * T1.value;
             H[J][K + 1] -= SUM * T2;
             H[J][K + 2] -= SUM * T3;
-          } // 80
+          }
 
           if (WANTZ) {
             // Accumulate transformations in the matrix Z
 
             for (J = ILOZ; J <= IHIZ; J++) {
-              // 90
               SUM = Z[J][K] + V2 * Z[J][K + 1] + V3 * Z[J][K + 2];
               Z[J][K] -= SUM * T1.value;
               Z[J][K + 1] -= SUM * T2;
               Z[J][K + 2] -= SUM * T3;
-            } // 90
+            }
           }
         } else if (NR == 2) {
           // Apply G from the left to transform the rows of the matrix
           // in columns K to I2.
 
           for (J = K; J <= I2; J++) {
-            // 100
             SUM = H[K][J] + V2 * H[K + 1][J];
             H[K][J] -= SUM * T1.value;
             H[K + 1][J] -= SUM * T2;
-          } // 100
+          }
 
           // Apply G from the right to transform the columns of the
           // matrix in rows I1 to min(K+3,I).
 
           for (J = I1; J <= I; J++) {
-            // 110
             SUM = H[J][K] + V2 * H[J][K + 1];
             H[J][K] -= SUM * T1.value;
             H[J][K + 1] -= SUM * T2;
-          } // 110
+          }
 
           if (WANTZ) {
             // Accumulate transformations in the matrix Z
 
             for (J = ILOZ; J <= IHIZ; J++) {
-              // 120
               SUM = Z[J][K] + V2 * Z[J][K + 1];
               Z[J][K] -= SUM * T1.value;
               Z[J][K + 1] -= SUM * T2;
-            } // 120
+            }
           }
         }
-      } // 130
-    } // 140
+      }
+    }
 
     if (!hasSplitOff) {
       // Failure to converge in remaining number of iterations

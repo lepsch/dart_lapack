@@ -88,19 +88,17 @@ void zlatps(
 
       IP = 1;
       for (J = 1; J <= N; J++) {
-        // 10
         CNORM[J] = dzasum(J - 1, AP(IP), 1);
         IP += J;
-      } // 10
+      }
     } else {
       // A is lower triangular.
 
       IP = 1;
       for (J = 1; J <= N - 1; J++) {
-        // 20
         CNORM[J] = dzasum(N - J, AP(IP + 1), 1);
         IP += N - J + 1;
-      } // 20
+      }
       CNORM[N] = ZERO;
     }
   }
@@ -122,9 +120,8 @@ void zlatps(
 
   XMAX = ZERO;
   for (J = 1; J <= N; J++) {
-    // 30
     XMAX = max(XMAX, CABS2(X[J]));
-  } // 30
+  }
   XBND = XMAX;
   if (NOTRAN) {
     // Compute the growth in A * x = b.
@@ -153,8 +150,6 @@ void zlatps(
       JLEN = N;
       var isTooSmall = false;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 40
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) {
@@ -186,7 +181,7 @@ void zlatps(
         }
         IP += JINC * JLEN;
         JLEN--;
-      } // 40
+      }
       if (!isTooSmall) {
         GROW = XBND;
       }
@@ -197,8 +192,6 @@ void zlatps(
 
       GROW = min(ONE, HALF / max(XBND, SMLNUM));
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 50
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) break;
@@ -206,9 +199,8 @@ void zlatps(
         // G(j) = G(j-1)*( 1 + CNORM(j) )
 
         GROW *= (ONE / (ONE + CNORM[J]));
-      } // 50
+      }
     }
-    //  } // 60
   } else {
     // Compute the growth in A**T * x = b  or  A**H * x = b.
 
@@ -236,8 +228,6 @@ void zlatps(
       JLEN = 1;
       var isTooSmall = false;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 70
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) {
@@ -264,7 +254,7 @@ void zlatps(
         }
         JLEN++;
         IP += JINC * JLEN;
-      } // 70
+      }
       if (!isTooSmall) {
         GROW = min(GROW, XBND);
       }
@@ -275,8 +265,6 @@ void zlatps(
 
       GROW = min(ONE, HALF / max(XBND, SMLNUM));
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 80
-
         // Exit the loop if the growth factor is too small.
 
         if (GROW <= SMLNUM) break;
@@ -285,9 +273,8 @@ void zlatps(
 
         XJ = ONE + CNORM[J];
         GROW /= XJ;
-      } // 80
+      }
     }
-    //  } // 90
   }
 
   if ((GROW * TSCAL) > SMLNUM) {
@@ -314,8 +301,6 @@ void zlatps(
 
       IP = JFIRST * (JFIRST + 1) ~/ 2;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 120
-
         // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
         var scale = true;
@@ -368,15 +353,14 @@ void zlatps(
             // scale = 0, and compute a solution to A*x = 0.
 
             for (I = 1; I <= N; I++) {
-              // 100
               X[I] = Complex.zero;
-            } // 100
+            }
             X[J] = Complex.one;
             XJ = ONE;
             SCALE.value = ZERO;
             XMAX = ZERO;
           }
-        } // 110
+        }
 
         // Scale x if necessary to avoid overflow when adding a
         // multiple of column j of A.
@@ -418,15 +402,13 @@ void zlatps(
           }
           IP += N - J + 1;
         }
-      } // 120
+      }
     } else if (lsame(TRANS, 'T')) {
       // Solve A**T * x = b
 
       IP = JFIRST * (JFIRST + 1) ~/ 2;
       JLEN = 1;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 170
-
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
@@ -471,14 +453,12 @@ void zlatps(
 
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
-              // 130
               CSUMJ += (AP[IP - J + I] * USCAL) * X[I];
-            } // 130
+            }
           } else if (J < N) {
             for (I = 1; I <= N - J; I++) {
-              // 140
               CSUMJ += (AP[IP + I] * USCAL) * X[J + I];
-            } // 140
+            }
           }
         }
 
@@ -529,14 +509,13 @@ void zlatps(
               // scale = 0 and compute a solution to A**T *x = 0.
 
               for (I = 1; I <= N; I++) {
-                // 150
                 X[I] = Complex.zero;
-              } // 150
+              }
               X[J] = Complex.one;
               SCALE.value = ZERO;
               XMAX = ZERO;
             }
-          } // 160
+          }
         } else {
           // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
           // product has already been divided by 1/A(j,j).
@@ -546,15 +525,13 @@ void zlatps(
         XMAX = max(XMAX, CABS1(X[J]));
         JLEN++;
         IP += JINC * JLEN;
-      } // 170
+      }
     } else {
       // Solve A**H * x = b
 
       IP = JFIRST * (JFIRST + 1) ~/ 2;
       JLEN = 1;
       for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-        // 220
-
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
@@ -599,14 +576,12 @@ void zlatps(
 
           if (UPPER) {
             for (I = 1; I <= J - 1; I++) {
-              // 180
               CSUMJ += (AP[IP - J + I].conjugate() * USCAL) * X[I];
-            } // 180
+            }
           } else if (J < N) {
             for (I = 1; I <= N - J; I++) {
-              // 190
               CSUMJ += (AP[IP + I].conjugate() * USCAL) * X[J + I];
-            } // 190
+            }
           }
         }
 
@@ -657,14 +632,13 @@ void zlatps(
               // scale = 0 and compute a solution to A**H *x = 0.
 
               for (I = 1; I <= N; I++) {
-                // 200
                 X[I] = Complex.zero;
-              } // 200
+              }
               X[J] = Complex.one;
               SCALE.value = ZERO;
               XMAX = ZERO;
             }
-          } // 210
+          }
         } else {
           // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
           // product has already been divided by 1/A(j,j).
@@ -674,7 +648,7 @@ void zlatps(
         XMAX = max(XMAX, CABS1(X[J]));
         JLEN++;
         IP += JINC * JLEN;
-      } // 220
+      }
     }
     SCALE.value /= TSCAL;
   }

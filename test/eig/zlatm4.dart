@@ -138,9 +138,8 @@ void zlatm4(
         if (KLEN > 1) {
           ALPHA = pow(RCOND, ONE / (KLEN - 1)).toDouble();
           for (I = 2; I <= KLEN; I++) {
-            // 150
             A[NZ1 + I][NZ1 + I] = pow(ALPHA, (I - 1).toDouble()).toComplex();
-          } // 150
+          }
         }
         break;
 
@@ -152,10 +151,9 @@ void zlatm4(
         if (KLEN > 1) {
           ALPHA = (ONE - RCOND) / (KLEN - 1).toDouble();
           for (I = 2; I <= KLEN; I++) {
-            // 170
             A[NZ1 + I][NZ1 + I] =
                 ((KLEN - I).toDouble() * ALPHA + RCOND).toComplex();
-          } // 170
+          }
         }
         break;
 
@@ -165,9 +163,8 @@ void zlatm4(
 
         ALPHA = log(RCOND);
         for (JD = KBEG; JD <= KEND; JD++) {
-          // 190
           A[JD][JD] = exp(ALPHA * dlaran(ISEED)).toComplex();
-        } // 190
+        }
         break;
 
       case 10:
@@ -175,60 +172,53 @@ void zlatm4(
         // abs(ITYPE) = 10: Randomly distributed D values from DIST
 
         for (JD = KBEG; JD <= KEND; JD++) {
-          // 210
           A[JD][JD] = zlarnd(IDIST, ISEED);
-        } // 210
+        }
         break;
-    } // 220
+    }
 
     // Scale by AMAGN
 
     for (JD = KBEG; JD <= KEND; JD++) {
-      // 230
       A[JD][JD] = (AMAGN * (A[JD][JD]).toDouble()).toComplex();
-    } // 230
+    }
     for (JD = ISDB; JD <= ISDE; JD++) {
-      // 240
       A[JD + 1][JD] = AMAGN.toComplex() * A[JD + 1][JD].real.toComplex();
-    } // 240
+    }
 
     // If RSIGN = true , assign random signs to diagonal and
     // subdiagonal
 
     if (RSIGN) {
       for (JD = KBEG; JD <= KEND; JD++) {
-        // 250
         if ((A[JD][JD]).toDouble() != ZERO) {
           CTEMP = zlarnd(3, ISEED);
           CTEMP /= (CTEMP).abs().toComplex();
           A[JD][JD] = CTEMP * A[JD][JD].real.toComplex();
         }
-      } // 250
+      }
       for (JD = ISDB; JD <= ISDE; JD++) {
-        // 260
         if ((A[JD + 1][JD]).toDouble() != ZERO) {
           CTEMP = zlarnd(3, ISEED);
           CTEMP /= (CTEMP).abs().toComplex();
           A[JD + 1][JD] = CTEMP * A[JD + 1][JD].real.toComplex();
         }
-      } // 260
+      }
     }
 
     // Reverse if ITYPE < 0
 
     if (ITYPE < 0) {
       for (JD = KBEG; JD <= (KBEG + KEND - 1) / 2; JD++) {
-        // 270
         CTEMP = A[JD][JD];
         A[JD][JD] = A[KBEG + KEND - JD][KBEG + KEND - JD];
         A[KBEG + KEND - JD][KBEG + KEND - JD] = CTEMP;
-      } // 270
+      }
       for (JD = 1; JD <= (N - 1) / 2; JD++) {
-        // 280
         CTEMP = A[JD + 1][JD];
         A[JD + 1][JD] = A[N + 1 - JD][N - JD];
         A[N + 1 - JD][N - JD] = CTEMP;
-      } // 280
+      }
     }
   }
 
@@ -236,11 +226,9 @@ void zlatm4(
 
   if (TRIANG != ZERO) {
     for (JC = 2; JC <= N; JC++) {
-      // 300
       for (JR = 1; JR <= JC - 1; JR++) {
-        // 290
         A[JR][JC] = TRIANG.toComplex() * zlarnd(IDIST, ISEED);
-      } // 290
-    } // 300
+      }
+    }
   }
 }

@@ -68,21 +68,19 @@ void zlarot(
   // ZROT( NL-NT, A(IX),IINC, A(IY),IINC, C, S ) with complex C, S
 
   for (J = 0; J <= NL - NT - 1; J++) {
-    // 10
     TEMPX = C * A[IX + J * IINC] + S * A[IY + J * IINC];
     A[IY + J * IINC] =
         -S.conjugate() * A[IX + J * IINC] + C.conjugate() * A[IY + J * IINC];
     A[IX + J * IINC] = TEMPX;
-  } // 10
+  }
 
   // ZROT( NT, XT,1, YT,1, C, S ) with complex C, S
 
   for (J = 1; J <= NT; J++) {
-    // 20
     TEMPX = C * XT[J] + S * YT[J];
     YT[J] = -S.conjugate() * XT[J] + C.conjugate() * YT[J];
     XT[J] = TEMPX;
-  } // 20
+  }
 
   // Stuff values back into XLEFT.value, XRIGHT.value, etc.
 
