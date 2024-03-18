@@ -52,6 +52,8 @@ abstract interface class Array<T> implements Box<T> {
 
   Array<T> having({int? length, int? offset});
 
+  Array<T> copy();
+
   Array<R> cast<R>();
 
   int get offset;
@@ -256,6 +258,11 @@ class Matrix<T> implements Box<T> {
         indexer: _indexer,
       );
 
+  Matrix<T> copy() {
+    return Matrix.fromData(toData(), dimensions,
+        offset: offset, indexer: _indexer);
+  }
+
   int get length => _entries.length;
 
   @override
@@ -330,6 +337,12 @@ class _MatrixArrayAdapter<T> implements Array<T> {
       length: length,
       offset: offset ?? this.offset,
     );
+  }
+
+  @override
+  Array<T> copy() {
+    final entries = getEntries();
+    return entries.copy();
   }
 
   @override
@@ -468,6 +481,11 @@ class _Array<T> implements Array<T> {
       offset: offset ?? this.offset,
       length: length,
     );
+  }
+
+  @override
+  Array<T> copy() {
+    return Array.fromData(toData(), offset: offset);
   }
 
   @override

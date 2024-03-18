@@ -35,17 +35,17 @@ void dhseqr(
   final Z = Z_.having(ld: LDZ);
   final WORK = WORK_.having();
 
-  // ==== Matrices of order NTINY or smaller must be processed by
-  // .    DLAHQR because of insufficient subdiagonal scratch space.
-  // .    (This is a hard limit.) ====
+  // Matrices of order NTINY or smaller must be processed by
+  // DLAHQR because of insufficient subdiagonal scratch space.
+  // (This is a hard limit.)
   const NTINY = 15;
 
-  // ==== NL allocates some local workspace to help small matrices
-  // .    through a rare DLAHQR failure.  NL > NTINY = 15 is
-  // .    required and NL <= NMIN = ilaenv(ISPEC=12,...) is recom-
-  // .    mended.  (The default value of NMIN is 75.)  Using NL = 49
-  // .    allows up to six simultaneous shifts and a 16-by-16
-  // .    deflation window.  ====
+  // NL allocates some local workspace to help small matrices
+  // through a rare DLAHQR failure.  NL > NTINY = 15 is
+  // required and NL <= NMIN = ilaenv(ISPEC=12,...) is recom-
+  // mended.  (The default value of NMIN is 75.)  Using NL = 49
+  // allows up to six simultaneous shifts and a 16-by-16
+  // deflation window.
   const NL = 49;
   const ZERO = 0.0, ONE = 1.0;
   final HL = Matrix<double>(NL, NL);
@@ -53,12 +53,12 @@ void dhseqr(
   int I, KBOT, NMIN;
   bool INITZ, LQUERY, WANTT, WANTZ;
 
-  // ==== Decode and check the input parameters. ====
+  // Decode and check the input parameters.
 
   WANTT = lsame(JOB, 'S');
   INITZ = lsame(COMPZ, 'I');
   WANTZ = INITZ || lsame(COMPZ, 'V');
-  WORK[1] = (max(1, N)).toDouble();
+  WORK[1] = max(1, N).toDouble();
   LQUERY = LWORK == -1;
 
   INFO.value = 0;
@@ -81,25 +81,25 @@ void dhseqr(
   }
 
   if (INFO.value != 0) {
-    // ==== Quick return in case of invalid argument. ====
+    // Quick return in case of invalid argument.
 
     xerbla('DHSEQR', -INFO.value);
     return;
   } else if (N == 0) {
-    // ==== Quick return in case N = 0; nothing to do. ====
+    // Quick return in case N = 0; nothing to do.
 
     return;
   } else if (LQUERY) {
-    // ==== Quick return in case of a workspace query ====
+    // Quick return in case of a workspace query
 
     dlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK,
         LWORK, INFO);
-    // ==== Ensure reported workspace size is backward-compatible with
-    // .    previous LAPACK versions. ====
+    // Ensure reported workspace size is backward-compatible with
+    // previous LAPACK versions.
     WORK[1] = max((max(1, N)).toDouble(), WORK[1]);
     return;
   } else {
-    // ==== copy eigenvalues isolated by DGEBAL ====
+    // copy eigenvalues isolated by DGEBAL
 
     for (I = 1; I <= ILO - 1; I++) {
       WR[I] = H[I][I];
@@ -110,11 +110,11 @@ void dhseqr(
       WI[I] = ZERO;
     }
 
-    // ==== Initialize Z, if requested ====
+    // Initialize Z, if requested
 
     if (INITZ) dlaset('A', N, N, ZERO, ONE, Z, LDZ);
 
-    // ==== Quick return if possible ====
+    // Quick return if possible
 
     if (ILO == IHI) {
       WR[ILO] = H[ILO][ILO];
@@ -122,38 +122,38 @@ void dhseqr(
       return;
     }
 
-    // ==== DLAHQR/DLAQR0 crossover point ====
+    // DLAHQR/DLAQR0 crossover point
 
     NMIN = ilaenv(12, 'DHSEQR', JOB[0] + COMPZ[0], N, ILO, IHI, LWORK);
     NMIN = max(NTINY, NMIN);
 
-    // ==== DLAQR0 for big matrices; DLAHQR for small ones ====
+    // DLAQR0 for big matrices; DLAHQR for small ones
 
     if (N > NMIN) {
       dlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK,
           LWORK, INFO);
     } else {
-      // ==== Small matrix ====
+      // Small matrix
 
       dlahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, INFO);
 
       if (INFO.value > 0) {
-        // ==== A rare DLAHQR failure!  DLAQR0 sometimes succeeds
-        // .    when DLAHQR fails. ====
+        // A rare DLAHQR failure!  DLAQR0 sometimes succeeds
+        // when DLAHQR fails.
 
         KBOT = INFO.value;
 
         if (N >= NL) {
-          // ==== Larger matrices have enough subdiagonal scratch
-          // .    space to call DLAQR0 directly. ====
+          // Larger matrices have enough subdiagonal scratch
+          // space to call DLAQR0 directly.
 
           dlaqr0(WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ,
               WORK, LWORK, INFO);
         } else {
-          // ==== Tiny matrices don't have enough subdiagonal
-          // .    scratch space to benefit from DLAQR0.  Hence,
-          // .    tiny matrices must be copied into a larger
-          // .    array before calling DLAQR0. ====
+          // Tiny matrices don't have enough subdiagonal
+          // scratch space to benefit from DLAQR0.  Hence,
+          // tiny matrices must be copied into a larger
+          // array before calling DLAQR0.
 
           dlacpy('A', N, N, H, LDH, HL, NL);
           HL[N + 1][N] = ZERO;
@@ -165,14 +165,14 @@ void dhseqr(
       }
     }
 
-    // ==== Clear out the trash, if necessary. ====
+    // Clear out the trash, if necessary.
 
     if ((WANTT || INFO.value != 0) && N > 2) {
       dlaset('L', N - 2, N - 2, ZERO, ZERO, H(3, 1), LDH);
     }
 
-    // ==== Ensure reported workspace size is backward-compatible with
-    // .    previous LAPACK versions. ====
+    // Ensure reported workspace size is backward-compatible with
+    // previous LAPACK versions.
 
     WORK[1] = max((max(1, N)).toDouble(), WORK[1]);
   }

@@ -13,6 +13,19 @@ void main() {
       expect(a.toData(), [1, 2, 3, 4]);
     });
 
+    test('copy', () {
+      final a = Array.fromList([1, 2, 3, 4]);
+      final b = a.copy();
+      expect(b.toData(), [1, 2, 3, 4]);
+      b[1] = 999;
+      expect(b.toData(), [999, 2, 3, 4]);
+      expect(a.toData(), [1, 2, 3, 4]);
+      final c = a(3);
+      expect(c.toData(), [3, 4]);
+      final d = c.copy();
+      expect(d.toData(), [3, 4]);
+    });
+
     test('offset', () {
       final a = Array.fromList([1, 2, 3, 4], offset: -10);
       expect(a[10], 1);
@@ -211,6 +224,23 @@ void main() {
       expect(m[3][1], 7);
       expect(m[3][2], 8);
       expect(m[3][3], 9);
+    });
+
+    test('copy', () {
+      final m = Matrix.fromList([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ]);
+      final n = m.copy();
+      expect(n.toData(), [1, 4, 7, 2, 5, 8, 3, 6, 9]);
+      n[1][1] = 999;
+      expect(n.toData(), [999, 4, 7, 2, 5, 8, 3, 6, 9]);
+      expect(m.toData(), [1, 4, 7, 2, 5, 8, 3, 6, 9]);
+      final o = m(2, 2);
+      expect(o.toData().sublist(0, 4), [5, 8, 3, 6]);
+      final p = o.copy();
+      expect(p.toData().sublist(0, 4), [5, 8, 3, 6]);
     });
 
     test('non squared horizontal', () {

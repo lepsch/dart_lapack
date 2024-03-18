@@ -15,8 +15,8 @@ import 'package:lapack/src/xerbla.dart';
 
 import 'alareq.dart';
 import 'common.dart';
-import 'ilaenv.dart' as test;
-import 'xerbla.dart' as test;
+import 'ilaenv.dart' as mock;
+import 'xerbla.dart' as mock;
 import 'xlaenv.dart';
 import 'zchkbb.dart';
 import 'zchkbd.dart';
@@ -63,9 +63,9 @@ void main() async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  ilaenv = test.ilaenv;
-  ilaenv2stage = test.ilaenv2stage;
-  xerbla = test.xerbla;
+  ilaenv = mock.ilaenv;
+  ilaenv2stage = mock.ilaenv2stage;
+  xerbla = mock.xerbla;
 
   final input = File('/Users/lepsch/_/lapack/test/svd.in').openRead();
   final NIN = Nin(input), NOUT = Nout(stdout);

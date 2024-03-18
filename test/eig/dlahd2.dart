@@ -9,7 +9,6 @@ void dlahd2(final Nout IOUNIT, final String PATH) {
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool CORZ, SORD;
   String C2;
-  // int J;
 
   // if (IOUNIT <= 0) return;
   SORD = lsame(PATH, 'S') || lsame(PATH, 'D');
@@ -210,29 +209,3 @@ void _printBBPerformedTests(final Nout nout, final String t) {
   nout.println(
       '\n Test ratios:  (B: upper bidiagonal, Q and P: ${t.a10}\n${' ' * 16}C: m x nrhs, PT = P\', Y = Q\' C)\n 1: norm( A - Q B PT ) / ( norm(A) max(m,n) ulp )\n 2: norm( I - Q\' Q )   / ( m ulp )\n 3: norm( I - PT PT\' )   / ( n ulp )\n 4: norm( Y - Q\' C )   / ( norm(Y) max(m,nrhs) ulp )');
 }
-
-//       // Symmetric/Hermitian Generalized eigenproblem
-
-//  9980 FORMAT(  );
-
-//  9979 FORMAT( );
-//  9978 FORMAT(  );
-//  9977 FORMAT( );
-//  9976 FORMAT(  );
-//  9975 FORMAT( );
-//  9974 FORMAT(  );
-
-//       // Singular Value Decomposition
-
-//  9973 FORMAT(  );
-
-//  9972 FORMAT( );
-//  9971 FORMAT(  );
-
-//       // Band reduction to bidiagonal form
-
-//  9970 FORMAT(  );
-
-//  9969 FORMAT( );
-//  9968 FORMAT( );
-//  9967 FORMAT( );

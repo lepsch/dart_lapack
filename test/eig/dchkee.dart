@@ -13,6 +13,7 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 
+import '../test_driver.dart';
 import 'alareq.dart';
 import 'common.dart';
 import 'dchkbb.dart';
@@ -51,11 +52,11 @@ import 'derred.dart';
 import 'derrgg.dart';
 import 'derrhs.dart';
 import 'derrst.dart';
-import 'ilaenv.dart' as test;
-import 'xerbla.dart' as test;
+import 'ilaenv.dart' as mock;
+import 'xerbla.dart' as mock;
 import 'xlaenv.dart';
 
-void main() async {
+Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 // #if defined(_OPENMP)
   // use omp_lib;
 // #endif
@@ -63,12 +64,11 @@ void main() async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  ilaenv = test.ilaenv;
-  ilaenv2stage = test.ilaenv2stage;
-  xerbla = test.xerbla;
+  ilaenv = mock.ilaenv;
+  ilaenv2stage = mock.ilaenv2stage;
+  xerbla = mock.xerbla;
 
-  final input = File('/Users/lepsch/_/lapack/test/svd.in').openRead();
-  final NIN = Nin(input), NOUT = Nout(stdout);
+  NOUT ??= Nout(stdout);
   const NMAX = 132;
   const NCMAX = 20;
   const NEED = 14;
@@ -146,7 +146,6 @@ void main() async {
       TAUA = Array<double>(NMAX),
       TAUB = Array<double>(NMAX),
       X = Array<double>(5 * NMAX);
-  final INFO = Box(0);
   const INTSTR = '0123456789';
   final IOLDSD = Array.fromList([0, 0, 0, 1]);
 
@@ -826,62 +825,84 @@ void main() async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          xlaenv(1, 1);
-          if (TSTERR) derrhs('DHSEQR', NOUT);
-          for (I = 1; I <= NPARMS; I++) {
-            xlaenv(1, NBVAL[I]);
-            xlaenv(2, NBMIN[I]);
-            xlaenv(3, NXVAL[I]);
-            xlaenv(12, max(11, INMIN[I]));
-            xlaenv(13, INWIN[I]);
-            xlaenv(14, INIBL[I]);
-            xlaenv(15, ISHFTS[I]);
-            xlaenv(16, IACC22[I]);
 
-            if (NEWSD == 0) {
-              for (K = 1; K <= 4; K++) {
-                ISEED[K] = IOLDSD[K];
+          final ctx = (
+            NBVAL: NBVAL.copy(),
+            NBMIN: NBMIN.copy(),
+            NXVAL: NXVAL.copy(),
+            INMIN: INMIN.copy(),
+            INWIN: INWIN.copy(),
+            INIBL: INIBL.copy(),
+            ISHFTS: ISHFTS.copy(),
+            IACC22: IACC22.copy(),
+            ISEED: ISEED.copy(),
+            IOLDSD: IOLDSD.copy(),
+            NVAL: NVAL.copy(),
+            DOTYPE: DOTYPE.copy(),
+          );
+
+          test.group('NEP:  Nonsymmetric Eigenvalue Problem ($C3)', () {
+            NOUT!;
+
+            xlaenv(1, 1);
+            if (TSTERR) derrhs('DHSEQR', NOUT);
+            for (I = 1; I <= NPARMS; I++) {
+              xlaenv(1, ctx.NBVAL[I]);
+              xlaenv(2, ctx.NBMIN[I]);
+              xlaenv(3, ctx.NXVAL[I]);
+              xlaenv(12, max(11, ctx.INMIN[I]));
+              xlaenv(13, ctx.INWIN[I]);
+              xlaenv(14, ctx.INIBL[I]);
+              xlaenv(15, ctx.ISHFTS[I]);
+              xlaenv(16, ctx.IACC22[I]);
+
+              if (NEWSD == 0) {
+                for (K = 1; K <= 4; K++) {
+                  ctx.ISEED[K] = ctx.IOLDSD[K];
+                }
               }
+              NOUT.println(
+                  '\n\n $C3:  NB =${ctx.NBVAL[I].i4}, NBMIN =${ctx.NBMIN[I].i4}, NX =${ctx.NXVAL[I].i4}, INMIN=${max(11, ctx.INMIN[I]).i4}, INWIN =${ctx.INWIN[I].i4}, INIBL =${ctx.INIBL[I].i4}, ISHFTS =${ctx.ISHFTS[I].i4}, IACC22 =${ctx.IACC22[I].i4}');
+              final INFO = Box(0);
+              dchkhs(
+                  NN,
+                  ctx.NVAL,
+                  MAXTYP,
+                  ctx.DOTYPE,
+                  ctx.ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 5),
+                  NMAX,
+                  A(1, 6),
+                  A(1, 7),
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  D(1, 4).asArray(),
+                  D(1, 5).asArray(),
+                  D(1, 6).asArray(),
+                  A(1, 8),
+                  A(1, 9),
+                  A(1, 10),
+                  A(1, 11),
+                  A(1, 12),
+                  D(1, 7).asArray(),
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  LOGWRK,
+                  RESULT,
+                  INFO,
+                  test);
+              if (INFO.value != 0) NOUT.print9980('DCHKHS', INFO.value);
             }
-            NOUT.println(
-                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN[I]).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}');
-            dchkhs(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                A(1, 5),
-                NMAX,
-                A(1, 6),
-                A(1, 7),
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                D(1, 4).asArray(),
-                D(1, 5).asArray(),
-                D(1, 6).asArray(),
-                A(1, 8),
-                A(1, 9),
-                A(1, 10),
-                A(1, 11),
-                A(1, 12),
-                D(1, 7).asArray(),
-                WORK,
-                LWORK,
-                IWORK,
-                LOGWRK,
-                RESULT,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DCHKHS', INFO.value);
-          }
+          });
         } else if (lsamen(3, C3, 'DST') ||
             lsamen(3, C3, 'SEP') ||
             lsamen(3, C3, 'SE2')) {
@@ -921,6 +942,7 @@ void main() async {
             }
             NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
             if (TSTCHK) {
+              final INFO = Box(0);
               if (lsamen(3, C3, 'SE2')) {
                 dchkst2stg(
                     NN,
@@ -995,6 +1017,7 @@ void main() async {
               if (INFO.value != 0) NOUT.print9980('DCHKST', INFO.value);
             }
             if (TSTDRV) {
+              final INFO = Box(0);
               if (lsamen(3, C3, 'SE2')) {
                 ddrvst2stg(
                     NN,
@@ -1089,6 +1112,7 @@ void main() async {
               // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
               // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
               // $                      LWORK, IWORK, LIWORK, RESULT, INFO.value )
+              final INFO = Box(0);
               ddrvsg2stg(
                   NN,
                   NVAL,
@@ -1152,6 +1176,7 @@ void main() async {
             NOUT.println(
                 '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS =${NRHS.i4}');
             if (TSTCHK) {
+              final INFO = Box(0);
               dchkbd(
                   NN,
                   MVAL,
@@ -1185,6 +1210,7 @@ void main() async {
               if (INFO.value != 0) NOUT.print9980('DCHKBD', INFO.value);
             }
             if (TSTDRV) {
+              final INFO = Box(0);
               ddrvbd(
                   NN,
                   MVAL,
@@ -1225,6 +1251,7 @@ void main() async {
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             ddrvev(
                 NN,
                 NVAL,
@@ -1268,6 +1295,7 @@ void main() async {
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             ddrves(
                 NN,
                 NVAL,
@@ -1309,6 +1337,7 @@ void main() async {
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             await ddrvvx(
                 NN,
                 NVAL,
@@ -1361,6 +1390,7 @@ void main() async {
           } else {
             if (TSTERR) derred(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             await ddrvsx(
                 NN,
                 NVAL,
@@ -1428,6 +1458,7 @@ void main() async {
             TSTDIF = false;
             THRSHN = 10.0;
             if (TSTCHK) {
+              final INFO = Box(0);
               dchkgg(
                   NN,
                   NVAL,
@@ -1481,6 +1512,7 @@ void main() async {
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             ddrges(
                 NN,
                 NVAL,
@@ -1552,6 +1584,7 @@ void main() async {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             xlaenv(5, 2);
+            final INFO = Box(0);
             await ddrgsx(
                 NN,
                 NCMAX,
@@ -1594,6 +1627,7 @@ void main() async {
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             ddrgev(
                 NN,
                 NVAL,
@@ -1671,6 +1705,7 @@ void main() async {
           } else {
             if (TSTERR) derrgg(C3, NOUT);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final INFO = Box(0);
             await ddrgvx(
                 NN,
                 THRESH,
@@ -1718,6 +1753,7 @@ void main() async {
           // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
           // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
           // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO.value )
+          final INFO = Box(0);
           dchksb2stg(
               NN,
               NVAL,
@@ -1759,6 +1795,7 @@ void main() async {
               }
             }
             NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
+            final INFO = Box(0);
             dchkbb(
                 NN,
                 MVAL,
@@ -1797,6 +1834,7 @@ void main() async {
 
           xlaenv(1, 1);
           if (TSTERR) derrgg('GLM', NOUT);
+          final INFO = Box(0);
           await dckglm(
               NN,
               MVAL,
@@ -1824,6 +1862,7 @@ void main() async {
 
           xlaenv(1, 1);
           if (TSTERR) derrgg('GQR', NOUT);
+          final INFO = Box(0);
           await dckgqr(
               NN,
               MVAL,
@@ -1859,6 +1898,7 @@ void main() async {
 
           xlaenv(1, 1);
           if (TSTERR) derrgg('GSV', NOUT);
+          final INFO = Box(0);
           await dckgsv(
               NN,
               MVAL,
@@ -1892,6 +1932,7 @@ void main() async {
 
           xlaenv(1, 1);
           if (TSTERR) derrgg('CSD', NOUT);
+          final INFO = Box(0);
           await dckcsd(
               NN,
               MVAL,
@@ -1922,6 +1963,7 @@ void main() async {
 
           xlaenv(1, 1);
           if (TSTERR) derrgg('LSE', NOUT);
+          final INFO = Box(0);
           await dcklse(
               NN,
               MVAL,
@@ -1999,4 +2041,10 @@ extension on Nout {
     println(
         ' Invalid input value: $s = ${actual.i6}; must be <= ${expected.i6}');
   }
+}
+
+void main() async {
+  final nin = Nin(stdin);
+  await dchkee(nin, null, lapackTestDriver);
+  exit(lapackTestDriver.errors);
 }

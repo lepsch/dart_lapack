@@ -8,7 +8,7 @@ abstract interface class TestDriver {
   void group(String description, dynamic Function() body);
   void test(String description, dynamic Function() body, {Object? skip});
   void fail([String message]);
-  bool expect(dynamic actual, dynamic matcher);
+  bool expect(dynamic actual, dynamic matcher, {String? reason});
 
   void call(String description, dynamic Function() test, {Object? skip}) {
     this.test(description, test);
@@ -39,7 +39,7 @@ class _LapackTestDriver extends TestDriver {
   }
 
   @override
-  bool expect(dynamic actual, dynamic matcher) {
+  bool expect(dynamic actual, dynamic matcher, {String? reason}) {
     var matchState = <dynamic, dynamic>{};
     if (test_pkg.wrapMatcher(matcher).matches(actual, matchState)) {
       return true;
@@ -68,8 +68,8 @@ class _DartTestDriver extends TestDriver {
   }
 
   @override
-  bool expect(dynamic actual, dynamic matcher) {
-    test_pkg.expect(actual, matcher);
+  bool expect(dynamic actual, dynamic matcher, {String? reason}) {
+    test_pkg.expect(actual, matcher, reason: reason);
     return true;
   }
 }
