@@ -116,7 +116,7 @@ void zhptrs(
           B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
           B[K][J] = (AKM1 * BK - BKM1) / DENOM;
         }
-        KC -= K + 1;
+        KC -= K - 1;
         K -= 2;
       }
     }

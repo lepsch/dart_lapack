@@ -406,7 +406,7 @@ void zlattp(
         }
         JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
-        JC -= J + 1;
+        JC -= J - 1;
       }
     } else {
       var JCOUNT = 1;
@@ -518,12 +518,12 @@ void zlattp(
         AP[JC] = (-TSCAL / (N + 1)).toComplex();
         AP[JC + J - 1] = Complex.one;
         B[J] = (TEXP * (ONE - ULP)).toComplex();
-        JC -= J + 1;
+        JC -= J - 1;
         AP[JC] = (-(TSCAL / (N + 1)) / (N + 2)).toComplex();
         AP[JC + J - 2] = Complex.one;
         B[J - 1] = (TEXP * (N * N + N - 1)).toComplex();
         TEXP *= TWO;
-        JC -= J + 2;
+        JC -= J - 2;
       }
       B[1] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
     } else {
@@ -634,7 +634,7 @@ void zlattp(
           JR -= I;
         }
         JL += N - J + 1;
-        JJ -= J - 1;
+        JJ -= J + 1;
       }
     }
   }

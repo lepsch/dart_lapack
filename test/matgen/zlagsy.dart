@@ -102,7 +102,7 @@ void zlagsy(
 
     for (JJ = I; JJ <= N; JJ++) {
       for (II = JJ; II <= N; II++) {
-        A[II][JJ] -= WORK[II - I + 1] * WORK[N + JJ - I + 1] -
+        A[II][JJ] -= WORK[II - I + 1] * WORK[N + JJ - I + 1] +
             WORK[N + II - I + 1] * WORK[JJ - I + 1];
       }
     }
@@ -154,7 +154,7 @@ void zlagsy(
     for (JJ = K + I; JJ <= N; JJ++) {
       for (II = JJ; II <= N; II++) {
         A[II][JJ] -=
-            A[II][I] * WORK[JJ - K - I + 1] - WORK[II - K - I + 1] * A[JJ][I];
+            A[II][I] * WORK[JJ - K - I + 1] + WORK[II - K - I + 1] * A[JJ][I];
       }
     }
 

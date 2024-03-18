@@ -61,11 +61,11 @@ void dlaptm(
       if (N == 1) {
         B[1][J] -= D[1] * X[1][J];
       } else {
-        B[1][J] -= D[1] * X[1][J] - E[1] * X[2][J];
-        B[N][J] -= E[N - 1] * X[N - 1][J] - D[N] * X[N][J];
+        B[1][J] -= D[1] * X[1][J] + E[1] * X[2][J];
+        B[N][J] -= E[N - 1] * X[N - 1][J] + D[N] * X[N][J];
         for (var I = 2; I <= N - 1; I++) {
           B[I][J] -=
-              E[I - 1] * X[I - 1][J] - D[I] * X[I][J] - E[I] * X[I + 1][J];
+              E[I - 1] * X[I - 1][J] + D[I] * X[I][J] + E[I] * X[I + 1][J];
         }
       }
     }

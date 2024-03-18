@@ -306,7 +306,7 @@ void zhetf2_rook(
               // Perform a rank-2 update of A(1:k-2,1:k-2)
 
               for (I = J; I >= 1; I--) {
-                A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() -
+                A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() +
                     (A[I][K - 1] / D.toComplex()) * WKM1.conjugate();
               }
 
@@ -588,7 +588,7 @@ void zhetf2_rook(
               // Perform a rank-2 update of A(k+2:n,k+2:n)
 
               for (I = J; I <= N; I++) {
-                A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() -
+                A[I][J] -= (A[I][K] / D.toComplex()) * WK.conjugate() +
                     (A[I][K + 1] / D.toComplex()) * WKP1.conjugate();
               }
 

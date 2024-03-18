@@ -359,7 +359,7 @@ void dchksy_rook(
 
               // DTEMP should be bounded by CONST
 
-              DTEMP -= CONST + THRESH;
+              DTEMP -= CONST - THRESH;
               if (DTEMP > RESULT[3]) RESULT[3] = DTEMP;
 
               K--;
@@ -387,7 +387,7 @@ void dchksy_rook(
 
               // DTEMP should be bounded by CONST
 
-              DTEMP -= CONST + THRESH;
+              DTEMP -= CONST - THRESH;
               if (DTEMP > RESULT[3]) RESULT[3] = DTEMP;
 
               K++;
@@ -428,7 +428,7 @@ void dchksy_rook(
 
                 // DTEMP should be bounded by CONST
 
-                DTEMP -= CONST + THRESH;
+                DTEMP -= CONST - THRESH;
                 if (DTEMP > RESULT[4]) RESULT[4] = DTEMP;
                 K--;
               }
@@ -460,7 +460,7 @@ void dchksy_rook(
 
                 // DTEMP should be bounded by CONST
 
-                DTEMP -= CONST + THRESH;
+                DTEMP -= CONST - THRESH;
                 if (DTEMP > RESULT[4]) RESULT[4] = DTEMP;
                 K++;
               }

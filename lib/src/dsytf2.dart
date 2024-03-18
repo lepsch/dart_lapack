@@ -188,7 +188,7 @@ void dsytf2(
               WKM1 = D12 * (D11 * A[J][K - 1] - A[J][K]);
               WK = D12 * (D22 * A[J][K] - A[J][K - 1]);
               for (I = J; I >= 1; I--) {
-                A[I][J] -= A[I][K] * WK - A[I][K - 1] * WKM1;
+                A[I][J] -= A[I][K] * WK + A[I][K - 1] * WKM1;
               }
               A[J][K] = WK;
               A[J][K - 1] = WKM1;
@@ -341,7 +341,7 @@ void dsytf2(
               WKP1 = D21 * (D22 * A[J][K + 1] - A[J][K]);
 
               for (I = J; I <= N; I++) {
-                A[I][J] -= A[I][K] * WK - A[I][K + 1] * WKP1;
+                A[I][J] -= A[I][K] * WK + A[I][K + 1] * WKP1;
               }
 
               A[J][K] = WK;

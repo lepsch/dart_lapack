@@ -212,7 +212,7 @@ void dgghd3(
             WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
           }
           LEN++;
-          PPW -= NBLST - 1;
+          PPW -= NBLST + 1;
         }
 
         PPWO = NBLST * NBLST + (NNB + J - JCOL - 1) * 2 * NNB + NNB;
@@ -231,7 +231,7 @@ void dgghd3(
               WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
             }
             LEN++;
-            PPW -= 2 * NNB - 1;
+            PPW -= 2 * NNB + 1;
           }
           PPWO += 4 * NNB * NNB;
         }
@@ -585,7 +585,7 @@ void dgghd3(
               WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
             }
             LEN++;
-            PPW -= NBLST - 1;
+            PPW -= NBLST + 1;
           }
 
           PPWO = NBLST * NBLST + (NNB + J - JCOL - 1) * 2 * NNB + NNB;
@@ -606,7 +606,7 @@ void dgghd3(
                 WORK[JJ] = S.value * TEMP + C.value * WORK[JJ];
               }
               LEN++;
-              PPW -= 2 * NNB - 1;
+              PPW -= 2 * NNB + 1;
             }
             PPWO += 4 * NNB * NNB;
           }

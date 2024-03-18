@@ -281,8 +281,8 @@ void zggbal(
         TB = log10(CABS1(B[I][J])) / BASL;
       }
 
-      WORK[I + 4 * N] -= TA - TB;
-      WORK[J + 5 * N] -= TA - TB;
+      WORK[I + 4 * N] -= TA + TB;
+      WORK[J + 5 * N] -= TA + TB;
     }
   }
 

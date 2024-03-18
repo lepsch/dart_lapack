@@ -157,7 +157,7 @@ void dtpsv(
           }
           if (NOUNIT) TEMP /= AP[KK - N + J];
           X[J] = TEMP;
-          KK -= N - J + 1;
+          KK -= N + J - 1;
         }
       } else {
         KX += (N - 1) * INCX;
@@ -172,7 +172,7 @@ void dtpsv(
           if (NOUNIT) TEMP /= AP[KK - N + J];
           X[JX] = TEMP;
           JX -= INCX;
-          KK -= N - J + 1;
+          KK -= N + J - 1;
         }
       }
     }

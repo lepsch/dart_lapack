@@ -86,7 +86,7 @@ void zlatsp(
       } else {
         X[JJ - 1] = TWO * X[JJ - J];
       }
-      JJ -= J - (J - 1);
+      JJ -= J + (J - 1);
       J -= 2;
     } else if (J == 1) {
       X[JJ] = zlarnd(2, ISEED);

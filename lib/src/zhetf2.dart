@@ -202,7 +202,7 @@ void zhetf2(
                   (D22.toComplex() * A[J][K] - D12 * A[J][K - 1]);
               for (I = J; I >= 1; I--) {
                 A[I][J] -=
-                    A[I][K] * WK.conjugate() - A[I][K - 1] * WKM1.conjugate();
+                    A[I][K] * WK.conjugate() + A[I][K - 1] * WKM1.conjugate();
               }
               A[J][K] = WK;
               A[J][K - 1] = WKM1;
@@ -376,7 +376,7 @@ void zhetf2(
                   (D22.toComplex() * A[J][K + 1] - D21.conjugate() * A[J][K]);
               for (I = J; I <= N; I++) {
                 A[I][J] -=
-                    A[I][K] * WK.conjugate() - A[I][K + 1] * WKP1.conjugate();
+                    A[I][K] * WK.conjugate() + A[I][K + 1] * WKP1.conjugate();
               }
               A[J][K] = WK;
               A[J][K + 1] = WKP1;

@@ -201,8 +201,8 @@ void dsbgst(
         }
         for (K = I - KBT; K <= I - 1; K++) {
           for (J = I - KBT; J <= K; J++) {
-            AB[J - K + KA1][K] -= BB[J - I + KB1][I] * AB[K - I + KA1][I] -
-                BB[K - I + KB1][I] * AB[J - I + KA1][I] +
+            AB[J - K + KA1][K] -= BB[J - I + KB1][I] * AB[K - I + KA1][I] +
+                BB[K - I + KB1][I] * AB[J - I + KA1][I] -
                 AB[KA1][I] * BB[J - I + KB1][I] * BB[K - I + KB1][I];
           }
           for (J = max(1, I - KA); J <= I - KBT - 1; J++) {
@@ -489,8 +489,8 @@ void dsbgst(
         }
         for (K = I - KBT; K <= I - 1; K++) {
           for (J = I - KBT; J <= K; J++) {
-            AB[K - J + 1][J] -= BB[I - J + 1][J] * AB[I - K + 1][K] -
-                BB[I - K + 1][K] * AB[I - J + 1][J] +
+            AB[K - J + 1][J] -= BB[I - J + 1][J] * AB[I - K + 1][K] +
+                BB[I - K + 1][K] * AB[I - J + 1][J] -
                 AB[1][I] * BB[I - J + 1][J] * BB[I - K + 1][K];
           }
           for (J = max(1, I - KA); J <= I - KBT - 1; J++) {
@@ -817,8 +817,8 @@ void dsbgst(
         }
         for (K = I + 1; K <= I + KBT; K++) {
           for (J = K; J <= I + KBT; J++) {
-            AB[K - J + KA1][J] -= BB[I - J + KB1][J] * AB[I - K + KA1][K] -
-                BB[I - K + KB1][K] * AB[I - J + KA1][J] +
+            AB[K - J + KA1][J] -= BB[I - J + KB1][J] * AB[I - K + KA1][K] +
+                BB[I - K + KB1][K] * AB[I - J + KA1][J] -
                 AB[KA1][I] * BB[I - J + KB1][J] * BB[I - K + KB1][K];
           }
           for (J = I + KBT + 1; J <= min(N, I + KA); J++) {
@@ -1110,8 +1110,8 @@ void dsbgst(
         }
         for (K = I + 1; K <= I + KBT; K++) {
           for (J = K; J <= I + KBT; J++) {
-            AB[J - K + 1][K] -= BB[J - I + 1][I] * AB[K - I + 1][I] -
-                BB[K - I + 1][I] * AB[J - I + 1][I] +
+            AB[J - K + 1][K] -= BB[J - I + 1][I] * AB[K - I + 1][I] +
+                BB[K - I + 1][I] * AB[J - I + 1][I] -
                 AB[1][I] * BB[J - I + 1][I] * BB[K - I + 1][I];
           }
           for (J = I + KBT + 1; J <= min(N, I + KA); J++) {

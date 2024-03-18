@@ -132,7 +132,7 @@ void zhptrf(
         }
 
         KK = K - KSTEP + 1;
-        if (KSTEP == 2) KNC -= K + 1;
+        if (KSTEP == 2) KNC -= K - 1;
         if (KP != KK) {
           // Interchange rows and columns KK and KP in the leading
           // submatrix A(1:k,1:k)
@@ -210,7 +210,7 @@ void zhptrf(
                       D12 * AP[J + (K - 2) * (K - 1) ~/ 2]);
               for (I = J; I >= 1; I--) {
                 AP[I + (J - 1) * J ~/ 2] -=
-                    AP[I + (K - 1) * K ~/ 2] * WK.conjugate() -
+                    AP[I + (K - 1) * K ~/ 2] * WK.conjugate() +
                         AP[I + (K - 2) * (K - 1) ~/ 2] * WKM1.conjugate();
               }
               AP[J + (K - 1) * K ~/ 2] = WK;

@@ -84,11 +84,11 @@ void dlagtm(
         if (N == 1) {
           B[1][J] -= D[1] * X[1][J];
         } else {
-          B[1][J] -= D[1] * X[1][J] - DU[1] * X[2][J];
-          B[N][J] -= DL[N - 1] * X[N - 1][J] - D[N] * X[N][J];
+          B[1][J] -= D[1] * X[1][J] + DU[1] * X[2][J];
+          B[N][J] -= DL[N - 1] * X[N - 1][J] + D[N] * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             B[I][J] -=
-                DL[I - 1] * X[I - 1][J] - D[I] * X[I][J] - DU[I] * X[I + 1][J];
+                DL[I - 1] * X[I - 1][J] + D[I] * X[I][J] + DU[I] * X[I + 1][J];
           }
         }
       }
@@ -99,11 +99,11 @@ void dlagtm(
         if (N == 1) {
           B[1][J] -= D[1] * X[1][J];
         } else {
-          B[1][J] -= D[1] * X[1][J] - DL[1] * X[2][J];
-          B[N][J] -= DU[N - 1] * X[N - 1][J] - D[N] * X[N][J];
+          B[1][J] -= D[1] * X[1][J] + DL[1] * X[2][J];
+          B[N][J] -= DU[N - 1] * X[N - 1][J] + D[N] * X[N][J];
           for (I = 2; I <= N - 1; I++) {
             B[I][J] -=
-                DU[I - 1] * X[I - 1][J] - D[I] * X[I][J] - DL[I] * X[I + 1][J];
+                DU[I - 1] * X[I - 1][J] + D[I] * X[I][J] + DL[I] * X[I + 1][J];
           }
         }
       }

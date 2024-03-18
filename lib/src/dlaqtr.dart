@@ -391,7 +391,7 @@ void dlaqtr(
             daxpy(J1 - 1, -X[N + J2], T(1, J2).asArray(), 1, X(N + 1), 1);
 
             X[1] += B[J1] * X[N + J1] + B[J2] * X[N + J2];
-            X[N + 1] -= B[J1] * X[J1] - B[J2] * X[J2];
+            X[N + 1] -= B[J1] * X[J1] + B[J2] * X[J2];
 
             XMAX = ZERO;
             for (K = 1; K <= J1 - 1; K++) {

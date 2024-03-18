@@ -877,16 +877,16 @@ void dtgevc(
                   BCOEFR.value * WORK[3 * N + J + JA - 1];
               for (JR = 1; JR <= J - 1; JR++) {
                 WORK[2 * N + JR] -=
-                    CREALA * S[JR][J + JA - 1] + CREALB * P[JR][J + JA - 1];
+                    CREALA * S[JR][J + JA - 1] - CREALB * P[JR][J + JA - 1];
                 WORK[3 * N + JR] -=
-                    CIMAGA * S[JR][J + JA - 1] + CIMAGB * P[JR][J + JA - 1];
+                    CIMAGA * S[JR][J + JA - 1] - CIMAGB * P[JR][J + JA - 1];
               }
             } else {
               CREALA = ACOEF.value * WORK[2 * N + J + JA - 1];
               CREALB = BCOEFR.value * WORK[2 * N + J + JA - 1];
               for (JR = 1; JR <= J - 1; JR++) {
                 WORK[2 * N + JR] -=
-                    CREALA * S[JR][J + JA - 1] + CREALB * P[JR][J + JA - 1];
+                    CREALA * S[JR][J + JA - 1] - CREALB * P[JR][J + JA - 1];
               }
             }
           }

@@ -93,7 +93,7 @@ void dtptri(
         dscal(N - J, AJJ, AP(JC + 1), 1);
       }
       JCLAST = JC;
-      JC -= N + J - 2;
+      JC -= N - J + 2;
     }
   }
 }

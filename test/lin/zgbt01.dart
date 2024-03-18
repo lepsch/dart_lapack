@@ -74,7 +74,7 @@ void zgbt01(
           zaxpy(IL, T, AFAC(KD2 + 1, I).asArray(), 1, WORK(IW + 1), 1);
           var IP = IPIV[I];
           if (I != IP) {
-            IP -= J + JU + 1;
+            IP -= J - JU - 1;
             WORK[IW] = WORK[IP];
             WORK[IP] = T;
           }

@@ -209,7 +209,7 @@ void dstebz(
     GU = max(GU, D[N] + TMP1);
     GL = min(GL, D[N] - TMP1);
     TNORM = max(GL.abs(), GU.abs());
-    GL -= FUDGE * TNORM * ULP * N - FUDGE * TWO * PIVMIN;
+    GL -= FUDGE * TNORM * ULP * N + FUDGE * TWO * PIVMIN;
     GU += FUDGE * TNORM * ULP * N + FUDGE * PIVMIN;
 
     // Compute Iteration parameters
@@ -347,7 +347,7 @@ void dstebz(
       GU = max(GU, D[IEND] + TMP1);
       GL = min(GL, D[IEND] - TMP1);
       BNORM = max(GL.abs(), GU.abs());
-      GL -= FUDGE * BNORM * ULP * IN - FUDGE * PIVMIN;
+      GL -= FUDGE * BNORM * ULP * IN + FUDGE * PIVMIN;
       GU += FUDGE * BNORM * ULP * IN + FUDGE * PIVMIN;
 
       // Compute ATOLI for the current submatrix

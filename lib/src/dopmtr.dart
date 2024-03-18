@@ -110,7 +110,7 @@ void dopmtr(
       if (FORWRD) {
         II += I + 2;
       } else {
-        II -= I - 1;
+        II -= I + 1;
       }
     }
   } else {
@@ -161,7 +161,7 @@ void dopmtr(
       if (FORWRD) {
         II += NQ - I + 1;
       } else {
-        II -= NQ + I - 2;
+        II -= NQ - I + 2;
       }
     }
   }

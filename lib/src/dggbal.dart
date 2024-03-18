@@ -273,8 +273,8 @@ void dggbal(
       if (TB != ZERO) {
         TB = log10(TB.abs()) / BASL;
       }
-      WORK[I + 4 * N] -= TA - TB;
-      WORK[J + 5 * N] -= TA - TB;
+      WORK[I + 4 * N] -= TA + TB;
+      WORK[J + 5 * N] -= TA + TB;
     }
   }
 

@@ -261,7 +261,7 @@ void dbdsvdx(
     // at -s (see leading comments) and indices are mapped into
     // values, therefore mimicking DSTEBZ, where
 
-    // GL -= FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN
+    // GL -= FUDGE*TNORM*ULP*N + FUDGE*TWO*PIVMIN
     // GU += FUDGE*TNORM*ULP*N + FUDGE*PIVMIN
 
     ILTGK = IL;

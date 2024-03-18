@@ -194,7 +194,7 @@ void ztgsy2(
         }
         for (K = I + 1; K <= M; K++) {
           C[K][J] -=
-              A[I][K].conjugate() * RHS[1] - D[I][K].conjugate() * RHS[2];
+              A[I][K].conjugate() * RHS[1] + D[I][K].conjugate() * RHS[2];
         }
       }
     }

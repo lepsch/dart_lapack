@@ -261,7 +261,7 @@ void dlaein(
           XR = B[I][I] * EI;
           XI = -B[I + 1][I] * EI;
           for (J = I + 1; J <= N; J++) {
-            B[I + 1][J] -= XR * B[I][J] + XI * B[J + 1][I];
+            B[I + 1][J] -= XR * B[I][J] - XI * B[J + 1][I];
             B[J + 1][I + 1] = -XR * B[J + 1][I] - XI * B[I][J];
           }
           B[I + 2][I + 1] -= WI;
@@ -322,7 +322,7 @@ void dlaein(
           XR = B[J][J] * EJ;
           XI = -B[J + 1][J] * EJ;
           for (I = 1; I <= J - 1; I++) {
-            B[I][J - 1] -= XR * B[I][J] + XI * B[J + 1][I];
+            B[I][J - 1] -= XR * B[I][J] - XI * B[J + 1][I];
             B[J][I] = -XR * B[J + 1][I] - XI * B[I][J];
           }
           B[J][J - 1] += WI;
@@ -365,13 +365,13 @@ void dlaein(
         XI = VI[I];
         if (RIGHTV) {
           for (J = I + 1; J <= N; J++) {
-            XR -= B[I][J] * VR[J] + B[J + 1][I] * VI[J];
-            XI -= B[I][J] * VI[J] - B[J + 1][I] * VR[J];
+            XR -= B[I][J] * VR[J] - B[J + 1][I] * VI[J];
+            XI -= B[I][J] * VI[J] + B[J + 1][I] * VR[J];
           }
         } else {
           for (J = 1; J <= I - 1; J++) {
-            XR -= B[J][I] * VR[J] + B[I + 1][J] * VI[J];
-            XI -= B[J][I] * VI[J] - B[I + 1][J] * VR[J];
+            XR -= B[J][I] * VR[J] - B[I + 1][J] * VI[J];
+            XI -= B[J][I] * VI[J] + B[I + 1][J] * VR[J];
           }
         }
 

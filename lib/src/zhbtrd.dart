@@ -179,7 +179,7 @@ void zhbtrd(
                   WORK[I + K - 1]);
             }
             NR++;
-            J1 -= KDN - 1;
+            J1 -= KDN + 1;
           }
 
           // apply plane rotations from both sides to diagonal
@@ -268,7 +268,7 @@ void zhbtrd(
             // adjust J2 to keep within the bounds of the matrix
 
             NR--;
-            J2 -= KDN - 1;
+            J2 -= KDN + 1;
           }
 
           for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
@@ -386,7 +386,7 @@ void zhbtrd(
                   WORK[I + K - 1]);
             }
             NR++;
-            J1 -= KDN - 1;
+            J1 -= KDN + 1;
           }
 
           // apply plane rotations from both sides to diagonal
@@ -468,7 +468,7 @@ void zhbtrd(
             // adjust J2 to keep within the bounds of the matrix
 
             NR--;
-            J2 -= KDN - 1;
+            J2 -= KDN + 1;
           }
 
           for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {

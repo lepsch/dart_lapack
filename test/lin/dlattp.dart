@@ -398,7 +398,7 @@ void dlattp(
         }
         JCOUNT++;
         if (JCOUNT > 4) JCOUNT = 1;
-        JC -= J + 1;
+        JC -= J - 1;
       }
     } else {
       var JCOUNT = 1;
@@ -510,12 +510,12 @@ void dlattp(
         A[JC] = -TSCAL / (N + 1);
         A[JC + J - 1] = ONE;
         B[J] = TEXP * (ONE - ULP);
-        JC -= J + 1;
+        JC -= J - 1;
         A[JC] = -(TSCAL / (N + 1)) / (N + 2);
         A[JC + J - 2] = ONE;
         B[J - 1] = TEXP * (N * N + N - 1);
         TEXP *= TWO;
-        JC -= J + 2;
+        JC -= J - 2;
       }
       B[1] = ((N + 1) / (N + 2)) * TSCAL;
     } else {
@@ -621,7 +621,7 @@ void dlattp(
           JR -= I;
         }
         JL += N - J + 1;
-        JJ -= J - 1;
+        JJ -= J + 1;
       }
     }
   }

@@ -347,8 +347,8 @@ void dlaln2(
         BI1 = B[1][2];
         BI2 = B[2][2];
       }
-      BR2 -= LR21 * BR1 + LI21 * BI1;
-      BI2 -= LI21 * BR1 - LR21 * BI1;
+      BR2 -= LR21 * BR1 - LI21 * BI1;
+      BI2 -= LI21 * BR1 + LR21 * BI1;
       BBND = max(
           (BR1.abs() + BI1.abs()) * (U22ABS * (UR11R.abs() + UI11R.abs())),
           BR2.abs() + BI2.abs());

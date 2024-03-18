@@ -171,7 +171,7 @@ void dlarrd(
   }
   // Compute global Gerschgorin bounds and spectral diameter
   TNORM = max(GL.abs(), GU.abs());
-  GL -= FUDGE * TNORM * EPS * N - FUDGE * TWO * PIVMIN;
+  GL -= FUDGE * TNORM * EPS * N + FUDGE * TWO * PIVMIN;
   GU += FUDGE * TNORM * EPS * N + FUDGE * TWO * PIVMIN;
   // [JAN/28/2009] remove the line below since SPDIAM variable not use
   // SPDIAM = GU - GL
@@ -352,9 +352,9 @@ void dlarrd(
       // change SPDIAM by TNORM in lines 2 and 3 thereafter
       // line 1: remove computation of SPDIAM (not useful anymore)
       // SPDIAM = GU - GL
-      // GL -= FUDGE*SPDIAM*EPS*IN - FUDGE*PIVMIN
+      // GL -= FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
       // GU += FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
-      GL -= FUDGE * TNORM * EPS * IN - FUDGE * PIVMIN;
+      GL -= FUDGE * TNORM * EPS * IN + FUDGE * PIVMIN;
       GU += FUDGE * TNORM * EPS * IN + FUDGE * PIVMIN;
 
       if (IRANGE > 1) {
@@ -504,7 +504,7 @@ void dlarrd(
         INDEXW[JEE] = INDEXW[JE];
         IBLOCK[JEE] = IBLOCK[JE];
       }
-      M.value -= IM.value + 1;
+      M.value -= IM.value - 1;
     }
 
     if (IDISCL > 0 || IDISCU > 0) {

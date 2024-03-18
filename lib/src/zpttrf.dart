@@ -46,7 +46,7 @@ void zpttrf(
     F = EIR / D[Int32x4.wwwy];
     G = EII / D[Int32x4.wwwy];
     E[I] = Complex(F, G);
-    D[I + 1] -= F * EIR - G * EII;
+    D[I + 1] -= F * EIR + G * EII;
   }
 
   for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) {
@@ -65,7 +65,7 @@ void zpttrf(
     F = EIR / D[Int32x4.wwwy];
     G = EII / D[Int32x4.wwwy];
     E[I] = Complex(F, G);
-    D[I + 1] -= F * EIR - G * EII;
+    D[I + 1] -= F * EIR + G * EII;
 
     if (D[I + 1] <= ZERO) {
       INFO.value = I + 1;
@@ -79,7 +79,7 @@ void zpttrf(
     F = EIR / D[I + 1];
     G = EII / D[I + 1];
     E[I + 1] = Complex(F, G);
-    D[I + 2] -= F * EIR - G * EII;
+    D[I + 2] -= F * EIR + G * EII;
 
     if (D[I + 2] <= ZERO) {
       INFO.value = I + 2;
@@ -93,7 +93,7 @@ void zpttrf(
     F = EIR / D[I + 2];
     G = EII / D[I + 2];
     E[I + 2] = Complex(F, G);
-    D[I + 3] -= F * EIR - G * EII;
+    D[I + 3] -= F * EIR + G * EII;
 
     if (D[I + 3] <= ZERO) {
       INFO.value = I + 3;
@@ -107,7 +107,7 @@ void zpttrf(
     F = EIR / D[I + 3];
     G = EII / D[I + 3];
     E[I + 3] = Complex(F, G);
-    D[I + 4] -= F * EIR - G * EII;
+    D[I + 4] -= F * EIR + G * EII;
   }
 
   // Check d(n) for positive definiteness.

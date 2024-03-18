@@ -158,7 +158,7 @@ void zsytrf_rk(
         if (IPIV[I] > 0) {
           IPIV[I] += K - 1;
         } else {
-          IPIV[I] -= K + 1;
+          IPIV[I] -= K - 1;
         }
       }
 

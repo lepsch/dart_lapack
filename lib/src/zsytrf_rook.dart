@@ -136,7 +136,7 @@ void zsytrf_rook(
         if (IPIV[J] > 0) {
           IPIV[J] += K - 1;
         } else {
-          IPIV[J] -= K + 1;
+          IPIV[J] -= K - 1;
         }
       }
 
