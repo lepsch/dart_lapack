@@ -57,10 +57,6 @@ import 'xerbla.dart' as mock;
 import 'xlaenv.dart';
 
 Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
-// #if defined(_OPENMP)
-  // use omp_lib;
-// #endif
-
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -121,7 +117,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       NPARMS = 0,
       NRHS,
       NTYPES = 0;
-  // int          N_THREADS, ONE_THREAD;
   double EPS, THRESH, THRSHN;
   final DOTYPE = Array<bool>(MAXT), LOGWRK = Array<bool>(NMAX);
   final ISEED = Array<int>(4),
@@ -380,7 +375,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       if (DEV || DES || DVX || DSX) {
         // For the nonsymmetric QR driver routines, only one set of
         // parameters is allowed.
-
         final PARAMS = Array<int>(8);
         await NIN.readArray(PARAMS, 8);
         NBVAL[1] = PARAMS[1];
@@ -436,7 +430,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       } else if (DGS || DGX || DGV || DXV) {
         // For the nonsymmetric generalized driver routines, only one set
         // of parameters is allowed.
-
         final PARAMS = Array<int>(5);
         await NIN.readArray(PARAMS, 5);
         NBVAL[1] = PARAMS[1];
@@ -474,7 +467,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       } else if (!DSB && !GLM && !GQR && !GSV && !CSD && !LSE) {
         // For the other paths, the number of parameters can be varied
         // from the input file.  Read the number of parameter values.
-
         NPARMS = await NIN.readInt();
         if (NPARMS < 1) {
           NOUT.print9989('NPARMS', NPARMS, 1);
@@ -487,7 +479,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values of NB
-
         if (!DBB) {
           await NIN.readArray(NBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -503,7 +494,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values of NBMIN
-
         if (NEP || SEP || SVD || DGG) {
           await NIN.readArray(NBMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -523,7 +513,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values of NX
-
         if (NEP || SEP || SVD) {
           await NIN.readArray(NXVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -544,7 +533,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 
         // Read the values of NSHIFT (if DGG) or NRHS (if SVD
         // or DBB).
-
         if (SVD || DBB || DGG) {
           await NIN.readArray(NSVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -564,7 +552,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for MAXB.
-
         if (DGG) {
           await NIN.readArray(MXBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -584,7 +571,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for INMIN.
-
         if (NEP) {
           await NIN.readArray(INMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -601,7 +587,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for INWIN.
-
         if (NEP) {
           await NIN.readArray(INWIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -618,7 +603,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for INIBL.
-
         if (NEP) {
           await NIN.readArray(INIBL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -635,7 +619,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for ISHFTS.
-
         if (NEP) {
           await NIN.readArray(ISHFTS, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -652,7 +635,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for IACC22.
-
         if (NEP || DGG) {
           await NIN.readArray(IACC22, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -669,7 +651,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         }
 
         // Read the values for NBCOL.
-
         if (DGG) {
           await NIN.readArray(NBCOL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
@@ -690,7 +671,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       }
 
       // Calculate and write the machine dependent constants.
-
       NOUT.println('');
       EPS = dlamch('Underflow threshold');
       NOUT.print9981('underflow', EPS);
@@ -700,30 +680,25 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       NOUT.print9981('precision', EPS);
 
       // Read the threshold value for the test ratios.
-
       THRESH = await NIN.readDouble();
       NOUT.println(
           '\n Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
+
       if (SEP || SVD || DGG) {
         // Read the flag that indicates whether to test LAPACK routines.
-
         TSTCHK = await NIN.readBool();
 
         // Read the flag that indicates whether to test driver routines.
-
         TSTDRV = await NIN.readBool();
       }
 
       // Read the flag that indicates whether to test the error exits.
-
       TSTERR = await NIN.readBool();
 
       // Read the code describing how to set the random number seed.
-
       NEWSD = await NIN.readInt();
 
       // If NEWSD = 2, read another line with 4 integers for the seed.
-
       if (NEWSD == 2) await NIN.readArray(IOLDSD, 4);
 
       for (I = 1; I <= 4; I++) {
@@ -739,12 +714,13 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
       // The first three characters indicate the test path, and the number
       // of test matrix types must be the first nonblank item in columns
       // 4-80.
-
       do {
         if (!(DGX || DXV)) {
           nextLine:
           while (true) {
             LINE = await NIN.readLine();
+            if (LINE.trim().isEmpty) continue;
+
             C3 = LINE.substring(0, 3);
             LENP = LINE.length;
             I = 3;
@@ -761,15 +737,14 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                   break;
                 }
               }
-              if (LINE.substring(I - 1, I) != ' ' &&
-                  LINE.substring(I - 1, I) != ',') {
+              if (LINE[I - 1] != ' ' && LINE[I - 1] != ',') {
                 I1 = I;
-                C1 = LINE.substring(I1 - 1, I1);
+                C1 = LINE[I1 - 1];
 
                 // Check that a valid integer was read
                 var isValidDigit = false;
                 for (K = 1; K <= 10; K++) {
-                  if (C1 == INTSTR.substring(K - 1, K)) {
+                  if (C1 == INTSTR[K - 1]) {
                     IC = K - 1;
                     isValidDigit = true;
                     break;
@@ -841,35 +816,49 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             DOTYPE: DOTYPE.copy(),
           );
 
-          test.group('NEP:  Nonsymmetric Eigenvalue Problem ($C3)', () {
+          test.group('NEP: Nonsymmetric Eigenvalue Problem ($C3)', () {
             NOUT!;
+            final (
+              :NBVAL,
+              :NBMIN,
+              :NXVAL,
+              :INMIN,
+              :INWIN,
+              :INIBL,
+              :ISHFTS,
+              :IACC22,
+              :ISEED,
+              :IOLDSD,
+              :NVAL,
+              :DOTYPE
+            ) = ctx;
 
             xlaenv(1, 1);
             if (TSTERR) derrhs('DHSEQR', NOUT);
             for (I = 1; I <= NPARMS; I++) {
-              xlaenv(1, ctx.NBVAL[I]);
-              xlaenv(2, ctx.NBMIN[I]);
-              xlaenv(3, ctx.NXVAL[I]);
-              xlaenv(12, max(11, ctx.INMIN[I]));
-              xlaenv(13, ctx.INWIN[I]);
-              xlaenv(14, ctx.INIBL[I]);
-              xlaenv(15, ctx.ISHFTS[I]);
-              xlaenv(16, ctx.IACC22[I]);
+              xlaenv(1, NBVAL[I]);
+              xlaenv(2, NBMIN[I]);
+              xlaenv(3, NXVAL[I]);
+              xlaenv(12, max(11, INMIN[I]));
+              xlaenv(13, INWIN[I]);
+              xlaenv(14, INIBL[I]);
+              xlaenv(15, ISHFTS[I]);
+              xlaenv(16, IACC22[I]);
 
               if (NEWSD == 0) {
                 for (K = 1; K <= 4; K++) {
-                  ctx.ISEED[K] = ctx.IOLDSD[K];
+                  ISEED[K] = IOLDSD[K];
                 }
               }
               NOUT.println(
-                  '\n\n $C3:  NB =${ctx.NBVAL[I].i4}, NBMIN =${ctx.NBMIN[I].i4}, NX =${ctx.NXVAL[I].i4}, INMIN=${max(11, ctx.INMIN[I]).i4}, INWIN =${ctx.INWIN[I].i4}, INIBL =${ctx.INIBL[I].i4}, ISHFTS =${ctx.ISHFTS[I].i4}, IACC22 =${ctx.IACC22[I].i4}');
+                  '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN[I]).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}');
               final INFO = Box(0);
               dchkhs(
                   NN,
-                  ctx.NVAL,
+                  NVAL,
                   MAXTYP,
-                  ctx.DOTYPE,
-                  ctx.ISEED,
+                  DOTYPE,
+                  ISEED,
                   THRESH,
                   NOUT,
                   A(1, 1),
@@ -917,171 +906,182 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          xlaenv(1, 1);
-          xlaenv(9, 25);
-          if (TSTERR) {
-// #if defined(_OPENMP)
-            // N_THREADS = OMP_GET_MAX_THREADS();
-            // ONE_THREAD = 1;
-            // omp_set_num_threads(ONE_THREAD);
-// #endif
-            derrst('DST', NOUT);
-// #if defined(_OPENMP)
-            // omp_set_num_threads(N_THREADS);
-// #endif
-          }
-          for (I = 1; I <= NPARMS; I++) {
-            xlaenv(1, NBVAL[I]);
-            xlaenv(2, NBMIN[I]);
-            xlaenv(3, NXVAL[I]);
 
-            if (NEWSD == 0) {
-              for (K = 1; K <= 4; K++) {
-                ISEED[K] = IOLDSD[K];
+          final ctx = (
+            NBVAL: NBVAL.copy(),
+            NBMIN: NBMIN.copy(),
+            NXVAL: NXVAL.copy(),
+            ISEED: ISEED.copy(),
+            IOLDSD: IOLDSD.copy(),
+            NVAL: NVAL.copy(),
+            DOTYPE: DOTYPE.copy(),
+          );
+
+          test.group('SEP: Symmetric Eigenvalue Problem ($C3)', () {
+            NOUT!;
+            final (:NBVAL, :NBMIN, :NXVAL, :ISEED, :IOLDSD, :NVAL, :DOTYPE) =
+                ctx;
+
+            xlaenv(1, 1);
+            xlaenv(9, 25);
+            if (TSTERR) derrst('DST', NOUT);
+            for (I = 1; I <= NPARMS; I++) {
+              xlaenv(1, NBVAL[I]);
+              xlaenv(2, NBMIN[I]);
+              xlaenv(3, NXVAL[I]);
+
+              if (NEWSD == 0) {
+                for (K = 1; K <= 4; K++) {
+                  ISEED[K] = IOLDSD[K];
+                }
+              }
+              NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+              if (TSTCHK) {
+                final INFO = Box(0);
+                if (lsamen(3, C3, 'SE2')) {
+                  dchkst2stg(
+                      NN,
+                      NVAL,
+                      MAXTYP,
+                      DOTYPE,
+                      ISEED,
+                      THRESH,
+                      NOUT,
+                      A(1, 1),
+                      NMAX,
+                      A(1, 2).asArray(),
+                      D(1, 1).asArray(),
+                      D(1, 2).asArray(),
+                      D(1, 3).asArray(),
+                      D(1, 4).asArray(),
+                      D(1, 5).asArray(),
+                      D(1, 6).asArray(),
+                      D(1, 7).asArray(),
+                      D(1, 8).asArray(),
+                      D(1, 9).asArray(),
+                      D(1, 10).asArray(),
+                      D(1, 11).asArray(),
+                      A(1, 3),
+                      NMAX,
+                      A(1, 4),
+                      A(1, 5).asArray(),
+                      D(1, 12).asArray(),
+                      A(1, 6),
+                      WORK,
+                      LWORK,
+                      IWORK,
+                      LIWORK,
+                      RESULT,
+                      INFO,
+                      test);
+                } else {
+                  dchkst(
+                      NN,
+                      NVAL,
+                      MAXTYP,
+                      DOTYPE,
+                      ISEED,
+                      THRESH,
+                      NOUT,
+                      A(1, 1),
+                      NMAX,
+                      A(1, 2).asArray(),
+                      D(1, 1).asArray(),
+                      D(1, 2).asArray(),
+                      D(1, 3).asArray(),
+                      D(1, 4).asArray(),
+                      D(1, 5).asArray(),
+                      D(1, 6).asArray(),
+                      D(1, 7).asArray(),
+                      D(1, 8).asArray(),
+                      D(1, 9).asArray(),
+                      D(1, 10).asArray(),
+                      D(1, 11).asArray(),
+                      A(1, 3),
+                      NMAX,
+                      A(1, 4),
+                      A(1, 5).asArray(),
+                      D(1, 12).asArray(),
+                      A(1, 6),
+                      WORK,
+                      LWORK,
+                      IWORK,
+                      LIWORK,
+                      RESULT,
+                      INFO,
+                      test);
+                }
+                if (INFO.value != 0) NOUT.print9980('DCHKST', INFO.value);
+              }
+              if (TSTDRV) {
+                final INFO = Box(0);
+                if (lsamen(3, C3, 'SE2')) {
+                  ddrvst2stg(
+                      NN,
+                      NVAL,
+                      18,
+                      DOTYPE,
+                      ISEED,
+                      THRESH,
+                      NOUT,
+                      A(1, 1),
+                      NMAX,
+                      D(1, 3).asArray(),
+                      D(1, 4).asArray(),
+                      D(1, 5).asArray(),
+                      D(1, 6).asArray(),
+                      D(1, 8).asArray(),
+                      D(1, 9).asArray(),
+                      D(1, 10).asArray(),
+                      D(1, 11).asArray(),
+                      A(1, 2),
+                      NMAX,
+                      A(1, 3),
+                      D(1, 12).asArray(),
+                      A(1, 4),
+                      WORK,
+                      LWORK,
+                      IWORK,
+                      LIWORK,
+                      RESULT,
+                      INFO,
+                      test);
+                } else {
+                  ddrvst(
+                      NN,
+                      NVAL,
+                      18,
+                      DOTYPE,
+                      ISEED,
+                      THRESH,
+                      NOUT,
+                      A(1, 1),
+                      NMAX,
+                      D(1, 3).asArray(),
+                      D(1, 4).asArray(),
+                      D(1, 5).asArray(),
+                      D(1, 6).asArray(),
+                      D(1, 8).asArray(),
+                      D(1, 9).asArray(),
+                      D(1, 10).asArray(),
+                      D(1, 11).asArray(),
+                      A(1, 2),
+                      NMAX,
+                      A(1, 3),
+                      D(1, 12).asArray(),
+                      A(1, 4),
+                      WORK,
+                      LWORK,
+                      IWORK,
+                      LIWORK,
+                      RESULT,
+                      INFO,
+                      test);
+                }
+                if (INFO.value != 0) NOUT.print9980('DDRVST', INFO.value);
               }
             }
-            NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
-            if (TSTCHK) {
-              final INFO = Box(0);
-              if (lsamen(3, C3, 'SE2')) {
-                dchkst2stg(
-                    NN,
-                    NVAL,
-                    MAXTYP,
-                    DOTYPE,
-                    ISEED,
-                    THRESH,
-                    NOUT,
-                    A(1, 1),
-                    NMAX,
-                    A(1, 2).asArray(),
-                    D(1, 1).asArray(),
-                    D(1, 2).asArray(),
-                    D(1, 3).asArray(),
-                    D(1, 4).asArray(),
-                    D(1, 5).asArray(),
-                    D(1, 6).asArray(),
-                    D(1, 7).asArray(),
-                    D(1, 8).asArray(),
-                    D(1, 9).asArray(),
-                    D(1, 10).asArray(),
-                    D(1, 11).asArray(),
-                    A(1, 3),
-                    NMAX,
-                    A(1, 4),
-                    A(1, 5).asArray(),
-                    D(1, 12).asArray(),
-                    A(1, 6),
-                    WORK,
-                    LWORK,
-                    IWORK,
-                    LIWORK,
-                    RESULT,
-                    INFO);
-              } else {
-                dchkst(
-                    NN,
-                    NVAL,
-                    MAXTYP,
-                    DOTYPE,
-                    ISEED,
-                    THRESH,
-                    NOUT,
-                    A(1, 1),
-                    NMAX,
-                    A(1, 2).asArray(),
-                    D(1, 1).asArray(),
-                    D(1, 2).asArray(),
-                    D(1, 3).asArray(),
-                    D(1, 4).asArray(),
-                    D(1, 5).asArray(),
-                    D(1, 6).asArray(),
-                    D(1, 7).asArray(),
-                    D(1, 8).asArray(),
-                    D(1, 9).asArray(),
-                    D(1, 10).asArray(),
-                    D(1, 11).asArray(),
-                    A(1, 3),
-                    NMAX,
-                    A(1, 4),
-                    A(1, 5).asArray(),
-                    D(1, 12).asArray(),
-                    A(1, 6),
-                    WORK,
-                    LWORK,
-                    IWORK,
-                    LIWORK,
-                    RESULT,
-                    INFO);
-              }
-              if (INFO.value != 0) NOUT.print9980('DCHKST', INFO.value);
-            }
-            if (TSTDRV) {
-              final INFO = Box(0);
-              if (lsamen(3, C3, 'SE2')) {
-                ddrvst2stg(
-                    NN,
-                    NVAL,
-                    18,
-                    DOTYPE,
-                    ISEED,
-                    THRESH,
-                    NOUT,
-                    A(1, 1),
-                    NMAX,
-                    D(1, 3).asArray(),
-                    D(1, 4).asArray(),
-                    D(1, 5).asArray(),
-                    D(1, 6).asArray(),
-                    D(1, 8).asArray(),
-                    D(1, 9).asArray(),
-                    D(1, 10).asArray(),
-                    D(1, 11).asArray(),
-                    A(1, 2),
-                    NMAX,
-                    A(1, 3),
-                    D(1, 12).asArray(),
-                    A(1, 4),
-                    WORK,
-                    LWORK,
-                    IWORK,
-                    LIWORK,
-                    RESULT,
-                    INFO);
-              } else {
-                ddrvst(
-                    NN,
-                    NVAL,
-                    18,
-                    DOTYPE,
-                    ISEED,
-                    THRESH,
-                    NOUT,
-                    A(1, 1),
-                    NMAX,
-                    D(1, 3).asArray(),
-                    D(1, 4).asArray(),
-                    D(1, 5).asArray(),
-                    D(1, 6).asArray(),
-                    D(1, 8).asArray(),
-                    D(1, 9).asArray(),
-                    D(1, 10).asArray(),
-                    D(1, 11).asArray(),
-                    A(1, 2),
-                    NMAX,
-                    A(1, 3),
-                    D(1, 12).asArray(),
-                    A(1, 4),
-                    WORK,
-                    LWORK,
-                    IWORK,
-                    LIWORK,
-                    RESULT,
-                    INFO);
-              }
-              if (INFO.value != 0) NOUT.print9980('DDRVST', INFO.value);
-            }
-          }
+          });
         } else if (lsamen(3, C3, 'DSG')) {
           // ----------------------------------------------
           // DSG:  Symmetric Generalized Eigenvalue Problem

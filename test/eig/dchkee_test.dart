@@ -14,7 +14,7 @@ void main() async {
   //   'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
   // ];
   // for (final input in inputs) {
-  final input = 'nep.in';
+  final input = 'sep.in';
   final inputFile = File(path.join(currentFilePath(), '..', input));
   final nin = Nin(inputFile.openRead());
   final nout = NullNout();

@@ -251,7 +251,7 @@ class Matrix<T> implements Box<T> {
         _entries,
         (
           ld ?? this.dimensions.$1,
-          ld != null ? length ~/ ld : this.dimensions.$2
+          ld != null && ld > 0 ? length ~/ ld : this.dimensions.$2
         ),
         (ld ?? this._strides.$1, this._strides.$2),
         offset: offset ?? this.offset,
