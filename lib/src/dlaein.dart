@@ -392,7 +392,7 @@ void dlaein(
 
           // Divide by diagonal element of B.
 
-          dladiv(XR, XI, B[I][I], B[I + 1][I], VR.box(I), VI.box(I));
+          dladiv(XR, XI, B[I][I], B[I + 1][I], VR(I), VI(I));
           VMAX = max(VR[I].abs() + VI[I].abs(), VMAX);
           VCRIT = BIGNUM / VMAX;
         } else {

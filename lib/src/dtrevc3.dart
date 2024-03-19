@@ -49,7 +49,6 @@ void dtrevc3(
   double BETA,
       BIGNUM,
       EMAX,
-      // OVFL,
       REC,
       REMAX = 0,
       SMIN,
@@ -79,7 +78,7 @@ void dtrevc3(
   NB = ilaenv(1, 'DTREVC', SIDE + HOWMNY, N, -1, -1, -1);
   MAXWRK = max(1, N + 2 * N * NB);
   WORK[1] = MAXWRK.toDouble();
-  LQUERY = (LWORK == -1);
+  LQUERY = LWORK == -1;
   if (!RIGHTV && !LEFTV) {
     INFO.value = -1;
   } else if (!ALLV && !OVER && !SOMEV) {
@@ -155,7 +154,6 @@ void dtrevc3(
   // Set the constants to control overflow.
 
   UNFL = dlamch('Safe minimum');
-  // OVFL = ONE / UNFL;
   ULP = dlamch('Precision');
   SMLNUM = UNFL * (N / ULP);
   BIGNUM = (ONE - ULP) / SMLNUM;
@@ -1148,7 +1146,7 @@ void dtrevc3(
             if (ISCOMPLEX[K] == 0) {
               // real eigenvector
               II = idamax(N, WORK(1 + (NB + K) * N), 1);
-              REMAX = ONE / (WORK[II + (NB + K) * N]);
+              REMAX = ONE / WORK[II + (NB + K) * N].abs();
             } else if (ISCOMPLEX[K] == 1) {
               // first eigenvector of conjugate pair
               EMAX = ZERO;

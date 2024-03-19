@@ -14,34 +14,30 @@ void dladiv(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  const BS = 2.0;
-  const HALF = 0.5;
-  const TWO = 2.0;
-  double CC, DD, AB, CD, S, OV, UN, BE, EPS;
-  final AA = Box(0.0), BB = Box(0.0);
+  const BS = 2.0, HALF = 0.5, TWO = 2.0;
 
-  AA.value = A;
-  BB.value = B;
-  CC = C;
-  DD = D;
-  AB = max(A.abs(), B.abs());
-  CD = max(C.abs(), D.abs());
-  S = 1.0;
+  final AA = Box(A);
+  final BB = Box(B);
+  var CC = C;
+  var DD = D;
+  var AB = max(A.abs(), B.abs());
+  var CD = max(C.abs(), D.abs());
+  var S = 1.0;
 
-  OV = dlamch('Overflow threshold');
-  UN = dlamch('Safe minimum');
-  EPS = dlamch('Epsilon');
-  BE = BS / (EPS * EPS);
+  final OV = dlamch('Overflow threshold');
+  final UN = dlamch('Safe minimum');
+  final EPS = dlamch('Epsilon');
+  final BE = BS / (EPS * EPS);
 
   if (AB >= HALF * OV) {
-    AA.value = HALF * AA.value;
-    BB.value = HALF * BB.value;
-    S = TWO * S;
+    AA.value *= HALF;
+    BB.value *= HALF;
+    S *= TWO;
   }
   if (CD >= HALF * OV) {
-    CC = HALF * CC;
-    DD = HALF * DD;
-    S = HALF * S;
+    CC *= HALF;
+    DD *= HALF;
+    S *= HALF;
   }
   if (AB <= UN * BS / EPS) {
     AA.value *= BE;
@@ -75,10 +71,9 @@ void dladiv1(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
-  double R, T;
 
-  R = D / C;
-  T = ONE / (C + D * R);
+  final R = D / C;
+  final T = ONE / (C + D * R);
   P.value = dladiv2(A.value, B, C, D, R, T);
   A.value = -A.value;
   Q.value = dladiv2(B, A.value, C, D, R, T);
@@ -96,16 +91,15 @@ double dladiv2(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
-  double BR;
 
   if (R != ZERO) {
-    BR = B * R;
+    final BR = B * R;
     if (BR != ZERO) {
       return (A + BR) * T;
-    } else {
-      return A * T + (B * T) * R;
     }
-  } else {
-    return (A + D * (B / C)) * T;
+
+    return A * T + (B * T) * R;
   }
+
+  return (A + D * (B / C)) * T;
 }

@@ -29,18 +29,10 @@ void dhst01(
   final H = H_.having(ld: LDH);
   final Q = Q_.having(ld: LDQ);
   final WORK = WORK_.having();
-  // int                IHI, ILO, LDA, LDH, LDQ, LWORK, N;
-  // double             A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK );
-  // ..
 
   const ONE = 1.0, ZERO = 0.0;
   int LDWORK;
-  double ANORM,
-      EPS,
-      // OVFL,
-      SMLNUM,
-      UNFL,
-      WNORM;
+  double ANORM, EPS, SMLNUM, UNFL, WNORM;
 
   // Quick return if possible
 
@@ -52,7 +44,6 @@ void dhst01(
 
   UNFL = dlamch('Safe minimum');
   EPS = dlamch('Precision');
-  // OVFL = ONE / UNFL;
   SMLNUM = UNFL * N / EPS;
 
   // Test 1:  Compute norm( A - Q*H*Q' ) / ( norm(A) * N * EPS )

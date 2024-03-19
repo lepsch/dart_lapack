@@ -81,7 +81,7 @@ void ztrevc3(
   MAXWRK = max(1, N + 2 * N * NB);
   WORK[1] = MAXWRK.toComplex();
   RWORK[1] = max(1, N.toDouble());
-  LQUERY = (LWORK == -1 || LRWORK == -1);
+  LQUERY = LWORK == -1 || LRWORK == -1;
   if (!RIGHTV && !LEFTV) {
     INFO.value = -1;
   } else if (!ALLV && !OVER && !SOMEV) {

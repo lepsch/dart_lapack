@@ -184,6 +184,5 @@ void dget22(
 
   // Compute RESULT[2] : the normalization error in E.
 
-  RESULT[2] =
-      max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N.toDouble() * ULP);
+  RESULT[2] = max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N * ULP);
 }

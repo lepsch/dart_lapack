@@ -13,7 +13,7 @@ double dasum(final int N, Array<double> DX, final int INCX) {
 
     // clean-up loop
 
-    final M = (N % 6);
+    final M = N % 6;
     if (M != 0) {
       for (var I = 1; I <= M; I++) {
         DTEMP += DX[I].abs();
