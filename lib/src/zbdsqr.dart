@@ -163,7 +163,7 @@ void zbdsqr(
       // Update singular vectors if desired
 
       if (NRU > 0) {
-        zlasr('R.value', 'V', 'F', NRU, N, RWORK(1), RWORK(N), U, LDU);
+        zlasr('R', 'V', 'F', NRU, N, RWORK(1), RWORK(N), U, LDU);
       }
       if (NCC > 0) zlasr('L', 'V', 'F', N, NCC, RWORK(1), RWORK(N), C, LDC);
     }
@@ -430,7 +430,7 @@ void zbdsqr(
                 VT(LL, 1), LDVT);
           }
           if (NRU > 0) {
-            zlasr('R.value', 'V', 'F', NRU, M - LL + 1, RWORK(NM12 + 1),
+            zlasr('R', 'V', 'F', NRU, M - LL + 1, RWORK(NM12 + 1),
                 RWORK(NM13 + 1), U(1, LL), LDU);
           }
           if (NCC > 0) {
@@ -468,7 +468,7 @@ void zbdsqr(
                 RWORK(NM13 + 1), VT(LL, 1), LDVT);
           }
           if (NRU > 0) {
-            zlasr('R.value', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N),
+            zlasr('R', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N),
                 U(1, LL), LDU);
           }
           if (NCC > 0) {
@@ -519,7 +519,7 @@ void zbdsqr(
                 VT(LL, 1), LDVT);
           }
           if (NRU > 0) {
-            zlasr('R.value', 'V', 'F', NRU, M - LL + 1, RWORK(NM12 + 1),
+            zlasr('R', 'V', 'F', NRU, M - LL + 1, RWORK(NM12 + 1),
                 RWORK(NM13 + 1), U(1, LL), LDU);
           }
           if (NCC > 0) {
@@ -570,7 +570,7 @@ void zbdsqr(
                 RWORK(NM13 + 1), VT(LL, 1), LDVT);
           }
           if (NRU > 0) {
-            zlasr('R.value', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N),
+            zlasr('R', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N),
                 U(1, LL), LDU);
           }
           if (NCC > 0) {

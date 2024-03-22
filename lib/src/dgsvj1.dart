@@ -488,9 +488,7 @@ void dgsvj1(
     // Additional steering devices
 
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
-    if ((i > SWBAND + 1) &&
-        (MXAAPQ < N.toDouble() * TOL) &&
-        (N.toDouble() * MXAAPQ * MXSINJ < TOL)) {
+    if ((i > SWBAND + 1) && (MXAAPQ < N * TOL) && (N * MXAAPQ * MXSINJ < TOL)) {
       isBelowTolerance = true;
       break;
     }

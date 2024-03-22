@@ -506,7 +506,7 @@ void dchkqp3rk(
               if (min(KFACT.value, MINMN) >= 2) {
                 for (var J = 1; J <= KFACT.value - 1; J++) {
                   final DTEMP =
-                      ((A[(J - 1) * M + J].abs() - A[(J) * M + J + 1].abs()) /
+                      ((A[(J - 1) * M + J].abs() - A[J * M + J + 1].abs()) /
                           A[1].abs());
 
                   if (DTEMP < ZERO) {

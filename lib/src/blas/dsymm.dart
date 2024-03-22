@@ -34,9 +34,9 @@ void dsymm(
   // Test the input parameters.
 
   var INFO = 0;
-  if ((!lsame(SIDE, 'L')) && (!lsame(SIDE, 'R'))) {
+  if (!lsame(SIDE, 'L') && !lsame(SIDE, 'R')) {
     INFO = 1;
-  } else if ((!UPPER) && (!lsame(UPLO, 'L'))) {
+  } else if (!UPPER && !lsame(UPLO, 'L')) {
     INFO = 2;
   } else if (M < 0) {
     INFO = 3;

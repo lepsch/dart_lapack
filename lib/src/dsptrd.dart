@@ -57,7 +57,7 @@ void dsptrd(
       // Generate elementary reflector H(i) = I - tau * v * v**T
       // to annihilate A[1:i-1,i+1]
 
-      dlarfg(I, AP.box(I1 + I - 1), AP((I1)), 1, TAUI);
+      dlarfg(I, AP(I1 + I - 1), AP(I1), 1, TAUI);
       E[I] = AP[I1 + I - 1];
 
       if (TAUI.value != ZERO) {
@@ -97,7 +97,7 @@ void dsptrd(
       // Generate elementary reflector H(i) = I - tau * v * v**T
       // to annihilate A[i+2:n,i]
 
-      dlarfg(N - I, AP.box(II + 1), AP(II + 2), 1, TAUI);
+      dlarfg(N - I, AP(II + 1), AP(II + 2), 1, TAUI);
       E[I] = AP[II + 1];
 
       if (TAUI.value != ZERO) {

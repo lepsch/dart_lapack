@@ -71,9 +71,9 @@ void dtplqt2(
 
       // C(I+1:M,I:N) += alpha * C(I,I:N)*W(M-1:1)^H
 
-      ALPHA = -(T[1][I]);
+      ALPHA = -T[1][I];
       for (J = 1; J <= M - I; J++) {
-        A[I + J][I] += ALPHA * (T[M][J]);
+        A[I + J][I] += ALPHA * T[M][J];
       }
       dger(M - I, P, ALPHA, T(M, 1).asArray(), LDT, B(I, 1).asArray(), LDB,
           B(I + 1, 1), LDB);

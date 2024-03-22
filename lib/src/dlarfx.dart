@@ -10,13 +10,14 @@ void dlarfx(
   final double TAU,
   final Matrix<double> C_,
   final int LDC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having();
   final C = C_.having(ld: LDC);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double SUM,
@@ -346,14 +347,7 @@ void dlarfx(
     }
   } else {
     // Form  C * H, where H has order n.
-    //           1    2    3    4    5    6    7    8    9   10
-    //  GO TO ( 210, 230, 250, 270, 290, 310, 330, 350, 370, 390 )N;
     switch (N) {
-      //     default:
-      //  // Code for general N
-
-      //  dlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
-      //  return;
       case 1:
 
         // Special code for 1 x 1 Householder
@@ -644,6 +638,11 @@ void dlarfx(
           C[J][9] -= SUM * T9;
           C[J][10] -= SUM * T10;
         }
+        return;
+      default:
+        // Code for general N
+
+        dlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK);
         return;
     }
   }

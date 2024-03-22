@@ -143,7 +143,7 @@ void zggesx(
     INFO.value = -1;
   } else if (IJOBVR <= 0) {
     INFO.value = -2;
-  } else if ((!WANTST) && (!lsame(SORT, 'N'))) {
+  } else if (!WANTST && !lsame(SORT, 'N')) {
     INFO.value = -3;
   } else if (!(WANTSN || WANTSE || WANTSV || WANTSB) || (!WANTST && !WANTSN)) {
     INFO.value = -5;

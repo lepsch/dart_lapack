@@ -120,7 +120,7 @@ void zlaqr2(
   SAFMIN = dlamch('SAFE MINIMUM');
   // SAFMAX = RONE / SAFMIN;
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (N.toDouble() / ULP);
+  SMLNUM = SAFMIN * (N / ULP);
 
   // ==== Setup deflation window ====
 

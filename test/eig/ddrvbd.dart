@@ -664,8 +664,8 @@ void ddrvbd(
           IL = 1;
           IU = max(1, MNMIN);
         } else {
-          IL = 1 + ((MNMIN - 1) * dlarnd(1, ISEED2)).abs().toInt();
-          IU = 1 + ((MNMIN - 1) * dlarnd(1, ISEED2)).abs().toInt();
+          IL = 1 + ((MNMIN - 1) * dlarnd(1, ISEED2)).toInt();
+          IU = 1 + ((MNMIN - 1) * dlarnd(1, ISEED2)).toInt();
           if (IU < IL) {
             ITEMP = IU;
             IU = IL;

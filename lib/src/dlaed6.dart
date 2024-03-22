@@ -245,10 +245,10 @@ void dlaed6(
         }
       }
       F = FINIT + TAU.value * FC;
-      ERRETM = EIGHT * (FINIT.abs() + (TAU.value).abs() * ERRETM) +
-          (TAU.value).abs() * DF;
+      ERRETM = EIGHT * (FINIT.abs() + TAU.value.abs() * ERRETM) +
+          TAU.value.abs() * DF;
       if ((F.abs() <= FOUR * EPS * ERRETM) ||
-          ((UBD - LBD) <= FOUR * EPS * (TAU.value).abs())) break done;
+          ((UBD - LBD) <= FOUR * EPS * TAU.value.abs())) break done;
       if (F <= ZERO) {
         LBD = TAU.value;
       } else {

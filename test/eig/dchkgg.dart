@@ -390,7 +390,7 @@ void dchkgg(
 
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'Generator', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           return;
         }
       }
@@ -406,14 +406,14 @@ void dchkgg(
         dgeqr2(N, N, T, LDA, WORK, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DGEQR2', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
         dorm2r('L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DORM2R', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -421,14 +421,14 @@ void dchkgg(
         dorm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DORM2R', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
         dgghrd('V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DGGHRD', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
         NTEST = 4;
@@ -455,7 +455,7 @@ void dchkgg(
             Q, LDU, Z, LDU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHGEQZ(E)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -468,7 +468,7 @@ void dchkgg(
             Q, LDU, Z, LDU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHGEQZ(S)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -481,7 +481,7 @@ void dchkgg(
             Q, LDU, Z, LDU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHGEQZ(V)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -517,7 +517,7 @@ void dchkgg(
             DUMMA.asMatrix(LDU), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(L,S1)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -533,7 +533,7 @@ void dchkgg(
             DUMMA.asMatrix(LDU), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(L,S2)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -555,7 +555,7 @@ void dchkgg(
             DUMMA.asMatrix(LDU), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(L,B)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -588,7 +588,7 @@ void dchkgg(
             EVECTR, LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(R,S1)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -604,7 +604,7 @@ void dchkgg(
             EVECTR(1, I1 + 1), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(R,S2)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 
@@ -626,7 +626,7 @@ void dchkgg(
             EVECTR, LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(R,B)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 

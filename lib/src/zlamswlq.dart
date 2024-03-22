@@ -75,7 +75,7 @@ void zlamswlq(
     INFO.value = -11;
   } else if (LDC < max(1, M)) {
     INFO.value = -13;
-  } else if (LWORK < LWMIN && (!LQUERY)) {
+  } else if (LWORK < LWMIN && !LQUERY) {
     INFO.value = -15;
   }
 

@@ -10,13 +10,14 @@ void dspr2(
   final int INCX,
   final Array<double> Y_,
   final int INCY,
-  final Array<double> AP,
+  final Array<double> AP_,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final Y = Y_.having();
+  final AP = AP_.having();
   const ZERO = 0.0;
 
   // Test the input parameters.

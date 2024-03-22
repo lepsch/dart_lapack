@@ -60,7 +60,7 @@ void dsytd2(
       // Generate elementary reflector H(i) = I - tau * v * v**T
       // to annihilate A(1:i-1,i+1)
 
-      dlarfg(I, A.box(I, I + 1), A(1, I + 1).asArray(), 1, TAUI);
+      dlarfg(I, A(I, I + 1), A(1, I + 1).asArray(), 1, TAUI);
       E[I] = A[I][I + 1];
 
       if (TAUI.value != ZERO) {
@@ -96,7 +96,7 @@ void dsytd2(
       // Generate elementary reflector H(i) = I - tau * v * v**T
       // to annihilate A(i+2:n,i)
 
-      dlarfg(N - I, A.box(I + 1, I), A(min(I + 2, N), I).asArray(), 1, TAUI);
+      dlarfg(N - I, A(I + 1, I), A(min(I + 2, N), I).asArray(), 1, TAUI);
       E[I] = A[I + 1][I];
 
       if (TAUI.value != ZERO) {

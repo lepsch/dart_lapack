@@ -70,9 +70,9 @@ void zgeesx(
   WANTSB = lsame(SENSE, 'B');
   LQUERY = (LWORK == -1);
 
-  if ((!WANTVS) && (!lsame(JOBVS, 'N'))) {
+  if (!WANTVS && !lsame(JOBVS, 'N')) {
     INFO.value = -1;
-  } else if ((!WANTST) && (!lsame(SORT, 'N'))) {
+  } else if (!WANTST && !lsame(SORT, 'N')) {
     INFO.value = -2;
   } else if (!(WANTSN || WANTSE || WANTSV || WANTSB) || (!WANTST && !WANTSN)) {
     INFO.value = -4;

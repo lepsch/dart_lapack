@@ -71,8 +71,8 @@ void dlanv2(
   } else {
     TEMP = A.value - D.value;
     P = HALF * TEMP;
-    BCMAX = max((B.value).abs(), (C.value).abs());
-    BCMIS = min((B.value).abs(), (C.value).abs()) *
+    BCMAX = max(B.value.abs(), C.value.abs());
+    BCMIS = min(B.value.abs(), C.value.abs()) *
         sign(ONE, B.value) *
         sign(ONE, C.value);
     SCALE = max(P.abs(), BCMAX);
@@ -146,8 +146,8 @@ void dlanv2(
           if (sign(ONE, B.value) == sign(ONE, C.value)) {
             // Real eigenvalues: reduce to upper triangular form
 
-            SAB = sqrt((B.value).abs());
-            SAC = sqrt((C.value).abs());
+            SAB = sqrt(B.value.abs());
+            SAC = sqrt(C.value.abs());
             P = sign(SAB * SAC, C.value).toDouble();
             TAU = ONE / sqrt((B.value + C.value).abs());
             A.value = TEMP + P;
@@ -179,7 +179,7 @@ void dlanv2(
     RT1I.value = ZERO;
     RT2I.value = ZERO;
   } else {
-    RT1I.value = sqrt((B.value).abs()) * sqrt((C.value).abs());
+    RT1I.value = sqrt(B.value.abs()) * sqrt(C.value.abs());
     RT2I.value = -RT1I.value;
   }
 }

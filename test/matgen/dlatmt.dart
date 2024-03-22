@@ -98,7 +98,7 @@ void dlatmt(
 
   if (lsame(DIST, 'U')) {
     IDIST = 1;
-  } else if (lsame(DIST, 'S.value')) {
+  } else if (lsame(DIST, 'S')) {
     IDIST = 2;
   } else if (lsame(DIST, 'N')) {
     IDIST = 3;
@@ -114,7 +114,7 @@ void dlatmt(
   } else if (lsame(SYM, 'P')) {
     ISYM = 2;
     IRSIGN = 0;
-  } else if (lsame(SYM, 'S.value')) {
+  } else if (lsame(SYM, 'S')) {
     ISYM = 2;
     IRSIGN = 1;
   } else if (lsame(SYM, 'H')) {
@@ -135,7 +135,7 @@ void dlatmt(
   } else if (lsame(PACK, 'L')) {
     IPACK = 2;
     ISYMPK = 1;
-  } else if (lsame(PACK, 'C.value')) {
+  } else if (lsame(PACK, 'C')) {
     IPACK = 3;
     ISYMPK = 2;
   } else if (lsame(PACK, 'R')) {
@@ -293,7 +293,7 @@ void dlatmt(
   dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
 
   // Diagonal Matrix -- We are done, unless it
-  // is to be stored SP/PP/TP (PACK='R' or 'C.value')
+  // is to be stored SP/PP/TP (PACK='R' or 'C')
 
   if (LLB == 0 && UUB == 0) {
     dcopy(MNMIN, D, 1, A(1 - ISKEW + IOFFST, 1).asArray(), ILDA + 1);
@@ -852,7 +852,7 @@ void dlatmt(
         }
       }
     } else if (IPACK == 3) {
-      // 'C.value' -- Upper triangle packed Columnwise.
+      // 'C' -- Upper triangle packed Columnwise.
 
       ICOL = 1;
       IROW = 0;

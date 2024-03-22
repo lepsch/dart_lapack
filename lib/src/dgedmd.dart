@@ -106,7 +106,7 @@ void dgedmd(
     INFO.value = -1;
   } else if (!(WNTVEC || lsame(JOBZ, 'N') || lsame(JOBZ, 'F'))) {
     INFO.value = -2;
-  } else if (!(WNTRES || lsame(JOBR, 'N')) || (WNTRES && (!WNTVEC))) {
+  } else if (!(WNTRES || lsame(JOBR, 'N')) || (WNTRES && !WNTVEC)) {
     INFO.value = -3;
   } else if (!(WNTREF || WNTEX || lsame(JOBF, 'N'))) {
     INFO.value = -4;
@@ -525,7 +525,7 @@ void dgedmd(
     }
     for (final j in 1.through(N)) {
       for (final i in 1.through(K.value)) {
-        W[i][j] = (WORK[N + i]) * W[i][j];
+        W[i][j] = WORK[N + i] * W[i][j];
       }
     }
   }

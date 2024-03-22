@@ -149,9 +149,9 @@ void zgesvj(
     INFO.value = -11;
   } else if (UCTOL && (RWORK[1] <= ONE)) {
     INFO.value = -12;
-  } else if (LWORK < LWMIN && (!LQUERY)) {
+  } else if (LWORK < LWMIN && !LQUERY) {
     INFO.value = -13;
-  } else if (LRWORK < LRWMIN && (!LQUERY)) {
+  } else if (LRWORK < LRWMIN && !LQUERY) {
     INFO.value = -15;
   } else {
     INFO.value = 0;
@@ -718,7 +718,7 @@ void zgesvj(
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
                       AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
-                      MXSINJ = max(MXSINJ, (T.value).abs());
+                      MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
                       // .. choose correct signum for THETA and rotate
 
@@ -909,7 +909,7 @@ void zgesvj(
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ1));
                       AAPP.value *=
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
-                      MXSINJ = max(MXSINJ, (T.value).abs());
+                      MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
                       // .. choose correct signum for THETA and rotate
 
@@ -1046,8 +1046,8 @@ void zgesvj(
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
 
     if ((i > SWBAND + 1) &&
-        (MXAAPQ < sqrt(N.toDouble()) * TOL) &&
-        (N.toDouble() * MXAAPQ * MXSINJ < TOL)) {
+        (MXAAPQ < sqrt(N) * TOL) &&
+        (N * MXAAPQ * MXSINJ < TOL)) {
       exhausted = false;
       break;
     }

@@ -1791,7 +1791,7 @@ void dgesvd(
       if (WNTUN) NRU = 0;
       if (WNTVAS || WNTVO) NCVT = N;
       if (WNTVN) NCVT = 0;
-      if ((!WNTUO) && (!WNTVO)) {
+      if (!WNTUO && !WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in VT
@@ -1799,7 +1799,7 @@ void dgesvd(
 
         dbdsqr('U', N, NCVT, NRU, 0, S, WORK(IE), VT, LDVT, U, LDU,
             DUM.asMatrix(1), 1, WORK(IWORK), INFO);
-      } else if ((!WNTUO) && WNTVO) {
+      } else if (!WNTUO && WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in A
@@ -3082,7 +3082,7 @@ void dgesvd(
       if (WNTUN) NRU = 0;
       if (WNTVAS || WNTVO) NCVT = N;
       if (WNTVN) NCVT = 0;
-      if ((!WNTUO) && (!WNTVO)) {
+      if (!WNTUO && !WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in VT
@@ -3090,7 +3090,7 @@ void dgesvd(
 
         dbdsqr('L', M, NCVT, NRU, 0, S, WORK(IE), VT, LDVT, U, LDU,
             DUM.asMatrix(1), 1, WORK(IWORK), INFO);
-      } else if ((!WNTUO) && WNTVO) {
+      } else if (!WNTUO && WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in A

@@ -133,7 +133,7 @@ void zlatm1(
     if ((MODE != -6 && MODE != 0 && MODE != 6) && IRSIGN == 1) {
       for (I = 1; I <= N; I++) {
         CTEMP = zlarnd(3, ISEED);
-        D[I] *= (CTEMP / CTEMP.abs().toComplex());
+        D[I] *= CTEMP / CTEMP.abs().toComplex();
       }
     }
 

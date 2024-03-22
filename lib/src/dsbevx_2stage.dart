@@ -193,7 +193,7 @@ void dsbevx_2stage(
     VLL = ZERO;
     VUU = ZERO;
   }
-  ANRM = dlansb('M.value', UPLO, N, KD, AB, LDAB, WORK);
+  ANRM = dlansb('M', UPLO, N, KD, AB, LDAB, WORK);
   if (ANRM > ZERO && ANRM < RMIN) {
     ISCALE = 1;
     SIGMA = RMIN / ANRM;

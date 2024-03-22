@@ -193,9 +193,9 @@ void dlarre(
 
   // Initialize USEDQD, DQDS should be used for ALLRNG unless someone
   // explicitly wants bisection.
-  USEDQD = ((IRANGE == ALLRNG) && (!FORCEB));
+  USEDQD = ((IRANGE == ALLRNG) && !FORCEB);
 
-  if ((IRANGE == ALLRNG) && (!FORCEB)) {
+  if ((IRANGE == ALLRNG) && !FORCEB) {
     // Set interval [VL.value,VU.value] that contains all eigenvalues
     VL.value = GL;
     VU.value = GU;
@@ -236,7 +236,7 @@ void dlarre(
       INFO.value = -1;
       return;
     }
-    // Make sure that the entries M.value+1 to N in W, WERR, IBLOCK, INDEXW are 0
+    // Make sure that the entries M+1 to N in W, WERR, IBLOCK, INDEXW are 0
     for (I = MM.value + 1; I <= N; I++) {
       W[I] = ZERO;
       WERR[I] = ZERO;
@@ -245,7 +245,6 @@ void dlarre(
     }
   }
 
-// **
   // Loop over unreduced blocks
   IBEGIN = 1;
   WBEGIN = 1;
@@ -290,7 +289,7 @@ void dlarre(
     }
     SPDIAM = GU - GL;
 
-    if (!((IRANGE == ALLRNG) && (!FORCEB))) {
+    if (!((IRANGE == ALLRNG) && !FORCEB)) {
       // Count the number of eigenvalues in the current block.
       MB = 0;
       for (I = WBEGIN; I <= MM.value; I++) {
@@ -300,7 +299,6 @@ void dlarre(
           break;
         }
       }
-      // }
 
       if (MB == 0) {
         // No eigenvalue in the current block lies in the desired range
@@ -310,7 +308,7 @@ void dlarre(
         continue;
       } else {
         // Decide whether dqds or bisection is more efficient
-        USEDQD = ((MB > FAC * IN) && (!FORCEB));
+        USEDQD = ((MB > FAC * IN) && !FORCEB);
         WEND = WBEGIN + MB - 1;
         // Calculate gaps for the current block
         // In later stages, when representations for individual
@@ -325,7 +323,7 @@ void dlarre(
         INDU = INDEXW[WEND];
       }
     }
-    if (((IRANGE == ALLRNG) && (!FORCEB)) || USEDQD) {
+    if (((IRANGE == ALLRNG) && !FORCEB) || USEDQD) {
       // Case of DQDS
       // Find approximations to the extremal eigenvalues of the block
       dlarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN.value, RTL, TMP, TMP1,
@@ -372,7 +370,7 @@ void dlarre(
     // the eigenvalue approximations at the end of DLARRE or bisection.
     // dqds is chosen if all eigenvalues are desired or the number of
     // eigenvalues to be computed is large compared to the blocksize.
-    if ((IRANGE == ALLRNG) && (!FORCEB)) {
+    if ((IRANGE == ALLRNG) && !FORCEB) {
       // If all the eigenvalues have to be computed, we use dqd
       USEDQD = true;
       // INDL is the local index of the first eigenvalue to compute
@@ -408,7 +406,7 @@ void dlarre(
       SIGMA = GL;
       SGNDEF = ONE;
     } else if (CNT1.value - INDL >= INDU - CNT2.value) {
-      if ((IRANGE == ALLRNG) && (!FORCEB)) {
+      if ((IRANGE == ALLRNG) && !FORCEB) {
         SIGMA = max(ISLEFT, GL);
       } else if (USEDQD) {
         // use Gerschgorin bound as shift to get pos def matrix
@@ -421,7 +419,7 @@ void dlarre(
       }
       SGNDEF = ONE;
     } else {
-      if ((IRANGE == ALLRNG) && (!FORCEB)) {
+      if ((IRANGE == ALLRNG) && !FORCEB) {
         SIGMA = min(ISRGHT, GU);
       } else if (USEDQD) {
         // use Gerschgorin bound as shift to get neg def matrix
@@ -591,7 +589,7 @@ void dlarre(
         return;
       }
       // DLARRB computes all gaps correctly except for the last one
-      // Record distance to VU.value/GU
+      // Record distance to VU/GU
       WGAP[WEND] = max(ZERO, (VU.value - SIGMA) - (W[WEND] + WERR[WEND]));
       for (I = INDL; I <= INDU; I++) {
         M.value++;

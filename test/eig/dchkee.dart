@@ -816,7 +816,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             DOTYPE: DOTYPE.copy(),
           );
 
-          test.group('NEP: Nonsymmetric Eigenvalue Problem ($C3)', () {
+          test.group('NEP: Nonsymmetric Eigenvalue Problem (path=$C3)', () {
             NOUT!;
             final (
               :NBVAL,
@@ -917,7 +917,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             DOTYPE: DOTYPE.copy(),
           );
 
-          test.group('SEP: Symmetric Eigenvalue Problem ($C3)', () {
+          test.group('SEP: Symmetric Eigenvalue Problem (path=$C3)', () {
             NOUT!;
             final (:NBVAL, :NBMIN, :NXVAL, :ISEED, :IOLDSD, :NVAL, :DOTYPE) =
                 ctx;

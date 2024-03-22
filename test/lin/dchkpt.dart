@@ -325,7 +325,7 @@ void dchkpt(
             if (RESULT[K] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
               NOUT.println(
-                  ' N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${(RESULT[K]).g12_5}');
+                  ' N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${RESULT[K].g12_5}');
               NFAIL++;
             }
           }

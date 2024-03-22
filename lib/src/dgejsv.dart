@@ -113,7 +113,7 @@ void dgejsv(
   } else if (!(LSVEC || lsame(JOBU, 'N') || lsame(JOBU, 'W'))) {
     INFO.value = -2;
   } else if (!(RSVEC || lsame(JOBV, 'N') || lsame(JOBV, 'W')) ||
-      (JRACC && (!LSVEC))) {
+      (JRACC && !LSVEC)) {
     INFO.value = -3;
   } else if (!(L2KILL || DEFR)) {
     INFO.value = -4;
@@ -136,11 +136,11 @@ void dgejsv(
       (!(LSVEC || RSVEC) &&
           ERREST &&
           (LWORK < max(7, max(4 * N + N * N, 2 * M + N)))) ||
-      (LSVEC && (!RSVEC) && (LWORK < max(7, max(2 * M + N, 4 * N + 1)))) ||
-      (RSVEC && (!LSVEC) && (LWORK < max(7, max(2 * M + N, 4 * N + 1)))) ||
+      (LSVEC && !RSVEC && (LWORK < max(7, max(2 * M + N, 4 * N + 1)))) ||
+      (RSVEC && !LSVEC && (LWORK < max(7, max(2 * M + N, 4 * N + 1)))) ||
       (LSVEC &&
           RSVEC &&
-          (!JRACC) &&
+          !JRACC &&
           (LWORK < max(2 * M + N, 6 * N + 2 * N * N))) ||
       (LSVEC &&
           RSVEC &&
@@ -685,7 +685,7 @@ void dgejsv(
 
     SCALEM = WORK[1];
     NUMRANK = WORK[2].round();
-  } else if (RSVEC && (!LSVEC)) {
+  } else if (RSVEC && !LSVEC) {
     // -> Singular Values and Right Singular Vectors <-
 
     if (ALMORT) {
@@ -734,7 +734,7 @@ void dgejsv(
     if (TRANSP) {
       dlacpy('All', N, N, V, LDV, U, LDU);
     }
-  } else if (LSVEC && (!RSVEC)) {
+  } else if (LSVEC && !RSVEC) {
     // .. Singular Values and Left Singular Vectors                 ..
 
     // .. second preconditioning step to avoid need to accumulate

@@ -116,7 +116,7 @@ Future<void> dckcsd(
         if (M != 0 && IINFO.value != 0) {
           NOUT.println(
               ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}');
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           continue;
         }
       } else if (IMAT == 2) {

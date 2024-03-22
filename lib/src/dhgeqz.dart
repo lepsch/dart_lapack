@@ -536,11 +536,11 @@ void dhgeqz(
         // Exceptional shift.  Chosen for no particularly good reason.
         // (Single shift only.)
 
-        if ((MAXIT.toDouble() * SAFMIN) * H[ILAST][ILAST - 1].abs() <
+        if ((MAXIT * SAFMIN) * H[ILAST][ILAST - 1].abs() <
             T[ILAST - 1][ILAST - 1].abs()) {
           ESHIFT = H[ILAST][ILAST - 1] / T[ILAST - 1][ILAST - 1];
         } else {
-          ESHIFT += ONE / (SAFMIN * MAXIT.toDouble());
+          ESHIFT += ONE / (SAFMIN * MAXIT);
         }
         S1.value = ONE;
         WR.value = ESHIFT;
@@ -580,8 +580,8 @@ void dhgeqz(
         }
 
         TEMP.value = min(BSCALE, ONE) * (HALF * SAFMAX);
-        if ((WR.value).abs() > TEMP.value) {
-          SCALE = min(SCALE, TEMP.value / (WR.value).abs());
+        if (WR.value.abs() > TEMP.value) {
+          SCALE = min(SCALE, TEMP.value / WR.value.abs());
         }
         S1.value = SCALE * S1.value;
         WR.value = SCALE * WR.value;
@@ -800,8 +800,8 @@ void dhgeqz(
         // ( -SQ   CQ )
 
         AN = A11.abs() + A12.abs() + A21.abs() + A22.abs();
-        BN = (B11.value).abs() + (B22.value).abs();
-        WABS = (WR.value).abs() + (WI.value).abs();
+        BN = B11.value.abs() + B22.value.abs();
+        WABS = WR.value.abs() + WI.value.abs();
         if (S1.value * AN > WABS * BN) {
           CQ = CZ * B11.value;
           SQR = SZR * B22.value;

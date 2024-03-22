@@ -1,18 +1,18 @@
-!............................................................
-!............................................................
-!
-      PROGRAM DMD_TEST
+//............................................................
+      //............................................................
+      //
+void main() {
       use iso_fortran_env, only: real64
       IMPLICIT NONE
       integer, parameter :: WP = real64
 
-!............................................................
+      //............................................................
       REAL(KIND=WP), PARAMETER ::  ONE = 1.0_WP
       REAL(KIND=WP), PARAMETER :: ZERO = 0.0_WP
 
       COMPLEX(KIND=WP), PARAMETER ::  ZONE = ( 1.0_WP, 0.0_WP )
       COMPLEX(KIND=WP), PARAMETER :: ZZERO = ( 0.0_WP, 0.0_WP )
-!............................................................
+      //............................................................
       REAL(KIND=WP), ALLOCATABLE, DIMENSION(:)   :: RES, &
                      RES1, RESEX, SINGVX, SINGVQX, WORK
       INTEGER      , ALLOCATABLE, DIMENSION(:)   :: IWORK
@@ -23,7 +23,7 @@
                        TMP_FQR, TMP_REZ, TMP_REZQ,  TMP_ZXW, &
                        TMP_EX
 
-!............................................................
+      //............................................................
       COMPLEX(KIND=WP) :: ZMAX
       INTEGER :: LZWORK
       COMPLEX(KIND=WP), ALLOCATABLE, DIMENSION(:,:) ::  ZA, ZAC,  &
@@ -32,7 +32,7 @@
       COMPLEX(KIND=WP), ALLOCATABLE, DIMENSION(:)   ::  ZDA, ZDR, &
                                        ZDL, ZEIGS, ZEIGSA, ZWORK
       COMPLEX(KIND=WP) ::  ZDUMMY(22), ZDUM2X2(2,2)
-!............................................................
+      //............................................................
       INTEGER :: K, KQ, LDF, LDS, LDA, LDAU, LDW, LDX, LDY,  &
                  LDZ, LIWORK, LWORK, M, N, LLOOP, NRNK, NRNKsp
       INTEGER :: i, iJOBREF, iJOBZ, iSCALE, INFO, j,     &
@@ -45,36 +45,36 @@
                        SCALE, RESIDS, WANTQ, WANTR
       LOGICAL :: TEST_QRDMD
 
-!.....external subroutines (BLAS and LAPACK)
-      EXTERNAL DAXPY,  DGEEV, DGEMM, DGEMV, DLACPY, DLASCL
-      EXTERNAL ZGEEV,  ZGEMV, ZLASCL
-      EXTERNAL ZLARNV, ZLATMR
-      EXTERNAL ZAXPY,  ZGEMM
-!.....external subroutines DMD package, part 1
-!     subroutines under test
-      EXTERNAL ZGEDMD, ZGEDMDQ
-!.....external functions (BLAS and LAPACK)
-      EXTERNAL         DLAMCH,  DZNRM2
-      REAL(KIND=WP) :: DLAMCH,  DZNRM2
-      REAL(KIND=WP) ::          ZLANGE
-      EXTERNAL IZAMAX
-      INTEGER  IZAMAX
-      EXTERNAL LSAME
-      LOGICAL  LSAME
+      //.....external subroutines (BLAS and LAPACK)
+      // EXTERNAL DAXPY,  DGEEV, DGEMM, DGEMV, DLACPY, DLASCL
+      // EXTERNAL ZGEEV,  ZGEMV, ZLASCL
+      // EXTERNAL ZLARNV, ZLATMR
+      // EXTERNAL ZAXPY,  ZGEMM
+      //.....external subroutines DMD package, part 1
+      //     subroutines under test
+      // EXTERNAL ZGEDMD, ZGEDMDQ
+      //.....external functions (BLAS and LAPACK)
+      // EXTERNAL         DLAMCH,  DZNRM2
+      // REAL(KIND=WP) :: DLAMCH,  DZNRM2
+      // REAL(KIND=WP) ::          ZLANGE
+      // EXTERNAL IZAMAX
+      // INTEGER  IZAMAX
+      // EXTERNAL LSAME
+      // LOGICAL  LSAME
 
-      INTRINSIC ABS, INT, MIN, MAX, SIGN
-!............................................................
+      // INTRINSIC ABS, INT, MIN, MAX, SIGN
+      //............................................................
 
       ! The test is always in pairs : ( ZGEDMD and ZGEDMDQ )
       ! because the test includes comparing the results (in pairs).
-!.....................................................................................
+      //.....................................................................................
       TEST_QRDMD = .TRUE. ! This code by default performs tests on ZGEDMDQ
                           ! Since the QR factorizations based algorithm is designed for
                           ! single trajectory data, only single trajectory tests will
                           ! be performed with xGEDMDQ.
       WANTQ = 'Q'
       WANTR = 'R'
-!.................................................................................
+      //.................................................................................
 
       EPS = DLAMCH( 'P' )  ! machine precision DP
 
@@ -107,7 +107,7 @@
           WRITE(*,*) 'Bad dimensions. Required: M >= N > 0.'
           STOP
       END IF
-!.............
+      //.............
       ! The seed inside the LLOOP so that each pass can be reproduced easily.
       ISEED(1) = 4
       ISEED(2) = 3
@@ -157,7 +157,7 @@
       ! The factor 10 is somewhat arbitrary.
       TOL2 = 10*M*N*EPS
 
-!.............
+      //.............
 
       DO K_TRAJ = 1, 2
       !  Number of intial conditions in the simulation/trajectories (1 or 2)
@@ -237,7 +237,7 @@
       END IF
 
       DEALLOCATE( ZEIGSA )
-!........................................................................
+      //........................................................................
 
       DO iJOBZ = 1, 4
 
@@ -285,17 +285,17 @@
          NRNKsp = iNRNK
 
       DO iWHTSVD = 1,  3
-         ! Check all four options to compute the POD basis
-         ! via the SVD.
+         // Check all four options to compute the POD basis
+         // via the SVD.
          WHTSVD   = iWHTSVD
          WHTSVDsp = iWHTSVD
 
       DO LWMINOPT = 1, 2
-         ! Workspace query for the minimal (1) and for the optimal
-         ! (2) workspace lengths determined by workspace query.
+         // Workspace query for the minimal (1) and for the optimal
+         // (2) workspace lengths determined by workspace query.
 
-      ! ZGEDMD is always tested and its results are also used for
-      ! comparisons with ZGEDMDQ.
+      // ZGEDMD is always tested and its results are also used for
+      // comparisons with ZGEDMDQ.
 
       ZX(1:M,1:N) = ZX0(1:M,1:N)
       ZY(1:M,1:N) = ZY0(1:M,1:N)
@@ -575,7 +575,7 @@
 
       END IF ! ZGEDMDQ
 
-!.......................................................................................................
+      //.......................................................................................................
 
       END DO   ! LWMINOPT
       !write(*,*) 'LWMINOPT loop completed'
@@ -703,5 +703,4 @@
 
       WRITE(*,*)
       WRITE(*,*) 'Test completed.'
-      STOP
-      END
+}

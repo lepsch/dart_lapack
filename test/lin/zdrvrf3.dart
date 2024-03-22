@@ -141,7 +141,7 @@ void zdrvrf3(
                     if (lsame(DIAG, 'U')) {
                       for (var J = 1; J <= NA; J++) {
                         for (var I = 1; I <= J; I++) {
-                          A[I][J] /= (2.0.toComplex() * A[J][J]);
+                          A[I][J] /= 2.0.toComplex() * A[J][J];
                         }
                       }
                     }
@@ -159,7 +159,7 @@ void zdrvrf3(
                     if (lsame(DIAG, 'U')) {
                       for (var I = 1; I <= NA; I++) {
                         for (var J = 1; J <= I; J++) {
-                          A[I][J] /= (2.0.toComplex() * A[I][I]);
+                          A[I][J] /= 2.0.toComplex() * A[I][I];
                         }
                       }
                     }

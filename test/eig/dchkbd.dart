@@ -490,7 +490,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'Generator', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           return;
         }
       }
@@ -509,7 +509,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DGEBRD', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           return;
         }
 
@@ -531,7 +531,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DORGBR(Q)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           return;
         }
 
@@ -544,7 +544,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DORGBR(P)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           return;
         }
 
@@ -579,7 +579,7 @@ void dchkbd(
       while (true) {
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSQR(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -601,7 +601,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSQR(values)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -696,7 +696,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSDC(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -718,7 +718,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSDC(values)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -807,7 +807,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSVDX(vects,A)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -862,7 +862,7 @@ void dchkbd(
         if (IINFO.value != 0) {
           print9998(
               NOUT, 'DBDSVDX(values,A)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -954,7 +954,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSVDX(vects,I)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -1001,7 +1001,7 @@ void dchkbd(
         if (IINFO.value != 0) {
           print9998(
               NOUT, 'DBDSVDX(values,I)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -1101,7 +1101,7 @@ void dchkbd(
 
         if (IINFO.value != 0) {
           print9998(NOUT, 'DBDSVDX(vects,V)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {
@@ -1148,7 +1148,7 @@ void dchkbd(
         if (IINFO.value != 0) {
           print9998(
               NOUT, 'DBDSVDX(values,V)', IINFO.value, M, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {

@@ -104,8 +104,7 @@ void zgelsd(
     if (MINMN > 0) {
       SMLSIZ = ilaenv(9, 'ZGELSD', ' ', 0, 0, 0, 0);
       MNTHR = ilaenv(6, 'ZGELSD', ' ', M, N, NRHS, -1);
-      NLVL = max(
-          (log(MINMN.toDouble() / (SMLSIZ + 1).toDouble()) ~/ log(TWO)) + 1, 0);
+      NLVL = max((log(MINMN / (SMLSIZ + 1)) ~/ log(TWO)) + 1, 0);
       LIWORK = 3 * MINMN * NLVL + 11 * MINMN;
       MM = M;
       if (M >= N && M >= MNTHR) {

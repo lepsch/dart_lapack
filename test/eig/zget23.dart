@@ -536,11 +536,11 @@ void zget23(
 
 void _print9999(Nout nout, String s, int info, int n, int i) {
   nout.println(
-      ' ZGET23: $s returned INFO.value=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${i.i4}');
+      ' ZGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${i.i4}');
 }
 
 void _print9998(Nout nout, String s, int info, int n, int jtype, String balanc,
     Array<int> iseed) {
   nout.println(
-      ' ZGET23: $s returned INFO.value=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, BALANC = $balanc, ISEED=(${iseed.i5(4, ',')})');
+      ' ZGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, BALANC = $balanc, ISEED=(${iseed.i5(4, ',')})');
 }

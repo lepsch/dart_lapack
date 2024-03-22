@@ -225,7 +225,7 @@ void zlaqz3(
     SWIDTH = ISTOPM - (K + NS + NP) + 1;
     if (SWIDTH > 0) {
       zgemm(
-          'C.value',
+          'C',
           'N',
           SHEIGHT,
           SWIDTH,
@@ -241,7 +241,7 @@ void zlaqz3(
       zlacpy('ALL', SHEIGHT, SWIDTH, WORK.asMatrix(SHEIGHT), SHEIGHT,
           A(K + 1, K + NS + NP), LDA);
       zgemm(
-          'C.value',
+          'C',
           'N',
           SHEIGHT,
           SWIDTH,
@@ -313,7 +313,7 @@ void zlaqz3(
   SWIDTH = ISTOPM - (IHI + 1) + 1;
   if (SWIDTH > 0) {
     zgemm(
-        'C.value',
+        'C',
         'N',
         SHEIGHT,
         SWIDTH,
@@ -329,7 +329,7 @@ void zlaqz3(
     zlacpy('ALL', SHEIGHT, SWIDTH, WORK.asMatrix(SHEIGHT), SHEIGHT,
         A(IHI - NS + 1, IHI + 1), LDA);
     zgemm(
-        'C.value',
+        'C',
         'N',
         SHEIGHT,
         SWIDTH,

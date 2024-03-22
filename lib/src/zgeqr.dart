@@ -71,7 +71,7 @@ void zgeqr(
   if ((TSIZE < max(1, NB * N * NBLCKS + 5) || LWORK < LWREQ) &&
       (LWORK >= N) &&
       (TSIZE >= MINTSZ) &&
-      (!LQUERY)) {
+      !LQUERY) {
     if (TSIZE < max(1, NB * N * NBLCKS + 5)) {
       LMINWS = true;
       NB = 1;
@@ -89,9 +89,9 @@ void zgeqr(
     INFO.value = -2;
   } else if (LDA < max(1, M)) {
     INFO.value = -4;
-  } else if (TSIZE < max(1, NB * N * NBLCKS + 5) && (!LQUERY) && (!LMINWS)) {
+  } else if (TSIZE < max(1, NB * N * NBLCKS + 5) && !LQUERY && !LMINWS) {
     INFO.value = -6;
-  } else if ((LWORK < LWREQ) && (!LQUERY) && (!LMINWS)) {
+  } else if ((LWORK < LWREQ) && !LQUERY && !LMINWS) {
     INFO.value = -8;
   }
 

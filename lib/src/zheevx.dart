@@ -188,7 +188,7 @@ void zheevx(
     VLL = VL;
     VUU = VU;
   }
-  ANRM = zlanhe('M.value', UPLO, N, A, LDA, RWORK);
+  ANRM = zlanhe('M', UPLO, N, A, LDA, RWORK);
   if (ANRM > ZERO && ANRM < RMIN) {
     ISCALE = 1;
     SIGMA = RMIN / ANRM;

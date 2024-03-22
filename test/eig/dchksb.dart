@@ -327,7 +327,7 @@ void dchksb(
 
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'Generator', IINFO.value, N, JTYPE, IOLDSD);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             return;
           }
         }
@@ -343,7 +343,7 @@ void dchksb(
 
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
             } else {
@@ -380,7 +380,7 @@ void dchksb(
 
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
             } else {

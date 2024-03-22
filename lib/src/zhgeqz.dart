@@ -101,7 +101,7 @@ void zhgeqz(
   if (lsame(JOB, 'E')) {
     ILSCHR = false;
     ISCHUR = 1;
-  } else if (lsame(JOB, 'S.value')) {
+  } else if (lsame(JOB, 'S')) {
     ILSCHR = true;
     ISCHUR = 2;
   } else {
@@ -188,7 +188,7 @@ void zhgeqz(
   // Machine Constants
 
   IN = IHI + 1 - ILO;
-  SAFMIN = dlamch('S.value');
+  SAFMIN = dlamch('S');
   ULP = dlamch('E') * dlamch('B');
   ANORM = zlanhs('F', IN, H(ILO, ILO), LDH, RWORK);
   BNORM = zlanhs('F', IN, T(ILO, ILO), LDT, RWORK);

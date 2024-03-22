@@ -8,11 +8,7 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-void dlasq2(
-  final int N,
-  final Array<double> Z_,
-  final Box<int> INFO,
-) {
+void dlasq2(final int N, final Array<double> Z_, final Box<int> INFO) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -182,7 +178,7 @@ void dlasq2(
 
   // Check whether the machine is IEEE conformable.
 
-  IEEE = (ilaenv(10, 'DLASQ2', 'N', 1, 2, 3, 4) == 1);
+  IEEE = ilaenv(10, 'DLASQ2', 'N', 1, 2, 3, 4) == 1;
 
   // Rearrange data for locality: Z=(q1,qq1,e1,ee1,q2,qq2,e2,ee2,...).
 
@@ -290,7 +286,7 @@ void dlasq2(
 
     // While array unfinished do
 
-    // E(N0.value) holds the value of SIGMA.value when submatrix in I0:N0.value
+    // E(N0) holds the value of SIGMA when submatrix in I0:N0
     // splits from the rest of the array, but is negated.
 
     DESIG.value = ZERO;
@@ -304,7 +300,7 @@ void dlasq2(
       return;
     }
 
-    // Find last unreduced submatrix's top index I0, find QMAX.value and
+    // Find last unreduced submatrix's top index I0, find QMAX and
     // EMIN. Find Gershgorin-type bound if Q's much greater than E's.
 
     EMAX = ZERO;
@@ -332,7 +328,6 @@ void dlasq2(
       I4 = 4;
     }
 
-    //  }
     I0 = I4 ~/ 4;
     PP.value = 0;
 
@@ -370,13 +365,13 @@ void dlasq2(
       }
     }
 
-    // Put -(initial shift) into DMIN.value.
+    // Put -(initial shift) into DMIN.
 
     DMIN.value = -max(ZERO, QMIN - TWO * sqrt(QMIN) * sqrt(EMAX));
 
-    // Now I0:N0.value is unreduced.
-    // PP.value = 0 for ping, PP.value = 1 for pong.
-    // PP.value = 2 indicates that flipping was applied to the Z array and
+    // Now I0:N0 is unreduced.
+    // PP = 0 for ping, PP = 1 for pong.
+    // PP = 2 indicates that flipping was applied to the Z array and
     //        and that the tests for deflation upon entry in DLASQ3
     //        should not be performed.
 

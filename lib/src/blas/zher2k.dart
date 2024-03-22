@@ -40,9 +40,9 @@ void zher2k(
   UPPER = lsame(UPLO, 'U');
 
   INFO = 0;
-  if ((!UPPER) && (!lsame(UPLO, 'L'))) {
+  if (!UPPER && !lsame(UPLO, 'L')) {
     INFO = 1;
-  } else if ((!lsame(TRANS, 'N')) && (!lsame(TRANS, 'C'))) {
+  } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'C')) {
     INFO = 2;
   } else if (N < 0) {
     INFO = 3;

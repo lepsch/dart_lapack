@@ -98,7 +98,7 @@ void dlaqz2(
     //  H = B( K+1:K+2, K:K+2 );
     for (var i = K + 1; i <= K + 2; i++) {
       for (var j = K; j <= K + 2; j++) {
-        H[i - (K + 1) + 1][j - (K) + 1] = B[i][j];
+        H[i - (K + 1) + 1][j - K + 1] = B[i][j];
       }
     }
 

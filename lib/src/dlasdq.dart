@@ -139,9 +139,9 @@ void dlasdq(
 
     if (NRU > 0) {
       if (SQRE1 == 0) {
-        dlasr('R.value', 'V', 'F', NRU, N, WORK(1), WORK(NP1), U, LDU);
+        dlasr('R', 'V', 'F', NRU, N, WORK(1), WORK(NP1), U, LDU);
       } else {
-        dlasr('R.value', 'V', 'F', NRU, NP1, WORK(1), WORK(NP1), U, LDU);
+        dlasr('R', 'V', 'F', NRU, NP1, WORK(1), WORK(NP1), U, LDU);
       }
     }
     if (NCC > 0) {

@@ -208,7 +208,7 @@ void dbdsdc(
     dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D.asMatrix(N), N, IERR);
     dlascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E.asMatrix(NM1), NM1, IERR);
 
-    EPS = (0.9) * dlamch('Epsilon');
+    EPS = 0.9 * dlamch('Epsilon');
 
     MLVL = (log(N / (SMLSIZ + 1)) ~/ log(TWO)) + 1;
     SMLSZP = SMLSIZ + 1;

@@ -210,7 +210,7 @@ void dsyevr_2stage(
     VLL = VL;
     VUU = VU;
   }
-  ANRM = dlansy('M.value', UPLO, N, A, LDA, WORK);
+  ANRM = dlansy('M', UPLO, N, A, LDA, WORK);
   if (ANRM > ZERO && ANRM < RMIN) {
     ISCALE = 1;
     SIGMA = RMIN / ANRM;

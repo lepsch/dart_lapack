@@ -211,7 +211,7 @@ void zstemr(
         W[1] = D[1];
       }
     }
-    if (WANTZ && (!ZQUERY)) {
+    if (WANTZ && !ZQUERY) {
       Z[1][1] = Complex.one;
       ISUPPZ[1] = 1;
       ISUPPZ[2] = 1;
@@ -222,7 +222,7 @@ void zstemr(
   if (N == 2) {
     if (!WANTZ) {
       dlae2(D[1], E[1], D[2], R1, R2);
-    } else if (WANTZ && (!ZQUERY)) {
+    } else if (WANTZ && !ZQUERY) {
       dlaev2(D[1], E[1], D[2], R1, R2, CS, SN);
     }
     // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
@@ -239,7 +239,7 @@ void zstemr(
         (INDEIG && (IIL == 1))) {
       M.value++;
       W[M.value] = R2.value;
-      if (WANTZ && (!ZQUERY)) {
+      if (WANTZ && !ZQUERY) {
         if (LAESWAP) {
           Z[1][M.value] = CS.value.toComplex();
           Z[2][M.value] = SN.value.toComplex();
@@ -267,7 +267,7 @@ void zstemr(
         (INDEIG && (IIU == 2))) {
       M.value++;
       W[M.value] = R1.value;
-      if (WANTZ && (!ZQUERY)) {
+      if (WANTZ && !ZQUERY) {
         if (LAESWAP) {
           Z[1][M.value] = -SN.value.toComplex();
           Z[2][M.value] = CS.value.toComplex();
@@ -312,7 +312,7 @@ void zstemr(
     // RMAX threshold.
 
     SCALE = ONE;
-    TNRM = dlanst('M.value', N, D, E);
+    TNRM = dlanst('M', N, D, E);
     if (TNRM > ZERO && TNRM < RMIN) {
       SCALE = RMIN / TNRM;
     } else if (TNRM > RMAX) {
@@ -403,7 +403,7 @@ void zstemr(
         IWORK(IINDWK),
         IINFO);
     if (IINFO.value != 0) {
-      INFO.value = 10 + (IINFO.value).abs();
+      INFO.value = 10 + IINFO.value.abs();
       return;
     }
     // Note that if RANGE != 'V', DLARRE computes bounds on the desired
@@ -441,7 +441,7 @@ void zstemr(
           IWORK(IINDWK),
           IINFO);
       if (IINFO.value != 0) {
-        INFO.value = 20 + (IINFO.value).abs();
+        INFO.value = 20 + IINFO.value.abs();
         return;
       }
     } else {

@@ -84,9 +84,9 @@ void zgeevx(
       lsame(BALANC, 'P') ||
       lsame(BALANC, 'B'))) {
     INFO.value = -1;
-  } else if ((!WANTVL) && (!lsame(JOBVL, 'N'))) {
+  } else if (!WANTVL && !lsame(JOBVL, 'N')) {
     INFO.value = -2;
-  } else if ((!WANTVR) && (!lsame(JOBVR, 'N'))) {
+  } else if (!WANTVR && !lsame(JOBVR, 'N')) {
     INFO.value = -3;
   } else if (!(WNTSNN || WNTSNE || WNTSNB || WNTSNV) ||
       ((WNTSNE || WNTSNB) && !(WANTVL && WANTVR))) {
@@ -140,7 +140,7 @@ void zgeevx(
       }
       HSWORK = WORK[1].toInt();
 
-      if ((!WANTVL) && (!WANTVR)) {
+      if (!WANTVL && !WANTVR) {
         MINWRK = 2 * N;
         if (!(WNTSNN || WNTSNE)) MINWRK = max(MINWRK, N * N + 2 * N);
         MAXWRK = max(MAXWRK, HSWORK);

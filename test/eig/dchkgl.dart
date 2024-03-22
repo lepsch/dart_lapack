@@ -79,7 +79,7 @@ Future<void> dchkgl(final Nin NIN, final Nout NOUT) async {
       VMAX = max(VMAX, (RSCALE[I] - RSCLIN[I]).abs());
     }
 
-    VMAX /= (EPS * max(ANORM, BNORM));
+    VMAX /= EPS * max(ANORM, BNORM);
 
     if (VMAX > RMAX) {
       LMAX[3] = KNT;

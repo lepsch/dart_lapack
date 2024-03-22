@@ -86,7 +86,7 @@ Future<void> zget38(
     await NIN.readMatrix(TMP, N, N);
     (SIN, SEPIN) = await NIN.readDouble2();
 
-    TNRM = zlange('M.value', N, N, TMP, LDT, RWORK);
+    TNRM = zlange('M', N, N, TMP, LDT, RWORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
 
@@ -120,7 +120,7 @@ Future<void> zget38(
           T[I][J] = Complex.zero;
         }
       }
-      zhseqr('S.value', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO);
+      zhseqr('S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
         NINFO[2]++;

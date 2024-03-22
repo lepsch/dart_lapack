@@ -133,7 +133,7 @@ void dlagv2(
 
       H2 = max(B[1][1].abs() + B[1][2].abs(), B[2][1].abs() + B[2][2].abs());
 
-      if ((SCALE1.value * H1) >= (WR1.value).abs() * H2) {
+      if ((SCALE1.value * H1) >= WR1.value.abs() * H2) {
         // find left rotation matrix Q to zero out B(2,1)
 
         dlartg(B[1][1], B[2][1], CSL, SNL, R);

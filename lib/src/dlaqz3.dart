@@ -124,7 +124,7 @@ void dlaqz3(
   SAFMIN = dlamch('SAFE MINIMUM');
   // SAFMAX = ONE / SAFMIN;
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (N.toDouble() / ULP);
+  SMLNUM = SAFMIN * (N / ULP);
 
   if (IHI == KWTOP) {
     // 1 by 1 deflation window, just try a regular deflation

@@ -63,9 +63,9 @@ void zgees(
   LQUERY = (LWORK == -1);
   WANTVS = lsame(JOBVS, 'V');
   WANTST = lsame(SORT, 'S');
-  if ((!WANTVS) && (!lsame(JOBVS, 'N'))) {
+  if (!WANTVS && !lsame(JOBVS, 'N')) {
     INFO.value = -1;
-  } else if ((!WANTST) && (!lsame(SORT, 'N'))) {
+  } else if (!WANTST && !lsame(SORT, 'N')) {
     INFO.value = -2;
   } else if (N < 0) {
     INFO.value = -4;

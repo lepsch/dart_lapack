@@ -75,7 +75,7 @@ void dgelq(
   if ((TSIZE < max(1, MB * M * NBLCKS + 5) || LWORK < LWOPT) &&
       (LWORK >= LWMIN) &&
       (TSIZE >= MINTSZ) &&
-      (!LQUERY)) {
+      !LQUERY) {
     if (TSIZE < max(1, MB * M * NBLCKS + 5)) {
       LMINWS = true;
       MB = 1;
@@ -98,9 +98,9 @@ void dgelq(
     INFO.value = -2;
   } else if (LDA < max(1, M)) {
     INFO.value = -4;
-  } else if (TSIZE < max(1, MB * M * NBLCKS + 5) && (!LQUERY) && (!LMINWS)) {
+  } else if (TSIZE < max(1, MB * M * NBLCKS + 5) && !LQUERY && !LMINWS) {
     INFO.value = -6;
-  } else if ((LWORK < LWREQ) && (!LQUERY) && (!LMINWS)) {
+  } else if ((LWORK < LWREQ) && !LQUERY && !LMINWS) {
     INFO.value = -8;
   }
 

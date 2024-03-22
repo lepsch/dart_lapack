@@ -296,7 +296,7 @@ void zlalsd(
 
   // Book-keeping and setting up some constants.
 
-  NLVL = (log(N.toDouble() / (SMLSIZ + 1).toDouble()) ~/ log(TWO)) + 1;
+  NLVL = (log(N / (SMLSIZ + 1)) ~/ log(TWO)) + 1;
 
   SMLSZP = SMLSIZ + 1;
 

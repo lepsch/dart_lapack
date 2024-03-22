@@ -29,7 +29,7 @@ void dlarfgp(
   EPS = dlamch('Precision');
   XNORM = dnrm2(N - 1, X, INCX);
 
-  if (XNORM <= EPS * (ALPHA.value).abs()) {
+  if (XNORM <= EPS * ALPHA.value.abs()) {
     // H  =  [+/-1, 0; I], sign chosen so ALPHA.value >= 0.
 
     if (ALPHA.value >= ZERO) {
@@ -79,7 +79,7 @@ void dlarfgp(
       ALPHA.value = -ALPHA.value;
     }
 
-    if ((TAU.value).abs() <= SMLNUM) {
+    if (TAU.value.abs() <= SMLNUM) {
       // In the case where the computed TAU.value ends up being a denormalized number,
       // it loses relative accuracy. This is a BIG problem. Solution: flush TAU.value
       // to ZERO. This explains the next IF statement.

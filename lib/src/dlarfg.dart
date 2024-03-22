@@ -58,7 +58,7 @@ void dlarfg(
   TAU.value = (BETA - ALPHA.value) / BETA;
   dscal(N - 1, ONE / (ALPHA.value - BETA), X, INCX);
 
-  // If ALPHA.value is subnormal, it may lose relative accuracy
+  // If ALPHA is subnormal, it may lose relative accuracy
 
   for (J = 1; J <= KNT; J++) {
     BETA *= SAFMIN;

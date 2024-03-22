@@ -11,7 +11,7 @@ abstract interface class TestDriver {
   bool expect(dynamic actual, dynamic matcher, {String? reason});
 
   void call(String description, dynamic Function() test, {Object? skip}) {
-    this.test(description, test);
+    this.test(description, test, skip: skip);
   }
 }
 
@@ -29,7 +29,11 @@ class _LapackTestDriver extends TestDriver {
 
   @override
   void test(String description, dynamic Function() body, {Object? skip}) {
-    if (skip != null) return;
+    if (skip is bool) {
+      if (skip) return;
+    } else if (skip != null) {
+      return;
+    }
     body();
   }
 

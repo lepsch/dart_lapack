@@ -22,7 +22,7 @@ void dsb2st_kernels(
   final Array<double> V_,
   final Array<double> TAU_,
   final int LDVT,
-  final Array<double> WORK,
+  final Array<double> WORK_,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,21 +30,12 @@ void dsb2st_kernels(
   final A = A_.having(ld: LDA);
   final V = V_.having();
   final TAU = TAU_.having();
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool UPPER;
-  int I,
-      J1,
-      J2,
-      LM,
-      LN,
-      VPOS,
-      TAUPOS,
-      DPOS,
-      // AJETER,
-      OFDPOS;
+  int I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS;
   final CTMP = Box(0.0);
 
-  // AJETER = IB + LDVT;
   UPPER = lsame(UPLO, 'U');
 
   if (UPPER) {
@@ -71,20 +62,20 @@ void dsb2st_kernels(
 
       V[VPOS] = ONE;
       for (I = 1; I <= LM - 1; I++) {
-        V[VPOS + I] = (A[OFDPOS - I][ST + I]);
+        V[VPOS + I] = A[OFDPOS - I][ST + I];
         A[OFDPOS - I][ST + I] = ZERO;
       }
-      CTMP.value = (A[OFDPOS][ST]);
-      dlarfg(LM, CTMP, V(VPOS + 1), 1, TAU.box(TAUPOS));
+      CTMP.value = A[OFDPOS][ST];
+      dlarfg(LM, CTMP, V(VPOS + 1), 1, TAU(TAUPOS));
       A[OFDPOS][ST] = CTMP.value;
 
       LM = ED - ST + 1;
-      dlarfy(UPLO, LM, V(VPOS), 1, (TAU[TAUPOS]), A(DPOS, ST), LDA - 1, WORK);
+      dlarfy(UPLO, LM, V(VPOS), 1, TAU[TAUPOS], A(DPOS, ST), LDA - 1, WORK);
     }
 
     if (TTYPE == 3) {
       LM = ED - ST + 1;
-      dlarfy(UPLO, LM, V(VPOS), 1, (TAU[TAUPOS]), A(DPOS, ST), LDA - 1, WORK);
+      dlarfy(UPLO, LM, V(VPOS), 1, TAU[TAUPOS], A(DPOS, ST), LDA - 1, WORK);
     }
 
     if (TTYPE == 2) {
@@ -93,8 +84,8 @@ void dsb2st_kernels(
       LN = ED - ST + 1;
       LM = J2 - J1 + 1;
       if (LM > 0) {
-        dlarfx('Left', LN, LM, V(VPOS), (TAU[TAUPOS]), A(DPOS - NB, J1),
-            LDA - 1, WORK);
+        dlarfx('Left', LN, LM, V(VPOS), TAU[TAUPOS], A(DPOS - NB, J1), LDA - 1,
+            WORK);
 
         if (WANTZ) {
           VPOS = ((SWEEP - 1) % 2) * N + J1;
@@ -106,11 +97,11 @@ void dsb2st_kernels(
 
         V[VPOS] = ONE;
         for (I = 1; I <= LM - 1; I++) {
-          V[VPOS + I] = (A[DPOS - NB - I][J1 + I]);
+          V[VPOS + I] = A[DPOS - NB - I][J1 + I];
           A[DPOS - NB - I][J1 + I] = ZERO;
         }
-        CTMP.value = (A[DPOS - NB][J1]);
-        dlarfg(LM, CTMP, V(VPOS + 1), 1, TAU.box(TAUPOS));
+        CTMP.value = A[DPOS - NB][J1];
+        dlarfg(LM, CTMP, V(VPOS + 1), 1, TAU(TAUPOS));
         A[DPOS - NB][J1] = CTMP.value;
 
         dlarfx('Right', LN - 1, LM, V(VPOS), TAU[TAUPOS], A(DPOS - NB + 1, J1),
@@ -136,17 +127,17 @@ void dsb2st_kernels(
         V[VPOS + I] = A[OFDPOS + I][ST - 1];
         A[OFDPOS + I][ST - 1] = ZERO;
       }
-      dlarfg(LM, A.box(OFDPOS, ST - 1), V(VPOS + 1), 1, TAU.box(TAUPOS));
+      dlarfg(LM, A(OFDPOS, ST - 1), V(VPOS + 1), 1, TAU(TAUPOS));
 
       LM = ED - ST + 1;
 
-      dlarfy(UPLO, LM, V(VPOS), 1, (TAU[TAUPOS]), A(DPOS, ST), LDA - 1, WORK);
+      dlarfy(UPLO, LM, V(VPOS), 1, TAU[TAUPOS], A(DPOS, ST), LDA - 1, WORK);
     }
 
     if (TTYPE == 3) {
       LM = ED - ST + 1;
 
-      dlarfy(UPLO, LM, V(VPOS), 1, (TAU[TAUPOS]), A(DPOS, ST), LDA - 1, WORK);
+      dlarfy(UPLO, LM, V(VPOS), 1, TAU[TAUPOS], A(DPOS, ST), LDA - 1, WORK);
     }
 
     if (TTYPE == 2) {
@@ -172,9 +163,9 @@ void dsb2st_kernels(
           V[VPOS + I] = A[DPOS + NB + I][ST];
           A[DPOS + NB + I][ST] = ZERO;
         }
-        dlarfg(LM, A.box(DPOS + NB, ST), V(VPOS + 1), 1, TAU.box(TAUPOS));
+        dlarfg(LM, A(DPOS + NB, ST), V(VPOS + 1), 1, TAU(TAUPOS));
 
-        dlarfx('Left', LM, LN - 1, V(VPOS), (TAU[TAUPOS]),
+        dlarfx('Left', LM, LN - 1, V(VPOS), TAU[TAUPOS],
             A(DPOS + NB - 1, ST + 1), LDA - 1, WORK);
       }
     }

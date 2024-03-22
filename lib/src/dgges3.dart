@@ -121,7 +121,7 @@ void dgges3(
     INFO.value = -1;
   } else if (IJOBVR <= 0) {
     INFO.value = -2;
-  } else if ((!WANTST) && (!lsame(SORT, 'N'))) {
+  } else if (!WANTST && !lsame(SORT, 'N')) {
     INFO.value = -3;
   } else if (N < 0) {
     INFO.value = -5;

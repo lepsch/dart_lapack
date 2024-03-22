@@ -203,7 +203,7 @@ void dlag2(
 
   // Scale first eigenvalue
 
-  WABS = (WR1.value).abs() + (WI.value).abs();
+  WABS = WR1.value.abs() + WI.value.abs();
   WSIZE = max(SAFMIN,
       max(C1, max(FUZZY1 * (WABS * C2 + C3), min(C4, HALF * max(WABS, C5)))));
   if (WSIZE != ONE) {
@@ -232,8 +232,8 @@ void dlag2(
         max(
           C1,
           max(
-            FUZZY1 * ((WR2.value).abs() * C2 + C3),
-            min(C4, HALF * max((WR2.value).abs(), C5)),
+            FUZZY1 * (WR2.value.abs() * C2 + C3),
+            min(C4, HALF * max(WR2.value.abs(), C5)),
           ),
         ));
     if (WSIZE != ONE) {

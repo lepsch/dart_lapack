@@ -350,7 +350,7 @@ void dchkbb(
 
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'Generator', IINFO.value, M, N, K, JTYPE, IOLDSD);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             return;
           }
         }
@@ -374,7 +374,7 @@ void dchkbb(
 
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DGBBRD', IINFO.value, M, N, K, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
           } else {

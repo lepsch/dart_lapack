@@ -25,18 +25,15 @@ void dsytrd_sb2st(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// #if defined(_OPENMP)
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AB = AB_.having(ld: LDAB);
   final D = D_.having();
   final E = E_.having();
   final HOUS = HOUS_.having();
   final WORK = WORK_.having();
-  // use omp_lib;
-// #endif
 
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const RZERO = 0.0, ZERO = 0.0;
   bool LQUERY, WANTQ, UPPER, AFTERS1;
   int I,
@@ -177,7 +174,7 @@ void dsytrd_sb2st(
 
   if (KD == 0) {
     for (I = 1; I <= N; I++) {
-      D[I] = (AB[ABDPOS][I]);
+      D[I] = AB[ABDPOS][I];
     }
     for (I = 1; I <= N - 1; I++) {
       E[I] = RZERO;
@@ -200,16 +197,16 @@ void dsytrd_sb2st(
 
   if (KD == 1) {
     for (I = 1; I <= N; I++) {
-      D[I] = (AB[ABDPOS][I]);
+      D[I] = AB[ABDPOS][I];
     }
 
     if (UPPER) {
       for (I = 1; I <= N - 1; I++) {
-        E[I] = (AB[ABOFDPOS][I + 1]);
+        E[I] = AB[ABOFDPOS][I + 1];
       }
     } else {
       for (I = 1; I <= N - 1; I++) {
-        E[I] = (AB[ABOFDPOS][I]);
+        E[I] = AB[ABOFDPOS][I];
       }
     }
 

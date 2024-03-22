@@ -40,15 +40,15 @@ void ztrsm(
   UPPER = lsame(UPLO, 'U');
 
   INFO = 0;
-  if ((!LSIDE) && (!lsame(SIDE, 'R'))) {
+  if (!LSIDE && !lsame(SIDE, 'R')) {
     INFO = 1;
-  } else if ((!UPPER) && (!lsame(UPLO, 'L'))) {
+  } else if (!UPPER && !lsame(UPLO, 'L')) {
     INFO = 2;
-  } else if ((!lsame(TRANSA, 'N')) &&
-      (!lsame(TRANSA, 'T')) &&
-      (!lsame(TRANSA, 'C'))) {
+  } else if (!lsame(TRANSA, 'N') &&
+      !lsame(TRANSA, 'T') &&
+      !lsame(TRANSA, 'C')) {
     INFO = 3;
-  } else if ((!lsame(DIAG, 'U')) && (!lsame(DIAG, 'N'))) {
+  } else if (!lsame(DIAG, 'U') && !lsame(DIAG, 'N')) {
     INFO = 4;
   } else if (M < 0) {
     INFO = 5;

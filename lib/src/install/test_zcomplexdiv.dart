@@ -60,7 +60,7 @@ void main() {
   min = minexponent(0.0);
   Max = maxexponent(0.0);
   m = digits(0.0);
-  b = (radix(0.0)).toDouble();
+  b = radix(0.0).toDouble();
   // eps = epsilon(0.0);
   blueMin = pow(b, ((min - 1) * 0.5).ceil()).toDouble();
   blueMax = pow(b, ((Max - m + 1) * 0.5).floor()).toDouble();

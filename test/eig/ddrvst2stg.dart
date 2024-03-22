@@ -377,7 +377,7 @@ void ddrvst2stg(
           } else if (ITYPE == 9) {
             // Symmetric banded, eigenvalues specified
 
-            IHBW = (N - 1) * dlarnd(1, ISEED3).toInt();
+            IHBW = ((N - 1) * dlarnd(1, ISEED3)).toInt();
             dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW,
                 'Z', U, LDU, WORK(N + 1), IINFO);
 
@@ -409,8 +409,8 @@ void ddrvst2stg(
           IL = 1;
           IU = N;
         } else {
-          IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-          IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
+          IL = 1 + ((N - 1) * dlarnd(1, ISEED2)).toInt();
+          IU = 1 + ((N - 1) * dlarnd(1, ISEED2)).toInt();
           if (IL > IU) {
             ITEMP = IL;
             IL = IU;
@@ -1024,7 +1024,7 @@ void ddrvst2stg(
             if (IINFO.value != 0) {
               print9999(
                   NOUNIT, 'DSYEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
-              INFO.value = (IINFO.value).abs();
+              INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
               } else {

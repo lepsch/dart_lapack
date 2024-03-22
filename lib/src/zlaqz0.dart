@@ -278,7 +278,7 @@ void zlaqz0(
   SAFMIN = dlamch('SAFE MINIMUM');
   // SAFMAX = ONE/SAFMIN;
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (N.toDouble() / ULP);
+  SMLNUM = SAFMIN * (N / ULP);
 
   BNORM = zlanhs('F', IHI - ILO + 1, B(ILO, ILO), LDB, RWORK);
   BTOL = max(SAFMIN, ULP * BNORM);
@@ -490,7 +490,7 @@ void zlaqz0(
     if ((LD % 6) == 0) {
       // Exceptional shift.  Chosen for no particularly good reason.
 
-      if ((MAXIT.toDouble() * SAFMIN) * A[ISTOP][ISTOP - 1].abs() <
+      if ((MAXIT * SAFMIN) * A[ISTOP][ISTOP - 1].abs() <
           A[ISTOP - 1][ISTOP - 1].abs()) {
         ESHIFT = A[ISTOP][ISTOP - 1] / B[ISTOP - 1][ISTOP - 1];
       } else {

@@ -96,7 +96,7 @@ void dlasd6(
 
   // Scale.
 
-  ORGNRM = max((ALPHA.value).abs(), (BETA.value).abs());
+  ORGNRM = max(ALPHA.value.abs(), BETA.value.abs());
   D[NL + 1] = ZERO;
   for (I = 1; I <= N; I++) {
     if (D[I].abs() > ORGNRM) {

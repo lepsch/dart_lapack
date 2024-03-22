@@ -82,7 +82,7 @@ void dstt22(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, M * ANORM) / ANORM) / (M * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, M.toDouble()) / (M * ULP);
+      RESULT[1] = min(WNORM / ANORM, M) / (M * ULP);
     }
   }
 
@@ -97,6 +97,5 @@ void dstt22(
   }
 
   RESULT[2] =
-      min(M.toDouble(), dlange('1', M, M, WORK, M, WORK(1, M + 1).asArray())) /
-          (M * ULP);
+      min(M, dlange('1', M, M, WORK, M, WORK(1, M + 1).asArray())) / (M * ULP);
 }

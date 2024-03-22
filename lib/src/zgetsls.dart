@@ -116,7 +116,7 @@ void zgetsls(
       WSIZEM = TSZM + LWM;
     }
 
-    if ((LWORK < WSIZEM) && (!LQUERY)) {
+    if ((LWORK < WSIZEM) && !LQUERY) {
       INFO.value = -10;
     }
 

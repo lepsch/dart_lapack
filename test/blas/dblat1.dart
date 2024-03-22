@@ -735,8 +735,8 @@ void _check2(final double SFAC, final Nout nout) {
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
     combla.INCY = INCYS[KI];
-    MX = (combla.INCX).abs();
-    MY = (combla.INCY).abs();
+    MX = combla.INCX.abs();
+    MY = combla.INCY.abs();
 
     for (KN = 1; KN <= 4; KN++) {
       combla.N = NS[KN];
@@ -931,8 +931,8 @@ void _check3(final double SFAC, final Nout nout) {
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
     combla.INCY = INCYS[KI];
-    MX = (combla.INCX).abs();
-    MY = (combla.INCY).abs();
+    MX = combla.INCX.abs();
+    MY = combla.INCY.abs();
 
     for (KN = 1; KN <= 4; KN++) {
       combla.N = NS[KN];

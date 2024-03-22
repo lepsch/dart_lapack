@@ -119,14 +119,12 @@ void dbdt01(
     if (RESID.value != ZERO) RESID.value = ONE / EPS;
   } else {
     if (ANORM >= RESID.value) {
-      RESID.value = (RESID.value / ANORM) / (N.toDouble() * EPS);
+      RESID.value = (RESID.value / ANORM) / (N * EPS);
     } else {
       if (ANORM < ONE) {
-        RESID.value = (min(RESID.value, N.toDouble() * ANORM) / ANORM) /
-            (N.toDouble() * EPS);
+        RESID.value = (min(RESID.value, N * ANORM) / ANORM) / (N * EPS);
       } else {
-        RESID.value =
-            min(RESID.value / ANORM, N.toDouble()) / (N.toDouble() * EPS);
+        RESID.value = min(RESID.value / ANORM, N) / (N * EPS);
       }
     }
   }

@@ -53,7 +53,7 @@ void dlatsqr(
     INFO.value = -6;
   } else if (LDT < NB) {
     INFO.value = -8;
-  } else if (LWORK < LWMIN && (!LQUERY)) {
+  } else if (LWORK < LWMIN && !LQUERY) {
     INFO.value = -10;
   }
 

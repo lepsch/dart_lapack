@@ -53,9 +53,9 @@ void zgemm(
   // Test the input parameters.
 
   INFO = 0;
-  if ((!NOTA) && (!CONJA) && (!lsame(TRANSA, 'T'))) {
+  if (!NOTA && !CONJA && !lsame(TRANSA, 'T')) {
     INFO = 1;
-  } else if ((!NOTB) && (!CONJB) && (!lsame(TRANSB, 'T'))) {
+  } else if (!NOTB && !CONJB && !lsame(TRANSB, 'T')) {
     INFO = 2;
   } else if (M < 0) {
     INFO = 3;

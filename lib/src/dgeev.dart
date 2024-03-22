@@ -63,9 +63,9 @@ void dgeev(
   LQUERY = (LWORK == -1);
   WANTVL = lsame(JOBVL, 'V');
   WANTVR = lsame(JOBVR, 'V');
-  if ((!WANTVL) && (!lsame(JOBVL, 'N'))) {
+  if (!WANTVL && !lsame(JOBVL, 'N')) {
     INFO.value = -1;
-  } else if ((!WANTVR) && (!lsame(JOBVR, 'N'))) {
+  } else if (!WANTVR && !lsame(JOBVR, 'N')) {
     INFO.value = -2;
   } else if (N < 0) {
     INFO.value = -3;

@@ -41,9 +41,9 @@ void zlatps(
   double BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ = 0, XMAX;
   Complex CSUMJ, TJJS = Complex.zero, USCAL;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
   double CABS2(Complex ZDUM) =>
-      (ZDUM.toDouble() / 2.0).abs() + (ZDUM.imaginary / 2.0).abs();
+      (ZDUM.real / 2.0).abs() + (ZDUM.imaginary / 2.0).abs();
 
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');

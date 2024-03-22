@@ -115,7 +115,7 @@ Future<void> zchkgk(
           VMAX = max(VMAX, CABS1(E[I][J] - F[I][J]));
         }
       }
-      VMAX /= (EPS * max(ANORM, BNORM));
+      VMAX /= EPS * max(ANORM, BNORM);
       if (VMAX > RMAX) {
         LMAX[4] = KNT;
         RMAX = VMAX;
@@ -139,7 +139,7 @@ Future<void> zchkgk(
           VMAX = max(VMAX, CABS1(E[I][J] - F[I][J]));
         }
       }
-      VMAX /= (EPS * max(ANORM, BNORM));
+      VMAX /= EPS * max(ANORM, BNORM);
       if (VMAX > RMAX) {
         LMAX[4] = KNT;
         RMAX = VMAX;

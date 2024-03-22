@@ -139,7 +139,7 @@ Future<void> dckgqr(
               IINFO);
           if (IINFO.value != 0) {
             print9999(NOUT, IINFO.value);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             continue;
           }
 
@@ -164,7 +164,7 @@ Future<void> dckgqr(
               IINFO);
           if (IINFO.value != 0) {
             print9999(NOUT, IINFO.value);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             continue;
           }
 
@@ -237,7 +237,7 @@ Future<void> dckgqr(
               IINFO);
           if (IINFO.value != 0) {
             print9999(NOUT, IINFO.value);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             continue;
           }
 
@@ -262,7 +262,7 @@ Future<void> dckgqr(
               IINFO);
           if (IINFO.value != 0) {
             print9999(NOUT, IINFO.value);
-            INFO.value = (IINFO.value).abs();
+            INFO.value = IINFO.value.abs();
             continue;
           }
 

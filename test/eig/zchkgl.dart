@@ -86,7 +86,7 @@ Future<void> zchkgl(
         VMAX = max(VMAX, (RSCALE[I] - RSCLIN[I]).abs());
       }
 
-      VMAX /= (EPS * max(ANORM, BNORM));
+      VMAX /= EPS * max(ANORM, BNORM);
 
       if (VMAX > RMAX) {
         LMAX[3] = KNT;
@@ -100,7 +100,7 @@ Future<void> zchkgl(
   NOUT.println(' ratio of largest test error              = ${RMAX.d12_3}');
   NOUT.println(' example number where info is not zero    = ${LMAX[1].i4}');
   NOUT.println(
-      ' example number where ILO.value or IHI.value is wrong = ${LMAX[2].i4}');
+      ' example number where ILO or IHI is wrong = ${LMAX[2].i4}');
   NOUT.println(' example number having largest error      = ${LMAX[3].i4}');
   NOUT.println(' number of examples where info is not 0   = ${NINFO.i4}');
   NOUT.println(' total number of examples tested          = ${KNT.i4}');

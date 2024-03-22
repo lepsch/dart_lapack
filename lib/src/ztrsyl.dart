@@ -108,13 +108,13 @@ void ztrsyl(
 
         SCALOC = ONE;
         A11 = A[K][K] + SGN.toComplex() * B[L][L];
-        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        DA11 = A11.toDouble().abs() + A11.imaginary.abs();
         if (DA11 <= SMIN) {
           A11 = SMIN.toComplex();
           DA11 = SMIN;
           INFO.value = 1;
         }
-        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        DB = VEC.toDouble().abs() + VEC.imaginary.abs();
         if (DA11 < ONE && DB > ONE) {
           if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
         }
@@ -150,13 +150,13 @@ void ztrsyl(
 
         SCALOC = ONE;
         A11 = A[K][K].conjugate() + SGN.toComplex() * B[L][L];
-        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        DA11 = A11.toDouble().abs() + A11.imaginary.abs();
         if (DA11 <= SMIN) {
           A11 = SMIN.toComplex();
           DA11 = SMIN;
           INFO.value = 1;
         }
-        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        DB = VEC.toDouble().abs() + VEC.imaginary.abs();
         if (DA11 < ONE && DB > ONE) {
           if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
         }
@@ -197,13 +197,13 @@ void ztrsyl(
 
         SCALOC = ONE;
         A11 = (A[K][K] + SGN.toComplex() * B[L][L]).conjugate();
-        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        DA11 = A11.toDouble().abs() + A11.imaginary.abs();
         if (DA11 <= SMIN) {
           A11 = SMIN.toComplex();
           DA11 = SMIN;
           INFO.value = 1;
         }
-        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        DB = VEC.toDouble().abs() + VEC.imaginary.abs();
         if (DA11 < ONE && DB > ONE) {
           if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
         }
@@ -242,13 +242,13 @@ void ztrsyl(
 
         SCALOC = ONE;
         A11 = A[K][K] + SGN.toComplex() * B[L][L].conjugate();
-        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        DA11 = A11.toDouble().abs() + A11.imaginary.abs();
         if (DA11 <= SMIN) {
           A11 = SMIN.toComplex();
           DA11 = SMIN;
           INFO.value = 1;
         }
-        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        DB = VEC.toDouble().abs() + VEC.imaginary.abs();
         if (DA11 < ONE && DB > ONE) {
           if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
         }

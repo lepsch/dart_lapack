@@ -341,7 +341,7 @@ void dlatms(
                   DUMMY);
             }
 
-            // Chase "EXTRA.value" back up
+            // Chase "EXTRA" back up
 
             IR = JR;
             IC = ICOL;
@@ -926,9 +926,7 @@ void dlatms(
         for (JR = 1; JR <= UUB + 1 - JC; JR++) {
           A[JR][JC] = ZERO;
         }
-        for (JR = max(1, min(IR1, IR2 - JC));
-            LDA < 0 ? JR >= IR2 - JC : JR <= IR2 - JC;
-            JR += LDA) {
+        for (JR = max(1, min(IR1, IR2 - JC)); JR <= LDA; JR ++) {
           A[JR][JC] = ZERO;
         }
       }

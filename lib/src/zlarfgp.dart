@@ -36,7 +36,7 @@ void zlarfgp(
   ALPHR = ALPHA.value.toDouble();
   ALPHI = ALPHA.value.imaginary;
 
-  if (XNORM <= EPS * (ALPHA.value).abs() && ALPHI == ZERO) {
+  if (XNORM <= EPS * ALPHA.value.abs() && ALPHI == ZERO) {
     // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA.value >= 0.
 
     if (ALPHR >= ZERO) {
@@ -91,7 +91,7 @@ void zlarfgp(
     }
     ALPHA.value = zladiv(Complex.one, ALPHA.value);
 
-    if ((TAU.value).abs() <= SMLNUM) {
+    if (TAU.value.abs() <= SMLNUM) {
       // In the case where the computed TAU.value ends up being a denormalized number,
       // it loses relative accuracy. This is a BIG problem. Solution: flush TAU.value
       // to ZERO (or TWO or whatever makes a nonnegative real number for BETA).

@@ -237,7 +237,7 @@ void dlaln2(
         X[1][1] = XR1;
         X[2][1] = XR2.value;
       }
-      XNORM.value = max(XR1.abs(), (XR2.value).abs());
+      XNORM.value = max(XR1.abs(), XR2.value.abs());
 
       // Further scaling if  norm(A) norm(X) > overflow
 
@@ -273,7 +273,7 @@ void dlaln2(
 
       if (CMAX < SMINI) {
         BNORM =
-            max(B[1][1].abs() + B[1][2].abs(), B[2][1].abs() + (B[2][2])).abs();
+            max(B[1][1].abs() + B[1][2].abs(), B[2][1].abs() + B[2][2]).abs();
         if (SMINI < ONE && BNORM > ONE) {
           if (BNORM > BIGNUM * SMINI) SCALE.value = ONE / BNORM;
         }

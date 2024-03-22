@@ -73,8 +73,8 @@ void zlags2(
 
     dlasv2(A, FB, D, S1, S2, SNR, CSR, SNL, CSL);
 
-    if ((CSL.value).abs() >= (SNL.value).abs() ||
-        (CSR.value).abs() >= (SNR.value).abs()) {
+    if (CSL.value.abs() >= SNL.value.abs() ||
+        CSR.value.abs() >= SNR.value.abs()) {
       // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
       // and (1,2) element of |U|**H *|A| and |V|**H *|B|.
 
@@ -86,8 +86,8 @@ void zlags2(
       VB12 = CSR.value.toComplex() * B2 +
           D1 * SNR.value.toComplex() * B3.toComplex();
 
-      AUA12 = (CSL.value).abs() * ABS1(A2) + (SNL.value).abs() * A3.abs();
-      AVB12 = (CSR.value).abs() * ABS1(B2) + (SNR.value).abs() * B3.abs();
+      AUA12 = CSL.value.abs() * ABS1(A2) + SNL.value.abs() * A3.abs();
+      AVB12 = CSR.value.abs() * ABS1(B2) + SNR.value.abs() * B3.abs();
 
       // zero (1,2) elements of U**H *A and V**H *B
 
@@ -118,8 +118,8 @@ void zlags2(
       VB22 = -D1.conjugate() * SNR.value.toComplex() * B2 +
           (CSR.value * B3).toComplex();
 
-      AUA22 = (SNL.value).abs() * ABS1(A2) + (CSL.value).abs() * A3.abs();
-      AVB22 = (SNR.value).abs() * ABS1(B2) + (CSR.value).abs() * B3.abs();
+      AUA22 = SNL.value.abs() * ABS1(A2) + CSL.value.abs() * A3.abs();
+      AVB22 = SNR.value.abs() * ABS1(B2) + CSR.value.abs() * B3.abs();
 
       // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
@@ -163,8 +163,8 @@ void zlags2(
 
     dlasv2(A, FC, D, S1, S2, SNR, CSR, SNL, CSL);
 
-    if ((CSR.value).abs() >= (SNR.value).abs() ||
-        (CSL.value).abs() >= (SNL.value).abs()) {
+    if (CSR.value.abs() >= SNR.value.abs() ||
+        CSL.value.abs() >= SNL.value.abs()) {
       // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
       // and (2,1) element of |U|**H *|A| and |V|**H *|B|.
 
@@ -174,8 +174,8 @@ void zlags2(
       VB21 = -D1 * (SNL.value * B1).toComplex() + CSL.value.toComplex() * B2;
       VB22R = CSL.value * B3;
 
-      AUA21 = (SNR.value).abs() * A1.abs() + (CSR.value).abs() * ABS1(A2);
-      AVB21 = (SNL.value).abs() * B1.abs() + (CSL.value).abs() * ABS1(B2);
+      AUA21 = SNR.value.abs() * A1.abs() + CSR.value.abs() * ABS1(A2);
+      AVB21 = SNL.value.abs() * B1.abs() + CSL.value.abs() * ABS1(B2);
 
       // zero (2,1) elements of U**H *A and V**H *B.
 
@@ -206,8 +206,8 @@ void zlags2(
           D1.conjugate() * SNL.value.toComplex() * B2;
       VB12 = D1.conjugate() * (SNL.value * B3).toComplex();
 
-      AUA11 = (CSR.value).abs() * A1.abs() + (SNR.value).abs() * ABS1(A2);
-      AVB11 = (CSL.value).abs() * B1.abs() + (SNL.value).abs() * ABS1(B2);
+      AUA11 = CSR.value.abs() * A1.abs() + SNR.value.abs() * ABS1(A2);
+      AVB11 = CSL.value.abs() * B1.abs() + SNL.value.abs() * ABS1(B2);
 
       // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 

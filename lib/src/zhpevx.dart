@@ -157,7 +157,7 @@ void zhpevx(
     VLL = ZERO;
     VUU = ZERO;
   }
-  ANRM = zlanhp('M.value', UPLO, N, AP, RWORK);
+  ANRM = zlanhp('M', UPLO, N, AP, RWORK);
   if (ANRM > ZERO && ANRM < RMIN) {
     ISCALE = 1;
     SIGMA = RMIN / ANRM;

@@ -65,6 +65,6 @@ double zrzt01(
 
   var result = zlange('One-norm', M, N, WORK.asMatrix(), M, RWORK);
 
-  result /= (dlamch('Epsilon') * max(M, N));
+  result /= dlamch('Epsilon') * max(M, N);
   return NORMA != ZERO ? result / NORMA : result;
 }

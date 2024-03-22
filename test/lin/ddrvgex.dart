@@ -743,6 +743,6 @@ extension on Nout {
   void print9997(String s, String fact, String trans, int n, String equed,
       int type, int test, double ratio) {
     println(
-        ' $s, FACT=\'${fact.a1}\', TRANS=\'${trans.a1}\', N=${n.i5}, EQUED.value=\'${equed.a1}\', type ${type.i2}, test(${test.i1})=${ratio.g12_5}');
+        ' $s, FACT=\'${fact.a1}\', TRANS=\'${trans.a1}\', N=${n.i5}, EQUED=\'${equed.a1}\', type ${type.i2}, test(${test.i1})=${ratio.g12_5}');
   }
 }

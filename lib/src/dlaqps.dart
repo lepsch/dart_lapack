@@ -128,7 +128,7 @@ void dlaqps(
 
           TEMP = A[RK][J].abs() / VN1[J];
           TEMP = max(ZERO, (ONE + TEMP) * (ONE - TEMP));
-          TEMP2 = TEMP * (VN1[J] / pow((VN2[J]), 2));
+          TEMP2 = TEMP * (VN1[J] / pow(VN2[J], 2));
           if (TEMP2 <= TOL3Z) {
             VN2[J] = LSTICC.toDouble();
             LSTICC = J;
@@ -145,8 +145,8 @@ void dlaqps(
   RK = OFFSET + KB.value;
 
   // Apply the block reflector to the rest of the matrix:
-  // A[OFFSET+KB.value+1:M][KB.value+1:N] := A[OFFSET+KB.value+1:M][KB.value+1:N] -
-  // A[OFFSET+KB.value+1:M][1:KB.value]*F[KB.value+1:N,1:KB.value]**T.
+  // A[OFFSET+KB+1:M][KB+1:N] := A[OFFSET+KB+1:M][KB+1:N] -
+  // A[OFFSET+KB+1:M][1:KB]*F[KB+1:N,1:KB]**T.
 
   if (KB.value < min(N, M - OFFSET)) {
     dgemm(

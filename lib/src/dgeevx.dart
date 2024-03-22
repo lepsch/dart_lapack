@@ -86,9 +86,9 @@ void dgeevx(
       lsame(BALANC, 'P') ||
       lsame(BALANC, 'B'))) {
     INFO.value = -1;
-  } else if ((!WANTVL) && (!lsame(JOBVL, 'N'))) {
+  } else if (!WANTVL && !lsame(JOBVL, 'N')) {
     INFO.value = -2;
-  } else if ((!WANTVR) && (!lsame(JOBVR, 'N'))) {
+  } else if (!WANTVR && !lsame(JOBVR, 'N')) {
     INFO.value = -3;
   } else if (!(WNTSNN || WNTSNE || WNTSNB || WNTSNV) ||
       ((WNTSNE || WNTSNB) && !(WANTVL && WANTVR))) {
@@ -141,18 +141,18 @@ void dgeevx(
       }
       HSWORK = WORK[1].toInt();
 
-      if ((!WANTVL) && (!WANTVR)) {
+      if (!WANTVL && !WANTVR) {
         MINWRK = 2 * N;
         if (!WNTSNN) MINWRK = max(MINWRK, N * N + 6 * N);
         MAXWRK = max(MAXWRK, HSWORK);
         if (!WNTSNN) MAXWRK = max(MAXWRK, N * N + 6 * N);
       } else {
         MINWRK = 3 * N;
-        if ((!WNTSNN) && (!WNTSNE)) MINWRK = max(MINWRK, N * N + 6 * N);
+        if (!WNTSNN && !WNTSNE) MINWRK = max(MINWRK, N * N + 6 * N);
         MAXWRK = max(MAXWRK, HSWORK);
         MAXWRK =
             max(MAXWRK, N + (N - 1) * ilaenv(1, 'DORGHR', ' ', N, 1, N, -1));
-        if ((!WNTSNN) && (!WNTSNE)) MAXWRK = max(MAXWRK, N * N + 6 * N);
+        if (!WNTSNN && !WNTSNE) MAXWRK = max(MAXWRK, N * N + 6 * N);
         MAXWRK = max(MAXWRK, 3 * N);
       }
       MAXWRK = max(MAXWRK, MINWRK);

@@ -223,7 +223,7 @@ void zheevr_2stage(
     VLL = VL;
     VUU = VU;
   }
-  ANRM = zlansy('M.value', UPLO, N, A, LDA, RWORK);
+  ANRM = zlansy('M', UPLO, N, A, LDA, RWORK);
   if (ANRM > ZERO && ANRM < RMIN) {
     ISCALE = 1;
     SIGMA = RMIN / ANRM;

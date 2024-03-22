@@ -610,7 +610,7 @@ void dbbcsd(
 
     if (WANTU1) {
       if (COLMAJOR) {
-        dlasr('R.value', 'V', 'F', P, IMAX - IMIN + 1, WORK(IU1CS + IMIN - 1),
+        dlasr('R', 'V', 'F', P, IMAX - IMIN + 1, WORK(IU1CS + IMIN - 1),
             WORK(IU1SN + IMIN - 1), U1(1, IMIN), LDU1);
       } else {
         dlasr('L', 'V', 'F', IMAX - IMIN + 1, P, WORK(IU1CS + IMIN - 1),
@@ -619,7 +619,7 @@ void dbbcsd(
     }
     if (WANTU2) {
       if (COLMAJOR) {
-        dlasr('R.value', 'V', 'F', M - P, IMAX - IMIN + 1,
+        dlasr('R', 'V', 'F', M - P, IMAX - IMIN + 1,
             WORK(IU2CS + IMIN - 1), WORK(IU2SN + IMIN - 1), U2(1, IMIN), LDU2);
       } else {
         dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - P, WORK(IU2CS + IMIN - 1),
@@ -631,7 +631,7 @@ void dbbcsd(
         dlasr('L', 'V', 'F', IMAX - IMIN + 1, Q, WORK(IV1TCS + IMIN - 1),
             WORK(IV1TSN + IMIN - 1), V1T(IMIN, 1), LDV1T);
       } else {
-        dlasr('R.value', 'V', 'F', Q, IMAX - IMIN + 1, WORK(IV1TCS + IMIN - 1),
+        dlasr('R', 'V', 'F', Q, IMAX - IMIN + 1, WORK(IV1TCS + IMIN - 1),
             WORK(IV1TSN + IMIN - 1), V1T(1, IMIN), LDV1T);
       }
     }
@@ -641,7 +641,7 @@ void dbbcsd(
             WORK(IV2TSN + IMIN - 1), V2T(IMIN, 1), LDV2T);
       } else {
         dlasr(
-            'R.value',
+            'R',
             'V',
             'F',
             M - Q,

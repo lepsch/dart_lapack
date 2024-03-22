@@ -6,10 +6,9 @@ import 'package:lapack/src/matrix.dart';
 void dlasq5(
   final int I0,
   final int N0,
-  final Array<double> Z,
+  final Array<double> Z_,
   final int PP,
-  // TODO: TAU is assigned here but it's documented as IN only
-  double TAU,
+  final Box<double> TAU,
   final double SIGMA,
   final Box<double> DMIN,
   final Box<double> DMIN1,
@@ -23,18 +22,19 @@ void dlasq5(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Z = Z_.having();
   const ZERO = 0.0, HALF = 0.5;
   int J4, J4P2;
   double D, EMIN, TEMP, DTHRESH;
 
   if ((N0 - I0 - 1) <= 0) return;
 
-  DTHRESH = EPS * (SIGMA + TAU);
-  if (TAU < DTHRESH * HALF) TAU = ZERO;
-  if (TAU != ZERO) {
+  DTHRESH = EPS * (SIGMA + TAU.value);
+  if (TAU.value < DTHRESH * HALF) TAU.value = ZERO;
+  if (TAU.value != ZERO) {
     J4 = 4 * I0 + PP - 3;
     EMIN = Z[J4 + 4];
-    D = Z[J4] - TAU;
+    D = Z[J4] - TAU.value;
     DMIN.value = D;
     DMIN1.value = -Z[J4];
 
@@ -45,7 +45,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 2] = D + Z[J4 - 1];
           TEMP = Z[J4 + 1] / Z[J4 - 2];
-          D *= TEMP - TAU;
+          D = D * TEMP - TAU.value;
           DMIN.value = min(DMIN.value, D);
           Z[J4] = Z[J4 - 1] * TEMP;
           EMIN = min(Z[J4], EMIN);
@@ -54,7 +54,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 3] = D + Z[J4];
           TEMP = Z[J4 + 2] / Z[J4 - 3];
-          D *= TEMP - TAU;
+          D = D * TEMP - TAU.value;
           DMIN.value = min(DMIN.value, D);
           Z[J4 - 1] = Z[J4] * TEMP;
           EMIN = min(Z[J4 - 1], EMIN);
@@ -69,7 +69,7 @@ void dlasq5(
       J4P2 = J4 + 2 * PP - 1;
       Z[J4 - 2] = DNM2.value + Z[J4P2];
       Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-      DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU;
+      DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU.value;
       DMIN.value = min(DMIN.value, DNM1.value);
 
       DMIN1.value = DMIN.value;
@@ -77,7 +77,7 @@ void dlasq5(
       J4P2 = J4 + 2 * PP - 1;
       Z[J4 - 2] = DNM1.value + Z[J4P2];
       Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-      DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU;
+      DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU.value;
       DMIN.value = min(DMIN.value, DN.value);
     } else {
       // Code for non IEEE arithmetic.
@@ -89,7 +89,7 @@ void dlasq5(
             return;
           } else {
             Z[J4] = Z[J4 + 1] * (Z[J4 - 1] / Z[J4 - 2]);
-            D = Z[J4 + 1] * (D / Z[J4 - 2]) - TAU;
+            D = Z[J4 + 1] * (D / Z[J4 - 2]) - TAU.value;
           }
           DMIN.value = min(DMIN.value, D);
           EMIN = min(EMIN, Z[J4]);
@@ -101,7 +101,7 @@ void dlasq5(
             return;
           } else {
             Z[J4 - 1] = Z[J4 + 2] * (Z[J4] / Z[J4 - 3]);
-            D = Z[J4 + 2] * (D / Z[J4 - 3]) - TAU;
+            D = Z[J4 + 2] * (D / Z[J4 - 3]) - TAU.value;
           }
           DMIN.value = min(DMIN.value, D);
           EMIN = min(EMIN, Z[J4 - 1]);
@@ -119,7 +119,7 @@ void dlasq5(
         return;
       } else {
         Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-        DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU;
+        DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU.value;
       }
       DMIN.value = min(DMIN.value, DNM1.value);
 
@@ -131,7 +131,7 @@ void dlasq5(
         return;
       } else {
         Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-        DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU;
+        DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU.value;
       }
       DMIN.value = min(DMIN.value, DN.value);
     }
@@ -139,7 +139,7 @@ void dlasq5(
     // This is the version that sets d's to zero if they are small enough
     J4 = 4 * I0 + PP - 3;
     EMIN = Z[J4 + 4];
-    D = Z[J4] - TAU;
+    D = Z[J4] - TAU.value;
     DMIN.value = D;
     DMIN1.value = -Z[J4];
     if (IEEE) {
@@ -149,7 +149,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 2] = D + Z[J4 - 1];
           TEMP = Z[J4 + 1] / Z[J4 - 2];
-          D *= TEMP - TAU;
+          D = D * TEMP - TAU.value;
           if (D < DTHRESH) D = ZERO;
           DMIN.value = min(DMIN.value, D);
           Z[J4] = Z[J4 - 1] * TEMP;
@@ -159,7 +159,7 @@ void dlasq5(
         for (J4 = 4 * I0; J4 <= 4 * (N0 - 3); J4 += 4) {
           Z[J4 - 3] = D + Z[J4];
           TEMP = Z[J4 + 2] / Z[J4 - 3];
-          D *= TEMP - TAU;
+          D = D * TEMP - TAU.value;
           if (D < DTHRESH) D = ZERO;
           DMIN.value = min(DMIN.value, D);
           Z[J4 - 1] = Z[J4] * TEMP;
@@ -175,7 +175,7 @@ void dlasq5(
       J4P2 = J4 + 2 * PP - 1;
       Z[J4 - 2] = DNM2.value + Z[J4P2];
       Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-      DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU;
+      DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU.value;
       DMIN.value = min(DMIN.value, DNM1.value);
 
       DMIN1.value = DMIN.value;
@@ -183,7 +183,7 @@ void dlasq5(
       J4P2 = J4 + 2 * PP - 1;
       Z[J4 - 2] = DNM1.value + Z[J4P2];
       Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-      DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU;
+      DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU.value;
       DMIN.value = min(DMIN.value, DN.value);
     } else {
       // Code for non IEEE arithmetic.
@@ -195,7 +195,7 @@ void dlasq5(
             return;
           } else {
             Z[J4] = Z[J4 + 1] * (Z[J4 - 1] / Z[J4 - 2]);
-            D = Z[J4 + 1] * (D / Z[J4 - 2]) - TAU;
+            D = Z[J4 + 1] * (D / Z[J4 - 2]) - TAU.value;
           }
           if (D < DTHRESH) D = ZERO;
           DMIN.value = min(DMIN.value, D);
@@ -208,7 +208,7 @@ void dlasq5(
             return;
           } else {
             Z[J4 - 1] = Z[J4 + 2] * (Z[J4] / Z[J4 - 3]);
-            D = Z[J4 + 2] * (D / Z[J4 - 3]) - TAU;
+            D = Z[J4 + 2] * (D / Z[J4 - 3]) - TAU.value;
           }
           if (D < DTHRESH) D = ZERO;
           DMIN.value = min(DMIN.value, D);
@@ -227,7 +227,7 @@ void dlasq5(
         return;
       } else {
         Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-        DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU;
+        DNM1.value = Z[J4P2 + 2] * (DNM2.value / Z[J4 - 2]) - TAU.value;
       }
       DMIN.value = min(DMIN.value, DNM1.value);
 
@@ -239,7 +239,7 @@ void dlasq5(
         return;
       } else {
         Z[J4] = Z[J4P2 + 2] * (Z[J4P2] / Z[J4 - 2]);
-        DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU;
+        DN.value = Z[J4P2 + 2] * (DNM1.value / Z[J4 - 2]) - TAU.value;
       }
       DMIN.value = min(DMIN.value, DN.value);
     }

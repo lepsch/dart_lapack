@@ -91,7 +91,7 @@ void dlahqr(
   SAFMIN = dlamch('SAFE MINIMUM');
   // SAFMAX = ONE / SAFMIN;
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (NH.toDouble() / ULP);
+  SMLNUM = SAFMIN * (NH / ULP);
 
   // I1 and I2 are the indices of the first row and last column of H
   // to which transformations must be applied. If eigenvalues only are
@@ -261,8 +261,11 @@ void dlahqr(
         if (H[M][M - 1].abs() * (V[2].abs() + V[3].abs()) <=
             ULP *
                 V[1].abs() *
-                (H[M - 1][M - 1].abs() + H[M][M].abs() + H[M + 1][M + 1].abs()))
+                (H[M - 1][M - 1].abs() +
+                    H[M][M].abs() +
+                    H[M + 1][M + 1].abs())) {
           break;
+        }
       }
 
       // Double-shift QR step

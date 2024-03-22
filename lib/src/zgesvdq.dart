@@ -218,7 +218,7 @@ void zgesvdq(
           OPTWRK = max(N + LWRK_ZGEQP3, LWRK_ZGESVD);
         }
       }
-    } else if (LSVEC && (!RSVEC)) {
+    } else if (LSVEC && !RSVEC) {
       // .. minimal and optimal sizes of the complex workspace if the
       // singular values and the left singular vectors are requested
       if (CONDA) {
@@ -242,7 +242,7 @@ void zgesvdq(
           OPTWRK = N + max(LWRK_ZGEQP3, max(LWRK_ZGESVD, LWRK_ZUNMQR));
         }
       }
-    } else if (RSVEC && (!LSVEC)) {
+    } else if (RSVEC && !LSVEC) {
       // .. minimal and optimal sizes of the complex workspace if the
       // singular values and the right singular vectors are requested
       if (CONDA) {
@@ -355,7 +355,7 @@ void zgesvdq(
 
     MINWRK = max(2, MINWRK);
     OPTWRK = max(2, OPTWRK);
-    if (LCWORK < MINWRK && (!LQUERY)) INFO.value = -19;
+    if (LCWORK < MINWRK && !LQUERY) INFO.value = -19;
   }
 
   if (INFO.value == 0 && LRWORK < RMINWRK && !LQUERY) {
@@ -577,7 +577,7 @@ void zgesvdq(
       zgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK,
           INFO);
     }
-  } else if (LSVEC && (!RSVEC)) {
+  } else if (LSVEC && !RSVEC) {
     // .......................................................................
     // .. the singular values and the left singular vectors requested
     // .......................................................................
@@ -625,7 +625,7 @@ void zgesvdq(
 
     // .. assemble the left singular vector matrix U of dimensions
     //    (M x NR) or (M x N) or (M x M).
-    if ((NR < M) && (!WNTUF)) {
+    if ((NR < M) && !WNTUF) {
       zlaset('A', M - NR, NR, Complex.zero, Complex.zero, U(NR + 1, 1), LDU);
       if (NR < N1) {
         zlaset('A', NR, N1 - NR, Complex.zero, Complex.zero, U(1, NR + 1), LDU);
@@ -642,7 +642,7 @@ void zgesvdq(
           LCWORK - N, IERR);
     }
     if (ROWPRM && !WNTUF) zlaswp(N1, U, LDU, 1, M - 1, IWORK(N + 1), -1);
-  } else if (RSVEC && (!LSVEC)) {
+  } else if (RSVEC && !LSVEC) {
     // .......................................................................
     // .. the singular values and the right singular vectors requested
     // .......................................................................
@@ -779,7 +779,7 @@ void zgesvdq(
           }
         }
 
-        if ((NR < M) && !(WNTUF)) {
+        if ((NR < M) && !WNTUF) {
           zlaset(
               'A', M - NR, NR, Complex.zero, Complex.zero, U(NR + 1, 1), LDU);
           if (NR < N1) {
@@ -835,7 +835,7 @@ void zgesvdq(
             }
           }
 
-          if ((N < M) && !(WNTUF)) {
+          if ((N < M) && !WNTUF) {
             zlaset('A', M - N, N, Complex.zero, Complex.zero, U(N + 1, 1), LDU);
             if (N < N1) {
               zlaset(
@@ -877,7 +877,7 @@ void zgesvdq(
           zlapmt(false, N, N, V, LDV, IWORK);
           // .. assemble the left singular vector matrix U of dimensions
           // (M x NR) or (M x N) or (M x M).
-          if ((NR < M) && !(WNTUF)) {
+          if ((NR < M) && !WNTUF) {
             zlaset(
                 'A', M - NR, NR, Complex.zero, Complex.zero, U(NR + 1, 1), LDU);
             if (NR < N1) {
@@ -906,7 +906,7 @@ void zgesvdq(
         // .. now [V](1:NR,1:N) contains V[1:N][1:NR]**H
         // .. assemble the left singular vector matrix U of dimensions
         // (M x NR) or (M x N) or (M x M).
-        if ((NR < M) && !(WNTUF)) {
+        if ((NR < M) && !WNTUF) {
           zlaset(
               'A', M - NR, NR, Complex.zero, Complex.zero, U(NR + 1, 1), LDU);
           if (NR < N1) {
@@ -943,7 +943,7 @@ void zgesvdq(
           // are in [U](1:N,1:N)
           // .. assemble the left singular vector matrix U of dimensions
           // (M x N1), i.e. (M x N) or (M x M).
-          if ((N < M) && !(WNTUF)) {
+          if ((N < M) && !WNTUF) {
             zlaset('A', M - N, N, Complex.zero, Complex.zero, U(N + 1, 1), LDU);
             if (N < N1) {
               zlaset(
@@ -978,7 +978,7 @@ void zgesvdq(
           zlapmt(false, N, N, V, LDV, IWORK);
           // .. assemble the left singular vector matrix U of dimensions
           // (M x NR) or (M x N) or (M x M).
-          if ((NR < M) && !(WNTUF)) {
+          if ((NR < M) && !WNTUF) {
             zlaset(
                 'A', M - NR, NR, Complex.zero, Complex.zero, U(NR + 1, 1), LDU);
             if (NR < N1) {

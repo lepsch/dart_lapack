@@ -744,7 +744,7 @@ void zlarrv(
                 // (omitted when Bisection has been used)
 
                 if (RESID.value > TOL * GAP &&
-                    (RQCORR.value).abs() > RQTOL * LAMBDA.abs() &&
+                    RQCORR.value.abs() > RQTOL * LAMBDA.abs() &&
                     !USEDBS) {
                   // We need to check that the RQCORR.value update doesn't
                   // move the eigenvalue away from the desired one and

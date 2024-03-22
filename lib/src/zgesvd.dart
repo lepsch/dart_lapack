@@ -1897,7 +1897,7 @@ void zgesvd(
       if (WNTUN) NRU = 0;
       if (WNTVAS || WNTVO) NCVT = N;
       if (WNTVN) NCVT = 0;
-      if ((!WNTUO) && (!WNTVO)) {
+      if (!WNTUO && !WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in VT
@@ -1906,7 +1906,7 @@ void zgesvd(
 
         zbdsqr('U', N, NCVT, NRU, 0, S, RWORK(IE), VT, LDVT, U, LDU,
             CDUM.asMatrix(1), 1, RWORK(IRWORK), INFO);
-      } else if ((!WNTUO) && WNTVO) {
+      } else if (!WNTUO && WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in A
@@ -3321,7 +3321,7 @@ void zgesvd(
       if (WNTUN) NRU = 0;
       if (WNTVAS || WNTVO) NCVT = N;
       if (WNTVN) NCVT = 0;
-      if ((!WNTUO) && (!WNTVO)) {
+      if (!WNTUO && !WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in VT
@@ -3330,7 +3330,7 @@ void zgesvd(
 
         zbdsqr('L', M, NCVT, NRU, 0, S, RWORK(IE), VT, LDVT, U, LDU,
             CDUM.asMatrix(1), 1, RWORK(IRWORK), INFO);
-      } else if ((!WNTUO) && WNTVO) {
+      } else if (!WNTUO && WNTVO) {
         // Perform bidiagonal QR iteration, if desired, computing
         // left singular vectors in U and computing right singular
         // vectors in A

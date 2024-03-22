@@ -142,7 +142,7 @@ void dgesvj(
     INFO.value = -11;
   } else if (UCTOL && (WORK[1] <= ONE)) {
     INFO.value = -12;
-  } else if (LWORK < LWMIN && (!LQUERY)) {
+  } else if (LWORK < LWMIN && !LQUERY) {
     INFO.value = -13;
   } else {
     INFO.value = 0;
@@ -1184,8 +1184,8 @@ void dgesvj(
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
 
     if ((i > SWBAND + 1) &&
-            (MXAAPQ < sqrt(N.toDouble()) * TOL) &&
-            (N.toDouble() * MXAAPQ * MXSINJ < TOL) ||
+            (MXAAPQ < sqrt(N) * TOL) &&
+            (N * MXAAPQ * MXSINJ < TOL) ||
         NOTROT >= EMPTSW) {
       // #:) Reaching this point means numerical convergence after the i-th
       // sweep.

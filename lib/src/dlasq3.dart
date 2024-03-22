@@ -87,7 +87,7 @@ void dlasq3(
         S = Z[NN - 3] * (Z[NN - 5] / (T + sqrt(T) * sqrt(T + S)));
       }
       T = Z[NN - 7] + (S + Z[NN - 5]);
-      Z[NN - 3] *= (Z[NN - 7] / T);
+      Z[NN - 3] *= Z[NN - 7] / T;
       Z[NN - 7] = T;
     }
     Z[4 * N0.value - 7] = Z[NN - 7] + SIGMA.value;
@@ -136,11 +136,11 @@ void dlasq3(
   dlasq4(I0, N0.value, Z, PP.value, N0IN, DMIN.value, DMIN1.value, DMIN2.value,
       DN.value, DN1.value, DN2.value, TAU, TTYPE, G);
 
-  // Call dqds until DMIN.value > 0.
+  // Call dqds until DMIN > 0.
 
   var success = false;
   while (true) {
-    dlasq5(I0, N0.value, Z, PP.value, TAU.value, SIGMA.value, DMIN, DMIN1,
+    dlasq5(I0, N0.value, Z, PP.value, TAU, SIGMA.value, DMIN, DMIN1,
         DMIN2, DN, DN1, DN2, IEEE, EPS);
 
     NDIV.value += (N0.value - I0 + 2);
@@ -156,7 +156,7 @@ void dlasq3(
     } else if (DMIN.value < ZERO &&
         DMIN1.value > ZERO &&
         Z[4 * (N0.value - 1) - PP.value] < TOL * (SIGMA.value + DN1.value) &&
-        (DN.value).abs() < TOL * SIGMA.value) {
+        DN.value.abs() < TOL * SIGMA.value) {
       // Convergence hidden by negative DN.value.
 
       Z[4 * (N0.value - 1) - PP.value + 2] = ZERO;

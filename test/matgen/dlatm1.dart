@@ -1,7 +1,8 @@
-import 'dart:math';
+import 'dart:math' hide pow;
 
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlarnv.dart';
+import 'package:lapack/src/intrinsics/pow.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 

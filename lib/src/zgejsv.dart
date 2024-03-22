@@ -252,7 +252,7 @@ void zgejsv(
         }
       }
       if (ROWPIV || L2TRAN) MINIWRK += M;
-    } else if (RSVEC && (!LSVEC)) {
+    } else if (RSVEC && !LSVEC) {
       // .. minimal and optimal sizes of the complex workspace if the
       // singular values and the right singular vectors are requested
       if (ERREST) {
@@ -294,7 +294,7 @@ void zgejsv(
         }
       }
       if (ROWPIV || L2TRAN) MINIWRK += M;
-    } else if (LSVEC && (!RSVEC)) {
+    } else if (LSVEC && !RSVEC) {
       // .. minimal and optimal sizes of the complex workspace if the
       // singular values and the left singular vectors are requested
       if (ERREST) {
@@ -494,8 +494,8 @@ void zgejsv(
     }
     MINWRK = max(2, MINWRK);
     OPTWRK = max(MINWRK, OPTWRK);
-    if (LWORK < MINWRK && (!LQUERY)) INFO.value = -17;
-    if (LRWORK < MINRWRK && (!LQUERY)) INFO.value = -19;
+    if (LWORK < MINWRK && !LQUERY) INFO.value = -17;
+    if (LRWORK < MINRWRK && !LQUERY) INFO.value = -19;
   }
 
   if (INFO.value != 0) {
@@ -832,7 +832,7 @@ void zgejsv(
     // row pivoting combined with standard column pivoting
     // has similar effect as Powell-Reid complete pivoting.
     // The ell-infinity norms of A are made nonincreasing.
-    if ((LSVEC && RSVEC) && !(JRACC)) {
+    if ((LSVEC && RSVEC) && !JRACC) {
       IWOFF = 2 * N;
     } else {
       IWOFF = N;
@@ -913,8 +913,10 @@ void zgejsv(
     // working hard to get the accuracy not warranted by the data.
     TEMP1.value = sqrt(SFMIN);
     for (p = 2; p <= N; p++) {
-      if ((A[p][p].abs() < SMALL) || (L2KILL && (A[p][p].abs() < TEMP1.value)))
+      if ((A[p][p].abs() < SMALL) ||
+          (L2KILL && (A[p][p].abs() < TEMP1.value))) {
         break;
+      }
       NR++;
     }
   }
@@ -1067,8 +1069,7 @@ void zgejsv(
 
     SCALEM = RWORK[1];
     NUMRANK = nint(RWORK[2]);
-  } else if ((RSVEC && (!LSVEC) && (!JRACC)) ||
-      (JRACC && (!LSVEC) && (NR != N))) {
+  } else if ((RSVEC && !LSVEC && !JRACC) || (JRACC && !LSVEC && (NR != N))) {
     // -> Singular Values and Right Singular Vectors <-
 
     if (ALMORT) {
@@ -1123,7 +1124,7 @@ void zgejsv(
     if (TRANSP) {
       zlacpy('A', N, N, V, LDV, U, LDU);
     }
-  } else if (JRACC && (!LSVEC) && (NR == N)) {
+  } else if (JRACC && !LSVEC && (NR == N)) {
     zlaset('L', N - 1, N - 1, Complex.zero, Complex.zero, A(2, 1), LDA);
 
     zgesvj('U', 'N', 'V', N, N, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK,
@@ -1131,7 +1132,7 @@ void zgejsv(
     SCALEM = RWORK[1];
     NUMRANK = nint(RWORK[2]);
     zlapmr(false, N, N, V, LDV, IWORK);
-  } else if (LSVEC && (!RSVEC)) {
+  } else if (LSVEC && !RSVEC) {
     // .. Singular Values and Left Singular Vectors                 ..
 
     // .. second preconditioning step to avoid need to accumulate

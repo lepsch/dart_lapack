@@ -91,7 +91,7 @@ Future<void> zget37(
     for (I = 1; I <= N; I++) {
       await NIN.readBoxes(WRIN(I), WIIN(I), SIN(I), SEPIN(I));
     }
-    TNRM = zlange('M.value', N, N, TMP, LDT, RWORK);
+    TNRM = zlange('M', N, N, TMP, LDT, RWORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
 

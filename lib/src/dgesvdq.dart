@@ -219,7 +219,7 @@ void dgesvdq(
           OPTWRK = max(N + LWRK_DGEQP3, LWRK_DGESVD);
         }
       }
-    } else if (LSVEC && (!RSVEC)) {
+    } else if (LSVEC && !RSVEC) {
       // .. minimal and optimal sizes of the workspace if the
       // singular values and the left singular vectors are requested
       if (CONDA) {
@@ -241,7 +241,7 @@ void dgesvdq(
           OPTWRK = N + max(LWRK_DGEQP3, max(LWRK_DGESVD, LWRK_DORMQR));
         }
       }
-    } else if (RSVEC && (!LSVEC)) {
+    } else if (RSVEC && !LSVEC) {
       // .. minimal and optimal sizes of the workspace if the
       // singular values and the right singular vectors are requested
       if (CONDA) {
@@ -354,7 +354,7 @@ void dgesvdq(
 
     MINWRK = max(2, MINWRK);
     OPTWRK = max(2, OPTWRK);
-    if (LWORK < MINWRK && (!LQUERY)) INFO.value = -19;
+    if (LWORK < MINWRK && !LQUERY) INFO.value = -19;
   }
 
   if (INFO.value == 0 && LRWORK < RMINWRK && !LQUERY) {
@@ -442,10 +442,10 @@ void dgesvdq(
     dlaswp(N, A, LDA, 1, M - 1, IWORK(N + 1), 1);
   }
 
-// .. At this stage, preemptive scaling is done only to avoid column
-// norms overflows during the QR factorization. The SVD procedure should
-// have its own scaling to save the singular values from overflows and
-// underflows. That depends on the SVD procedure.
+  // .. At this stage, preemptive scaling is done only to avoid column
+  // norms overflows during the QR factorization. The SVD procedure should
+  // have its own scaling to save the singular values from overflows and
+  // underflows. That depends on the SVD procedure.
 
   if (!ROWPRM) {
     RTMP.value = dlange('M', M, N, A, LDA, RDUMMY);
@@ -473,9 +473,9 @@ void dgesvdq(
   }
   dgeqp3(M, N, A, LDA, IWORK, WORK, WORK(N + 1), LWORK - N, IERR);
 
-// If the user requested accuracy level allows truncation in the
-// computed upper triangular factor, the matrix R is examined and,
-// if possible, replaced with its leading upper trapezoidal part.
+  // If the user requested accuracy level allows truncation in the
+  // computed upper triangular factor, the matrix R is examined and,
+  // if possible, replaced with its leading upper trapezoidal part.
 
   EPSLN = dlamch('E');
   SFMIN = dlamch('S');
@@ -552,9 +552,9 @@ void dgesvdq(
   }
 
   if (!(RSVEC || LSVEC)) {
-// .......................................................................
+    // .......................................................................
     // .. only the singular values are requested
-// .......................................................................
+    // .......................................................................
     if (RTRANS) {
       // .. compute the singular values of R**T = [A](1:NR,1:N)**T
       // .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
@@ -573,10 +573,10 @@ void dgesvdq(
       if (NR > 1) dlaset('L', NR - 1, NR - 1, ZERO, ZERO, A(2, 1), LDA);
       dgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO);
     }
-  } else if (LSVEC && (!RSVEC)) {
-// .......................................................................
+  } else if (LSVEC && !RSVEC) {
+    // .......................................................................
     // .. the singular values and the left singular vectors requested
-// .......................................................................""""""""
+    // .......................................................................""""""""
     if (RTRANS) {
       // .. apply DGESVD to R**T
       // .. copy R**T into [U] and overwrite [U] with the right singular
@@ -616,7 +616,7 @@ void dgesvdq(
 
     // .. assemble the left singular vector matrix U of dimensions
     // (M x NR) or (M x N) or (M x M).
-    if ((NR < M) && (!WNTUF)) {
+    if ((NR < M) && !WNTUF) {
       dlaset('A', M - NR, NR, ZERO, ZERO, U(NR + 1, 1), LDU);
       if (NR < N1) {
         dlaset('A', NR, N1 - NR, ZERO, ZERO, U(1, NR + 1), LDU);
@@ -632,16 +632,16 @@ void dgesvdq(
           IERR);
     }
     if (ROWPRM && !WNTUF) dlaswp(N1, U, LDU, 1, M - 1, IWORK(N + 1), -1);
-  } else if (RSVEC && (!LSVEC)) {
-// .......................................................................
+  } else if (RSVEC && !LSVEC) {
+    // .......................................................................
     // .. the singular values and the right singular vectors requested
-// .......................................................................
+    // .......................................................................
     if (RTRANS) {
       // .. apply DGESVD to R**T
       // .. copy R**T into V and overwrite V with the left singular vectors
       for (p = 1; p <= NR; p++) {
         for (q = p; q <= N; q++) {
-          V[q][p] = (A[p][q]);
+          V[q][p] = A[p][q];
         }
       }
       if (NR > 1) dlaset('U', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);
@@ -713,9 +713,9 @@ void dgesvdq(
       // vectors of A.
     }
   } else {
-// .......................................................................
+    // .......................................................................
     // .. FULL SVD requested
-// .......................................................................
+    // .......................................................................
     if (RTRANS) {
       // .. apply DGESVD to R**T [[this option is left for R&D&T]]
 
@@ -758,7 +758,7 @@ void dgesvdq(
           }
         }
 
-        if ((NR < M) && !(WNTUF)) {
+        if ((NR < M) && !WNTUF) {
           dlaset('A', M - NR, NR, ZERO, ZERO, U(NR + 1, 1), LDU);
           if (NR < N1) {
             dlaset('A', NR, N1 - NR, ZERO, ZERO, U(1, NR + 1), LDU);
@@ -806,7 +806,7 @@ void dgesvdq(
             }
           }
 
-          if ((N < M) && !(WNTUF)) {
+          if ((N < M) && !WNTUF) {
             dlaset('A', M - N, N, ZERO, ZERO, U(N + 1, 1), LDU);
             if (N < N1) {
               dlaset('A', N, N1 - N, ZERO, ZERO, U(1, N + 1), LDU);
@@ -842,7 +842,7 @@ void dgesvdq(
           dlapmt(false, N, N, V, LDV, IWORK);
           // .. assemble the left singular vector matrix U of dimensions
           // (M x NR) or (M x N) or (M x M).
-          if ((NR < M) && !(WNTUF)) {
+          if ((NR < M) && !WNTUF) {
             dlaset('A', M - NR, NR, ZERO, ZERO, U(NR + 1, 1), LDU);
             if (NR < N1) {
               dlaset('A', NR, N1 - NR, ZERO, ZERO, U(1, NR + 1), LDU);
@@ -866,7 +866,7 @@ void dgesvdq(
         // .. now [V](1:NR,1:N) contains V[1:N][1:NR]**T
         // .. assemble the left singular vector matrix U of dimensions
         // (M x NR) or (M x N) or (M x M).
-        if ((NR < M) && !(WNTUF)) {
+        if ((NR < M) && !WNTUF) {
           dlaset('A', M - NR, NR, ZERO, ZERO, U(NR + 1, 1), LDU);
           if (NR < N1) {
             dlaset('A', NR, N1 - NR, ZERO, ZERO, U(1, NR + 1), LDU);
@@ -897,7 +897,7 @@ void dgesvdq(
           // are in [U](1:N,1:N)
           // .. assemble the left singular vector matrix U of dimensions
           // (M x N1), i.e. (M x N) or (M x M).
-          if ((N < M) && !(WNTUF)) {
+          if ((N < M) && !WNTUF) {
             dlaset('A', M - N, N, ZERO, ZERO, U(N + 1, 1), LDU);
             if (N < N1) {
               dlaset('A', N, N1 - N, ZERO, ZERO, U(1, N + 1), LDU);
@@ -923,7 +923,7 @@ void dgesvdq(
           dlapmt(false, N, N, V, LDV, IWORK);
           // .. assemble the left singular vector matrix U of dimensions
           // (M x NR) or (M x N) or (M x M).
-          if ((NR < M) && !(WNTUF)) {
+          if ((NR < M) && !WNTUF) {
             dlaset('A', M - NR, NR, ZERO, ZERO, U(NR + 1, 1), LDU);
             if (NR < N1) {
               dlaset('A', NR, N1 - NR, ZERO, ZERO, U(1, NR + 1), LDU);

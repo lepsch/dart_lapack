@@ -76,7 +76,7 @@ double zlantr(
     UDIAG = lsame(DIAG, 'U');
     if (lsame(UPLO, 'U')) {
       for (J = 1; J <= N; J++) {
-        if ((UDIAG) && (J <= M)) {
+        if (UDIAG && (J <= M)) {
           SUM.value = ONE;
           for (I = 1; I <= J - 1; I++) {
             SUM.value += A[I][J].abs();

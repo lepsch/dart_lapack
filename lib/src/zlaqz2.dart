@@ -96,7 +96,7 @@ void zlaqz2(
   // Get machine constants
   SAFMIN = dlamch('SAFE MINIMUM');
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (N.toDouble() / ULP);
+  SMLNUM = SAFMIN * (N / ULP);
 
   if (IHI == KWTOP) {
     // 1 by 1 deflation window, just try a regular deflation

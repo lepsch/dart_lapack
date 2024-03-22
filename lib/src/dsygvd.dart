@@ -107,8 +107,8 @@ void dsygvd(
 
   dsygst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO);
   dsyevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO);
-  LOPT = (max(LOPT.toDouble(), WORK[1].toDouble())).toInt();
-  LIOPT = (max(LIOPT.toDouble(), IWORK[1].toDouble())).toInt();
+  LOPT = max(LOPT, WORK[1]).toInt();
+  LIOPT = max(LIOPT, IWORK[1]).toInt();
 
   if (WANTZ && INFO.value == 0) {
     // Backtransform eigenvectors to the original problem.

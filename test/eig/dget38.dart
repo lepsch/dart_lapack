@@ -104,7 +104,7 @@ Future<void> dget38(
     for (I = 1; I <= N; I++) {}
     (SIN, SEPIN) = await NIN.readDouble2();
 
-    TNRM = dlange('M.value', N, N, TMP, LDT, WORK);
+    TNRM = dlange('M', N, N, TMP, LDT, WORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
 
@@ -134,7 +134,7 @@ Future<void> dget38(
       // Compute Schur form
 
       dhseqr(
-          'S.value', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO);
+          'S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
         NINFO[2]++;

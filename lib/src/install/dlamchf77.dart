@@ -213,7 +213,7 @@ void dlamc1(
     }
     F = dlamc3(B / 2, B / 100);
     C = dlamc3(F, A);
-    if ((_dlamc1Cache.LRND) && (C == A)) _dlamc1Cache.LRND = false;
+    if (_dlamc1Cache.LRND && (C == A)) _dlamc1Cache.LRND = false;
 
     // Try and decide whether rounding is done in the  IEEE  'round to
     // nearest' style. B/2 is half a unit in the last place of the two

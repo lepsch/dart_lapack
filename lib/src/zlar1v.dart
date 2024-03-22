@@ -154,12 +154,12 @@ void zlar1v(
   } else {
     NEGCNT.value = -1;
   }
-  if ((MINGMA.value).abs() == ZERO) MINGMA.value = EPS * WORK[INDS + R1 - 1];
+  if (MINGMA.value.abs() == ZERO) MINGMA.value = EPS * WORK[INDS + R1 - 1];
   R.value = R1;
   for (I = R1; I <= R2 - 1; I++) {
     TMP = WORK[INDS + I] + WORK[INDP + I];
     if (TMP == ZERO) TMP = EPS * WORK[INDS + I];
-    if (TMP.abs() <= (MINGMA.value).abs()) {
+    if (TMP.abs() <= MINGMA.value.abs()) {
       MINGMA.value = TMP;
       R.value = I + 1;
     }
@@ -233,6 +233,6 @@ void zlar1v(
 
   TMP = ONE / ZTZ.value;
   NRMINV.value = sqrt(TMP);
-  RESID.value = (MINGMA.value).abs() * NRMINV.value;
+  RESID.value = MINGMA.value.abs() * NRMINV.value;
   RQCORR.value = MINGMA.value * TMP;
 }

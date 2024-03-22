@@ -81,7 +81,7 @@ void ztplqt2(
       for (J = 1; J <= M - I; J++) {
         A[I + J][I] += ALPHA * T[M][J];
       }
-      zgerc(M - I, P, (ALPHA), T(M, 1).asArray(), LDT, B(I, 1).asArray(), LDB,
+      zgerc(M - I, P, ALPHA, T(M, 1).asArray(), LDT, B(I, 1).asArray(), LDB,
           B(I + 1, 1), LDB);
       for (J = 1; J <= P; J++) {
         B[I][J] = B[I][J].conjugate();
@@ -92,7 +92,7 @@ void ztplqt2(
   for (I = 2; I <= M; I++) {
     // T(I,1:I-1) := C(I:I-1,1:N)**H * (alpha * C(I,I:N))
 
-    ALPHA = -(T[1][I]);
+    ALPHA = -T[1][I];
     for (J = 1; J <= I - 1; J++) {
       T[I][J] = Complex.zero;
     }

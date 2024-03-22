@@ -95,7 +95,7 @@ void zlaqr5(
 
   SAFMIN = dlamch('SAFE MINIMUM');
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (N.toDouble() / ULP);
+  SMLNUM = SAFMIN * (N / ULP);
 
   // ==== Use accumulated reflections to update far-from-diagonal
   // .    entries ? ====

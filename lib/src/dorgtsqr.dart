@@ -52,7 +52,7 @@ void dorgtsqr(
     // This workspace is used to store array C(LDC, N) and WORK(LWORK)
     // in the call to DLAMTSQR. See the documentation for DLAMTSQR.
 
-    if (LWORK < 2 && (!LQUERY)) {
+    if (LWORK < 2 && !LQUERY) {
       INFO.value = -10;
     } else {
       // Set block size for column blocks
@@ -69,7 +69,7 @@ void dorgtsqr(
 
       LWORKOPT = LC + LW;
 
-      if ((LWORK < max(1, LWORKOPT)) && (!LQUERY)) {
+      if ((LWORK < max(1, LWORKOPT)) && !LQUERY) {
         INFO.value = -10;
       }
     }

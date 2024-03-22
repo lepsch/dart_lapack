@@ -52,7 +52,6 @@ void dstemr(
   final WORK = WORK_.having();
   final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 1.0e-3;
-  bool ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
   int I,
       IBEGIN,
       IEND,
@@ -98,14 +97,14 @@ void dstemr(
 
   // Test the input parameters.
 
-  WANTZ = lsame(JOBZ, 'V');
-  ALLEIG = lsame(RANGE, 'A');
-  VALEIG = lsame(RANGE, 'V');
-  INDEIG = lsame(RANGE, 'I');
+  final WANTZ = lsame(JOBZ, 'V');
+  final ALLEIG = lsame(RANGE, 'A');
+  final VALEIG = lsame(RANGE, 'V');
+  final INDEIG = lsame(RANGE, 'I');
 
-  LQUERY = ((LWORK == -1) || (LIWORK == -1));
-  ZQUERY = (NZC == -1);
-  LAESWAP = false;
+  final LQUERY = (LWORK == -1) || (LIWORK == -1);
+  final ZQUERY = NZC == -1;
+  var LAESWAP = false;
 
   // DSTEMR needs WORK of size 6*N, IWORK of size 3*N.
   // In addition, DLARRE needs WORK of size 6*N, IWORK of size 5*N.
@@ -211,7 +210,7 @@ void dstemr(
         W[1] = D[1];
       }
     }
-    if (WANTZ && (!ZQUERY)) {
+    if (WANTZ && !ZQUERY) {
       Z[1][1] = ONE;
       ISUPPZ[1] = 1;
       ISUPPZ[2] = 1;
@@ -222,7 +221,7 @@ void dstemr(
   if (N == 2) {
     if (!WANTZ) {
       dlae2(D[1], E[1], D[2], R1, R2);
-    } else if (WANTZ && (!ZQUERY)) {
+    } else if (WANTZ && !ZQUERY) {
       dlaev2(D[1], E[1], D[2], R1, R2, CS, SN);
     }
     // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1.value| >= |R2.value|. However,
@@ -239,7 +238,7 @@ void dstemr(
         (INDEIG && (IIL == 1))) {
       M.value++;
       W[M.value] = R2.value;
-      if (WANTZ && (!ZQUERY)) {
+      if (WANTZ && !ZQUERY) {
         if (LAESWAP) {
           Z[1][M.value] = CS.value;
           Z[2][M.value] = SN.value;
@@ -267,7 +266,7 @@ void dstemr(
         (INDEIG && (IIU == 2))) {
       M.value++;
       W[M.value] = R1.value;
-      if (WANTZ && (!ZQUERY)) {
+      if (WANTZ && !ZQUERY) {
         if (LAESWAP) {
           Z[1][M.value] = -SN.value;
           Z[2][M.value] = CS.value;
@@ -403,12 +402,12 @@ void dstemr(
         IWORK(IINDWK),
         IINFO);
     if (IINFO.value != 0) {
-      INFO.value = 10 + (IINFO.value).abs();
+      INFO.value = 10 + IINFO.value.abs();
       return;
     }
     // Note that if RANGE != 'V', DLARRE computes bounds on the desired
     // part of the spectrum. All desired eigenvalues are contained in
-    // (WL.value,WU.value]
+    // (WL,WU]
 
     if (WANTZ) {
       // Compute the desired eigenvectors corresponding to the computed
@@ -441,7 +440,7 @@ void dstemr(
           IWORK(IINDWK),
           IINFO);
       if (IINFO.value != 0) {
-        INFO.value = 20 + (IINFO.value).abs();
+        INFO.value = 20 + IINFO.value.abs();
         return;
       }
     } else {

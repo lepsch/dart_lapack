@@ -475,7 +475,7 @@ void dlaqtr(
 
           XJ = max(
             X[J1].abs() + X[N + J1].abs(),
-            X[J2].abs() + (X[N + J2]),
+            X[J2].abs() + X[N + J2],
           ).abs();
           if (XMAX > ONE) {
             REC = ONE / XMAX;

@@ -237,8 +237,8 @@ void dgedmdq(
     }
     IMINWR = max(1, IMINWR);
     MLWORK = max(2, MLWORK);
-    if (LWORK < MLWORK && (!LQUERY)) INFO.value = -31;
-    if (LIWORK < IMINWR && (!LQUERY)) INFO.value = -33;
+    if (LWORK < MLWORK && !LQUERY) INFO.value = -31;
+    if (LIWORK < IMINWR && !LQUERY) INFO.value = -33;
   }
   if (INFO.value != 0) {
     xerbla('DGEDMDQ', -INFO.value);

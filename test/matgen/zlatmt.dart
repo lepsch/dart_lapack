@@ -120,7 +120,7 @@ void zlatmt(
     ISYM = 2;
     IRSIGN = 0;
     CSYM = false;
-  } else if (lsame(SYM, 'S.value')) {
+  } else if (lsame(SYM, 'S')) {
     ISYM = 2;
     IRSIGN = 0;
     CSYM = true;

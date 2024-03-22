@@ -227,8 +227,8 @@ void dlarrf(
       // Moreover, we use the refined RRR test only for isolated clusters.
       if ((CLWDTH < MINGAP / 128.toDouble()) &&
           (min(MAX1, MAX2) < FAIL2) &&
-          (!SAWNAN1) &&
-          (!SAWNAN2)) {
+          !SAWNAN1 &&
+          !SAWNAN2) {
         DORRR1 = true;
       } else {
         DORRR1 = false;

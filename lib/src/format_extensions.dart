@@ -32,6 +32,16 @@ extension DoubleFormatExtension on double {
   // double
   String d(int w, [int d = 0]) {
     if (isNaN) return 'NaN'.padLeft(w);
+    if (isInfinite) {
+      return switch ((isNegative, w)) {
+        (true, >= 9) => '-Infinity',
+        (true, >= 4) => '-Inf',
+        (false, >= 8) => 'Infinity',
+        (false, >= 3) => 'Inf',
+        _ => '*' * w
+      }
+          .padLeft(w);
+    }
 
     var [num, exponent] = toStringAsExponential(d - 1).split('e');
     num = num.replaceFirstMapped(RegExp('([+-]?)(\\d).'), (match) {
@@ -48,6 +58,9 @@ extension DoubleFormatExtension on double {
   String get d12_4 => d(12, 4);
   String get d16_6 => d(16, 6);
   String get d20_6 => d(20, 6);
+  String get d30_10 => d(30, 10);
+  String get d30_14 => d(30, 14);
+  String get d30_16 => d(30, 16);
   String get d30_20 => d(30, 20);
   String get d36_8 => d(36, 8);
 
@@ -141,12 +154,12 @@ extension IntIterableFormatExtension on Iterable<int> {
 }
 
 extension DoubleIterableFormatExtension on Iterable<double> {
-  String d(int w, [int d = 0,int? len, String separator = '']) =>
+  String d(int w, [int d = 0, int? len, String separator = '']) =>
       (len != null ? take(len) : this).map((n) => n.d(w)).join(separator);
 
   String d3([int? len, String separator = '']) => d(3, 0, len, separator);
   String d5([int? len, String separator = '']) => d(5, 0, len, separator);
-  String d12_4([int? len, String separator = '']) => d(12,4, len, separator);
+  String d12_4([int? len, String separator = '']) => d(12, 4, len, separator);
   String d36_8([int? len, String separator = '']) => d(36, 8, len, separator);
 }
 

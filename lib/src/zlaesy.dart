@@ -29,7 +29,7 @@ void zlaesy(
   if (B.abs() == ZERO) {
     RT1.value = A;
     RT2.value = C;
-    if ((RT1.value).abs() < (RT2.value).abs()) {
+    if (RT1.value.abs() < RT2.value.abs()) {
       TMP = RT1.value;
       RT1.value = RT2.value;
       RT2.value = TMP;
@@ -63,7 +63,7 @@ void zlaesy(
 
     RT1.value = S + T;
     RT2.value = S - T;
-    if ((RT1.value).abs() < (RT2.value).abs()) {
+    if (RT1.value.abs() < RT2.value.abs()) {
       TMP = RT1.value;
       RT1.value = RT2.value;
       RT2.value = TMP;
@@ -75,7 +75,7 @@ void zlaesy(
     // done if the norm of the eigenvalue matrix is less than THRESH.)
 
     SN1.value = (RT1.value - A) / B;
-    TABS = (SN1.value).abs();
+    TABS = SN1.value.abs();
     if (TABS > ONE) {
       T = TABS.toComplex() *
           (pow((ONE / TABS), 2).toComplex() +

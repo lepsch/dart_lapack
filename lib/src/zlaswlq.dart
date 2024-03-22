@@ -54,7 +54,7 @@ void zlaswlq(
     INFO.value = -6;
   } else if (LDT < MB) {
     INFO.value = -8;
-  } else if (LWORK < LWMIN && (!LQUERY)) {
+  } else if (LWORK < LWMIN && !LQUERY) {
     INFO.value = -10;
   }
 
