@@ -77,62 +77,30 @@ void ddrvsg2stg(
   final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   const MAXTYP = 21;
-  bool BADNN;
-  String UPLO = '';
-  int I,
-      IBTYPE,
-      IBUPLO,
-      IJ,
-      IL,
-      IMODE,
-      ITEMP,
-      ITYPE,
-      IU,
-      J,
-      JCOL,
-      KA = 0,
-      KA9,
-      KB = 0,
-      KB9,
-      MTYPES,
-      N,
-      NMAX,
-      NTEST = 0,
-      NTESTT;
-  double ABSTOL,
-      ANINV,
-      ANORM = 0,
-      COND,
-      OVFL,
-      RTOVFL,
-      RTUNFL,
-      ULP,
-      ULPINV,
-      UNFL,
-      VL = 0,
-      VU = 0,
-      TEMP1,
-      TEMP2;
-  final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
-  final IINFO = Box(0), M = Box(0), NERRS = Box(0);
-  final KTYPE = Array.fromList([
+  const KTYPE = [
     1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 9, //
-  ]);
-  final KMAGN = Array.fromList([
+  ];
+  const KMAGN = [
     1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 1, 1, 1, //
-  ]);
-  final KMODE = Array.fromList([
+  ];
+  const KMODE = [
     0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4, 4, 4, 4, //
-  ]);
+  ];
+  // The following values are used for the half-bandwidths (ITYPE == 9)
+  final KA9KB9 = [
+    (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), //
+    (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (1, 1), //
+    (2, 1), (2, 2), (3, 1), (3, 2), (3, 3),
+  ];
 
-  // 1)      Check for errors
+  // 1) Check for errors
 
-  NTESTT = 0;
+  var NTESTT = 0;
   INFO.value = 0;
 
-  BADNN = false;
-  NMAX = 0;
-  for (J = 1; J <= NSIZES; J++) {
+  var BADNN = false;
+  var NMAX = 0;
+  for (var J = 1; J <= NSIZES; J++) {
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
   }
@@ -166,41 +134,31 @@ void ddrvsg2stg(
 
   // More Important constants
 
-  UNFL = dlamch('Safe minimum');
-  OVFL = dlamch('Overflow');
-  ULP = dlamch('Epsilon') * dlamch('Base');
-  ULPINV = ONE / ULP;
-  RTUNFL = sqrt(UNFL);
-  RTOVFL = sqrt(OVFL);
+  final UNFL = dlamch('Safe minimum');
+  final OVFL = dlamch('Overflow');
+  final ULP = dlamch('Epsilon') * dlamch('Base');
+  final ULPINV = ONE / ULP;
+  final RTUNFL = sqrt(UNFL);
+  final RTOVFL = sqrt(OVFL);
 
-  for (I = 1; I <= 4; I++) {
-    ISEED2[I] = ISEED[I];
-  }
+  final ISEED2 = ISEED.copy();
 
   // Loop over sizes, types
 
-  NERRS.value = 0;
+  final NERRS = Box(0);
 
   for (final JSIZE in 1.through(NSIZES)) {
-    N = NN[JSIZE];
-    ANINV = ONE / (max(1, N)).toDouble();
+    final N = NN[JSIZE];
+    final ANINV = ONE / (max(1, N)).toDouble();
+    final MTYPES = NSIZES != 1 ? min(MAXTYP, NTYPES) : min(MAXTYP + 1, NTYPES);
 
-    if (NSIZES != 1) {
-      MTYPES = min(MAXTYP, NTYPES);
-    } else {
-      MTYPES = min(MAXTYP + 1, NTYPES);
-    }
-
-    KA9 = 0;
-    KB9 = 0;
     for (final JTYPE in 1.through(MTYPES)) {
       final skip = !DOTYPE[JTYPE];
       test('DDRVSG2STG (SIZE = $N, TYPE = $JTYPE)', () {
-        NTEST = 0;
-
-        for (J = 1; J <= 4; J++) {
-          IOLDSD[J] = ISEED[J];
-        }
+        var NTEST = 0;
+        final IOLDSD = ISEED.copy();
+        final IINFO = Box(0), M = Box(0);
+        var VL = ZERO, VU = ZERO;
 
         // 2)      Compute "A"
         //
@@ -217,28 +175,20 @@ void ddrvsg2stg(
         //    =8                      random hermitian
         //    =9                      banded, w/ eigenvalues
 
+        // Compute norm
+        final ANORM = switch (KMAGN[JTYPE - 1]) {
+          1 => ONE,
+          2 => (RTOVFL * ULP) * ANINV,
+          3 => RTUNFL * N * ULPINV,
+          _ => throw UnimplementedError(),
+        };
+
+        var KA = 0, KB = 0;
         if (MTYPES <= MAXTYP) {
-          ITYPE = KTYPE[JTYPE];
-          IMODE = KMODE[JTYPE];
-
-          // Compute norm
-
-          switch (KMAGN[JTYPE]) {
-            case 1:
-              ANORM = ONE;
-              break;
-
-            case 2:
-              ANORM = (RTOVFL * ULP) * ANINV;
-              break;
-
-            case 3:
-              ANORM = RTUNFL * N * ULPINV;
-              break;
-          }
-
-          IINFO.value = 0;
-          COND = ULPINV;
+          final ITYPE = KTYPE[JTYPE - 1];
+          final IMODE = KMODE[JTYPE - 1];
+          final (KA9, KB9) = KA9KB9[JTYPE - 1];
+          final COND = ULPINV;
 
           // Special Matrices -- Identity & Jordan block
 
@@ -254,7 +204,7 @@ void ddrvsg2stg(
             KA = 0;
             KB = 0;
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
-            for (JCOL = 1; JCOL <= N; JCOL++) {
+            for (var JCOL = 1; JCOL <= N; JCOL++) {
               A[JCOL][JCOL] = ANORM;
             }
           } else if (ITYPE == 4) {
@@ -276,6 +226,7 @@ void ddrvsg2stg(
 
             KA = 0;
             KB = 0;
+            final IDUMMA = Array<int>(1);
             dlatmr(
                 N,
                 N,
@@ -310,6 +261,7 @@ void ddrvsg2stg(
 
             KA = max(0, N - 1);
             KB = KA;
+            final IDUMMA = Array<int>(1);
             dlatmr(
                 N,
                 N,
@@ -341,21 +293,6 @@ void ddrvsg2stg(
                 IINFO);
           } else if (ITYPE == 9) {
             // symmetric banded, eigenvalues specified
-
-            // The following values are used for the half-bandwidths:
-
-            //   ka = 1   kb = 1
-            //   ka = 2   kb = 1
-            //   ka = 2   kb = 2
-            //   ka = 3   kb = 1
-            //   ka = 3   kb = 2
-            //   ka = 3   kb = 3
-
-            KB9++;
-            if (KB9 > KA9) {
-              KA9++;
-              KB9 = 1;
-            }
             KA = max(0, min(N - 1, KA9));
             KB = max(0, min(N - 1, KB9));
             dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N',
@@ -372,18 +309,15 @@ void ddrvsg2stg(
           }
         }
 
-        ABSTOL = UNFL + UNFL;
+        final ABSTOL = UNFL + UNFL;
+        final int IL, IU;
         if (N <= 1) {
           IL = 1;
           IU = N;
         } else {
-          IL = 1 + ((N - 1) * dlarnd(1, ISEED2)).toInt();
-          IU = 1 + ((N - 1) * dlarnd(1, ISEED2)).toInt();
-          if (IL > IU) {
-            ITEMP = IL;
-            IL = IU;
-            IU = ITEMP;
-          }
+          final TIL = 1 + ((N - 1) * dlarnd(1, ISEED2)).toInt();
+          final TIU = 1 + ((N - 1) * dlarnd(1, ISEED2)).toInt();
+          (IL, IU) = TIL > TIU ? (TIU, TIL) : (TIL, TIU);
         }
 
         // 3) Call DSYGV, DSPGV, DSBGV, SSYGVD, SSPGVD, SSBGVD,
@@ -394,14 +328,11 @@ void ddrvsg2stg(
         //       IBTYPE = 2: A*B*x = (lambda)*x
         //       IBTYPE = 3: B*A*x = (lambda)*x
 
-        for (IBTYPE = 1; IBTYPE <= 3; IBTYPE++) {
+        for (var IBTYPE = 1; IBTYPE <= 3; IBTYPE++) {
           // loop over the setting UPLO
 
-          for (IBUPLO = 1; IBUPLO <= 2; IBUPLO++) {
+          for (final UPLO in ['U', 'L']) {
             while (true) {
-              if (IBUPLO == 1) UPLO = 'U';
-              if (IBUPLO == 2) UPLO = 'L';
-
               // Generate random well-conditioned positive definite
               // matrix B, of bandwidth not greater than that of A.
 
@@ -464,9 +395,9 @@ void ddrvsg2stg(
               // D1 computed using the standard 1-stage reduction as reference
               // D2 computed using the 2-stage reduction
 
-              TEMP1 = ZERO;
-              TEMP2 = ZERO;
-              for (J = 1; J <= N; J++) {
+              var TEMP1 = ZERO;
+              var TEMP2 = ZERO;
+              for (var J = 1; J <= N; J++) {
                 TEMP1 = max(TEMP1, max(D[J].abs(), D2[J].abs()));
                 TEMP2 = max(TEMP2, (D[J] - D2[J]).abs());
               }
@@ -656,18 +587,16 @@ void ddrvsg2stg(
               // Copy the matrices into packed storage.
 
               if (lsame(UPLO, 'U')) {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= J; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = 1; I <= J; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
                   }
                 }
               } else {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= N; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = J; I <= N; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
@@ -700,18 +629,16 @@ void ddrvsg2stg(
               // Copy the matrices into packed storage.
 
               if (lsame(UPLO, 'U')) {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= J; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = 1; I <= J; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
                   }
                 }
               } else {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= N; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = J; I <= N; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
@@ -745,18 +672,16 @@ void ddrvsg2stg(
               // Copy the matrices into packed storage.
 
               if (lsame(UPLO, 'U')) {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= J; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = 1; I <= J; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
                   }
                 }
               } else {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= N; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = J; I <= N; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
@@ -788,18 +713,16 @@ void ddrvsg2stg(
               // Copy the matrices into packed storage.
 
               if (lsame(UPLO, 'U')) {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= J; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = 1; I <= J; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
                   }
                 }
               } else {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= N; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = J; I <= N; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
@@ -833,18 +756,16 @@ void ddrvsg2stg(
               // Copy the matrices into packed storage.
 
               if (lsame(UPLO, 'U')) {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = 1; I <= J; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = 1; I <= J; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
                   }
                 }
               } else {
-                IJ = 1;
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= N; I++) {
+                for (var J = 1, IJ = 1; J <= N; J++) {
+                  for (var I = J; I <= N; I++) {
                     AP[IJ] = A[I][J];
                     BP[IJ] = B[I][J];
                     IJ++;
@@ -882,20 +803,20 @@ void ddrvsg2stg(
               // Copy the matrices into band storage.
 
               if (lsame(UPLO, 'U')) {
-                for (J = 1; J <= N; J++) {
-                  for (I = max(1, J - KA); I <= J; I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = max(1, J - KA); I <= J; I++) {
                     AB[KA + 1 + I - J][J] = A[I][J];
                   }
-                  for (I = max(1, J - KB); I <= J; I++) {
+                  for (var I = max(1, J - KB); I <= J; I++) {
                     BB[KB + 1 + I - J][J] = B[I][J];
                   }
                 }
               } else {
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= min(N, J + KA); I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = J; I <= min(N, J + KA); I++) {
                     AB[1 + I - J][J] = A[I][J];
                   }
-                  for (I = J; I <= min(N, J + KB); I++) {
+                  for (var I = J; I <= min(N, J + KB); I++) {
                     BB[1 + I - J][J] = B[I][J];
                   }
                 }
@@ -927,20 +848,20 @@ void ddrvsg2stg(
               // Copy the matrices into band storage.
 
               if (lsame(UPLO, 'U')) {
-                for (J = 1; J <= N; J++) {
-                  for (I = max(1, J - KA); I <= J; I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = max(1, J - KA); I <= J; I++) {
                     AB[KA + 1 + I - J][J] = A[I][J];
                   }
-                  for (I = max(1, J - KB); I <= J; I++) {
+                  for (var I = max(1, J - KB); I <= J; I++) {
                     BB[KB + 1 + I - J][J] = B[I][J];
                   }
                 }
               } else {
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= min(N, J + KA); I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = J; I <= min(N, J + KA); I++) {
                     AB[1 + I - J][J] = A[I][J];
                   }
-                  for (I = J; I <= min(N, J + KB); I++) {
+                  for (var I = J; I <= min(N, J + KB); I++) {
                     BB[1 + I - J][J] = B[I][J];
                   }
                 }
@@ -972,20 +893,20 @@ void ddrvsg2stg(
               // Copy the matrices into band storage.
 
               if (lsame(UPLO, 'U')) {
-                for (J = 1; J <= N; J++) {
-                  for (I = max(1, J - KA); I <= J; I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = max(1, J - KA); I <= J; I++) {
                     AB[KA + 1 + I - J][J] = A[I][J];
                   }
-                  for (I = max(1, J - KB); I <= J; I++) {
+                  for (var I = max(1, J - KB); I <= J; I++) {
                     BB[KB + 1 + I - J][J] = B[I][J];
                   }
                 }
               } else {
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= min(N, J + KA); I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = J; I <= min(N, J + KA); I++) {
                     AB[1 + I - J][J] = A[I][J];
                   }
-                  for (I = J; I <= min(N, J + KB); I++) {
+                  for (var I = J; I <= min(N, J + KB); I++) {
                     BB[1 + I - J][J] = B[I][J];
                   }
                 }
@@ -1039,20 +960,20 @@ void ddrvsg2stg(
               // Copy the matrices into band storage.
 
               if (lsame(UPLO, 'U')) {
-                for (J = 1; J <= N; J++) {
-                  for (I = max(1, J - KA); I <= J; I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = max(1, J - KA); I <= J; I++) {
                     AB[KA + 1 + I - J][J] = A[I][J];
                   }
-                  for (I = max(1, J - KB); I <= J; I++) {
+                  for (var I = max(1, J - KB); I <= J; I++) {
                     BB[KB + 1 + I - J][J] = B[I][J];
                   }
                 }
               } else {
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= min(N, J + KA); I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = J; I <= min(N, J + KA); I++) {
                     AB[1 + I - J][J] = A[I][J];
                   }
-                  for (I = J; I <= min(N, J + KB); I++) {
+                  for (var I = J; I <= min(N, J + KB); I++) {
                     BB[1 + I - J][J] = B[I][J];
                   }
                 }
@@ -1108,20 +1029,20 @@ void ddrvsg2stg(
               // Copy the matrices into band storage.
 
               if (lsame(UPLO, 'U')) {
-                for (J = 1; J <= N; J++) {
-                  for (I = max(1, J - KA); I <= J; I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = max(1, J - KA); I <= J; I++) {
                     AB[KA + 1 + I - J][J] = A[I][J];
                   }
-                  for (I = max(1, J - KB); I <= J; I++) {
+                  for (var I = max(1, J - KB); I <= J; I++) {
                     BB[KB + 1 + I - J][J] = B[I][J];
                   }
                 }
               } else {
-                for (J = 1; J <= N; J++) {
-                  for (I = J; I <= min(N, J + KA); I++) {
+                for (var J = 1; J <= N; J++) {
+                  for (var I = J; I <= min(N, J + KA); I++) {
                     AB[1 + I - J][J] = A[I][J];
                   }
-                  for (I = J; I <= min(N, J + KB); I++) {
+                  for (var I = J; I <= min(N, J + KB); I++) {
                     BB[1 + I - J][J] = B[I][J];
                   }
                 }

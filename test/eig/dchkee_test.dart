@@ -12,11 +12,12 @@ void main() async {
     'nep.in',
     'sep.in',
     'se2.in',
+
     // 'svd.in',
     // 'dec.in', 'ded.in', 'dgg.in', //
     // 'dgd.in',
     // 'dsb.in',
-    // 'dsg.in',
+    'dsg.in',
     // 'dbal.in', 'dbak.in', 'dgbal.in', //
     // 'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
   ];
