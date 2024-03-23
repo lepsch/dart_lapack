@@ -522,8 +522,8 @@ void dtrevc3(
                 WORK(1 + (IV - 1) * N), 1);
             daxpy(J - 2, -X[2][1], T(1, J).asArray(), 1, WORK(1 + (IV - 1) * N),
                 1);
-            daxpy(J - 2, -X[1][2], T(1, J - 1).asArray(), 1, WORK(1 + IV * N),
-                1);
+            daxpy(
+                J - 2, -X[1][2], T(1, J - 1).asArray(), 1, WORK(1 + IV * N), 1);
             daxpy(J - 2, -X[2][2], T(1, J).asArray(), 1, WORK(1 + IV * N), 1);
           }
         }

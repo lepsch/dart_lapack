@@ -25,12 +25,12 @@ void dbdt03(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final D = D_.having(length: N);
-  final E = E_.having(length: N - 1);
+  final D = D_.having();
+  final E = E_.having();
   final U = U_.having(ld: LDU);
-  final S = S_.having(length: N);
+  final S = S_.having();
   final VT = VT_.having(ld: LDVT);
-  final WORK = WORK_.having(length: 2 * N);
+  final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   int I, J;
   double BNORM, EPS;

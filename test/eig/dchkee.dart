@@ -1094,54 +1094,79 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          xlaenv(9, 25);
-          for (I = 1; I <= NPARMS; I++) {
-            xlaenv(1, NBVAL[I]);
-            xlaenv(2, NBMIN[I]);
-            xlaenv(3, NXVAL[I]);
 
-            if (NEWSD == 0) {
-              for (K = 1; K <= 4; K++) {
-                ISEED[K] = IOLDSD[K];
+          final ctx = (
+            NBVAL: NBVAL.copy(),
+            NBMIN: NBMIN.copy(),
+            NXVAL: NXVAL.copy(),
+            ISEED: ISEED.copy(),
+            IOLDSD: IOLDSD.copy(),
+            NVAL: NVAL.copy(),
+            DOTYPE: DOTYPE.copy(),
+          );
+          test.group('DSG: Symmetric Generalized Eigenvalue Problem (path=$C3)', () {
+            NOUT!;
+            final (
+              :NBVAL,
+              :NBMIN,
+              :NXVAL,
+              :ISEED,
+              :IOLDSD,
+              :NVAL,
+              :DOTYPE,
+            ) =
+                ctx;
+
+            xlaenv(9, 25);
+            for (I = 1; I <= NPARMS; I++) {
+              xlaenv(1, NBVAL[I]);
+              xlaenv(2, NBMIN[I]);
+              xlaenv(3, NXVAL[I]);
+
+              if (NEWSD == 0) {
+                for (K = 1; K <= 4; K++) {
+                  ISEED[K] = IOLDSD[K];
+                }
+              }
+              NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+              if (TSTCHK) {
+                // CALL DDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+                // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
+                // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
+                // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
+                // $                      LWORK, IWORK, LIWORK, RESULT, INFO.value )
+                final INFO = Box(0);
+                ddrvsg2stg(
+                    NN,
+                    NVAL,
+                    MAXTYP,
+                    DOTYPE,
+                    ISEED,
+                    THRESH,
+                    NOUT,
+                    A(1, 1),
+                    NMAX,
+                    A(1, 2),
+                    NMAX,
+                    D(1, 3).asArray(),
+                    D(1, 3).asArray(),
+                    A(1, 3),
+                    NMAX,
+                    A(1, 4),
+                    A(1, 5),
+                    A(1, 6).asArray(),
+                    A(1, 7).asArray(),
+                    WORK,
+                    LWORK,
+                    IWORK,
+                    LIWORK,
+                    RESULT,
+                    INFO,
+                    test);
+                if (INFO.value != 0) NOUT.print9980('DDRVSG', INFO.value);
               }
             }
-            NOUT.print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
-            if (TSTCHK) {
-              // CALL DDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-              // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
-              // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
-              // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
-              // $                      LWORK, IWORK, LIWORK, RESULT, INFO.value )
-              final INFO = Box(0);
-              ddrvsg2stg(
-                  NN,
-                  NVAL,
-                  MAXTYP,
-                  DOTYPE,
-                  ISEED,
-                  THRESH,
-                  NOUT,
-                  A(1, 1),
-                  NMAX,
-                  A(1, 2),
-                  NMAX,
-                  D(1, 3).asArray(),
-                  D(1, 3).asArray(),
-                  A(1, 3),
-                  NMAX,
-                  A(1, 4),
-                  A(1, 5),
-                  A(1, 6).asArray(),
-                  A(1, 7).asArray(),
-                  WORK,
-                  LWORK,
-                  IWORK,
-                  LIWORK,
-                  RESULT,
-                  INFO);
-              if (INFO.value != 0) NOUT.print9980('DDRVSG', INFO.value);
-            }
-          }
+          });
         } else if (lsamen(3, C3, 'DBD') || lsamen(3, C3, 'SVD')) {
           // ----------------------------------
           // SVD:  Singular Value Decomposition

@@ -3,13 +3,13 @@ import 'package:lapack/src/matrix.dart';
 
 extension DoubleMatrixExtension on Matrix<double> {
   void debug(String name, int m, int n) {
-    print('$name(${m.i6}, ${n.i6}) =');
+    dbg('$name(${m.i6}, ${n.i6}) =');
     for (var i = 1; i <= m; i++) {
       var line = '';
       for (var j = 1; j <= n; j++) {
         line += this[i][j].$;
       }
-      print(line);
+      dbg(line);
     }
   }
 }
@@ -20,7 +20,7 @@ extension DoubleArrayExtension on Array<double> {
     for (var i = 1; i <= s; i++) {
       line += this[i].$;
     }
-    print(line);
+    dbg(line);
   }
 }
 
@@ -30,7 +30,7 @@ extension IntArrayExtension on Array<int> {
     for (var i = 1; i <= s; i++) {
       line += this[i].$;
     }
-    print(line);
+    dbg(line);
   }
 }
 
@@ -40,7 +40,7 @@ extension BoolArrayExtension on Array<bool> {
     for (var i = 1; i <= s; i++) {
       line += (this[i] ? 1 : 0).i2;
     }
-    print(line);
+    dbg(line);
   }
 }
 
@@ -90,7 +90,7 @@ void debugd6(String name, double d1, double d2, double d3, double d4, double d5,
 }
 
 void debugdi(String name, double d, int i) {
-  print('$name ${d.$}${i.$}');
+  dbg('$name ${d.$}${i.$}');
 }
 
 void debugi1(String name, int d) {
@@ -133,4 +133,16 @@ void debugi8(String name, int d1, int d2, int d3, int d4, int d5, int d6,
     int d7, int d8) {
   final a = Array.fromList([d1, d2, d3, d4, d5, d6, d7, d8]);
   a.debug(name, 8);
+}
+
+void dbg(String s) {
+  if (isInDebugMode) return;
+  print(s);
+  // stderr.writeln(s);
+}
+
+bool get isInDebugMode {
+  bool inDebugMode = false;
+  assert(inDebugMode = true);
+  return inDebugMode;
 }

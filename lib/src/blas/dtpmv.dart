@@ -98,7 +98,7 @@ void dtpmv(
             }
             if (NOUNIT) X[J] *= AP[KK - N + J];
           }
-          KK -= N + J - 1;
+          KK -= N - J + 1;
         }
       } else {
         KX += (N - 1) * INCX;
@@ -114,7 +114,7 @@ void dtpmv(
             if (NOUNIT) X[JX] *= AP[KK - N + J];
           }
           JX -= INCX;
-          KK -= N + J - 1;
+          KK -= N - J + 1;
         }
       }
     }

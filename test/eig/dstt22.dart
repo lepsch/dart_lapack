@@ -18,7 +18,7 @@ void dstt22(
   final int LDU,
   final Matrix<double> WORK_,
   final int LDWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -29,6 +29,7 @@ void dstt22(
   final SE = SE_.having();
   final U = U_.having(ld: LDU);
   final WORK = WORK_.having(ld: LDWORK);
+  final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0;
   int I, J, K;
   double ANORM, AUKJ, ULP, UNFL, WNORM;

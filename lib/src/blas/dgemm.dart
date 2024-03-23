@@ -39,9 +39,9 @@ void dgemm(
   // Test the input parameters.
 
   var INFO = 0;
-  if ((!NOTA) && (!lsame(TRANSA, 'C')) && (!lsame(TRANSA, 'T'))) {
+  if (!NOTA && !lsame(TRANSA, 'C') && !lsame(TRANSA, 'T')) {
     INFO = 1;
-  } else if ((!NOTB) && (!lsame(TRANSB, 'C')) && (!lsame(TRANSB, 'T'))) {
+  } else if (!NOTB && !lsame(TRANSB, 'C') && !lsame(TRANSB, 'T')) {
     INFO = 2;
   } else if (M < 0) {
     INFO = 3;

@@ -28,8 +28,8 @@ void dbdt01(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final Q = Q_.having(ld: LDQ);
-  final D = D_.having(length: min(M, N));
-  final E = E_.having(length: min(M, N) - 1);
+  final D = D_.having();
+  final E = E_.having();
   final PT = PT_.having(ld: LDPT);
   final WORK = WORK_.having(length: M + N);
   const ZERO = 0.0, ONE = 1.0;
