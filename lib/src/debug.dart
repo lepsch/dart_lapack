@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:stack_trace/stack_trace.dart';
 
 var _debug = true;
 
@@ -179,4 +180,18 @@ bool get isInDebugMode {
   bool inDebugMode = false;
   assert(inDebugMode = true);
   return inDebugMode;
+}
+
+({
+  String file,
+  String function,
+  int line,
+}) getCallerInfo([int depth = 1]) {
+  final trace = Trace.from(StackTrace.current).terse;
+  final prevFrame = trace.frames[depth + 1];
+  return (
+    line: prevFrame.line ?? 0,
+    file: prevFrame.uri.toString(),
+    function: prevFrame.member ?? '',
+  );
 }
