@@ -4,7 +4,7 @@ import 'package:lapack/src/blas/ztrsm.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/cholesky/top/zpotrf.dart';
+import 'package:lapack/src/zpotrf.dart';
 import 'package:lapack/src/xerbla.dart';
 
 void zpftrf(

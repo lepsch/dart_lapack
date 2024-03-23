@@ -1,4 +1,4 @@
-import 'package:lapack/src/variants/cholesky/top/dpotrf.dart';
+import 'package:lapack/src/dpotrf.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/matrix.dart';
 

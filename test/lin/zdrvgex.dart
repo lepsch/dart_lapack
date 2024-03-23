@@ -7,7 +7,7 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/variants/lu/cr/zgetrf.dart';
+import 'package:lapack/src/zgetrf.dart';
 import 'package:lapack/src/zgeequ.dart';
 import 'package:lapack/src/zgesv.dart';
 import 'package:lapack/src/zgesvx.dart';

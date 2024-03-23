@@ -11,7 +11,7 @@ import 'package:lapack/src/dporfsx.dart';
 import 'package:lapack/src/dpotrs.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/cholesky/top/dpotrf.dart';
+import 'package:lapack/src/dpotrf.dart';
 import 'package:lapack/src/xerbla.dart';
 
 void dposvxx(

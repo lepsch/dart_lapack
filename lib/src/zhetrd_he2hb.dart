@@ -9,7 +9,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/ilaenv2stage.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/qr/ll/zgeqrf.dart';
+import 'package:lapack/src/zgeqrf.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zgelqf.dart';
 import 'package:lapack/src/zlarft.dart';

@@ -6,7 +6,7 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/variants/cholesky/top/zpotrf.dart';
+import 'package:lapack/src/zpotrf.dart';
 import 'package:lapack/src/zlacpy.dart';
 import 'package:lapack/src/zlanhe.dart';
 import 'package:lapack/src/zlaqhe.dart';

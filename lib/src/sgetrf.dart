@@ -1,6 +1,6 @@
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/lu/cr/dgetrf.dart';
+import 'package:lapack/src/dgetrf.dart';
 
 void sgetrf(
   final int M,

@@ -6,7 +6,7 @@ import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/qr/ll/zgeqrf.dart';
+import 'package:lapack/src/zgeqrf.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zgelqf.dart';
 import 'package:lapack/src/zlange.dart';

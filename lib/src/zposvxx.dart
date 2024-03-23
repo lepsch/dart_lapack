@@ -5,7 +5,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/cholesky/top/zpotrf.dart';
+import 'package:lapack/src/zpotrf.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zla_porpvgrw.dart';
 import 'package:lapack/src/zlacpy.dart';

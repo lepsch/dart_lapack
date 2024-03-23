@@ -15,7 +15,7 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/slag2d.dart';
 import 'package:lapack/src/spotrf.dart';
 import 'package:lapack/src/spotrs.dart';
-import 'package:lapack/src/variants/cholesky/top/dpotrf.dart';
+import 'package:lapack/src/dpotrf.dart';
 import 'package:lapack/src/xerbla.dart';
 
 void dsposv(

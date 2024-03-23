@@ -10,7 +10,7 @@ import 'package:lapack/src/dlascl.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/droundup_lwork.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/qr/ll/zgeqrf.dart';
+import 'package:lapack/src/zgeqrf.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zgebrd.dart';
 import 'package:lapack/src/zgelqf.dart';
