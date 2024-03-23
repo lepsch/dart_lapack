@@ -173,7 +173,7 @@ void dlatms(
 
   GIVENS = false;
   if (ISYM == 1) {
-    if ((LLB + UUB).toDouble() < 0.3 * (max(1, MR + NC)).toDouble()) {
+    if ((LLB + UUB) < 0.3 * max(1, MR + NC)) {
       GIVENS = true;
     }
   } else {

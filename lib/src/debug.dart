@@ -1,8 +1,21 @@
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 
+var _debug = true;
+
+bool get debug => _debug;
+
+void debugOff() {
+  _debug = false;
+}
+
+void debugOn() {
+  _debug = true;
+}
+
 extension DoubleMatrixExtension on Matrix<double> {
   void debug(String name, int m, int n) {
+    if (!_debug) return;
     dbg('$name(${m.i6}, ${n.i6}) =');
     for (var i = 1; i <= m; i++) {
       var line = '';
@@ -16,6 +29,7 @@ extension DoubleMatrixExtension on Matrix<double> {
 
 extension DoubleArrayExtension on Array<double> {
   void debug(String name, int s) {
+    if (!_debug) return;
     var line = '$name(${s.i6}) = ';
     for (var i = 1; i <= s; i++) {
       line += this[i].$;
@@ -26,6 +40,7 @@ extension DoubleArrayExtension on Array<double> {
 
 extension IntArrayExtension on Array<int> {
   void debug(String name, int s) {
+    if (!_debug) return;
     var line = '$name(${s.i6}) = ';
     for (var i = 1; i <= s; i++) {
       line += this[i].$;
@@ -36,6 +51,7 @@ extension IntArrayExtension on Array<int> {
 
 extension BoolArrayExtension on Array<bool> {
   void debug(String name, int s) {
+    if (!_debug) return;
     var line = '$name(${s.i6}) = ';
     for (var i = 1; i <= s; i++) {
       line += (this[i] ? 1 : 0).i2;
@@ -58,85 +74,101 @@ extension IntExtension on int {
 }
 
 void debugd1(String name, double d) {
+  if (!_debug) return;
   final a = Array.fromList([d]);
   a.debug(name, 1);
 }
 
 void debugd2(String name, double d1, double d2) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2]);
   a.debug(name, 2);
 }
 
 void debugd3(String name, double d1, double d2, double d3) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3]);
   a.debug(name, 3);
 }
 
 void debugd4(String name, double d1, double d2, double d3, double d4) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4]);
   a.debug(name, 4);
 }
 
 void debugd5(
     String name, double d1, double d2, double d3, double d4, double d5) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4, d5]);
   a.debug(name, 5);
 }
 
 void debugd6(String name, double d1, double d2, double d3, double d4, double d5,
     double d6) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4, d5, d6]);
   a.debug(name, 6);
 }
 
 void debugdi(String name, double d, int i) {
+  if (!_debug) return;
   dbg('$name ${d.$}${i.$}');
 }
 
 void debugi1(String name, int d) {
+  if (!_debug) return;
   final a = Array.fromList([d]);
   a.debug(name, 1);
 }
 
 void debugi2(String name, int d1, int d2) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2]);
   a.debug(name, 2);
 }
 
 void debugi3(String name, int d1, int d2, int d3) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3]);
   a.debug(name, 3);
 }
 
 void debugi4(String name, int d1, int d2, int d3, int d4) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4]);
   a.debug(name, 4);
 }
 
 void debugi5(String name, int d1, int d2, int d3, int d4, int d5) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4, d5]);
   a.debug(name, 5);
 }
 
 void debugi6(String name, int d1, int d2, int d3, int d4, int d5, int d6) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4, d5, d6]);
   a.debug(name, 6);
 }
 
 void debugi7(
     String name, int d1, int d2, int d3, int d4, int d5, int d6, int d7) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4, d5, d6, d7]);
   a.debug(name, 7);
 }
 
 void debugi8(String name, int d1, int d2, int d3, int d4, int d5, int d6,
     int d7, int d8) {
+  if (!_debug) return;
   final a = Array.fromList([d1, d2, d3, d4, d5, d6, d7, d8]);
   a.debug(name, 8);
 }
 
 void dbg(String s) {
-  if (isInDebugMode) return;
+  if (!_debug) return;
+  // if (isInDebugMode) return;
   print(s);
   // stderr.writeln(s);
 }

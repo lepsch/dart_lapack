@@ -23,7 +23,7 @@ double dlaran(final Array<int> ISEED_) {
     IT1 = IT2 ~/ IPW2;
     IT2 -= IPW2 * IT1;
     IT1 += ISEED[1] * M4 + ISEED[2] * M3 + ISEED[3] * M2 + ISEED[4] * M1;
-    IT1 = (IT1 % IPW2);
+    IT1 = IT1 % IPW2;
 
     // return updated seed
 
@@ -34,9 +34,7 @@ double dlaran(final Array<int> ISEED_) {
 
     // convert 48-bit integer to a real number in the interval (0,1)
 
-    RNDOUT = R *
-        (IT1.toDouble() +
-            R * (IT2.toDouble() + R * (IT3.toDouble() + R * (IT4.toDouble()))));
+    RNDOUT = R * (IT1 + R * (IT2 + R * (IT3 + R * IT4)));
 
     // If a real number has n bits of precision, and the first
     // n bits of the 48-bit integer above happen to be all 1 (which

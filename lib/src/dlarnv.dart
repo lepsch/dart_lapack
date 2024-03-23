@@ -20,7 +20,7 @@ void dlarnv(
   int I, IL, IL2, IV;
   final U = Array<double>(LV);
 
-  for (IV = 1; LV / 2 < 0 ? IV >= N : IV <= N; IV += LV ~/ 2) {
+  for (IV = 1; IV <= N; IV += LV ~/ 2) {
     IL = min(LV ~/ 2, N - IV + 1);
     if (IDIST == 3) {
       IL2 = 2 * IL;

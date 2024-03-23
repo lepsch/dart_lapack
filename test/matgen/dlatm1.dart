@@ -36,7 +36,7 @@ void dlatm1(
 
   if (N == 0) return;
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (MODE < -6 || MODE > 6) {
     INFO.value = -1;
@@ -92,9 +92,9 @@ void dlatm1(
       D[1] = ONE;
       if (N > 1) {
         TEMP = ONE / COND;
-        ALPHA = (ONE - TEMP) / (N - 1).toDouble();
+        ALPHA = (ONE - TEMP) / (N - 1);
         for (I = 2; I <= N; I++) {
-          D[I] = (N - I).toDouble() * ALPHA + TEMP;
+          D[I] = (N - I) * ALPHA + TEMP;
         }
       }
       break;
@@ -126,7 +126,7 @@ void dlatm1(
   // Reverse if MODE < 0
 
   if (MODE < 0) {
-    for (I = 1; I <= N / 2; I++) {
+    for (I = 1; I <= N ~/ 2; I++) {
       TEMP = D[I];
       D[I] = D[N + 1 - I];
       D[N + 1 - I] = TEMP;

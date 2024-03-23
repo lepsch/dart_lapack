@@ -214,7 +214,7 @@ void dchkst(
         // =9                      positive definite
         // =10                     diagonally dominant tridiagonal
 
-          // Compute norm
+        // Compute norm
 
         final ANORM = switch (KMAGN[JTYPE - 1]) {
           1 => ONE,

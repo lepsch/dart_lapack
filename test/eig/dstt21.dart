@@ -85,7 +85,7 @@ void dstt21(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+      RESULT[1] = min(WNORM / ANORM, N) / (N * ULP);
     }
   }
 
@@ -99,7 +99,7 @@ void dstt21(
     WORK[(N + 1) * (J - 1) + 1] -= ONE;
   }
 
-  RESULT[2] = min(N.toDouble(),
+  RESULT[2] = min(N,
           dlange('1', N, N, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1))) /
       (N * ULP);
 }

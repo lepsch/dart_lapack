@@ -8,18 +8,24 @@ import '../utils.dart';
 import 'dchkee.dart';
 
 void main() async {
-  // const inputs = [
-  //   'nep.in', 'sep.in', 'se2.in', 'svd.in', 'dec.in', 'ded.in', 'dgg.in', //
-  //   'dgd.in', 'dsb.in', 'dsg.in', 'dbal.in', 'dbak.in', 'dgbal.in', //
-  //   'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
-  // ];
-  // for (final input in inputs) {
-  final input = 'sep.in';
-  final inputFile = File(path.join(currentFilePath(), '..', input));
-  final nin = Nin(inputFile.openRead());
-  final nout = NullNout();
-  await dchkee(nin, nout, dartTestDriver);
-  // }
+  const inputs = [
+    // 'nep.in',
+    'sep.in',
+    //'se2.in',
+    // 'svd.in',
+    // 'dec.in', 'ded.in', 'dgg.in', //
+    // 'dgd.in',
+    // 'dsb.in',
+    // 'dsg.in',
+    // 'dbal.in', 'dbak.in', 'dgbal.in', //
+    // 'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
+  ];
+  for (final input in inputs) {
+    final inputFile = File(path.join(currentFilePath(), '..', input));
+    final nin = Nin(inputFile.openRead());
+    final nout = NullNout();
+    await dchkee(nin, nout, dartTestDriver);
+  }
 
 // dchkdmd.dart
 // 'ddmd.in',

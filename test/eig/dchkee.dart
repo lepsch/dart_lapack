@@ -1104,7 +1104,8 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             NVAL: NVAL.copy(),
             DOTYPE: DOTYPE.copy(),
           );
-          test.group('DSG: Symmetric Generalized Eigenvalue Problem (path=$C3)', () {
+          test.group('DSG: Symmetric Generalized Eigenvalue Problem (path=$C3)',
+              () {
             NOUT!;
             final (
               :NBVAL,
@@ -1114,8 +1115,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               :IOLDSD,
               :NVAL,
               :DOTYPE,
-            ) =
-                ctx;
+            ) = ctx;
 
             xlaenv(9, 25);
             for (I = 1; I <= NPARMS; I++) {
