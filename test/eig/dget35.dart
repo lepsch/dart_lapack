@@ -84,7 +84,7 @@ void dget35(
 
   for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
     for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-      for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
+      for (ISGN = -1; ISGN <= 1; ISGN += 2) {
         for (IMA = 1; IMA <= 8; IMA++) {
           for (IMLDA1 = 1; IMLDA1 <= 3; IMLDA1++) {
             for (IMLDA2 = 1; IMLDA2 <= 3; IMLDA2++) {

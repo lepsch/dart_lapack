@@ -55,7 +55,7 @@ void dtplqt(
 
   if (M == 0 || N == 0) return;
 
-  for (var I = 1; MB < 0 ? I >= M : I <= M; I += MB) {
+  for (var I = 1; I <= M; I += MB) {
     // Compute the QR factorization of the current block
 
     final IB = min(M - I + 1, MB);

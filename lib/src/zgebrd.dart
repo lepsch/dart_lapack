@@ -103,7 +103,7 @@ void zgebrd(
     NX = MINMN;
   }
 
-  for (I = 1; NB < 0 ? I >= MINMN - NX : I <= MINMN - NX; I += NB) {
+  for (I = 1; I <= MINMN - NX; I += NB) {
     // Reduce rows and columns i:i+ib-1 to bidiagonal form and return;
     // the matrices X and Y which are needed to update the unreduced
     // part of the matrix

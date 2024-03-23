@@ -114,17 +114,13 @@ void dlatm5(
 
     if (PRTYPE == 3) {
       if (QBLCKA.value <= 1) QBLCKA.value = 2;
-      for (K = 1;
-          QBLCKA.value < 0 ? K >= M - 1 : K <= M - 1;
-          K += QBLCKA.value) {
+      for (K = 1; K <= M - 1; K += QBLCKA.value) {
         A[K + 1][K + 1] = A[K][K];
         A[K + 1][K] = -sin(A[K][K + 1]);
       }
 
       if (QBLCKB.value <= 1) QBLCKB.value = 2;
-      for (K = 1;
-          QBLCKB.value < 0 ? K >= N - 1 : K <= N - 1;
-          K += QBLCKB.value) {
+      for (K = 1; K <= N - 1; K += QBLCKB.value) {
         B[K + 1][K + 1] = B[K][K];
         B[K + 1][K] = -sin(B[K][K + 1]);
       }

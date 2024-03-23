@@ -436,7 +436,7 @@ void zlattp(
       }
     } else {
       B[N] = Complex.zero;
-      for (var I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) {
+      for (var I = 1; I <= N - 1; I += 2) {
         B[I] = Complex.zero;
         B[I + 1] = SMLNUM.toComplex() * zlarnd(5, ISEED);
       }
@@ -528,7 +528,7 @@ void zlattp(
       B[1] = (((N + 1) / (N + 2)) * TSCAL).toComplex();
     } else {
       var JC = 1;
-      for (var J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) {
+      for (var J = 1; J <= N - 1; J += 2) {
         AP[JC + N - J] = (-TSCAL / (N + 1)).toComplex();
         AP[JC] = Complex.one;
         B[J] = (TEXP * (ONE - ULP)).toComplex();

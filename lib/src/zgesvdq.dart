@@ -1012,7 +1012,6 @@ void zgesvdq(
     if (S[q] > ZERO) break;
     NR--;
   }
-  // } // 4002x
 
   // .. if numerical rank deficiency is detected, the truncated
   // singular values are set to zero.

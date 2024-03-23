@@ -82,7 +82,7 @@ void zpbtrf(
 
       // Process the band matrix one diagonal block at a time.
 
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         IB = min(NB, N - I + 1);
 
         // Factorize the diagonal block
@@ -204,7 +204,7 @@ void zpbtrf(
 
       // Process the band matrix one diagonal block at a time.
 
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         IB = min(NB, N - I + 1);
 
         // Factorize the diagonal block

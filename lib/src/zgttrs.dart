@@ -75,7 +75,7 @@ void zgttrs(
   if (NB >= NRHS) {
     zgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB);
   } else {
-    for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) {
+    for (J = 1; J <= NRHS; J += NB) {
       JB = min(NRHS - J + 1, NB);
       zgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B(1, J), LDB);
     }

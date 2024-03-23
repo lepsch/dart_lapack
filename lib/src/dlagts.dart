@@ -109,7 +109,6 @@ void dlagts(
         }
         AK = A[K];
         PERT = sign(TOL.value, AK).toDouble();
-        //  }
         while (true) {
           ABSAK = AK.abs();
           if (ABSAK < ONE) {

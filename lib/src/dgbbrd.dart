@@ -203,7 +203,7 @@ void dgbbrd(
         if (WANTQ) {
           // accumulate product of plane rotations in Q
 
-          for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+          for (J = J1; J <= J2; J += KB1) {
             drot(M, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1,
                 WORK[MN + J], WORK[J]);
           }
@@ -212,7 +212,7 @@ void dgbbrd(
         if (WANTC) {
           // apply plane rotations to C
 
-          for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+          for (J = J1; J <= J2; J += KB1) {
             drot(NCC, C(J - 1, 1).asArray(), LDC, C(J, 1).asArray(), LDC,
                 WORK[MN + J], WORK[J]);
           }
@@ -225,7 +225,7 @@ void dgbbrd(
           J2 -= KB1;
         }
 
-        for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+        for (J = J1; J <= J2; J += KB1) {
           // create nonzero element a(j-1,j+ku) above the band
           // and store it in WORK[n+1:2*n]
 
@@ -286,7 +286,7 @@ void dgbbrd(
         if (WANTPT) {
           // accumulate product of plane rotations in P**T
 
-          for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+          for (J = J1; J <= J2; J += KB1) {
             drot(
                 N,
                 PT(J + KUN - 1, 1).asArray(),
@@ -305,7 +305,7 @@ void dgbbrd(
           J2 -= KB1;
         }
 
-        for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+        for (J = J1; J <= J2; J += KB1) {
           // create nonzero element a(j+kl+ku,j+ku-1) below the
           // band and store it in WORK[1:n]
 

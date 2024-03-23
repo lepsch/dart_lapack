@@ -72,7 +72,6 @@ void dtrt05(
       continue;
     }
 
-    //  }
     if (DIFF / XNORM <= FERR[J]) {
       ERRBND = max(ERRBND, (DIFF / XNORM) / FERR[J]);
     } else {

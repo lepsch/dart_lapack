@@ -360,7 +360,7 @@ void dbdsvdx(
   // Check for splits in two levels, outer level
   // in E and inner level in D.
 
-  for (IEPTR = 2; 2 < 0 ? IEPTR >= N * 2 : IEPTR <= N * 2; IEPTR += 2) {
+  for (IEPTR = 2; IEPTR <= N * 2; IEPTR += 2) {
     if (WORK[IETGK + IEPTR - 1] == ZERO) {
       // Split in E (this piece of B is square) or bottom
       // of the (input bidiagonal) matrix.

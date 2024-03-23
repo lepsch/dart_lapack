@@ -123,7 +123,7 @@ void dgehrd(
     // Use blocked code
 
     IWT = 1 + N * NB;
-    for (I = ILO; NB < 0 ? I >= IHI - 1 - NX : I <= IHI - 1 - NX; I += NB) {
+    for (I = ILO; I <= IHI - 1 - NX; I += NB) {
       IB = min(NB, IHI - I);
 
       // Reduce columns i:i+ib-1 to Hessenberg form, returning the

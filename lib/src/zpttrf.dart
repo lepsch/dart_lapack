@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
@@ -37,33 +35,33 @@ void zpttrf(
 
   I4 = ((N - 1) % 4);
   for (I = 1; I <= I4; I++) {
-    if (D[Int32x4.wwwy] <= ZERO) {
+    if (D[I] <= ZERO) {
       INFO.value = I;
       return;
     }
-    EIR = E[Int32x4.wwwy].toDouble();
-    EII = E[Int32x4.wwwy].imaginary;
-    F = EIR / D[Int32x4.wwwy];
-    G = EII / D[Int32x4.wwwy];
+    EIR = E[I].real;
+    EII = E[I].imaginary;
+    F = EIR / D[I];
+    G = EII / D[I];
     E[I] = Complex(F, G);
     D[I + 1] -= F * EIR + G * EII;
   }
 
-  for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) {
+  for (I = I4 + 1; I <= N - 4; I += 4) {
     // Drop out of the loop if d(i) <= 0: the matrix is not positive
     // definite.
 
-    if (D[Int32x4.wwwy] <= ZERO) {
+    if (D[I] <= ZERO) {
       INFO.value = I;
       return;
     }
 
     // Solve for e(i) and d(i+1).
 
-    EIR = E[Int32x4.wwwy].toDouble();
-    EII = E[Int32x4.wwwy].imaginary;
-    F = EIR / D[Int32x4.wwwy];
-    G = EII / D[Int32x4.wwwy];
+    EIR = E[I].real;
+    EII = E[I].imaginary;
+    F = EIR / D[I];
+    G = EII / D[I];
     E[I] = Complex(F, G);
     D[I + 1] -= F * EIR + G * EII;
 
@@ -74,7 +72,7 @@ void zpttrf(
 
     // Solve for e(i+1) and d(i+2).
 
-    EIR = E[I + 1].toDouble();
+    EIR = E[I + 1].real;
     EII = E[I + 1].imaginary;
     F = EIR / D[I + 1];
     G = EII / D[I + 1];
@@ -88,7 +86,7 @@ void zpttrf(
 
     // Solve for e(i+2) and d(i+3).
 
-    EIR = E[I + 2].toDouble();
+    EIR = E[I + 2].real;
     EII = E[I + 2].imaginary;
     F = EIR / D[I + 2];
     G = EII / D[I + 2];
@@ -102,7 +100,7 @@ void zpttrf(
 
     // Solve for e(i+3) and d(i+4).
 
-    EIR = E[I + 3].toDouble();
+    EIR = E[I + 3].real;
     EII = E[I + 3].imaginary;
     F = EIR / D[I + 3];
     G = EII / D[I + 3];

@@ -106,7 +106,6 @@ Future<void> dget36(
 
     LOC = 1;
     do {
-      // }
       if (T2[LOC + 1][LOC] != ZERO) {
         // 2 by 2 block
 

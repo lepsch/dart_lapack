@@ -105,7 +105,7 @@ void zhetrd(
     // Columns 1:kk are handled by the unblocked method.
 
     KK = N - ((N - NX + NB - 1) ~/ NB) * NB;
-    for (I = N - NB + 1; -NB < 0 ? I >= KK + 1 : I <= KK + 1; I += -NB) {
+    for (I = N - NB + 1; I >= KK + 1; I -= NB) {
       // Reduce columns i:i+nb-1 to tridiagonal form and form the
       // matrix W which is needed to update the unreduced part of
       // the matrix
@@ -134,7 +134,7 @@ void zhetrd(
   } else {
     // Reduce the lower triangle of A
 
-    for (I = 1; NB < 0 ? I >= N - NX : I <= N - NX; I += NB) {
+    for (I = 1; I <= N - NX; I += NB) {
       // Reduce columns i:i+nb-1 to tridiagonal form and form the
       // matrix W which is needed to update the unreduced part of
       // the matrix

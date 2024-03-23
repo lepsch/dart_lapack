@@ -149,9 +149,7 @@ void ztpttf(
 
         IJP = 0;
         for (I = 0; I <= N2; I++) {
-          for (IJ = I * (LDA + 1);
-              LDA < 0 ? IJ >= N * LDA - 1 : IJ <= N * LDA - 1;
-              IJ += LDA) {
+          for (IJ = I * (LDA + 1); IJ <= N * LDA - 1; IJ += LDA) {
             ARF[IJ] = AP[IJP].conjugate();
             IJP++;
           }
@@ -179,9 +177,7 @@ void ztpttf(
           JS += LDA;
         }
         for (I = 0; I <= N1; I++) {
-          for (IJ = I;
-              LDA < 0 ? IJ >= I + (N1 + I) * LDA : IJ <= I + (N1 + I) * LDA;
-              IJ += LDA) {
+          for (IJ = I; IJ <= I + (N1 + I) * LDA; IJ += LDA) {
             ARF[IJ] = AP[IJP].conjugate();
             IJP++;
           }
@@ -278,9 +274,7 @@ void ztpttf(
           JS += LDA;
         }
         for (I = 0; I <= K - 1; I++) {
-          for (IJ = I;
-              LDA < 0 ? IJ >= I + (K + I) * LDA : IJ <= I + (K + I) * LDA;
-              IJ += LDA) {
+          for (IJ = I; IJ <= I + (K + I) * LDA; IJ += LDA) {
             ARF[IJ] = AP[IJP].conjugate();
             IJP++;
           }

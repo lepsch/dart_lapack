@@ -22,7 +22,7 @@ void dpotrf(
   final A = A_.having(ld: LDA);
   const ONE = 1.0;
   bool UPPER;
-  int J, JB, NB;
+  int J = 0, JB, NB;
 
   // Test the input parameters.
 
@@ -51,48 +51,47 @@ void dpotrf(
     // Use unblocked code.
 
     dpotrf2(UPLO, N, A, LDA, INFO);
-    return;
-  }
-
-  // Use blocked code.
-
-  if (UPPER) {
-    // Compute the Cholesky factorization A = U'*U.
-
-    for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
-      JB = min(NB, N - J + 1);
-
-      // Compute the current block.
-
-      dtrsm('Left', 'Upper', 'Transpose', 'Non-unit', J - 1, JB, ONE, A(1, 1),
-          LDA, A(1, J), LDA);
-      dsyrk('Upper', 'Transpose', JB, J - 1, -ONE, A(1, J), LDA, ONE, A(J, J),
-          LDA);
-
-      // Update and factorize the current diagonal block and test
-      // for non-positive-definiteness.
-
-      dpotrf2('Upper', JB, A(J, J), LDA, INFO);
-      if (INFO.value != 0) break;
-    }
   } else {
-    // Compute the Cholesky factorization A = L*L'.
+    // Use blocked code.
 
-    for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
-      JB = min(NB, N - J + 1);
+    if (UPPER) {
+      // Compute the Cholesky factorization A = U'*U.
 
-      // Compute the current block.
+      for (J = 1; J <= N; J += NB) {
+        JB = min(NB, N - J + 1);
 
-      dtrsm('Right', 'Lower', 'Transpose', 'Non-unit', JB, J - 1, ONE, A(1, 1),
-          LDA, A(J, 1), LDA);
-      dsyrk('Lower', 'No Transpose', JB, J - 1, -ONE, A(J, 1), LDA, ONE,
-          A(J, J), LDA);
+        // Compute the current block.
 
-      // Update and factorize the current diagonal block and test
-      // for non-positive-definiteness.
+        dtrsm('Left', 'Upper', 'Transpose', 'Non-unit', J - 1, JB, ONE, A(1, 1),
+            LDA, A(1, J), LDA);
+        dsyrk('Upper', 'Transpose', JB, J - 1, -ONE, A(1, J), LDA, ONE, A(J, J),
+            LDA);
 
-      dpotrf2('Lower', JB, A(J, J), LDA, INFO);
-      if (INFO.value != 0) break;
+        // Update and factorize the current diagonal block and test
+        // for non-positive-definiteness.
+
+        dpotrf2('Upper', JB, A(J, J), LDA, INFO);
+        if (INFO.value != 0) break;
+      }
+    } else {
+      // Compute the Cholesky factorization A = L*L'.
+
+      for (J = 1; J <= N; J += NB) {
+        JB = min(NB, N - J + 1);
+
+        // Compute the current block.
+
+        dtrsm('Right', 'Lower', 'Transpose', 'Non-unit', JB, J - 1, ONE,
+            A(1, 1), LDA, A(J, 1), LDA);
+        dsyrk('Lower', 'No Transpose', JB, J - 1, -ONE, A(J, 1), LDA, ONE,
+            A(J, J), LDA);
+
+        // Update and factorize the current diagonal block and test
+        // for non-positive-definiteness.
+
+        dpotrf2('Lower', JB, A(J, J), LDA, INFO);
+        if (INFO.value != 0) break;
+      }
     }
   }
 

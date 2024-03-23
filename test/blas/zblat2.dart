@@ -3612,7 +3612,7 @@ Complex _zbeg(final Box<bool> RESET) {
 }
 
 // double _ddiff(final double X, final double Y) {
-//   // Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
 //   // -- Written on 10-August-1987.
 //   // Richard Hanson, Sandia National Labs.

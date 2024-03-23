@@ -474,7 +474,6 @@ void dchkgb(
               // +    TEST 7:
               // Get an estimate of RCOND = 1/CNDNUM.
 
-              // }
               for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
                 final double ANORM;
                 final double RCONDC;

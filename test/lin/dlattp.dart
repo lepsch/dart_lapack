@@ -428,7 +428,7 @@ void dlattp(
       }
     } else {
       B[N] = ZERO;
-      for (var I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) {
+      for (var I = 1; I <= N - 1; I += 2) {
         B[I] = ZERO;
         B[I + 1] = SMLNUM;
       }
@@ -520,7 +520,7 @@ void dlattp(
       B[1] = ((N + 1) / (N + 2)) * TSCAL;
     } else {
       var JC = 1;
-      for (var J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) {
+      for (var J = 1; J <= N - 1; J += 2) {
         A[JC + N - J] = -TSCAL / (N + 1);
         A[JC] = ONE;
         B[J] = TEXP * (ONE - ULP);

@@ -415,7 +415,6 @@ void ddrvpp(
               }
             }
             NRUN += 7 - K1;
-            //  }
           }
         }
       }

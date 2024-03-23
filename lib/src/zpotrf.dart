@@ -59,7 +59,7 @@ void zpotrf(
     if (UPPER) {
       // Compute the Cholesky factorization A = U**H *U.
 
-      for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
+      for (J = 1; J <= N; J += NB) {
         // Update and factorize the current diagonal block and test
         // for non-positive-definiteness.
 
@@ -95,7 +95,7 @@ void zpotrf(
     } else {
       // Compute the Cholesky factorization A = L*L**H.
 
-      for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
+      for (J = 1; J <= N; J += NB) {
         // Update and factorize the current diagonal block and test
         // for non-positive-definiteness.
 

@@ -131,9 +131,7 @@ void dchkq3(
               ISTEP = 2;
               IHIGH = N;
             }
-            for (var I = ILOW;
-                ISTEP < 0 ? I >= IHIGH : I <= IHIGH;
-                I += ISTEP) {
+            for (var I = ILOW; I <= IHIGH; I += ISTEP) {
               IWORK[I] = 1;
             }
           }

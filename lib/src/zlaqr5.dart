@@ -77,48 +77,46 @@ void zlaqr5(
 
   double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
 
-  // ==== If there are no shifts, then there is nothing to do. ====
+  // If there are no shifts, then there is nothing to do.
 
   if (NSHFTS < 2) return;
 
-  // ==== If the active block is empty or 1-by-1, then there
-  // .    is nothing to do. ====
+  // If the active block is empty or 1-by-1, then there
+  // is nothing to do.
 
   if (KTOP >= KBOT) return;
 
-  // ==== NSHFTS is supposed to be even, but if it is odd,
-  // .    then simply reduce it by one.  ====
+  // NSHFTS is supposed to be even, but if it is odd,
+  // then simply reduce it by one.
 
   NS = NSHFTS - (NSHFTS % 2);
 
-  // ==== Machine constants for deflation ====
+  // Machine constants for deflation
 
   SAFMIN = dlamch('SAFE MINIMUM');
   ULP = dlamch('PRECISION');
   SMLNUM = SAFMIN * (N / ULP);
 
-  // ==== Use accumulated reflections to update far-from-diagonal
-  // .    entries ? ====
+  // Use accumulated reflections to update far-from-diagonal
+  // entries ?
 
   ACCUM = (KACC22 == 1) || (KACC22 == 2);
 
-  // ==== clear trash ====
+  // clear trash
 
   if (KTOP + 2 <= KBOT) H[KTOP + 2][KTOP] = Complex.zero;
 
-  // ==== NBMPS = number of 2-shift bulges in the chain ====
+  // NBMPS = number of 2-shift bulges in the chain
 
   NBMPS = NS ~/ 2;
 
-  // ==== KDU = width of slab ====
+  // KDU = width of slab
 
   KDU = 4 * NBMPS;
 
-  // ==== Create and chase chains of NBMPS bulges ====
+  // Create and chase chains of NBMPS bulges
 
-  for (INCOL = KTOP - 2 * NBMPS + 1;
-      2 * NBMPS < 0 ? INCOL >= KBOT - 2 : INCOL <= KBOT - 2;
-      INCOL += 2 * NBMPS) {
+  for (INCOL = KTOP - 2 * NBMPS + 1; INCOL <= KBOT - 2; INCOL += 2 * NBMPS) {
     // JTOP = Index from which updates from the right start.
 
     if (ACCUM) {
@@ -132,39 +130,39 @@ void zlaqr5(
     NDCOL = INCOL + KDU;
     if (ACCUM) zlaset('ALL', KDU, KDU, Complex.zero, Complex.one, U, LDU);
 
-    // ==== Near-the-diagonal bulge chase.  The following loop
-    // .    performs the near-the-diagonal part of a small bulge
-    // .    multi-shift QR sweep.  Each 4*NBMPS column diagonal
-    // .    chunk extends from column INCOL to column NDCOL
-    // .    (including both column INCOL and column NDCOL). The
-    // .    following loop chases a 2*NBMPS+1 column long chain of
-    // .    NBMPS bulges 2*NBMPS columns to the right.  (INCOL
-    // .    may be less than KTOP and and NDCOL may be greater than
-    // .    KBOT indicating phantom columns from which to chase
-    // .    bulges before they are actually introduced or to which
-    // .    to chase bulges beyond column KBOT.)  ====
+    // Near-the-diagonal bulge chase.  The following loop
+    // performs the near-the-diagonal part of a small bulge
+    // multi-shift QR sweep.  Each 4*NBMPS column diagonal
+    // chunk extends from column INCOL to column NDCOL
+    // (including both column INCOL and column NDCOL). The
+    // following loop chases a 2*NBMPS+1 column long chain of
+    // NBMPS bulges 2*NBMPS columns to the right.  (INCOL
+    // may be less than KTOP and and NDCOL may be greater than
+    // KBOT indicating phantom columns from which to chase
+    // bulges before they are actually introduced or to which
+    // to chase bulges beyond column KBOT.)
 
     for (KRCOL = INCOL;
         KRCOL <= min(INCOL + 2 * NBMPS - 1, KBOT - 2);
         KRCOL++) {
-      // ==== Bulges number MTOP to MBOT are active double implicit
-      // .    shift bulges.  There may or may not also be small
-      // .    2-by-2 bulge, if there is room.  The inactive bulges
-      // .    (if any) must wait until the active bulges have moved
-      // .    down the diagonal to make room.  The phantom matrix
-      // .    paradigm described above helps keep track.  ====
+      // Bulges number MTOP to MBOT are active double implicit
+      // shift bulges.  There may or may not also be small
+      // 2-by-2 bulge, if there is room.  The inactive bulges
+      // (if any) must wait until the active bulges have moved
+      // down the diagonal to make room.  The phantom matrix
+      // paradigm described above helps keep track.
 
       MTOP = max(1, (KTOP - KRCOL) ~/ 2 + 1);
       MBOT = min(NBMPS, (KBOT - KRCOL - 1) ~/ 2);
       M22 = MBOT + 1;
       BMP22 = (MBOT < NBMPS) && (KRCOL + 2 * (M22 - 1)) == (KBOT - 2);
 
-      // ==== Generate reflections to chase the chain right
-      // .    one column.  (The minimum value of K is KTOP-1.) ====
+      // Generate reflections to chase the chain right
+      // one column.  (The minimum value of K is KTOP-1.)
 
       if (BMP22) {
-        // ==== Special case: 2-by-2 reflection at bottom treated
-        // .    separately ====
+        // Special case: 2-by-2 reflection at bottom treated
+        // separately
 
         K = KRCOL + 2 * (M22 - 1);
         if (K == KTOP - 1) {
@@ -180,8 +178,8 @@ void zlaqr5(
           H[K + 2][K] = Complex.zero;
         }
 
-        // ==== Perform update from right within
-        // .    computational window. ====
+        // Perform update from right within
+        // computational window.
 
         T1 = V[1][M22];
         T2 = T1 * V[2][M22].conjugate();
@@ -191,8 +189,8 @@ void zlaqr5(
           H[J][K + 2] -= REFSUM * T2;
         }
 
-        // ==== Perform update from left within
-        // .    computational window. ====
+        // Perform update from left within
+        // computational window.
 
         if (ACCUM) {
           JBOT = min(NDCOL, KBOT);
@@ -209,14 +207,14 @@ void zlaqr5(
           H[K + 2][J] -= REFSUM * T2;
         }
 
-        // ==== The following convergence test requires that
-        // .    the tradition small-compared-to-nearby-diagonals
-        // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
-        // .    criteria both be satisfied.  The latter improves
-        // .    accuracy in some examples. Falling back on an
-        // .    alternate convergence criterion when TST1 or TST2
-        // .    is zero (as done here) is traditional but probably
-        // .    unnecessary. ====
+        // The following convergence test requires that
+        // the tradition small-compared-to-nearby-diagonals
+        // criterion and the Ahues & Tisseur (LAWN 122, 1997)
+        // criteria both be satisfied.  The latter improves
+        // accuracy in some examples. Falling back on an
+        // alternate convergence criterion when TST1 or TST2
+        // is zero (as done here) is traditional but probably
+        // unnecessary.
 
         if (K >= KTOP) {
           if (H[K + 1][K] != Complex.zero) {
@@ -247,7 +245,7 @@ void zlaqr5(
           }
         }
 
-        // ==== Accumulate orthogonal transformations. ====
+        // Accumulate orthogonal transformations.
 
         if (ACCUM) {
           KMS = K - INCOL;
@@ -265,7 +263,7 @@ void zlaqr5(
         }
       }
 
-      // ==== Normal case: Chain of 3-by-3 reflections ====
+      // Normal case: Chain of 3-by-3 reflections
 
       for (M = MBOT; M >= MTOP; M--) {
         K = KRCOL + 2 * (M - 1);
@@ -275,9 +273,9 @@ void zlaqr5(
           ALPHA.value = V[1][M];
           zlarfg(3, ALPHA, V(2, M).asArray(), 1, V(1, M));
         } else {
-          // ==== Perform delayed transformation of row below
-          // .    Mth bulge. Exploit fact that first two elements
-          // .    of row are actually zero. ====
+          // Perform delayed transformation of row below
+          // Mth bulge. Exploit fact that first two elements
+          // of row are actually zero.
 
           T1 = V[1][M];
           T2 = T1 * V[2][M].conjugate();
@@ -287,33 +285,33 @@ void zlaqr5(
           H[K + 3][K + 1] = -REFSUM * T2;
           H[K + 3][K + 2] -= REFSUM * T3;
 
-          // ==== Calculate reflection to move
-          // .    Mth bulge one step. ====
+          // Calculate reflection to move
+          // Mth bulge one step.
 
           BETA.value = H[K + 1][K];
           V[2][M] = H[K + 2][K];
           V[3][M] = H[K + 3][K];
           zlarfg(3, BETA, V(2, M).asArray(), 1, V(1, M));
 
-          // ==== A Bulge may collapse because of vigilant
-          // .    deflation or destructive underflow.  In the
-          // .    underflow case, try the two-small-subdiagonals
-          // .    trick to try to reinflate the bulge.  ====
+          // A Bulge may collapse because of vigilant
+          // deflation or destructive underflow.  In the
+          // underflow case, try the two-small-subdiagonals
+          // trick to try to reinflate the bulge.
 
           if (H[K + 3][K] != Complex.zero ||
               H[K + 3][K + 1] != Complex.zero ||
               H[K + 3][K + 2] == Complex.zero) {
-            // ==== Typical case: not collapsed (yet). ====
+            // Typical case: not collapsed (yet).
 
             H[K + 1][K] = BETA.value;
             H[K + 2][K] = Complex.zero;
             H[K + 3][K] = Complex.zero;
           } else {
-            // ==== Atypical case: collapsed.  Attempt to
-            // .    reintroduce ignoring H(K+1,K) and H(K+2,K).
-            // .    If the fill resulting from the new
-            // .    reflector is too large, then abandon it.
-            // .    Otherwise, use the new one. ====
+            // Atypical case: collapsed.  Attempt to
+            // reintroduce ignoring H(K+1,K) and H(K+2,K).
+            // If the fill resulting from the new
+            // reflector is too large, then abandon it.
+            // Otherwise, use the new one.
 
             zlaqr1(3, H(K + 1, K + 1), LDH, S[2 * M - 1], S[2 * M], VT);
             ALPHA.value = VT[1];
@@ -328,18 +326,18 @@ void zlaqr5(
                     (CABS1(H[K][K]) +
                         CABS1(H[K + 1][K + 1]) +
                         CABS1(H[K + 2][K + 2]))) {
-              // ==== Starting a new bulge here would
-              // .    create non-negligible fill.  Use
-              // .    the old one with trepidation. ====
+              // Starting a new bulge here would
+              // create non-negligible fill.  Use
+              // the old one with trepidation.
 
               H[K + 1][K] = BETA.value;
               H[K + 2][K] = Complex.zero;
               H[K + 3][K] = Complex.zero;
             } else {
-              // ==== Starting a new bulge here would
-              // .    create only negligible fill.
-              // .    Replace the old reflector with
-              // .    the new one. ====
+              // Starting a new bulge here would
+              // create only negligible fill.
+              // Replace the old reflector with
+              // the new one.
 
               H[K + 1][K] -= REFSUM * T1;
               H[K + 2][K] = Complex.zero;
@@ -351,11 +349,11 @@ void zlaqr5(
           }
         }
 
-        // ====  Apply reflection from the right and
-        // .     the first column of update from the left.
-        // .     These updates are required for the vigilant
-        // .     deflation check. We still delay most of the
-        // .     updates from the left for efficiency. ====
+        //  Apply reflection from the right and
+        //  the first column of update from the left.
+        //  These updates are required for the vigilant
+        //  deflation check. We still delay most of the
+        //  updates from the left for efficiency.
 
         T1 = V[1][M];
         T2 = T1 * V[2][M].conjugate();
@@ -367,8 +365,8 @@ void zlaqr5(
           H[J][K + 3] -= REFSUM * T3;
         }
 
-        // ==== Perform update from left for subsequent
-        // .    column. ====
+        // Perform update from left for subsequent
+        // column.
 
         T1 = V[1][M].conjugate();
         T2 = T1 * V[2][M];
@@ -380,14 +378,14 @@ void zlaqr5(
         H[K + 2][K + 1] -= REFSUM * T2;
         H[K + 3][K + 1] -= REFSUM * T3;
 
-        // ==== The following convergence test requires that
-        // .    the tradition small-compared-to-nearby-diagonals
-        // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
-        // .    criteria both be satisfied.  The latter improves
-        // .    accuracy in some examples. Falling back on an
-        // .    alternate convergence criterion when TST1 or TST2
-        // .    is zero (as done here) is traditional but probably
-        // .    unnecessary. ====
+        // The following convergence test requires that
+        // the tradition small-compared-to-nearby-diagonals
+        // criterion and the Ahues & Tisseur (LAWN 122, 1997)
+        // criteria both be satisfied.  The latter improves
+        // accuracy in some examples. Falling back on an
+        // alternate convergence criterion when TST1 or TST2
+        // is zero (as done here) is traditional but probably
+        // unnecessary.
 
         if (K < KTOP) continue;
         if (H[K + 1][K] != Complex.zero) {
@@ -415,7 +413,7 @@ void zlaqr5(
         }
       }
 
-      // ==== Multiply H by reflections from the left ====
+      // Multiply H by reflections from the left
 
       if (ACCUM) {
         JBOT = min(NDCOL, KBOT);
@@ -440,12 +438,12 @@ void zlaqr5(
         }
       }
 
-      // ==== Accumulate orthogonal transformations. ====
+      // Accumulate orthogonal transformations.
 
       if (ACCUM) {
-        // ==== Accumulate U. (If needed, update Z later
-        // .    with an efficient matrix-matrix
-        // .    multiply.) ====
+        // Accumulate U. (If needed, update Z later
+        // with an efficient matrix-matrix
+        // multiply.)
 
         for (M = MBOT; M >= MTOP; M--) {
           K = KRCOL + 2 * (M - 1);
@@ -466,9 +464,9 @@ void zlaqr5(
           }
         }
       } else if (WANTZ) {
-        // ==== U is not accumulated, so update Z
-        // .    now by multiplying by reflections
-        // .    from the right. ====
+        // U is not accumulated, so update Z
+        // now by multiplying by reflections
+        // from the right.
 
         for (M = MBOT; M >= MTOP; M--) {
           K = KRCOL + 2 * (M - 1);
@@ -485,12 +483,12 @@ void zlaqr5(
         }
       }
 
-      // ==== End of near-the-diagonal bulge chase. ====
+      // End of near-the-diagonal bulge chase.
     }
 
-    // ==== Use U (if accumulated) to update far-from-diagonal
-    // .    entries in H.  If required, use U to update Z as
-    // .    well. ====
+    // Use U (if accumulated) to update far-from-diagonal
+    // entries in H.  If required, use U to update Z as
+    // well.
 
     if (ACCUM) {
       if (WANTT) {
@@ -503,7 +501,7 @@ void zlaqr5(
       K1 = max(1, KTOP - INCOL);
       NU = (KDU - max(0, NDCOL - KBOT).toInt()) - K1 + 1;
 
-      // ==== Horizontal Multiply ====
+      // Horizontal Multiply
 
       for (JCOL = min(NDCOL, KBOT) + 1;
           NH < 0 ? JCOL >= JBOT : JCOL <= JBOT;
@@ -514,7 +512,7 @@ void zlaqr5(
         zlacpy('ALL', NU, JLEN, WH, LDWH, H(INCOL + K1, JCOL), LDH);
       }
 
-      // ==== Vertical multiply ====
+      // Vertical multiply
 
       for (JROW = JTOP;
           NV < 0 ? JROW >= max(KTOP, INCOL) - 1 : JROW <= max(KTOP, INCOL) - 1;
@@ -525,7 +523,7 @@ void zlaqr5(
         zlacpy('ALL', JLEN, NU, WV, LDWV, H(JROW, INCOL + K1), LDH);
       }
 
-      // ==== Z multiply (also vertical) ====
+      // Z multiply (also vertical)
 
       if (WANTZ) {
         for (JROW = ILOZ; NV < 0 ? JROW >= IHIZ : JROW <= IHIZ; JROW += NV) {

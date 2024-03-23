@@ -53,7 +53,7 @@ void dpttrs(
   if (NB >= NRHS) {
     dptts2(N, NRHS, D, E, B, LDB);
   } else {
-    for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) {
+    for (J = 1; J <= NRHS; J += NB) {
       JB = min(NRHS - J + 1, NB);
       dptts2(N, JB, D, E, B(1, J), LDB);
     }

@@ -18,9 +18,7 @@ void dtfttp(
   final AP = AP_.having(offset: zeroIndexedArrayOffset);
 
   bool LOWER, NISODD, NORMALTRANSR;
-  int N1, N2, K = 0
-      //, NT
-      ;
+  int N1, N2, K = 0;
   int I, J, IJ;
   int IJP, JP, LDA, JS;
 
@@ -53,10 +51,6 @@ void dtfttp(
     }
     return;
   }
-
-  // Size of array ARF(0:NT-1)
-
-  // NT = N * (N + 1) ~/ 2;
 
   // Set N1 and N2 depending on LOWER
 
@@ -151,9 +145,7 @@ void dtfttp(
 
         IJP = 0;
         for (I = 0; I <= N2; I++) {
-          for (IJ = I * (LDA + 1);
-              LDA < 0 ? IJ >= N * LDA - 1 : IJ <= N * LDA - 1;
-              IJ += LDA) {
+          for (IJ = I * (LDA + 1); IJ <= N * LDA - 1; IJ += LDA) {
             AP[IJP] = ARF[IJ];
             IJP++;
           }
@@ -278,9 +270,7 @@ void dtfttp(
           JS += LDA;
         }
         for (I = 0; I <= K - 1; I++) {
-          for (IJ = I;
-              LDA < 0 ? IJ >= I + (K + I) * LDA : IJ <= I + (K + I) * LDA;
-              IJ += LDA) {
+          for (IJ = I; IJ <= I + (K + I) * LDA; IJ += LDA) {
             AP[IJP] = ARF[IJ];
             IJP++;
           }

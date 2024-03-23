@@ -59,7 +59,7 @@ void dlauum(
     if (UPPER) {
       // Compute the product U * U**T.
 
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         IB = min(NB, N - I + 1);
         dtrmm('Right', 'Upper', 'Transpose', 'Non-unit', I - 1, IB, ONE,
             A(I, I), LDA, A(1, I), LDA);
@@ -74,7 +74,7 @@ void dlauum(
     } else {
       // Compute the product L**T * L.
 
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         IB = min(NB, N - I + 1);
         dtrmm('Left', 'Lower', 'Transpose', 'Non-unit', IB, I - 1, ONE, A(I, I),
             LDA, A(I, 1), LDA);

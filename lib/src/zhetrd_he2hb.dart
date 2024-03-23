@@ -140,7 +140,7 @@ void zhetrd_he2hb(
       'A', LDT, KD, Complex.zero, Complex.zero, WORK(TPOS).asMatrix(LDT), LDT);
 
   if (UPPER) {
-    for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
+    for (I = 1; I <= N - KD; I += KD) {
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 
@@ -239,7 +239,7 @@ void zhetrd_he2hb(
   } else {
     // Reduce the lower triangle of A to lower band matrix
 
-    for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
+    for (I = 1; I <= N - KD; I += KD) {
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 

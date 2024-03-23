@@ -88,7 +88,7 @@ void dgelqf(
   if (NB >= NBMIN && NB < K && NX < K) {
     // Use blocked code initially
 
-    for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) {
+    for (I = 1; I <= K - NX; I += NB) {
       IB = min(K - I + 1, NB);
 
       // Compute the LQ factorization of the current block

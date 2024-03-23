@@ -198,7 +198,7 @@ void dlatm4(
 
     if (ISIGN == 2 && ITYPE != 2 && ITYPE != 3) {
       SAFMIN = dlamch('S');
-      for (JD = KBEG; 2 < 0 ? JD >= KEND - 1 : JD <= KEND - 1; JD += 2) {
+      for (JD = KBEG; JD <= KEND - 1; JD += 2) {
         if (dlaran(ISEED) > HALF) {
           // Rotation on left.
 

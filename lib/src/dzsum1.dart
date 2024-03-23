@@ -15,7 +15,7 @@ double dzsum1(final int N, final Array<Complex> CX_, final int INCX) {
     // CODE FOR INCREMENT NOT EQUAL TO 1
 
     NINCX = N * INCX;
-    for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
+    for (I = 1; I <= NINCX; I += INCX) {
       // NEXT LINE MODIFIED.
 
       STEMP += CX[I].abs();

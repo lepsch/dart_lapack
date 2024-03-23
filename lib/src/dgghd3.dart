@@ -166,7 +166,7 @@ void dgghd3(
 
     KACC22 = ilaenv(16, 'DGGHD3', ' ', N, ILO, IHI, -1);
     BLK22 = KACC22 == 2;
-    for (JCOL = ILO; NB < 0 ? JCOL >= IHI - 2 : JCOL <= IHI - 2; JCOL += NB) {
+    for (JCOL = ILO; JCOL <= IHI - 2; JCOL += NB) {
       NNB = min(NB, IHI - JCOL - 1);
 
       // Initialize small orthogonal factors that will hold the
@@ -217,9 +217,7 @@ void dgghd3(
 
         PPWO = NBLST * NBLST + (NNB + J - JCOL - 1) * 2 * NNB + NNB;
         J0 = JROW - NNB;
-        for (JROW = J0;
-            -NNB < 0 ? JROW >= J + 2 : JROW <= J + 2;
-            JROW += -NNB) {
+        for (JROW = J0; JROW >= J + 2; JROW -= NNB) {
           PPW = PPWO;
           LEN = 2 + J - JCOL;
           for (I = JROW + NNB - 1; I >= JROW; I--) {
@@ -373,9 +371,7 @@ void dgghd3(
 
           PPWO = 1 + NBLST * NBLST;
           J0 = JROW - NNB;
-          for (JROW = J0;
-              -NNB < 0 ? JROW >= JCOL + 1 : JROW <= JCOL + 1;
-              JROW += -NNB) {
+          for (JROW = J0; JROW >= JCOL + 1; JROW -= NNB) {
             PPW = PW + LEN;
             for (I = JROW; I <= JROW + NNB - 1; I++) {
               WORK[PPW] = A[I][J + 1];
@@ -444,7 +440,7 @@ void dgghd3(
           A(J, JCOL + NNB), LDA);
       PPWO = NBLST * NBLST + 1;
       J0 = J - NNB;
-      for (J = J0; -NNB < 0 ? J >= JCOL + 1 : J <= JCOL + 1; J += -NNB) {
+      for (J = J0; J >= JCOL + 1; J -= NNB) {
         if (BLK22) {
           // Exploit the structure of
 
@@ -508,7 +504,7 @@ void dgghd3(
         dlacpy('All', NH, NBLST, WORK(PW).asMatrix(NH), NH, Q(TOPQ, J), LDQ);
         PPWO = NBLST * NBLST + 1;
         J0 = J - NNB;
-        for (J = J0; -NNB < 0 ? J >= JCOL + 1 : J <= JCOL + 1; J += -NNB) {
+        for (J = J0; J >= JCOL + 1; J -= NNB) {
           if (INITQ) {
             TOPQ = max(2, J - JCOL + 1);
             NH = IHI - TOPQ + 1;
@@ -590,9 +586,7 @@ void dgghd3(
 
           PPWO = NBLST * NBLST + (NNB + J - JCOL - 1) * 2 * NNB + NNB;
           J0 = JROW - NNB;
-          for (JROW = J0;
-              -NNB < 0 ? JROW >= J + 2 : JROW <= J + 2;
-              JROW += -NNB) {
+          for (JROW = J0; JROW >= J + 2; JROW -= NNB) {
             PPW = PPWO;
             LEN = 2 + J - JCOL;
             for (I = JROW + NNB - 1; I >= JROW; I--) {
@@ -639,7 +633,7 @@ void dgghd3(
         dlacpy('All', TOP, NBLST, WORK(PW).asMatrix(TOP), TOP, A(1, J), LDA);
         PPWO = NBLST * NBLST + 1;
         J0 = J - NNB;
-        for (J = J0; -NNB < 0 ? J >= JCOL + 1 : J <= JCOL + 1; J += -NNB) {
+        for (J = J0; J >= JCOL + 1; J -= NNB) {
           if (BLK22) {
             // Exploit the structure of U.
 
@@ -698,7 +692,7 @@ void dgghd3(
         dlacpy('All', TOP, NBLST, WORK(PW).asMatrix(TOP), TOP, B(1, J), LDB);
         PPWO = NBLST * NBLST + 1;
         J0 = J - NNB;
-        for (J = J0; -NNB < 0 ? J >= JCOL + 1 : J <= JCOL + 1; J += -NNB) {
+        for (J = J0; J >= JCOL + 1; J -= NNB) {
           if (BLK22) {
             // Exploit the structure of U.
 
@@ -756,7 +750,7 @@ void dgghd3(
         dlacpy('All', NH, NBLST, WORK(PW).asMatrix(NH), NH, Z(TOPQ, J), LDZ);
         PPWO = NBLST * NBLST + 1;
         J0 = J - NNB;
-        for (J = J0; -NNB < 0 ? J >= JCOL + 1 : J <= JCOL + 1; J += -NNB) {
+        for (J = J0; J >= JCOL + 1; J -= NNB) {
           if (INITQ) {
             TOPQ = max(2, J - JCOL + 1);
             NH = IHI - TOPQ + 1;

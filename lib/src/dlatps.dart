@@ -188,7 +188,6 @@ void dlatps(
         GROW *= (ONE / (ONE + CNORM[J]));
       }
     }
-    //  }
   } else {
     // Compute the growth in A**T * x = b.
 
@@ -253,7 +252,6 @@ void dlatps(
         GROW /= XJ;
       }
     }
-    //  }
   }
 
   if ((GROW * TSCAL) > SMLNUM) {

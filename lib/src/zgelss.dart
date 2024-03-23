@@ -357,7 +357,7 @@ void zgelss(
       zlacpy('G', N, NRHS, WORK.asMatrix(LDB), LDB, B, LDB);
     } else if (NRHS > 1) {
       CHUNK = LWORK ~/ N;
-      for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
+      for (I = 1; I <= NRHS; I += CHUNK) {
         BL = min(NRHS - I + 1, CHUNK);
         zgemm('C', 'N', N, BL, N, Complex.one, A, LDA, B(1, I), LDB,
             Complex.zero, WORK.asMatrix(N), N);
@@ -457,7 +457,7 @@ void zgelss(
       zlacpy('G', M, NRHS, WORK(IWORK).asMatrix(LDB), LDB, B, LDB);
     } else if (NRHS > 1) {
       CHUNK = (LWORK - IWORK + 1) ~/ M;
-      for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
+      for (I = 1; I <= NRHS; I += CHUNK) {
         BL = min(NRHS - I + 1, CHUNK);
         zgemm('C', 'N', M, BL, M, Complex.one, WORK(IL).asMatrix(LDWORK),
             LDWORK, B(1, I), LDB, Complex.zero, WORK(IWORK).asMatrix(M), M);
@@ -547,7 +547,7 @@ void zgelss(
       zlacpy('G', N, NRHS, WORK.asMatrix(LDB), LDB, B, LDB);
     } else if (NRHS > 1) {
       CHUNK = LWORK ~/ N;
-      for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
+      for (I = 1; I <= NRHS; I += CHUNK) {
         BL = min(NRHS - I + 1, CHUNK);
         zgemm('C', 'N', N, BL, M, Complex.one, A, LDA, B(1, I), LDB,
             Complex.zero, WORK.asMatrix(N), N);

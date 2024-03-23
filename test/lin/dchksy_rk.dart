@@ -257,7 +257,6 @@ void dchksy_rk(
 
           var K = IZERO;
           if (K > 0) {
-            //  }
             while (true) {
               if (IWORK[K] < 0) {
                 if (IWORK[K] != -K) {

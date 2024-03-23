@@ -311,53 +311,53 @@ void zhetrd_hb2st(
 
             // Call the kernel
 
-// // #if defined(_OPENMP) &&  _OPENMP >= 201307
+            // // #if defined(_OPENMP) &&  _OPENMP >= 201307
 
-//             if (TTYPE != 1) {
-// // $OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
-// // $OMP$     DEPEND(in:WORK(MYID-1))
-// // $OMP$     DEPEND(out:WORK(MYID))
-//               TID = OMP_GET_THREAD_NUM();
-//               zhb2st_kernels(
-//                   UPLO,
-//                   WANTQ,
-//                   TTYPE,
-//                   STIND,
-//                   EDIND,
-//                   SWEEPID,
-//                   N,
-//                   KD,
-//                   IB,
-//                   WORK(INDA),
-//                   LDA,
-//                   HOUS(INDV),
-//                   HOUS(INDTAU),
-//                   LDV,
-//                   WORK(INDW + TID * KD));
-// // $OMP END TASK
-//             } else {
-// // $OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
-// // $OMP$     DEPEND(out:WORK(MYID))
-//               TID = OMP_GET_THREAD_NUM();
-//               zhb2st_kernels(
-//                   UPLO,
-//                   WANTQ,
-//                   TTYPE,
-//                   STIND,
-//                   EDIND,
-//                   SWEEPID,
-//                   N,
-//                   KD,
-//                   IB,
-//                   WORK(INDA),
-//                   LDA,
-//                   HOUS(INDV),
-//                   HOUS(INDTAU),
-//                   LDV,
-//                   WORK(INDW + TID * KD));
-// // $OMP END TASK
-//             }
-// // #else
+            //             if (TTYPE != 1) {
+            // // $OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
+            // // $OMP$     DEPEND(in:WORK(MYID-1))
+            // // $OMP$     DEPEND(out:WORK(MYID))
+            //               TID = OMP_GET_THREAD_NUM();
+            //               zhb2st_kernels(
+            //                   UPLO,
+            //                   WANTQ,
+            //                   TTYPE,
+            //                   STIND,
+            //                   EDIND,
+            //                   SWEEPID,
+            //                   N,
+            //                   KD,
+            //                   IB,
+            //                   WORK(INDA),
+            //                   LDA,
+            //                   HOUS(INDV),
+            //                   HOUS(INDTAU),
+            //                   LDV,
+            //                   WORK(INDW + TID * KD));
+            // // $OMP END TASK
+            //             } else {
+            // // $OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
+            // // $OMP$     DEPEND(out:WORK(MYID))
+            //               TID = OMP_GET_THREAD_NUM();
+            //               zhb2st_kernels(
+            //                   UPLO,
+            //                   WANTQ,
+            //                   TTYPE,
+            //                   STIND,
+            //                   EDIND,
+            //                   SWEEPID,
+            //                   N,
+            //                   KD,
+            //                   IB,
+            //                   WORK(INDA),
+            //                   LDA,
+            //                   HOUS(INDV),
+            //                   HOUS(INDTAU),
+            //                   LDV,
+            //                   WORK(INDW + TID * KD));
+            // // $OMP END TASK
+            //             }
+            // // #else
             zhb2st_kernels(
                 UPLO,
                 WANTQ,
@@ -374,7 +374,7 @@ void zhetrd_hb2st(
                 HOUS(INDTAU),
                 LDV,
                 WORK(INDW));
-// #endif
+            // #endif
             if (BLKLASTIND >= (N - 1)) {
               STT++;
               break;

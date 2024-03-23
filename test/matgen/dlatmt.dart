@@ -657,7 +657,7 @@ void dlatmt(
             // Chase EXTRA back up the matrix
 
             ICOL = JC;
-            for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) {
+            for (JCH = JC - K; JCH >= 1; JCH -= K) {
               dlartg(A[JCH + 1 - ISKEW * (ICOL + 1) + IOFFG][ICOL + 1],
                   EXTRA.value, C, S, DUMMY);
               TEMP.value = A[JCH - ISKEW * (JCH + 1) + IOFFG][JCH + 1];
@@ -751,7 +751,7 @@ void dlatmt(
             // Chase EXTRA back down the matrix
 
             ICOL = JC;
-            for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) {
+            for (JCH = JC + K; JCH <= N - 1; JCH += K) {
               dlartg(A[JCH - ISKEW * ICOL + IOFFG][ICOL], EXTRA.value, C, S,
                   DUMMY);
               TEMP.value = A[1 + (1 - ISKEW) * JCH + IOFFG][JCH];
@@ -927,7 +927,6 @@ void dlatmt(
         for (JR = 1; JR <= UUB + 1 - JC; JR++) {
           A[JR][JC] = ZERO;
         }
-        //for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) {
         for (JR = max(1, min(IR1, IR2 - JC)); JR <= LDA; JR++) {
           A[JR][JC] = ZERO;
         }

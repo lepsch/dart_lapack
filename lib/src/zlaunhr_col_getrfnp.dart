@@ -55,7 +55,7 @@ void zlaunhr_col_getrfnp(
   } else {
     // Use blocked code.
 
-    for (J = 1; NB < 0 ? J >= min(M, N) : J <= min(M, N); J += NB) {
+    for (J = 1; J <= min(M, N); J += NB) {
       JB = min(min(M, N) - J + 1, NB);
 
       // Factor diagonal and subdiagonal blocks.

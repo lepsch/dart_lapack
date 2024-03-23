@@ -53,7 +53,6 @@ void dlapmr(
 
       K[I] = -K[I];
       J = K[I];
-      // }
       while (true) {
         if (J == I) break;
 

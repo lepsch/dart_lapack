@@ -276,7 +276,7 @@ void zhbgst(
           J2T = J2;
         }
         NRT = (N - J2T + KA) ~/ KA1;
-        for (J = J2T; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+        for (J = J2T; J <= J1; J += KA1) {
           // create nonzero element a(j-ka,j+1) outside the band
           // and store it in WORK(j-m)
 
@@ -335,7 +335,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
-          for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+          for (J = J2; J <= J1; J += KA1) {
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J - M], WORK[J - M].conjugate());
           }
@@ -376,11 +376,11 @@ void zhbgst(
         }
         NR = (N - J2 + KA) ~/ KA1;
         J1 = J2 + (NR - 1) * KA1;
-        for (J = J1; -KA1 < 0 ? J >= J2 : J <= J2; J += -KA1) {
+        for (J = J1; J >= J2; J -= KA1) {
           WORK[J] = WORK[J - KA];
           RWORK[J] = RWORK[J - KA];
         }
-        for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+        for (J = J2; J <= J1; J += KA1) {
           // create nonzero element a(j-ka,j+1) outside the band
           // and store it in WORK(j)
 
@@ -438,7 +438,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
-          for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+          for (J = J2; J <= J1; J += KA1) {
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J], WORK[J].conjugate());
           }
@@ -564,7 +564,7 @@ void zhbgst(
           J2T = J2;
         }
         NRT = (N - J2T + KA) ~/ KA1;
-        for (J = J2T; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+        for (J = J2T; J <= J1; J += KA1) {
           // create nonzero element a(j+1,j-ka) outside the band
           // and store it in WORK(j-m)
 
@@ -623,7 +623,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
-          for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+          for (J = J2; J <= J1; J += KA1) {
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J - M], WORK[J - M]);
           }
@@ -664,11 +664,11 @@ void zhbgst(
         }
         NR = (N - J2 + KA) ~/ KA1;
         J1 = J2 + (NR - 1) * KA1;
-        for (J = J1; -KA1 < 0 ? J >= J2 : J <= J2; J += -KA1) {
+        for (J = J1; J >= J2; J -= KA1) {
           WORK[J] = WORK[J - KA];
           RWORK[J] = RWORK[J - KA];
         }
-        for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+        for (J = J2; J <= J1; J += KA1) {
           // create nonzero element a(j+1,j-ka) outside the band
           // and store it in WORK(j)
 
@@ -720,7 +720,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
-          for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
+          for (J = J2; J <= J1; J += KA1) {
             zrot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
                 RWORK[J], WORK[J]);
           }
@@ -882,7 +882,7 @@ void zhbgst(
           J2T = J2;
         }
         NRT = (J2T + KA - 1) ~/ KA1;
-        for (J = J1; KA1 < 0 ? J >= J2T : J <= J2T; J += KA1) {
+        for (J = J1; J <= J2T; J += KA1) {
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK(j)
 
@@ -928,7 +928,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
-          for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1, RWORK[J],
                 WORK[J]);
           }
@@ -970,11 +970,11 @@ void zhbgst(
         }
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
-        for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           WORK[M - KB + J] = WORK[M - KB + J + KA];
           RWORK[M - KB + J] = RWORK[M - KB + J + KA];
         }
-        for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK(m-kb+j)
 
@@ -1050,7 +1050,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
-          for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 RWORK[M - KB + J], WORK[M - KB + J]);
           }
@@ -1161,7 +1161,7 @@ void zhbgst(
           J2T = J2;
         }
         NRT = (J2T + KA - 1) ~/ KA1;
-        for (J = J1; KA1 < 0 ? J >= J2T : J <= J2T; J += KA1) {
+        for (J = J1; J <= J2T; J += KA1) {
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK(j)
 
@@ -1214,7 +1214,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
-          for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1, RWORK[J],
                 WORK[J].conjugate());
           }
@@ -1256,11 +1256,11 @@ void zhbgst(
         }
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
-        for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           WORK[M - KB + J] = WORK[M - KB + J + KA];
           RWORK[M - KB + J] = RWORK[M - KB + J + KA];
         }
-        for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK(m-kb+j)
 
@@ -1336,7 +1336,7 @@ void zhbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
-          for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             zrot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 RWORK[M - KB + J], WORK[M - KB + J].conjugate());
           }

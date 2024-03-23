@@ -707,7 +707,7 @@ void zlatms(
             // Chase EXTRA.value back up the matrix
 
             ICOL = JC;
-            for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) {
+            for (JCH = JC - K; JCH >= 1; JCH -= K) {
               zlartg(A[JCH + 1 - ISKEW * (ICOL + 1) + IOFFG][ICOL + 1],
                   EXTRA.value, REALC, S, DUMMY);
               DUMMY.value = zlarnd(5, ISEED);
@@ -829,7 +829,7 @@ void zlatms(
             // Chase EXTRA.value back down the matrix
 
             ICOL = JC;
-            for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) {
+            for (JCH = JC + K; JCH <= N - 1; JCH += K) {
               zlartg(A[JCH - ISKEW * ICOL + IOFFG][ICOL], EXTRA.value, REALC, S,
                   DUMMY);
               DUMMY.value = zlarnd(5, ISEED);

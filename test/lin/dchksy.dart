@@ -465,7 +465,6 @@ void dchksy(
           // +    TEST 9
           // Get an estimate of RCOND.value = 1/CNDNUM.
 
-          // }
           final ANORM = dlansy('1', UPLO, N, A.asMatrix(), LDA, RWORK);
           srnamc.SRNAMT = 'DSYCON';
           dsycon(UPLO, N, AFAC.asMatrix(), LDA, IWORK, ANORM, RCOND, WORK,

@@ -312,7 +312,7 @@ void zlattb(
       }
     } else {
       B[N] = Complex.zero;
-      for (var I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) {
+      for (var I = 1; I <= N - 1; I += 2) {
         B[I] = Complex.zero;
         B[I + 1] = SMLNUM.toComplex() * zlarnd(5, ISEED);
       }
@@ -386,7 +386,7 @@ void zlattb(
     var TEXP = ONE;
     if (KD > 0) {
       if (UPPER) {
-        for (var J = N; -KD < 0 ? J >= 1 : J <= 1; J += -KD) {
+        for (var J = N; J >= 1; J -= KD) {
           for (var I = J; I >= max(1, J - KD + 1); I -= 2) {
             AB[1 + (J - I)][I] = (-TSCAL / (KD + 2)).toComplex();
             AB[KD + 1][I] = Complex.one;
@@ -402,12 +402,10 @@ void zlattb(
           B[max(1, J - KD + 1)] = (((KD + 2) / (KD + 3)) * TSCAL).toComplex();
         }
       } else {
-        for (var J = 1; KD < 0 ? J >= N : J <= N; J += KD) {
+        for (var J = 1; J <= N; J += KD) {
           var TEXP = ONE;
           final LENJ = min(KD + 1, N - J + 1);
-          for (var I = J;
-              2 < 0 ? I >= min(N, J + KD - 1) : I <= min(N, J + KD - 1);
-              I += 2) {
+          for (var I = J; I <= min(N, J + KD - 1); I += 2) {
             AB[LENJ - (I - J)][J] = (-TSCAL / (KD + 2)).toComplex();
             AB[1][J] = Complex.one;
             B[J] = (TEXP * (ONE - ULP)).toComplex();

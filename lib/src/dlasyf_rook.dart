@@ -343,7 +343,6 @@ void dlasyf_rook(
     // in columns k+1:n
 
     J = K + 1;
-    //  }
     do {
       KSTEP = 1;
       JP1 = 1;

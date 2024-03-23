@@ -98,9 +98,7 @@ void zgerqf(
     KI = ((K - NX - 1) ~/ NB) * NB;
     KK = min(K, KI + NB);
 
-    for (I = K - KK + KI + 1;
-        -NB < 0 ? I >= K - KK + 1 : I <= K - KK + 1;
-        I += -NB) {
+    for (I = K - KK + KI + 1; I >= K - KK + 1; I -= NB) {
       IB = min(K - I + 1, NB);
 
       // Compute the RQ factorization of the current block

@@ -117,7 +117,7 @@ void dlaqz4(
   // conjugate shifts are already adjacent to one
   // another
 
-  for (I = 1; 2 < 0 ? I >= NSHIFTS - 2 : I <= NSHIFTS - 2; I += 2) {
+  for (I = 1; I <= NSHIFTS - 2; I += 2) {
     if (SI[I] != -SI[I + 1]) {
       SWAP = SR[I];
       SR[I] = SR[I + 1];

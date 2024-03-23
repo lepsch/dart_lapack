@@ -81,7 +81,7 @@ void dgelss(
   INFO.value = 0;
   MINMN = min(M, N);
   MAXMN = max(M, N);
-  LQUERY = (LWORK == -1);
+  LQUERY = LWORK == -1;
   if (M < 0) {
     INFO.value = -1;
   } else if (N < 0) {
@@ -359,7 +359,7 @@ void dgelss(
       dlacpy('G', N, NRHS, WORK.asMatrix(LDB), LDB, B, LDB);
     } else if (NRHS > 1) {
       CHUNK = LWORK ~/ N;
-      for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
+      for (I = 1; I <= NRHS; I += CHUNK) {
         BL = min(NRHS - I + 1, CHUNK);
         dgemm('T', 'N', N, BL, N, ONE, A, LDA, B(1, I), LDB, ZERO,
             WORK.asMatrix(N), N);
@@ -452,7 +452,7 @@ void dgelss(
       dlacpy('G', M, NRHS, WORK(IWORK).asMatrix(LDB), LDB, B, LDB);
     } else if (NRHS > 1) {
       CHUNK = (LWORK - IWORK + 1) ~/ M;
-      for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
+      for (I = 1; I <= NRHS; I += CHUNK) {
         BL = min(NRHS - I + 1, CHUNK);
         dgemm('T', 'N', M, BL, M, ONE, WORK(IL).asMatrix(LDWORK), LDWORK,
             B(1, I), LDB, ZERO, WORK(IWORK).asMatrix(M), M);
@@ -536,7 +536,7 @@ void dgelss(
       dlacpy('F', N, NRHS, WORK.asMatrix(LDB), LDB, B, LDB);
     } else if (NRHS > 1) {
       CHUNK = LWORK ~/ N;
-      for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) {
+      for (I = 1; I <= NRHS; I += CHUNK) {
         BL = min(NRHS - I + 1, CHUNK);
         dgemm('T', 'N', N, BL, M, ONE, A, LDA, B(1, I), LDB, ZERO,
             WORK.asMatrix(N), N);

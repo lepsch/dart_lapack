@@ -315,7 +315,7 @@ void dlattb(
       }
     } else {
       B[N] = ZERO;
-      for (var I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) {
+      for (var I = 1; I <= N - 1; I += 2) {
         B[I] = ZERO;
         B[I + 1] = SMLNUM;
       }
@@ -389,7 +389,7 @@ void dlattb(
     var TEXP = ONE;
     if (KD > 0) {
       if (UPPER) {
-        for (var J = N; -KD < 0 ? J >= 1 : J <= 1; J += -KD) {
+        for (var J = N; J >= 1; J -= KD) {
           for (var I = J; I >= max(1, J - KD + 1); I -= 2) {
             AB[1 + (J - I)][I] = -TSCAL / (KD + 2);
             AB[KD + 1][I] = ONE;
@@ -404,12 +404,10 @@ void dlattb(
           B[max(1, J - KD + 1)] = ((KD + 2) / (KD + 3)) * TSCAL;
         }
       } else {
-        for (var J = 1; KD < 0 ? J >= N : J <= N; J += KD) {
+        for (var J = 1; J <= N; J += KD) {
           TEXP = ONE;
           final LENJ = min(KD + 1, N - J + 1);
-          for (var I = J;
-              2 < 0 ? I >= min(N, J + KD - 1) : I <= min(N, J + KD - 1);
-              I += 2) {
+          for (var I = J; I <= min(N, J + KD - 1); I += 2) {
             AB[LENJ - (I - J)][J] = -TSCAL / (KD + 2);
             AB[1][J] = ONE;
             B[J] = TEXP * (ONE - ULP);
@@ -460,8 +458,8 @@ void dlattb(
     // BIGNUM/KD and BIGNUM so that at least one of the column
     // norms will exceed BIGNUM.
 
-    final TLEFT = BIGNUM / max(ONE, KD.toDouble());
-    final TSCAL = BIGNUM * (KD.toDouble() / (KD + 1).toDouble());
+    final TLEFT = BIGNUM / max(ONE, KD);
+    final TSCAL = BIGNUM * (KD / (KD + 1));
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         final LENJ = min(J, KD + 1);

@@ -69,7 +69,7 @@ void dsygst(
       if (UPPER) {
         // Compute inv(U**T)*A*inv(U)
 
-        for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
+        for (K = 1; K <= N; K += NB) {
           KB = min(N - K + 1, NB);
 
           // Update the upper triangle of A(k:n,k:n)
@@ -91,7 +91,7 @@ void dsygst(
       } else {
         // Compute inv(L)*A*inv(L**T)
 
-        for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
+        for (K = 1; K <= N; K += NB) {
           KB = min(N - K + 1, NB);
 
           // Update the lower triangle of A(k:n,k:n)
@@ -115,7 +115,7 @@ void dsygst(
       if (UPPER) {
         // Compute U*A*U**T
 
-        for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
+        for (K = 1; K <= N; K += NB) {
           KB = min(N - K + 1, NB);
 
           // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
@@ -135,7 +135,7 @@ void dsygst(
       } else {
         // Compute L**T*A*L
 
-        for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
+        for (K = 1; K <= N; K += NB) {
           KB = min(N - K + 1, NB);
 
           // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)

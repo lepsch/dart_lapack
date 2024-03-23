@@ -1148,8 +1148,8 @@ void _stest1(
 }
 
 // double _sdiff(final double SA, final double SB) {
-//   // ********************************* SDIFF **************************
-//   // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
+// // ********************************* SDIFF **************************
+// // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 //   return SA - SB;
 // }
 

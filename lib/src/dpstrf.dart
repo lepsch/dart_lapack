@@ -97,7 +97,7 @@ void dpstrf(
     if (UPPER) {
       // Compute the Cholesky factorization P**T * A * P = U**T * U
 
-      for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
+      for (K = 1; K <= N; K += NB) {
         // Account for last block not being NB wide
 
         JB = min(NB, N - K + 1);
@@ -181,7 +181,7 @@ void dpstrf(
     } else {
       // Compute the Cholesky factorization P**T * A * P = L * L**T
 
-      for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
+      for (K = 1; K <= N; K += NB) {
         // Account for last block not being NB wide
 
         JB = min(NB, N - K + 1);

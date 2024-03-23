@@ -157,7 +157,7 @@ void zsytrf_aa(
             JB--;
           }
 
-          for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
+          for (J2 = J + 1; J2 <= N; J2 += NB) {
             NJ = min(NB, N - J2 + 1);
 
             // Update (J2, J2) diagonal block with ZGEMV
@@ -285,7 +285,7 @@ void zsytrf_aa(
             JB--;
           }
 
-          for (J2 = J + 1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) {
+          for (J2 = J + 1; J2 <= N; J2 += NB) {
             NJ = min(NB, N - J2 + 1);
 
             // Update (J2, J2) diagonal block with ZGEMV

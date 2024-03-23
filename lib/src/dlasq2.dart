@@ -335,9 +335,7 @@ void dlasq2(final int N, final Array<double> Z_, final Box<int> INFO) {
       DEE = Z[4 * I0 - 3];
       DEEMIN = DEE;
       KMIN = I0;
-      for (I4 = 4 * I0 + 1;
-          4 < 0 ? I4 >= 4 * N0.value - 3 : I4 <= 4 * N0.value - 3;
-          I4 += 4) {
+      for (I4 = 4 * I0 + 1; I4 <= 4 * N0.value - 3; I4 += 4) {
         DEE = Z[I4] * (DEE / (DEE + Z[I4 - 2]));
         if (DEE <= DEEMIN) {
           DEEMIN = DEE;

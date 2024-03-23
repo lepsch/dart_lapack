@@ -28,9 +28,7 @@ void dsytrf_aa(
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final WORK = WORK_.having();
-  const
-      // ZERO = 0.0,
-      ONE = 1.0;
+  const ONE = 1.0;
   bool LQUERY, UPPER;
   int J, LWKMIN, LWKOPT;
   int NB, MJ, NJ, K1, K2, J1, J2, J3, JB;
@@ -86,7 +84,7 @@ void dsytrf_aa(
 
   // Adjust block size based on the workspace size
 
-  if (LWORK < ((1 + NB) * N)) {
+  if (LWORK < (1 + NB) * N) {
     NB = (LWORK - N) ~/ N;
   }
 

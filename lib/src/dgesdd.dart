@@ -544,7 +544,7 @@ void dgesdd(
         // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U]
         // Workspace: prefer M*N [R] + 3*N [e, tauq, taup] + N*N [U]
 
-        for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) {
+        for (I = 1; I <= M; I += LDWRKR) {
           CHUNK = min(M - I + 1, LDWRKR);
           dgemm('N', 'N', CHUNK, N, N, ONE, A(I, 1), LDA, WORK(IU).asMatrix(N),
               N, ZERO, WORK(IR).asMatrix(LDWRKR), LDWRKR);
@@ -806,7 +806,7 @@ void dgesdd(
           // Workspace: need   3*N [e, tauq, taup] + N*N [U] + NB*N [R]
           // Workspace: prefer 3*N [e, tauq, taup] + N*N [U] + M*N  [R]
 
-          for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) {
+          for (I = 1; I <= M; I += LDWRKR) {
             CHUNK = min(M - I + 1, LDWRKR);
             dgemm(
                 'N',
@@ -1002,7 +1002,7 @@ void dgesdd(
         // Workspace: prefer M*M [VT] + M*N [L]
         // At this point, L is resized as M by chunk.
 
-        for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+        for (I = 1; I <= N; I += CHUNK) {
           BLK = min(N - I + 1, CHUNK);
           dgemm('N', 'N', M, BLK, M, ONE, WORK(IVT).asMatrix(M), M, A(1, I),
               LDA, ZERO, WORK(IL).asMatrix(LDWRKL), LDWRKL);
@@ -1261,7 +1261,7 @@ void dgesdd(
           // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + M*NB [L]
           // Workspace: prefer 3*M [e, tauq, taup] + M*M [VT] + M*N  [L]
 
-          for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+          for (I = 1; I <= N; I += CHUNK) {
             BLK = min(N - I + 1, CHUNK);
             dgemm('N', 'N', M, BLK, M, ONE, WORK(IVT).asMatrix(LDWKVT), LDWKVT,
                 A(1, I), LDA, ZERO, WORK(IL).asMatrix(M), M);

@@ -58,7 +58,7 @@ void zpotrf(
     if (UPPER) {
       // Compute the Cholesky factorization A = U'*U.
 
-      for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
+      for (J = 1; J <= N; J += NB) {
         JB = min(NB, N - J + 1);
 
         // Compute the current block.
@@ -77,7 +77,7 @@ void zpotrf(
     } else {
       // Compute the Cholesky factorization A = L*L'.
 
-      for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
+      for (J = 1; J <= N; J += NB) {
         JB = min(NB, N - J + 1);
 
         // Compute the current block.

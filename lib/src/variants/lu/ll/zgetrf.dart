@@ -55,12 +55,12 @@ void zgetrf(
   } else {
     // Use blocked code.
 
-    for (J = 1; NB < 0 ? J >= min(M, N) : J <= min(M, N); J += NB) {
+    for (J = 1; J <= min(M, N); J += NB) {
       JB = min(min(M, N) - J + 1, NB);
 
       // Update before factoring the current panel
 
-      for (K = 1; NB < 0 ? K >= J - NB : K <= J - NB; K += NB) {
+      for (K = 1; K <= J - NB; K += NB) {
         // Apply interchanges to rows K:K+NB-1.
 
         zlaswp(JB, A(1, J), LDA, K, K + NB - 1, IPIV, 1);
@@ -103,7 +103,7 @@ void zgetrf(
 
     // Apply interchanges to the left-overs
 
-    for (K = 1; NB < 0 ? K >= min(M, N) : K <= min(M, N); K += NB) {
+    for (K = 1; K <= min(M, N); K += NB) {
       zlaswp(K - 1, A(1, 1), LDA, K, min(K + NB - 1, min(M, N)), IPIV, 1);
     }
 
@@ -112,7 +112,7 @@ void zgetrf(
     if (N > M) {
       zlaswp(N - M, A(1, M + 1), LDA, 1, M, IPIV, 1);
 
-      for (K = 1; NB < 0 ? K >= M : K <= M; K += NB) {
+      for (K = 1; K <= M; K += NB) {
         JB = min(M - K + 1, NB);
 
         ztrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N - M, Complex.one,

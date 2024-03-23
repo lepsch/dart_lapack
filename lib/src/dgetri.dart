@@ -97,7 +97,7 @@ void dgetri(
     // Use blocked code.
 
     NN = ((N - 1) ~/ NB) * NB + 1;
-    for (J = NN; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
+    for (J = NN; J >= 1; J -= NB) {
       JB = min(NB, N - J + 1);
 
       // Copy current block column of L to WORK and replace with

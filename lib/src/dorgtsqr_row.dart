@@ -121,7 +121,7 @@ void dorgtsqr_row(
     NUM_ALL_ROW_BLOCKS = ITMP + 2;
     JB_T = NUM_ALL_ROW_BLOCKS * N + 1;
 
-    for (IB = IB_BOTTOM; -MB2 < 0 ? IB >= MB + 1 : IB <= MB + 1; IB += -MB2) {
+    for (IB = IB_BOTTOM; IB >= MB + 1; IB -= MB2) {
       // Determine the block size IMB for the current row block
       // in the matrix A.
 
@@ -137,7 +137,7 @@ void dorgtsqr_row(
       // KB is the column index of the current column block reflector
       // in the matrices T and V.
 
-      for (KB = KB_LAST; -NBLOCAL < 0 ? KB >= 1 : KB <= 1; KB += -NBLOCAL) {
+      for (KB = KB_LAST; KB >= 1; KB -= NBLOCAL) {
         // Determine the size of the current column block KNB in
         // the matrices T and V.
 
@@ -160,7 +160,7 @@ void dorgtsqr_row(
   // KB is the column index of the current block reflector in
   // the matrices T and V.
 
-  for (KB = KB_LAST; -NBLOCAL < 0 ? KB >= 1 : KB <= 1; KB += -NBLOCAL) {
+  for (KB = KB_LAST; KB >= 1; KB -= NBLOCAL) {
     // Determine the size of the current column block KNB in
     // the matrices T and V.
 

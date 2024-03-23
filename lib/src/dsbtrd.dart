@@ -142,9 +142,7 @@ void dsbtrd(
               }
             } else {
               JEND = J1 + (NR - 1) * KD1;
-              for (JINC = J1;
-                  KD1 < 0 ? JINC >= JEND : JINC <= JEND;
-                  JINC += KD1) {
+              for (JINC = J1; JINC <= JEND; JINC += KD1) {
                 drot(KDM1, AB(2, JINC - 1).asArray(), 1, AB(1, JINC).asArray(),
                     1, D[JINC], WORK[JINC]);
               }
@@ -211,9 +209,7 @@ void dsbtrd(
             } else {
               J1END = J1 + KD1 * (NR - 2);
               if (J1END >= J1) {
-                for (JIN = J1;
-                    KD1 < 0 ? JIN >= J1END : JIN <= J1END;
-                    JIN += KD1) {
+                for (JIN = J1; JIN <= J1END; JIN += KD1) {
                   drot(KD - 1, AB(KD - 1, JIN + 1).asArray(), INCX,
                       AB(KD, JIN + 1).asArray(), INCX, D[JIN], WORK[JIN]);
                 }
@@ -239,7 +235,7 @@ void dsbtrd(
               IQAEND = 1 + I * KD;
               if (K == 2) IQAEND += KD;
               IQAEND = min(IQAEND, IQEND);
-              for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
+              for (J = J1; J <= J2; J += KD1) {
                 IBL = I - I2 ~/ KDM1;
                 I2++;
                 IQB = max(1, J - IBL);
@@ -249,7 +245,7 @@ void dsbtrd(
                     D[J], WORK[J]);
               }
             } else {
-              for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
+              for (J = J1; J <= J2; J += KD1) {
                 drot(N, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, D[J],
                     WORK[J]);
               }
@@ -263,7 +259,7 @@ void dsbtrd(
             J2 -= KDN + 1;
           }
 
-          for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
+          for (J = J1; J <= J2; J += KD1) {
             // create nonzero element a[j-1][j+kd] outside the band
             // and store it in WORK
 
@@ -334,9 +330,7 @@ void dsbtrd(
               }
             } else {
               JEND = J1 + KD1 * (NR - 1);
-              for (JINC = J1;
-                  KD1 < 0 ? JINC >= JEND : JINC <= JEND;
-                  JINC += KD1) {
+              for (JINC = J1; JINC <= JEND; JINC += KD1) {
                 drot(KDM1, AB(KD, JINC - KD).asArray(), INCX,
                     AB(KD1, JINC - KD).asArray(), INCX, D[JINC], WORK[JINC]);
               }
@@ -396,9 +390,7 @@ void dsbtrd(
             } else {
               J1END = J1 + KD1 * (NR - 2);
               if (J1END >= J1) {
-                for (J1INC = J1;
-                    KD1 < 0 ? J1INC >= J1END : J1INC <= J1END;
-                    J1INC += KD1) {
+                for (J1INC = J1; J1INC <= J1END; J1INC += KD1) {
                   drot(KDM1, AB(3, J1INC - 1).asArray(), 1,
                       AB(2, J1INC).asArray(), 1, D[J1INC], WORK[J1INC]);
                 }
@@ -424,7 +416,7 @@ void dsbtrd(
               IQAEND = 1 + I * KD;
               if (K == 2) IQAEND += KD;
               IQAEND = min(IQAEND, IQEND);
-              for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
+              for (J = J1; J <= J2; J += KD1) {
                 IBL = I - I2 ~/ KDM1;
                 I2++;
                 IQB = max(1, J - IBL);
@@ -434,7 +426,7 @@ void dsbtrd(
                     D[J], WORK[J]);
               }
             } else {
-              for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
+              for (J = J1; J <= J2; J += KD1) {
                 drot(N, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, D[J],
                     WORK[J]);
               }
@@ -448,7 +440,7 @@ void dsbtrd(
             J2 -= KDN + 1;
           }
 
-          for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
+          for (J = J1; J <= J2; J += KD1) {
             // create nonzero element a[j+kd][j-1] outside the
             // band and store it in WORK
 

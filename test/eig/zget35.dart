@@ -71,7 +71,7 @@ Future<void> zget35(
           for (IMLC = 1; IMLC <= 3; IMLC++) {
             for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
               for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-                for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
+                for (ISGN = -1; ISGN <= 1; ISGN += 2) {
                   if (ITRANA == 1) TRANA = 'N';
                   if (ITRANA == 2) TRANA = 'C';
                   if (ITRANB == 1) TRANB = 'N';

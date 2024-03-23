@@ -60,7 +60,7 @@ void zlauum(
     if (UPPER) {
       // Compute the product U * U**H.
 
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         IB = min(NB, N - I + 1);
         ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I - 1, IB,
             Complex.one, A(I, I), LDA, A(1, I), LDA);
@@ -87,7 +87,7 @@ void zlauum(
     } else {
       // Compute the product L**H * L.
 
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         IB = min(NB, N - I + 1);
         ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I - 1,
             Complex.one, A(I, I), LDA, A(I, 1), LDA);

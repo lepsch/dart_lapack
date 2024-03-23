@@ -182,7 +182,7 @@ void dlasd2(
       break;
     }
   }
-  //}
+
   if (!deflate) {
     J = JPREV;
     while (true) {
@@ -242,7 +242,6 @@ void dlasd2(
         }
       }
     }
-    // }
 
     // Record the last singular value.
 

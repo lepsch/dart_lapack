@@ -71,7 +71,7 @@ void dsyl01(
   SCALE3.value = ONE;
   LIWORK = MAXM + MAXN + 2;
   for (J = 1; J <= 2; J++) {
-    for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
+    for (ISGN = -1; ISGN <= 1; ISGN += 2) {
       // Reset seed (overwritten by LATMR)
       for (I = 1; I <= 4; I++) {
         ISEED[I] = 1;

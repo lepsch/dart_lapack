@@ -111,7 +111,7 @@ void zgbtrf(
 
     JU = 1;
 
-    for (J = 1; NB < 0 ? J >= min(M, N) : J <= min(M, N); J += NB) {
+    for (J = 1; J <= min(M, N); J += NB) {
       JB = min(NB, min(M, N) - J + 1);
 
       // The active part of the matrix is partitioned

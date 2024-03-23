@@ -597,7 +597,7 @@ void zgesvd(
           // (CWorkspace: need N*N+N, prefer N*N+M*N)
           // (RWorkspace: 0)
 
-          for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
+          for (I = 1; I <= M; I += LDWRKU) {
             CHUNK = min(M - I + 1, LDWRKU);
             zgemm(
                 'N',
@@ -753,7 +753,7 @@ void zgesvd(
           // (CWorkspace: need N*N+N, prefer N*N+M*N)
           // (RWorkspace: 0)
 
-          for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
+          for (I = 1; I <= M; I += LDWRKU) {
             CHUNK = min(M - I + 1, LDWRKU);
             zgemm(
                 'N',
@@ -2080,7 +2080,7 @@ void zgesvd(
           // (CWorkspace: need M*M+M, prefer M*M+M*N)
           // (RWorkspace: 0)
 
-          for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+          for (I = 1; I <= N; I += CHUNK) {
             BLK = min(N - I + 1, CHUNK);
             zgemm(
                 'N',
@@ -2222,7 +2222,7 @@ void zgesvd(
           // (CWorkspace: need M*M+M, prefer M*M+M*N))
           // (RWorkspace: 0)
 
-          for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+          for (I = 1; I <= N; I += CHUNK) {
             BLK = min(N - I + 1, CHUNK);
             zgemm(
                 'N',

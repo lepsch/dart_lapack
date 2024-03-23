@@ -601,7 +601,7 @@ void zgesdd(
         // CWorkspace: prefer N*N [U] + M*N [R]
         // RWorkspace: need   0
 
-        for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) {
+        for (I = 1; I <= M; I += LDWRKR) {
           CHUNK = min(M - I + 1, LDWRKR);
           zgemm(
               'N',
@@ -898,7 +898,7 @@ void zgesdd(
         // RWorkspace: prefer N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
         NRWORK = IRVT;
-        for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
+        for (I = 1; I <= M; I += LDWRKU) {
           CHUNK = min(M - I + 1, LDWRKU);
           zlacrm(CHUNK, N, A(I, 1), LDA, RWORK(IRU).asMatrix(N), N,
               WORK(IU).asMatrix(LDWRKU), LDWRKU, RWORK(NRWORK));
@@ -1115,7 +1115,7 @@ void zgesdd(
           // RWorkspace: prefer N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
           NRWORK = IRVT;
-          for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
+          for (I = 1; I <= M; I += LDWRKU) {
             CHUNK = min(M - I + 1, LDWRKU);
             zlacrm(CHUNK, N, A(I, 1), LDA, RWORK(IRU).asMatrix(N), N,
                 WORK(IU).asMatrix(LDWRKU), LDWRKU, RWORK(NRWORK));
@@ -1353,7 +1353,7 @@ void zgesdd(
         // CWorkspace: prefer M*M [VT] + M*N [L]
         // RWorkspace: need   0
 
-        for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+        for (I = 1; I <= N; I += CHUNK) {
           BLK = min(N - I + 1, CHUNK);
           zgemm('N', 'N', M, BLK, M, Complex.one, WORK(IVT).asMatrix(M), M,
               A(1, I), LDA, Complex.zero, WORK(IL).asMatrix(LDWRKL), LDWRKL);
@@ -1640,7 +1640,7 @@ void zgesdd(
         // RWorkspace: prefer M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
         NRWORK = IRU;
-        for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+        for (I = 1; I <= N; I += CHUNK) {
           BLK = min(N - I + 1, CHUNK);
           zlarcm(M, BLK, RWORK(IRVT).asMatrix(M), M, A(1, I), LDA,
               WORK(IVT).asMatrix(LDWKVT), LDWKVT, RWORK(NRWORK));
@@ -1857,7 +1857,7 @@ void zgesdd(
           // RWorkspace: prefer M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
           NRWORK = IRU;
-          for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+          for (I = 1; I <= N; I += CHUNK) {
             BLK = min(N - I + 1, CHUNK);
             zlarcm(M, BLK, RWORK(IRVT).asMatrix(M), M, A(1, I), LDA,
                 WORK(IVT).asMatrix(LDWKVT), LDWKVT, RWORK(NRWORK));

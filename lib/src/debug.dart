@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 
@@ -169,8 +171,8 @@ void debugi8(String name, int d1, int d2, int d3, int d4, int d5, int d6,
 void dbg(String s) {
   if (!_debug) return;
   // if (isInDebugMode) return;
-  print(s);
-  // stderr.writeln(s);
+  // print(s);
+  stderr.writeln(s);
 }
 
 bool get isInDebugMode {

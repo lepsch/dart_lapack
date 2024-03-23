@@ -446,8 +446,7 @@ void dgsvj0(
               }
             }
             // END q-LOOP
-
-            //  }
+            
             // bailed out of q-loop
 
             SVA[p] = AAPP.value;

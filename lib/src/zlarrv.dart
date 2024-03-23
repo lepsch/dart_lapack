@@ -890,8 +890,7 @@ void zlarrv(
         }
       }
       NDEPTH++;
-    }
-    //  }
+    } 
     IBEGIN = IEND + 1;
     WBEGIN = WEND + 1;
   }

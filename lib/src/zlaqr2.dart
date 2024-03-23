@@ -54,11 +54,7 @@ void zlaqr2(
   final WORK = WORK_.having();
   const RZERO = 0.0;
   Complex S;
-  double FOO,
-      // SAFMAX,
-      SAFMIN,
-      SMLNUM,
-      ULP;
+  double FOO, SAFMIN, SMLNUM, ULP;
   int I,
       IFST,
       ILST,
@@ -78,51 +74,50 @@ void zlaqr2(
 
   double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
 
-  // ==== Estimate optimal workspace. ====
+  // Estimate optimal workspace.
 
   JW = min(NW, KBOT - KTOP + 1);
   if (JW <= 2) {
     LWKOPT = 1;
   } else {
-    // ==== Workspace query call to ZGEHRD ====
+    // Workspace query call to ZGEHRD
 
     zgehrd(JW, 1, JW - 1, T, LDT, WORK, WORK, -1, INFO);
     LWK1 = WORK[1].toInt();
 
-    // ==== Workspace query call to ZUNMHR ====
+    // Workspace query call to ZUNMHR
 
     zunmhr('R', 'N', JW, JW, 1, JW - 1, T, LDT, WORK, V, LDV, WORK, -1, INFO);
     LWK2 = WORK[1].toInt();
 
-    // ==== Optimal workspace ====
+    // Optimal workspace
 
     LWKOPT = JW + max(LWK1, LWK2);
   }
 
-  // ==== Quick return in case of workspace query. ====
+  // Quick return in case of workspace query.
 
   if (LWORK == -1) {
     WORK[1] = LWKOPT.toComplex();
     return;
   }
 
-  // ==== Nothing to do ...
-  // ... for an empty active block ... ====
+  // Nothing to do ...
+  // ... for an empty active block ...
   NS.value = 0;
   ND.value = 0;
   WORK[1] = Complex.one;
   if (KTOP > KBOT) return;
-  // ... nor for an empty deflation window. ====
+  // ... nor for an empty deflation window.
   if (NW < 1) return;
 
-  // ==== Machine constants ====
+  // Machine constants
 
   SAFMIN = dlamch('SAFE MINIMUM');
-  // SAFMAX = RONE / SAFMIN;
   ULP = dlamch('PRECISION');
   SMLNUM = SAFMIN * (N / ULP);
 
-  // ==== Setup deflation window ====
+  // Setup deflation window
 
   JW = min(NW, KBOT - KTOP + 1);
   KWTOP = KBOT - JW + 1;
@@ -133,7 +128,7 @@ void zlaqr2(
   }
 
   if (KBOT == KWTOP) {
-    // ==== 1-by-1 deflation window: not much to do ====
+    // 1-by-1 deflation window: not much to do
 
     SH[KWTOP] = H[KWTOP][KWTOP];
     NS.value = 1;
@@ -147,11 +142,11 @@ void zlaqr2(
     return;
   }
 
-  // ==== Convert to spike-triangular form.  (In case of a
-  // .    rare QR failure, this routine continues to do
-  // .    aggressive early deflation using that part of
-  // .    the deflation window that converged using INFQR
-  // .    here and there to keep track.) ====
+  // Convert to spike-triangular form.  (In case of a
+  // rare QR failure, this routine continues to do
+  // aggressive early deflation using that part of
+  // the deflation window that converged using INFQR
+  // here and there to keep track.)
 
   zlacpy('U', JW, JW, H(KWTOP, KWTOP), LDH, T, LDT);
   zcopy(JW - 1, H(KWTOP + 1, KWTOP).asArray(), LDH + 1, T(2, 1).asArray(),
@@ -160,22 +155,22 @@ void zlaqr2(
   zlaset('A', JW, JW, Complex.zero, Complex.one, V, LDV);
   zlahqr(true, true, JW, 1, JW, T, LDT, SH(KWTOP), 1, JW, V, LDV, INFQR);
 
-  // ==== Deflation detection loop ====
+  // Deflation detection loop
 
   NS.value = JW;
   ILST = INFQR.value + 1;
   for (KNT = INFQR.value + 1; KNT <= JW; KNT++) {
-    // ==== Small spike tip deflation test ====
+    // Small spike tip deflation test
 
     FOO = CABS1(T[NS.value][NS.value]);
     if (FOO == RZERO) FOO = CABS1(S);
     if (CABS1(S) * CABS1(V[1][NS.value]) <= max(SMLNUM, ULP * FOO)) {
-      // ==== One more converged eigenvalue ====
+      // One more converged eigenvalue
 
       NS.value--;
     } else {
-      // ==== One undeflatable eigenvalue.  Move it up out of the
-      // .    way.   (ZTREXC can not fail in this case.) ====
+      // One undeflatable eigenvalue.  Move it up out of the
+      // way.   (ZTREXC can not fail in this case.)
 
       IFST = NS.value;
       ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);
@@ -183,13 +178,13 @@ void zlaqr2(
     }
   }
 
-  // ==== Return to Hessenberg form ====
+  // Return to Hessenberg form
 
   if (NS.value == 0) S = Complex.zero;
 
   if (NS.value < JW) {
-    // ==== sorting the diagonal of T improves accuracy for
-    // .    graded matrices.  ====
+    // sorting the diagonal of T improves accuracy for
+    // graded matrices.
 
     for (I = INFQR.value + 1; I <= NS.value; I++) {
       IFST = I;
@@ -201,7 +196,7 @@ void zlaqr2(
     }
   }
 
-  // ==== Restore shift/eigenvalue array from T ====
+  // Restore shift/eigenvalue array from T
 
   for (I = INFQR.value + 1; I <= JW; I++) {
     SH[KWTOP + I - 1] = T[I][I];
@@ -209,7 +204,7 @@ void zlaqr2(
 
   if (NS.value < JW || S == Complex.zero) {
     if (NS.value > 1 && S != Complex.zero) {
-      // ==== Reflect spike back into lower triangle ====
+      // Reflect spike back into lower triangle
 
       zcopy(NS.value, V.asArray(), LDV, WORK, 1);
       for (I = 1; I <= NS.value; I++) {
@@ -229,22 +224,22 @@ void zlaqr2(
       zgehrd(JW, 1, NS.value, T, LDT, WORK, WORK(JW + 1), LWORK - JW, INFO);
     }
 
-    // ==== Copy updated reduced window into place ====
+    // Copy updated reduced window into place
 
     if (KWTOP > 1) H[KWTOP][KWTOP - 1] = S * V[1][1].conjugate();
     zlacpy('U', JW, JW, T, LDT, H(KWTOP, KWTOP), LDH);
     zcopy(JW - 1, T(2, 1).asArray(), LDT + 1, H(KWTOP + 1, KWTOP).asArray(),
         LDH + 1);
 
-    // ==== Accumulate orthogonal matrix in order update
-    // .    H and Z, if requested.  ====
+    // Accumulate orthogonal matrix in order update
+    // H and Z, if requested.
 
     if (NS.value > 1 && S != Complex.zero) {
       zunmhr('R', 'N', JW, NS.value, 1, NS.value, T, LDT, WORK, V, LDV,
           WORK(JW + 1), LWORK - JW, INFO);
     }
 
-    // ==== Update vertical slab in H ====
+    // Update vertical slab in H
 
     if (WANTT) {
       LTOP = 1;
@@ -260,7 +255,7 @@ void zlaqr2(
       zlacpy('A', KLN, JW, WV, LDWV, H(KROW, KWTOP), LDH);
     }
 
-    // ==== Update horizontal slab in H ====
+    // Update horizontal slab in H
 
     if (WANTT) {
       for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) {
@@ -271,7 +266,7 @@ void zlaqr2(
       }
     }
 
-    // ==== Update vertical slab in Z ====
+    // Update vertical slab in Z
 
     if (WANTZ) {
       for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) {
@@ -283,19 +278,19 @@ void zlaqr2(
     }
   }
 
-  // ==== Return the number of deflations ... ====
+  // Return the number of deflations ...
 
   ND.value = JW - NS.value;
 
-  // ==== ... and the number of shifts. (Subtracting
-  // .    INFQR.value from the spike length takes care
-  // .    of the case of a rare QR failure while
-  // .    calculating eigenvalues of the deflation
-  // .    window.)  ====
+  // ... and the number of shifts. (Subtracting
+  // INFQR.value from the spike length takes care
+  // of the case of a rare QR failure while
+  // calculating eigenvalues of the deflation
+  // window.)
 
   NS.value -= INFQR.value;
 
-  // ==== Return optimal workspace. ====
+  // Return optimal workspace.
 
   WORK[1] = LWKOPT.toComplex();
 }

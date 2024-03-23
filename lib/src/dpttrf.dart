@@ -43,7 +43,7 @@ void dpttrf(
     D[I + 1] -= E[I] * EI;
   }
 
-  for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) {
+  for (I = I4 + 1; I <= N - 4; I += 4) {
     // Drop out of the loop if d[i] <= 0: the matrix is not positive
     // definite.
 

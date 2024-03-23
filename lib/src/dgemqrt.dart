@@ -77,27 +77,27 @@ void dgemqrt(
   if (M == 0 || N == 0 || K == 0) return;
 
   if (LEFT && TRAN) {
-    for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) {
+    for (I = 1; I <= K; I += NB) {
       IB = min(NB, K - I + 1);
       dlarfb('L', 'T', 'F', 'C', M - I + 1, N, IB, V(I, I), LDV, T(1, I), LDT,
           C(I, 1), LDC, WORK.asMatrix(LDWORK), LDWORK);
     }
   } else if (RIGHT && NOTRAN) {
-    for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) {
+    for (I = 1; I <= K; I += NB) {
       IB = min(NB, K - I + 1);
       dlarfb('R', 'N', 'F', 'C', M, N - I + 1, IB, V(I, I), LDV, T(1, I), LDT,
           C(1, I), LDC, WORK.asMatrix(LDWORK), LDWORK);
     }
   } else if (LEFT && NOTRAN) {
     KF = ((K - 1) ~/ NB) * NB + 1;
-    for (I = KF; -NB < 0 ? I >= 1 : I <= 1; I += -NB) {
+    for (I = KF; I >= 1; I -= NB) {
       IB = min(NB, K - I + 1);
       dlarfb('L', 'N', 'F', 'C', M - I + 1, N, IB, V(I, I), LDV, T(1, I), LDT,
           C(I, 1), LDC, WORK.asMatrix(LDWORK), LDWORK);
     }
   } else if (RIGHT && TRAN) {
     KF = ((K - 1) ~/ NB) * NB + 1;
-    for (I = KF; -NB < 0 ? I >= 1 : I <= 1; I += -NB) {
+    for (I = KF; I >= 1; I -= NB) {
       IB = min(NB, K - I + 1);
       dlarfb('R', 'T', 'F', 'C', M, N - I + 1, IB, V(I, I), LDV, T(1, I), LDT,
           C(1, I), LDC, WORK.asMatrix(LDWORK), LDWORK);

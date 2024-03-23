@@ -85,7 +85,7 @@ void dtpmqrt(
   if (M == 0 || N == 0 || K == 0) return;
 
   if (LEFT && TRAN) {
-    for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) {
+    for (I = 1; I <= K; I += NB) {
       IB = min(NB, K - I + 1);
       MB = min(M - L + I + IB - 1, M);
       if (I >= L) {
@@ -97,7 +97,7 @@ void dtpmqrt(
           A(I, 1), LDA, B, LDB, WORK.asMatrix(IB), IB);
     }
   } else if (RIGHT && NOTRAN) {
-    for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) {
+    for (I = 1; I <= K; I += NB) {
       IB = min(NB, K - I + 1);
       MB = min(N - L + I + IB - 1, N);
       if (I >= L) {
@@ -110,7 +110,7 @@ void dtpmqrt(
     }
   } else if (LEFT && NOTRAN) {
     KF = ((K - 1) ~/ NB) * NB + 1;
-    for (I = KF; -NB < 0 ? I >= 1 : I <= 1; I += -NB) {
+    for (I = KF; I >= 1; I -= NB) {
       IB = min(NB, K - I + 1);
       MB = min(M - L + I + IB - 1, M);
       if (I >= L) {
@@ -123,7 +123,7 @@ void dtpmqrt(
     }
   } else if (RIGHT && TRAN) {
     KF = ((K - 1) ~/ NB) * NB + 1;
-    for (I = KF; -NB < 0 ? I >= 1 : I <= 1; I += -NB) {
+    for (I = KF; I >= 1; I -= NB) {
       IB = min(NB, K - I + 1);
       MB = min(N - L + I + IB - 1, N);
       if (I >= L) {

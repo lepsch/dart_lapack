@@ -519,7 +519,6 @@ void dgedmd(
     //DO i = 1, K.value
     // dscal( N, ONE/WORK[i], W(i,1), LDW )
     // // W(i,1:N) = (ONE/WORK[i]) * W(i,1:N)
-    //}
     for (final i in 1.through(K.value)) {
       WORK[N + i] = ONE / WORK[i];
     }

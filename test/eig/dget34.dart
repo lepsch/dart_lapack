@@ -112,7 +112,7 @@ void dget34(
         for (IC11 = 1; IC11 <= 5; IC11++) {
           for (IC12 = 2; IC12 <= 5; IC12++) {
             for (IC21 = 2; IC21 <= 4; IC21++) {
-              for (IC22 = -1; 2 < 0 ? IC22 >= 1 : IC22 <= 1; IC22 += 2) {
+              for (IC22 = -1; IC22 <= 1; IC22 += 2) {
                 T[1][1] = VAL[IA] * VM[IAM];
                 T[1][2] = VAL[IB];
                 T[1][3] = -TWO * VAL[IB];
@@ -170,7 +170,7 @@ void dget34(
   for (IA11 = 1; IA11 <= 5; IA11++) {
     for (IA12 = 2; IA12 <= 5; IA12++) {
       for (IA21 = 2; IA21 <= 4; IA21++) {
-        for (IA22 = -1; 2 < 0 ? IA22 >= 1 : IA22 <= 1; IA22 += 2) {
+        for (IA22 = -1; IA22 <= 1; IA22 += 2) {
           for (ICM = 1; ICM <= 2; ICM++) {
             for (IB = 1; IB <= 5; IB++) {
               for (IC = 1; IC <= 5; IC++) {
@@ -231,12 +231,12 @@ void dget34(
   for (IA11 = 1; IA11 <= 5; IA11++) {
     for (IA12 = 2; IA12 <= 5; IA12++) {
       for (IA21 = 2; IA21 <= 4; IA21++) {
-        for (IA22 = -1; 2 < 0 ? IA22 >= 1 : IA22 <= 1; IA22 += 2) {
+        for (IA22 = -1; IA22 <= 1; IA22 += 2) {
           for (IB = 1; IB <= 5; IB++) {
             for (IC11 = 3; IC11 <= 4; IC11++) {
               for (IC12 = 3; IC12 <= 4; IC12++) {
                 for (IC21 = 3; IC21 <= 4; IC21++) {
-                  for (IC22 = -1; 2 < 0 ? IC22 >= 1 : IC22 <= 1; IC22 += 2) {
+                  for (IC22 = -1; IC22 <= 1; IC22 += 2) {
                     for (ICM = 5; ICM <= 7; ICM++) {
                       IAM = 1;
                       T[1][1] = VAL[IA11] * VM[IAM];

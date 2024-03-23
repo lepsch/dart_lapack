@@ -603,7 +603,7 @@ void dgesvd(
           // WORK(IR), storing result in WORK(IU) and copying to A
           // (Workspace: need N*N + 2*N, prefer N*N + M*N + N)
 
-          for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
+          for (I = 1; I <= M; I += LDWRKU) {
             CHUNK = min(M - I + 1, LDWRKU);
             dgemm(
                 'N',
@@ -746,7 +746,7 @@ void dgesvd(
           // WORK(IR), storing result in WORK(IU) and copying to A
           // (Workspace: need N*N + 2*N, prefer N*N + M*N + N)
 
-          for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) {
+          for (I = 1; I <= M; I += LDWRKU) {
             CHUNK = min(M - I + 1, LDWRKU);
             dgemm(
                 'N',
@@ -1961,7 +1961,7 @@ void dgesvd(
           // in A, storing result in WORK(IU) and copying to A
           // (Workspace: need M*M + 2*M, prefer M*M + M*N + M)
 
-          for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+          for (I = 1; I <= N; I += CHUNK) {
             BLK = min(N - I + 1, CHUNK);
             dgemm('N', 'N', M, BLK, M, ONE, WORK(IR).asMatrix(LDWRKR), LDWRKR,
                 A(1, I), LDA, ZERO, WORK(IU).asMatrix(LDWRKU), LDWRKU);
@@ -2081,7 +2081,7 @@ void dgesvd(
           // in A, storing result in WORK(IU) and copying to A
           // (Workspace: need M*M + 2*M, prefer M*M + M*N + M))
 
-          for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
+          for (I = 1; I <= N; I += CHUNK) {
             BLK = min(N - I + 1, CHUNK);
             dgemm('N', 'N', M, BLK, M, ONE, WORK(IR).asMatrix(LDWRKR), LDWRKR,
                 A(1, I), LDA, ZERO, WORK(IU).asMatrix(LDWRKU), LDWRKU);

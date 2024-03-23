@@ -208,7 +208,7 @@ void zgbbrd(
         if (WANTQ) {
           // accumulate product of plane rotations in Q
 
-          for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+          for (J = J1; J <= J2; J += KB1) {
             zrot(M, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, RWORK[J],
                 WORK[J].conjugate());
           }
@@ -217,7 +217,7 @@ void zgbbrd(
         if (WANTC) {
           // apply plane rotations to C
 
-          for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+          for (J = J1; J <= J2; J += KB1) {
             zrot(NCC, C(J - 1, 1).asArray(), LDC, C(J, 1).asArray(), LDC,
                 RWORK[J], WORK[J]);
           }
@@ -230,7 +230,7 @@ void zgbbrd(
           J2 -= KB1;
         }
 
-        for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+        for (J = J1; J <= J2; J += KB1) {
           // create nonzero element a(j-1,j+ku) above the band
           // and store it in WORK(n+1:2*n)
 
@@ -291,7 +291,7 @@ void zgbbrd(
         if (WANTPT) {
           // accumulate product of plane rotations in P**H
 
-          for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+          for (J = J1; J <= J2; J += KB1) {
             zrot(
                 N,
                 PT(J + KUN - 1, 1).asArray(),
@@ -310,7 +310,7 @@ void zgbbrd(
           J2 -= KB1;
         }
 
-        for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) {
+        for (J = J1; J <= J2; J += KB1) {
           // create nonzero element a(j+kl+ku,j+ku-1) below the
           // band and store it in WORK(1:n)
 

@@ -67,7 +67,7 @@ void zpttrs(
   if (NB >= NRHS) {
     zptts2(IUPLO, N, NRHS, D, E, B, LDB);
   } else {
-    for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) {
+    for (J = 1; J <= NRHS; J += NB) {
       JB = min(NRHS - J + 1, NB);
       zptts2(IUPLO, N, JB, D, E, B(1, J), LDB);
     }

@@ -67,213 +67,213 @@ void zpstrf(
 
     zpstf2(UPLO, N, A(1, 1), LDA, PIV, RANK, TOL, WORK, INFO);
     return;
+  }
+
+  // Initialize PIV
+
+  for (I = 1; I <= N; I++) {
+    PIV[I] = I;
+  }
+
+  // Compute stopping value
+
+  for (I = 1; I <= N; I++) {
+    WORK[I] = A[I][I].toDouble();
+  }
+  PVT = WORK.maxloc(1, N);
+  AJJ = A[PVT][PVT].toDouble();
+  if (AJJ <= ZERO || disnan(AJJ)) {
+    RANK.value = 0;
+    INFO.value = 1;
+    return;
+  }
+
+  // Compute stopping value if not supplied
+
+  if (TOL < ZERO) {
+    DSTOP = N * dlamch('Epsilon') * AJJ;
   } else {
-    // Initialize PIV
+    DSTOP = TOL;
+  }
 
-    for (I = 1; I <= N; I++) {
-      PIV[I] = I;
-    }
+  if (UPPER) {
+    // Compute the Cholesky factorization P**T * A * P = U**H * U
 
-    // Compute stopping value
+    for (K = 1; K <= N; K += NB) {
+      // Account for last block not being NB wide
 
-    for (I = 1; I <= N; I++) {
-      WORK[I] = A[I][I].toDouble();
-    }
-    PVT = WORK.maxloc(1, N);
-    AJJ = A[PVT][PVT].toDouble();
-    if (AJJ <= ZERO || disnan(AJJ)) {
-      RANK.value = 0;
-      INFO.value = 1;
-      return;
-    }
+      JB = min(NB, N - K + 1);
 
-    // Compute stopping value if not supplied
+      // Set relevant part of first half of WORK to zero,
+      // holds dot products
 
-    if (TOL < ZERO) {
-      DSTOP = N * dlamch('Epsilon') * AJJ;
-    } else {
-      DSTOP = TOL;
-    }
+      for (I = K; I <= N; I++) {
+        WORK[I] = 0;
+      }
 
-    if (UPPER) {
-      // Compute the Cholesky factorization P**T * A * P = U**H * U
+      for (J = K; J <= K + JB - 1; J++) {
+        // Find pivot, test for exit, else swap rows and columns
+        // Update dot products, compute possible pivots which are
+        // stored in the second half of WORK
 
-      for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-        // Account for last block not being NB wide
-
-        JB = min(NB, N - K + 1);
-
-        // Set relevant part of first half of WORK to zero,
-        // holds dot products
-
-        for (I = K; I <= N; I++) {
-          WORK[I] = 0;
+        for (I = J; I <= N; I++) {
+          if (J > K) {
+            WORK[I] =
+                WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).toDouble();
+          }
+          WORK[N + I] = A[I][I].toDouble() - WORK[I];
         }
 
-        for (J = K; J <= K + JB - 1; J++) {
-          // Find pivot, test for exit, else swap rows and columns
-          // Update dot products, compute possible pivots which are
-          // stored in the second half of WORK
+        if (J > 1) {
+          ITEMP = WORK.maxloc(N + J, 2 * N);
+          PVT = ITEMP + J - 1;
+          AJJ = WORK[N + PVT];
+          if (AJJ <= DSTOP || disnan(AJJ)) {
+            A[J][J] = AJJ.toComplex();
+            // Rank is the number of steps completed.  Set INFO.value = 1 to signal
+            // that the factorization cannot be used to solve a system.
 
-          for (I = J; I <= N; I++) {
-            if (J > K) {
-              WORK[I] =
-                  WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).toDouble();
-            }
-            WORK[N + I] = A[I][I].toDouble() - WORK[I];
-          }
-
-          if (J > 1) {
-            ITEMP = WORK.maxloc(N + J, 2 * N);
-            PVT = ITEMP + J - 1;
-            AJJ = WORK[N + PVT];
-            if (AJJ <= DSTOP || disnan(AJJ)) {
-              A[J][J] = AJJ.toComplex();
-              // Rank is the number of steps completed.  Set INFO.value = 1 to signal
-              // that the factorization cannot be used to solve a system.
-
-              RANK.value = J - 1;
-              INFO.value = 1;
-              return;
-            }
-          }
-
-          if (J != PVT) {
-            // Pivot OK, so can now swap pivot rows and columns
-
-            A[PVT][PVT] = A[J][J];
-            zswap(J - 1, A(1, J).asArray(), 1, A(1, PVT).asArray(), 1);
-            if (PVT < N) {
-              zswap(N - PVT, A(J, PVT + 1).asArray(), LDA,
-                  A(PVT, PVT + 1).asArray(), LDA);
-            }
-            for (I = J + 1; I <= PVT - 1; I++) {
-              ZTEMP = A[J][I].conjugate();
-              A[J][I] = A[I][PVT].conjugate();
-              A[I][PVT] = ZTEMP;
-            }
-            A[J][PVT] = A[J][PVT].conjugate();
-
-            // Swap dot products and PIV
-
-            DTEMP = WORK[J];
-            WORK[J] = WORK[PVT];
-            WORK[PVT] = DTEMP;
-            ITEMP = PIV[PVT];
-            PIV[PVT] = PIV[J];
-            PIV[J] = ITEMP;
-          }
-
-          AJJ = sqrt(AJJ);
-          A[J][J] = AJJ.toComplex();
-
-          // Compute elements J+1:N of row J.
-
-          if (J < N) {
-            zlacgv(J - 1, A(1, J).asArray(), 1);
-            zgemv('Trans', J - K, N - J, -Complex.one, A(K, J + 1), LDA,
-                A(K, J).asArray(), 1, Complex.one, A(J, J + 1).asArray(), LDA);
-            zlacgv(J - 1, A(1, J).asArray(), 1);
-            zdscal(N - J, ONE / AJJ, A(J, J + 1).asArray(), LDA);
+            RANK.value = J - 1;
+            INFO.value = 1;
+            return;
           }
         }
 
-        // Update trailing matrix, J already incremented
+        if (J != PVT) {
+          // Pivot OK, so can now swap pivot rows and columns
 
-        if (K + JB <= N) {
-          zherk('Upper', 'Conj Trans', N - J + 1, JB, -ONE, A(K, J), LDA, ONE,
-              A(J, J), LDA);
+          A[PVT][PVT] = A[J][J];
+          zswap(J - 1, A(1, J).asArray(), 1, A(1, PVT).asArray(), 1);
+          if (PVT < N) {
+            zswap(N - PVT, A(J, PVT + 1).asArray(), LDA,
+                A(PVT, PVT + 1).asArray(), LDA);
+          }
+          for (I = J + 1; I <= PVT - 1; I++) {
+            ZTEMP = A[J][I].conjugate();
+            A[J][I] = A[I][PVT].conjugate();
+            A[I][PVT] = ZTEMP;
+          }
+          A[J][PVT] = A[J][PVT].conjugate();
+
+          // Swap dot products and PIV
+
+          DTEMP = WORK[J];
+          WORK[J] = WORK[PVT];
+          WORK[PVT] = DTEMP;
+          ITEMP = PIV[PVT];
+          PIV[PVT] = PIV[J];
+          PIV[J] = ITEMP;
+        }
+
+        AJJ = sqrt(AJJ);
+        A[J][J] = AJJ.toComplex();
+
+        // Compute elements J+1:N of row J.
+
+        if (J < N) {
+          zlacgv(J - 1, A(1, J).asArray(), 1);
+          zgemv('Trans', J - K, N - J, -Complex.one, A(K, J + 1), LDA,
+              A(K, J).asArray(), 1, Complex.one, A(J, J + 1).asArray(), LDA);
+          zlacgv(J - 1, A(1, J).asArray(), 1);
+          zdscal(N - J, ONE / AJJ, A(J, J + 1).asArray(), LDA);
         }
       }
-    } else {
-      // Compute the Cholesky factorization P**T * A * P = L * L**H
 
-      for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) {
-        // Account for last block not being NB wide
+      // Update trailing matrix, J already incremented
 
-        JB = min(NB, N - K + 1);
+      if (K + JB <= N) {
+        zherk('Upper', 'Conj Trans', N - J + 1, JB, -ONE, A(K, J), LDA, ONE,
+            A(J, J), LDA);
+      }
+    }
+  } else {
+    // Compute the Cholesky factorization P**T * A * P = L * L**H
 
-        // Set relevant part of first half of WORK to zero,
-        // holds dot products
+    for (K = 1; K <= N; K += NB) {
+      // Account for last block not being NB wide
 
-        for (I = K; I <= N; I++) {
-          WORK[I] = 0;
+      JB = min(NB, N - K + 1);
+
+      // Set relevant part of first half of WORK to zero,
+      // holds dot products
+
+      for (I = K; I <= N; I++) {
+        WORK[I] = 0;
+      }
+
+      for (J = K; J <= K + JB - 1; J++) {
+        // Find pivot, test for exit, else swap rows and columns
+        // Update dot products, compute possible pivots which are
+        // stored in the second half of WORK
+
+        for (I = J; I <= N; I++) {
+          if (J > K) {
+            WORK[I] =
+                WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).toDouble();
+          }
+          WORK[N + I] = A[I][I].toDouble() - WORK[I];
         }
 
-        for (J = K; J <= K + JB - 1; J++) {
-          // Find pivot, test for exit, else swap rows and columns
-          // Update dot products, compute possible pivots which are
-          // stored in the second half of WORK
+        if (J > 1) {
+          ITEMP = WORK.maxloc(N + J, 2 * N);
+          PVT = ITEMP + J - 1;
+          AJJ = WORK[N + PVT];
+          if (AJJ <= DSTOP || disnan(AJJ)) {
+            A[J][J] = AJJ.toComplex();
+            // Rank is the number of steps completed.  Set INFO.value = 1 to signal
+            // that the factorization cannot be used to solve a system.
 
-          for (I = J; I <= N; I++) {
-            if (J > K) {
-              WORK[I] =
-                  WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).toDouble();
-            }
-            WORK[N + I] = A[I][I].toDouble() - WORK[I];
-          }
-
-          if (J > 1) {
-            ITEMP = WORK.maxloc(N + J, 2 * N);
-            PVT = ITEMP + J - 1;
-            AJJ = WORK[N + PVT];
-            if (AJJ <= DSTOP || disnan(AJJ)) {
-              A[J][J] = AJJ.toComplex();
-              // Rank is the number of steps completed.  Set INFO.value = 1 to signal
-              // that the factorization cannot be used to solve a system.
-
-              RANK.value = J - 1;
-              INFO.value = 1;
-              return;
-            }
-          }
-
-          if (J != PVT) {
-            // Pivot OK, so can now swap pivot rows and columns
-
-            A[PVT][PVT] = A[J][J];
-            zswap(J - 1, A(J, 1).asArray(), LDA, A(PVT, 1).asArray(), LDA);
-            if (PVT < N) {
-              zswap(N - PVT, A(PVT + 1, J).asArray(), 1,
-                  A(PVT + 1, PVT).asArray(), 1);
-            }
-            for (I = J + 1; I <= PVT - 1; I++) {
-              ZTEMP = A[I][J].conjugate();
-              A[I][J] = A[PVT][I].conjugate();
-              A[PVT][I] = ZTEMP;
-            }
-            A[PVT][J] = A[PVT][J].conjugate();
-
-            // Swap dot products and PIV
-
-            DTEMP = WORK[J];
-            WORK[J] = WORK[PVT];
-            WORK[PVT] = DTEMP;
-            ITEMP = PIV[PVT];
-            PIV[PVT] = PIV[J];
-            PIV[J] = ITEMP;
-          }
-
-          AJJ = sqrt(AJJ);
-          A[J][J] = AJJ.toComplex();
-
-          // Compute elements J+1:N of column J.
-
-          if (J < N) {
-            zlacgv(J - 1, A(J, 1).asArray(), LDA);
-            zgemv('No Trans', N - J, J - K, -Complex.one, A(J + 1, K), LDA,
-                A(J, K).asArray(), LDA, Complex.one, A(J + 1, J).asArray(), 1);
-            zlacgv(J - 1, A(J, 1).asArray(), LDA);
-            zdscal(N - J, ONE / AJJ, A(J + 1, J).asArray(), 1);
+            RANK.value = J - 1;
+            INFO.value = 1;
+            return;
           }
         }
 
-        // Update trailing matrix, J already incremented
+        if (J != PVT) {
+          // Pivot OK, so can now swap pivot rows and columns
 
-        if (K + JB <= N) {
-          zherk('Lower', 'No Trans', N - J + 1, JB, -ONE, A(J, K), LDA, ONE,
-              A(J, J), LDA);
+          A[PVT][PVT] = A[J][J];
+          zswap(J - 1, A(J, 1).asArray(), LDA, A(PVT, 1).asArray(), LDA);
+          if (PVT < N) {
+            zswap(N - PVT, A(PVT + 1, J).asArray(), 1,
+                A(PVT + 1, PVT).asArray(), 1);
+          }
+          for (I = J + 1; I <= PVT - 1; I++) {
+            ZTEMP = A[I][J].conjugate();
+            A[I][J] = A[PVT][I].conjugate();
+            A[PVT][I] = ZTEMP;
+          }
+          A[PVT][J] = A[PVT][J].conjugate();
+
+          // Swap dot products and PIV
+
+          DTEMP = WORK[J];
+          WORK[J] = WORK[PVT];
+          WORK[PVT] = DTEMP;
+          ITEMP = PIV[PVT];
+          PIV[PVT] = PIV[J];
+          PIV[J] = ITEMP;
         }
+
+        AJJ = sqrt(AJJ);
+        A[J][J] = AJJ.toComplex();
+
+        // Compute elements J+1:N of column J.
+
+        if (J < N) {
+          zlacgv(J - 1, A(J, 1).asArray(), LDA);
+          zgemv('No Trans', N - J, J - K, -Complex.one, A(J + 1, K), LDA,
+              A(J, K).asArray(), LDA, Complex.one, A(J + 1, J).asArray(), 1);
+          zlacgv(J - 1, A(J, 1).asArray(), LDA);
+          zdscal(N - J, ONE / AJJ, A(J + 1, J).asArray(), 1);
+        }
+      }
+
+      // Update trailing matrix, J already incremented
+
+      if (K + JB <= N) {
+        zherk('Lower', 'No Trans', N - J + 1, JB, -ONE, A(J, K), LDA, ONE,
+            A(J, J), LDA);
       }
     }
   }

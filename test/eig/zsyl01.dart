@@ -75,7 +75,7 @@ void zsyl01(
   SCALE.value = ONE;
   SCALE3.value = ONE;
   for (J = 1; J <= 2; J++) {
-    for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
+    for (ISGN = -1; ISGN <= 1; ISGN += 2) {
       // Reset seed (overwritten by LATMR)
       ISEED[1] = 1;
       ISEED[2] = 1;

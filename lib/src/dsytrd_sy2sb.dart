@@ -137,7 +137,7 @@ void dsytrd_sy2sb(
   dlaset('A', LDT, KD, ZERO, ZERO, WORK(TPOS).asMatrix(LDT), LDT);
 
   if (UPPER) {
-    for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
+    for (I = 1; I <= N - KD; I += KD) {
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 
@@ -236,7 +236,7 @@ void dsytrd_sy2sb(
   } else {
     // Reduce the lower triangle of A to lower band matrix
 
-    for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
+    for (I = 1; I <= N - KD; I += KD) {
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 

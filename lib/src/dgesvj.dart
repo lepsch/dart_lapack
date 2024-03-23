@@ -1160,12 +1160,11 @@ void dgesvj(
         // end of the p-loop
       }
       // end of the jbc-loop
-      // }
+
       // 2011 bailed out of the jbc-loop
       for (p = igl; p <= min(igl + KBL - 1, N); p++) {
         SVA[p] = SVA[p].abs();
       }
-      // **
     }
     // 2000 :: end of the ibr-loop
 

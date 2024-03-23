@@ -36,7 +36,7 @@ void dorglq(
   NB = ilaenv(1, 'DORGLQ', ' ', M, N, K, -1);
   LWKOPT = max(1, M) * NB;
   WORK[1] = LWKOPT.toDouble();
-  LQUERY = (LWORK == -1);
+  LQUERY = LWORK == -1;
   if (M < 0) {
     INFO.value = -1;
   } else if (N < M) {
@@ -112,7 +112,7 @@ void dorglq(
   if (KK > 0) {
     // Use blocked code
 
-    for (I = KI + 1; -NB < 0 ? I >= 1 : I <= 1; I += -NB) {
+    for (I = KI + 1; I >= 1; I -= NB) {
       IB = min(NB, K - I + 1);
       if (I + IB <= M) {
         // Form the triangular factor of the block reflector

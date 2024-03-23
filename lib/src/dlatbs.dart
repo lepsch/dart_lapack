@@ -256,7 +256,6 @@ void dlatbs(
         GROW /= XJ;
       }
     }
-    //  }
   }
 
   if ((GROW * TSCAL) > SMLNUM) {

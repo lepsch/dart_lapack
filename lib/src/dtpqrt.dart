@@ -57,7 +57,7 @@ void dtpqrt(
 
   if (M == 0 || N == 0) return;
 
-  for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+  for (I = 1; I <= N; I += NB) {
     // Compute the QR factorization of the current block
 
     IB = min(N - I + 1, NB);

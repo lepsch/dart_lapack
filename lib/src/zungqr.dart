@@ -112,7 +112,7 @@ void zungqr(
   if (KK > 0) {
     // Use blocked code
 
-    for (I = KI + 1; -NB < 0 ? I >= 1 : I <= 1; I += -NB) {
+    for (I = KI + 1; I >= 1; I -= NB) {
       IB = min(NB, K - I + 1);
       if (I + IB <= N) {
         // Form the triangular factor of the block reflector

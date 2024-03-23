@@ -31,7 +31,7 @@ int dlaneg(
 
   // I) upper part: L D L^T - SIGMA I = L+ D+ L+^T
   T = -SIGMA;
-  for (BJ = 1; BLKLEN < 0 ? BJ >= R - 1 : BJ <= R - 1; BJ += BLKLEN) {
+  for (BJ = 1; BJ <= R - 1; BJ += BLKLEN) {
     NEG1 = 0;
     BSAV = T;
     for (J = BJ; J <= min(BJ + BLKLEN - 1, R - 1); J++) {
@@ -61,7 +61,7 @@ int dlaneg(
 
   // II) lower part: L D L^T - SIGMA I = U- D- U-^T
   P = D[N] - SIGMA;
-  for (BJ = N - 1; -BLKLEN < 0 ? BJ >= R : BJ <= R; BJ += -BLKLEN) {
+  for (BJ = N - 1; BJ >= R; BJ -= BLKLEN) {
     NEG2 = 0;
     BSAV = P;
     for (J = BJ; J >= max(BJ - BLKLEN + 1, R); J--) {

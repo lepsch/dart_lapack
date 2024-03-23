@@ -70,7 +70,7 @@ void ztrtri(
     if (UPPER) {
       // Compute inverse of upper triangular matrix
 
-      for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) {
+      for (J = 1; J <= N; J += NB) {
         JB = min(NB, N - J + 1);
 
         // Compute rows 1:j-1 of current block column
@@ -88,7 +88,7 @@ void ztrtri(
       // Compute inverse of lower triangular matrix
 
       NN = ((N - 1) ~/ NB) * NB + 1;
-      for (J = NN; -NB < 0 ? J >= 1 : J <= 1; J += -NB) {
+      for (J = NN; J >= 1; J -= NB) {
         JB = min(NB, N - J + 1);
         if (J + JB <= N) {
           // Compute rows j+jb:n of current block column

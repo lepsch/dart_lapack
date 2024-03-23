@@ -117,7 +117,7 @@ void dorgql(
   if (KK > 0) {
     // Use blocked code
 
-    for (I = K - KK + 1; NB < 0 ? I >= K : I <= K; I += NB) {
+    for (I = K - KK + 1; I <= K; I += NB) {
       IB = min(NB, K - I + 1);
       if (N - K + I > 1) {
         // Form the triangular factor of the block reflector

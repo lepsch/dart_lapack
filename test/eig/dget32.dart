@@ -57,7 +57,7 @@ void dget32(
 
   for (ITRANL = 0; ITRANL <= 1; ITRANL++) {
     for (ITRANR = 0; ITRANR <= 1; ITRANR++) {
-      for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
+      for (ISGN = -1; ISGN <= 1; ISGN += 2) {
         SGN = ISGN.toDouble();
         LTRANL = ITRANL == 1;
         LTRANR = ITRANR == 1;

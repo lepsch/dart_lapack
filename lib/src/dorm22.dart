@@ -107,7 +107,7 @@ void dorm22(
 
   if (LEFT) {
     if (NOTRAN) {
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         LEN = min(NB, N - I + 1);
         LDWORK = M;
 
@@ -152,7 +152,7 @@ void dorm22(
         dlacpy('All', M, LEN, WORK.asMatrix(LDWORK), LDWORK, C(1, I), LDC);
       }
     } else {
-      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+      for (I = 1; I <= N; I += NB) {
         LEN = min(NB, N - I + 1);
         LDWORK = M;
 
@@ -187,7 +187,7 @@ void dorm22(
     }
   } else {
     if (NOTRAN) {
-      for (I = 1; NB < 0 ? I >= M : I <= M; I += NB) {
+      for (I = 1; I <= M; I += NB) {
         LEN = min(NB, M - I + 1);
         LDWORK = LEN;
 
@@ -232,7 +232,7 @@ void dorm22(
         dlacpy('All', LEN, N, WORK.asMatrix(LDWORK), LDWORK, C(I, 1), LDC);
       }
     } else {
-      for (I = 1; NB < 0 ? I >= M : I <= M; I += NB) {
+      for (I = 1; I <= M; I += NB) {
         LEN = min(NB, M - I + 1);
         LDWORK = LEN;
 
