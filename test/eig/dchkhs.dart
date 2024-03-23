@@ -97,12 +97,8 @@ void dchkhs(
   final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;
-  bool BADNN, MATCH;
-  int I, IHI = 0, ILO = 0, J, JCOL, JJ, K, NMAX, NSELC = 0, NSELR = 0, NTESTT;
-  double ANORM = 0, TEMP1, TEMP2;
-  final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4);
+  final IDUMMA = Array<int>(1);
   final DUMMA = Array<double>(6);
-  final IINFO = Box(0), IN = Box(0), NERRS = Box(0);
   const KTYPE = [
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, //
   ];
@@ -118,12 +114,12 @@ void dchkhs(
 
   // Check for errors
 
-  NTESTT = 0;
+  var NTESTT = 0;
   INFO.value = 0;
 
-  BADNN = false;
-  NMAX = 0;
-  for (J = 1; J <= NSIZES; J++) {
+  var BADNN = false;
+  var NMAX = 0;
+  for (var J = 1; J <= NSIZES; J++) {
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
   }
@@ -168,30 +164,28 @@ void dchkhs(
 
   // Loop over sizes, types
 
-  NERRS.value = 0;
+  final NERRS = Box(0);
 
   for (final JSIZE in 1.through(NSIZES)) {
     final N = NN[JSIZE];
     if (N == 0) continue;
     final N1 = max(1, N);
     final ANINV = ONE / N1;
-
     final MTYPES = NSIZES != 1 ? min(MAXTYP, NTYPES) : min(MAXTYP + 1, NTYPES);
 
     for (final JTYPE in 1.through(MTYPES)) {
       final skip = !DOTYPE[JTYPE];
       test('DCHKHS (SIZE = $N, TYPE = $JTYPE)', () {
         var NTEST = 0;
+        final IINFO = Box(0), IN = Box(0);
 
         // Save ISEED in case of an error.
 
-        for (J = 1; J <= 4; J++) {
-          IOLDSD[J] = ISEED[J];
-        }
+        final IOLDSD = ISEED.copy();
 
         // Initialize RESULT
 
-        for (J = 1; J <= 16; J++) {
+        for (var J = 1; J <= 16; J++) {
           RESULT[J] = ZERO;
         }
 
@@ -211,25 +205,17 @@ void dchkhs(
         //        =9                              random general
         //        =10                             random triangular
 
+        // Compute norm
+        final ANORM = switch (KMAGN[JTYPE - 1]) {
+          1 => ONE,
+          2 => (RTOVFL * ULP) * ANINV,
+          3 => RTUNFL * N * ULPINV,
+          _ => throw UnimplementedError(),
+        };
+
         if (MTYPES <= MAXTYP) {
           final ITYPE = KTYPE[JTYPE - 1];
           final IMODE = KMODE[JTYPE - 1];
-
-          // Compute norm
-
-          switch (KMAGN[JTYPE - 1]) {
-            case 1:
-              ANORM = ONE;
-              break;
-
-            case 2:
-              ANORM = (RTOVFL * ULP) * ANINV;
-              break;
-
-            case 3:
-              ANORM = RTUNFL * N * ULPINV;
-              break;
-          }
 
           dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
           IINFO.value = 0;
@@ -244,13 +230,13 @@ void dchkhs(
           } else if (ITYPE == 2) {
             // Identity
 
-            for (JCOL = 1; JCOL <= N; JCOL++) {
+            for (var JCOL = 1; JCOL <= N; JCOL++) {
               A[JCOL][JCOL] = ANORM;
             }
           } else if (ITYPE == 3) {
             // Jordan Block
 
-            for (JCOL = 1; JCOL <= N; JCOL++) {
+            for (var JCOL = 1; JCOL <= N; JCOL++) {
               A[JCOL][JCOL] = ANORM;
               if (JCOL > 1) A[JCOL][JCOL - 1] = ONE;
             }
@@ -443,8 +429,7 @@ void dchkhs(
 
           NTEST = 1;
 
-          ILO = 1;
-          IHI = N;
+          final ILO = 1, IHI = N;
 
           dgehrd(N, ILO, IHI, H, LDA, WORK, WORK(N + 1), NWORK - N, IINFO);
           if (IINFO.value != 0) {
@@ -454,9 +439,9 @@ void dchkhs(
             break;
           }
 
-          for (J = 1; J <= N - 1; J++) {
+          for (var J = 1; J <= N - 1; J++) {
             UU[J + 1][J] = ZERO;
-            for (I = J + 2; I <= N; I++) {
+            for (var I = J + 2; I <= N; I++) {
               U[I][J] = H[I][J];
               UU[I][J] = H[I][J];
               H[I][J] = ZERO;
@@ -533,9 +518,8 @@ void dchkhs(
 
           // Do Test 8: | W2 - W1 | / ( max(|W1|,|W2|) ulp )
 
-          TEMP1 = ZERO;
-          TEMP2 = ZERO;
-          for (J = 1; J <= N; J++) {
+          var TEMP1 = ZERO, TEMP2 = ZERO;
+          for (var J = 1; J <= N; J++) {
             TEMP1 = max(TEMP1,
                 max(WR1[J].abs() + WI1[J].abs(), WR2[J].abs() + WI2[J].abs()));
             TEMP2 =
@@ -553,9 +537,7 @@ void dchkhs(
 
           // Select last max(N/4,1) real, max(N/4,1) complex eigenvectors
 
-          NSELC = 0;
-          NSELR = 0;
-          J = N;
+          var NSELC = 0, NSELR = 0, J = N;
           do {
             if (WI1[J] == ZERO) {
               if (NSELR < max(N ~/ 4, 1)) {
@@ -605,12 +587,11 @@ void dchkhs(
             break;
           }
 
-          K = 1;
-          MATCH = true;
+          var MATCH = true;
           matchRightLoop:
-          for (J = 1; J <= N; J++) {
+          for (var J = 1, K = 1; J <= N; J++) {
             if (SELECT[J] && WI1[J] == ZERO) {
-              for (JJ = 1; JJ <= N; JJ++) {
+              for (var JJ = 1; JJ <= N; JJ++) {
                 if (EVECTR[JJ][J] != EVECTL[JJ][K]) {
                   MATCH = false;
                   break matchRightLoop;
@@ -618,7 +599,7 @@ void dchkhs(
               }
               K++;
             } else if (SELECT[J] && WI1[J] != ZERO) {
-              for (JJ = 1; JJ <= N; JJ++) {
+              for (var JJ = 1; JJ <= N; JJ++) {
                 if (EVECTR[JJ][J] != EVECTL[JJ][K] ||
                     EVECTR[JJ][J + 1] != EVECTL[JJ][K + 1]) {
                   MATCH = false;
@@ -663,12 +644,11 @@ void dchkhs(
             break;
           }
 
-          K = 1;
           MATCH = true;
           matchLeftLoop:
-          for (J = 1; J <= N; J++) {
+          for (var J = 1, K = 1; J <= N; J++) {
             if (SELECT[J] && WI1[J] == ZERO) {
-              for (JJ = 1; JJ <= N; JJ++) {
+              for (var JJ = 1; JJ <= N; JJ++) {
                 if (EVECTL[JJ][J] != EVECTR[JJ][K]) {
                   MATCH = false;
                   break matchLeftLoop;
@@ -676,7 +656,7 @@ void dchkhs(
               }
               K++;
             } else if (SELECT[J] && WI1[J] != ZERO) {
-              for (JJ = 1; JJ <= N; JJ++) {
+              for (var JJ = 1; JJ <= N; JJ++) {
                 if (EVECTL[JJ][J] != EVECTR[JJ][K] ||
                     EVECTL[JJ][J + 1] != EVECTR[JJ][K + 1]) {
                   MATCH = false;
@@ -693,7 +673,7 @@ void dchkhs(
 
           NTEST = 11;
           RESULT[11] = ULPINV;
-          for (J = 1; J <= N; J++) {
+          for (var J = 1; J <= N; J++) {
             SELECT[J] = true;
           }
 
@@ -738,7 +718,7 @@ void dchkhs(
 
           NTEST = 12;
           RESULT[12] = ULPINV;
-          for (J = 1; J <= N; J++) {
+          for (var J = 1; J <= N; J++) {
             SELECT[J] = true;
           }
 

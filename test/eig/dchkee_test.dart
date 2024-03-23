@@ -9,9 +9,9 @@ import 'dchkee.dart';
 
 void main() async {
   const inputs = [
-    // 'nep.in',
+    'nep.in',
     'sep.in',
-    //'se2.in',
+    'se2.in',
     // 'svd.in',
     // 'dec.in', 'ded.in', 'dgg.in', //
     // 'dgd.in',

@@ -105,47 +105,6 @@ void dchkst2stg(
   const MAXTYP = 21;
   const SRANGE = false;
   const SREL = false;
-  bool BADNN;
-  int I,
-      IL,
-      IMODE,
-      ITEMP,
-      ITYPE,
-      IU,
-      J,
-      JC,
-      JR,
-      LGN,
-      LIWEDC,
-      LOG2UI,
-      LWEDC,
-      MTYPES,
-      N,
-      NAP,
-      NBLOCK,
-      NERRS,
-      NMAX,
-      NTEST,
-      NTESTT,
-      LH,
-      LW;
-  double ABSTOL,
-      ANINV,
-      ANORM = 0,
-      COND,
-      OVFL,
-      RTOVFL,
-      RTUNFL,
-      TEMP1,
-      TEMP2,
-      TEMP3,
-      TEMP4,
-      ULP,
-      ULPINV,
-      UNFL,
-      VL,
-      VU;
-  final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
   final DUMMA = Array<double>(1);
   const KTYPE = [
     1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 //
@@ -156,28 +115,21 @@ void dchkst2stg(
   const KMODE = [
     0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 //
   ];
-  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0), NSPLIT = Box(0);
   final TRYRAC = Box(true);
-
-  // Keep ftnchek happy
-  IDUMMA[1] = 1;
 
   // Check for errors
 
-  NTESTT = 0;
+  var NTESTT = 0;
   INFO.value = 0;
 
   // Important constants
 
-  BADNN = false;
-  NMAX = 1;
-  for (J = 1; J <= NSIZES; J++) {
+  var BADNN = false;
+  var NMAX = 1;
+  for (var J = 1; J <= NSIZES; J++) {
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
   }
-
-  NBLOCK = ilaenv(1, 'DSYTRD', 'L', NMAX, -1, -1, -1);
-  NBLOCK = min(NMAX, max(1, NBLOCK));
 
   // Check for errors
 
@@ -206,25 +158,24 @@ void dchkst2stg(
 
   // More Important constants
 
-  UNFL = dlamch('Safe minimum');
-  OVFL = ONE / UNFL;
-  ULP = dlamch('Epsilon') * dlamch('Base');
-  ULPINV = ONE / ULP;
-  LOG2UI = log(ULPINV) ~/ log(TWO);
-  RTUNFL = sqrt(UNFL);
-  RTOVFL = sqrt(OVFL);
+  final UNFL = dlamch('Safe minimum');
+  final OVFL = ONE / UNFL;
+  final ULP = dlamch('Epsilon') * dlamch('Base');
+  final ULPINV = ONE / ULP;
+  final LOG2UI = log(ULPINV) ~/ log(TWO);
+  final RTUNFL = sqrt(UNFL);
+  final RTOVFL = sqrt(OVFL);
 
   // Loop over sizes, types
 
-  for (I = 1; I <= 4; I++) {
-    ISEED2[I] = ISEED[I];
-  }
-  NERRS = 0;
+  final ISEED2 = ISEED.copy();
+  var NERRS = 0;
 
   for (final JSIZE in 1.through(NSIZES)) {
-    N = NN[JSIZE];
+    final N = NN[JSIZE];
+    final int LWEDC, LIWEDC;
     if (N > 0) {
-      LGN = log(N.toDouble()) ~/ log(TWO);
+      var LGN = log(N.toDouble()) ~/ log(TWO);
       if (pow(2, LGN) < N) LGN++;
       if (pow(2, LGN) < N) LGN++;
       LWEDC = 1 + 4 * N + 2 * N * LGN + 4 * pow(N, 2).toInt();
@@ -233,23 +184,20 @@ void dchkst2stg(
       LWEDC = 8;
       LIWEDC = 12;
     }
-    NAP = (N * (N + 1)) ~/ 2;
-    ANINV = ONE / (max(1, N)).toDouble();
-
-    if (NSIZES != 1) {
-      MTYPES = min(MAXTYP, NTYPES);
-    } else {
-      MTYPES = min(MAXTYP + 1, NTYPES);
-    }
+    final NAP = (N * (N + 1)) ~/ 2;
+    final ANINV = ONE / max(1, N);
+    final MTYPES = NSIZES != 1 ? min(MAXTYP, NTYPES) : min(MAXTYP + 1, NTYPES);
 
     for (final JTYPE in 1.through(MTYPES)) {
       final skip = !DOTYPE[JTYPE];
       test('DCHKST2STG (SIZE = $N, TYPE = $JTYPE)', () {
-        NTEST = 0;
-
-        for (J = 1; J <= 4; J++) {
-          IOLDSD[J] = ISEED[J];
-        }
+        var NTEST = 0;
+        final IOLDSD = ISEED.copy();
+        final IINFO = Box(0),
+            M = Box(0),
+            M2 = Box(0),
+            M3 = Box(0),
+            NSPLIT = Box(0);
 
         // Compute "A"
 
@@ -267,33 +215,20 @@ void dchkst2stg(
         // =9                      positive definite
         // =10                     diagonally dominant tridiagonal
 
+        // Compute norm
+        final ANORM = switch (KMAGN[JTYPE - 1]) {
+          1 => ONE,
+          2 => (RTOVFL * ULP) * ANINV,
+          3 => RTUNFL * N * ULPINV,
+          _ => throw UnimplementedError(),
+        };
+
         if (MTYPES <= MAXTYP) {
-          ITYPE = KTYPE[JTYPE - 1];
-          IMODE = KMODE[JTYPE - 1];
-
-          // Compute norm
-
-          switch (KMAGN[JTYPE - 1]) {
-            case 1:
-              ANORM = ONE;
-              break;
-
-            case 2:
-              ANORM = (RTOVFL * ULP) * ANINV;
-              break;
-
-            case 3:
-              ANORM = RTUNFL * N * ULPINV;
-              break;
-          }
+          final ITYPE = KTYPE[JTYPE - 1];
+          final IMODE = KMODE[JTYPE - 1];
 
           dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
-          IINFO.value = 0;
-          if (JTYPE <= 15) {
-            COND = ULPINV;
-          } else {
-            COND = ULPINV * ANINV / TEN;
-          }
+          final COND = JTYPE <= 15 ? ULPINV : ULPINV * ANINV / TEN;
 
           // Special Matrices -- Identity & Jordan block
 
@@ -304,7 +239,7 @@ void dchkst2stg(
           } else if (ITYPE == 2) {
             // Identity
 
-            for (JC = 1; JC <= N; JC++) {
+            for (var JC = 1; JC <= N; JC++) {
               A[JC][JC] = ANORM;
             }
           } else if (ITYPE == 4) {
@@ -320,6 +255,7 @@ void dchkst2stg(
           } else if (ITYPE == 7) {
             // Diagonal, random eigenvalues
 
+            final IDUMMA = Array.fromList([1]);
             dlatmr(
                 N,
                 N,
@@ -352,6 +288,7 @@ void dchkst2stg(
           } else if (ITYPE == 8) {
             // Symmetric, random eigenvalues
 
+            final IDUMMA = Array.fromList([1]);
             dlatmr(
                 N,
                 N,
@@ -391,8 +328,8 @@ void dchkst2stg(
 
             dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N',
                 A, LDA, WORK(N + 1), IINFO);
-            for (I = 2; I <= N; I++) {
-              TEMP1 =
+            for (var I = 2; I <= N; I++) {
+              final TEMP1 =
                   A[I - 1][I].abs() / sqrt((A[I - 1][I - 1] * A[I][I]).abs());
               if (TEMP1 > HALF) {
                 A[I - 1][I] = HALF * sqrt((A[I - 1][I - 1] * A[I][I]).abs());
@@ -484,8 +421,8 @@ void dchkst2stg(
           dlaset('Full', N, 1, ZERO, ZERO, SD.asMatrix(N), N);
           dlaset('Full', N, 1, ZERO, ZERO, SE.asMatrix(N), N);
           dlacpy('U', N, N, A, LDA, V, LDU);
-          LH = max(1, 4 * N);
-          LW = LWORK - LH;
+          final LH = max(1, 4 * N);
+          final LW = LWORK - LH;
           dsytrd_2stage('N', 'U', N, V, LDU, SD, SE, TAU, WORK, LH,
               WORK(LH + 1), LW, IINFO);
 
@@ -540,12 +477,8 @@ void dchkst2stg(
           // D1 computed using the standard 1-stage reduction as reference
 
           NTEST = 4;
-          TEMP1 = ZERO;
-          TEMP2 = ZERO;
-          TEMP3 = ZERO;
-          TEMP4 = ZERO;
-
-          for (J = 1; J <= N; J++) {
+          var TEMP1 = ZERO, TEMP2 = ZERO, TEMP3 = ZERO, TEMP4 = ZERO;
+          for (var J = 1; J <= N; J++) {
             TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
             TEMP3 = max(TEMP3, max(D1[J].abs(), D3[J].abs()));
@@ -557,9 +490,8 @@ void dchkst2stg(
 
           // Store the upper triangle of A in AP
 
-          I = 0;
-          for (JC = 1; JC <= N; JC++) {
-            for (JR = 1; JR <= JC; JR++) {
+          for (var JC = 1, I = 0; JC <= N; JC++) {
+            for (var JR = 1; JR <= JC; JR++) {
               I++;
               AP[I] = A[JR][JC];
             }
@@ -605,9 +537,8 @@ void dchkst2stg(
 
           // Store the lower triangle of A in AP
 
-          I = 0;
-          for (JC = 1; JC <= N; JC++) {
-            for (JR = JC; JR <= N; JR++) {
+          for (var JC = 1, I = 0; JC <= N; JC++) {
+            for (var JR = JC; JR <= N; JR++) {
               I++;
               AP[I] = A[JR][JC];
             }
@@ -718,7 +649,7 @@ void dchkst2stg(
           TEMP3 = ZERO;
           TEMP4 = ZERO;
 
-          for (J = 1; J <= N; J++) {
+          for (var J = 1; J <= N; J++) {
             TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
             TEMP3 = max(TEMP3, max(D1[J].abs(), D3[J].abs()));
@@ -734,7 +665,7 @@ void dchkst2stg(
           NTEST = 13;
           TEMP1 = THRESH * (HALF - ULP);
 
-          for (J = 0; J <= LOG2UI; J++) {
+          for (var J = 0; J <= LOG2UI; J++) {
             dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
             if (IINFO.value == 0) break;
             TEMP1 *= TWO;
@@ -791,7 +722,7 @@ void dchkst2stg(
 
             TEMP1 = ZERO;
             TEMP2 = ZERO;
-            for (J = 1; J <= N; J++) {
+            for (var J = 1; J <= N; J++) {
               TEMP1 = max(TEMP1, max(D4[J].abs(), D5[J].abs()));
               TEMP2 = max(TEMP2, (D4[J] - D5[J]).abs());
             }
@@ -808,13 +739,11 @@ void dchkst2stg(
           // If S is positive definite and diagonally dominant,
           // ask for all eigenvalues with high relative accuracy.
 
-          VL = ZERO;
-          VU = ZERO;
-          IL = 0;
-          IU = 0;
+          var VL = ZERO, VU = ZERO;
+          var IL = 0, IU = 0;
           if (JTYPE == 21) {
             NTEST = 17;
-            ABSTOL = UNFL + UNFL;
+            final ABSTOL = UNFL + UNFL;
             dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR,
                 IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
             if (IINFO.value != 0) {
@@ -837,7 +766,7 @@ void dchkst2stg(
                 pow((ONE - HALF), 4);
 
             TEMP1 = ZERO;
-            for (J = 1; J <= N; J++) {
+            for (var J = 1; J <= N; J++) {
               TEMP1 = max(TEMP1,
                   (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + D4[J].abs()));
             }
@@ -850,7 +779,7 @@ void dchkst2stg(
           // Now ask for all eigenvalues with high absolute accuracy.
 
           NTEST = 18;
-          ABSTOL = UNFL + UNFL;
+          final ABSTOL = UNFL + UNFL;
           dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
               IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
           if (IINFO.value != 0) {
@@ -868,7 +797,7 @@ void dchkst2stg(
 
           TEMP1 = ZERO;
           TEMP2 = ZERO;
-          for (J = 1; J <= N; J++) {
+          for (var J = 1; J <= N; J++) {
             TEMP1 = max(TEMP1, max(D3[J].abs(), WA1[J].abs()));
             TEMP2 = max(TEMP2, (D3[J] - WA1[J]).abs());
           }
@@ -885,11 +814,7 @@ void dchkst2stg(
           } else {
             IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
             IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-            if (IU < IL) {
-              ITEMP = IU;
-              IU = IL;
-              IL = ITEMP;
-            }
+            if (IU < IL) (IU, IL) = (IL, IU);
           }
 
           dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2,
@@ -1076,7 +1001,7 @@ void dchkst2stg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
 
-          for (J = 1; J <= N; J++) {
+          for (var J = 1; J <= N; J++) {
             TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
           }
@@ -1099,7 +1024,7 @@ void dchkst2stg(
             // ignore: dead_code
             if (JTYPE == 21 && SREL) {
               NTEST = 27;
-              ABSTOL = UNFL + UNFL;
+              final ABSTOL = UNFL + UNFL;
               dstemr(
                   'V',
                   'A',
@@ -1143,7 +1068,7 @@ void dchkst2stg(
                   pow((ONE - HALF), 4);
 
               TEMP1 = ZERO;
-              for (J = 1; J <= N; J++) {
+              for (var J = 1; J <= N; J++) {
                 TEMP1 = max(TEMP1,
                     (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + D4[J].abs()));
               }
@@ -1152,15 +1077,11 @@ void dchkst2stg(
 
               IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
               IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-              if (IU < IL) {
-                ITEMP = IU;
-                IU = IL;
-                IL = ITEMP;
-              }
+              if (IU < IL) (IU, IL) = (IL, IU);
 
               if (SRANGE) {
                 NTEST = 28;
-                ABSTOL = UNFL + UNFL;
+                final ABSTOL = UNFL + UNFL;
                 dstemr(
                     'V',
                     'I',
@@ -1205,7 +1126,7 @@ void dchkst2stg(
                     pow((ONE - HALF), 4);
 
                 TEMP1 = ZERO;
-                for (J = IL; J <= IU; J++) {
+                for (var J = IL; J <= IU; J++) {
                   TEMP1 = max(
                       TEMP1,
                       (WR[J - IL + 1] - D4[N - J + 1]).abs() /
@@ -1234,11 +1155,7 @@ void dchkst2stg(
               NTEST = 29;
               IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
               IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-              if (IU < IL) {
-                ITEMP = IU;
-                IU = IL;
-                IL = ITEMP;
-              }
+              if (IU < IL) (IU, IL) = (IL, IU);
               dstemr(
                   'V',
                   'I',
@@ -1323,7 +1240,7 @@ void dchkst2stg(
               TEMP1 = ZERO;
               TEMP2 = ZERO;
 
-              for (J = 1; J <= IU - IL + 1; J++) {
+              for (var J = 1; J <= IU - IL + 1; J++) {
                 TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
                 TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
               }
@@ -1448,7 +1365,7 @@ void dchkst2stg(
               TEMP1 = ZERO;
               TEMP2 = ZERO;
 
-              for (J = 1; J <= IU - IL + 1; J++) {
+              for (var J = 1; J <= IU - IL + 1; J++) {
                 TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
                 TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
               }
@@ -1556,7 +1473,7 @@ void dchkst2stg(
             TEMP1 = ZERO;
             TEMP2 = ZERO;
 
-            for (J = 1; J <= N; J++) {
+            for (var J = 1; J <= N; J++) {
               TEMP1 = max(TEMP1, max(D1[J].abs(), D2[J].abs()));
               TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
             }
@@ -1571,7 +1488,7 @@ void dchkst2stg(
 
         // Print out tests which fail.
 
-        for (JR = 1; JR <= NTEST; JR++) {
+        for (var JR = 1; JR <= NTEST; JR++) {
           final reason =
               ' N=${N.i5}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}';
           test.expect(RESULT[JR], lessThan(THRESH), reason: reason);
