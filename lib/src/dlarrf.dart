@@ -225,7 +225,7 @@ void dlarrf(
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      if ((CLWDTH < MINGAP / 128.toDouble()) &&
+      if ((CLWDTH < MINGAP / 128) &&
           (min(MAX1, MAX2) < FAIL2) &&
           !SAWNAN1 &&
           !SAWNAN2) {

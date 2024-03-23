@@ -432,10 +432,10 @@ void zgesvdq(
       return;
     }
 
-    if (RWORK[1] > BIG / sqrt(M.toDouble())) {
+    if (RWORK[1] > BIG / sqrt(M)) {
       // .. to prevent overflow in the QR factorization, scale the
       // matrix by 1/sqrt(M) if too large entry detected
-      zlascl('G', 0, 0, sqrt(M.toDouble()), ONE, M, N, A, LDA, IERR);
+      zlascl('G', 0, 0, sqrt(M), ONE, M, N, A, LDA, IERR);
       ASCALED = true;
     }
     zlaswp(N, A, LDA, 1, M - 1, IWORK(N + 1), 1);
@@ -453,10 +453,10 @@ void zgesvdq(
       xerbla('ZGESVDQ', -INFO.value);
       return;
     }
-    if (RTMP.value > BIG / sqrt(M.toDouble())) {
+    if (RTMP.value > BIG / sqrt(M)) {
       // .. to prevent overflow in the QR factorization, scale the
       // matrix by 1/sqrt(M) if too large entry detected
-      zlascl('G', 0, 0, sqrt(M.toDouble()), ONE, M, N, A, LDA, IERR);
+      zlascl('G', 0, 0, sqrt(M), ONE, M, N, A, LDA, IERR);
       ASCALED = true;
     }
   }
@@ -487,7 +487,7 @@ void zgesvdq(
     // aggressive enforcement of lower numerical rank by introducing a
     // backward error of the order of N*EPS*||A||_F.
     NR = 1;
-    RTMP.value = sqrt(N.toDouble()) * EPSLN;
+    RTMP.value = sqrt(N) * EPSLN;
     for (p = 2; p <= N; p++) {
       if (A[p][p].abs() < (RTMP.value * A[1][1].abs())) break;
       NR++;
@@ -1020,7 +1020,7 @@ void zgesvdq(
   // .. undo scaling; this may cause overflow in the largest singular
   // values.
   if (ASCALED) {
-    dlascl('G', 0, 0, ONE, sqrt(M.toDouble()), NR, 1, S.asMatrix(N), N, IERR);
+    dlascl('G', 0, 0, ONE, sqrt(M), NR, 1, S.asMatrix(N), N, IERR);
   }
   if (CONDA) RWORK[1] = SCONDA;
   RWORK[2] = (p - NR).toDouble();

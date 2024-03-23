@@ -231,7 +231,7 @@ void zgesvj(
   // sqrt(N)*max_i SVA(i) does not overflow. If INFinite entries
   // in A are detected, the procedure returns with INFO.value=-6.
 
-  SKL = ONE / sqrt(M.toDouble() * N.toDouble());
+  SKL = ONE / sqrt(M * N);
   NOSCALE = true;
   GOSCALE = true;
 
@@ -359,7 +359,7 @@ void zgesvj(
   // avoid underflows/overflows in computing Jacobi rotations.
 
   SN = sqrt(SFMIN / EPSLN);
-  TEMP1.value = sqrt(BIG / N.toDouble());
+  TEMP1.value = sqrt(BIG / N);
   if ((AAPP.value <= SN) ||
       (AAQQ.value >= TEMP1.value) ||
       ((SN <= AAQQ.value) && (AAPP.value <= TEMP1.value))) {
@@ -367,7 +367,7 @@ void zgesvj(
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value <= TEMP1.value)) {
-    TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N.toDouble())));
+    TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N)));
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value >= SN) && (AAPP.value >= TEMP1.value)) {
@@ -375,7 +375,7 @@ void zgesvj(
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value >= TEMP1.value)) {
-    TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N.toDouble()) * AAPP.value));
+    TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N) * AAPP.value));
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else {

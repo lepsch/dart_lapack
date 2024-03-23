@@ -66,7 +66,7 @@ void dsfrk(
   if ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) return;
 
   if ((ALPHA == ZERO) && (BETA == ZERO)) {
-    for (J = 1; J <= ((N * (N + 1)) / 2); J++) {
+    for (J = 1; J <= (N * (N + 1)) ~/ 2; J++) {
       C[J] = ZERO;
     }
     return;

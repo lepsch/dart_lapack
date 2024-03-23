@@ -310,7 +310,7 @@ void dstevr(
   }
 
   // Causes problems with tests 19 & 20:
-  // IF (wantz && INDEIG ) Z[ 1][1] = Z[1][1] / 1.002 + .002
+  // IF (wantz && INDEIG ) Z[1][1] = Z[1][1] / 1.002 + .002
 
   WORK[1] = LWMIN.toDouble();
   IWORK[1] = LIWMIN;

@@ -22,7 +22,7 @@ void zlarnv(
   int I, IL, IV;
   final U = Array<double>(LV);
 
-  for (IV = 1; LV / 2 < 0 ? IV >= N : IV <= N; IV += LV ~/ 2) {
+  for (IV = 1; IV <= N; IV += LV ~/ 2) {
     IL = min(LV ~/ 2, N - IV + 1);
 
     // Call DLARUV to generate 2*IL real numbers from a uniform (0,1)

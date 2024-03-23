@@ -42,7 +42,7 @@ void dsvdch(
 
   // The value of EPS works best when TOL >= 10.
 
-  EPS = TOL * max(N / 10, 1) * EPS;
+  EPS = TOL * max(N ~/ 10, 1) * EPS;
 
   // TPNT points to singular value at right endpoint of interval
   // BPNT points to singular value at left  endpoint of interval

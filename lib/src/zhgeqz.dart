@@ -521,7 +521,7 @@ void zhgeqz(
       } else {
         // Exceptional shift.  Chosen for no particularly good reason.
 
-        if ((IITER / 20) * 20 == IITER &&
+        if ((IITER ~/ 20) * 20 == IITER &&
             BSCALE * ABS1(T[ILAST][ILAST]) > SAFMIN) {
           ESHIFT += (ASCALE.toComplex() * H[ILAST][ILAST]) /
               (BSCALE.toComplex() * T[ILAST][ILAST]);

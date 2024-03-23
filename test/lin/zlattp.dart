@@ -188,7 +188,7 @@ void zlattp(
         WORK[J + 1] = PLUS2;
         WORK[N + J + 1] = Complex.zero;
         PLUS1 = STAR1 / PLUS2;
-        final REXP = (zlarnd(2, ISEED)).toDouble();
+        final REXP = zlarnd(2, ISEED).toDouble();
         if (REXP < ZERO) {
           STAR1 = pow(-SFAC, ONE - REXP).toComplex() * zlarnd(5, ISEED);
         } else {
@@ -508,7 +508,7 @@ void zlattp(
     // every other step.
 
     final TSCAL = (ONE - ULP) / (UNFL / ULP);
-    for (var J = 1; J <= N * (N + 1) / 2; J++) {
+    for (var J = 1; J <= N * (N + 1) ~/ 2; J++) {
       AP[J] = Complex.zero;
     }
     var TEXP = ONE;
@@ -611,7 +611,7 @@ void zlattp(
     if (UPPER) {
       var JJ = 1;
       var JR = N * (N + 1) ~/ 2;
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         var JL = JJ;
         for (var I = J; I <= N - J; I++) {
           final T = AP[JR - I + J].real;
@@ -625,7 +625,7 @@ void zlattp(
     } else {
       var JL = 1;
       var JJ = N * (N + 1) ~/ 2;
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         var JR = JJ;
         for (var I = J; I <= N - J; I++) {
           final T = AP[JL + I - J].real;

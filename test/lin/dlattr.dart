@@ -530,12 +530,12 @@ void dlattr(
 
   if (!lsame(TRANS, 'N')) {
     if (UPPER) {
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         dswap(N - 2 * J + 1, A(J, J).asArray(), LDA,
             A(J + 1, N - J + 1).asArray(), -1);
       }
     } else {
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         dswap(N - 2 * J + 1, A(J, J).asArray(), 1,
             A(N - J + 1, J + 1).asArray(), -LDA);
       }

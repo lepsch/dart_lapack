@@ -181,12 +181,12 @@ void dlatm4(
     // Reverse if ITYPE < 0
 
     if (ITYPE < 0) {
-      for (JD = KBEG; JD <= (KBEG + KEND - 1) / 2; JD++) {
+      for (JD = KBEG; JD <= (KBEG + KEND - 1) ~/ 2; JD++) {
         TEMP = A[JD][JD];
         A[JD][JD] = A[KBEG + KEND - JD][KBEG + KEND - JD];
         A[KBEG + KEND - JD][KBEG + KEND - JD] = TEMP;
       }
-      for (JD = 1; JD <= (N - 1) / 2; JD++) {
+      for (JD = 1; JD <= (N - 1) ~/ 2; JD++) {
         TEMP = A[JD + 1][JD];
         A[JD + 1][JD] = A[N + 1 - JD][N - JD];
         A[N + 1 - JD][N - JD] = TEMP;

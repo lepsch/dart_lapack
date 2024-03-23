@@ -39,7 +39,7 @@ void dlaed1(
     INFO.value = -1;
   } else if (LDQ < max(1, N)) {
     INFO.value = -4;
-  } else if (min(1, N / 2) > CUTPNT || (N / 2) < CUTPNT) {
+  } else if (min(1, N ~/ 2) > CUTPNT || (N ~/ 2) < CUTPNT) {
     INFO.value = -7;
   }
   if (INFO.value != 0) {

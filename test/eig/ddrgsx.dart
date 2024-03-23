@@ -107,7 +107,7 @@ Future<void> ddrgsx(
     //    INFO.value = -4;
   } else if (LDA < 1 || LDA < NSIZE) {
     INFO.value = -6;
-  } else if (LDC < 1 || LDC < NSIZE * NSIZE / 2) {
+  } else if (LDC < 1 || LDC < NSIZE * NSIZE ~/ 2) {
     INFO.value = -17;
   } else if (LIWORK < NSIZE + 6) {
     INFO.value = -21;

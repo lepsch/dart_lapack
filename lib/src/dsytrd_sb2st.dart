@@ -223,7 +223,7 @@ void dsytrd_sb2st(
   SHIFT = 3;
   // NBTILES = (N / KD).ceil();
   STEPERCOL = (SHIFT / GRSIZ).ceil();
-  THGRNB = (N - 1 / THGRSIZ).ceil();
+  THGRNB = ((N - 1) / THGRSIZ).ceil();
 
   dlacpy('A', KD + 1, N, AB, LDAB, WORK(APOS).asMatrix(LDA), LDA);
   dlaset('A', KD, N, ZERO, ZERO, WORK(AWPOS).asMatrix(LDA), LDA);

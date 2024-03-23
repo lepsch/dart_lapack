@@ -500,7 +500,7 @@ void dlattp(
     // every other step.
 
     final TSCAL = (ONE - ULP) / (UNFL / ULP);
-    for (var J = 1; J <= N * (N + 1) / 2; J++) {
+    for (var J = 1; J <= N * (N + 1) ~/ 2; J++) {
       A[J] = ZERO;
     }
     var TEXP = ONE;
@@ -598,7 +598,7 @@ void dlattp(
     if (UPPER) {
       var JJ = 1;
       var JR = N * (N + 1) ~/ 2;
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         var JL = JJ;
         for (var I = J; I <= N - J; I++) {
           final T = A[JR - I + J];
@@ -612,7 +612,7 @@ void dlattp(
     } else {
       var JL = 1;
       var JJ = N * (N + 1) ~/ 2;
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         var JR = JJ;
         for (var I = J; I <= N - J; I++) {
           final T = A[JL + I - J];

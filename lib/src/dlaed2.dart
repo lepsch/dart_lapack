@@ -58,7 +58,7 @@ void dlaed2(
     INFO.value = -2;
   } else if (LDQ < max(1, N)) {
     INFO.value = -6;
-  } else if (min(1, (N / 2)) > N1 || (N / 2) < N1) {
+  } else if (min(1, N ~/ 2) > N1 || (N ~/ 2) < N1) {
     INFO.value = -3;
   }
   if (INFO.value != 0) {

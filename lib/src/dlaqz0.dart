@@ -183,7 +183,7 @@ void dlaqz0(
   NSR = max(2, NSR - (NSR % 2));
 
   RCOST = ilaenv(17, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK);
-  ITEMP1 = NSR ~/ sqrt(1 + 2 * NSR / (RCOST.toDouble() / 100 * N));
+  ITEMP1 = NSR ~/ sqrt(1 + 2 * NSR / (RCOST / 100 * N));
   ITEMP1 = ((ITEMP1 - 1) ~/ 4) * 4 + 4;
   NBR = NSR + ITEMP1;
 

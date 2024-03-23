@@ -372,7 +372,7 @@ void dlaqr0(
           // .    there is enough space below the subdiagonal
           // .    to fit an NS-by-NS scratch array.) ====
 
-          if (KBOT - KS + 1 <= NS / 2) {
+          if (KBOT - KS + 1 <= NS ~/ 2) {
             KS = KBOT - NS + 1;
             KT = N - NS + 1;
             dlacpy('A', NS, NS, H(KS, KS), LDH, H(KT, 1), LDH);

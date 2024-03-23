@@ -487,13 +487,13 @@ void dlattb(
 
   if (!lsame(TRANS, 'N')) {
     if (UPPER) {
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         final LENJ = min(N - 2 * J + 1, KD + 1);
         dswap(LENJ, AB(KD + 1, J).asArray(), LDAB - 1,
             AB(KD + 2 - LENJ, N - J + 1).asArray(), -1);
       }
     } else {
-      for (var J = 1; J <= N / 2; J++) {
+      for (var J = 1; J <= N ~/ 2; J++) {
         final LENJ = min(N - 2 * J + 1, KD + 1);
         dswap(LENJ, AB(1, J).asArray(), 1, AB(LENJ, N - J + 2 - LENJ).asArray(),
             -LDAB + 1);

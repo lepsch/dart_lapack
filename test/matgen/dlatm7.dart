@@ -143,7 +143,7 @@ void dlatm7(
   // Reverse if MODE < 0
 
   if (MODE < 0) {
-    for (I = 1; I <= N / 2; I++) {
+    for (I = 1; I <= N ~/ 2; I++) {
       TEMP = D[I];
       D[I] = D[N + 1 - I];
       D[N + 1 - I] = TEMP;

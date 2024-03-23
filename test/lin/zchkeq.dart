@@ -214,7 +214,7 @@ void zchkeq(final double THRESH, final Nout NOUT) {
   for (var N = 0; N <= NSZ; N++) {
     // Upper triangular packed storage
 
-    for (var I = 1; I <= (N * (N + 1)) / 2; I++) {
+    for (var I = 1; I <= (N * (N + 1)) ~/ 2; I++) {
       AP[I] = Complex.zero;
     }
     for (var I = 1; I <= N; I++) {
@@ -239,7 +239,7 @@ void zchkeq(final double THRESH, final Nout NOUT) {
 
     // Lower triangular packed storage
 
-    for (var I = 1; I <= (N * (N + 1)) / 2; I++) {
+    for (var I = 1; I <= (N * (N + 1)) ~/ 2; I++) {
       AP[I] = Complex.zero;
     }
     for (var I = 1, J = 1; I <= N; I++) {

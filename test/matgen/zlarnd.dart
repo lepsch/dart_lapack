@@ -5,10 +5,7 @@ import 'package:lapack/src/matrix.dart';
 
 import 'dlaran.dart';
 
-Complex zlarnd(
-  final int IDIST,
-  final Array<int> ISEED,
-) {
+Complex zlarnd(final int IDIST, final Array<int> ISEED) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
