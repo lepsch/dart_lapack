@@ -6,6 +6,7 @@ abstract interface class TestDriver {
   const TestDriver();
 
   void group(String description, dynamic Function() body);
+  void setUp(dynamic Function() body);
   void test(String description, dynamic Function() body, {Object? skip});
   void fail([String message]);
   bool expect(dynamic actual, dynamic matcher, {String? reason});
@@ -24,6 +25,11 @@ class _LapackTestDriver extends TestDriver {
 
   @override
   void group(String description, dynamic Function() body) {
+    body();
+  }
+
+  @override
+  void setUp(dynamic Function() body) {
     body();
   }
 
@@ -59,6 +65,11 @@ class _DartTestDriver extends TestDriver {
   @override
   void group(String description, dynamic Function() body) {
     test_pkg.group(description, body);
+  }
+
+  @override
+  void setUp(dynamic Function() body) {
+    test_pkg.setUp(body);
   }
 
   @override

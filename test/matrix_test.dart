@@ -13,6 +13,26 @@ void main() {
       expect(a.toData(), [1, 2, 3, 4]);
     });
 
+    test('assign', () {
+      final a = Array.fromList([1, 2, 3, 4]);
+      final b = Array.fromList([0, 0, 0, 0]);
+
+      // equal lengths
+      b.assign(a);
+      expect(b.toData(), [1, 2, 3, 4]);
+
+      // dest smaller
+      final c = b(3);
+      c.assign(Array.fromList([9, 8, 7, 6]));
+      expect(c.toData(), [9, 8]);
+      expect(b.toData(), [1, 2, 9, 8]);
+
+      // source smaller
+      final d = Array.fromList([99, 88]);
+      b.assign(d);
+      expect(b.toData(), [99, 88, 9, 8]);
+    });
+
     test('copy', () {
       final a = Array.fromList([1, 2, 3, 4]);
       final b = a.copy();

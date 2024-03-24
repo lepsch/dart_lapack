@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
@@ -36,6 +37,8 @@ abstract interface class Array<T> implements Box<T> {
   }) {
     return _Array.fromData(elements, offset: offset);
   }
+
+  void assign(Array<T> array);
 
   Array<T> slice(int index, {int? offset});
 
@@ -285,6 +288,14 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   const _MatrixArrayAdapter(this._m, this.i);
 
   @override
+  void assign(Array<T> array) {
+    final entries = getEntries();
+    final dest = entries.toData();
+    final source = array.toData();
+    dest.setRange(0, min(dest.length, source.length), source);
+  }
+
+  @override
   Array<T> slice(int j, {int? offset}) {
     final slice = _m(i, j);
     return Array.fromSlice(slice._entries.toData(),
@@ -397,6 +408,13 @@ class _Array<T> implements Array<T> {
           bool => [...list],
           _ => throw UnimplementedError(),
         } as List<T>;
+
+  @override
+  void assign(Array<T> array) {
+    final dest = toData();
+    final source = array.toData();
+    dest.setRange(0, min(dest.length, source.length), source);
+  }
 
   @override
   Array<T> slice(int index, {int? offset}) =>

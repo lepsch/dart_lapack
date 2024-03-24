@@ -34,7 +34,7 @@ class _Mn {
   int K = 0;
   bool FS = false;
 
-  int  get I => K;
+  int get I => K;
   set I(int v) => K = v;
 }
 
