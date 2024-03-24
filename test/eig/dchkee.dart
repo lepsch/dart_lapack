@@ -1308,36 +1308,55 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES <= 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-            final INFO = Box(0);
-            ddrvev(
-                NN,
-                NVAL,
-                NTYPES,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                D(1, 4).asArray(),
-                A(1, 3),
-                NMAX,
-                A(1, 4),
-                NMAX,
-                A(1, 5),
-                NMAX,
-                RESULT,
-                WORK,
-                LWORK,
-                IWORK,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DGEEV', INFO.value);
+
+            final ctx = (
+              ISEED: ISEED.copy(),
+              NVAL: NVAL.copy(),
+              DOTYPE: DOTYPE.copy(),
+              C3: C3,
+              NTYPES: NTYPES,
+            );
+
+            test.group('DEV: Nonsymmetric Eigenvalue Problem Driver (path=$C3)',
+                () {
+              NOUT!;
+              final (:ISEED, :NVAL, :DOTYPE, :C3, :NTYPES) = ctx;
+
+              test.group('error exits', () {
+                if (TSTERR) derred(C3, NOUT!, test);
+              });
+
+              final INFO = Box(0);
+              ddrvev(
+                  NN,
+                  NVAL,
+                  NTYPES,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  D(1, 4).asArray(),
+                  A(1, 3),
+                  NMAX,
+                  A(1, 4),
+                  NMAX,
+                  A(1, 5),
+                  NMAX,
+                  RESULT,
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  INFO,
+                  test);
+              if (INFO.value != 0) NOUT.print9980('DGEEV', INFO.value);
+            });
           }
           NOUT.println('\n ${'-' * 71}');
           continue nextPath;

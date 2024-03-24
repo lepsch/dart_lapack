@@ -14,11 +14,11 @@ void main() async {
     'se2.in',
     'dsg.in',
     'svd.in',
+    'ded.in',
 
-    // 'dec.in', 'ded.in', 'dgg.in', //
+    // 'dec.in', 'dgg.in', //
     // 'dgd.in',
     // 'dsb.in',
-
 
     // 'dbal.in', 'dbak.in', 'dgbal.in', //
     // 'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
