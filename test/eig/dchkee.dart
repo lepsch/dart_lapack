@@ -1429,15 +1429,24 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES < 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+
+            final group =
+                'DVX: Nonsymmetric Eigenvalue Problem Expert Driver (path=$C3)';
+
+            test.group(group, () {
+              test.group('error exits', () {
+                if (TSTERR) derred(C3, NOUT!, test);
+              });
+            });
+
             final INFO = Box(0);
             await ddrvvx(
                 NN,
-                NVAL,
+                NVAL.copy(),
                 NTYPES,
-                DOTYPE,
-                ISEED,
+                DOTYPE.copy(),
+                ISEED.copy(),
                 THRESH,
                 NIN,
                 NOUT,
@@ -1466,7 +1475,9 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 WORK,
                 LWORK,
                 IWORK,
-                INFO);
+                INFO,
+                test,
+                group);
             if (INFO.value != 0) NOUT.print9980('DGEEVX', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
@@ -1482,15 +1493,24 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES < 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+
+            final group =
+                'DSX: Nonsymmetric Eigenvalue Problem Expert Driver (path=$C3)';
+
+            test.group(group, () {
+              test.group('error exits', () {
+                if (TSTERR) derred(C3, NOUT!, test);
+              });
+            });
+
             final INFO = Box(0);
             await ddrvsx(
                 NN,
-                NVAL,
+                NVAL.copy(),
                 NTYPES,
-                DOTYPE,
-                ISEED,
+                DOTYPE.copy(),
+                ISEED.copy(),
                 THRESH,
                 NIN,
                 NOUT,
@@ -1512,7 +1532,9 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 LWORK,
                 IWORK,
                 LOGWRK,
-                INFO);
+                INFO,
+                test,
+                group);
             if (INFO.value != 0) NOUT.print9980('DGEESX', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');

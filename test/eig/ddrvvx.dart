@@ -6,11 +6,14 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
 import 'package:lapack/src/xerbla.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatme.dart';
 import '../matgen/dlatmr.dart';
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'dget23.dart';
 import 'dlasum.dart';
 
@@ -49,6 +52,8 @@ Future<void> ddrvvx(
   final int NWORK,
   final Array<int> IWORK_,
   final Box<int> INFO,
+  final TestDriver test,
+  final String group,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -78,476 +83,440 @@ Future<void> ddrvvx(
   final IWORK = IWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;
-  bool BADNN;
-  String BALANC;
-  String PATH;
-  int I,
-      IBAL,
-      IMODE,
-      ITYPE,
-      IWK,
-      J,
-      JCOL,
-      JSIZE,
-      JTYPE,
-      MTYPES,
-      N = 0,
-      NERRS = 0,
-      NFAIL,
-      NMAX,
-      NNWORK,
-      NTEST,
-      NTESTF,
-      NTESTT;
-  double ANORM = 0, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL;
-  String ADUMMA;
-  final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4);
-  final IINFO = Box(0);
-  final KTYPE = Array.fromList([
+  const KTYPE = [
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9 //
-  ]);
-  final KMAGN = Array.fromList([
+  ];
+  const KMAGN = [
     1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3 //
-  ]);
-  final KMODE = Array.fromList([
+  ];
+  const KMODE = [
     0, 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 //
-  ]);
-  final KCONDS = Array.fromList([
+  ];
+  const KCONDS = [
     0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 0, 0, 0 //
-  ]);
+  ];
   const BAL = ['N', 'P', 'S', 'B'];
 
-  PATH = '${'Double precision'[0]}VX';
+  final PATH = '${'Double precision'[0]}VX';
 
   // Check for errors
 
-  NTESTT = 0;
-  NTESTF = 0;
+  var NTESTT = 0, NTESTF = 0;
   INFO.value = 0;
 
   // Important constants
+  {
+    var BADNN = false;
 
-  BADNN = false;
+    // 12 is the largest dimension in the input file of precomputed
+    // problems
+    var NMAX = 12;
+    for (var J = 1; J <= NSIZES; J++) {
+      NMAX = max(NMAX, NN[J]);
+      if (NN[J] < 0) BADNN = true;
+    }
 
-  // 12 is the largest dimension in the input file of precomputed
-  // problems
+    // Check for errors
 
-  NMAX = 12;
-  for (J = 1; J <= NSIZES; J++) {
-    NMAX = max(NMAX, NN[J]);
-    if (NN[J] < 0) BADNN = true;
+    if (NSIZES < 0) {
+      INFO.value = -1;
+    } else if (BADNN) {
+      INFO.value = -2;
+    } else if (NTYPES < 0) {
+      INFO.value = -3;
+    } else if (THRESH < ZERO) {
+      INFO.value = -6;
+    } else if (LDA < 1 || LDA < NMAX) {
+      INFO.value = -10;
+    } else if (LDVL < 1 || LDVL < NMAX) {
+      INFO.value = -17;
+    } else if (LDVR < 1 || LDVR < NMAX) {
+      INFO.value = -19;
+    } else if (LDLRE < 1 || LDLRE < NMAX) {
+      INFO.value = -21;
+    } else if (6 * NMAX + 2 * pow(NMAX, 2) > NWORK) {
+      INFO.value = -32;
+    }
+
+    if (INFO.value != 0) {
+      xerbla('DDRVVX', -INFO.value);
+      return;
+    }
   }
 
-  // Check for errors
-
-  if (NSIZES < 0) {
-    INFO.value = -1;
-  } else if (BADNN) {
-    INFO.value = -2;
-  } else if (NTYPES < 0) {
-    INFO.value = -3;
-  } else if (THRESH < ZERO) {
-    INFO.value = -6;
-  } else if (LDA < 1 || LDA < NMAX) {
-    INFO.value = -10;
-  } else if (LDVL < 1 || LDVL < NMAX) {
-    INFO.value = -17;
-  } else if (LDVR < 1 || LDVR < NMAX) {
-    INFO.value = -19;
-  } else if (LDLRE < 1 || LDLRE < NMAX) {
-    INFO.value = -21;
-  } else if (6 * NMAX + 2 * pow(NMAX, 2) > NWORK) {
-    INFO.value = -32;
-  }
-
-  if (INFO.value != 0) {
-    xerbla('DDRVVX', -INFO.value);
-    return;
-  }
+  var NERRS = 0;
 
   // If nothing to do check on NIUNIT
 
   if (NSIZES != 0 && NTYPES != 0) {
     // More Important constants
+    final UNFL = dlamch('Safe minimum');
+    final OVFL = ONE / UNFL;
+    final ULP = dlamch('Precision');
+    final ULPINV = ONE / ULP;
+    final RTULP = sqrt(ULP);
+    final RTULPI = ONE / RTULP;
 
-    UNFL = dlamch('Safe minimum');
-    OVFL = ONE / UNFL;
-    ULP = dlamch('Precision');
-    ULPINV = ONE / ULP;
-    RTULP = sqrt(ULP);
-    RTULPI = ONE / RTULP;
+    test.group(group, () {
+      // Loop over sizes, types
+      for (final JSIZE in 1.through(NSIZES)) {
+        final N = NN[JSIZE];
+        final MTYPES =
+            NSIZES != 1 ? min(MAXTYP, NTYPES) : min(MAXTYP + 1, NTYPES);
 
-    // Loop over sizes, types
+        for (final JTYPE in 1.through(MTYPES)) {
+          final skip = !DOTYPE[JTYPE];
+          test('DDRVVX (N=$N, TYPE=$JTYPE)', () {
+            // Save ISEED in case of an error.
+            final IOLDSD = ISEED.copy();
+            final IINFO = Box(0);
 
-    NERRS = 0;
+            // Compute "A"
+            //
+            // Control parameters:
+            //
+            // KMAGN  KCONDS  KMODE        KTYPE
+            //    =1  O(1)   1       clustered 1  zero
+            //    =2  large  large   clustered 2  identity
+            //    =3  small          exponential  Jordan
+            //    =4                 arithmetic   diagonal, (w/ eigenvalues)
+            //    =5                 random log   symmetric, w/ eigenvalues
+            //    =6                 random       general, w/ eigenvalues
+            //    =7                              random diagonal
+            //    =8                              random symmetric
+            //    =9                              random general
+            //    =10                             random triangular
 
-    for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-      N = NN[JSIZE];
-      if (NSIZES != 1) {
-        MTYPES = min(MAXTYP, NTYPES);
-      } else {
-        MTYPES = min(MAXTYP + 1, NTYPES);
-      }
+            if (MTYPES <= MAXTYP) {
+              final ITYPE = KTYPE[JTYPE - 1];
+              final IMODE = KMODE[JTYPE - 1];
 
-      for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-        if (!DOTYPE[JTYPE]) continue;
+              // Compute norm
+              final ANORM = switch (KMAGN[JTYPE - 1]) {
+                1 => ONE,
+                2 => OVFL * ULP,
+                3 => UNFL * ULPINV,
+                _ => throw UnimplementedError(),
+              };
 
-        // Save ISEED in case of an error.
+              dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
+              IINFO.value = 0;
+              final COND = ULPINV;
 
-        for (J = 1; J <= 4; J++) {
-          IOLDSD[J] = ISEED[J];
-        }
+              // Special Matrices -- Identity & Jordan block
 
-        // Compute "A"
-        //
-        // Control parameters:
-        //
-        // KMAGN  KCONDS  KMODE        KTYPE
-        //    =1  O(1)   1       clustered 1  zero
-        //    =2  large  large   clustered 2  identity
-        //    =3  small          exponential  Jordan
-        //    =4                 arithmetic   diagonal, (w/ eigenvalues)
-        //    =5                 random log   symmetric, w/ eigenvalues
-        //    =6                 random       general, w/ eigenvalues
-        //    =7                              random diagonal
-        //    =8                              random symmetric
-        //    =9                              random general
-        //    =10                             random triangular
+              // Zero
 
-        if (MTYPES <= MAXTYP) {
-          ITYPE = KTYPE[JTYPE];
-          IMODE = KMODE[JTYPE];
+              if (ITYPE == 1) {
+                IINFO.value = 0;
+              } else if (ITYPE == 2) {
+                // Identity
 
-          // Compute norm
+                for (var JCOL = 1; JCOL <= N; JCOL++) {
+                  A[JCOL][JCOL] = ANORM;
+                }
+              } else if (ITYPE == 3) {
+                // Jordan Block
 
-          switch (KMAGN[JTYPE]) {
-            case 1:
-              ANORM = ONE;
-              break;
+                for (var JCOL = 1; JCOL <= N; JCOL++) {
+                  A[JCOL][JCOL] = ANORM;
+                  if (JCOL > 1) A[JCOL][JCOL - 1] = ONE;
+                }
+              } else if (ITYPE == 4) {
+                // Diagonal Matrix, [Eigen]values Specified
 
-            case 2:
-              ANORM = OVFL * ULP;
-              break;
+                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0,
+                    'N', A, LDA, WORK(N + 1), IINFO);
+              } else if (ITYPE == 5) {
+                // Symmetric, eigenvalues specified
 
-            case 3:
-              ANORM = UNFL * ULPINV;
-              break;
-          }
+                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N,
+                    'N', A, LDA, WORK(N + 1), IINFO);
+              } else if (ITYPE == 6) {
+                // General, eigenvalues specified
 
-          dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
-          IINFO.value = 0;
-          COND = ULPINV;
+                final CONDS = switch (KCONDS[JTYPE - 1]) {
+                  1 => ONE,
+                  2 => RTULPI,
+                  _ => ZERO,
+                };
 
-          // Special Matrices -- Identity & Jordan block
+                final ADUMMA = ' ';
+                dlatme(
+                    N,
+                    'S',
+                    ISEED,
+                    WORK,
+                    IMODE,
+                    COND,
+                    ONE,
+                    ADUMMA,
+                    'T',
+                    'T',
+                    'T',
+                    WORK(N + 1),
+                    4,
+                    CONDS,
+                    N,
+                    N,
+                    ANORM,
+                    A,
+                    LDA,
+                    WORK(2 * N + 1),
+                    IINFO);
+              } else if (ITYPE == 7) {
+                // Diagonal, random eigenvalues
 
-          // Zero
+                final IDUMMA = Array<int>(1);
+                dlatmr(
+                    N,
+                    N,
+                    'S',
+                    ISEED,
+                    'S',
+                    WORK,
+                    6,
+                    ONE,
+                    ONE,
+                    'T',
+                    'N',
+                    WORK(N + 1),
+                    1,
+                    ONE,
+                    WORK(2 * N + 1),
+                    1,
+                    ONE,
+                    'N',
+                    IDUMMA,
+                    0,
+                    0,
+                    ZERO,
+                    ANORM,
+                    'NO',
+                    A,
+                    LDA,
+                    IWORK,
+                    IINFO);
+              } else if (ITYPE == 8) {
+                // Symmetric, random eigenvalues
 
-          if (ITYPE == 1) {
-            IINFO.value = 0;
-          } else if (ITYPE == 2) {
-            // Identity
+                final IDUMMA = Array<int>(1);
+                dlatmr(
+                    N,
+                    N,
+                    'S',
+                    ISEED,
+                    'S',
+                    WORK,
+                    6,
+                    ONE,
+                    ONE,
+                    'T',
+                    'N',
+                    WORK(N + 1),
+                    1,
+                    ONE,
+                    WORK(2 * N + 1),
+                    1,
+                    ONE,
+                    'N',
+                    IDUMMA,
+                    N,
+                    N,
+                    ZERO,
+                    ANORM,
+                    'NO',
+                    A,
+                    LDA,
+                    IWORK,
+                    IINFO);
+              } else if (ITYPE == 9) {
+                // General, random eigenvalues
 
-            for (JCOL = 1; JCOL <= N; JCOL++) {
-              A[JCOL][JCOL] = ANORM;
-            }
-          } else if (ITYPE == 3) {
-            // Jordan Block
+                final IDUMMA = Array<int>(1);
+                dlatmr(
+                    N,
+                    N,
+                    'S',
+                    ISEED,
+                    'N',
+                    WORK,
+                    6,
+                    ONE,
+                    ONE,
+                    'T',
+                    'N',
+                    WORK(N + 1),
+                    1,
+                    ONE,
+                    WORK(2 * N + 1),
+                    1,
+                    ONE,
+                    'N',
+                    IDUMMA,
+                    N,
+                    N,
+                    ZERO,
+                    ANORM,
+                    'NO',
+                    A,
+                    LDA,
+                    IWORK,
+                    IINFO);
+                if (N >= 4) {
+                  dlaset('Full', 2, N, ZERO, ZERO, A, LDA);
+                  dlaset('Full', N - 3, 1, ZERO, ZERO, A(3, 1), LDA);
+                  dlaset('Full', N - 3, 2, ZERO, ZERO, A(3, N - 1), LDA);
+                  dlaset('Full', 1, N, ZERO, ZERO, A(N, 1), LDA);
+                }
+              } else if (ITYPE == 10) {
+                // Triangular, random eigenvalues
 
-            for (JCOL = 1; JCOL <= N; JCOL++) {
-              A[JCOL][JCOL] = ANORM;
-              if (JCOL > 1) A[JCOL][JCOL - 1] = ONE;
-            }
-          } else if (ITYPE == 4) {
-            // Diagonal Matrix, [Eigen]values Specified
+                final IDUMMA = Array<int>(1);
+                dlatmr(
+                    N,
+                    N,
+                    'S',
+                    ISEED,
+                    'N',
+                    WORK,
+                    6,
+                    ONE,
+                    ONE,
+                    'T',
+                    'N',
+                    WORK(N + 1),
+                    1,
+                    ONE,
+                    WORK(2 * N + 1),
+                    1,
+                    ONE,
+                    'N',
+                    IDUMMA,
+                    N,
+                    0,
+                    ZERO,
+                    ANORM,
+                    'NO',
+                    A,
+                    LDA,
+                    IWORK,
+                    IINFO);
+              } else {
+                IINFO.value = 1;
+              }
 
-            dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N',
-                A, LDA, WORK(N + 1), IINFO);
-          } else if (ITYPE == 5) {
-            // Symmetric, eigenvalues specified
-
-            dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N',
-                A, LDA, WORK(N + 1), IINFO);
-          } else if (ITYPE == 6) {
-            // General, eigenvalues specified
-
-            if (KCONDS[JTYPE] == 1) {
-              CONDS = ONE;
-            } else if (KCONDS[JTYPE] == 2) {
-              CONDS = RTULPI;
-            } else {
-              CONDS = ZERO;
-            }
-
-            ADUMMA = ' ';
-            dlatme(
-                N,
-                'S',
-                ISEED,
-                WORK,
-                IMODE,
-                COND,
-                ONE,
-                ADUMMA,
-                'T',
-                'T',
-                'T',
-                WORK(N + 1),
-                4,
-                CONDS,
-                N,
-                N,
-                ANORM,
-                A,
-                LDA,
-                WORK(2 * N + 1),
-                IINFO);
-          } else if (ITYPE == 7) {
-            // Diagonal, random eigenvalues
-
-            dlatmr(
-                N,
-                N,
-                'S',
-                ISEED,
-                'S',
-                WORK,
-                6,
-                ONE,
-                ONE,
-                'T',
-                'N',
-                WORK(N + 1),
-                1,
-                ONE,
-                WORK(2 * N + 1),
-                1,
-                ONE,
-                'N',
-                IDUMMA,
-                0,
-                0,
-                ZERO,
-                ANORM,
-                'NO',
-                A,
-                LDA,
-                IWORK,
-                IINFO);
-          } else if (ITYPE == 8) {
-            // Symmetric, random eigenvalues
-
-            dlatmr(
-                N,
-                N,
-                'S',
-                ISEED,
-                'S',
-                WORK,
-                6,
-                ONE,
-                ONE,
-                'T',
-                'N',
-                WORK(N + 1),
-                1,
-                ONE,
-                WORK(2 * N + 1),
-                1,
-                ONE,
-                'N',
-                IDUMMA,
-                N,
-                N,
-                ZERO,
-                ANORM,
-                'NO',
-                A,
-                LDA,
-                IWORK,
-                IINFO);
-          } else if (ITYPE == 9) {
-            // General, random eigenvalues
-
-            dlatmr(
-                N,
-                N,
-                'S',
-                ISEED,
-                'N',
-                WORK,
-                6,
-                ONE,
-                ONE,
-                'T',
-                'N',
-                WORK(N + 1),
-                1,
-                ONE,
-                WORK(2 * N + 1),
-                1,
-                ONE,
-                'N',
-                IDUMMA,
-                N,
-                N,
-                ZERO,
-                ANORM,
-                'NO',
-                A,
-                LDA,
-                IWORK,
-                IINFO);
-            if (N >= 4) {
-              dlaset('Full', 2, N, ZERO, ZERO, A, LDA);
-              dlaset('Full', N - 3, 1, ZERO, ZERO, A(3, 1), LDA);
-              dlaset('Full', N - 3, 2, ZERO, ZERO, A(3, N - 1), LDA);
-              dlaset('Full', 1, N, ZERO, ZERO, A(N, 1), LDA);
-            }
-          } else if (ITYPE == 10) {
-            // Triangular, random eigenvalues
-
-            dlatmr(
-                N,
-                N,
-                'S',
-                ISEED,
-                'N',
-                WORK,
-                6,
-                ONE,
-                ONE,
-                'T',
-                'N',
-                WORK(N + 1),
-                1,
-                ONE,
-                WORK(2 * N + 1),
-                1,
-                ONE,
-                'N',
-                IDUMMA,
-                N,
-                0,
-                ZERO,
-                ANORM,
-                'NO',
-                A,
-                LDA,
-                IWORK,
-                IINFO);
-          } else {
-            IINFO.value = 1;
-          }
-
-          if (IINFO.value != 0) {
-            NOUNIT.println(
-                ' DDRVVX: Generator returned INFO=${IINFO.value.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})');
-            INFO.value = (IINFO.value).abs();
-            return;
-          }
-        }
-
-        // Test for minimal and generous workspace
-
-        for (IWK = 1; IWK <= 3; IWK++) {
-          if (IWK == 1) {
-            NNWORK = 3 * N;
-          } else if (IWK == 2) {
-            NNWORK = 6 * N + pow(N, 2).toInt();
-          } else {
-            NNWORK = 6 * N + 2 * pow(N, 2).toInt();
-          }
-          NNWORK = max(NNWORK, 1);
-
-          // Test for all balancing options
-
-          for (IBAL = 1; IBAL <= 4; IBAL++) {
-            BALANC = BAL[IBAL - 1];
-
-            // Perform tests
-
-            dget23(
-                false,
-                BALANC,
-                JTYPE,
-                THRESH,
-                IOLDSD,
-                NOUNIT,
-                N,
-                A,
-                LDA,
-                H,
-                WR,
-                WI,
-                WR1,
-                WI1,
-                VL,
-                LDVL,
-                VR,
-                LDVR,
-                LRE,
-                LDLRE,
-                RCONDV,
-                RCNDV1,
-                RCDVIN,
-                RCONDE,
-                RCNDE1,
-                RCDEIN,
-                SCALE,
-                SCALE1,
-                RESULT,
-                WORK,
-                NNWORK,
-                IWORK,
-                INFO);
-
-            // Check for RESULT[j] > THRESH
-
-            NTEST = 0;
-            NFAIL = 0;
-            for (J = 1; J <= 9; J++) {
-              if (RESULT[J] >= ZERO) NTEST++;
-              if (RESULT[J] >= THRESH) NFAIL++;
-            }
-
-            if (NFAIL > 0) NTESTF++;
-            if (NTESTF == 1) {
-              _printTestFailed(NOUNIT, PATH, THRESH);
-              NTESTF = 2;
-            }
-
-            for (J = 1; J <= 9; J++) {
-              if (RESULT[J] >= THRESH) {
-                NOUNIT.println(' BALANC='
-                    '${BALANC.a1}'
-                    ',N=${N.i4},IWK=${IWK.i1}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
+              if (IINFO.value != 0) {
+                NOUNIT.println(
+                    ' DDRVVX: Generator returned INFO=${IINFO.value.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})');
+                INFO.value = (IINFO.value).abs();
+                return;
               }
             }
 
-            NERRS += NFAIL;
-            NTESTT += NTEST;
-          }
+            // Test for minimal and generous workspace
+
+            for (var IWK = 1; IWK <= 3; IWK++) {
+              final NNWORK = max(
+                  switch (IWK) {
+                    1 => 3 * N,
+                    2 => 6 * N + pow(N, 2).toInt(),
+                    _ => 6 * N + 2 * pow(N, 2).toInt(),
+                  },
+                  1);
+
+              // Test for all balancing options
+
+              for (var IBAL = 1; IBAL <= 4; IBAL++) {
+                final BALANC = BAL[IBAL - 1];
+
+                // Perform tests
+
+                dget23(
+                    false,
+                    BALANC,
+                    JTYPE,
+                    THRESH,
+                    IOLDSD,
+                    NOUNIT,
+                    N,
+                    A,
+                    LDA,
+                    H,
+                    WR,
+                    WI,
+                    WR1,
+                    WI1,
+                    VL,
+                    LDVL,
+                    VR,
+                    LDVR,
+                    LRE,
+                    LDLRE,
+                    RCONDV,
+                    RCNDV1,
+                    RCDVIN,
+                    RCONDE,
+                    RCNDE1,
+                    RCDEIN,
+                    SCALE,
+                    SCALE1,
+                    RESULT,
+                    WORK,
+                    NNWORK,
+                    IWORK,
+                    INFO);
+
+                // Check for RESULT[j] > THRESH
+
+                var NTEST = 0, NFAIL = 0;
+                for (var J = 1; J <= 9; J++) {
+                  if (RESULT[J] >= ZERO) NTEST++;
+                  if (RESULT[J] >= THRESH) NFAIL++;
+                }
+
+                if (NFAIL > 0) NTESTF++;
+                if (NTESTF == 1) {
+                  _printTestFailed(NOUNIT, PATH, THRESH);
+                  NTESTF = 2;
+                }
+
+                for (var J = 1; J <= 9; J++) {
+                  final reason =
+                      ' BALANC=\'${BALANC.a1}\',N=${N.i4},IWK=${IWK.i1}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}';
+                  test.expect(RESULT[J], lessThan(THRESH), reason: reason);
+                  if (RESULT[J] >= THRESH) {
+                    NOUNIT.println(reason);
+                  }
+                }
+
+                NERRS += NFAIL;
+                NTESTT += NTEST;
+              }
+            }
+          }, skip: skip);
         }
       }
-    }
+    });
   }
 
   // Read in data from file to check accuracy of condition estimation.
   // Assume input eigenvalues are sorted lexicographically (increasing
   // by real part, then decreasing by imaginary part)
 
-  JTYPE = 0;
+  var JTYPE = 0;
   while (true) {
+    final int N;
     try {
       N = await NIUNIT.readInt();
 
       // Read input data until N=0
-
       if (N != 0) break;
+
       JTYPE++;
       ISEED[1] = JTYPE;
       await NIUNIT.readMatrix(A, N, N);
-      for (I = 1; I <= N; I++) {
+      for (var I = 1; I <= N; I++) {
         final (f1, f2, f3, f4) = await NIUNIT.readDouble4();
         WR1[I] = f1;
         WI1[I] = f2;
@@ -558,65 +527,79 @@ Future<void> ddrvvx(
       break;
     }
 
-    dget23(
-        true,
-        'N',
-        22,
-        THRESH,
-        ISEED,
-        NOUNIT,
-        N,
-        A,
-        LDA,
-        H,
-        WR,
-        WI,
-        WR1,
-        WI1,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        LRE,
-        LDLRE,
-        RCONDV,
-        RCNDV1,
-        RCDVIN,
-        RCONDE,
-        RCNDE1,
-        RCDEIN,
-        SCALE,
-        SCALE1,
-        RESULT,
-        WORK,
-        6 * N + 2 * pow(N, 2).toInt(),
-        IWORK,
-        INFO);
+    final ctx = (
+      A: A.copy(),
+      WR1: WR1.copy(),
+      WI1: WI1.copy(),
+      RCDEIN: RCDEIN.copy(),
+      RCDVIN: RCDVIN.copy(),
+      ISEED: ISEED,
+      JTYPE: JTYPE,
+    );
+    test.group(group, () {
+      test('DDRVVX - precomputed', () {
+        final (:A, :WR1, :WI1, :RCDEIN, :RCDVIN, :ISEED, :JTYPE) = ctx;
+        dget23(
+            true,
+            'N',
+            22,
+            THRESH,
+            ISEED,
+            NOUNIT,
+            N,
+            A,
+            LDA,
+            H,
+            WR,
+            WI,
+            WR1,
+            WI1,
+            VL,
+            LDVL,
+            VR,
+            LDVR,
+            LRE,
+            LDLRE,
+            RCONDV,
+            RCNDV1,
+            RCDVIN,
+            RCONDE,
+            RCNDE1,
+            RCDEIN,
+            SCALE,
+            SCALE1,
+            RESULT,
+            WORK,
+            6 * N + 2 * pow(N, 2).toInt(),
+            IWORK,
+            INFO);
 
-    // Check for RESULT[j] > THRESH
+        // Check for RESULT[j] > THRESH
 
-    NTEST = 0;
-    NFAIL = 0;
-    for (J = 1; J <= 11; J++) {
-      if (RESULT[J] >= ZERO) NTEST++;
-      if (RESULT[J] >= THRESH) NFAIL++;
-    }
+        var NTEST = 0, NFAIL = 0;
+        for (var J = 1; J <= 11; J++) {
+          if (RESULT[J] >= ZERO) NTEST++;
+          if (RESULT[J] >= THRESH) NFAIL++;
+        }
 
-    if (NFAIL > 0) NTESTF++;
-    if (NTESTF == 1) {
-      _printTestFailed(NOUNIT, PATH, THRESH);
-      NTESTF = 2;
-    }
+        if (NFAIL > 0) NTESTF++;
+        if (NTESTF == 1) {
+          _printTestFailed(NOUNIT, PATH, THRESH);
+          NTESTF = 2;
+        }
 
-    for (J = 1; J <= 11; J++) {
-      if (RESULT[J] >= THRESH) {
-        NOUNIT.println(
-            ' N=${N.i5}, input example =${JTYPE.i3},  test(${J.i2})=${RESULT[J].g10_3}');
-      }
-    }
-
-    NERRS += NFAIL;
-    NTESTT += NTEST;
+        for (var J = 1; J <= 11; J++) {
+          final reason =
+              ' N=${N.i5}, input example =${JTYPE.i3},  test(${J.i2})=${RESULT[J].g10_3}';
+          test.expect(RESULT[J], lessThan(THRESH), reason: reason);
+          if (RESULT[J] >= THRESH) {
+            NOUNIT.println(reason);
+          }
+        }
+        NERRS += NFAIL;
+        NTESTT += NTEST;
+      });
+    });
   }
 
   // Summary
