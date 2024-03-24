@@ -1174,86 +1174,129 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           final MAXTYP = 16;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          xlaenv(1, 1);
-          xlaenv(9, 25);
 
-          // Test the error exits
+          final ctx = (
+            NSVAL: NSVAL.copy(),
+            NBVAL: NBVAL.copy(),
+            NBMIN: NBMIN.copy(),
+            NXVAL: NXVAL.copy(),
+            ISEED: ISEED.copy(),
+            IOLDSD: IOLDSD.copy(),
+            MVAL: MVAL.copy(),
+            NVAL: NVAL.copy(),
+            DOTYPE: DOTYPE.copy(),
+            PARAMS: claenv.IPARMS.copy(),
+            C3: C3,
+          );
 
-          if (TSTERR && TSTCHK) derrbd('DBD', NOUT);
-          if (TSTERR && TSTDRV) derred('DBD', NOUT);
+          test.group('SVD: Singular Value Decomposition (path=$C3)', () {
+            NOUT!;
+            final (
+              :NSVAL,
+              :NBVAL,
+              :NBMIN,
+              :NXVAL,
+              :ISEED,
+              :IOLDSD,
+              :MVAL,
+              :NVAL,
+              :DOTYPE,
+              :PARAMS,
+              :C3,
+            ) = ctx;
 
-          for (final I in 1.through(NPARMS)) {
-            final NRHS = NSVAL[I];
-            xlaenv(1, NBVAL[I]);
-            xlaenv(2, NBMIN[I]);
-            xlaenv(3, NXVAL[I]);
-            if (NEWSD == 0) ISEED.assign(IOLDSD);
+            test.setUp(() {
+              claenv.IPARMS.assign(PARAMS);
+              xlaenv(1, 1);
+              xlaenv(9, 25);
+            });
 
-            NOUT.println(
-                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS =${NRHS.i4}');
-            if (TSTCHK) {
-              final INFO = Box(0);
-              dchkbd(
-                  NN,
-                  MVAL,
-                  NVAL,
-                  MAXTYP,
-                  DOTYPE,
-                  NRHS,
-                  ISEED,
-                  THRESH,
-                  A(1, 1),
-                  NMAX,
-                  D(1, 1).asArray(),
-                  D(1, 2).asArray(),
-                  D(1, 3).asArray(),
-                  D(1, 4).asArray(),
-                  A(1, 2),
-                  NMAX,
-                  A(1, 3),
-                  A(1, 4),
-                  A(1, 5),
-                  NMAX,
-                  A(1, 6),
-                  NMAX,
-                  A(1, 7),
-                  A(1, 8),
-                  WORK,
-                  LWORK,
-                  IWORK,
-                  NOUT,
-                  INFO);
-              if (INFO.value != 0) NOUT.print9980('DCHKBD', INFO.value);
+            // Test the error exits
+            test.group('error exits', () {
+              NOUT!;
+              if (TSTERR && TSTCHK) derrbd('DBD', NOUT, test);
+              if (TSTERR && TSTDRV) derred('DBD', NOUT, test);
+            });
+
+            for (final I in 1.through(NPARMS)) {
+              test.group('PARAM $I', () {
+                NOUT!;
+
+                final NRHS = NSVAL[I];
+                xlaenv(1, NBVAL[I]);
+                xlaenv(2, NBMIN[I]);
+                xlaenv(3, NXVAL[I]);
+                if (NEWSD == 0) ISEED.assign(IOLDSD);
+
+                NOUT.println(
+                    '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS =${NRHS.i4}');
+                if (TSTCHK) {
+                  final INFO = Box(0);
+                  dchkbd(
+                      NN,
+                      MVAL,
+                      NVAL,
+                      MAXTYP,
+                      DOTYPE,
+                      NRHS,
+                      ISEED,
+                      THRESH,
+                      A(1, 1),
+                      NMAX,
+                      D(1, 1).asArray(),
+                      D(1, 2).asArray(),
+                      D(1, 3).asArray(),
+                      D(1, 4).asArray(),
+                      A(1, 2),
+                      NMAX,
+                      A(1, 3),
+                      A(1, 4),
+                      A(1, 5),
+                      NMAX,
+                      A(1, 6),
+                      NMAX,
+                      A(1, 7),
+                      A(1, 8),
+                      WORK,
+                      LWORK,
+                      IWORK,
+                      NOUT,
+                      INFO,
+                      test);
+                  if (INFO.value != 0) NOUT.print9980('DCHKBD', INFO.value);
+                }
+                if (TSTDRV) {
+                  final INFO = Box(0);
+                  ddrvbd(
+                      NN,
+                      MVAL,
+                      NVAL,
+                      MAXTYP,
+                      DOTYPE,
+                      ISEED,
+                      THRESH,
+                      A(1, 1),
+                      NMAX,
+                      A(1, 2),
+                      NMAX,
+                      A(1, 3),
+                      NMAX,
+                      A(1, 4),
+                      A(1, 5),
+                      A(1, 6),
+                      D(1, 1).asArray(),
+                      D(1, 2).asArray(),
+                      D(1, 3).asArray(),
+                      WORK,
+                      LWORK,
+                      IWORK,
+                      NOUT,
+                      INFO,
+                      test);
+                }
+              });
             }
-            if (TSTDRV) {
-              final INFO = Box(0);
-              ddrvbd(
-                  NN,
-                  MVAL,
-                  NVAL,
-                  MAXTYP,
-                  DOTYPE,
-                  ISEED,
-                  THRESH,
-                  A(1, 1),
-                  NMAX,
-                  A(1, 2),
-                  NMAX,
-                  A(1, 3),
-                  NMAX,
-                  A(1, 4),
-                  A(1, 5),
-                  A(1, 6),
-                  D(1, 1).asArray(),
-                  D(1, 2).asArray(),
-                  D(1, 3).asArray(),
-                  WORK,
-                  LWORK,
-                  IWORK,
-                  NOUT,
-                  INFO);
-            }
-          }
+          });
         } else if (lsamen(3, C3, 'DEV')) {
           // --------------------------------------------
           // DEV:  Nonsymmetric Eigenvalue Problem Driver
@@ -1265,7 +1308,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES <= 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT);
+            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             final INFO = Box(0);
             ddrvev(
@@ -1309,7 +1352,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES <= 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT);
+            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             final INFO = Box(0);
             ddrves(
@@ -1351,7 +1394,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES < 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT);
+            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             final INFO = Box(0);
             await ddrvvx(
@@ -1404,7 +1447,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           if (NTYPES < 0) {
             NOUT.print9990(C3);
           } else {
-            if (TSTERR) derred(C3, NOUT);
+            if (TSTERR) derred(C3, NOUT, test);
             await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             final INFO = Box(0);
             await ddrvsx(

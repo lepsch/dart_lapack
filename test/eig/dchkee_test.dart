@@ -13,7 +13,7 @@ void main() async {
     'sep.in',
     'se2.in',
     'dsg.in',
-    // 'svd.in',
+    'svd.in',
 
     // 'dec.in', 'ded.in', 'dgg.in', //
     // 'dgd.in',
