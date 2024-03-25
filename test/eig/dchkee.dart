@@ -1810,77 +1810,97 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGEV (Eigenvalue/vector form)
           // -------------------------------------------------
 
-          // const MAXTYP = 26;
-          // NTYPES = min(MAXTYP, NTYPES);
-          // if (NTYPES <= 0) {
-          //   NOUT.print9990(C3);
-          // } else {
-          //   if (TSTERR) derrgg(C3, NOUT);
-          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          //   final INFO = Box(0);
-          //   ddrgev(
-          //       NN,
-          //       NVAL,
-          //       MAXTYP,
-          //       DOTYPE,
-          //       ISEED,
-          //       THRESH,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       A(1, 3),
-          //       A(1, 4),
-          //       A(1, 7),
-          //       NMAX,
-          //       A(1, 8),
-          //       A(1, 9),
-          //       NMAX,
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       D(1, 3).asArray(),
-          //       D(1, 4).asArray(),
-          //       D(1, 5).asArray(),
-          //       D(1, 6).asArray(),
-          //       WORK,
-          //       LWORK,
-          //       RESULT,
-          //       INFO);
-          //   if (INFO.value != 0) NOUT.print9980('DDRGEV', INFO.value);
+          const MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            NOUT.print9990(C3);
+          } else {
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
-          //   // Blocked version
+            final ctx = (
+              NVAL: NVAL.copy(),
+              ISEED: ISEED.copy(),
+              DOTYPE: DOTYPE.copy(),
+              C3: C3,
+            );
+            test.group(
+                'DGV: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
+                () {
+              NOUT!;
 
-          //   ddrgev3(
-          //       NN,
-          //       NVAL,
-          //       MAXTYP,
-          //       DOTYPE,
-          //       ISEED,
-          //       THRESH,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       A(1, 3),
-          //       A(1, 4),
-          //       A(1, 7),
-          //       NMAX,
-          //       A(1, 8),
-          //       A(1, 9),
-          //       NMAX,
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       D(1, 3).asArray(),
-          //       D(1, 4).asArray(),
-          //       D(1, 5).asArray(),
-          //       D(1, 6).asArray(),
-          //       WORK,
-          //       LWORK,
-          //       RESULT,
-          //       INFO);
-          //   if (INFO.value != 0) NOUT.print9980('DDRGEV3', INFO.value);
-          // }
-          // NOUT.println('\n ${'-' * 71}');
+              final (:NVAL, :ISEED, :DOTYPE, :C3) = ctx;
+
+              test.group('error exits', () {
+                if (TSTERR) derrgg(C3, NOUT!, test);
+              });
+
+              final INFO = Box(0);
+              ddrgev(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 7),
+                  NMAX,
+                  A(1, 8),
+                  A(1, 9),
+                  NMAX,
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  D(1, 4).asArray(),
+                  D(1, 5).asArray(),
+                  D(1, 6).asArray(),
+                  WORK,
+                  LWORK,
+                  RESULT,
+                  INFO,
+                  test);
+              if (INFO.value != 0) NOUT.print9980('DDRGEV', INFO.value);
+
+              // Blocked version
+
+              ddrgev3(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 7),
+                  NMAX,
+                  A(1, 8),
+                  A(1, 9),
+                  NMAX,
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  D(1, 4).asArray(),
+                  D(1, 5).asArray(),
+                  D(1, 6).asArray(),
+                  WORK,
+                  LWORK,
+                  RESULT,
+                  INFO,
+                  test);
+              if (INFO.value != 0) NOUT.print9980('DDRGEV3', INFO.value);
+            });
+          }
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (DXV) {
           // -------------------------------------------------
