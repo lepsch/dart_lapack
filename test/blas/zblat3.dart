@@ -3906,7 +3906,6 @@ void _chkxer(
     OK.value = false;
   }
   LERR.value = false;
-  return;
 }
 
 void _xerbla(final String SRNAME, final int INFO) {

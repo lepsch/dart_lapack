@@ -1050,7 +1050,6 @@ void _check3(final double SFAC, final Nout nout) {
     _stest(5, COPYX, MWPSTX, MWPSTX, SFAC, nout);
     _stest(5, COPYY, MWPSTY, MWPSTY, SFAC, nout);
   }
-  return;
 }
 
 void _stest(

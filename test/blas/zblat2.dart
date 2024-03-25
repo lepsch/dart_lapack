@@ -3197,7 +3197,6 @@ void _zchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
     NOUT.println(
         ' ******* ${SRNAMT.a6} FAILED THE TESTS OF ERROR-EXITS *******');
   }
-  return;
 }
 
 void _zmake(

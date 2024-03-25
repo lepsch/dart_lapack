@@ -2944,7 +2944,6 @@ void _dmake(
       }
     }
   }
-  return;
 }
 
 void _dmmch(

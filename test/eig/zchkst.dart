@@ -1542,7 +1542,6 @@ void zchkst(
   // Summary
 
   dlasum('ZST', NOUNIT, NERRS, NTESTT);
-  return;
 }
 
 void _print9999(

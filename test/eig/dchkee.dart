@@ -1554,133 +1554,180 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           final MAXTYP = 26;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          xlaenv(1, 1);
-          if (TSTCHK && TSTERR) derrgg(C3, NOUT);
-          for (final I in 1.through(NPARMS)) {
-            xlaenv(1, NBVAL[I]);
-            xlaenv(2, NBMIN[I]);
-            xlaenv(4, NSVAL[I]);
-            xlaenv(8, MXBVAL[I]);
-            xlaenv(16, IACC22[I]);
-            xlaenv(5, NBCOL[I]);
-            if (NEWSD == 0) ISEED.assign(IOLDSD);
+          final ctx = (
+            NVAL: NVAL.copy(),
+            NBVAL: NBVAL.copy(),
+            NBMIN: NBMIN.copy(),
+            NSVAL: NSVAL.copy(),
+            MXBVAL: MXBVAL.copy(),
+            IACC22: IACC22.copy(),
+            NBCOL: NBCOL.copy(),
+            ISEED: ISEED.copy(),
+            IOLDSD: IOLDSD.copy(),
+            DOTYPE: DOTYPE.copy(),
+            C3: C3,
+            PARAMS: claenv.IPARMS.copy(),
+          );
+          test.group(
+              'DGG: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
+              () {
+            final (
+              :NVAL,
+              :NBVAL,
+              :NBMIN,
+              :NSVAL,
+              :MXBVAL,
+              :IACC22,
+              :NBCOL,
+              :ISEED,
+              :IOLDSD,
+              :DOTYPE,
+              :C3,
+              :PARAMS,
+            ) = ctx;
 
-            NOUT.println(
-                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}');
-            final TSTDIF = false;
-            final THRSHN = 10.0;
-            if (TSTCHK) {
-              final INFO = Box(0);
-              dchkgg(
-                  NN,
-                  NVAL,
-                  MAXTYP,
-                  DOTYPE,
-                  ISEED,
-                  THRESH,
-                  TSTDIF,
-                  THRSHN,
-                  NOUT,
-                  A(1, 1),
-                  NMAX,
-                  A(1, 2),
-                  A(1, 3),
-                  A(1, 4),
-                  A(1, 5),
-                  A(1, 6),
-                  A(1, 7),
-                  A(1, 8),
-                  A(1, 9),
-                  NMAX,
-                  A(1, 10),
-                  A(1, 11),
-                  A(1, 12),
-                  D(1, 1).asArray(),
-                  D(1, 2).asArray(),
-                  D(1, 3).asArray(),
-                  D(1, 4).asArray(),
-                  D(1, 5).asArray(),
-                  D(1, 6).asArray(),
-                  A(1, 13),
-                  A(1, 14),
-                  WORK,
-                  LWORK,
-                  LOGWRK,
-                  RESULT,
-                  INFO);
-              if (INFO.value != 0) NOUT.print9980('DCHKGG', INFO.value);
+            test.setUp(() {
+              claenv.IPARMS.assign(PARAMS);
+              xlaenv(1, 1);
+            });
+
+            test.group('error exits', () {
+              if (TSTCHK && TSTERR) derrgg(C3, NOUT!, test);
+            });
+
+            for (final I in 1.through(NPARMS)) {
+              test.group('PARAM $I', () {
+                NOUT!;
+
+                test.setUp(() {
+                  xlaenv(1, NBVAL[I]);
+                  xlaenv(2, NBMIN[I]);
+                  xlaenv(4, NSVAL[I]);
+                  xlaenv(8, MXBVAL[I]);
+                  xlaenv(16, IACC22[I]);
+                  xlaenv(5, NBCOL[I]);
+                });
+                if (NEWSD == 0) ISEED.assign(IOLDSD);
+
+                NOUT.println(
+                    '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}');
+                final TSTDIF = false;
+                final THRSHN = 10.0;
+                if (TSTCHK) {
+                  final INFO = Box(0);
+                  dchkgg(
+                      NN,
+                      NVAL,
+                      MAXTYP,
+                      DOTYPE,
+                      ISEED,
+                      THRESH,
+                      TSTDIF,
+                      THRSHN,
+                      NOUT,
+                      A(1, 1),
+                      NMAX,
+                      A(1, 2),
+                      A(1, 3),
+                      A(1, 4),
+                      A(1, 5),
+                      A(1, 6),
+                      A(1, 7),
+                      A(1, 8),
+                      A(1, 9),
+                      NMAX,
+                      A(1, 10),
+                      A(1, 11),
+                      A(1, 12),
+                      D(1, 1).asArray(),
+                      D(1, 2).asArray(),
+                      D(1, 3).asArray(),
+                      D(1, 4).asArray(),
+                      D(1, 5).asArray(),
+                      D(1, 6).asArray(),
+                      A(1, 13),
+                      A(1, 14),
+                      WORK,
+                      LWORK,
+                      LOGWRK,
+                      RESULT,
+                      INFO,
+                      test);
+                  if (INFO.value != 0) NOUT.print9980('DCHKGG', INFO.value);
+                }
+              });
             }
-          }
+          });
         } else if (lsamen(3, C3, 'DGS')) {
           // -------------------------------------------------
           // DGS:  Generalized Nonsymmetric Eigenvalue Problem
           // DGGES (Schur form)
           // -------------------------------------------------
 
-          final MAXTYP = 26;
-          NTYPES = min(MAXTYP, NTYPES);
-          if (NTYPES <= 0) {
-            NOUT.print9990(C3);
-          } else {
-            if (TSTERR) derrgg(C3, NOUT);
-            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-            final INFO = Box(0);
-            ddrges(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                A(1, 7),
-                NMAX,
-                A(1, 8),
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                WORK,
-                LWORK,
-                RESULT,
-                LOGWRK,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DDRGES', INFO.value);
+          // final MAXTYP = 26;
+          // NTYPES = min(MAXTYP, NTYPES);
+          // if (NTYPES <= 0) {
+          //   NOUT.print9990(C3);
+          // } else {
+          //   if (TSTERR) derrgg(C3, NOUT);
+          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          //   final INFO = Box(0);
+          //   ddrges(
+          //       NN,
+          //       NVAL,
+          //       MAXTYP,
+          //       DOTYPE,
+          //       ISEED,
+          //       THRESH,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       A(1, 3),
+          //       A(1, 4),
+          //       A(1, 7),
+          //       NMAX,
+          //       A(1, 8),
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       D(1, 3).asArray(),
+          //       WORK,
+          //       LWORK,
+          //       RESULT,
+          //       LOGWRK,
+          //       INFO);
+          //   if (INFO.value != 0) NOUT.print9980('DDRGES', INFO.value);
 
-            // Blocked version
+          //   // Blocked version
 
-            xlaenv(16, 2);
-            ddrges3(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                A(1, 7),
-                NMAX,
-                A(1, 8),
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                WORK,
-                LWORK,
-                RESULT,
-                LOGWRK,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DDRGES3', INFO.value);
-          }
-          NOUT.println('\n ${'-' * 71}');
+          //   xlaenv(16, 2);
+          //   ddrges3(
+          //       NN,
+          //       NVAL,
+          //       MAXTYP,
+          //       DOTYPE,
+          //       ISEED,
+          //       THRESH,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       A(1, 3),
+          //       A(1, 4),
+          //       A(1, 7),
+          //       NMAX,
+          //       A(1, 8),
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       D(1, 3).asArray(),
+          //       WORK,
+          //       LWORK,
+          //       RESULT,
+          //       LOGWRK,
+          //       INFO);
+          //   if (INFO.value != 0) NOUT.print9980('DDRGES3', INFO.value);
+          // }
+          // NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (DGX) {
           // -------------------------------------------------
@@ -1688,43 +1735,43 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGESX (Schur form and condition numbers)
           // -------------------------------------------------
 
-          final MAXTYP = 5;
-          NTYPES = MAXTYP;
-          if (NN < 0) {
-            NOUT.print9990(C3);
-          } else {
-            if (TSTERR) derrgg(C3, NOUT);
-            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-            xlaenv(5, 2);
-            final INFO = Box(0);
-            await ddrgsx(
-                NN,
-                NCMAX,
-                THRESH,
-                NIN,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                A(1, 5),
-                A(1, 6),
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                C(1, 1),
-                NCMAX * NCMAX,
-                A(1, 12).asArray(),
-                WORK,
-                LWORK,
-                IWORK,
-                LIWORK,
-                LOGWRK,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DDRGSX', INFO.value);
-          }
-          NOUT.println('\n ${'-' * 71}');
+          // final MAXTYP = 5;
+          // NTYPES = MAXTYP;
+          // if (NN < 0) {
+          //   NOUT.print9990(C3);
+          // } else {
+          //   if (TSTERR) derrgg(C3, NOUT);
+          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          //   xlaenv(5, 2);
+          //   final INFO = Box(0);
+          //   await ddrgsx(
+          //       NN,
+          //       NCMAX,
+          //       THRESH,
+          //       NIN,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       A(1, 3),
+          //       A(1, 4),
+          //       A(1, 5),
+          //       A(1, 6),
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       D(1, 3).asArray(),
+          //       C(1, 1),
+          //       NCMAX * NCMAX,
+          //       A(1, 12).asArray(),
+          //       WORK,
+          //       LWORK,
+          //       IWORK,
+          //       LIWORK,
+          //       LOGWRK,
+          //       INFO);
+          //   if (INFO.value != 0) NOUT.print9980('DDRGSX', INFO.value);
+          // }
+          // NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DGV')) {
           // -------------------------------------------------
@@ -1732,77 +1779,77 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGEV (Eigenvalue/vector form)
           // -------------------------------------------------
 
-          final MAXTYP = 26;
-          NTYPES = min(MAXTYP, NTYPES);
-          if (NTYPES <= 0) {
-            NOUT.print9990(C3);
-          } else {
-            if (TSTERR) derrgg(C3, NOUT);
-            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-            final INFO = Box(0);
-            ddrgev(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                A(1, 7),
-                NMAX,
-                A(1, 8),
-                A(1, 9),
-                NMAX,
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                D(1, 4).asArray(),
-                D(1, 5).asArray(),
-                D(1, 6).asArray(),
-                WORK,
-                LWORK,
-                RESULT,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DDRGEV', INFO.value);
+          // final MAXTYP = 26;
+          // NTYPES = min(MAXTYP, NTYPES);
+          // if (NTYPES <= 0) {
+          //   NOUT.print9990(C3);
+          // } else {
+          //   if (TSTERR) derrgg(C3, NOUT);
+          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          //   final INFO = Box(0);
+          //   ddrgev(
+          //       NN,
+          //       NVAL,
+          //       MAXTYP,
+          //       DOTYPE,
+          //       ISEED,
+          //       THRESH,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       A(1, 3),
+          //       A(1, 4),
+          //       A(1, 7),
+          //       NMAX,
+          //       A(1, 8),
+          //       A(1, 9),
+          //       NMAX,
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       D(1, 3).asArray(),
+          //       D(1, 4).asArray(),
+          //       D(1, 5).asArray(),
+          //       D(1, 6).asArray(),
+          //       WORK,
+          //       LWORK,
+          //       RESULT,
+          //       INFO);
+          //   if (INFO.value != 0) NOUT.print9980('DDRGEV', INFO.value);
 
-            // Blocked version
+          //   // Blocked version
 
-            ddrgev3(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                A(1, 7),
-                NMAX,
-                A(1, 8),
-                A(1, 9),
-                NMAX,
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                D(1, 4).asArray(),
-                D(1, 5).asArray(),
-                D(1, 6).asArray(),
-                WORK,
-                LWORK,
-                RESULT,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DDRGEV3', INFO.value);
-          }
-          NOUT.println('\n ${'-' * 71}');
+          //   ddrgev3(
+          //       NN,
+          //       NVAL,
+          //       MAXTYP,
+          //       DOTYPE,
+          //       ISEED,
+          //       THRESH,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       A(1, 3),
+          //       A(1, 4),
+          //       A(1, 7),
+          //       NMAX,
+          //       A(1, 8),
+          //       A(1, 9),
+          //       NMAX,
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       D(1, 3).asArray(),
+          //       D(1, 4).asArray(),
+          //       D(1, 5).asArray(),
+          //       D(1, 6).asArray(),
+          //       WORK,
+          //       LWORK,
+          //       RESULT,
+          //       INFO);
+          //   if (INFO.value != 0) NOUT.print9980('DDRGEV3', INFO.value);
+          // }
+          // NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (DXV) {
           // -------------------------------------------------
@@ -1810,288 +1857,288 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGEVX (eigenvalue/vector with condition numbers)
           // -------------------------------------------------
 
-          final MAXTYP = 2;
-          NTYPES = MAXTYP;
-          if (NN < 0) {
-            NOUT.print9990(C3);
-          } else {
-            if (TSTERR) derrgg(C3, NOUT);
-            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-            final INFO = Box(0);
-            await ddrgvx(
-                NN,
-                THRESH,
-                NIN,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                A(1, 3),
-                A(1, 4),
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                D(1, 3).asArray(),
-                A(1, 5),
-                A(1, 6),
-                IWORK.box(1),
-                IWORK.box(2),
-                D(1, 4).asArray(),
-                D(1, 5).asArray(),
-                D(1, 6).asArray(),
-                D(1, 7).asArray(),
-                D(1, 8).asArray(),
-                D(1, 9).asArray(),
-                WORK,
-                LWORK,
-                IWORK(3),
-                LIWORK - 2,
-                RESULT,
-                LOGWRK,
-                INFO);
+          // final MAXTYP = 2;
+          // NTYPES = MAXTYP;
+          // if (NN < 0) {
+          //   NOUT.print9990(C3);
+          // } else {
+          //   if (TSTERR) derrgg(C3, NOUT);
+          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          //   final INFO = Box(0);
+          //   await ddrgvx(
+          //       NN,
+          //       THRESH,
+          //       NIN,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       A(1, 3),
+          //       A(1, 4),
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       D(1, 3).asArray(),
+          //       A(1, 5),
+          //       A(1, 6),
+          //       IWORK.box(1),
+          //       IWORK.box(2),
+          //       D(1, 4).asArray(),
+          //       D(1, 5).asArray(),
+          //       D(1, 6).asArray(),
+          //       D(1, 7).asArray(),
+          //       D(1, 8).asArray(),
+          //       D(1, 9).asArray(),
+          //       WORK,
+          //       LWORK,
+          //       IWORK(3),
+          //       LIWORK - 2,
+          //       RESULT,
+          //       LOGWRK,
+          //       INFO);
 
-            if (INFO.value != 0) NOUT.print9980('DDRGVX', INFO.value);
-          }
-          NOUT.println('\n ${'-' * 71}');
+          //   if (INFO.value != 0) NOUT.print9980('DDRGVX', INFO.value);
+          // }
+          // NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DSB')) {
           // ------------------------------
           // DSB:  Symmetric Band Reduction
           // ------------------------------
 
-          final MAXTYP = 15;
-          NTYPES = min(MAXTYP, NTYPES);
-          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          if (TSTERR) derrst('DSB', NOUT, test);
-          // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-          // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
-          // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO.value )
-          final INFO = Box(0);
-          dchksb2stg(
-              NN,
-              NVAL,
-              NK,
-              KVAL,
-              MAXTYP,
-              DOTYPE,
-              ISEED,
-              THRESH,
-              NOUT,
-              A(1, 1),
-              NMAX,
-              D(1, 1).asArray(),
-              D(1, 2).asArray(),
-              D(1, 3).asArray(),
-              D(1, 4).asArray(),
-              D(1, 5).asArray(),
-              A(1, 2),
-              NMAX,
-              WORK,
-              LWORK,
-              RESULT,
-              INFO);
-          if (INFO.value != 0) NOUT.print9980('DCHKSB', INFO.value);
+          // final MAXTYP = 15;
+          // NTYPES = min(MAXTYP, NTYPES);
+          // await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          // if (TSTERR) derrst('DSB', NOUT, test);
+          // // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+          // // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
+          // // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO.value )
+          // final INFO = Box(0);
+          // dchksb2stg(
+          //     NN,
+          //     NVAL,
+          //     NK,
+          //     KVAL,
+          //     MAXTYP,
+          //     DOTYPE,
+          //     ISEED,
+          //     THRESH,
+          //     NOUT,
+          //     A(1, 1),
+          //     NMAX,
+          //     D(1, 1).asArray(),
+          //     D(1, 2).asArray(),
+          //     D(1, 3).asArray(),
+          //     D(1, 4).asArray(),
+          //     D(1, 5).asArray(),
+          //     A(1, 2),
+          //     NMAX,
+          //     WORK,
+          //     LWORK,
+          //     RESULT,
+          //     INFO);
+          // if (INFO.value != 0) NOUT.print9980('DCHKSB', INFO.value);
         } else if (lsamen(3, C3, 'DBB')) {
           // ------------------------------
           // DBB:  General Band Reduction
           // ------------------------------
 
-          final MAXTYP = 15;
-          NTYPES = min(MAXTYP, NTYPES);
-          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          for (final I in 1.through(NPARMS)) {
-            final NRHS = NSVAL[I];
-            if (NEWSD == 0) ISEED.assign(IOLDSD);
+          // final MAXTYP = 15;
+          // NTYPES = min(MAXTYP, NTYPES);
+          // await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          // for (final I in 1.through(NPARMS)) {
+          //   final NRHS = NSVAL[I];
+          //   if (NEWSD == 0) ISEED.assign(IOLDSD);
 
-            NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
-            final INFO = Box(0);
-            dchkbb(
-                NN,
-                MVAL,
-                NVAL,
-                NK,
-                KVAL,
-                MAXTYP,
-                DOTYPE,
-                NRHS,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                2 * NMAX,
-                D(1, 1).asArray(),
-                D(1, 2).asArray(),
-                A(1, 4),
-                NMAX,
-                A(1, 5),
-                NMAX,
-                A(1, 6),
-                NMAX,
-                A(1, 7),
-                WORK,
-                LWORK,
-                RESULT,
-                INFO);
-            if (INFO.value != 0) NOUT.print9980('DCHKBB', INFO.value);
-          }
+          //   NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
+          //   final INFO = Box(0);
+          //   dchkbb(
+          //       NN,
+          //       MVAL,
+          //       NVAL,
+          //       NK,
+          //       KVAL,
+          //       MAXTYP,
+          //       DOTYPE,
+          //       NRHS,
+          //       ISEED,
+          //       THRESH,
+          //       NOUT,
+          //       A(1, 1),
+          //       NMAX,
+          //       A(1, 2),
+          //       2 * NMAX,
+          //       D(1, 1).asArray(),
+          //       D(1, 2).asArray(),
+          //       A(1, 4),
+          //       NMAX,
+          //       A(1, 5),
+          //       NMAX,
+          //       A(1, 6),
+          //       NMAX,
+          //       A(1, 7),
+          //       WORK,
+          //       LWORK,
+          //       RESULT,
+          //       INFO);
+          //   if (INFO.value != 0) NOUT.print9980('DCHKBB', INFO.value);
+          // }
         } else if (lsamen(3, C3, 'GLM')) {
           // -----------------------------------------
           // GLM:  Generalized Linear Regression Model
           // -----------------------------------------
 
-          xlaenv(1, 1);
-          if (TSTERR) derrgg('GLM', NOUT);
-          final INFO = Box(0);
-          await dckglm(
-              NN,
-              MVAL,
-              PVAL,
-              NVAL,
-              NTYPES,
-              ISEED,
-              THRESH,
-              NMAX,
-              A(1, 1).asArray(),
-              A(1, 2).asArray(),
-              B(1, 1).asArray(),
-              B(1, 2).asArray(),
-              X,
-              WORK,
-              D(1, 1).asArray(),
-              NIN,
-              NOUT,
-              INFO);
-          if (INFO.value != 0) NOUT.print9980('DCKGLM', INFO.value);
+          // xlaenv(1, 1);
+          // if (TSTERR) derrgg('GLM', NOUT);
+          // final INFO = Box(0);
+          // await dckglm(
+          //     NN,
+          //     MVAL,
+          //     PVAL,
+          //     NVAL,
+          //     NTYPES,
+          //     ISEED,
+          //     THRESH,
+          //     NMAX,
+          //     A(1, 1).asArray(),
+          //     A(1, 2).asArray(),
+          //     B(1, 1).asArray(),
+          //     B(1, 2).asArray(),
+          //     X,
+          //     WORK,
+          //     D(1, 1).asArray(),
+          //     NIN,
+          //     NOUT,
+          //     INFO);
+          // if (INFO.value != 0) NOUT.print9980('DCKGLM', INFO.value);
         } else if (lsamen(3, C3, 'GQR')) {
           // ------------------------------------------
           // GQR:  Generalized QR and RQ factorizations
           // ------------------------------------------
 
-          xlaenv(1, 1);
-          if (TSTERR) derrgg('GQR', NOUT);
-          final INFO = Box(0);
-          await dckgqr(
-              NN,
-              MVAL,
-              NN,
-              PVAL,
-              NN,
-              NVAL,
-              NTYPES,
-              ISEED,
-              THRESH,
-              NMAX,
-              A(1, 1).asArray(),
-              A(1, 2).asArray(),
-              A(1, 3).asArray(),
-              A(1, 4).asArray(),
-              TAUA,
-              B(1, 1).asArray(),
-              B(1, 2).asArray(),
-              B(1, 3).asArray(),
-              B(1, 4).asArray(),
-              B(1, 5).asArray(),
-              TAUB,
-              WORK,
-              D(1, 1).asArray(),
-              NIN,
-              NOUT,
-              INFO);
-          if (INFO.value != 0) NOUT.print9980('DCKGQR', INFO.value);
+          // xlaenv(1, 1);
+          // if (TSTERR) derrgg('GQR', NOUT);
+          // final INFO = Box(0);
+          // await dckgqr(
+          //     NN,
+          //     MVAL,
+          //     NN,
+          //     PVAL,
+          //     NN,
+          //     NVAL,
+          //     NTYPES,
+          //     ISEED,
+          //     THRESH,
+          //     NMAX,
+          //     A(1, 1).asArray(),
+          //     A(1, 2).asArray(),
+          //     A(1, 3).asArray(),
+          //     A(1, 4).asArray(),
+          //     TAUA,
+          //     B(1, 1).asArray(),
+          //     B(1, 2).asArray(),
+          //     B(1, 3).asArray(),
+          //     B(1, 4).asArray(),
+          //     B(1, 5).asArray(),
+          //     TAUB,
+          //     WORK,
+          //     D(1, 1).asArray(),
+          //     NIN,
+          //     NOUT,
+          //     INFO);
+          // if (INFO.value != 0) NOUT.print9980('DCKGQR', INFO.value);
         } else if (lsamen(3, C3, 'GSV')) {
           // ----------------------------------------------
           // GSV:  Generalized Singular Value Decomposition
           // ----------------------------------------------
 
-          xlaenv(1, 1);
-          if (TSTERR) derrgg('GSV', NOUT);
-          final INFO = Box(0);
-          await dckgsv(
-              NN,
-              MVAL,
-              PVAL,
-              NVAL,
-              NTYPES,
-              ISEED,
-              THRESH,
-              NMAX,
-              A(1, 1).asArray(),
-              A(1, 2).asArray(),
-              B(1, 1).asArray(),
-              B(1, 2).asArray(),
-              A(1, 3).asArray(),
-              B(1, 3).asArray(),
-              A(1, 4).asArray(),
-              TAUA,
-              TAUB,
-              B(1, 4).asArray(),
-              IWORK,
-              WORK,
-              D(1, 1).asArray(),
-              NIN,
-              NOUT,
-              INFO);
-          if (INFO.value != 0) NOUT.print9980('DCKGSV', INFO.value);
+          // xlaenv(1, 1);
+          // if (TSTERR) derrgg('GSV', NOUT);
+          // final INFO = Box(0);
+          // await dckgsv(
+          //     NN,
+          //     MVAL,
+          //     PVAL,
+          //     NVAL,
+          //     NTYPES,
+          //     ISEED,
+          //     THRESH,
+          //     NMAX,
+          //     A(1, 1).asArray(),
+          //     A(1, 2).asArray(),
+          //     B(1, 1).asArray(),
+          //     B(1, 2).asArray(),
+          //     A(1, 3).asArray(),
+          //     B(1, 3).asArray(),
+          //     A(1, 4).asArray(),
+          //     TAUA,
+          //     TAUB,
+          //     B(1, 4).asArray(),
+          //     IWORK,
+          //     WORK,
+          //     D(1, 1).asArray(),
+          //     NIN,
+          //     NOUT,
+          //     INFO);
+          // if (INFO.value != 0) NOUT.print9980('DCKGSV', INFO.value);
         } else if (lsamen(3, C3, 'CSD')) {
           // ----------------------------------------------
           // CSD:  CS Decomposition
           // ----------------------------------------------
 
-          xlaenv(1, 1);
-          if (TSTERR) derrgg('CSD', NOUT);
-          final INFO = Box(0);
-          await dckcsd(
-              NN,
-              MVAL,
-              PVAL,
-              NVAL,
-              NTYPES,
-              ISEED,
-              THRESH,
-              NMAX,
-              A(1, 1).asArray(),
-              A(1, 2).asArray(),
-              A(1, 3).asArray(),
-              A(1, 4).asArray(),
-              A(1, 5).asArray(),
-              A(1, 6).asArray(),
-              A(1, 7).asArray(),
-              IWORK,
-              WORK,
-              D(1, 1).asArray(),
-              NIN,
-              NOUT,
-              INFO);
-          if (INFO.value != 0) NOUT.print9980('DCKCSD', INFO.value);
+          // xlaenv(1, 1);
+          // if (TSTERR) derrgg('CSD', NOUT);
+          // final INFO = Box(0);
+          // await dckcsd(
+          //     NN,
+          //     MVAL,
+          //     PVAL,
+          //     NVAL,
+          //     NTYPES,
+          //     ISEED,
+          //     THRESH,
+          //     NMAX,
+          //     A(1, 1).asArray(),
+          //     A(1, 2).asArray(),
+          //     A(1, 3).asArray(),
+          //     A(1, 4).asArray(),
+          //     A(1, 5).asArray(),
+          //     A(1, 6).asArray(),
+          //     A(1, 7).asArray(),
+          //     IWORK,
+          //     WORK,
+          //     D(1, 1).asArray(),
+          //     NIN,
+          //     NOUT,
+          //     INFO);
+          // if (INFO.value != 0) NOUT.print9980('DCKCSD', INFO.value);
         } else if (lsamen(3, C3, 'LSE')) {
           // --------------------------------------
           // LSE:  Constrained Linear Least Squares
           // --------------------------------------
 
-          xlaenv(1, 1);
-          if (TSTERR) derrgg('LSE', NOUT);
-          final INFO = Box(0);
-          await dcklse(
-              NN,
-              MVAL,
-              PVAL,
-              NVAL,
-              NTYPES,
-              ISEED,
-              THRESH,
-              NMAX,
-              A(1, 1).asArray(),
-              A(1, 2).asArray(),
-              B(1, 1).asArray(),
-              B(1, 2).asArray(),
-              X,
-              WORK,
-              D(1, 1).asArray(),
-              NIN,
-              NOUT,
-              INFO);
-          if (INFO.value != 0) NOUT.print9980('DCKLSE', INFO.value);
+          // xlaenv(1, 1);
+          // if (TSTERR) derrgg('LSE', NOUT);
+          // final INFO = Box(0);
+          // await dcklse(
+          //     NN,
+          //     MVAL,
+          //     PVAL,
+          //     NVAL,
+          //     NTYPES,
+          //     ISEED,
+          //     THRESH,
+          //     NMAX,
+          //     A(1, 1).asArray(),
+          //     A(1, 2).asArray(),
+          //     B(1, 1).asArray(),
+          //     B(1, 2).asArray(),
+          //     X,
+          //     WORK,
+          //     D(1, 1).asArray(),
+          //     NIN,
+          //     NOUT,
+          //     INFO);
+          // if (INFO.value != 0) NOUT.print9980('DCKLSE', INFO.value);
         } else {
           NOUT.println('');
           NOUT.println('');

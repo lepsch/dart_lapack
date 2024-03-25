@@ -536,8 +536,6 @@ void zdrgev(
   alasvm('ZGV', NOUNIT, NERRS, NTESTT, 0);
 
   WORK[1] = MAXWRK.toComplex();
-
-  return;
 }
 
 void _print9999(

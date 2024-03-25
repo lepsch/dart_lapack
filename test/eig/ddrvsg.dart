@@ -1073,8 +1073,6 @@ void ddrvsg(
   // Summary
 
   dlasum('DSG', NOUNIT, NERRS.value, NTESTT);
-
-  return;
 }
 
 void _print9999(

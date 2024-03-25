@@ -1144,6 +1144,4 @@ void zgesvj(
   RWORK[6] = MXSINJ.toDouble();
   // MXSINJ is the largest absolute value of the sines of Jacobi angles
   // in the last sweep
-
-  return;
 }
