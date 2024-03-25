@@ -1678,7 +1678,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               C3: C3,
             );
             test.group(
-                'DGG: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
+                'DGS: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
                 () {
               NOUT!;
 
@@ -1756,43 +1756,53 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGESX (Schur form and condition numbers)
           // -------------------------------------------------
 
-          // const MAXTYP = 5;
-          // NTYPES = MAXTYP;
-          // if (NN < 0) {
-          //   NOUT.print9990(C3);
-          // } else {
-          //   if (TSTERR) derrgg(C3, NOUT);
-          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          //   xlaenv(5, 2);
-          //   final INFO = Box(0);
-          //   await ddrgsx(
-          //       NN,
-          //       NCMAX,
-          //       THRESH,
-          //       NIN,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       A(1, 3),
-          //       A(1, 4),
-          //       A(1, 5),
-          //       A(1, 6),
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       D(1, 3).asArray(),
-          //       C(1, 1),
-          //       NCMAX * NCMAX,
-          //       A(1, 12).asArray(),
-          //       WORK,
-          //       LWORK,
-          //       IWORK,
-          //       LIWORK,
-          //       LOGWRK,
-          //       INFO);
-          //   if (INFO.value != 0) NOUT.print9980('DDRGSX', INFO.value);
-          // }
-          // NOUT.println('\n ${'-' * 71}');
+          const MAXTYP = 5;
+          NTYPES = MAXTYP;
+          if (NN < 0) {
+            NOUT.print9990(C3);
+          } else {
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+
+            final group =
+                'DGX: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)';
+            test.group(group, () {
+              test.group('error exits', () {
+                if (TSTERR) derrgg(C3, NOUT!, test);
+              });
+            });
+
+            xlaenv(5, 2);
+            final INFO = Box(0);
+            await ddrgsx(
+                NN,
+                NCMAX,
+                THRESH,
+                NIN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 5),
+                A(1, 6),
+                D(1, 1).asArray(),
+                D(1, 2).asArray(),
+                D(1, 3).asArray(),
+                C(1, 1),
+                NCMAX * NCMAX,
+                A(1, 12).asArray(),
+                WORK,
+                LWORK,
+                IWORK,
+                LIWORK,
+                LOGWRK,
+                INFO,
+                test,
+                group);
+            if (INFO.value != 0) NOUT.print9980('DDRGSX', INFO.value);
+          }
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DGV')) {
           // -------------------------------------------------
