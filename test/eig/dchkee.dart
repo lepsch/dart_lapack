@@ -115,9 +115,10 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
     nextPath:
     while (true) {
       // Read the first line and set the 3-character test path
-      String PATH;
+      String PATH = '';
       do {
         final LINE = await NIN.readLine();
+        if (LINE.length < 3) continue;
         PATH = LINE.substring(0, 3);
       } while (PATH.trim().isEmpty);
 
@@ -751,7 +752,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // NS    = number of shifts
           // MAXB  = minimum submatrix size
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
@@ -869,7 +870,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // NBMIN = minimum block size
           // NX    = crossover point
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
@@ -1076,7 +1077,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // NBMIN = minimum block size
           // NX    = crossover point
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
@@ -1171,7 +1172,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // NX    = crossover point
           // NRHS  = number of right hand sides
 
-          final MAXTYP = 16;
+          const MAXTYP = 16;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
@@ -1303,7 +1304,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGEEV (eigenvalues and eigenvectors)
           // --------------------------------------------
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES <= 0) {
             NOUT.print9990(C3);
@@ -1365,7 +1366,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGEES (Schur form)
           // --------------------------------------------
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES <= 0) {
             NOUT.print9990(C3);
@@ -1424,7 +1425,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGEEVX (eigenvalues, eigenvectors and condition numbers)
           // --------------------------------------------------------------
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES < 0) {
             NOUT.print9990(C3);
@@ -1488,7 +1489,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGEESX (Schur form and condition numbers)
           // ---------------------------------------------------
 
-          final MAXTYP = 21;
+          const MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
           if (NTYPES < 0) {
             NOUT.print9990(C3);
@@ -1551,7 +1552,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // IACC22: structured matrix multiply
           // NBCOL = minimum column dimension for blocks
 
-          final MAXTYP = 26;
+          const MAXTYP = 26;
           NTYPES = min(MAXTYP, NTYPES);
           await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           final ctx = (
@@ -1664,70 +1665,90 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGES (Schur form)
           // -------------------------------------------------
 
-          // final MAXTYP = 26;
-          // NTYPES = min(MAXTYP, NTYPES);
-          // if (NTYPES <= 0) {
-          //   NOUT.print9990(C3);
-          // } else {
-          //   if (TSTERR) derrgg(C3, NOUT);
-          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          //   final INFO = Box(0);
-          //   ddrges(
-          //       NN,
-          //       NVAL,
-          //       MAXTYP,
-          //       DOTYPE,
-          //       ISEED,
-          //       THRESH,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       A(1, 3),
-          //       A(1, 4),
-          //       A(1, 7),
-          //       NMAX,
-          //       A(1, 8),
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       D(1, 3).asArray(),
-          //       WORK,
-          //       LWORK,
-          //       RESULT,
-          //       LOGWRK,
-          //       INFO);
-          //   if (INFO.value != 0) NOUT.print9980('DDRGES', INFO.value);
+          const MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            NOUT.print9990(C3);
+          } else {
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            final ctx = (
+              NVAL: NVAL.copy(),
+              ISEED: ISEED.copy(),
+              DOTYPE: DOTYPE.copy(),
+              C3: C3,
+            );
+            test.group(
+                'DGG: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
+                () {
+              NOUT!;
 
-          //   // Blocked version
+              final (:NVAL, :ISEED, :DOTYPE, :C3) = ctx;
 
-          //   xlaenv(16, 2);
-          //   ddrges3(
-          //       NN,
-          //       NVAL,
-          //       MAXTYP,
-          //       DOTYPE,
-          //       ISEED,
-          //       THRESH,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       A(1, 3),
-          //       A(1, 4),
-          //       A(1, 7),
-          //       NMAX,
-          //       A(1, 8),
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       D(1, 3).asArray(),
-          //       WORK,
-          //       LWORK,
-          //       RESULT,
-          //       LOGWRK,
-          //       INFO);
-          //   if (INFO.value != 0) NOUT.print9980('DDRGES3', INFO.value);
-          // }
-          // NOUT.println('\n ${'-' * 71}');
+              test.group('error exits', () {
+                if (TSTERR) derrgg(C3, NOUT!, test);
+              });
+
+              final INFO = Box(0);
+              ddrges(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 7),
+                  NMAX,
+                  A(1, 8),
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  WORK,
+                  LWORK,
+                  RESULT,
+                  LOGWRK,
+                  INFO,
+                  test);
+              if (INFO.value != 0) NOUT.print9980('DDRGES', INFO.value);
+
+              // Blocked version
+              test.setUp(() {
+                xlaenv(16, 2);
+              });
+              ddrges3(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 7),
+                  NMAX,
+                  A(1, 8),
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  WORK,
+                  LWORK,
+                  RESULT,
+                  LOGWRK,
+                  INFO,
+                  test);
+              if (INFO.value != 0) NOUT.print9980('DDRGES3', INFO.value);
+            });
+          }
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (DGX) {
           // -------------------------------------------------
@@ -1735,7 +1756,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGESX (Schur form and condition numbers)
           // -------------------------------------------------
 
-          // final MAXTYP = 5;
+          // const MAXTYP = 5;
           // NTYPES = MAXTYP;
           // if (NN < 0) {
           //   NOUT.print9990(C3);
@@ -1779,7 +1800,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGEV (Eigenvalue/vector form)
           // -------------------------------------------------
 
-          // final MAXTYP = 26;
+          // const MAXTYP = 26;
           // NTYPES = min(MAXTYP, NTYPES);
           // if (NTYPES <= 0) {
           //   NOUT.print9990(C3);
@@ -1857,7 +1878,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGEVX (eigenvalue/vector with condition numbers)
           // -------------------------------------------------
 
-          // final MAXTYP = 2;
+          // const MAXTYP = 2;
           // NTYPES = MAXTYP;
           // if (NN < 0) {
           //   NOUT.print9990(C3);
@@ -1905,7 +1926,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DSB:  Symmetric Band Reduction
           // ------------------------------
 
-          // final MAXTYP = 15;
+          // const MAXTYP = 15;
           // NTYPES = min(MAXTYP, NTYPES);
           // await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           // if (TSTERR) derrst('DSB', NOUT, test);
@@ -1942,7 +1963,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DBB:  General Band Reduction
           // ------------------------------
 
-          // final MAXTYP = 15;
+          // const MAXTYP = 15;
           // NTYPES = min(MAXTYP, NTYPES);
           // await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           // for (final I in 1.through(NPARMS)) {

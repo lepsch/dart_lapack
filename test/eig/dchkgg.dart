@@ -96,8 +96,7 @@ void dchkgg(
   final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 26;
-  final DUMMA = Array<double>(4),
-      RMAGN = Array<double>(4, offset: zeroIndexedArrayOffset);
+  final DUMMA = Array<double>(4);
   const KCLASS = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     3 //
@@ -191,11 +190,6 @@ void dchkgg(
   final SAFMAX = ONE / SAFMIN;
   final ULPINV = ONE / ULP;
 
-  // The values RMAGN(2:3) depend on N, see below.
-
-  RMAGN[0] = ZERO;
-  RMAGN[1] = ONE;
-
   // Loop over sizes, types
 
   var NTESTT = 0;
@@ -204,16 +198,17 @@ void dchkgg(
   for (final JSIZE in 1.through(NSIZES)) {
     final N = NN[JSIZE];
     final N1 = max(1, N);
-    RMAGN[2] = SAFMAX * ULP / N1;
-    RMAGN[3] = SAFMIN * ULPINV * N1;
+    final RMAGN = Array.fromList([
+      ZERO,
+      ONE,
+      SAFMAX * ULP / N1,
+      SAFMIN * ULPINV * N1,
+    ], offset: zeroIndexedArrayOffset);
     final MTYPES = NSIZES != 1 ? min(MAXTYP, NTYPES) : min(MAXTYP + 1, NTYPES);
-
-    final ctx = (RMAGN: RMAGN.copy());
 
     for (final JTYPE in 1.through(MTYPES)) {
       final skip = !DOTYPE[JTYPE];
       test('DCHKGG (SIZE = $N, TYPE = $JTYPE)', () {
-        final (:RMAGN) = ctx;
         var NTEST = 0;
         // Save ISEED in case of an error.
         final IOLDSD = ISEED.copy();
