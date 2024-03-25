@@ -41,10 +41,15 @@ class Nin {
   }
 
   Future<void> readArray<T>(Array<T> a, int n) async {
-    final parts = await readList();
-    if (parts.length < n) throw EOF();
-    for (var i = 1; i <= n; i++) {
-      a[i] = _parse<T>(parts[i - 1]);
+    var i = 1, left = n;
+    while (left > 0) {
+      var parts = await readList();
+      for (final part in parts) {
+        a[i] = _parse<T>(part);
+        if (i == n) return;
+        i++;
+      }
+      left = left - parts.length;
     }
   }
 

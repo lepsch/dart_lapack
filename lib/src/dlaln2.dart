@@ -149,9 +149,8 @@ void dlaln2(
       }
 
       // Compute X
-
-      dladiv(SCALE.value * B[1][1], SCALE.value * B[1][2], CSR, CSI,
-          X.box(1, 1), X.box(1, 2));
+      dladiv(SCALE.value * B[1][1], SCALE.value * B[1][2], CSR, CSI, X(1, 1),
+          X(1, 2));
       XNORM.value = X[1][1].abs() + X[1][2].abs();
     }
   } else {

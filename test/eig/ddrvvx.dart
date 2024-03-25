@@ -511,7 +511,7 @@ Future<void> ddrvvx(
       N = await NIUNIT.readInt();
 
       // Read input data until N=0
-      if (N != 0) break;
+      if (N == 0) break;
 
       JTYPE++;
       ISEED[1] = JTYPE;

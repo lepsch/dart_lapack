@@ -343,6 +343,19 @@ void main() {
       expect(m[3][3], 9);
     });
 
+    test('1x1', () {
+      final m = Matrix.fromList([
+        [1],
+      ]);
+      expect(m[1][1], 1);
+      expect(m.first, 1);
+
+      final a = Array.fromList([1]);
+      final m2 = a.asMatrix(30);
+      expect(m2[1][1], 1);
+      expect(m2.first, 1);
+    });
+
     test('first', () {
       final m = Matrix.fromList([
         [1, 2, 3],

@@ -184,7 +184,7 @@ void dlarrf(
     MAX2 = WORK[1].abs();
     for (I = 1; I <= N - 1; I++) {
       WORK[N + I] = LD[I] / WORK[I];
-      S *= WORK[N + I] * L[I] - RSIGMA;
+      S = S * WORK[N + I] * L[I] - RSIGMA;
       WORK[I + 1] = D[I + 1] + S;
       if (WORK[I + 1].abs() < PIVMIN) {
         WORK[I + 1] = -PIVMIN;
