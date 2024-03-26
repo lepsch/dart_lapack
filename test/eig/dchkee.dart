@@ -2191,35 +2191,49 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // GSV:  Generalized Singular Value Decomposition
           // ----------------------------------------------
 
-          // xlaenv(1, 1);
-          // if (TSTERR) derrgg('GSV', NOUT);
-          // final INFO = Box(0);
-          // await dckgsv(
-          //     NN,
-          //     MVAL,
-          //     PVAL,
-          //     NVAL,
-          //     NTYPES,
-          //     ISEED,
-          //     THRESH,
-          //     NMAX,
-          //     A(1, 1).asArray(),
-          //     A(1, 2).asArray(),
-          //     B(1, 1).asArray(),
-          //     B(1, 2).asArray(),
-          //     A(1, 3).asArray(),
-          //     B(1, 3).asArray(),
-          //     A(1, 4).asArray(),
-          //     TAUA,
-          //     TAUB,
-          //     B(1, 4).asArray(),
-          //     IWORK,
-          //     WORK,
-          //     D(1, 1).asArray(),
-          //     NIN,
-          //     NOUT,
-          //     INFO);
-          // if (INFO.value != 0) NOUT.print9980('DCKGSV', INFO.value);
+          final PARAMS = claenv.IPARMS.copy();
+          final group =
+              'GSV: Generalized Singular Value Decomposition (path=$C3)';
+          test.group(group, () {
+            test.group('error exits', () {
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+                xlaenv(1, 1);
+              });
+
+              if (TSTERR) derrgg('GSV', NOUT!, test);
+            });
+          });
+
+          final INFO = Box(0);
+          await dckgsv(
+              NN,
+              MVAL,
+              PVAL,
+              NVAL,
+              NTYPES,
+              ISEED,
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 3).asArray(),
+              A(1, 4).asArray(),
+              TAUA,
+              TAUB,
+              B(1, 4).asArray(),
+              IWORK,
+              WORK,
+              D(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO,
+              test,
+              group);
+          if (INFO.value != 0) NOUT.print9980('DCKGSV', INFO.value);
         } else if (lsamen(3, C3, 'CSD')) {
           // ----------------------------------------------
           // CSD:  CS Decomposition
