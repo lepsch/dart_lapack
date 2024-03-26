@@ -1908,48 +1908,58 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DGGEVX (eigenvalue/vector with condition numbers)
           // -------------------------------------------------
 
-          // const MAXTYP = 2;
-          // NTYPES = MAXTYP;
-          // if (NN < 0) {
-          //   NOUT.print9990(C3);
-          // } else {
-          //   if (TSTERR) derrgg(C3, NOUT);
-          //   await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          //   final INFO = Box(0);
-          //   await ddrgvx(
-          //       NN,
-          //       THRESH,
-          //       NIN,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       A(1, 3),
-          //       A(1, 4),
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       D(1, 3).asArray(),
-          //       A(1, 5),
-          //       A(1, 6),
-          //       IWORK.box(1),
-          //       IWORK.box(2),
-          //       D(1, 4).asArray(),
-          //       D(1, 5).asArray(),
-          //       D(1, 6).asArray(),
-          //       D(1, 7).asArray(),
-          //       D(1, 8).asArray(),
-          //       D(1, 9).asArray(),
-          //       WORK,
-          //       LWORK,
-          //       IWORK(3),
-          //       LIWORK - 2,
-          //       RESULT,
-          //       LOGWRK,
-          //       INFO);
+          const MAXTYP = 2;
+          NTYPES = MAXTYP;
+          if (NN < 0) {
+            NOUT.print9990(C3);
+          } else {
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
-          //   if (INFO.value != 0) NOUT.print9980('DDRGVX', INFO.value);
-          // }
-          // NOUT.println('\n ${'-' * 71}');
+            final group =
+                'DXV: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)';
+            test.group(group, () {
+              test.group('error exits', () {
+                if (TSTERR) derrgg(C3, NOUT!, test);
+              });
+            });
+
+            final INFO = Box(0);
+            await ddrgvx(
+                NN,
+                THRESH,
+                NIN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                D(1, 1).asArray(),
+                D(1, 2).asArray(),
+                D(1, 3).asArray(),
+                A(1, 5),
+                A(1, 6),
+                IWORK.box(1),
+                IWORK.box(2),
+                D(1, 4).asArray(),
+                D(1, 5).asArray(),
+                D(1, 6).asArray(),
+                D(1, 7).asArray(),
+                D(1, 8).asArray(),
+                D(1, 9).asArray(),
+                WORK,
+                LWORK,
+                IWORK(3),
+                LIWORK - 2,
+                RESULT,
+                LOGWRK,
+                INFO,
+                test,
+                group);
+
+            if (INFO.value != 0) NOUT.print9980('DDRGVX', INFO.value);
+          }
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DSB')) {
           // ------------------------------
