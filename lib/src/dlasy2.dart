@@ -183,7 +183,7 @@ void dlasy2(
     SCALE.value = ONE;
     if ((TWO * SMLNUM) * BTMP[2].abs() > U22.abs() ||
         (TWO * SMLNUM) * BTMP[1].abs() > U11.abs()) {
-      SCALE.value = HALF / max(BTMP[1].abs(), BTMP[2]).abs();
+      SCALE.value = HALF / max(BTMP[1].abs(), BTMP[2].abs());
       BTMP[1] *= SCALE.value;
       BTMP[2] *= SCALE.value;
     }
@@ -200,7 +200,7 @@ void dlasy2(
       XNORM.value = X[1][1].abs() + X[1][2].abs();
     } else {
       X[2][1] = X2[2];
-      XNORM.value = max(X[1][1].abs(), X[2][1]).abs();
+      XNORM.value = max(X[1][1].abs(), X[2][1].abs());
     }
     return;
   }
@@ -323,5 +323,5 @@ void dlasy2(
   X[2][1] = TMP[2];
   X[1][2] = TMP[3];
   X[2][2] = TMP[4];
-  XNORM.value = max(TMP[1].abs() + TMP[3].abs(), TMP[2].abs() + TMP[4]).abs();
+  XNORM.value = max(TMP[1].abs() + TMP[3].abs(), TMP[2].abs() + TMP[4].abs());
 }

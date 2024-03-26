@@ -75,15 +75,13 @@ Future<void> ddrgvx(
   final RESULT = RESULT_.having();
   final BWORK = BWORK_.having();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5;
-  final LINFO = Box(0);
-  final ANORM = Box(0.0), BNORM = Box(0.0);
 
   // Check for errors
 
   INFO.value = 0;
   var MAXWRK = 0;
   {
-    var NMAX = 5;
+    const NMAX = 5;
 
     if (NSIZE < 0) {
       INFO.value = -1;
@@ -159,6 +157,8 @@ Future<void> ddrgvx(
                   dlacpy('F', N, N, A, LDA, AI, LDA);
                   dlacpy('F', N, N, B, LDA, BI, LDA);
 
+                  final LINFO = Box(0);
+                  final ANORM = Box(ZERO), BNORM = Box(ZERO);
                   dggevx(
                       'N',
                       'V',
@@ -338,7 +338,8 @@ Future<void> ddrgvx(
 
           dlacpy('F', N, N, A, LDA, AI, LDA);
           dlacpy('F', N, N, B, LDA, BI, LDA);
-
+          final LINFO = Box(0);
+          final ANORM = Box(ZERO), BNORM = Box(ZERO);
           dggevx(
               'N',
               'V',

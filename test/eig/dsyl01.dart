@@ -9,8 +9,11 @@ import 'package:lapack/src/dtrsyl.dart';
 import 'package:lapack/src/dtrsyl3.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/range.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatmr.dart';
+import '../test_driver.dart';
 
 void dsyl01(
   final double THRESH,
@@ -18,6 +21,7 @@ void dsyl01(
   final Array<double> RMAX_,
   final Array<int> NINFO_,
   final Box<int> KNT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -61,15 +65,14 @@ void dsyl01(
   for (var I = 1; I <= 4; I++) {
     ISEED[I] = 1;
   }
-  final SCALE = Box(ONE), SCALE3 = Box(ONE);
-  final LIWORK = MAXM + MAXN + 2;
+  const LIWORK = MAXM + MAXN + 2;
   for (final J in [1, 2]) {
     for (final ISGN in [-1, 1]) {
       // Reset seed (overwritten by LATMR)
       for (var I = 1; I <= 4; I++) {
         ISEED[I] = 1;
       }
-      for (var M = 32; M <= MAXM; M += 71) {
+      for (final M in 32.through(MAXM, step: 71)) {
         final KLA = 0;
         final KUA = M - 1;
         dlatmr(
@@ -105,7 +108,7 @@ void dsyl01(
           A[I][I] *= VM[J - 1];
         }
         final ANRM = dlange('M', M, M, A, MAXM, DUM);
-        for (var N = 51; N <= MAXN; N += 47) {
+        for (final N in 51.through(MAXN, step: 47)) {
           final KLB = 0;
           final KUB = N - 1;
           dlatmr(
@@ -170,58 +173,72 @@ void dsyl01(
               IINFO);
           for (final TRANA in ['N', 'T']) {
             for (final TRANB in ['N', 'T']) {
-              KNT.value++;
+              final ctx = (
+                A: A.copy(),
+                B: B.copy(),
+                C: C.copy(),
+              );
+              test('(PARAM=$J ISGN=$ISGN M=$M N=$N TRANA=$TRANA TRANB=$TRANB)',
+                  () {
+                final (:A, :B, :C) = ctx;
+                KNT.value++;
 
-              dlacpy('All', M, N, C, MAXM, X, MAXM);
-              dlacpy('All', M, N, C, MAXM, CC, MAXM);
-              dtrsyl(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE,
-                  IINFO);
-              if (IINFO.value != 0) NINFO[1]++;
-              var XNRM = dlange('M', M, N, X, MAXM, DUM);
-              var RMUL = ONE;
-              if (XNRM > ONE && TNRM > ONE) {
-                if (XNRM > BIGNUM / TNRM) {
-                  RMUL = ONE / max(XNRM, TNRM);
+                dlacpy('All', M, N, C, MAXM, X, MAXM);
+                dlacpy('All', M, N, C, MAXM, CC, MAXM);
+                final SCALE = Box(ONE);
+                dtrsyl(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
+                    SCALE, IINFO);
+                if (IINFO.value != 0) NINFO[1]++;
+                var XNRM = dlange('M', M, N, X, MAXM, DUM);
+                var RMUL = ONE;
+                if (XNRM > ONE && TNRM > ONE) {
+                  if (XNRM > BIGNUM / TNRM) {
+                    RMUL = ONE / max(XNRM, TNRM);
+                  }
                 }
-              }
-              dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
-                  -SCALE.value * RMUL, CC, MAXM);
-              dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
-                  MAXN, ONE, CC, MAXM);
-              var RES1 = dlange('M', M, N, CC, MAXM, DUM);
-              var RES = RES1 /
-                  max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
-              if (RES > THRESH) NFAIL[1]++;
-              if (RES > RMAX[1]) RMAX[1] = RES;
+                dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
+                    -SCALE.value * RMUL, CC, MAXM);
+                dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
+                    MAXN, ONE, CC, MAXM);
+                var RES1 = dlange('M', M, N, CC, MAXM, DUM);
+                var RES = RES1 /
+                    max(SMLNUM,
+                        max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
+                if (RES > THRESH) NFAIL[1]++;
+                if (RES > RMAX[1]) RMAX[1] = RES;
+                test.expect(RES, lessThan(THRESH));
 
-              dlacpy('All', M, N, C, MAXM, X, MAXM);
-              dlacpy('All', M, N, C, MAXM, CC, MAXM);
-              final LDSWORKINOUT = Box(LDSWORK);
-              dtrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
-                  SCALE3, IWORK, LIWORK, SWORK, LDSWORKINOUT, INFO);
-              if (INFO.value != 0) NINFO[2]++;
-              XNRM = dlange('M', M, N, X, MAXM, DUM);
-              RMUL = ONE;
-              if (XNRM > ONE && TNRM > ONE) {
-                if (XNRM > BIGNUM / TNRM) {
-                  RMUL = ONE / max(XNRM, TNRM);
+                dlacpy('All', M, N, C, MAXM, X, MAXM);
+                dlacpy('All', M, N, C, MAXM, CC, MAXM);
+                final SCALE3 = Box(ONE);
+                dtrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
+                    SCALE3, IWORK, LIWORK, SWORK, Box(LDSWORK), INFO);
+                if (INFO.value != 0) NINFO[2]++;
+                XNRM = dlange('M', M, N, X, MAXM, DUM);
+                RMUL = ONE;
+                if (XNRM > ONE && TNRM > ONE) {
+                  if (XNRM > BIGNUM / TNRM) {
+                    RMUL = ONE / max(XNRM, TNRM);
+                  }
                 }
-              }
-              dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
-                  -SCALE3.value * RMUL, CC, MAXM);
-              dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
-                  MAXN, ONE, CC, MAXM);
-              RES1 = dlange('M', M, N, CC, MAXM, DUM);
-              RES = RES1 /
-                  max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
-              // Verify that TRSYL3 only flushes if TRSYL flushes (but
-              // there may be cases where TRSYL3 avoid flushing).
-              if (SCALE3.value == ZERO && SCALE.value > ZERO ||
-                  IINFO.value != INFO.value) {
-                NFAIL[3]++;
-              }
-              if (RES > THRESH || disnan(RES)) NFAIL[2]++;
-              if (RES > RMAX[2]) RMAX[2] = RES;
+                dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
+                    -SCALE3.value * RMUL, CC, MAXM);
+                dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
+                    MAXN, ONE, CC, MAXM);
+                RES1 = dlange('M', M, N, CC, MAXM, DUM);
+                RES = RES1 /
+                    max(SMLNUM,
+                        max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
+                // Verify that TRSYL3 only flushes if TRSYL flushes (but
+                // there may be cases where TRSYL3 avoid flushing).
+                if (SCALE3.value == ZERO && SCALE.value > ZERO ||
+                    IINFO.value != INFO.value) {
+                  NFAIL[3]++;
+                }
+                if (RES > THRESH || disnan(RES)) NFAIL[2]++;
+                if (RES > RMAX[2]) RMAX[2] = RES;
+                test.expect(RES, lessThan(THRESH));
+              });
             }
           }
         }

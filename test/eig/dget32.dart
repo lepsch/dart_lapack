@@ -79,7 +79,7 @@ void dget32(
                   .abs();
               if (INFO.value == 0) {
                 DEN = max(
-                    EPS * ((TR[1][1].abs() + TL[1][1]).abs() * X[1][1].abs()),
+                    EPS * ((TR[1][1].abs() + TL[1][1].abs()) * X[1][1].abs()),
                     SMLNUM);
               } else {
                 DEN = SMLNUM * max(X[1][1].abs(), ONE);
@@ -134,7 +134,7 @@ void dget32(
                       TL[1][2].abs() +
                       TL[2][1].abs() +
                       TL[2][2].abs();
-                  XNRM = max(X[1][1].abs(), X[2][1]).abs();
+                  XNRM = max(X[1][1].abs(), X[2][1].abs());
                   DEN = max(SMLNUM, max(SMLNUM * XNRM, (TNRM * EPS) * XNRM));
                   RES /= DEN;
                   if (SCALE.value > ONE) RES += ONE / EPS;
@@ -180,11 +180,11 @@ void dget32(
                       TR[2][2].abs() +
                       TR[2][1].abs();
                   XNRM = X[1][1].abs() + X[1][2].abs();
-                  RES = (((TL[1][1] + SGN * TR[1][1])) * X[1][1] +
+                  RES = ((TL[1][1] + SGN * TR[1][1]) * X[1][1] +
                           (SGN * TR[2][1]) * X[1][2] -
                           (SCALE.value * B[1][1]))
                       .abs();
-                  RES += (((TL[1][1] + SGN * TR[2][2])) * X[1][2] +
+                  RES += ((TL[1][1] + SGN * TR[2][2]) * X[1][2] +
                           (SGN * TR[1][2]) * X[1][1] -
                           (SCALE.value * B[1][2]))
                       .abs();
@@ -249,8 +249,8 @@ void dget32(
                           TL[2][2].abs();
                       XNRM = max(
                         X[1][1].abs() + X[1][2].abs(),
-                        X[2][1].abs() + X[2][2],
-                      ).abs();
+                        X[2][1].abs() + X[2][2].abs(),
+                      );
                       RES = (((TL[1][1] + SGN * TR[1][1])) * X[1][1] +
                               (SGN * TR[2][1]) * X[1][2] +
                               TL[1][2] * X[2][1] -

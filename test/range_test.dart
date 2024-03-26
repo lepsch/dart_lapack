@@ -106,5 +106,11 @@ void main() {
         expect(10.through(5, step: -2), [10, 8, 6]);
       });
     });
+
+    test('Real', () {
+      const MAXN = 192;
+      final a = 51.through(MAXN, step: 47).toList();
+      expect(a, [51, 98, 145, 192]);
+    });
   });
 }

@@ -40,11 +40,11 @@ Future<void> dchkec(
   // print header information
 
   NOUT.println(
-      ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n DLALN2, DLASY2, DLANV2, DLAEXC, DTRSYL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC');
+      ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n DLALN2, DLASY2, DLANV2, DLAEXC, DTRSYL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC\n');
   NOUT.println(
-      ' Relative machine precision (EPS) = ${EPS.d16_6}\n Safe minimum (SFMIN)             = ${SFMIN.d16_6}');
+      ' Relative machine precision (EPS) = ${EPS.d16_6}\n Safe minimum (SFMIN)             = ${SFMIN.d16_6}\n');
   NOUT.println(
-      ' Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
+      ' Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n\n');
 
   OK = true;
 
@@ -61,6 +61,7 @@ Future<void> dchkec(
           KLALN2 = Box(0);
       dget31(RLALN2, LLALN2, NLALN2, KLALN2);
       NTESTS += KLALN2.value;
+
       test.expect(RLALN2.value, lessThan(THRESH));
       test.expect(NLALN2[1], 0);
       if (RLALN2.value > THRESH || NLALN2[1] != 0) {
@@ -77,6 +78,7 @@ Future<void> dchkec(
           KLASY2 = Box(0);
       dget32(RLASY2, LLASY2, NLASY2, KLASY2);
       NTESTS += KLASY2.value;
+
       test.expect(RLASY2.value, lessThan(THRESH));
       if (RLASY2.value > THRESH) {
         OK = false;
@@ -92,6 +94,7 @@ Future<void> dchkec(
           KLANV2 = Box(0);
       dget33(RLANV2, LLANV2, NLANV2, KLANV2);
       NTESTS += KLANV2.value;
+
       test.expect(RLANV2.value, lessThan(THRESH));
       test.expect(NLANV2.value, 0);
       if (RLANV2.value > THRESH || NLANV2.value != 0) {
@@ -108,6 +111,7 @@ Future<void> dchkec(
           KLAEXC = Box(0);
       dget34(RLAEXC, LLAEXC, NLAEXC, KLAEXC);
       NTESTS += KLAEXC.value;
+
       test.expect(RLAEXC.value, lessThan(THRESH));
       test.expect(NLAEXC[2], 0);
       if (RLAEXC.value > THRESH || NLAEXC[2] != 0) {
@@ -132,29 +136,26 @@ Future<void> dchkec(
       }
     });
 
-    test('DSYL01', () {
+    test.group('DSYL01', () {
       final FTRSYL = Array<int>(3),
           RTRSYL = Array<double>(2),
           ITRSYL = Array<int>(2),
           KTRSYL3 = Box(0);
-      dsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3);
+      dsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3, test);
       NTESTS += KTRSYL3.value;
 
-      test.expect(FTRSYL[1], 0);
       if (FTRSYL[1] > 0) {
         OK = false;
         NOUT.println(
             'Error in DTRSYL: ${FTRSYL[1].i8} tests fail the threshold.\nMaximum test ratio =${RTRSYL[1].d12_3} threshold =${THRESH.d12_3}');
       }
 
-      test.expect(FTRSYL[2], 0);
       if (FTRSYL[2] > 0) {
         OK = false;
         NOUT.println(
             'Error in DTRSYL3: ${FTRSYL[2].i8} tests fail the threshold.\nMaximum test ratio =${RTRSYL[2].d12_3} threshold =${THRESH.d12_3}');
       }
 
-      test.expect(FTRSYL[3], 0);
       if (FTRSYL[3] > 0) {
         OK = false;
         NOUT.println(
@@ -170,6 +171,7 @@ Future<void> dchkec(
         KTREXC = Box(0);
     await dget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN, test, group, THRESH);
     NTESTS += KTREXC.value;
+
     if (RTREXC.value > THRESH || NTREXC[3] > 0) {
       OK = false;
       NOUT.println(
@@ -184,6 +186,7 @@ Future<void> dchkec(
         KTRSNA = Box(0);
     await dget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN, test, group, THRESH);
     NTESTS += KTRSNA.value;
+
     if (RTRSNA[1] > THRESH ||
         RTRSNA[2] > THRESH ||
         NTRSNA[1] != 0 ||
@@ -202,6 +205,7 @@ Future<void> dchkec(
         KTRSEN = Box(0);
     await dget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN, test, group, THRESH);
     NTESTS += KTRSEN.value;
+
     if (RTRSEN[1] > THRESH ||
         RTRSEN[2] > THRESH ||
         NTRSEN[1] != 0 ||
@@ -238,6 +242,7 @@ Future<void> dchkec(
         KTGEXC = Box(0);
     await dget40(RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN, test, group, THRESH);
     NTESTS += KTGEXC.value;
+
     if (RTGEXC.value > THRESH) {
       OK = false;
       NOUT.println(
@@ -247,6 +252,6 @@ Future<void> dchkec(
 
   if (OK) {
     NOUT.println(
-        ' All tests for ${PATH.a3} routines passed the thresh old ( ${NTESTS.i6} tests run');
+        ' All tests for ${PATH.a3} routines passed the threshold ( ${NTESTS.i6} tests run');
   }
 }

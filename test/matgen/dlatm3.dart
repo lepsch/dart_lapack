@@ -60,16 +60,12 @@ double dlatm3(
 
   // Check for banding
 
-  if (JSUB.value > ISUB.value + KU || JSUB.value < ISUB.value - KL) {
-    return ZERO;
-  }
+  if (JSUB.value > ISUB.value + KU || JSUB.value < ISUB.value - KL) return ZERO;
 
   // Check for sparsity
 
   if (SPARSE > ZERO) {
-    if (dlaran(ISEED) < SPARSE) {
-      return ZERO;
-    }
+    if (dlaran(ISEED) < SPARSE) return ZERO;
   }
 
   // Compute entry and grade it according to IGRADE

@@ -33,19 +33,12 @@ double dlatm2(
   double TEMP;
 
   // Check for I and J in range
-
-  if (I < 1 || I > M || J < 1 || J > N) {
-    return ZERO;
-  }
+  if (I < 1 || I > M || J < 1 || J > N) return ZERO;
 
   // Check for banding
-
-  if (J > I + KU || J < I - KL) {
-    return ZERO;
-  }
+  if (J > I + KU || J < I - KL) return ZERO;
 
   // Check for sparsity
-
   if (SPARSE > ZERO) {
     if (dlaran(ISEED) < SPARSE) {
       return ZERO;
@@ -53,7 +46,6 @@ double dlatm2(
   }
 
   // Compute subscripts depending on IPVTNG
-
   if (IPVTNG == 0) {
     ISUB = I;
     JSUB = J;
@@ -69,7 +61,6 @@ double dlatm2(
   }
 
   // Compute entry and grade it according to IGRADE
-
   if (ISUB == JSUB) {
     TEMP = D[ISUB];
   } else {
