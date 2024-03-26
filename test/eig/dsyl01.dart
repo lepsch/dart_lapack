@@ -27,14 +27,10 @@ void dsyl01(
   final NINFO = NINFO_.having();
   const ZERO = 0.0, ONE = 1.0;
   const MAXM = 245, MAXN = 192, LDSWORK = 36;
-  String TRANA = '', TRANB = '';
-  int I, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N;
-  double ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SMLNUM, TNRM, XNRM;
   final DUML = Array<double>(MAXM),
       DUMR = Array<double>(MAXN),
       D = Array<double>(max(MAXM, MAXN)),
-      DUM = Array<double>(MAXN),
-      VM = Array<double>(2);
+      DUM = Array<double>(MAXN);
   final ISEED = Array<int>(4), IWORK = Array<int>(MAXM + MAXN + 2);
   final A = Matrix<double>(MAXM, MAXM),
       B = Matrix<double>(MAXN, MAXN),
@@ -43,16 +39,14 @@ void dsyl01(
       X = Matrix<double>(MAXM, MAXN),
       SWORK = Matrix<double>(LDSWORK, 126);
   final INFO = Box(0), IINFO = Box(0);
-  final SCALE = Box(0.0), SCALE3 = Box(0.0);
 
   // Get machine parameters
 
-  EPS = dlamch('P');
-  SMLNUM = dlamch('S') / EPS;
-  BIGNUM = ONE / SMLNUM;
+  final EPS = dlamch('P');
+  final SMLNUM = dlamch('S') / EPS;
+  final BIGNUM = ONE / SMLNUM;
 
-  VM[1] = ONE;
-  VM[2] = 0.000001;
+  const VM = [ONE, 0.000001];
 
   // Begin test loop
 
@@ -64,21 +58,20 @@ void dsyl01(
   RMAX[1] = ZERO;
   RMAX[2] = ZERO;
   KNT.value = 0;
-  for (I = 1; I <= 4; I++) {
+  for (var I = 1; I <= 4; I++) {
     ISEED[I] = 1;
   }
-  SCALE.value = ONE;
-  SCALE3.value = ONE;
-  LIWORK = MAXM + MAXN + 2;
-  for (J = 1; J <= 2; J++) {
-    for (ISGN = -1; ISGN <= 1; ISGN += 2) {
+  final SCALE = Box(ONE), SCALE3 = Box(ONE);
+  final LIWORK = MAXM + MAXN + 2;
+  for (final J in [1, 2]) {
+    for (final ISGN in [-1, 1]) {
       // Reset seed (overwritten by LATMR)
-      for (I = 1; I <= 4; I++) {
+      for (var I = 1; I <= 4; I++) {
         ISEED[I] = 1;
       }
-      for (M = 32; M <= MAXM; M += 71) {
-        KLA = 0;
-        KUA = M - 1;
+      for (var M = 32; M <= MAXM; M += 71) {
+        final KLA = 0;
+        final KUA = M - 1;
         dlatmr(
             M,
             M,
@@ -108,13 +101,13 @@ void dsyl01(
             MAXM,
             IWORK,
             IINFO);
-        for (I = 1; I <= M; I++) {
-          A[I][I] *= VM[J];
+        for (var I = 1; I <= M; I++) {
+          A[I][I] *= VM[J - 1];
         }
-        ANRM = dlange('M', M, M, A, MAXM, DUM);
-        for (N = 51; N <= MAXN; N += 47) {
-          KLB = 0;
-          KUB = N - 1;
+        final ANRM = dlange('M', M, M, A, MAXM, DUM);
+        for (var N = 51; N <= MAXN; N += 47) {
+          final KLB = 0;
+          final KUB = N - 1;
           dlatmr(
               N,
               N,
@@ -144,8 +137,8 @@ void dsyl01(
               MAXN,
               IWORK,
               IINFO);
-          BNRM = dlange('M', N, N, B, MAXN, DUM);
-          TNRM = max(ANRM, BNRM);
+          final BNRM = dlange('M', N, N, B, MAXN, DUM);
+          final TNRM = max(ANRM, BNRM);
           dlatmr(
               M,
               N,
@@ -175,20 +168,8 @@ void dsyl01(
               MAXM,
               IWORK,
               IINFO);
-          for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
-            if (ITRANA == 1) {
-              TRANA = 'N';
-            }
-            if (ITRANA == 2) {
-              TRANA = 'T';
-            }
-            for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-              if (ITRANB == 1) {
-                TRANB = 'N';
-              }
-              if (ITRANB == 2) {
-                TRANB = 'T';
-              }
+          for (final TRANA in ['N', 'T']) {
+            for (final TRANB in ['N', 'T']) {
               KNT.value++;
 
               dlacpy('All', M, N, C, MAXM, X, MAXM);
@@ -196,8 +177,8 @@ void dsyl01(
               dtrsyl(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE,
                   IINFO);
               if (IINFO.value != 0) NINFO[1]++;
-              XNRM = dlange('M', M, N, X, MAXM, DUM);
-              RMUL = ONE;
+              var XNRM = dlange('M', M, N, X, MAXM, DUM);
+              var RMUL = ONE;
               if (XNRM > ONE && TNRM > ONE) {
                 if (XNRM > BIGNUM / TNRM) {
                   RMUL = ONE / max(XNRM, TNRM);
@@ -207,8 +188,8 @@ void dsyl01(
                   -SCALE.value * RMUL, CC, MAXM);
               dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
                   MAXN, ONE, CC, MAXM);
-              RES1 = dlange('M', M, N, CC, MAXM, DUM);
-              RES = RES1 /
+              var RES1 = dlange('M', M, N, CC, MAXM, DUM);
+              var RES = RES1 /
                   max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
               if (RES > THRESH) NFAIL[1]++;
               if (RES > RMAX[1]) RMAX[1] = RES;

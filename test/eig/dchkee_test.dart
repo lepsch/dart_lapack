@@ -24,8 +24,7 @@ void main() async {
     'gsv.in',
     'csd.in',
     'lse.in',
-
-    // 'dec.in',
+    'dec.in',
 
     // 'dbal.in', 'dbak.in', 'dgbal.in', //
     // 'dgbak.in',       //

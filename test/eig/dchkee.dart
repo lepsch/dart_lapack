@@ -227,7 +227,8 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         xlaenv(15, 2);
         xlaenv(16, 2);
         final TSTERR = true;
-        await dchkec(THRESH, TSTERR, NIN, NOUT);
+        await dchkec(
+            THRESH, TSTERR, NIN, NOUT, test, 'DEC: Eigencondition estimation');
         continue nextPath;
       } else {
         NOUT.println(' $PATH:  Unrecognized path name');
