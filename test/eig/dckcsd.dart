@@ -6,11 +6,14 @@ import 'package:lapack/src/dlaset.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
+import 'package:test/test.dart';
 
 import '../lin/alasum.dart';
 import '../matgen/dlaran.dart';
 import '../matgen/dlarnd.dart';
 import '../matgen/dlaror.dart';
+import '../test_driver.dart';
 import 'alahdg.dart';
 import 'alareq.dart';
 import 'dcsdts.dart';
@@ -37,6 +40,8 @@ Future<void> dckcsd(
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
+  final TestDriver test,
+  final String group,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -59,149 +64,137 @@ Future<void> dckcsd(
   const NTYPES = 4;
   const GAPDIGIT = 18.0, ONE = 1.0, ORTH = 1.0e-12, TEN = 10.0, ZERO = 0.0;
   const PIOVER2 = 1.57079632679489661923132169163975144210;
-  bool FIRSTT;
-  String PATH;
-  int I,
-      IM,
-      IMAT,
-      J,
-      LDU1,
-      LDU2,
-      LDV1T,
-      LDV2T,
-      LDX,
-      LWORK,
-      M,
-      NFAIL,
-      NRUN,
-      NT,
-      P,
-      Q,
-      R;
   final DOTYPE = Array<bool>(NTYPES);
   final RESULT = Array<double>(NTESTS);
-  final IINFO = Box(0);
 
   // Initialize constants and the random number seed.
 
-  PATH = 'CSD';
+  const PATH = 'CSD';
   INFO.value = 0;
-  NRUN = 0;
-  NFAIL = 0;
-  FIRSTT = true;
+  var NRUN = 0;
+  var NFAIL = 0;
   await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
-  LDX = MMAX;
-  LDU1 = MMAX;
-  LDU2 = MMAX;
-  LDV1T = MMAX;
-  LDV2T = MMAX;
-  LWORK = MMAX * MMAX;
+  final LDX = MMAX;
+  final LDU1 = MMAX;
+  final LDU2 = MMAX;
+  final LDV1T = MMAX;
+  final LDV2T = MMAX;
+  final LWORK = MMAX * MMAX;
 
-  // Do for each value of M in MVAL.
+  test.group(group, () {
+    var FIRSTT = true;
 
-  for (IM = 1; IM <= NM; IM++) {
-    M = MVAL[IM];
-    P = PVAL[IM];
-    Q = QVAL[IM];
+    // Do for each value of M in MVAL.
 
-    for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-      // Do the tests only if DOTYPE[ IMAT ] is true.
+    for (final IM in 1.through(NM)) {
+      final M = MVAL[IM];
+      final P = PVAL[IM];
+      final Q = QVAL[IM];
 
-      if (!DOTYPE[IMAT]) continue;
+      for (final IMAT in 1.through(NTYPES)) {
+        // Do the tests only if DOTYPE[ IMAT ] is true.
+        final skip = !DOTYPE[IMAT];
+        test('DCKCSD (M = $M, P = $P, Q = $Q TYPE = $IMAT)', () {
+          final IINFO = Box(0);
 
-      // Generate X
+          // Generate X
 
-      if (IMAT == 1) {
-        dlaror('L', 'I', M, M, X.asMatrix(LDX), LDX, ISEED, WORK, IINFO);
-        if (M != 0 && IINFO.value != 0) {
-          NOUT.println(
-              ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}');
-          INFO.value = IINFO.value.abs();
-          continue;
-        }
-      } else if (IMAT == 2) {
-        R = min(min(P, M - P), min(Q, M - Q));
-        for (I = 1; I <= R; I++) {
-          THETA[I] = PIOVER2 * dlarnd(1, ISEED);
-        }
-        dlacsg(M, P, Q, THETA, ISEED, X.asMatrix(LDX), LDX, WORK);
-        for (I = 1; I <= M; I++) {
-          for (J = 1; J <= M; J++) {
-            X[I + (J - 1) * LDX] =
-                X[I + (J - 1) * LDX] + ORTH * dlarnd(2, ISEED);
+          if (IMAT == 1) {
+            dlaror('L', 'I', M, M, X.asMatrix(LDX), LDX, ISEED, WORK, IINFO);
+            expect([M, IINFO.value], [0, 0]);
+            if (M != 0 && IINFO.value != 0) {
+              NOUT.println(
+                  ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}');
+              INFO.value = IINFO.value.abs();
+              return;
+            }
+          } else if (IMAT == 2) {
+            final R = min(min(P, M - P), min(Q, M - Q));
+            for (var I = 1; I <= R; I++) {
+              THETA[I] = PIOVER2 * dlarnd(1, ISEED);
+            }
+            _dlacsg(M, P, Q, THETA, ISEED, X.asMatrix(LDX), LDX, WORK);
+            for (var I = 1; I <= M; I++) {
+              for (var J = 1; J <= M; J++) {
+                X[I + (J - 1) * LDX] =
+                    X[I + (J - 1) * LDX] + ORTH * dlarnd(2, ISEED);
+              }
+            }
+          } else if (IMAT == 3) {
+            final R = min(min(P, M - P), min(Q, M - Q));
+            for (var I = 1; I <= R + 1; I++) {
+              THETA[I] = pow(TEN, -dlarnd(1, ISEED) * GAPDIGIT).toDouble();
+            }
+            for (var I = 2; I <= R + 1; I++) {
+              THETA[I] = THETA[I - 1] + THETA[I];
+            }
+            for (var I = 1; I <= R; I++) {
+              THETA[I] = PIOVER2 * THETA[I] / THETA[R + 1];
+            }
+            _dlacsg(M, P, Q, THETA, ISEED, X.asMatrix(LDX), LDX, WORK);
+          } else {
+            dlaset('F', M, M, ZERO, ONE, X.asMatrix(LDX), LDX);
+            for (var I = 1; I <= M; I++) {
+              final J = (dlaran(ISEED) * M).toInt() + 1;
+              if (J != I) {
+                drot(M, X(1 + (I - 1) * LDX), 1, X(1 + (J - 1) * LDX), 1, ZERO,
+                    ONE);
+              }
+            }
           }
-        }
-      } else if (IMAT == 3) {
-        R = min(min(P, M - P), min(Q, M - Q));
-        for (I = 1; I <= R + 1; I++) {
-          THETA[I] = pow(TEN, -dlarnd(1, ISEED) * GAPDIGIT).toDouble();
-        }
-        for (I = 2; I <= R + 1; I++) {
-          THETA[I] = THETA[I - 1] + THETA[I];
-        }
-        for (I = 1; I <= R; I++) {
-          THETA[I] = PIOVER2 * THETA[I] / THETA[R + 1];
-        }
-        dlacsg(M, P, Q, THETA, ISEED, X.asMatrix(LDX), LDX, WORK);
-      } else {
-        dlaset('F', M, M, ZERO, ONE, X.asMatrix(LDX), LDX);
-        for (I = 1; I <= M; I++) {
-          J = (dlaran(ISEED) * M).toInt() + 1;
-          if (J != I) {
-            drot(
-                M, X(1 + (I - 1) * LDX), 1, X(1 + (J - 1) * LDX), 1, ZERO, ONE);
+
+          const NT = 15;
+
+          dcsdts(
+              M,
+              P,
+              Q,
+              X.asMatrix(LDX),
+              XF.asMatrix(LDX),
+              LDX,
+              U1.asMatrix(LDU1),
+              LDU1,
+              U2.asMatrix(LDU2),
+              LDU2,
+              V1T.asMatrix(LDV1T),
+              LDV1T,
+              V2T.asMatrix(LDV2T),
+              LDV2T,
+              THETA,
+              IWORK,
+              WORK,
+              LWORK,
+              RWORK,
+              RESULT);
+
+          // Print information about the tests that did not
+          // pass the threshold.
+
+          for (var I = 1; I <= NT; I++) {
+            final reason =
+                ' M=${M.i4} P=${P.i4}, Q=${Q.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}';
+            test.expect(RESULT[I], lessThan(THRESH), reason: reason);
+            if (RESULT[I] >= THRESH) {
+              if (NFAIL == 0 && FIRSTT) {
+                FIRSTT = false;
+                alahdg(NOUT, PATH);
+              }
+              NOUT.println(reason);
+              NFAIL++;
+            }
           }
-        }
+          NRUN += NT;
+        }, skip: skip);
       }
-
-      NT = 15;
-
-      dcsdts(
-          M,
-          P,
-          Q,
-          X.asMatrix(LDX),
-          XF.asMatrix(LDX),
-          LDX,
-          U1.asMatrix(LDU1),
-          LDU1,
-          U2.asMatrix(LDU2),
-          LDU2,
-          V1T.asMatrix(LDV1T),
-          LDV1T,
-          V2T.asMatrix(LDV2T),
-          LDV2T,
-          THETA,
-          IWORK,
-          WORK,
-          LWORK,
-          RWORK,
-          RESULT);
-
-      // Print information about the tests that did not
-      // pass the threshold.
-
-      for (I = 1; I <= NT; I++) {
-        if (RESULT[I] >= THRESH) {
-          if (NFAIL == 0 && FIRSTT) {
-            FIRSTT = false;
-            alahdg(NOUT, PATH);
-          }
-          NOUT.println(
-              ' M=${M.i4} P=${P.i4}, Q=${Q.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-          NFAIL++;
-        }
-      }
-      NRUN += NT;
     }
-  }
+  });
 
   // Print a summary of the results.
 
   alasum(PATH, NOUT, NFAIL, NRUN, 0);
 }
 
-void dlacsg(
+void _dlacsg(
   final int M,
   final int P,
   final int Q,
@@ -215,37 +208,36 @@ void dlacsg(
   final ISEED = ISEED_.having();
   final X = X_.having(ld: LDX);
   const ONE = 1.0, ZERO = 0.0;
-  int I, R;
   final INFO = Box(0);
 
-  R = min(min(P, M - P), min(Q, M - Q));
+  final R = min(min(P, M - P), min(Q, M - Q));
 
   dlaset('Full', M, M, ZERO, ZERO, X, LDX);
 
-  for (I = 1; I <= min(P, Q) - R; I++) {
+  for (var I = 1; I <= min(P, Q) - R; I++) {
     X[I][I] = ONE;
   }
-  for (I = 1; I <= R; I++) {
+  for (var I = 1; I <= R; I++) {
     X[min(P, Q) - R + I][min(P, Q) - R + I] = cos(THETA[I]);
   }
-  for (I = 1; I <= min(P, M - Q) - R; I++) {
+  for (var I = 1; I <= min(P, M - Q) - R; I++) {
     X[P - I + 1][M - I + 1] = -ONE;
   }
-  for (I = 1; I <= R; I++) {
+  for (var I = 1; I <= R; I++) {
     X[P - (min(P, M - Q) - R) + 1 - I][M - (min(P, M - Q) - R) + 1 - I] =
         -sin(THETA[R - I + 1]);
   }
-  for (I = 1; I <= min(M - P, Q) - R; I++) {
+  for (var I = 1; I <= min(M - P, Q) - R; I++) {
     X[M - I + 1][Q - I + 1] = ONE;
   }
-  for (I = 1; I <= R; I++) {
+  for (var I = 1; I <= R; I++) {
     X[M - (min(M - P, Q) - R) + 1 - I][Q - (min(M - P, Q) - R) + 1 - I] =
         sin(THETA[R - I + 1]);
   }
-  for (I = 1; I <= min(M - P, M - Q) - R; I++) {
+  for (var I = 1; I <= min(M - P, M - Q) - R; I++) {
     X[P + I][Q + I] = ONE;
   }
-  for (I = 1; I <= R; I++) {
+  for (var I = 1; I <= R; I++) {
     X[P + (min(M - P, M - Q) - R) + I][Q + (min(M - P, M - Q) - R) + I] =
         cos(THETA[I]);
   }

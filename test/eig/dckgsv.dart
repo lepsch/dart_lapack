@@ -94,7 +94,7 @@ Future<void> dckgsv(
       for (final IMAT in 1.through(NTYPES)) {
         // Do the tests only if DOTYPE[ IMAT ] is true.
         final skip = !DOTYPE[IMAT];
-        test('DCKGQR (M = $M, N = $N, P = $P TYPE = $IMAT)', () {
+        test('DCKGSV (M = $M, N = $N, P = $P TYPE = $IMAT)', () {
           final IINFO = Box(0);
 
           // Set up parameters with DLATB9 and generate test

@@ -2239,32 +2239,45 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // CSD:  CS Decomposition
           // ----------------------------------------------
 
-          // xlaenv(1, 1);
-          // if (TSTERR) derrgg('CSD', NOUT);
-          // final INFO = Box(0);
-          // await dckcsd(
-          //     NN,
-          //     MVAL,
-          //     PVAL,
-          //     NVAL,
-          //     NTYPES,
-          //     ISEED,
-          //     THRESH,
-          //     NMAX,
-          //     A(1, 1).asArray(),
-          //     A(1, 2).asArray(),
-          //     A(1, 3).asArray(),
-          //     A(1, 4).asArray(),
-          //     A(1, 5).asArray(),
-          //     A(1, 6).asArray(),
-          //     A(1, 7).asArray(),
-          //     IWORK,
-          //     WORK,
-          //     D(1, 1).asArray(),
-          //     NIN,
-          //     NOUT,
-          //     INFO);
-          // if (INFO.value != 0) NOUT.print9980('DCKCSD', INFO.value);
+          final PARAMS = claenv.IPARMS.copy();
+          final group = 'CSD: CS Decomposition (path=$C3)';
+          test.group(group, () {
+            test.group('error exits', () {
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+                xlaenv(1, 1);
+              });
+
+              if (TSTERR) derrgg('CSD', NOUT!, test);
+            });
+          });
+
+          final INFO = Box(0);
+          await dckcsd(
+              NN,
+              MVAL.copy(),
+              PVAL.copy(),
+              NVAL.copy(),
+              NTYPES,
+              ISEED.copy(),
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              A(1, 4).asArray(),
+              A(1, 5).asArray(),
+              A(1, 6).asArray(),
+              A(1, 7).asArray(),
+              IWORK,
+              WORK,
+              D(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO,
+              test,
+              group);
+          if (INFO.value != 0) NOUT.print9980('DCKCSD', INFO.value);
         } else if (lsamen(3, C3, 'LSE')) {
           // --------------------------------------
           // LSE:  Constrained Linear Least Squares

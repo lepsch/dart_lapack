@@ -22,11 +22,12 @@ void main() async {
     'glm.in',
     'gqr.in',
     'gsv.in',
+    'csd.in',
 
     // 'dec.in',
 
     // 'dbal.in', 'dbak.in', 'dgbal.in', //
-    // 'dgbak.in',     'csd.in', 'lse.in' //
+    // 'dgbak.in',      'lse.in' //
   ];
   for (final input in inputs) {
     final inputFile = File(path.join(currentFilePath(), '..', input));
