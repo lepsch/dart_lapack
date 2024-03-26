@@ -18,11 +18,12 @@ void main() async {
     'dgg.in',
     'dgd.in',
     'dsb.in',
+    'dbb.in',
 
     // 'dec.in',
 
     // 'dbal.in', 'dbak.in', 'dgbal.in', //
-    // 'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
+    // 'dgbak.in',  'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
   ];
   for (final input in inputs) {
     final inputFile = File(path.join(currentFilePath(), '..', input));

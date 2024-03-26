@@ -2020,46 +2020,82 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DBB:  General Band Reduction
           // ------------------------------
 
-          // const MAXTYP = 15;
-          // NTYPES = min(MAXTYP, NTYPES);
-          // await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          // for (final I in 1.through(NPARMS)) {
-          //   final NRHS = NSVAL[I];
-          //   if (NEWSD == 0) ISEED.assign(IOLDSD);
+          const MAXTYP = 15;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
 
-          //   NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
-          //   final INFO = Box(0);
-          //   dchkbb(
-          //       NN,
-          //       MVAL,
-          //       NVAL,
-          //       NK,
-          //       KVAL,
-          //       MAXTYP,
-          //       DOTYPE,
-          //       NRHS,
-          //       ISEED,
-          //       THRESH,
-          //       NOUT,
-          //       A(1, 1),
-          //       NMAX,
-          //       A(1, 2),
-          //       2 * NMAX,
-          //       D(1, 1).asArray(),
-          //       D(1, 2).asArray(),
-          //       A(1, 4),
-          //       NMAX,
-          //       A(1, 5),
-          //       NMAX,
-          //       A(1, 6),
-          //       NMAX,
-          //       A(1, 7),
-          //       WORK,
-          //       LWORK,
-          //       RESULT,
-          //       INFO);
-          //   if (INFO.value != 0) NOUT.print9980('DCHKBB', INFO.value);
-          // }
+          final ctx = (
+            NSVAL: NSVAL.copy(),
+            ISEED: ISEED.copy(),
+            IOLDSD: IOLDSD.copy(),
+            MVAL: MVAL.copy(),
+            NVAL: NVAL.copy(),
+            KVAL: KVAL.copy(),
+            DOTYPE: DOTYPE.copy(),
+            PARAMS: claenv.IPARMS.copy(),
+            C3: C3,
+          );
+
+          test.group('DBB: General Band Reduction (path=$C3)', () {
+            NOUT!;
+            final (
+              :NSVAL,
+              :ISEED,
+              :IOLDSD,
+              :MVAL,
+              :NVAL,
+              :KVAL,
+              :DOTYPE,
+              :PARAMS,
+              :C3,
+            ) = ctx;
+
+            test.setUp(() {
+              claenv.IPARMS.assign(PARAMS);
+            });
+
+            for (final I in 1.through(NPARMS)) {
+              final NRHS = NSVAL[I];
+              test.group('PARAM $I', () {
+                NOUT!;
+                if (NEWSD == 0) ISEED.assign(IOLDSD);
+
+                NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
+                final INFO = Box(0);
+                dchkbb(
+                    NN,
+                    MVAL,
+                    NVAL,
+                    NK,
+                    KVAL,
+                    MAXTYP,
+                    DOTYPE,
+                    NRHS,
+                    ISEED,
+                    THRESH,
+                    NOUT,
+                    A(1, 1),
+                    NMAX,
+                    A(1, 2),
+                    2 * NMAX,
+                    D(1, 1).asArray(),
+                    D(1, 2).asArray(),
+                    A(1, 4),
+                    NMAX,
+                    A(1, 5),
+                    NMAX,
+                    A(1, 6),
+                    NMAX,
+                    A(1, 7),
+                    WORK,
+                    LWORK,
+                    RESULT,
+                    INFO,
+                    test);
+                if (INFO.value != 0) NOUT.print9980('DCHKBB', INFO.value);
+              });
+            }
+          });
         } else if (lsamen(3, C3, 'GLM')) {
           // -----------------------------------------
           // GLM:  Generalized Linear Regression Model
