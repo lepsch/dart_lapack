@@ -1966,38 +1966,55 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // DSB:  Symmetric Band Reduction
           // ------------------------------
 
-          // const MAXTYP = 15;
-          // NTYPES = min(MAXTYP, NTYPES);
-          // await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          // if (TSTERR) derrst('DSB', NOUT, test);
-          // // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-          // // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
-          // // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO.value )
-          // final INFO = Box(0);
-          // dchksb2stg(
-          //     NN,
-          //     NVAL,
-          //     NK,
-          //     KVAL,
-          //     MAXTYP,
-          //     DOTYPE,
-          //     ISEED,
-          //     THRESH,
-          //     NOUT,
-          //     A(1, 1),
-          //     NMAX,
-          //     D(1, 1).asArray(),
-          //     D(1, 2).asArray(),
-          //     D(1, 3).asArray(),
-          //     D(1, 4).asArray(),
-          //     D(1, 5).asArray(),
-          //     A(1, 2),
-          //     NMAX,
-          //     WORK,
-          //     LWORK,
-          //     RESULT,
-          //     INFO);
-          // if (INFO.value != 0) NOUT.print9980('DCHKSB', INFO.value);
+          const MAXTYP = 15;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+
+          final ctx = (
+            NVAL: NVAL.copy(),
+            KVAL: KVAL.copy(),
+            ISEED: ISEED.copy(),
+            DOTYPE: DOTYPE.copy(),
+          );
+          test.group('DSB: Symmetric Band Reduction (path=$C3)', () {
+            NOUT!;
+
+            final (:NVAL, :KVAL, :ISEED, :DOTYPE) = ctx;
+
+            test.group('error exits', () {
+              if (TSTERR) derrst('DSB', NOUT!, test);
+            });
+
+            // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+            // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
+            // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO )
+            final INFO = Box(0);
+            dchksb2stg(
+                NN,
+                NVAL,
+                NK,
+                KVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                D(1, 1).asArray(),
+                D(1, 2).asArray(),
+                D(1, 3).asArray(),
+                D(1, 4).asArray(),
+                D(1, 5).asArray(),
+                A(1, 2),
+                NMAX,
+                WORK,
+                LWORK,
+                RESULT,
+                INFO,
+                test);
+            if (INFO.value != 0) NOUT.print9980('DCHKSB', INFO.value);
+          });
         } else if (lsamen(3, C3, 'DBB')) {
           // ------------------------------
           // DBB:  General Band Reduction

@@ -17,9 +17,9 @@ void main() async {
     'ded.in',
     'dgg.in',
     'dgd.in',
+    'dsb.in',
 
     // 'dec.in',
-    // 'dsb.in',
 
     // 'dbal.in', 'dbak.in', 'dgbal.in', //
     // 'dgbak.in', 'dbb.in', 'glm.in', 'gqr.in', 'gsv.in', 'csd.in', 'lse.in' //
