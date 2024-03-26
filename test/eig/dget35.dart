@@ -77,7 +77,9 @@ void dget35(
               for (final IMLOFF in 1.through(2)) {
                 for (final IMB in 1.through(8)) {
                   for (final IMLDB1 in 1.through(3)) {
-                    test('DGET35', () {
+                    test(
+                        'DGET35 TRANA=$TRANA TRANB=$TRANB ISGN=$ISGN IMA=$IMA IMLDA1=$IMLDA1 IMLDA2=$IMLDA2 IMLOFF=$IMLOFF IMB=$IMB IMLDB1=$IMLDB1',
+                        () {
                       final M = IDIM[IMA - 1];
                       final N = IDIM[IMB - 1];
                       var TNRM = ZERO;

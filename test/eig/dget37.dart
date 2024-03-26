@@ -85,6 +85,7 @@ Future<void> dget37(
       SIN[I] = f3;
       SEPIN[I] = f4;
     }
+    final TNRM = dlange('M', N, N, TMP, LDT, WORK);
 
     final ctx = (TMP: TMP.copy(), SIN: SIN.copy(), SEPIN: SEPIN.copy());
 
@@ -92,8 +93,6 @@ Future<void> dget37(
       test('DGET37', () {
         final (:TMP, :SIN, :SEPIN) = ctx;
         final INFO = Box(0), M = Box(0);
-
-        final TNRM = dlange('M', N, N, TMP, LDT, WORK);
 
         // Begin test
         for (var ISCL = 1; ISCL <= 3; ISCL++) {
@@ -181,8 +180,7 @@ Future<void> dget37(
           // Compare condition numbers for eigenvalues
           // taking their condition numbers into account
 
-          final V =
-              TNRM == ZERO ? ONE : max(TWO * N.toDouble() * EPS * TNRM, SMLNUM);
+          final V = TNRM == ZERO ? ONE : max(TWO * N * EPS * TNRM, SMLNUM);
           for (var I = 1; I <= N; I++) {
             double TOL;
             if (V > SEPTMP[I]) {
@@ -259,8 +257,7 @@ Future<void> dget37(
 
           for (var I = 1; I <= N; I++) {
             final double VMAX;
-            if (SIN[I] <= (2 * N).toDouble() * EPS &&
-                STMP[I] <= (2 * N).toDouble() * EPS) {
+            if (SIN[I] <= (2 * N) * EPS && STMP[I] <= (2 * N) * EPS) {
               VMAX = ONE;
             } else if (EPS * SIN[I] > STMP[I]) {
               VMAX = ONE / EPS;
@@ -273,7 +270,6 @@ Future<void> dget37(
             } else {
               VMAX = ONE;
             }
-            test.expect(VMAX, lessThan(THRESH));
             if (VMAX > RMAX[3]) {
               RMAX[3] = VMAX;
               if (NINFO[3] == 0) LMAX[3] = KNT.value;
@@ -298,7 +294,6 @@ Future<void> dget37(
             } else {
               VMAX = ONE;
             }
-            test.expect(VMAX, lessThan(THRESH));
             if (VMAX > RMAX[3]) {
               RMAX[3] = VMAX;
               if (NINFO[3] == 0) LMAX[3] = KNT.value;

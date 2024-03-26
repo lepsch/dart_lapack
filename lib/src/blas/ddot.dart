@@ -20,7 +20,7 @@ double ddot(
 
     // clean-up loop
 
-    final M = (N % 5);
+    final M = N % 5;
     if (M != 0) {
       for (var I = 1; I <= M; I++) {
         DTEMP += DX[I] * DY[I];

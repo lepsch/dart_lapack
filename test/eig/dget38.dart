@@ -83,6 +83,7 @@ Future<void> dget38(
     await NIN.readArray(ISELEC, NDIM);
     await NIN.readMatrix(TMP, N, N);
     final (SIN, SEPIN) = await NIN.readDouble2();
+    final TNRM = dlange('M', N, N, TMP, LDT, WORK);
 
     final ctx = (TMP: TMP.copy(), ISELEC: ISELEC.copy());
     test.group(group, () {
@@ -90,7 +91,6 @@ Future<void> dget38(
         final (:TMP, :ISELEC) = ctx;
         final INFO = Box(0), M = Box(0);
 
-        final TNRM = dlange('M', N, N, TMP, LDT, WORK);
         for (var ISCL = 1; ISCL <= 3; ISCL++) {
           // Scale input matrix
 

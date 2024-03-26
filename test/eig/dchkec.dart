@@ -218,21 +218,15 @@ Future<void> dchkec(
   }
 
   test.group(group, () {
-    test('DLAQTR', () {
-      final RLAQTR = Box(0.0),
-          LLAQTR = Box(0),
-          NLAQTR = Box(0),
-          KLAQTR = Box(0);
-      dget39(RLAQTR, LLAQTR, NLAQTR, KLAQTR);
-      NTESTS += KLAQTR.value;
+    final RLAQTR = Box(0.0), LLAQTR = Box(0), NLAQTR = Box(0), KLAQTR = Box(0);
+    dget39(RLAQTR, LLAQTR, NLAQTR, KLAQTR, test, THRESH);
+    NTESTS += KLAQTR.value;
 
-      test.expect(RLAQTR.value, lessThan(THRESH));
-      if (RLAQTR.value > THRESH) {
-        OK = false;
-        NOUT.println(
-            ' Error in DLAQTR: RMAX =${RLAQTR.value.d12_3}\n LMAX = ${LLAQTR.value.i8} NINFO=${NLAQTR.value.i8} KNT=${KLAQTR.value.i8}');
-      }
-    });
+    if (RLAQTR.value > THRESH) {
+      OK = false;
+      NOUT.println(
+          ' Error in DLAQTR: RMAX =${RLAQTR.value.d12_3}\n LMAX = ${LLAQTR.value.i8} NINFO=${NLAQTR.value.i8} KNT=${KLAQTR.value.i8}');
+    }
   });
 
   {

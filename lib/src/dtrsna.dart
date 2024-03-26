@@ -184,9 +184,10 @@ void dtrsna(
         // Complex eigenvalue.
 
         PROD1 = ddot(N, VR(1, KS).asArray(), 1, VL(1, KS).asArray(), 1);
-        PROD1 += ddot(N, VR(1, KS).asArray(), 1, VL(1, KS).asArray(), 1);
-        PROD2 = ddot(N, VL(1, KS).asArray(), 1, VR(1, KS).asArray(), 1);
-        PROD2 -= ddot(N, VL(1, KS).asArray(), 1, VR(1, KS).asArray(), 1);
+        PROD1 +=
+            ddot(N, VR(1, KS + 1).asArray(), 1, VL(1, KS + 1).asArray(), 1);
+        PROD2 = ddot(N, VL(1, KS).asArray(), 1, VR(1, KS + 1).asArray(), 1);
+        PROD2 -= ddot(N, VL(1, KS + 1).asArray(), 1, VR(1, KS).asArray(), 1);
         RNRM = dlapy2(dnrm2(N, VR(1, KS).asArray(), 1),
             dnrm2(N, VR(1, KS + 1).asArray(), 1));
         LNRM = dlapy2(dnrm2(N, VL(1, KS).asArray(), 1),

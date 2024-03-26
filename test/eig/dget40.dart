@@ -71,7 +71,7 @@ Future<void> dget40(
     test.group(group, () {
       final (:T, :T1, :T2, :S, :S1, :S2) = ctx;
 
-      test('DTGEXC DGET40', () {
+      test('DTGEXC DGET40 N=$N IFST=$IFST ILST=$ILST', () {
         // IFSTSV = IFST;
         // ILSTSV = ILST;
         final IFST1 = Box(IFST),
@@ -112,7 +112,7 @@ Future<void> dget40(
         }
         if (IFST1.value != IFST2.value) RES += ONE / EPS;
         if (ILST1.value != ILST2.value) RES += ONE / EPS;
-        if (NINFO(1) != NINFO(2)) RES += ONE / EPS;
+        if (NINFO[1] != NINFO[2]) RES += ONE / EPS;
 
         // Test orthogonality of Q and Z and backward error on T2 and S2
 
