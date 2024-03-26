@@ -2,9 +2,12 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
+import 'package:test/test.dart';
 
 import '../lin/alasum.dart';
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alahdg.dart';
 import 'alareq.dart';
 import 'dgqrts.dart';
@@ -38,6 +41,8 @@ Future<void> dckgqr(
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
+  final TestDriver test,
+  final String group,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -61,11 +66,8 @@ Future<void> dckgqr(
   final RWORK = RWORK_.having();
   const NTESTS = 7;
   const NTYPES = 8;
-  bool FIRSTT;
-  int I, IM, IMAT, IN, IP, LDA, LDB, LWORK, M, N, NT, P;
   final DOTYPE = Array<bool>(NTYPES);
   final RESULT = Array<double>(NTESTS);
-  final IINFO = Box(0);
   const PATH = 'GQR';
 
   // Initialize constants.
@@ -73,198 +75,209 @@ Future<void> dckgqr(
   INFO.value = 0;
   var NRUN = 0;
   var NFAIL = 0;
-  FIRSTT = true;
   await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
-  LDA = NMAX;
-  LDB = NMAX;
-  LWORK = NMAX * NMAX;
+  final LDA = NMAX;
+  final LDB = NMAX;
+  final LWORK = NMAX * NMAX;
 
-  // Do for each value of M in MVAL.
+  test.group(group, () {
+    var FIRSTT = true;
 
-  for (IM = 1; IM <= NM; IM++) {
-    M = MVAL[IM];
+    // Do for each value of M in MVAL.
+    for (final IM in 1.through(NM)) {
+      final M = MVAL[IM];
 
-    // Do for each value of P in PVAL.
+      // Do for each value of P in PVAL.
+      for (final IP in 1.through(NP)) {
+        final P = PVAL[IP];
 
-    for (IP = 1; IP <= NP; IP++) {
-      P = PVAL[IP];
+        // Do for each value of N in NVAL.
+        for (final IN in 1.through(NN)) {
+          final N = NVAL[IN];
 
-      // Do for each value of N in NVAL.
+          for (final IMAT in 1.through(NTYPES)) {
+            // Do the tests only if DOTYPE[ IMAT ] is true.
+            final skip = !DOTYPE[IMAT];
+            test('DCKGQR (M = $M, N = $N, P = $P TYPE = $IMAT)', () {
+              final IINFO = Box(0);
 
-      for (IN = 1; IN <= NN; IN++) {
-        N = NVAL[IN];
+              // Test DGGRQF
+              {
+                // Set up parameters with DLATB9 and generate test
+                // matrices A and B with DLATMS.
 
-        for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-          // Do the tests only if DOTYPE[ IMAT ] is true.
+                final (
+                  :TYPE,
+                  :KLA,
+                  :KUA,
+                  :KLB,
+                  :KUB,
+                  :ANORM,
+                  :BNORM,
+                  :MODEA,
+                  :MODEB,
+                  :CNDNMA,
+                  :CNDNMB,
+                  :DISTA,
+                  :DISTB
+                ) = dlatb9('GRQ', IMAT, M, P, N);
 
-          if (!DOTYPE[IMAT]) continue;
+                // Generate M by N matrix A
 
-          // Test DGGRQF
-          {
-            // Set up parameters with DLATB9 and generate test
-            // matrices A and B with DLATMS.
-
-            final (
-              :TYPE,
-              :KLA,
-              :KUA,
-              :KLB,
-              :KUB,
-              :ANORM,
-              :BNORM,
-              :MODEA,
-              :MODEB,
-              :CNDNMA,
-              :CNDNMB,
-              :DISTA,
-              :DISTB
-            ) = dlatb9('GRQ', IMAT, M, P, N);
-
-            // Generate M by N matrix A
-
-            dlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA,
-                KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
-            if (IINFO.value != 0) {
-              print9999(NOUT, IINFO.value);
-              INFO.value = IINFO.value.abs();
-              continue;
-            }
-
-            // Generate P by N matrix B
-
-            dlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB,
-                KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
-            if (IINFO.value != 0) {
-              print9999(NOUT, IINFO.value);
-              INFO.value = IINFO.value.abs();
-              continue;
-            }
-
-            NT = 4;
-
-            dgrqts(
-                M,
-                P,
-                N,
-                A.asMatrix(LDA),
-                AF.asMatrix(LDA),
-                AQ.asMatrix(LDA),
-                AR.asMatrix(LDA),
-                LDA,
-                TAUA,
-                B.asMatrix(LDB),
-                BF.asMatrix(LDB),
-                BZ.asMatrix(LDB),
-                BT.asMatrix(LDB),
-                BWK.asMatrix(LDB),
-                LDB,
-                TAUB,
-                WORK,
-                LWORK,
-                RWORK,
-                RESULT);
-
-            // Print information about the tests that did not
-            // pass the threshold.
-
-            for (I = 1; I <= NT; I++) {
-              if (RESULT[I] >= THRESH) {
-                if (NFAIL == 0 && FIRSTT) {
-                  FIRSTT = false;
-                  alahdg(NOUT, 'GRQ');
+                dlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM,
+                    KLA, KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
+                test.expect(IINFO.value, 0);
+                if (IINFO.value != 0) {
+                  print9999(NOUT, IINFO.value);
+                  INFO.value = IINFO.value.abs();
+                  return;
                 }
-                NOUT.println(
-                    ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-                NFAIL++;
+
+                // Generate P by N matrix B
+
+                dlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM,
+                    KLB, KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
+                test.expect(IINFO.value, 0);
+                if (IINFO.value != 0) {
+                  print9999(NOUT, IINFO.value);
+                  INFO.value = IINFO.value.abs();
+                  return;
+                }
+
+                const NT = 4;
+
+                dgrqts(
+                    M,
+                    P,
+                    N,
+                    A.asMatrix(LDA),
+                    AF.asMatrix(LDA),
+                    AQ.asMatrix(LDA),
+                    AR.asMatrix(LDA),
+                    LDA,
+                    TAUA,
+                    B.asMatrix(LDB),
+                    BF.asMatrix(LDB),
+                    BZ.asMatrix(LDB),
+                    BT.asMatrix(LDB),
+                    BWK.asMatrix(LDB),
+                    LDB,
+                    TAUB,
+                    WORK,
+                    LWORK,
+                    RWORK,
+                    RESULT);
+
+                // Print information about the tests that did not
+                // pass the threshold.
+
+                for (var I = 1; I <= NT; I++) {
+                  final reason =
+                      ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}';
+                  test.expect(RESULT[I], lessThan(THRESH), reason: reason);
+                  if (RESULT[I] >= THRESH) {
+                    if (NFAIL == 0 && FIRSTT) {
+                      FIRSTT = false;
+                      alahdg(NOUT, 'GRQ');
+                    }
+                    NOUT.println(reason);
+                    NFAIL++;
+                  }
+                }
+                NRUN += NT;
               }
-            }
-            NRUN += NT;
-          }
 
-          // Test DGGQRF
-          {
-            // Set up parameters with DLATB9 and generate test
-            // matrices A and B with DLATMS.
+              // Test DGGQRF
+              {
+                // Set up parameters with DLATB9 and generate test
+                // matrices A and B with DLATMS.
 
-            final (
-              :TYPE,
-              :KLA,
-              :KUA,
-              :KLB,
-              :KUB,
-              :ANORM,
-              :BNORM,
-              :MODEA,
-              MODEB: _,
-              :CNDNMA,
-              CNDNMB: _,
-              :DISTA,
-              :DISTB
-            ) = dlatb9('GQR', IMAT, M, P, N);
+                final (
+                  :TYPE,
+                  :KLA,
+                  :KUA,
+                  :KLB,
+                  :KUB,
+                  :ANORM,
+                  :BNORM,
+                  :MODEA,
+                  MODEB: _,
+                  :CNDNMA,
+                  CNDNMB: _,
+                  :DISTA,
+                  :DISTB
+                ) = dlatb9('GQR', IMAT, M, P, N);
 
-            // Generate N-by-M matrix  A
+                // Generate N-by-M matrix  A
 
-            dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA,
-                KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
-            if (IINFO.value != 0) {
-              print9999(NOUT, IINFO.value);
-              INFO.value = IINFO.value.abs();
-              continue;
-            }
+                dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM,
+                    KLA, KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
+                test.expect(IINFO.value, 0);
+                if (IINFO.value != 0) {
+                  print9999(NOUT, IINFO.value);
+                  INFO.value = IINFO.value.abs();
+                  return;
+                }
 
-            // Generate N-by-P matrix  B
+                // Generate N-by-P matrix  B
 
-            dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB,
-                KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
-            if (IINFO.value != 0) {
-              print9999(NOUT, IINFO.value);
-              INFO.value = IINFO.value.abs();
-              continue;
-            }
+                dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM,
+                    KLB, KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
+                test.expect(IINFO.value, 0);
+                if (IINFO.value != 0) {
+                  print9999(NOUT, IINFO.value);
+                  INFO.value = IINFO.value.abs();
+                  return;
+                }
 
-            NT = 4;
+                const NT = 4;
 
-            dgqrts(
-                N,
-                M,
-                P,
-                A.asMatrix(LDA),
-                AF.asMatrix(LDA),
-                AQ.asMatrix(LDA),
-                AR.asMatrix(LDA),
-                LDA,
-                TAUA,
-                B.asMatrix(LDB),
-                BF.asMatrix(LDB),
-                BZ.asMatrix(LDB),
-                BT.asMatrix(LDB),
-                BWK.asMatrix(LDB),
-                LDB,
-                TAUB,
-                WORK,
-                LWORK,
-                RWORK,
-                RESULT);
-          }
-          // Print information about the tests that did not
-          // pass the threshold.
+                dgqrts(
+                    N,
+                    M,
+                    P,
+                    A.asMatrix(LDA),
+                    AF.asMatrix(LDA),
+                    AQ.asMatrix(LDA),
+                    AR.asMatrix(LDA),
+                    LDA,
+                    TAUA,
+                    B.asMatrix(LDB),
+                    BF.asMatrix(LDB),
+                    BZ.asMatrix(LDB),
+                    BT.asMatrix(LDB),
+                    BWK.asMatrix(LDB),
+                    LDB,
+                    TAUB,
+                    WORK,
+                    LWORK,
+                    RWORK,
+                    RESULT);
 
-          for (I = 1; I <= NT; I++) {
-            if (RESULT[I] >= THRESH) {
-              if (NFAIL == 0 && FIRSTT) {
-                FIRSTT = false;
-                alahdg(NOUT, PATH);
+                // Print information about the tests that did not
+                // pass the threshold.
+
+                for (var I = 1; I <= NT; I++) {
+                  final reason =
+                      ' N=${N.i4} M=${M.i4}, P=${P.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}';
+                  test.expect(RESULT[I], lessThan(THRESH), reason: reason);
+                  if (RESULT[I] >= THRESH) {
+                    if (NFAIL == 0 && FIRSTT) {
+                      FIRSTT = false;
+                      alahdg(NOUT, PATH);
+                    }
+                    NOUT.println(reason);
+                    NFAIL++;
+                  }
+                }
+                NRUN += NT;
               }
-              NOUT.println(
-                  ' N=${N.i4} M=${M.i4}, P=${P.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-              NFAIL++;
-            }
+            }, skip: skip);
           }
-          NRUN += NT;
         }
       }
     }
-  }
+  });
 
   // Print a summary of the results.
 
