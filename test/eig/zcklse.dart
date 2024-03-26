@@ -55,18 +55,7 @@ Future<void> zcklse(
   int I, IK, IMAT, LDA, LDB, LWORK, M, N, NT, P;
   final DOTYPE = Array<bool>(NTYPES);
   final RESULT = Array<double>(NTESTS);
-  final TYPE = Box(''), DISTA = Box(''), DISTB = Box('');
-  final IINFO = Box(0),
-      KLA = Box(0),
-      KLB = Box(0),
-      KUA = Box(0),
-      KUB = Box(0),
-      MODEA = Box(0),
-      MODEB = Box(0);
-  final ANORM = Box(0.0),
-      BNORM = Box(0.0),
-      CNDNMA = Box(0.0),
-      CNDNMB = Box(0.0);
+  final IINFO = Box(0);
 
   // Initialize constants and the random number seed.
 
@@ -113,49 +102,32 @@ Future<void> zcklse(
       // Set up parameters with DLATB9 and generate test
       // matrices A and B with ZLATMS.
 
-      dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
-          MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
+      final (
+        :TYPE,
+        :KLA,
+        :KUA,
+        :KLB,
+        :KUB,
+        :ANORM,
+        :BNORM,
+        :MODEA,
+        :MODEB,
+        :CNDNMA,
+        :CNDNMB,
+        :DISTA,
+        :DISTB
+      ) = dlatb9(PATH, IMAT, M, P, N);
 
-      zlatms(
-          M,
-          N,
-          DISTA.value,
-          ISEED,
-          TYPE.value,
-          RWORK,
-          MODEA.value,
-          CNDNMA.value,
-          ANORM.value,
-          KLA.value,
-          KUA.value,
-          'No packing',
-          A.asMatrix(),
-          LDA,
-          WORK,
-          IINFO);
+      zlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA,
+          'No packing', A.asMatrix(), LDA, WORK, IINFO);
       if (IINFO.value != 0) {
         _print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
         continue;
       }
 
-      zlatms(
-          P,
-          N,
-          DISTB.value,
-          ISEED,
-          TYPE.value,
-          RWORK,
-          MODEB.value,
-          CNDNMB.value,
-          BNORM.value,
-          KLB.value,
-          KUB.value,
-          'No packing',
-          B.asMatrix(),
-          LDB,
-          WORK,
-          IINFO);
+      zlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB,
+          'No packing', B.asMatrix(), LDB, WORK, IINFO);
       if (IINFO.value != 0) {
         _print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();

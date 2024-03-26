@@ -62,21 +62,10 @@ Future<void> dckgqr(
   const NTESTS = 7;
   const NTYPES = 8;
   bool FIRSTT;
-  final DISTA = Box(''), DISTB = Box(''), TYPE = Box('');
   int I, IM, IMAT, IN, IP, LDA, LDB, LWORK, M, N, NT, P;
-  final ANORM = Box(0.0),
-      BNORM = Box(0.0),
-      CNDNMA = Box(0.0),
-      CNDNMB = Box(0.0);
   final DOTYPE = Array<bool>(NTYPES);
   final RESULT = Array<double>(NTESTS);
-  final IINFO = Box(0),
-      KLA = Box(0),
-      KLB = Box(0),
-      KUA = Box(0),
-      KUB = Box(0),
-      MODEA = Box(0),
-      MODEB = Box(0);
+  final IINFO = Box(0);
   const PATH = 'GQR';
 
   // Initialize constants.
@@ -111,185 +100,152 @@ Future<void> dckgqr(
           if (!DOTYPE[IMAT]) continue;
 
           // Test DGGRQF
+          {
+            // Set up parameters with DLATB9 and generate test
+            // matrices A and B with DLATMS.
 
-          // Set up parameters with DLATB9 and generate test
-          // matrices A and B with DLATMS.
+            final (
+              :TYPE,
+              :KLA,
+              :KUA,
+              :KLB,
+              :KUB,
+              :ANORM,
+              :BNORM,
+              :MODEA,
+              :MODEB,
+              :CNDNMA,
+              :CNDNMB,
+              :DISTA,
+              :DISTB
+            ) = dlatb9('GRQ', IMAT, M, P, N);
 
-          dlatb9('GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM,
-              MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
+            // Generate M by N matrix A
 
-          // Generate M by N matrix A
-
-          dlatms(
-              M,
-              N,
-              DISTA.value,
-              ISEED,
-              TYPE.value,
-              RWORK,
-              MODEA.value,
-              CNDNMA.value,
-              ANORM.value,
-              KLA.value,
-              KUA.value,
-              'No packing',
-              A.asMatrix(LDA),
-              LDA,
-              WORK,
-              IINFO);
-          if (IINFO.value != 0) {
-            print9999(NOUT, IINFO.value);
-            INFO.value = IINFO.value.abs();
-            continue;
-          }
-
-          // Generate P by N matrix B
-
-          dlatms(
-              P,
-              N,
-              DISTB.value,
-              ISEED,
-              TYPE.value,
-              RWORK,
-              MODEB.value,
-              CNDNMB.value,
-              BNORM.value,
-              KLB.value,
-              KUB.value,
-              'No packing',
-              B.asMatrix(LDB),
-              LDB,
-              WORK,
-              IINFO);
-          if (IINFO.value != 0) {
-            print9999(NOUT, IINFO.value);
-            INFO.value = IINFO.value.abs();
-            continue;
-          }
-
-          NT = 4;
-
-          dgrqts(
-              M,
-              P,
-              N,
-              A.asMatrix(LDA),
-              AF.asMatrix(LDA),
-              AQ.asMatrix(LDA),
-              AR.asMatrix(LDA),
-              LDA,
-              TAUA,
-              B.asMatrix(LDB),
-              BF.asMatrix(LDB),
-              BZ.asMatrix(LDB),
-              BT.asMatrix(LDB),
-              BWK.asMatrix(LDB),
-              LDB,
-              TAUB,
-              WORK,
-              LWORK,
-              RWORK,
-              RESULT);
-
-          // Print information about the tests that did not
-          // pass the threshold.
-
-          for (I = 1; I <= NT; I++) {
-            if (RESULT[I] >= THRESH) {
-              if (NFAIL == 0 && FIRSTT) {
-                FIRSTT = false;
-                alahdg(NOUT, 'GRQ');
-              }
-              NOUT.println(
-                  ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
-              NFAIL++;
+            dlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA,
+                KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUT, IINFO.value);
+              INFO.value = IINFO.value.abs();
+              continue;
             }
+
+            // Generate P by N matrix B
+
+            dlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB,
+                KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUT, IINFO.value);
+              INFO.value = IINFO.value.abs();
+              continue;
+            }
+
+            NT = 4;
+
+            dgrqts(
+                M,
+                P,
+                N,
+                A.asMatrix(LDA),
+                AF.asMatrix(LDA),
+                AQ.asMatrix(LDA),
+                AR.asMatrix(LDA),
+                LDA,
+                TAUA,
+                B.asMatrix(LDB),
+                BF.asMatrix(LDB),
+                BZ.asMatrix(LDB),
+                BT.asMatrix(LDB),
+                BWK.asMatrix(LDB),
+                LDB,
+                TAUB,
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT);
+
+            // Print information about the tests that did not
+            // pass the threshold.
+
+            for (I = 1; I <= NT; I++) {
+              if (RESULT[I] >= THRESH) {
+                if (NFAIL == 0 && FIRSTT) {
+                  FIRSTT = false;
+                  alahdg(NOUT, 'GRQ');
+                }
+                NOUT.println(
+                    ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
+                NFAIL++;
+              }
+            }
+            NRUN += NT;
           }
-          NRUN += NT;
 
           // Test DGGQRF
+          {
+            // Set up parameters with DLATB9 and generate test
+            // matrices A and B with DLATMS.
 
-          // Set up parameters with DLATB9 and generate test
-          // matrices A and B with DLATMS.
+            final (
+              :TYPE,
+              :KLA,
+              :KUA,
+              :KLB,
+              :KUB,
+              :ANORM,
+              :BNORM,
+              :MODEA,
+              MODEB: _,
+              :CNDNMA,
+              CNDNMB: _,
+              :DISTA,
+              :DISTB
+            ) = dlatb9('GQR', IMAT, M, P, N);
 
-          dlatb9('GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM,
-              MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
+            // Generate N-by-M matrix  A
 
-          // Generate N-by-M matrix  A
+            dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA,
+                KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUT, IINFO.value);
+              INFO.value = IINFO.value.abs();
+              continue;
+            }
 
-          dlatms(
-              N,
-              M,
-              DISTA.value,
-              ISEED,
-              TYPE.value,
-              RWORK,
-              MODEA.value,
-              CNDNMA.value,
-              ANORM.value,
-              KLA.value,
-              KUA.value,
-              'No packing',
-              A.asMatrix(LDA),
-              LDA,
-              WORK,
-              IINFO);
-          if (IINFO.value != 0) {
-            print9999(NOUT, IINFO.value);
-            INFO.value = IINFO.value.abs();
-            continue;
+            // Generate N-by-P matrix  B
+
+            dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB,
+                KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUT, IINFO.value);
+              INFO.value = IINFO.value.abs();
+              continue;
+            }
+
+            NT = 4;
+
+            dgqrts(
+                N,
+                M,
+                P,
+                A.asMatrix(LDA),
+                AF.asMatrix(LDA),
+                AQ.asMatrix(LDA),
+                AR.asMatrix(LDA),
+                LDA,
+                TAUA,
+                B.asMatrix(LDB),
+                BF.asMatrix(LDB),
+                BZ.asMatrix(LDB),
+                BT.asMatrix(LDB),
+                BWK.asMatrix(LDB),
+                LDB,
+                TAUB,
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT);
           }
-
-          // Generate N-by-P matrix  B
-
-          dlatms(
-              N,
-              P,
-              DISTB.value,
-              ISEED,
-              TYPE.value,
-              RWORK,
-              MODEA.value,
-              CNDNMA.value,
-              BNORM.value,
-              KLB.value,
-              KUB.value,
-              'No packing',
-              B.asMatrix(LDB),
-              LDB,
-              WORK,
-              IINFO);
-          if (IINFO.value != 0) {
-            print9999(NOUT, IINFO.value);
-            INFO.value = IINFO.value.abs();
-            continue;
-          }
-
-          NT = 4;
-
-          dgqrts(
-              N,
-              M,
-              P,
-              A.asMatrix(LDA),
-              AF.asMatrix(LDA),
-              AQ.asMatrix(LDA),
-              AR.asMatrix(LDA),
-              LDA,
-              TAUA,
-              B.asMatrix(LDB),
-              BF.asMatrix(LDB),
-              BZ.asMatrix(LDB),
-              BT.asMatrix(LDB),
-              BWK.asMatrix(LDB),
-              LDB,
-              TAUB,
-              WORK,
-              LWORK,
-              RWORK,
-              RESULT);
-
           // Print information about the tests that did not
           // pass the threshold.
 

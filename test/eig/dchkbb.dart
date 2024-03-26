@@ -171,7 +171,7 @@ void dchkbb(
 
       for (final JTYPE in 1.through(MTYPES)) {
         final skip = !DOTYPE[JTYPE];
-        test('DDRGEV (M = $M, N = $N, WIDTH = $JWIDTH TYPE = $JTYPE)', () {
+        test('DCHKBB (M = $M, N = $N, WIDTH = $JWIDTH TYPE = $JTYPE)', () {
           var NTEST = 0;
           final IOLDSD = ISEED.copy();
           final IINFO = Box(0);

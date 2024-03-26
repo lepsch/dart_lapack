@@ -2101,29 +2101,42 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // GLM:  Generalized Linear Regression Model
           // -----------------------------------------
 
-          // xlaenv(1, 1);
-          // if (TSTERR) derrgg('GLM', NOUT);
-          // final INFO = Box(0);
-          // await dckglm(
-          //     NN,
-          //     MVAL,
-          //     PVAL,
-          //     NVAL,
-          //     NTYPES,
-          //     ISEED,
-          //     THRESH,
-          //     NMAX,
-          //     A(1, 1).asArray(),
-          //     A(1, 2).asArray(),
-          //     B(1, 1).asArray(),
-          //     B(1, 2).asArray(),
-          //     X,
-          //     WORK,
-          //     D(1, 1).asArray(),
-          //     NIN,
-          //     NOUT,
-          //     INFO);
-          // if (INFO.value != 0) NOUT.print9980('DCKGLM', INFO.value);
+          final PARAMS = claenv.IPARMS.copy();
+          final group = 'GLM: Generalized Linear Regression Model (path=$C3)';
+          test.group(group, () {
+            test.group('error exits', () {
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+                xlaenv(1, 1);
+              });
+
+              if (TSTERR) derrgg('GLM', NOUT!, test);
+            });
+          });
+
+          final INFO = Box(0);
+          await dckglm(
+              NN,
+              MVAL.copy(),
+              PVAL.copy(),
+              NVAL.copy(),
+              NTYPES,
+              ISEED.copy(),
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              X,
+              WORK,
+              D(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO,
+              test,
+              group);
+          if (INFO.value != 0) NOUT.print9980('DCKGLM', INFO.value);
         } else if (lsamen(3, C3, 'GQR')) {
           // ------------------------------------------
           // GQR:  Generalized QR and RQ factorizations

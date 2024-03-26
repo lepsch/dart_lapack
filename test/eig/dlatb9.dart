@@ -1,37 +1,41 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/lsamen.dart';
 
 bool _FIRST = true;
 double _BADC1 = 0, _BADC2 = 0, _EPS = 0, _LARGE = 0, _SMALL = 0;
 
-void dlatb9(
+({
+  String TYPE,
+  int KLA,
+  int KUA,
+  int KLB,
+  int KUB,
+  double ANORM,
+  double BNORM,
+  int MODEA,
+  int MODEB,
+  double CNDNMA,
+  double CNDNMB,
+  String DISTA,
+  String DISTB,
+}) dlatb9(
   final String PATH,
   final int IMAT,
   final int M,
   final int P,
   final int N,
-  final Box<String> TYPE,
-  final Box<int> KLA,
-  final Box<int> KUA,
-  final Box<int> KLB,
-  final Box<int> KUB,
-  final Box<double> ANORM,
-  final Box<double> BNORM,
-  final Box<int> MODEA,
-  final Box<int> MODEB,
-  final Box<double> CNDNMA,
-  final Box<double> CNDNMB,
-  final Box<String> DISTA,
-  final Box<String> DISTB,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const SHRINK = 0.25, TENTH = 0.1;
   const ONE = 1.0, TEN = 1.0e+1;
+
+  final String TYPE, DISTA, DISTB;
+  int KLA = 0, KUA = 0, KLB = 0, KUB = 0, MODEA, MODEB;
+  double ANORM, BNORM, CNDNMA, CNDNMB;
 
   // Set some constants for use in the subroutine.
 
@@ -48,11 +52,11 @@ void dlatb9(
 
   // Set some parameters we don't plan to change.
 
-  TYPE.value = 'N';
-  DISTA.value = 'S';
-  DISTB.value = 'S';
-  MODEA.value = 3;
-  MODEB.value = 4;
+  TYPE = 'N';
+  DISTA = 'S';
+  DISTB = 'S';
+  MODEA = 3;
+  MODEB = 4;
 
   // Set the lower and upper bandwidths.
 
@@ -64,31 +68,31 @@ void dlatb9(
     if (IMAT == 1) {
       // A: diagonal, B: upper triangular
 
-      KLA.value = 0;
-      KUA.value = 0;
-      KLB.value = 0;
-      KUB.value = max(N - 1, 0);
+      KLA = 0;
+      KUA = 0;
+      KLB = 0;
+      KUB = max(N - 1, 0);
     } else if (IMAT == 2) {
       // A: upper triangular, B: upper triangular
 
-      KLA.value = 0;
-      KUA.value = max(N - 1, 0);
-      KLB.value = 0;
-      KUB.value = max(N - 1, 0);
+      KLA = 0;
+      KUA = max(N - 1, 0);
+      KLB = 0;
+      KUB = max(N - 1, 0);
     } else if (IMAT == 3) {
       // A: lower triangular, B: upper triangular
 
-      KLA.value = max(M - 1, 0);
-      KUA.value = 0;
-      KLB.value = 0;
-      KUB.value = max(N - 1, 0);
+      KLA = max(M - 1, 0);
+      KUA = 0;
+      KLB = 0;
+      KUB = max(N - 1, 0);
     } else {
       // A: general dense, B: general dense
 
-      KLA.value = max(M - 1, 0);
-      KUA.value = max(N - 1, 0);
-      KLB.value = max(P - 1, 0);
-      KUB.value = max(N - 1, 0);
+      KLA = max(M - 1, 0);
+      KUA = max(N - 1, 0);
+      KLB = max(P - 1, 0);
+      KUB = max(N - 1, 0);
     }
   } else if (lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GLM')) {
     // A: N by M, B: N by P
@@ -96,70 +100,86 @@ void dlatb9(
     if (IMAT == 1) {
       // A: diagonal, B: lower triangular
 
-      KLA.value = 0;
-      KUA.value = 0;
-      KLB.value = max(N - 1, 0);
-      KUB.value = 0;
+      KLA = 0;
+      KUA = 0;
+      KLB = max(N - 1, 0);
+      KUB = 0;
     } else if (IMAT == 2) {
       // A: lower triangular, B: diagonal
 
-      KLA.value = max(N - 1, 0);
-      KUA.value = 0;
-      KLB.value = 0;
-      KUB.value = 0;
+      KLA = max(N - 1, 0);
+      KUA = 0;
+      KLB = 0;
+      KUB = 0;
     } else if (IMAT == 3) {
       // A: lower triangular, B: upper triangular
 
-      KLA.value = max(N - 1, 0);
-      KUA.value = 0;
-      KLB.value = 0;
-      KUB.value = max(P - 1, 0);
+      KLA = max(N - 1, 0);
+      KUA = 0;
+      KLB = 0;
+      KUB = max(P - 1, 0);
     } else {
       // A: general dense, B: general dense
 
-      KLA.value = max(N - 1, 0);
-      KUA.value = max(M - 1, 0);
-      KLB.value = max(N - 1, 0);
-      KUB.value = max(P - 1, 0);
+      KLA = max(N - 1, 0);
+      KUA = max(M - 1, 0);
+      KLB = max(N - 1, 0);
+      KUB = max(P - 1, 0);
     }
   }
 
   // Set the condition number and norm.
 
-  CNDNMA.value = TEN * TEN;
-  CNDNMB.value = TEN;
+  CNDNMA = TEN * TEN;
+  CNDNMB = TEN;
   if (lsamen(3, PATH, 'GQR') ||
       lsamen(3, PATH, 'GRQ') ||
       lsamen(3, PATH, 'GSV')) {
     if (IMAT == 5) {
-      CNDNMA.value = _BADC1;
-      CNDNMB.value = _BADC1;
+      CNDNMA = _BADC1;
+      CNDNMB = _BADC1;
     } else if (IMAT == 6) {
-      CNDNMA.value = _BADC2;
-      CNDNMB.value = _BADC2;
+      CNDNMA = _BADC2;
+      CNDNMB = _BADC2;
     } else if (IMAT == 7) {
-      CNDNMA.value = _BADC1;
-      CNDNMB.value = _BADC2;
+      CNDNMA = _BADC1;
+      CNDNMB = _BADC2;
     } else if (IMAT == 8) {
-      CNDNMA.value = _BADC2;
-      CNDNMB.value = _BADC1;
+      CNDNMA = _BADC2;
+      CNDNMB = _BADC1;
     }
   }
 
-  ANORM.value = TEN;
-  BNORM.value = TEN * TEN * TEN;
+  ANORM = TEN;
+  BNORM = TEN * TEN * TEN;
   if (lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GRQ')) {
     if (IMAT == 7) {
-      ANORM.value = _SMALL;
-      BNORM.value = _LARGE;
+      ANORM = _SMALL;
+      BNORM = _LARGE;
     } else if (IMAT == 8) {
-      ANORM.value = _LARGE;
-      BNORM.value = _SMALL;
+      ANORM = _LARGE;
+      BNORM = _SMALL;
     }
   }
 
   if (N <= 1) {
-    CNDNMA.value = ONE;
-    CNDNMB.value = ONE;
+    CNDNMA = ONE;
+    CNDNMB = ONE;
   }
+
+  return (
+    TYPE: TYPE,
+    KLA: KLA,
+    KUA: KUA,
+    KLB: KLB,
+    KUB: KUB,
+    ANORM: ANORM,
+    BNORM: BNORM,
+    MODEA: MODEA,
+    MODEB: MODEB,
+    CNDNMA: CNDNMA,
+    CNDNMB: CNDNMB,
+    DISTA: DISTA,
+    DISTB: DISTB,
+  );
 }

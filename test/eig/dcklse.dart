@@ -53,18 +53,7 @@ Future<void> dcklse(
   int I, IK, IMAT, LDA, LDB, LWORK, M, N, NT, P;
   final DOTYPE = Array<bool>(NTYPES);
   final RESULT = Array<double>(NTESTS);
-  final DISTA = Box(''), DISTB = Box(''), TYPE = Box('');
-  final IINFO = Box(0),
-      KLA = Box(0),
-      KLB = Box(0),
-      KUA = Box(0),
-      KUB = Box(0),
-      MODEA = Box(0),
-      MODEB = Box(0);
-  final ANORM = Box(0.0),
-      BNORM = Box(0.0),
-      CNDNMA = Box(0.0),
-      CNDNMB = Box(0.0);
+  final IINFO = Box(0);
   const PATH = 'LSE';
 
   // Initialize constants and the random number seed.
@@ -111,49 +100,32 @@ Future<void> dcklse(
       // Set up parameters with DLATB9 and generate test
       // matrices A and B with DLATMS.
 
-      dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
-          MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
+      final (
+        :TYPE,
+        :KLA,
+        :KUA,
+        :KLB,
+        :KUB,
+        :ANORM,
+        :BNORM,
+        :MODEA,
+        :MODEB,
+        :CNDNMA,
+        :CNDNMB,
+        :DISTA,
+        :DISTB
+      ) = dlatb9(PATH, IMAT, M, P, N);
 
-      dlatms(
-          M,
-          N,
-          DISTA.value,
-          ISEED,
-          TYPE.value,
-          RWORK,
-          MODEA.value,
-          CNDNMA.value,
-          ANORM.value,
-          KLA.value,
-          KUA.value,
-          'No packing',
-          A.asMatrix(LDA),
-          LDA,
-          WORK,
-          IINFO);
+      dlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA,
+          'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = IINFO.value.abs();
         continue;
       }
 
-      dlatms(
-          P,
-          N,
-          DISTB.value,
-          ISEED,
-          TYPE.value,
-          RWORK,
-          MODEB.value,
-          CNDNMB.value,
-          BNORM.value,
-          KLB.value,
-          KUB.value,
-          'No packing',
-          B.asMatrix(LDB),
-          LDB,
-          WORK,
-          IINFO);
+      dlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB,
+          'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = IINFO.value.abs();

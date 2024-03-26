@@ -2,10 +2,13 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/range.dart';
+import 'package:test/test.dart';
 
 import '../lin/alasum.dart';
 import '../matgen/dlarnd.dart';
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alahdg.dart';
 import 'alareq.dart';
 import 'dglmts.dart';
@@ -30,6 +33,8 @@ Future<void> dckglm(
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
+  final TestDriver test,
+  final String group,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -46,41 +51,25 @@ Future<void> dckglm(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   const NTYPES = 8;
-  bool FIRSTT;
-  final TYPE = Box(''), DISTA = Box(''), DISTB = Box('');
-  int I, IK, IMAT, LDA, LDB, LWORK, M, N, NFAIL, NRUN, P;
-  final KLA = Box(0),
-      KLB = Box(0),
-      KUA = Box(0),
-      KUB = Box(0),
-      MODEA = Box(0),
-      MODEB = Box(0);
-  final ANORM = Box(0.0),
-      BNORM = Box(0.0),
-      CNDNMA = Box(0.0),
-      CNDNMB = Box(0.0),
-      RESID = Box(0.0);
   final DOTYPE = Array<bool>(NTYPES);
-  final IINFO = Box(0);
   const PATH = 'GLM';
 
   // Initialize constants.
 
   INFO.value = 0;
-  NRUN = 0;
-  NFAIL = 0;
-  FIRSTT = true;
+  var NRUN = 0;
+  var NFAIL = 0;
   await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
-  LDA = NMAX;
-  LDB = NMAX;
-  LWORK = NMAX * NMAX;
+  final LDA = NMAX;
+  final LDB = NMAX;
+  final LWORK = NMAX * NMAX;
 
   // Check for valid input values.
 
-  for (IK = 1; IK <= NN; IK++) {
-    M = MVAL[IK];
-    P = PVAL[IK];
-    N = NVAL[IK];
+  for (var IK = 1, FIRSTT = true; IK <= NN; IK++) {
+    final M = MVAL[IK];
+    final P = PVAL[IK];
+    final N = NVAL[IK];
     if (M > N || N > M + P) {
       if (FIRSTT) {
         NOUT.println();
@@ -91,112 +80,105 @@ Future<void> dckglm(
           '     must satisfy M <= N <= M+P  (this set of values will be skipped)');
     }
   }
-  FIRSTT = true;
 
-  // Do for each value of M in MVAL.
+  test.group(group, () {
+    var FIRSTT = true;
 
-  for (IK = 1; IK <= NN; IK++) {
-    M = MVAL[IK];
-    P = PVAL[IK];
-    N = NVAL[IK];
-    if (M > N || N > M + P) continue;
+    // Do for each value of M in MVAL.
+    for (final IK in 1.through(NN)) {
+      final M = MVAL[IK];
+      final P = PVAL[IK];
+      final N = NVAL[IK];
+      if (M > N || N > M + P) continue;
 
-    for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
-      // Do the tests only if DOTYPE[ IMAT ] is true.
-      if (!DOTYPE[IMAT]) continue;
+      for (final IMAT in 1.through(NTYPES)) {
+        // Do the tests only if DOTYPE[ IMAT ] is true.
+        final skip = !DOTYPE[IMAT];
+        test('DCKGLM (M = $M, N = $N, P = $P TYPE = $IMAT)', () {
+          final IINFO = Box(0);
 
-      // Set up parameters with DLATB9 and generate test
-      // matrices A and B with DLATMS.
+          // Set up parameters with DLATB9 and generate test
+          // matrices A and B with DLATMS.
 
-      dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
-          MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
+          final (
+            :TYPE,
+            :KLA,
+            :KUA,
+            :KLB,
+            :KUB,
+            :ANORM,
+            :BNORM,
+            :MODEA,
+            :MODEB,
+            :CNDNMA,
+            :CNDNMB,
+            :DISTA,
+            :DISTB
+          ) = dlatb9(PATH, IMAT, M, P, N);
 
-      dlatms(
-          N,
-          M,
-          DISTA.value,
-          ISEED,
-          TYPE.value,
-          RWORK,
-          MODEA.value,
-          CNDNMA.value,
-          ANORM.value,
-          KLA.value,
-          KUA.value,
-          'No packing',
-          A.asMatrix(LDA),
-          LDA,
-          WORK,
-          IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUT, IINFO.value);
-        INFO.value = IINFO.value.abs();
-        continue;
+          dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA,
+              KUA, 'No packing', A.asMatrix(LDA), LDA, WORK, IINFO);
+          test.expect(IINFO.value, 0);
+          if (IINFO.value != 0) {
+            print9999(NOUT, IINFO.value);
+            INFO.value = IINFO.value.abs();
+            return;
+          }
+
+          dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB,
+              KUB, 'No packing', B.asMatrix(LDB), LDB, WORK, IINFO);
+          test.expect(IINFO.value, 0);
+          if (IINFO.value != 0) {
+            print9999(NOUT, IINFO.value);
+            INFO.value = IINFO.value.abs();
+            return;
+          }
+
+          // Generate random left hand side vector of GLM
+
+          for (var I = 1; I <= N; I++) {
+            X[I] = dlarnd(2, ISEED);
+          }
+
+          final RESID = Box(0.0);
+          dglmts(
+              N,
+              M,
+              P,
+              A.asMatrix(LDA),
+              AF.asMatrix(LDA),
+              LDA,
+              B.asMatrix(LDB),
+              BF.asMatrix(LDB),
+              LDB,
+              X,
+              X(NMAX + 1),
+              X(2 * NMAX + 1),
+              X(3 * NMAX + 1),
+              WORK,
+              LWORK,
+              RWORK,
+              RESID);
+
+          // Print information about the tests that did not
+          // pass the threshold.
+
+          final reason =
+              ' N=${M.i4} M=${N.i4}, P=${P.i4}, type ${IMAT.i2}, test 1, ratio=${RESID.value.g13_6}';
+          test.expect(RESID.value, lessThan(THRESH), reason: reason);
+          if (RESID.value >= THRESH) {
+            if (NFAIL == 0 && FIRSTT) {
+              FIRSTT = false;
+              alahdg(NOUT, PATH);
+            }
+            NOUT.println(reason);
+            NFAIL++;
+          }
+          NRUN++;
+        }, skip: skip);
       }
-
-      dlatms(
-          N,
-          P,
-          DISTB.value,
-          ISEED,
-          TYPE.value,
-          RWORK,
-          MODEB.value,
-          CNDNMB.value,
-          BNORM.value,
-          KLB.value,
-          KUB.value,
-          'No packing',
-          B.asMatrix(LDB),
-          LDB,
-          WORK,
-          IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUT, IINFO.value);
-        INFO.value = IINFO.value.abs();
-        continue;
-      }
-
-      // Generate random left hand side vector of GLM
-
-      for (I = 1; I <= N; I++) {
-        X[I] = dlarnd(2, ISEED);
-      }
-
-      dglmts(
-          N,
-          M,
-          P,
-          A.asMatrix(LDA),
-          AF.asMatrix(LDA),
-          LDA,
-          B.asMatrix(LDB),
-          BF.asMatrix(LDB),
-          LDB,
-          X,
-          X(NMAX + 1),
-          X(2 * NMAX + 1),
-          X(3 * NMAX + 1),
-          WORK,
-          LWORK,
-          RWORK,
-          RESID);
-
-      // Print information about the tests that did not
-      // pass the threshold.
-
-      if (RESID.value >= THRESH) {
-        if (NFAIL == 0 && FIRSTT) {
-          FIRSTT = false;
-          alahdg(NOUT, PATH);
-        }
-        NOUT.println(
-            ' N=${M.i4} M=${N.i4}, P=${P.i4}, type ${IMAT.i2}, test 1, ratio=${RESID.value.g13_6}');
-        NFAIL++;
-      }
-      NRUN++;
     }
-  }
+  });
 
   // Print a summary of the results.
 
