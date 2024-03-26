@@ -151,11 +151,16 @@ Future<void> ddrgsx(
 
   var NTESTT = 0;
   var NERRS = 0;
+  final PARAMS = claenv.IPARMS.copy();
 
   // Go to the tests for read-in matrix pairs
 
   if (NSIZE != 0) {
     test.group(group, () {
+      test.setUp(() {
+        claenv.IPARMS.assign(PARAMS);
+      });
+
       // Test the built-in matrix pairs.
       // Loop over different functions (IFUNC) of DGGESX, types (PRTYPE)
       // of test matrices, different size (M+N)
@@ -470,6 +475,10 @@ Future<void> ddrgsx(
       final ctx = (NPTKNT: ++NPTKNT, AI: AI.copy(), BI: BI.copy());
 
       test.group(group, () {
+        test.setUp(() {
+          claenv.IPARMS.assign(PARAMS);
+        });
+
         test('DDRGSX - precomputed (M=$MPLUSN, N=$N)', () {
           final (:NPTKNT, :AI, :BI) = ctx;
           mn.N = N;

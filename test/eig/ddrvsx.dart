@@ -14,6 +14,7 @@ import '../matgen/dlatme.dart';
 import '../matgen/dlatmr.dart';
 import '../matgen/dlatms.dart';
 import '../test_driver.dart';
+import 'common.dart';
 import 'dget24.dart';
 import 'dlasum.dart';
 
@@ -134,6 +135,7 @@ Future<void> ddrvsx(
   }
 
   var NERRS = 0;
+  final PARAMS = claenv.IPARMS.copy();
 
   // If nothing to do check on NIUNIT
 
@@ -150,6 +152,10 @@ Future<void> ddrvsx(
     // Loop over sizes, types
 
     test.group(group, () {
+      test.setUp(() {
+        claenv.IPARMS.assign(PARAMS);
+      });
+
       for (final JSIZE in 1.through(NSIZES)) {
         final N = NN[JSIZE];
         final MTYPES =
@@ -501,8 +507,13 @@ Future<void> ddrvsx(
       ISLCT: ISLCT.copy(),
     );
     test.group(group, () {
+      final (:A, :ISEED, :JTYPE, :ISLCT) = ctx;
+
+      test.setUp(() {
+        claenv.IPARMS.assign(PARAMS);
+      });
+
       test('DDRVSX', () {
-        final (:A, :ISEED, :JTYPE, :ISLCT) = ctx;
         dget24(
             true,
             22,

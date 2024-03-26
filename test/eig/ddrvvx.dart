@@ -14,6 +14,7 @@ import '../matgen/dlatme.dart';
 import '../matgen/dlatmr.dart';
 import '../matgen/dlatms.dart';
 import '../test_driver.dart';
+import 'common.dart';
 import 'dget23.dart';
 import 'dlasum.dart';
 
@@ -144,6 +145,8 @@ Future<void> ddrvvx(
     }
   }
 
+  final PARAMS = claenv.IPARMS.copy();
+
   var NERRS = 0;
 
   // If nothing to do check on NIUNIT
@@ -158,6 +161,10 @@ Future<void> ddrvvx(
     final RTULPI = ONE / RTULP;
 
     test.group(group, () {
+      test.setUp(() {
+        claenv.IPARMS.assign(PARAMS);
+      });
+
       // Loop over sizes, types
       for (final JSIZE in 1.through(NSIZES)) {
         final N = NN[JSIZE];
@@ -537,8 +544,13 @@ Future<void> ddrvvx(
       JTYPE: JTYPE,
     );
     test.group(group, () {
+      final (:A, :WR1, :WI1, :RCDEIN, :RCDVIN, :ISEED, :JTYPE) = ctx;
+
+      test.setUp(() {
+        claenv.IPARMS.assign(PARAMS);
+      });
+
       test('DDRVVX - precomputed', () {
-        final (:A, :WR1, :WI1, :RCDEIN, :RCDVIN, :ISEED, :JTYPE) = ctx;
         dget23(
             true,
             'N',

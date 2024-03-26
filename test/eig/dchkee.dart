@@ -1317,11 +1317,16 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               DOTYPE: DOTYPE.copy(),
               C3: C3,
               NTYPES: NTYPES,
+              PARAMS: claenv.IPARMS.copy(),
             );
 
             test.group('DEV: Nonsymmetric Eigenvalue Problem Driver (path=$C3)',
                 () {
-              final (:ISEED, :NVAL, :DOTYPE, :C3, :NTYPES) = ctx;
+              final (:ISEED, :NVAL, :DOTYPE, :C3, :NTYPES, :PARAMS) = ctx;
+
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+              });
 
               test.group('error exits', () {
                 if (TSTERR) derred(C3, NOUT!, test);
@@ -1379,10 +1384,15 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               DOTYPE: DOTYPE.copy(),
               C3: C3,
               NTYPES: NTYPES,
+              PARAMS: claenv.IPARMS.copy(),
             );
             test.group('DES: Nonsymmetric Eigenvalue Problem Driver (path=$C3)',
                 () {
-              final (:ISEED, :NVAL, :DOTYPE, :C3, :NTYPES) = ctx;
+              final (:ISEED, :NVAL, :DOTYPE, :C3, :NTYPES, :PARAMS) = ctx;
+
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+              });
 
               test.group('error exits', () {
                 if (TSTERR) derred(C3, NOUT!, test);
@@ -1676,13 +1686,18 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               ISEED: ISEED.copy(),
               DOTYPE: DOTYPE.copy(),
               C3: C3,
+              PARAMS: claenv.IPARMS.copy(),
             );
             test.group(
                 'DGS: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
                 () {
               NOUT!;
 
-              final (:NVAL, :ISEED, :DOTYPE, :C3) = ctx;
+              final (:NVAL, :ISEED, :DOTYPE, :C3, :PARAMS) = ctx;
+
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+              });
 
               test.group('error exits', () {
                 if (TSTERR) derrgg(C3, NOUT!, test);
@@ -1822,13 +1837,18 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               ISEED: ISEED.copy(),
               DOTYPE: DOTYPE.copy(),
               C3: C3,
+              PARAMS: claenv.IPARMS.copy(),
             );
             test.group(
                 'DGV: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
                 () {
               NOUT!;
 
-              final (:NVAL, :ISEED, :DOTYPE, :C3) = ctx;
+              final (:NVAL, :ISEED, :DOTYPE, :C3, :PARAMS) = ctx;
+
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+              });
 
               test.group('error exits', () {
                 if (TSTERR) derrgg(C3, NOUT!, test);
@@ -2283,29 +2303,42 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // LSE:  Constrained Linear Least Squares
           // --------------------------------------
 
-          // xlaenv(1, 1);
-          // if (TSTERR) derrgg('LSE', NOUT);
-          // final INFO = Box(0);
-          // await dcklse(
-          //     NN,
-          //     MVAL,
-          //     PVAL,
-          //     NVAL,
-          //     NTYPES,
-          //     ISEED,
-          //     THRESH,
-          //     NMAX,
-          //     A(1, 1).asArray(),
-          //     A(1, 2).asArray(),
-          //     B(1, 1).asArray(),
-          //     B(1, 2).asArray(),
-          //     X,
-          //     WORK,
-          //     D(1, 1).asArray(),
-          //     NIN,
-          //     NOUT,
-          //     INFO);
-          // if (INFO.value != 0) NOUT.print9980('DCKLSE', INFO.value);
+          final PARAMS = claenv.IPARMS.copy();
+          final group = 'LSE: Constrained Linear Least Squares (path=$C3)';
+          test.group(group, () {
+            test.group('error exits', () {
+              test.setUp(() {
+                claenv.IPARMS.assign(PARAMS);
+                xlaenv(1, 1);
+              });
+
+              if (TSTERR) derrgg('LSE', NOUT!, test);
+            });
+          });
+
+          final INFO = Box(0);
+          await dcklse(
+              NN,
+              MVAL.copy(),
+              PVAL.copy(),
+              NVAL.copy(),
+              NTYPES,
+              ISEED.copy(),
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              X,
+              WORK,
+              D(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO,
+              test,
+              group);
+          if (INFO.value != 0) NOUT.print9980('DCKLSE', INFO.value);
         } else {
           NOUT.println('');
           NOUT.println('');
