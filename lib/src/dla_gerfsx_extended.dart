@@ -102,7 +102,7 @@ void dla_gerfsx_extended(
   // Force HUGEVAL to Inf
   HUGEVAL *= HUGEVAL;
   // Using HUGEVAL may lead to spurious underflows.
-  INCR_THRESH = N.toDouble() * EPS;
+  INCR_THRESH = N * EPS;
 
   for (J = 1; J <= NRHS; J++) {
     Y_PREC_STATE = EXTRA_RESIDUAL;

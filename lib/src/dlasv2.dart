@@ -147,7 +147,7 @@ void dlasv2(
         // Note that M is very tiny
 
         if (L == ZERO) {
-          T = sign(TWO, FT) * sign(ONE, GT).toDouble();
+          T = sign(TWO, FT) * sign(ONE, GT);
         } else {
           T = GT / sign(D, FT) + M / T;
         }
@@ -176,18 +176,14 @@ void dlasv2(
   // Correct signs of SSMAX and SSMIN
 
   if (PMAX == 1) {
-    TSIGN =
-        sign(ONE, CSR.value).toDouble() * sign(ONE, CSL.value) * sign(ONE, F);
+    TSIGN = sign(ONE, CSR.value) * sign(ONE, CSL.value) * sign(ONE, F);
   }
   if (PMAX == 2) {
-    TSIGN =
-        sign(ONE, SNR.value).toDouble() * sign(ONE, CSL.value) * sign(ONE, G);
+    TSIGN = sign(ONE, SNR.value) * sign(ONE, CSL.value) * sign(ONE, G);
   }
   if (PMAX == 3) {
-    TSIGN =
-        sign(ONE, SNR.value).toDouble() * sign(ONE, SNL.value) * sign(ONE, H);
+    TSIGN = sign(ONE, SNR.value) * sign(ONE, SNL.value) * sign(ONE, H);
   }
-  SSMAX.value = sign(SSMAX.value, TSIGN).toDouble();
-  SSMIN.value =
-      sign(SSMIN.value, TSIGN * sign(ONE, F) * sign(ONE, H)).toDouble();
+  SSMAX.value = sign(SSMAX.value, TSIGN);
+  SSMIN.value = sign(SSMIN.value, TSIGN * sign(ONE, F) * sign(ONE, H));
 }

@@ -224,7 +224,7 @@ void zlattb(
     // In type 11, the offdiagonal elements are small (CNORM(j) < 1).
 
     zlarnv(2, ISEED, N, B);
-    final TSCAL = ONE / (KD + 1).toDouble();
+    final TSCAL = ONE / (KD + 1);
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         final LENJ = min(J - 1, KD);
@@ -322,7 +322,7 @@ void zlattb(
     // overflow when dividing by T(j,j).  To control the amount of
     // scaling needed, the matrix is bidiagonal.
 
-    final TEXP = ONE / (KD + 1).toDouble();
+    final TEXP = ONE / (KD + 1);
     final TSCAL = pow(SMLNUM, TEXP).toInt();
     zlarnv(4, ISEED, N, B);
     if (UPPER) {

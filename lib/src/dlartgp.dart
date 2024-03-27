@@ -30,12 +30,12 @@ void dlartgp(
   // FIRST = false;
   // END IF
   if (G == ZERO) {
-    CS.value = sign(ONE, F).toDouble();
+    CS.value = sign(ONE, F);
     SN.value = ZERO;
     R.value = F.abs();
   } else if (F == ZERO) {
     CS.value = ZERO;
-    SN.value = sign(ONE, G).toDouble();
+    SN.value = sign(ONE, G);
     R.value = G.abs();
   } else {
     F1 = F;

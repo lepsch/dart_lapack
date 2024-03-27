@@ -93,7 +93,7 @@ Future<void> zdrgsx(
       RESULT = Array<double>(10);
   final LINFO = Box(0), MM = Box(0), QBA = Box(0), QBB = Box(0);
 
-  double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
 
   // Check for errors
 

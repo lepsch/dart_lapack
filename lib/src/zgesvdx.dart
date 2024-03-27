@@ -202,7 +202,7 @@ void zgesvdx(
       }
     }
     MAXWRK = max(MAXWRK, MINWRK);
-    WORK[1] = Complex(MAXWRK.toDouble(), ZERO);
+    WORK[1] = MAXWRK.toComplex();
 
     if (LWORK < MINWRK && !LQUERY) {
       INFO.value = -19;
@@ -636,5 +636,5 @@ void zgesvdx(
 
   // Return optimal workspace in WORK(1)
 
-  WORK[1] = Complex(MAXWRK.toDouble(), ZERO);
+  WORK[1] = MAXWRK.toComplex();
 }

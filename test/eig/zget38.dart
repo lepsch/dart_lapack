@@ -135,7 +135,7 @@ Future<void> zget38(
       }
       if (ISRT == 0) {
         for (I = 1; I <= N; I++) {
-          WSRT[I] = W[I].toDouble();
+          WSRT[I] = W[I].real;
         }
       } else {
         for (I = 1; I <= N; I++) {
@@ -187,7 +187,7 @@ Future<void> zget38(
       // Compare condition number for eigenvalue cluster
       // taking its condition number into account
 
-      V = max(TWO * N.toDouble() * EPS * TNRM, SMLNUM);
+      V = max(TWO * N * EPS * TNRM, SMLNUM);
       if (TNRM == ZERO) V = ONE;
       if (V > SEPTMP.value) {
         TOL = ONE;

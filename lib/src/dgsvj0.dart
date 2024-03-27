@@ -303,7 +303,7 @@ void dgsvj0(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ).toDouble();
+                      THSIGN = -sign(ONE, AAPQ);
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));
                       CS = sqrt(ONE / (ONE + T.value * T.value));
@@ -446,7 +446,7 @@ void dgsvj0(
               }
             }
             // END q-LOOP
-            
+
             // bailed out of q-loop
 
             SVA[p] = AAPP.value;
@@ -568,7 +568,7 @@ void dgsvj0(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ).toDouble();
+                      THSIGN = -sign(ONE, AAPQ);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));

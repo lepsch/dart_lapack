@@ -99,7 +99,7 @@ void dla_porfsx_extended(
   // Force HUGEVAL to Inf
   HUGEVAL *= HUGEVAL;
   // Using HUGEVAL may lead to spurious underflows.
-  INCR_THRESH = N.toDouble() * EPS;
+  INCR_THRESH = N * EPS;
 
   if (lsame(UPLO, 'L')) {
     UPLO2 = ilauplo('L');

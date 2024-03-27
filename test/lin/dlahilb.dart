@@ -23,7 +23,7 @@ void dlahilb(
   final X = X_.having(ld: LDX, lastd: NRHS);
   final B = B_.having(ld: LDB, lastd: NRHS);
   final WORK = WORK_.having(length: N);
-  
+
   // NMAX_EXACT   the largest dimension where the generated data is
   //              exact.
   // NMAX_APPROX  the largest dimension where the generated data has
@@ -70,7 +70,7 @@ void dlahilb(
   // Generate the scaled Hilbert matrix in A
   for (var J = 1; J <= N; J++) {
     for (var I = 1; I <= N; I++) {
-      A[I][J] = M.toDouble() / (I + J - 1);
+      A[I][J] = M / (I + J - 1);
     }
   }
 

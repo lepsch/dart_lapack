@@ -62,14 +62,14 @@ void zpbequ(
 
   // Initialize SMIN and AMAX.value.
 
-  S[1] = AB[J][1].toDouble();
+  S[1] = AB[J][1].real;
   SMIN = S[1];
   AMAX.value = S[1];
 
   // Find the minimum and maximum diagonal elements.
 
   for (I = 2; I <= N; I++) {
-    S[I] = AB[J][I].toDouble();
+    S[I] = AB[J][I].real;
     SMIN = min(SMIN, S[I]);
     AMAX.value = max(AMAX.value, S[I]);
   }

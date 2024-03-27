@@ -50,7 +50,7 @@ void zhsein(
   Complex WK = Complex.zero;
   final IINFO = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Decode and test the input parameters.
 

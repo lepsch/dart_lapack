@@ -41,7 +41,7 @@ void ztbcon(
   final AINVNM = Box(0.0), SCALE = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 
@@ -76,7 +76,7 @@ void ztbcon(
   }
 
   RCOND.value = ZERO;
-  SMLNUM = dlamch('Safe minimum') * (max(N, 1)).toDouble();
+  SMLNUM = dlamch('Safe minimum') * max(N, 1);
 
   // Compute the 1-norm of the triangular matrix A or A**H.
 

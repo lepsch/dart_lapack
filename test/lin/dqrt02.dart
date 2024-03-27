@@ -85,5 +85,5 @@ void dqrt02(
 
   RESID = dlansy('1', 'Upper', N, R, LDA, RWORK);
 
-  RESULT[2] = (RESID / (max(1, M)).toDouble()) / EPS;
+  RESULT[2] = (RESID / max(1, M)) / EPS;
 }

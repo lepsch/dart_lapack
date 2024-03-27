@@ -489,6 +489,6 @@ void dlasq2(final int N, final Array<double> Z_, final Box<int> INFO) {
   Z[2 * N + 1] = TRACE;
   Z[2 * N + 2] = E;
   Z[2 * N + 3] = ITER.value.toDouble();
-  Z[2 * N + 4] = NDIV.value.toDouble() / pow(N, 2).toDouble();
-  Z[2 * N + 5] = HUNDRD * NFAIL.value / ITER.value.toDouble();
+  Z[2 * N + 4] = NDIV.value / pow(N, 2);
+  Z[2 * N + 5] = HUNDRD * NFAIL.value / ITER.value;
 }

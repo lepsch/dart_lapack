@@ -33,7 +33,7 @@ void zlarfgp(
 
   EPS = dlamch('Precision');
   XNORM = dznrm2(N - 1, X, INCX);
-  ALPHR = ALPHA.value.toDouble();
+  ALPHR = ALPHA.value.real;
   ALPHI = ALPHA.value.imaginary;
 
   if (XNORM <= EPS * ALPHA.value.abs() && ALPHI == ZERO) {
@@ -56,7 +56,7 @@ void zlarfgp(
   } else {
     // general case
 
-    BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR).toDouble();
+    BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR);
     SMLNUM = dlamch('S') / dlamch('E');
     BIGNUM = ONE / SMLNUM;
 
@@ -76,7 +76,7 @@ void zlarfgp(
 
       XNORM = dznrm2(N - 1, X, INCX);
       ALPHA.value = Complex(ALPHR, ALPHI);
-      BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR).toDouble();
+      BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR);
     }
     SAVEALPHA = ALPHA.value;
     ALPHA.value += BETA.toComplex();
@@ -84,8 +84,8 @@ void zlarfgp(
       BETA = -BETA;
       TAU.value = -ALPHA.value / BETA.toComplex();
     } else {
-      ALPHR = ALPHI * (ALPHI / ALPHA.value.toDouble());
-      ALPHR += XNORM * (XNORM / ALPHA.value.toDouble());
+      ALPHR = ALPHI * (ALPHI / ALPHA.value.real);
+      ALPHR += XNORM * (XNORM / ALPHA.value.real);
       TAU.value = Complex(ALPHR / BETA, -ALPHI / BETA);
       ALPHA.value = Complex(-ALPHR, ALPHI);
     }
@@ -99,7 +99,7 @@ void zlarfgp(
       // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
       // (Thanks Pat. Thanks MathWorks.)
 
-      ALPHR = SAVEALPHA.toDouble();
+      ALPHR = SAVEALPHA.real;
       ALPHI = SAVEALPHA.imaginary;
       if (ALPHI == ZERO) {
         if (ALPHR >= ZERO) {
@@ -109,7 +109,7 @@ void zlarfgp(
           for (J = 1; J <= N - 1; J++) {
             X[1 + (J - 1) * INCX] = Complex.zero;
           }
-          BETA = (-SAVEALPHA).toDouble();
+          BETA = (-SAVEALPHA).real;
         }
       } else {
         XNORM = dlapy2(ALPHR, ALPHI);

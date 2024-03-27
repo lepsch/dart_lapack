@@ -117,7 +117,7 @@ void zhegvd(
   zhegst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO);
   zheevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK,
       INFO);
-  LOPT = max(LOPT, WORK[1].toDouble()).toInt();
+  LOPT = max(LOPT, WORK[1].real).toInt();
   LROPT = max(LROPT, RWORK[1]).toInt();
   LIOPT = max(LIOPT, IWORK[1]).toInt();
 

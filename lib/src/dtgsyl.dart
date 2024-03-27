@@ -150,11 +150,9 @@ void dtgsyl(
           SCALE, DSUM, DSCALE, IWORK, PQ, INFO);
       if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
-          DIF.value =
-              sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value = sqrt(2 * M * N) / (DSCALE.value * sqrt(DSUM.value));
         } else {
-          DIF.value =
-              sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value = sqrt(PQ.value) / (DSCALE.value * sqrt(DSUM.value));
         }
       }
 
@@ -294,11 +292,9 @@ void dtgsyl(
       }
       if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
-          DIF.value =
-              sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value = sqrt(2 * M * N) / (DSCALE.value * sqrt(DSUM.value));
         } else {
-          DIF.value =
-              sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
+          DIF.value = sqrt(PQ.value) / (DSCALE.value * sqrt(DSUM.value));
         }
       }
       if (ISOLVE == 2 && IROUND == 1) {

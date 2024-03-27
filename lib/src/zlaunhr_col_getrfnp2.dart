@@ -28,7 +28,7 @@ void zlaunhr_col_getrfnp2(
   int I, N1, N2;
   final IINFO = Box(0);
 
-  double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
+  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
 
   // Test the input parameters
 
@@ -55,7 +55,7 @@ void zlaunhr_col_getrfnp2(
 
     // Transfer the sign
 
-    D[1] = Complex(-sign(ONE, A[1][1].toDouble()).toDouble());
+    D[1] = Complex(-sign(ONE, A[1][1].real));
 
     // Construct the row of U
 
@@ -66,7 +66,7 @@ void zlaunhr_col_getrfnp2(
 
     // Transfer the sign
 
-    D[1] = Complex(-sign(ONE, A[1][1].toDouble()).toDouble());
+    D[1] = Complex(-sign(ONE, A[1][1].real));
 
     // Construct the row of U
 

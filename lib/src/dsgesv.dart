@@ -87,7 +87,7 @@ void dsgesv(
 
     ANRM = dlange('I', N, N, A, LDA, WORK.asArray());
     EPS = dlamch('Epsilon');
-    CTE = ANRM * EPS * sqrt(N.toDouble()) * BWDMAX;
+    CTE = ANRM * EPS * sqrt(N) * BWDMAX;
 
     // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
 

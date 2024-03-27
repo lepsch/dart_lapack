@@ -467,9 +467,8 @@ void zdrvev(
             for (JJ = 1; JJ <= N; JJ++) {
               VTST = VR[JJ][J].abs();
               if (VTST > VMX) VMX = VTST;
-              if (VR[JJ][J].imaginary == ZERO &&
-                  VR[JJ][J].toDouble().abs() > VRMX) {
-                VRMX = VR[JJ][J].toDouble().abs();
+              if (VR[JJ][J].imaginary == ZERO && VR[JJ][J].real.abs() > VRMX) {
+                VRMX = VR[JJ][J].real.abs();
               }
             }
             if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
@@ -485,9 +484,8 @@ void zdrvev(
             for (JJ = 1; JJ <= N; JJ++) {
               VTST = VL[JJ][J].abs();
               if (VTST > VMX) VMX = VTST;
-              if (VL[JJ][J].imaginary == ZERO &&
-                  VL[JJ][J].toDouble().abs() > VRMX) {
-                VRMX = VL[JJ][J].toDouble().abs();
+              if (VL[JJ][J].imaginary == ZERO && VL[JJ][J].real.abs() > VRMX) {
+                VRMX = VL[JJ][J].real.abs();
               }
             }
             if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;

@@ -52,11 +52,11 @@ void zpoequb(
 
   // Find the minimum and maximum diagonal elements.
 
-  S[1] = A[1][1].toDouble();
+  S[1] = A[1][1].real;
   SMIN = S[1];
   AMAX.value = S[1];
   for (I = 2; I <= N; I++) {
-    S[I] = A[I][I].toDouble();
+    S[I] = A[I][I].real;
     SMIN = min(SMIN, S[I]);
     AMAX.value = max(AMAX.value, S[I]);
   }

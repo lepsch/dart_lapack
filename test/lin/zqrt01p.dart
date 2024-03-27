@@ -82,7 +82,7 @@ void zqrt01p(
   final ANORM = zlange('1', M, N, A, LDA, RWORK);
   var RESID = zlange('1', M, N, R, LDA, RWORK);
   if (ANORM > ZERO) {
-    RESULT[1] = ((RESID / (max(1, M)).toDouble()) / ANORM) / EPS;
+    RESULT[1] = ((RESID / max(1, M)) / ANORM) / EPS;
   } else {
     RESULT[1] = ZERO;
   }
@@ -96,5 +96,5 @@ void zqrt01p(
 
   RESID = zlansy('1', 'Upper', M, R, LDA, RWORK);
 
-  RESULT[2] = (RESID / (max(1, M)).toDouble()) / EPS;
+  RESULT[2] = (RESID / max(1, M)) / EPS;
 }

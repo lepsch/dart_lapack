@@ -763,7 +763,7 @@ void _zb1nrm2(
         } else {
           ZNRM = YMAX * sqrt(ONE + pow(YMIN / YMAX, 2));
         }
-        ZNRM = sqrt(N.toDouble()) * ZNRM;
+        ZNRM = sqrt(N) * ZNRM;
       } else {
         ZNRM = YNRM;
       }

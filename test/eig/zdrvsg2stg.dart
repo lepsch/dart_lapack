@@ -185,7 +185,7 @@ void zdrvsg2stg(
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
-    ANINV = ONE / (max(1, N)).toDouble();
+    ANINV = ONE / max(1, N);
 
     if (NSIZES != 1) {
       MTYPES = min(MAXTYP, NTYPES);

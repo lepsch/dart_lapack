@@ -198,7 +198,7 @@ void zdrvst(
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
     if (N > 0) {
-      LGN = log(N.toDouble()) ~/ log(TWO);
+      LGN = log(N) ~/ log(TWO);
       if (pow(2, LGN) < N) LGN++;
       if (pow(2, LGN) < N) LGN++;
       LWEDC = max(2 * N + N * N, 2 * N * N);
@@ -209,7 +209,7 @@ void zdrvst(
       LRWEDC = 8;
       LIWEDC = 8;
     }
-    ANINV = ONE / (max(1, N)).toDouble();
+    ANINV = ONE / max(1, N);
 
     if (NSIZES != 1) {
       MTYPES = min(MAXTYP, NTYPES);

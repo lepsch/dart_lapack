@@ -57,7 +57,7 @@ void zlabrd(
 
       ALPHA.value = A[I][I];
       zlarfg(M - I + 1, ALPHA, A(min(I + 1, M), I).asArray(), 1, TAUQ.box(I));
-      D[I] = ALPHA.value.toDouble();
+      D[I] = ALPHA.value.real;
       if (I < N) {
         A[I][I] = Complex.one;
 
@@ -101,7 +101,7 @@ void zlabrd(
 
         ALPHA.value = A[I][I + 1];
         zlarfg(N - I, ALPHA, A(I, min(I + 2, N)).asArray(), LDA, TAUP.box(I));
-        E[I] = ALPHA.value.toDouble();
+        E[I] = ALPHA.value.real;
         A[I][I + 1] = Complex.one;
 
         // Compute X(i+1:m,i)
@@ -140,7 +140,7 @@ void zlabrd(
 
       ALPHA.value = A[I][I];
       zlarfg(N - I + 1, ALPHA, A(I, min(I + 1, N)).asArray(), LDA, TAUP.box(I));
-      D[I] = ALPHA.value.toDouble();
+      D[I] = ALPHA.value.real;
       if (I < M) {
         A[I][I] = Complex.one;
 
@@ -172,7 +172,7 @@ void zlabrd(
 
         ALPHA.value = A[I + 1][I];
         zlarfg(M - I, ALPHA, A(min(I + 2, M), I).asArray(), 1, TAUQ.box(I));
-        E[I] = ALPHA.value.toDouble();
+        E[I] = ALPHA.value.real;
         A[I + 1][I] = Complex.one;
 
         // Compute Y(i+1:n,i)

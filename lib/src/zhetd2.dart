@@ -63,7 +63,7 @@ void zhetd2(
 
       ALPHA.value = A[I][I + 1];
       zlarfg(I, ALPHA, A(1, I + 1).asArray(), 1, TAUI);
-      E[I] = ALPHA.value.toDouble();
+      E[I] = ALPHA.value.real;
 
       if (TAUI.value != Complex.zero) {
         // Apply H(i) from both sides to A(1:i,1:i)
@@ -89,10 +89,10 @@ void zhetd2(
         A[I][I] = A[I][I].real.toComplex();
       }
       A[I][I + 1] = E[I].toComplex();
-      D[I + 1] = A[I + 1][I + 1].toDouble();
+      D[I + 1] = A[I + 1][I + 1].real;
       TAU[I] = TAUI.value;
     }
-    D[1] = A[1][1].toDouble();
+    D[1] = A[1][1].real;
   } else {
     // Reduce the lower triangle of A
 
@@ -103,7 +103,7 @@ void zhetd2(
 
       ALPHA.value = A[I + 1][I];
       zlarfg(N - I, ALPHA, A(min(I + 2, N), I).asArray(), 1, TAUI);
-      E[I] = ALPHA.value.toDouble();
+      E[I] = ALPHA.value.real;
 
       if (TAUI.value != Complex.zero) {
         // Apply H(i) from both sides to A(i+1:n,i+1:n)
@@ -131,9 +131,9 @@ void zhetd2(
         A[I + 1][I + 1] = A[I + 1][I + 1].real.toComplex();
       }
       A[I + 1][I] = E[I].toComplex();
-      D[I] = A[I][I].toDouble();
+      D[I] = A[I][I].real;
       TAU[I] = TAUI.value;
     }
-    D[N] = A[N][N].toDouble();
+    D[N] = A[N][N].real;
   }
 }

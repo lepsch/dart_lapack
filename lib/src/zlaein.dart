@@ -41,14 +41,14 @@ void zlaein(
   final SCALE = Box(0.0);
   final IERR = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   INFO.value = 0;
 
   // GROWTO is the threshold used in the acceptance test for an
   // eigenvector.
 
-  ROOTN = sqrt(N.toDouble());
+  ROOTN = sqrt(N);
   GROWTO = TENTH / ROOTN;
   NRMSML = max(ONE, EPS3 * ROOTN) * SMLNUM;
 

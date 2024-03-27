@@ -86,7 +86,7 @@ void zhetrs_3(
     I = N;
     while (I >= 1) {
       if (IPIV[I] > 0) {
-        S = 1.0 / A[I][I].toDouble();
+        S = ONE / A[I][I].real;
         zdscal(NRHS, S, B(I, 1).asArray(), LDB);
       } else if (I > 1) {
         AKM1K = E[I];

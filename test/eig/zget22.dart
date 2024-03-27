@@ -77,7 +77,7 @@ void zget22(
       TEMP1 = ZERO;
       for (J = 1; J <= N; J++) {
         TEMP1 = max(
-            TEMP1, E[J][JVEC].toDouble().abs() + E[J][JVEC].imaginary.abs());
+            TEMP1, E[J][JVEC].real.abs() + E[J][JVEC].imaginary.abs());
       }
       ENRMIN = min(ENRMIN, TEMP1);
       ENRMAX = max(ENRMAX, TEMP1);
@@ -90,7 +90,7 @@ void zget22(
     for (J = 1; J <= N; J++) {
       for (JVEC = 1; JVEC <= N; JVEC++) {
         RWORK[JVEC] = max(RWORK[JVEC],
-            E[JVEC][J].toDouble().abs() + E[JVEC][J].imaginary.abs());
+            E[JVEC][J].real.abs() + E[JVEC][J].imaginary.abs());
       }
     }
 
@@ -158,5 +158,5 @@ void zget22(
   // Compute RESULT(2) : the normalization error in E.
 
   RESULT[2] =
-      max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N.toDouble() * ULP);
+      max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N * ULP);
 }

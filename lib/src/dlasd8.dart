@@ -118,7 +118,7 @@ void dlasd8(
   // Compute updated Z.
 
   for (I = 1; I <= K; I++) {
-    Z[I] = sign(sqrt(WORK[IWK3I + I].abs()), Z[I]).toDouble();
+    Z[I] = sign(sqrt(WORK[IWK3I + I].abs()), Z[I]);
   }
 
   // Update VF and VL.

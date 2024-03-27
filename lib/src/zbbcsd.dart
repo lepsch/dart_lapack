@@ -180,7 +180,7 @@ void zbbcsd(
 
   EPS = dlamch('Epsilon');
   UNFL = dlamch('Safe minimum');
-  TOLMUL = max(TEN, min(HUNDRED, pow(EPS, MEIGHTH).toDouble()));
+  TOLMUL = max(TEN, min(HUNDRED, pow(EPS, MEIGHTH))).toDouble();
   TOL = TOLMUL * EPS;
   THRESH = max(TOL, MAXITR * Q * Q * UNFL);
 

@@ -26,14 +26,14 @@ void zlar2v(
   IX = 1;
   IC = 1;
   for (I = 1; I <= N; I++) {
-    XI = X[IX].toDouble();
-    YI = Y[IX].toDouble();
+    XI = X[IX].real;
+    YI = Y[IX].real;
     ZI = Z[IX];
-    ZIR = ZI.toDouble();
+    ZIR = ZI.real;
     ZII = ZI.imaginary;
     CI = C[IC];
     SI = S[IC];
-    SIR = SI.toDouble();
+    SIR = SI.real;
     SII = SI.imaginary;
     T1R = SIR * ZIR - SII * ZII;
     T1I = SIR * ZII + SII * ZIR;
@@ -43,9 +43,9 @@ void zlar2v(
     T5 = CI * XI + T1R;
     T6 = CI * YI - T1R;
     X[IX] = (CI * T5).toComplex() +
-        (SIR * T4.toDouble() + SII * T4.imaginary).toComplex();
+        (SIR * T4.real + SII * T4.imaginary).toComplex();
     Y[IX] = (CI * T6).toComplex() -
-        (SIR * T3.toDouble() - SII * T3.imaginary).toComplex();
+        (SIR * T3.real - SII * T3.imaginary).toComplex();
     Z[IX] = CI.toComplex() * T3 + SI.conjugate() * Complex(T6, T1I);
     IX += INCX;
     IC += INCC;

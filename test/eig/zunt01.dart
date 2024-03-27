@@ -68,7 +68,7 @@ void zunt01(
 
     RESID.value =
         zlansy('1', 'Upper', MNMIN, WORK.asMatrix(LDWORK), LDWORK, RWORK);
-    RESID.value = (RESID.value / K.toDouble()) / EPS;
+    RESID.value = (RESID.value / K) / EPS;
   } else if (TRANSU == 'C') {
     // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 
@@ -83,7 +83,7 @@ void zunt01(
         RESID.value = max(RESID.value, CABS1(TMP));
       }
     }
-    RESID.value = (RESID.value / M.toDouble()) / EPS;
+    RESID.value = (RESID.value / M) / EPS;
   } else {
     // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 

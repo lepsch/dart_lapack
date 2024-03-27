@@ -1262,7 +1262,7 @@ void _db1nrm2(
     for (IW = 1; IW <= NV; IW++) {
       V1 = VALUES[IW];
       if (V1.abs() > ONE) {
-        V1 = (V1 * HALF) / sqrt(N.toDouble());
+        V1 = (V1 * HALF) / sqrt(N);
       }
       for (I = 2; I <= N; I++) {
         Z[I] = V1 * WORK[I];
@@ -1314,7 +1314,7 @@ void _db1nrm2(
       // in this implementation so we scale the test ratio accordingly.
 
       if (INCX == 0) {
-        ZNRM = sqrt(N.toDouble()) * X[1].abs();
+        ZNRM = sqrt(N) * X[1].abs();
       } else {
         ZNRM = YNRM;
       }
@@ -1332,7 +1332,7 @@ void _db1nrm2(
       } else if (ZNRM == ZERO) {
         TRAT = SNRM / ULP;
       } else {
-        TRAT = ((SNRM - ZNRM).abs() / ZNRM) / (N.toDouble() * ULP);
+        TRAT = ((SNRM - ZNRM).abs() / ZNRM) / (N * ULP);
       }
       if ((TRAT != TRAT) || (TRAT >= THRESH)) {
         if (FIRST) {

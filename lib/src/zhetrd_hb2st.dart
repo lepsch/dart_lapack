@@ -181,7 +181,7 @@ void zhetrd_hb2st(
 
   if (KD == 0) {
     for (I = 1; I <= N; I++) {
-      D[I] = AB[ABDPOS][I].toDouble();
+      D[I] = AB[ABDPOS][I].real;
     }
     for (I = 1; I <= N - 1; I++) {
       E[I] = RZERO;
@@ -204,7 +204,7 @@ void zhetrd_hb2st(
 
   if (KD == 1) {
     for (I = 1; I <= N; I++) {
-      D[I] = AB[ABDPOS][I].toDouble();
+      D[I] = AB[ABDPOS][I].real;
     }
 
     // make off-diagonal elements real and copy them to E

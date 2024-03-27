@@ -68,7 +68,7 @@ void dlagsy(
 
     dlarnv(3, ISEED, N - I + 1, WORK);
     WN = dnrm2(N - I + 1, WORK, 1);
-    WA = sign(WN, WORK[1]).toDouble();
+    WA = sign(WN, WORK[1]);
     if (WN == ZERO) {
       TAU = ZERO;
     } else {
@@ -101,7 +101,7 @@ void dlagsy(
     // generate reflection to annihilate A(k+i+1:n,i)
 
     WN = dnrm2(N - K - I + 1, A(K + I, I).asArray(), 1);
-    WA = sign(WN, A[K + I][I]).toDouble();
+    WA = sign(WN, A[K + I][I]);
     if (WN == ZERO) {
       TAU = ZERO;
     } else {

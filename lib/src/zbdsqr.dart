@@ -172,7 +172,7 @@ void zbdsqr(
     // (By setting TOL to be negative, algorithm will compute
     // singular values to absolute accuracy ABS(TOL)*norm(input matrix))
 
-    TOLMUL = max(TEN, min(HNDRD, pow(EPS, MEIGTH).toDouble()));
+    TOLMUL = max(TEN, min(HNDRD, pow(EPS, MEIGTH))).toDouble();
     TOL = TOLMUL * EPS;
 
     // Compute approximate maximum, minimum singular values
@@ -197,7 +197,7 @@ void zbdsqr(
           if (SMINOA == ZERO) break;
         }
       }
-      SMINOA /= sqrt(N.toDouble());
+      SMINOA /= sqrt(N);
       THRESH = max(TOL * SMINOA, MAXITR * (N * (N * UNFL)));
     } else {
       // Absolute accuracy desired
@@ -468,8 +468,8 @@ void zbdsqr(
                 RWORK(NM13 + 1), VT(LL, 1), LDVT);
           }
           if (NRU > 0) {
-            zlasr('R', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N),
-                U(1, LL), LDU);
+            zlasr('R', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N), U(1, LL),
+                LDU);
           }
           if (NCC > 0) {
             zlasr('L', 'V', 'B', M - LL + 1, NCC, RWORK(1), RWORK(N), C(LL, 1),
@@ -570,8 +570,8 @@ void zbdsqr(
                 RWORK(NM13 + 1), VT(LL, 1), LDVT);
           }
           if (NRU > 0) {
-            zlasr('R', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N),
-                U(1, LL), LDU);
+            zlasr('R', 'V', 'B', NRU, M - LL + 1, RWORK(1), RWORK(N), U(1, LL),
+                LDU);
           }
           if (NCC > 0) {
             zlasr('L', 'V', 'B', M - LL + 1, NCC, RWORK(1), RWORK(N), C(LL, 1),

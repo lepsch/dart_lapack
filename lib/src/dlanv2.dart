@@ -148,7 +148,7 @@ void dlanv2(
 
             SAB = sqrt(B.value.abs());
             SAC = sqrt(C.value.abs());
-            P = sign(SAB * SAC, C.value).toDouble();
+            P = sign(SAB * SAC, C.value);
             TAU = ONE / sqrt((B.value + C.value).abs());
             A.value = TEMP + P;
             D.value = TEMP - P;

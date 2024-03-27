@@ -43,9 +43,9 @@ void zlatrs(
   double BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX;
   Complex CSUMJ, TJJS = Complex.zero, USCAL;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
   double CABS2(Complex ZDUM) =>
-      (ZDUM.toDouble() / 2.0).abs() + (ZDUM.imaginary / 2.0).abs();
+      (ZDUM.real / 2.0).abs() + (ZDUM.imaginary / 2.0).abs();
 
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
@@ -129,7 +129,7 @@ void zlatrs(
         for (J = 2; J <= N; J++) {
           for (I = 1; I <= J - 1; I++) {
             TMAX = max(
-                TMAX, max(A[I][J].toDouble().abs(), A[I][J].imaginary.abs()));
+                TMAX, max(A[I][J].real.abs(), A[I][J].imaginary.abs()));
           }
         }
       } else {
@@ -138,7 +138,7 @@ void zlatrs(
         for (J = 1; J <= N - 1; J++) {
           for (I = J + 1; I <= N; I++) {
             TMAX = max(
-                TMAX, max(A[I][J].toDouble().abs(), A[I][J].imaginary.abs()));
+                TMAX, max(A[I][J].real.abs(), A[I][J].imaginary.abs()));
           }
         }
       }

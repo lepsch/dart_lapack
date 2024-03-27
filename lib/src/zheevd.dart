@@ -124,7 +124,7 @@ void zheevd(
   if (N == 0) return;
 
   if (N == 1) {
-    W[1] = A[1][1].toDouble();
+    W[1] = A[1][1].real;
     if (WANTZ) A[1][1] = Complex.one;
     return;
   }

@@ -197,8 +197,8 @@ void zhbgst(
       if (UPDATE) {
         // Form  inv(S(i))**H * A * inv(S(i))
 
-        BII = BB[KB1][I].toDouble();
-        AB[KA1][I] = ((AB[KA1][I].toDouble() / BII) / BII).toComplex();
+        BII = BB[KB1][I].real;
+        AB[KA1][I] = ((AB[KA1][I].real / BII) / BII).toComplex();
         for (J = I + 1; J <= I1; J++) {
           AB[I - J + KA1][J] /= BII.toComplex();
         }
@@ -478,8 +478,8 @@ void zhbgst(
       if (UPDATE) {
         // Form  inv(S(i))**H * A * inv(S(i))
 
-        BII = BB[1][I].toDouble();
-        AB[1][I] = ((AB[1][I].toDouble() / BII) / BII).toComplex();
+        BII = BB[1][I].real;
+        AB[1][I] = ((AB[1][I].real / BII) / BII).toComplex();
         for (J = I + 1; J <= I1; J++) {
           AB[J - I + 1][I] /= BII.toComplex();
         }
@@ -805,8 +805,8 @@ void zhbgst(
       if (UPDATE) {
         // Form  inv(S(i))**H * A * inv(S(i))
 
-        BII = BB[KB1][I].toDouble();
-        AB[KA1][I] = ((AB[KA1][I].toDouble() / BII) / BII).toComplex();
+        BII = BB[KB1][I].real;
+        AB[KA1][I] = ((AB[KA1][I].real / BII) / BII).toComplex();
         for (J = I1; J <= I - 1; J++) {
           AB[J - I + KA1][I] /= BII.toComplex();
         }
@@ -1084,8 +1084,8 @@ void zhbgst(
       if (UPDATE) {
         // Form  inv(S(i))**H * A * inv(S(i))
 
-        BII = BB[1][I].toDouble();
-        AB[1][I] = ((AB[1][I].toDouble() / BII) / BII).toComplex();
+        BII = BB[1][I].real;
+        AB[1][I] = ((AB[1][I].real / BII) / BII).toComplex();
         for (J = I1; J <= I - 1; J++) {
           AB[I - J + 1][J] /= BII.toComplex();
         }

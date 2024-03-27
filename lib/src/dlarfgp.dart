@@ -49,7 +49,7 @@ void dlarfgp(
   } else {
     // general case
 
-    BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
+    BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value);
     SMLNUM = dlamch('S') / dlamch('E');
     KNT = 0;
     if (BETA.abs() < SMLNUM) {
@@ -66,7 +66,7 @@ void dlarfgp(
       // New BETA is at most 1, at least SMLNUM
 
       XNORM = dnrm2(N - 1, X, INCX);
-      BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
+      BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value);
     }
     SAVEALPHA = ALPHA.value;
     ALPHA.value += BETA;

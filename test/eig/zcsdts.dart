@@ -67,7 +67,7 @@ void zcsdts(
       WORK.asMatrix(), LDX);
   if (M > 0) {
     EPS2 =
-        max(ULP, zlange('1', M, M, WORK.asMatrix(), LDX, RWORK) / M.toDouble());
+        max(ULP, zlange('1', M, M, WORK.asMatrix(), LDX, RWORK) / M);
   } else {
     EPS2 = ULP;
   }
@@ -263,7 +263,7 @@ void zcsdts(
       WORK.asMatrix(), LDX);
   if (M > 0) {
     EPS2 =
-        max(ULP, zlange('1', Q, Q, WORK.asMatrix(), LDX, RWORK) / M.toDouble());
+        max(ULP, zlange('1', Q, Q, WORK.asMatrix(), LDX, RWORK) / M);
   } else {
     EPS2 = ULP;
   }

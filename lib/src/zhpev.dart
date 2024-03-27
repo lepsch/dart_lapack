@@ -65,7 +65,7 @@ void zhpev(
   if (N == 0) return;
 
   if (N == 1) {
-    W[1] = AP[1].toDouble();
+    W[1] = AP[1].real;
     RWORK[1] = 1;
     if (WANTZ) Z[1][1] = Complex.one;
     return;

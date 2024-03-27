@@ -36,18 +36,8 @@ void zlargv(
       SAFMX2,
       SCALE;
   Complex F, FF, FS, G, GS, R = Complex.zero, SN = Complex.zero;
-  // double             ABS1, ABSSQ;
-  // ..
-  // .. Save statement ..
-  // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
-  // ..
-  // .. Data statements ..
-  // DATA               FIRST / true /
-  // ..
-  // .. Statement Function definitions ..
-  double ABS1(Complex FF) => max(FF.toDouble().abs(), FF.imaginary.abs());
-  double ABSSQ(Complex FF) =>
-      pow(FF.toDouble(), 2) + pow(FF.imaginary, 2).toDouble();
+  double ABS1(Complex FF) => max(FF.real.abs(), FF.imaginary.abs());
+  double ABSSQ(Complex FF) => pow(FF.real, 2) + pow(FF.imaginary, 2).toDouble();
 
   // IF( FIRST ) THEN
   //    FIRST = false;
@@ -101,13 +91,13 @@ void zlargv(
 
         if (F == Complex.zero) {
           CS = ZERO;
-          R = dlapy2(G.toDouble(), G.imaginary).toComplex();
+          R = dlapy2(G.real, G.imaginary).toComplex();
           // Do complex/real division explicitly with two real
           // divisions
-          D = dlapy2(GS.toDouble(), GS.imaginary);
-          SN = Complex(GS.toDouble() / D, -GS.imaginary / D);
+          D = dlapy2(GS.real, GS.imaginary);
+          SN = Complex(GS.real / D, -GS.imaginary / D);
         } else {
-          F2S = dlapy2(FS.toDouble(), FS.imaginary);
+          F2S = dlapy2(FS.real, FS.imaginary);
           // G2 and G2S are accurate
           // G2 is at least SAFMIN, and G2S is at least SAFMN2
           G2S = sqrt(G2);
@@ -122,15 +112,15 @@ void zlargv(
           // Make sure abs(FF) = 1
           // Do complex/real division explicitly with 2 real divisions
           if (ABS1(F) > ONE) {
-            D = dlapy2(F.toDouble(), F.imaginary);
-            FF = Complex(F.toDouble() / D, F.imaginary / D);
+            D = dlapy2(F.real, F.imaginary);
+            FF = Complex(F.real / D, F.imaginary / D);
           } else {
-            DR = SAFMX2 * F.toDouble();
+            DR = SAFMX2 * F.real;
             DI = SAFMX2 * F.imaginary;
             D = dlapy2(DR, DI);
             FF = Complex(DR / D, DI / D);
           }
-          SN = FF * Complex(GS.toDouble() / G2S, -GS.imaginary / G2S);
+          SN = FF * Complex(GS.real / G2S, -GS.imaginary / G2S);
           R = CS.toComplex() * F + SN * G;
         }
       }
@@ -142,11 +132,11 @@ void zlargv(
       F2S = sqrt(ONE + G2 / F2);
       // Do the F2S(real)*FS(complex) multiply with two real
       // multiplies
-      R = Complex(F2S * FS.toDouble(), F2S * FS.imaginary);
+      R = Complex(F2S * FS.real, F2S * FS.imaginary);
       CS = ONE / F2S;
       D = F2 + G2;
       // Do complex/real division explicitly with two real divisions
-      SN = Complex(R.toDouble() / D, R.imaginary / D);
+      SN = Complex(R.real / D, R.imaginary / D);
       SN *= GS.conjugate();
       if (COUNT != 0) {
         if (COUNT > 0) {

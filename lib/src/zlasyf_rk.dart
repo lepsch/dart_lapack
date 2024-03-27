@@ -53,7 +53,7 @@ void zlasyf_rk(
   double ABSAKK, ALPHA, COLMAX, ROWMAX, SFMIN, DTEMP;
   Complex D11, D12, D21, D22, R1, T;
 
-  double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
+  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
 
   INFO.value = 0;
 

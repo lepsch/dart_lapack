@@ -67,7 +67,7 @@ void dlahilb(
   // Generate the scaled Hilbert matrix in A
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= N; I++) {
-      A[I][J] = M.toDouble() / (I + J - 1);
+      A[I][J] = M / (I + J - 1);
     }
   }
 

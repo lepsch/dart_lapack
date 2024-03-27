@@ -323,7 +323,7 @@ void dorcsd(
           max(IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKMIN),
         ) -
         1;
-    WORK[1] = max(LWORKOPT.toDouble(), LWORKMIN.toDouble());
+    WORK[1] = max(LWORKOPT, LWORKMIN).toDouble();
 
     if (LWORK < LWORKMIN && !LQUERY) {
       INFO.value = -22;

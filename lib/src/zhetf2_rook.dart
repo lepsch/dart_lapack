@@ -33,7 +33,7 @@ void zhetf2_rook(
   double ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, DTEMP, ROWMAX, TT, SFMIN;
   Complex D12, D21, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
+  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
 
   // Test the input parameters.
 
@@ -73,7 +73,7 @@ void zhetf2_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = A[K][K].toDouble().abs();
+      ABSAKK = A[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -135,10 +135,10 @@ void zhetf2_rook(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
+            // ABS( (W( IMAX,KW-1 )) ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(A[IMAX][IMAX].toDouble().abs() < ALPHA * ROWMAX)) {
+            if (!(A[IMAX][IMAX].real.abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -192,7 +192,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[P][K] = A[P][K].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = A[K][K].toDouble();
+          R1 = A[K][K].real;
           A[K][K] = A[P][P].real.toComplex();
           A[P][P] = R1.toComplex();
         }
@@ -214,7 +214,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[KP][KK] = A[KP][KK].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = A[KK][KK].toDouble();
+          R1 = A[KK][KK].real;
           A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
 
@@ -245,12 +245,12 @@ void zhetf2_rook(
             // Perform a rank-1 update of A(1:k-1,1:k-1) and
             // store U(k) in column k
 
-            if (A[K][K].toDouble().abs() >= SFMIN) {
+            if (A[K][K].real.abs() >= SFMIN) {
               // Perform a rank-1 update of A(1:k-1,1:k-1) as
               // A := A - U(k)*D(k)*U(k)**T
               //    = A - W(k)*1/D(k)*W(k)**T
 
-              D11 = ONE / A[K][K].toDouble();
+              D11 = ONE / A[K][K].real;
               zher(UPLO, K - 1, -D11, A(1, K).asArray(), 1, A, LDA);
 
               // Store U(k) in column k
@@ -259,7 +259,7 @@ void zhetf2_rook(
             } else {
               // Store L(k) in column K
 
-              D11 = A[K][K].toDouble();
+              D11 = A[K][K].real;
               for (II = 1; II <= K - 1; II++) {
                 A[II][K] /= D11.toComplex();
               }
@@ -289,9 +289,9 @@ void zhetf2_rook(
 
           if (K > 2) {
             // D = |A12|
-            D = dlapy2(A[K - 1][K].toDouble(), A[K - 1][K].imaginary);
-            D11 = (A[K][K] / D.toComplex()).toDouble();
-            D22 = (A[K - 1][K - 1] / D.toComplex()).toDouble();
+            D = dlapy2(A[K - 1][K].real, A[K - 1][K].imaginary);
+            D11 = (A[K][K] / D.toComplex()).real;
+            D22 = (A[K - 1][K - 1] / D.toComplex()).real;
             D12 = A[K - 1][K] / D.toComplex();
             TT = ONE / (D11 * D22 - ONE);
 
@@ -348,7 +348,7 @@ void zhetf2_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = A[K][K].toDouble().abs();
+      ABSAKK = A[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -410,10 +410,10 @@ void zhetf2_rook(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
+            // ABS( (W( IMAX,KW-1 )) ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(A[IMAX][IMAX].toDouble().abs() < ALPHA * ROWMAX)) {
+            if (!(A[IMAX][IMAX].real.abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -469,7 +469,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[P][K] = A[P][K].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = A[K][K].toDouble();
+          R1 = A[K][K].real;
           A[K][K] = A[P][P].real.toComplex();
           A[P][P] = R1.toComplex();
         }
@@ -492,7 +492,7 @@ void zhetf2_rook(
           // (3) Swap and conjugate corner elements at row-col intersection
           A[KP][KK] = A[KP][KK].conjugate();
           // (4) Swap diagonal elements at row-col intersection
-          R1 = A[KK][KK].toDouble();
+          R1 = A[KK][KK].real;
           A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
 
@@ -525,12 +525,12 @@ void zhetf2_rook(
 
             // Handle division by a small number
 
-            if (A[K][K].toDouble().abs() >= SFMIN) {
+            if (A[K][K].real.abs() >= SFMIN) {
               // Perform a rank-1 update of A(k+1:n,k+1:n) as
               // A := A - L(k)*D(k)*L(k)**T
               //    = A - W(k)*(1/D(k))*W(k)**T
 
-              D11 = ONE / A[K][K].toDouble();
+              D11 = ONE / A[K][K].real;
               zher(UPLO, N - K, -D11, A(K + 1, K).asArray(), 1, A(K + 1, K + 1),
                   LDA);
 
@@ -540,7 +540,7 @@ void zhetf2_rook(
             } else {
               // Store L(k) in column k
 
-              D11 = A[K][K].toDouble();
+              D11 = A[K][K].real;
               for (II = K + 1; II <= N; II++) {
                 A[II][K] /= D11.toComplex();
               }
@@ -571,9 +571,9 @@ void zhetf2_rook(
 
           if (K < N - 1) {
             // D = |A21|
-            D = dlapy2(A[K + 1][K].toDouble(), A[K + 1][K].imaginary);
-            D11 = A[K + 1][K + 1].toDouble() / D;
-            D22 = A[K][K].toDouble() / D;
+            D = dlapy2(A[K + 1][K].real, A[K + 1][K].imaginary);
+            D11 = A[K + 1][K + 1].real / D;
+            D22 = A[K][K].real / D;
             D21 = A[K + 1][K] / D.toComplex();
             TT = ONE / (D11 * D22 - ONE);
 

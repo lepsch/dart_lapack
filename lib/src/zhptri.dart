@@ -81,7 +81,7 @@ void zhptri(
 
         // Invert the diagonal block.
 
-        AP[KC + K - 1] = (ONE / AP[KC + K - 1].toDouble()).toComplex();
+        AP[KC + K - 1] = (ONE / AP[KC + K - 1].real).toComplex();
 
         // Compute column K of the inverse.
 
@@ -89,8 +89,7 @@ void zhptri(
           zcopy(K - 1, AP(KC), 1, WORK, 1);
           zhpmv(
               UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero, AP(KC), 1);
-          AP[KC + K - 1] -=
-              zdotc(K - 1, WORK, 1, AP(KC), 1).toDouble().toComplex();
+          AP[KC + K - 1] -= zdotc(K - 1, WORK, 1, AP(KC), 1).real.toComplex();
         }
         KSTEP = 1;
       } else {
@@ -99,8 +98,8 @@ void zhptri(
         // Invert the diagonal block.
 
         T = AP[KCNEXT + K - 1].abs();
-        AK = AP[KC + K - 1].toDouble() / T;
-        AKP1 = AP[KCNEXT + K].toDouble() / T;
+        AK = AP[KC + K - 1].real / T;
+        AKP1 = AP[KCNEXT + K].real / T;
         AKKP1 = AP[KCNEXT + K - 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         AP[KC + K - 1] = (AKP1 / D).toComplex();
@@ -113,15 +112,14 @@ void zhptri(
           zcopy(K - 1, AP(KC), 1, WORK, 1);
           zhpmv(
               UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero, AP(KC), 1);
-          AP[KC + K - 1] -=
-              zdotc(K - 1, WORK, 1, AP(KC), 1).toDouble().toComplex();
+          AP[KC + K - 1] -= zdotc(K - 1, WORK, 1, AP(KC), 1).real.toComplex();
           AP[KCNEXT + K - 1] =
               AP[KCNEXT + K - 1] - zdotc(K - 1, AP(KC), 1, AP(KCNEXT), 1);
           zcopy(K - 1, AP(KCNEXT), 1, WORK, 1);
           zhpmv(UPLO, K - 1, -Complex.one, AP, WORK, 1, Complex.zero,
               AP(KCNEXT), 1);
           AP[KCNEXT + K] -=
-              zdotc(K - 1, WORK, 1, AP(KCNEXT), 1).toDouble().toComplex();
+              zdotc(K - 1, WORK, 1, AP(KCNEXT), 1).real.toComplex();
         }
         KSTEP = 2;
         KCNEXT += K + 1;
@@ -171,7 +169,7 @@ void zhptri(
 
         // Invert the diagonal block.
 
-        AP[KC] = (ONE / AP[KC].toDouble()).toComplex();
+        AP[KC] = (ONE / AP[KC].real).toComplex();
 
         // Compute column K of the inverse.
 
@@ -179,7 +177,7 @@ void zhptri(
           zcopy(N - K, AP(KC + 1), 1, WORK, 1);
           zhpmv(UPLO, N - K, -Complex.one, AP(KC + N - K + 1), WORK, 1,
               Complex.zero, AP(KC + 1), 1);
-          AP[KC] -= zdotc(N - K, WORK, 1, AP(KC + 1), 1).toDouble().toComplex();
+          AP[KC] -= zdotc(N - K, WORK, 1, AP(KC + 1), 1).real.toComplex();
         }
         KSTEP = 1;
       } else {
@@ -188,8 +186,8 @@ void zhptri(
         // Invert the diagonal block.
 
         T = AP[KCNEXT + 1].abs();
-        AK = AP[KCNEXT].toDouble() / T;
-        AKP1 = AP[KC].toDouble() / T;
+        AK = AP[KCNEXT].real / T;
+        AKP1 = AP[KC].real / T;
         AKKP1 = AP[KCNEXT + 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         AP[KCNEXT] = (AKP1 / D).toComplex();
@@ -202,14 +200,14 @@ void zhptri(
           zcopy(N - K, AP(KC + 1), 1, WORK, 1);
           zhpmv(UPLO, N - K, -Complex.one, AP(KC + (N - K + 1)), WORK, 1,
               Complex.zero, AP(KC + 1), 1);
-          AP[KC] -= zdotc(N - K, WORK, 1, AP(KC + 1), 1).toDouble().toComplex();
+          AP[KC] -= zdotc(N - K, WORK, 1, AP(KC + 1), 1).real.toComplex();
           AP[KCNEXT + 1] =
               AP[KCNEXT + 1] - zdotc(N - K, AP(KC + 1), 1, AP(KCNEXT + 2), 1);
           zcopy(N - K, AP(KCNEXT + 2), 1, WORK, 1);
           zhpmv(UPLO, N - K, -Complex.one, AP(KC + (N - K + 1)), WORK, 1,
               Complex.zero, AP(KCNEXT + 2), 1);
           AP[KCNEXT] -=
-              zdotc(N - K, WORK, 1, AP(KCNEXT + 2), 1).toDouble().toComplex();
+              zdotc(N - K, WORK, 1, AP(KCNEXT + 2), 1).real.toComplex();
         }
         KSTEP = 2;
         KCNEXT -= (N - K + 3);

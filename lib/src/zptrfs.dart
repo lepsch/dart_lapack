@@ -51,7 +51,7 @@ void zptrfs(
   double EPS, LSTRES = 0, S, SAFE1, SAFE2, SAFMIN;
   Complex BI, CX, DX, EX;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 

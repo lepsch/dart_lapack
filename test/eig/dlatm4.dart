@@ -128,9 +128,9 @@ void dlatm4(
 
         A[KBEG][KBEG] = ONE;
         if (KLEN > 1) {
-          ALPHA = (ONE - RCOND) / (KLEN - 1).toDouble();
+          ALPHA = (ONE - RCOND) / (KLEN - 1);
           for (I = 2; I <= KLEN; I++) {
-            A[NZ1 + I][NZ1 + I] = (KLEN - I).toDouble() * ALPHA + RCOND;
+            A[NZ1 + I][NZ1 + I] = (KLEN - I) * ALPHA + RCOND;
           }
         }
         break;
@@ -156,10 +156,10 @@ void dlatm4(
     // Scale by AMAGN
 
     for (JD = KBEG; JD <= KEND; JD++) {
-      A[JD][JD] = AMAGN * A[JD][JD].toDouble();
+      A[JD][JD] = AMAGN * A[JD][JD];
     }
     for (JD = ISDB; JD <= ISDE; JD++) {
-      A[JD + 1][JD] = AMAGN * A[JD + 1][JD].toDouble();
+      A[JD + 1][JD] = AMAGN * A[JD + 1][JD];
     }
 
     // If ISIGN = 1 or 2, assign random signs to diagonal and
@@ -167,12 +167,12 @@ void dlatm4(
 
     if (ISIGN > 0) {
       for (JD = KBEG; JD <= KEND; JD++) {
-        if (A[JD][JD].toDouble() != ZERO) {
+        if (A[JD][JD] != ZERO) {
           if (dlaran(ISEED) > HALF) A[JD][JD] = -A[JD][JD];
         }
       }
       for (JD = ISDB; JD <= ISDE; JD++) {
-        if (A[JD + 1][JD].toDouble() != ZERO) {
+        if (A[JD + 1][JD] != ZERO) {
           if (dlaran(ISEED) > HALF) A[JD + 1][JD] = -A[JD + 1][JD];
         }
       }

@@ -53,7 +53,7 @@ void zlahef_rk(
   double ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN;
   Complex D11, D21, D22;
 
-  double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
+  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
 
   INFO.value = 0;
 
@@ -92,17 +92,17 @@ void zlahef_rk(
       // Copy column K of A to column KW of W and update it
 
       if (K > 1) zcopy(K - 1, A(1, K).asArray(), 1, W(1, KW).asArray(), 1);
-      W[K][KW] = A[K][K].toDouble().toComplex();
+      W[K][KW] = A[K][K].real.toComplex();
       if (K < N) {
         zgemv('No transpose', K, N - K, -Complex.one, A(1, K + 1), LDA,
             W(K, KW + 1).asArray(), LDW, Complex.one, W(1, KW).asArray(), 1);
-        W[K][KW] = W[K][KW].toDouble().toComplex();
+        W[K][KW] = W[K][KW].real.toComplex();
       }
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = W[K][KW].toDouble().abs();
+      ABSAKK = W[K][KW].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -120,7 +120,7 @@ void zlahef_rk(
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
-        A[K][K] = W[K][KW].toDouble().toComplex();
+        A[K][K] = W[K][KW].real.toComplex();
         if (K > 1) zcopy(K - 1, W(1, KW).asArray(), 1, A(1, K).asArray(), 1);
 
         // Set E( K ) to zero
@@ -151,7 +151,7 @@ void zlahef_rk(
               zcopy(
                   IMAX - 1, A(1, IMAX).asArray(), 1, W(1, KW - 1).asArray(), 1);
             }
-            W[IMAX][KW - 1] = A[IMAX][IMAX].toDouble().toComplex();
+            W[IMAX][KW - 1] = A[IMAX][IMAX].real.toComplex();
 
             zcopy(K - IMAX, A(IMAX, IMAX + 1).asArray(), LDA,
                 W(IMAX + 1, KW - 1).asArray(), 1);
@@ -170,7 +170,7 @@ void zlahef_rk(
                   Complex.one,
                   W(1, KW - 1).asArray(),
                   1);
-              W[IMAX][KW - 1] = W[IMAX][KW - 1].toDouble().toComplex();
+              W[IMAX][KW - 1] = W[IMAX][KW - 1].real.toComplex();
             }
 
             // JMAX is the column-index of the largest off-diagonal
@@ -195,10 +195,10 @@ void zlahef_rk(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
+            // ABS( (W( IMAX,KW-1 )) ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(W[IMAX][KW - 1].toDouble().abs() < ALPHA * ROWMAX)) {
+            if (!(W[IMAX][KW - 1].real.abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -259,7 +259,7 @@ void zlahef_rk(
           // K and K-1 of A for 2-by-2 pivot, since these columns
           // will be later overwritten.
 
-          A[P][P] = A[K][K].toDouble().toComplex();
+          A[P][P] = A[K][K].real.toComplex();
           zcopy(
               K - 1 - P, A(P + 1, K).asArray(), 1, A(P, P + 1).asArray(), LDA);
           zlacgv(K - 1 - P, A(P, P + 1).asArray(), LDA);
@@ -286,7 +286,7 @@ void zlahef_rk(
           // (or K and K-1 for 2-by-2 pivot) of A, since these columns
           // will be later overwritten.
 
-          A[KP][KP] = A[KK][KK].toDouble().toComplex();
+          A[KP][KP] = A[KK][KK].real.toComplex();
           zcopy(KK - 1 - KP, A(KP + 1, KK).asArray(), 1,
               A(KP, KP + 1).asArray(), LDA);
           zlacgv(KK - 1 - KP, A(KP, KP + 1).asArray(), LDA);
@@ -322,7 +322,7 @@ void zlahef_rk(
           //    A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
           // (NOTE: No need to use for Hermitian matrix
-          // A[K][K ] = (W( K, K)).toDouble() to separately copy diagonal
+          // A[K][K ] = (W( K, K)) to separately copy diagonal
           // element D(k,k) from W (potentially saves only one load))
           zcopy(K, W(1, KW).asArray(), 1, A(1, K).asArray(), 1);
           if (K > 1) {
@@ -332,7 +332,7 @@ void zlahef_rk(
 
             // Handle division by a small number
 
-            T = A[K][K].toDouble();
+            T = A[K][K].real;
             if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(K - 1, R1, A(1, K).asArray(), 1);
@@ -415,7 +415,7 @@ void zlahef_rk(
             D21 = W[K - 1][KW];
             D11 = W[K][KW] / D21.conjugate();
             D22 = W[K - 1][KW - 1] / D21;
-            T = ONE / ((D11 * D22).toDouble() - ONE);
+            T = ONE / ((D11 * D22).real - ONE);
 
             // Update elements in columns A(k-1) and A(k) as
             // dot products of rows of ( W(kw-1) W(kw) ) and columns
@@ -475,10 +475,10 @@ void zlahef_rk(
       // Update the upper triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].real.toComplex();
         zgemv('No transpose', JJ - J + 1, N - K, -Complex.one, A(J, K + 1), LDA,
             W(JJ, KW + 1).asArray(), LDW, Complex.one, A(J, JJ).asArray(), 1);
-        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].real.toComplex();
       }
 
       // Update the rectangular superdiagonal block
@@ -510,20 +510,20 @@ void zlahef_rk(
 
       // Copy column K of A to column K of W and update column K of W
 
-      W[K][K] = A[K][K].toDouble().toComplex();
+      W[K][K] = A[K][K].real.toComplex();
       if (K < N) {
         zcopy(N - K, A(K + 1, K).asArray(), 1, W(K + 1, K).asArray(), 1);
       }
       if (K > 1) {
         zgemv('No transpose', N - K + 1, K - 1, -Complex.one, A(K, 1), LDA,
             W(K, 1).asArray(), LDW, Complex.one, W(K, K).asArray(), 1);
-        W[K][K] = W[K][K].toDouble().toComplex();
+        W[K][K] = W[K][K].real.toComplex();
       }
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = W[K][K].toDouble().abs();
+      ABSAKK = W[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -541,7 +541,7 @@ void zlahef_rk(
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
-        A[K][K] = W[K][K].toDouble().toComplex();
+        A[K][K] = W[K][K].real.toComplex();
         if (K < N) {
           zcopy(N - K, W(K + 1, K).asArray(), 1, A(K + 1, K).asArray(), 1);
         }
@@ -575,7 +575,7 @@ void zlahef_rk(
             zcopy(
                 IMAX - K, A(IMAX, K).asArray(), LDA, W(K, K + 1).asArray(), 1);
             zlacgv(IMAX - K, W(K, K + 1).asArray(), 1);
-            W[IMAX][K + 1] = A[IMAX][IMAX].toDouble().toComplex();
+            W[IMAX][K + 1] = A[IMAX][IMAX].real.toComplex();
 
             if (IMAX < N) {
               zcopy(N - IMAX, A(IMAX + 1, IMAX).asArray(), 1,
@@ -595,7 +595,7 @@ void zlahef_rk(
                   Complex.one,
                   W(K, K + 1).asArray(),
                   1);
-              W[IMAX][K + 1] = W[IMAX][K + 1].toDouble().toComplex();
+              W[IMAX][K + 1] = W[IMAX][K + 1].real.toComplex();
             }
 
             // JMAX is the column-index of the largest off-diagonal
@@ -620,10 +620,10 @@ void zlahef_rk(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( (W( IMAX,K+1 )).toDouble() ) >= ALPHA*ROWMAX
+            // ABS( (W( IMAX,K+1 )) ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(W[IMAX][K + 1].toDouble().abs() < ALPHA * ROWMAX)) {
+            if (!(W[IMAX][K + 1].real.abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -680,7 +680,7 @@ void zlahef_rk(
           // K and K+1 of A for 2-by-2 pivot, since these columns
           // will be later overwritten.
 
-          A[P][P] = A[K][K].toDouble().toComplex();
+          A[P][P] = A[K][K].real.toComplex();
           zcopy(
               P - K - 1, A(K + 1, K).asArray(), 1, A(P, K + 1).asArray(), LDA);
           zlacgv(P - K - 1, A(P, K + 1).asArray(), LDA);
@@ -708,7 +708,7 @@ void zlahef_rk(
           // (or K and K+1 for 2-by-2 pivot) of A, since these columns
           // will be later overwritten.
 
-          A[KP][KP] = A[KK][KK].toDouble().toComplex();
+          A[KP][KP] = A[KK][KK].real.toComplex();
           zcopy(KP - KK - 1, A(KK + 1, KK).asArray(), 1,
               A(KP, KK + 1).asArray(), LDA);
           zlacgv(KP - KK - 1, A(KP, KK + 1).asArray(), LDA);
@@ -743,7 +743,7 @@ void zlahef_rk(
           //    A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
           // (NOTE: No need to use for Hermitian matrix
-          // A[K][K ] = (W( K, K)).toDouble() to separately copy diagonal
+          // A[K][K ] = (W( K, K)) to separately copy diagonal
           // element D(k,k) from W (potentially saves only one load))
           zcopy(N - K + 1, W(K, K).asArray(), 1, A(K, K).asArray(), 1);
           if (K < N) {
@@ -753,7 +753,7 @@ void zlahef_rk(
 
             // Handle division by a small number
 
-            T = A[K][K].toDouble();
+            T = A[K][K].real;
             if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
@@ -836,7 +836,7 @@ void zlahef_rk(
             D21 = W[K + 1][K];
             D11 = W[K + 1][K + 1] / D21;
             D22 = W[K][K] / D21.conjugate();
-            T = ONE / ((D11 * D22).toDouble() - ONE);
+            T = ONE / ((D11 * D22).real - ONE);
 
             // Update elements in columns A(k) and A(k+1) as
             // dot products of rows of ( W(k) W(k+1) ) and columns
@@ -896,10 +896,10 @@ void zlahef_rk(
       // Update the lower triangle of the diagonal block
 
       for (JJ = J; JJ <= J + JB - 1; JJ++) {
-        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].real.toComplex();
         zgemv('No transpose', J + JB - JJ, K - 1, -Complex.one, A(JJ, 1), LDA,
             W(JJ, 1).asArray(), LDW, Complex.one, A(JJ, JJ).asArray(), 1);
-        A[JJ][JJ] = A[JJ][JJ].toDouble().toComplex();
+        A[JJ][JJ] = A[JJ][JJ].real.toComplex();
       }
 
       // Update the rectangular subdiagonal block

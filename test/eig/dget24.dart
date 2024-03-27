@@ -205,7 +205,7 @@ void dget24(
         if (ANORM < ONE) {
           RESULT[2 + RSUB] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
         } else {
-          RESULT[2 + RSUB] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+          RESULT[2 + RSUB] = min(WNORM / ANORM, N) / (N * ULP);
         }
       }
 
@@ -512,7 +512,7 @@ void dget24(
     // taking its condition number into account
 
     ANORM = dlange('1', N, N, A, LDA, WORK);
-    V = max(N.toDouble() * EPS * ANORM, SMLNUM);
+    V = max(N * EPS * ANORM, SMLNUM);
     if (ANORM == ZERO) V = ONE;
     if (V > RCONDV.value) {
       TOL = ONE;

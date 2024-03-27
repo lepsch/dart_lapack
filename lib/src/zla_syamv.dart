@@ -30,7 +30,7 @@ void zla_syamv(
   double TEMP, SAFE1;
   int I, INFO, IY, J, JX, KX, KY;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 

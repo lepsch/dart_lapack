@@ -174,7 +174,7 @@ void dgesvj(
   } else {
     // ... default
     if (LSVEC || RSVEC || APPLV) {
-      CTOL = sqrt(M.toDouble());
+      CTOL = sqrt(M);
     } else {
       CTOL = M.toDouble();
     }
@@ -190,13 +190,13 @@ void dgesvj(
   BIG = dlamch('Overflow');
   // BIG         = ONE    / SFMIN
   ROOTBIG = ONE / ROOTSFMIN;
-  // LARGE = BIG / sqrt((M * N).toDouble());
+  // LARGE = BIG / sqrt((M * N));
   BIGTHETA = ONE / ROOTEPS;
 
   TOL = CTOL * EPSLN;
   ROOTTOL = sqrt(TOL);
 
-  if (M.toDouble() * EPSLN >= ONE) {
+  if (M * EPSLN >= ONE) {
     INFO.value = -4;
     xerbla('DGESVJ', -INFO.value);
     return;
@@ -221,7 +221,7 @@ void dgesvj(
   // sqrt(N)*max_i SVA[i] does not overflow. If INFinite entries
   // in A are detected, the procedure returns with INFO.value=-6.
 
-  SKL = ONE / sqrt(M.toDouble() * N.toDouble());
+  SKL = ONE / sqrt(M * N);
   NOSCALE = true;
   GOSCALE = true;
 
@@ -349,7 +349,7 @@ void dgesvj(
   // avoid underflows/overflows in computing Jacobi rotations.
 
   SN = sqrt(SFMIN / EPSLN);
-  TEMP1.value = sqrt(BIG / N.toDouble());
+  TEMP1.value = sqrt(BIG / N);
   if ((AAPP.value <= SN) ||
       (AAQQ.value >= TEMP1.value) ||
       ((SN <= AAQQ.value) && (AAPP.value <= TEMP1.value))) {
@@ -357,7 +357,7 @@ void dgesvj(
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value <= TEMP1.value)) {
-    TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N.toDouble())));
+    TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N)));
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value >= SN) && (AAPP.value >= TEMP1.value)) {
@@ -365,7 +365,7 @@ void dgesvj(
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else if ((AAQQ.value <= SN) && (AAPP.value >= TEMP1.value)) {
-    TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N.toDouble()) * AAPP.value));
+    TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N) * AAPP.value));
     // AAQQ.value *=TEMP1.value
     // AAPP.value *=TEMP1.value
   } else {
@@ -723,7 +723,7 @@ void dgesvj(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ).toDouble();
+                      THSIGN = -sign(ONE, AAPQ);
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));
                       CS = sqrt(ONE / (ONE + T.value * T.value));
@@ -984,7 +984,7 @@ void dgesvj(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ).toDouble();
+                      THSIGN = -sign(ONE, AAPQ);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));

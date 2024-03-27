@@ -120,7 +120,7 @@ void zgsvts3(
 
   RESID = zlange('1', M, N, A, LDA, RWORK);
   if (ANORM > ZERO) {
-    RESULT[1] = ((RESID / (max(1, max(M, N))).toDouble()) / ANORM) / ULP;
+    RESULT[1] = ((RESID / max(1, max(M, N))) / ANORM) / ULP;
   } else {
     RESULT[1] = ZERO;
   }
@@ -144,7 +144,7 @@ void zgsvts3(
 
   RESID = zlange('1', P, N, B, LDB, RWORK);
   if (BNORM > ZERO) {
-    RESULT[2] = ((RESID / (max(1, max(P, N))).toDouble()) / BNORM) / ULP;
+    RESULT[2] = ((RESID / max(1, max(P, N))) / BNORM) / ULP;
   } else {
     RESULT[2] = ZERO;
   }
@@ -158,7 +158,7 @@ void zgsvts3(
   // Compute norm( I - U'*U ) / ( M * ULP ) .
 
   RESID = zlanhe('1', 'Upper', M, WORK.asMatrix(), LDU, RWORK);
-  RESULT[3] = (RESID / (max(1, M)).toDouble()) / ULP;
+  RESULT[3] = (RESID / max(1, M)) / ULP;
 
   // Compute I - V'*V
 
@@ -169,7 +169,7 @@ void zgsvts3(
   // Compute norm( I - V'*V ) / ( P * ULP ) .
 
   RESID = zlanhe('1', 'Upper', P, WORK.asMatrix(), LDV, RWORK);
-  RESULT[4] = (RESID / (max(1, P)).toDouble()) / ULP;
+  RESULT[4] = (RESID / max(1, P)) / ULP;
 
   // Compute I - Q'*Q
 
@@ -180,7 +180,7 @@ void zgsvts3(
   // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
   RESID = zlanhe('1', 'Upper', N, WORK.asMatrix(), LDQ, RWORK);
-  RESULT[5] = (RESID / (max(1, N)).toDouble()) / ULP;
+  RESULT[5] = (RESID / max(1, N)) / ULP;
 
   // Check sorting
 

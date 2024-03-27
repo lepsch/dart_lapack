@@ -190,8 +190,8 @@ void zget23(
     for (JJ = 1; JJ <= N; JJ++) {
       VTST = VR[JJ][J].abs();
       if (VTST > VMX) VMX = VTST;
-      if (VR[JJ][J].imaginary == ZERO && VR[JJ][J].toDouble().abs() > VRMX) {
-        VRMX = VR[JJ][J].toDouble().abs();
+      if (VR[JJ][J].imaginary == ZERO && VR[JJ][J].real.abs() > VRMX) {
+        VRMX = VR[JJ][J].real.abs();
       }
     }
     if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
@@ -207,8 +207,8 @@ void zget23(
     for (JJ = 1; JJ <= N; JJ++) {
       VTST = VL[JJ][J].abs();
       if (VTST > VMX) VMX = VTST;
-      if (VL[JJ][J].imaginary == ZERO && VL[JJ][J].toDouble().abs() > VRMX) {
-        VRMX = VL[JJ][J].toDouble().abs();
+      if (VL[JJ][J].imaginary == ZERO && VL[JJ][J].real.abs() > VRMX) {
+        VRMX = VL[JJ][J].real.abs();
       }
     }
     if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;
@@ -441,13 +441,13 @@ void zget23(
     for (I = 1; I <= N - 1; I++) {
       KMIN = I;
       if (ISRT == 0) {
-        VRIMIN = W[I].toDouble();
+        VRIMIN = W[I].real;
       } else {
         VRIMIN = W[I].imaginary;
       }
       for (J = I + 1; J <= N; J++) {
         if (ISRT == 0) {
-          VRICMP = W[J].toDouble();
+          VRICMP = W[J].real;
         } else {
           VRICMP = W[J].imaginary;
         }
@@ -472,7 +472,7 @@ void zget23(
 
     RESULT[10] = ZERO;
     EPS = max(EPSIN, ULP);
-    V = max(N.toDouble() * EPS * ABNRM.value, SMLNUM);
+    V = max(N * EPS * ABNRM.value, SMLNUM);
     if (ABNRM.value == ZERO) V = ONE;
     for (I = 1; I <= N; I++) {
       if (V > RCONDV[I] * RCONDE[I]) {

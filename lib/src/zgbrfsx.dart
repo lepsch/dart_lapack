@@ -94,7 +94,7 @@ void zgbrfsx(
 
   // Set default parameters.
 
-  ILLRCOND_THRESH = N.toDouble() * dlamch('Epsilon');
+  ILLRCOND_THRESH = N * dlamch('Epsilon');
   ITHRESH = ITHRESH_DEFAULT.toInt();
   RTHRESH = RTHRESH_DEFAULT;
   UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -284,7 +284,7 @@ void zgbrfsx(
     }
   }
 
-  ERR_LBND = max(10.0, sqrt(N.toDouble())) * dlamch('Epsilon');
+  ERR_LBND = max(10.0, sqrt(N)) * dlamch('Epsilon');
   if (N_ERR_BNDS >= 1 && N_NORMS >= 1) {
     // Compute scaled normwise condition number cond(A*C).
 

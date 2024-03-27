@@ -280,12 +280,12 @@ void dlattr(
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(1, J).asArray());
-        A[J][J] = sign(TWO, A[J][J]).toDouble();
+        A[J][J] = sign(TWO, A[J][J]);
       }
     } else {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(J, J).asArray());
-        A[J][J] = sign(TWO, A[J][J]).toDouble();
+        A[J][J] = sign(TWO, A[J][J]);
       }
     }
 
@@ -302,19 +302,19 @@ void dlattr(
     // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
     dlarnv(2, ISEED, N, B);
-    final TSCAL = ONE / max(ONE, (N - 1).toDouble());
+    final TSCAL = ONE / max(ONE, N - 1);
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(1, J).asArray());
         dscal(J - 1, TSCAL, A(1, J).asArray(), 1);
-        A[J][J] = sign(ONE, A[J][J]).toDouble();
+        A[J][J] = sign(ONE, A[J][J]);
       }
       A[N][N] = SMLNUM * A[N][N];
     } else {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(J, J).asArray());
         if (N > J) dscal(N - J, TSCAL, A(J + 1, J).asArray(), 1);
-        A[J][J] = sign(ONE, A[J][J]).toDouble();
+        A[J][J] = sign(ONE, A[J][J]);
       }
       A[1][1] = SMLNUM * A[1][1];
     }
@@ -327,13 +327,13 @@ void dlattr(
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(1, J).asArray());
-        A[J][J] = sign(ONE, A[J][J]).toDouble();
+        A[J][J] = sign(ONE, A[J][J]);
       }
       A[N][N] = SMLNUM * A[N][N];
     } else {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(J, J).asArray());
-        A[J][J] = sign(ONE, A[J][J]).toDouble();
+        A[J][J] = sign(ONE, A[J][J]);
       }
       A[1][1] = SMLNUM * A[1][1];
     }
@@ -392,7 +392,7 @@ void dlattr(
     // overflow when dividing by T(j,j).  To control the amount of
     // scaling needed, the matrix is bidiagonal.
 
-    final TEXP = ONE / max(ONE, (N - 1).toDouble());
+    final TEXP = ONE / max(ONE, N - 1);
     final TSCAL = pow(SMLNUM, TEXP).toDouble();
     dlarnv(2, ISEED, N, B);
     if (UPPER) {
@@ -422,7 +422,7 @@ void dlattr(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(1, J).asArray());
         if (J != IY) {
-          A[J][J] = sign(TWO, A[J][J]).toDouble();
+          A[J][J] = sign(TWO, A[J][J]);
         } else {
           A[J][J] = ZERO;
         }
@@ -431,7 +431,7 @@ void dlattr(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(J, J).asArray());
         if (J != IY) {
-          A[J][J] = sign(TWO, A[J][J]).toDouble();
+          A[J][J] = sign(TWO, A[J][J]);
         } else {
           A[J][J] = ZERO;
         }
@@ -454,26 +454,26 @@ void dlattr(
     var TEXP = ONE;
     if (UPPER) {
       for (var J = N; J >= 2; J -= 2) {
-        A[1][J] = -TSCAL / (N + 1).toDouble();
+        A[1][J] = -TSCAL / (N + 1);
         A[J][J] = ONE;
         B[J] = TEXP * (ONE - ULP);
-        A[1][J - 1] = -(TSCAL / (N + 1)) / (N + 2).toDouble();
+        A[1][J - 1] = -(TSCAL / (N + 1)) / (N + 2);
         A[J - 1][J - 1] = ONE;
-        B[J - 1] = TEXP * (N * N + N - 1).toDouble();
+        B[J - 1] = TEXP * (N * N + N - 1);
         TEXP *= 2.0;
       }
       B[1] = ((N + 1) / (N + 2)) * TSCAL;
     } else {
       for (var J = 1; J <= N - 1; J += 2) {
-        A[N][J] = -TSCAL / (N + 1).toDouble();
+        A[N][J] = -TSCAL / (N + 1);
         A[J][J] = ONE;
         B[J] = TEXP * (ONE - ULP);
-        A[N][J + 1] = -(TSCAL / (N + 1)) / (N + 2).toDouble();
+        A[N][J + 1] = -(TSCAL / (N + 1)) / (N + 2);
         A[J + 1][J + 1] = ONE;
-        B[J + 1] = TEXP * (N * N + N - 1).toDouble();
+        B[J + 1] = TEXP * (N * N + N - 1);
         TEXP *= 2.0;
       }
-      B[N] = ((N + 1) / (N + 2).toDouble()) * TSCAL;
+      B[N] = ((N + 1) / (N + 2)) * TSCAL;
     }
   } else if (IMAT == 18) {
     // Type 18:  Generate a unit triangular matrix with elements
@@ -505,8 +505,8 @@ void dlattr(
     // norms will exceed BIGNUM.
     // 1/3/91:  DLATRS no longer can handle this case
 
-    final TLEFT = BIGNUM / max(ONE, (N - 1).toDouble());
-    final TSCAL = BIGNUM * ((N - 1).toDouble() / max(ONE, N.toDouble()));
+    final TLEFT = BIGNUM / max(ONE, N - 1);
+    final TSCAL = BIGNUM * ((N - 1) / max(ONE, N));
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(1, J).asArray());

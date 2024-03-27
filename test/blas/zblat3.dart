@@ -1821,14 +1821,14 @@ void _zchk4(
           for (IA = 1; IA <= NALF; IA++) {
             ALPHA = ALF[IA];
             if (CONJ) {
-              RALPHA = ALPHA.toDouble();
+              RALPHA = ALPHA.real;
               ALPHA = RALPHA.toComplex();
             }
 
             for (IB = 1; IB <= NBET; IB++) {
               BETA = BET[IB];
               if (CONJ) {
-                RBETA = BETA.toDouble();
+                RBETA = BETA.real;
                 BETA = RBETA.toComplex();
               }
               NULL = N <= 0;
@@ -2259,7 +2259,7 @@ void _zchk5(
             for (IB = 1; IB <= NBET; IB++) {
               BETA = BET[IB];
               if (CONJ) {
-                RBETA = BETA.toDouble();
+                RBETA = BETA.real;
                 BETA = RBETA.toComplex();
               }
               NULL = N <= 0;

@@ -311,14 +311,14 @@ void dlattp(
       var JC = 1;
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(JC));
-        A[JC + J - 1] = sign(TWO, A[JC + J - 1]).toDouble();
+        A[JC + J - 1] = sign(TWO, A[JC + J - 1]);
         JC += J;
       }
     } else {
       var JC = 1;
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(JC));
-        A[JC] = sign(TWO, A[JC]).toDouble();
+        A[JC] = sign(TWO, A[JC]);
         JC += N - J + 1;
       }
     }
@@ -342,7 +342,7 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J - 1, A(JC));
         dscal(J - 1, TSCAL, A(JC), 1);
-        A[JC + J - 1] = sign(ONE, dlarnd(2, ISEED)).toDouble();
+        A[JC + J - 1] = sign(ONE, dlarnd(2, ISEED));
         JC += J;
       }
       A[N * (N + 1) ~/ 2] = SMLNUM;
@@ -351,7 +351,7 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J, A(JC + 1));
         dscal(N - J, TSCAL, A(JC + 1), 1);
-        A[JC] = sign(ONE, dlarnd(2, ISEED)).toDouble();
+        A[JC] = sign(ONE, dlarnd(2, ISEED));
         JC += N - J + 1;
       }
       A[1] = SMLNUM;
@@ -366,7 +366,7 @@ void dlattp(
       var JC = 1;
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J - 1, A(JC));
-        A[JC + J - 1] = sign(ONE, dlarnd(2, ISEED)).toDouble();
+        A[JC + J - 1] = sign(ONE, dlarnd(2, ISEED));
         JC += J;
       }
       A[N * (N + 1) ~/ 2] = SMLNUM;
@@ -374,7 +374,7 @@ void dlattp(
       var JC = 1;
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J, A(JC + 1));
-        A[JC] = sign(ONE, dlarnd(2, ISEED)).toDouble();
+        A[JC] = sign(ONE, dlarnd(2, ISEED));
         JC += N - J + 1;
       }
       A[1] = SMLNUM;
@@ -473,7 +473,7 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, J, A(JC));
         if (J != IY) {
-          A[JC + J - 1] = sign(TWO, A[JC + J - 1]).toDouble();
+          A[JC + J - 1] = sign(TWO, A[JC + J - 1]);
         } else {
           A[JC + J - 1] = ZERO;
         }
@@ -484,7 +484,7 @@ void dlattp(
       for (var J = 1; J <= N; J++) {
         dlarnv(2, ISEED, N - J + 1, A(JC));
         if (J != IY) {
-          A[JC] = sign(TWO, A[JC]).toDouble();
+          A[JC] = sign(TWO, A[JC]);
         } else {
           A[JC] = ZERO;
         }

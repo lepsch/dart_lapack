@@ -25,7 +25,7 @@ void dlasdt(
   // Find the number of levels on the tree.
 
   MAXN = max(1, N);
-  TEMP = log(MAXN.toDouble() / (MSUB + 1).toDouble()) / log(TWO);
+  TEMP = log(MAXN / (MSUB + 1)) / log(TWO);
   LVL.value = TEMP.toInt() + 1;
 
   I = N ~/ 2;

@@ -56,7 +56,7 @@ void zpbtf2(
     for (J = 1; J <= N; J++) {
       // Compute U(J,J) and test for non-positive-definiteness.
 
-      AJJ = AB[KD + 1][J].toDouble();
+      AJJ = AB[KD + 1][J].real;
       if (AJJ <= ZERO) {
         AB[KD + 1][J] = AJJ.toComplex();
         INFO.value = J;
@@ -83,7 +83,7 @@ void zpbtf2(
     for (J = 1; J <= N; J++) {
       // Compute L(J,J) and test for non-positive-definiteness.
 
-      AJJ = AB[1][J].toDouble();
+      AJJ = AB[1][J].real;
       if (AJJ <= ZERO) {
         AB[1][J] = AJJ.toComplex();
         INFO.value = J;

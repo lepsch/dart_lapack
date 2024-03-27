@@ -21,7 +21,7 @@ double zla_gbrpvgrw(
   int I, J, KD;
   double AMAX, UMAX, RPVGRW;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   RPVGRW = 1.0;
 

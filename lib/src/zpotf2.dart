@@ -53,8 +53,8 @@ void zpotf2(
     for (J = 1; J <= N; J++) {
       // Compute U(J,J) and test for non-positive-definiteness.
 
-      AJJ = A[J][J].toDouble() -
-          (zdotc(J - 1, A(1, J).asArray(), 1, A(1, J).asArray(), 1)).toDouble();
+      AJJ = A[J][J].real -
+          zdotc(J - 1, A(1, J).asArray(), 1, A(1, J).asArray(), 1).real;
       if (AJJ <= ZERO || disnan(AJJ)) {
         A[J][J] = AJJ.toComplex();
         INFO.value = J;
@@ -79,9 +79,8 @@ void zpotf2(
     for (J = 1; J <= N; J++) {
       // Compute L(J,J) and test for non-positive-definiteness.
 
-      AJJ = A[J][J].toDouble() -
-          (zdotc(J - 1, A(J, 1).asArray(), LDA, A(J, 1).asArray(), LDA))
-              .toDouble();
+      AJJ = A[J][J].real -
+          zdotc(J - 1, A(J, 1).asArray(), LDA, A(J, 1).asArray(), LDA).real;
       if (AJJ <= ZERO || disnan(AJJ)) {
         A[J][J] = AJJ.toComplex();
         INFO.value = J;

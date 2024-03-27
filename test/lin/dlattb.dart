@@ -130,14 +130,14 @@ void dlattb(
 
     if (KD == 1) {
       if (UPPER) {
-        AB[1][2] = sign(TNORM, dlarnd(2, ISEED)).toDouble();
+        AB[1][2] = sign(TNORM, dlarnd(2, ISEED));
         final LENJ = (N - 3) ~/ 2;
         dlarnv(2, ISEED, LENJ, WORK);
         for (var J = 1; J <= LENJ; J++) {
           AB[1][2 * (J + 1)] = TNORM * WORK[J];
         }
       } else {
-        AB[2][1] = sign(TNORM, dlarnd(2, ISEED)).toDouble();
+        AB[2][1] = sign(TNORM, dlarnd(2, ISEED));
         final LENJ = (N - 3) ~/ 2;
         dlarnv(2, ISEED, LENJ, WORK);
         for (var J = 1; J <= LENJ; J++) {
@@ -161,9 +161,9 @@ void dlattb(
 
       // The two offdiagonals of T are stored in WORK.
 
-      var STAR1 = sign(TNORM, dlarnd(2, ISEED)).toDouble();
+      var STAR1 = sign(TNORM, dlarnd(2, ISEED));
       final SFAC = sqrt(TNORM);
-      var PLUS1 = sign(SFAC, dlarnd(2, ISEED)).toDouble();
+      var PLUS1 = sign(SFAC, dlarnd(2, ISEED));
       for (var J = 1; J <= N; J += 2) {
         final PLUS2 = STAR1 / PLUS1;
         WORK[J] = PLUS1;
@@ -208,13 +208,13 @@ void dlattb(
       for (var J = 1; J <= N; J++) {
         final LENJ = min(J, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(KD + 2 - LENJ, J).asArray());
-        AB[KD + 1][J] = sign(TWO, AB[KD + 1][J]).toDouble();
+        AB[KD + 1][J] = sign(TWO, AB[KD + 1][J]);
       }
     } else {
       for (var J = 1; J <= N; J++) {
         final LENJ = min(N - J + 1, KD + 1);
         if (LENJ > 0) dlarnv(2, ISEED, LENJ, AB(1, J).asArray());
-        AB[1][J] = sign(TWO, AB[1][J]).toDouble();
+        AB[1][J] = sign(TWO, AB[1][J]);
       }
     }
 
@@ -231,13 +231,13 @@ void dlattb(
     // In type 11, the offdiagonal elements are small (CNORM(j) < 1).
 
     dlarnv(2, ISEED, N, B);
-    final TSCAL = ONE / (KD + 1).toDouble();
+    final TSCAL = ONE / (KD + 1);
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         final LENJ = min(J, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(KD + 2 - LENJ, J).asArray());
         dscal(LENJ - 1, TSCAL, AB(KD + 2 - LENJ, J).asArray(), 1);
-        AB[KD + 1][J] = sign(ONE, AB[KD + 1][J]).toDouble();
+        AB[KD + 1][J] = sign(ONE, AB[KD + 1][J]);
       }
       AB[KD + 1][N] = SMLNUM * AB[KD + 1][N];
     } else {
@@ -245,7 +245,7 @@ void dlattb(
         final LENJ = min(N - J + 1, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(1, J).asArray());
         if (LENJ > 1) dscal(LENJ - 1, TSCAL, AB(2, J).asArray(), 1);
-        AB[1][J] = sign(ONE, AB[1][J]).toDouble();
+        AB[1][J] = sign(ONE, AB[1][J]);
       }
       AB[1][1] = SMLNUM * AB[1][1];
     }
@@ -259,14 +259,14 @@ void dlattb(
       for (var J = 1; J <= N; J++) {
         final LENJ = min(J, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(KD + 2 - LENJ, J).asArray());
-        AB[KD + 1][J] = sign(ONE, AB[KD + 1][J]).toDouble();
+        AB[KD + 1][J] = sign(ONE, AB[KD + 1][J]);
       }
       AB[KD + 1][N] = SMLNUM * AB[KD + 1][N];
     } else {
       for (var J = 1; J <= N; J++) {
         final LENJ = min(N - J + 1, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(1, J).asArray());
-        AB[1][J] = sign(ONE, AB[1][J]).toDouble();
+        AB[1][J] = sign(ONE, AB[1][J]);
       }
       AB[1][1] = SMLNUM * AB[1][1];
     }
@@ -325,7 +325,7 @@ void dlattb(
     // overflow when dividing by T(j,j).  To control the amount of
     // scaling needed, the matrix is bidiagonal.
 
-    final TEXP = ONE / (KD + 1).toDouble();
+    final TEXP = ONE / (KD + 1);
     final TSCAL = pow(SMLNUM, TEXP).toDouble();
     dlarnv(2, ISEED, N, B);
     if (UPPER) {
@@ -356,7 +356,7 @@ void dlattb(
         final LENJ = min(J, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(KD + 2 - LENJ, J).asArray());
         if (J != IY) {
-          AB[KD + 1][J] = sign(TWO, AB[KD + 1][J]).toDouble();
+          AB[KD + 1][J] = sign(TWO, AB[KD + 1][J]);
         } else {
           AB[KD + 1][J] = ZERO;
         }
@@ -366,7 +366,7 @@ void dlattb(
         final LENJ = min(N - J + 1, KD + 1);
         dlarnv(2, ISEED, LENJ, AB(1, J).asArray());
         if (J != IY) {
-          AB[1][J] = sign(TWO, AB[1][J]).toDouble();
+          AB[1][J] = sign(TWO, AB[1][J]);
         } else {
           AB[1][J] = ZERO;
         }

@@ -90,7 +90,7 @@ void dtgex2(
   M = N1 + N2;
   if (LWORK < max(1, max(N * M, M * M * 2))) {
     INFO.value = -16;
-    WORK[1] = max(1, max(N * M, M * M * 2).toDouble());
+    WORK[1] = max(1, max(N * M, M * M * 2)).toDouble();
     return;
   }
 

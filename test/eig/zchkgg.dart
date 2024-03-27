@@ -219,7 +219,7 @@ void zchkgg(
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
     N1 = max(1, N);
-    RMAGN[2] = SAFMAX * ULP / N1.toDouble();
+    RMAGN[2] = SAFMAX * ULP / N1;
     RMAGN[3] = SAFMIN * ULPINV * N1;
 
     if (NSIZES != 1) {
@@ -336,11 +336,11 @@ void zchkgg(
               }
               zlarfg(
                   N + 1 - JC, U(JC, JC), U(JC + 1, JC).asArray(), 1, WORK(JC));
-              WORK[2 * N + JC] = sign(ONE, U[JC][JC].toDouble()).toComplex();
+              WORK[2 * N + JC] = sign(ONE, U[JC][JC].real).toComplex();
               U[JC][JC] = Complex.one;
               zlarfg(N + 1 - JC, V(JC, JC), V(JC + 1, JC).asArray(), 1,
                   WORK(N + JC));
-              WORK[3 * N + JC] = sign(ONE, V[JC][JC].toDouble()).toComplex();
+              WORK[3 * N + JC] = sign(ONE, V[JC][JC].real).toComplex();
               V[JC][JC] = Complex.one;
             }
             CTEMP = zlarnd(3, ISEED);

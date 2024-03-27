@@ -25,24 +25,7 @@
       double             ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP;
       Complex         X;
       bool               LDUMMA( 1 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZTGEVC, ZUNGQR, ZUNMQR
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANGE
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, INT, MAX
-      // ..
-      // .. Statement Functions ..
-      double             ABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+      double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
 
       // Decode the input arguments
 

@@ -289,19 +289,19 @@ void ddrgev(
                 }
                 dlarfg(N + 1 - JC, Q.box(JC, JC), Q(JC + 1, JC).asArray(), 1,
                     WORK.box(JC));
-                WORK[2 * N + JC] = sign(ONE, Q[JC][JC]).toDouble();
+                WORK[2 * N + JC] = sign(ONE, Q[JC][JC]);
                 Q[JC][JC] = ONE;
                 dlarfg(N + 1 - JC, Z.box(JC, JC), Z(JC + 1, JC).asArray(), 1,
                     WORK.box(N + JC));
-                WORK[3 * N + JC] = sign(ONE, Z[JC][JC]).toDouble();
+                WORK[3 * N + JC] = sign(ONE, Z[JC][JC]);
                 Z[JC][JC] = ONE;
               }
               Q[N][N] = ONE;
               WORK[N] = ZERO;
-              WORK[3 * N] = sign(ONE, dlarnd(2, ISEED)).toDouble();
+              WORK[3 * N] = sign(ONE, dlarnd(2, ISEED));
               Z[N][N] = ONE;
               WORK[2 * N] = ZERO;
-              WORK[4 * N] = sign(ONE, dlarnd(2, ISEED)).toDouble();
+              WORK[4 * N] = sign(ONE, dlarnd(2, ISEED));
 
               // Apply the diagonal matrices
 

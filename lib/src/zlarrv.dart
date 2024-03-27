@@ -343,11 +343,11 @@ void zlarrv(
             }
           }
           for (K = 1; K <= IN - 1; K++) {
-            D[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J].toDouble();
-            L[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J + 1].toDouble();
+            D[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J].real;
+            L[IBEGIN + K - 1] = Z[IBEGIN + K - 1][J + 1].real;
           }
-          D[IEND] = Z[IEND][J].toDouble();
-          SIGMA = Z[IEND][J + 1].toDouble();
+          D[IEND] = Z[IEND][J].real;
+          SIGMA = Z[IEND][J + 1].real;
 
           // Set the corresponding entries in Z to zero
           zlaset('Full', IN, 2, Complex.zero, Complex.zero, Z(IBEGIN, J), LDZ);
@@ -594,7 +594,7 @@ void zlarrv(
 
             ITER = 0;
 
-            TOL = FOUR * log(IN.toDouble()) * EPS;
+            TOL = FOUR * log(IN) * EPS;
 
             K = NEWFST;
             WINDEX = WBEGIN + K - 1;
@@ -890,7 +890,7 @@ void zlarrv(
         }
       }
       NDEPTH++;
-    } 
+    }
     IBEGIN = IEND + 1;
     WBEGIN = WEND + 1;
   }

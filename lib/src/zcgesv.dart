@@ -50,7 +50,7 @@ void zcgesv(
   int I, IITER, PTSA, PTSX;
   double ANRM, CTE, EPS, RNRM, XNRM;
   // Complex ZDUM;
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   INFO.value = 0;
   ITER.value = 0;
@@ -92,7 +92,7 @@ void zcgesv(
 
     ANRM = zlange('I', N, N, A, LDA, RWORK);
     EPS = dlamch('Epsilon');
-    CTE = ANRM * EPS * sqrt(N.toDouble()) * BWDMAX;
+    CTE = ANRM * EPS * sqrt(N) * BWDMAX;
 
     // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
 

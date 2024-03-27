@@ -108,14 +108,12 @@ void zbdt03(
     if (RESID.value != ZERO) RESID.value = ONE / EPS;
   } else {
     if (BNORM >= RESID.value) {
-      RESID.value = (RESID.value / BNORM) / (N.toDouble() * EPS);
+      RESID.value = (RESID.value / BNORM) / (N * EPS);
     } else {
       if (BNORM < ONE) {
-        RESID.value = (min(RESID.value, N.toDouble() * BNORM) / BNORM) /
-            (N.toDouble() * EPS);
+        RESID.value = (min(RESID.value, N * BNORM) / BNORM) / (N * EPS);
       } else {
-        RESID.value =
-            min(RESID.value / BNORM, N.toDouble()) / (N.toDouble() * EPS);
+        RESID.value = min(RESID.value / BNORM, N) / (N * EPS);
       }
     }
   }

@@ -99,7 +99,7 @@ void drqt01(
   final ANORM = dlange('1', M, N, A, LDA, RWORK);
   var RESID = dlange('1', M, N, R, LDA, RWORK);
   if (ANORM > ZERO) {
-    RESULT[1] = ((RESID / (max(1, N)).toDouble()) / ANORM) / EPS;
+    RESULT[1] = ((RESID / max(1, N)) / ANORM) / EPS;
   } else {
     RESULT[1] = ZERO;
   }
@@ -113,5 +113,5 @@ void drqt01(
 
   RESID = dlansy('1', 'Upper', N, R, LDA, RWORK);
 
-  RESULT[2] = (RESID / (max(1, N)).toDouble()) / EPS;
+  RESULT[2] = (RESID / max(1, N)) / EPS;
 }

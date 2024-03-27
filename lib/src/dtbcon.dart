@@ -72,7 +72,7 @@ void dtbcon(
   }
 
   RCOND.value = ZERO;
-  SMLNUM = dlamch('Safe minimum') * (max(1, N)).toDouble();
+  SMLNUM = dlamch('Safe minimum') * max(1, N);
 
   // Compute the norm of the triangular matrix A.
 

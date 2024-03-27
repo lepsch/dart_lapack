@@ -208,8 +208,8 @@ void zsteqr(
               dlaev2(D[L], E[L], D[L + 1], RT1, RT2, C, S);
               WORK[L] = C.value;
               WORK[N - 1 + L] = S.value;
-              zlasr('R', 'V', 'B', N, 2, WORK(L), WORK(N - 1 + L),
-                  Z(1, L), LDZ);
+              zlasr(
+                  'R', 'V', 'B', N, 2, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
             } else {
               dlae2(D[L], E[L], D[L + 1], RT1, RT2);
             }
@@ -260,8 +260,7 @@ void zsteqr(
 
           if (ICOMPZ > 0) {
             MM = M - L + 1;
-            zlasr('R', 'V', 'B', N, MM, WORK(L), WORK(N - 1 + L), Z(1, L),
-                LDZ);
+            zlasr('R', 'V', 'B', N, MM, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
           }
 
           D[L] -= P;
@@ -307,8 +306,8 @@ void zsteqr(
               dlaev2(D[L - 1], E[L - 1], D[L], RT1, RT2, C, S);
               WORK[M] = C.value;
               WORK[N - 1 + M] = S.value;
-              zlasr('R', 'V', 'F', N, 2, WORK(M), WORK(N - 1 + M),
-                  Z(1, L - 1), LDZ);
+              zlasr('R', 'V', 'F', N, 2, WORK(M), WORK(N - 1 + M), Z(1, L - 1),
+                  LDZ);
             } else {
               dlae2(D[L - 1], E[L - 1], D[L], RT1, RT2);
             }
@@ -359,8 +358,7 @@ void zsteqr(
 
           if (ICOMPZ > 0) {
             MM = L - M + 1;
-            zlasr('R', 'V', 'F', N, MM, WORK(M), WORK(N - 1 + M), Z(1, M),
-                LDZ);
+            zlasr('R', 'V', 'F', N, MM, WORK(M), WORK(N - 1 + M), Z(1, M), LDZ);
           }
 
           D[L] -= P;

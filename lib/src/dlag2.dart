@@ -88,8 +88,8 @@ void dlag2(
   B12 = B[1][2];
   B22 = B[2][2];
   BMIN = RTMIN * max(B11.abs(), max(B12.abs(), max(B22.abs(), RTMIN)));
-  if (B11.abs() < BMIN) B11 = sign(BMIN, B11).toDouble();
-  if (B22.abs() < BMIN) B22 = sign(BMIN, B22).toDouble();
+  if (B11.abs() < BMIN) B11 = sign(BMIN, B11);
+  if (B22.abs() < BMIN) B22 = sign(BMIN, B22);
 
   // Scale B
 

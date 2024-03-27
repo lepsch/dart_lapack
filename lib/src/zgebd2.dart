@@ -55,7 +55,7 @@ void zgebd2(
 
       ALPHA.value = A[I][I];
       zlarfg(M - I + 1, ALPHA, A(min(I + 1, M), I).asArray(), 1, TAUQ.box(I));
-      D[I] = ALPHA.value.toDouble();
+      D[I] = ALPHA.value.real;
       A[I][I] = Complex.one;
 
       // Apply H(i)**H to A(i:m,i+1:n) from the left
@@ -73,7 +73,7 @@ void zgebd2(
         zlacgv(N - I, A(I, I + 1).asArray(), LDA);
         ALPHA.value = A[I][I + 1];
         zlarfg(N - I, ALPHA, A(I, min(I + 2, N)).asArray(), LDA, TAUP.box(I));
-        E[I] = ALPHA.value.toDouble();
+        E[I] = ALPHA.value.real;
         A[I][I + 1] = Complex.one;
 
         // Apply G(i) to A(i+1:m,i+1:n) from the right
@@ -95,7 +95,7 @@ void zgebd2(
       zlacgv(N - I + 1, A(I, I).asArray(), LDA);
       ALPHA.value = A[I][I];
       zlarfg(N - I + 1, ALPHA, A(I, min(I + 1, N)).asArray(), LDA, TAUP.box(I));
-      D[I] = ALPHA.value.toDouble();
+      D[I] = ALPHA.value.real;
       A[I][I] = Complex.one;
 
       // Apply G(i) to A(i+1:m,i:n) from the right
@@ -113,7 +113,7 @@ void zgebd2(
 
         ALPHA.value = A[I + 1][I];
         zlarfg(M - I, ALPHA, A(min(I + 2, M), I).asArray(), 1, TAUQ.box(I));
-        E[I] = ALPHA.value.toDouble();
+        E[I] = ALPHA.value.real;
         A[I + 1][I] = Complex.one;
 
         // Apply H(i)**H to A(i+1:m,i+1:n) from the left

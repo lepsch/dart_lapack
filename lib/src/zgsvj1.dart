@@ -132,7 +132,7 @@ void zgsvj1(
   SMALL = SFMIN / EPS;
   BIG = ONE / SFMIN;
   ROOTBIG = ONE / ROOTSFMIN;
-  // LARGE = BIG / sqrt( (M*N).toDouble() )
+  // LARGE = BIG / sqrt( (M*N) )
   BIGTHETA = ONE / ROOTEPS;
   ROOTTOL = sqrt(TOL);
 
@@ -288,7 +288,7 @@ void zgsvj1(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ1).toDouble();
+                      THSIGN = -sign(ONE, AAPQ1);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));

@@ -349,10 +349,10 @@ void ddrvst(
           while (true) {
             NTEST = 1;
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEV';
             dstev('V', N, D1, D2, Z, LDU, WORK, IINFO);
@@ -372,16 +372,16 @@ void ddrvst(
             // Do tests 1 and 2.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT(1));
 
             NTEST = 3;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEV';
             dstev('N', N, D3, D4, Z, LDU, WORK, IINFO);
@@ -413,10 +413,10 @@ void ddrvst(
             NTEST = 4;
             for (var I = 1; I <= N; I++) {
               EVEIGS[I] = D3[I];
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVX';
             dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU,
@@ -438,16 +438,16 @@ void ddrvst(
             // Do tests 4 and 5.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT(4));
 
             NTEST = 6;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVX';
             dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -479,10 +479,10 @@ void ddrvst(
           while (true) {
             NTEST = 7;
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVR';
             dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU,
@@ -503,16 +503,16 @@ void ddrvst(
             // Do tests 7 and 8.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT(7));
 
             NTEST = 9;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVR';
             dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -543,10 +543,10 @@ void ddrvst(
           while (true) {
             NTEST = 10;
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVX';
             dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -566,17 +566,17 @@ void ddrvst(
             // Do tests 10 and 11.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
                 WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(10));
 
             NTEST = 12;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVX';
             dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -629,10 +629,10 @@ void ddrvst(
             }
 
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVX';
             dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -660,17 +660,17 @@ void ddrvst(
             // Do tests 13 and 14.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
                 WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(13));
 
             NTEST = 15;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVX';
             dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -700,10 +700,10 @@ void ddrvst(
           while (true) {
             NTEST = 16;
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVD';
             dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO);
@@ -723,16 +723,16 @@ void ddrvst(
             // Do tests 16 and 17.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT(16));
 
             NTEST = 18;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVD';
             dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO);
@@ -762,10 +762,10 @@ void ddrvst(
           while (true) {
             NTEST = 19;
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVR';
             dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -786,17 +786,17 @@ void ddrvst(
             // DO tests 19 and 20.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
                 WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(19));
 
             NTEST = 21;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVR';
             dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
@@ -849,10 +849,10 @@ void ddrvst(
             }
 
             for (var I = 1; I <= N; I++) {
-              D1[I] = A[I][I].toDouble();
+              D1[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D2[I] = A[I + 1][I].toDouble();
+              D2[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVR';
             dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
@@ -880,17 +880,17 @@ void ddrvst(
             // Do tests 22 and 23.
 
             for (var I = 1; I <= N; I++) {
-              D3[I] = A[I][I].toDouble();
+              D3[I] = A[I][I];
             }
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU,
                 WORK.asMatrix(max(1, M2.value)), max(1, M2.value), RESULT(22));
 
             NTEST = 24;
             for (var I = 1; I <= N - 1; I++) {
-              D4[I] = A[I + 1][I].toDouble();
+              D4[I] = A[I + 1][I];
             }
             srnamc.SRNAMT = 'DSTEVR';
             dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,

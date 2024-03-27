@@ -72,7 +72,7 @@ void zlaqr2(
   final INFO = Box(0), INFQR = Box(0);
   final BETA = Box(Complex.zero), TAU = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Estimate optimal workspace.
 

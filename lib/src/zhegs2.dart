@@ -61,8 +61,8 @@ void zhegs2(
       for (K = 1; K <= N; K++) {
         // Update the upper triangle of A(k:n,k:n)
 
-        AKK = A[K][K].toDouble();
-        BKK = B[K][K].toDouble();
+        AKK = A[K][K].real;
+        BKK = B[K][K].real;
         AKK /= pow(BKK, 2);
         A[K][K] = AKK.toComplex();
         if (K < N) {
@@ -88,8 +88,8 @@ void zhegs2(
       for (K = 1; K <= N; K++) {
         // Update the lower triangle of A(k:n,k:n)
 
-        AKK = A[K][K].toDouble();
-        BKK = B[K][K].toDouble();
+        AKK = A[K][K].real;
+        BKK = B[K][K].real;
         AKK /= pow(BKK, 2);
         A[K][K] = AKK.toComplex();
         if (K < N) {
@@ -111,8 +111,8 @@ void zhegs2(
       for (K = 1; K <= N; K++) {
         // Update the upper triangle of A(1:k,1:k)
 
-        AKK = A[K][K].toDouble();
-        BKK = B[K][K].toDouble();
+        AKK = A[K][K].real;
+        BKK = B[K][K].real;
         ztrmv(UPLO, 'No transpose', 'Non-unit', K - 1, B, LDB,
             A(1, K).asArray(), 1);
         CT = (HALF * AKK).toComplex();
@@ -129,8 +129,8 @@ void zhegs2(
       for (K = 1; K <= N; K++) {
         // Update the lower triangle of A(1:k,1:k)
 
-        AKK = A[K][K].toDouble();
-        BKK = B[K][K].toDouble();
+        AKK = A[K][K].real;
+        BKK = B[K][K].real;
         zlacgv(K - 1, A(K, 1).asArray(), LDA);
         ztrmv(UPLO, 'Conjugate transpose', 'Non-unit', K - 1, B, LDB,
             A(K, 1).asArray(), LDA);

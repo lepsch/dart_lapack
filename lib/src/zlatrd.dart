@@ -46,7 +46,7 @@ void zlatrd(
       if (I < N) {
         // Update A(1:i,i)
 
-        A[I][I] = A[I][I].toDouble().toComplex();
+        A[I][I] = A[I][I].real.toComplex();
         zlacgv(N - I, W(I, IW + 1).asArray(), LDW);
         zgemv('No transpose', I, N - I, -Complex.one, A(1, I + 1), LDA,
             W(I, IW + 1).asArray(), LDW, Complex.one, A(1, I).asArray(), 1);
@@ -55,7 +55,7 @@ void zlatrd(
         zgemv('No transpose', I, N - I, -Complex.one, W(1, IW + 1), LDW,
             A(I, I + 1).asArray(), LDA, Complex.one, A(1, I).asArray(), 1);
         zlacgv(N - I, A(I, I + 1).asArray(), LDA);
-        A[I][I] = A[I][I].toDouble().toComplex();
+        A[I][I] = A[I][I].real.toComplex();
       }
       if (I > 1) {
         // Generate elementary reflector H(i) to annihilate
@@ -63,7 +63,7 @@ void zlatrd(
 
         ALPHA.value = A[I - 1][I];
         zlarfg(I - 1, ALPHA, A(1, I).asArray(), 1, TAU(I - 1));
-        E[I - 1] = ALPHA.value.toDouble();
+        E[I - 1] = ALPHA.value.real;
         A[I - 1][I] = Complex.one;
 
         // Compute W(1:i-1,i)
@@ -113,7 +113,7 @@ void zlatrd(
     for (I = 1; I <= NB; I++) {
       // Update A(i:n,i)
 
-      A[I][I] = A[I][I].toDouble().toComplex();
+      A[I][I] = A[I][I].real.toComplex();
       zlacgv(I - 1, W(I, 1).asArray(), LDW);
       zgemv('No transpose', N - I + 1, I - 1, -Complex.one, A(I, 1), LDA,
           W(I, 1).asArray(), LDW, Complex.one, A(I, I).asArray(), 1);
@@ -122,14 +122,14 @@ void zlatrd(
       zgemv('No transpose', N - I + 1, I - 1, -Complex.one, W(I, 1), LDW,
           A(I, 1).asArray(), LDA, Complex.one, A(I, I).asArray(), 1);
       zlacgv(I - 1, A(I, 1).asArray(), LDA);
-      A[I][I] = A[I][I].toDouble().toComplex();
+      A[I][I] = A[I][I].real.toComplex();
       if (I < N) {
         // Generate elementary reflector H(i) to annihilate
         // A(i+2:n,i)
 
         ALPHA.value = A[I + 1][I];
         zlarfg(N - I, ALPHA, A(min(I + 2, N), I).asArray(), 1, TAU(I));
-        E[I] = ALPHA.value.toDouble();
+        E[I] = ALPHA.value.real;
         A[I + 1][I] = Complex.one;
 
         // Compute W(i+1:n,i)

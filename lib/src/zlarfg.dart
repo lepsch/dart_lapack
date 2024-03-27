@@ -30,7 +30,7 @@ void zlarfg(
   }
 
   XNORM = dznrm2(N - 1, X, INCX);
-  ALPHR = ALPHA.value.toDouble();
+  ALPHR = ALPHA.value.real;
   ALPHI = ALPHA.value.imaginary;
 
   if (XNORM == ZERO && ALPHI == ZERO) {
@@ -40,7 +40,7 @@ void zlarfg(
   } else {
     // general case
 
-    BETA = -sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR).toDouble();
+    BETA = -sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR);
     SAFMIN = dlamch('S') / dlamch('E');
     RSAFMN = ONE / SAFMIN;
 
@@ -60,7 +60,7 @@ void zlarfg(
 
       XNORM = dznrm2(N - 1, X, INCX);
       ALPHA.value = Complex(ALPHR, ALPHI);
-      BETA = -sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR).toDouble();
+      BETA = -sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR);
     }
     TAU.value = Complex((BETA - ALPHR) / BETA, -ALPHI / BETA);
     ALPHA.value = zladiv(Complex(ONE), ALPHA.value - BETA.toComplex());

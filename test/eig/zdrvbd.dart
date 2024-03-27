@@ -335,7 +335,7 @@ void zdrvbd(
             // Compare S
 
             DIF.value = ZERO;
-            DIV = max(MNMIN.toDouble() * ULP * S[1], dlamch('Safe minimum'));
+            DIV = max(MNMIN * ULP * S[1], dlamch('Safe minimum'));
             for (I = 1; I <= MNMIN - 1; I++) {
               if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
               if (SSAV[I] < ZERO) DIF.value = ULPINV;
@@ -435,7 +435,7 @@ void zdrvbd(
           // Compare S
 
           DIF.value = ZERO;
-          DIV = max(MNMIN.toDouble() * ULP * S[1], dlamch('Safe minimum'));
+          DIV = max(MNMIN * ULP * S[1], dlamch('Safe minimum'));
           for (I = 1; I <= MNMIN - 1; I++) {
             if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
             if (SSAV[I] < ZERO) DIF.value = ULPINV;
@@ -677,7 +677,7 @@ void zdrvbd(
             // Compare S
 
             DIF.value = ZERO;
-            DIV = max(MNMIN.toDouble() * ULP * S[1], dlamch('Safe minimum'));
+            DIV = max(MNMIN * ULP * S[1], dlamch('Safe minimum'));
             for (I = 1; I <= MNMIN - 1; I++) {
               if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
               if (SSAV[I] < ZERO) DIF.value = ULPINV;

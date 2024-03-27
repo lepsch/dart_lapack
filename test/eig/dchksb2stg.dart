@@ -136,7 +136,7 @@ void dchksb2stg(
 
   for (final JSIZE in 1.through(NSIZES)) {
     final N = NN[JSIZE];
-    final ANINV = ONE / (max(1, N)).toDouble();
+    final ANINV = ONE / max(1, N);
 
     for (var JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
       if (KK[JWIDTH] > N) continue;

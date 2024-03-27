@@ -48,7 +48,7 @@ void dlarge(
 
     dlarnv(3, ISEED, N - I + 1, WORK);
     WN = dnrm2(N - I + 1, WORK, 1);
-    WA = sign(WN, WORK[1]).toDouble();
+    WA = sign(WN, WORK[1]);
     if (WN == ZERO) {
       TAU = ZERO;
     } else {

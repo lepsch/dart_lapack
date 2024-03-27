@@ -160,11 +160,11 @@ void zheevx(
   if (N == 1) {
     if (ALLEIG || INDEIG) {
       M.value = 1;
-      W[1] = A[1][1].toDouble();
+      W[1] = A[1][1].real;
     } else if (VALEIG) {
-      if (VL < A[1][1].toDouble() && VU >= A[1][1].toDouble()) {
+      if (VL < A[1][1].real && VU >= A[1][1].real) {
         M.value = 1;
-        W[1] = A[1][1].toDouble();
+        W[1] = A[1][1].real;
       }
     }
     if (WANTZ) Z[1][1] = Complex.one;

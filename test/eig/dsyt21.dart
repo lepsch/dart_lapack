@@ -187,7 +187,7 @@ void dsyt21(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+      RESULT[1] = min(WNORM / ANORM, N) / (N * ULP);
     }
   }
 
@@ -204,7 +204,7 @@ void dsyt21(
 
     RESULT[2] = min(
             dlange('1', N, N, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1)),
-            N.toDouble()) /
+            N) /
         (N * ULP);
   }
 }

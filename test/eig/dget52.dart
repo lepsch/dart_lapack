@@ -186,5 +186,5 @@ void dget52(
 
   // Compute RESULT[2] : the normalization error in E.
 
-  RESULT[2] = ENRMER / (N.toDouble() * ULP);
+  RESULT[2] = ENRMER / (N * ULP);
 }

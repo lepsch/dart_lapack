@@ -77,7 +77,7 @@ void zlagsy(
       WB = WORK[1] + WA;
       zscal(N - I, Complex.one / WB, WORK(2), 1);
       WORK[1] = Complex.one;
-      TAU = (WB / WA).toDouble().toComplex();
+      TAU = (WB / WA).real.toComplex();
     }
 
     // apply random reflection to A(i:n,i:n) from the left
@@ -121,7 +121,7 @@ void zlagsy(
       WB = A[K + I][I] + WA;
       zscal(N - K - I, Complex.one / WB, A(K + I + 1, I).asArray(), 1);
       A[K + I][I] = Complex.one;
-      TAU = (WB / WA).toDouble().toComplex();
+      TAU = (WB / WA).real.toComplex();
     }
 
     // apply reflection to A(k+i:n,i+1:k+i-1) from the left

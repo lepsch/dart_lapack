@@ -21,7 +21,7 @@ void zla_lin_berr(
   double TMP, SAFE1;
   int I, J;
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Adding SAFE1 to the numerator guards against spuriously zero
   // residuals.  A similar safeguard is in the CLA_yyAMV routine used

@@ -88,7 +88,7 @@ void zstt21(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+      RESULT[1] = min(WNORM / ANORM, N) / (N * ULP);
     }
   }
 
@@ -103,6 +103,5 @@ void zstt21(
     WORK[(N + 1) * (J - 1) + 1] -= Complex.one;
   }
 
-  RESULT[2] = min(N.toDouble(), zlange('1', N, N, WORK.asMatrix(), N, RWORK)) /
-      (N * ULP);
+  RESULT[2] = min(N, zlange('1', N, N, WORK.asMatrix(), N, RWORK)) / (N * ULP);
 }

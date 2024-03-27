@@ -77,7 +77,7 @@ void ztbt03(
     zcopy(N, X(1, J).asArray(), 1, WORK, 1);
     var IX = izamax(N, WORK, 1);
     var XNORM = max(ONE, X[IX][J].abs());
-    final XSCAL = (ONE / XNORM) / (KD + 1).toDouble();
+    final XSCAL = (ONE / XNORM) / (KD + 1);
     zdscal(N, XSCAL, WORK, 1);
     ztbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1);
     zaxpy(N, Complex(-SCALE * XSCAL), B(1, J).asArray(), 1, WORK, 1);

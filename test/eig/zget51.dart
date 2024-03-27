@@ -100,7 +100,7 @@ void zget51(
       if (ANORM < ONE) {
         RESULT.value = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
       } else {
-        RESULT.value = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+        RESULT.value = min(WNORM / ANORM, N) / (N * ULP);
       }
     }
   } else {
@@ -117,7 +117,6 @@ void zget51(
     }
 
     RESULT.value =
-        min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N.toDouble()) /
-            (N * ULP);
+        min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N) / (N * ULP);
   }
 }

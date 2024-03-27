@@ -71,7 +71,7 @@ void zggev(
   final LDUMMA = Array<bool>(1);
   final IERR = Box(0), IHI = Box(0), ILO = Box(0), IN = Box(0);
 
-  double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
 
   // Decode the input arguments
 

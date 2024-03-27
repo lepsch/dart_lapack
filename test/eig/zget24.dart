@@ -179,7 +179,7 @@ void zget24(
         if (ANORM < ONE) {
           RESULT[2 + RSUB] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
         } else {
-          RESULT[2 + RSUB] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+          RESULT[2 + RSUB] = min(WNORM / ANORM, N) / (N * ULP);
         }
       }
 
@@ -448,19 +448,19 @@ void zget24(
     for (I = 1; I <= N; I++) {
       IPNT[I] = I;
       sslct.SELVAL[I] = false;
-      sslct.SELWR[I] = WTMP[I].toDouble();
+      sslct.SELWR[I] = WTMP[I].real;
       sslct.SELWI[I] = WTMP[I].imaginary;
     }
     for (I = 1; I <= N - 1; I++) {
       KMIN = I;
       if (ISRT == 0) {
-        VRIMIN = WTMP[I].toDouble();
+        VRIMIN = WTMP[I].real;
       } else {
         VRIMIN = WTMP[I].imaginary;
       }
       for (J = I + 1; J <= N; J++) {
         if (ISRT == 0) {
-          VRICMP = WTMP[J].toDouble();
+          VRICMP = WTMP[J].real;
         } else {
           VRICMP = WTMP[J].imaginary;
         }
@@ -497,7 +497,7 @@ void zget24(
     // taking its condition number into account
 
     ANORM = zlange('1', N, N, A, LDA, RWORK);
-    V = max(N.toDouble() * EPS * ANORM, SMLNUM);
+    V = max(N * EPS * ANORM, SMLNUM);
     if (ANORM == ZERO) V = ONE;
     if (V > RCONDV.value) {
       TOL = ONE;

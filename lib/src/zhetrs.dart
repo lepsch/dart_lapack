@@ -84,7 +84,7 @@ void zhetrs(
 
         // Multiply by the inverse of the diagonal block.
 
-        S = 1.0 / A[K][K].toDouble();
+        S = ONE / A[K][K].real;
         zdscal(NRHS, S, B(K, 1).asArray(), LDB);
         K--;
       } else {

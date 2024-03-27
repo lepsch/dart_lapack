@@ -189,8 +189,7 @@ Future<void> dget38(
             }
           }
 
-          final V =
-              TNRM == ZERO ? ONE : max(TWO * N.toDouble() * EPS * TNRM, SMLNUM);
+          final V = TNRM == ZERO ? ONE : max(TWO * N * EPS * TNRM, SMLNUM);
 
           // Compare condition number for eigenvalue cluster
           // taking its condition number into account
@@ -268,8 +267,7 @@ Future<void> dget38(
           // without taking its condition number into account
           {
             final double VMAX;
-            if (SIN <= (2 * N).toDouble() * EPS &&
-                STMP.value <= (2 * N).toDouble() * EPS) {
+            if (SIN <= (2 * N) * EPS && STMP.value <= (2 * N) * EPS) {
               VMAX = ONE;
             } else if (EPS * SIN > STMP.value) {
               VMAX = ONE / EPS;

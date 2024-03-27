@@ -141,7 +141,7 @@ void zgelsy(
   //    A * P = Q * R
 
   zgeqp3(M, N, A, LDA, JPVT, WORK(1), WORK(MN + 1), LWORK - MN, RWORK, INFO);
-  WSIZE = MN + WORK[MN + 1].toDouble();
+  WSIZE = MN + WORK[MN + 1].real;
 
   // complex workspace: MN+NB*(N+1). real workspace 2*N.
   // Details of Householder rotations stored in WORK(1:MN).
@@ -202,7 +202,7 @@ void zgelsy(
 
   zunmqr('Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK(1), B, LDB,
       WORK(2 * MN + 1), LWORK - 2 * MN, INFO);
-  WSIZE = max(WSIZE, 2 * MN + WORK[2 * MN + 1].toDouble());
+  WSIZE = max(WSIZE, 2 * MN + WORK[2 * MN + 1].real);
 
   // complex workspace: 2*MN+NB*NRHS.
 

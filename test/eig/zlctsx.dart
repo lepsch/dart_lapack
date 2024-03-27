@@ -33,9 +33,9 @@ bool zlctsx(final Complex ALPHA, final Complex BETA) {
   }
 
   // IF( BETA == CZERO ) THEN
-  // ZLCTSX = ( ALPHA.toDouble() > ZERO )
+  // ZLCTSX = ( ALPHA > ZERO )
   // ELSE
-  // ZLCTSX = ( (ALPHA/BETA).toDouble() > ZERO )
+  // ZLCTSX = ( (ALPHA/BETA) > ZERO )
   // END IF
 
   return result;

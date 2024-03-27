@@ -63,8 +63,7 @@ void zhpr(
             K++;
           }
           AP[KK + J - 1] =
-              (AP[KK + J - 1].toDouble() + (X[J] * TEMP).toDouble())
-                  .toComplex();
+              (AP[KK + J - 1].real + (X[J] * TEMP).real).toComplex();
         } else {
           AP[KK + J - 1] = AP[KK + J - 1].real.toComplex();
         }
@@ -81,8 +80,7 @@ void zhpr(
             IX += INCX;
           }
           AP[KK + J - 1] =
-              (AP[KK + J - 1].toDouble() + (X[JX] * TEMP).toDouble())
-                  .toComplex();
+              (AP[KK + J - 1].real + (X[JX] * TEMP).real).toComplex();
         } else {
           AP[KK + J - 1] = AP[KK + J - 1].real.toComplex();
         }
@@ -97,7 +95,7 @@ void zhpr(
       for (J = 1; J <= N; J++) {
         if (X[J] != Complex.zero) {
           TEMP = ALPHA.toComplex() * X[J].conjugate();
-          AP[KK] = (AP[KK].toDouble() + (TEMP * X[J]).toDouble()).toComplex();
+          AP[KK] = (AP[KK].real + (TEMP * X[J]).real).toComplex();
           K = KK + 1;
           for (I = J + 1; I <= N; I++) {
             AP[K] += X[I] * TEMP;
@@ -113,7 +111,7 @@ void zhpr(
       for (J = 1; J <= N; J++) {
         if (X[JX] != Complex.zero) {
           TEMP = ALPHA.toComplex() * X[JX].conjugate();
-          AP[KK] = (AP[KK].toDouble() + (TEMP * X[JX]).toDouble()).toComplex();
+          AP[KK] = (AP[KK].real + (TEMP * X[JX]).real).toComplex();
           IX = JX;
           for (K = KK + 1; K <= KK + N - J; K++) {
             IX += INCX;

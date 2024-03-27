@@ -446,7 +446,7 @@ void dlarre(
     } else {
       if (MB > 1) {
         CLWDTH = W[WEND] + WERR[WEND] - W[WBEGIN] - WERR[WBEGIN];
-        AVGAP = (CLWDTH / (WEND - WBEGIN).toDouble()).abs();
+        AVGAP = (CLWDTH / (WEND - WBEGIN)).abs();
         if (SGNDEF == ONE) {
           TAU = HALF * max(WGAP[WBEGIN], AVGAP);
           TAU = max(TAU, WERR[WBEGIN]);

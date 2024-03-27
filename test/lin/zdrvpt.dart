@@ -186,13 +186,13 @@ void zdrvpt(
           Z[2] = D[1];
           D[1] = ZERO;
           if (N > 1) {
-            Z[3] = E[1].toDouble();
+            Z[3] = E[1].real;
             E[1] = Complex.zero;
           }
         } else if (IMAT == 9) {
           IZERO = N;
           if (N > 1) {
-            Z[1] = E[N - 1].toDouble();
+            Z[1] = E[N - 1].real;
             E[N - 1] = Complex.zero;
           }
           Z[2] = D[N];

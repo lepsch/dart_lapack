@@ -31,7 +31,7 @@ void dlacon(
 
   if (KASE.value == 0) {
     for (var I = 1; I <= N; I++) {
-      X[I] = ONE / N.toDouble();
+      X[I] = ONE / N;
     }
     KASE.value = 1;
     _JUMP = 1;
@@ -52,7 +52,7 @@ void dlacon(
       EST.value = dasum(N, X, 1);
 
       for (var I = 1; I <= N; I++) {
-        X[I] = sign(ONE, X[I]).toDouble();
+        X[I] = sign(ONE, X[I]);
         ISGN[I] = nint(X[I]);
       }
       KASE.value = 2;
@@ -85,7 +85,7 @@ void dlacon(
       EST.value = dasum(N, V, 1);
       var isConverged = true;
       for (var I = 1; I <= N; I++) {
-        if (nint(sign(ONE, X[I]).toDouble()) != ISGN[I]) {
+        if (nint(sign(ONE, X[I])) != ISGN[I]) {
           isConverged = false;
           break;
         }
@@ -97,7 +97,7 @@ void dlacon(
       if (EST.value <= _ESTOLD) continue L120;
 
       for (var I = 1; I <= N; I++) {
-        X[I] = sign(ONE, X[I]).toDouble();
+        X[I] = sign(ONE, X[I]);
         ISGN[I] = nint(X[I]);
       }
       KASE.value = 2;
@@ -122,7 +122,7 @@ void dlacon(
 
       var ALTSGN = ONE;
       for (var I = 1; I <= N; I++) {
-        X[I] = ALTSGN * (ONE + (I - 1).toDouble() / (N - 1).toDouble());
+        X[I] = ALTSGN * (ONE + (I - 1) / (N - 1));
         ALTSGN = -ALTSGN;
       }
       KASE.value = 1;
@@ -132,7 +132,7 @@ void dlacon(
       // ................ ENTRY   (_JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-      double TEMP = TWO * (dasum(N, X, 1) / (3 * N).toDouble());
+      double TEMP = TWO * (dasum(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         dcopy(N, X, 1, V, 1);
         EST.value = TEMP;

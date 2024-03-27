@@ -150,7 +150,7 @@ void dchksb(
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
-    ANINV = ONE / (max(1, N)).toDouble();
+    ANINV = ONE / max(1, N);
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
       K = KK[JWIDTH];

@@ -27,8 +27,8 @@ void zlat2c(
   if (UPPER) {
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= J; I++) {
-        if ((A[I][J].toDouble() < -RMAX) ||
-            (A[I][J].toDouble() > RMAX) ||
+        if ((A[I][J].real < -RMAX) ||
+            (A[I][J].real > RMAX) ||
             (A[I][J].imaginary < -RMAX) ||
             (A[I][J].imaginary > RMAX)) {
           INFO.value = 1;
@@ -40,8 +40,8 @@ void zlat2c(
   } else {
     for (J = 1; J <= N; J++) {
       for (I = J; I <= N; I++) {
-        if ((A[I][J].toDouble() < -RMAX) ||
-            (A[I][J].toDouble() > RMAX) ||
+        if ((A[I][J].real < -RMAX) ||
+            (A[I][J].real > RMAX) ||
             (A[I][J].imaginary < -RMAX) ||
             (A[I][J].imaginary > RMAX)) {
           INFO.value = 1;

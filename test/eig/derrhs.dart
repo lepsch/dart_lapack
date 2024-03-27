@@ -46,7 +46,7 @@ void derrhs(final String PATH, final Nout NUNIT, final TestDriver test) {
 
   for (var J = 1; J <= NMAX; J++) {
     for (var I = 1; I <= NMAX; I++) {
-      A[I][J] = 1.0 / (I + J).toDouble();
+      A[I][J] = 1.0 / (I + J);
     }
     WI[J] = J.toDouble();
     SEL[J] = true;

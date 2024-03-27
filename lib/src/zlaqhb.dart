@@ -54,14 +54,14 @@ void zlaqhb(
           AB[KD + 1 + I - J][J] =
               (CJ * S[I]).toComplex() * AB[KD + 1 + I - J][J];
         }
-        AB[KD + 1][J] = (CJ * CJ * AB[KD + 1][J].toDouble()).toComplex();
+        AB[KD + 1][J] = (CJ * CJ * AB[KD + 1][J].real).toComplex();
       }
     } else {
       // Lower triangle of A is stored.
 
       for (J = 1; J <= N; J++) {
         CJ = S[J];
-        AB[1][J] = (CJ * CJ * AB[1][J].toDouble()).toComplex();
+        AB[1][J] = (CJ * CJ * AB[1][J].real).toComplex();
         for (I = J + 1; I <= min(N, J + KD); I++) {
           AB[1 + I - J][J] = (CJ * S[I]).toComplex() * AB[1 + I - J][J];
         }

@@ -82,7 +82,7 @@ void zggbal(
       TB,
       TC;
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Test the input parameters
 
@@ -286,7 +286,7 @@ void zggbal(
     }
   }
 
-  COEF = ONE / (2 * NR).toDouble();
+  COEF = ONE / (2 * NR);
   COEF2 = COEF * COEF;
   COEF5 = HALF * COEF2;
   NRP2 = NR + 2;
@@ -340,7 +340,7 @@ void zggbal(
           SUM += WORK[J];
         }
       }
-      WORK[I + 2 * N] = KOUNT.toDouble() * WORK[I + N] + SUM;
+      WORK[I + 2 * N] = KOUNT * WORK[I + N] + SUM;
     }
 
     for (J = ILO.value; J <= IHI.value; J++) {
@@ -355,7 +355,7 @@ void zggbal(
         KOUNT++;
         SUM += WORK[I + N];
       }
-      WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
+      WORK[J + 3 * N] = KOUNT * WORK[J] + SUM;
     }
 
     SUM = ddot(NR, WORK(ILO.value + N), 1, WORK(ILO.value + 2 * N), 1) +

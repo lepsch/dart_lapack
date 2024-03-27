@@ -130,8 +130,8 @@ double dqrt12(
 
   daxpy(MN, -ONE, S, 1, WORK(M * N + 1), 1);
 
-  final result = dasum(MN, WORK(M * N + 1), 1) /
-      (dlamch('Epsilon') * (max(M, N)).toDouble());
+  final result =
+      dasum(MN, WORK(M * N + 1), 1) / (dlamch('Epsilon') * max(M, N));
 
   return NRMSVL != ZERO ? result / NRMSVL : result;
 }

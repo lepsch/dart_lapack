@@ -138,7 +138,7 @@ void zlatm4(
         if (KLEN > 1) {
           ALPHA = pow(RCOND, ONE / (KLEN - 1)).toDouble();
           for (I = 2; I <= KLEN; I++) {
-            A[NZ1 + I][NZ1 + I] = pow(ALPHA, (I - 1).toDouble()).toComplex();
+            A[NZ1 + I][NZ1 + I] = pow(ALPHA, I - 1).toComplex();
           }
         }
         break;
@@ -149,10 +149,9 @@ void zlatm4(
 
         A[KBEG][KBEG] = Complex.one;
         if (KLEN > 1) {
-          ALPHA = (ONE - RCOND) / (KLEN - 1).toDouble();
+          ALPHA = (ONE - RCOND) / (KLEN - 1);
           for (I = 2; I <= KLEN; I++) {
-            A[NZ1 + I][NZ1 + I] =
-                ((KLEN - I).toDouble() * ALPHA + RCOND).toComplex();
+            A[NZ1 + I][NZ1 + I] = ((KLEN - I) * ALPHA + RCOND).toComplex();
           }
         }
         break;
@@ -180,7 +179,7 @@ void zlatm4(
     // Scale by AMAGN
 
     for (JD = KBEG; JD <= KEND; JD++) {
-      A[JD][JD] = (AMAGN * A[JD][JD].toDouble()).toComplex();
+      A[JD][JD] = (AMAGN * A[JD][JD].real).toComplex();
     }
     for (JD = ISDB; JD <= ISDE; JD++) {
       A[JD + 1][JD] = AMAGN.toComplex() * A[JD + 1][JD].real.toComplex();
@@ -191,14 +190,14 @@ void zlatm4(
 
     if (RSIGN) {
       for (JD = KBEG; JD <= KEND; JD++) {
-        if (A[JD][JD].toDouble() != ZERO) {
+        if (A[JD][JD].real != ZERO) {
           CTEMP = zlarnd(3, ISEED);
           CTEMP /= CTEMP.abs().toComplex();
           A[JD][JD] = CTEMP * A[JD][JD].real.toComplex();
         }
       }
       for (JD = ISDB; JD <= ISDE; JD++) {
-        if (A[JD + 1][JD].toDouble() != ZERO) {
+        if (A[JD + 1][JD].real != ZERO) {
           CTEMP = zlarnd(3, ISEED);
           CTEMP /= CTEMP.abs().toComplex();
           A[JD + 1][JD] = CTEMP * A[JD + 1][JD].real.toComplex();

@@ -23,6 +23,6 @@ void zlaev2(
   } else {
     W = B.conjugate() / B.abs().toComplex();
   }
-  dlaev2(A.toDouble(), B.abs(), C.toDouble(), RT1, RT2, CS1, T);
+  dlaev2(A.real, B.abs(), C.real, RT1, RT2, CS1, T);
   SN1.value = W * T.value.toComplex();
 }

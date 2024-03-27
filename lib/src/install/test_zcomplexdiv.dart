@@ -67,7 +67,7 @@ void main() {
   OV = huge(0.0);
 
   // .. Vector X ..
-  X[1] = tiny(0.0) * pow(b, (1 - m).toDouble());
+  X[1] = tiny(0.0) * pow(b, 1 - m);
   X[2] = tiny(0.0);
   X[3] = OV;
   X[4] = pow(b, (Max - 1)).toDouble();

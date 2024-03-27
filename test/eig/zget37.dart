@@ -153,7 +153,7 @@ Future<void> zget37(
         // Sort by increasing real part
 
         for (I = 1; I <= N; I++) {
-          WSRT[I] = W[I].toDouble();
+          WSRT[I] = W[I].real;
         }
       } else {
         // Sort by increasing imaginary part
@@ -176,7 +176,7 @@ Future<void> zget37(
         }
         WSRT[KMIN] = WSRT[I];
         WSRT[I] = VMIN;
-        VCMIN = WTMP[I].toDouble();
+        VCMIN = WTMP[I].real;
         WTMP[I] = W[KMIN];
         WTMP[KMIN] = VCMIN.toComplex();
         VMIN = STMP[KMIN];
@@ -190,7 +190,7 @@ Future<void> zget37(
       // Compare condition numbers for eigenvalues
       // taking their condition numbers into account
 
-      V = max(TWO * N.toDouble() * EPS * TNRM, SMLNUM);
+      V = max(TWO * N * EPS * TNRM, SMLNUM);
       if (TNRM == ZERO) V = ONE;
       for (I = 1; I <= N; I++) {
         if (V > SEPTMP[I]) {

@@ -184,7 +184,7 @@ void zgesvj(
   } else {
     // ... default
     if (LSVEC || RSVEC || APPLV) {
-      CTOL = sqrt(M.toDouble());
+      CTOL = sqrt(M);
     } else {
       CTOL = M.toDouble();
     }
@@ -200,13 +200,13 @@ void zgesvj(
   BIG = dlamch('Overflow');
   // BIG         = ONE    / SFMIN
   ROOTBIG = ONE / ROOTSFMIN;
-  // LARGE = BIG / sqrt( (M*N).toDouble() )
+  // LARGE = BIG / sqrt( (M*N) )
   BIGTHETA = ONE / ROOTEPS;
 
   TOL = CTOL * EPSLN;
   ROOTTOL = sqrt(TOL);
 
-  if (M.toDouble() * EPSLN >= ONE) {
+  if (M * EPSLN >= ONE) {
     INFO.value = -4;
     xerbla('ZGESVJ', -INFO.value);
     return;
@@ -722,7 +722,7 @@ void zgesvj(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ1).toDouble();
+                      THSIGN = -sign(ONE, AAPQ1);
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));
                       CS = sqrt(ONE / (ONE + T.value * T.value));
@@ -913,7 +913,7 @@ void zgesvj(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ1).toDouble();
+                      THSIGN = -sign(ONE, AAPQ1);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));

@@ -245,8 +245,8 @@ void zlaqp2rk(
     // TAU(KK) to contain NaN. Therefore, this case of generating Inf
     // by ZLARFG is covered by checking TAU(KK) for NaN.
 
-    if (disnan(TAU[KK].toDouble())) {
-      TAUNAN = TAU[KK].toDouble();
+    if (disnan(TAU[KK].real)) {
+      TAUNAN = TAU[KK].real;
     } else if (disnan(TAU[KK].imaginary)) {
       TAUNAN = TAU[KK].imaginary;
     } else {

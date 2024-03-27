@@ -28,7 +28,7 @@ double zla_syrpvgrw(
   double AMAX, UMAX, RPVGRW, TMP;
   bool UPPER;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   UPPER = lsame('Upper', UPLO);
   if (INFO.value == 0) {

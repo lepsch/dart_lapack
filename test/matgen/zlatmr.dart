@@ -347,7 +347,7 @@ void zlatmr(
 
   if (ISYM == 0) {
     for (I = 1; I <= MNMIN; I++) {
-      D[I] = D[I].toDouble().toComplex();
+      D[I] = D[I].real.toComplex();
     }
   }
 

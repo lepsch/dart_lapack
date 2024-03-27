@@ -41,7 +41,7 @@ void dlatm6(
   for (I = 1; I <= N; I++) {
     for (J = 1; J <= N; J++) {
       if (I == J) {
-        A[I][I] = I.toDouble() + ALPHA;
+        A[I][I] = I + ALPHA;
         B[I][I] = ONE;
       } else {
         A[I][J] = ZERO;

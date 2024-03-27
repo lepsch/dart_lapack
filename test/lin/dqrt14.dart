@@ -126,5 +126,5 @@ double dqrt14(
     }
   }
 
-  return ERR / ((max(M, max(N, NRHS))).toDouble() * dlamch('Epsilon'));
+  return ERR / (max(M, max(N, NRHS)) * dlamch('Epsilon'));
 }

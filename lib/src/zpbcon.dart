@@ -37,7 +37,7 @@ void zpbcon(
   final KASE = Box(0);
   final AINVNM = Box(0.0), SCALEL = Box(0.0), SCALEU = Box(0.0);
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 

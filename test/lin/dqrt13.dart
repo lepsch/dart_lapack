@@ -33,8 +33,7 @@ void dqrt13(
   for (var J = 1; J <= N; J++) {
     dlarnv(2, ISEED, M, A(1, J).asArray());
     if (J <= M) {
-      A[J][J] =
-          A[J][J] + sign(dasum(M, A(1, J).asArray(), 1), A[J][J]).toDouble();
+      A[J][J] = A[J][J] + sign(dasum(M, A(1, J).asArray(), 1), A[J][J]);
     }
   }
 

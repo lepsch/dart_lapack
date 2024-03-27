@@ -307,7 +307,7 @@ void zhbtrd(
     // copy diagonal elements to D
 
     for (I = 1; I <= N; I++) {
-      D[I] = AB[KD1][I].toDouble();
+      D[I] = AB[KD1][I].real;
     }
   } else {
     if (KD > 1) {
@@ -503,7 +503,7 @@ void zhbtrd(
     // copy diagonal elements to D
 
     for (I = 1; I <= N; I++) {
-      D[I] = AB[1][I].toDouble();
+      D[I] = AB[1][I].real;
     }
   }
 }

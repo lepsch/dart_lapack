@@ -30,7 +30,7 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
   final A = Matrix<Complex>(LDA, LDA), AIN = Matrix<Complex>(LDA, LDA);
   final INFO = Box(0), ILO = Box(0), IHI = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   LMAX[1] = 0;
   LMAX[2] = 0;

@@ -2277,7 +2277,7 @@ void _zchk5(
         }
 
         for (IA = 1; IA <= NALF; IA++) {
-          RALPHA = ALF[IA].toDouble();
+          RALPHA = ALF[IA].real;
           ALPHA = RALPHA.toComplex();
           NULL = N <= 0 || RALPHA == RZERO;
 

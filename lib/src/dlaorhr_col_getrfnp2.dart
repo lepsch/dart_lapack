@@ -52,7 +52,7 @@ void dlaorhr_col_getrfnp2(
 
     // Transfer the sign
 
-    D[1] = -sign(ONE, A[1][1]).toDouble();
+    D[1] = -sign(ONE, A[1][1]);
 
     // Construct the row of U
 
@@ -63,7 +63,7 @@ void dlaorhr_col_getrfnp2(
 
     // Transfer the sign
 
-    D[1] = -sign(ONE, A[1][1]).toDouble();
+    D[1] = -sign(ONE, A[1][1]);
 
     // Construct the row of U
 

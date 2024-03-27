@@ -53,7 +53,7 @@ void dget10(
     if (ANORM < ONE) {
       RESULT.value = (min(WNORM, M * ANORM) / ANORM) / (M * EPS);
     } else {
-      RESULT.value = min(WNORM / ANORM, M.toDouble()) / (M * EPS);
+      RESULT.value = min(WNORM / ANORM, M) / (M * EPS);
     }
   }
 }

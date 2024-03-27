@@ -188,7 +188,7 @@ void zlattp(
         WORK[J + 1] = PLUS2;
         WORK[N + J + 1] = Complex.zero;
         PLUS1 = STAR1 / PLUS2;
-        final REXP = zlarnd(2, ISEED).toDouble();
+        final REXP = zlarnd(2, ISEED).real;
         if (REXP < ZERO) {
           STAR1 = pow(-SFAC, ONE - REXP).toComplex() * zlarnd(5, ISEED);
         } else {
@@ -198,7 +198,7 @@ void zlattp(
     }
 
     final X = sqrt(CNDNUM) - ONE / sqrt(CNDNUM);
-    final Y = N > 2 ? sqrt(TWO / (N - 2).toDouble()) * X : ZERO;
+    final Y = N > 2 ? sqrt(TWO / (N - 2)) * X : ZERO;
     final Z = X * X;
 
     if (UPPER) {
@@ -344,7 +344,7 @@ void zlattp(
     // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
     zlarnv(2, ISEED, N, B);
-    final TSCAL = ONE / max(ONE, (N - 1).toDouble());
+    final TSCAL = ONE / max(ONE, N - 1);
     if (UPPER) {
       var JC = 1;
       for (var J = 1; J <= N; J++) {
@@ -446,7 +446,7 @@ void zlattp(
     // overflow when dividing by T(j,j).  To control the amount of
     // scaling needed, the matrix is bidiagonal.
 
-    final TEXP = ONE / max(ONE, (N - 1).toDouble());
+    final TEXP = ONE / max(ONE, N - 1);
     final TSCAL = pow(SMLNUM, TEXP).toDouble();
     zlarnv(4, ISEED, N, B);
     if (UPPER) {
@@ -575,8 +575,8 @@ void zlattp(
     // norms will exceed BIGNUM.
     // 1/3/91:  ZLATPS no longer can handle this case
 
-    final TLEFT = BIGNUM / max(ONE, (N - 1).toDouble());
-    final TSCAL = BIGNUM * ((N - 1).toDouble() / max(ONE, N.toDouble()));
+    final TLEFT = BIGNUM / max(ONE, N - 1);
+    final TSCAL = BIGNUM * ((N - 1) / max(ONE, N));
     if (UPPER) {
       var JC = 1;
       for (var J = 1; J <= N; J++) {

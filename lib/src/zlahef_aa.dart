@@ -91,7 +91,7 @@ void zlahef_aa(
 
       // Set A(J, J) = T(J, J)
 
-      A[K][J] = WORK[1].toDouble().toComplex();
+      A[K][J] = WORK[1].real.toComplex();
 
       if (J < M) {
         // Compute WORK(2:N) = T(J, J) L(J, (J+1):N)
@@ -230,7 +230,7 @@ void zlahef_aa(
 
       // Set A(J, J) = T(J, J)
 
-      A[J][K] = WORK[1].toDouble().toComplex();
+      A[J][K] = WORK[1].real.toComplex();
 
       if (J < M) {
         // Compute WORK(2:N) = T(J, J) L((J+1):N, J)

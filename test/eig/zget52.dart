@@ -51,7 +51,7 @@ void zget52(
       ULP;
   Complex ACOEFF, ALPHAI, BCOEFF, BETAI;
 
-  double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
 
   RESULT[1] = ZERO;
   RESULT[2] = ZERO;
@@ -121,5 +121,5 @@ void zget52(
 
   // Compute RESULT(2) : the normalization error in E.
 
-  RESULT[2] = ENRMER / (N.toDouble() * ULP);
+  RESULT[2] = ENRMER / (N * ULP);
 }

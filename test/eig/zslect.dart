@@ -10,7 +10,7 @@ bool zslect(final Complex Z) {
   const ZERO = 0.0;
 
   if (sslct.SELOPT == 0) {
-    return Z.toDouble() < ZERO;
+    return Z.real < ZERO;
   }
 
   var RMIN = (Z - Complex(sslct.SELWR[1], sslct.SELWI[1])).abs();

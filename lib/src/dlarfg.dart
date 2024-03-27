@@ -36,7 +36,7 @@ void dlarfg(
 
   // general case
 
-  BETA = -sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
+  BETA = -sign(dlapy2(ALPHA.value, XNORM), ALPHA.value);
   SAFMIN = dlamch('S') / dlamch('E');
   KNT = 0;
   if (BETA.abs() < SAFMIN) {
@@ -53,7 +53,7 @@ void dlarfg(
     // New BETA is at most 1, at least SAFMIN
 
     XNORM = dnrm2(N - 1, X, INCX);
-    BETA = -sign(dlapy2(ALPHA.value, XNORM), ALPHA.value).toDouble();
+    BETA = -sign(dlapy2(ALPHA.value, XNORM), ALPHA.value);
   }
   TAU.value = (BETA - ALPHA.value) / BETA;
   dscal(N - 1, ONE / (ALPHA.value - BETA), X, INCX);

@@ -124,7 +124,7 @@ void zhetrd(
 
       for (J = I; J <= I + NB - 1; J++) {
         A[J - 1][J] = E[J - 1].toComplex();
-        D[J] = A[J][J].toDouble();
+        D[J] = A[J][J].real;
       }
     }
 
@@ -164,7 +164,7 @@ void zhetrd(
 
       for (J = I; J <= I + NB - 1; J++) {
         A[J + 1][J] = E[J].toComplex();
-        D[J] = A[J][J].toDouble();
+        D[J] = A[J][J].real;
       }
     }
 

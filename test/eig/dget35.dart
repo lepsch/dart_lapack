@@ -109,7 +109,7 @@ void dget35(
                       var CNRM = ZERO;
                       for (var I = 1; I <= M; I++) {
                         for (var J = 1; J <= N; J++) {
-                          C[I][J] = sin((I * J).toDouble());
+                          C[I][J] = sin(I * J);
                           CNRM = max(CNRM, C[I][J]);
                           CC[I][J] = C[I][J];
                         }
@@ -128,8 +128,8 @@ void dget35(
                       }
                       dgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6,
                           -SCALE.value * RMUL, CC, 6);
-                      dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, C, 6,
-                          B, 6, ONE, CC, 6);
+                      dgemm('N', TRANB, M, N, N, ISGN * RMUL, C, 6, B, 6, ONE,
+                          CC, 6);
 
                       final RES1 = dlange('M', M, N, CC, 6, DUM);
                       final RES = RES1 /

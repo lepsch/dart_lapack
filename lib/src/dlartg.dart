@@ -31,12 +31,12 @@ void dlartg(
     r.value = f;
   } else if (f == _zero) {
     c.value = _zero;
-    s.value = sign(_one, g).toDouble();
+    s.value = sign(_one, g);
     r.value = g1;
   } else if (f1 > rtmin && f1 < rtmax && g1 > rtmin && g1 < rtmax) {
     final d = sqrt(f * f + g * g);
     c.value = f1 / d;
-    r.value = sign(d, f).toDouble();
+    r.value = sign(d, f);
     s.value = g / r.value;
   } else {
     final u = min(_safmax, max(_safmin, max(f1, g1)));
@@ -44,7 +44,7 @@ void dlartg(
     final gs = g / u;
     final d = sqrt(fs * fs + gs * gs);
     c.value = fs.abs() / d;
-    r.value = sign(d, f).toDouble();
+    r.value = sign(d, f);
     s.value = gs / r.value;
     r.value *= u;
   }

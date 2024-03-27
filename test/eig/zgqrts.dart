@@ -119,7 +119,7 @@ void zgqrts(
 
   RESID = zlange('1', N, M, R, LDA, RWORK);
   if (ANORM > ZERO) {
-    RESULT[1] = ((RESID / (max(1, max(M, N))).toDouble()) / ANORM) / ULP;
+    RESULT[1] = ((RESID / max(1, max(M, N))) / ANORM) / ULP;
   } else {
     RESULT[1] = ZERO;
   }
@@ -135,7 +135,7 @@ void zgqrts(
 
   RESID = zlange('1', N, P, BWK, LDB, RWORK);
   if (BNORM > ZERO) {
-    RESULT[2] = ((RESID / (max(1, max(P, N))).toDouble()) / BNORM) / ULP;
+    RESULT[2] = ((RESID / max(1, max(P, N))) / BNORM) / ULP;
   } else {
     RESULT[2] = ZERO;
   }
@@ -148,7 +148,7 @@ void zgqrts(
   // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
   RESID = zlanhe('1', 'Upper', N, R, LDA, RWORK);
-  RESULT[3] = (RESID / (max(1, N)).toDouble()) / ULP;
+  RESULT[3] = (RESID / max(1, N)) / ULP;
 
   // Compute I - Z'*Z
 
@@ -158,5 +158,5 @@ void zgqrts(
   // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
   RESID = zlanhe('1', 'Upper', P, T, LDB, RWORK);
-  RESULT[4] = (RESID / (max(1, P)).toDouble()) / ULP;
+  RESULT[4] = (RESID / max(1, P)) / ULP;
 }

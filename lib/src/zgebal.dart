@@ -85,8 +85,7 @@ void zgebal(
       for (I = L; I >= 1; I--) {
         CANSWAP = true;
         for (J = 1; J <= L; J++) {
-          if (I != J &&
-              (A[I][J].toDouble() != ZERO || A[I][J].imaginary != ZERO)) {
+          if (I != J && (A[I][J].real != ZERO || A[I][J].imaginary != ZERO)) {
             CANSWAP = false;
             break;
           }
@@ -119,8 +118,7 @@ void zgebal(
       for (J = K; J <= L; J++) {
         CANSWAP = true;
         for (I = K; I <= L; I++) {
-          if (I != J &&
-              (A[I][J].toDouble() != ZERO || A[I][J].imaginary != ZERO)) {
+          if (I != J && (A[I][J].real != ZERO || A[I][J].imaginary != ZERO)) {
             CANSWAP = false;
             break;
           }

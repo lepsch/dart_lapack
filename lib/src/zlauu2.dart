@@ -50,12 +50,12 @@ void zlauu2(
     // Compute the product U * U**H.
 
     for (I = 1; I <= N; I++) {
-      AII = A[I][I].toDouble();
+      AII = A[I][I].real;
       if (I < N) {
         A[I][I] = (AII * AII +
                 zdotc(N - I, A(I, I + 1).asArray(), LDA, A(I, I + 1).asArray(),
                         LDA)
-                    .toDouble())
+                    .real)
             .toComplex();
         zlacgv(N - I, A(I, I + 1).asArray(), LDA);
         zgemv('No transpose', I - 1, N - I, Complex.one, A(1, I + 1), LDA,
@@ -69,11 +69,11 @@ void zlauu2(
     // Compute the product L**H * L.
 
     for (I = 1; I <= N; I++) {
-      AII = A[I][I].toDouble();
+      AII = A[I][I].real;
       if (I < N) {
         A[I][I] = (AII * AII +
                 zdotc(N - I, A(I + 1, I).asArray(), 1, A(I + 1, I).asArray(), 1)
-                    .toDouble())
+                    .real)
             .toComplex();
         zlacgv(I - 1, A(I, 1).asArray(), LDA);
         zgemv(

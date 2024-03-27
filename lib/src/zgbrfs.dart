@@ -56,7 +56,7 @@ void zgbrfs(
   final ISAVE = Array<int>(3);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 

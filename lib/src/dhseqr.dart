@@ -96,7 +96,7 @@ void dhseqr(
         LWORK, INFO);
     // Ensure reported workspace size is backward-compatible with
     // previous LAPACK versions.
-    WORK[1] = max((max(1, N)).toDouble(), WORK[1]);
+    WORK[1] = max(max(1, N), WORK[1]).toDouble();
     return;
   } else {
     // copy eigenvalues isolated by DGEBAL
@@ -174,6 +174,6 @@ void dhseqr(
     // Ensure reported workspace size is backward-compatible with
     // previous LAPACK versions.
 
-    WORK[1] = max((max(1, N)).toDouble(), WORK[1]);
+    WORK[1] = max(max(1, N), WORK[1]).toDouble();
   }
 }

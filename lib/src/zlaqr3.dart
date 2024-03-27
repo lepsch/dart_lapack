@@ -76,7 +76,7 @@ void zlaqr3(
   final INFO = Box(0), INFQR = Box(0);
   final TAU = Box(Complex.zero), BETA = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Estimate optimal workspace.
 
@@ -107,7 +107,7 @@ void zlaqr3(
   // Quick return in case of workspace query.
 
   if (LWORK == -1) {
-    WORK[1] = Complex(LWKOPT.toDouble(), 0);
+    WORK[1] = LWKOPT.toComplex();
     return;
   }
 
@@ -307,5 +307,5 @@ void zlaqr3(
 
   // Return optimal workspace.
 
-  WORK[1] = Complex(LWKOPT.toDouble(), 0);
+  WORK[1] = LWKOPT.toComplex();
 }

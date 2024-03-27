@@ -247,11 +247,11 @@ void zstein(
               for (I = GPIND; I <= J - 1; I++) {
                 ZTR = ZERO;
                 for (JR = 1; JR <= BLKSIZ; JR++) {
-                  ZTR = ZTR + WORK[INDRV1 + JR] * Z[B1 - 1 + JR][I].toDouble();
+                  ZTR = ZTR + WORK[INDRV1 + JR] * Z[B1 - 1 + JR][I].real;
                 }
                 for (JR = 1; JR <= BLKSIZ; JR++) {
                   WORK[INDRV1 + JR] =
-                      WORK[INDRV1 + JR] - ZTR * Z[B1 - 1 + JR][I].toDouble();
+                      WORK[INDRV1 + JR] - ZTR * Z[B1 - 1 + JR][I].real;
                 }
               }
             }

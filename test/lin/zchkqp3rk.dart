@@ -575,7 +575,7 @@ void zchkqp3rk(
 
                 RESULT[5] =
                     (zlange('One-norm', M, NRHS, B.asMatrix(), LDA, RDUMMY) /
-                            (M.toDouble() * dlamch('Epsilon')))
+                            (M * dlamch('Epsilon')))
                         .abs();
 
                 // Print information about the tests that did not pass

@@ -52,7 +52,7 @@ void ztrevc3(
   double REMAX, SMIN = 0, SMLNUM, ULP, UNFL;
   final SCALE = Box(0.0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Decode and test the input parameters
 
@@ -80,7 +80,7 @@ void ztrevc3(
   NB = ilaenv(1, 'ZTREVC', SIDE + HOWMNY, N, -1, -1, -1);
   MAXWRK = max(1, N + 2 * N * NB);
   WORK[1] = MAXWRK.toComplex();
-  RWORK[1] = max(1, N.toDouble());
+  RWORK[1] = max(1, N).toDouble();
   LQUERY = LWORK == -1 || LRWORK == -1;
   if (!RIGHTV && !LEFTV) {
     INFO.value = -1;

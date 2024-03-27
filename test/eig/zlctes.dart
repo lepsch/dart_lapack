@@ -9,20 +9,19 @@ bool zlctes(final Complex Z, final Complex D) {
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
   const ZERO = 0.0, ONE = 1.0;
-  double ZMAX;
 
   if (D == Complex.zero) {
-    return Z.toDouble() < ZERO;
+    return Z.real < ZERO;
   }
 
-  if (Z.toDouble() == ZERO || D.toDouble() == ZERO) {
-    return (sign(ONE, Z.imaginary) != sign(ONE, D.imaginary));
-  } else if (Z.imaginary == ZERO || D.imaginary == ZERO) {
-    return (sign(ONE, Z.toDouble()) != sign(ONE, D.toDouble()));
-  } else {
-    ZMAX = max((Z.toDouble()).abs(), Z.imaginary.abs());
-    return ((Z.toDouble() / ZMAX) * D.toDouble() +
-            (Z.imaginary / ZMAX) * D.imaginary <
-        ZERO);
+  if (Z.real == ZERO || D.real == ZERO) {
+    return sign(ONE, Z.imaginary) != sign(ONE, D.imaginary);
   }
+
+  if (Z.imaginary == ZERO || D.imaginary == ZERO) {
+    return sign(ONE, Z.real) != sign(ONE, D.real);
+  }
+
+  final ZMAX = max((Z.real).abs(), Z.imaginary.abs());
+  return (Z.real / ZMAX) * D.real + (Z.imaginary / ZMAX) * D.imaginary < ZERO;
 }

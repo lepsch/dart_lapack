@@ -467,7 +467,7 @@ void dget23(
 
       RESULT[10] = ZERO;
       EPS = max(EPSIN, ULP);
-      V = max(N.toDouble() * EPS * ABNRM.value, SMLNUM);
+      V = max(N * EPS * ABNRM.value, SMLNUM);
       if (ABNRM.value == ZERO) V = ONE;
       for (I = 1; I <= N; I++) {
         if (V > RCONDV[I] * RCONDE[I]) {

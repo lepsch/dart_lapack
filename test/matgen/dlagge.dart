@@ -75,7 +75,7 @@ void dlagge(
 
       dlarnv(3, ISEED, M - I + 1, WORK);
       WN = dnrm2(M - I + 1, WORK, 1);
-      WA = sign(WN, WORK[1]).toDouble();
+      WA = sign(WN, WORK[1]);
       if (WN == ZERO) {
         TAU = ZERO;
       } else {
@@ -96,7 +96,7 @@ void dlagge(
 
       dlarnv(3, ISEED, N - I + 1, WORK);
       WN = dnrm2(N - I + 1, WORK, 1);
-      WA = sign(WN, WORK[1]).toDouble();
+      WA = sign(WN, WORK[1]);
       if (WN == ZERO) {
         TAU = ZERO;
       } else {
@@ -125,7 +125,7 @@ void dlagge(
         // generate reflection to annihilate A(kl+i+1:m,i)
 
         WN = dnrm2(M - KL - I + 1, A(KL + I, I).asArray(), 1);
-        WA = sign(WN, A[KL + I][I]).toDouble();
+        WA = sign(WN, A[KL + I][I]);
         if (WN == ZERO) {
           TAU = ZERO;
         } else {
@@ -148,7 +148,7 @@ void dlagge(
         // generate reflection to annihilate A(i,ku+i+1:n)
 
         WN = dnrm2(N - KU - I + 1, A(I, KU + I).asArray(), LDA);
-        WA = sign(WN, A[I][KU + I]).toDouble();
+        WA = sign(WN, A[I][KU + I]);
         if (WN == ZERO) {
           TAU = ZERO;
         } else {
@@ -174,7 +174,7 @@ void dlagge(
         // generate reflection to annihilate A(i,ku+i+1:n)
 
         WN = dnrm2(N - KU - I + 1, A(I, KU + I).asArray(), LDA);
-        WA = sign(WN, A[I][KU + I]).toDouble();
+        WA = sign(WN, A[I][KU + I]);
         if (WN == ZERO) {
           TAU = ZERO;
         } else {
@@ -197,7 +197,7 @@ void dlagge(
         // generate reflection to annihilate A(kl+i+1:m,i)
 
         WN = dnrm2(M - KL - I + 1, A(KL + I, I).asArray(), 1);
-        WA = sign(WN, A[KL + I][I]).toDouble();
+        WA = sign(WN, A[KL + I][I]);
         if (WN == ZERO) {
           TAU = ZERO;
         } else {

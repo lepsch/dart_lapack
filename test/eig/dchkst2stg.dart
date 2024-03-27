@@ -175,7 +175,7 @@ void dchkst2stg(
     final N = NN[JSIZE];
     final int LWEDC, LIWEDC;
     if (N > 0) {
-      var LGN = log(N.toDouble()) ~/ log(TWO);
+      var LGN = log(N) ~/ log(TWO);
       if (pow(2, LGN) < N) LGN++;
       if (pow(2, LGN) < N) LGN++;
       LWEDC = 1 + 4 * N + 2 * N * LGN + 4 * pow(N, 2).toInt();

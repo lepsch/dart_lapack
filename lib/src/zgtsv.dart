@@ -25,7 +25,7 @@ void zgtsv(
   int J, K;
   Complex MULT, TEMP;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   INFO.value = 0;
   if (N < 0) {

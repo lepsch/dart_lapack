@@ -228,7 +228,7 @@ void dhgeqz(
   // Quick return if possible
 
   if (N <= 0) {
-    WORK[1] = 1.toDouble();
+    WORK[1] = ONE;
     return;
   }
 

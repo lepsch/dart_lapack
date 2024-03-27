@@ -96,7 +96,7 @@ void dlaed3(
       }
     }
     for (I = 1; I <= K; I++) {
-      W[I] = sign(sqrt(-W[I]), S[I]).toDouble();
+      W[I] = sign(sqrt(-W[I]), S[I]);
     }
 
     // Compute eigenvectors of the modified rank-1 modification.

@@ -30,7 +30,7 @@ void zgbequ(
   int I, J, KD;
   double BIGNUM, RCMAX, RCMIN, SMLNUM;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters
 

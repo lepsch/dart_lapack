@@ -49,7 +49,7 @@ void zpprfs(
   final ISAVE = Array<int>(3);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 
@@ -129,14 +129,14 @@ void zpprfs(
             S += CABS1(AP[IK]) * CABS1(X[I][J]);
             IK++;
           }
-          RWORK[K] += AP[KK + K - 1].toDouble().abs() * XK + S;
+          RWORK[K] += AP[KK + K - 1].real.abs() * XK + S;
           KK += K;
         }
       } else {
         for (K = 1; K <= N; K++) {
           S = ZERO;
           XK = CABS1(X[K][J]);
-          RWORK[K] += AP[KK].toDouble().abs() * XK;
+          RWORK[K] += AP[KK].real.abs() * XK;
           IK = KK + 1;
           for (I = K + 1; I <= N; I++) {
             RWORK[I] += CABS1(AP[IK]) * XK;

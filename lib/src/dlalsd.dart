@@ -194,7 +194,7 @@ void dlalsd(
 
   // Book-keeping and setting up some constants.
 
-  NLVL = log(N.toDouble() / (SMLSIZ + 1).toDouble()) ~/ log(TWO) + 1;
+  NLVL = log(N / (SMLSIZ + 1)) ~/ log(TWO) + 1;
 
   SMLSZP = SMLSIZ + 1;
 
@@ -225,7 +225,7 @@ void dlalsd(
 
   for (I = 1; I <= N; I++) {
     if (D[I].abs() < EPS) {
-      D[I] = sign(EPS, D[I]).toDouble();
+      D[I] = sign(EPS, D[I]);
     }
   }
 

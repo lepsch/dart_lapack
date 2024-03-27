@@ -110,8 +110,8 @@ void zhetri2x(
       } else {
         // 2 x 2 diagonal NNB
         T = WORK[K + 1][1].abs().toComplex();
-        AK = (A[K][K].toDouble() / T.toDouble()).toComplex();
-        AKP1 = (A[K + 1][K + 1].toDouble() / T.toDouble()).toComplex();
+        AK = (A[K][K].real / T.real).toComplex();
+        AKP1 = (A[K + 1][K + 1].real / T.real).toComplex();
         AKKP1 = WORK[K + 1][1] / T;
         D = T * (AK * AKP1 - Complex.one);
         WORK[K][INVD] = AKP1 / D;

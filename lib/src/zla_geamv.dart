@@ -31,7 +31,7 @@ void zla_geamv(
   double TEMP, SAFE1;
   int I, INFO, IY, J, JX, KX, KY, LENX, LENY;
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Test the input parameters.
 

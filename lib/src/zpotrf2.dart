@@ -50,7 +50,7 @@ void zpotrf2(
   if (N == 1) {
     // Test for non-positive-definiteness
 
-    AJJ = A[1][1].toDouble();
+    AJJ = A[1][1].real;
     if (AJJ <= ZERO || disnan(AJJ)) {
       INFO.value = 1;
       return;

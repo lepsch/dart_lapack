@@ -88,12 +88,12 @@ void dort03(
     RES1 = ZERO;
     for (I = 1; I <= K; I++) {
       LMX = idamax(N, U(I, 1).asArray(), LDU);
-      S = sign(ONE, U[I][LMX]) * sign(ONE, V[I][LMX]).toDouble();
+      S = sign(ONE, U[I][LMX]) * sign(ONE, V[I][LMX]);
       for (J = 1; J <= N; J++) {
         RES1 = max(RES1, (U[I][J] - S * V[I][J]).abs());
       }
     }
-    RES1 /= N.toDouble() * ULP;
+    RES1 /= N * ULP;
 
     // Compute orthogonality of rows of V.
 
@@ -104,12 +104,12 @@ void dort03(
     RES1 = ZERO;
     for (I = 1; I <= K; I++) {
       LMX = idamax(N, U(1, I).asArray(), 1);
-      S = sign(ONE, U[LMX][I]) * sign(ONE, V[LMX][I]).toDouble();
+      S = sign(ONE, U[LMX][I]) * sign(ONE, V[LMX][I]);
       for (J = 1; J <= N; J++) {
         RES1 = max(RES1, (U[J][I] - S * V[J][I]).abs());
       }
     }
-    RES1 /= N.toDouble() * ULP;
+    RES1 /= N * ULP;
 
     // Compute orthogonality of columns of V.
 

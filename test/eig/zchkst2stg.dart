@@ -229,7 +229,7 @@ void zchkst2stg(
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
     if (N > 0) {
-      LGN = log(N.toDouble()) ~/ log(TWO);
+      LGN = log(N) ~/ log(TWO);
       if (pow(2, LGN) < N) LGN++;
       if (pow(2, LGN) < N) LGN++;
       LWEDC = 1 + 4 * N + 2 * N * LGN + 4 * pow(N, 2).toInt();
@@ -241,7 +241,7 @@ void zchkst2stg(
       LIWEDC = 12;
     }
     NAP = (N * (N + 1)) ~/ 2;
-    ANINV = ONE / (max(1, N)).toDouble();
+    ANINV = ONE / max(1, N);
 
     if (NSIZES != 1) {
       MTYPES = min(MAXTYP, NTYPES);

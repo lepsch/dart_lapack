@@ -920,11 +920,10 @@ void ztrsyl3(
 
     // How much can the normwise largest entry be upscaled?
 
-    SCAL = max(C[1][1].toDouble().abs(), C[1][1].imaginary.abs());
+    SCAL = max(C[1][1].real.abs(), C[1][1].imaginary.abs());
     for (K = 1; K <= M; K++) {
       for (L = 1; L <= N; L++) {
-        SCAL =
-            max(SCAL, max(C[K][L].toDouble().abs(), C[K][L].imaginary.abs()));
+        SCAL = max(SCAL, max(C[K][L].real.abs(), C[K][L].imaginary.abs()));
       }
     }
 

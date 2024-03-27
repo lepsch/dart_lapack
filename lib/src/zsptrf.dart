@@ -30,7 +30,7 @@ void zsptrf(
   double ABSAKK, ALPHA, COLMAX, ROWMAX;
   Complex D11, D12, D21, D22, R1, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 

@@ -94,7 +94,7 @@ void zhgeqz(
   final C = Box(0.0);
   final S = Box(Complex.zero), CTEMP3 = Box(Complex.zero);
 
-  double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
 
   // Decode JOB, COMPQ, COMPZ
 
@@ -402,7 +402,7 @@ void zhgeqz(
             // (Drop-through is "impossible")
 
             INFO.value = 2 * N + 1;
-            WORK[1] = Complex(N.toDouble());
+            WORK[1] = N.toComplex();
             return;
           }
         }
@@ -512,7 +512,7 @@ void zhgeqz(
                       (CTEMP / TEMP.toComplex()).pow(2))
                   .sqrt();
           if (TEMP2 > ZERO) {
-            if ((X / TEMP2.toComplex()).toDouble() * Y.toDouble() +
+            if ((X / TEMP2.toComplex()).real * Y.real +
                     (X / TEMP2.toComplex()).imaginary * Y.imaginary <
                 ZERO) Y = -Y;
           }
@@ -623,7 +623,7 @@ void zhgeqz(
 
     if (exhausted) {
       INFO.value = ILAST;
-      WORK[1] = Complex(N.toDouble());
+      WORK[1] = N.toComplex();
       return;
     }
   }
@@ -657,5 +657,5 @@ void zhgeqz(
 
   // Exit (other than argument error) -- return optimal workspace size
 
-  WORK[1] = Complex(N.toDouble());
+  WORK[1] = N.toComplex();
 }

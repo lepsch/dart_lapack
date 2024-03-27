@@ -84,7 +84,7 @@ void zlagge(
         WB = WORK[1] + WA;
         zscal(M - I, Complex.one / WB, WORK(2), 1);
         WORK[1] = Complex.one;
-        TAU = (WB / WA).toDouble().toComplex();
+        TAU = (WB / WA).real.toComplex();
       }
 
       // multiply A(i:m,i:n) by random reflection from the left
@@ -105,7 +105,7 @@ void zlagge(
         WB = WORK[1] + WA;
         zscal(N - I, Complex.one / WB, WORK(2), 1);
         WORK[1] = Complex.one;
-        TAU = (WB / WA).toDouble().toComplex();
+        TAU = (WB / WA).real.toComplex();
       }
 
       // multiply A(i:m,i:n) by random reflection from the right
@@ -134,7 +134,7 @@ void zlagge(
           WB = A[KL + I][I] + WA;
           zscal(M - KL - I, Complex.one / WB, A(KL + I + 1, I).asArray(), 1);
           A[KL + I][I] = Complex.one;
-          TAU = (WB / WA).toDouble().toComplex();
+          TAU = (WB / WA).real.toComplex();
         }
 
         // apply reflection to A(kl+i:m,i+1:n) from the left
@@ -167,7 +167,7 @@ void zlagge(
           WB = A[I][KU + I] + WA;
           zscal(N - KU - I, Complex.one / WB, A(I, KU + I + 1).asArray(), LDA);
           A[I][KU + I] = Complex.one;
-          TAU = (WB / WA).toDouble().toComplex();
+          TAU = (WB / WA).real.toComplex();
         }
 
         // apply reflection to A(i+1:m,ku+i:n) from the right
@@ -204,7 +204,7 @@ void zlagge(
           WB = A[I][KU + I] + WA;
           zscal(N - KU - I, Complex.one / WB, A(I, KU + I + 1).asArray(), LDA);
           A[I][KU + I] = Complex.one;
-          TAU = (WB / WA).toDouble().toComplex();
+          TAU = (WB / WA).real.toComplex();
         }
 
         // apply reflection to A(i+1:m,ku+i:n) from the right
@@ -238,7 +238,7 @@ void zlagge(
           WB = A[KL + I][I] + WA;
           zscal(M - KL - I, Complex.one / WB, A(KL + I + 1, I).asArray(), 1);
           A[KL + I][I] = Complex.one;
-          TAU = (WB / WA).toDouble().toComplex();
+          TAU = (WB / WA).real.toComplex();
         }
 
         // apply reflection to A(kl+i:m,i+1:n) from the left

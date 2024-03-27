@@ -63,7 +63,7 @@ void zlaic1(
         C.value = GAMMA / S1.toComplex();
         TMP = (S.value * S.value.conjugate() + C.value * C.value.conjugate())
             .sqrt()
-            .toDouble();
+            .real;
         S.value /= TMP.toComplex();
         C.value /= TMP.toComplex();
         SESTPR.value = S1 * TMP;
@@ -117,16 +117,14 @@ void zlaic1(
       C.value = (ZETA1 * ZETA1).toComplex();
       if (B > ZERO) {
         T = (C.value / (B.toComplex() + ((B * B).toComplex() + C.value).sqrt()))
-            .toDouble();
+            .real;
       } else {
-        T = (((B * B).toComplex() + C.value).sqrt() - B.toComplex()).toDouble();
+        T = (((B * B).toComplex() + C.value).sqrt() - B.toComplex()).real;
       }
 
       SINE = -(ALPHA / ABSEST.toComplex()) / T.toComplex();
       COSINE = -(GAMMA / ABSEST.toComplex()) / (ONE + T).toComplex();
-      TMP = (SINE * SINE.conjugate() + COSINE * COSINE.conjugate())
-          .sqrt()
-          .toDouble();
+      TMP = (SINE * SINE.conjugate() + COSINE * COSINE.conjugate()).sqrt().real;
 
       S.value = SINE / TMP.toComplex();
       C.value = COSINE / TMP.toComplex();
@@ -152,7 +150,7 @@ void zlaic1(
       C.value = COSINE / S1.toComplex();
       TMP = (S.value * S.value.conjugate() + C.value * C.value.conjugate())
           .sqrt()
-          .toDouble();
+          .real;
       S.value /= TMP.toComplex();
       C.value /= TMP.toComplex();
       return;
@@ -212,7 +210,7 @@ void zlaic1(
         T = (C.value /
                 (B.toComplex() +
                     ((B * B).toComplex() - C.value).sqrt().abs().toComplex()))
-            .toDouble();
+            .real;
         SINE = (ALPHA / ABSEST.toComplex()) / (ONE - T).toComplex();
         COSINE = -(GAMMA / ABSEST.toComplex()) / T.toComplex();
         SESTPR.value = sqrt(T + FOUR * EPS * EPS * NORMA) * ABSEST;
@@ -224,18 +222,15 @@ void zlaic1(
         if (B >= ZERO) {
           T = (-C.value /
                   (B.toComplex() + ((B * B).toComplex() + C.value).sqrt()))
-              .toDouble();
+              .real;
         } else {
-          T = (B.toComplex() - ((B * B).toComplex() + C.value).sqrt())
-              .toDouble();
+          T = (B.toComplex() - ((B * B).toComplex() + C.value).sqrt()).real;
         }
         SINE = -(ALPHA / ABSEST.toComplex()) / T.toComplex();
         COSINE = -(GAMMA / ABSEST.toComplex()) / (ONE + T).toComplex();
         SESTPR.value = sqrt(ONE + T + FOUR * EPS * EPS * NORMA) * ABSEST;
       }
-      TMP = (SINE * SINE.conjugate() + COSINE * COSINE.conjugate())
-          .sqrt()
-          .toDouble();
+      TMP = (SINE * SINE.conjugate() + COSINE * COSINE.conjugate()).sqrt().real;
       S.value = SINE / TMP.toComplex();
       C.value = COSINE / TMP.toComplex();
       return;

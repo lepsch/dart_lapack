@@ -271,7 +271,7 @@ void zdrvls(
 
                   if (NCOLS > 0) {
                     zlarnv(2, ISEED, NCOLS * NRHS, WORK);
-                    zdscal(NCOLS * NRHS, ONE / NCOLS.toDouble(), WORK, 1);
+                    zdscal(NCOLS * NRHS, ONE / NCOLS, WORK, 1);
                   }
                   zgemm(
                       TRANS,
@@ -392,7 +392,7 @@ void zdrvls(
 
                   if (NCOLS > 0) {
                     zlarnv(2, ISEED, NCOLS * NRHS, WORK);
-                    zdscal(NCOLS * NRHS, ONE / NCOLS.toDouble(), WORK, 1);
+                    zdscal(NCOLS * NRHS, ONE / NCOLS, WORK, 1);
                   }
                   zgemm(
                       TRANS,
@@ -824,9 +824,8 @@ void zdrvls(
 
               if (RANK.value > 0) {
                 daxpy(MNMIN, -ONE, COPYS, 1, S, 1);
-                RESULT[15] = dasum(MNMIN, S, 1) /
-                    dasum(MNMIN, COPYS, 1) /
-                    (EPS * MNMIN.toDouble());
+                RESULT[15] =
+                    dasum(MNMIN, S, 1) / dasum(MNMIN, COPYS, 1) / (EPS * MNMIN);
               } else {
                 RESULT[15] = ZERO;
               }

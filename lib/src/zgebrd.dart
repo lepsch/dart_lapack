@@ -47,7 +47,7 @@ void zgebrd(
     NB = max(1, ilaenv(1, 'ZGEBRD', ' ', M, N, -1, -1));
     LWKOPT = (M + N) * NB;
   }
-  WORK[1] = LWKOPT.toDouble().toComplex();
+  WORK[1] = LWKOPT.toComplex();
 
   LQUERY = (LWORK == -1);
   if (M < 0) {

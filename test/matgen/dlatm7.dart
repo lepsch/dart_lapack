@@ -107,9 +107,9 @@ void dlatm7(
       D[1] = ONE;
       if (N > 1) {
         TEMP = ONE / COND;
-        ALPHA = (ONE - TEMP) / (N - 1).toDouble();
+        ALPHA = (ONE - TEMP) / (N - 1);
         for (I = 2; I <= N; I++) {
-          D[I] = (N - I).toDouble() * ALPHA + TEMP;
+          D[I] = (N - I) * ALPHA + TEMP;
         }
       }
       break;

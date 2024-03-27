@@ -18,7 +18,7 @@ void zlaqr1(
   Complex H21S, H31S;
   double S;
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Quick return if possible
 

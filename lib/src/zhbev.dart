@@ -72,9 +72,9 @@ void zhbev(
 
   if (N == 1) {
     if (LOWER) {
-      W[1] = AB[1][1].toDouble();
+      W[1] = AB[1][1].real;
     } else {
-      W[1] = AB[KD + 1][1].toDouble();
+      W[1] = AB[KD + 1][1].real;
     }
     if (WANTZ) Z[1][1] = Complex.one;
     return;

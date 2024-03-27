@@ -91,7 +91,7 @@ void zlaqr0(
   final ZDUM = Matrix<Complex>(1, 1);
   final INF = Box(0), LD = Box(0), LS = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   INFO.value = 0;
 
@@ -153,7 +153,7 @@ void zlaqr0(
     // ==== Quick return in case of workspace query. ====
 
     if (LWORK == -1) {
-      WORK[1] = Complex(LWKOPT.toDouble(), 0);
+      WORK[1] = LWKOPT.toComplex();
       return;
     }
 
@@ -501,5 +501,5 @@ void zlaqr0(
 
   // ==== Return the optimal value of LWORK. ====
 
-  WORK[1] = Complex(LWKOPT.toDouble(), 0);
+  WORK[1] = LWKOPT.toComplex();
 }

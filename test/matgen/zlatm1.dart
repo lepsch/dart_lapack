@@ -27,7 +27,7 @@ void zlatm1(
 
   const ONE = 1.0;
   int I;
-  double ALPHA, TEMP;
+  double TEMP;
   Complex CTEMP;
 
   // Decode and Test the input parameters. Initialize flags & seed.
@@ -88,7 +88,7 @@ void zlatm1(
 
         D[1] = Complex.one;
         if (N > 1) {
-          ALPHA = pow(COND, (-ONE / (N - 1).toDouble())).toDouble();
+          final ALPHA = pow(COND, (-ONE / (N - 1)));
           for (I = 2; I <= N; I++) {
             D[I] = pow(ALPHA, I - 1).toComplex();
           }
@@ -102,9 +102,9 @@ void zlatm1(
         D[1] = Complex.one;
         if (N > 1) {
           TEMP = ONE / COND;
-          ALPHA = (ONE - TEMP) / (N - 1).toDouble();
+          final ALPHA = (ONE - TEMP) / (N - 1);
           for (I = 2; I <= N; I++) {
-            D[I] = ((N - I).toDouble() * ALPHA + TEMP).toComplex();
+            D[I] = ((N - I) * ALPHA + TEMP).toComplex();
           }
         }
         break;
@@ -113,7 +113,7 @@ void zlatm1(
 
         // Randomly distributed D values on ( 1/COND , 1):
 
-        ALPHA = log(ONE / COND);
+        final ALPHA = log(ONE / COND);
         for (I = 1; I <= N; I++) {
           D[I] = exp(ALPHA * dlaran(ISEED)).toComplex();
         }

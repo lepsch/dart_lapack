@@ -270,7 +270,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     // Calculating the difference between Z**SVXX's X and the true X.
     for (var I = 1; I <= N; I++) {
       for (var J = 1; J <= NRHS; J++) {
-        DIFF[I][J] = (X[I][J] - INVHILB[I][J]).toDouble();
+        DIFF[I][J] = (X[I][J] - INVHILB[I][J]).real;
       }
     }
 

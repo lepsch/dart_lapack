@@ -331,7 +331,7 @@ void dggbal(
         KOUNT++;
         SUM += WORK[J];
       }
-      WORK[I + 2 * N] = KOUNT.toDouble() * WORK[I + N] + SUM;
+      WORK[I + 2 * N] = KOUNT * WORK[I + N] + SUM;
     }
 
     for (J = ILO.value; J <= IHI.value; J++) {
@@ -346,7 +346,7 @@ void dggbal(
         KOUNT++;
         SUM += WORK[I + N];
       }
-      WORK[J + 3 * N] = KOUNT.toDouble() * WORK[J] + SUM;
+      WORK[J + 3 * N] = KOUNT * WORK[J] + SUM;
     }
 
     SUM = ddot(NR, WORK(ILO.value + N), 1, WORK(ILO.value + 2 * N), 1) +

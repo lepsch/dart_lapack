@@ -99,7 +99,7 @@ void zunt03(
         RES1 = max(RES1, (U[I][J] - S * V[I][J]).abs());
       }
     }
-    RES1 /= N.toDouble() * ULP;
+    RES1 /= N * ULP;
 
     // Compute orthogonality of rows of V.
 
@@ -125,7 +125,7 @@ void zunt03(
         RES1 = max(RES1, (U[J][I] - S * V[J][I]).abs());
       }
     }
-    RES1 /= N.toDouble() * ULP;
+    RES1 /= N * ULP;
 
     // Compute orthogonality of columns of V.
 

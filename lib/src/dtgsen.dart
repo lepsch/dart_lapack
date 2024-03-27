@@ -420,7 +420,7 @@ void dtgsen(
           DIF[1] = DSCALE.value / DIF[1];
 
           // 1-norm-based estimate of Difl.
- 
+
           while (true) {
             dlacn2(MN2, WORK(MN2 + 1), WORK, IWORK, DIF.box(2), KASE, ISAVE);
             if (KASE.value != 0) {

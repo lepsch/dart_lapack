@@ -58,8 +58,7 @@ void zlatm6(
     A[1][1] = Complex(RONE, RONE);
     A[2][2] = A[1][1].conjugate();
     A[3][3] = Complex.one;
-    A[4][4] = Complex(
-        (Complex.one + ALPHA).toDouble(), (Complex.one + BETA).toDouble());
+    A[4][4] = Complex((Complex.one + ALPHA).real, (Complex.one + BETA).real);
     A[5][5] = A[4][4].conjugate();
   }
 

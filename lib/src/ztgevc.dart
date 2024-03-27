@@ -68,7 +68,7 @@ void ztgevc(
       XMAX;
   Complex BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB;
 
-  double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
 
   // Decode and Test the input parameters
 
@@ -205,7 +205,7 @@ void ztgevc(
       if (ILCOMP) {
         IEIG++;
 
-        if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].toDouble().abs() <= SAFMIN) {
+        if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].real.abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
 
           for (JR = 1; JR <= N; JR++) {
@@ -222,9 +222,9 @@ void ztgevc(
 
         TEMP = ONE /
             max(ABS1(S[JE][JE]) * ASCALE,
-                max(P[JE][JE].toDouble().abs() * BSCALE, SAFMIN));
+                max(P[JE][JE].real.abs() * BSCALE, SAFMIN));
         SALPHA = TEMP.toComplex() * S[JE][JE] * ASCALE.toComplex();
-        SBETA = (TEMP * P[JE][JE].toDouble()) * BSCALE;
+        SBETA = (TEMP * P[JE][JE].real) * BSCALE;
         ACOEFF = SBETA * ASCALE;
         BCOEFF = SALPHA * BSCALE.toComplex();
 
@@ -361,7 +361,7 @@ void ztgevc(
       if (ILCOMP) {
         IEIG--;
 
-        if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].toDouble().abs() <= SAFMIN) {
+        if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].real.abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
 
           for (JR = 1; JR <= N; JR++) {
@@ -378,9 +378,9 @@ void ztgevc(
 
         TEMP = ONE /
             max(ABS1(S[JE][JE]) * ASCALE,
-                max(P[JE][JE].toDouble().abs() * BSCALE, SAFMIN));
+                max(P[JE][JE].real.abs() * BSCALE, SAFMIN));
         SALPHA = (TEMP.toComplex() * S[JE][JE]) * ASCALE.toComplex();
-        SBETA = (TEMP * P[JE][JE].toDouble()) * BSCALE;
+        SBETA = (TEMP * P[JE][JE].real) * BSCALE;
         ACOEFF = SBETA * ASCALE;
         BCOEFF = SALPHA * BSCALE.toComplex();
 

@@ -191,7 +191,7 @@ void zhet21(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+      RESULT[1] = min(WNORM / ANORM, N) / (N * ULP);
     }
   }
 
@@ -208,7 +208,7 @@ void zhet21(
     }
 
     RESULT[2] =
-        min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N.toDouble()) /
+        min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N) /
             (N * ULP);
   }
 }

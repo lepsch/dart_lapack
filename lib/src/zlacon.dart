@@ -30,7 +30,7 @@ void zlacon(
   SAFMIN = dlamch('Safe minimum');
   if (KASE.value == 0) {
     for (I = 1; I <= N; I++) {
-      X[I] = Complex(ONE / N.toDouble());
+      X[I] = Complex(ONE / N);
     }
     KASE.value = 1;
     _JUMP = 1;
@@ -53,7 +53,7 @@ void zlacon(
       for (I = 1; I <= N; I++) {
         ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].real / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
@@ -95,7 +95,7 @@ void zlacon(
       for (I = 1; I <= N; I++) {
         ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].real / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
@@ -132,7 +132,7 @@ void zlacon(
       // ................ ENTRY   (_JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-      TEMP = TWO * (dzsum1(N, X, 1) / (3 * N).toDouble());
+      TEMP = TWO * (dzsum1(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         zcopy(N, X, 1, V, 1);
         EST.value = TEMP;

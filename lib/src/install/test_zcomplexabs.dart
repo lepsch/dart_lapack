@@ -60,10 +60,10 @@ void main() {
   blueMax = pow(b, ((Max - m + 1) * 0.5).floor()).toDouble();
 
   // .. Vector X ..
-  X[1] = tiny(0.0) * pow(b, (1 - m).toDouble());
+  X[1] = tiny(0.0) * pow(b, 1 - m);
   X[2] = tiny(0.0);
   X[3] = huge(0.0);
-  X[4] = pow(b, (Max - 1).toDouble()).toDouble();
+  X[4] = pow(b, Max - 1).toDouble();
 
   // .. Then modify X using the step ..
   stepX[1] = 2.0;

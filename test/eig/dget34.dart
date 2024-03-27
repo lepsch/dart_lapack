@@ -121,7 +121,7 @@ void dget34(
                 T[2][3] = VAL[IC12];
                 T[3][1] = ZERO;
                 T[3][2] = -VAL[IC21];
-                T[3][3] = VAL[IC11] * IC22.toDouble();
+                T[3][3] = VAL[IC11] * IC22;
                 TNRM = max(
                     T[1][1].abs(),
                     max(
@@ -178,7 +178,7 @@ void dget34(
                 T[1][2] = VAL[IA12];
                 T[1][3] = -TWO * VAL[IB];
                 T[2][1] = -VAL[IA21];
-                T[2][2] = VAL[IA11] * IA22.toDouble();
+                T[2][2] = VAL[IA11] * IA22;
                 T[2][3] = VAL[IB];
                 T[3][1] = ZERO;
                 T[3][2] = ZERO;
@@ -244,7 +244,7 @@ void dget34(
                       T[1][3] = -TWO * VAL[IB];
                       T[1][4] = HALF * VAL[IB];
                       T[2][1] = -T[1][2] * VAL[IA21];
-                      T[2][2] = VAL[IA11] * IA22.toDouble() * VM[IAM];
+                      T[2][2] = VAL[IA11] * IA22 * VM[IAM];
                       T[2][3] = VAL[IB];
                       T[2][4] = THREE * VAL[IB];
                       T[3][1] = ZERO;
@@ -254,7 +254,7 @@ void dget34(
                       T[4][1] = ZERO;
                       T[4][2] = ZERO;
                       T[4][3] = -T[3][4] * VAL[IC21] * VAL[ICM].abs();
-                      T[4][4] = VAL[IC11] * IC22.toDouble() * VAL[ICM].abs();
+                      T[4][4] = VAL[IC11] * IC22 * VAL[ICM].abs();
                       TNRM = ZERO;
                       for (I = 1; I <= 4; I++) {
                         for (J = 1; J <= 4; J++) {

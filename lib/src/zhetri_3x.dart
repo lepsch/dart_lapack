@@ -106,13 +106,13 @@ void zhetri_3x(
     while (K <= N) {
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal NNB
-        WORK[K][INVD] = (ONE / A[K][K].toDouble()).toComplex();
+        WORK[K][INVD] = (ONE / A[K][K].real).toComplex();
         WORK[K][INVD + 1] = Complex.zero;
       } else {
         // 2 x 2 diagonal NNB
         T = WORK[K + 1][1].abs();
-        AK = A[K][K].toDouble() / T;
-        AKP1 = A[K + 1][K + 1].toDouble() / T;
+        AK = A[K][K].real / T;
+        AKP1 = A[K + 1][K + 1].real / T;
         AKKP1 = WORK[K + 1][1] / T.toComplex();
         D = T.toComplex() * (AK * AKP1 - ONE).toComplex();
         WORK[K][INVD] = AKP1.toComplex() / D;
@@ -280,13 +280,13 @@ void zhetri_3x(
     while (K >= 1) {
       if (IPIV[K] > 0) {
         // 1 x 1 diagonal NNB
-        WORK[K][INVD] = (ONE / A[K][K].toDouble()).toComplex();
+        WORK[K][INVD] = (ONE / A[K][K].real).toComplex();
         WORK[K][INVD + 1] = Complex.zero;
       } else {
         // 2 x 2 diagonal NNB
         T = WORK[K - 1][1].abs();
-        AK = A[K - 1][K - 1].toDouble() / T;
-        AKP1 = A[K][K].toDouble() / T;
+        AK = A[K - 1][K - 1].real / T;
+        AKP1 = A[K][K].real / T;
         AKKP1 = WORK[K - 1][1] / T.toComplex();
         D = T.toComplex() * (AK * AKP1 - ONE).toComplex();
         WORK[K - 1][INVD] = AKP1.toComplex() / D;

@@ -108,7 +108,7 @@ void dlagts(
           TEMP = Y[K];
         }
         AK = A[K];
-        PERT = sign(TOL.value, AK).toDouble();
+        PERT = sign(TOL.value, AK);
         while (true) {
           ABSAK = AK.abs();
           if (ABSAK < ONE) {
@@ -172,7 +172,7 @@ void dlagts(
           TEMP = Y[K];
         }
         AK = A[K];
-        PERT = sign(TOL.value, AK).toDouble();
+        PERT = sign(TOL.value, AK);
         while (true) {
           ABSAK = AK.abs();
           if (ABSAK < ONE) {

@@ -71,7 +71,7 @@ void zungbr(
         }
       }
     }
-    LWKOPT = WORK[1].toDouble().toInt();
+    LWKOPT = WORK[1].real.toInt();
     LWKOPT = max(LWKOPT, MN);
   }
 

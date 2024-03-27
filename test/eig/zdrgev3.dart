@@ -218,7 +218,7 @@ void zdrgev3(
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
     N = NN[JSIZE];
     N1 = max(1, N);
-    RMAGN[2] = SAFMAX * ULP / N1.toDouble();
+    RMAGN[2] = SAFMAX * ULP / N1;
     RMAGN[3] = SAFMIN * ULPINV * N1;
 
     if (NSIZES != 1) {
@@ -329,11 +329,11 @@ void zdrgev3(
               }
               zlarfg(
                   N + 1 - JC, Q(JC, JC), Q(JC + 1, JC).asArray(), 1, WORK(JC));
-              WORK[2 * N + JC] = sign(ONE, Q[JC][JC].toDouble()).toComplex();
+              WORK[2 * N + JC] = sign(ONE, Q[JC][JC].real).toComplex();
               Q[JC][JC] = Complex.one;
               zlarfg(N + 1 - JC, Z(JC, JC), Z(JC + 1, JC).asArray(), 1,
                   WORK(N + JC));
-              WORK[3 * N + JC] = sign(ONE, Z[JC][JC].toDouble()).toComplex();
+              WORK[3 * N + JC] = sign(ONE, Z[JC][JC].real).toComplex();
               Z[JC][JC] = Complex.one;
             }
             CTEMP = zlarnd(3, ISEED);

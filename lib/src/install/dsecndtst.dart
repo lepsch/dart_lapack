@@ -54,7 +54,7 @@ void main() {
   // to dsecnd.
 
   print(' Including dsecnd, time        = ${(T2 - T1).g10_3} seconds');
-  AVG = ((T2 - T1) - TNOSEC) * 1000.0e+00 / ITS.toDouble();
+  AVG = ((T2 - T1) - TNOSEC) * 1000.0e+00 / ITS;
   if (AVG > 0.0) {
     print(' Average time for dsecnd       = ${AVG.g10_3} milliseconds');
   }

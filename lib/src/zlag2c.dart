@@ -23,8 +23,8 @@ void zlag2c(
   RMAX = slamch('O');
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      if ((A[I][J].toDouble() < -RMAX) ||
-          (A[I][J].toDouble() > RMAX) ||
+      if ((A[I][J].real < -RMAX) ||
+          (A[I][J].real > RMAX) ||
           (A[I][J].imaginary < -RMAX) ||
           (A[I][J].imaginary > RMAX)) {
         INFO.value = 1;

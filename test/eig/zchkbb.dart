@@ -192,7 +192,7 @@ void zchkbb(
     M = MVAL[JSIZE];
     N = NVAL[JSIZE];
     //  MNMIN = min( M, N );
-    AMNINV = ONE / (max(1, max(M, N))).toDouble();
+    AMNINV = ONE / max(1, max(M, N));
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
       K = KK[JWIDTH];

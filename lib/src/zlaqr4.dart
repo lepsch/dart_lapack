@@ -91,7 +91,7 @@ void zlaqr4(
   final ZDUM = Matrix<Complex>(1, 1);
   final LD = Box(0), LS = Box(0), INF = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   INFO.value = 0;
 

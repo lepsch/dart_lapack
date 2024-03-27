@@ -213,9 +213,7 @@ void zdrvac(
             // (Cf. the linear solver testing routines)
 
             if ((THRESH <= 0.0e+00) ||
-                ((ITER.value >= 0) &&
-                    (N > 0) &&
-                    (RESULT[1] >= sqrt(N.toDouble()))) ||
+                ((ITER.value >= 0) && (N > 0) && (RESULT[1] >= sqrt(N))) ||
                 ((ITER.value < 0) && (RESULT[1] >= THRESH))) {
               if (NFAIL == 0 && NERRS.value == 0) {
                 NOUT.println('\n ZPO:  positive definite dense matrices');

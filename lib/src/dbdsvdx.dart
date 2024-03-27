@@ -146,7 +146,7 @@ void dbdsvdx(
       }
     }
     if (WANTZ) {
-      Z[1][1] = sign(ONE, D[1]).toDouble();
+      Z[1][1] = sign(ONE, D[1]);
       Z[2][1] = ONE;
     }
     return;
@@ -183,7 +183,7 @@ void dbdsvdx(
       if (SMIN == ZERO) break;
     }
   }
-  SMIN /= sqrt(N.toDouble());
+  SMIN /= sqrt(N);
   THRESH = TOL * SMIN;
 
   // Check for zeros in D and E (splits), i.e. submatrices.

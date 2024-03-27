@@ -66,7 +66,7 @@ void dlaein(
   // GROWTO is the threshold used in the acceptance test for an
   // eigenvector.
 
-  ROOTN = sqrt(N.toDouble());
+  ROOTN = sqrt(N);
   GROWTO = TENTH / ROOTN;
   NRMSML = max(ONE, EPS3 * ROOTN) * SMLNUM;
 

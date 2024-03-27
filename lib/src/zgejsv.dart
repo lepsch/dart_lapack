@@ -543,7 +543,7 @@ void zgejsv(
   // overflow. It is possible that this scaling pushes the smallest
   // column norm left from the underflow threshold (extreme case).
 
-  SCALEM = ONE / sqrt(M.toDouble() * N.toDouble());
+  SCALEM = ONE / sqrt(M * N);
   NOSCAL = true;
   GOSCAL = true;
   for (p = 1; p <= N; p++) {
@@ -777,8 +777,7 @@ void zgejsv(
   // >> change in the April 2016 update: allow bigger range, i.e. the
   // largest column is allowed up to BIG/N and ZGESVJ will do the rest.
   BIG1 = sqrt(BIG);
-  TEMP1.value = sqrt(BIG / N.toDouble());
-  // TEMP1.value  = BIG/N.toDouble()
+  TEMP1.value = sqrt(BIG / N);
 
   dlascl('G', 0, 0, AAPP.value, TEMP1.value, N, 1, SVA.asMatrix(N), N, IERR);
   if (AAQQ.value > (AAPP.value * SFMIN)) {
@@ -884,7 +883,7 @@ void zgejsv(
     // sigma_i < N*EPSLN*||A|| are flushed to zero. This is an
     // aggressive enforcement of lower numerical rank by introducing a
     // backward error of the order of N*EPSLN*||A||.
-    TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+    TEMP1.value = sqrt(N) * EPSLN;
     for (p = 2; p <= N; p++) {
       if (A[p][p].abs() >= (TEMP1.value * A[1][1].abs())) {
         NR++;
@@ -928,7 +927,7 @@ void zgejsv(
       TEMP1.value = A[p][p].abs() / SVA[IWORK[p]];
       MAXPRJ = min(MAXPRJ, TEMP1.value);
     }
-    if (pow(MAXPRJ, 2) >= ONE - N.toDouble() * EPSLN) ALMORT = true;
+    if (pow(MAXPRJ, 2) >= ONE - N * EPSLN) ALMORT = true;
   }
 
   SCONDA = -ONE;
@@ -1015,7 +1014,7 @@ void zgejsv(
     if (!ALMORT) {
       if (L2PERT) {
         // XSC.value = sqrt(SMALL)
-        XSC.value = EPSLN / N.toDouble();
+        XSC.value = EPSLN / N;
         for (q = 1; q <= NR; q++) {
           CTEMP = Complex(XSC.value * A[q][q].abs(), ZERO);
           for (p = 1; p <= N; p++) {
@@ -1046,7 +1045,7 @@ void zgejsv(
     // to drown denormals
     if (L2PERT) {
       // XSC.value = sqrt(SMALL)
-      XSC.value = EPSLN / N.toDouble();
+      XSC.value = EPSLN / N;
       for (q = 1; q <= NR; q++) {
         CTEMP = Complex(XSC.value * A[q][q].abs(), ZERO);
         for (p = 1; p <= NR; p++) {
@@ -1238,10 +1237,10 @@ void zgejsv(
         CONDR1 = ONE / sqrt(TEMP1.value);
         // .. here need a second opinion on the condition number
         // .. then assume worst case scenario
-        // R1 is OK for inverse <=> CONDR1 < N.toDouble()
-        // more conservative    <=> CONDR1 < sqrt(N.toDouble())
+        // R1 is OK for inverse <=> CONDR1 < N
+        // more conservative    <=> CONDR1 < sqrt(N)
 
-        COND_OK = sqrt(sqrt(NR.toDouble()));
+        COND_OK = sqrt(sqrt(NR));
         // [TP]       COND_OK is a tuning parameter.
 
         if (CONDR1 < COND_OK) {
@@ -1582,7 +1581,7 @@ void zgejsv(
         // first QRF. Also, scale the columns to make them unit in
         // Euclidean norm. This applies to all cases.
 
-        TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(N) * EPSLN;
         for (q = 1; q <= N; q++) {
           for (p = 1; p <= N; p++) {
             CWORK[2 * N + N * NR + NR + IWORK[p]] = V[p][q];
@@ -1616,7 +1615,7 @@ void zgejsv(
             LWORK - N, IERR);
 
         // The columns of U are normalized. The cost is O(M*N) flops.
-        TEMP1.value = sqrt(M.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(M) * EPSLN;
         for (p = 1; p <= NR; p++) {
           XSC.value = ONE / dznrm2(M, U(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
@@ -1664,7 +1663,7 @@ void zgejsv(
         for (p = 1; p <= N; p++) {
           zcopy(N, CWORK(N + p), N, V(IWORK[p], 1).asArray(), LDV);
         }
-        TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(N) * EPSLN;
         for (p = 1; p <= N; p++) {
           XSC.value = ONE / dznrm2(N, V(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
@@ -1686,7 +1685,7 @@ void zgejsv(
         }
         zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N + 1),
             LWORK - N, IERR);
-        TEMP1.value = sqrt(M.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(M) * EPSLN;
         for (p = 1; p <= N1; p++) {
           XSC.value = ONE / dznrm2(M, U(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
@@ -1798,7 +1797,7 @@ void zgejsv(
       // first QRF. Also, scale the columns to make them unit in
       // Euclidean norm. This applies to all cases.
 
-      TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+      TEMP1.value = sqrt(N) * EPSLN;
       for (q = 1; q <= N; q++) {
         for (p = 1; p <= N; p++) {
           CWORK[2 * N + N * NR + NR + IWORK[p]] = V[p][q];

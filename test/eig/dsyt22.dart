@@ -83,7 +83,7 @@ void dsyt22(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, M * ANORM) / ANORM) / (M * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, M.toDouble()) / (M * ULP);
+      RESULT[1] = min(WNORM / ANORM, M) / (M * ULP);
     }
   }
 

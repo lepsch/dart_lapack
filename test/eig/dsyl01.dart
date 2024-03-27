@@ -198,8 +198,8 @@ void dsyl01(
                 }
                 dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
                     -SCALE.value * RMUL, CC, MAXM);
-                dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
-                    MAXN, ONE, CC, MAXM);
+                dgemm('N', TRANB, M, N, N, ISGN * RMUL, X, MAXM, B, MAXN, ONE,
+                    CC, MAXM);
                 var RES1 = dlange('M', M, N, CC, MAXM, DUM);
                 var RES = RES1 /
                     max(SMLNUM,
@@ -223,8 +223,8 @@ void dsyl01(
                 }
                 dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
                     -SCALE3.value * RMUL, CC, MAXM);
-                dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
-                    MAXN, ONE, CC, MAXM);
+                dgemm('N', TRANB, M, N, N, ISGN * RMUL, X, MAXM, B, MAXN, ONE,
+                    CC, MAXM);
                 RES1 = dlange('M', M, N, CC, MAXM, DUM);
                 RES = RES1 /
                     max(SMLNUM,

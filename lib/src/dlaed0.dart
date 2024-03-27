@@ -122,7 +122,7 @@ void dlaed0(
     // Set up workspaces for eigenvalues only/accumulate new vectors
     // routine
 
-    TEMP = log(N.toDouble()) / log(TWO);
+    TEMP = log(N) / log(TWO);
     LGN = TEMP.toInt();
     if (pow(2, LGN) < N) LGN++;
     if (pow(2, LGN) < N) LGN++;

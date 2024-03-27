@@ -33,7 +33,7 @@ void zhetf2(
   double ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
   Complex D12, D21, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 
@@ -68,7 +68,7 @@ void zhetf2(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = A[K][K].toDouble().abs();
+      ABSAKK = A[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -113,7 +113,7 @@ void zhetf2(
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (A[IMAX][IMAX].toDouble().abs() >= ALPHA * ROWMAX) {
+          } else if (A[IMAX][IMAX].real.abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -141,7 +141,7 @@ void zhetf2(
             A[KP][J] = T;
           }
           A[KP][KK] = A[KP][KK].conjugate();
-          R1 = A[KK][KK].toDouble();
+          R1 = A[KK][KK].real;
           A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
           if (KSTEP == 2) {
@@ -168,7 +168,7 @@ void zhetf2(
 
           // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
-          R1 = ONE / A[K][K].toDouble();
+          R1 = ONE / A[K][K].real;
           zher(UPLO, K - 1, -R1, A(1, K).asArray(), 1, A, LDA);
 
           // Store U(k) in column k
@@ -188,9 +188,9 @@ void zhetf2(
           //    = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
 
           if (K > 2) {
-            D = dlapy2(A[K - 1][K].toDouble(), A[K - 1][K].imaginary);
-            D22 = A[K - 1][K - 1].toDouble() / D;
-            D11 = A[K][K].toDouble() / D;
+            D = dlapy2(A[K - 1][K].real, A[K - 1][K].imaginary);
+            D22 = A[K - 1][K - 1].real / D;
+            D11 = A[K][K].real / D;
             TT = ONE / (D11 * D22 - ONE);
             D12 = A[K - 1][K] / D.toComplex();
             D = TT / D;
@@ -238,7 +238,7 @@ void zhetf2(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = A[K][K].toDouble().abs();
+      ABSAKK = A[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -283,7 +283,7 @@ void zhetf2(
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (A[IMAX][IMAX].toDouble().abs() >= ALPHA * ROWMAX) {
+          } else if (A[IMAX][IMAX].real.abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -314,7 +314,7 @@ void zhetf2(
             A[KP][J] = T;
           }
           A[KP][KK] = A[KP][KK].conjugate();
-          R1 = A[KK][KK].toDouble();
+          R1 = A[KK][KK].real;
           A[KK][KK] = A[KP][KP].real.toComplex();
           A[KP][KP] = R1.toComplex();
           if (KSTEP == 2) {
@@ -342,7 +342,7 @@ void zhetf2(
 
             // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
-            R1 = ONE / A[K][K].toDouble();
+            R1 = ONE / A[K][K].real;
             zher(UPLO, N - K, -R1, A(K + 1, K).asArray(), 1, A(K + 1, K + 1),
                 LDA);
 
@@ -363,8 +363,8 @@ void zhetf2(
             // columns of L
 
             D = dlapy2(A[K + 1][K].real, A[K + 1][K].imaginary);
-            D11 = A[K + 1][K + 1].toDouble() / D;
-            D22 = A[K][K].toDouble() / D;
+            D11 = A[K + 1][K + 1].real / D;
+            D22 = A[K][K].real / D;
             TT = ONE / (D11 * D22 - ONE);
             D21 = A[K + 1][K] / D.toComplex();
             D = TT / D;

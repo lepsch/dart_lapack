@@ -54,7 +54,7 @@ void zgesc2(
   if (TWO * SMLNUM * RHS[I].abs() > A[N][N].abs()) {
     TEMP = Complex(ONE / TWO, ZERO) / RHS[I].abs().toComplex();
     zscal(N, TEMP, RHS(1), 1);
-    SCALE.value *= TEMP.toDouble();
+    SCALE.value *= TEMP.real;
   }
   for (I = N; I >= 1; I--) {
     TEMP = Complex(ONE, ZERO) / A[I][I];

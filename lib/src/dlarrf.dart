@@ -103,7 +103,7 @@ void dlarrf(
 
   // Compute the average gap length of the cluster
   CLWDTH = (W[CLEND] - W[CLSTRT]).abs() + WERR[CLEND] + WERR[CLSTRT];
-  AVGAP = CLWDTH / (CLEND - CLSTRT).toDouble();
+  AVGAP = CLWDTH / (CLEND - CLSTRT);
   MINGAP = min(CLGAPL, CLGAPR);
   // Initial values for shifts to both ends of cluster
   LSIGMA = min(W[CLSTRT], W[CLEND]) - WERR[CLSTRT];
@@ -124,8 +124,8 @@ void dlarrf(
 
   S = dlamch('S');
   SMLGROWTH = ONE / S;
-  FAIL = (N - 1).toDouble() * MINGAP / (SPDIAM * EPS);
-  FAIL2 = (N - 1).toDouble() * MINGAP / (SPDIAM * sqrt(EPS));
+  FAIL = (N - 1) * MINGAP / (SPDIAM * EPS);
+  FAIL2 = (N - 1) * MINGAP / (SPDIAM * sqrt(EPS));
   BESTSHIFT = LSIGMA;
 
   // while (KTRY <= KTRYMAX)

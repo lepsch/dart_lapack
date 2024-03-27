@@ -76,7 +76,7 @@ void dlatm5(
 
     for (I = 1; I <= M; I++) {
       for (J = 1; J <= N; J++) {
-        R[I][J] = (HALF - sin((I / J).toDouble())) * TWENTY;
+        R[I][J] = (HALF - sin(I / J)) * TWENTY;
         L[I][J] = R[I][J];
       }
     }
@@ -84,8 +84,8 @@ void dlatm5(
     for (I = 1; I <= M; I++) {
       for (J = 1; J <= M; J++) {
         if (I <= J) {
-          A[I][J] = (HALF - sin(I.toDouble())) * TWO;
-          D[I][J] = (HALF - sin((I * J).toDouble())) * TWO;
+          A[I][J] = (HALF - sin(I)) * TWO;
+          D[I][J] = (HALF - sin(I * J)) * TWO;
         } else {
           A[I][J] = ZERO;
           D[I][J] = ZERO;
@@ -96,8 +96,8 @@ void dlatm5(
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
         if (I <= J) {
-          B[I][J] = (HALF - sin((I + J).toDouble())) * TWO;
-          E[I][J] = (HALF - sin(J.toDouble())) * TWO;
+          B[I][J] = (HALF - sin(I + J)) * TWO;
+          E[I][J] = (HALF - sin(J)) * TWO;
         } else {
           B[I][J] = ZERO;
           E[I][J] = ZERO;
@@ -107,8 +107,8 @@ void dlatm5(
 
     for (I = 1; I <= M; I++) {
       for (J = 1; J <= N; J++) {
-        R[I][J] = (HALF - sin((I * J).toDouble())) * TWENTY;
-        L[I][J] = (HALF - sin((I + J).toDouble())) * TWENTY;
+        R[I][J] = (HALF - sin(I * J)) * TWENTY;
+        L[I][J] = (HALF - sin(I + J)) * TWENTY;
       }
     }
 
@@ -128,22 +128,22 @@ void dlatm5(
   } else if (PRTYPE == 4) {
     for (I = 1; I <= M; I++) {
       for (J = 1; J <= M; J++) {
-        A[I][J] = (HALF - sin((I * J).toDouble())) * TWENTY;
-        D[I][J] = (HALF - sin((I + J).toDouble())) * TWO;
+        A[I][J] = (HALF - sin(I * J)) * TWENTY;
+        D[I][J] = (HALF - sin(I + J)) * TWO;
       }
     }
 
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        B[I][J] = (HALF - sin((I + J).toDouble())) * TWENTY;
-        E[I][J] = (HALF - sin((I * J).toDouble())) * TWO;
+        B[I][J] = (HALF - sin(I + J)) * TWENTY;
+        E[I][J] = (HALF - sin(I * J)) * TWO;
       }
     }
 
     for (I = 1; I <= M; I++) {
       for (J = 1; J <= N; J++) {
-        R[I][J] = (HALF - sin((J / I).toDouble())) * TWENTY;
-        L[I][J] = (HALF - sin((I * J).toDouble())) * TWO;
+        R[I][J] = (HALF - sin(J / I)) * TWENTY;
+        L[I][J] = (HALF - sin(I * J)) * TWO;
       }
     }
   } else if (PRTYPE >= 5) {
@@ -151,8 +151,8 @@ void dlatm5(
     IMEPS = (HALF - TWO) / ALPHA;
     for (I = 1; I <= M; I++) {
       for (J = 1; J <= N; J++) {
-        R[I][J] = (HALF - sin((I * J).toDouble())) * ALPHA / TWENTY;
-        L[I][J] = (HALF - sin((I + J).toDouble())) * ALPHA / TWENTY;
+        R[I][J] = (HALF - sin(I * J)) * ALPHA / TWENTY;
+        L[I][J] = (HALF - sin(I + J)) * ALPHA / TWENTY;
       }
     }
 

@@ -85,7 +85,7 @@ void dget51(
       if (ANORM < ONE) {
         RESULT.value = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
       } else {
-        RESULT.value = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+        RESULT.value = min(WNORM / ANORM, N) / (N * ULP);
       }
     }
   } else {
@@ -101,7 +101,7 @@ void dget51(
 
     RESULT.value = min(
           dlange('1', N, N, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1)),
-          N.toDouble(),
+          N,
         ) /
         (N * ULP);
   }

@@ -115,7 +115,7 @@ void zhpgvd(
   zhpgst(ITYPE, UPLO, N, AP, BP, INFO);
   zhpevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK,
       LIWORK, INFO);
-  LWMIN = max(LWMIN, WORK[1].toDouble()).toInt();
+  LWMIN = max(LWMIN, WORK[1].real).toInt();
   LRWMIN = max(LRWMIN, RWORK[1]).toInt();
   LIWMIN = max(LIWMIN, IWORK[1]).toInt();
 

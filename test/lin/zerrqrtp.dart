@@ -29,9 +29,9 @@ void zerrqrtp(final String PATH, final Nout NUNIT) {
 
   for (var J = 1; J <= NMAX; J++) {
     for (var I = 1; I <= NMAX; I++) {
-      A[I][J] = Complex.one / Complex((I + J).toDouble(), 0.0);
-      C[I][J] = Complex.one / Complex((I + J).toDouble(), 0.0);
-      T[I][J] = Complex.one / Complex((I + J).toDouble(), 0.0);
+      A[I][J] = Complex.one / (I + J).toComplex();
+      C[I][J] = Complex.one / (I + J).toComplex();
+      T[I][J] = Complex.one / (I + J).toComplex();
     }
     W[J] = Complex.zero;
   }

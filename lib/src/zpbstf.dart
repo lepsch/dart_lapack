@@ -60,7 +60,7 @@ void zpbstf(
     for (J = N; J >= M + 1; J--) {
       // Compute s(j,j) and test for non-positive-definiteness.
 
-      AJJ = AB[KD + 1][J].toDouble();
+      AJJ = AB[KD + 1][J].real;
       if (AJJ <= ZERO) {
         AB[KD + 1][J] = AJJ.toComplex();
         INFO.value = J;
@@ -83,7 +83,7 @@ void zpbstf(
     for (J = 1; J <= M; J++) {
       // Compute s(j,j) and test for non-positive-definiteness.
 
-      AJJ = AB[KD + 1][J].toDouble();
+      AJJ = AB[KD + 1][J].real;
       if (AJJ <= ZERO) {
         AB[KD + 1][J] = AJJ.toComplex();
         INFO.value = J;
@@ -110,7 +110,7 @@ void zpbstf(
     for (J = N; J >= M + 1; J--) {
       // Compute s(j,j) and test for non-positive-definiteness.
 
-      AJJ = AB[1][J].toDouble();
+      AJJ = AB[1][J].real;
       if (AJJ <= ZERO) {
         AB[1][J] = AJJ.toComplex();
         INFO.value = J;
@@ -135,7 +135,7 @@ void zpbstf(
     for (J = 1; J <= M; J++) {
       // Compute s(j,j) and test for non-positive-definiteness.
 
-      AJJ = AB[1][J].toDouble();
+      AJJ = AB[1][J].real;
       if (AJJ <= ZERO) {
         AB[1][J] = AJJ.toComplex();
         INFO.value = J;

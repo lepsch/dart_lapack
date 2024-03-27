@@ -47,7 +47,7 @@ void zlags2(
       CSL = Box(0.0);
   final R = Box(Complex.zero);
 
-  double ABS1(Complex T) => T.toDouble().abs() + T.imaginary.abs();
+  double ABS1(Complex T) => T.real.abs() + T.imaginary.abs();
 
   if (UPPER) {
     // Input matrices A and B are upper triangular matrices

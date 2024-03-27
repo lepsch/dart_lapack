@@ -21,7 +21,7 @@ Future<void> zchkbk(final Nin NIN, final Nout NOUT) async {
   final E = Matrix<Complex>(LDE, LDE), EIN = Matrix<Complex>(LDE, LDE);
   final INFO = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   LMAX[1] = 0;
   LMAX[2] = 0;

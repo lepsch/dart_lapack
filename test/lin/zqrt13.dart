@@ -34,8 +34,7 @@ void zqrt13(
   for (var J = 1; J <= N; J++) {
     zlarnv(2, ISEED, M, A(1, J).asArray());
     if (J <= M) {
-      A[J][J] += Complex(
-          sign(dzasum(M, A(1, J).asArray(), 1), A[J][J].real).toDouble());
+      A[J][J] += Complex(sign(dzasum(M, A(1, J).asArray(), 1), A[J][J].real));
     }
   }
 

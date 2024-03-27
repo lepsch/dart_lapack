@@ -66,7 +66,7 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     final KL = N - 1;
     final KU = N - 1;
     final NRHS = N;
-    final M = max(sqrt(N.toDouble()), 10.0);
+    final M = max(sqrt(N), 10.0);
 
     // Generate the Hilbert matrix, its inverse, and the
     // right hand side, all scaled by the LCM(1,..,2N-1).

@@ -99,7 +99,7 @@ void zlahilb(
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= N; I++) {
         A[I][J] = D1[(J % SIZE_D) + 1] *
-            (M.toDouble() / (I + J - 1)).toComplex() *
+            (M / (I + J - 1)).toComplex() *
             D1[(I % SIZE_D) + 1];
       }
     }
@@ -107,7 +107,7 @@ void zlahilb(
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= N; I++) {
         A[I][J] = D1[(J % SIZE_D) + 1] *
-            (M.toDouble() / (I + J - 1)).toComplex() *
+            (M / (I + J - 1)).toComplex() *
             D2[(I % SIZE_D) + 1];
       }
     }

@@ -133,7 +133,7 @@ void dgsvj1(
   SMALL = SFMIN / EPS;
   BIG = ONE / SFMIN;
   ROOTBIG = ONE / ROOTSFMIN;
-  // LARGE = BIG / sqrt((M * N).toDouble());
+  // LARGE = BIG / sqrt((M * N));
   BIGTHETA = ONE / ROOTEPS;
   ROOTTOL = sqrt(TOL);
 
@@ -292,7 +292,7 @@ void dgsvj1(
                     } else {
                       // .. choose correct signum for THETA and rotate
 
-                      THSIGN = -sign(ONE, AAPQ).toDouble();
+                      THSIGN = -sign(ONE, AAPQ);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
                           ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));

@@ -92,7 +92,7 @@ void zunbdb3(
 
     zlacgv(Q - I + 1, X21(I, I).asArray(), LDX21);
     zlarfgp(Q - I + 1, X21(I, I), X21(I, I + 1).asArray(), LDX21, TAUQ1(I));
-    S = X21[I][I].toDouble();
+    S = X21[I][I].real;
     X21[I][I] = Complex.one;
     zlarf('R', P - I + 1, Q - I + 1, X21(I, I).asArray(), LDX21, TAUQ1[I],
         X11(I, I), LDX11, WORK(ILARF));
@@ -121,7 +121,7 @@ void zunbdb3(
     zlarfgp(P - I + 1, X11(I, I), X11(I + 1, I).asArray(), 1, TAUP1(I));
     if (I < M - P) {
       zlarfgp(M - P - I, X21(I + 1, I), X21(I + 2, I).asArray(), 1, TAUP2(I));
-      PHI[I] = atan2(X21[I + 1][I].toDouble(), X11[I][I].toDouble());
+      PHI[I] = atan2(X21[I + 1][I].real, X11[I][I].real);
       C = cos(PHI[I]);
       S = sin(PHI[I]);
       X21[I + 1][I] = Complex.one;

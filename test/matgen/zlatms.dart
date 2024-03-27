@@ -181,7 +181,7 @@ void zlatms(
 
   GIVENS = false;
   if (ISYM == 1) {
-    if ((LLB + UUB).toDouble() < 0.3 * (max(1, MR + NC)).toDouble()) {
+    if ((LLB + UUB) < 0.3 * max(1, MR + NC)) {
       GIVENS = true;
     }
   } else {
@@ -909,7 +909,7 @@ void zlatms(
       if (!ZSYM) {
         for (JC = 1; JC <= N; JC++) {
           IROW = IOFFST + (1 - ISKEW) * JC;
-          A[IROW][JC] = A[IROW][JC].toDouble().toComplex();
+          A[IROW][JC] = A[IROW][JC].real.toComplex();
         }
       }
     }

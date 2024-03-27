@@ -116,10 +116,10 @@ void dbdsdc(
   SMLSIZ = ilaenv(9, 'DBDSDC', ' ', 0, 0, 0, 0);
   if (N == 1) {
     if (ICOMPQ == 1) {
-      Q[1] = sign(ONE, D[1]).toDouble();
+      Q[1] = sign(ONE, D[1]);
       Q[1 + SMLSIZ * N] = ONE;
     } else if (ICOMPQ == 2) {
-      U[1][1] = sign(ONE, D[1]).toDouble();
+      U[1][1] = sign(ONE, D[1]);
       VT[1][1] = ONE;
     }
     D[1] = D[1].abs();
@@ -232,7 +232,7 @@ void dbdsdc(
 
     for (I = 1; I <= N; I++) {
       if (D[I].abs() < EPS) {
-        D[I] = sign(EPS, D[I]).toDouble();
+        D[I] = sign(EPS, D[I]);
       }
     }
 
@@ -259,10 +259,10 @@ void dbdsdc(
 
           NSIZE = I - START + 1;
           if (ICOMPQ == 2) {
-            U[N][N] = sign(ONE, D[N]).toDouble();
+            U[N][N] = sign(ONE, D[N]);
             VT[N][N] = ONE;
           } else if (ICOMPQ == 1) {
-            Q[N + (QSTART - 1) * N] = sign(ONE, D[N]).toDouble();
+            Q[N + (QSTART - 1) * N] = sign(ONE, D[N]);
             Q[N + (SMLSIZ + QSTART - 1) * N] = ONE;
           }
           D[N] = D[N].abs();

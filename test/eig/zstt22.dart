@@ -87,7 +87,7 @@ void zstt22(
     if (ANORM < ONE) {
       RESULT[1] = (min(WNORM, M * ANORM) / ANORM) / (M * ULP);
     } else {
-      RESULT[1] = min(WNORM / ANORM, M.toDouble()) / (M * ULP);
+      RESULT[1] = min(WNORM / ANORM, M) / (M * ULP);
     }
   }
 
@@ -101,5 +101,5 @@ void zstt22(
     WORK[J][J] -= Complex.one;
   }
 
-  RESULT[2] = min(M.toDouble(), zlange('1', M, M, WORK, M, RWORK)) / (M * ULP);
+  RESULT[2] = min(M, zlange('1', M, M, WORK, M, RWORK)) / (M * ULP);
 }

@@ -106,8 +106,8 @@ double zlansp(
     SUM.value = 2 * SUM.value;
     K = 1;
     for (I = 1; I <= N; I++) {
-      if (AP[K].toDouble() != ZERO) {
-        ABSA = AP[K].toDouble().abs();
+      if (AP[K].real != ZERO) {
+        ABSA = AP[K].real.abs();
         if (SCALE.value < ABSA) {
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);
           SCALE.value = ABSA;

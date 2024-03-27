@@ -30,7 +30,7 @@ void zrscl(
 
   // Initialize constants related to A.
 
-  AR = A.toDouble();
+  AR = A.real;
   AI = A.imaginary;
   ABSR = AR.abs();
   ABSI = AI.abs();

@@ -70,6 +70,6 @@ double zqpt01(
   }
 
   final result = zlange('One-norm', M, N, WORK.asMatrix(), M, RWORK) /
-      ((max(M, N)).toDouble() * dlamch('Epsilon'));
-  return NORMA != ZERO ? result / NORMA: result;
+      (max(M, N) * dlamch('Epsilon'));
+  return NORMA != ZERO ? result / NORMA : result;
 }

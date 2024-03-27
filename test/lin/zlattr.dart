@@ -308,7 +308,7 @@ void zlattr(
     // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
     zlarnv(2, ISEED, N, B);
-    final TSCAL = ONE / max(ONE, (N - 1).toDouble());
+    final TSCAL = ONE / max(ONE, N - 1);
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         zlarnv(4, ISEED, J - 1, A(1, J).asArray());
@@ -400,7 +400,7 @@ void zlattr(
     // overflow when dividing by T(j,j).  To control the amount of
     // scaling needed, the matrix is bidiagonal.
 
-    final TEXP = ONE / max(ONE, (N - 1).toDouble());
+    final TEXP = ONE / max(ONE, N - 1);
     final TSCAL = pow(SMLNUM, TEXP);
     zlarnv(4, ISEED, N, B);
     if (UPPER) {
@@ -513,8 +513,8 @@ void zlattr(
     // norms will exceed BIGNUM.
     // 1/3/91:  ZLATRS no longer can handle this case
 
-    final TLEFT = BIGNUM / max(ONE, (N - 1).toDouble());
-    final TSCAL = BIGNUM * ((N - 1).toDouble() / max(ONE, N.toDouble()));
+    final TLEFT = BIGNUM / max(ONE, N - 1);
+    final TSCAL = BIGNUM * ((N - 1) / max(ONE, N));
     if (UPPER) {
       for (var J = 1; J <= N; J++) {
         zlarnv(5, ISEED, J, A(1, J).asArray());

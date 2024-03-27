@@ -31,7 +31,7 @@ void zhptrf(
   double ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
   Complex D12, D21, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 
@@ -70,7 +70,7 @@ void zhptrf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = AP[KC + K - 1].toDouble().abs();
+      ABSAKK = AP[KC + K - 1].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value
@@ -117,7 +117,7 @@ void zhptrf(
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (AP[KPC + IMAX - 1].toDouble().abs() >= ALPHA * ROWMAX) {
+          } else if (AP[KPC + IMAX - 1].real.abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -146,7 +146,7 @@ void zhptrf(
             AP[KX] = T;
           }
           AP[KX + KK - 1] = AP[KX + KK - 1].conjugate();
-          R1 = AP[KNC + KK - 1].toDouble();
+          R1 = AP[KNC + KK - 1].real;
           AP[KNC + KK - 1] = AP[KPC + KP - 1].real.toComplex();
           AP[KPC + KP - 1] = R1.toComplex();
           if (KSTEP == 2) {
@@ -173,7 +173,7 @@ void zhptrf(
           //
           // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
-          R1 = ONE / AP[KC + K - 1].toDouble();
+          R1 = ONE / AP[KC + K - 1].real;
           zhpr(UPLO, K - 1, -R1, AP(KC), 1, AP);
 
           // Store U(k) in column k
@@ -193,10 +193,10 @@ void zhptrf(
           //    = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
 
           if (K > 2) {
-            D = dlapy2(AP[K - 1 + (K - 1) * K ~/ 2].toDouble(),
+            D = dlapy2(AP[K - 1 + (K - 1) * K ~/ 2].real,
                 AP[K - 1 + (K - 1) * K ~/ 2].imaginary);
-            D22 = AP[K - 1 + (K - 2) * (K - 1) ~/ 2].toDouble() / D;
-            D11 = AP[K + (K - 1) * K ~/ 2].toDouble() / D;
+            D22 = AP[K - 1 + (K - 2) * (K - 1) ~/ 2].real / D;
+            D11 = AP[K + (K - 1) * K ~/ 2].real / D;
             TT = ONE / (D11 * D22 - ONE);
             D12 = AP[K - 1 + (K - 1) * K ~/ 2] / D.toComplex();
             D = TT / D;
@@ -256,7 +256,7 @@ void zhptrf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = AP[KC].toDouble().abs();
+      ABSAKK = AP[KC].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value
@@ -302,7 +302,7 @@ void zhptrf(
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (AP[KPC].toDouble().abs() >= ALPHA * ROWMAX) {
+          } else if (AP[KPC].real.abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -331,7 +331,7 @@ void zhptrf(
             AP[KX] = T;
           }
           AP[KNC + KP - KK] = AP[KNC + KP - KK].conjugate();
-          R1 = AP[KNC].toDouble();
+          R1 = AP[KNC].real;
           AP[KNC] = AP[KPC].real.toComplex();
           AP[KPC] = R1.toComplex();
           if (KSTEP == 2) {
@@ -359,7 +359,7 @@ void zhptrf(
 
             // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
-            R1 = ONE / AP[KC].toDouble();
+            R1 = ONE / AP[KC].real;
             zhpr(UPLO, N - K, -R1, AP(KC + 1), 1, AP(KC + N - K + 1));
 
             // Store L(k) in column K
@@ -383,7 +383,7 @@ void zhptrf(
             // where L(k) and L(k+1) are the k-th and (k+1)-th
             // columns of L
 
-            D = dlapy2(AP[K + 1 + (K - 1) * (2 * N - K) ~/ 2].toDouble(),
+            D = dlapy2(AP[K + 1 + (K - 1) * (2 * N - K) ~/ 2].real,
                 AP[K + 1 + (K - 1) * (2 * N - K) ~/ 2].imaginary);
             D11 = AP[K + 1 + K * (2 * N - K - 1) ~/ 2].real / D;
             D22 = AP[K + (K - 1) * (2 * N - K) ~/ 2].real / D;

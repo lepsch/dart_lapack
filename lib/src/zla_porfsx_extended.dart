@@ -93,7 +93,7 @@ void zla_porfsx_extended(
   const LA_LINRX_ERR_I = 2;
   // const LA_LINRX_RCOND_I = 3;
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   if (INFO.value != 0) return;
   EPS = dlamch('Epsilon');
@@ -101,7 +101,7 @@ void zla_porfsx_extended(
   // Force HUGEVAL to Inf
   HUGEVAL *= HUGEVAL;
   // Using HUGEVAL may lead to spurious underflows.
-  INCR_THRESH = N.toDouble() * EPS;
+  INCR_THRESH = N * EPS;
 
   if (lsame(UPLO, 'L')) {
     UPLO2 = ilauplo('L');

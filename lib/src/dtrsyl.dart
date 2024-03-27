@@ -79,7 +79,7 @@ void dtrsyl(
   EPS = dlamch('P');
   SMLNUM = dlamch('S');
   BIGNUM = ONE / SMLNUM;
-  SMLNUM *= (M * N).toDouble() / EPS;
+  SMLNUM *= (M * N) / EPS;
   BIGNUM = ONE / SMLNUM;
 
   SMIN = max(

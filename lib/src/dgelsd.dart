@@ -95,8 +95,7 @@ void dgelsd(
   MINWRK = 1;
   LIWORK = 1;
   MINMN = max(1, MINMN);
-  NLVL =
-      max(log(MINMN.toDouble() / (SMLSIZ + 1).toDouble()) ~/ log(TWO) + 1, 0);
+  NLVL = max(log(MINMN / (SMLSIZ + 1)) ~/ log(TWO) + 1, 0);
 
   if (INFO.value == 0) {
     MAXWRK = 1;

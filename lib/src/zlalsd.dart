@@ -216,7 +216,7 @@ void zlalsd(
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
       for (JROW = 1; JROW <= N; JROW++) {
         J++;
-        RWORK[J] = B[JROW][JCOL].toDouble();
+        RWORK[J] = B[JROW][JCOL].real;
       }
     }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWU).asMatrix(N), N,
@@ -261,7 +261,7 @@ void zlalsd(
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
       for (JROW = 1; JROW <= N; JROW++) {
         J++;
-        RWORK[J] = B[JROW][JCOL].toDouble();
+        RWORK[J] = B[JROW][JCOL].real;
       }
     }
     dgemm('T', 'N', N, NRHS, N, ONE, RWORK(IRWVT).asMatrix(N), N,
@@ -331,7 +331,7 @@ void zlalsd(
 
   for (I = 1; I <= N; I++) {
     if (D[I].abs() < EPS) {
-      D[I] = sign(EPS, D[I]).toDouble();
+      D[I] = sign(EPS, D[I]);
     }
   }
 
@@ -405,7 +405,7 @@ void zlalsd(
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
           for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) {
             J++;
-            RWORK[J] = B[JROW][JCOL].toDouble();
+            RWORK[J] = B[JROW][JCOL].real;
           }
         }
         dgemm(
@@ -564,7 +564,7 @@ void zlalsd(
         J += N;
         for (JROW = 1; JROW <= NSIZE; JROW++) {
           JREAL++;
-          RWORK[JREAL] = WORK[J + JROW].toDouble();
+          RWORK[JREAL] = WORK[J + JROW].real;
         }
       }
       dgemm(

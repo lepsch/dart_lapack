@@ -89,7 +89,7 @@ void dstedc(
       LIWMIN = 1;
       LWMIN = 2 * (N - 1);
     } else {
-      LGN = log(N.toDouble()) ~/ log(TWO);
+      LGN = log(N) ~/ log(TWO);
       if (pow(2, LGN) < N) LGN++;
       if (pow(2, LGN) < N) LGN++;
       if (ICOMPZ == 1) {

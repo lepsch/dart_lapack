@@ -98,7 +98,7 @@ void zunbdb4(
       zscal(P, -Complex.one, PHANTOM(1), 1);
       zlarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1));
       zlarfgp(M - P, PHANTOM(P + 1), PHANTOM(P + 2), 1, TAUP2(1));
-      THETA[I] = atan2(PHANTOM[1].toDouble(), PHANTOM[P + 1].toDouble());
+      THETA[I] = atan2(PHANTOM[1].real, PHANTOM[P + 1].real);
       C = cos(THETA[I]);
       S = sin(THETA[I]);
       PHANTOM[1] = Complex.one;
@@ -128,7 +128,7 @@ void zunbdb4(
           P - I + 1, X11(I, I - 1), X11(I + 1, I - 1).asArray(), 1, TAUP1(I));
       zlarfgp(M - P - I + 1, X21(I, I - 1), X21(I + 1, I - 1).asArray(), 1,
           TAUP2(I));
-      THETA[I] = atan2(X11[I][I - 1].toDouble(), X21[I][I - 1].toDouble());
+      THETA[I] = atan2(X11[I][I - 1].real, X21[I][I - 1].real);
       C = cos(THETA[I]);
       S = sin(THETA[I]);
       X11[I][I - 1] = Complex.one;
@@ -143,7 +143,7 @@ void zunbdb4(
         -C);
     zlacgv(Q - I + 1, X21(I, I).asArray(), LDX21);
     zlarfgp(Q - I + 1, X21(I, I), X21(I, I + 1).asArray(), LDX21, TAUQ1(I));
-    C = X21[I][I].toDouble();
+    C = X21[I][I].real;
     X21[I][I] = Complex.one;
     zlarf('R', P - I, Q - I + 1, X21(I, I).asArray(), LDX21, TAUQ1[I],
         X11(I + 1, I), LDX11, WORK(ILARF));

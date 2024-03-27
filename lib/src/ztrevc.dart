@@ -45,7 +45,7 @@ void ztrevc(
   double REMAX, SMIN = 0, SMLNUM, ULP, UNFL;
   final SCALE = Box(0.0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Decode and test the input parameters
 

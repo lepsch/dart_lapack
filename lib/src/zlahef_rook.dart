@@ -53,7 +53,7 @@ void zlahef_rook(
   double ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN;
   Complex D11, D21, D22;
 
-  double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
+  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
 
   INFO.value = 0;
 
@@ -92,13 +92,13 @@ void zlahef_rook(
       if (K < N) {
         zgemv('No transpose', K, N - K, -Complex.one, A(1, K + 1), LDA,
             W(K, KW + 1).asArray(), LDW, Complex.one, W(1, KW).asArray(), 1);
-        W[K][KW] = W[K][KW].toDouble().toComplex();
+        W[K][KW] = W[K][KW].real.toComplex();
       }
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = W[K][KW].toDouble().abs();
+      ABSAKK = W[K][KW].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -116,7 +116,7 @@ void zlahef_rook(
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
-        A[K][K] = W[K][KW].toDouble().toComplex();
+        A[K][K] = W[K][KW].real.toComplex();
         if (K > 1) zcopy(K - 1, W(1, KW).asArray(), 1, A(1, K).asArray(), 1);
       } else {
         // ============================================================
@@ -144,7 +144,7 @@ void zlahef_rook(
               zcopy(
                   IMAX - 1, A(1, IMAX).asArray(), 1, W(1, KW - 1).asArray(), 1);
             }
-            W[IMAX][KW - 1] = A[IMAX][IMAX].toDouble().toComplex();
+            W[IMAX][KW - 1] = A[IMAX][IMAX].real.toComplex();
 
             zcopy(K - IMAX, A(IMAX, IMAX + 1).asArray(), LDA,
                 W(IMAX + 1, KW - 1).asArray(), 1);
@@ -188,10 +188,10 @@ void zlahef_rook(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
+            // ABS( (W( IMAX,KW-1 )) ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(W[IMAX][KW - 1].toDouble().abs() < ALPHA * ROWMAX)) {
+            if (!(W[IMAX][KW - 1].real.abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -315,7 +315,7 @@ void zlahef_rook(
           //    A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
           // (NOTE: No need to use for Hermitian matrix
-          // A[ K][K ] = (W( K, K)).toDouble() to separately copy diagonal
+          // A[ K][K ] = (W( K, K)) to separately copy diagonal
           // element D(k,k) from W (potentially saves only one load))
           zcopy(K, W(1, KW).asArray(), 1, A(1, K).asArray(), 1);
           if (K > 1) {
@@ -325,7 +325,7 @@ void zlahef_rook(
 
             // Handle division by a small number
 
-            T = A[K][K].toDouble();
+            T = A[K][K].real;
             if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(K - 1, R1, A(1, K).asArray(), 1);
@@ -404,7 +404,7 @@ void zlahef_rook(
             D21 = W[K - 1][KW];
             D11 = W[K][KW] / D21.conjugate();
             D22 = W[K - 1][KW - 1] / D21;
-            T = ONE / ((D11 * D22).toDouble() - ONE);
+            T = ONE / ((D11 * D22).real - ONE);
 
             // Update elements in columns A(k-1) and A(k) as
             // dot products of rows of ( W(kw-1) W(kw) ) and columns
@@ -534,7 +534,7 @@ void zlahef_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = W[K][K].toDouble().abs();
+      ABSAKK = W[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -627,10 +627,10 @@ void zlahef_rook(
 
             // Case(2)
             // Equivalent to testing for
-            // ABS( W[ IMAX][K+1 ].toDouble() ) >= ALPHA*ROWMAX
+            // ABS( W[ IMAX][K+1 ] ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(W[IMAX][K + 1].toDouble().abs() < ALPHA * ROWMAX)) {
+            if (!(W[IMAX][K + 1].real.abs() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -750,7 +750,7 @@ void zlahef_rook(
           //    A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
           // (NOTE: No need to use for Hermitian matrix
-          // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
+          // A( K, K ) = (W( K, K)) to separately copy diagonal
           // element D(k,k) from W (potentially saves only one load))
           zcopy(N - K + 1, W(K, K).asArray(), 1, A(K, K).asArray(), 1);
           if (K < N) {
@@ -760,7 +760,7 @@ void zlahef_rook(
 
             // Handle division by a small number
 
-            T = A[K][K].toDouble();
+            T = A[K][K].real;
             if (T.abs() >= SFMIN) {
               R1 = ONE / T;
               zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
@@ -839,7 +839,7 @@ void zlahef_rook(
             D21 = W[K + 1][K];
             D11 = W[K + 1][K + 1] / D21;
             D22 = W[K][K] / D21.conjugate();
-            T = ONE / ((D11 * D22).toDouble() - ONE);
+            T = ONE / ((D11 * D22).real - ONE);
 
             // Update elements in columns A(k) and A(k+1) as
             // dot products of rows of ( W(k) W(k+1) ) and columns

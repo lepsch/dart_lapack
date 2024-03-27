@@ -57,7 +57,7 @@ void zhseqr(
   WANTT = lsame(JOB, 'S');
   INITZ = lsame(COMPZ, 'I');
   WANTZ = INITZ || lsame(COMPZ, 'V');
-  WORK[1] = Complex((max(1, N)).toDouble(), RZERO);
+  WORK[1] = max(1, N).toComplex();
   LQUERY = LWORK == -1;
 
   INFO.value = 0;
@@ -95,7 +95,7 @@ void zhseqr(
         INFO);
     // ==== Ensure reported workspace size is backward-compatible with
     // .    previous LAPACK versions. ====
-    WORK[1] = Complex(max(WORK[1].toDouble(), max(1, N).toDouble()), RZERO);
+    WORK[1] = max(WORK[1].real, max(1, N)).toComplex();
     return;
   } else {
     // ==== copy eigenvalues isolated by ZGEBAL ====
@@ -168,6 +168,6 @@ void zhseqr(
     // ==== Ensure reported workspace size is backward-compatible with
     // .    previous LAPACK versions. ====
 
-    WORK[1] = Complex(max((max(1, N)).toDouble(), WORK[1].toDouble()), RZERO);
+    WORK[1] = max(max(1, N), WORK[1].real).toComplex();
   }
 }

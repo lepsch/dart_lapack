@@ -353,7 +353,7 @@ void dgejsv(
       BIG1 = (pow((SVA[p] / XSC.value), 2)) * TEMP1.value;
       if (BIG1 != ZERO) ENTRA += BIG1 * log(BIG1);
     }
-    ENTRA = -ENTRA / log(N.toDouble());
+    ENTRA = -ENTRA / log(N);
 
     // Now, SVA().^2/Trace(A^t * A) is a point in the probability simplex.
     // It is derived from the diagonal of  A^t * A.  Do the same with the
@@ -366,7 +366,7 @@ void dgejsv(
       BIG1 = (pow((WORK[p] / XSC.value), 2)) * TEMP1.value;
       if (BIG1 != ZERO) ENTRAT += BIG1 * log(BIG1);
     }
-    ENTRAT = -ENTRAT / log(M.toDouble());
+    ENTRAT = -ENTRAT / log(M);
 
     // Analyze the entropies and decide A or A^t. Smaller entropy
     // usually means better input for the algorithm.
@@ -416,7 +416,7 @@ void dgejsv(
   // one should use DGESVJ instead of DGEJSV.
 
   BIG1 = sqrt(BIG);
-  TEMP1.value = sqrt(BIG / N.toDouble());
+  TEMP1.value = sqrt(BIG / N);
 
   dlascl('G', 0, 0, AAPP.value, TEMP1.value, N, 1, SVA.asMatrix(N), N, IERR);
   if (AAQQ.value > (AAPP.value * SFMIN)) {
@@ -517,7 +517,7 @@ void dgejsv(
     // sigma_i < N*EPSLN*||A|| are flushed to zero. This is an
     // aggressive enforcement of lower numerical rank by introducing a
     // backward error of the order of N*EPSLN*||A||.
-    TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+    TEMP1.value = sqrt(N) * EPSLN;
     for (p = 2; p <= N; p++) {
       if (A[p][p].abs() >= (TEMP1.value * A[1][1].abs())) {
         NR++;
@@ -561,7 +561,7 @@ void dgejsv(
       TEMP1.value = A[p][p].abs() / SVA[IWORK[p]];
       MAXPRJ = min(MAXPRJ, TEMP1.value);
     }
-    if (pow(MAXPRJ, 2) >= ONE - N.toDouble() * EPSLN) ALMORT = true;
+    if (pow(MAXPRJ, 2) >= ONE - N * EPSLN) ALMORT = true;
   }
 
   SCONDA = -ONE;
@@ -634,12 +634,12 @@ void dgejsv(
     if (!ALMORT) {
       if (L2PERT) {
         // XSC.value = sqrt(SMALL)
-        XSC.value = EPSLN / N.toDouble();
+        XSC.value = EPSLN / N;
         for (q = 1; q <= NR; q++) {
           TEMP1.value = XSC.value * A[q][q].abs();
           for (p = 1; p <= N; p++) {
             if (((p > q) && (A[p][q].abs() <= TEMP1.value)) || (p < q)) {
-              A[p][q] = sign(TEMP1.value, A[p][q]).toDouble();
+              A[p][q] = sign(TEMP1.value, A[p][q]);
             }
           }
         }
@@ -663,12 +663,12 @@ void dgejsv(
     // to drown denormals
     if (L2PERT) {
       // XSC.value = sqrt(SMALL)
-      XSC.value = EPSLN / N.toDouble();
+      XSC.value = EPSLN / N;
       for (q = 1; q <= NR; q++) {
         TEMP1.value = XSC.value * A[q][q].abs();
         for (p = 1; p <= NR; p++) {
           if (((p > q) && (A[p][q].abs() <= TEMP1.value)) || (p < q)) {
-            A[p][q] = sign(TEMP1.value, A[p][q]).toDouble();
+            A[p][q] = sign(TEMP1.value, A[p][q]);
           }
         }
       }
@@ -811,7 +811,7 @@ void dgejsv(
             TEMP1.value = XSC.value * V[q][q].abs();
             for (p = 1; p <= N; p++) {
               if ((p > q) && (V[p][q].abs() <= TEMP1.value) || (p < q)) {
-                V[p][q] = sign(TEMP1.value, V[p][q]).toDouble();
+                V[p][q] = sign(TEMP1.value, V[p][q]);
               }
               if (p < q) V[p][q] = -V[p][q];
             }
@@ -835,10 +835,10 @@ void dgejsv(
         CONDR1 = ONE / sqrt(TEMP1.value);
         // .. here need a second opinion on the condition number
         // .. then assume worst case scenario
-        // R1 is OK for inverse <=> CONDR1 < N.toDouble()
-        // more conservative    <=> CONDR1 < sqrt(N.toDouble())
+        // R1 is OK for inverse <=> CONDR1 < N
+        // more conservative    <=> CONDR1 < sqrt(N)
 
-        COND_OK = sqrt(NR.toDouble());
+        COND_OK = sqrt(NR);
         // [TP] COND_OK is a tuning parameter.
 
         if (CONDR1 < COND_OK) {
@@ -855,7 +855,7 @@ void dgejsv(
               for (q = 1; q <= p - 1; q++) {
                 TEMP1.value = XSC.value * min(V[p][p].abs(), V[q][q].abs());
                 if (V[q][p].abs() <= TEMP1.value) {
-                  V[q][p] = sign(TEMP1.value, V[q][p]).toDouble();
+                  V[q][p] = sign(TEMP1.value, V[q][p]);
                 }
               }
             }
@@ -893,7 +893,7 @@ void dgejsv(
               for (q = 1; q <= p - 1; q++) {
                 TEMP1.value = XSC.value * min(V[p][p].abs(), V[q][q].abs());
                 if (V[q][p].abs() <= TEMP1.value) {
-                  V[q][p] = sign(TEMP1.value, V[q][p]).toDouble();
+                  V[q][p] = sign(TEMP1.value, V[q][p]);
                 }
               }
             }
@@ -906,7 +906,7 @@ void dgejsv(
             for (p = 2; p <= NR; p++) {
               for (q = 1; q <= p - 1; q++) {
                 TEMP1.value = XSC.value * min(V[p][p].abs(), V[q][q].abs());
-                V[p][q] = -sign(TEMP1.value, V[q][p]).toDouble();
+                V[p][q] = -sign(TEMP1.value, V[q][p]);
               }
             }
           } else {
@@ -951,7 +951,7 @@ void dgejsv(
             TEMP1.value = XSC.value * V[q][q];
             for (p = 1; p <= q - 1; p++) {
               // V[p][q] = - sign( TEMP1.value, V[q][p] )
-              V[p][q] = -sign(TEMP1.value, V[p][q]).toDouble();
+              V[p][q] = -sign(TEMP1.value, V[p][q]);
             }
           }
         } else {
@@ -1118,7 +1118,7 @@ void dgejsv(
         // first QRF. Also, scale the columns to make them unit in
         // Euclidean norm. This applies to all cases.
 
-        TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(N) * EPSLN;
         for (q = 1; q <= N; q++) {
           for (p = 1; p <= N; p++) {
             WORK[2 * N + N * NR + NR + IWORK[p]] = V[p][q];
@@ -1149,7 +1149,7 @@ void dgejsv(
             LWORK - N, IERR);
 
         // The columns of U are normalized. The cost is O(M*N) flops.
-        TEMP1.value = sqrt(M.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(M) * EPSLN;
         for (p = 1; p <= NR; p++) {
           XSC.value = ONE / dnrm2(M, U(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
@@ -1173,7 +1173,7 @@ void dgejsv(
             TEMP1.value = XSC.value * WORK[N + (p - 1) * N + p];
             for (q = 1; q <= p - 1; q++) {
               WORK[N + (q - 1) * N + p] =
-                  -sign(TEMP1.value, WORK[N + (p - 1) * N + q]).toDouble();
+                  -sign(TEMP1.value, WORK[N + (p - 1) * N + q]);
             }
           }
         } else {
@@ -1195,7 +1195,7 @@ void dgejsv(
         for (p = 1; p <= N; p++) {
           dcopy(N, WORK(N + p), N, V(IWORK[p], 1).asArray(), LDV);
         }
-        TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(N) * EPSLN;
         for (p = 1; p <= N; p++) {
           XSC.value = ONE / dnrm2(N, V(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
@@ -1215,7 +1215,7 @@ void dgejsv(
         }
         dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
             LWORK - N, IERR);
-        TEMP1.value = sqrt(M.toDouble()) * EPSLN;
+        TEMP1.value = sqrt(M) * EPSLN;
         for (p = 1; p <= N1; p++) {
           XSC.value = ONE / dnrm2(M, U(1, p).asArray(), 1);
           if ((XSC.value < (ONE - TEMP1.value)) ||
@@ -1249,7 +1249,7 @@ void dgejsv(
           TEMP1.value = XSC.value * V[q][q].abs();
           for (p = 1; p <= N; p++) {
             if ((p > q) && (V[p][q].abs() <= TEMP1.value) || (p < q)) {
-              V[p][q] = sign(TEMP1.value, V[p][q]).toDouble();
+              V[p][q] = sign(TEMP1.value, V[p][q]);
             }
             if (p < q) V[p][q] = -V[p][q];
           }
@@ -1269,7 +1269,7 @@ void dgejsv(
         for (q = 2; q <= NR; q++) {
           for (p = 1; p <= q - 1; p++) {
             TEMP1.value = XSC.value * min(U[p][p].abs(), U[q][q].abs());
-            U[p][q] = -sign(TEMP1.value, U[q][p]).toDouble();
+            U[p][q] = -sign(TEMP1.value, U[q][p]);
           }
         }
       } else {
@@ -1304,7 +1304,7 @@ void dgejsv(
       // first QRF. Also, scale the columns to make them unit in
       // Euclidean norm. This applies to all cases.
 
-      TEMP1.value = sqrt(N.toDouble()) * EPSLN;
+      TEMP1.value = sqrt(N) * EPSLN;
       for (q = 1; q <= N; q++) {
         for (p = 1; p <= N; p++) {
           WORK[2 * N + N * NR + NR + IWORK[p]] = V[p][q];

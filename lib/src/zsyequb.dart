@@ -46,7 +46,7 @@ void zsyequb(
   bool UP;
   final SCALE = Box(0.0), SUMSQ = Box(0.0);
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 
@@ -133,7 +133,7 @@ void zsyequb(
     // avg = s^T beta / n
     AVG = 0.0;
     for (I = 1; I <= N; I++) {
-      AVG += S[I] * WORK[I].toDouble();
+      AVG += S[I] * WORK[I].real;
     }
     AVG /= N;
 
@@ -150,8 +150,8 @@ void zsyequb(
       T = CABS1(A[I][I]);
       SI = S[I];
       C2 = (N - 1) * T;
-      C1 = (N - 2) * (WORK[I].toDouble() - T * SI);
-      C0 = -(T * SI) * SI + 2 * WORK[I].toDouble() * SI - N * AVG;
+      C1 = (N - 2) * (WORK[I].real - T * SI);
+      C0 = -(T * SI) * SI + 2 * WORK[I].real * SI - N * AVG;
       D = C1 * C1 - 4 * C0 * C2;
 
       if (D <= 0) {
@@ -186,7 +186,7 @@ void zsyequb(
         }
       }
 
-      AVG += (U + WORK[I].toDouble()) * D / N;
+      AVG += (U + WORK[I].real) * D / N;
       S[I] = SI;
     }
   }

@@ -71,7 +71,7 @@ void zlqt02(
   final ANORM = zlange('1', K, N, A, LDA, RWORK);
   var RESID = zlange('1', K, M, L, LDA, RWORK);
   if (ANORM > ZERO) {
-    RESULT[1] = ((RESID / (max(1, N)).toDouble()) / ANORM) / EPS;
+    RESULT[1] = ((RESID / max(1, N)) / ANORM) / EPS;
   } else {
     RESULT[1] = ZERO;
   }
@@ -85,5 +85,5 @@ void zlqt02(
 
   RESID = zlansy('1', 'Upper', M, L, LDA, RWORK);
 
-  RESULT[2] = (RESID / (max(1, N)).toDouble()) / EPS;
+  RESULT[2] = (RESID / max(1, N)) / EPS;
 }

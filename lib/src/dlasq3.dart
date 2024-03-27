@@ -140,8 +140,8 @@ void dlasq3(
 
   var success = false;
   while (true) {
-    dlasq5(I0, N0.value, Z, PP.value, TAU, SIGMA.value, DMIN, DMIN1,
-        DMIN2, DN, DN1, DN2, IEEE, EPS);
+    dlasq5(I0, N0.value, Z, PP.value, TAU, SIGMA.value, DMIN, DMIN1, DMIN2, DN,
+        DN1, DN2, IEEE, EPS);
 
     NDIV.value += (N0.value - I0 + 2);
     ITER.value++;

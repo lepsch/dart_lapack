@@ -75,7 +75,7 @@ void zlaqr5(
   final VT = Array<Complex>(3);
   final BETA = Box(Complex.zero), ALPHA = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // If there are no shifts, then there is nothing to do.
 

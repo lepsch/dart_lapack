@@ -59,7 +59,7 @@ void zpptrf(
 
       // Compute U(J,J) and test for non-positive-definiteness.
 
-      AJJ = AP[JJ].toDouble() - zdotc(J - 1, AP(JC), 1, AP(JC), 1).toDouble();
+      AJJ = AP[JJ].real - zdotc(J - 1, AP(JC), 1, AP(JC), 1).real;
       if (AJJ <= ZERO) {
         AP[JJ] = AJJ.toComplex();
         INFO.value = J;
@@ -74,7 +74,7 @@ void zpptrf(
     for (J = 1; J <= N; J++) {
       // Compute L(J,J) and test for non-positive-definiteness.
 
-      AJJ = AP[JJ].toDouble();
+      AJJ = AP[JJ].real;
       if (AJJ <= ZERO) {
         AP[JJ] = AJJ.toComplex();
         INFO.value = J;

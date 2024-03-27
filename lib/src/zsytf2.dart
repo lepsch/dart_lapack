@@ -32,7 +32,7 @@ void zsytf2(
   double ABSAKK, ALPHA, COLMAX, ROWMAX;
   Complex D11, D12, D21, D22, R1, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
+  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
 
   // Test the input parameters.
 

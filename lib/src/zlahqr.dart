@@ -53,7 +53,7 @@ void zlahqr(
   final V = Array<Complex>(2);
   final T1 = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   INFO.value = 0;
 
@@ -103,7 +103,7 @@ void zlahqr(
   SAFMIN = dlamch('SAFE MINIMUM');
   // SAFMAX = RONE / SAFMIN;
   ULP = dlamch('PRECISION');
-  SMLNUM = SAFMIN * (NH.toDouble() / ULP);
+  SMLNUM = SAFMIN * (NH / ULP);
 
   // I1 and I2 are the indices of the first row and last column of H
   // to which transformations must be applied. If eigenvalues only are
@@ -145,14 +145,14 @@ void zlahqr(
         if (CABS1(H[K][K - 1]) <= SMLNUM) break;
         TST = CABS1(H[K - 1][K - 1]) + CABS1(H[K][K]);
         if (TST == RZERO) {
-          if (K - 2 >= ILO) TST += (H[K - 1][K - 2].abs().toDouble());
-          if (K + 1 <= IHI) TST += (H[K + 1][K].abs().toDouble());
+          if (K - 2 >= ILO) TST += (H[K - 1][K - 2].real.abs());
+          if (K + 1 <= IHI) TST += (H[K + 1][K].real.abs());
         }
         // ==== The following is a conservative small subdiagonal
         // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
         // .    1997). It has better mathematical foundation and
         // .    improves accuracy in some examples.  ====
-        if (H[K][K - 1].toDouble().abs() <= ULP * TST) {
+        if (H[K][K - 1].real.abs() <= ULP * TST) {
           AB = max(CABS1(H[K][K - 1]), CABS1(H[K - 1][K]));
           BA = min(CABS1(H[K][K - 1]), CABS1(H[K - 1][K]));
           AA = max(CABS1(H[K][K]), CABS1(H[K - 1][K - 1] - H[K][K]));
@@ -188,12 +188,12 @@ void zlahqr(
       if ((KDEFL % (2 * KEXSH)) == 0) {
         // Exceptional shift.
 
-        S = DAT1 * H[I][I - 1].toDouble().abs();
+        S = DAT1 * H[I][I - 1].real.abs();
         T = S.toComplex() + H[I][I];
       } else if ((KDEFL % KEXSH) == 0) {
         // Exceptional shift.
 
-        S = DAT1 * H[L + 1][L].toDouble().abs();
+        S = DAT1 * H[L + 1][L].real.abs();
         T = S.toComplex() + H[L][L];
       } else {
         // Wilkinson's shift.
@@ -208,7 +208,7 @@ void zlahqr(
           Y = S.toComplex() *
               ((X / S.toComplex()).pow(2) + (U / S.toComplex()).pow(2)).sqrt();
           if (SX > RZERO) {
-            if ((X / SX.toComplex()).toDouble() * Y.toDouble() +
+            if ((X / SX.toComplex()).real * Y.real +
                     (X / SX.toComplex()).imaginary * Y.imaginary <
                 RZERO) Y = -Y;
           }
@@ -226,13 +226,13 @@ void zlahqr(
         H11 = H[M][M];
         H22 = H[M + 1][M + 1];
         H11S = H11 - T;
-        H21 = H[M + 1][M].toDouble();
+        H21 = H[M + 1][M].real;
         S = CABS1(H11S) + H21.abs();
         H11S /= S.toComplex();
         H21 /= S;
         V[1] = H11S;
         V[2] = H21.toComplex();
-        H10 = H[M][M - 1].toDouble();
+        H10 = H[M][M - 1].real;
         if (H10.abs() * H21.abs() <=
             ULP * (CABS1(H11S) * (CABS1(H11) + CABS1(H22)))) {
           found = true;
@@ -243,7 +243,7 @@ void zlahqr(
         H11 = H[L][L];
         H22 = H[L + 1][L + 1];
         H11S = H11 - T;
-        H21 = H[L + 1][L].toDouble();
+        H21 = H[L + 1][L].real;
         S = CABS1(H11S) + H21.abs();
         H11S /= S.toComplex();
         H21 /= S;
@@ -273,7 +273,7 @@ void zlahqr(
           H[K + 1][K - 1] = Complex.zero;
         }
         V2 = V[2];
-        T2 = (T1.value * V2).toDouble();
+        T2 = (T1.value * V2).real;
 
         // Apply G from the left to transform the rows of the matrix
         // in columns K to I2.

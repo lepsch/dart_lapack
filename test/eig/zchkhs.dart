@@ -193,7 +193,7 @@ void zchkhs(
     N = NN[JSIZE];
     if (N == 0) continue;
     N1 = max(1, N);
-    ANINV = ONE / N1.toDouble();
+    ANINV = ONE / N1;
 
     if (NSIZES != 1) {
       MTYPES = min(MAXTYP, NTYPES);

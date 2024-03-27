@@ -145,7 +145,7 @@ void dlacn2(
       // ................ ENTRY   (ISAVE( 1 ) = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-      TEMP = TWO * (dasum(N, X, 1) / (3 * N).toDouble());
+      TEMP = TWO * (dasum(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         dcopy(N, X, 1, V, 1);
         EST.value = TEMP;

@@ -49,7 +49,7 @@ void zppequ(
 
   // Initialize SMIN and AMAX.value.
 
-  S[1] = AP[1].toDouble();
+  S[1] = AP[1].real;
   SMIN = S[1];
   AMAX.value = S[1];
 
@@ -60,7 +60,7 @@ void zppequ(
     JJ = 1;
     for (I = 2; I <= N; I++) {
       JJ += I;
-      S[I] = AP[JJ].toDouble();
+      S[I] = AP[JJ].real;
       SMIN = min(SMIN, S[I]);
       AMAX.value = max(AMAX.value, S[I]);
     }
@@ -71,7 +71,7 @@ void zppequ(
     JJ = 1;
     for (I = 2; I <= N; I++) {
       JJ += N - I + 2;
-      S[I] = AP[JJ].toDouble();
+      S[I] = AP[JJ].real;
       SMIN = min(SMIN, S[I]);
       AMAX.value = max(AMAX.value, S[I]);
     }

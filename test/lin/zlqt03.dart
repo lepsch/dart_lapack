@@ -97,8 +97,7 @@ void zlqt03(
       // Compute error in the difference
 
       final RESID = zlange('1', MC, NC, CC, LDA, RWORK);
-      RESULT[(ISIDE - 1) * 2 + ITRANS] =
-          RESID / ((max(1, N)).toDouble() * CNORM * EPS);
+      RESULT[(ISIDE - 1) * 2 + ITRANS] = RESID / (max(1, N) * CNORM * EPS);
     }
   }
 }

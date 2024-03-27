@@ -58,10 +58,10 @@ void zlatdf(
       // Look-ahead for L- part RHS(1:N-1) = +-1
       // SPLUS and SMIN computed more efficiently than in BSOLVE[1].
 
-      SPLUS += zdotc(N - J, Z(J + 1, J).asArray(), 1, Z(J + 1, J).asArray(), 1)
-          .toDouble();
-      SMINU = zdotc(N - J, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1).toDouble();
-      SPLUS *= RHS[J].toDouble();
+      SPLUS +=
+          zdotc(N - J, Z(J + 1, J).asArray(), 1, Z(J + 1, J).asArray(), 1).real;
+      SMINU = zdotc(N - J, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1).real;
+      SPLUS *= RHS[J].real;
       if (SPLUS > SMINU) {
         RHS[J] = BP;
       } else if (SMINU > SPLUS) {

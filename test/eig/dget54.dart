@@ -80,7 +80,7 @@ void dget54(
     if (ABNORM < ONE) {
       RESULT.value = (min(WNORM, 2 * N * ABNORM) / ABNORM) / (2 * N * ULP);
     } else {
-      RESULT.value = min(WNORM / ABNORM, (2 * N).toDouble()) / (2 * N * ULP);
+      RESULT.value = min(WNORM / ABNORM, (2 * N)) / (2 * N * ULP);
     }
   }
 }

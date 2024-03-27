@@ -960,7 +960,7 @@ void dtrsyl3(
 
     IWORK[1] = NBA + NBB + 2;
     SWORK[1][1] = max(NBA, NBB).toDouble();
-    SWORK[2][1] = (2 * NBB + NBA.toDouble());
+    SWORK[2][1] = (2 * NBB + NBA).toDouble();
     return;
   }
 

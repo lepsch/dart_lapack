@@ -29,7 +29,7 @@ void zlarcm(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      RWORK[(J - 1) * M + I] = B[I][J].toDouble();
+      RWORK[(J - 1) * M + I] = B[I][J].real;
     }
   }
 
@@ -51,7 +51,7 @@ void zlarcm(
       RWORK(L).asMatrix(M), M);
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      C[I][J] = Complex(C[I][J].toDouble(), RWORK[L + (J - 1) * M + I - 1]);
+      C[I][J] = Complex(C[I][J].real, RWORK[L + (J - 1) * M + I - 1]);
     }
   }
 }

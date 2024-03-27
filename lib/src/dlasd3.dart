@@ -139,7 +139,7 @@ void dlasd3(
           (DSIGMA[I] - DSIGMA[J + 1]) /
           (DSIGMA[I] + DSIGMA[J + 1]));
     }
-    Z[I] = sign(sqrt(Z[I].abs()), Q[I][1]).toDouble();
+    Z[I] = sign(sqrt(Z[I].abs()), Q[I][1]);
   }
 
   // Compute left singular vectors of the modified diagonal matrix,

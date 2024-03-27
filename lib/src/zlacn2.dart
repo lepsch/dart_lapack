@@ -28,7 +28,7 @@ void zlacn2(
   SAFMIN = dlamch('Safe minimum');
   if (KASE.value == 0) {
     for (I = 1; I <= N; I++) {
-      X[I] = (ONE / N.toDouble()).toComplex();
+      X[I] = (ONE / N).toComplex();
     }
     KASE.value = 1;
     ISAVE[1] = 1;
@@ -53,7 +53,7 @@ void zlacn2(
       for (I = 1; I <= N; I++) {
         ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].real / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
@@ -96,7 +96,7 @@ void zlacn2(
       for (I = 1; I <= N; I++) {
         ABSXI = X[I].abs();
         if (ABSXI > SAFMIN) {
-          X[I] = Complex(X[I].toDouble() / ABSXI, X[I].imaginary / ABSXI);
+          X[I] = Complex(X[I].real / ABSXI, X[I].imaginary / ABSXI);
         } else {
           X[I] = Complex.one;
         }
@@ -135,7 +135,7 @@ void zlacn2(
     // X HAS BEEN OVERWRITTEN BY A*X.
 
     case 5:
-      TEMP = TWO * (dzsum1(N, X, 1) / (3 * N).toDouble());
+      TEMP = TWO * (dzsum1(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         zcopy(N, X, 1, V, 1);
         EST.value = TEMP;

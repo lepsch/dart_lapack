@@ -169,12 +169,12 @@ void zhbevx_2stage(
     } else {
       CTMP1 = AB[KD + 1][1];
     }
-    TMP1 = CTMP1.toDouble();
+    TMP1 = CTMP1.real;
     if (VALEIG) {
       if (!(VL < TMP1 && VU >= TMP1)) M.value = 0;
     }
     if (M.value == 1) {
-      W[1] = CTMP1.toDouble();
+      W[1] = CTMP1.real;
       if (WANTZ) Z[1][1] = Complex.one;
     }
     return;

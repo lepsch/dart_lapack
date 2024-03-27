@@ -85,7 +85,7 @@ void zhetri_rook(
 
         // Invert the diagonal block.
 
-        A[K][K] = (ONE / A[K][K].toDouble()).toComplex();
+        A[K][K] = (ONE / A[K][K].real).toComplex();
 
         // Compute column K of the inverse.
 
@@ -103,8 +103,8 @@ void zhetri_rook(
         // Invert the diagonal block.
 
         T = A[K][K + 1].abs();
-        AK = A[K][K].toDouble() / T;
-        AKP1 = A[K + 1][K + 1].toDouble() / T;
+        AK = A[K][K].real / T;
+        AKP1 = A[K + 1][K + 1].real / T;
         AKKP1 = A[K][K + 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         A[K][K] = (AKP1 / D).toComplex();
@@ -219,7 +219,7 @@ void zhetri_rook(
 
         // Invert the diagonal block.
 
-        A[K][K] = (ONE / A[K][K].toDouble()).toComplex();
+        A[K][K] = (ONE / A[K][K].real).toComplex();
 
         // Compute column K of the inverse.
 
@@ -237,8 +237,8 @@ void zhetri_rook(
         // Invert the diagonal block.
 
         T = A[K][K - 1].abs();
-        AK = A[K - 1][K - 1].toDouble() / T;
-        AKP1 = A[K][K].toDouble() / T;
+        AK = A[K - 1][K - 1].real / T;
+        AKP1 = A[K][K].real / T;
         AKKP1 = A[K][K - 1] / T.toComplex();
         D = T * (AK * AKP1 - ONE);
         A[K - 1][K - 1] = (AKP1 / D).toComplex();

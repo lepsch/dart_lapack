@@ -193,7 +193,7 @@ void dbdsqr(
           if (SMINOA == ZERO) break;
         }
       }
-      SMINOA /= sqrt(N.toDouble());
+      SMINOA /= sqrt(N);
       THRESH = max(TOL * SMINOA, MAXITR * (N * (N * UNFL)));
     } else {
       // Absolute accuracy desired

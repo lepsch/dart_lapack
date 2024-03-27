@@ -125,11 +125,11 @@ void ztgsja(
         A1 = ZERO;
         A2 = Complex.zero;
         A3 = ZERO;
-        if (K + I <= M) A1 = A[K + I][N - L + I].toDouble();
-        if (K + J <= M) A3 = A[K + J][N - L + J].toDouble();
+        if (K + I <= M) A1 = A[K + I][N - L + I].real;
+        if (K + J <= M) A3 = A[K + J][N - L + J].real;
 
-        B1 = B[I][N - L + I].toDouble();
-        B3 = B[J][N - L + J].toDouble();
+        B1 = B[I][N - L + I].real;
+        B3 = B[J][N - L + J].real;
 
         if (UPPER) {
           if (K + I <= M) A2 = A[K + I][N - L + J];
@@ -245,8 +245,8 @@ void ztgsja(
     }
 
     for (I = 1; I <= min(L, M - K); I++) {
-      A1 = A[K + I][N - L + I].toDouble();
-      B1 = B[I][N - L + I].toDouble();
+      A1 = A[K + I][N - L + I].real;
+      B1 = B[I][N - L + I].real;
       GAMMA = B1 / A1;
 
       if ((GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM)) {

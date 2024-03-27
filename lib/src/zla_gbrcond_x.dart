@@ -39,7 +39,7 @@ double zla_gbrcond_x(
   final AINVNM = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   INFO.value = 0;
   NOTRANS = lsame(TRANS, 'N');

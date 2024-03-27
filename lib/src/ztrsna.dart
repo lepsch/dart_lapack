@@ -57,7 +57,7 @@ void ztrsna(
   final IERR = Box(0), KASE = Box(0);
   final EST = Box(0.0), SCALE = Box(0.0);
 
-  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   // Decode and test the input parameters
 
