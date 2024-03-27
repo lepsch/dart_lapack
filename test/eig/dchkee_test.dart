@@ -9,27 +9,26 @@ import 'dchkee.dart';
 
 void main() async {
   const inputs = [
-    'nep.in',
-    'sep.in',
-    'se2.in',
-    'dsg.in',
-    'svd.in',
-    'ded.in',
-    'dgg.in',
-    'dgd.in',
-    'dsb.in',
+    'csd.in',
+    'dbak.in',
+    'dbal.in',
     'dbb.in',
+    'dec.in',
+    'ded.in',
+    'dgbak.in',
+    'dgbal.in',
+    'dgd.in',
+    'dgg.in',
+    'dsb.in',
+    'dsg.in',
     'glm.in',
     'gqr.in',
     'gsv.in',
-    'csd.in',
     'lse.in',
-    'dec.in',
-    'dbal.in',
-    'dgbal.in',
-
-    // 'dbak.in',  //
-    // 'dgbak.in',       //
+    'nep.in',
+    'se2.in',
+    'sep.in',
+    'svd.in',
   ];
   for (final input in inputs) {
     final inputFile = File(path.join(currentFilePath(), '..', input));

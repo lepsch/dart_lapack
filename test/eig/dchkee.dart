@@ -215,7 +215,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         continue nextPath;
       } else if (DGK) {
         // DGGBAK:  Back transformation
-        await dchkgk(NIN, NOUT);
+        await dchkgk(NIN, NOUT, test, 'DGGBAK: Back transformation');
         continue nextPath;
       } else if (lsamen(3, PATH, 'DEC')) {
         // DEC:  Eigencondition estimation
