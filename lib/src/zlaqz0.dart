@@ -291,8 +291,7 @@ void zlaqz0(
   for (IITER = 1; IITER <= MAXIT; IITER++) {
     if (IITER >= MAXIT) {
       INFO.value = ISTOP + 1;
-      INFO.value = NORM_INFO.value;
-      return;
+      break;
     }
     if (ISTART + 1 >= ISTOP) {
       ISTOP = ISTART;

@@ -462,20 +462,20 @@
                K = 1
                DO i = 2, NUMRNK
                  IF ( ( RWORK(i) <= RWORK(1)*TOL ) .OR. &
-                      ( RWORK(i) <= SMALL ) ) EXIT
+                      ( RWORK(i) <= SMALL ) ) break;
                  K = K + 1
                END DO
           CASE ( -2 )
                K = 1
                DO i = 1, NUMRNK-1
                  IF ( ( RWORK(i+1) <= RWORK(i)*TOL  ) .OR. &
-                      ( RWORK(i) <= SMALL ) ) EXIT
+                      ( RWORK(i) <= SMALL ) ) break;
                  K = K + 1
                END DO
           CASE DEFAULT
                K = 1
                DO i = 2, NRNK
-                  IF ( RWORK(i) <= SMALL ) EXIT
+                  IF ( RWORK(i) <= SMALL ) break;
                   K = K + 1
                END DO
           END SELECT

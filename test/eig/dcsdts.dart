@@ -63,8 +63,7 @@ void dcsdts(
   dsyrk('Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE,
       WORK.asMatrix(LDX), LDX);
   if (M > 0) {
-    EPS2 = max(
-        ULP, dlange('1', M, M, WORK.asMatrix(LDX), LDX, RWORK) / M.toDouble());
+    EPS2 = max(ULP, dlange('1', M, M, WORK.asMatrix(LDX), LDX, RWORK) / M);
   } else {
     EPS2 = ULP;
   }
@@ -174,22 +173,22 @@ void dcsdts(
   // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
   RESID = dlange('1', P, Q, XF, LDX, RWORK);
-  RESULT[1] = (RESID / (max(1, max(P, Q)))).toDouble() / EPS2;
+  RESULT[1] = (RESID / (max(1, max(P, Q)))) / EPS2;
 
   // Compute norm( U1'*X12*V2 - D12 ) / ( max(1,P,M-Q)*EPS2 ) .
 
   RESID = dlange('1', P, M - Q, XF(1, Q + 1), LDX, RWORK);
-  RESULT[2] = (RESID / (max(1, max(P, M - Q)))).toDouble() / EPS2;
+  RESULT[2] = (RESID / (max(1, max(P, M - Q)))) / EPS2;
 
   // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
   RESID = dlange('1', M - P, Q, XF(P + 1, 1), LDX, RWORK);
-  RESULT[3] = (RESID / (max(1, max(M - P, Q)))).toDouble() / EPS2;
+  RESULT[3] = (RESID / (max(1, max(M - P, Q)))) / EPS2;
 
   // Compute norm( U2'*X22*V2 - D22 ) / ( max(1,M-P,M-Q)*EPS2 ) .
 
   RESID = dlange('1', M - P, M - Q, XF(P + 1, Q + 1), LDX, RWORK);
-  RESULT[4] = (RESID / (max(1, max(M - P, M - Q)))).toDouble() / EPS2;
+  RESULT[4] = (RESID / (max(1, max(M - P, M - Q)))) / EPS2;
 
   // Compute I - U1'*U1
 
@@ -200,7 +199,7 @@ void dcsdts(
   // Compute norm( I - U'*U ) / ( max(1,P) * ULP ) .
 
   RESID = dlansy('1', 'Upper', P, WORK.asMatrix(LDU1), LDU1, RWORK);
-  RESULT[5] = (RESID / (max(1, P))).toDouble() / ULP;
+  RESULT[5] = (RESID / (max(1, P))) / ULP;
 
   // Compute I - U2'*U2
 
@@ -211,7 +210,7 @@ void dcsdts(
   // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
   RESID = dlansy('1', 'Upper', M - P, WORK.asMatrix(LDU2), LDU2, RWORK);
-  RESULT[6] = (RESID / (max(1, M - P))).toDouble() / ULP;
+  RESULT[6] = (RESID / (max(1, M - P))) / ULP;
 
   // Compute I - V1T*V1T'
 
@@ -222,7 +221,7 @@ void dcsdts(
   // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
   RESID = dlansy('1', 'Upper', Q, WORK.asMatrix(LDV1T), LDV1T, RWORK);
-  RESULT[7] = (RESID / (max(1, Q))).toDouble() / ULP;
+  RESULT[7] = (RESID / (max(1, Q))) / ULP;
 
   // Compute I - V2T*V2T'
 
@@ -233,7 +232,7 @@ void dcsdts(
   // Compute norm( I - V2T*V2T' ) / ( max(1,M-Q) * ULP ) .
 
   RESID = dlansy('1', 'Upper', M - Q, WORK.asMatrix(LDV2T), LDV2T, RWORK);
-  RESULT[8] = (RESID / (max(1, M - Q))).toDouble() / ULP;
+  RESULT[8] = (RESID / (max(1, M - Q))) / ULP;
 
   // Check sorting
 
@@ -255,8 +254,7 @@ void dcsdts(
   dsyrk('Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE,
       WORK.asMatrix(LDX), LDX);
   if (M > 0) {
-    EPS2 = max(
-        ULP, dlange('1', Q, Q, WORK.asMatrix(LDX), LDX, RWORK) / M.toDouble());
+    EPS2 = max(ULP, dlange('1', Q, Q, WORK.asMatrix(LDX), LDX, RWORK) / M);
   } else {
     EPS2 = ULP;
   }
@@ -305,12 +303,12 @@ void dcsdts(
   // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
   RESID = dlange('1', P, Q, X, LDX, RWORK);
-  RESULT[10] = (RESID / (max(1, max(P, Q)))).toDouble() / EPS2;
+  RESULT[10] = (RESID / (max(1, max(P, Q)))) / EPS2;
 
   // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
   RESID = dlange('1', M - P, Q, X(P + 1, 1), LDX, RWORK);
-  RESULT[11] = (RESID / (max(1, max(M - P, Q)))).toDouble() / EPS2;
+  RESULT[11] = (RESID / (max(1, max(M - P, Q)))) / EPS2;
 
   // Compute I - U1'*U1
 
@@ -321,7 +319,7 @@ void dcsdts(
   // Compute norm( I - U1'*U1 ) / ( max(1,P) * ULP ) .
 
   RESID = dlansy('1', 'Upper', P, WORK.asMatrix(LDU1), LDU1, RWORK);
-  RESULT[12] = (RESID / (max(1, P))).toDouble() / ULP;
+  RESULT[12] = (RESID / (max(1, P))) / ULP;
 
   // Compute I - U2'*U2
 
@@ -332,7 +330,7 @@ void dcsdts(
   // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
   RESID = dlansy('1', 'Upper', M - P, WORK.asMatrix(LDU2), LDU2, RWORK);
-  RESULT[13] = (RESID / (max(1, M - P))).toDouble() / ULP;
+  RESULT[13] = (RESID / (max(1, M - P))) / ULP;
 
   // Compute I - V1T*V1T'
 
@@ -343,7 +341,7 @@ void dcsdts(
   // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
   RESID = dlansy('1', 'Upper', Q, WORK.asMatrix(LDV1T), LDV1T, RWORK);
-  RESULT[14] = (RESID / (max(1, Q))).toDouble() / ULP;
+  RESULT[14] = (RESID / (max(1, Q))) / ULP;
 
   // Check sorting
 

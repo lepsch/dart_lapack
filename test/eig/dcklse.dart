@@ -99,7 +99,7 @@ Future<void> dcklse(
       for (final IMAT in 1.through(NTYPES)) {
         // Do the tests only if DOTYPE[ IMAT ] is true.
         final skip = !DOTYPE[IMAT];
-        test('DCKCSD (M = $M, N = $N, P = $P TYPE = $IMAT)', () {
+        test('DCKLSE (M = $M, N = $N, P = $P TYPE = $IMAT)', () {
           final IINFO = Box(0);
 
           // Set up parameters with DLATB9 and generate test

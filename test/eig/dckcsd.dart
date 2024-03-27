@@ -16,6 +16,7 @@ import '../matgen/dlaror.dart';
 import '../test_driver.dart';
 import 'alahdg.dart';
 import 'alareq.dart';
+import 'common.dart';
 import 'dcsdts.dart';
 
 Future<void> dckcsd(
@@ -81,9 +82,13 @@ Future<void> dckcsd(
   final LDV2T = MMAX;
   final LWORK = MMAX * MMAX;
 
+  final PARAMS = claenv.IPARMS.copy();
+
   test.group(group, () {
     var FIRSTT = true;
-
+    test.setUp(() {
+      claenv.IPARMS.assign(PARAMS);
+    });
     // Do for each value of M in MVAL.
 
     for (final IM in 1.through(NM)) {
@@ -101,12 +106,14 @@ Future<void> dckcsd(
 
           if (IMAT == 1) {
             dlaror('L', 'I', M, M, X.asMatrix(LDX), LDX, ISEED, WORK, IINFO);
-            expect([M, IINFO.value], [0, 0]);
-            if (M != 0 && IINFO.value != 0) {
-              NOUT.println(
-                  ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}');
-              INFO.value = IINFO.value.abs();
-              return;
+            if (M != 0) {
+              test.expect(IINFO.value, 0);
+              if (IINFO.value != 0) {
+                NOUT.println(
+                    ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}');
+                INFO.value = IINFO.value.abs();
+                return;
+              }
             }
           } else if (IMAT == 2) {
             final R = min(min(P, M - P), min(Q, M - Q));

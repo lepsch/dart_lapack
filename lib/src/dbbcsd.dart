@@ -61,15 +61,6 @@ void dbbcsd(
   final B22D = B22D_.having();
   final B22E = B22E_.having();
   final WORK = WORK_.having();
-
-  // // .. Scalar Arguments ..
-  // String             JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS;
-  // int                INFO.value, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q;
-  // // ..
-  // // .. Array Arguments ..
-  // double             B11D[ * ], B11E[ * ], B12D[ * ], B12E[ * ], B21D[ * ], B21E[ * ], B22D[ * ], B22E[ * ], PHI[ * ], THETA[ * ], WORK[ * ];
-  // double             U1[ LDU1][ * ], U2[ LDU2][ * ], V1T[ LDV1T][ * ], V2T[ LDV2T][ * ];
-
   const MAXITR = 6;
   const HUNDRED = 100.0, MEIGHTH = -0.125, ONE = 1.0, TEN = 10.0, ZERO = 0.0;
   const NEGONE = -1.0;
@@ -213,7 +204,7 @@ void dbbcsd(
   IMAX = Q;
   while (IMAX > 1) {
     if (PHI[IMAX - 1] != ZERO) {
-      return;
+      break;
     }
     IMAX--;
   }
@@ -221,7 +212,7 @@ void dbbcsd(
   if (IMIN > 1) {
     while (PHI[IMIN - 1] != ZERO) {
       IMIN--;
-      if (IMIN <= 1) return;
+      if (IMIN <= 1) break;
     }
   }
 
@@ -619,8 +610,8 @@ void dbbcsd(
     }
     if (WANTU2) {
       if (COLMAJOR) {
-        dlasr('R', 'V', 'F', M - P, IMAX - IMIN + 1,
-            WORK(IU2CS + IMIN - 1), WORK(IU2SN + IMIN - 1), U2(1, IMIN), LDU2);
+        dlasr('R', 'V', 'F', M - P, IMAX - IMIN + 1, WORK(IU2CS + IMIN - 1),
+            WORK(IU2SN + IMIN - 1), U2(1, IMIN), LDU2);
       } else {
         dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - P, WORK(IU2CS + IMIN - 1),
             WORK(IU2SN + IMIN - 1), U2(IMIN, 1), LDU2);
@@ -640,16 +631,8 @@ void dbbcsd(
         dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - Q, WORK(IV2TCS + IMIN - 1),
             WORK(IV2TSN + IMIN - 1), V2T(IMIN, 1), LDV2T);
       } else {
-        dlasr(
-            'R',
-            'V',
-            'F',
-            M - Q,
-            IMAX - IMIN + 1,
-            WORK(IV2TCS + IMIN - 1),
-            WORK(IV2TSN + IMIN - 1),
-            V2T(1, IMIN),
-            LDV2T);
+        dlasr('R', 'V', 'F', M - Q, IMAX - IMIN + 1, WORK(IV2TCS + IMIN - 1),
+            WORK(IV2TSN + IMIN - 1), V2T(1, IMIN), LDV2T);
       }
     }
 
@@ -732,14 +715,14 @@ void dbbcsd(
     if (IMAX > 1) {
       while (PHI[IMAX - 1] == ZERO) {
         IMAX--;
-        if (IMAX <= 1) return;
+        if (IMAX <= 1) break;
       }
     }
     if (IMIN > IMAX - 1) IMIN = IMAX - 1;
     if (IMIN > 1) {
       while (PHI[IMIN - 1] != ZERO) {
         IMIN--;
-        if (IMIN <= 1) return;
+        if (IMIN <= 1) break;
       }
     }
 
