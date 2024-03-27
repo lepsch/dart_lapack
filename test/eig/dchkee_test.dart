@@ -25,8 +25,10 @@ void main() async {
     'csd.in',
     'lse.in',
     'dec.in',
+    'dbal.in',
+    'dgbal.in',
 
-    // 'dbal.in', 'dbak.in', 'dgbal.in', //
+    // 'dbak.in',  //
     // 'dgbak.in',       //
   ];
   for (final input in inputs) {

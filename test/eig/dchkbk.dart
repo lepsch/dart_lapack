@@ -7,57 +7,67 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
-Future<void> dchkbk(final Nin NIN, final Nout NOUT) async {
+import '../test_driver.dart';
+
+Future<void> dchkbk(
+  final Nin NIN,
+  final Nout NOUT,
+  final TestDriver test,
+  final String group,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const LDE = 20;
   const ZERO = 0.0;
-  int I, IHI, ILO, J, KNT, N, NINFO;
-  double EPS, RMAX, SAFMIN, VMAX, X;
-  final LMAX = Array<int>(2);
   final E = Matrix<double>(LDE, LDE),
       EIN = Matrix<double>(LDE, LDE),
       SCALE = Array<double>(LDE);
-  final INFO = Box(0);
 
-  LMAX[1] = 0;
-  LMAX[2] = 0;
-  NINFO = 0;
-  KNT = 0;
-  RMAX = ZERO;
-  EPS = dlamch('E');
-  SAFMIN = dlamch('S');
+  final LMAX = Array.fromList([0, 0]);
+  var NINFO = 0;
+  var KNT = 0;
+  var RMAX = ZERO;
+  final EPS = dlamch('E');
+  final SAFMIN = dlamch('S');
 
   while (true) {
-    (N, ILO, IHI) = await NIN.readInt3();
+    final (N, ILO, IHI) = await NIN.readInt3();
     if (N == 0) break;
 
     await NIN.readArray(SCALE, N);
     await NIN.readMatrix(E, N, N);
     await NIN.readMatrix(EIN, N, N);
 
-    KNT++;
-    dgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO);
+    final ctx = (SCALE: SCALE.copy(), E: E.copy(), EIN: EIN.copy());
+    test.group(group, () {
+      final (:SCALE, :E, :EIN) = ctx;
+      test('DCHKBK (N=$N, ILO=$ILO, IHI=$IHI)', () {
+        final INFO = Box(0);
 
-    if (INFO.value != 0) {
-      NINFO++;
-      LMAX[1] = KNT;
-    }
+        KNT++;
+        dgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO);
 
-    VMAX = ZERO;
-    for (I = 1; I <= N; I++) {
-      for (J = 1; J <= N; J++) {
-        X = (E[I][J] - EIN[I][J]).abs() / EPS;
-        if (E[I][J].abs() > SAFMIN) X /= E[I][J].abs();
-        VMAX = max(VMAX, X);
-      }
-    }
+        if (INFO.value != 0) {
+          NINFO++;
+          LMAX[1] = KNT;
+        }
 
-    if (VMAX > RMAX) {
-      LMAX[2] = KNT;
-      RMAX = VMAX;
-    }
+        var VMAX = ZERO;
+        for (var I = 1; I <= N; I++) {
+          for (var J = 1; J <= N; J++) {
+            var X = (E[I][J] - EIN[I][J]).abs() / EPS;
+            if (E[I][J].abs() > SAFMIN) X /= E[I][J].abs();
+            VMAX = max(VMAX, X);
+          }
+        }
+
+        if (VMAX > RMAX) {
+          LMAX[2] = KNT;
+          RMAX = VMAX;
+        }
+      });
+    });
   }
 
   NOUT.println(' .. test output of DGEBAK .. ');

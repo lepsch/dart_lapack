@@ -6,8 +6,6 @@ import 'package:stack_trace/stack_trace.dart';
 
 var _debug = true;
 
-bool get debug => _debug;
-
 void debugOff() {
   _debug = false;
 }
@@ -19,13 +17,13 @@ void debugOn() {
 extension DoubleMatrixExtension on Matrix<double> {
   void debug(String name, int m, int n) {
     if (!_debug) return;
-    dbg('$name(${m.i6}, ${n.i6}) =');
+    _print('$name(${m.i6}, ${n.i6}) =');
     for (var i = 1; i <= m; i++) {
       var line = '';
       for (var j = 1; j <= n; j++) {
         line += this[i][j].$;
       }
-      dbg(line);
+      _print(line);
     }
   }
 }
@@ -37,7 +35,7 @@ extension DoubleArrayExtension on Array<double> {
     for (var i = 1; i <= s; i++) {
       line += this[i].$;
     }
-    dbg(line);
+    _print(line);
   }
 }
 
@@ -48,7 +46,7 @@ extension IntArrayExtension on Array<int> {
     for (var i = 1; i <= s; i++) {
       line += this[i].$;
     }
-    dbg(line);
+    _print(line);
   }
 }
 
@@ -59,7 +57,7 @@ extension BoolArrayExtension on Array<bool> {
     for (var i = 1; i <= s; i++) {
       line += (this[i] ? 1 : 0).i2;
     }
-    dbg(line);
+    _print(line);
   }
 }
 
@@ -116,7 +114,7 @@ void debugd6(String name, double d1, double d2, double d3, double d4, double d5,
 
 void debugdi(String name, double d, int i) {
   if (!_debug) return;
-  dbg('$name ${d.$}${i.$}');
+  debug('$name ${d.$}${i.$}');
 }
 
 void debugi1(String name, int d) {
@@ -169,11 +167,15 @@ void debugi8(String name, int d1, int d2, int d3, int d4, int d5, int d6,
   a.debug(name, 8);
 }
 
-void dbg(String s) {
+void debug(String s) {
   if (!_debug) return;
+  _print(s);
+}
+
+void _print(String s) {
   // if (isInDebugMode) return;
-  // print(s);
-  stderr.writeln(s);
+  print(s);
+  // stderr.writeln(s);
 }
 
 bool get isInDebugMode {

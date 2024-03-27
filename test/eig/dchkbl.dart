@@ -6,80 +6,79 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:test/test.dart';
 
-Future<void> dchkbl(final Nin NIN, final Nout NOUT) async {
+import '../test_driver.dart';
+
+Future<void> dchkbl(
+  final Nin NIN,
+  final Nout NOUT,
+  final TestDriver test,
+  final String group,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const LDA = 20;
-  const ZERO = 0.0;
-  int I, IHIIN, ILOIN, J, KNT, N, NINFO;
-  double
-      // ANORM,
-      // MEPS,
-      RMAX,
-      SFMIN,
-      TEMP,
-      VMAX;
-  final LMAX = Array<int>(3);
+  const ZERO = 0.0, ONE = 1.0;
   final A = Matrix<double>(LDA, LDA), AIN = Matrix<double>(LDA, LDA);
-  final
-      // DUMMY = Array<double>(1),
-      SCALE = Array<double>(LDA),
-      SCALIN = Array<double>(LDA);
-  final INFO = Box(0), IHI = Box(0), ILO = Box(0);
+  final SCALE = Array<double>(LDA), SCALIN = Array<double>(LDA);
 
-  LMAX[1] = 0;
-  LMAX[2] = 0;
-  LMAX[3] = 0;
-  NINFO = 0;
-  KNT = 0;
-  RMAX = ZERO;
-  VMAX = ZERO;
-  SFMIN = dlamch('S');
-  // MEPS = dlamch('E');
+  final LMAX = Array.fromList([0, 0, 0]);
+  var NINFO = 0;
+  var KNT = 0;
+  var RMAX = ZERO;
+  var VMAX = ZERO;
+  final SFMIN = dlamch('S');
 
   while (true) {
-    N = await NIN.readInt();
+    final N = await NIN.readInt();
     if (N == 0) break;
     await NIN.readMatrix(A, N, N);
-    (ILOIN, IHIIN) = await NIN.readInt2();
+    final (ILOIN, IHIIN) = await NIN.readInt2();
     await NIN.readMatrix(AIN, N, N);
     await NIN.readArray(SCALIN, N);
 
-    // ANORM = dlange('M', N, N, A, LDA, DUMMY);
-    KNT++;
+    final ctx = (A: A.copy(), AIN: AIN.copy(), SCALIN: SCALIN.copy());
+    test.group(group, () {
+      final (:A, :AIN, :SCALIN) = ctx;
+      test('DCHKBL (N=$N, ILOIN=$ILOIN, IHIIN=$IHIIN)', () {
+        final INFO = Box(0), IHI = Box(0), ILO = Box(0);
 
-    dgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO);
+        // ANORM = dlange('M', N, N, A, LDA, DUMMY);
+        KNT++;
 
-    if (INFO.value != 0) {
-      NINFO++;
-      LMAX[1] = KNT;
-    }
+        dgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO);
 
-    if (ILO.value != ILOIN || IHI.value != IHIIN) {
-      NINFO++;
-      LMAX[2] = KNT;
-    }
+        if (INFO.value != 0) {
+          NINFO++;
+          LMAX[1] = KNT;
+        }
 
-    for (I = 1; I <= N; I++) {
-      for (J = 1; J <= N; J++) {
-        TEMP = max(A[I][J], AIN[I][J]);
-        TEMP = max(TEMP, SFMIN);
-        VMAX = max(VMAX, (A[I][J] - AIN[I][J]).abs() / TEMP);
-      }
-    }
+        if (ILO.value != ILOIN || IHI.value != IHIIN) {
+          NINFO++;
+          LMAX[2] = KNT;
+        }
 
-    for (I = 1; I <= N; I++) {
-      TEMP = max(SCALE[I], SCALIN[I]);
-      TEMP = max(TEMP, SFMIN);
-      VMAX = max(VMAX, (SCALE[I] - SCALIN[I]).abs() / TEMP);
-    }
+        for (var I = 1; I <= N; I++) {
+          for (var J = 1; J <= N; J++) {
+            final TEMP = max(max(A[I][J], AIN[I][J]), SFMIN);
+            VMAX = max(VMAX, (A[I][J] - AIN[I][J]).abs() / TEMP);
+          }
+        }
 
-    if (VMAX > RMAX) {
-      LMAX[3] = KNT;
-      RMAX = VMAX;
-    }
+        for (var I = 1; I <= N; I++) {
+          final TEMP = max(max(SCALE[I], SCALIN[I]), SFMIN);
+          VMAX = max(VMAX, (SCALE[I] - SCALIN[I]).abs() / TEMP);
+        }
+
+        test.expect(VMAX, lessThanOrEqualTo(ONE));
+        if (VMAX > RMAX) {
+          LMAX[3] = KNT;
+          RMAX = VMAX;
+        }
+      });
+    });
   }
 
   NOUT.println(' .. test output of DGEBAL .. ');

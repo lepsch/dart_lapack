@@ -245,7 +245,7 @@ void dggbal(
 
   if (ILO.value == IHI.value) return;
 
-  // Balance the submatrix in rows ILO.value to IHI.value.
+  // Balance the submatrix in rows ILO to IHI.
 
   NR = IHI.value - ILO.value + 1;
   for (I = ILO.value; I <= IHI.value; I++) {
@@ -278,7 +278,7 @@ void dggbal(
     }
   }
 
-  COEF = ONE / (2 * NR).toDouble();
+  COEF = ONE / (2 * NR);
   COEF2 = COEF * COEF;
   COEF5 = HALF * COEF2;
   NRP2 = NR + 2;

@@ -26,7 +26,11 @@ class Nin {
   }
 
   Future<List<String>> readList() async {
-    return (await readLine()).trim().split(RegExp(r'\s+'));
+    String line;
+    do {
+      line = (await readLine()).trim();
+    } while (line.isEmpty);
+    return line.split(RegExp(r'\s+'));
   }
 
   Future<String> readString() async {

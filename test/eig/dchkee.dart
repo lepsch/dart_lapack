@@ -203,15 +203,15 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
         NOUT.println('\n Tests of the Linear Least Squares routines');
       } else if (DBL) {
         // DGEBAL:  Balancing
-        await dchkbl(NIN, NOUT);
+        await dchkbl(NIN, NOUT, test, 'DGEBAL: Balancing');
         continue nextPath;
       } else if (DBK) {
         // DGEBAK:  Back transformation
-        await dchkbk(NIN, NOUT);
+        await dchkbk(NIN, NOUT, test, 'DGEBAK: Back transformation');
         continue nextPath;
       } else if (DGL) {
         // DGGBAL:  Balancing
-        await dchkgl(NIN, NOUT);
+        await dchkgl(NIN, NOUT, test, 'DGGBAL: Balancing');
         continue nextPath;
       } else if (DGK) {
         // DGGBAK:  Back transformation
