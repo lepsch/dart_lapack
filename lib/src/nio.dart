@@ -76,27 +76,23 @@ class Nin {
   }
 
   Future<int> readInt() async {
-    final a = Array<int>(1);
-    await readArray(a, 1);
-    return a[1];
+    final a = await readData<int>(1);
+    return a[0];
   }
 
   Future<(int, int)> readInt2() async {
-    final a = Array<int>(2);
-    await readArray(a, 2);
-    return (a[1], a[2]);
+    final a = await readData<int>(2);
+    return (a[0], a[1]);
   }
 
   Future<(int, int, int)> readInt3() async {
-    final a = Array<int>(3);
-    await readArray(a, 3);
-    return (a[1], a[2], a[3]);
+    final a = await readData<int>(3);
+    return (a[0], a[1], a[2]);
   }
 
   Future<(int, int, int, int)> readInt4() async {
-    final a = Array<int>(4);
-    await readArray(a, 4);
-    return (a[1], a[2], a[3], a[4]);
+    final a = await readData<int>(4);
+    return (a[0], a[1], a[2], a[3]);
   }
 
   Future<void> readBoxes<T>(
@@ -111,47 +107,42 @@ class Nin {
   ]) async {
     final n = 1 + [b2, b3, b4, b5, b6, b7, b8].nonNulls.length;
 
-    final a = Array<T>(n);
-    await readArray(a, n);
-    b1.value = a[1];
+    final a = await readData<T>(n);
+    b1.value = a[0];
     if (n == 1) return;
-    b2!.value = a[2];
+    b2!.value = a[1];
     if (n == 2) return;
-    b3!.value = a[3];
+    b3!.value = a[2];
     if (n == 3) return;
-    b4!.value = a[4];
+    b4!.value = a[3];
     if (n == 4) return;
-    b5!.value = a[5];
+    b5!.value = a[4];
     if (n == 5) return;
-    b6!.value = a[6];
+    b6!.value = a[5];
     if (n == 6) return;
-    b7!.value = a[7];
+    b7!.value = a[6];
     if (n == 7) return;
-    b8!.value = a[8];
+    b8!.value = a[7];
   }
 
   Future<double> readDouble() async {
-    final a = Array<double>(1);
-    await readArray(a, 1);
-    return a[1];
+    final a = await readData<double>(1);
+    return a[0];
   }
 
   Future<(double, double)> readDouble2() async {
-    final a = Array<double>(2);
-    await readArray(a, 2);
-    return (a[1], a[2]);
+    final a = await readData<double>(2);
+    return (a[0], a[1]);
   }
 
   Future<(double, double, double, double)> readDouble4() async {
-    final a = Array<double>(4);
-    await readArray(a, 4);
-    return (a[1], a[2], a[3], a[4]);
+    final a = await readData<double>(4);
+    return (a[0], a[1], a[2], a[3]);
   }
 
   Future<bool> readBool() async {
-    final a = Array<bool>(1);
-    await readArray(a, 1);
-    return a[1];
+    final a = await readData<bool>(1);
+    return a[0];
   }
 
   Future<(T1, T2)> read2<T1, T2>() async {

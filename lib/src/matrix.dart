@@ -122,33 +122,11 @@ extension ArrayExtension<T> on Array<T> {
   }
 }
 
-typedef MatrixIndexer = int Function(List<int> strides, List<int> indexes);
-
-int columnIndexed(List<int> strides, List<int> indexes) {
-  strides = strides.sublist(0, indexes.length);
-  var index = 0;
-  var stride = 1;
-  final strideIter = strides.reversed.iterator;
-  for (final i in indexes) {
-    strideIter.moveNext();
-    stride *= strideIter.current;
-    index += i * stride;
-  }
-  return index;
-}
-
-int rowIndexed(List<int> strides, List<int> indexes) {
-  return columnIndexed(strides, indexes.reversed.toList());
-}
-
-const defaultMatrixIndexer = columnIndexed;
-
 class Matrix<T> implements Box<T> {
   final Array<T> _entries;
   final (int, int) _strides;
   final (int, int) dimensions;
   final ({int x, int y}) offset;
-  final MatrixIndexer _indexer;
 
   int get ld => _strides.$1;
 
@@ -156,22 +134,18 @@ class Matrix<T> implements Box<T> {
     int m,
     int n, {
     this.offset = oneIndexedMatrixOffset,
-    MatrixIndexer indexer = defaultMatrixIndexer,
   })  : dimensions = (m, n),
         _strides = (m, 1),
-        _indexer = indexer,
         _entries = _Array<T>(m * n, offset: 0);
 
   Matrix.fromList(
     List<List<T>> list, {
     this.offset = oneIndexedMatrixOffset,
-    MatrixIndexer indexer = defaultMatrixIndexer,
   })  : _entries = _Array<T>.fromList([
           for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
             for (var i = 0; i < list.length; i++) list[i][j],
           ],
         ], offset: 0),
-        _indexer = indexer,
         dimensions = (list.length, (list.firstOrNull ?? []).length),
         _strides = (list.length, 1);
 
@@ -179,29 +153,24 @@ class Matrix<T> implements Box<T> {
     List<T> data,
     this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
-    MatrixIndexer indexer = defaultMatrixIndexer,
   })  : assert(dimensions.$1 * dimensions.$2 >= data.length),
         _entries = Array.fromData(data, offset: 0),
-        _indexer = indexer,
         _strides = (dimensions.$1, 1);
 
   Matrix.fromSlice(
     Array<T> entries,
     this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
-    MatrixIndexer indexer = defaultMatrixIndexer,
   })  : //assert(dimensions.$1 * dimensions.$2 >= entries.length),
         _entries = _Array.fromData(entries.toData(), offset: 0),
-        _strides = (dimensions.$1, 1),
-        _indexer = indexer;
+        _strides = (dimensions.$1, 1);
 
   Matrix._(
     this._entries,
     this.dimensions,
     this._strides, {
     this.offset = oneIndexedMatrixOffset,
-    MatrixIndexer indexer = defaultMatrixIndexer,
-  }) : _indexer = indexer;
+  });
 
   Matrix<T> call(
     int i,
@@ -209,32 +178,29 @@ class Matrix<T> implements Box<T> {
     int? ld,
     ({int x, int y})? offset,
   }) {
-    var entries = _entries(
-      _indexer([this._strides.$1, this._strides.$2],
-          [i + this.offset.y, j + this.offset.x]),
-      offset: 0,
-    );
+    final entries = _entries(_getIndex(i, j), offset: 0);
 
     return Matrix._(
       entries,
       (ld ?? this.ld, dimensions.$2),
       (ld ?? this.ld, 1),
       offset: offset ?? this.offset,
-      indexer: _indexer,
     );
   }
 
-  MatrixItemAcessor<T> operator [](int i) {
-    return MatrixItemAcessor(this, i);
+  int _getIndex(int i, int j) {
+    i += this.offset.y;
+    j += this.offset.x;
+    return i * _strides.$2 + j * _strides.$1;
   }
 
-  List<T> toData() {
-    return _entries.toData();
-  }
+  MatrixItemAccessor<T> operator [](int i) => MatrixItemAccessor(this, i);
+
+  List<T> toData() => _entries.toData();
 
   Box<T> box(int i, int j) => this(i, j);
 
-  Array<T> asArray() => Array.fromSlice(_entries.toData());
+  Array<T> asArray() => Array.fromSlice(_entries.toData(), offset: offset.x);
 
   T get first => _entries.first;
 
@@ -248,13 +214,9 @@ class Matrix<T> implements Box<T> {
         ),
         (ld ?? this._strides.$1, this._strides.$2),
         offset: offset ?? this.offset,
-        indexer: _indexer,
       );
 
-  Matrix<T> copy() {
-    return Matrix.fromData(toData(), dimensions,
-        offset: offset, indexer: _indexer);
-  }
+  Matrix<T> copy() => Matrix.fromData(toData(), dimensions, offset: offset);
 
   int get length => _entries.length;
 
@@ -266,20 +228,19 @@ class Matrix<T> implements Box<T> {
 
   Matrix<R> cast<R>() {
     final entries = _entries.cast<R>();
-    return Matrix.fromSlice(entries, dimensions,
-        offset: offset, indexer: _indexer);
+    return Matrix.fromSlice(entries, dimensions, offset: offset);
   }
 }
 
-class MatrixItemAcessor<T> {
+class MatrixItemAccessor<T> {
   final int _i;
   final Matrix<T> _m;
 
-  const MatrixItemAcessor(this._m, this._i);
+  const MatrixItemAccessor(this._m, this._i);
 
-  T operator [](int j) => _m(_i, j).first;
+  T operator [](int j) => _m._entries[_m._getIndex(_i, j)];
 
-  void operator []=(int j, T value) => _m(_i, j).first = value;
+  void operator []=(int j, T value) => _m._entries[_m._getIndex(_i, j)] = value;
 }
 
 class _Array<T> implements Array<T> {
@@ -380,9 +341,7 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  List<T> toData() {
-    return _elements;
-  }
+  List<T> toData() => _elements;
 
   @override
   Matrix<T> asMatrix([int ld = 0]) {
@@ -404,9 +363,7 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  Array<T> copy() {
-    return Array.fromData(toData(), offset: offset);
-  }
+  Array<T> copy() => Array.fromData(toData(), offset: offset);
 
   @override
   Array<R> cast<R>() {
@@ -458,7 +415,10 @@ class _Array<T> implements Array<T> {
   void add(T value) => _elements.add(value);
 
   @override
-  void addAll(Iterable<T> iterable) => _elements.addAll(iterable);
+  void addAll(Iterable<T> iterable) {
+    iterable = iterable is Array<T> ? iterable.toData() : iterable;
+    _elements.addAll(iterable);
+  }
 
   @override
   bool any(bool Function(T element) test) => _elements.any(test);
@@ -495,7 +455,10 @@ class _Array<T> implements Array<T> {
       _elements.fold(initialValue, combine);
 
   @override
-  Iterable<T> followedBy(Iterable<T> other) => _elements.followedBy(other);
+  Iterable<T> followedBy(Iterable<T> other) {
+    other = other is Array<T> ? other.toData() : other;
+    return _elements.followedBy(other);
+  }
 
   @override
   void forEach(void Function(T element) action) => _elements.forEach(action);
@@ -516,8 +479,10 @@ class _Array<T> implements Array<T> {
       _elements.insert(index + offset, element);
 
   @override
-  void insertAll(int index, Iterable<T> iterable) =>
-      _elements.insertAll(index + offset, iterable);
+  void insertAll(int index, Iterable<T> iterable) {
+    iterable = iterable is Array<T> ? iterable.toData() : iterable;
+    _elements.insertAll(index + offset, iterable);
+  }
 
   @override
   bool get isEmpty => _elements.isEmpty;
@@ -572,8 +537,11 @@ class _Array<T> implements Array<T> {
       _elements.removeWhere((element) => false);
 
   @override
-  void replaceRange(int start, int end, Iterable<T> replacements) =>
-      _elements.replaceRange(start + offset, end + offset, replacements);
+  void replaceRange(int start, int end, Iterable<T> replacements) {
+    replacements =
+        replacements is Array<T> ? replacements.toData() : replacements;
+    _elements.replaceRange(start + offset, end + offset, replacements);
+  }
 
   @override
   void retainWhere(bool Function(T element) test) =>
@@ -583,13 +551,15 @@ class _Array<T> implements Array<T> {
   Iterable<T> get reversed => _elements.reversed;
 
   @override
-  void setAll(int index, Iterable<T> iterable) =>
-      _elements.setAll(index + offset, iterable);
+  void setAll(int index, Iterable<T> iterable) {
+    iterable = iterable is Array<T> ? iterable.toData() : iterable;
+    _elements.setAll(index + offset, iterable);
+  }
 
   @override
   void setRange(int start, int end, Iterable<T> iterable, [int skipCount = 0]) {
-    final source = iterable is Array<T> ? iterable.toData() : iterable;
-    _elements.setRange(start + offset, end + offset, source);
+    iterable = iterable is Array<T> ? iterable.toData() : iterable;
+    _elements.setRange(start + offset, end + offset, iterable, skipCount);
   }
 
   @override
@@ -690,12 +660,7 @@ class Matrix3d<T> {
         _entries = _Array.fromData(entries.toData(), offset: 0),
         _strides = (dimensions.$1, dimensions.$2, 1);
 
-  Matrix3d._(
-    this._entries,
-    this.dimensions,
-    this._strides,
-    this.offset,
-  );
+  Matrix3d._(this._entries, this.dimensions, this._strides, this.offset);
 
   Matrix3d<T> call(
     int i,
@@ -703,30 +668,22 @@ class Matrix3d<T> {
     int k, {
     ({int x, int y, int z}) offset = oneIndexedMatrix3dOffset,
   }) {
-    final ld1 = _strides.$1;
-    final ld2 = _strides.$2;
-    final entries = _entries(
-        (i + this.offset.x) +
-            (j + this.offset.y) * ld1 +
-            (k + this.offset.z) * ld2 * ld1,
-        offset: 0);
+    final entries = _entries(_getIndex(i, j, k), offset: 0);
     return Matrix3d.fromSlice(entries, dimensions, offset: offset);
   }
 
-  Matrix<T> operator [](int i) {
+  Matrix3dItemAccessor1<T> operator [](int i) => Matrix3dItemAccessor1(this, i);
+
+  int _getIndex(int i, int j, int k) {
+    i += this.offset.y;
+    j += this.offset.x;
+    k += this.offset.z;
     final ld1 = _strides.$1;
     final ld2 = _strides.$2;
-    return Matrix._(
-      _entries(i + offset.x, offset: 0),
-      (ld2, ld1),
-      (ld2, ld1),
-      offset: (x: offset.y, y: offset.z),
-    );
+    return i + j * ld1 + k * ld2 * ld1;
   }
 
-  List<T> toData() {
-    return _entries.toData();
-  }
+  List<T> toData() => _entries.toData();
 
   Box<T> box(int i, int j, int k) =>
       DelegatingBox(() => this[i][j][k], (value) => this[i][j][k] = value);
@@ -748,4 +705,27 @@ class Matrix3d<T> {
         ),
         offset ?? this.offset,
       );
+}
+
+class Matrix3dItemAccessor1<T> {
+  final int _i;
+  final Matrix3d<T> _m;
+
+  const Matrix3dItemAccessor1(this._m, this._i);
+
+  Matrix3dItemAccessor2<T> operator [](int j) =>
+      Matrix3dItemAccessor2<T>(_m, _i, j);
+}
+
+class Matrix3dItemAccessor2<T> {
+  final int _i;
+  final int _j;
+  final Matrix3d<T> _m;
+
+  const Matrix3dItemAccessor2(this._m, this._i, this._j);
+
+  T operator [](int k) => _m._entries[_m._getIndex(_i, _j, k)];
+
+  void operator []=(int k, T value) =>
+      _m._entries[_m._getIndex(_i, _j, k)] = value;
 }
