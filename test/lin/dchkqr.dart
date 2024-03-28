@@ -164,6 +164,7 @@ void dchkqr(
             for (var I = 1; I <= NTESTS; I++) {
               RESULT[I] = ZERO;
             }
+            // ignore: unused_local_variable
             var NT = 2;
             if (IK == 1) {
               // Test DGEQRF

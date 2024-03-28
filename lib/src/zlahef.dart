@@ -138,7 +138,7 @@ void zlahef(
           ROWMAX = W[JMAX][KW - 1].cabs1();
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, W(1, KW - 1).asArray(), 1);
-            ROWMAX = max(ROWMAX, W[JMAX][KW - 1]).cabs1();
+            ROWMAX = max(ROWMAX, W[JMAX][KW - 1].cabs1());
           }
 
           // Case(2)
@@ -476,7 +476,7 @@ void zlahef(
           ROWMAX = W[JMAX][K + 1].cabs1();
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, W(IMAX + 1, K + 1).asArray(), 1);
-            ROWMAX = max(ROWMAX, W[JMAX][K + 1]).cabs1();
+            ROWMAX = max(ROWMAX, W[JMAX][K + 1].cabs1());
           }
 
           // Case(2)

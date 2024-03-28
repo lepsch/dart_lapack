@@ -134,7 +134,7 @@ Future<void> zchkgk(
       VMAX = ZERO;
       for (J = 1; J <= M; J++) {
         for (I = 1; I <= M; I++) {
-          VMAX = max(VMAX, CABS1(E[I][J] - F[I][J]));
+          VMAX = max(VMAX, (E[I][J] - F[I][J]).cabs1());
         }
       }
       VMAX /= EPS * max(ANORM, BNORM);

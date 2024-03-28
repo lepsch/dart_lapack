@@ -173,7 +173,7 @@ void zlatrs(
 
   XMAX = ZERO;
   for (J = 1; J <= N; J++) {
-    XMAX = max(XMAX, CABS2(X[J]));
+    XMAX = max(XMAX, X[J].cabs2());
   }
   XBND = XMAX;
 

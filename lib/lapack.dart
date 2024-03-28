@@ -1,8 +1,7 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
 library;
 
-export 'src/lapack_base.dart';
+export 'src/box.dart';
+export 'src/nio.dart';
+export 'src/complex.dart';
 
-// TODO: Export any libraries intended for clients of this package.
+export 'src/dbdsdc.dart';

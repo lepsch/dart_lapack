@@ -13,6 +13,7 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 
+import '../test_driver.dart';
 import 'alareq.dart';
 import 'common.dart';
 import 'ilaenv.dart' as mock;
@@ -55,17 +56,13 @@ import 'zerrgg.dart';
 import 'zerrhs.dart';
 import 'zerrst.dart';
 
-void main() async {
-// #if defined(_OPENMP)
-  // use omp_lib;
-// #endif
-
+Future<void> zchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   ilaenv = mock.ilaenv;
   ilaenv2stage = mock.ilaenv2stage;
-  xerbla = mock.xerbla;
+  xerbla = mock.xerbla(test);
 
   final input = File('/Users/lepsch/_/lapack/test/svd.in').openRead();
   final NIN = Nin(input), NOUT = Nout(stdout);
@@ -77,7 +74,6 @@ void main() async {
   const LIWORK = NMAX * (NMAX + 20);
   const MAXIN = 20;
   const MAXT = 30;
-  // const              NIN = 5, NOUT = 6 ;
   bool ZBK,
       ZBL,
       ZES,
@@ -123,7 +119,6 @@ void main() async {
       NPARMS = 0,
       NRHS,
       NTYPES = 0;
-  // int N_THREADS, ONE_THREAD;
   double EPS, THRESH, THRSHN;
   final DOTYPE = Array<bool>(MAXT), LOGWRK = Array<bool>(NMAX);
   final ISEED = Array<int>(4),
@@ -164,10 +159,6 @@ void main() async {
       VERS_PATCH = Box(0),
       INFO = Box(0);
 
-  // A = 0.0;
-  // B = 0.0;
-  // C = 0.0;
-  // DC = 0.0;
   final S1 = Stopwatch()..start();
   FATAL = false;
   infoc.NUNIT = NOUT;
@@ -2015,4 +2006,10 @@ void _print9980(final Nout nout, final String fn, final int errorCode) {
 
 void _print9973(final Nout nout) {
   nout.println('\n ${'-' * 71}');
+}
+
+void main() async {
+  final nin = Nin(stdin);
+  await zchkee(nin, null, lapackTestDriver);
+  exit(lapackTestDriver.errors);
 }
