@@ -1,5 +1,6 @@
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
+// ignore: depend_on_referenced_packages
 import 'package:stack_trace/stack_trace.dart';
 
 var _debug = true;

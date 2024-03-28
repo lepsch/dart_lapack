@@ -34,10 +34,7 @@ void main() {
   double R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj;
   final X = Array<double>(N), stepX = Array<double>(N), limX = Array<double>(N);
   Complex Y;
-  final cInf = Array<Complex>(nInf), cNaN = Array<Complex>(nNaN);
-
-  // .. Intrinsic Functions ..
-  // intrinsic ABS, DBLE, RADIX, CEILING, TINY, DIGITS, SQRT, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
+  final cInf = Array<Complex>(nInf), cNaN = Array<Complex>(nNaN); 
 
   // .. Initialize error counts ..
   subnormalTreatedAs0 = 0;

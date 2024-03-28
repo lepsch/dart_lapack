@@ -501,7 +501,7 @@ void zdrvge(
               NRUN += NTESTS - K1 + 1;
             } else {
               if (RESULT[1] >= THRESH && !PREFAC) {
-                if (NFAIL == 0 && NERRS == 0) aladhd(NOUT, PATH);
+                if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                 if (PREFAC) {
                   NOUT.print9997('ZGESVX', FACT, TRANS, N, EQUED.value, IMAT, 1,
                       RESULT[1]);

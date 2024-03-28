@@ -61,7 +61,6 @@ void zdrvrf4(
     final N = NVAL[IIN];
 
     for (var IIK = 1; IIK <= NN; IIK++) {
-      // TODO: Is it really indexed by IIN?
       final K = NVAL[IIN];
 
       for (var IFORM = 1; IFORM <= 2; IFORM++) {
