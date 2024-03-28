@@ -109,8 +109,9 @@ void dqrt15(
     for (var J = 1; J <= RANK.value; J++) {
       dscal(M, S[J], A(1, J).asArray(), 1);
     }
-    if (RANK.value < N)
+    if (RANK.value < N) {
       dlaset('Full', M, N - RANK.value, ZERO, ZERO, A(1, RANK.value + 1), LDA);
+    }
     dlaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO);
   } else {
     // work space used 2*n+m

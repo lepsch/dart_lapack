@@ -65,8 +65,9 @@ void dppt01(
       // Add a multiple of column K of the factor L to each of
       // columns K+1 through N.
 
-      if (K < N)
+      if (K < N) {
         dspr('Lower', N - K, ONE, AFAC(KC + 1), 1, AFAC(KC + N - K + 1));
+      }
 
       // Scale column K by the diagonal element.
 

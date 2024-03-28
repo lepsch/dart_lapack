@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:stack_trace/stack_trace.dart';

@@ -60,9 +60,10 @@ void dpbt01(
 
       // Compute the rest of column K.
 
-      if (KLEN > 0)
+      if (KLEN > 0) {
         dtrmv('Upper', 'Transpose', 'Non-unit', KLEN, AFAC(KD + 1, K - KLEN),
             LDAFAC - 1, AFAC(KC, K).asArray(), 1);
+      }
     }
 
     // UPLO = 'L':  Compute the product L*L', overwriting L.
