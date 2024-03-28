@@ -100,8 +100,6 @@ void zggevx(
   final LDUMMA = Array<bool>(1);
   final IERR = Box(0), IN = Box(0), M = Box(0);
 
-  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
-
   // Decode the input arguments
 
   if (lsame(JOBVL, 'N')) {
@@ -432,7 +430,7 @@ void zggevx(
       for (JC = 1; JC <= N; JC++) {
         TEMP = ZERO;
         for (JR = 1; JR <= N; JR++) {
-          TEMP = max(TEMP, ABS1(VL[JR][JC]));
+          TEMP = max(TEMP, VL[JR][JC].cabs1());
         }
         if (TEMP < SMLNUM) continue;
         TEMP = ONE / TEMP;
@@ -448,7 +446,7 @@ void zggevx(
       for (JC = 1; JC <= N; JC++) {
         TEMP = ZERO;
         for (JR = 1; JR <= N; JR++) {
-          TEMP = max(TEMP, ABS1(VR[JR][JC]));
+          TEMP = max(TEMP, VR[JR][JC].cabs1());
         }
         if (TEMP < SMLNUM) continue;
         TEMP = ONE / TEMP;

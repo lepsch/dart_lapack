@@ -40,8 +40,6 @@ void ztrcon(
   final AINVNM = Box(0.0), SCALE = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -112,7 +110,7 @@ void ztrcon(
 
       if (SCALE.value != ONE) {
         IX = izamax(N, WORK, 1);
-        XNORM = CABS1(WORK[IX]);
+        XNORM = WORK[IX].cabs1();
         if (SCALE.value < XNORM * SMLNUM || SCALE.value == ZERO) return;
         zdrscl(N, SCALE.value, WORK, 1);
       }

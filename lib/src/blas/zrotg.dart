@@ -24,8 +24,6 @@ void zrotg(
           .toDouble();
   final rtmin = sqrt(safmin);
 
-  double ABSSQ(Complex t) => pow(t.real, 2) + pow(t.imaginary, 2).toDouble();
-
   Complex r;
   final f = a.value;
   final g = b;
@@ -50,7 +48,7 @@ void zrotg(
         //    The following two lines can be replaced by `d = abs( g )`.
         //    This algorithm do not use the intrinsic complex abs.
 
-        final g2 = ABSSQ(g);
+        final g2 = g.cabsSq();
         final d = sqrt(g2);
         s.value = g.conjugate() / d.toComplex();
         r = d.toComplex();
@@ -61,7 +59,7 @@ void zrotg(
         final gs = g / u.toComplex();
         // The following two lines can be replaced by `d = abs( gs )`.
         // This algorithm do not use the intrinsic complex abs.
-        final g2 = ABSSQ(gs);
+        final g2 = gs.cabsSq();
         final d = sqrt(g2);
         s.value = gs.conjugate() / d.toComplex();
         r = (d * u).toComplex();
@@ -74,8 +72,8 @@ void zrotg(
     if (f1 > rtmin && f1 < rtmax && g1 > rtmin && g1 < rtmax) {
       // Use unscaled algorithm
 
-      final f2 = ABSSQ(f);
-      final g2 = ABSSQ(g);
+      final f2 = f.cabsSq();
+      final g2 = g.cabsSq();
       final h2 = f2 + g2;
       // safmin <= f2 <= h2 <= safmax
       if (f2 >= h2 * safmin) {
@@ -112,7 +110,7 @@ void zrotg(
 
       final u = min(safmax, max(safmin, max(f1, g1)));
       final gs = g / u.toComplex();
-      final g2 = ABSSQ(gs);
+      final g2 = gs.cabsSq();
       final double w, f2, h2;
       final Complex fs;
       if (f1 / u < rtmin) {
@@ -122,14 +120,14 @@ void zrotg(
         final v = min(safmax, max(safmin, f1));
         w = v / u;
         fs = f / v.toComplex();
-        f2 = ABSSQ(fs);
+        f2 = fs.cabsSq();
         h2 = f2 * pow(w, 2) + g2;
       } else {
         // Otherwise use the same scaling for f and g.
 
         w = one;
         fs = f / u.toComplex();
-        f2 = ABSSQ(fs);
+        f2 = fs.cabsSq();
         h2 = f2 + g2;
       }
       // safmin <= f2 <= h2 <= safmax

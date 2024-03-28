@@ -43,10 +43,6 @@ void zlatbs(
   double BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ = 0, XMAX;
   Complex CSUMJ, TJJS = Complex.zero, USCAL;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-  double CABS2(Complex ZDUM) =>
-      (ZDUM.real / 2.0).abs() + (ZDUM.imaginary / 2.0).abs();
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   NOTRAN = lsame(TRANS, 'N');
@@ -125,7 +121,7 @@ void zlatbs(
 
   XMAX = ZERO;
   for (J = 1; J <= N; J++) {
-    XMAX = max(XMAX, CABS2(X[J]));
+    XMAX = max(XMAX, X[J].cabs2());
   }
   XBND = XMAX;
   if (NOTRAN) {
@@ -163,7 +159,7 @@ void zlatbs(
         }
 
         TJJS = AB[MAIND][J];
-        TJJ = CABS1(TJJS);
+        TJJ = TJJS.cabs1();
 
         if (TJJ >= SMLNUM) {
           // M(j) = G(j-1) / abs(A(j,j))
@@ -244,7 +240,7 @@ void zlatbs(
         GROW = min(GROW, XBND / XJ);
 
         TJJS = AB[MAIND][J];
-        TJJ = CABS1(TJJS);
+        TJJ = TJJS.cabs1();
 
         if (TJJ >= SMLNUM) {
           // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
@@ -304,7 +300,7 @@ void zlatbs(
         // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
         var scale = true;
-        XJ = CABS1(X[J]);
+        XJ = X[J].cabs1();
         if (NOUNIT) {
           TJJS = AB[MAIND][J] * TSCAL.toComplex();
         } else {
@@ -312,7 +308,7 @@ void zlatbs(
           if (TSCAL == ONE) scale = false;
         }
         if (scale) {
-          TJJ = CABS1(TJJS);
+          TJJ = TJJS.cabs1();
           if (TJJ > SMLNUM) {
             // abs(A(j,j)) > SMLNUM:
 
@@ -327,7 +323,7 @@ void zlatbs(
               }
             }
             X[J] = zladiv(X[J], TJJS);
-            XJ = CABS1(X[J]);
+            XJ = X[J].cabs1();
           } else if (TJJ > ZERO) {
             // 0 < abs(A(j,j)) <= SMLNUM:
 
@@ -347,7 +343,7 @@ void zlatbs(
               XMAX *= REC;
             }
             X[J] = zladiv(X[J], TJJS);
-            XJ = CABS1(X[J]);
+            XJ = X[J].cabs1();
           } else {
             // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
             // scale = 0, and compute a solution to A*x = 0.
@@ -391,7 +387,7 @@ void zlatbs(
             zaxpy(JLEN, -X[J] * TSCAL.toComplex(),
                 AB(KD + 1 - JLEN, J).asArray(), 1, X(J - JLEN), 1);
             I = izamax(J - 1, X, 1);
-            XMAX = CABS1(X[I]);
+            XMAX = X[I].cabs1();
           }
         } else if (J < N) {
           // Compute the update
@@ -404,7 +400,7 @@ void zlatbs(
                 X(J + 1), 1);
           }
           I = J + izamax(N - J, X(J + 1), 1);
-          XMAX = CABS1(X[I]);
+          XMAX = X[I].cabs1();
         }
       }
     } else if (lsame(TRANS, 'T')) {
@@ -414,7 +410,7 @@ void zlatbs(
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
-        XJ = CABS1(X[J]);
+        XJ = X[J].cabs1();
         USCAL = TSCAL.toComplex();
         REC = ONE / max(XMAX, ONE);
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
@@ -426,7 +422,7 @@ void zlatbs(
           } else {
             TJJS = TSCAL.toComplex();
           }
-          TJJ = CABS1(TJJS);
+          TJJ = TJJS.cabs1();
           if (TJJ > ONE) {
             // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
@@ -478,7 +474,7 @@ void zlatbs(
 
           var scale = true;
           X[J] -= CSUMJ;
-          XJ = CABS1(X[J]);
+          XJ = X[J].cabs1();
           if (NOUNIT) {
             // Compute x(j) /= A(j,j), scaling if necessary.
 
@@ -488,7 +484,7 @@ void zlatbs(
             if (TSCAL == ONE) scale = false;
           }
           if (scale) {
-            TJJ = CABS1(TJJS);
+            TJJ = TJJS.cabs1();
             if (TJJ > SMLNUM) {
               // abs(A(j,j)) > SMLNUM:
 
@@ -533,7 +529,7 @@ void zlatbs(
 
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
-        XMAX = max(XMAX, CABS1(X[J]));
+        XMAX = max(XMAX, X[J].cabs1());
       }
     } else {
       // Solve A**H * x = b
@@ -542,7 +538,7 @@ void zlatbs(
         // Compute x(j) = b(j) - sum A(k,j)*x(k).
         //                       k<>j
 
-        XJ = CABS1(X[J]);
+        XJ = X[J].cabs1();
         USCAL = TSCAL.toComplex();
         REC = ONE / max(XMAX, ONE);
         if (CNORM[J] > (BIGNUM - XJ) * REC) {
@@ -554,7 +550,7 @@ void zlatbs(
           } else {
             TJJS = TSCAL.toComplex();
           }
-          TJJ = CABS1(TJJS);
+          TJJ = TJJS.cabs1();
           if (TJJ > ONE) {
             // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
@@ -605,7 +601,7 @@ void zlatbs(
           // was not used to scale the dotproduct.
           var scale = true;
           X[J] -= CSUMJ;
-          XJ = CABS1(X[J]);
+          XJ = X[J].cabs1();
           if (NOUNIT) {
             // Compute x(j) /= A(j,j), scaling if necessary.
 
@@ -615,7 +611,7 @@ void zlatbs(
             if (TSCAL == ONE) scale = false;
           }
           if (scale) {
-            TJJ = CABS1(TJJS);
+            TJJ = TJJS.cabs1();
             if (TJJ > SMLNUM) {
               // abs(A(j,j)) > SMLNUM:
 
@@ -660,7 +656,7 @@ void zlatbs(
 
           X[J] = zladiv(X[J], TJJS) - CSUMJ;
         }
-        XMAX = max(XMAX, CABS1(X[J]));
+        XMAX = max(XMAX, X[J].cabs1());
       }
     }
     SCALE.value /= TSCAL;

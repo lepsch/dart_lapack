@@ -38,8 +38,6 @@ void zpocon(
   final AINVNM = Box(0.0), SCALEL = Box(0.0), SCALEU = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -106,7 +104,7 @@ void zpocon(
     SCALE = SCALEL.value * SCALEU.value;
     if (SCALE != ONE) {
       IX = izamax(N, WORK, 1);
-      if (SCALE < CABS1(WORK[IX]) * SMLNUM || SCALE == ZERO) return;
+      if (SCALE < WORK[IX].cabs1() * SMLNUM || SCALE == ZERO) return;
       zdrscl(N, SCALE, WORK, 1);
     }
   }

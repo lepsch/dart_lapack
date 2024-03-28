@@ -25,8 +25,6 @@ void zgtsv(
   int J, K;
   Complex MULT, TEMP;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   INFO.value = 0;
   if (N < 0) {
     INFO.value = -1;
@@ -53,7 +51,7 @@ void zgtsv(
         INFO.value = K;
         return;
       }
-    } else if (CABS1(D[K]) >= CABS1(DL[K])) {
+    } else if (D[K].cabs1() >= DL[K].cabs1()) {
       // No row interchange required
 
       MULT = DL[K] / D[K];

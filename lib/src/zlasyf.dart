@@ -35,8 +35,6 @@ void zlasyf(
   double ABSAKK, ALPHA, COLMAX, ROWMAX;
   Complex D11, D21, D22, R1, T;
 
-  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
-
   INFO.value = 0;
 
   // Initialize ALPHA for use in choosing pivot block size.
@@ -73,13 +71,13 @@ void zlasyf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(W[K][KW]);
+      ABSAKK = W[K][KW].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
 
       if (K > 1) {
         IMAX = izamax(K - 1, W(1, KW).asArray(), 1);
-        COLMAX = CABS1(W[IMAX][KW]);
+        COLMAX = W[IMAX][KW].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -119,17 +117,17 @@ void zlasyf(
           // element in row IMAX, and ROWMAX is its absolute value
 
           JMAX = IMAX + izamax(K - IMAX, W(IMAX + 1, KW - 1).asArray(), 1);
-          ROWMAX = CABS1(W[JMAX][KW - 1]);
+          ROWMAX = W[JMAX][KW - 1].cabs1();
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, W(1, KW - 1).asArray(), 1);
-            ROWMAX = max(ROWMAX, CABS1(W[JMAX][KW - 1]));
+            ROWMAX = max(ROWMAX, W[JMAX][KW - 1].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (CABS1(W[IMAX][KW - 1]) >= ALPHA * ROWMAX) {
+          } else if (W[IMAX][KW - 1].cabs1() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -352,13 +350,13 @@ void zlasyf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(W[K][K]);
+      ABSAKK = W[K][K].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
 
       if (K < N) {
         IMAX = K + izamax(N - K, W(K + 1, K).asArray(), 1);
-        COLMAX = CABS1(W[IMAX][K]);
+        COLMAX = W[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -386,17 +384,17 @@ void zlasyf(
           // element in row IMAX, and ROWMAX is its absolute value
 
           JMAX = K - 1 + izamax(IMAX - K, W(K, K + 1).asArray(), 1);
-          ROWMAX = CABS1(W[JMAX][K + 1]);
+          ROWMAX = W[JMAX][K + 1].cabs1();
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, W(IMAX + 1, K + 1).asArray(), 1);
-            ROWMAX = max(ROWMAX, CABS1(W[JMAX][K + 1]));
+            ROWMAX = max(ROWMAX, W[JMAX][K + 1].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (CABS1(W[IMAX][K + 1]) >= ALPHA * ROWMAX) {
+          } else if (W[IMAX][K + 1].cabs1() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 

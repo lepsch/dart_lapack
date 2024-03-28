@@ -36,8 +36,8 @@ void zlargv(
       SAFMX2,
       SCALE;
   Complex F, FF, FS, G, GS, R = Complex.zero, SN = Complex.zero;
+
   double ABS1(Complex FF) => max(FF.real.abs(), FF.imaginary.abs());
-  double ABSSQ(Complex FF) => pow(FF.real, 2) + pow(FF.imaginary, 2).toDouble();
 
   // IF( FIRST ) THEN
   //    FIRST = false;
@@ -84,8 +84,8 @@ void zlargv(
       }
     }
     if (!isGZero) {
-      F2 = ABSSQ(FS);
-      G2 = ABSSQ(GS);
+      F2 = FS.cabsSq();
+      G2 = GS.cabsSq();
       if (F2 <= max(G2, ONE) * SAFMIN) {
         // This is a rare case: F is very small.
 

@@ -76,8 +76,6 @@ void zlaqr3(
   final INFO = Box(0), INFQR = Box(0);
   final TAU = Box(Complex.zero), BETA = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Estimate optimal workspace.
 
   JW = min(NW, KBOT - KTOP + 1);
@@ -142,7 +140,7 @@ void zlaqr3(
     SH[KWTOP] = H[KWTOP][KWTOP];
     NS.value = 1;
     ND.value = 0;
-    if (CABS1(S) <= max(SMLNUM, ULP * CABS1(H[KWTOP][KWTOP]))) {
+    if (S.cabs1() <= max(SMLNUM, ULP * H[KWTOP][KWTOP].cabs1())) {
       NS.value = 0;
       ND.value = 1;
       if (KWTOP > KTOP) H[KWTOP][KWTOP - 1] = Complex.zero;
@@ -177,9 +175,9 @@ void zlaqr3(
   for (KNT = INFQR.value + 1; KNT <= JW; KNT++) {
     // Small spike tip deflation test
 
-    FOO = CABS1(T[NS.value][NS.value]);
-    if (FOO == RZERO) FOO = CABS1(S);
-    if (CABS1(S) * CABS1(V[1][NS.value]) <= max(SMLNUM, ULP * FOO)) {
+    FOO = T[NS.value][NS.value].cabs1();
+    if (FOO == RZERO) FOO = S.cabs1();
+    if (S.cabs1() * V[1][NS.value].cabs1() <= max(SMLNUM, ULP * FOO)) {
       // One more converged eigenvalue
 
       NS.value--;
@@ -204,7 +202,7 @@ void zlaqr3(
     for (I = INFQR.value + 1; I <= NS.value; I++) {
       IFST = I;
       for (J = I + 1; J <= NS.value; J++) {
-        if (CABS1(T[J][J]) > CABS1(T[IFST][IFST])) IFST = J;
+        if (T[J][J].cabs1() > T[IFST][IFST].cabs1()) IFST = J;
       }
       ILST = I;
       if (IFST != ILST) ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);

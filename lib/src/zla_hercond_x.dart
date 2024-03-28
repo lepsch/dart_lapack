@@ -38,8 +38,6 @@ double zla_hercond_x(
   final AINVNM = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   if (!UPPER && !lsame(UPLO, 'L')) {
@@ -65,10 +63,10 @@ double zla_hercond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = 1; J <= I; J++) {
-        TMP += CABS1(A[J][I] * X[J]);
+        TMP += (A[J][I] * X[J]).cabs1();
       }
       for (J = I + 1; J <= N; J++) {
-        TMP += CABS1(A[I][J] * X[J]);
+        TMP += (A[I][J] * X[J]).cabs1();
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);
@@ -77,10 +75,10 @@ double zla_hercond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = 1; J <= I; J++) {
-        TMP += CABS1(A[I][J] * X[J]);
+        TMP += (A[I][J] * X[J]).cabs1();
       }
       for (J = I + 1; J <= N; J++) {
-        TMP += CABS1(A[J][I] * X[J]);
+        TMP += (A[J][I] * X[J]).cabs1();
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);

@@ -23,8 +23,6 @@ double zla_porpvgrw(
   double AMAX, UMAX, RPVGRW;
   bool UPPER;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   UPPER = lsame('Upper', UPLO);
 
   // DPOTRF will have factored only the NCOLSxNCOLS leading submatrix,
@@ -41,13 +39,13 @@ double zla_porpvgrw(
   if (UPPER) {
     for (J = 1; J <= NCOLS; J++) {
       for (I = 1; I <= J; I++) {
-        WORK[NCOLS + J] = max(CABS1(A[I][J]), WORK[NCOLS + J]);
+        WORK[NCOLS + J] = max(A[I][J].cabs1(), WORK[NCOLS + J]);
       }
     }
   } else {
     for (J = 1; J <= NCOLS; J++) {
       for (I = J; I <= NCOLS; I++) {
-        WORK[NCOLS + J] = max(CABS1(A[I][J]), WORK[NCOLS + J]);
+        WORK[NCOLS + J] = max(A[I][J].cabs1(), WORK[NCOLS + J]);
       }
     }
   }
@@ -58,13 +56,13 @@ double zla_porpvgrw(
   if (lsame('Upper', UPLO)) {
     for (J = 1; J <= NCOLS; J++) {
       for (I = 1; I <= J; I++) {
-        WORK[J] = max(CABS1(AF[I][J]), WORK[J]);
+        WORK[J] = max(AF[I][J].cabs1(), WORK[J]);
       }
     }
   } else {
     for (J = 1; J <= NCOLS; J++) {
       for (I = J; I <= NCOLS; I++) {
-        WORK[J] = max(CABS1(AF[I][J]), WORK[J]);
+        WORK[J] = max(AF[I][J].cabs1(), WORK[J]);
       }
     }
   }

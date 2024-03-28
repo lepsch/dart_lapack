@@ -86,16 +86,7 @@ void zla_gerfsx_extended(
   bool INCR_PREC;
   const UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3;
   const BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2;
-  // const              FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 ;
-  // const              RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 ;
-  // const              CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 ;
-  // const              LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 ;
-  // const              LA_LINRX_CWISE_I = 3 ;
-  // const              LA_LINRX_TRUST_I = 1;
   const LA_LINRX_ERR_I = 2;
-  // const              LA_LINRX_RCOND_I = 3 ;
-
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   if (INFO.value != 0) return;
   TRANS = chla_transtype(TRANS_TYPE);
@@ -158,8 +149,8 @@ void zla_gerfsx_extended(
       YMIN = HUGEVAL;
 
       for (I = 1; I <= N; I++) {
-        YK = CABS1(Y[I][J]);
-        DYK = CABS1(DY[I]);
+        YK = Y[I][J].cabs1();
+        DYK = DY[I].cabs1();
 
         if (YK != 0.0) {
           DZ_Z = max(DZ_Z, DYK / YK);
@@ -289,7 +280,7 @@ void zla_gerfsx_extended(
         RES, 1);
 
     for (I = 1; I <= N; I++) {
-      AYB[I] = CABS1(B[I][J]);
+      AYB[I] = B[I][J].cabs1();
     }
 
     // Compute abs(op(A_s))*abs(Y) + abs(B_s).

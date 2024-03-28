@@ -15,13 +15,7 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
   const LDA = 20;
   const ZERO = 0.0;
   int I, IHIIN, ILOIN, J, KNT, N, NINFO;
-  double
-      // ANORM,
-      // MEPS,
-      RMAX,
-      SFMIN,
-      TEMP,
-      VMAX;
+  double RMAX, SFMIN, TEMP, VMAX;
   final LMAX = Array<int>(3);
   final
       // DUMMY = Array<double>(1),
@@ -29,8 +23,6 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
       SCALIN = Array<double>(LDA);
   final A = Matrix<Complex>(LDA, LDA), AIN = Matrix<Complex>(LDA, LDA);
   final INFO = Box(0), ILO = Box(0), IHI = Box(0);
-
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
 
   LMAX[1] = 0;
   LMAX[2] = 0;
@@ -40,7 +32,6 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
   RMAX = ZERO;
   VMAX = ZERO;
   SFMIN = dlamch('S');
-  // MEPS = dlamch('E');
 
   while (true) {
     N = await NIN.readInt();
@@ -67,9 +58,9 @@ Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
 
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        TEMP = max(CABS1(A[I][J]), CABS1(AIN[I][J]));
+        TEMP = max(A[I][J].cabs1(), AIN[I][J].cabs1());
         TEMP = max(TEMP, SFMIN);
-        VMAX = max(VMAX, CABS1(A[I][J] - AIN[I][J]) / TEMP);
+        VMAX = max(VMAX, (A[I][J] - AIN[I][J]).cabs1() / TEMP);
       }
     }
 

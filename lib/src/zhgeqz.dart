@@ -94,8 +94,6 @@ void zhgeqz(
   final C = Box(0.0);
   final S = Box(Complex.zero), CTEMP3 = Box(Complex.zero);
 
-  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
-
   // Decode JOB, COMPQ, COMPZ
 
   if (lsame(JOB, 'E')) {
@@ -267,11 +265,12 @@ void zhgeqz(
       if (ILAST == ILO) {
         standardizeB = true;
       } else {
-        if (ABS1(H[ILAST][ILAST - 1]) <=
+        if (H[ILAST][ILAST - 1].cabs1() <=
             max(
                 SAFMIN,
                 ULP *
-                    (ABS1(H[ILAST][ILAST]) + ABS1(H[ILAST - 1][ILAST - 1])))) {
+                    (H[ILAST][ILAST].cabs1() +
+                        H[ILAST - 1][ILAST - 1].cabs1()))) {
           H[ILAST][ILAST - 1] = Complex.zero;
           standardizeB = true;
         }
@@ -292,8 +291,9 @@ void zhgeqz(
             if (J == ILO) {
               ILAZRO = true;
             } else {
-              if (ABS1(H[J][J - 1]) <=
-                  max(SAFMIN, ULP * (ABS1(H[J][J]) + ABS1(H[J - 1][J - 1])))) {
+              if (H[J][J - 1].cabs1() <=
+                  max(SAFMIN,
+                      ULP * (H[J][J].cabs1() + H[J - 1][J - 1].cabs1()))) {
                 H[J][J - 1] = Complex.zero;
                 ILAZRO = true;
               } else {
@@ -310,8 +310,8 @@ void zhgeqz(
 
               ILAZR2 = false;
               if (!ILAZRO) {
-                if (ABS1(H[J][J - 1]) * (ASCALE * ABS1(H[J + 1][J])) <=
-                    ABS1(H[J][J]) * (ASCALE * ATOL)) ILAZR2 = true;
+                if (H[J][J - 1].cabs1() * (ASCALE * H[J + 1][J].cabs1()) <=
+                    H[J][J].cabs1() * (ASCALE * ATOL)) ILAZR2 = true;
               }
 
               // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -337,7 +337,7 @@ void zhgeqz(
                     H[JCH][JCH - 1] *= C.value.toComplex();
                   }
                   ILAZR2 = false;
-                  if (ABS1(T[JCH + 1][JCH + 1]) >= BTOL) {
+                  if (T[JCH + 1][JCH + 1].cabs1() >= BTOL) {
                     if (JCH + 1 >= ILAST) {
                       standardizeB = true;
                       exhausted = false;
@@ -502,11 +502,11 @@ void zhgeqz(
 
         SHIFT = ABI22;
         CTEMP = ABI12.sqrt() * AD21.sqrt();
-        TEMP = ABS1(CTEMP);
+        TEMP = CTEMP.cabs1();
         if (CTEMP != Complex.zero) {
           X = HALF.toComplex() * (AD11 - SHIFT);
-          TEMP2 = ABS1(X);
-          TEMP = max(TEMP, ABS1(X));
+          TEMP2 = X.cabs1();
+          TEMP = max(TEMP, X.cabs1());
           Y = TEMP.toComplex() *
               ((X / TEMP.toComplex()).pow(2) +
                       (CTEMP / TEMP.toComplex()).pow(2))
@@ -522,7 +522,7 @@ void zhgeqz(
         // Exceptional shift.  Chosen for no particularly good reason.
 
         if ((IITER ~/ 20) * 20 == IITER &&
-            BSCALE * ABS1(T[ILAST][ILAST]) > SAFMIN) {
+            BSCALE * T[ILAST][ILAST].cabs1() > SAFMIN) {
           ESHIFT += (ASCALE.toComplex() * H[ILAST][ILAST]) /
               (BSCALE.toComplex() * T[ILAST][ILAST]);
         } else {
@@ -538,14 +538,14 @@ void zhgeqz(
         ISTART = J;
         CTEMP = ASCALE.toComplex() * H[J][J] -
             SHIFT * (BSCALE.toComplex() * T[J][J]);
-        TEMP = ABS1(CTEMP);
-        TEMP2 = ASCALE * ABS1(H[J + 1][J]);
+        TEMP = CTEMP.cabs1();
+        TEMP2 = ASCALE * H[J + 1][J].cabs1();
         TEMPR = max(TEMP, TEMP2);
         if (TEMPR < ONE && TEMPR != ZERO) {
           TEMP /= TEMPR;
           TEMP2 /= TEMPR;
         }
-        if (ABS1(H[J][J - 1]) * TEMP2 <= TEMP * ATOL) {
+        if (H[J][J - 1].cabs1() * TEMP2 <= TEMP * ATOL) {
           consecutive = true;
           break;
         }

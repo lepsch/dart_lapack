@@ -93,8 +93,6 @@ Future<void> zdrgsx(
       RESULT = Array<double>(10);
   final LINFO = Box(0), MM = Box(0), QBA = Box(0), QBB = Box(0);
 
-  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
-
   // Check for errors
 
   INFO.value = 0;
@@ -303,10 +301,10 @@ Future<void> zdrgsx(
 
             for (J = 1; J <= mn.MPLUSN; J++) {
               ILABAD = false;
-              TEMP2 = (ABS1(ALPHA[J] - AI[J][J]) /
-                          max(SMLNUM, max(ABS1(ALPHA[J]), ABS1(AI[J][J]))) +
-                      ABS1(BETA[J] - BI[J][J]) /
-                          max(SMLNUM, max(ABS1(BETA[J]), ABS1(BI[J][J])))) /
+              TEMP2 = ((ALPHA[J] - AI[J][J]).cabs1() /
+                          max(SMLNUM, max(ALPHA[J].cabs1(), AI[J][J].cabs1())) +
+                      (BETA[J] - BI[J][J]).cabs1() /
+                          max(SMLNUM, max(BETA[J].cabs1(), BI[J][J].cabs1()))) /
                   ULP;
               if (J < mn.MPLUSN) {
                 if (AI[J + 1][J] != Complex.zero) {
@@ -510,10 +508,10 @@ Future<void> zdrgsx(
 
         for (J = 1; J <= mn.MPLUSN; J++) {
           ILABAD = false;
-          TEMP2 = (ABS1(ALPHA[J] - AI[J][J]) /
-                      max(SMLNUM, max(ABS1(ALPHA[J]), ABS1(AI[J][J]))) +
-                  ABS1(BETA[J] - BI[J][J]) /
-                      max(SMLNUM, max(ABS1(BETA[J]), ABS1(BI[J][J])))) /
+          TEMP2 = ((ALPHA[J] - AI[J][J]).cabs1() /
+                      max(SMLNUM, max(ALPHA[J].cabs1(), AI[J][J].cabs1())) +
+                  (BETA[J] - BI[J][J]).cabs1() /
+                      max(SMLNUM, max(BETA[J].cabs1(), BI[J][J].cabs1()))) /
               ULP;
           if (J < mn.MPLUSN) {
             if (AI[J + 1][J] != Complex.zero) {

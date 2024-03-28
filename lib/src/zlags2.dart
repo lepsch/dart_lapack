@@ -47,8 +47,6 @@ void zlags2(
       CSL = Box(0.0);
   final R = Box(Complex.zero);
 
-  double ABS1(Complex T) => T.real.abs() + T.imaginary.abs();
-
   if (UPPER) {
     // Input matrices A and B are upper triangular matrices
 
@@ -86,17 +84,17 @@ void zlags2(
       VB12 = CSR.value.toComplex() * B2 +
           D1 * SNR.value.toComplex() * B3.toComplex();
 
-      AUA12 = CSL.value.abs() * ABS1(A2) + SNL.value.abs() * A3.abs();
-      AVB12 = CSR.value.abs() * ABS1(B2) + SNR.value.abs() * B3.abs();
+      AUA12 = CSL.value.abs() * A2.cabs1() + SNL.value.abs() * A3.abs();
+      AVB12 = CSR.value.abs() * B2.cabs1() + SNR.value.abs() * B3.abs();
 
       // zero (1,2) elements of U**H *A and V**H *B
 
-      if ((UA11R.abs() + ABS1(UA12)) == ZERO) {
+      if ((UA11R.abs() + UA12.cabs1()) == ZERO) {
         zlartg(-VB11R.toComplex(), VB12.conjugate(), CSQ, SNQ, R);
-      } else if ((VB11R.abs() + ABS1(VB12)) == ZERO) {
+      } else if ((VB11R.abs() + VB12.cabs1()) == ZERO) {
         zlartg(-UA11R.toComplex(), UA12.conjugate(), CSQ, SNQ, R);
-      } else if (AUA12 / (UA11R.abs() + ABS1(UA12)) <=
-          AVB12 / (VB11R.abs() + ABS1(VB12))) {
+      } else if (AUA12 / (UA11R.abs() + UA12.cabs1()) <=
+          AVB12 / (VB11R.abs() + VB12.cabs1())) {
         zlartg(-UA11R.toComplex(), UA12.conjugate(), CSQ, SNQ, R);
       } else {
         zlartg(-VB11R.toComplex(), VB12.conjugate(), CSQ, SNQ, R);
@@ -118,17 +116,17 @@ void zlags2(
       VB22 = -D1.conjugate() * SNR.value.toComplex() * B2 +
           (CSR.value * B3).toComplex();
 
-      AUA22 = SNL.value.abs() * ABS1(A2) + CSL.value.abs() * A3.abs();
-      AVB22 = SNR.value.abs() * ABS1(B2) + CSR.value.abs() * B3.abs();
+      AUA22 = SNL.value.abs() * A2.cabs1() + CSL.value.abs() * A3.abs();
+      AVB22 = SNR.value.abs() * B2.cabs1() + CSR.value.abs() * B3.abs();
 
       // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
-      if ((ABS1(UA21) + ABS1(UA22)) == ZERO) {
+      if ((UA21.cabs1() + UA22.cabs1()) == ZERO) {
         zlartg(-VB21.conjugate(), VB22.conjugate(), CSQ, SNQ, R);
-      } else if ((ABS1(VB21) + VB22.abs()) == ZERO) {
+      } else if ((VB21.cabs1() + VB22.abs()) == ZERO) {
         zlartg(-UA21.conjugate(), UA22.conjugate(), CSQ, SNQ, R);
-      } else if (AUA22 / (ABS1(UA21) + ABS1(UA22)) <=
-          AVB22 / (ABS1(VB21) + ABS1(VB22))) {
+      } else if (AUA22 / (UA21.cabs1() + UA22.cabs1()) <=
+          AVB22 / (VB21.cabs1() + VB22.cabs1())) {
         zlartg(-UA21.conjugate(), UA22.conjugate(), CSQ, SNQ, R);
       } else {
         zlartg(-VB21.conjugate(), VB22.conjugate(), CSQ, SNQ, R);
@@ -174,17 +172,17 @@ void zlags2(
       VB21 = -D1 * (SNL.value * B1).toComplex() + CSL.value.toComplex() * B2;
       VB22R = CSL.value * B3;
 
-      AUA21 = SNR.value.abs() * A1.abs() + CSR.value.abs() * ABS1(A2);
-      AVB21 = SNL.value.abs() * B1.abs() + CSL.value.abs() * ABS1(B2);
+      AUA21 = SNR.value.abs() * A1.abs() + CSR.value.abs() * A2.cabs1();
+      AVB21 = SNL.value.abs() * B1.abs() + CSL.value.abs() * B2.cabs1();
 
       // zero (2,1) elements of U**H *A and V**H *B.
 
-      if ((ABS1(UA21) + UA22R.abs()) == ZERO) {
+      if ((UA21.cabs1() + UA22R.abs()) == ZERO) {
         zlartg(VB22R.toComplex(), VB21, CSQ, SNQ, R);
-      } else if ((ABS1(VB21) + VB22R.abs()) == ZERO) {
+      } else if ((VB21.cabs1() + VB22R.abs()) == ZERO) {
         zlartg(UA22R.toComplex(), UA21, CSQ, SNQ, R);
-      } else if (AUA21 / (ABS1(UA21) + UA22R.abs()) <=
-          AVB21 / (ABS1(VB21) + VB22R.abs())) {
+      } else if (AUA21 / (UA21.cabs1() + UA22R.abs()) <=
+          AVB21 / (VB21.cabs1() + VB22R.abs())) {
         zlartg(UA22R.toComplex(), UA21, CSQ, SNQ, R);
       } else {
         zlartg(VB22R.toComplex(), VB21, CSQ, SNQ, R);
@@ -206,17 +204,17 @@ void zlags2(
           D1.conjugate() * SNL.value.toComplex() * B2;
       VB12 = D1.conjugate() * (SNL.value * B3).toComplex();
 
-      AUA11 = CSR.value.abs() * A1.abs() + SNR.value.abs() * ABS1(A2);
-      AVB11 = CSL.value.abs() * B1.abs() + SNL.value.abs() * ABS1(B2);
+      AUA11 = CSR.value.abs() * A1.abs() + SNR.value.abs() * A2.cabs1();
+      AVB11 = CSL.value.abs() * B1.abs() + SNL.value.abs() * B2.cabs1();
 
       // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 
-      if ((ABS1(UA11) + ABS1(UA12)) == ZERO) {
+      if ((UA11.cabs1() + UA12.cabs1()) == ZERO) {
         zlartg(VB12, VB11, CSQ, SNQ, R);
-      } else if ((ABS1(VB11) + ABS1(VB12)) == ZERO) {
+      } else if ((VB11.cabs1() + VB12.cabs1()) == ZERO) {
         zlartg(UA12, UA11, CSQ, SNQ, R);
-      } else if (AUA11 / (ABS1(UA11) + ABS1(UA12)) <=
-          AVB11 / (ABS1(VB11) + ABS1(VB12))) {
+      } else if (AUA11 / (UA11.cabs1() + UA12.cabs1()) <=
+          AVB11 / (VB11.cabs1() + VB12.cabs1())) {
         zlartg(UA12, UA11, CSQ, SNQ, R);
       } else {
         zlartg(VB12, VB11, CSQ, SNQ, R);

@@ -51,8 +51,6 @@ void zcposv(
   int I, IITER, PTSA, PTSX;
   double ANRM, CTE, EPS, RNRM, XNRM;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   INFO.value = 0;
   ITER.value = 0;
 
@@ -150,8 +148,8 @@ void zcposv(
 
     var satisfy = true;
     for (I = 1; I <= NRHS; I++) {
-      XNRM = CABS1(X[izamax(N, X(1, I).asArray(), 1)][I]);
-      RNRM = CABS1(WORK[izamax(N, WORK(1, I).asArray(), 1)][I]);
+      XNRM = X[izamax(N, X(1, I).asArray(), 1)][I].cabs1();
+      RNRM = WORK[izamax(N, WORK(1, I).asArray(), 1)][I].cabs1();
       if (RNRM > XNRM * CTE) {
         satisfy = false;
         break;
@@ -202,8 +200,8 @@ void zcposv(
 
       var satisfy = true;
       for (I = 1; I <= NRHS; I++) {
-        XNRM = CABS1(X[izamax(N, X(1, I).asArray(), 1)][I]);
-        RNRM = CABS1(WORK[izamax(N, WORK(1, I).asArray(), 1)][I]);
+        XNRM = X[izamax(N, X(1, I).asArray(), 1)][I].cabs1();
+        RNRM = WORK[izamax(N, WORK(1, I).asArray(), 1)][I].cabs1();
         if (RNRM > XNRM * CTE) {
           satisfy = false;
           break;

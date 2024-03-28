@@ -35,8 +35,6 @@ void ztpt05(
   final RESLTS = RESLTS_.having();
   const ZERO = 0.0, ONE = 1.0;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Quick exit if N = 0 or NRHS = 0.
 
   if (N <= 0 || NRHS <= 0) {
@@ -59,10 +57,10 @@ void ztpt05(
   var ERRBND = ZERO;
   for (var J = 1; J <= NRHS; J++) {
     final IMAX = izamax(N, X(1, J).asArray(), 1);
-    final XNORM = max(CABS1(X[IMAX][J]), UNFL);
+    final XNORM = max(X[IMAX][J].cabs1(), UNFL);
     var DIFF = ZERO;
     for (var I = 1; I <= N; I++) {
-      DIFF = max(DIFF, CABS1(X[I][J] - XACT[I][J]));
+      DIFF = max(DIFF, (X[I][J] - XACT[I][J]).cabs1());
     }
 
     if (XNORM > ONE) {
@@ -89,22 +87,22 @@ void ztpt05(
   for (var K = 1; K <= NRHS; K++) {
     var AXBI = ZERO;
     for (var I = 1; I <= N; I++) {
-      var TMP = CABS1(B[I][K]);
+      var TMP = B[I][K].cabs1();
       if (UPPER) {
         var JC = ((I - 1) * I) ~/ 2;
         if (!NOTRAN) {
           for (var J = 1; J <= I - IFU; J++) {
-            TMP += CABS1(AP[JC + J]) * CABS1(X[J][K]);
+            TMP += AP[JC + J].cabs1() * X[J][K].cabs1();
           }
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
         } else {
           JC += I;
           if (UNIT) {
-            TMP += CABS1(X[I][K]);
+            TMP += X[I][K].cabs1();
             JC += I;
           }
           for (var J = I + IFU; J <= N; J++) {
-            TMP += CABS1(AP[JC]) * CABS1(X[J][K]);
+            TMP += AP[JC].cabs1() * X[J][K].cabs1();
             JC += J;
           }
         }
@@ -112,15 +110,15 @@ void ztpt05(
         if (NOTRAN) {
           var JC = I;
           for (var J = 1; J <= I - IFU; J++) {
-            TMP += CABS1(AP[JC]) * CABS1(X[J][K]);
+            TMP += AP[JC].cabs1() * X[J][K].cabs1();
             JC += N - J;
           }
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
         } else {
           var JC = (I - 1) * (N - I) + (I * (I + 1)) ~/ 2;
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
           for (var J = I + IFU; J <= N; J++) {
-            TMP += CABS1(AP[JC + J - I]) * CABS1(X[J][K]);
+            TMP += AP[JC + J - I].cabs1() * X[J][K].cabs1();
           }
         }
       }

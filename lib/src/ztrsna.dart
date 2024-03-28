@@ -57,8 +57,6 @@ void ztrsna(
   final IERR = Box(0), KASE = Box(0);
   final EST = Box(0.0), SCALE = Box(0.0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Decode and test the input parameters
 
   WANTBH = lsame(JOB, 'B');
@@ -182,7 +180,7 @@ void ztrsna(
           // overflow.
 
           IX = izamax(N - 1, WORK.asArray(), 1);
-          XNORM = CABS1(WORK[IX][1]);
+          XNORM = WORK[IX][1].cabs1();
           if (SCALE.value < XNORM * SMLNUM || SCALE.value == ZERO) {
             zeroed = true;
             break;

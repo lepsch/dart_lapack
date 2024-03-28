@@ -30,9 +30,6 @@ void zpot06(
   final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-  // ..
-
   // Quick exit if N = 0 or NRHS = 0
 
   if (N <= 0 || NRHS == 0) {
@@ -59,8 +56,8 @@ void zpot06(
 
   RESID.value = ZERO;
   for (var J = 1; J <= NRHS; J++) {
-    final BNORM = CABS1(B[izamax(N, B(1, J).asArray(), 1)][J]);
-    final XNORM = CABS1(X[izamax(N, X(1, J).asArray(), 1)][J]);
+    final BNORM = B[izamax(N, B(1, J).asArray(), 1)][J].cabs1();
+    final XNORM = X[izamax(N, X(1, J).asArray(), 1)][J].cabs1();
     if (XNORM <= ZERO) {
       RESID.value = ONE / EPS;
     } else {

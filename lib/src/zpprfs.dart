@@ -49,8 +49,6 @@ void zpprfs(
   final ISAVE = Array<int>(3);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -113,7 +111,7 @@ void zpprfs(
       // numerator and denominator before dividing.
 
       for (I = 1; I <= N; I++) {
-        RWORK[I] = CABS1(B[I][J]);
+        RWORK[I] = B[I][J].cabs1();
       }
 
       // Compute abs(A)*abs(X) + abs(B).
@@ -122,11 +120,11 @@ void zpprfs(
       if (UPPER) {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = CABS1(X[K][J]);
+          XK = X[K][J].cabs1();
           IK = KK;
           for (I = 1; I <= K - 1; I++) {
-            RWORK[I] += CABS1(AP[IK]) * XK;
-            S += CABS1(AP[IK]) * CABS1(X[I][J]);
+            RWORK[I] += AP[IK].cabs1() * XK;
+            S += AP[IK].cabs1() * X[I][J].cabs1();
             IK++;
           }
           RWORK[K] += AP[KK + K - 1].real.abs() * XK + S;
@@ -135,12 +133,12 @@ void zpprfs(
       } else {
         for (K = 1; K <= N; K++) {
           S = ZERO;
-          XK = CABS1(X[K][J]);
+          XK = X[K][J].cabs1();
           RWORK[K] += AP[KK].real.abs() * XK;
           IK = KK + 1;
           for (I = K + 1; I <= N; I++) {
-            RWORK[I] += CABS1(AP[IK]) * XK;
-            S += CABS1(AP[IK]) * CABS1(X[I][J]);
+            RWORK[I] += AP[IK].cabs1() * XK;
+            S += AP[IK].cabs1() * X[I][J].cabs1();
             IK++;
           }
           RWORK[K] += S;
@@ -150,9 +148,9 @@ void zpprfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (RWORK[I] > SAFE2) {
-          S = max(S, CABS1(WORK[I]) / RWORK[I]);
+          S = max(S, WORK[I].cabs1() / RWORK[I]);
         } else {
-          S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
+          S = max(S, (WORK[I].cabs1() + SAFE1) / (RWORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -199,9 +197,9 @@ void zpprfs(
 
     for (I = 1; I <= N; I++) {
       if (RWORK[I] > SAFE2) {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I];
       } else {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I] + SAFE1;
       }
     }
 
@@ -230,7 +228,7 @@ void zpprfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, CABS1(X[I][J]));
+      LSTRES = max(LSTRES, X[I][J].cabs1());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

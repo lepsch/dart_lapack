@@ -40,8 +40,6 @@ double zla_gbrcond_c(
   final AINVNM = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   INFO.value = 0;
   NOTRANS = lsame(TRANS, 'N');
   if (!NOTRANS && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
@@ -72,11 +70,11 @@ double zla_gbrcond_c(
       TMP = 0.0;
       if (CAPPLY) {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP += CABS1(AB[KD + I - J][J]) / C[J];
+          TMP += AB[KD + I - J][J].cabs1() / C[J];
         }
       } else {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP += CABS1(AB[KD + I - J][J]);
+          TMP += AB[KD + I - J][J].cabs1();
         }
       }
       RWORK[I] = TMP;
@@ -87,11 +85,11 @@ double zla_gbrcond_c(
       TMP = 0.0;
       if (CAPPLY) {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP += CABS1(AB[KE - I + J][I]) / C[J];
+          TMP += AB[KE - I + J][I].cabs1() / C[J];
         }
       } else {
         for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-          TMP += CABS1(AB[KE - I + J][I]);
+          TMP += AB[KE - I + J][I].cabs1();
         }
       }
       RWORK[I] = TMP;

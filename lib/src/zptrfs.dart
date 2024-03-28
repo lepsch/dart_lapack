@@ -51,8 +51,6 @@ void zptrfs(
   double EPS, LSTRES = 0, S, SAFE1, SAFE2, SAFMIN;
   Complex BI, CX, DX, EX;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -107,60 +105,60 @@ void zptrfs(
           BI = B[1][J];
           DX = D[1].toComplex() * X[1][J];
           WORK[1] = BI - DX;
-          RWORK[1] = CABS1(BI) + CABS1(DX);
+          RWORK[1] = BI.cabs1() + DX.cabs1();
         } else {
           BI = B[1][J];
           DX = D[1].toComplex() * X[1][J];
           EX = E[1] * X[2][J];
           WORK[1] = BI - DX - EX;
-          RWORK[1] = CABS1(BI) + CABS1(DX) + CABS1(E[1]) * CABS1(X[2][J]);
+          RWORK[1] = BI.cabs1() + DX.cabs1() + E[1].cabs1() * X[2][J].cabs1();
           for (I = 2; I <= N - 1; I++) {
             BI = B[I][J];
             CX = E[I - 1].conjugate() * X[I - 1][J];
             DX = D[I].toComplex() * X[I][J];
             EX = E[I] * X[I + 1][J];
             WORK[I] = BI - CX - DX - EX;
-            RWORK[I] = CABS1(BI) +
-                CABS1(E[I - 1]) * CABS1(X[I - 1][J]) +
-                CABS1(DX) +
-                CABS1(E[I]) * CABS1(X[I + 1][J]);
+            RWORK[I] = BI.cabs1() +
+                E[I - 1].cabs1() * X[I - 1][J].cabs1() +
+                DX.cabs1() +
+                E[I].cabs1() * X[I + 1][J].cabs1();
           }
           BI = B[N][J];
           CX = E[N - 1].conjugate() * X[N - 1][J];
           DX = D[N].toComplex() * X[N][J];
           WORK[N] = BI - CX - DX;
           RWORK[N] =
-              CABS1(BI) + CABS1(E[N - 1]) * CABS1(X[N - 1][J]) + CABS1(DX);
+              BI.cabs1() + E[N - 1].cabs1() * X[N - 1][J].cabs1() + DX.cabs1();
         }
       } else {
         if (N == 1) {
           BI = B[1][J];
           DX = D[1].toComplex() * X[1][J];
           WORK[1] = BI - DX;
-          RWORK[1] = CABS1(BI) + CABS1(DX);
+          RWORK[1] = BI.cabs1() + DX.cabs1();
         } else {
           BI = B[1][J];
           DX = D[1].toComplex() * X[1][J];
           EX = E[1].conjugate() * X[2][J];
           WORK[1] = BI - DX - EX;
-          RWORK[1] = CABS1(BI) + CABS1(DX) + CABS1(E[1]) * CABS1(X[2][J]);
+          RWORK[1] = BI.cabs1() + DX.cabs1() + E[1].cabs1() * X[2][J].cabs1();
           for (I = 2; I <= N - 1; I++) {
             BI = B[I][J];
             CX = E[I - 1] * X[I - 1][J];
             DX = D[I].toComplex() * X[I][J];
             EX = E[I].conjugate() * X[I + 1][J];
             WORK[I] = BI - CX - DX - EX;
-            RWORK[I] = CABS1(BI) +
-                CABS1(E[I - 1]) * CABS1(X[I - 1][J]) +
-                CABS1(DX) +
-                CABS1(E[I]) * CABS1(X[I + 1][J]);
+            RWORK[I] = BI.cabs1() +
+                E[I - 1].cabs1() * X[I - 1][J].cabs1() +
+                DX.cabs1() +
+                E[I].cabs1() * X[I + 1][J].cabs1();
           }
           BI = B[N][J];
           CX = E[N - 1] * X[N - 1][J];
           DX = D[N].toComplex() * X[N][J];
           WORK[N] = BI - CX - DX;
           RWORK[N] =
-              CABS1(BI) + CABS1(E[N - 1]) * CABS1(X[N - 1][J]) + CABS1(DX);
+              BI.cabs1() + E[N - 1].cabs1() * X[N - 1][J].cabs1() + DX.cabs1();
         }
       }
 
@@ -176,9 +174,9 @@ void zptrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (RWORK[I] > SAFE2) {
-          S = max(S, CABS1(WORK[I]) / RWORK[I]);
+          S = max(S, WORK[I].cabs1() / RWORK[I]);
         } else {
-          S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
+          S = max(S, (WORK[I].cabs1() + SAFE1) / (RWORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -221,9 +219,9 @@ void zptrfs(
 
     for (I = 1; I <= N; I++) {
       if (RWORK[I] > SAFE2) {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I];
       } else {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I] + SAFE1;
       }
     }
     IX = idamax(N, RWORK, 1);

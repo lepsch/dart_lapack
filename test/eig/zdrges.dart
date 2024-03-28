@@ -142,8 +142,6 @@ void zdrges(
   ]);
   final IINFO = Box(0), SDIM = Box(0);
 
-  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
-
   // Check for errors
 
   INFO.value = 0;
@@ -454,10 +452,10 @@ void zdrges(
 
         for (J = 1; J <= N; J++) {
           ILABAD = false;
-          TEMP2 = (ABS1(ALPHA[J] - S[J][J]) /
-                      max(SAFMIN, max(ABS1(ALPHA[J]), ABS1(S[J][J]))) +
-                  ABS1(BETA[J] - T[J][J]) /
-                      max(SAFMIN, max(ABS1(BETA[J]), ABS1(T[J][J])))) /
+          TEMP2 = ((ALPHA[J] - S[J][J]).cabs1() /
+                      max(SAFMIN, max(ALPHA[J].cabs1(), S[J][J].cabs1())) +
+                  (BETA[J] - T[J][J]).cabs1() /
+                      max(SAFMIN, max(BETA[J].cabs1(), T[J][J].cabs1()))) /
               ULP;
 
           if (J < N) {

@@ -3629,8 +3629,6 @@ void _zmmch(
   int I, J, K;
   bool CTRANA, CTRANB, TRANA, TRANB;
 
-  double ABS1(Complex CL) => CL.real.abs() + CL.imaginary.abs();
-
   TRANA = TRANSA == 'T' || TRANSA == 'C';
   TRANB = TRANSB == 'T' || TRANSB == 'C';
   CTRANA = TRANSA == 'C';
@@ -3649,7 +3647,7 @@ void _zmmch(
       for (K = 1; K <= KK; K++) {
         for (I = 1; I <= M; I++) {
           CT[I] += A[I][K] * B[K][J];
-          G[I] += ABS1(A[I][K]) * ABS1(B[K][J]);
+          G[I] += A[I][K].cabs1() * B[K][J].cabs1();
         }
       }
     } else if (TRANA && !TRANB) {
@@ -3657,14 +3655,14 @@ void _zmmch(
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
             CT[I] += A[K][I].conjugate() * B[K][J];
-            G[I] += ABS1(A[K][I]) * ABS1(B[K][J]);
+            G[I] += A[K][I].cabs1() * B[K][J].cabs1();
           }
         }
       } else {
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
             CT[I] += A[K][I] * B[K][J];
-            G[I] += ABS1(A[K][I]) * ABS1(B[K][J]);
+            G[I] += A[K][I].cabs1() * B[K][J].cabs1();
           }
         }
       }
@@ -3673,14 +3671,14 @@ void _zmmch(
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
             CT[I] += A[I][K] * B[J][K].conjugate();
-            G[I] += ABS1(A[I][K]) * ABS1(B[J][K]);
+            G[I] += A[I][K].cabs1() * B[J][K].cabs1();
           }
         }
       } else {
         for (K = 1; K <= KK; K++) {
           for (I = 1; I <= M; I++) {
             CT[I] += A[I][K] * B[J][K];
-            G[I] += ABS1(A[I][K]) * ABS1(B[J][K]);
+            G[I] += A[I][K].cabs1() * B[J][K].cabs1();
           }
         }
       }
@@ -3690,14 +3688,14 @@ void _zmmch(
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
               CT[I] += A[K][I].conjugate() * B[J][K].conjugate();
-              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
+              G[I] += A[K][I].cabs1() * B[J][K].cabs1();
             }
           }
         } else {
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
               CT[I] += A[K][I].conjugate() * B[J][K];
-              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
+              G[I] += A[K][I].cabs1() * B[J][K].cabs1();
             }
           }
         }
@@ -3706,14 +3704,14 @@ void _zmmch(
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
               CT[I] += A[K][I] * B[J][K].conjugate();
-              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
+              G[I] += A[K][I].cabs1() * B[J][K].cabs1();
             }
           }
         } else {
           for (K = 1; K <= KK; K++) {
             for (I = 1; I <= M; I++) {
               CT[I] += A[K][I] * B[J][K];
-              G[I] += ABS1(A[K][I]) * ABS1(B[J][K]);
+              G[I] += A[K][I].cabs1() * B[J][K].cabs1();
             }
           }
         }
@@ -3721,14 +3719,14 @@ void _zmmch(
     }
     for (I = 1; I <= M; I++) {
       CT[I] = ALPHA * CT[I] + BETA * C[I][J];
-      G[I] = ABS1(ALPHA) * G[I] + ABS1(BETA) * ABS1(C[I][J]);
+      G[I] = ALPHA.cabs1() * G[I] + BETA.cabs1() * C[I][J].cabs1();
     }
 
     // Compute the error ratio for this result.
 
     ERR.value = RZERO;
     for (I = 1; I <= M; I++) {
-      ERRI = ABS1(CT[I] - CC[I][J]) / EPS;
+      ERRI = (CT[I] - CC[I][J]).cabs1() / EPS;
       if (G[I] != RZERO) ERRI /= G[I];
       ERR.value = max(ERR.value, ERRI);
       if (ERR.value * sqrt(EPS) >= RONE) {

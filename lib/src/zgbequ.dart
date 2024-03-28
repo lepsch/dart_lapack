@@ -30,8 +30,6 @@ void zgbequ(
   int I, J, KD;
   double BIGNUM, RCMAX, RCMIN, SMLNUM;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters
 
   INFO.value = 0;
@@ -76,7 +74,7 @@ void zgbequ(
   KD = KU + 1;
   for (J = 1; J <= N; J++) {
     for (I = max(J - KU, 1); I <= min(J + KL, M); I++) {
-      R[I] = max(R[I], CABS1(AB[KD + I - J][J]));
+      R[I] = max(R[I], AB[KD + I - J][J].cabs1());
     }
   }
 
@@ -123,7 +121,7 @@ void zgbequ(
   KD = KU + 1;
   for (J = 1; J <= N; J++) {
     for (I = max(J - KU, 1); I <= min(J + KL, M); I++) {
-      C[J] = max(C[J], CABS1(AB[KD + I - J][J]) * R[I]);
+      C[J] = max(C[J], AB[KD + I - J][J].cabs1() * R[I]);
     }
   }
 

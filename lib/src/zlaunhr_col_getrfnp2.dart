@@ -28,8 +28,6 @@ void zlaunhr_col_getrfnp2(
   int I, N1, N2;
   final IINFO = Box(0);
 
-  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
-
   // Test the input parameters
 
   INFO.value = 0;
@@ -80,7 +78,7 @@ void zlaunhr_col_getrfnp2(
 
     // Construct the subdiagonal elements of L
 
-    if (CABS1(A[1][1]) >= SFMIN) {
+    if (A[1][1].cabs1() >= SFMIN) {
       zscal(M - 1, Complex.one / A[1][1], A(2, 1).asArray(), 1);
     } else {
       for (I = 2; I <= M; I++) {

@@ -41,8 +41,6 @@ void zlaein(
   final SCALE = Box(0.0);
   final IERR = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   INFO.value = 0;
 
   // GROWTO is the threshold used in the acceptance test for an
@@ -81,7 +79,7 @@ void zlaein(
 
     for (I = 1; I <= N - 1; I++) {
       EI = H[I + 1][I];
-      if (CABS1(B[I][I]) < CABS1(EI)) {
+      if (B[I][I].cabs1() < EI.cabs1()) {
         // Interchange rows and eliminate.
 
         X = zladiv(B[I][I], EI);
@@ -112,7 +110,7 @@ void zlaein(
 
     for (J = N; J >= 2; J--) {
       EJ = H[J][J - 1];
-      if (CABS1(B[J][J]) < CABS1(EJ)) {
+      if (B[J][J].cabs1() < EJ.cabs1()) {
         // Interchange columns and eliminate.
 
         X = zladiv(B[J][J], EJ);
@@ -175,5 +173,5 @@ void zlaein(
   // Normalize eigenvector.
 
   I = izamax(N, V, 1);
-  zdscal(N, ONE / CABS1(V[I]), V, 1);
+  zdscal(N, ONE / V[I].cabs1(), V, 1);
 }

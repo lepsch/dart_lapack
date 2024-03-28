@@ -38,8 +38,6 @@ void zgecon(
   final AINVNM = Box(0.0), SL = Box(0.0), SU = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   HUGEVAL = dlamch('Overflow');
 
   // Test the input parameters.
@@ -120,7 +118,7 @@ void zgecon(
     NORMIN = 'Y';
     if (SCALE != ONE) {
       IX = izamax(N, WORK, 1);
-      if (SCALE < CABS1(WORK[IX]) * SMLNUM || SCALE == ZERO) return;
+      if (SCALE < WORK[IX].cabs1() * SMLNUM || SCALE == ZERO) return;
       zdrscl(N, SCALE, WORK, 1);
     }
   }

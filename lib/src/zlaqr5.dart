@@ -75,8 +75,6 @@ void zlaqr5(
   final VT = Array<Complex>(3);
   final BETA = Box(Complex.zero), ALPHA = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // If there are no shifts, then there is nothing to do.
 
   if (NSHFTS < 2) return;
@@ -218,22 +216,22 @@ void zlaqr5(
 
         if (K >= KTOP) {
           if (H[K + 1][K] != Complex.zero) {
-            TST1 = CABS1(H[K][K]) + CABS1(H[K + 1][K + 1]);
+            TST1 = H[K][K].cabs1() + H[K + 1][K + 1].cabs1();
             if (TST1 == RZERO) {
-              if (K >= KTOP + 1) TST1 += CABS1(H[K][K - 1]);
-              if (K >= KTOP + 2) TST1 += CABS1(H[K][K - 2]);
-              if (K >= KTOP + 3) TST1 += CABS1(H[K][K - 3]);
-              if (K <= KBOT - 2) TST1 += CABS1(H[K + 2][K + 1]);
-              if (K <= KBOT - 3) TST1 += CABS1(H[K + 3][K + 1]);
-              if (K <= KBOT - 4) TST1 += CABS1(H[K + 4][K + 1]);
+              if (K >= KTOP + 1) TST1 += H[K][K - 1].cabs1();
+              if (K >= KTOP + 2) TST1 += H[K][K - 2].cabs1();
+              if (K >= KTOP + 3) TST1 += H[K][K - 3].cabs1();
+              if (K <= KBOT - 2) TST1 += H[K + 2][K + 1].cabs1();
+              if (K <= KBOT - 3) TST1 += H[K + 3][K + 1].cabs1();
+              if (K <= KBOT - 4) TST1 += H[K + 4][K + 1].cabs1();
             }
-            if (CABS1(H[K + 1][K]) <= max(SMLNUM, ULP * TST1)) {
-              H12 = max(CABS1(H[K + 1][K]), CABS1(H[K][K + 1]));
-              H21 = min(CABS1(H[K + 1][K]), CABS1(H[K][K + 1]));
-              H11 =
-                  max(CABS1(H[K + 1][K + 1]), CABS1(H[K][K] - H[K + 1][K + 1]));
-              H22 =
-                  min(CABS1(H[K + 1][K + 1]), CABS1(H[K][K] - H[K + 1][K + 1]));
+            if (H[K + 1][K].cabs1() <= max(SMLNUM, ULP * TST1)) {
+              H12 = max(H[K + 1][K].cabs1(), H[K][K + 1].cabs1());
+              H21 = min(H[K + 1][K].cabs1(), H[K][K + 1].cabs1());
+              H11 = max(
+                  H[K + 1][K + 1].cabs1(), (H[K][K] - H[K + 1][K + 1]).cabs1());
+              H22 = min(
+                  H[K + 1][K + 1].cabs1(), (H[K][K] - H[K + 1][K + 1]).cabs1());
               SCL = H11 + H12;
               TST2 = H22 * (H11 / SCL);
 
@@ -321,11 +319,11 @@ void zlaqr5(
             T3 = T1 * VT[3];
             REFSUM = H[K + 1][K] + VT[2].conjugate() * H[K + 2][K];
 
-            if (CABS1(H[K + 2][K] - REFSUM * T2) + CABS1(REFSUM * T3) >
+            if ((H[K + 2][K] - REFSUM * T2).cabs1() + (REFSUM * T3).cabs1() >
                 ULP *
-                    (CABS1(H[K][K]) +
-                        CABS1(H[K + 1][K + 1]) +
-                        CABS1(H[K + 2][K + 2]))) {
+                    (H[K][K].cabs1() +
+                        H[K + 1][K + 1].cabs1() +
+                        H[K + 2][K + 2].cabs1())) {
               // Starting a new bulge here would
               // create non-negligible fill.  Use
               // the old one with trepidation.
@@ -389,20 +387,22 @@ void zlaqr5(
 
         if (K < KTOP) continue;
         if (H[K + 1][K] != Complex.zero) {
-          TST1 = CABS1(H[K][K]) + CABS1(H[K + 1][K + 1]);
+          TST1 = H[K][K].cabs1() + H[K + 1][K + 1].cabs1();
           if (TST1 == RZERO) {
-            if (K >= KTOP + 1) TST1 += CABS1(H[K][K - 1]);
-            if (K >= KTOP + 2) TST1 += CABS1(H[K][K - 2]);
-            if (K >= KTOP + 3) TST1 += CABS1(H[K][K - 3]);
-            if (K <= KBOT - 2) TST1 += CABS1(H[K + 2][K + 1]);
-            if (K <= KBOT - 3) TST1 += CABS1(H[K + 3][K + 1]);
-            if (K <= KBOT - 4) TST1 += CABS1(H[K + 4][K + 1]);
+            if (K >= KTOP + 1) TST1 += H[K][K - 1].cabs1();
+            if (K >= KTOP + 2) TST1 += H[K][K - 2].cabs1();
+            if (K >= KTOP + 3) TST1 += H[K][K - 3].cabs1();
+            if (K <= KBOT - 2) TST1 += H[K + 2][K + 1].cabs1();
+            if (K <= KBOT - 3) TST1 += H[K + 3][K + 1].cabs1();
+            if (K <= KBOT - 4) TST1 += H[K + 4][K + 1].cabs1();
           }
-          if (CABS1(H[K + 1][K]) <= max(SMLNUM, ULP * TST1)) {
-            H12 = max(CABS1(H[K + 1][K]), CABS1(H[K][K + 1]));
-            H21 = min(CABS1(H[K + 1][K]), CABS1(H[K][K + 1]));
-            H11 = max(CABS1(H[K + 1][K + 1]), CABS1(H[K][K] - H[K + 1][K + 1]));
-            H22 = min(CABS1(H[K + 1][K + 1]), CABS1(H[K][K] - H[K + 1][K + 1]));
+          if (H[K + 1][K].cabs1() <= max(SMLNUM, ULP * TST1)) {
+            H12 = max(H[K + 1][K].cabs1(), H[K][K + 1].cabs1());
+            H21 = min(H[K + 1][K].cabs1(), H[K][K + 1].cabs1());
+            H11 = max(
+                H[K + 1][K + 1].cabs1(), (H[K][K] - H[K + 1][K + 1]).cabs1());
+            H22 = min(
+                H[K + 1][K + 1].cabs1(), (H[K][K] - H[K + 1][K + 1]).cabs1());
             SCL = H11 + H12;
             TST2 = H22 * (H11 / SCL);
 

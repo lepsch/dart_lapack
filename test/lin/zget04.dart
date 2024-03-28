@@ -16,15 +16,12 @@ void zget04(
   final double RCOND,
   final Box<double> RESID,
 ) {
-  final X = X_.having(ld: LDX);
-  final XACT = XACT_.having(ld: LDXACT);
-
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.having(ld: LDX);
+  final XACT = XACT_.having(ld: LDXACT);
   const ZERO = 0.0;
-
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Quick exit if N = 0 or NRHS = 0.
 
@@ -48,10 +45,10 @@ void zget04(
   RESID.value = ZERO;
   for (var J = 1; J <= NRHS; J++) {
     final IX = izamax(N, XACT(1, J).asArray(), 1);
-    final XNORM = CABS1(XACT[IX][J]);
+    final XNORM = XACT[IX][J].cabs1();
     var DIFFNM = ZERO;
     for (var I = 1; I <= N; I++) {
-      DIFFNM = max(DIFFNM, CABS1(X[I][J] - XACT[I][J]));
+      DIFFNM = max(DIFFNM, (X[I][J] - XACT[I][J]).cabs1());
     }
     if (XNORM <= ZERO) {
       if (DIFFNM > ZERO) RESID.value = 1.0 / EPS;

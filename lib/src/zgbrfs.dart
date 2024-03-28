@@ -56,8 +56,6 @@ void zgbrfs(
   final ISAVE = Array<int>(3);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -137,7 +135,7 @@ void zgbrfs(
       // numerator and denominator before dividing.
 
       for (I = 1; I <= N; I++) {
-        RWORK[I] = CABS1(B[I][J]);
+        RWORK[I] = B[I][J].cabs1();
       }
 
       // Compute abs(op(A))*abs(X) + abs(B).
@@ -145,9 +143,9 @@ void zgbrfs(
       if (NOTRAN) {
         for (K = 1; K <= N; K++) {
           KK = KU + 1 - K;
-          XK = CABS1(X[K][J]);
+          XK = X[K][J].cabs1();
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
-            RWORK[I] += CABS1(AB[KK + I][K]) * XK;
+            RWORK[I] += AB[KK + I][K].cabs1() * XK;
           }
         }
       } else {
@@ -155,7 +153,7 @@ void zgbrfs(
           S = ZERO;
           KK = KU + 1 - K;
           for (I = max(1, K - KU); I <= min(N, K + KL); I++) {
-            S += CABS1(AB[KK + I][K]) * CABS1(X[I][J]);
+            S += AB[KK + I][K].cabs1() * X[I][J].cabs1();
           }
           RWORK[K] += S;
         }
@@ -163,9 +161,9 @@ void zgbrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (RWORK[I] > SAFE2) {
-          S = max(S, CABS1(WORK[I]) / RWORK[I]);
+          S = max(S, WORK[I].cabs1() / RWORK[I]);
         } else {
-          S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
+          S = max(S, (WORK[I].cabs1() + SAFE1) / (RWORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -213,9 +211,9 @@ void zgbrfs(
 
     for (I = 1; I <= N; I++) {
       if (RWORK[I] > SAFE2) {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I];
       } else {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I] + SAFE1;
       }
     }
 
@@ -246,7 +244,7 @@ void zgbrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, CABS1(X[I][J]));
+      LSTRES = max(LSTRES, X[I][J].cabs1());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

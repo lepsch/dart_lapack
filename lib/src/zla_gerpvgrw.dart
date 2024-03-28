@@ -19,18 +19,16 @@ double zla_gerpvgrw(
   int I, J;
   double AMAX, UMAX, RPVGRW;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   RPVGRW = 1.0;
 
   for (J = 1; J <= NCOLS; J++) {
     AMAX = 0.0;
     UMAX = 0.0;
     for (I = 1; I <= N; I++) {
-      AMAX = max(CABS1(A[I][J]), AMAX);
+      AMAX = max(A[I][J].cabs1(), AMAX);
     }
     for (I = 1; I <= J; I++) {
-      UMAX = max(CABS1(AF[I][J]), UMAX);
+      UMAX = max(AF[I][J].cabs1(), UMAX);
     }
     if (UMAX != 0.0) {
       RPVGRW = min(AMAX / UMAX, RPVGRW);

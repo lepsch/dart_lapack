@@ -53,8 +53,6 @@ void zlahef_rk(
   double ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN;
   Complex D11, D21, D22;
 
-  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
-
   INFO.value = 0;
 
   // Initialize ALPHA for use in choosing pivot block size.
@@ -110,7 +108,7 @@ void zlahef_rk(
 
       if (K > 1) {
         IMAX = izamax(K - 1, W(1, KW).asArray(), 1);
-        COLMAX = CABS1(W[IMAX][KW]);
+        COLMAX = W[IMAX][KW].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -179,14 +177,14 @@ void zlahef_rk(
 
             if (IMAX != K) {
               JMAX = IMAX + izamax(K - IMAX, W(IMAX + 1, KW - 1).asArray(), 1);
-              ROWMAX = CABS1(W[JMAX][KW - 1]);
+              ROWMAX = W[JMAX][KW - 1].cabs1();
             } else {
               ROWMAX = ZERO;
             }
 
             if (IMAX > 1) {
               ITEMP = izamax(IMAX - 1, W(1, KW - 1).asArray(), 1);
-              DTEMP = CABS1(W[ITEMP][KW - 1]);
+              DTEMP = W[ITEMP][KW - 1].cabs1();
               if (DTEMP > ROWMAX) {
                 ROWMAX = DTEMP;
                 JMAX = ITEMP;
@@ -531,7 +529,7 @@ void zlahef_rk(
 
       if (K < N) {
         IMAX = K + izamax(N - K, W(K + 1, K).asArray(), 1);
-        COLMAX = CABS1(W[IMAX][K]);
+        COLMAX = W[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -604,14 +602,14 @@ void zlahef_rk(
 
             if (IMAX != K) {
               JMAX = K - 1 + izamax(IMAX - K, W(K, K + 1).asArray(), 1);
-              ROWMAX = CABS1(W[JMAX][K + 1]);
+              ROWMAX = W[JMAX][K + 1].cabs1();
             } else {
               ROWMAX = ZERO;
             }
 
             if (IMAX < N) {
               ITEMP = IMAX + izamax(N - IMAX, W(IMAX + 1, K + 1).asArray(), 1);
-              DTEMP = CABS1(W[ITEMP][K + 1]);
+              DTEMP = W[ITEMP][K + 1].cabs1();
               if (DTEMP > ROWMAX) {
                 ROWMAX = DTEMP;
                 JMAX = ITEMP;

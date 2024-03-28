@@ -21,8 +21,6 @@ double zla_gbrpvgrw(
   int I, J, KD;
   double AMAX, UMAX, RPVGRW;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   RPVGRW = 1.0;
 
   KD = KU + 1;
@@ -30,10 +28,10 @@ double zla_gbrpvgrw(
     AMAX = 0.0;
     UMAX = 0.0;
     for (I = max(J - KU, 1); I <= min(J + KL, N); I++) {
-      AMAX = max(CABS1(AB[KD + I - J][J]), AMAX);
+      AMAX = max(AB[KD + I - J][J].cabs1(), AMAX);
     }
     for (I = max(J - KU, 1); I <= J; I++) {
-      UMAX = max(CABS1(AFB[KD + I - J][J]), UMAX);
+      UMAX = max(AFB[KD + I - J][J].cabs1(), UMAX);
     }
     if (UMAX != 0.0) {
       RPVGRW = min(AMAX / UMAX, RPVGRW);

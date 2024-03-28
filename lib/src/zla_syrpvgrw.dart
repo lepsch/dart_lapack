@@ -28,8 +28,6 @@ double zla_syrpvgrw(
   double AMAX, UMAX, RPVGRW, TMP;
   bool UPPER;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   UPPER = lsame('Upper', UPLO);
   if (INFO.value == 0) {
     if (UPPER) {
@@ -53,15 +51,15 @@ double zla_syrpvgrw(
   if (UPPER) {
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= J; I++) {
-        WORK[N + I] = max(CABS1(A[I][J]), WORK[N + I]);
-        WORK[N + J] = max(CABS1(A[I][J]), WORK[N + J]);
+        WORK[N + I] = max(A[I][J].cabs1(), WORK[N + I]);
+        WORK[N + J] = max(A[I][J].cabs1(), WORK[N + J]);
       }
     }
   } else {
     for (J = 1; J <= N; J++) {
       for (I = J; I <= N; I++) {
-        WORK[N + I] = max(CABS1(A[I][J]), WORK[N + I]);
-        WORK[N + J] = max(CABS1(A[I][J]), WORK[N + J]);
+        WORK[N + I] = max(A[I][J].cabs1(), WORK[N + I]);
+        WORK[N + J] = max(A[I][J].cabs1(), WORK[N + J]);
       }
     }
   }
@@ -85,7 +83,7 @@ double zla_syrpvgrw(
           WORK[N + KP] = TMP;
         }
         for (I = 1; I <= K; I++) {
-          WORK[K] = max(CABS1(AF[I][K]), WORK[K]);
+          WORK[K] = max(AF[I][K].cabs1(), WORK[K]);
         }
         K--;
       } else {
@@ -95,10 +93,10 @@ double zla_syrpvgrw(
         WORK[N + K - 1] = WORK[N + KP];
         WORK[N + KP] = TMP;
         for (I = 1; I <= K - 1; I++) {
-          WORK[K] = max(CABS1(AF[I][K]), WORK[K]);
-          WORK[K - 1] = max(CABS1(AF[I][K - 1]), WORK[K - 1]);
+          WORK[K] = max(AF[I][K].cabs1(), WORK[K]);
+          WORK[K - 1] = max(AF[I][K - 1].cabs1(), WORK[K - 1]);
         }
-        WORK[K] = max(CABS1(AF[K][K]), WORK[K]);
+        WORK[K] = max(AF[K][K].cabs1(), WORK[K]);
         K -= 2;
       }
     }
@@ -132,7 +130,7 @@ double zla_syrpvgrw(
           WORK[N + KP] = TMP;
         }
         for (I = K; I <= N; I++) {
-          WORK[K] = max(CABS1(AF[I][K]), WORK[K]);
+          WORK[K] = max(AF[I][K].cabs1(), WORK[K]);
         }
         K++;
       } else {
@@ -142,10 +140,10 @@ double zla_syrpvgrw(
         WORK[N + K + 1] = WORK[N + KP];
         WORK[N + KP] = TMP;
         for (I = K + 1; I <= N; I++) {
-          WORK[K] = max(CABS1(AF[I][K]), WORK[K]);
-          WORK[K + 1] = max(CABS1(AF[I][K + 1]), WORK[K + 1]);
+          WORK[K] = max(AF[I][K].cabs1(), WORK[K]);
+          WORK[K + 1] = max(AF[I][K + 1].cabs1(), WORK[K + 1]);
         }
-        WORK[K] = max(CABS1(AF[K][K]), WORK[K]);
+        WORK[K] = max(AF[K][K].cabs1(), WORK[K]);
         K += 2;
       }
     }

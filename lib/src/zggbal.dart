@@ -82,8 +82,6 @@ void zggbal(
       TB,
       TC;
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Test the input parameters
 
   INFO.value = 0;
@@ -272,13 +270,13 @@ void zggbal(
       if (A[I][J] == Complex.zero) {
         TA = ZERO;
       } else {
-        TA = log10(CABS1(A[I][J])) / BASL;
+        TA = log10(A[I][J].cabs1()) / BASL;
       }
 
       if (B[I][J] == Complex.zero) {
         TB = ZERO;
       } else {
-        TB = log10(CABS1(B[I][J])) / BASL;
+        TB = log10(B[I][J].cabs1()) / BASL;
       }
 
       WORK[I + 4 * N] -= TA + TB;

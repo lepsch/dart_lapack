@@ -24,8 +24,6 @@ void zgttrf(
   int I;
   Complex FACT, TEMP;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   INFO.value = 0;
   if (N < 0) {
     INFO.value = -1;
@@ -47,10 +45,10 @@ void zgttrf(
   }
 
   for (I = 1; I <= N - 2; I++) {
-    if (CABS1(D[I]) >= CABS1(DL[I])) {
+    if (D[I].cabs1() >= DL[I].cabs1()) {
       // No row interchange required, eliminate DL(I)
 
-      if (CABS1(D[I]) != ZERO) {
+      if (D[I].cabs1() != ZERO) {
         FACT = DL[I] / D[I];
         DL[I] = FACT;
         D[I + 1] -= FACT * DU[I];
@@ -71,8 +69,8 @@ void zgttrf(
   }
   if (N > 1) {
     I = N - 1;
-    if (CABS1(D[I]) >= CABS1(DL[I])) {
-      if (CABS1(D[I]) != ZERO) {
+    if (D[I].cabs1() >= DL[I].cabs1()) {
+      if (D[I].cabs1() != ZERO) {
         FACT = DL[I] / D[I];
         DL[I] = FACT;
         D[I + 1] -= FACT * DU[I];
@@ -91,7 +89,7 @@ void zgttrf(
   // Check for a zero on the diagonal of U.
 
   for (I = 1; I <= N; I++) {
-    if (CABS1(D[I]) == ZERO) {
+    if (D[I].cabs1() == ZERO) {
       INFO.value = I;
       return;
     }

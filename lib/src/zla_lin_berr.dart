@@ -21,8 +21,6 @@ void zla_lin_berr(
   double TMP, SAFE1;
   int I, J;
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Adding SAFE1 to the numerator guards against spuriously zero
   // residuals.  A similar safeguard is in the CLA_yyAMV routine used
   // to compute AYB.
@@ -34,7 +32,7 @@ void zla_lin_berr(
     BERR[J] = 0.0;
     for (I = 1; I <= N; I++) {
       if (AYB[I][J] != 0.0) {
-        TMP = (SAFE1 + CABS1(RES[I][J])) / AYB[I][J];
+        TMP = (SAFE1 + RES[I][J].cabs1()) / AYB[I][J];
         BERR[J] = max(BERR[J], TMP);
       }
 

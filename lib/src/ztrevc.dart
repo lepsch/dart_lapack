@@ -45,8 +45,6 @@ void ztrevc(
   double REMAX, SMIN = 0, SMLNUM, ULP, UNFL;
   final SCALE = Box(0.0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Decode and test the input parameters
 
   BOTHV = lsame(SIDE, 'B');
@@ -122,7 +120,7 @@ void ztrevc(
       if (SOMEV) {
         if (!SELECT[KI]) continue;
       }
-      SMIN = max(ULP * (CABS1(T[KI][KI])), SMLNUM);
+      SMIN = max(ULP * T[KI][KI].cabs1(), SMLNUM);
 
       WORK[1] = Complex.one;
 
@@ -137,7 +135,7 @@ void ztrevc(
 
       for (K = 1; K <= KI - 1; K++) {
         T[K][K] -= T[KI][KI];
-        if (CABS1(T[K][K]) < SMIN) T[K][K] = SMIN.toComplex();
+        if (T[K][K].cabs1() < SMIN) T[K][K] = SMIN.toComplex();
       }
 
       if (KI > 1) {
@@ -152,7 +150,7 @@ void ztrevc(
         zcopy(KI, WORK(1), 1, VR(1, IS).asArray(), 1);
 
         II = izamax(KI, VR(1, IS).asArray(), 1);
-        REMAX = ONE / CABS1(VR[II][IS]);
+        REMAX = ONE / VR[II][IS].cabs1();
         zdscal(KI, REMAX, VR(1, IS).asArray(), 1);
 
         for (K = KI + 1; K <= N; K++) {
@@ -165,7 +163,7 @@ void ztrevc(
         }
 
         II = izamax(N, VR(1, KI).asArray(), 1);
-        REMAX = ONE / CABS1(VR[II][KI]);
+        REMAX = ONE / VR[II][KI].cabs1();
         zdscal(N, REMAX, VR(1, KI).asArray(), 1);
       }
 
@@ -187,7 +185,7 @@ void ztrevc(
       if (SOMEV) {
         if (!SELECT[KI]) continue;
       }
-      SMIN = max(ULP * (CABS1(T[KI][KI])), SMLNUM);
+      SMIN = max(ULP * T[KI][KI].cabs1(), SMLNUM);
 
       WORK[N] = Complex.one;
 
@@ -202,7 +200,7 @@ void ztrevc(
 
       for (K = KI + 1; K <= N; K++) {
         T[K][K] -= T[KI][KI];
-        if (CABS1(T[K][K]) < SMIN) T[K][K] = SMIN.toComplex();
+        if (T[K][K].cabs1() < SMIN) T[K][K] = SMIN.toComplex();
       }
 
       if (KI < N) {
@@ -217,7 +215,7 @@ void ztrevc(
         zcopy(N - KI + 1, WORK(KI), 1, VL(KI, IS).asArray(), 1);
 
         II = izamax(N - KI + 1, VL(KI, IS).asArray(), 1) + KI - 1;
-        REMAX = ONE / CABS1(VL[II][IS]);
+        REMAX = ONE / VL[II][IS].cabs1();
         zdscal(N - KI + 1, REMAX, VL(KI, IS).asArray(), 1);
 
         for (K = 1; K <= KI - 1; K++) {
@@ -230,7 +228,7 @@ void ztrevc(
         }
 
         II = izamax(N, VL(1, KI).asArray(), 1);
-        REMAX = ONE / CABS1(VL[II][KI]);
+        REMAX = ONE / VL[II][KI].cabs1();
         zdscal(N, REMAX, VL(1, KI).asArray(), 1);
       }
 

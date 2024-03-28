@@ -21,8 +21,6 @@ Future<void> zchkbk(final Nin NIN, final Nout NOUT) async {
   final E = Matrix<Complex>(LDE, LDE), EIN = Matrix<Complex>(LDE, LDE);
   final INFO = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   LMAX[1] = 0;
   LMAX[2] = 0;
   NINFO = 0;
@@ -50,8 +48,8 @@ Future<void> zchkbk(final Nin NIN, final Nout NOUT) async {
     VMAX = ZERO;
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
-        X = CABS1(E[I][J] - EIN[I][J]) / EPS;
-        if (CABS1(E[I][J]) > SAFMIN) X /= CABS1(E[I][J]);
+        X = (E[I][J] - EIN[I][J]).cabs1() / EPS;
+        if (E[I][J].cabs1() > SAFMIN) X /= E[I][J].cabs1();
         VMAX = max(VMAX, X);
       }
     }

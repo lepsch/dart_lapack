@@ -42,8 +42,6 @@ Future<void> zchkgk(
       WORK = Matrix<Complex>(LDWORK, LDWORK);
   final IHI = Box(0), ILO = Box(0), INFO = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   LMAX[1] = 0;
   LMAX[2] = 0;
   LMAX[3] = 0;
@@ -112,7 +110,7 @@ Future<void> zchkgk(
       VMAX = ZERO;
       for (J = 1; J <= M; J++) {
         for (I = 1; I <= M; I++) {
-          VMAX = max(VMAX, CABS1(E[I][J] - F[I][J]));
+          VMAX = max(VMAX, (E[I][J] - F[I][J]).cabs1());
         }
       }
       VMAX /= EPS * max(ANORM, BNORM);

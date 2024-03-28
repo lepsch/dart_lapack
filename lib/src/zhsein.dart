@@ -50,8 +50,6 @@ void zhsein(
   Complex WK = Complex.zero;
   final IINFO = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Decode and test the input parameters.
 
   BOTHV = lsame(SIDE, 'B');
@@ -167,7 +165,7 @@ void zhsein(
       repeat:
       while (true) {
         for (I = K - 1; I >= KL; I--) {
-          if (SELECT[I] && CABS1(W[I] - WK) < EPS3) {
+          if (SELECT[I] && (W[I] - WK).cabs1() < EPS3) {
             WK += EPS3.toComplex();
             continue repeat;
           }

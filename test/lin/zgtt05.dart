@@ -37,8 +37,6 @@ void zgtt05(
   final RESLTS = RESLTS_.having();
   const ZERO = 0.0, ONE = 1.0;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Quick exit if N = 0 or NRHS = 0.
 
   if (N <= 0 || NRHS <= 0) {
@@ -60,10 +58,10 @@ void zgtt05(
   var ERRBND = ZERO;
   for (var J = 1; J <= NRHS; J++) {
     final IMAX = izamax(N, X(1, J).asArray(), 1);
-    final XNORM = max(CABS1(X[IMAX][J]), UNFL);
+    final XNORM = max(X[IMAX][J].cabs1(), UNFL);
     var DIFF = ZERO;
     for (var I = 1; I <= N; I++) {
-      DIFF = max(DIFF, CABS1(X[I][J] - XACT[I][J]));
+      DIFF = max(DIFF, (X[I][J] - XACT[I][J]).cabs1());
     }
 
     if (XNORM > ONE) {
@@ -90,40 +88,40 @@ void zgtt05(
     double AXBI;
     if (NOTRAN) {
       if (N == 1) {
-        AXBI = CABS1(B[1][K]) + CABS1(D[1]) * CABS1(X[1][K]);
+        AXBI = B[1][K].cabs1() + D[1].cabs1() * X[1][K].cabs1();
       } else {
-        AXBI = CABS1(B[1][K]) +
-            CABS1(D[1]) * CABS1(X[1][K]) +
-            CABS1(DU[1]) * CABS1(X[2][K]);
+        AXBI = B[1][K].cabs1() +
+            D[1].cabs1() * X[1][K].cabs1() +
+            DU[1].cabs1() * X[2][K].cabs1();
         for (var I = 2; I <= N - 1; I++) {
-          final TMP = CABS1(B[I][K]) +
-              CABS1(DL[I - 1]) * CABS1(X[I - 1][K]) +
-              CABS1(D[I]) * CABS1(X[I][K]) +
-              CABS1(DU[I]) * CABS1(X[I + 1][K]);
+          final TMP = B[I][K].cabs1() +
+              DL[I - 1].cabs1() * X[I - 1][K].cabs1() +
+              D[I].cabs1() * X[I][K].cabs1() +
+              DU[I].cabs1() * X[I + 1][K].cabs1();
           AXBI = min(AXBI, TMP);
         }
-        final TMP = CABS1(B[N][K]) +
-            CABS1(DL[N - 1]) * CABS1(X[N - 1][K]) +
-            CABS1(D[N]) * CABS1(X[N][K]);
+        final TMP = B[N][K].cabs1() +
+            DL[N - 1].cabs1() * X[N - 1][K].cabs1() +
+            D[N].cabs1() * X[N][K].cabs1();
         AXBI = min(AXBI, TMP);
       }
     } else {
       if (N == 1) {
-        AXBI = CABS1(B[1][K]) + CABS1(D[1]) * CABS1(X[1][K]);
+        AXBI = B[1][K].cabs1() + D[1].cabs1() * X[1][K].cabs1();
       } else {
-        AXBI = CABS1(B[1][K]) +
-            CABS1(D[1]) * CABS1(X[1][K]) +
-            CABS1(DL[1]) * CABS1(X[2][K]);
+        AXBI = B[1][K].cabs1() +
+            D[1].cabs1() * X[1][K].cabs1() +
+            DL[1].cabs1() * X[2][K].cabs1();
         for (var I = 2; I <= N - 1; I++) {
-          final TMP = CABS1(B[I][K]) +
-              CABS1(DU[I - 1]) * CABS1(X[I - 1][K]) +
-              CABS1(D[I]) * CABS1(X[I][K]) +
-              CABS1(DL[I]) * CABS1(X[I + 1][K]);
+          final TMP = B[I][K].cabs1() +
+              DU[I - 1].cabs1() * X[I - 1][K].cabs1() +
+              D[I].cabs1() * X[I][K].cabs1() +
+              DL[I].cabs1() * X[I + 1][K].cabs1();
           AXBI = min(AXBI, TMP);
         }
-        final TMP = CABS1(B[N][K]) +
-            CABS1(DU[N - 1]) * CABS1(X[N - 1][K]) +
-            CABS1(D[N]) * CABS1(X[N][K]);
+        final TMP = B[N][K].cabs1() +
+            DU[N - 1].cabs1() * X[N - 1][K].cabs1() +
+            D[N].cabs1() * X[N][K].cabs1();
         AXBI = min(AXBI, TMP);
       }
     }

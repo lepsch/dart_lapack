@@ -32,8 +32,6 @@ void zsytf2(
   double ABSAKK, ALPHA, COLMAX, ROWMAX;
   Complex D11, D12, D21, D22, R1, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -67,7 +65,7 @@ void zsytf2(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(A[K][K]);
+      ABSAKK = A[K][K].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -75,7 +73,7 @@ void zsytf2(
 
       if (K > 1) {
         IMAX = izamax(K - 1, A(1, K).asArray(), 1);
-        COLMAX = CABS1(A[IMAX][K]);
+        COLMAX = A[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -96,17 +94,17 @@ void zsytf2(
           // element in row IMAX, and ROWMAX is its absolute value
 
           JMAX = IMAX + izamax(K - IMAX, A(IMAX, IMAX + 1).asArray(), LDA);
-          ROWMAX = CABS1(A[IMAX][JMAX]);
+          ROWMAX = A[IMAX][JMAX].cabs1();
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, A(1, IMAX).asArray(), 1);
-            ROWMAX = max(ROWMAX, CABS1(A[JMAX][IMAX]));
+            ROWMAX = max(ROWMAX, A[JMAX][IMAX].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (CABS1(A[IMAX][IMAX]) >= ALPHA * ROWMAX) {
+          } else if (A[IMAX][IMAX].cabs1() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -216,7 +214,7 @@ void zsytf2(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(A[K][K]);
+      ABSAKK = A[K][K].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -224,7 +222,7 @@ void zsytf2(
 
       if (K < N) {
         IMAX = K + izamax(N - K, A(K + 1, K).asArray(), 1);
-        COLMAX = CABS1(A[IMAX][K]);
+        COLMAX = A[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -245,17 +243,17 @@ void zsytf2(
           // element in row IMAX, and ROWMAX is its absolute value
 
           JMAX = K - 1 + izamax(IMAX - K, A(IMAX, K).asArray(), LDA);
-          ROWMAX = CABS1(A[IMAX][JMAX]);
+          ROWMAX = A[IMAX][JMAX].cabs1();
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, A(IMAX + 1, IMAX).asArray(), 1);
-            ROWMAX = max(ROWMAX, CABS1(A[JMAX][IMAX]));
+            ROWMAX = max(ROWMAX, A[JMAX][IMAX].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (CABS1(A[IMAX][IMAX]) >= ALPHA * ROWMAX) {
+          } else if (A[IMAX][IMAX].cabs1() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 

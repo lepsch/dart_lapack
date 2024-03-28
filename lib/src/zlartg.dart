@@ -21,7 +21,7 @@ void zlartg(
   final safmax = dsafmax;
   double d, f1, f2, g1, g2, h2, u, v, w, rtmin, rtmax;
   Complex fs, gs;
-  double ABSSQ(Complex t) => pow(t.real, 2) + pow(t.imaginary, 2).toDouble();
+
   rtmin = sqrt(safmin);
 
   if (g == Complex.zero) {
@@ -45,7 +45,7 @@ void zlartg(
         //    The following two lines can be replaced by `d = abs( g )`.
         //    This algorithm do not use the intrinsic complex abs.
 
-        g2 = ABSSQ(g);
+        g2 = g.cabsSq();
         d = sqrt(g2);
         s.value = g.conjugate() / d.toComplex();
         r.value = d.toComplex();
@@ -56,7 +56,7 @@ void zlartg(
         gs = g / u.toComplex();
         // The following two lines can be replaced by `d = abs( gs )`.
         // This algorithm do not use the intrinsic complex abs.
-        g2 = ABSSQ(gs);
+        g2 = gs.cabsSq();
         d = sqrt(g2);
         s.value = gs.conjugate() / d.toComplex();
         r.value = (d * u).toComplex();
@@ -69,8 +69,8 @@ void zlartg(
     if (f1 > rtmin && f1 < rtmax && g1 > rtmin && g1 < rtmax) {
       // Use unscaled algorithm
 
-      f2 = ABSSQ(f);
-      g2 = ABSSQ(g);
+      f2 = f.cabsSq();
+      g2 = g.cabsSq();
       h2 = f2 + g2;
       // safmin <= f2 <= h2 <= safmax
       if (f2 >= h2 * safmin) {
@@ -107,7 +107,7 @@ void zlartg(
 
       u = min(safmax, max(safmin, max(f1, g1)));
       gs = g / u.toComplex();
-      g2 = ABSSQ(gs);
+      g2 = gs.cabsSq();
       if (f1 / u < rtmin) {
         // f is not well-scaled when scaled by g1.
         // Use a different scaling for f.
@@ -115,14 +115,14 @@ void zlartg(
         v = min(safmax, max(safmin, f1));
         w = v / u;
         fs = f / v.toComplex();
-        f2 = ABSSQ(fs);
+        f2 = fs.cabsSq();
         h2 = f2 * pow(w, 2) + g2;
       } else {
         // Otherwise use the same scaling for f and g.
 
         w = one;
         fs = f / u.toComplex();
-        f2 = ABSSQ(fs);
+        f2 = fs.cabsSq();
         h2 = f2 + g2;
       }
       // safmin <= f2 <= h2 <= safmax

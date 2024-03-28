@@ -91,8 +91,6 @@ void zlaqr4(
   final ZDUM = Matrix<Complex>(1, 1);
   final LD = Box(0), LS = Box(0), INF = Box(0);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   INFO.value = 0;
 
   // ==== Quick return for N = 0: nothing to do. ====
@@ -250,7 +248,7 @@ void zlaqr4(
           NW = NH;
         } else {
           KWTOP = KBOT - NW + 1;
-          if (CABS1(H[KWTOP][KWTOP - 1]) > CABS1(H[KWTOP - 1][KWTOP - 2])) {
+          if (H[KWTOP][KWTOP - 1].cabs1() > H[KWTOP - 1][KWTOP - 2].cabs1()) {
             NW++;
           }
         }
@@ -343,7 +341,7 @@ void zlaqr4(
         if ((NDFL % KEXSH) == 0) {
           KS = KBOT - NS + 1;
           for (I = KBOT; I >= KS + 1; I -= 2) {
-            W[I] = H[I][I] + (WILK1 * CABS1(H[I][I - 1])).toComplex();
+            W[I] = H[I][I] + (WILK1 * H[I][I - 1].cabs1()).toComplex();
             W[I - 1] = W[I];
           }
         } else {
@@ -369,10 +367,10 @@ void zlaqr4(
             // .    because H(KBOT,KBOT-1) is nonzero.) ====
 
             if (KS >= KBOT) {
-              S = CABS1(H[KBOT - 1][KBOT - 1]) +
-                  CABS1(H[KBOT][KBOT - 1]) +
-                  CABS1(H[KBOT - 1][KBOT]) +
-                  CABS1(H[KBOT][KBOT]);
+              S = H[KBOT - 1][KBOT - 1].cabs1() +
+                  H[KBOT][KBOT - 1].cabs1() +
+                  H[KBOT - 1][KBOT].cabs1() +
+                  H[KBOT][KBOT].cabs1();
               AA = H[KBOT - 1][KBOT - 1] / S.toComplex();
               CC = H[KBOT][KBOT - 1] / S.toComplex();
               BB = H[KBOT - 1][KBOT] / S.toComplex();
@@ -395,7 +393,7 @@ void zlaqr4(
               if (SORTED) break;
               SORTED = true;
               for (I = KS; I <= K - 1; I++) {
-                if (CABS1(W[I]) < CABS1(W[I + 1])) {
+                if (W[I].cabs1() < W[I + 1].cabs1()) {
                   SORTED = false;
                   SWAP = W[I];
                   W[I] = W[I + 1];
@@ -410,8 +408,8 @@ void zlaqr4(
         // .    only one.  ====
 
         if (KBOT - KS + 1 == 2) {
-          if (CABS1(W[KBOT] - H[KBOT][KBOT]) <
-              CABS1(W[KBOT - 1] - H[KBOT][KBOT])) {
+          if ((W[KBOT] - H[KBOT][KBOT]).cabs1() <
+              (W[KBOT - 1] - H[KBOT][KBOT]).cabs1()) {
             W[KBOT - 1] = W[KBOT];
           } else {
             W[KBOT] = W[KBOT - 1];

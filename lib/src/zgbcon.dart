@@ -44,8 +44,6 @@ void zgbcon(
   final AINVNM = Box(0.0), SCALE = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -143,7 +141,9 @@ void zgbcon(
     NORMIN = 'Y';
     if (SCALE.value != ONE) {
       IX = izamax(N, WORK, 1);
-      if (SCALE.value < CABS1(WORK[IX]) * SMLNUM || SCALE.value == ZERO) return;
+      if (SCALE.value < WORK[IX].cabs1() * SMLNUM || SCALE.value == ZERO) {
+        return;
+      }
       zdrscl(N, SCALE.value, WORK, 1);
     }
   }

@@ -47,7 +47,6 @@ void zheequb(
   bool UP;
   final SCALE = Box(0.0), SUMSQ = Box(0.0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   // Test the input parameters.
 
@@ -82,21 +81,21 @@ void zheequb(
   if (UP) {
     for (J = 1; J <= N; J++) {
       for (I = 1; I <= J - 1; I++) {
-        S[I] = max(S[I], CABS1(A[I][J]));
-        S[J] = max(S[J], CABS1(A[I][J]));
-        AMAX.value = max(AMAX.value, CABS1(A[I][J]));
+        S[I] = max(S[I], A[I][J].cabs1());
+        S[J] = max(S[J], A[I][J].cabs1());
+        AMAX.value = max(AMAX.value, A[I][J].cabs1());
       }
-      S[J] = max(S[J], CABS1(A[J][J]));
-      AMAX.value = max(AMAX.value, CABS1(A[J][J]));
+      S[J] = max(S[J], A[J][J].cabs1());
+      AMAX.value = max(AMAX.value, A[J][J].cabs1());
     }
   } else {
     for (J = 1; J <= N; J++) {
-      S[J] = max(S[J], CABS1(A[J][J]));
-      AMAX.value = max(AMAX.value, CABS1(A[J][J]));
+      S[J] = max(S[J], A[J][J].cabs1());
+      AMAX.value = max(AMAX.value, A[J][J].cabs1());
       for (I = J + 1; I <= N; I++) {
-        S[I] = max(S[I], CABS1(A[I][J]));
-        S[J] = max(S[J], CABS1(A[I][J]));
-        AMAX.value = max(AMAX.value, CABS1(A[I][J]));
+        S[I] = max(S[I], A[I][J].cabs1());
+        S[J] = max(S[J], A[I][J].cabs1());
+        AMAX.value = max(AMAX.value, A[I][J].cabs1());
       }
     }
   }
@@ -116,17 +115,17 @@ void zheequb(
     if (UP) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J - 1; I++) {
-          WORK[I] += (CABS1(A[I][J]) * S[J]).toComplex();
-          WORK[J] += (CABS1(A[I][J]) * S[I]).toComplex();
+          WORK[I] += (A[I][J].cabs1() * S[J]).toComplex();
+          WORK[J] += (A[I][J].cabs1() * S[I]).toComplex();
         }
-        WORK[J] += (CABS1(A[J][J]) * S[J]).toComplex();
+        WORK[J] += (A[J][J].cabs1() * S[J]).toComplex();
       }
     } else {
       for (J = 1; J <= N; J++) {
-        WORK[J] += (CABS1(A[J][J]) * S[J]).toComplex();
+        WORK[J] += (A[J][J].cabs1() * S[J]).toComplex();
         for (I = J + 1; I <= N; I++) {
-          WORK[I] += (CABS1(A[I][J]) * S[J]).toComplex();
-          WORK[J] += (CABS1(A[I][J]) * S[I]).toComplex();
+          WORK[I] += (A[I][J].cabs1() * S[J]).toComplex();
+          WORK[J] += (A[I][J].cabs1() * S[I]).toComplex();
         }
       }
     }
@@ -148,7 +147,7 @@ void zheequb(
     if (STD < TOL * AVG) break;
 
     for (I = 1; I <= N; I++) {
-      T = CABS1(A[I][I]);
+      T = A[I][I].cabs1();
       SI = S[I];
       C2 = (N - 1) * T;
       C1 = (N - 2) * (WORK[I].real - T * SI);
@@ -165,23 +164,23 @@ void zheequb(
       U = ZERO;
       if (UP) {
         for (J = 1; J <= I; J++) {
-          T = CABS1(A[J][I]);
+          T = A[J][I].cabs1();
           U += S[J] * T;
           WORK[J] += (D * T).toComplex();
         }
         for (J = I + 1; J <= N; J++) {
-          T = CABS1(A[I][J]);
+          T = A[I][J].cabs1();
           U += S[J] * T;
           WORK[J] += (D * T).toComplex();
         }
       } else {
         for (J = 1; J <= I; J++) {
-          T = CABS1(A[I][J]);
+          T = A[I][J].cabs1();
           U += S[J] * T;
           WORK[J] += (D * T).toComplex();
         }
         for (J = I + 1; J <= N; J++) {
-          T = CABS1(A[J][I]);
+          T = A[J][I].cabs1();
           U += S[J] * T;
           WORK[J] += (D * T).toComplex();
         }

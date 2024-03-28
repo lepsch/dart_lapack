@@ -62,8 +62,6 @@ void zgtrfs(
   final ISAVE = Array<int>(3);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -130,37 +128,37 @@ void zgtrfs(
 
       if (NOTRAN) {
         if (N == 1) {
-          RWORK[1] = CABS1(B[1][J]) + CABS1(D[1]) * CABS1(X[1][J]);
+          RWORK[1] = B[1][J].cabs1() + D[1].cabs1() * X[1][J].cabs1();
         } else {
-          RWORK[1] = CABS1(B[1][J]) +
-              CABS1(D[1]) * CABS1(X[1][J]) +
-              CABS1(DU[1]) * CABS1(X[2][J]);
+          RWORK[1] = B[1][J].cabs1() +
+              D[1].cabs1() * X[1][J].cabs1() +
+              DU[1].cabs1() * X[2][J].cabs1();
           for (I = 2; I <= N - 1; I++) {
-            RWORK[I] = CABS1(B[I][J]) +
-                CABS1(DL[I - 1]) * CABS1(X[I - 1][J]) +
-                CABS1(D[I]) * CABS1(X[I][J]) +
-                CABS1(DU[I]) * CABS1(X[I + 1][J]);
+            RWORK[I] = B[I][J].cabs1() +
+                DL[I - 1].cabs1() * X[I - 1][J].cabs1() +
+                D[I].cabs1() * X[I][J].cabs1() +
+                DU[I].cabs1() * X[I + 1][J].cabs1();
           }
-          RWORK[N] = CABS1(B[N][J]) +
-              CABS1(DL[N - 1]) * CABS1(X[N - 1][J]) +
-              CABS1(D[N]) * CABS1(X[N][J]);
+          RWORK[N] = B[N][J].cabs1() +
+              DL[N - 1].cabs1() * X[N - 1][J].cabs1() +
+              D[N].cabs1() * X[N][J].cabs1();
         }
       } else {
         if (N == 1) {
-          RWORK[1] = CABS1(B[1][J]) + CABS1(D[1]) * CABS1(X[1][J]);
+          RWORK[1] = B[1][J].cabs1() + D[1].cabs1() * X[1][J].cabs1();
         } else {
-          RWORK[1] = CABS1(B[1][J]) +
-              CABS1(D[1]) * CABS1(X[1][J]) +
-              CABS1(DL[1]) * CABS1(X[2][J]);
+          RWORK[1] = B[1][J].cabs1() +
+              D[1].cabs1() * X[1][J].cabs1() +
+              DL[1].cabs1() * X[2][J].cabs1();
           for (I = 2; I <= N - 1; I++) {
-            RWORK[I] = CABS1(B[I][J]) +
-                CABS1(DU[I - 1]) * CABS1(X[I - 1][J]) +
-                CABS1(D[I]) * CABS1(X[I][J]) +
-                CABS1(DL[I]) * CABS1(X[I + 1][J]);
+            RWORK[I] = B[I][J].cabs1() +
+                DU[I - 1].cabs1() * X[I - 1][J].cabs1() +
+                D[I].cabs1() * X[I][J].cabs1() +
+                DL[I].cabs1() * X[I + 1][J].cabs1();
           }
-          RWORK[N] = CABS1(B[N][J]) +
-              CABS1(DU[N - 1]) * CABS1(X[N - 1][J]) +
-              CABS1(D[N]) * CABS1(X[N][J]);
+          RWORK[N] = B[N][J].cabs1() +
+              DU[N - 1].cabs1() * X[N - 1][J].cabs1() +
+              D[N].cabs1() * X[N][J].cabs1();
         }
       }
 
@@ -176,9 +174,9 @@ void zgtrfs(
       S = ZERO;
       for (I = 1; I <= N; I++) {
         if (RWORK[I] > SAFE2) {
-          S = max(S, CABS1(WORK[I]) / RWORK[I]);
+          S = max(S, WORK[I].cabs1() / RWORK[I]);
         } else {
-          S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
+          S = max(S, (WORK[I].cabs1() + SAFE1) / (RWORK[I] + SAFE1));
         }
       }
       BERR[J] = S;
@@ -225,9 +223,9 @@ void zgtrfs(
 
     for (I = 1; I <= N; I++) {
       if (RWORK[I] > SAFE2) {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I];
       } else {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I] + SAFE1;
       }
     }
 
@@ -258,7 +256,7 @@ void zgtrfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, CABS1(X[I][J]));
+      LSTRES = max(LSTRES, X[I][J].cabs1());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }

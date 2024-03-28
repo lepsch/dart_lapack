@@ -68,8 +68,6 @@ void ztgevc(
       XMAX;
   Complex BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB;
 
-  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
-
   // Decode and Test the input parameters
 
   if (lsame(HOWMNY, 'A')) {
@@ -171,19 +169,19 @@ void ztgevc(
   // part of A and B to check for possible overflow in the triangular
   // solver.
 
-  ANORM = ABS1(S[1][1]);
-  BNORM = ABS1(P[1][1]);
+  ANORM = S[1][1].cabs1();
+  BNORM = P[1][1].cabs1();
   RWORK[1] = ZERO;
   RWORK[N + 1] = ZERO;
   for (J = 2; J <= N; J++) {
     RWORK[J] = ZERO;
     RWORK[N + J] = ZERO;
     for (I = 1; I <= J - 1; I++) {
-      RWORK[J] += ABS1(S[I][J]);
-      RWORK[N + J] += ABS1(P[I][J]);
+      RWORK[J] += S[I][J].cabs1();
+      RWORK[N + J] += P[I][J].cabs1();
     }
-    ANORM = max(ANORM, RWORK[J] + ABS1(S[J][J]));
-    BNORM = max(BNORM, RWORK[N + J] + ABS1(P[J][J]));
+    ANORM = max(ANORM, RWORK[J] + S[J][J].cabs1());
+    BNORM = max(BNORM, RWORK[N + J] + P[J][J].cabs1());
   }
 
   ASCALE = ONE / max(ANORM, SAFMIN);
@@ -205,7 +203,7 @@ void ztgevc(
       if (ILCOMP) {
         IEIG++;
 
-        if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].real.abs() <= SAFMIN) {
+        if (S[JE][JE].cabs1() <= SAFMIN && P[JE][JE].real.abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
 
           for (JR = 1; JR <= N; JR++) {
@@ -221,7 +219,7 @@ void ztgevc(
         //    y  ( a A - b B ) = 0
 
         TEMP = ONE /
-            max(ABS1(S[JE][JE]) * ASCALE,
+            max(S[JE][JE].cabs1() * ASCALE,
                 max(P[JE][JE].real.abs() * BSCALE, SAFMIN));
         SALPHA = TEMP.toComplex() * S[JE][JE] * ASCALE.toComplex();
         SBETA = (TEMP * P[JE][JE].real) * BSCALE;
@@ -231,14 +229,14 @@ void ztgevc(
         // Scale to avoid underflow
 
         LSA = SBETA.abs() >= SAFMIN && ACOEFF.abs() < SMALL;
-        LSB = ABS1(SALPHA) >= SAFMIN && ABS1(BCOEFF) < SMALL;
+        LSB = SALPHA.cabs1() >= SAFMIN && BCOEFF.cabs1() < SMALL;
 
         SCALE = ONE;
         if (LSA) SCALE = (SMALL / SBETA.abs()) * min(ANORM, BIG);
-        if (LSB) SCALE = max(SCALE, (SMALL / ABS1(SALPHA)) * min(BNORM, BIG));
+        if (LSB) SCALE = max(SCALE, (SMALL / SALPHA.cabs1()) * min(BNORM, BIG));
         if (LSA || LSB) {
           SCALE = min(SCALE,
-              ONE / (SAFMIN * max(ONE, max(ACOEFF.abs(), ABS1(BCOEFF)))));
+              ONE / (SAFMIN * max(ONE, max(ACOEFF.abs(), BCOEFF.cabs1()))));
           if (LSA) {
             ACOEFF = ASCALE * (SCALE * SBETA);
           } else {
@@ -252,7 +250,7 @@ void ztgevc(
         }
 
         ACOEFA = ACOEFF.abs();
-        BCOEFA = ABS1(BCOEFF);
+        BCOEFA = BCOEFF.cabs1();
         XMAX = ONE;
         for (JR = 1; JR <= N; JR++) {
           WORK[JR] = Complex.zero;
@@ -294,11 +292,11 @@ void ztgevc(
           // with scaling and perturbation of the denominator
 
           D = (ACOEFF.toComplex() * S[J][J] - BCOEFF * P[J][J]).conjugate();
-          if (ABS1(D) <= DMIN) D = DMIN.toComplex();
+          if (D.cabs1() <= DMIN) D = DMIN.toComplex();
 
-          if (ABS1(D) < ONE) {
-            if (ABS1(SUM) >= BIGNUM * ABS1(D)) {
-              TEMP = ONE / ABS1(SUM);
+          if (D.cabs1() < ONE) {
+            if (SUM.cabs1() >= BIGNUM * D.cabs1()) {
+              TEMP = ONE / SUM.cabs1();
               for (JR = JE; JR <= J - 1; JR++) {
                 WORK[JR] = TEMP.toComplex() * WORK[JR];
               }
@@ -307,7 +305,7 @@ void ztgevc(
             }
           }
           WORK[J] = zladiv(-SUM, D);
-          XMAX = max(XMAX, ABS1(WORK[J]));
+          XMAX = max(XMAX, WORK[J].cabs1());
         }
 
         // Back transform eigenvector if HOWMNY='B'.
@@ -326,7 +324,7 @@ void ztgevc(
 
         XMAX = ZERO;
         for (JR = IBEG; JR <= N; JR++) {
-          XMAX = max(XMAX, ABS1(WORK[(ISRC - 1) * N + JR]));
+          XMAX = max(XMAX, WORK[(ISRC - 1) * N + JR].cabs1());
         }
 
         if (XMAX > SAFMIN) {
@@ -361,7 +359,7 @@ void ztgevc(
       if (ILCOMP) {
         IEIG--;
 
-        if (ABS1(S[JE][JE]) <= SAFMIN && P[JE][JE].real.abs() <= SAFMIN) {
+        if (S[JE][JE].cabs1() <= SAFMIN && P[JE][JE].real.abs() <= SAFMIN) {
           // Singular matrix pencil -- return unit eigenvector
 
           for (JR = 1; JR <= N; JR++) {
@@ -377,7 +375,7 @@ void ztgevc(
         // ( a A - b B ) x  = 0
 
         TEMP = ONE /
-            max(ABS1(S[JE][JE]) * ASCALE,
+            max(S[JE][JE].cabs1() * ASCALE,
                 max(P[JE][JE].real.abs() * BSCALE, SAFMIN));
         SALPHA = (TEMP.toComplex() * S[JE][JE]) * ASCALE.toComplex();
         SBETA = (TEMP * P[JE][JE].real) * BSCALE;
@@ -387,14 +385,14 @@ void ztgevc(
         // Scale to avoid underflow
 
         LSA = SBETA.abs() >= SAFMIN && ACOEFF.abs() < SMALL;
-        LSB = ABS1(SALPHA) >= SAFMIN && ABS1(BCOEFF) < SMALL;
+        LSB = SALPHA.cabs1() >= SAFMIN && BCOEFF.cabs1() < SMALL;
 
         SCALE = ONE;
         if (LSA) SCALE = (SMALL / SBETA.abs()) * min(ANORM, BIG);
-        if (LSB) SCALE = max(SCALE, (SMALL / ABS1(SALPHA)) * min(BNORM, BIG));
+        if (LSB) SCALE = max(SCALE, (SMALL / SALPHA.cabs1()) * min(BNORM, BIG));
         if (LSA || LSB) {
           SCALE = min(SCALE,
-              ONE / (SAFMIN * max(ONE, max(ACOEFF.abs(), ABS1(BCOEFF)))));
+              ONE / (SAFMIN * max(ONE, max(ACOEFF.abs(), BCOEFF.cabs1()))));
           if (LSA) {
             ACOEFF = ASCALE * (SCALE * SBETA);
           } else {
@@ -408,7 +406,7 @@ void ztgevc(
         }
 
         ACOEFA = ACOEFF.abs();
-        BCOEFA = ABS1(BCOEFF);
+        BCOEFA = BCOEFF.cabs1();
         XMAX = ONE;
         for (JR = 1; JR <= N; JR++) {
           WORK[JR] = Complex.zero;
@@ -431,11 +429,11 @@ void ztgevc(
           // with scaling and perturbation of the denominator
 
           D = ACOEFF.toComplex() * S[J][J] - BCOEFF * P[J][J];
-          if (ABS1(D) <= DMIN) D = DMIN.toComplex();
+          if (D.cabs1() <= DMIN) D = DMIN.toComplex();
 
-          if (ABS1(D) < ONE) {
-            if (ABS1(WORK[J]) >= BIGNUM * ABS1(D)) {
-              TEMP = ONE / ABS1(WORK[J]);
+          if (D.cabs1() < ONE) {
+            if (WORK[J].cabs1() >= BIGNUM * D.cabs1()) {
+              TEMP = ONE / WORK[J].cabs1();
               for (JR = 1; JR <= JE; JR++) {
                 WORK[JR] = TEMP.toComplex() * WORK[JR];
               }
@@ -447,8 +445,8 @@ void ztgevc(
           if (J > 1) {
             // w += x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
-            if (ABS1(WORK[J]) > ONE) {
-              TEMP = ONE / ABS1(WORK[J]);
+            if (WORK[J].cabs1() > ONE) {
+              TEMP = ONE / WORK[J].cabs1();
               if (ACOEFA * RWORK[J] + BCOEFA * RWORK[N + J] >= BIGNUM * TEMP) {
                 for (JR = 1; JR <= JE; JR++) {
                   WORK[JR] = TEMP.toComplex() * WORK[JR];
@@ -480,7 +478,7 @@ void ztgevc(
 
         XMAX = ZERO;
         for (JR = 1; JR <= IEND; JR++) {
-          XMAX = max(XMAX, ABS1(WORK[(ISRC - 1) * N + JR]));
+          XMAX = max(XMAX, WORK[(ISRC - 1) * N + JR].cabs1());
         }
 
         if (XMAX > SAFMIN) {

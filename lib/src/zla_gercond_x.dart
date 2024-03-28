@@ -37,7 +37,6 @@ double zla_gercond_x(
   final AINVNM = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   INFO.value = 0;
   NOTRANS = lsame(TRANS, 'N');
@@ -62,7 +61,7 @@ double zla_gercond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = 1; J <= N; J++) {
-        TMP += CABS1(A[I][J] * X[J]);
+        TMP += (A[I][J] * X[J]).cabs1();
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);
@@ -71,7 +70,7 @@ double zla_gercond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = 1; J <= N; J++) {
-        TMP += CABS1(A[J][I] * X[J]);
+        TMP += (A[J][I] * X[J]).cabs1();
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);

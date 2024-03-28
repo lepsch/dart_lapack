@@ -18,8 +18,6 @@ void zlaqr1(
   Complex H21S, H31S;
   double S;
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Quick return if possible
 
   if (N != 2 && N != 3) {
@@ -27,7 +25,7 @@ void zlaqr1(
   }
 
   if (N == 2) {
-    S = CABS1(H[1][1] - S2) + CABS1(H[2][1]);
+    S = (H[1][1] - S2).cabs1() + H[2][1].cabs1();
     if (S == RZERO) {
       V[1] = Complex.zero;
       V[2] = Complex.zero;
@@ -37,7 +35,7 @@ void zlaqr1(
       V[2] = H21S * (H[1][1] + H[2][2] - S1 - S2);
     }
   } else {
-    S = CABS1(H[1][1] - S2) + CABS1(H[2][1]) + CABS1(H[3][1]);
+    S = (H[1][1] - S2).cabs1() + H[2][1].cabs1() + H[3][1].cabs1();
     if (S == RZERO) {
       V[1] = Complex.zero;
       V[2] = Complex.zero;

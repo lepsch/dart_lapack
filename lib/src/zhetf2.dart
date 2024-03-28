@@ -33,8 +33,6 @@ void zhetf2(
   double ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
   Complex D12, D21, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -76,7 +74,7 @@ void zhetf2(
 
       if (K > 1) {
         IMAX = izamax(K - 1, A(1, K).asArray(), 1);
-        COLMAX = CABS1(A[IMAX][K]);
+        COLMAX = A[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -103,10 +101,10 @@ void zhetf2(
           // Determine only ROWMAX.
 
           JMAX = IMAX + izamax(K - IMAX, A(IMAX, IMAX + 1).asArray(), LDA);
-          ROWMAX = CABS1(A[IMAX][JMAX]);
+          ROWMAX = A[IMAX][JMAX].cabs1();
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, A(1, IMAX).asArray(), 1);
-            ROWMAX = max(ROWMAX, CABS1(A[JMAX][IMAX]));
+            ROWMAX = max(ROWMAX, A[JMAX][IMAX].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
@@ -246,7 +244,7 @@ void zhetf2(
 
       if (K < N) {
         IMAX = K + izamax(N - K, A(K + 1, K).asArray(), 1);
-        COLMAX = CABS1(A[IMAX][K]);
+        COLMAX = A[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -273,10 +271,10 @@ void zhetf2(
           // Determine only ROWMAX.
 
           JMAX = K - 1 + izamax(IMAX - K, A(IMAX, K).asArray(), LDA);
-          ROWMAX = CABS1(A[IMAX][JMAX]);
+          ROWMAX = A[IMAX][JMAX].cabs1();
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, A(IMAX + 1, IMAX).asArray(), 1);
-            ROWMAX = max(ROWMAX, CABS1(A[JMAX][IMAX]));
+            ROWMAX = max(ROWMAX, (A[JMAX][IMAX].cabs1()));
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {

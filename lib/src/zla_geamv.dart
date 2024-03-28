@@ -31,8 +31,6 @@ void zla_geamv(
   double TEMP, SAFE1;
   int I, INFO, IY, J, JX, KX, KY, LENX, LENY;
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO = 0;
@@ -108,10 +106,10 @@ void zla_geamv(
         }
         if (ALPHA != 0.0) {
           for (J = 1; J <= LENX; J++) {
-            TEMP = CABS1(A[I][J]);
+            TEMP = A[I][J].cabs1();
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] += ALPHA * CABS1(X[J]) * TEMP;
+            Y[IY] += ALPHA * X[J].cabs1() * TEMP;
           }
         }
         if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
@@ -131,10 +129,10 @@ void zla_geamv(
         }
         if (ALPHA != 0.0) {
           for (J = 1; J <= LENX; J++) {
-            TEMP = CABS1(A[J][I]);
+            TEMP = A[J][I].cabs1();
             SYMB_ZERO = SYMB_ZERO && (X[J] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] += ALPHA * CABS1(X[J]) * TEMP;
+            Y[IY] += ALPHA * X[J].cabs1() * TEMP;
           }
         }
         if (!SYMB_ZERO) Y[IY] += sign(SAFE1, Y[IY]);
@@ -157,10 +155,10 @@ void zla_geamv(
         if (ALPHA != 0.0) {
           JX = KX;
           for (J = 1; J <= LENX; J++) {
-            TEMP = CABS1(A[I][J]);
+            TEMP = A[I][J].cabs1();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] += ALPHA * CABS1(X[JX]) * TEMP;
+            Y[IY] += ALPHA * X[JX].cabs1() * TEMP;
             JX += INCX;
           }
         }
@@ -182,10 +180,10 @@ void zla_geamv(
         if (ALPHA != 0.0) {
           JX = KX;
           for (J = 1; J <= LENX; J++) {
-            TEMP = CABS1(A[J][I]);
+            TEMP = A[J][I].cabs1();
             SYMB_ZERO = SYMB_ZERO && (X[JX] == Complex.zero || TEMP == ZERO);
 
-            Y[IY] += ALPHA * CABS1(X[JX]) * TEMP;
+            Y[IY] += ALPHA * X[JX].cabs1() * TEMP;
             JX += INCX;
           }
         }

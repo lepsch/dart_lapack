@@ -44,8 +44,6 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
   const BND_I = 2, COND_I = 3;
   final INFO = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
 // Create the loop to test out the Hilbert matrices
 
   final FACT = 'E';
@@ -282,8 +280,8 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
         var SUMR = 0.0;
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMR += S[I] * CABS1(A[I][J]) * S[J];
-          SUMRI += CABS1(INVHILB[I][J]) / (S[J] * S[I]);
+          SUMR += S[I] * A[I][J].cabs1() * S[J];
+          SUMRI += INVHILB[I][J].cabs1() / (S[J] * S[I]);
         }
         RNORM = max(RNORM, SUMR);
         RINORM = max(RINORM, SUMRI);
@@ -293,15 +291,15 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
         var SUMR = 0.0;
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMR += R[I] * CABS1(A[I][J]) * C[J];
-          SUMRI += CABS1(INVHILB[I][J]) / (R[J] * C[I]);
+          SUMR += R[I] * A[I][J].cabs1() * C[J];
+          SUMRI += INVHILB[I][J].cabs1() / (R[J] * C[I]);
         }
         RNORM = max(RNORM, SUMR);
         RINORM = max(RINORM, SUMRI);
       }
     }
 
-    RNORM /= CABS1(A[1][1]);
+    RNORM /= A[1][1].cabs1();
     final RCOND = 1.0 / (RNORM * RINORM);
 
     // Calculating the R for normwise rcond.
@@ -310,7 +308,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     }
     for (var J = 1; J <= N; J++) {
       for (var I = 1; I <= N; I++) {
-        RINV[I] += CABS1(A[I][J]);
+        RINV[I] += A[I][J].cabs1();
       }
     }
 
@@ -319,14 +317,14 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     for (var I = 1; I <= N; I++) {
       var SUMRI = 0.0;
       for (var J = 1; J <= N; J++) {
-        SUMRI += CABS1(INVHILB[I][J] * RINV[J].toComplex());
+        SUMRI += (INVHILB[I][J] * RINV[J].toComplex()).cabs1();
       }
       RINORM = max(RINORM, SUMRI);
     }
 
     // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
     // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
-    final NCOND = CABS1(A[1][1]) / RINORM;
+    final NCOND = A[1][1].cabs1() / RINORM;
 
     final CONDTHRESH = M * EPS;
     final ERRTHRESH = M * EPS;
@@ -336,11 +334,12 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       var NORMDIF = 0.0;
       var CWISE_ERR = 0.0;
       for (var I = 1; I <= N; I++) {
-        NORMT = max(CABS1(INVHILB[I][K]), NORMT);
-        NORMDIF = max(CABS1(X[I][K] - INVHILB[I][K]), NORMDIF);
+        NORMT = max(INVHILB[I][K].cabs1(), NORMT);
+        NORMDIF = max((X[I][K] - INVHILB[I][K]).cabs1(), NORMDIF);
         if (INVHILB[I][K] != Complex.zero) {
           CWISE_ERR = max(
-              CABS1(X[I][K] - INVHILB[I][K]) / CABS1(INVHILB[I][K]), CWISE_ERR);
+              (X[I][K] - INVHILB[I][K]).cabs1() / INVHILB[I][K].cabs1(),
+              CWISE_ERR);
         } else if (X[I][K] != Complex.zero) {
           CWISE_ERR = dlamch('OVERFLOW');
         }
@@ -359,20 +358,21 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
       }
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= N; I++) {
-          RINV[I] += CABS1(A[I][J] * INVHILB[J][K]);
+          RINV[I] += (A[I][J] * INVHILB[J][K]).cabs1();
         }
       }
       RINORM = 0.0;
       for (var I = 1; I <= N; I++) {
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMRI += CABS1(INVHILB[I][J] * RINV[J].toComplex() / INVHILB[I][K]);
+          SUMRI +=
+              (INVHILB[I][J] * RINV[J].toComplex() / INVHILB[I][K]).cabs1();
         }
         RINORM = max(RINORM, SUMRI);
       }
       // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
       // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
-      final CCOND = CABS1(A[1][1]) / RINORM;
+      final CCOND = A[1][1].cabs1() / RINORM;
 
       // Forward error bound tests
       final NWISE_BND = ERRBND_N[K + (BND_I - 1) * NRHS];

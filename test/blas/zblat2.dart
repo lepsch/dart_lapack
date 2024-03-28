@@ -3410,8 +3410,6 @@ void _zmvch(
   const RZERO = 0.0, RONE = 1.0;
   int I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
 
-  double ABS1(Complex C) => C.real.abs() + C.imaginary.abs();
-
   final TRAN = TRANS == 'T';
   final CTRAN = TRANS == 'C';
   if (TRAN || CTRAN) {
@@ -3447,24 +3445,24 @@ void _zmvch(
     if (TRAN) {
       for (J = 1; J <= NL; J++) {
         YT[IY] += A[J][I] * X[JX];
-        G[IY] += ABS1(A[J][I]) * ABS1(X[JX]);
+        G[IY] += A[J][I].cabs1() * X[JX].cabs1();
         JX += INCXL;
       }
     } else if (CTRAN) {
       for (J = 1; J <= NL; J++) {
         YT[IY] += A[J][I].conjugate() * X[JX];
-        G[IY] += ABS1(A[J][I]) * ABS1(X[JX]);
+        G[IY] += A[J][I].cabs1() * X[JX].cabs1();
         JX += INCXL;
       }
     } else {
       for (J = 1; J <= NL; J++) {
         YT[IY] += A[I][J] * X[JX];
-        G[IY] += ABS1(A[I][J]) * ABS1(X[JX]);
+        G[IY] += A[I][J].cabs1() * X[JX].cabs1();
         JX += INCXL;
       }
     }
     YT[IY] = ALPHA * YT[IY] + BETA * Y[IY];
-    G[IY] = ABS1(ALPHA) * G[IY] + ABS1(BETA) * ABS1(Y[IY]);
+    G[IY] = ALPHA.cabs1() * G[IY] + BETA.cabs1() * Y[IY].cabs1();
     IY += INCYL;
   }
 

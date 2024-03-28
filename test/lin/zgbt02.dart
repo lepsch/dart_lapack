@@ -34,8 +34,6 @@ void zgbt02(
   final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Quick return if N = 0 pr NRHS = 0
 
   if (M <= 0 || N <= 0 || NRHS <= 0) {
@@ -68,7 +66,7 @@ void zgbt02(
     for (var J = 1; J <= N; J++) {
       final KD = KU + 1 - J;
       for (var I1 = max(1, J - KU); I1 <= min(M, J + KL); I1++) {
-        RWORK[I1] += CABS1(A[KD + I1][J]);
+        RWORK[I1] += A[KD + I1][J].cabs1();
       }
     }
     for (var I1 = 1; I1 <= M; I1++) {

@@ -28,8 +28,6 @@ void zgeequ(
   int I, J;
   double BIGNUM, RCMAX, RCMIN, SMLNUM;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -69,7 +67,7 @@ void zgeequ(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      R[I] = max(R[I], CABS1(A[I][J]));
+      R[I] = max(R[I], A[I][J].cabs1());
     }
   }
 
@@ -115,7 +113,7 @@ void zgeequ(
 
   for (J = 1; J <= N; J++) {
     for (I = 1; I <= M; I++) {
-      C[J] = max(C[J], CABS1(A[I][J]) * R[I]);
+      C[J] = max(C[J], A[I][J].cabs1() * R[I]);
     }
   }
 

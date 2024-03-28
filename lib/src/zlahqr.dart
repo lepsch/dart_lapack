@@ -53,8 +53,6 @@ void zlahqr(
   final V = Array<Complex>(2);
   final T1 = Box(Complex.zero);
 
-  double CABS1(Complex CDUM) => CDUM.real.abs() + CDUM.imaginary.abs();
-
   INFO.value = 0;
 
   // Quick return if possible
@@ -84,7 +82,7 @@ void zlahqr(
       // ==== The following redundant normalization
       // .    avoids problems with both gradual and
       // .    sudden underflow in ABS(H(I,I-1)) ====
-      SC = H[I][I - 1] / CABS1(H[I][I - 1]).toComplex();
+      SC = H[I][I - 1] / H[I][I - 1].cabs1().toComplex();
       SC = SC.conjugate() / SC.abs().toComplex();
       H[I][I - 1] = H[I][I - 1].abs().toComplex();
       zscal(JHI - I + 1, SC, H(I, I).asArray(), LDH);
@@ -142,8 +140,8 @@ void zlahqr(
       // Look for a single small subdiagonal element.
 
       for (K = I; K >= L + 1; K--) {
-        if (CABS1(H[K][K - 1]) <= SMLNUM) break;
-        TST = CABS1(H[K - 1][K - 1]) + CABS1(H[K][K]);
+        if (H[K][K - 1].cabs1() <= SMLNUM) break;
+        TST = H[K - 1][K - 1].cabs1() + H[K][K].cabs1();
         if (TST == RZERO) {
           if (K - 2 >= ILO) TST += (H[K - 1][K - 2].real.abs());
           if (K + 1 <= IHI) TST += (H[K + 1][K].real.abs());
@@ -153,10 +151,10 @@ void zlahqr(
         // .    1997). It has better mathematical foundation and
         // .    improves accuracy in some examples.  ====
         if (H[K][K - 1].real.abs() <= ULP * TST) {
-          AB = max(CABS1(H[K][K - 1]), CABS1(H[K - 1][K]));
-          BA = min(CABS1(H[K][K - 1]), CABS1(H[K - 1][K]));
-          AA = max(CABS1(H[K][K]), CABS1(H[K - 1][K - 1] - H[K][K]));
-          BB = min(CABS1(H[K][K]), CABS1(H[K - 1][K - 1] - H[K][K]));
+          AB = max(H[K][K - 1].cabs1(), H[K - 1][K].cabs1());
+          BA = min(H[K][K - 1].cabs1(), H[K - 1][K].cabs1());
+          AA = max(H[K][K].cabs1(), (H[K - 1][K - 1] - H[K][K]).cabs1());
+          BB = min(H[K][K].cabs1(), (H[K - 1][K - 1] - H[K][K]).cabs1());
           S = AA + AB;
           if (BA * (AB / S) <= max(SMLNUM, ULP * (BB * (AA / S)))) break;
         }
@@ -200,11 +198,11 @@ void zlahqr(
 
         T = H[I][I];
         U = H[I - 1][I].sqrt() * H[I][I - 1].sqrt();
-        S = CABS1(U);
+        S = U.cabs1();
         if (S != RZERO) {
           X = HALF.toComplex() * (H[I - 1][I - 1] - T);
-          SX = CABS1(X);
-          S = max(S, CABS1(X));
+          SX = X.cabs1();
+          S = max(S, X.cabs1());
           Y = S.toComplex() *
               ((X / S.toComplex()).pow(2) + (U / S.toComplex()).pow(2)).sqrt();
           if (SX > RZERO) {
@@ -227,14 +225,14 @@ void zlahqr(
         H22 = H[M + 1][M + 1];
         H11S = H11 - T;
         H21 = H[M + 1][M].real;
-        S = CABS1(H11S) + H21.abs();
+        S = H11S.cabs1() + H21.abs();
         H11S /= S.toComplex();
         H21 /= S;
         V[1] = H11S;
         V[2] = H21.toComplex();
         H10 = H[M][M - 1].real;
         if (H10.abs() * H21.abs() <=
-            ULP * (CABS1(H11S) * (CABS1(H11) + CABS1(H22)))) {
+            ULP * (H11S.cabs1() * (H11.cabs1() + H22.cabs1()))) {
           found = true;
           break;
         }
@@ -244,7 +242,7 @@ void zlahqr(
         H22 = H[L + 1][L + 1];
         H11S = H11 - T;
         H21 = H[L + 1][L].real;
-        S = CABS1(H11S) + H21.abs();
+        S = H11S.cabs1() + H21.abs();
         H11S /= S.toComplex();
         H21 /= S;
         V[1] = H11S;

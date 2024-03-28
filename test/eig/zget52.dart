@@ -51,8 +51,6 @@ void zget52(
       ULP;
   Complex ACOEFF, ALPHAI, BCOEFF, BETAI;
 
-  double ABS1(Complex X) => X.real.abs() + X.imaginary.abs();
-
   RESULT[1] = ZERO;
   RESULT[2] = ZERO;
   if (N <= 0) return;
@@ -83,13 +81,14 @@ void zget52(
   for (JVEC = 1; JVEC <= N; JVEC++) {
     ALPHAI = ALPHA[JVEC];
     BETAI = BETA[JVEC];
-    ABMAX = max(ABS1(ALPHAI), ABS1(BETAI));
-    if (ABS1(ALPHAI) > ALFMAX || ABS1(BETAI) > BETMAX || ABMAX < ONE) {
+    ABMAX = max(ALPHAI.cabs1(), BETAI.cabs1());
+    if (ALPHAI.cabs1() > ALFMAX || BETAI.cabs1() > BETMAX || ABMAX < ONE) {
       SCALE = ONE / max(ABMAX, SAFMIN);
       ALPHAI = SCALE.toComplex() * ALPHAI;
       BETAI = SCALE.toComplex() * BETAI;
     }
-    SCALE = ONE / max(ABS1(ALPHAI) * BNORM, max(ABS1(BETAI) * ANORM, SAFMIN));
+    SCALE =
+        ONE / max(ALPHAI.cabs1() * BNORM, max(BETAI.cabs1() * ANORM, SAFMIN));
     ACOEFF = SCALE.toComplex() * BETAI;
     BCOEFF = SCALE.toComplex() * ALPHAI;
     if (LEFT) {
@@ -114,7 +113,7 @@ void zget52(
   for (JVEC = 1; JVEC <= N; JVEC++) {
     TEMP1 = ZERO;
     for (J = 1; J <= N; J++) {
-      TEMP1 = max(TEMP1, ABS1(E[J][JVEC]));
+      TEMP1 = max(TEMP1, E[J][JVEC].cabs1());
     }
     ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
   }

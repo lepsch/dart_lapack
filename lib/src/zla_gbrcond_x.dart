@@ -39,7 +39,6 @@ double zla_gbrcond_x(
   final AINVNM = Box(0.0);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
 
   INFO.value = 0;
   NOTRANS = lsame(TRANS, 'N');
@@ -70,7 +69,7 @@ double zla_gbrcond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-        TMP += CABS1(AB[KD + I - J][J] * X[J]);
+        TMP += (AB[KD + I - J][J] * X[J]).cabs1();
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);
@@ -79,7 +78,7 @@ double zla_gbrcond_x(
     for (I = 1; I <= N; I++) {
       TMP = 0.0;
       for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
-        TMP += CABS1(AB[KE - I + J][I] * X[J]);
+        TMP += (AB[KE - I + J][I] * X[J]).cabs1();
       }
       RWORK[I] = TMP;
       ANORM = max(ANORM, TMP);

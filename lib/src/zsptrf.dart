@@ -30,8 +30,6 @@ void zsptrf(
   double ABSAKK, ALPHA, COLMAX, ROWMAX;
   Complex D11, D12, D21, D22, R1, T, WK, WKM1, WKP1;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -69,14 +67,14 @@ void zsptrf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(AP[KC + K - 1]);
+      ABSAKK = AP[KC + K - 1].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value
 
       if (K > 1) {
         IMAX = izamax(K - 1, AP(KC), 1);
-        COLMAX = CABS1(AP[KC + IMAX - 1]);
+        COLMAX = AP[KC + IMAX - 1].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -96,8 +94,8 @@ void zsptrf(
           JMAX = IMAX;
           KX = IMAX * (IMAX + 1) ~/ 2 + IMAX;
           for (J = IMAX + 1; J <= K; J++) {
-            if (CABS1(AP[KX]) > ROWMAX) {
-              ROWMAX = CABS1(AP[KX]);
+            if (AP[KX].cabs1() > ROWMAX) {
+              ROWMAX = AP[KX].cabs1();
               JMAX = J;
             }
             KX += J;
@@ -105,14 +103,14 @@ void zsptrf(
           KPC = (IMAX - 1) * IMAX ~/ 2 + 1;
           if (IMAX > 1) {
             JMAX = izamax(IMAX - 1, AP(KPC), 1);
-            ROWMAX = max(ROWMAX, CABS1(AP[KPC + JMAX - 1]));
+            ROWMAX = max(ROWMAX, AP[KPC + JMAX - 1].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (CABS1(AP[KPC + IMAX - 1]) >= ALPHA * ROWMAX) {
+          } else if (AP[KPC + IMAX - 1].cabs1() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 
@@ -241,14 +239,14 @@ void zsptrf(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(AP[KC]);
+      ABSAKK = AP[KC].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value
 
       if (K < N) {
         IMAX = K + izamax(N - K, AP(KC + 1), 1);
-        COLMAX = CABS1(AP[KC + IMAX - K]);
+        COLMAX = AP[KC + IMAX - K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -270,8 +268,8 @@ void zsptrf(
           ROWMAX = ZERO;
           KX = KC + IMAX - K;
           for (J = K; J <= IMAX - 1; J++) {
-            if (CABS1(AP[KX]) > ROWMAX) {
-              ROWMAX = CABS1(AP[KX]);
+            if (AP[KX].cabs1() > ROWMAX) {
+              ROWMAX = AP[KX].cabs1();
               JMAX = J;
             }
             KX += N - J;
@@ -279,14 +277,14 @@ void zsptrf(
           KPC = NPP - (N - IMAX + 1) * (N - IMAX + 2) ~/ 2 + 1;
           if (IMAX < N) {
             JMAX = IMAX + izamax(N - IMAX, AP(KPC + 1), 1);
-            ROWMAX = max(ROWMAX, CABS1(AP[KPC + JMAX - IMAX]));
+            ROWMAX = max(ROWMAX, AP[KPC + JMAX - IMAX].cabs1());
           }
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
 
             KP = K;
-          } else if (CABS1(AP[KPC]) >= ALPHA * ROWMAX) {
+          } else if (AP[KPC].cabs1() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
 

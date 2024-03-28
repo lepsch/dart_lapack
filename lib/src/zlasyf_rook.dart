@@ -53,8 +53,6 @@ void zlasyf_rook(
   double ABSAKK, ALPHA, COLMAX, ROWMAX, DTEMP, SFMIN;
   Complex D11, D12, D21, D22, R1, T;
 
-  double CABS1(Complex Z) => Z.real.abs() + Z.imaginary.abs();
-
   INFO.value = 0;
 
   // Initialize ALPHA for use in choosing pivot block size.
@@ -96,7 +94,7 @@ void zlasyf_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(W[K][KW]);
+      ABSAKK = W[K][KW].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -104,7 +102,7 @@ void zlasyf_rook(
 
       if (K > 1) {
         IMAX = izamax(K - 1, W(1, KW).asArray(), 1);
-        COLMAX = CABS1(W[IMAX][KW]);
+        COLMAX = W[IMAX][KW].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -162,14 +160,14 @@ void zlasyf_rook(
 
             if (IMAX != K) {
               JMAX = IMAX + izamax(K - IMAX, W(IMAX + 1, KW - 1).asArray(), 1);
-              ROWMAX = CABS1(W[JMAX][KW - 1]);
+              ROWMAX = W[JMAX][KW - 1].cabs1();
             } else {
               ROWMAX = ZERO;
             }
 
             if (IMAX > 1) {
               ITEMP = izamax(IMAX - 1, W(1, KW - 1).asArray(), 1);
-              DTEMP = CABS1(W[ITEMP][KW - 1]);
+              DTEMP = W[ITEMP][KW - 1].cabs1();
               if (DTEMP > ROWMAX) {
                 ROWMAX = DTEMP;
                 JMAX = ITEMP;
@@ -180,7 +178,7 @@ void zlasyf_rook(
             // CABS1( W[IMAX][KW-1] ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(CABS1(W[IMAX][KW - 1]) < ALPHA * ROWMAX)) {
+            if (!(W[IMAX][KW - 1].cabs1() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -267,7 +265,7 @@ void zlasyf_rook(
 
           zcopy(K, W(1, KW).asArray(), 1, A(1, K).asArray(), 1);
           if (K > 1) {
-            if (CABS1(A[K][K]) >= SFMIN) {
+            if (A[K][K].cabs1() >= SFMIN) {
               R1 = Complex.one / A[K][K];
               zscal(K - 1, R1, A(1, K).asArray(), 1);
             } else if (A[K][K] != Complex.zero) {
@@ -396,7 +394,7 @@ void zlasyf_rook(
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
 
-      ABSAKK = CABS1(W[K][K]);
+      ABSAKK = W[K][K].cabs1();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
@@ -404,7 +402,7 @@ void zlasyf_rook(
 
       if (K < N) {
         IMAX = K + izamax(N - K, W(K + 1, K).asArray(), 1);
-        COLMAX = CABS1(W[IMAX][K]);
+        COLMAX = W[IMAX][K].cabs1();
       } else {
         COLMAX = ZERO;
       }
@@ -462,14 +460,14 @@ void zlasyf_rook(
 
             if (IMAX != K) {
               JMAX = K - 1 + izamax(IMAX - K, W(K, K + 1).asArray(), 1);
-              ROWMAX = CABS1(W[JMAX][K + 1]);
+              ROWMAX = W[JMAX][K + 1].cabs1();
             } else {
               ROWMAX = ZERO;
             }
 
             if (IMAX < N) {
               ITEMP = IMAX + izamax(N - IMAX, W(IMAX + 1, K + 1).asArray(), 1);
-              DTEMP = CABS1(W[ITEMP][K + 1]);
+              DTEMP = W[ITEMP][K + 1].cabs1();
               if (DTEMP > ROWMAX) {
                 ROWMAX = DTEMP;
                 JMAX = ITEMP;
@@ -480,7 +478,7 @@ void zlasyf_rook(
             // CABS1( W( IMAX, K+1 ) ) >= ALPHA*ROWMAX
             // (used to handle NaN and Inf)
 
-            if (!(CABS1(W[IMAX][K + 1]) < ALPHA * ROWMAX)) {
+            if (!(W[IMAX][K + 1].cabs1() < ALPHA * ROWMAX)) {
               // interchange rows and columns K and IMAX,
               // use 1-by-1 pivot block
 
@@ -561,7 +559,7 @@ void zlasyf_rook(
 
           zcopy(N - K + 1, W(K, K).asArray(), 1, A(K, K).asArray(), 1);
           if (K < N) {
-            if (CABS1(A[K][K]) >= SFMIN) {
+            if (A[K][K].cabs1() >= SFMIN) {
               R1 = Complex.one / A[K][K];
               zscal(N - K, R1, A(K + 1, K).asArray(), 1);
             } else if (A[K][K] != Complex.zero) {

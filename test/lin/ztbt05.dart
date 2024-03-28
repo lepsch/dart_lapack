@@ -37,8 +37,6 @@ void ztbt05(
   final RESLTS = RESLTS_.having();
   const ZERO = 0.0, ONE = 1.0;
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Quick exit if N = 0 or NRHS = 0.
 
   if (N <= 0 || NRHS <= 0) {
@@ -62,10 +60,10 @@ void ztbt05(
   var ERRBND = ZERO;
   for (var J = 1; J <= NRHS; J++) {
     final IMAX = izamax(N, X(1, J).asArray(), 1);
-    final XNORM = max(CABS1(X[IMAX][J]), UNFL);
+    final XNORM = max(X[IMAX][J].cabs1(), UNFL);
     var DIFF = ZERO;
     for (var I = 1; I <= N; I++) {
-      DIFF = max(DIFF, CABS1(X[I][J] - XACT[I][J]));
+      DIFF = max(DIFF, (X[I][J] - XACT[I][J]).cabs1());
     }
 
     if (XNORM > ONE) {
@@ -92,29 +90,29 @@ void ztbt05(
   for (var K = 1; K <= NRHS; K++) {
     var AXBI = ZERO;
     for (var I = 1; I <= N; I++) {
-      var TMP = CABS1(B[I][K]);
+      var TMP = B[I][K].cabs1();
       if (UPPER) {
         if (!NOTRAN) {
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
-            TMP += CABS1(AB[KD + 1 - I + J][I]) * CABS1(X[J][K]);
+            TMP += AB[KD + 1 - I + J][I].cabs1() * X[J][K].cabs1();
           }
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
         } else {
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
           for (var J = I + IFU; J <= min(I + KD, N); J++) {
-            TMP += CABS1(AB[KD + 1 + I - J][J]) * CABS1(X[J][K]);
+            TMP += AB[KD + 1 + I - J][J].cabs1() * X[J][K].cabs1();
           }
         }
       } else {
         if (NOTRAN) {
           for (var J = max(I - KD, 1); J <= I - IFU; J++) {
-            TMP += CABS1(AB[1 + I - J][J]) * CABS1(X[J][K]);
+            TMP += AB[1 + I - J][J].cabs1() * X[J][K].cabs1();
           }
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
         } else {
-          if (UNIT) TMP += CABS1(X[I][K]);
+          if (UNIT) TMP += X[I][K].cabs1();
           for (var J = I + IFU; J <= min(I + KD, N); J++) {
-            TMP += CABS1(AB[1 + J - I][I]) * CABS1(X[J][K]);
+            TMP += AB[1 + J - I][I].cabs1() * X[J][K].cabs1();
           }
         }
       }

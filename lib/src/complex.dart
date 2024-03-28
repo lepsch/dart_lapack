@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:complex/complex.dart' as impl;
 
+import 'package:lapack/src/intrinsics/pow.dart' as intrinsic;
+
 abstract class Complex {
   static const zero = Complex(0.0);
   static const one = Complex(1.0);
@@ -255,4 +257,13 @@ extension ComplexTupleExtension on ComplexTuple {
 
 extension ComplexListTupleExtension on List<ComplexTuple> {
   List<Complex> toComplexList() => map((c) => c.toComplex()).toList();
+}
+
+extension FunctionExtensions on Complex {
+  double cabs1() => real.abs() + imaginary.abs();
+
+  double cabs2() => (real / 2).abs() + (imaginary / 2).abs();
+
+  double cabsSq() =>
+      intrinsic.pow(real, 2) + intrinsic.pow(imaginary, 2).toDouble();
 }

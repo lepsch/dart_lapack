@@ -47,8 +47,6 @@ void ztprfs(
   final ISAVE = Array<int>(3);
   final KASE = Box(0);
 
-  double CABS1(Complex ZDUM) => ZDUM.real.abs() + ZDUM.imaginary.abs();
-
   // Test the input parameters.
 
   INFO.value = 0;
@@ -122,7 +120,7 @@ void ztprfs(
     // numerator and denominator before dividing.
 
     for (I = 1; I <= N; I++) {
-      RWORK[I] = CABS1(B[I][J]);
+      RWORK[I] = B[I][J].cabs1();
     }
 
     if (NOTRAN) {
@@ -132,17 +130,17 @@ void ztprfs(
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            XK = CABS1(X[K][J]);
+            XK = X[K][J].cabs1();
             for (I = 1; I <= K; I++) {
-              RWORK[I] += CABS1(AP[KC + I - 1]) * XK;
+              RWORK[I] += AP[KC + I - 1].cabs1() * XK;
             }
             KC += K;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            XK = CABS1(X[K][J]);
+            XK = X[K][J].cabs1();
             for (I = 1; I <= K - 1; I++) {
-              RWORK[I] += CABS1(AP[KC + I - 1]) * XK;
+              RWORK[I] += AP[KC + I - 1].cabs1() * XK;
             }
             RWORK[K] += XK;
             KC += K;
@@ -152,17 +150,17 @@ void ztprfs(
         KC = 1;
         if (NOUNIT) {
           for (K = 1; K <= N; K++) {
-            XK = CABS1(X[K][J]);
+            XK = X[K][J].cabs1();
             for (I = K; I <= N; I++) {
-              RWORK[I] += CABS1(AP[KC + I - K]) * XK;
+              RWORK[I] += AP[KC + I - K].cabs1() * XK;
             }
             KC += N - K + 1;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            XK = CABS1(X[K][J]);
+            XK = X[K][J].cabs1();
             for (I = K + 1; I <= N; I++) {
-              RWORK[I] += CABS1(AP[KC + I - K]) * XK;
+              RWORK[I] += AP[KC + I - K].cabs1() * XK;
             }
             RWORK[K] += XK;
             KC += N - K + 1;
@@ -178,16 +176,16 @@ void ztprfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = 1; I <= K; I++) {
-              S += CABS1(AP[KC + I - 1]) * CABS1(X[I][J]);
+              S += AP[KC + I - 1].cabs1() * X[I][J].cabs1();
             }
             RWORK[K] += S;
             KC += K;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            S = CABS1(X[K][J]);
+            S = X[K][J].cabs1();
             for (I = 1; I <= K - 1; I++) {
-              S += CABS1(AP[KC + I - 1]) * CABS1(X[I][J]);
+              S += AP[KC + I - 1].cabs1() * X[I][J].cabs1();
             }
             RWORK[K] += S;
             KC += K;
@@ -199,16 +197,16 @@ void ztprfs(
           for (K = 1; K <= N; K++) {
             S = ZERO;
             for (I = K; I <= N; I++) {
-              S += CABS1(AP[KC + I - K]) * CABS1(X[I][J]);
+              S += AP[KC + I - K].cabs1() * X[I][J].cabs1();
             }
             RWORK[K] += S;
             KC += N - K + 1;
           }
         } else {
           for (K = 1; K <= N; K++) {
-            S = CABS1(X[K][J]);
+            S = X[K][J].cabs1();
             for (I = K + 1; I <= N; I++) {
-              S += CABS1(AP[KC + I - K]) * CABS1(X[I][J]);
+              S += AP[KC + I - K].cabs1() * X[I][J].cabs1();
             }
             RWORK[K] += S;
             KC += N - K + 1;
@@ -219,9 +217,9 @@ void ztprfs(
     S = ZERO;
     for (I = 1; I <= N; I++) {
       if (RWORK[I] > SAFE2) {
-        S = max(S, CABS1(WORK[I]) / RWORK[I]);
+        S = max(S, WORK[I].cabs1() / RWORK[I]);
       } else {
-        S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
+        S = max(S, (WORK[I].cabs1() + SAFE1) / (RWORK[I] + SAFE1));
       }
     }
     BERR[J] = S;
@@ -250,9 +248,9 @@ void ztprfs(
 
     for (I = 1; I <= N; I++) {
       if (RWORK[I] > SAFE2) {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I];
       } else {
-        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
+        RWORK[I] = WORK[I].cabs1() + NZ * EPS * RWORK[I] + SAFE1;
       }
     }
 
@@ -281,7 +279,7 @@ void ztprfs(
 
     LSTRES = ZERO;
     for (I = 1; I <= N; I++) {
-      LSTRES = max(LSTRES, CABS1(X[I][J]));
+      LSTRES = max(LSTRES, X[I][J].cabs1());
     }
     if (LSTRES != ZERO) FERR[J] /= LSTRES;
   }
