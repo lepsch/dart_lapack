@@ -12,9 +12,7 @@ const zeroIndexedMatrixOffset = (x: 0, y: 0);
 const oneIndexedMatrix3dOffset = (x: -1, y: -1, z: -1);
 const zeroIndexedMatrix3dOffset = (x: 0, y: 0, z: 0);
 
-// TODO: Make it iterable
-// TODO: List interface
-abstract interface class Array<T> implements Box<T> {
+abstract interface class Array<T> implements Box<T>, List<T> {
   factory Array(
     int length, {
     int offset = oneIndexedArrayOffset,
@@ -44,9 +42,6 @@ abstract interface class Array<T> implements Box<T> {
 
   Array<T> call(int index, {int? offset});
 
-  T operator [](int index);
-  void operator []=(int index, T value);
-
   Box<T> box(int index);
 
   List<T> toData();
@@ -57,15 +52,10 @@ abstract interface class Array<T> implements Box<T> {
 
   Array<T> copy();
 
+  @override
   Array<R> cast<R>();
 
   int get offset;
-
-  int get length;
-
-  T get first;
-
-  set first(T value);
 }
 
 extension ArrayExtension<T> on Array<T> {
@@ -234,15 +224,15 @@ class Matrix<T> implements Box<T> {
     );
   }
 
-  Array<T> operator [](int i) {
-    return _MatrixArrayAdapter(this, i);
+  MatrixItemAcessor<T> operator [](int i) {
+    return MatrixItemAcessor(this, i);
   }
 
   List<T> toData() {
     return _entries.toData();
   }
 
-  Box<T> box(int i, int j) => this[i].box(j);
+  Box<T> box(int i, int j) => this(i, j);
 
   Array<T> asArray() => Array.fromSlice(_entries.toData());
 
@@ -281,103 +271,15 @@ class Matrix<T> implements Box<T> {
   }
 }
 
-class _MatrixArrayAdapter<T> implements Array<T> {
-  final int i;
+class MatrixItemAcessor<T> {
+  final int _i;
   final Matrix<T> _m;
 
-  const _MatrixArrayAdapter(this._m, this.i);
+  const MatrixItemAcessor(this._m, this._i);
 
-  @override
-  void assign(Array<T> array) {
-    final entries = getEntries();
-    final dest = entries.toData();
-    final source = array.toData();
-    dest.setRange(0, min(dest.length, source.length), source);
-  }
+  T operator [](int j) => _m(_i, j).first;
 
-  @override
-  Array<T> slice(int j, {int? offset}) {
-    final slice = _m(i, j);
-    return Array.fromSlice(slice._entries.toData(),
-        offset: offset ?? this.offset);
-  }
-
-  @override
-  Array<T> call(int j, {int? offset}) {
-    return slice(j, offset: offset);
-  }
-
-  @override
-  Box<T> box(int j) {
-    return slice(j);
-  }
-
-  Array<T> getEntries([int? j]) {
-    return _m(i, j ?? -_m.offset.x)._entries;
-  }
-
-  @override
-  List<T> toData() {
-    return getEntries().toData();
-  }
-
-  @override
-  Matrix<T> asMatrix([int? ld]) {
-    return Matrix._(
-      _Array.fromData(getEntries().toData(), offset: 0),
-      ld != null ? (ld, _m.dimensions.$2) : _m.dimensions,
-      ld != null ? (ld, 1) : _m._strides,
-      offset: _m.offset,
-    );
-  }
-
-  @override
-  T operator [](int j) {
-    return _m(i, j).first;
-  }
-
-  @override
-  void operator []=(int j, T value) {
-    _m(i, j).first = value;
-  }
-
-  @override
-  Array<T> having({int? length, int? offset}) {
-    final entries = getEntries();
-    return entries.having(
-      length: length,
-      offset: offset ?? this.offset,
-    );
-  }
-
-  @override
-  Array<T> copy() {
-    final entries = getEntries();
-    return entries.copy();
-  }
-
-  @override
-  Array<R> cast<R>() {
-    return getEntries().cast<R>();
-  }
-
-  @override
-  int get offset => _m.offset.x;
-
-  @override
-  int get length => getEntries().length;
-
-  @override
-  T get value => first;
-
-  @override
-  set value(T value) => first = value;
-
-  @override
-  T get first => getEntries().first;
-
-  @override
-  set first(T value) => getEntries().first = value;
+  void operator []=(int j, T value) => _m(_i, j).first = value;
 }
 
 class _Array<T> implements Array<T> {
@@ -474,7 +376,7 @@ class _Array<T> implements Array<T> {
 
   @override
   Box<T> box(int index) {
-    return _ArrayElementBox(this, index);
+    return DelegatingBox(() => this[index], (value) => this[index] = value);
   }
 
   @override
@@ -541,20 +443,198 @@ class _Array<T> implements Array<T> {
 
   @override
   set first(T value) => _elements.first = value;
-}
-
-class _ArrayElementBox<T> implements Box<T> {
-  final Array<T> _array;
-  final int _index;
-  _ArrayElementBox(this._array, this._index);
 
   @override
-  T get value => _array[_index];
-  @override
-  set value(T value) => _array[_index] = value;
+  T get last => _elements.last;
 
   @override
-  String toString() => value.toString();
+  set last(T value) => _elements.last = value;
+
+  @override
+  List<T> operator +(List<T> other) =>
+      _elements + (other is Array<T> ? other.toData() : other);
+
+  @override
+  void add(T value) => _elements.add(value);
+
+  @override
+  void addAll(Iterable<T> iterable) => _elements.addAll(iterable);
+
+  @override
+  bool any(bool Function(T element) test) => _elements.any(test);
+
+  @override
+  Map<int, T> asMap() => _elements.asMap();
+
+  @override
+  void clear() => _elements.clear();
+
+  @override
+  bool contains(Object? element) => _elements.contains(element);
+
+  @override
+  T elementAt(int index) => _elements.elementAt(index + offset);
+
+  @override
+  bool every(bool Function(T element) test) => _elements.every(test);
+
+  @override
+  Iterable<U> expand<U>(Iterable<U> Function(T element) toElements) =>
+      _elements.expand(toElements);
+
+  @override
+  void fillRange(int start, int end, [T? fillValue]) =>
+      _elements.fillRange(start, end, fillValue);
+
+  @override
+  T firstWhere(bool Function(T element) test, {T Function()? orElse}) =>
+      _elements.firstWhere(test, orElse: orElse);
+
+  @override
+  U fold<U>(U initialValue, U Function(U previousValue, T element) combine) =>
+      _elements.fold(initialValue, combine);
+
+  @override
+  Iterable<T> followedBy(Iterable<T> other) => _elements.followedBy(other);
+
+  @override
+  void forEach(void Function(T element) action) => _elements.forEach(action);
+
+  @override
+  Iterable<T> getRange(int start, int end) => _elements.getRange(start, end);
+
+  @override
+  int indexOf(T element, [int start = 0]) =>
+      _elements.indexOf(element, start + offset) - offset;
+
+  @override
+  int indexWhere(bool Function(T element) test, [int start = 0]) =>
+      _elements.indexWhere(test, start + offset) - offset;
+
+  @override
+  void insert(int index, T element) =>
+      _elements.insert(index + offset, element);
+
+  @override
+  void insertAll(int index, Iterable<T> iterable) =>
+      _elements.insertAll(index + offset, iterable);
+
+  @override
+  bool get isEmpty => _elements.isEmpty;
+
+  @override
+  bool get isNotEmpty => _elements.isNotEmpty;
+
+  @override
+  Iterator<T> get iterator => _elements.iterator;
+
+  @override
+  String join([String separator = '']) => _elements.join(separator);
+
+  @override
+  int lastIndexOf(T element, [int? start]) =>
+      _elements.lastIndexOf(element, start != null ? start + offset : null) -
+      offset;
+
+  @override
+  int lastIndexWhere(bool Function(T element) test, [int? start]) =>
+      _elements.lastIndexWhere(test, start != null ? start + offset : null) -
+      offset;
+
+  @override
+  T lastWhere(bool Function(T element) test, {T Function()? orElse}) =>
+      _elements.lastWhere(test, orElse: orElse);
+
+  @override
+  set length(int newLength) => _elements.length;
+
+  @override
+  Iterable<U> map<U>(U Function(T e) toElement) => _elements.map(toElement);
+
+  @override
+  T reduce(T Function(T value, T element) combine) => _elements.reduce(combine);
+
+  @override
+  bool remove(Object? value) => _elements.remove(value);
+
+  @override
+  T removeAt(int index) => _elements.removeAt(index + offset);
+
+  @override
+  T removeLast() => _elements.removeLast();
+
+  @override
+  void removeRange(int start, int end) =>
+      _elements.removeRange(start + offset, end + offset);
+
+  @override
+  void removeWhere(bool Function(T element) test) =>
+      _elements.removeWhere((element) => false);
+
+  @override
+  void replaceRange(int start, int end, Iterable<T> replacements) =>
+      _elements.replaceRange(start + offset, end + offset, replacements);
+
+  @override
+  void retainWhere(bool Function(T element) test) =>
+      _elements.retainWhere(test);
+
+  @override
+  Iterable<T> get reversed => _elements.reversed;
+
+  @override
+  void setAll(int index, Iterable<T> iterable) =>
+      _elements.setAll(index + offset, iterable);
+
+  @override
+  void setRange(int start, int end, Iterable<T> iterable, [int skipCount = 0]) {
+    final source = iterable is Array<T> ? iterable.toData() : iterable;
+    _elements.setRange(start + offset, end + offset, source);
+  }
+
+  @override
+  void shuffle([Random? random]) => _elements.shuffle();
+
+  @override
+  T get single => _elements.single;
+
+  @override
+  T singleWhere(bool Function(T element) test, {T Function()? orElse}) =>
+      _elements.singleWhere(test, orElse: orElse);
+
+  @override
+  Iterable<T> skip(int count) => _elements.skip(count);
+
+  @override
+  Iterable<T> skipWhile(bool Function(T value) test) =>
+      _elements.skipWhile(test);
+
+  @override
+  void sort([int Function(T a, T b)? compare]) => _elements.sort();
+
+  @override
+  List<T> sublist(int start, [int? end]) =>
+      _elements.sublist(start + offset, end != null ? end + offset : null);
+
+  @override
+  Iterable<T> take(int count) => _elements.take(count);
+
+  @override
+  Iterable<T> takeWhile(bool Function(T value) test) =>
+      _elements.takeWhile((value) => false);
+
+  @override
+  List<T> toList({bool growable = true}) =>
+      _elements.toList(growable: growable);
+
+  @override
+  Set<T> toSet() => _elements.toSet();
+
+  @override
+  Iterable<T> where(bool Function(T element) test) => _elements.where(test);
+
+  @override
+  Iterable<U> whereType<U>() => _elements.whereType<U>();
 }
 
 class Matrix3d<T> {
@@ -648,7 +728,8 @@ class Matrix3d<T> {
     return _entries.toData();
   }
 
-  Box<T> box(int i, int j, int k) => this[i][j].box(k);
+  Box<T> box(int i, int j, int k) =>
+      DelegatingBox(() => this[i][j][k], (value) => this[i][j][k] = value);
 
   Array<T> asArray() => _Array.fromData(_entries.toData(), offset: offset.x);
 

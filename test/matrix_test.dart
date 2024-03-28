@@ -389,12 +389,6 @@ void main() {
       expect(s1[2][1], 7);
       expect(s1[2][2], 8);
       expect(s1[2][3], 9);
-
-      final s2 = m[2];
-      s2.first = 123;
-      expect(s2[1], 123);
-      expect(s2[2], 5);
-      expect(s2[3], 6);
     });
 
     test('offset (zero indexed)', () {

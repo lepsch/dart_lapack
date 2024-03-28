@@ -44,22 +44,34 @@ class Nin {
     return (await readList()).first;
   }
 
-  Future<void> readArray<T>(Array<T> a, int n) async {
+  Future<List<T>> readData<T>(int n) async {
+    final result = <T>[];
     var i = 1, left = n;
     while (left > 0) {
       var parts = await readList();
       for (final part in parts) {
-        a[i] = _parse<T>(part);
-        if (i == n) return;
+        result.add(_parse<T>(part));
+        if (i == n) return result;
         i++;
       }
       left = left - parts.length;
     }
+    return result;
+  }
+
+  Future<void> readArray<T>(Array<T> a, int n) async {
+    final data = await readData<T>(n);
+    a.toData().setAll(0, data);
   }
 
   Future<void> readMatrix<T>(Matrix<T> a, int m, int n) async {
-    for (var i = 1; i <= m; i++) {
-      await readArray<T>(a[i], n);
+    a = a.having(offset: (x: 0, y: 0));
+    for (var i = 0; i < m; i++) {
+      final dataIter = (await readData<T>(n)).iterator;
+      for (var j = 0; j < n; j++) {
+        if (!dataIter.moveNext()) break;
+        a[i][j] = dataIter.current;
+      }
     }
   }
 
