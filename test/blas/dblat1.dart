@@ -1361,6 +1361,6 @@ double _dxvals(final double XX, final int K) {
 
 void main() {
   final nout = Nout(stdout);
-  dblat1(nout, lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  dblat1(nout, syncTestDriver);
+  exit(syncTestDriver.errors);
 }

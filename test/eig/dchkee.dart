@@ -2383,6 +2383,6 @@ extension on Nout {
 }
 
 void main() async {
-  await dchkee(Nin(stdin), Nout(stdout), lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  await dchkee(Nin(stdin), Nout(stdout), syncTestDriver);
+  exit(syncTestDriver.errors);
 }

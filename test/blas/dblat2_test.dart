@@ -11,5 +11,5 @@ void main() async {
   final inputFile = File(path.join(currentFilePath(), 'dblat2.in'));
   final nin = Nin(inputFile.openRead());
   final nout = NullNout();
-  await dblat2(nin, nout, dartTestDriver);
+  await dblat2(nin, nout, asyncTestDriver);
 }

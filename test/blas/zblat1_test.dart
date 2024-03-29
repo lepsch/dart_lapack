@@ -5,5 +5,5 @@ import 'zblat1.dart';
 
 void main() {
   Nout nout = NullNout();
-  zblat1(nout, dartTestDriver);
+  zblat1(nout, asyncTestDriver);
 }

@@ -3247,6 +3247,6 @@ void _xerbla(final String SRNAME, final int INFO) {
 
 void main() async {
   final nin = Nin(stdin);
-  await dblat3(nin, null, lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  await dblat3(nin, null, syncTestDriver);
+  exit(syncTestDriver.errors);
 }

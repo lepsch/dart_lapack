@@ -204,7 +204,7 @@ void ddrvbd(
           srnamc.SRNAMT = 'DGESVD';
           dgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK,
               LSWORK, IINFO);
-          expect(IINFO.value, 0);
+          test.expect(IINFO.value, 0);
           if (IINFO.value != 0) {
             _print9995(NOUT, 'GESVD', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -302,7 +302,7 @@ void ddrvbd(
           srnamc.SRNAMT = 'DGESDD';
           dgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK,
               IWORK, IINFO);
-          expect(IINFO.value, 0);
+          test.expect(IINFO.value, 0);
           if (IINFO.value != 0) {
             _print9995(NOUT, 'GESDD', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -433,7 +433,7 @@ void ddrvbd(
                 RWORK,
                 LRWORK,
                 IINFO);
-            expect(IINFO.value, 0);
+            test.expect(IINFO.value, 0);
             if (IINFO.value != 0) {
               _print9995(
                   NOUT, 'DGESVDQ', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
@@ -487,7 +487,7 @@ void ddrvbd(
               }
             }
 
-            expect(IINFO.value, 0);
+            test.expect(IINFO.value, 0);
             if (IINFO.value != 0) {
               _print9995(
                   NOUT, 'GESVJ', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
@@ -540,7 +540,7 @@ void ddrvbd(
               }
             }
 
-            expect(IINFO.value, 0);
+            test.expect(IINFO.value, 0);
             if (IINFO.value != 0) {
               _print9995(
                   NOUT, 'GEJSV', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
@@ -571,7 +571,7 @@ void ddrvbd(
           dlacpy('F', M, N, ASAV, LDA, A, LDA);
           dgesvdx('V', 'V', 'A', M, N, A, LDA, 0, 0, 0, 0, NS, SSAV, USAV, LDU,
               VTSAV, LDVT, WORK, LWORK, IWORK, IINFO);
-          expect(IINFO.value, 0);
+          test.expect(IINFO.value, 0);
           if (IINFO.value != 0) {
             _print9995(
                 NOUT, 'GESVDX', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
@@ -665,7 +665,7 @@ void ddrvbd(
           final NSI = Box(0);
           dgesvdx('V', 'V', 'I', M, N, A, LDA, 0, 0, IL, IU, NSI, S, U, LDU, VT,
               LDVT, WORK, LWORK, IWORK, IINFO);
-          expect(IINFO.value, 0);
+          test.expect(IINFO.value, 0);
           if (IINFO.value != 0) {
             _print9995(
                 NOUT, 'GESVDX', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
@@ -718,7 +718,7 @@ void ddrvbd(
           final NSV = Box(0);
           dgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU,
               VT, LDVT, WORK, LWORK, IWORK, IINFO);
-          expect(IINFO.value, 0);
+          test.expect(IINFO.value, 0);
           if (IINFO.value != 0) {
             _print9995(
                 NOUT, 'GESVDX', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);

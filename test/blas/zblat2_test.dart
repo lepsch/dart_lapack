@@ -11,5 +11,5 @@ void main() async {
   final inputFile = File(path.join(currentFilePath(), 'zblat2.in'));
   final nin = Nin(inputFile.openRead());
   final nout = NullNout();
-  await zblat2(nin, nout, dartTestDriver);
+  await zblat2(nin, nout, asyncTestDriver);
 }

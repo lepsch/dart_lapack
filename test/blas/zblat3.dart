@@ -3944,6 +3944,6 @@ void _xerbla(final String SRNAME, final int INFO) {
 
 void main() async {
   final nin = Nin(stdin);
-  await zblat3(nin, null, lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  await zblat3(nin, null, syncTestDriver);
+  exit(syncTestDriver.errors);
 }

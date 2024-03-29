@@ -2010,6 +2010,6 @@ void _print9973(final Nout nout) {
 
 void main() async {
   final nin = Nin(stdin);
-  await zchkee(nin, null, lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  await zchkee(nin, null, syncTestDriver);
+  exit(syncTestDriver.errors);
 }

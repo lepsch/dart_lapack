@@ -808,6 +808,6 @@ double _dxvals(final double XX, final int K) {
 
 void main() {
   Nout nout = Nout(stdout);
-  zblat1(nout, lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  zblat1(nout, syncTestDriver);
+  exit(syncTestDriver.errors);
 }

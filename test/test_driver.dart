@@ -5,6 +5,9 @@ import 'package:test/test.dart' as test_pkg;
 abstract interface class TestDriver {
   const TestDriver();
 
+  static bool get isTesting =>
+      Platform.script.normalizePath().path.contains('/dart_test.');
+
   void group(String description, dynamic Function() body);
   void setUp(dynamic Function() body);
   void test(String description, dynamic Function() body, {Object? skip});
@@ -18,8 +21,8 @@ abstract interface class TestDriver {
 
 int _errors = 0;
 
-class _LapackTestDriver extends TestDriver {
-  const _LapackTestDriver();
+class _SyncTestDriver extends TestDriver {
+  const _SyncTestDriver();
 
   int get errors => _errors;
 
@@ -59,8 +62,8 @@ class _LapackTestDriver extends TestDriver {
   }
 }
 
-class _DartTestDriver extends TestDriver {
-  const _DartTestDriver();
+class _AsyncTestDriver extends TestDriver {
+  const _AsyncTestDriver();
 
   @override
   void group(String description, dynamic Function() body) {
@@ -89,5 +92,5 @@ class _DartTestDriver extends TestDriver {
   }
 }
 
-const lapackTestDriver = _LapackTestDriver();
-const dartTestDriver = _DartTestDriver();
+const syncTestDriver = _SyncTestDriver();
+const asyncTestDriver = _AsyncTestDriver();

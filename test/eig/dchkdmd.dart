@@ -891,6 +891,6 @@ Future<void> dchkdmd(
 }
 
 void main() async {
-  await dchkdmd(Nin(stdin), Nout(stdout), lapackTestDriver);
-  exit(lapackTestDriver.errors);
+  await dchkdmd(Nin(stdin), Nout(stdout), syncTestDriver);
+  exit(syncTestDriver.errors);
 }

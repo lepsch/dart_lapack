@@ -5,5 +5,5 @@ import 'dblat1.dart';
 
 void main() {
   Nout nout = NullNout();
-  dblat1(nout, dartTestDriver);
+  dblat1(nout, asyncTestDriver);
 }

@@ -8,6 +8,10 @@ import '../utils.dart';
 import 'dchkee.dart';
 
 void main() async {
+  final (testDriver, nout) = TestDriver.isTesting
+      ? (asyncTestDriver, NullNout())
+      : (syncTestDriver, Nout(stdout));
+
   const inputs = [
     'csd.in',
     'dbak.in',
@@ -33,8 +37,7 @@ void main() async {
   for (final input in inputs) {
     final inputFile = File(path.join(currentFilePath(), '..', input));
     final nin = Nin(inputFile.openRead());
-    final nout = NullNout();
-    await dchkee(nin, nout, dartTestDriver);
+    await dchkee(nin, nout, testDriver);
   }
 
 // dchkdmd.dart

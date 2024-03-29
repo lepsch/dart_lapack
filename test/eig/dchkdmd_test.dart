@@ -8,8 +8,8 @@ import '../utils.dart';
 import 'dchkdmd.dart';
 
 void main() async {
-    final inputFile = File(path.join(currentFilePath(), '..', 'ddmd.in'));
-    final nin = Nin(inputFile.openRead());
-    final nout = NullNout();
-    await dchkdmd(nin, nout, dartTestDriver);
+  final inputFile = File(path.join(currentFilePath(), '..', 'ddmd.in'));
+  final nin = Nin(inputFile.openRead());
+  final nout = NullNout();
+  await dchkdmd(nin, nout, asyncTestDriver);
 }
