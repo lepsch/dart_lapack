@@ -225,6 +225,366 @@ void main() {
       final b = a.cast<Complex>();
       expect(b.toData(), [Complex(1, 2), Complex(3, 4)]);
     });
+
+    group('List', () {
+      test('length', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.length, 4);
+
+        final b = Array.fromList(<int>[]);
+        expect(b.length, 0);
+
+        final c = a(3);
+        expect(c.length, 2);
+      });
+
+      test('first/last', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.first, 1);
+        expect(a.last, 4);
+
+        final b = a(3);
+        expect(b.first, 3);
+        expect(b.last, 4);
+      });
+
+      test('concatenation', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        final b = Array.fromList([5, 6, 7, 8]);
+
+        final c = a + b;
+        expect(c, [1, 2, 3, 4, 5, 6, 7, 8]);
+      });
+
+      test('add', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.add(5), throwsUnsupportedError);
+      });
+
+      test('addAll', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.addAll([5, 6, 7, 8]), throwsUnsupportedError);
+      });
+
+      test('any', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.any((e) => e == 3), true);
+        expect(a.any((e) => e == 5), false);
+      });
+
+      test('asMap', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.asMap(), {0: 1, 1: 2, 2: 3, 3: 4});
+      });
+
+      test('clear', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.clear(), throwsUnsupportedError);
+      });
+
+      test('contains', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.contains(3), true);
+        expect(a.contains(5), false);
+      });
+
+      test('elementAt', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.elementAt(2), 2);
+        expect(() => a.elementAt(5), throwsRangeError);
+      });
+
+      test('every', () {
+        final a = Array.fromList([2, 2, 2, 2]);
+        expect(a.every((e) => e == 2), true);
+
+        final b = Array.fromList([2, 2, 3, 2]);
+        expect(b.every((e) => e == 2), false);
+      });
+
+      test('expand', () {
+        Iterable<int> duplicate(int n) sync* {
+          yield n;
+          yield n;
+        }
+
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.expand(duplicate), [1, 1, 2, 2, 3, 3, 4, 4]);
+      });
+
+      test('fillRange', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        a.fillRange(2, 4, 99);
+        expect(a, [1, 99, 99, 4]);
+      });
+
+      test('firstWhere', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.firstWhere((e) => e % 2 == 0), 2);
+        expect(a.firstWhere((e) => e % 5 == 0, orElse: () => 99), 99);
+      });
+
+      test('fold', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.fold('', (r, n) => '$r$n'), '1234');
+
+        final b = a(2);
+        expect(b.fold('', (r, n) => '$r$n'), '234');
+
+        final c = b.having(length: 2);
+        expect(c.fold('', (r, n) => '$r$n'), '23');
+      });
+
+      test('followedBy', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        final b = Array.fromList([5, 6, 7, 8]);
+
+        final c = a.followedBy(b);
+        expect(c, [1, 2, 3, 4, 5, 6, 7, 8]);
+      });
+
+      test('forEach', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+
+        final r = <int>[];
+        void push(int n) => r.add(n);
+        a.forEach(push);
+        expect(r, [1, 2, 3, 4]);
+      });
+
+      test('getRange', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.getRange(2, 4), [2, 3]);
+      });
+
+      test('indexOf', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.indexOf(2), 2);
+        expect(a.indexOf(99), -1);
+        expect(a.indexOf(2, 2), 2);
+        expect(a.indexOf(2, 3), -1);
+      });
+
+      test('indexWhere', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.indexWhere((e) => e == 2), 2);
+        expect(a.indexWhere((e) => e == 99), -1);
+        expect(a.indexWhere((e) => e == 2, 2), 2);
+        expect(a.indexWhere((e) => e == 2, 3), -1);
+      });
+
+      test('insert', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.insert(1, 5), throwsUnsupportedError);
+      });
+
+      test('insertAll', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.insertAll(1, [5, 6, 7, 8]), throwsUnsupportedError);
+      });
+
+      test('emptyness', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.isEmpty, false);
+        expect(a.isNotEmpty, true);
+
+        final b = Array.fromList(<int>[]);
+        expect(b.isEmpty, true);
+        expect(b.isNotEmpty, false);
+      });
+
+      test('iterator', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        final iter = a.iterator;
+        expect([for (; iter.moveNext();) iter.current], [1, 2, 3, 4]);
+      });
+
+      test('join', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.join(','), '1,2,3,4');
+      });
+
+      test('lastIndexOf', () {
+        final a = Array.fromList([1, 2, 3, 4, 1, 2, 3, 4]);
+        expect(a.lastIndexOf(3), 7);
+        expect(a.lastIndexOf(99), -1);
+        expect(a.lastIndexOf(3, 7), 7);
+        expect(a.lastIndexOf(3, 6), 3);
+        expect(a.lastIndexOf(3, 3), 3);
+        expect(a.lastIndexOf(3, 2), -1);
+      });
+
+      test('lastIndexWhere', () {
+        final a = Array.fromList([1, 2, 3, 4, 1, 2, 3, 4]);
+        expect(a.lastIndexWhere((e) => e == 3), 7);
+        expect(a.lastIndexWhere((e) => e == 99), -1);
+        expect(a.lastIndexWhere((e) => e == 3, 7), 7);
+        expect(a.lastIndexWhere((e) => e == 3, 6), 3);
+        expect(a.lastIndexWhere((e) => e == 3, 3), 3);
+        expect(a.lastIndexWhere((e) => e == 3, 2), -1);
+      });
+
+      test('lastWhere', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.lastWhere((e) => e % 2 == 0), 4);
+        expect(a.lastWhere((e) => e % 5 == 0, orElse: () => 99), 99);
+      });
+
+      test('map', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.map((e) => e % 2), [1, 0, 1, 0]);
+      });
+
+      test('reduce', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.reduce((a, b) => a + b), 10);
+      });
+
+      test('remove', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.remove(3), throwsUnsupportedError);
+      });
+
+      test('removeAt', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.removeAt(3), throwsUnsupportedError);
+      });
+
+      test('removeLast', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.removeLast(), throwsUnsupportedError);
+      });
+
+      test('removeRange', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.removeRange(2, 4), throwsUnsupportedError);
+      });
+
+      test('removeWhere', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.removeWhere((e) => e % 2 == 0), throwsUnsupportedError);
+      });
+
+      test('replaceRange', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.replaceRange(2, 4, [99]), throwsUnsupportedError);
+      });
+
+      test('retainWhere', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.retainWhere((e) => e % 2 == 0), throwsUnsupportedError);
+      });
+
+      test('reversed', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.reversed, [4, 3, 2, 1]);
+      });
+
+      test('setAll', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        a.setAll(2, [99]);
+        expect(a, [1, 99, 3, 4]);
+
+        final b = Array.fromList([1, 2, 3, 4]);
+        expect(() => b.setAll(2, [99, 99, 99, 99]), throwsRangeError);
+      });
+
+      test('setRange', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        a.setRange(2, 4, [88, 99]); // exact
+        expect(a, [1, 88, 99, 4]);
+
+        a.setRange(2, 4, [11, 22, 33]); // bigger
+        expect(a, [1, 11, 22, 4]);
+
+        expect(() => a.setRange(2, 4, [999]), throwsStateError); // smaller
+      });
+
+      test('shuffle', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        a.shuffle();
+        expect(a, containsAll([1, 2, 3, 4]));
+      });
+
+      test('single', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.single, throwsStateError);
+
+        final b = Array.fromList(<int>[]);
+        expect(() => b.single, throwsStateError);
+
+        final c = Array.fromList([999]);
+        expect(c.single, 999);
+      });
+
+      test('singleWhere', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(() => a.singleWhere((e) => e % 2 == 1), throwsStateError);
+
+        expect(() => a.singleWhere((e) => e % 5 == 0), throwsStateError);
+
+        expect(a.singleWhere((e) => e % 3 == 0), 3);
+      });
+
+      test('skip', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.skip(2), [3, 4]);
+      });
+
+      test('skipWhile', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.skipWhile((e) => e == 1), [2, 3, 4]);
+      });
+
+      test('sort', () {
+        final a = Array.fromList([3, 4, 1, 2]);
+        a.sort();
+        expect(a, [1, 2, 3, 4]);
+      });
+
+      test('sublist', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.sublist(2), [2, 3, 4]);
+        final b = a.sublist(2, 4);
+        expect(b, [2, 3]);
+        b[0] = 999; // check if it's a copy
+        expect(a, [1, 2, 3, 4]);
+      });
+
+      test('take', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.take(2), [1, 2]);
+      });
+
+      test('takeWhile', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.takeWhile((e) => e < 3), [1, 2]);
+      });
+
+      test('toList', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        final b = a.toList();
+        expect(b, [1, 2, 3, 4]);
+        b[0] = 999; // check if it's a copy
+        expect(a, [1, 2, 3, 4]);
+      });
+
+      test('toSet', () {
+        final a = Array.fromList([1, 1, 2, 2, 3, 3, 4, 4]);
+        expect(a.toSet(), [1, 2, 3, 4]);
+      });
+
+      test('where', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.where((e) => e % 2 == 0), [2, 4]);
+      });
+
+      test('whereType', () {
+        final a = Array.fromList([1, 2, 3, 4]);
+        expect(a.whereType<int>(), [1, 2, 3, 4]);
+        expect(a.whereType<double>(), <double>[]);
+      });
+    });
   });
 
   group('Matrix', () {

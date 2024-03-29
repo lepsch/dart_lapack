@@ -387,13 +387,13 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  int get length => _elements.length;
-
-  @override
   T get value => first;
 
   @override
   set value(T value) => first = value;
+
+  @override
+  int get length => _elements.length;
 
   @override
   T get first => _elements.first;
@@ -444,7 +444,7 @@ class _Array<T> implements Array<T> {
 
   @override
   void fillRange(int start, int end, [T? fillValue]) =>
-      _elements.fillRange(start, end, fillValue);
+      _elements.fillRange(start + offset, end + offset, fillValue);
 
   @override
   T firstWhere(bool Function(T element) test, {T Function()? orElse}) =>
@@ -464,15 +464,22 @@ class _Array<T> implements Array<T> {
   void forEach(void Function(T element) action) => _elements.forEach(action);
 
   @override
-  Iterable<T> getRange(int start, int end) => _elements.getRange(start, end);
+  Iterable<T> getRange(int start, int end) =>
+      _elements.getRange(start + offset, end + offset);
 
   @override
   int indexOf(T element, [int start = 0]) =>
-      _elements.indexOf(element, start + offset) - offset;
+      switch (_elements.indexOf(element, start + offset)) {
+        -1 => -1,
+        final i => i - offset,
+      };
 
   @override
   int indexWhere(bool Function(T element) test, [int start = 0]) =>
-      _elements.indexWhere(test, start + offset) - offset;
+      switch (_elements.indexWhere(test, start + offset)) {
+        -1 => -1,
+        final i => i - offset,
+      };
 
   @override
   void insert(int index, T element) =>
@@ -497,14 +504,19 @@ class _Array<T> implements Array<T> {
   String join([String separator = '']) => _elements.join(separator);
 
   @override
-  int lastIndexOf(T element, [int? start]) =>
-      _elements.lastIndexOf(element, start != null ? start + offset : null) -
-      offset;
+  int lastIndexOf(T element, [int? start]) => switch (_elements.lastIndexOf(
+          element, start != null ? start + offset : null)) {
+        -1 => -1,
+        final i => i - offset,
+      };
 
   @override
   int lastIndexWhere(bool Function(T element) test, [int? start]) =>
-      _elements.lastIndexWhere(test, start != null ? start + offset : null) -
-      offset;
+      switch (_elements.lastIndexWhere(
+          test, start != null ? start + offset : null)) {
+        -1 => -1,
+        final i => i - offset,
+      };
 
   @override
   T lastWhere(bool Function(T element) test, {T Function()? orElse}) =>
@@ -591,7 +603,7 @@ class _Array<T> implements Array<T> {
 
   @override
   Iterable<T> takeWhile(bool Function(T value) test) =>
-      _elements.takeWhile((value) => false);
+      _elements.takeWhile(test);
 
   @override
   List<T> toList({bool growable = true}) =>
