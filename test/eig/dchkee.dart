@@ -57,7 +57,11 @@ import 'ilaenv.dart' as mock;
 import 'xerbla.dart' as mock;
 import 'xlaenv.dart';
 
-Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
+Future<void> dchkee(
+  final Nin NIN,
+  final Nout NOUT,
+  final TestDriver test,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -65,7 +69,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
   ilaenv2stage = mock.ilaenv2stage;
   xerbla = mock.xerbla(test);
 
-  NOUT ??= Nout(stdout);
   const NMAX = 132;
   const NCMAX = 20;
   const NEED = 14;
@@ -797,13 +800,11 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               xlaenv(1, 1);
             });
             test.group('error exits', () {
-              if (TSTERR) derrhs('DHSEQR', NOUT!, test);
+              if (TSTERR) derrhs('DHSEQR', NOUT, test);
             });
 
             for (final I in 1.through(NPARMS)) {
               test.group('PARAM $I', () {
-                NOUT!;
-
                 test.setUp(() {
                   xlaenv(1, NBVAL[I]);
                   xlaenv(2, NBMIN[I]);
@@ -906,13 +907,11 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               xlaenv(9, 25);
             });
             test.group('error exits', () {
-              if (TSTERR) derrst('DST', NOUT!, test);
+              if (TSTERR) derrst('DST', NOUT, test);
             });
 
             for (final I in 1.through(NPARMS)) {
               test.group('PARAM $I', () {
-                NOUT!;
-
                 test.setUp(() {
                   xlaenv(1, NBVAL[I]);
                   xlaenv(2, NBMIN[I]);
@@ -1113,8 +1112,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             });
             for (final I in 1.through(NPARMS)) {
               test.group('PARAM $I', () {
-                NOUT!;
-
                 test.setUp(() {
                   xlaenv(1, NBVAL[I]);
                   xlaenv(2, NBMIN[I]);
@@ -1192,7 +1189,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           );
 
           test.group('SVD: Singular Value Decomposition (path=$C3)', () {
-            NOUT!;
             final (
               :NSVAL,
               :NBVAL,
@@ -1215,15 +1211,12 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 
             // Test the error exits
             test.group('error exits', () {
-              NOUT!;
               if (TSTERR && TSTCHK) derrbd('DBD', NOUT, test);
               if (TSTERR && TSTDRV) derred('DBD', NOUT, test);
             });
 
             for (final I in 1.through(NPARMS)) {
               test.group('PARAM $I', () {
-                NOUT!;
-
                 final NRHS = NSVAL[I];
                 xlaenv(1, NBVAL[I]);
                 xlaenv(2, NBMIN[I]);
@@ -1330,7 +1323,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               });
 
               test.group('error exits', () {
-                if (TSTERR) derred(C3, NOUT!, test);
+                if (TSTERR) derred(C3, NOUT, test);
               });
 
               final INFO = Box(0);
@@ -1341,7 +1334,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                   DOTYPE,
                   ISEED,
                   THRESH,
-                  NOUT!,
+                  NOUT,
                   A(1, 1),
                   NMAX,
                   A(1, 2),
@@ -1396,7 +1389,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               });
 
               test.group('error exits', () {
-                if (TSTERR) derred(C3, NOUT!, test);
+                if (TSTERR) derred(C3, NOUT, test);
               });
 
               final INFO = Box(0);
@@ -1407,7 +1400,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                   DOTYPE,
                   ISEED,
                   THRESH,
-                  NOUT!,
+                  NOUT,
                   A(1, 1),
                   NMAX,
                   A(1, 2),
@@ -1448,7 +1441,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 
             test.group(group, () {
               test.group('error exits', () {
-                if (TSTERR) derred(C3, NOUT!, test);
+                if (TSTERR) derred(C3, NOUT, test);
               });
             });
 
@@ -1512,7 +1505,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 
             test.group(group, () {
               test.group('error exits', () {
-                if (TSTERR) derred(C3, NOUT!, test);
+                if (TSTERR) derred(C3, NOUT, test);
               });
             });
 
@@ -1604,13 +1597,11 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             });
 
             test.group('error exits', () {
-              if (TSTCHK && TSTERR) derrgg(C3, NOUT!, test);
+              if (TSTCHK && TSTERR) derrgg(C3, NOUT, test);
             });
 
             for (final I in 1.through(NPARMS)) {
               test.group('PARAM $I', () {
-                NOUT!;
-
                 test.setUp(() {
                   xlaenv(1, NBVAL[I]);
                   xlaenv(2, NBMIN[I]);
@@ -1692,8 +1683,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             test.group(
                 'DGS: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
                 () {
-              NOUT!;
-
               final (:NVAL, :ISEED, :DOTYPE, :C3, :PARAMS) = ctx;
 
               test.setUp(() {
@@ -1701,7 +1690,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               });
 
               test.group('error exits', () {
-                if (TSTERR) derrgg(C3, NOUT!, test);
+                if (TSTERR) derrgg(C3, NOUT, test);
               });
 
               final INFO = Box(0);
@@ -1783,7 +1772,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 'DGX: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)';
             test.group(group, () {
               test.group('error exits', () {
-                if (TSTERR) derrgg(C3, NOUT!, test);
+                if (TSTERR) derrgg(C3, NOUT, test);
               });
             });
 
@@ -1843,8 +1832,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             test.group(
                 'DGV: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)',
                 () {
-              NOUT!;
-
               final (:NVAL, :ISEED, :DOTYPE, :C3, :PARAMS) = ctx;
 
               test.setUp(() {
@@ -1852,7 +1839,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               });
 
               test.group('error exits', () {
-                if (TSTERR) derrgg(C3, NOUT!, test);
+                if (TSTERR) derrgg(C3, NOUT, test);
               });
 
               final INFO = Box(0);
@@ -1940,7 +1927,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 'DXV: Generalized Nonsymmetric Eigenvalue Problem (path=$C3)';
             test.group(group, () {
               test.group('error exits', () {
-                if (TSTERR) derrgg(C3, NOUT!, test);
+                if (TSTERR) derrgg(C3, NOUT, test);
               });
             });
 
@@ -1998,12 +1985,10 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             DOTYPE: DOTYPE.copy(),
           );
           test.group('DSB: Symmetric Band Reduction (path=$C3)', () {
-            NOUT!;
-
             final (:NVAL, :KVAL, :ISEED, :DOTYPE) = ctx;
 
             test.group('error exits', () {
-              if (TSTERR) derrst('DSB', NOUT!, test);
+              if (TSTERR) derrst('DSB', NOUT, test);
             });
 
             // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
@@ -2058,7 +2043,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           );
 
           test.group('DBB: General Band Reduction (path=$C3)', () {
-            NOUT!;
             final (
               :NSVAL,
               :ISEED,
@@ -2078,7 +2062,6 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
             for (final I in 1.through(NPARMS)) {
               final NRHS = NSVAL[I];
               test.group('PARAM $I', () {
-                NOUT!;
                 if (NEWSD == 0) ISEED.assign(IOLDSD);
 
                 NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
@@ -2131,7 +2114,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 xlaenv(1, 1);
               });
 
-              if (TSTERR) derrgg('GLM', NOUT!, test);
+              if (TSTERR) derrgg('GLM', NOUT, test);
             });
           });
 
@@ -2172,7 +2155,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 xlaenv(1, 1);
               });
 
-              if (TSTERR) derrgg('GQR', NOUT!, test);
+              if (TSTERR) derrgg('GQR', NOUT, test);
             });
           });
 
@@ -2222,7 +2205,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 xlaenv(1, 1);
               });
 
-              if (TSTERR) derrgg('GSV', NOUT!, test);
+              if (TSTERR) derrgg('GSV', NOUT, test);
             });
           });
 
@@ -2269,7 +2252,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 xlaenv(1, 1);
               });
 
-              if (TSTERR) derrgg('CSD', NOUT!, test);
+              if (TSTERR) derrgg('CSD', NOUT, test);
             });
           });
 
@@ -2313,7 +2296,7 @@ Future<void> dchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 xlaenv(1, 1);
               });
 
-              if (TSTERR) derrgg('LSE', NOUT!, test);
+              if (TSTERR) derrgg('LSE', NOUT, test);
             });
           });
 
@@ -2400,7 +2383,6 @@ extension on Nout {
 }
 
 void main() async {
-  final nin = Nin(stdin);
-  await dchkee(nin, null, lapackTestDriver);
+  await dchkee(Nin(stdin), Nout(stdout), lapackTestDriver);
   exit(lapackTestDriver.errors);
 }
