@@ -6,7 +6,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
 
-class EOF extends Error {}
+class EOF extends Error {} 
 
 class Nin {
   final StreamQueue<String> _lineStream;
@@ -26,10 +26,8 @@ class Nin {
   }
 
   Future<List<String>> readList() async {
-    String line;
-    do {
-      line = (await readLine()).trim();
-    } while (line.isEmpty);
+    final line = (await readLine()).trim();
+    if (line.isEmpty) return [];
     return line.split(RegExp(r'\s+'));
   }
 
@@ -147,11 +145,36 @@ class Nin {
 
   Future<(T1, T2)> read2<T1, T2>() async {
     final parts = await readList();
-    if (parts.length < 2) throw EOF();
-    return (
-      _parse<T1>(parts[0]),
-      _parse<T2>(parts[1]),
-    );
+    final minLength = null is T1
+        ? 0
+        : null is T2
+            ? 1
+            : 2;
+    if (parts.length < minLength) throw EOF();
+
+    switch (parts.length) {
+      case >= 2:
+        return (
+          _nonNullableParse<T1>(parts[0]),
+          _nonNullableParse<T2>(parts[1]),
+        );
+      case == 1:
+        return (
+          _nonNullableParse<T1>(parts[0]),
+          null as T2,
+        );
+      default:
+        return (null as T1, null as T2);
+    }
+  }
+
+  T _nonNullableParse<T>(String value) {
+    if (1 is T) return _parse<int>(value) as T;
+    if (1.5 is T) return _parse<double>(value) as T;
+    if (true is T) return _parse<bool>(value) as T;
+    if ('' is T) return _parse<String>(value) as T;
+    if (Complex.zero is T) return _parse<Complex>(value) as T;
+    throw UnimplementedError();
   }
 
   T _parse<T>(String s) {

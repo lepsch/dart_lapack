@@ -19,6 +19,9 @@ T                          Logical true
 0 1 2 3 5 9                Integer array
 0.1 1.2 0.234e2 0.1e-1 5 9 Double array
 string T                   Mixed types
+ASDF 123
+ASDF
+
 '''
             .codeUnits
       ]));
@@ -42,6 +45,9 @@ string T                   Mixed types
       expect(doubleArray.toData(), [0.1, 1.2, 23.4, 0.01, 5, 9]);
 
       expect(await nin.read2<String, bool>(), ('string', true));
+      expect(await nin.read2<String, int?>(), ('ASDF', 123));
+      expect(await nin.read2<String, int?>(), ('ASDF', null));
+      expect(await nin.read2<String?, int?>(), (null, null));
     });
 
     test('readMatrix', () async {
