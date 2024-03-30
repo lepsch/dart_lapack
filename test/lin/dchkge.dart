@@ -63,12 +63,7 @@ void dchkge(
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
-  const NTYPES = 11;
-  const NTESTS = 8;
-  const NTRAN = 3;
-  bool TRFCON;
-  int NFAIL, NRUN;
-  final ISEED = Array<int>(4);
+  const NTYPES = 11, NTESTS = 8, NTRAN = 3;
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991], TRANSS = ['N', 'T', 'C'];
   final INFO = Box(0), NERRS = Box(0);
@@ -77,12 +72,10 @@ void dchkge(
   // Initialize constants and the random number seed.
 
   final PATH = '${'Double precision'[0]}GE';
-  NRUN = 0;
-  NFAIL = 0;
+  var NRUN = 0;
+  var NFAIL = 0;
   NERRS.value = 0;
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
-  }
+  final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
 
@@ -99,13 +92,11 @@ void dchkge(
   });
 
   // Do for each value of M in MVAL
-
   for (var IM = 1; IM <= NM; IM++) {
     final M = MVAL[IM];
     final LDA = max(1, M);
 
     // Do for each value of N in NVAL
-
     for (var IN = 1; IN <= NN; IN++) {
       final N = NVAL[IN];
       final NIMAT = M <= 0 || N <= 0 ? 1 : NTYPES;
@@ -186,7 +177,6 @@ void dchkge(
               alaerh(PATH, 'DGETRF', INFO.value, IZERO, ' ', M, N, -1, -1, NB,
                   IMAT, NFAIL, NERRS, NOUT);
             }
-            TRFCON = false;
 
             // TEST 1
             // Reconstruct matrix from factors and compute residual.
@@ -200,8 +190,10 @@ void dchkge(
             // and compute the residual.
 
             final int NT;
+            final bool TRFCON;
             final double ANORMI, ANORMO, RCONDI;
             if (M == N && INFO.value == 0) {
+              TRFCON = false;
               dlacpy('Full', N, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
               srnamc.SRNAMT = 'DGETRI';
               final NRHS = NSVAL[1];

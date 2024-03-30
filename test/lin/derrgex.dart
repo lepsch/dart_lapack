@@ -52,7 +52,7 @@ void derrge(final String PATH, final Nout NUNIT, [final TestDriver? test]) {
     IP[J] = J;
     IW[J] = J;
   }
-  infoc.OK.value = true;
+  OK.value = true;
 
   if (lsamen(2, C2, 'GE')) {
     // Test error exits of the routines that use the LU decomposition

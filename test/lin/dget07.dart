@@ -43,13 +43,6 @@ void dget07(
     return;
   }
 
-  A.debug('DGET07: 1 - A', N, N);
-  B.debug('DGET07: 1 - B', N, NRHS);
-  X.debug('DGET07: 1 - X', N, NRHS);
-  XACT.debug('DGET07: 1 - XACT', N, NRHS);
-  FERR.debug('DGET07: 1 - FERR', NRHS);
-  BERR.debug('DGET07: 1 - BERR', NRHS);
-
   final EPS = dlamch('Epsilon');
   final UNFL = dlamch('Safe minimum');
   final OVFL = ONE / UNFL;
