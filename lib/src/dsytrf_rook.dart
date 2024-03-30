@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlasyf_rook.dart';
 import 'package:lapack/src/dsytf2_rook.dart';

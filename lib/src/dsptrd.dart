@@ -2,7 +2,7 @@ import 'package:lapack/src/blas/daxpy.dart';
 import 'package:lapack/src/blas/ddot.dart';
 import 'package:lapack/src/blas/dspmv.dart';
 import 'package:lapack/src/blas/dspr2.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlarfg.dart';
 import 'package:lapack/src/matrix.dart';

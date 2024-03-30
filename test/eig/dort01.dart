@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/ddot.dart';
 import 'package:lapack/src/blas/dsyrk.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlansy.dart';
 import 'package:lapack/src/dlaset.dart';

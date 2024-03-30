@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
@@ -38,7 +38,6 @@ double zla_gbrcond_x(
   final ISAVE = Array<int>(3);
   final AINVNM = Box(0.0);
   final KASE = Box(0);
-
 
   INFO.value = 0;
   NOTRANS = lsame(TRANS, 'N');

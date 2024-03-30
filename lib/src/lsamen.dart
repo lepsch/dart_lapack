@@ -1,4 +1,4 @@
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 
 bool lsamen(final int N, final String CA, final String CB) {
 // -- LAPACK auxiliary routine --

@@ -1,4 +1,4 @@
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 
 int ilauplo(final String UPLO) {
 // -- LAPACK computational routine --

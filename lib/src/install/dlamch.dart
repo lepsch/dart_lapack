@@ -1,4 +1,4 @@
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/intrinsics/digits.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
 import 'package:lapack/src/intrinsics/huge.dart';

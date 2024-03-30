@@ -7,7 +7,7 @@ import 'package:lapack/src/blas/dnrm2.dart';
 import 'package:lapack/src/blas/drotm.dart';
 import 'package:lapack/src/blas/dswap.dart';
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlascl.dart';
 import 'package:lapack/src/dlassq.dart';

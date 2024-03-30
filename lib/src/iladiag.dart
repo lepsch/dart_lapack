@@ -1,4 +1,4 @@
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 
 int iladiag(final String DIAG) {
 // -- LAPACK computational routine --

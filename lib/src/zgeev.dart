@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/dznrm2.dart';
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zdscal.dart';
 import 'package:lapack/src/blas/zscal.dart';
 import 'package:lapack/src/box.dart';
@@ -290,8 +290,8 @@ void zgeev(
         SCL = ONE / dznrm2(N, VR(1, I).asArray(), 1);
         zdscal(N, SCL, VR(1, I).asArray(), 1);
         for (K = 1; K <= N; K++) {
-          RWORK[IRWORK + K - 1] = pow(VR[K][I].real, 2).toDouble() +
-              pow(VR[K][I].imaginary, 2);
+          RWORK[IRWORK + K - 1] =
+              pow(VR[K][I].real, 2).toDouble() + pow(VR[K][I].imaginary, 2);
         }
         K = idamax(N, RWORK(IRWORK), 1);
         TMP = VR[K][I].conjugate() / sqrt(RWORK[IRWORK + K - 1]).toComplex();

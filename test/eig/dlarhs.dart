@@ -8,7 +8,7 @@ import 'package:lapack/src/blas/dsymm.dart';
 import 'package:lapack/src/blas/dtbmv.dart';
 import 'package:lapack/src/blas/dtpmv.dart';
 import 'package:lapack/src/blas/dtrmm.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlarnv.dart';

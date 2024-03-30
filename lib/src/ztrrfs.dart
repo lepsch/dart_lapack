@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zaxpy.dart';
 import 'package:lapack/src/blas/zcopy.dart';
 import 'package:lapack/src/blas/ztrmv.dart';

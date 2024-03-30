@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zgemm.dart';
 import 'package:lapack/src/blas/zher.dart';
 import 'package:lapack/src/blas/zher2.dart';
@@ -208,7 +208,6 @@ void zhet21(
     }
 
     RESULT[2] =
-        min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N) /
-            (N * ULP);
+        min(zlange('1', N, N, WORK.asMatrix(), N, RWORK), N) / (N * ULP);
   }
 }

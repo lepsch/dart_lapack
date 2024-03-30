@@ -11,7 +11,6 @@ import 'package:lapack/src/dormqr.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/sp/cgelqt3.dart';
 
 import 'common.dart';
 
@@ -68,7 +67,7 @@ void dqrt03(
       dlarnv(2, ISEED, MC, C(1, J).asArray());
     }
     final CNORM = switch (dlange('1', MC, NC, C, LDA, RWORK)) {
-      ZERO => ONE,
+      0.0 => ONE,
       final d => d,
     };
 

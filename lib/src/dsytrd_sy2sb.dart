@@ -4,7 +4,7 @@ import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/dgemm.dart';
 import 'package:lapack/src/blas/dsymm.dart';
 import 'package:lapack/src/blas/dsyr2k.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dgelqf.dart';
 import 'package:lapack/src/dlarft.dart';

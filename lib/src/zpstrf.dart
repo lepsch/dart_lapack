@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zdscal.dart';
 import 'package:lapack/src/blas/zgemv.dart';
 import 'package:lapack/src/blas/zherk.dart';
@@ -118,8 +118,7 @@ void zpstrf(
 
         for (I = J; I <= N; I++) {
           if (J > K) {
-            WORK[I] =
-                WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).real;
+            WORK[I] = WORK[I] + (A[J - 1][I].conjugate() * A[J - 1][I]).real;
           }
           WORK[N + I] = A[I][I].real - WORK[I];
         }
@@ -208,8 +207,7 @@ void zpstrf(
 
         for (I = J; I <= N; I++) {
           if (J > K) {
-            WORK[I] =
-                WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).real;
+            WORK[I] = WORK[I] + (A[I][J - 1].conjugate() * A[I][J - 1]).real;
           }
           WORK[N + I] = A[I][I].real - WORK[I];
         }

@@ -1,4 +1,4 @@
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zgemv.dart';
 import 'package:lapack/src/blas/zgerc.dart';
 import 'package:lapack/src/complex.dart';

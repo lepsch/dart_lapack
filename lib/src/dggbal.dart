@@ -5,7 +5,7 @@ import 'package:lapack/src/blas/ddot.dart';
 import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/dswap.dart';
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/intrinsics/log10.dart';
 import 'package:lapack/src/intrinsics/sign.dart';

@@ -106,7 +106,7 @@ export 'src/install/droundup_lwork.dart';
 export 'src/install/dlamch.dart';
 export 'src/install/dsecnd.dart';
 
-// DSLASRC - Stub implementations of SP to DP
+// DSLASRC - Stub implementations of S.P. to D.P.
 export 'src/sgetrf.dart';
 // export 'src/sgetrf2.dart';
 export 'src/sgetrs.dart';
@@ -115,7 +115,7 @@ export 'src/spotrf.dart';
 // export 'src/spotrf2.dart';
 export 'src/spotrs.dart';
 
-// ZCLASRC - Stub implementations of Complex to DP Complex
+// ZCLASRC - Stub implementations of Complex to D.P. Complex
 export 'src/cgetrf.dart';
 // export 'src/cgetrf2.dart';
 export 'src/cgetrs.dart';

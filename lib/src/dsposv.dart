@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:lapack/src/blas/daxpy.dart';
 import 'package:lapack/src/blas/dsymm.dart';
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlag2s.dart';

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlae2.dart';
 import 'package:lapack/src/dlaev2.dart';

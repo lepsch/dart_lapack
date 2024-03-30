@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/dzasum.dart';
 import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zcopy.dart';
 import 'package:lapack/src/blas/zdscal.dart';
 import 'package:lapack/src/blas/zgemm.dart';

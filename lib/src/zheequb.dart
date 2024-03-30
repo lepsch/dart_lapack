@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
@@ -46,7 +46,6 @@ void zheequb(
       BIGNUM;
   bool UP;
   final SCALE = Box(0.0), SUMSQ = Box(0.0);
-
 
   // Test the input parameters.
 

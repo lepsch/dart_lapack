@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/dtpmv.dart';
 import 'package:lapack/src/blas/dtpsv.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dpptrf.dart';
 import 'package:lapack/src/dspevd.dart';

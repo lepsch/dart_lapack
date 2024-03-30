@@ -1,6 +1,6 @@
 import 'package:lapack/src/blas/dsyrk.dart';
 import 'package:lapack/src/blas/dtrmm.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlauum.dart';
 import 'package:lapack/src/dtftri.dart';

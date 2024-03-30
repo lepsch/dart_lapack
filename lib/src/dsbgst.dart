@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:lapack/src/blas/dger.dart';
 import 'package:lapack/src/blas/drot.dart';
 import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlar2v.dart';
 import 'package:lapack/src/dlargv.dart';
@@ -882,7 +882,7 @@ void dsbgst(
           J2T = J2;
         }
         NRT = (J2T + KA - 1) ~/ KA1;
-        for (J = J1;J <= J2T; J += KA1) {
+        for (J = J1; J <= J2T; J += KA1) {
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK[j]
 
@@ -940,7 +940,7 @@ void dsbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
-          for (J = J1;J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 WORK[N + J], WORK[J]);
           }
@@ -982,11 +982,11 @@ void dsbgst(
         }
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
-        for (J = J1;J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           WORK[M - KB + J] = WORK[M - KB + J + KA];
           WORK[N + M - KB + J] = WORK[N + M - KB + J + KA];
         }
-        for (J = J1;J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           // create nonzero element a(j-1,j+ka) outside the band
           // and store it in WORK[m-kb+j]
 
@@ -1060,7 +1060,7 @@ void dsbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
-          for (J = J1;J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 WORK[N + M - KB + J], WORK[M - KB + J]);
           }
@@ -1175,7 +1175,7 @@ void dsbgst(
           J2T = J2;
         }
         NRT = (J2T + KA - 1) ~/ KA1;
-        for (J = J1;J <= J2T; J += KA1) {
+        for (J = J1; J <= J2T; J += KA1) {
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK[j]
 
@@ -1226,7 +1226,7 @@ void dsbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 1st set
 
-          for (J = J1;J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 WORK[N + J], WORK[J]);
           }
@@ -1268,11 +1268,11 @@ void dsbgst(
         }
         NR = (J2 + KA - 1) ~/ KA1;
         J1 = J2 - (NR - 1) * KA1;
-        for (J = J1;J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           WORK[M - KB + J] = WORK[M - KB + J + KA];
           WORK[N + M - KB + J] = WORK[N + M - KB + J + KA];
         }
-        for (J = J1;J <= J2; J += KA1) {
+        for (J = J1; J <= J2; J += KA1) {
           // create nonzero element a(j+ka,j-1) outside the band
           // and store it in WORK[m-kb+j]
 
@@ -1346,7 +1346,7 @@ void dsbgst(
         if (WANTX) {
           // post-multiply X by product of rotations in 2nd set
 
-          for (J = J1;J <= J2; J += KA1) {
+          for (J = J1; J <= J2; J += KA1) {
             drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
                 WORK[N + M - KB + J], WORK[M - KB + J]);
           }

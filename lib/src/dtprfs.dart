@@ -4,7 +4,7 @@ import 'package:lapack/src/blas/daxpy.dart';
 import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/dtpmv.dart';
 import 'package:lapack/src/blas/dtpsv.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacn2.dart';
 import 'package:lapack/src/install/dlamch.dart';

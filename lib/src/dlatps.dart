@@ -6,7 +6,7 @@ import 'package:lapack/src/blas/ddot.dart';
 import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/dtpsv.dart';
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';

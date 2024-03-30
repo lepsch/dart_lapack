@@ -5,7 +5,7 @@ import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/dsyr2.dart';
 import 'package:lapack/src/blas/dtrmv.dart';
 import 'package:lapack/src/blas/dtrsv.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';

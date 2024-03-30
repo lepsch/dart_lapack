@@ -5,7 +5,7 @@ import 'package:lapack/src/blas/dgemm.dart';
 import 'package:lapack/src/blas/dgemv.dart';
 import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlasyf_aa.dart';
 import 'package:lapack/src/ilaenv.dart';

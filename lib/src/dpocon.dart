@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacn2.dart';
 import 'package:lapack/src/dlatrs.dart';

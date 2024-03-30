@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zgemm.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
@@ -76,8 +76,7 @@ void zget22(
     for (JVEC = 1; JVEC <= N; JVEC++) {
       TEMP1 = ZERO;
       for (J = 1; J <= N; J++) {
-        TEMP1 = max(
-            TEMP1, E[J][JVEC].real.abs() + E[J][JVEC].imaginary.abs());
+        TEMP1 = max(TEMP1, E[J][JVEC].real.abs() + E[J][JVEC].imaginary.abs());
       }
       ENRMIN = min(ENRMIN, TEMP1);
       ENRMAX = max(ENRMAX, TEMP1);
@@ -89,8 +88,8 @@ void zget22(
 
     for (J = 1; J <= N; J++) {
       for (JVEC = 1; JVEC <= N; JVEC++) {
-        RWORK[JVEC] = max(RWORK[JVEC],
-            E[JVEC][J].real.abs() + E[JVEC][J].imaginary.abs());
+        RWORK[JVEC] = max(
+            RWORK[JVEC], E[JVEC][J].real.abs() + E[JVEC][J].imaginary.abs());
       }
     }
 
@@ -157,6 +156,5 @@ void zget22(
 
   // Compute RESULT(2) : the normalization error in E.
 
-  RESULT[2] =
-      max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N * ULP);
+  RESULT[2] = max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N * ULP);
 }

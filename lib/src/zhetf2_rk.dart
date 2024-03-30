@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zdscal.dart';
 import 'package:lapack/src/blas/zher.dart';
 import 'package:lapack/src/blas/zswap.dart';
@@ -33,7 +33,6 @@ void zhetf2_rk(
   int I, II, IMAX = 0, ITEMP, J, JMAX = 0, K, KK, KP = 0, KSTEP, P;
   double ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, DTEMP, ROWMAX, TT, SFMIN;
   Complex D12, D21, T, WK, WKM1, WKP1;
-
 
   // Test the input parameters.
 

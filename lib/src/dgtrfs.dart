@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/daxpy.dart';
 import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dgttrs.dart';
 import 'package:lapack/src/dlacn2.dart';

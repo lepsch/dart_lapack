@@ -1,4 +1,4 @@
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/nio.dart';

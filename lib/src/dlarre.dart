@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlarnv.dart';
 import 'package:lapack/src/dlarra.dart';

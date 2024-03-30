@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zcopy.dart';
 import 'package:lapack/src/blas/zgemm.dart';
 import 'package:lapack/src/blas/zgemv.dart';

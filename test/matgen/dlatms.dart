@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlartg.dart';
 import 'package:lapack/src/dlaset.dart';
@@ -926,7 +926,7 @@ void dlatms(
         for (JR = 1; JR <= UUB + 1 - JC; JR++) {
           A[JR][JC] = ZERO;
         }
-        for (JR = max(1, min(IR1, IR2 - JC)); JR <= LDA; JR ++) {
+        for (JR = max(1, min(IR1, IR2 - JC)); JR <= LDA; JR++) {
           A[JR][JC] = ZERO;
         }
       }

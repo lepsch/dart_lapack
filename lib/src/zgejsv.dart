@@ -4,7 +4,7 @@ import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/dznrm2.dart';
 import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/blas/zcopy.dart';
 import 'package:lapack/src/blas/zdscal.dart';
 import 'package:lapack/src/blas/zswap.dart';

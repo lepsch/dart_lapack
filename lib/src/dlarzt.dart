@@ -1,6 +1,6 @@
 import 'package:lapack/src/blas/dgemv.dart';
 import 'package:lapack/src/blas/dtrmv.dart';
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
