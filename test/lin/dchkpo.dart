@@ -65,7 +65,6 @@ void dchkpo(
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const UPLOS = ['U', 'L'];
-  final INFO = Box(0);
 
   // Initialize constants and the random number seed.
 
@@ -76,7 +75,7 @@ void dchkpo(
   final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
-  if (TSTERR) derrpo(PATH, NOUT,test);
+  if (TSTERR) derrpo(PATH, NOUT, test);
 
   test.setUp(() {
     infoc.INFOT = 0;
@@ -99,9 +98,10 @@ void dchkpo(
       final ZEROT = IMAT >= 3 && IMAT <= 5;
       if (ZEROT && N < IMAT - 2) continue;
 
-      test('DCHKPO', () {
-        // Do first for UPLO = 'U', then for UPLO = 'L'
+      test('DCHKPO (IN=$IN IMAT=$IMAT)', () {
+        final INFO = Box(0);
 
+        // Do first for UPLO = 'U', then for UPLO = 'L'
         for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
           final UPLO = UPLOS[IUPLO - 1];
 
