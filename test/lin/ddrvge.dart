@@ -100,12 +100,11 @@ void ddrvge(
   for (final IN in 1.through(NN)) {
     final N = NVAL[IN];
     final LDA = max(N, 1);
-    final NIMAT = N <= 0 ? 2 : NTYPES;
+    final NIMAT = N <= 0 ? 1 : NTYPES;
 
     for (final IMAT in 1.through(NIMAT)) {
       // Do the tests only if DOTYPE( IMAT ) is true.
       final skip = !DOTYPE[IMAT];
-      final XTYPE = IN == 1 && IMAT == 1 ? 'N' : 'C';
 
       // Skip types 5, 6, or 7 if the matrix size is too small.
       final ZEROT = IMAT >= 5 && IMAT <= 7;
@@ -113,6 +112,7 @@ void ddrvge(
 
       test('DDRVGE (IN=$IN IMAT=$IMAT)', () {
         final INFO = Box(0);
+        String? XTYPE;
 
         // Set up parameters with DLATB4 and generate a test matrix
         // with DLATMS.
@@ -262,7 +262,7 @@ void ddrvge(
               dlacpy('Full', N, N, ASAV.asMatrix(), LDA, A.asMatrix(), LDA);
 
               // Form an exact solution and set the right hand side.
-
+              XTYPE ??= IMAT == 1 ? 'N' : 'C';
               srnamc.SRNAMT = 'DLARHS';
               dlarhs(
                   PATH,
@@ -282,6 +282,7 @@ void ddrvge(
                   LDA,
                   ISEED,
                   INFO);
+              XTYPE = 'C';
               dlacpy('Full', N, NRHS, B.asMatrix(), LDA, BSAV.asMatrix(), LDA);
 
               if (NOFACT && ITRAN == 1) {

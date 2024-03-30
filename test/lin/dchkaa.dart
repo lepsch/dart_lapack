@@ -310,15 +310,15 @@ Future<void> dchkaa(
       test.group('GE: general matrices (path=$PATH)', () {
         if (TSTCHK) {
           dchkge(
-              DOTYPE,
+              DOTYPE.copy(),
               NM,
-              MVAL,
+              MVAL.copy(),
               NN,
-              NVAL,
+              NVAL.copy(),
               NNB2,
-              NBVAL2,
+              NBVAL2.copy(),
               NNS,
-              NSVAL,
+              NSVAL.copy(),
               THRESH,
               TSTERR,
               LDA,
@@ -339,9 +339,9 @@ Future<void> dchkaa(
 
         if (TSTDRV) {
           ddrvge(
-              DOTYPE,
+              DOTYPE.copy(),
               NN,
-              NVAL,
+              NVAL.copy(),
               NRHS,
               THRESH,
               TSTERR,
