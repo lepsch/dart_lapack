@@ -17,6 +17,7 @@ abstract interface class TestDriver {
 
   void group(String description, dynamic Function() body);
   void setUp(dynamic Function() body);
+  void tearDown(dynamic Function() body);
   void test(String description, dynamic Function() body, {Object? skip});
   void fail([String message]);
   bool expect(dynamic actual, dynamic matcher, {String? reason});
@@ -40,6 +41,11 @@ class _SyncTestDriver extends TestDriver {
 
   @override
   void setUp(dynamic Function() body) {
+    body();
+  }
+
+  @override
+  void tearDown(dynamic Function() body) {
     body();
   }
 
@@ -80,6 +86,11 @@ class _AsyncTestDriver extends TestDriver {
   @override
   void setUp(dynamic Function() body) {
     test_pkg.setUp(body);
+  }
+
+  @override
+  void tearDown(dynamic Function() body) {
+    test_pkg.tearDown(body);
   }
 
   @override
