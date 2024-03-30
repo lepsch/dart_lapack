@@ -1,14 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dsyrk.dart';
-import 'package:lapack/src/blas/dtrsm.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dpotrf2.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dpotrf(
   final String UPLO,
@@ -22,13 +14,11 @@ void dpotrf(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   const ONE = 1.0;
-  bool UPPER;
-  int J = 0, JB;
 
   // Test the input parameters.
 
   INFO.value = 0;
-  UPPER = lsame(UPLO, 'U');
+  final UPPER = lsame(UPLO, 'U');
   if (!UPPER && !lsame(UPLO, 'L')) {
     INFO.value = -1;
   } else if (N < 0) {
@@ -58,15 +48,18 @@ void dpotrf(
     if (UPPER) {
       // Compute the Cholesky factorization A = U**T*U.
 
-      for (J = 1; J <= N; J += NB) {
+      for (var J = 1; J <= N; J += NB) {
         // Update and factorize the current diagonal block and test
         // for non-positive-definiteness.
 
-        JB = min(NB, N - J + 1);
+        final JB = min(NB, N - J + 1);
         dsyrk('Upper', 'Transpose', JB, J - 1, -ONE, A(1, J), LDA, ONE, A(J, J),
             LDA);
         dpotrf2('Upper', JB, A(J, J), LDA, INFO);
-        if (INFO.value != 0) break;
+        if (INFO.value != 0) {
+          INFO.value += J - 1;
+          return;
+        }
         if (J + JB <= N) {
           // Compute the current block row.
 
@@ -79,15 +72,18 @@ void dpotrf(
     } else {
       // Compute the Cholesky factorization A = L*L**T.
 
-      for (J = 1; J <= N; J += NB) {
+      for (var J = 1; J <= N; J += NB) {
         // Update and factorize the current diagonal block and test
         // for non-positive-definiteness.
 
-        JB = min(NB, N - J + 1);
+        final JB = min(NB, N - J + 1);
         dsyrk('Lower', 'No transpose', JB, J - 1, -ONE, A(J, 1), LDA, ONE,
             A(J, J), LDA);
         dpotrf2('Lower', JB, A(J, J), LDA, INFO);
-        if (INFO.value != 0) break;
+        if (INFO.value != 0) {
+          INFO.value += J - 1;
+          return;
+        }
         if (J + JB <= N) {
           // Compute the current block column.
 
@@ -98,9 +94,5 @@ void dpotrf(
         }
       }
     }
-  }
-
-  if (INFO.value != 0) {
-    INFO.value += J - 1;
   }
 }

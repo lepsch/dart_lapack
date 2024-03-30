@@ -116,7 +116,7 @@ void dchkpo(
               UPLO, A.asMatrix(), LDA, WORK, INFO);
 
           // Check error code from DLATMS.
-
+          test.expect(INFO.value, 0);
           if (INFO.value != 0) {
             alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
                 NFAIL, NERRS, NOUT);

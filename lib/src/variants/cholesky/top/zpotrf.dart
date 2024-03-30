@@ -1,14 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zherk.dart';
-import 'package:lapack/src/blas/ztrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zpotrf2.dart';
+import 'package:lapack/lapack.dart';
 
 void zpotrf(
   final String UPLO,
@@ -22,13 +14,11 @@ void zpotrf(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   const ONE = 1.0;
-  bool UPPER;
-  int J = 0, JB, NB;
 
   // Test the input parameters.
 
   INFO.value = 0;
-  UPPER = lsame(UPLO, 'U');
+  final UPPER = lsame(UPLO, 'U');
   if (!UPPER && !lsame(UPLO, 'L')) {
     INFO.value = -1;
   } else if (N < 0) {
@@ -47,7 +37,7 @@ void zpotrf(
 
   // Determine the block size for this environment.
 
-  NB = ilaenv(1, 'ZPOTRF', UPLO, N, -1, -1, -1);
+  final NB = ilaenv(1, 'ZPOTRF', UPLO, N, -1, -1, -1);
   if (NB <= 1 || NB >= N) {
     // Use unblocked code.
 
@@ -58,8 +48,8 @@ void zpotrf(
     if (UPPER) {
       // Compute the Cholesky factorization A = U'*U.
 
-      for (J = 1; J <= N; J += NB) {
-        JB = min(NB, N - J + 1);
+      for (var J = 1; J <= N; J += NB) {
+        final JB = min(NB, N - J + 1);
 
         // Compute the current block.
 
@@ -72,13 +62,16 @@ void zpotrf(
         // for non-positive-definiteness.
 
         zpotrf2('Upper', JB, A(J, J), LDA, INFO);
-        if (INFO.value != 0) break;
+        if (INFO.value != 0) {
+          INFO.value += J - 1;
+          return;
+        }
       }
     } else {
       // Compute the Cholesky factorization A = L*L'.
 
-      for (J = 1; J <= N; J += NB) {
-        JB = min(NB, N - J + 1);
+      for (var J = 1; J <= N; J += NB) {
+        final JB = min(NB, N - J + 1);
 
         // Compute the current block.
 
@@ -91,12 +84,11 @@ void zpotrf(
         // for non-positive-definiteness.
 
         zpotrf2('Lower', JB, A(J, J), LDA, INFO);
-        if (INFO.value != 0) break;
+        if (INFO.value != 0) {
+          INFO.value += J - 1;
+          return;
+        }
       }
     }
-  }
-
-  if (INFO.value != 0) {
-    INFO.value += J - 1;
   }
 }
