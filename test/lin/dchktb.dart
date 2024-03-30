@@ -11,7 +11,7 @@ import 'package:lapack/src/dlatbs.dart';
 import 'package:lapack/src/dtbcon.dart';
 import 'package:lapack/src/dtbrfs.dart';
 import 'package:lapack/src/dtbtrs.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

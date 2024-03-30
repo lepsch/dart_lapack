@@ -6,7 +6,7 @@ import 'package:lapack/src/dgeequ.dart';
 import 'package:lapack/src/dpbequ.dart';
 import 'package:lapack/src/dpoequ.dart';
 import 'package:lapack/src/dppequ.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

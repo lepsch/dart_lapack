@@ -11,7 +11,7 @@ import 'package:lapack/src/dtrcon.dart';
 import 'package:lapack/src/dtrrfs.dart';
 import 'package:lapack/src/dtrtri.dart';
 import 'package:lapack/src/dtrtrs.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';

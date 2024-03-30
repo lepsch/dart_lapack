@@ -1,5 +1,5 @@
 import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 
 void main() {
   int I1, I2;

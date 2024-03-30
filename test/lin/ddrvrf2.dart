@@ -5,7 +5,7 @@ import 'package:lapack/src/dtpttf.dart';
 import 'package:lapack/src/dtpttr.dart';
 import 'package:lapack/src/dtrttf.dart';
 import 'package:lapack/src/dtrttp.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 

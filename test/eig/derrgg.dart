@@ -21,7 +21,7 @@ import 'package:lapack/src/dtgsen.dart';
 import 'package:lapack/src/dtgsja.dart';
 import 'package:lapack/src/dtgsna.dart';
 import 'package:lapack/src/dtgsyl.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

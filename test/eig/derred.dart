@@ -8,7 +8,7 @@ import 'package:lapack/src/dgesdd.dart';
 import 'package:lapack/src/dgesvd.dart';
 import 'package:lapack/src/dgesvdq.dart';
 import 'package:lapack/src/dgesvdx.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

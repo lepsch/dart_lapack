@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/ilaenv2stage.dart';
 import 'package:lapack/src/install/dlamch.dart';

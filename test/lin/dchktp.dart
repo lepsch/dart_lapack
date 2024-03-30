@@ -9,7 +9,7 @@ import 'package:lapack/src/dtpcon.dart';
 import 'package:lapack/src/dtprfs.dart';
 import 'package:lapack/src/dtptri.dart';
 import 'package:lapack/src/dtptrs.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:test/test.dart';
 
 void main() {

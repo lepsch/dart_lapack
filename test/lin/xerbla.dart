@@ -1,4 +1,4 @@
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 
 import 'common.dart';
 

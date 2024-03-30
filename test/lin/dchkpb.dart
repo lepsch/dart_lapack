@@ -11,7 +11,7 @@ import 'package:lapack/src/dpbcon.dart';
 import 'package:lapack/src/dpbrfs.dart';
 import 'package:lapack/src/dpbtrf.dart';
 import 'package:lapack/src/dpbtrs.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 

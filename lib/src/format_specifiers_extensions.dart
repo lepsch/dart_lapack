@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/matrix.dart';
 
-extension IntFormatExtension on int {
+extension IntFormatSpecifiersExtension on int {
   String i(int w) => toString().padLeft(w).w(w);
 
   String get i1 => i(1);
@@ -18,7 +18,7 @@ extension IntFormatExtension on int {
   String get i36 => i(36);
 }
 
-extension DoubleFormatExtension on double {
+extension DoubleFormatSpecifiersExtension on double {
   // fixed-point
   String f(int w, [int d = 0]) => toStringAsFixed(d).padLeft(w).w(w);
   String get f4_1 => f(4, 1);
@@ -114,7 +114,7 @@ extension DoubleFormatExtension on double {
   String get ss => this >= 0 ? '' : '-';
 }
 
-extension StringFormatExtension on String {
+extension StringFormatSpecifiersExtension on String {
   String a(int w) => padLeft(w).substring(0, w);
 
   String get a1 => a(1);
@@ -132,19 +132,19 @@ extension StringFormatExtension on String {
   String w(int w) => length > w ? '*' * w : this;
 }
 
-extension BoolFormatExtension on bool {
+extension BoolFormatSpecifiersExtension on bool {
   String get l1 => (this ? 'T' : 'F');
   String get l2 => (this ? ' T' : ' F');
 }
 
-extension StringIterableFormatExtension on Iterable<String> {
+extension StringIterableFormatSpecifiersExtension on Iterable<String> {
   String a(int w, [int? len, String separator = '']) =>
       (len != null ? take(len) : this).map((s) => s.a(w)).join(separator);
 
   String a1([int? len, String separator = '']) => a(1, len, separator);
 }
 
-extension IntIterableFormatExtension on Iterable<int> {
+extension IntIterableFormatSpecifiersExtension on Iterable<int> {
   String i(int w, [int? len, String separator = '']) =>
       (len != null ? take(len) : this).map((n) => n.i(w)).join(separator);
 
@@ -153,7 +153,7 @@ extension IntIterableFormatExtension on Iterable<int> {
   String i36([int? len, String separator = '']) => i(36, len, separator);
 }
 
-extension DoubleIterableFormatExtension on Iterable<double> {
+extension DoubleIterableFormatSpecifiersExtension on Iterable<double> {
   String d(int w, [int d = 0, int? len, String separator = '']) =>
       (len != null ? take(len) : this).map((n) => n.d(w)).join(separator);
 
@@ -163,7 +163,7 @@ extension DoubleIterableFormatExtension on Iterable<double> {
   String d36_8([int? len, String separator = '']) => d(36, 8, len, separator);
 }
 
-extension IntArrayFormatExtension on Array<int> {
+extension IntArrayFormatSpecifiersExtension on Array<int> {
   String i(int w, int len, [String separator = '']) =>
       [for (var i = 1; i <= len; i++) this[i]].i(w, len);
 
@@ -173,7 +173,7 @@ extension IntArrayFormatExtension on Array<int> {
   String i8(int len, [String separator = '']) => i(8, len, separator);
 }
 
-extension DoubleArrayFormatExtension on Array<double> {
+extension DoubleArrayFormatSpecifiersExtension on Array<double> {
   String d12_3(int x) =>
       [for (var i = 1; i <= x; i++) this[i]].map((n) => n.d12_3).join();
   String f6_1(int x) =>

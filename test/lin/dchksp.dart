@@ -9,7 +9,7 @@ import 'package:lapack/src/dsprfs.dart';
 import 'package:lapack/src/dsptrf.dart';
 import 'package:lapack/src/dsptri.dart';
 import 'package:lapack/src/dsptrs.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

@@ -11,7 +11,7 @@ import 'package:lapack/src/dposvx.dart';
 import 'package:lapack/src/dposvxx.dart';
 import 'package:lapack/src/dpotrf.dart';
 import 'package:lapack/src/dpotri.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

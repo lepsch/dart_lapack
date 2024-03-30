@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/zlacpy.dart';
@@ -181,5 +181,5 @@ void zchkps(
   // Print a summary of the results.
 
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
- 
+
 }

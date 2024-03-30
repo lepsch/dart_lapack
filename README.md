@@ -1,5 +1,7 @@
 # FORTRAN to Dart
 
+Source hash: 50d689057af506e256243ff521641454b241a43b
+
 ## References
  - LAPACK constants: https://netlib.org/lapack/explore-html/d4/d69/namespacela__constants.html
  - Format specifiers: https://docs.oracle.com/cd/E19957-01/805-4939/z40007437a2e/index.html

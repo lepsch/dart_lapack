@@ -1,23 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/blas/xerbla.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zhemm.dart';
-import 'package:lapack/src/blas/zher2k.dart';
-import 'package:lapack/src/blas/zherk.dart';
-import 'package:lapack/src/blas/zsymm.dart';
-import 'package:lapack/src/blas/zsyr2k.dart';
-import 'package:lapack/src/blas/zsyrk.dart';
-import 'package:lapack/src/blas/ztrmm.dart';
-import 'package:lapack/src/blas/ztrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_extensions.dart';
-import 'package:lapack/src/intrinsics/epsilon.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/range.dart';
+import 'package:lapack/blas.dart';
 
 import '../test_driver.dart';
 import 'common.dart';

@@ -9,7 +9,7 @@ import 'package:lapack/src/dsytrf.dart';
 import 'package:lapack/src/dsytri2.dart';
 import 'package:lapack/src/dsytrs.dart';
 import 'package:lapack/src/dsytrs2.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 

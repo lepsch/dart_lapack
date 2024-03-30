@@ -6,7 +6,7 @@ import 'package:lapack/src/dgesvxx.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dposvxx.dart';
 import 'package:lapack/src/dsysvxx.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';

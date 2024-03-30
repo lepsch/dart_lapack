@@ -13,7 +13,7 @@ import 'package:lapack/src/dlange.dart';
 import 'package:lapack/src/dlantr.dart';
 import 'package:lapack/src/dlaqge.dart';
 import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';

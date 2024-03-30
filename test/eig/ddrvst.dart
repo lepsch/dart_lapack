@@ -17,7 +17,7 @@ import 'package:lapack/src/dsyev.dart';
 import 'package:lapack/src/dsyevd.dart';
 import 'package:lapack/src/dsyevr.dart';
 import 'package:lapack/src/dsyevx.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

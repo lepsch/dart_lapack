@@ -1,4 +1,4 @@
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/blas.dart';
 
 import '../test_driver.dart';
 import 'dblat1.dart';

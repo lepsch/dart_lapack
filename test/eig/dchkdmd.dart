@@ -12,7 +12,7 @@ import 'package:lapack/src/dgeev.dart';
 import 'package:lapack/src/dlange.dart';
 import 'package:lapack/src/dlarnv.dart';
 import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';

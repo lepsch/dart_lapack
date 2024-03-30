@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/intrinsics/digits.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
 import 'package:lapack/src/intrinsics/huge.dart';
@@ -34,7 +34,7 @@ void main() {
   double R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj;
   final X = Array<double>(N), stepX = Array<double>(N), limX = Array<double>(N);
   Complex Y;
-  final cInf = Array<Complex>(nInf), cNaN = Array<Complex>(nNaN); 
+  final cInf = Array<Complex>(nInf), cNaN = Array<Complex>(nNaN);
 
   // .. Initialize error counts ..
   subnormalTreatedAs0 = 0;

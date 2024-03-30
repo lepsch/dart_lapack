@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/intrinsics/digits.dart';
 import 'package:lapack/src/intrinsics/huge.dart';
 import 'package:lapack/src/intrinsics/maxexponent.dart';

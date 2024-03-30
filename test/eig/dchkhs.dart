@@ -12,7 +12,7 @@ import 'package:lapack/src/dorghr.dart';
 import 'package:lapack/src/dormhr.dart';
 import 'package:lapack/src/dtrevc.dart';
 import 'package:lapack/src/dtrevc3.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

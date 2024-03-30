@@ -13,7 +13,7 @@ import 'package:lapack/src/dptsv.dart';
 import 'package:lapack/src/dptsvx.dart';
 import 'package:lapack/src/dpttrf.dart';
 import 'package:lapack/src/dpttrs.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 

@@ -6,7 +6,7 @@ import 'package:lapack/src/dlansy.dart';
 import 'package:lapack/src/dsysv_rook.dart';
 import 'package:lapack/src/dsytrf_rook.dart';
 import 'package:lapack/src/dsytri_rook.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 

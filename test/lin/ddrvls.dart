@@ -14,7 +14,7 @@ import 'package:lapack/src/dgelsy.dart';
 import 'package:lapack/src/dgetsls.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

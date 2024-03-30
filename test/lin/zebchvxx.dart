@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';

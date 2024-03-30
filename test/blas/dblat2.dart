@@ -1,29 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgbmv.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dger.dart';
-import 'package:lapack/src/blas/dsbmv.dart';
-import 'package:lapack/src/blas/dspmv.dart';
-import 'package:lapack/src/blas/dspr.dart';
-import 'package:lapack/src/blas/dspr2.dart';
-import 'package:lapack/src/blas/dsymv.dart';
-import 'package:lapack/src/blas/dsyr.dart';
-import 'package:lapack/src/blas/dsyr2.dart';
-import 'package:lapack/src/blas/dtbmv.dart';
-import 'package:lapack/src/blas/dtbsv.dart';
-import 'package:lapack/src/blas/dtpmv.dart';
-import 'package:lapack/src/blas/dtpsv.dart';
-import 'package:lapack/src/blas/dtrmv.dart';
-import 'package:lapack/src/blas/dtrsv.dart';
-import 'package:lapack/src/blas/xerbla.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_extensions.dart';
-import 'package:lapack/src/intrinsics/epsilon.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/range.dart';
+import 'package:lapack/blas.dart';
 
 import '../test_driver.dart';
 import 'common.dart';

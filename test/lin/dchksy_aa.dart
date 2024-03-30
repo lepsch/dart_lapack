@@ -4,7 +4,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dsytrf_aa.dart';
 import 'package:lapack/src/dsytrs_aa.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 

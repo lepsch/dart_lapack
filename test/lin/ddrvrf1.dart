@@ -2,7 +2,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlansf.dart';
 import 'package:lapack/src/dlansy.dart';
 import 'package:lapack/src/dtrttf.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

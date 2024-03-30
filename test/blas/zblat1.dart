@@ -1,24 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/blas/dzasum.dart';
-import 'package:lapack/src/blas/dznrm2.dart';
-import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zdotc.dart';
-import 'package:lapack/src/blas/zdotu.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zscal.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_extensions.dart';
-import 'package:lapack/src/intrinsics/epsilon.dart';
-import 'package:lapack/src/intrinsics/huge.dart';
-import 'package:lapack/src/intrinsics/random_number.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/range.dart';
+import 'package:lapack/blas.dart';
 
 import '../test_driver.dart';
 import 'common.dart';

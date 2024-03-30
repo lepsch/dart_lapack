@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 
 class _DlamchCache {
   var FIRST = true;

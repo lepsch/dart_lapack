@@ -37,7 +37,7 @@ import 'package:lapack/src/dsytrd.dart';
 import 'package:lapack/src/dsytrd_2stage.dart';
 import 'package:lapack/src/dsytrd_sb2st.dart';
 import 'package:lapack/src/dsytrd_sy2sb.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

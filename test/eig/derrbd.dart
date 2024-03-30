@@ -6,7 +6,7 @@ import 'package:lapack/src/dgebd2.dart';
 import 'package:lapack/src/dgebrd.dart';
 import 'package:lapack/src/dorgbr.dart';
 import 'package:lapack/src/dormbr.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';

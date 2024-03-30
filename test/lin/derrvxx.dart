@@ -23,7 +23,7 @@ import 'package:lapack/src/dsysv_rk.dart';
 import 'package:lapack/src/dsysv_rook.dart';
 import 'package:lapack/src/dsysvx.dart';
 import 'package:lapack/src/dsysvxx.dart';
-import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
