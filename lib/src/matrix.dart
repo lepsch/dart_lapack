@@ -188,6 +188,7 @@ class Matrix<T> implements Box<T> {
     );
   }
 
+  @pragma('vm:prefer-inline')
   int _getIndex(int i, int j) {
     i += this.offset.y;
     j += this.offset.x;
@@ -238,8 +239,10 @@ class MatrixItemAccessor<T> {
 
   const MatrixItemAccessor(this._m, this._i);
 
+  @pragma('vm:prefer-inline')
   T operator [](int j) => _m._entries[_m._getIndex(_i, j)];
 
+  @pragma('vm:prefer-inline')
   void operator []=(int j, T value) => _m._entries[_m._getIndex(_i, j)] = value;
 }
 
@@ -321,16 +324,19 @@ class _Array<T> implements Array<T> {
   }
 
   @override
+  @pragma('vm:prefer-inline')
   Array<T> call(int index, {int? offset}) {
     return slice(index, offset: offset);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   T operator [](int index) {
     return _elements[index + offset];
   }
 
   @override
+  @pragma('vm:prefer-inline')
   void operator []=(int index, T value) {
     _elements[index + offset] = value;
   }
@@ -686,6 +692,7 @@ class Matrix3d<T> {
 
   Matrix3dItemAccessor1<T> operator [](int i) => Matrix3dItemAccessor1(this, i);
 
+  @pragma('vm:prefer-inline')
   int _getIndex(int i, int j, int k) {
     i += this.offset.y;
     j += this.offset.x;
@@ -736,8 +743,10 @@ class Matrix3dItemAccessor2<T> {
 
   const Matrix3dItemAccessor2(this._m, this._i, this._j);
 
+  @pragma('vm:prefer-inline')
   T operator [](int k) => _m._entries[_m._getIndex(_i, _j, k)];
 
+  @pragma('vm:prefer-inline')
   void operator []=(int k, T value) =>
       _m._entries[_m._getIndex(_i, _j, k)] = value;
 }
