@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
 import '../test_driver.dart';
@@ -58,14 +59,11 @@ void ddrvpb(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
-  const NTYPES = 8, NTESTS = 6;
-  const NBW = 4;
-  final ISEED = Array<int>(4), KDVAL = Array<int>(NBW);
+  const NTYPES = 8, NTESTS = 6, NBW = 4;
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const FACTS = ['F', 'N', 'E'];
   const EQUEDS = ['N', 'Y'];
-  final INFO = Box(0);
 
   // Initialize constants and the random number seed.
 
@@ -73,408 +71,427 @@ void ddrvpb(
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
-  }
+  final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrvx(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
-  if (TSTERR) derrvx(PATH, NOUT, test);
-  infoc.INFOT = 0;
-  KDVAL[1] = 0;
-
-  // Set the block size and minimum block size for testing.
-
-  final NB = 1;
-  final NBMIN = 2;
-  xlaenv(1, NB);
-  xlaenv(2, NBMIN);
+  test.setUp(() {
+    // Set the block size and minimum block size for testing.
+    final NB = 1;
+    final NBMIN = 2;
+    xlaenv(1, NB);
+    xlaenv(2, NBMIN);
+  });
 
   // Do for each value of N in NVAL
 
-  for (var IN = 1; IN <= NN; IN++) {
+  for (final IN in 1.through(NN)) {
     final N = NVAL[IN];
     final LDA = max(N, 1);
-    var XTYPE = 'N';
 
     // Set limits on the number of loop iterations.
 
-    final NKD = max(1, min(N, 4));
+    final NKD = max(1, min(N, NBW));
     final NIMAT = N == 0 ? 1 : NTYPES;
+    final KDVAL = [
+      0,
+      N + (N + 1) ~/ 4,
+      (3 * N - 1) ~/ 4,
+      (N + 1) ~/ 4,
+    ];
 
-    KDVAL[2] = N + (N + 1) ~/ 4;
-    KDVAL[3] = (3 * N - 1) ~/ 4;
-    KDVAL[4] = (N + 1) ~/ 4;
-
-    for (var IKD = 1; IKD <= NKD; IKD++) {
+    for (final IKD in 1.through(NKD)) {
       // Do for KD = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This order
       // makes it easier to skip redundant values for small values
       // of N.
 
-      final KD = KDVAL[IKD];
+      final KD = KDVAL[IKD - 1];
       final LDAB = KD + 1;
 
       // Do first for UPLO = 'U', then for UPLO = 'L'
 
-      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+      for (final IUPLO in 1.through(2)) {
         final (UPLO, PACKIT, KOFF) =
             IUPLO == 1 ? ('U', 'Q', max(1, KD + 2 - N)) : ('L', 'B', 1);
 
         int IZERO = 0, I1 = 0, I2 = 0;
-        for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+        for (final IMAT in 1.through(NIMAT)) {
           // Do the tests only if DOTYPE( IMAT ) is true.
-
-          if (!DOTYPE[IMAT]) continue;
+          final skip = !DOTYPE[IMAT];
 
           // Skip types 2, 3, or 4 if the matrix size is too small.
-
           final ZEROT = IMAT >= 2 && IMAT <= 4;
           if (ZEROT && N < IMAT - 1) continue;
 
-          if (!ZEROT || !DOTYPE[1]) {
-            // Set up parameters with DLATB4 and generate a test
-            // matrix with DLATMS.
-            final (:TYPE, KL: _, KU: _, :ANORM, :MODE, :COND, :DIST) =
-                dlatb4(PATH, IMAT, N, N);
+          test('DDRVPB (IN=$IN IKD=$IKD IUPLO=$IUPLO IMAT=$IMAT)', () {
+            final INFO = Box(0);
+            String? XTYPE;
 
-            srnamc.SRNAMT = 'DLATMS';
-            dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KD, KD,
-                PACKIT, A(KOFF).asMatrix(), LDAB, WORK, INFO);
+            if (!ZEROT || !DOTYPE[1] || TestDriver.isAsync) {
+              // Set up parameters with DLATB4 and generate a test
+              // matrix with DLATMS.
+              final (:TYPE, KL: _, KU: _, :ANORM, :MODE, :COND, :DIST) =
+                  dlatb4(PATH, IMAT, N, N);
 
-            // Check error code from DLATMS.
+              srnamc.SRNAMT = 'DLATMS';
+              dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KD, KD,
+                  PACKIT, A(KOFF).asMatrix(), LDAB, WORK, INFO);
 
-            if (INFO.value != 0) {
-              alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1,
-                  IMAT, NFAIL, NERRS, NOUT);
-              continue;
-            }
-          } else if (IZERO > 0) {
-            // Use the same matrix for types 3 and 4 as for type
-            // 2 by copying back the zeroed out column,
+              // Check error code from DLATMS.
+              test.expect(INFO.value, 0);
+              if (INFO.value != 0) {
+                alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1,
+                    IMAT, NFAIL, NERRS, NOUT);
+                return;
+              }
+            } else if (IZERO > 0) {
+              // Use the same matrix for types 3 and 4 as for type
+              // 2 by copying back the zeroed out column,
 
-            var IW = 2 * LDA + 1;
-            if (IUPLO == 1) {
-              final IOFF = (IZERO - 1) * LDAB + KD + 1;
-              dcopy(IZERO - I1, WORK(IW), 1, A(IOFF - IZERO + I1), 1);
-              IW += IZERO - I1;
-              dcopy(I2 - IZERO + 1, WORK(IW), 1, A(IOFF), max(LDAB - 1, 1));
-            } else {
-              var IOFF = (I1 - 1) * LDAB + 1;
-              dcopy(IZERO - I1, WORK(IW), 1, A(IOFF + IZERO - I1),
-                  max(LDAB - 1, 1));
-              IOFF = (IZERO - 1) * LDAB + 1;
-              IW += IZERO - I1;
-              dcopy(I2 - IZERO + 1, WORK(IW), 1, A(IOFF), 1);
-            }
-          }
-
-          // For types 2-4, zero one row and column of the matrix
-          // to test that INFO is returned correctly.
-
-          IZERO = 0;
-          if (ZEROT) {
-            if (IMAT == 2) {
-              IZERO = 1;
-            } else if (IMAT == 3) {
-              IZERO = N;
-            } else {
-              IZERO = N ~/ 2 + 1;
+              var IW = 2 * LDA + 1;
+              if (IUPLO == 1) {
+                final IOFF = (IZERO - 1) * LDAB + KD + 1;
+                dcopy(IZERO - I1, WORK(IW), 1, A(IOFF - IZERO + I1), 1);
+                IW += IZERO - I1;
+                dcopy(I2 - IZERO + 1, WORK(IW), 1, A(IOFF), max(LDAB - 1, 1));
+              } else {
+                var IOFF = (I1 - 1) * LDAB + 1;
+                dcopy(IZERO - I1, WORK(IW), 1, A(IOFF + IZERO - I1),
+                    max(LDAB - 1, 1));
+                IOFF = (IZERO - 1) * LDAB + 1;
+                IW += IZERO - I1;
+                dcopy(I2 - IZERO + 1, WORK(IW), 1, A(IOFF), 1);
+              }
             }
 
-            // Save the zeroed out row and column in WORK(*,3)
+            // For types 2-4, zero one row and column of the matrix
+            // to test that INFO is returned correctly.
 
-            var IW = 2 * LDA;
-            for (var I = 1; I <= min(2 * KD + 1, N); I++) {
-              WORK[IW + I] = ZERO;
-            }
-            IW++;
-            I1 = max(IZERO - KD, 1);
-            I2 = min(IZERO + KD, N);
-
-            if (IUPLO == 1) {
-              final IOFF = (IZERO - 1) * LDAB + KD + 1;
-              dswap(IZERO - I1, A(IOFF - IZERO + I1), 1, WORK(IW), 1);
-              IW += IZERO - I1;
-              dswap(I2 - IZERO + 1, A(IOFF), max(LDAB - 1, 1), WORK(IW), 1);
-            } else {
-              var IOFF = (I1 - 1) * LDAB + 1;
-              dswap(IZERO - I1, A(IOFF + IZERO - I1), max(LDAB - 1, 1),
-                  WORK(IW), 1);
-              IOFF = (IZERO - 1) * LDAB + 1;
-              IW += IZERO - I1;
-              dswap(I2 - IZERO + 1, A(IOFF), 1, WORK(IW), 1);
-            }
-          }
-
-          // Save a copy of the matrix A in ASAV.
-
-          dlacpy('Full', KD + 1, N, A.asMatrix(), LDAB, ASAV.asMatrix(), LDAB);
-
-          for (var IEQUED = 1; IEQUED <= 2; IEQUED++) {
-            final EQUED = Box(EQUEDS[IEQUED - 1]);
-            final NFACT = IEQUED == 1 ? 3 : 1;
-
-            var RCONDC = ZERO, ROLDC = ZERO;
-            final SCOND = Box(0.0), AMAX = Box(0.0);
-            for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
-              final FACT = FACTS[IFACT - 1];
-              final PREFAC = lsame(FACT, 'F');
-              final NOFACT = lsame(FACT, 'N');
-              final EQUIL = lsame(FACT, 'E');
-
-              if (ZEROT) {
-                if (PREFAC) continue;
-                RCONDC = ZERO;
-              } else if (!lsame(FACT, 'N')) {
-                // Compute the condition number for comparison
-                // with the value returned by DPBSVX (FACT =
-                // 'N' reuses the condition number from the
-                // previous iteration with FACT = 'F').
-
-                dlacpy('Full', KD + 1, N, ASAV.asMatrix(), LDAB,
-                    AFAC.asMatrix(), LDAB);
-                if (EQUIL || IEQUED > 1) {
-                  // Compute row and column scale factors to
-                  // equilibrate the matrix A.
-
-                  dpbequ(
-                      UPLO, N, KD, AFAC.asMatrix(), LDAB, S, SCOND, AMAX, INFO);
-                  if (INFO.value == 0 && N > 0) {
-                    if (IEQUED > 1) SCOND.value = ZERO;
-
-                    // Equilibrate the matrix.
-
-                    dlaqsb(UPLO, N, KD, AFAC.asMatrix(), LDAB, S, SCOND.value,
-                        AMAX.value, EQUED);
-                  }
-                }
-
-                // Save the condition number of the
-                // non-equilibrated system for use in DGET04.
-
-                if (EQUIL) ROLDC = RCONDC;
-
-                // Compute the 1-norm of A.
-
-                final ANORM =
-                    dlansb('1', UPLO, N, KD, AFAC.asMatrix(), LDAB, RWORK);
-
-                // Factor the matrix A.
-
-                dpbtrf(UPLO, N, KD, AFAC.asMatrix(), LDAB, INFO);
-
-                // Form the inverse of A.
-
-                dlaset('Full', N, N, ZERO, ONE, A.asMatrix(), LDA);
-                srnamc.SRNAMT = 'DPBTRS';
-                dpbtrs(UPLO, N, KD, N, AFAC.asMatrix(), LDAB, A.asMatrix(), LDA,
-                    INFO);
-
-                // Compute the 1-norm condition number of A.
-
-                final AINVNM = dlange('1', N, N, A.asMatrix(), LDA, RWORK);
-                if (ANORM <= ZERO || AINVNM <= ZERO) {
-                  RCONDC = ONE;
-                } else {
-                  RCONDC = (ONE / ANORM) / AINVNM;
-                }
+            IZERO = 0;
+            if (ZEROT) {
+              if (IMAT == 2) {
+                IZERO = 1;
+              } else if (IMAT == 3) {
+                IZERO = N;
+              } else {
+                IZERO = N ~/ 2 + 1;
               }
 
-              // Restore the matrix A.
+              // Save the zeroed out row and column in WORK(*,3)
 
-              dlacpy(
-                  'Full', KD + 1, N, ASAV.asMatrix(), LDAB, A.asMatrix(), LDAB);
+              var IW = 2 * LDA;
+              for (var I = 1; I <= min(2 * KD + 1, N); I++) {
+                WORK[IW + I] = ZERO;
+              }
+              IW++;
+              I1 = max(IZERO - KD, 1);
+              I2 = min(IZERO + KD, N);
 
-              // Form an exact solution and set the right hand
-              // side.
+              if (IUPLO == 1) {
+                final IOFF = (IZERO - 1) * LDAB + KD + 1;
+                dswap(IZERO - I1, A(IOFF - IZERO + I1), 1, WORK(IW), 1);
+                IW += IZERO - I1;
+                dswap(I2 - IZERO + 1, A(IOFF), max(LDAB - 1, 1), WORK(IW), 1);
+              } else {
+                var IOFF = (I1 - 1) * LDAB + 1;
+                dswap(IZERO - I1, A(IOFF + IZERO - I1), max(LDAB - 1, 1),
+                    WORK(IW), 1);
+                IOFF = (IZERO - 1) * LDAB + 1;
+                IW += IZERO - I1;
+                dswap(I2 - IZERO + 1, A(IOFF), 1, WORK(IW), 1);
+              }
+            }
 
-              srnamc.SRNAMT = 'DLARHS';
-              dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A.asMatrix(),
-                  LDAB, XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
-              XTYPE = 'C';
-              dlacpy('Full', N, NRHS, B.asMatrix(), LDA, BSAV.asMatrix(), LDA);
+            // Save a copy of the matrix A in ASAV.
 
-              if (NOFACT) {
-                // --- Test DPBSV  ---
+            dlacpy(
+                'Full', KD + 1, N, A.asMatrix(), LDAB, ASAV.asMatrix(), LDAB);
 
-                // Compute the L*L' or U'*U factorization of the
-                // matrix and solve the system.
+            for (var IEQUED = 1; IEQUED <= 2; IEQUED++) {
+              final EQUED = Box(EQUEDS[IEQUED - 1]);
+              final NFACT = IEQUED == 1 ? 3 : 1;
 
-                dlacpy('Full', KD + 1, N, A.asMatrix(), LDAB, AFAC.asMatrix(),
-                    LDAB);
-                dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+              var RCONDC = ZERO, ROLDC = ZERO;
+              final SCOND = Box(0.0), AMAX = Box(0.0);
+              for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
+                final FACT = FACTS[IFACT - 1];
+                final PREFAC = lsame(FACT, 'F');
+                final NOFACT = lsame(FACT, 'N');
+                final EQUIL = lsame(FACT, 'E');
 
-                srnamc.SRNAMT = 'DPBSV ';
-                dpbsv(UPLO, N, KD, NRHS, AFAC.asMatrix(), LDAB, X.asMatrix(),
-                    LDA, INFO);
+                if (ZEROT) {
+                  if (PREFAC) continue;
+                  RCONDC = ZERO;
+                } else if (!lsame(FACT, 'N')) {
+                  // Compute the condition number for comparison
+                  // with the value returned by DPBSVX (FACT =
+                  // 'N' reuses the condition number from the
+                  // previous iteration with FACT = 'F').
 
-                // Check error code from DPBSV .
+                  dlacpy('Full', KD + 1, N, ASAV.asMatrix(), LDAB,
+                      AFAC.asMatrix(), LDAB);
+                  if (EQUIL || IEQUED > 1) {
+                    // Compute row and column scale factors to
+                    // equilibrate the matrix A.
 
-                if (INFO.value != IZERO) {
-                  alaerh(PATH, 'DPBSV ', INFO.value, IZERO, UPLO, N, N, KD, KD,
-                      NRHS, IMAT, NFAIL, NERRS, NOUT);
-                } else if (INFO.value == 0) {
-                  // Reconstruct matrix from factors and compute
-                  // residual.
+                    dpbequ(UPLO, N, KD, AFAC.asMatrix(), LDAB, S, SCOND, AMAX,
+                        INFO);
+                    if (INFO.value == 0 && N > 0) {
+                      if (IEQUED > 1) SCOND.value = ZERO;
 
-                  dpbt01(UPLO, N, KD, A.asMatrix(), LDAB, AFAC.asMatrix(), LDAB,
-                      RWORK, RESULT(1));
+                      // Equilibrate the matrix.
 
-                  // Compute residual of the computed solution.
-
-                  dlacpy(
-                      'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
-                  dpbt02(UPLO, N, KD, NRHS, A.asMatrix(), LDAB, X.asMatrix(),
-                      LDA, WORK.asMatrix(), LDA, RWORK, RESULT(2));
-
-                  // Check solution from generated exact solution.
-
-                  dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
-                      RCONDC, RESULT(3));
-                  const NT = 3;
-
-                  // Print information about the tests that did
-                  // not pass the threshold.
-
-                  for (var K = 1; K <= NT; K++) {
-                    if (RESULT[K] >= THRESH) {
-                      if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                      NOUT.println(
-                          ' DPBSV, UPLO=\'${UPLO.a1}\', N =${N.i5}, KD =${KD.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                      NFAIL++;
+                      dlaqsb(UPLO, N, KD, AFAC.asMatrix(), LDAB, S, SCOND.value,
+                          AMAX.value, EQUED);
                     }
                   }
-                  NRUN += NT;
+
+                  // Save the condition number of the
+                  // non-equilibrated system for use in DGET04.
+
+                  if (EQUIL) ROLDC = RCONDC;
+
+                  // Compute the 1-norm of A.
+
+                  final ANORM =
+                      dlansb('1', UPLO, N, KD, AFAC.asMatrix(), LDAB, RWORK);
+
+                  // Factor the matrix A.
+
+                  dpbtrf(UPLO, N, KD, AFAC.asMatrix(), LDAB, INFO);
+
+                  // Form the inverse of A.
+
+                  dlaset('Full', N, N, ZERO, ONE, A.asMatrix(), LDA);
+                  srnamc.SRNAMT = 'DPBTRS';
+                  dpbtrs(UPLO, N, KD, N, AFAC.asMatrix(), LDAB, A.asMatrix(),
+                      LDA, INFO);
+
+                  // Compute the 1-norm condition number of A.
+
+                  final AINVNM = dlange('1', N, N, A.asMatrix(), LDA, RWORK);
+                  if (ANORM <= ZERO || AINVNM <= ZERO) {
+                    RCONDC = ONE;
+                  } else {
+                    RCONDC = (ONE / ANORM) / AINVNM;
+                  }
                 }
-              }
 
-              // --- Test DPBSVX ---
+                // Restore the matrix A.
 
-              if (!PREFAC) {
-                dlaset('Full', KD + 1, N, ZERO, ZERO, AFAC.asMatrix(), LDAB);
-              }
-              dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDA);
-              if (IEQUED > 1 && N > 0) {
-                // Equilibrate the matrix if FACT='F' and
-                // EQUED='Y'
+                dlacpy('Full', KD + 1, N, ASAV.asMatrix(), LDAB, A.asMatrix(),
+                    LDAB);
 
-                dlaqsb(UPLO, N, KD, A.asMatrix(), LDAB, S, SCOND.value,
-                    AMAX.value, EQUED);
-              }
+                // Form an exact solution and set the right hand
+                // side.
 
-              // Solve the system and compute the condition
-              // number and error bounds using DPBSVX.
+                srnamc.SRNAMT = 'DLARHS';
+                XTYPE ??= IKD == 1 ? 'N' : 'C';
+                dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A.asMatrix(),
+                    LDAB, XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
+                XTYPE = 'C';
+                dlacpy(
+                    'Full', N, NRHS, B.asMatrix(), LDA, BSAV.asMatrix(), LDA);
 
-              final RCOND = Box(0.0);
-              srnamc.SRNAMT = 'DPBSVX';
-              dpbsvx(
-                  FACT,
-                  UPLO,
-                  N,
-                  KD,
-                  NRHS,
-                  A.asMatrix(),
-                  LDAB,
-                  AFAC.asMatrix(),
-                  LDAB,
-                  EQUED,
-                  S,
-                  B.asMatrix(),
-                  LDA,
-                  X.asMatrix(),
-                  LDA,
-                  RCOND,
-                  RWORK,
-                  RWORK(NRHS + 1),
-                  WORK,
-                  IWORK,
-                  INFO);
+                if (NOFACT) {
+                  // --- Test DPBSV  ---
 
-              // Check the error code from DPBSVX.
+                  // Compute the L*L' or U'*U factorization of the
+                  // matrix and solve the system.
 
-              if (INFO.value != IZERO) {
-                alaerh(PATH, 'DPBSVX', INFO.value, IZERO, FACT + UPLO, N, N, KD,
-                    KD, NRHS, IMAT, NFAIL, NERRS, NOUT);
-                continue;
-              }
+                  dlacpy('Full', KD + 1, N, A.asMatrix(), LDAB, AFAC.asMatrix(),
+                      LDAB);
+                  dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-              final int K1;
-              if (INFO.value == 0) {
+                  srnamc.SRNAMT = 'DPBSV ';
+                  dpbsv(UPLO, N, KD, NRHS, AFAC.asMatrix(), LDAB, X.asMatrix(),
+                      LDA, INFO);
+
+                  // Check error code from DPBSV .
+                  test.expect(INFO.value, IZERO);
+                  if (INFO.value != IZERO) {
+                    alaerh(PATH, 'DPBSV ', INFO.value, IZERO, UPLO, N, N, KD,
+                        KD, NRHS, IMAT, NFAIL, NERRS, NOUT);
+                  } else if (INFO.value == 0) {
+                    // Reconstruct matrix from factors and compute
+                    // residual.
+
+                    dpbt01(UPLO, N, KD, A.asMatrix(), LDAB, AFAC.asMatrix(),
+                        LDAB, RWORK, RESULT(1));
+
+                    // Compute residual of the computed solution.
+
+                    dlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(),
+                        LDA);
+                    dpbt02(UPLO, N, KD, NRHS, A.asMatrix(), LDAB, X.asMatrix(),
+                        LDA, WORK.asMatrix(), LDA, RWORK, RESULT(2));
+
+                    // Check solution from generated exact solution.
+
+                    dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
+                        RCONDC, RESULT(3));
+                    const NT = 3;
+
+                    // Print information about the tests that did
+                    // not pass the threshold.
+
+                    for (var K = 1; K <= NT; K++) {
+                      final reason =
+                          ' DPBSV, UPLO=\'${UPLO.a1}\', N =${N.i5}, KD =${KD.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}';
+                      test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                      if (RESULT[K] >= THRESH) {
+                        if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                        NOUT.println(reason);
+                        NFAIL++;
+                      }
+                    }
+                    NRUN += NT;
+                  }
+                }
+
+                // --- Test DPBSVX ---
+
                 if (!PREFAC) {
-                  // Reconstruct matrix from factors and
-                  // compute residual.
+                  dlaset('Full', KD + 1, N, ZERO, ZERO, AFAC.asMatrix(), LDAB);
+                }
+                dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDA);
+                if (IEQUED > 1 && N > 0) {
+                  // Equilibrate the matrix if FACT='F' and
+                  // EQUED='Y'
 
-                  dpbt01(UPLO, N, KD, A.asMatrix(), LDAB, AFAC.asMatrix(), LDAB,
-                      RWORK(2 * NRHS + 1), RESULT(1));
-                  K1 = 1;
-                } else {
-                  K1 = 2;
+                  dlaqsb(UPLO, N, KD, A.asMatrix(), LDAB, S, SCOND.value,
+                      AMAX.value, EQUED);
                 }
 
-                // Compute residual of the computed solution.
+                // Solve the system and compute the condition
+                // number and error bounds using DPBSVX.
 
-                dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDA, WORK.asMatrix(),
-                    LDA);
-                dpbt02(UPLO, N, KD, NRHS, ASAV.asMatrix(), LDAB, X.asMatrix(),
-                    LDA, WORK.asMatrix(), LDA, RWORK(2 * NRHS + 1), RESULT(2));
-
-                // Check solution from generated exact solution.
-
-                if (NOFACT || (PREFAC && lsame(EQUED.value, 'N'))) {
-                  dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
-                      RCONDC, RESULT(3));
-                } else {
-                  dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
-                      ROLDC, RESULT(3));
-                }
-
-                // Check the error bounds from iterative
-                // refinement.
-
-                dpbt05(
+                final RCOND = Box(0.0);
+                srnamc.SRNAMT = 'DPBSVX';
+                dpbsvx(
+                    FACT,
                     UPLO,
                     N,
                     KD,
                     NRHS,
-                    ASAV.asMatrix(),
+                    A.asMatrix(),
                     LDAB,
+                    AFAC.asMatrix(),
+                    LDAB,
+                    EQUED,
+                    S,
                     B.asMatrix(),
                     LDA,
                     X.asMatrix(),
                     LDA,
-                    XACT.asMatrix(),
-                    LDA,
+                    RCOND,
                     RWORK,
                     RWORK(NRHS + 1),
-                    RESULT(4));
-              } else {
-                K1 = 6;
-              }
+                    WORK,
+                    IWORK,
+                    INFO);
 
-              // Compare RCOND from DPBSVX with the computed
-              // value in RCONDC.
-
-              RESULT[6] = dget06(RCOND.value, RCONDC);
-
-              // Print information about the tests that did not
-              // pass the threshold.
-
-              for (var K = K1; K <= 6; K++) {
-                if (RESULT[K] >= THRESH) {
-                  if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                  if (PREFAC) {
-                    NOUT.println(
-                        ' DPBSVX( \'${FACT.a1}\'${UPLO.a1}\', ${N.i5}, ${KD.i5}, ... ), EQUED=\'${EQUED.value.a1}\', type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                  } else {
-                    NOUT.println(
-                        ' DPBSVX( \'${FACT.a1}\'${UPLO.a1}\', ${N.i5}, ${KD.i5}, ... ), type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}');
-                  }
-                  NFAIL++;
+                // Check the error code from DPBSVX.
+                test.expect(INFO.value, IZERO);
+                if (INFO.value != IZERO) {
+                  alaerh(PATH, 'DPBSVX', INFO.value, IZERO, FACT + UPLO, N, N,
+                      KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT);
+                  continue;
                 }
+
+                final int K1;
+                if (INFO.value == 0) {
+                  if (!PREFAC) {
+                    // Reconstruct matrix from factors and
+                    // compute residual.
+
+                    dpbt01(UPLO, N, KD, A.asMatrix(), LDAB, AFAC.asMatrix(),
+                        LDAB, RWORK(2 * NRHS + 1), RESULT(1));
+                    K1 = 1;
+                  } else {
+                    K1 = 2;
+                  }
+
+                  // Compute residual of the computed solution.
+
+                  dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDA, WORK.asMatrix(),
+                      LDA);
+                  dpbt02(
+                      UPLO,
+                      N,
+                      KD,
+                      NRHS,
+                      ASAV.asMatrix(),
+                      LDAB,
+                      X.asMatrix(),
+                      LDA,
+                      WORK.asMatrix(),
+                      LDA,
+                      RWORK(2 * NRHS + 1),
+                      RESULT(2));
+
+                  // Check solution from generated exact solution.
+
+                  if (NOFACT || (PREFAC && lsame(EQUED.value, 'N'))) {
+                    dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
+                        RCONDC, RESULT(3));
+                  } else {
+                    dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
+                        ROLDC, RESULT(3));
+                  }
+
+                  // Check the error bounds from iterative
+                  // refinement.
+
+                  dpbt05(
+                      UPLO,
+                      N,
+                      KD,
+                      NRHS,
+                      ASAV.asMatrix(),
+                      LDAB,
+                      B.asMatrix(),
+                      LDA,
+                      X.asMatrix(),
+                      LDA,
+                      XACT.asMatrix(),
+                      LDA,
+                      RWORK,
+                      RWORK(NRHS + 1),
+                      RESULT(4));
+                } else {
+                  K1 = 6;
+                }
+
+                // Compare RCOND from DPBSVX with the computed
+                // value in RCONDC.
+
+                RESULT[6] = dget06(RCOND.value, RCONDC);
+
+                // Print information about the tests that did not
+                // pass the threshold.
+
+                for (var K = K1; K <= 6; K++) {
+                  final reason = PREFAC
+                      ? ' DPBSVX( \'${FACT.a1}\'${UPLO.a1}\', ${N.i5}, ${KD.i5}, ... ), EQUED=\'${EQUED.value.a1}\', type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}'
+                      : ' DPBSVX( \'${FACT.a1}\'${UPLO.a1}\', ${N.i5}, ${KD.i5}, ... ), type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}';
+                  test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                  if (RESULT[K] >= THRESH) {
+                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                    NOUT.println(reason);
+                    NFAIL++;
+                  }
+                }
+                NRUN += 7 - K1;
               }
-              NRUN += 7 - K1;
             }
-          }
+          }, skip: skip);
         }
       }
     }

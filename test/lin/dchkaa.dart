@@ -634,58 +634,60 @@ Future<void> dchkaa(
       final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkpb(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('PB: positive definite banded matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchkpb(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NNB2,
+              NBVAL2.copy(),
+              NNS,
+              NSVAL.copy(),
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvpb(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            B(1, 4).asArray(),
-            S,
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvpb(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NRHS,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              B(1, 4).asArray(),
+              S,
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'PT')) {
       // PT:  positive definite tridiagonal matrices
 
