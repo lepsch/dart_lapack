@@ -1,18 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/ilaenv2stage.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/dsecnd.dart';
-import 'package:lapack/src/install/ilaver.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/range.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 import '../test_driver.dart';
 import 'alareq.dart';
@@ -100,7 +89,6 @@ Future<void> dchkee(
       TAUA = Array<double>(NMAX),
       TAUB = Array<double>(NMAX),
       X = Array<double>(5 * NMAX);
-  const INTSTR = '0123456789';
   final IOLDSD = Array.fromList([0, 0, 0, 1]);
 
   final A = Matrix<double>(NMAX * NMAX, NEED),
@@ -679,58 +667,12 @@ Future<void> dchkee(
       do {
         String C3 = '';
         if (!(DGX || DXV)) {
-          nextLine:
           while (true) {
-            final LINE = await NIN.readLine();
-            if (LINE.trim().isEmpty) continue;
-
-            C3 = LINE.substring(0, 3);
-            final LENP = LINE.length;
-            var I = 3;
-            var ITMP = 0;
-            var I1 = 0;
-            nextDigit:
-            while (true) {
-              I++;
-              if (I > LENP) {
-                if (I1 > 0) {
-                  break;
-                } else {
-                  NTYPES = MAXT;
-                  break;
-                }
-              }
-              if (LINE[I - 1] != ' ' && LINE[I - 1] != ',') {
-                I1 = I;
-                final C1 = LINE[I1 - 1];
-
-                // Check that a valid integer was read
-                var IC = 0;
-                var isValidDigit = false;
-                for (var K = 1; K <= 10; K++) {
-                  if (C1 == INTSTR[K - 1]) {
-                    IC = K - 1;
-                    isValidDigit = true;
-                    break;
-                  }
-                }
-                if (!isValidDigit) {
-                  NOUT.println(
-                      '\n *** Invalid integer value in column ${I.i2} of input line:\n$LINE');
-                  continue nextLine;
-                }
-
-                ITMP = 10 * ITMP + IC;
-                continue nextDigit;
-              } else if (I1 > 0) {
-                break;
-              }
-            }
-
-            NTYPES = ITMP;
+            final (STMP, ITMP) = await NIN.read2<String, int?>();
+            C3 = STMP.substring(0, 3);
+            NTYPES = ITMP ?? MAXT;
 
             // Skip the tests if NTYPES is <= 0.
-
             if (!(DEV || DES || DVX || DSX || DGV || DGS) && NTYPES <= 0) {
               NOUT.print9990(C3);
               continue;

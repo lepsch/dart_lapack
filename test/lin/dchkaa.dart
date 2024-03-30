@@ -1,16 +1,9 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/dsecnd.dart';
-import 'package:lapack/src/install/ilaver.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
+import '../test_driver.dart';
 import 'alareq.dart';
 import 'dchkeq.dart';
 import 'dchkgb.dart';
@@ -57,37 +50,29 @@ import 'ddrvsy_aa_2stage.dart';
 import 'ddrvsy_rk.dart';
 import 'ddrvsy_rook.dart';
 import 'ddrvsyx.dart';
+import 'ilaenv.dart' as mock;
+import 'xerbla.dart' as mock;
 
-void main() async {
+Future<void> dchkaa(
+  final Nin NIN,
+  final Nout NOUT,
+  final TestDriver test,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  final NIN = Nin(stdin), NOUT = Nout(stdout);
+  ilaenv = mock.ilaenv;
+  ilaenv2stage = mock.ilaenv2stage;
+  xerbla = mock.xerbla(test);
+
   const NMAX = 132;
   const MAXIN = 12;
   const MAXRHS = 16;
   const MATMAX = 30;
   const KDMAX = NMAX + (NMAX + 1) ~/ 4;
-  bool FATAL, TSTCHK, TSTDRV, TSTERR;
-  String PATH;
-  String ALINE;
-  int I,
-      IC = 0,
-      J,
-      K,
-      LA,
-      LAFAC,
-      NB,
-      NM,
-      NMATS,
-      NN,
-      NNB,
-      NNB2,
-      NNS,
-      NTYPES,
-      NRANK;
-  double EPS, THRESH;
+  bool FATAL;
+  int LA, LAFAC, NB, NTYPES;
   final DOTYPE = Array<bool>(MATMAX);
   final IWORK = Array<int>(25 * NMAX),
       MVAL = Array<int>(MAXIN),
@@ -98,7 +83,7 @@ void main() async {
       NXVAL = Array<int>(MAXIN),
       RANKVAL = Array<int>(MAXIN),
       PIV = Array<int>(NMAX);
-  const THREQ = 2.0, INTSTR = '0123456789';
+  const THREQ = 2.0;
   final A = Matrix<double>((KDMAX + 1) * NMAX, 7);
   final B = Matrix<double>(NMAX * MAXRHS, 4);
   final WORK = Matrix<double>(NMAX, 3 * NMAX + MAXRHS + 30);
@@ -123,162 +108,161 @@ void main() async {
 
   // Read the values of M
 
-  NM = await NIN.readInt();
+  final NM = await NIN.readInt();
   if (NM < 1) {
     NOUT.print9996(' NM ', NM, 1);
-    NM = 0;
     FATAL = true;
   } else if (NM > MAXIN) {
     NOUT.print9995(' NM ', NM, MAXIN);
-    NM = 0;
     FATAL = true;
-  }
-  await NIN.readArray(MVAL, NM);
-  for (I = 1; I <= NM; I++) {
-    if (MVAL[I] < 0) {
-      NOUT.print9996(' M  ', MVAL[I], 0);
-      FATAL = true;
-    } else if (MVAL[I] > NMAX) {
-      NOUT.print9995(' M  ', MVAL[I], NMAX);
-      FATAL = true;
+  } else {
+    await NIN.readArray(MVAL, NM);
+    for (var I = 1; I <= NM; I++) {
+      if (MVAL[I] < 0) {
+        NOUT.print9996(' M  ', MVAL[I], 0);
+        FATAL = true;
+      } else if (MVAL[I] > NMAX) {
+        NOUT.print9995(' M  ', MVAL[I], NMAX);
+        FATAL = true;
+      }
     }
+    NOUT.print9993('M   ', MVAL, NM);
   }
-  if (NM > 0) NOUT.print9993('M   ', MVAL, NM);
 
   // Read the values of N
 
-  NN = await NIN.readInt();
+  final NN = await NIN.readInt();
   if (NN < 1) {
     NOUT.print9996(' NN ', NN, 1);
-    NN = 0;
     FATAL = true;
   } else if (NN > MAXIN) {
     NOUT.print9995(' NN ', NN, MAXIN);
-    NN = 0;
     FATAL = true;
-  }
-  await NIN.readArray(NVAL, NN);
-  for (I = 1; I <= NN; I++) {
-    if (NVAL[I] < 0) {
-      NOUT.print9996(' N  ', NVAL[I], 0);
-      FATAL = true;
-    } else if (NVAL[I] > NMAX) {
-      NOUT.print9995(' N  ', NVAL[I], NMAX);
-      FATAL = true;
+  } else {
+    await NIN.readArray(NVAL, NN);
+    for (var I = 1; I <= NN; I++) {
+      if (NVAL[I] < 0) {
+        NOUT.print9996(' N  ', NVAL[I], 0);
+        FATAL = true;
+      } else if (NVAL[I] > NMAX) {
+        NOUT.print9995(' N  ', NVAL[I], NMAX);
+        FATAL = true;
+      }
     }
+    NOUT.print9993('N   ', NVAL, NN);
   }
-  if (NN > 0) NOUT.print9993('N   ', NVAL, NN);
 
   // Read the values of NRHS
 
-  NNS = await NIN.readInt();
+  final NNS = await NIN.readInt();
   if (NNS < 1) {
     NOUT.print9996(' NNS', NNS, 1);
-    NNS = 0;
     FATAL = true;
   } else if (NNS > MAXIN) {
     NOUT.print9995(' NNS', NNS, MAXIN);
-    NNS = 0;
     FATAL = true;
-  }
-  await NIN.readArray(NSVAL, NNS);
-  for (I = 1; I <= NNS; I++) {
-    if (NSVAL[I] < 0) {
-      NOUT.print9996('NRHS', NSVAL[I], 0);
-      FATAL = true;
-    } else if (NSVAL[I] > MAXRHS) {
-      NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
-      FATAL = true;
+  } else {
+    await NIN.readArray(NSVAL, NNS);
+    for (var I = 1; I <= NNS; I++) {
+      if (NSVAL[I] < 0) {
+        NOUT.print9996('NRHS', NSVAL[I], 0);
+        FATAL = true;
+      } else if (NSVAL[I] > MAXRHS) {
+        NOUT.print9995('NRHS', NSVAL[I], MAXRHS);
+        FATAL = true;
+      }
     }
+    NOUT.print9993('NRHS', NSVAL, NNS);
   }
-  if (NNS > 0) NOUT.print9993('NRHS', NSVAL, NNS);
 
   // Read the values of NB
 
-  NNB = await NIN.readInt();
+  final NNB = await NIN.readInt();
   if (NNB < 1) {
     NOUT.print9996('NNB ', NNB, 1);
-    NNB = 0;
     FATAL = true;
   } else if (NNB > MAXIN) {
     NOUT.print9995('NNB ', NNB, MAXIN);
-    NNB = 0;
     FATAL = true;
-  }
-  await NIN.readArray(NBVAL, NNB);
-  for (I = 1; I <= NNB; I++) {
-    if (NBVAL[I] < 0) {
-      NOUT.print9996(' NB ', NBVAL[I], 0);
-      FATAL = true;
+  } else {
+    await NIN.readArray(NBVAL, NNB);
+    for (var I = 1; I <= NNB; I++) {
+      if (NBVAL[I] < 0) {
+        NOUT.print9996(' NB ', NBVAL[I], 0);
+        FATAL = true;
+      }
     }
+    NOUT.print9993('NB  ', NBVAL, NNB);
   }
-  if (NNB > 0) NOUT.print9993('NB  ', NBVAL, NNB);
 
-  // Set NBVAL2 to be the set of unique values of NB
+  final int NNB2;
+  if (FATAL) {
+    NNB2 = 0;
+  } else {
+    // Set NBVAL2 to be the set of unique values of NB
 
-  NNB2 = 0;
-  nbLoop:
-  for (I = 1; I <= NNB; I++) {
-    NB = NBVAL[I];
-    for (J = 1; J <= NNB2; J++) {
-      if (NB == NBVAL2[J]) continue nbLoop;
+    NNB2 = () {
+      var result = 0;
+      nbLoop:
+      for (var I = 1; I <= NNB; I++) {
+        NB = NBVAL[I];
+        for (var J = 1; J <= result; J++) {
+          if (NB == NBVAL2[J]) continue nbLoop;
+        }
+        result++;
+        NBVAL2[result] = NB;
+      }
+      return result;
+    }();
+
+    // Read the values of NX
+
+    await NIN.readArray(NXVAL, NNB);
+    for (var I = 1; I <= NNB; I++) {
+      if (NXVAL[I] < 0) {
+        NOUT.print9996(' NX ', NXVAL[I], 0);
+        FATAL = true;
+      }
     }
-    NNB2++;
-    NBVAL2[NNB2] = NB;
+    if (NNB > 0) NOUT.print9993('NX  ', NXVAL, NNB);
   }
-
-  // Read the values of NX
-
-  await NIN.readArray(NXVAL, NNB);
-  for (I = 1; I <= NNB; I++) {
-    if (NXVAL[I] < 0) {
-      NOUT.print9996(' NX ', NXVAL[I], 0);
-      FATAL = true;
-    }
-  }
-  if (NNB > 0) NOUT.print9993('NX  ', NXVAL, NNB);
 
   // Read the values of RANKVAL
 
-  NRANK = await NIN.readInt();
+  final NRANK = await NIN.readInt();
   if (NN < 1) {
     NOUT.print9996(' NRANK ', NRANK, 1);
-    NRANK = 0;
     FATAL = true;
   } else if (NN > MAXIN) {
     NOUT.print9995(' NRANK ', NRANK, MAXIN);
-    NRANK = 0;
     FATAL = true;
-  }
-  await NIN.readArray(RANKVAL, NRANK);
-  for (I = 1; I <= NRANK; I++) {
-    if (RANKVAL[I] < 0) {
-      NOUT.print9996(' RANK  ', RANKVAL[I], 0);
-      FATAL = true;
-    } else if (RANKVAL[I] > 100) {
-      NOUT.print9995(' RANK  ', RANKVAL[I], 100);
-      FATAL = true;
+  } else {
+    await NIN.readArray(RANKVAL, NRANK);
+    for (var I = 1; I <= NRANK; I++) {
+      if (RANKVAL[I] < 0) {
+        NOUT.print9996(' RANK  ', RANKVAL[I], 0);
+        FATAL = true;
+      } else if (RANKVAL[I] > 100) {
+        NOUT.print9995(' RANK  ', RANKVAL[I], 100);
+        FATAL = true;
+      }
     }
+    NOUT.print9993('RANK % OF N', RANKVAL, NRANK);
   }
-  if (NRANK > 0) NOUT.print9993('RANK % OF N', RANKVAL, NRANK);
 
   // Read the threshold value for the test ratios.
-
-  THRESH = await NIN.readDouble();
+  final THRESH = await NIN.readDouble();
   NOUT.println(
       '\n Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
 
   // Read the flag that indicates whether to test the LAPACK routines.
-
-  TSTCHK = await NIN.readBool();
+  final TSTCHK = await NIN.readBool();
 
   // Read the flag that indicates whether to test the driver routines.
-
-  TSTDRV = await NIN.readBool();
+  final TSTDRV = await NIN.readBool();
 
   // Read the flag that indicates whether to test the error exits.
-
-  TSTERR = await NIN.readBool();
+  final TSTERR = await NIN.readBool();
 
   if (FATAL) {
     NOUT.println('\n Execution not attempted due to input errors');
@@ -287,52 +271,26 @@ void main() async {
 
   // Calculate and print the machine dependent constants.
 
-  EPS = dlamch('Underflow threshold');
-  NOUT.print9991('underflow', EPS);
-  EPS = dlamch('Overflow threshold');
-  NOUT.print9991('overflow ', EPS);
-  EPS = dlamch('Epsilon');
+  final underflowThreshold = dlamch('Underflow threshold');
+  NOUT.print9991('underflow', underflowThreshold);
+  final overflowThreshold = dlamch('Overflow threshold');
+  NOUT.print9991('overflow ', overflowThreshold);
+  final EPS = dlamch('Epsilon');
   NOUT.print9991('precision', EPS);
   NOUT.println();
 
   while (true) {
     // Read a test path and the number of matrix types to use.
+    final String ALINE;
+    final int NMATS;
     try {
-      ALINE = await NIN.readLine();
+      int? n;
+      (ALINE, n) = await NIN.read2<String, int?>();
+      NMATS = n ?? MATMAX;
     } on EOF catch (_) {
       break;
     }
-    PATH = ALINE.substring(0, 3);
-    NMATS = MATMAX;
-    I = 3;
-    do {
-      I++;
-      if (I > 72) {
-        NMATS = MATMAX;
-        break;
-      }
-    } while (ALINE[I - 1] == ' ');
-
-    if (I <= 72) {
-      NMATS = 0;
-      while (true) {
-        final C1 = ALINE[I - 1];
-        var isDigit = false;
-        for (K = 1; K <= 10; K++) {
-          if (C1 == INTSTR[K - 1]) {
-            IC = K - 1;
-            isDigit = true;
-            break;
-          }
-        }
-        if (!isDigit) break;
-
-        NMATS = NMATS * 10 + IC;
-        I++;
-        if (I > 72) break;
-      }
-    }
-
+    final PATH = ALINE.substring(0, 3);
     final C1 = PATH[0];
     final C2 = PATH.substring(1, 3);
     final NRHS = NSVAL[1];
@@ -1536,4 +1494,9 @@ extension on Nout {
   void print9988(String path) {
     println('\n ${path.a3} driver routines were not tested');
   }
+}
+
+void main() async {
+  await dchkaa(Nin(stdin), Nout(stdout), syncTestDriver);
+  exit(syncTestDriver.errors);
 }

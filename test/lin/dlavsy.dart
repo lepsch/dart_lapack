@@ -1,14 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dger.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dlavsy(
   final String UPLO,

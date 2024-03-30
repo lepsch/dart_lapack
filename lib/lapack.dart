@@ -2,6 +2,7 @@ library;
 
 export 'base.dart';
 export 'intrinsics.dart';
+export 'blas.dart' hide xerbla, xerbla_array, lsame;
 
 // ALLAUX - Auxiliary routines called from all precisions
 export 'src/ilaenv.dart';

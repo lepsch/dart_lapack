@@ -1,14 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dormqr.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 double dqpt01(
   final int M,

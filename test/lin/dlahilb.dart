@@ -1,8 +1,4 @@
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/matrix.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dlahilb(
   final int N,
