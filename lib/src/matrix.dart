@@ -98,7 +98,7 @@ extension ArrayExtension<T> on Array<T> {
             loc = i;
           }
         }
-        return loc;
+        return loc - start + 1;
 
       case Complex:
         int loc = start;
@@ -109,11 +109,11 @@ extension ArrayExtension<T> on Array<T> {
             loc = i;
           }
         }
-        return loc;
+        return loc - start + 1;
 
       case bool:
         for (var i = start; i <= end; i++) {
-          if (this[start] as bool) return i;
+          if (this[start] as bool) return i - start + 1;
         }
         return 0;
       default:

@@ -4,11 +4,12 @@ import 'package:lapack/src/dpstrf.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
+import '../test_driver.dart';
 import 'alaesm.dart';
 import 'chkxer.dart';
 import 'common.dart';
 
-void derrps(final String PATH, final Nout NUNIT) {
+void derrps(final String PATH, final Nout NUNIT, final TestDriver test) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -17,8 +18,10 @@ void derrps(final String PATH, final Nout NUNIT) {
   final PIV = Array<int>(NMAX);
   final INFO = Box(0), RANK = Box(0);
 
-  infoc.NOUT = NUNIT;
-  infoc.NOUT.println();
+  final NOUT = infoc.NOUT = NUNIT;
+  final OK = infoc.OK;
+  final LERR = infoc.LERR;
+  NOUT.println();
 
   // Set the variables to innocuous values.
 
@@ -30,38 +33,37 @@ void derrps(final String PATH, final Nout NUNIT) {
     WORK[J] = 0.0;
     WORK[NMAX + J] = 0.0;
   }
-  infoc.OK.value = true;
+  OK.value = true;
 
   // Test error exits of the routines that use the Cholesky
   // decomposition of a symmetric positive semidefinite matrix.
 
-  // DPSTRF
+  test('DPSTRF', () {
+    srnamc.SRNAMT = 'DPSTRF';
+    infoc.INFOT = 1;
+    dpstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO);
+    chkxer('DPSTRF', infoc.INFOT, NOUT, LERR, OK, test);
+    infoc.INFOT = 2;
+    dpstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO);
+    chkxer('DPSTRF', infoc.INFOT, NOUT, LERR, OK, test);
+    infoc.INFOT = 4;
+    dpstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO);
+    chkxer('DPSTRF', infoc.INFOT, NOUT, LERR, OK, test);
+  });
 
-  srnamc.SRNAMT = 'DPSTRF';
-  infoc.INFOT = 1;
-  dpstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO);
-  chkxer('DPSTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  infoc.INFOT = 2;
-  dpstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO);
-  chkxer('DPSTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  infoc.INFOT = 4;
-  dpstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO);
-  chkxer('DPSTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-
-  // DPSTF2
-
-  srnamc.SRNAMT = 'DPSTF2';
-  infoc.INFOT = 1;
-  dpstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO);
-  chkxer('DPSTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  infoc.INFOT = 2;
-  dpstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO);
-  chkxer('DPSTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  infoc.INFOT = 4;
-  dpstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO);
-  chkxer('DPSTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  test('DPSTF2', () {
+    srnamc.SRNAMT = 'DPSTF2';
+    infoc.INFOT = 1;
+    dpstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO);
+    chkxer('DPSTF2', infoc.INFOT, NOUT, LERR, OK, test);
+    infoc.INFOT = 2;
+    dpstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO);
+    chkxer('DPSTF2', infoc.INFOT, NOUT, LERR, OK, test);
+    infoc.INFOT = 4;
+    dpstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO);
+    chkxer('DPSTF2', infoc.INFOT, NOUT, LERR, OK, test);
+  });
 
   // Print a summary line.
-
-  alaesm(PATH, infoc.OK.value, infoc.NOUT);
+  alaesm(PATH, OK.value, NOUT);
 }

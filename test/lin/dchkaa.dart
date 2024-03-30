@@ -545,28 +545,31 @@ Future<void> dchkaa(
 
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkps(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NRANK,
-            RANKVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            PIV,
-            WORK.asArray(),
-            RWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('PS: Positive semi-definite matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchkps(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NNB2,
+              NBVAL2.copy(),
+              NRANK,
+              RANKVAL.copy(),
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              PIV,
+              WORK.asArray(),
+              RWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'PP')) {
       // PP:  positive definite packed matrices
 
