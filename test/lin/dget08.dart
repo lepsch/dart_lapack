@@ -40,7 +40,7 @@ void dget08(
 
   final (N1, N2) = lsame(TRANS, 'T') || lsame(TRANS, 'C') ? (N, M) : (M, N);
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0.
 
   final EPS = dlamch('Epsilon');
   final ANORM = dlange('I', N1, N2, A, LDA, RWORK);

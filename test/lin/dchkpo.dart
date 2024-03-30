@@ -135,7 +135,7 @@ void dchkpo(
         }
 
         // For types 3-5, zero one row and column of the matrix to
-        // test that INFO.value is returned correctly.
+        // test that INFO is returned correctly.
 
         if (ZEROT) {
           if (IMAT == 3) {
@@ -193,7 +193,7 @@ void dchkpo(
             continue;
           }
 
-          // Skip the tests if INFO.value is not 0.
+          // Skip the tests if INFO is not 0.
 
           if (INFO.value != 0) continue;
 
@@ -334,7 +334,7 @@ void dchkpo(
           }
 
           // +    TEST 8
-          // Get an estimate of RCOND.value = 1/COND.
+          // Get an estimate of RCOND = 1/COND.
 
           final ANORM = dlansy('1', UPLO, N, A.asMatrix(), LDA, RWORK);
           final RCOND = Box(0.0);

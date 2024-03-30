@@ -45,7 +45,7 @@ void zgtsv(
       // Subdiagonal is zero, no elimination is required.
 
       if (D[K] == Complex.zero) {
-        // Diagonal is zero: set INFO.value = K and return; a unique
+        // Diagonal is zero: set INFO = K and return; a unique
         // solution can not be found.
 
         INFO.value = K;

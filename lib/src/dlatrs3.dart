@@ -265,7 +265,7 @@ void dlatrs3(
       J1 = (J - 1) * NB + 1;
       J2 = min(J * NB, N) + 1;
 
-      // Solve op(A( J, J )) * X( J, RHS ) = SCALOC.value * B( J, RHS )
+      // Solve op(A( J, J )) * X( J, RHS ) = SCALOC * B( J, RHS )
       // for all right-hand sides in the current block column,
       // one RHS at a time.
 
@@ -306,7 +306,7 @@ void dlatrs3(
           // scale factor > 0.
 
           // Set WORK( J+KK*LDS ) to smallest valid scale
-          // factor and increase SCALOC.value accordingly.
+          // factor and increase SCALOC accordingly.
           SCAL = WORK[J + KK * LDS] / SMLNUM;
           SCALOC.value *= SCAL;
           WORK[J + KK * LDS] = SMLNUM;

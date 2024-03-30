@@ -441,7 +441,7 @@ void zgsvj1(
     // sweep.
 
     INFO.value = 0;
-    // #:) INFO.value = 0 confirms successful iterations.
+    // #:) INFO = 0 confirms successful iterations.
   }
 
   // Sort the vector SVA() of column norms.

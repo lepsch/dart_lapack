@@ -181,5 +181,5 @@ void ztgex2(
         SQ.value.conjugate());
   }
 
-  // Exit with INFO.value = 0 if swap was successfully performed.
+  // Exit with INFO = 0 if swap was successfully performed.
 }

@@ -586,7 +586,7 @@ void dchkbd(
           var TEMP1 = THRESH * (HALF - ULP);
 
           for (var J = 0; J <= LOG2UI; J++) {
-            // CALL DSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO.value )
+            // CALL DSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
             if (IINFO.value == 0) break;
             TEMP1 *= TWO;
           }

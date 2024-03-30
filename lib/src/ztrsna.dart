@@ -65,7 +65,7 @@ void ztrsna(
 
   SOMCON = lsame(HOWMNY, 'S');
 
-  // Set M.value to the number of eigenpairs for which condition numbers are
+  // Set M to the number of eigenpairs for which condition numbers are
   // to be computed.
 
   if (SOMCON) {

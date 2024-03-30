@@ -135,7 +135,7 @@ void ddrvsy_aa_2stage(
         }
 
         // For types 3-6, zero one or more rows and columns of
-        // the matrix to test that INFO.value is returned correctly.
+        // the matrix to test that INFO is returned correctly.
 
         var IZERO = 0;
         if (ZEROT) {
@@ -241,7 +241,7 @@ void ddrvsy_aa_2stage(
                 LWORK,
                 INFO);
 
-            // Adjust the expected value of INFO.value to account for
+            // Adjust the expected value of INFO to account for
             // pivoting.
 
             var K = 0;

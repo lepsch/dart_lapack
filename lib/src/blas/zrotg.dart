@@ -13,7 +13,7 @@ void zrotg(
   final Box<Complex> s,
 ) {
 //  -- Reference BLAS level1 routine --
-//  -- Reference BLAS is a.value software package provided by Univ. of Tennessee,    --
+//  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 //  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const zero = 0.0, one = 1.0;
   final safmin =
@@ -115,7 +115,7 @@ void zrotg(
       final Complex fs;
       if (f1 / u < rtmin) {
         // f is not well-scaled when scaled by g1.
-        // Use a.value different scaling for f.
+        // Use a different scaling for f.
 
         final v = min(safmax, max(safmin, f1));
         w = v / u;
@@ -160,7 +160,7 @@ void zrotg(
         }
         s.value = gs.conjugate() * (fs / d.toComplex());
       }
-      // Rescale c.value and r
+      // Rescale c and r
       c.value *= w;
       r *= u.toComplex();
     }

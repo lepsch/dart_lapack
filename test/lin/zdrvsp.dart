@@ -139,7 +139,7 @@ void zdrvsp(
           }
 
           // For types 3-6, zero one or more rows and columns of
-          // the matrix to test that INFO.value is returned correctly.
+          // the matrix to test that INFO is returned correctly.
 
           if (ZEROT) {
             if (IMAT == 3) {
@@ -264,7 +264,7 @@ void zdrvsp(
             srnamc.SRNAMT = 'ZSPSV ';
             zspsv(UPLO, N, NRHS, AFAC, IWORK, X.asMatrix(), LDA, INFO);
 
-            // Adjust the expected value of INFO.value to account for
+            // Adjust the expected value of INFO to account for
             // pivoting.
 
             var K = IZERO;
@@ -357,7 +357,7 @@ void zdrvsp(
               RWORK(2 * NRHS + 1),
               INFO);
 
-          // Adjust the expected value of INFO.value to account for
+          // Adjust the expected value of INFO to account for
           // pivoting.
 
           var K = IZERO;

@@ -122,7 +122,7 @@ void dgtsvx(
   dgtrfs(TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX,
       FERR, BERR, WORK, IWORK, INFO);
 
-  // Set INFO.value = N+1 if the matrix is singular to working precision.
+  // Set INFO = N+1 if the matrix is singular to working precision.
 
   if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
 }

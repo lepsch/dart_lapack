@@ -146,7 +146,7 @@ void zchkhe_aa(
         }
 
         // For types 3-6, zero one or more rows and columns of
-        // the matrix to test that INFO.value is returned correctly.
+        // the matrix to test that INFO is returned correctly.
 
         int IZERO;
         if (ZEROT) {
@@ -289,7 +289,7 @@ void zchkhe_aa(
           }
           NRUN += NT;
 
-          // Skip solver test if INFO.value is not 0.
+          // Skip solver test if INFO is not 0.
 
           if (INFO.value == 0) {
             // Do for each value of NRHS in NSVAL.

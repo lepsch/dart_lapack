@@ -192,7 +192,7 @@ void dsgesv(
           ONE, WORK, N);
 
       // Check whether the NRHS normwise backward errors satisfy the
-      // stopping criterion. If yes, set ITER.value=IITER>0 and return.
+      // stopping criterion. If yes, set ITER=IITER>0 and return.
 
       var stopped = false;
       for (I = 1; I <= NRHS; I++) {
@@ -215,8 +215,8 @@ void dsgesv(
     }
 
     // If we are at this place of the code, this is because we have
-    // performed ITER.value=ITERMAX iterations and never satisfied the
-    // stopping criterion, set up the ITER.value flag accordingly and follow up
+    // performed ITER=ITERMAX iterations and never satisfied the
+    // stopping criterion, set up the ITER flag accordingly and follow up
     // on double precision routine.
 
     ITER.value = -ITERMAX - 1;

@@ -147,7 +147,7 @@ void zdrvge(
       }
 
       // For types 5-7, zero one or more columns of the matrix to
-      // test that INFO.value is returned correctly.
+      // test that INFO is returned correctly.
 
       final int IZERO;
       if (ZEROT) {
@@ -351,7 +351,7 @@ void zdrvge(
                   LDA);
               if (IEQUED > 1 && N > 0) {
                 // Equilibrate the matrix if FACT = 'F' and
-                // EQUED.value = 'R', 'C', or 'B'.
+                // EQUED = 'R', 'C', or 'B'.
 
                 zlaqge(N, N, A.asMatrix(), LDA, S, S(N + 1), ROWCND.value,
                     COLCND.value, AMAX.value, EQUED);
@@ -554,7 +554,7 @@ void zdrvge(
                   LDA);
               if (IEQUED > 1 && N > 0) {
                 // Equilibrate the matrix if FACT = 'F' and
-                // EQUED.value = 'R', 'C', or 'B'.
+                // EQUED = 'R', 'C', or 'B'.
 
                 zlaqge(N, N, A.asMatrix(), LDA, S, S(N + 1), ROWCND.value,
                     COLCND.value, AMAX.value, EQUED);

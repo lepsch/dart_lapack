@@ -66,7 +66,7 @@ void zglmts(
   // Test the residual for the solution of LSE
 
   //                   norm( d - A*x - B*u )
-  //   RESULT.value = -----------------------------------------
+  //   RESULT = -----------------------------------------
   //            (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
   zcopy(N, D, 1, DF, 1);

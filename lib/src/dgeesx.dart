@@ -116,10 +116,10 @@ void dgeesx(
   //   NB refers to the optimal block size for the immediately
   //   following subroutine, as returned by ILAENV.
   //   HSWORK refers to the workspace preferred by DHSEQR, as
-  //   calculated below. HSWORK is computed assuming ILO.value=1 and IHI.value=N,
+  //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
   //   the worst case.
   //   If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
-  //   depends on SDIM.value, which is computed by the routine DTRSEN later
+  //   depends on SDIM, which is computed by the routine DTRSEN later
   //   in the code.)
 
   if (INFO.value == 0) {
@@ -239,9 +239,9 @@ void dgeesx(
 
     // Reorder eigenvalues, transform Schur vectors, and compute
     // reciprocal condition numbers
-    // (RWorkspace: if SENSE is not 'N', need N+2*SDIM.value*(N-SDIM.value)
+    // (RWorkspace: if SENSE is not 'N', need N+2*SDIM*(N-SDIM)
     //              otherwise, need N )
-    // (IWorkspace: if SENSE is 'V' or 'B', need SDIM.value*(N-SDIM.value)
+    // (IWorkspace: if SENSE is 'V' or 'B', need SDIM*(N-SDIM)
     //              otherwise, need 0 )
 
     dtrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, RCONDE,

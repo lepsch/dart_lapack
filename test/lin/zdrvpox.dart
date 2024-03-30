@@ -146,7 +146,7 @@ void zdrvpo(
         }
 
         // For types 3-5, zero one row and column of the matrix to
-        // test that INFO.value is returned correctly.
+        // test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {
@@ -336,7 +336,7 @@ void zdrvpo(
                   LDA);
               if (IEQUED > 1 && N > 0) {
                 // Equilibrate the matrix if FACT='F' and
-                // EQUED.value='Y'.
+                // EQUED='Y'.
 
                 zlaqhe(UPLO, N, A.asMatrix(), LDA, S, SCOND.value, AMAX.value,
                     EQUED);
@@ -467,7 +467,7 @@ void zdrvpo(
                   LDA);
               if (IEQUED > 1 && N > 0) {
                 // Equilibrate the matrix if FACT='F' and
-                // EQUED.value='Y'.
+                // EQUED='Y'.
 
                 zlaqhe(UPLO, N, A.asMatrix(), LDA, S, SCOND.value, AMAX.value,
                     EQUED);

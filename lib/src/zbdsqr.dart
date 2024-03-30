@@ -131,7 +131,7 @@ void zbdsqr(
     if (!ROTATE) {
       dlasq1(N, D, E, RWORK, INFO);
 
-      // If INFO.value equals 2, dqds didn't finish, try to finish
+      // If INFO equals 2, dqds didn't finish, try to finish
 
       if (INFO.value != 2) return;
       INFO.value = 0;
@@ -400,7 +400,7 @@ void zbdsqr(
 
       ITER += M - LL;
 
-      // If SHIFT.value = 0, do simplified QR iteration
+      // If SHIFT = 0, do simplified QR iteration
 
       if (SHIFT.value == ZERO) {
         if (IDIR == 1) {

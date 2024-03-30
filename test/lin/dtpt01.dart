@@ -31,7 +31,7 @@ void dtpt01(
     return;
   }
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0 or AINVNM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
   final EPS = dlamch('Epsilon');
   final ANORM = dlantp('1', UPLO, DIAG, N, AP, WORK);

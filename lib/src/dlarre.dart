@@ -196,13 +196,13 @@ void dlarre(
   USEDQD = ((IRANGE == ALLRNG) && !FORCEB);
 
   if ((IRANGE == ALLRNG) && !FORCEB) {
-    // Set interval [VL.value,VU.value] that contains all eigenvalues
+    // Set interval [VL,VU] that contains all eigenvalues
     VL.value = GL;
     VU.value = GU;
   } else {
     // We call DLARRD to find crude approximations to the eigenvalues
     // in the desired range. In case IRANGE = INDRNG, we also obtain the
-    // interval (VL.value,VU.value] that contains all the wanted eigenvalues.
+    // interval (VL,VU] that contains all the wanted eigenvalues.
     // An interval [LEFT,RIGHT] has converged if
     // RIGHT-LEFT < RTOL*max(ABS(LEFT),ABS(RIGHT))
     // DLARRD needs a WORK of size 4*N, IWORK of size 3*N

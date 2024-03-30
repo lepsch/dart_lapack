@@ -333,7 +333,7 @@ void dggesx(
   } else {
     // Sort eigenvalues ALPHA/BETA and compute the reciprocal of
     // condition number(s)
-    // (Workspace: If IJOB >= 1, need max( 8*(N+1), 2*SDIM.value*(N-SDIM.value) )
+    // (Workspace: If IJOB >= 1, need max( 8*(N+1), 2*SDIM*(N-SDIM) )
     // otherwise, need 8*(N+1) )
 
     if (WANTST) {

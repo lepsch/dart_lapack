@@ -66,8 +66,8 @@ void zlags2(
 
     // The SVD of real 2 by 2 triangular C
 
-    // ( CSL.value -SNL.value )*( A B )*(  CSR.value  SNR.value ) = ( R.value 0 )
-    // ( SNL.value  CSL.value ) ( 0 D ) ( -SNR.value  CSR.value )   ( 0 T )
+    // ( CSL -SNL )*( A B )*(  CSR  SNR ) = ( R 0 )
+    // ( SNL  CSL ) ( 0 D ) ( -SNR  CSR )   ( 0 T )
 
     dlasv2(A, FB, D, S1, S2, SNR, CSR, SNL, CSL);
 
@@ -156,8 +156,8 @@ void zlags2(
 
     // The SVD of real 2 by 2 triangular C
 
-    // ( CSL.value -SNL.value )*( A 0 )*(  CSR.value  SNR.value ) = ( R.value 0 )
-    // ( SNL.value  CSL.value ) ( C D ) ( -SNR.value  CSR.value )   ( 0 T )
+    // ( CSL -SNL )*( A 0 )*(  CSR  SNR ) = ( R 0 )
+    // ( SNL  CSL ) ( C D ) ( -SNR  CSR )   ( 0 T )
 
     dlasv2(A, FC, D, S1, S2, SNR, CSR, SNL, CSL);
 

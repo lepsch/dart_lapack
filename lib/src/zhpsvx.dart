@@ -104,7 +104,7 @@ void zhpsvx(
   zhprfs(UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK,
       INFO);
 
-  // Set INFO.value = N+1 if the matrix is singular to working precision.
+  // Set INFO = N+1 if the matrix is singular to working precision.
 
   if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
 }

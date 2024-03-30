@@ -204,7 +204,7 @@ void ddrvgb(
           }
 
           // For types 2, 3, and 4, zero one or more columns of
-          // the matrix to test that INFO.value is returned correctly.
+          // the matrix to test that INFO is returned correctly.
 
           final int IZERO;
           if (ZEROT) {

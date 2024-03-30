@@ -83,7 +83,7 @@ void dlaed2(
   T = ONE / sqrt(TWO);
   dscal(N, T, Z, 1);
 
-  // RHO.value = ABS( norm(z)**2 * RHO.value )
+  // RHO = ABS( norm(z)**2 * RHO )
 
   RHO.value = (TWO * RHO.value).abs();
 
@@ -259,8 +259,8 @@ void dlaed2(
 
   // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
   // and Q2 respectively.  The eigenvalues/vectors which were not
-  // deflated go into the first K.value slots of DLAMBDA and Q2 respectively,
-  // while those which were deflated go into the last N - K.value slots.
+  // deflated go into the first K slots of DLAMBDA and Q2 respectively,
+  // while those which were deflated go into the last N - K slots.
 
   I = 1;
   IQ1 = 1;
@@ -301,7 +301,7 @@ void dlaed2(
   }
 
   // The deflated eigenvalues and their corresponding vectors go back
-  // into the last N - K.value slots of D and Q respectively.
+  // into the last N - K slots of D and Q respectively.
 
   if (K.value < N) {
     dlacpy('A', N, CTOT[4], Q2(IQ1).asMatrix(N), N, Q(1, K.value + 1), LDQ);

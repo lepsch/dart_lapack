@@ -430,7 +430,7 @@ class _MainNout extends NoutDelegator {
 
   void print9995() {
     println(
-        ' TESTS OF THE double           LEVEL 3 BLAS\n\n THE FOLLOWING PARAMETER VALUES WILL BE USED:');
+        ' TESTS OF THE DOUBLE PRECISION LEVEL 3 BLAS\n\n THE FOLLOWING PARAMETER VALUES WILL BE USED:');
   }
 
   void print9994(Array<int> IDIM, int NIDIM) {

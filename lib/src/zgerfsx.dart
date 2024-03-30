@@ -319,7 +319,7 @@ void zgerfsx(
     // each right-hand side using the current solution as an estimate of
     // the true solution.  If the componentwise error estimate is too
     // large, then the solution is a lousy estimate of truth and the
-    // estimated RCOND.value may be too optimistic.  To avoid misleading users,
+    // estimated RCOND may be too optimistic.  To avoid misleading users,
     // the inverse condition number is set to 0.0 when the estimated
     // cwise error is at least CWISE_WRONG.
 

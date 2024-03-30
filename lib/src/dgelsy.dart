@@ -176,7 +176,7 @@ void dgelsy(
   // workspace: MN+2*N+NB*(N+1).
   // Details of Householder rotations stored in WORK(1:MN).
 
-  // Determine RANK.value using incremental condition estimation
+  // Determine RANK using incremental condition estimation
 
   WORK[ISMIN] = ONE;
   WORK[ISMAX] = ONE;
@@ -217,7 +217,7 @@ void dgelsy(
 
   // Logically partition R = [ R11 R12 ]
   //                         [  0  R22 ]
-  // where R11 = R(1:RANK.value,1:RANK.value)
+  // where R11 = R(1:RANK,1:RANK)
 
   // [R11,R12] = [ T11, 0 ] * Y
 
@@ -237,7 +237,7 @@ void dgelsy(
 
   // workspace: 2*MN+NB*NRHS.
 
-  // B(1:RANK.value,1:NRHS) := inv(T11) * B(1:RANK.value,1:NRHS)
+  // B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 
   dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK.value, NRHS, ONE, A,
       LDA, B, LDB);

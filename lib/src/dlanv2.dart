@@ -82,13 +82,13 @@ void dlanv2(
     // decision on the nature of eigenvalues
 
     if (Z >= MULTPL * EPS) {
-      // Real eigenvalues. Compute A.value and D.value.
+      // Real eigenvalues. Compute A and D.
 
       Z = P + sign(sqrt(SCALE) * sqrt(Z), P);
       A.value = D.value + Z;
       D.value -= (BCMAX / Z) * BCMIS;
 
-      // Compute B.value and the rotation matrix
+      // Compute B and the rotation matrix
 
       TAU = dlapy2(C.value, Z);
       CS.value = Z / TAU;
@@ -121,16 +121,16 @@ void dlanv2(
       CS.value = sqrt(HALF * (ONE + SIGMA.abs() / TAU));
       SN.value = -(P / (TAU * CS.value)) * sign(ONE, SIGMA);
 
-      // Compute [ AA  BB ] = [ A.value  B.value ] [ CS.value -SN.value ]
-      // [ CC  DD ]   [ C.value  D.value ] [ SN.value  CS.value ]
+      // Compute [ AA  BB ] = [ A  B ] [ CS -SN ]
+      // [ CC  DD ]   [ C  D ] [ SN  CS ]
 
       AA = A.value * CS.value + B.value * SN.value;
       BB = -A.value * SN.value + B.value * CS.value;
       CC = C.value * CS.value + D.value * SN.value;
       DD = -C.value * SN.value + D.value * CS.value;
 
-      // Compute [ A.value  B.value ] = [ CS.value  SN.value ] [ AA  BB ]
-      // [ C.value  D.value ]   [-SN.value  CS.value ] [ CC  DD ]
+      // Compute [ A  B ] = [ CS  SN ] [ AA  BB ]
+      // [ C  D ]   [-SN  CS ] [ CC  DD ]
 
       A.value = AA * CS.value + CC * SN.value;
       B.value = BB * CS.value + DD * SN.value;
@@ -171,7 +171,7 @@ void dlanv2(
     }
   }
 
-  // Store eigenvalues in (RT1R.value,RT1I.value) and (RT2R.value,RT2I.value).
+  // Store eigenvalues in (RT1R,RT1I) and (RT2R,RT2I).
 
   RT1R.value = A.value;
   RT2R.value = D.value;

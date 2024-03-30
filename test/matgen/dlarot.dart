@@ -67,7 +67,7 @@ void dlarot(
   drot(NL - NT, A(IX), IINC, A(IY), IINC, C, S);
   drot(NT, XT, 1, YT, 1, C, S);
 
-  // Stuff values back into XLEFT.value, XRIGHT.value, etc.
+  // Stuff values back into XLEFT, XRIGHT, etc.
 
   if (LLEFT) {
     A[1] = XT[1];

@@ -98,7 +98,7 @@ void zhetrf_rk(
         KB.value = K;
       }
 
-      // Set INFO.value on the first occurrence of a zero pivot
+      // Set INFO on the first occurrence of a zero pivot
 
       if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value;
 
@@ -128,14 +128,14 @@ void zhetrf_rk(
       K -= KB.value;
 
       // This label is the exit from main loop over K decreasing
-      // from N to 1 in steps of KB.value
+      // from N to 1 in steps of KB
     }
   } else {
     // Factorize A as L*D*L**T using the lower triangle of A
 
     // K is the main loop index, increasing from 1 to N in steps of
-    // KB.value, where KB.value is the number of columns factorized by ZLAHEF_RK;
-    // KB.value is either NB or NB-1, or N-K+1 for the last block
+    // KB, where KB is the number of columns factorized by ZLAHEF_RK;
+    // KB is either NB or NB-1, or N-K+1 for the last block
 
     K = 1;
     while (K <= N) {
@@ -152,7 +152,7 @@ void zhetrf_rk(
         KB.value = N - K + 1;
       }
 
-      // Set INFO.value on the first occurrence of a zero pivot
+      // Set INFO on the first occurrence of a zero pivot
 
       if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + K - 1;
 

@@ -35,7 +35,7 @@ void dlasq4(
   double A2, B1, B2, GAM, GAP1, GAP2, S = 0;
 
   // A negative DMIN forces the shift to take that absolute value
-  // TTYPE.value records the type of shift.
+  // TTYPE records the type of shift.
 
   if (DMIN <= ZERO) {
     TAU.value = -DMIN;

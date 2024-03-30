@@ -34,7 +34,7 @@ void zget03(
     return;
   }
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0 or AINVNM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
   final EPS = dlamch('Epsilon');
   final ANORM = zlange('1', N, N, A, LDA, RWORK);

@@ -38,7 +38,7 @@ void zlatm1(
 
   if (N == 0) return;
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (MODE < -6 || MODE > 6) {
     INFO.value = -1;

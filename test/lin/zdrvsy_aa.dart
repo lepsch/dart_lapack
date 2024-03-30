@@ -133,7 +133,7 @@ void zdrvsy_aa(
         }
 
         // For types 3-6, zero one or more rows and columns of the
-        // matrix to test that INFO.value is returned correctly.
+        // matrix to test that INFO is returned correctly.
 
         int IZERO;
         if (ZEROT) {
@@ -222,7 +222,7 @@ void zdrvsy_aa(
             zsysv_aa(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(),
                 LDA, WORK, LWORK, INFO);
 
-            // Adjust the expected value of INFO.value to account for
+            // Adjust the expected value of INFO to account for
             // pivoting.
 
             int K;

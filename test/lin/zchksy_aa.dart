@@ -149,7 +149,7 @@ void zchksy_aa(
         }
 
         // For matrix types 3-6, zero one or more rows and
-        // columns of the matrix to test that INFO.value is returned
+        // columns of the matrix to test that INFO is returned
         // correctly.
 
         int IZERO;
@@ -242,7 +242,7 @@ void zchksy_aa(
           var LWORK = max(1, N * NB + N);
           zsytrf_aa(UPLO, N, AFAC.asMatrix(), LDA, IWORK, AINV, LWORK, INFO);
 
-          // Adjust the expected value of INFO.value to account for
+          // Adjust the expected value of INFO to account for
           // pivoting.
 
           // IF( IZERO > 0 ) THEN
@@ -289,7 +289,7 @@ void zchksy_aa(
           }
           NRUN += NT;
 
-          // Skip solver test if INFO.value is not 0.
+          // Skip solver test if INFO is not 0.
 
           if (INFO.value == 0) {
             // Do for each value of NRHS in NSVAL.

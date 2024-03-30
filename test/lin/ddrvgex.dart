@@ -354,7 +354,7 @@ void ddrvge(
               dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDA);
               if (IEQUED > 1 && N > 0) {
                 // Equilibrate the matrix if FACT = 'F' and
-                // EQUED.value = 'R', 'C', or 'B'.
+                // EQUED = 'R', 'C', or 'B'.
 
                 dlaqge(N, N, A.asMatrix(), LDA, S, S(N + 1), ROWCND.value,
                     COLCND.value, AMAX.value, EQUED);
@@ -554,7 +554,7 @@ void ddrvge(
               dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDA);
               if (IEQUED > 1 && N > 0) {
                 // Equilibrate the matrix if FACT = 'F' and
-                // EQUED.value = 'R', 'C', or 'B'.
+                // EQUED = 'R', 'C', or 'B'.
 
                 dlaqge(N, N, A.asMatrix(), LDA, S, S(N + 1), ROWCND.value,
                     COLCND.value, AMAX.value, EQUED);

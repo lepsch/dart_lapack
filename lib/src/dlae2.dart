@@ -58,7 +58,7 @@ void dlae2(
 
     RT2.value = (ACMX / RT1.value) * ACMN - (B / RT1.value) * B;
   } else {
-    // Includes case RT1.value = RT2.value = 0
+    // Includes case RT1 = RT2 = 0
 
     RT1.value = HALF * RT;
     RT2.value = -HALF * RT;

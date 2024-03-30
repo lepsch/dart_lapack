@@ -82,7 +82,7 @@ void ztgsna(
   } else if (WANTS && LDVR < N) {
     INFO.value = -12;
   } else {
-    // Set M.value to the number of eigenpairs for which condition numbers
+    // Set M to the number of eigenpairs for which condition numbers
     // are required, and test MM.
 
     if (SOMCON) {

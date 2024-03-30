@@ -90,7 +90,7 @@ void zsytf2_rk(
       }
 
       if ((max(ABSAKK, COLMAX) == ZERO)) {
-        // Column K is zero or underflow: set INFO.value and continue
+        // Column K is zero or underflow: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -363,7 +363,7 @@ void zsytf2_rk(
       }
 
       if ((max(ABSAKK, COLMAX) == ZERO)) {
-        // Column K is zero or underflow: set INFO.value and continue
+        // Column K is zero or underflow: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;

@@ -143,7 +143,7 @@ void dsposv(
     dsymm('Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N);
 
     // Check whether the NRHS normwise backward errors satisfy the
-    // stopping criterion. If yes, set ITER.value=0 and return.
+    // stopping criterion. If yes, set ITER=0 and return.
     var satisfy = true;
     for (I = 1; I <= NRHS; I++) {
       XNRM = X[idamax(N, X(1, I).asArray(), 1)][I].abs();

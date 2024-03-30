@@ -249,7 +249,7 @@ void dlasd7(
   }
 
   // Sort the singular values into DSIGMA. The singular values which
-  // were not deflated go into the first K.value slots of DSIGMA, except
+  // were not deflated go into the first K slots of DSIGMA, except
   // that DSIGMA[1] is treated separately.
 
   for (J = 2; J <= N; J++) {
@@ -268,7 +268,7 @@ void dlasd7(
     }
   }
 
-  // The deflated singular values go back into the last N - K.value slots of
+  // The deflated singular values go back into the last N - K slots of
   // D.
 
   dcopy(N - K.value, DSIGMA(K.value + 1), 1, D(K.value + 1), 1);

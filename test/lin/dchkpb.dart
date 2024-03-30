@@ -177,7 +177,7 @@ void dchkpb(
           }
 
           // For types 2-4, zero one row and column of the matrix
-          // to test that INFO.value is returned correctly.
+          // to test that INFO is returned correctly.
 
           IZERO = 0;
           if (ZEROT) {
@@ -236,7 +236,7 @@ void dchkpb(
               continue;
             }
 
-            // Skip the tests if INFO.value is not 0.
+            // Skip the tests if INFO is not 0.
 
             if (INFO.value != 0) continue;
 

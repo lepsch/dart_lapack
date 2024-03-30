@@ -58,7 +58,7 @@ void dpbequ(
     J = 1;
   }
 
-  // Initialize SMIN and AMAX.value.
+  // Initialize SMIN and AMAX.
 
   S[1] = AB[J][1];
   SMIN = S[1];
@@ -89,7 +89,7 @@ void dpbequ(
       S[I] = ONE / sqrt(S[I]);
     }
 
-    // Compute SCOND.value = min(S(I)) / max(S(I))
+    // Compute SCOND = min(S(I)) / max(S(I))
 
     SCOND.value = sqrt(SMIN) / sqrt(AMAX.value);
   }

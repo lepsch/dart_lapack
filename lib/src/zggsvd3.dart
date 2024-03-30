@@ -139,7 +139,7 @@ void zggsvd3(
   dcopy(N, ALPHA, 1, RWORK, 1);
   IBND = min(L.value, M - K.value);
   for (I = 1; I <= IBND; I++) {
-    // Scan for largest ALPHA(K.value+I)
+    // Scan for largest ALPHA(K+I)
 
     ISUB = I;
     SMAX = RWORK[K.value + I];

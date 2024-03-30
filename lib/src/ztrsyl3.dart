@@ -220,7 +220,7 @@ void ztrsyl3(
           if (SCALOC.value == ZERO) {
             // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
             // is larger than the product of BIGNUM**2 and cannot be
-            // represented in the form (1/SCALE.value)*X(K1:K2-1, L1:L2-1).
+            // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
             // Mark the computation as pointless.
             BUF = ZERO;
           } else {
@@ -390,7 +390,7 @@ void ztrsyl3(
           if (SCALOC.value == ZERO) {
             // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
             // is larger than the product of BIGNUM**2 and cannot be
-            // represented in the form (1/SCALE.value)*X(K1:K2-1, L1:L2-1).
+            // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
             // Mark the computation as pointless.
             BUF = ZERO;
           } else {
@@ -561,7 +561,7 @@ void ztrsyl3(
           if (SCALOC.value == ZERO) {
             // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
             // is larger than the product of BIGNUM**2 and cannot be
-            // represented in the form (1/SCALE.value)*X(K1:K2-1, L1:L2-1).
+            // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
             // Mark the computation as pointless.
             BUF = ZERO;
           } else {
@@ -732,7 +732,7 @@ void ztrsyl3(
           if (SCALOC.value == ZERO) {
             // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
             // is larger than the product of BIGNUM**2 and cannot be
-            // represented in the form (1/SCALE.value)*X(K1:K2-1, L1:L2-1).
+            // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
             // Mark the computation as pointless.
             BUF = ZERO;
           } else {
@@ -878,7 +878,7 @@ void ztrsyl3(
   if (SCALE.value == ZERO) {
     // The magnitude of the largest entry of the solution is larger
     // than the product of BIGNUM**2 and cannot be represented in the
-    // form (1/SCALE.value)*X if SCALE.value is double          . Set SCALE.value to;
+    // form (1/SCALE)*X if SCALE is DOUBLE PRECISION. Set SCALE to;
     // zero and give up.
 
     SWORK[1][1] = max(NBA, NBB).toDouble();
@@ -904,7 +904,7 @@ void ztrsyl3(
   }
 
   if (BUF != ONE && BUF > ZERO) {
-    // Decrease SCALE.value as much as possible.
+    // Decrease SCALE as much as possible.
 
     SCALOC.value = min(SCALE.value / SMLNUM, ONE / BUF);
     BUF *= SCALOC.value;
@@ -934,7 +934,7 @@ void ztrsyl3(
     zlascl('G', -1, -1, ONE, SCALOC.value, M, N, C, LDC, IINFO);
   }
 
-  // Combine with buffer scaling factor. SCALE.value will be flushed if
+  // Combine with buffer scaling factor. SCALE will be flushed if
   // BUF is less than one here.
 
   SCALE.value *= BUF;

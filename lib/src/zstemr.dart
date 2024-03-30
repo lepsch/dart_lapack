@@ -127,7 +127,7 @@ void zstemr(
 
   if (VALEIG) {
     // We do not reference VL, VU in the cases RANGE = 'I','A'
-    // The interval (WL.value, WU.value] contains all the wanted eigenvalues.
+    // The interval (WL, WU] contains all the wanted eigenvalues.
     // It is either given by the user or computed in DLARRE.
     WL.value = VL;
     WU.value = VU;
@@ -247,7 +247,7 @@ void zstemr(
           Z[1][M.value] = -SN.value.toComplex();
           Z[2][M.value] = CS.value.toComplex();
         }
-        // Note: At most one of SN.value and CS.value can be zero.
+        // Note: At most one of SN and CS can be zero.
         if (SN.value != ZERO) {
           if (CS.value != ZERO) {
             ISUPPZ[2 * M.value - 1] = 1;
@@ -275,7 +275,7 @@ void zstemr(
           Z[1][M.value] = CS.value.toComplex();
           Z[2][M.value] = SN.value.toComplex();
         }
-        // Note: At most one of SN.value and CS.value can be zero.
+        // Note: At most one of SN and CS can be zero.
         if (SN.value != ZERO) {
           if (CS.value != ZERO) {
             ISUPPZ[2 * M.value - 1] = 1;
@@ -306,7 +306,7 @@ void zstemr(
     IINDWK = 3 * N + 1;
 
     // Scale matrix to allowable range, if necessary.
-    // The allowable range is related to the PIVMIN.value parameter; see the
+    // The allowable range is related to the PIVMIN parameter; see the
     // comments in DLARRD.  The preference for scaling small values
     // up is heuristic; we expect users' matrices not to be close to the
     // RMAX threshold.
@@ -324,7 +324,7 @@ void zstemr(
       TNRM *= SCALE;
       if (VALEIG) {
         // If eigenvalues in interval have to be found,
-        // scale (WL.value, WU.value] accordingly
+        // scale (WL, WU] accordingly
         WL.value *= SCALE;
         WU.value *= SCALE;
       }
@@ -408,7 +408,7 @@ void zstemr(
     }
     // Note that if RANGE != 'V', DLARRE computes bounds on the desired
     // part of the spectrum. All desired eigenvalues are contained in
-    // (WL.value,WU.value]
+    // (WL,WU]
 
     if (WANTZ) {
       // Compute the desired eigenvectors corresponding to the computed

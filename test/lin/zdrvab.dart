@@ -183,10 +183,10 @@ void zdrvab(
         // pass the testing.
 
         // If iterative refinement has been used and claimed to
-        // be successful (ITER.value>0), we want
+        // be successful (ITER>0), we want
         //   NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS*SRQT(N)) < 1
 
-        // If double precision has been used (ITER.value<0), we want
+        // If double precision has been used (ITER<0), we want
         //   NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
         // (Cf. the linear solver testing routines)
 

@@ -158,7 +158,7 @@ void zchkhe_rook(
         }
 
         // For matrix types 3-6, zero one or more rows and
-        // columns of the matrix to test that INFO.value is returned
+        // columns of the matrix to test that INFO is returned
         // correctly.
 
         final int IZERO;
@@ -250,7 +250,7 @@ void zchkhe_rook(
           srnamc.SRNAMT = 'ZHETRF_ROOK';
           zhetrf_rook(UPLO, N, AFAC.asMatrix(), LDA, IWORK, AINV, LWORK, INFO);
 
-          // Adjust the expected value of INFO.value to account for
+          // Adjust the expected value of INFO to account for
           // pivoting.
 
           var K = IZERO;
@@ -276,7 +276,7 @@ void zchkhe_rook(
                 IMAT, NFAIL, NERRS, NOUT);
           }
 
-          // Set the condition estimate flag if the INFO.value is not 0.
+          // Set the condition estimate flag if the INFO is not 0.
 
           final TRFCON = INFO.value != 0;
 
@@ -288,7 +288,7 @@ void zchkhe_rook(
 
           // +    TEST 2
           // Form the inverse and compute the residual,
-          // if the factorization was competed without INFO.value > 0
+          // if the factorization was competed without INFO > 0
           // (i.e. there is no zero rows and columns).
           // Do it only for the first block size.
 
@@ -486,7 +486,7 @@ void zchkhe_rook(
           // size.
 
           if (INB <= 1) {
-            // Do only the condition estimate if INFO.value is not 0.
+            // Do only the condition estimate if INFO is not 0.
 
             if (TRFCON) {
               RCONDC.value = ZERO;

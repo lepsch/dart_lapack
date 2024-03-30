@@ -158,7 +158,7 @@ void dbdsdc(
 
   if (ICOMPQ == 0) {
     // Ignore WSTART, instead using WORK[ 1 ], since the two vectors
-    // for CS.value and -SN.value above are added only if ICOMPQ == 2,
+    // for CS and -SN above are added only if ICOMPQ == 2,
     // and adding them exceeds documented WORK size of 4*n.
     dlasdq('U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK(1), INFO);
   } else

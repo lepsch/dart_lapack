@@ -55,7 +55,7 @@ void dgetri(
 
   if (N == 0) return;
 
-  // Form inv(U).  If INFO.value > 0 from DTRTRI, then U is singular,
+  // Form inv(U).  If INFO > 0 from DTRTRI, then U is singular,
   // and the inverse is not computed.
 
   dtrtri('Upper', 'Non-unit', N, A, LDA, INFO);

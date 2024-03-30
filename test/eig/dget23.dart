@@ -112,7 +112,7 @@ void dget23(
   } else if (THRESH < ZERO) {
     INFO.value = -4;
     // } else if ( NOUNIT <= 0 ) {
-    //    INFO.value = -6;
+    //    INFO = -6;
   } else if (N < 0) {
     INFO.value = -7;
   } else if (LDA < 1 || LDA < N) {

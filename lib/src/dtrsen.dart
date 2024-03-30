@@ -68,7 +68,7 @@ void dtrsen(
   } else if (LDQ < 1 || (WANTQ && LDQ < N)) {
     INFO.value = -8;
   } else {
-    // Set M.value to the dimension of the specified invariant subspace,
+    // Set M to the dimension of the specified invariant subspace,
     // and test LWORK and LIWORK.
 
     M.value = 0;
@@ -149,7 +149,7 @@ void dtrsen(
         if (SWAP) {
           KS.value++;
 
-          // Swap the K-th block to position KS.value.
+          // Swap the K-th block to position KS.
 
           IERR.value = 0;
           KK.value = K;

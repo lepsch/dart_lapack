@@ -190,9 +190,9 @@ void dlaed4(
     B = DELTA[N - 1] * DELTA[N] * W;
     if (C < ZERO) C = C.abs();
     if (C == ZERO) {
-      // ETA.value = B/A
-      // ETA.value = RHO - TAU
-      // ETA.value = DLTUB - TAU
+      // ETA = B/A
+      // ETA = RHO - TAU
+      // ETA = DLTUB - TAU
 
       // Update proposed by Li, Ren-Cang:
       ETA.value = -W / (DPSI + DPHI);
@@ -327,7 +327,7 @@ void dlaed4(
       W = RHOINV + PHI + PSI;
     }
 
-    // Return with INFO.value = 1, NITER = MAXIT and not converged
+    // Return with INFO = 1, NITER = MAXIT and not converged
 
     INFO.value = 1;
     DLAM.value = D[I] + TAU;
@@ -739,7 +739,7 @@ void dlaed4(
       if (W * PREW > ZERO && W.abs() > PREW.abs() / TEN) SWTCH = !SWTCH;
     }
 
-    // Return with INFO.value = 1, NITER = MAXIT and not converged
+    // Return with INFO = 1, NITER = MAXIT and not converged
 
     INFO.value = 1;
     if (ORGATI) {

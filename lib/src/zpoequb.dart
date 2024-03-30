@@ -78,7 +78,7 @@ void zpoequb(
       S[I] = pow(BASE, (TMP * log(S[I])).toInt()).toDouble();
     }
 
-    // Compute SCOND.value = min(S(I)) / max(S(I)).
+    // Compute SCOND = min(S(I)) / max(S(I)).
 
     SCOND.value = sqrt(SMIN) / sqrt(AMAX.value);
   }

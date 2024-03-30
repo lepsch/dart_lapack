@@ -103,7 +103,7 @@ void dtgexc(
   if (IFST.value == ILST.value) return;
 
   if (IFST.value < ILST.value) {
-    // Update ILST.value.
+    // Update ILST.
 
     if (NBF == 2 && NBL == 1) ILST.value--;
     if (NBF == 1 && NBL == 2) ILST.value++;

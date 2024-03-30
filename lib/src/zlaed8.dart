@@ -76,10 +76,10 @@ void zlaed8(
     return;
   }
 
-  // Need to initialize GIVPTR.value to O here in case of quick exit
+  // Need to initialize GIVPTR to O here in case of quick exit
   // to prevent an unspecified code behavior (usually sigfault)
   // when IWORK array on entry to *stedc is not zeroed
-  // (or at least some IWORK entries which used in *laed7 for GIVPTR.value).
+  // (or at least some IWORK entries which used in *laed7 for GIVPTR).
 
   GIVPTR.value = 0;
 
@@ -245,8 +245,8 @@ void zlaed8(
 
   // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
   // and Q2 respectively.  The eigenvalues/vectors which were not
-  // deflated go into the first K.value slots of DLAMBDA and Q2 respectively,
-  // while those which were deflated go into the last N - K.value slots.
+  // deflated go into the first K slots of DLAMBDA and Q2 respectively,
+  // while those which were deflated go into the last N - K slots.
 
   for (J = 1; J <= N; J++) {
     JP = INDXP[J];
@@ -256,7 +256,7 @@ void zlaed8(
   }
 
   // The deflated eigenvalues and their corresponding vectors go back
-  // into the last N - K.value slots of D and Q respectively.
+  // into the last N - K slots of D and Q respectively.
 
   if (K.value < N) {
     dcopy(N - K.value, DLAMBDA(K.value + 1), 1, D(K.value + 1), 1);

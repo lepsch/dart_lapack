@@ -142,7 +142,7 @@ void dlaed6(
       SCLINV = SMALL1;
     }
 
-    // Scaling up safe because D, Z, TAU.value scaled elsewhere to be O(1)
+    // Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
 
     for (I = 1; I <= 3; I++) {
       DSCALE[I] = D[I] * SCLFAC;

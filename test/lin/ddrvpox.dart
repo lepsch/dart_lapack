@@ -147,7 +147,7 @@ void ddrvpo(
         }
 
         // For types 3-5, zero one row and column of the matrix to
-        // test that INFO.value is returned correctly.
+        // test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {

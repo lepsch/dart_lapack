@@ -93,7 +93,7 @@ void zgetrf(
 
       zgetf2(M - J + 1, JB, A(J, J), LDA, IPIV(J), IINFO);
 
-      // Adjust INFO.value and the pivot indices.
+      // Adjust INFO and the pivot indices.
 
       if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + J - 1;
       for (I = J; I <= min(M, J + JB - 1); I++) {

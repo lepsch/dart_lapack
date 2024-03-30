@@ -304,7 +304,7 @@ void zlatrs3(
           // scale factor > 0.
 
           // Set WORK( J+KK*LDS ) to smallest valid scale
-          // factor and increase SCALOC.value accordingly.
+          // factor and increase SCALOC accordingly.
           SCAL = WORK[J + KK * LDS] / SMLNUM;
           SCALOC.value *= SCAL;
           WORK[J + KK * LDS] = SMLNUM;

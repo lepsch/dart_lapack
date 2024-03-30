@@ -97,7 +97,7 @@ void zgeequ(
       R[I] = ONE / min(max(R[I], SMLNUM), BIGNUM);
     }
 
-    // Compute ROWCND.value = min(R(I)) / max(R(I))
+    // Compute ROWCND = min(R(I)) / max(R(I))
 
     ROWCND.value = max(RCMIN, SMLNUM) / min(RCMAX, BIGNUM);
   }
@@ -142,7 +142,7 @@ void zgeequ(
       C[J] = ONE / min(max(C[J], SMLNUM), BIGNUM);
     }
 
-    // Compute COLCND.value = min(C(J)) / max(C(J))
+    // Compute COLCND = min(C(J)) / max(C(J))
 
     COLCND.value = max(RCMIN, SMLNUM) / min(RCMAX, BIGNUM);
   }

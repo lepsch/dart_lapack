@@ -29,7 +29,7 @@ void dget04(
     return;
   }
 
-  // Exit with RESID.value = 1/EPS if RCOND is invalid.
+  // Exit with RESID = 1/EPS if RCOND is invalid.
 
   final EPS = dlamch('Epsilon');
   if (RCOND < ZERO) {

@@ -143,7 +143,7 @@ void ddrvrfp(
             }
 
             // For types 3-5, zero one row and column of the matrix to
-            // test that INFO.value is returned correctly.
+            // test that INFO is returned correctly.
 
             final ZEROT = IMAT >= 3 && IMAT <= 5;
             final int IZERO;
@@ -241,7 +241,7 @@ void ddrvrfp(
 
             if (INFO.value != IZERO) {
               // LANGOU: there is a small hick here: IZERO should
-              // always be INFO.value however if INFO.value is ZERO, ALAERH does not
+              // always be INFO however if INFO is ZERO, ALAERH does not
               // complain.
 
               alaerh('DPF', 'DPFSV ', INFO.value, IZERO, UPLO, N, N, -1, -1,
@@ -249,7 +249,7 @@ void ddrvrfp(
               continue;
             }
 
-            // Skip the tests if INFO.value is not 0.
+            // Skip the tests if INFO is not 0.
 
             if (INFO.value != 0) {
               continue;

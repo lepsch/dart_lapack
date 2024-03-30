@@ -89,7 +89,7 @@ void dsytf2(
 
       if ((max(ABSAKK, COLMAX) == ZERO) || disnan(ABSAKK)) {
         // Column K is zero or underflow, or contains a NaN:
-        // set INFO.value and continue
+        // set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -238,7 +238,7 @@ void dsytf2(
 
       if ((max(ABSAKK, COLMAX) == ZERO) || disnan(ABSAKK)) {
         // Column K is zero or underflow, or contains a NaN:
-        // set INFO.value and continue
+        // set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;

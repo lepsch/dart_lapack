@@ -109,7 +109,7 @@ void zgeevx(
   //   workspace. NB refers to the optimal block size for the
   //   immediately following subroutine, as returned by ILAENV.
   //   HSWORK refers to the workspace preferred by ZHSEQR, as
-  //   calculated below. HSWORK is computed assuming ILO.value=1 and IHI.value=N,
+  //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
   //   the worst case.)
 
   if (INFO.value == 0) {
@@ -196,7 +196,7 @@ void zgeevx(
   }
   if (SCALEA) zlascl('G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR);
 
-  // Balance the matrix and compute ABNRM.value
+  // Balance the matrix and compute ABNRM
 
   zgebal(BALANC, N, A, LDA, ILO, IHI, SCALE, IERR);
   ABNRM.value = zlange('1', N, N, A, LDA, DUM);
@@ -283,7 +283,7 @@ void zgeevx(
         LWORK - IWRK + 1, INFO);
   }
 
-  // If INFO.value != 0 from ZHSEQR, then quit
+  // If INFO != 0 from ZHSEQR, then quit
 
   if (INFO.value == 0) {
     if (WANTVL || WANTVR) {

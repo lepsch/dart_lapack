@@ -92,7 +92,7 @@ void ztgsen(
   WANTD2 = IJOB == 3 || IJOB == 5;
   WANTD = WANTD1 || WANTD2;
 
-  // Set M.value to the dimension of the specified pair of deflating
+  // Set M to the dimension of the specified pair of deflating
   // subspaces.
 
   M.value = 0;

@@ -285,9 +285,9 @@ void dlasd2(
 
   // Sort the singular values and corresponding singular vectors into
   // DSIGMA, U2, and VT2 respectively.  The singular values/vectors
-  // which were not deflated go into the first K.value slots of DSIGMA, U2,
+  // which were not deflated go into the first K slots of DSIGMA, U2,
   // and VT2 respectively, while those which were deflated go into the
-  // last N - K.value slots, except that the first column/row will be treated
+  // last N - K slots, except that the first column/row will be treated
   // separately.
 
   for (J = 2; J <= N; J++) {

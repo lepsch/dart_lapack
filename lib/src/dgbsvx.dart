@@ -189,11 +189,11 @@ void dgbsvx(
 
     dgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value > 0) {
       // Compute the reciprocal pivot growth factor of the
-      // leading rank-deficient INFO.value columns of A.
+      // leading rank-deficient INFO columns of A.
 
       ANORM = ZERO;
       for (J = 1; J <= INFO.value; J++) {
@@ -272,7 +272,7 @@ void dgbsvx(
     }
   }
 
-  // Set INFO.value = N+1 if the matrix is singular to working precision.
+  // Set INFO = N+1 if the matrix is singular to working precision.
 
   if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
 

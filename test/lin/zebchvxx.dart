@@ -250,7 +250,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
     N_AUX_TESTS++;
     if (ORCOND.value < EPS) {
       // Either factorization failed or the matrix is flagged, and 1 <=
-      // INFO.value <= N+1. We don't decide based on rcond anymore.
+      // INFO <= N+1. We don't decide based on rcond anymore.
       //     IF (INFO == 0 || INFO > N+1) THEN
       //        NFAIL++
       //        WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND

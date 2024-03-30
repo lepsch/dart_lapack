@@ -140,7 +140,7 @@ void zdrvhe(
         }
 
         // For types 3-6, zero one or more rows and columns of the
-        // matrix to test that INFO.value is returned correctly.
+        // matrix to test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {
@@ -266,7 +266,7 @@ void zdrvhe(
               zhesv(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(),
                   LDA, WORK, LWORK, INFO);
 
-              // Adjust the expected value of INFO.value to account for
+              // Adjust the expected value of INFO to account for
               // pivoting.
 
               var K = IZERO;
@@ -363,7 +363,7 @@ void zdrvhe(
                 RWORK(2 * NRHS + 1),
                 INFO);
 
-            // Adjust the expected value of INFO.value to account for
+            // Adjust the expected value of INFO to account for
             // pivoting.
 
             var K = IZERO;
@@ -500,7 +500,7 @@ void zdrvhe(
                 RWORK(2 * NRHS + 1),
                 INFO);
 
-            // Adjust the expected value of INFO.value to account for
+            // Adjust the expected value of INFO to account for
             // pivoting.
 
             var K = IZERO;

@@ -69,7 +69,7 @@ void drotmg(
       }
     } else {
       if (DQ2 < ZERO) {
-        // GO ZERO-H-D-AND-DX1.value..
+        // GO ZERO-H-D-AND-DX1..
         DFLAG = -ONE;
         DH11 = ZERO;
         DH12 = ZERO;

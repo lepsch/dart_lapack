@@ -117,9 +117,9 @@ Future<void> ddrvsx(
     } else if (THRESH < ZERO) {
       INFO.value = -6;
       // } else if ( NIUNIT <= 0 ) {
-      //    INFO.value = -7;
+      //    INFO = -7;
       // } else if ( NOUNIT <= 0 ) {
-      //    INFO.value = -8;
+      //    INFO = -8;
     } else if (LDA < 1 || LDA < NMAX) {
       INFO.value = -10;
     } else if (LDVS < 1 || LDVS < NMAX) {

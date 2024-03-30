@@ -46,7 +46,7 @@ void dppequ(
     return;
   }
 
-  // Initialize SMIN and AMAX.value.
+  // Initialize SMIN and AMAX.
 
   S[1] = AP[1];
   SMIN = S[1];
@@ -93,7 +93,7 @@ void dppequ(
       S[I] = ONE / sqrt(S[I]);
     }
 
-    // Compute SCOND.value = min(S(I)) / max(S(I))
+    // Compute SCOND = min(S(I)) / max(S(I))
 
     SCOND.value = sqrt(SMIN) / sqrt(AMAX.value);
   }

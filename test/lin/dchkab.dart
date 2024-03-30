@@ -53,7 +53,7 @@ void main() async {
   final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
   ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
   NOUT.println(
-      ' Tests of the double           LAPACK DSGESV/DSPOSV routines \n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
+      ' Tests of the DOUBLE PRECISION LAPACK DSGESV/DSPOSV routines \n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
 
   // Read the values of M
 
@@ -133,11 +133,11 @@ void main() async {
   NOUT.println();
 
   var EPS = dlamch('Underflow threshold');
-  NOUT.print9991('(double          ) underflow', EPS);
+  NOUT.print9991('(double precision) underflow', EPS);
   EPS = dlamch('Overflow threshold');
-  NOUT.print9991('(double          ) overflow ', EPS);
+  NOUT.print9991('(double precision) overflow ', EPS);
   EPS = dlamch('Epsilon');
-  NOUT.print9991('(double          ) precision', EPS);
+  NOUT.print9991('(double precision) precision', EPS);
   NOUT.println();
 
   while (true) {

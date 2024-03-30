@@ -50,7 +50,7 @@ void zget02(
     N2 = N;
   }
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0.
 
   EPS = dlamch('Epsilon');
   if (lsame(TRANS, 'N')) {

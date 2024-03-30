@@ -126,7 +126,7 @@ void dstemr(
 
   if (VALEIG) {
     // We do not reference VL, VU in the cases RANGE = 'I','A'
-    // The interval (WL.value, WU.value] contains all the wanted eigenvalues.
+    // The interval (WL, WU] contains all the wanted eigenvalues.
     // It is either given by the user or computed in DLARRE.
     WL.value = VL;
     WU.value = VU;
@@ -224,9 +224,9 @@ void dstemr(
     } else if (WANTZ && !ZQUERY) {
       dlaev2(D[1], E[1], D[2], R1, R2, CS, SN);
     }
-    // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1.value| >= |R2.value|. However,
-    // the following code requires R1.value >= R2.value. Hence, we correct
-    // the order of R1.value, R2.value, CS, SN if R1.value < R2.value before further processing.
+    // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
+    // the following code requires R1 >= R2. Hence, we correct
+    // the order of R1, R2, CS, SN if R1 < R2 before further processing.
     if (R1.value < R2.value) {
       E[2] = R1.value;
       R1.value = R2.value;
@@ -305,7 +305,7 @@ void dstemr(
     IINDWK = 3 * N + 1;
 
     // Scale matrix to allowable range, if necessary.
-    // The allowable range is related to the PIVMIN.value parameter; see the
+    // The allowable range is related to the PIVMIN parameter; see the
     // comments in DLARRD.  The preference for scaling small values
     // up is heuristic; we expect users' matrices not to be close to the
     // RMAX threshold.
@@ -323,7 +323,7 @@ void dstemr(
       TNRM *= SCALE;
       if (VALEIG) {
         // If eigenvalues in interval have to be found,
-        // scale (WL.value, WU.value] accordingly
+        // scale (WL, WU] accordingly
         WL.value *= SCALE;
         WU.value *= SCALE;
       }

@@ -94,7 +94,7 @@ void dtrevc3(
   } else if (LWORK < max(1, 3 * N) && !LQUERY) {
     INFO.value = -14;
   } else {
-    // Set M.value to the number of columns required to store the selected
+    // Set M to the number of columns required to store the selected
     // eigenvectors, standardize the array SELECT if necessary, and
     // test MM.
 
@@ -238,7 +238,7 @@ void dtrevc3(
         }
 
         // Solve upper quasi-triangular system:
-        // [ T[1:KI-1][1:KI-1] - WR ]*X = SCALE.value*WORK.
+        // [ T[1:KI-1][1:KI-1] - WR ]*X = SCALE*WORK.
 
         JNXT = KI - 1;
         for (J = KI - 1; J >= 1; J--) {
@@ -404,7 +404,7 @@ void dtrevc3(
         }
 
         // Solve upper quasi-triangular system:
-        // [ T[1:KI-2][1:KI-2] - (WR+i*WI) ]*X = SCALE.value*(WORK+i*WORK2)
+        // [ T[1:KI-2][1:KI-2] - (WR+i*WI) ]*X = SCALE*(WORK+i*WORK2)
 
         JNXT = KI - 2;
         for (J = KI - 2; J >= 1; J--) {
@@ -701,7 +701,7 @@ void dtrevc3(
         }
 
         // Solve transposed quasi-triangular system:
-        // [ T[KI+1:N][KI+1:N] - WR ]**T * X = SCALE.value*WORK
+        // [ T[KI+1:N][KI+1:N] - WR ]**T * X = SCALE*WORK
 
         VMAX = ONE;
         VCRIT = BIGNUM;
@@ -786,7 +786,7 @@ void dtrevc3(
                 1, WORK(KI + 1 + IV * N), 1);
 
             // Solve
-            // [ T[J][J]-WR   T[J][J+1]      ]**T * X = SCALE.value*( WORK1 )
+            // [ T[J][J]-WR   T[J][J+1]      ]**T * X = SCALE*( WORK1 )
             // [ T[J+1][J]    T[J+1][J+1]-WR ]                ( WORK2 )
 
             dlaln2(
@@ -993,7 +993,7 @@ void dtrevc3(
                 T(KI + 2, J + 1).asArray(), 1, WORK(KI + 2 + (IV + 1) * N), 1);
 
             // Solve 2-by-2 complex linear equation
-            // [ (T[j][j]   T[j][j+1]  )**T - (wr-i*wi)*I ]*X = SCALE.value*B
+            // [ (T[j][j]   T[j][j+1]  )**T - (wr-i*wi)*I ]*X = SCALE*B
             // [ (T[j+1][j] T[j+1][j+1])                  ]
 
             dlaln2(

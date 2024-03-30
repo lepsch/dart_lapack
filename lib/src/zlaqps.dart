@@ -154,8 +154,8 @@ void zlaqps(
   RK = OFFSET + KB.value;
 
   // Apply the block reflector to the rest of the matrix:
-  // A(OFFSET+KB.value+1:M,KB.value+1:N) := A(OFFSET+KB.value+1:M,KB.value+1:N) -
-  //                     A(OFFSET+KB.value+1:M,1:KB.value)*F(KB.value+1:N,1:KB.value)**H.
+  // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
+  //                     A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**H.
 
   if (KB.value < min(N, M - OFFSET)) {
     zgemm(

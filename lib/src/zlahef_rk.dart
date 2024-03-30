@@ -114,7 +114,7 @@ void zlahef_rk(
       }
 
       if (max(ABSAKK, COLMAX) == ZERO) {
-        // Column K is zero or underflow: set INFO.value and continue
+        // Column K is zero or underflow: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -487,7 +487,7 @@ void zlahef_rk(
       }
     }
 
-    // Set KB.value to the number of columns factorized
+    // Set KB to the number of columns factorized
 
     KB.value = N - K;
   } else {
@@ -535,7 +535,7 @@ void zlahef_rk(
       }
 
       if (max(ABSAKK, COLMAX) == ZERO) {
-        // Column K is zero or underflow: set INFO.value and continue
+        // Column K is zero or underflow: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -920,7 +920,7 @@ void zlahef_rk(
       }
     }
 
-    // Set KB.value to the number of columns factorized
+    // Set KB to the number of columns factorized
 
     KB.value = K - 1;
   }

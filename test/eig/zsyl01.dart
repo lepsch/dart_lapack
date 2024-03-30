@@ -53,9 +53,9 @@ void zsyl01(
   SMLNUM = dlamch('S') / EPS;
   BIGNUM = ONE / SMLNUM;
 
-  // Expect INFO.value = 0
+  // Expect INFO = 0
   VM[1] = ONE;
-  // Expect INFO.value = 1
+  // Expect INFO = 1
   VM[2] = 0.05;
 
   // Begin test loop

@@ -220,7 +220,7 @@ void zgsvj0(
             // Hence, dznrm2 cannot be trusted, not even in the case when
             // the true norm is far from the under(over)flow boundaries.
             // If properly implemented dznrm2 is available, the IF-THEN-ELSE-END IF
-            // below should be replaced with "AAPP.value = dznrm2( M, A(1,p), 1 )".
+            // below should be replaced with "AAPP = dznrm2( M, A(1,p), 1 )".
 
             if ((SVA[p] < ROOTBIG) && (SVA[p] > ROOTSFMIN)) {
               SVA[p] = dznrm2(M, A(1, p).asArray(), 1);
@@ -657,7 +657,7 @@ void zgsvj0(
     // sweep.
 
     INFO.value = 0;
-    // #:) INFO.value = 0 confirms successful iterations.
+    // #:) INFO = 0 confirms successful iterations.
   }
 
   // Sort the vector SVA() of column norms.

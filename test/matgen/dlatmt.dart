@@ -182,7 +182,7 @@ void dlatmt(
   }
   if (LDA < M && LDA >= MINLDA) GIVENS = true;
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (M < 0) {
     INFO.value = -1;

@@ -148,7 +148,7 @@ void zchkps(
               continue;
             }
 
-            // Skip the test if INFO.value is not 0.
+            // Skip the test if INFO is not 0.
 
             if (INFO.value != 0) continue;
 
@@ -181,5 +181,4 @@ void zchkps(
   // Print a summary of the results.
 
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
-
 }

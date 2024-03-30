@@ -189,7 +189,7 @@ void zlatms(
   }
   if (LDA < M && LDA >= MINLDA) GIVENS = true;
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (M < 0) {
     INFO.value = -1;
@@ -355,7 +355,7 @@ void zlatms(
                   DUMMY);
             }
 
-            // Chase "EXTRA.value" back up
+            // Chase "EXTRA" back up
 
             IR = JR;
             IC = ICOL;
@@ -437,7 +437,7 @@ void zlatms(
                   DUMMY);
             }
 
-            // Chase "EXTRA.value" back up
+            // Chase "EXTRA" back up
 
             IC = JC;
             IR = IROW;
@@ -524,7 +524,7 @@ void zlatms(
                   EXTRA);
             }
 
-            // Chase "EXTRA.value" back down
+            // Chase "EXTRA" back down
 
             IC = JC;
             for (JCH = JC + JKL;
@@ -607,7 +607,7 @@ void zlatms(
                   EXTRA);
             }
 
-            // Chase "EXTRA.value" back down
+            // Chase "EXTRA" back down
 
             IR = JR;
             for (JCH = JR + JKU;
@@ -704,7 +704,7 @@ void zlatms(
             zlarot(true, true, false, min(K, N - JC) + 1, CT, ST,
                 A((1 - ISKEW) * JC + IOFFG, JC).asArray(), ILDA, CTEMP, DUMMY);
 
-            // Chase EXTRA.value back up the matrix
+            // Chase EXTRA back up the matrix
 
             ICOL = JC;
             for (JCH = JC - K; JCH >= 1; JCH -= K) {
@@ -826,7 +826,7 @@ void zlatms(
                 DUMMY,
                 CTEMP);
 
-            // Chase EXTRA.value back down the matrix
+            // Chase EXTRA back down the matrix
 
             ICOL = JC;
             for (JCH = JC + K; JCH <= N - 1; JCH += K) {

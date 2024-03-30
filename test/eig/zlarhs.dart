@@ -207,7 +207,7 @@ void zlarhs(
       ztbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B(1, J).asArray(), 1);
     }
   } else {
-    // If none of the above, set INFO.value = -1 and return;
+    // If none of the above, set INFO = -1 and return;
 
     INFO.value = -1;
     xerbla('ZLARHS', -INFO.value);

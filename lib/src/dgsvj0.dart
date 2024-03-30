@@ -207,7 +207,7 @@ void dgsvj0(
             // Hence, DNRM2 cannot be trusted, not even in the case when
             // the true norm is far from the under(over)flow boundaries.
             // If properly implemented DNRM2 is available, the if-THEN-ELSE
-            // below should read "AAPP.value = dnrm2( M, A[1][p], 1 ) * D[p]".
+            // below should read "AAPP = dnrm2( M, A[1][p], 1 ) * D[p]".
 
             if ((SVA[p] < ROOTBIG) && (SVA[p] > ROOTSFMIN)) {
               SVA[p] = dnrm2(M, A(1, p).asArray(), 1) * D[p];
@@ -780,7 +780,7 @@ void dgsvj0(
     // #:) Reaching this point means that during the i-th sweep all pivots were
     // below the given tolerance, causing early exit.
     INFO.value = 0;
-    // #:) INFO.value = 0 confirms successful iterations.
+    // #:) INFO = 0 confirms successful iterations.
   }
   // Sort the vector D.
   for (p = 1; p <= N - 1; p++) {

@@ -36,11 +36,11 @@ void dlasd5(
 
       // B > ZERO, always
 
-      // The following TAU is DSIGMA.value * DSIGMA.value - D[ 1 ] * D[ 1 ]
+      // The following TAU is DSIGMA * DSIGMA - D[ 1 ] * D[ 1 ]
 
       TAU = TWO * C / (B + sqrt((B * B - FOUR * C).abs()));
 
-      // The following TAU is DSIGMA.value - D[ 1 ]
+      // The following TAU is DSIGMA - D[ 1 ]
 
       TAU /= (D[1] + sqrt(D[1] * D[1] + TAU));
       DSIGMA.value = D[1] + TAU;
@@ -54,7 +54,7 @@ void dlasd5(
       B = -DELSQ + RHO * (Z[1] * Z[1] + Z[2] * Z[2]);
       C = RHO * Z[2] * Z[2] * DELSQ;
 
-      // The following TAU is DSIGMA.value * DSIGMA.value - D[ 2 ] * D[ 2 ]
+      // The following TAU is DSIGMA * DSIGMA - D[ 2 ] * D[ 2 ]
 
       if (B > ZERO) {
         TAU = -TWO * C / (B + sqrt(B * B + FOUR * C));
@@ -62,7 +62,7 @@ void dlasd5(
         TAU = (B - sqrt(B * B + FOUR * C)) / TWO;
       }
 
-      // The following TAU is DSIGMA.value - D[ 2 ]
+      // The following TAU is DSIGMA - D[ 2 ]
 
       TAU /= (D[2] + sqrt((D[2] * D[2] + TAU).abs()));
       DSIGMA.value = D[2] + TAU;
@@ -82,7 +82,7 @@ void dlasd5(
     B = -DELSQ + RHO * (Z[1] * Z[1] + Z[2] * Z[2]);
     C = RHO * Z[2] * Z[2] * DELSQ;
 
-    // The following TAU is DSIGMA.value * DSIGMA.value - D[ 2 ] * D[ 2 ]
+    // The following TAU is DSIGMA * DSIGMA - D[ 2 ] * D[ 2 ]
 
     if (B > ZERO) {
       TAU = (B + sqrt(B * B + FOUR * C)) / TWO;
@@ -90,7 +90,7 @@ void dlasd5(
       TAU = TWO * C / (-B + sqrt(B * B + FOUR * C));
     }
 
-    // The following TAU is DSIGMA.value - D[ 2 ]
+    // The following TAU is DSIGMA - D[ 2 ]
 
     TAU /= (D[2] + sqrt(D[2] * D[2] + TAU));
     DSIGMA.value = D[2] + TAU;

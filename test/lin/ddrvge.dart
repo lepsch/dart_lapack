@@ -345,7 +345,7 @@ void ddrvge(
             dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDA);
             if (IEQUED > 1 && N > 0) {
               // Equilibrate the matrix if FACT = 'F' and
-              // EQUED.value = 'R', 'C', or 'B'.
+              // EQUED = 'R', 'C', or 'B'.
 
               dlaqge(N, N, A.asMatrix(), LDA, S, S(N + 1), ROWCND.value,
                   COLCND.value, AMAX.value, EQUED);
@@ -467,7 +467,7 @@ void ddrvge(
               TRFCON = true;
             }
 
-            // Compare RCOND.value from DGESVX with the computed value
+            // Compare RCOND from DGESVX with the computed value
             // in RCONDC.
 
             RESULT[6] = dget06(RCOND.value, RCONDC);

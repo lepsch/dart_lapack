@@ -508,7 +508,7 @@ void dgsvj1(
     // below the given threshold, causing early exit.
 
     INFO.value = 0;
-    // #:) INFO.value = 0 confirms successful iterations.
+    // #:) INFO = 0 confirms successful iterations.
   }
 
   // Sort the vector D

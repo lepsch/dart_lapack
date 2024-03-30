@@ -136,7 +136,7 @@ void dppsvx(
     dcopy(N * (N + 1) ~/ 2, AP, 1, AFP, 1);
     dpptrf(UPLO, N, AFP, INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value > 0) {
       RCOND.value = ZERO;
@@ -176,7 +176,7 @@ void dppsvx(
     }
   }
 
-  // Set INFO.value = N+1 if the matrix is singular to working precision.
+  // Set INFO = N+1 if the matrix is singular to working precision.
 
   if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
 }

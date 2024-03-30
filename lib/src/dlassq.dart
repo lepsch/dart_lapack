@@ -79,7 +79,7 @@ void dlassq(
         scale.value *= sbig;
         abig += scale.value * (scale.value * sumsq.value);
       } else {
-        // sumsq.value > tbig^2 => (sbig * (sbig * sumsq.value)) is representable;
+        // sumsq > tbig^2 => (sbig * (sbig * sumsq)) is representable;
         abig =
             abig + scale.value * (scale.value * (sbig * (sbig * sumsq.value)));
       }
@@ -89,7 +89,7 @@ void dlassq(
           scale.value *= ssml;
           asml += scale.value * (scale.value * sumsq.value);
         } else {
-          // sumsq.value < tsml^2 => (ssml * (ssml * sumsq.value)) is representable
+          // sumsq < tsml^2 => (ssml * (ssml * sumsq)) is representable
           asml += scale.value * (scale.value * (ssml * (ssml * sumsq.value)));
         }
       }

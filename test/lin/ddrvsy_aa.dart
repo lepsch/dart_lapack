@@ -133,7 +133,7 @@ void ddrvsy_aa(
         }
 
         // For types 3-6, zero one or more rows and columns of the
-        // matrix to test that INFO.value is returned correctly.
+        // matrix to test that INFO is returned correctly.
 
         int IZERO;
         if (ZEROT) {

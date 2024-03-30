@@ -181,7 +181,7 @@ void dlatms(
   }
   if (LDA < M && LDA >= MINLDA) GIVENS = true;
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (M < 0) {
     INFO.value = -1;
@@ -416,7 +416,7 @@ void dlatms(
                   DUMMY);
             }
 
-            // Chase "EXTRA.value" back up
+            // Chase "EXTRA" back up
 
             IC = JC;
             IR = IROW;
@@ -497,7 +497,7 @@ void dlatms(
                   EXTRA);
             }
 
-            // Chase "EXTRA.value" back down
+            // Chase "EXTRA" back down
 
             IC = JC;
             for (JCH = JC + JKL;
@@ -574,7 +574,7 @@ void dlatms(
                   EXTRA);
             }
 
-            // Chase "EXTRA.value" back down
+            // Chase "EXTRA" back down
 
             IR = JR;
             for (JCH = JR + JKU;
@@ -653,7 +653,7 @@ void dlatms(
             dlarot(true, true, false, min(K, N - JC) + 1, C.value, S.value,
                 A((1 - ISKEW) * JC + IOFFG, JC).asArray(), ILDA, TEMP, DUMMY);
 
-            // Chase EXTRA.value back up the matrix
+            // Chase EXTRA back up the matrix
 
             ICOL = JC;
             for (JCH = JC - K; JCH >= 1; JCH -= K) {
@@ -747,7 +747,7 @@ void dlatms(
                 DUMMY,
                 TEMP);
 
-            // Chase EXTRA.value back down the matrix
+            // Chase EXTRA back down the matrix
 
             ICOL = JC;
             for (JCH = JC + K; JCH <= N - 1; JCH += K) {

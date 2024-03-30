@@ -82,7 +82,7 @@ void zlarot(
     XT[J] = TEMPX;
   }
 
-  // Stuff values back into XLEFT.value, XRIGHT.value, etc.
+  // Stuff values back into XLEFT, XRIGHT, etc.
 
   if (LLEFT) {
     A[1] = XT[1];

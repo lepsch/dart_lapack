@@ -146,7 +146,7 @@ void zgelsy(
   // complex workspace: MN+NB*(N+1). real workspace 2*N.
   // Details of Householder rotations stored in WORK(1:MN).
 
-  // Determine RANK.value using incremental condition estimation
+  // Determine RANK using incremental condition estimation
 
   WORK[ISMIN] = Complex.one;
   WORK[ISMAX] = Complex.one;
@@ -186,7 +186,7 @@ void zgelsy(
 
   // Logically partition R = [ R11 R12 ]
   //                         [  0  R22 ]
-  // where R11 = R(1:RANK.value,1:RANK.value)
+  // where R11 = R(1:RANK,1:RANK)
 
   // [R11,R12] = [ T11, 0 ] * Y
 
@@ -206,7 +206,7 @@ void zgelsy(
 
   // complex workspace: 2*MN+NB*NRHS.
 
-  // B(1:RANK.value,1:NRHS) := inv(T11) * B(1:RANK.value,1:NRHS)
+  // B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 
   ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK.value, NRHS,
       Complex.one, A, LDA, B, LDB);

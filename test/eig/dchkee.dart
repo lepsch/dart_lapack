@@ -1068,7 +1068,7 @@ Future<void> dchkee(
                   // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
                   // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
                   // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
-                  // $                      LWORK, IWORK, LIWORK, RESULT, INFO.value )
+                  // $                      LWORK, IWORK, LIWORK, RESULT, INFO )
                   final INFO = Box(0);
                   ddrvsg2stg(
                       NN,

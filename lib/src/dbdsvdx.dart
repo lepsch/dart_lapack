@@ -493,7 +493,7 @@ void dbdsvdx(
 
               // if( IUTGK*2 > NTGK ) THEN
               // Eigenvalue equal to zero or very small.
-              // NSL.value--
+              // NSL--
               // END if
             }
 
@@ -633,7 +633,7 @@ void dbdsvdx(
     }
   }
 
-  // Reorder Z: U = Z[ 1:N][1:NS.value ], V = Z[ N+1:N*2][1:NS.value ].
+  // Reorder Z: U = Z[ 1:N][1:NS ], V = Z[ N+1:N*2][1:NS ].
   // If B is a lower diagonal, swap U and V.
 
   if (WANTZ) {

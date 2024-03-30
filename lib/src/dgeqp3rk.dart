@@ -187,14 +187,14 @@ void dgeqp3rk(
   // ==================================================================.
 
   if (disnan(MAXC2NRM)) {
-    // Check if the matrix A contains NaN, set INFO.value parameter
+    // Check if the matrix A contains NaN, set INFO parameter
     // to the column number where the first NaN is found and return;
     // from the routine.
 
     K.value = 0;
     INFO.value = KP1;
 
-    // Set MAXC2NRMK.value and  RELMAXC2NRMK.value to NaN.
+    // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
 
     MAXC2NRMK.value = MAXC2NRM;
     RELMAXC2NRMK.value = MAXC2NRM;
@@ -228,7 +228,7 @@ void dgeqp3rk(
   HUGEVAL = dlamch('Overflow');
 
   if (MAXC2NRM > HUGEVAL) {
-    // Check if the matrix A contains +Inf or -Inf, set INFO.value parameter
+    // Check if the matrix A contains +Inf or -Inf, set INFO parameter
     // to the column number, where the first +/-Inf  is found plus N,
     // and continue the computation.
 
@@ -255,14 +255,14 @@ void dgeqp3rk(
 
   EPS = dlamch('Epsilon');
 
-  // Adjust ABSTOL.value
+  // Adjust ABSTOL
 
   if (ABSTOL.value >= ZERO) {
     SAFMIN = dlamch('Safe minimum');
     ABSTOL.value = max(ABSTOL.value, TWO * SAFMIN);
   }
 
-  // Adjust RELTOL.value
+  // Adjust RELTOL
 
   if (RELTOL.value >= ZERO) {
     RELTOL.value = max(RELTOL.value, EPS);
@@ -279,8 +279,8 @@ void dgeqp3rk(
 
   // Quick return if possible for the case when the second or third
   // stopping criterion for the whole original matrix is satified,
-  // i.e. MAXC2NRM <= ABSTOL.value or RELMAXC2NRM <= RELTOL.value
-  // (which is ONE <= RELTOL.value).
+  // i.e. MAXC2NRM <= ABSTOL or RELMAXC2NRM <= RELTOL
+  // (which is ONE <= RELTOL).
 
   if (MAXC2NRM <= ABSTOL.value || ONE <= RELTOL.value) {
     K.value = 0;
@@ -347,11 +347,11 @@ void dgeqp3rk(
   if (NB >= NBMIN && NB < JMAX && JMAXB > 0) {
     // Loop over the column blocks of the matrix A(1:M,1:JMAXB). Here:
     // J   is the column index of a column block;
-    // JB.value  is the column block size to pass to block factorization
+    // JB  is the column block size to pass to block factorization
     //     routine in a loop step;
-    // JBF.value is the number of columns that were actually factorized
+    // JBF is the number of columns that were actually factorized
     //     that was returned by the block factorization routine
-    //     in a loop step, JBF.value <= JB.value;
+    //     in a loop step, JBF <= JB;
     // N_SUB is the number of columns in the submatrix;
     // IOFFSET is the number of rows that should not be factorized.
 
@@ -360,7 +360,7 @@ void dgeqp3rk(
       N_SUB = N - J + 1;
       IOFFSET = J - 1;
 
-      // Factorize JB.value columns among the columns A(J:N).
+      // Factorize JB columns among the columns A(J:N).
 
       dlaqp3rk(
           M,
@@ -388,7 +388,7 @@ void dgeqp3rk(
           IWORK,
           IINFO);
 
-      // Set INFO.value on the first occurence of Inf.
+      // Set INFO on the first occurence of Inf.
 
       if (IINFO.value > N_SUB && INFO.value == 0) {
         INFO.value = 2 * IOFFSET + IINFO.value;
@@ -396,21 +396,21 @@ void dgeqp3rk(
 
       if (DONE.value) {
         // Either the submatrix is zero before the end of the
-        // column block, or ABSTOL.value or RELTOL.value criterion is
+        // column block, or ABSTOL or RELTOL criterion is
         // satisfied before the end of the column block, we can
         // return from the routine. Perform the following before
         // returning:
-        //   a) Set the number of factorized columns K.value,
-        //      K.value = IOFFSET + JBF.value from the last call of blocked
+        //   a) Set the number of factorized columns K,
+        //      K = IOFFSET + JBF from the last call of blocked
         //      routine.
-        //   NOTE: 1) MAXC2NRMK.value and RELMAXC2NRMK.value are returned
+        //   NOTE: 1) MAXC2NRMK and RELMAXC2NRMK are returned
         //            by the block factorization routine;
         //         2) The remaining TAUs are set to ZERO by the
         //            block factorization routine.
 
         K.value = IOFFSET + JBF.value;
 
-        // Set INFO.value on the first occurrence of NaN, NaN takes
+        // Set INFO on the first occurrence of NaN, NaN takes
         // prcedence over Inf.
 
         if (IINFO.value <= N_SUB && IINFO.value > 0) {
@@ -464,20 +464,20 @@ void dgeqp3rk(
         WORK(2 * N + 1),
         IINFO);
 
-    // ABSTOL.value or RELTOL.value criterion is satisfied when the number of
+    // ABSTOL or RELTOL criterion is satisfied when the number of
     // the factorized columns KF is smaller then the  number
     // of columns JMAX-J+1 supplied to be factorized by the
     // unblocked routine, we can return from
     // the routine. Perform the following before returning:
-    //    a) Set the number of factorized columns K.value,
-    //    b) MAXC2NRMK.value and RELMAXC2NRMK.value are returned by the
+    //    a) Set the number of factorized columns K,
+    //    b) MAXC2NRMK and RELMAXC2NRMK are returned by the
     //       unblocked factorization routine above.
 
     K.value = J - 1 + KF.value;
 
-    // Set INFO.value on the first exception occurence.
+    // Set INFO on the first exception occurence.
 
-    // Set INFO.value on the first exception occurence of Inf or NaN,
+    // Set INFO on the first exception occurence of Inf or NaN,
     // (NaN takes precedence over Inf).
 
     if (IINFO.value > N_SUB && INFO.value == 0) {
@@ -494,9 +494,9 @@ void dgeqp3rk(
     K.value = JMAX;
 
     // If there exits a residual matrix after the blocked code:
-    //    1) compute the values of MAXC2NRMK.value, RELMAXC2NRMK.value of the
+    //    1) compute the values of MAXC2NRMK, RELMAXC2NRMK of the
     //       residual matrix, otherwise set them to ZERO;
-    //    2) Set TAU(K.value+1:MINMN) to ZERO.
+    //    2) Set TAU(K+1:MINMN) to ZERO.
 
     if (K.value < MINMN) {
       JMAXC2NRM = K.value + idamax(N - K.value, WORK(K.value + 1), 1);

@@ -72,7 +72,7 @@ void zpoequ(
       S[I] = ONE / sqrt(S[I]);
     }
 
-    // Compute SCOND.value = min(S[I]) / max(S[I])
+    // Compute SCOND = min(S[I]) / max(S[I])
 
     SCOND.value = sqrt(SMIN) / sqrt(AMAX.value);
   }

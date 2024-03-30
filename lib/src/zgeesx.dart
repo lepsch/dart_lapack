@@ -92,10 +92,10 @@ void zgeesx(
   //   workspace. NB refers to the optimal block size for the
   //   immediately following subroutine, as returned by ILAENV.
   //   HSWORK refers to the workspace preferred by zhseqr, as
-  //   calculated below. HSWORK is computed assuming ILO.value=1 and IHI.value=N,
+  //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
   //   the worst case.
   //   If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
-  //   depends on SDIM.value, which is computed by the routine ZTRSEN later
+  //   depends on SDIM, which is computed by the routine ZTRSEN later
   //   in the code.)
 
   if (INFO.value == 0) {
@@ -211,7 +211,7 @@ void zgeesx(
 
     // Reorder eigenvalues, transform Schur vectors, and compute
     // reciprocal condition numbers
-    // (CWorkspace: if SENSE is not 'N', need 2*SDIM.value*(N-SDIM.value)
+    // (CWorkspace: if SENSE is not 'N', need 2*SDIM*(N-SDIM)
     //              otherwise, need none )
     // (RWorkspace: none)
 

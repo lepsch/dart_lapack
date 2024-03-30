@@ -36,7 +36,7 @@ void zppt02(
     return;
   }
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0.
 
   final EPS = dlamch('Epsilon');
   final ANORM = zlanhp('1', UPLO, N, A, RWORK);

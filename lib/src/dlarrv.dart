@@ -677,7 +677,7 @@ void dlarrv(
                   }
                   LAMBDA = WORK[WINDEX];
                   // Reset twist index from inaccurate LAMBDA to
-                  // force computation of true MINGMA.value
+                  // force computation of true MINGMA
                   IWORK[IINDR + WINDEX] = 0;
                 }
                 // Given LAMBDA, compute the eigenvector.
@@ -725,7 +725,7 @@ void dlarrv(
                 if (RESID.value > TOL * GAP &&
                     RQCORR.value.abs() > RQTOL * LAMBDA.abs() &&
                     !USEDBS) {
-                  // We need to check that the RQCORR.value update doesn't
+                  // We need to check that the RQCORR update doesn't
                   // move the eigenvalue away from the desired one and
                   // towards a neighbor. -> protection with bisection
                   if (INDEIG <= NEGCNT.value) {
@@ -735,7 +735,7 @@ void dlarrv(
                     // The wanted eigenvalue lies to the right
                     SGNDEF = ONE;
                   }
-                  // We only use the RQCORR.value if it improves the
+                  // We only use the RQCORR if it improves the
                   // the iterate reasonably.
                   if ((RQCORR.value * SGNDEF >= ZERO) &&
                       (LAMBDA + RQCORR.value <= RIGHT) &&
@@ -748,20 +748,20 @@ void dlarrv(
                       LEFT = LAMBDA;
                       // We prefer to assume that the error estimate
                       // is correct. We could make the interval not
-                      // as a bracket but to be modified if the RQCORR.value
+                      // as a bracket but to be modified if the RQCORR
                       // chooses to. In this case, the RIGHT side should
                       // be modified as follows:
-                      // RIGHT = max(RIGHT, LAMBDA + RQCORR.value)
+                      // RIGHT = max(RIGHT, LAMBDA + RQCORR)
                     } else {
                       // The current LAMBDA is on the right of the true
                       // eigenvalue
                       RIGHT = LAMBDA;
                       // See comment about assuming the error estimate is
                       // correct above.
-                      // LEFT = min(LEFT, LAMBDA + RQCORR.value)
+                      // LEFT = min(LEFT, LAMBDA + RQCORR)
                     }
                     WORK[WINDEX] = HALF * (RIGHT + LEFT);
-                    // Take RQCORR.value since it has the correct sign and
+                    // Take RQCORR since it has the correct sign and
                     // improves the iterate reasonably
                     LAMBDA += RQCORR.value;
                     // Update width of error interval

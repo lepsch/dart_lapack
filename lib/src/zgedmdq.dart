@@ -162,7 +162,7 @@ void zgedmdq(
     // determine minimal and optimal sizes of the
     // workspace at any moment of the run.
     if ((N == 0) || (N == 1)) {
-      // All output except K.value is void. INFO.value=1 signals
+      // All output except K is void. INFO=1 signals
       // the void input. In case of a workspace query,
       // the minimal workspace lengths are returned.
       if (LQUERY) {

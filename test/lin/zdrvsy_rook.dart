@@ -146,7 +146,7 @@ void zdrvsy_rook(
           }
 
           // For types 3-6, zero one or more rows and columns of
-          // the matrix to test that INFO.value is returned correctly.
+          // the matrix to test that INFO is returned correctly.
 
           if (ZEROT) {
             if (IMAT == 3) {
@@ -275,7 +275,7 @@ void zdrvsy_rook(
             zsysv_rook(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(),
                 LDA, WORK, LWORK, INFO);
 
-            // Adjust the expected value of INFO.value to account for
+            // Adjust the expected value of INFO to account for
             // pivoting.
 
             var K = IZERO;

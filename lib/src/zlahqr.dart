@@ -262,7 +262,7 @@ void zlahqr(
         // submatrix.
 
         // V(2) is always real before the call to ZLARFG, and hence
-        // after the call T2 ( = T1.value*V(2) ) is also real.
+        // after the call T2 ( = T1*V(2) ) is also real.
 
         if (K > M) zcopy(2, H(K, K - 1).asArray(), 1, V, 1);
         zlarfg(2, V(1), V(2), 1, T1);

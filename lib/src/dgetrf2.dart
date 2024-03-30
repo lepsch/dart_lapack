@@ -49,7 +49,7 @@ void dgetrf2(
 
   if (M == 1) {
     // Use unblocked code for one row case
-    // Just need to handle IPIV and INFO.value
+    // Just need to handle IPIV and INFO
 
     IPIV[1] = 1;
     if (A[1][1] == ZERO) INFO.value = 1;
@@ -117,7 +117,7 @@ void dgetrf2(
 
     dgetrf2(M - N1, N2, A(N1 + 1, N1 + 1), LDA, IPIV(N1 + 1), IINFO);
 
-    // Adjust INFO.value and the pivot indices
+    // Adjust INFO and the pivot indices
 
     if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + N1;
     for (I = N1 + 1; I <= min(M, N); I++) {

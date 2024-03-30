@@ -80,7 +80,7 @@ void zsptrf(
       }
 
       if (max(ABSAKK, COLMAX) == ZERO) {
-        // Column K is zero: set INFO.value and continue
+        // Column K is zero: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -252,7 +252,7 @@ void zsptrf(
       }
 
       if (max(ABSAKK, COLMAX) == ZERO) {
-        // Column K is zero: set INFO.value and continue
+        // Column K is zero: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;

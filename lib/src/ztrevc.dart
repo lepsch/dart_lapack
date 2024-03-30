@@ -55,7 +55,7 @@ void ztrevc(
   OVER = lsame(HOWMNY, 'B');
   SOMEV = lsame(HOWMNY, 'S');
 
-  // Set M.value to the number of columns required to store the selected
+  // Set M to the number of columns required to store the selected
   // eigenvectors.
 
   if (SOMEV) {
@@ -131,7 +131,7 @@ void ztrevc(
       }
 
       // Solve the triangular system:
-      //    (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE.value*WORK.
+      //    (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
 
       for (K = 1; K <= KI - 1; K++) {
         T[K][K] -= T[KI][KI];
@@ -196,7 +196,7 @@ void ztrevc(
       }
 
       // Solve the triangular system:
-      //    (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE.value*WORK.
+      //    (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE*WORK.
 
       for (K = KI + 1; K <= N; K++) {
         T[K][K] -= T[KI][KI];

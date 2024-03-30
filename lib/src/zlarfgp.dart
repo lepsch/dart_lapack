@@ -37,16 +37,16 @@ void zlarfgp(
   ALPHI = ALPHA.value.imaginary;
 
   if (XNORM <= EPS * ALPHA.value.abs() && ALPHI == ZERO) {
-    // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA.value >= 0.
+    // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
     if (ALPHR >= ZERO) {
-      // When TAU.value == ZERO, the vector is special-cased to be
+      // When TAU == ZERO, the vector is special-cased to be
       // all zeros in the application routines.  We do not need
       // to clear it.
       TAU.value = Complex.zero;
     } else {
       // However, the application routines rely on explicit
-      // zero checks when TAU.value != ZERO, and we must clear X.
+      // zero checks when TAU != ZERO, and we must clear X.
       TAU.value = TWO.toComplex();
       for (J = 1; J <= N - 1; J++) {
         X[1 + (J - 1) * INCX] = Complex.zero;
@@ -92,8 +92,8 @@ void zlarfgp(
     ALPHA.value = zladiv(Complex.one, ALPHA.value);
 
     if (TAU.value.abs() <= SMLNUM) {
-      // In the case where the computed TAU.value ends up being a denormalized number,
-      // it loses relative accuracy. This is a BIG problem. Solution: flush TAU.value
+      // In the case where the computed TAU ends up being a denormalized number,
+      // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
       // to ZERO (or TWO or whatever makes a nonnegative real number for BETA).
 
       // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)

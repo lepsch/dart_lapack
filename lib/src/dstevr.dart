@@ -188,8 +188,8 @@ void dstevr(
   // Initialize indices into workspaces.  Note: These indices are used only
   // if DSTERF or DSTEMR fail.
 
-  // IWORK[INDIBL:INDIBL+M.value-1] corresponds to IBLOCK in DSTEBZ and
-  // stores the block indices of each of the M.value<=N eigenvalues.
+  // IWORK[INDIBL:INDIBL+M-1] corresponds to IBLOCK in DSTEBZ and
+  // stores the block indices of each of the M<=N eigenvalues.
   INDIBL = 1;
   // IWORK[INDISP:INDISP+NSPLIT-1] corresponds to ISPLIT in DSTEBZ and
   // stores the starting and finishing indices of each block.
@@ -197,7 +197,7 @@ void dstevr(
   // IWORK[INDIFL:INDIFL+N-1] stores the indices of eigenvectors
   // that corresponding to eigenvectors that fail to converge in
   // DSTEIN.  This information is discarded; if any fail, the driver
-  // returns INFO.value > 0.
+  // returns INFO > 0.
   INDIFL = INDISP + N;
   // INDIWO is the offset of the remaining integer workspace.
   INDIWO = INDISP + N;

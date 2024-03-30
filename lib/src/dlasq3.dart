@@ -157,7 +157,7 @@ void dlasq3(
         DMIN1.value > ZERO &&
         Z[4 * (N0.value - 1) - PP.value] < TOL * (SIGMA.value + DN1.value) &&
         DN.value.abs() < TOL * SIGMA.value) {
-      // Convergence hidden by negative DN.value.
+      // Convergence hidden by negative DN.
 
       Z[4 * (N0.value - 1) - PP.value + 2] = ZERO;
       DMIN.value = ZERO;
@@ -165,7 +165,7 @@ void dlasq3(
       success = true;
       break;
     } else if (DMIN.value < ZERO) {
-      // TAU.value too big. Select new TAU.value and try again.
+      // TAU too big. Select new TAU and try again.
 
       NFAIL.value++;
       if (TTYPE.value < -22) {

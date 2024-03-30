@@ -213,7 +213,7 @@ void dggsvp3(
     if (A[I][I].abs() > TOLA) K.value++;
   }
 
-  // Update A12 := U**T*A12, where A12 = A[ 1:M][ N-L.value+1:N ]
+  // Update A12 := U**T*A12, where A12 = A[ 1:M][ N-L+1:N ]
 
   dorm2r('Left', 'Transpose', M, L.value, min(M, N - L.value), A, LDA, TAU,
       A(1, N - L.value + 1), LDA, WORK, INFO);
@@ -227,13 +227,13 @@ void dggsvp3(
   }
 
   if (WANTQ) {
-    // Update Q[ 1:N][ 1:N-L.value ] *=P1
+    // Update Q[ 1:N][ 1:N-L ] *=P1
 
     dlapmt(FORWRD, N, N - L.value, Q, LDQ, IWORK);
   }
 
   // Clean up A: set the strictly lower triangular part of
-  // A[1:K.value][ 1:K.value] = 0, and A[ K.value+1:M][ 1:N-L.value ] = 0.
+  // A[1:K][ 1:K] = 0, and A[ K+1:M][ 1:N-L ] = 0.
 
   for (J = 1; J <= K.value - 1; J++) {
     for (I = J + 1; I <= K.value; I++) {
@@ -251,7 +251,7 @@ void dggsvp3(
     dgerq2(K.value, N - L.value, A, LDA, TAU, WORK, INFO);
 
     if (WANTQ) {
-      // Update Q[ 1:N][1:N-L.value ] *=Z1**T
+      // Update Q[ 1:N][1:N-L ] *=Z1**T
 
       dormr2('Right', 'Transpose', N, N - L.value, K.value, A, LDA, TAU, Q, LDQ,
           WORK, INFO);
@@ -268,13 +268,13 @@ void dggsvp3(
   }
 
   if (M > K.value) {
-    // QR factorization of A[ K.value+1:M][N-L.value+1:N ]
+    // QR factorization of A[ K+1:M][N-L+1:N ]
 
     dgeqr2(M - K.value, L.value, A(K.value + 1, N - L.value + 1), LDA, TAU,
         WORK, INFO);
 
     if (WANTU) {
-      // Update U[:][K.value+1:M] := U[:][K.value+1:M]*U1
+      // Update U[:][K+1:M] := U[:][K+1:M]*U1
 
       dorm2r(
           'Right',

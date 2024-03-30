@@ -246,8 +246,8 @@ void dlarrd(
       WUL = WORK[N + 1];
       NWU = IWORK[3];
     }
-    // On exit, the interval [WL.value, WLU] contains a value with negcount NWL,
-    // and [WUL, WU.value] contains a value with negcount NWU.
+    // On exit, the interval [WL, WLU] contains a value with negcount NWL,
+    // and [WUL, WU] contains a value with negcount NWU.
     if (NWL < 0 || NWL >= N || NWU < 1 || NWU > N) {
       INFO.value = 4;
       return;
@@ -261,8 +261,8 @@ void dlarrd(
   }
 
   // Find Eigenvalues -- Loop Over blocks and recompute NWL and NWU.
-  // NWL accumulates the number of eigenvalues <= WL.value,
-  // NWU accumulates the number of eigenvalues <= WU.value
+  // NWL accumulates the number of eigenvalues <= WL,
+  // NWU accumulates the number of eigenvalues <= WU
   M.value = 0;
   IEND = 0;
   INFO.value = 0;
@@ -309,32 +309,32 @@ void dlarrd(
       //    DISC = sqrt( (HALF*(D[IBEGIN]-D[IEND]))**2 + E[IBEGIN]**2 )
       //    TMP1 = HALF*(D[IBEGIN]+D[IEND])
       //    L1 = TMP1 - DISC
-      //    if( WL.value >= L1-PIVMIN )
+      //    if( WL >= L1-PIVMIN )
       //        NWL++
-      //    if( WU.value >= L1-PIVMIN )
+      //    if( WU >= L1-PIVMIN )
       //        NWU++
-      //    if( IRANGE == ALLRNG || ( WL.value < L1-PIVMIN && WU.value.GE.
+      //    if( IRANGE == ALLRNG || ( WL < L1-PIVMIN && WU.GE.
       //        L1-PIVMIN ) ) THEN
-      //        M.value++
-      //        W[ M.value ] = L1
+      //        M++
+      //        W[ M ] = L1
       //        // The uncertainty of eigenvalues of a 2x2 matrix is very small
-      //        WERR[ M.value ] = EPS * ABS( W[ M.value ] ) * TWO
-      //        IBLOCK[ M.value ] = JBLK
-      //        INDEXW[ M.value ] = 1
+      //        WERR[ M ] = EPS * ABS( W[ M ] ) * TWO
+      //        IBLOCK[ M ] = JBLK
+      //        INDEXW[ M ] = 1
       //     ENDIF
       //     L2 = TMP1 + DISC
-      //     if( WL.value >= L2-PIVMIN )
+      //     if( WL >= L2-PIVMIN )
       //         NWL++
-      //     if( WU.value >= L2-PIVMIN )
+      //     if( WU >= L2-PIVMIN )
       //         NWU++
-      //     if( IRANGE == ALLRNG || ( WL.value < L2-PIVMIN && WU.value.GE.
+      //     if( IRANGE == ALLRNG || ( WL < L2-PIVMIN && WU.GE.
       //         L2-PIVMIN ) ) THEN
-      //        M.value++
-      //        W[ M.value ] = L2
+      //        M++
+      //        W[ M ] = L2
       //        // The uncertainty of eigenvalues of a 2x2 matrix is very small
-      //        WERR[ M.value ] = EPS * ABS( W[ M.value ] ) * TWO
-      //        IBLOCK[ M.value ] = JBLK
-      //        INDEXW[ M.value ] = 2
+      //        WERR[ M ] = EPS * ABS( W[ M ] ) * TWO
+      //        IBLOCK[ M ] = JBLK
+      //        INDEXW[ M ] = 2
       //     ENDIF
     } else {
       // General Case - block of size IN >= 2
@@ -364,7 +364,7 @@ void dlarrd(
           NWU += IN;
           continue;
         }
-        // refine search interval if possible, only range (WL.value,WU.value] matters
+        // refine search interval if possible, only range (WL,WU] matters
         GL = max(GL, WL.value);
         GU = min(GU, WU.value);
         if (GL >= GU) continue;
@@ -458,7 +458,7 @@ void dlarrd(
     }
   }
 
-  // If RANGE='I', then (WL.value,WU.value) contains eigenvalues NWL+1,...,NWU
+  // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
   // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
   if (IRANGE == INDRNG) {
     IDISCL = IL - 1 - NWL;
@@ -510,8 +510,8 @@ void dlarrd(
     if (IDISCL > 0 || IDISCU > 0) {
       // Code to deal with effects of bad arithmetic. (If N(w) is
       // monotone non-decreasing, this should never happen.)
-      // Some low eigenvalues to be discarded are not in (WL.value,WLU],
-      // or high eigenvalues to be discarded are not in (WUL,WU.value]
+      // Some low eigenvalues to be discarded are not in (WL,WLU],
+      // or high eigenvalues to be discarded are not in (WUL,WU]
       // so just kill off the smallest IDISCL/largest IDISCU
       // eigenvalues, by marking the corresponding IBLOCK = 0
       if (IDISCL > 0) {

@@ -101,7 +101,7 @@ void dtpcon(
       }
       NORMIN = 'Y';
 
-      // Multiply by 1/SCALE.value if doing so will not cause overflow.
+      // Multiply by 1/SCALE if doing so will not cause overflow.
 
       if (SCALE.value != ONE) {
         IX = idamax(N, WORK, 1);

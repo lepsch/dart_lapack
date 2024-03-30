@@ -6,7 +6,6 @@ class Box<T> {
   String toString() => value.toString();
 }
 
-
 class DelegatingBox<T> implements Box<T> {
   final T Function() _get;
   final void Function(T) _set;

@@ -101,9 +101,9 @@ Future<void> zdrgsx(
   } else if (THRESH < ZERO) {
     INFO.value = -2;
     // } else if ( NIN <= 0 ) {
-    //    INFO.value = -3;
+    //    INFO = -3;
     // } else if ( NOUT <= 0 ) {
-    //    INFO.value = -4;
+    //    INFO = -4;
   } else if (LDA < 1 || LDA < NSIZE) {
     INFO.value = -6;
   } else if (LDC < 1 || LDC < NSIZE * NSIZE ~/ 2) {

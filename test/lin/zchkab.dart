@@ -131,11 +131,11 @@ void main() async {
   NOUT.println();
 
   var EPS = dlamch('Underflow threshold');
-  NOUT.print9991('(double          ) underflow', EPS);
+  NOUT.print9991('(double precision) underflow', EPS);
   EPS = dlamch('Overflow threshold');
-  NOUT.print9991('(double          ) overflow ', EPS);
+  NOUT.print9991('(double precision) overflow ', EPS);
   EPS = dlamch('Epsilon');
-  NOUT.print9991('(double          ) precision', EPS);
+  NOUT.print9991('(double precision) precision', EPS);
   NOUT.println();
 
   while (true) {

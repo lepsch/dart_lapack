@@ -128,7 +128,7 @@ void dpstrf(
             if (AJJ <= DSTOP || disnan(AJJ)) {
               A[J][J] = AJJ;
 
-              // Rank is the number of steps completed.  Set INFO.value = 1 to signal
+              // Rank is the number of steps completed.  Set INFO = 1 to signal
               // that the factorization cannot be used to solve a system.
 
               RANK.value = J - 1;
@@ -212,7 +212,7 @@ void dpstrf(
             if (AJJ <= DSTOP || disnan(AJJ)) {
               A[J][J] = AJJ;
 
-              // Rank is the number of steps completed.  Set INFO.value = 1 to signal
+              // Rank is the number of steps completed.  Set INFO = 1 to signal
               // that the factorization cannot be used to solve a system.
 
               RANK.value = J - 1;

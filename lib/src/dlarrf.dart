@@ -97,7 +97,7 @@ void dlarrf(
   // whether the element growth caused bad residuals/orthogonality.
 
   // Decide whether the code should accept the best among all
-  // representations despite large element growth or signal INFO.value=1
+  // representations despite large element growth or signal INFO=1
   // Setting NOFAIL to false for quick fix for bug 113
   NOFAIL = false;
 

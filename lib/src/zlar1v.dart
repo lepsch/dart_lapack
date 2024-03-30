@@ -172,7 +172,7 @@ void zlar1v(
   Z[R.value] = Complex.one;
   ZTZ.value = ONE;
 
-  // Compute the FP vector upwards from R.value
+  // Compute the FP vector upwards from R
 
   if (!SAWNAN1 && !SAWNAN2) {
     for (I = R.value - 1; I >= B1; I--) {
@@ -201,7 +201,7 @@ void zlar1v(
     }
   }
 
-  // Compute the FP vector downwards from R.value in blocks of size BLKSIZ
+  // Compute the FP vector downwards from R in blocks of size BLKSIZ
   if (!SAWNAN1 && !SAWNAN2) {
     for (I = R.value; I <= BN - 1; I++) {
       Z[I + 1] = -(WORK[INDUMN + I].toComplex() * Z[I]);

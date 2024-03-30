@@ -209,7 +209,7 @@ void zchkgb(
             }
 
             // For types 2, 3, and 4, zero one or more columns of
-            // the matrix to test that INFO.value is returned correctly.
+            // the matrix to test that INFO is returned correctly.
 
             IZERO = 0;
             if (ZEROT) {
@@ -331,7 +331,7 @@ void zchkgb(
                   RCONDI = (ONE / ANORMI) / AINVNM;
                 }
               } else {
-                // Do only the condition estimate if INFO.value != 0.
+                // Do only the condition estimate if INFO != 0.
 
                 TRFCON = true;
                 RCONDO = ZERO;

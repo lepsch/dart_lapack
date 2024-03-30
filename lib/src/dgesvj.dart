@@ -164,7 +164,7 @@ void dgesvj(
   // Set numerical parameters
   // The stopping criterion for Jacobi rotations is
 
-  // max_{i<>j}|A[:][i]^T.value * A[:][j]|/(||A[:][i]||*||A[:][j]||) < CTOL*EPS
+  // max_{i<>j}|A[:][i]^T * A[:][j]|/(||A[:][i]||*||A[:][j]||) < CTOL*EPS
 
   // where EPS is the round-off and CTOL is defined as follows:
 
@@ -219,7 +219,7 @@ void dgesvj(
   // This initial scaling is almost minimal in the sense that the
   // goal is to make sure that no column norm overflows, and that
   // sqrt(N)*max_i SVA[i] does not overflow. If INFinite entries
-  // in A are detected, the procedure returns with INFO.value=-6.
+  // in A are detected, the procedure returns with INFO=-6.
 
   SKL = ONE / sqrt(M * N);
   NOSCALE = true;
@@ -354,20 +354,20 @@ void dgesvj(
       (AAQQ.value >= TEMP1.value) ||
       ((SN <= AAQQ.value) && (AAPP.value <= TEMP1.value))) {
     TEMP1.value = min(BIG, TEMP1.value / AAPP.value);
-    // AAQQ.value *=TEMP1.value
-    // AAPP.value *=TEMP1.value
+    // AAQQ *=TEMP1
+    // AAPP *=TEMP1
   } else if ((AAQQ.value <= SN) && (AAPP.value <= TEMP1.value)) {
     TEMP1.value = min(SN / AAQQ.value, BIG / (AAPP.value * sqrt(N)));
-    // AAQQ.value *=TEMP1.value
-    // AAPP.value *=TEMP1.value
+    // AAQQ *=TEMP1
+    // AAPP *=TEMP1
   } else if ((AAQQ.value >= SN) && (AAPP.value >= TEMP1.value)) {
     TEMP1.value = max(SN / AAQQ.value, TEMP1.value / AAPP.value);
-    // AAQQ.value *=TEMP1.value
-    // AAPP.value *=TEMP1.value
+    // AAQQ *=TEMP1
+    // AAPP *=TEMP1
   } else if ((AAQQ.value <= SN) && (AAPP.value >= TEMP1.value)) {
     TEMP1.value = min(SN / AAQQ.value, BIG / (sqrt(N) * AAPP.value));
-    // AAQQ.value *=TEMP1.value
-    // AAPP.value *=TEMP1.value
+    // AAQQ *=TEMP1
+    // AAPP *=TEMP1
   } else {
     TEMP1.value = ONE;
   }
@@ -627,7 +627,7 @@ void dgesvj(
             // Hence, DNRM2 cannot be trusted, not even in the case when
             // the true norm is far from the under(over)flow boundaries.
             // If properly implemented DNRM2 is available, the if-THEN-ELSE
-            // below should read "AAPP.value = dnrm2( M, A[1][p], 1 ) * WORK(p)".
+            // below should read "AAPP = dnrm2( M, A[1][p], 1 ) * WORK(p)".
 
             if ((SVA[p] < ROOTBIG) && (SVA[p] > ROOTSFMIN)) {
               SVA[p] = dnrm2(M, A(1, p).asArray(), 1) * WORK[p];
@@ -1189,7 +1189,7 @@ void dgesvj(
       // #:) Reaching this point means numerical convergence after the i-th
       // sweep.
 
-      // #:) INFO.value = 0 confirms successful iterations.
+      // #:) INFO = 0 confirms successful iterations.
       INFO.value = 0;
       continue;
     }

@@ -162,7 +162,7 @@ void dlaqr3(
   // Convert to spike-triangular form.  (In case of a
   // rare QR failure, this routine continues to do
   // aggressive early deflation using that part of
-  // the deflation window that converged using INFQR.value
+  // the deflation window that converged using INFQR
   // here and there to keep track.)
 
   dlacpy('U', JW, JW, H(KWTOP, KWTOP), LDH, T, LDT);
@@ -232,7 +232,7 @@ void dlaqr3(
       } else {
         // Undeflatable. Move them up out of the way.
         // Fortunately, DTREXC does the right thing with
-        // ILST.value in case of a rare exchange failure.
+        // ILST in case of a rare exchange failure.
 
         IFST.value = NS.value;
         dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO);
@@ -407,7 +407,7 @@ void dlaqr3(
   ND.value = JW - NS.value;
 
   // ... and the number of shifts. (Subtracting
-  // INFQR.value from the spike length takes care
+  // INFQR from the spike length takes care
   // of the case of a rare QR failure while
   // calculating eigenvalues of the deflation
   // window.)

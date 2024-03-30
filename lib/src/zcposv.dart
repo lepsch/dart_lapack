@@ -144,7 +144,7 @@ void zcposv(
     zhemm('Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, Complex.one, WORK, N);
 
     // Check whether the NRHS normwise backward errors satisfy the
-    // stopping criterion. If yes, set ITER.value=0 and return.
+    // stopping criterion. If yes, set ITER=0 and return.
 
     var satisfy = true;
     for (I = 1; I <= NRHS; I++) {
@@ -196,7 +196,7 @@ void zcposv(
       zhemm('L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, Complex.one, WORK, N);
 
       // Check whether the NRHS normwise backward errors satisfy the
-      // stopping criterion. If yes, set ITER.value=IITER>0 and return.
+      // stopping criterion. If yes, set ITER=IITER>0 and return.
 
       var satisfy = true;
       for (I = 1; I <= NRHS; I++) {

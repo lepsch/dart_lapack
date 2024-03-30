@@ -67,7 +67,7 @@ void zlaqp3rk(
   TOL3Z = sqrt(dlamch('Epsilon'));
   HUGEVAL = dlamch('Overflow');
 
-  // Compute factorization in a while loop over NB.value columns,
+  // Compute factorization in a while loop over NB columns,
   // K is the column index in the block A(1:M,1:N).
 
   K = 0;
@@ -99,7 +99,7 @@ void zlaqp3rk(
       // ============================================================
 
       // Check if the submatrix A(I:M,K:N) contains NaN, set
-      // INFO.value parameter to the column number, where the first NaN
+      // INFO parameter to the column number, where the first NaN
       // is found and return from the routine.
       // We need to check the condition only if the
       // column index (same as row index) of the original whole
@@ -109,7 +109,7 @@ void zlaqp3rk(
       if (disnan(MAXC2NRMK.value)) {
         DONE.value = true;
 
-        // Set KB.value, the number of factorized partial columns
+        // Set KB, the number of factorized partial columns
         //         that are non-zero in each step in the block,
         //         i.e. the rank of the factor R.
         // Set IF_, the number of processed rows in the block, which
@@ -120,21 +120,21 @@ void zlaqp3rk(
         IF_ = I - 1;
         INFO.value = KB.value + KP;
 
-        // Set RELMAXC2NRMK.value to NaN.
+        // Set RELMAXC2NRMK to NaN.
 
         RELMAXC2NRMK.value = MAXC2NRMK.value;
 
         // There is no need to apply the block reflector to the
-        // residual of the matrix A stored in A(KB.value+1:M,KB.value+1:N),
+        // residual of the matrix A stored in A(KB+1:M,KB+1:N),
         // since the submatrix contains NaN and we stop
         // the computation.
         // But, we need to apply the block reflector to the residual
-        // right hand sides stored in A(KB.value+1:M,N+1:N+NRHS), if the
+        // right hand sides stored in A(KB+1:M,N+1:N+NRHS), if the
         // residual right hand sides exist.  This occurs
-        // when ( NRHS != 0 AND KB.value <= (M-IOFFSET) ):
+        // when ( NRHS != 0 AND KB <= (M-IOFFSET) ):
 
         // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
-        //                  A(I+1:M,1:KB.value) * F(N+1:N+NRHS,1:KB.value)**H.
+        //                  A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
         if (NRHS > 0 && KB.value < (M - IOFFSET)) {
           zgemm(
@@ -173,7 +173,7 @@ void zlaqp3rk(
       if (MAXC2NRMK.value == ZERO) {
         DONE.value = true;
 
-        // Set KB.value, the number of factorized partial columns
+        // Set KB, the number of factorized partial columns
         //         that are non-zero in each step in the block,
         //         i.e. the rank of the factor R.
         // Set IF_, the number of processed rows in the block, which
@@ -185,15 +185,15 @@ void zlaqp3rk(
         RELMAXC2NRMK.value = ZERO;
 
         // There is no need to apply the block reflector to the
-        // residual of the matrix A stored in A(KB.value+1:M,KB.value+1:N),
+        // residual of the matrix A stored in A(KB+1:M,KB+1:N),
         // since the submatrix is zero and we stop the computation.
         // But, we need to apply the block reflector to the residual
-        // right hand sides stored in A(KB.value+1:M,N+1:N+NRHS), if the
+        // right hand sides stored in A(KB+1:M,N+1:N+NRHS), if the
         // residual right hand sides exist.  This occurs
-        // when ( NRHS != 0 AND KB.value <= (M-IOFFSET) ):
+        // when ( NRHS != 0 AND KB <= (M-IOFFSET) ):
 
         // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
-        //                  A(I+1:M,1:KB.value) * F(N+1:N+NRHS,1:KB.value)**H.
+        //                  A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
         if (NRHS > 0 && KB.value < (M - IOFFSET)) {
           zgemm(
@@ -216,7 +216,7 @@ void zlaqp3rk(
         // difficult columns, since we stop the factorization.
 
         // Set TAUs corresponding to the columns that were not
-        // factorized to ZERO, i.e. set TAU(KB.value+1:MINMNFACT) = Complex.zero,
+        // factorized to ZERO, i.e. set TAU(KB+1:MINMNFACT) = Complex.zero,
         // which is equivalent to seting TAU(K:MINMNFACT) = Complex.zero.
 
         for (J = K; J <= MINMNFACT; J++) {
@@ -231,7 +231,7 @@ void zlaqp3rk(
       // ============================================================
 
       // Check if the submatrix A(I:M,K:N) contains Inf,
-      // set INFO.value parameter to the column number, where
+      // set INFO parameter to the column number, where
       // the first Inf is found plus N, and continue
       // the computation.
       // We need to check the condition only if the
@@ -247,8 +247,8 @@ void zlaqp3rk(
 
       // Test for the second and third tolerance stopping criteria.
       // NOTE: There is no need to test for ABSTOL >= ZERO, since
-      // MAXC2NRMK.value is non-negative. Similarly, there is no need
-      // to test for RELTOL >= ZERO, since RELMAXC2NRMK.value is
+      // MAXC2NRMK is non-negative. Similarly, there is no need
+      // to test for RELTOL >= ZERO, since RELMAXC2NRMK is
       // non-negative.
       // We need to check the condition only if the
       // column index (same as row index) of the original whole
@@ -260,7 +260,7 @@ void zlaqp3rk(
       if (MAXC2NRMK.value <= ABSTOL || RELMAXC2NRMK.value <= RELTOL) {
         DONE.value = true;
 
-        // Set KB.value, the number of factorized partial columns
+        // Set KB, the number of factorized partial columns
         //         that are non-zero in each step in the block,
         //         i.e. the rank of the factor R.
         // Set IF_, the number of processed rows in the block, which
@@ -274,11 +274,11 @@ void zlaqp3rk(
         // matrix A and the residual of the right hand sides B, if
         // the residual matrix and and/or the residual of the right
         // hand sides exist,  i.e. if the submatrix
-        // A(I+1:M,KB.value+1:N+NRHS) exists.  This occurs when
-        //    KB.value < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
+        // A(I+1:M,KB+1:N+NRHS) exists.  This occurs when
+        //    KB < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
 
-        // A(IF_+1:M,K+1:N+NRHS) := A(IF_+1:M,KB.value+1:N+NRHS) -
-        //                A(IF_+1:M,1:KB.value) * F(KB.value+1:N+NRHS,1:KB.value)**H.
+        // A(IF_+1:M,K+1:N+NRHS) := A(IF_+1:M,KB+1:N+NRHS) -
+        //                A(IF_+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
         if (KB.value < MINMNUPDT) {
           zgemm(
@@ -301,7 +301,7 @@ void zlaqp3rk(
         // difficult columns, since we stop the factorization.
 
         // Set TAUs corresponding to the columns that were not
-        // factorized to ZERO, i.e. set TAU(KB.value+1:MINMNFACT) = Complex.zero,
+        // factorized to ZERO, i.e. set TAU(KB+1:MINMNFACT) = Complex.zero,
         // which is equivalent to seting TAU(K:MINMNFACT) = Complex.zero.
 
         for (J = K; J <= MINMNFACT; J++) {
@@ -364,7 +364,7 @@ void zlaqp3rk(
       TAU[K] = Complex.zero;
     }
 
-    // Check if TAU(K) contains NaN, set INFO.value parameter
+    // Check if TAU(K) contains NaN, set INFO parameter
     // to the column number where NaN is found and return from
     // the routine.
     // NOTE: There is no need to check TAU(K) for Inf,
@@ -385,7 +385,7 @@ void zlaqp3rk(
     if (disnan(TAUNAN)) {
       DONE.value = true;
 
-      // Set KB.value, the number of factorized partial columns
+      // Set KB, the number of factorized partial columns
       //         that are non-zero in each step in the block,
       //         i.e. the rank of the factor R.
       // Set IF_, the number of processed rows in the block, which
@@ -396,22 +396,22 @@ void zlaqp3rk(
       IF_ = I - 1;
       INFO.value = K;
 
-      // Set MAXC2NRMK.value and  RELMAXC2NRMK.value to NaN.
+      // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
 
       MAXC2NRMK.value = TAUNAN;
       RELMAXC2NRMK.value = TAUNAN;
 
       // There is no need to apply the block reflector to the
-      // residual of the matrix A stored in A(KB.value+1:M,KB.value+1:N),
+      // residual of the matrix A stored in A(KB+1:M,KB+1:N),
       // since the submatrix contains NaN and we stop
       // the computation.
       // But, we need to apply the block reflector to the residual
-      // right hand sides stored in A(KB.value+1:M,N+1:N+NRHS), if the
+      // right hand sides stored in A(KB+1:M,N+1:N+NRHS), if the
       // residual right hand sides exist.  This occurs
-      // when ( NRHS != 0 AND KB.value <= (M-IOFFSET) ):
+      // when ( NRHS != 0 AND KB <= (M-IOFFSET) ):
 
       // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
-      //                  A(I+1:M,1:KB.value) * F(N+1:N+NRHS,1:KB.value)**H.
+      //                  A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
       if (NRHS > 0 && KB.value < (M - IOFFSET)) {
         zgemm(
@@ -537,10 +537,10 @@ void zlaqp3rk(
   }
 
   // Now, afler the loop:
-  //    Set KB.value, the number of factorized columns in the block;
+  //    Set KB, the number of factorized columns in the block;
   //    Set IF_, the number of processed rows in the block, which
   //            is the same as the number of processed rows in
-  //            the original whole matrix A_orig, IF_ = IOFFSET + KB.value.
+  //            the original whole matrix A_orig, IF_ = IOFFSET + KB.
 
   KB.value = K;
   IF_ = I;
@@ -548,11 +548,11 @@ void zlaqp3rk(
   // Apply the block reflector to the residual of the matrix A
   // and the residual of the right hand sides B, if the residual
   // matrix and and/or the residual of the right hand sides
-  // exist,  i.e. if the submatrix A(I+1:M,KB.value+1:N+NRHS) exists.
-  // This occurs when KB.value < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
+  // exist,  i.e. if the submatrix A(I+1:M,KB+1:N+NRHS) exists.
+  // This occurs when KB < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
 
-  // A(IF_+1:M,K+1:N+NRHS) := A(IF_+1:M,KB.value+1:N+NRHS) -
-  //                     A(IF_+1:M,1:KB.value) * F(KB.value+1:N+NRHS,1:KB.value)**H.
+  // A(IF_+1:M,K+1:N+NRHS) := A(IF_+1:M,KB+1:N+NRHS) -
+  //                     A(IF_+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
   if (KB.value < MINMNUPDT) {
     zgemm(

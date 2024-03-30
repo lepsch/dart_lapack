@@ -509,7 +509,7 @@ void zchkqp3rk(
               // The test returns the ratio:
 
               // Returns 1.0e+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
-              // K=1:KFACT.value-1
+              // K=1:KFACT-1
 
               if (min(KFACT.value, MINMN) >= 2) {
                 for (var J = 1; J <= KFACT.value - 1; J++) {

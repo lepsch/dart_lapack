@@ -132,7 +132,7 @@ void zchkhp(
         }
 
         // For types 3-6, zero one or more rows and columns of
-        // the matrix to test that INFO.value is returned correctly.
+        // the matrix to test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {
@@ -211,7 +211,7 @@ void zchkhp(
         srnamc.SRNAMT = 'ZHPTRF';
         zhptrf(UPLO, N, AFAC, IWORK, INFO);
 
-        // Adjust the expected value of INFO.value to account for
+        // Adjust the expected value of INFO to account for
         // pivoting.
 
         var K = IZERO;
@@ -280,7 +280,7 @@ void zchkhp(
         }
         NRUN += NT;
 
-        // Do only the condition estimate if INFO.value is not 0.
+        // Do only the condition estimate if INFO is not 0.
 
         if (TRFCON) {
           RCONDC.value = ZERO;

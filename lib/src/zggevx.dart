@@ -161,7 +161,7 @@ void zggevx(
   //   as well as the preferred amount for good performance.
   //   NB refers to the optimal block size for the immediately
   //   following subroutine, as returned by ILAENV. The workspace is
-  //   computed assuming ILO.value = 1 and IHI.value = N, the worst case.)
+  //   computed assuming ILO = 1 and IHI = N, the worst case.)
 
   if (INFO.value == 0) {
     if (N == 0) {
@@ -238,7 +238,7 @@ void zggevx(
 
   zggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR);
 
-  // Compute ABNRM.value and BBNRM.value
+  // Compute ABNRM and BBNRM
 
   ABNRM.value = zlange('1', N, N, A, LDA, RWORK(1));
   if (ILASCL) {

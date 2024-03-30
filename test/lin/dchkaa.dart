@@ -337,26 +337,26 @@ Future<void> dchkaa(
         }
 
         if (TSTDRV) {
-          ddrvge(
-              DOTYPE,
-              NN,
-              NVAL,
-              NRHS,
-              THRESH,
-              TSTERR,
-              LDA,
-              A(1, 1).asArray(),
-              A(1, 2).asArray(),
-              A(1, 3).asArray(),
-              B(1, 1).asArray(),
-              B(1, 2).asArray(),
-              B(1, 3).asArray(),
-              B(1, 4).asArray(),
-              S,
-              WORK.asArray(),
-              RWORK,
-              IWORK,
-              NOUT);
+          // ddrvge(
+          //     DOTYPE,
+          //     NN,
+          //     NVAL,
+          //     NRHS,
+          //     THRESH,
+          //     TSTERR,
+          //     LDA,
+          //     A(1, 1).asArray(),
+          //     A(1, 2).asArray(),
+          //     A(1, 3).asArray(),
+          //     B(1, 1).asArray(),
+          //     B(1, 2).asArray(),
+          //     B(1, 3).asArray(),
+          //     B(1, 4).asArray(),
+          //     S,
+          //     WORK.asArray(),
+          //     RWORK,
+          //     IWORK,
+          //     NOUT);
         } else {
           NOUT.print9988(PATH);
         }

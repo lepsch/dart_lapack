@@ -32,8 +32,8 @@ void dort03(
   final V = V_.having(ld: LDV);
   final WORK = WORK_.having();
   // List<String>       RC;
-  // int                INFO.value, K, LDU, LDV, LWORK, MU, MV, N;
-  // double             RESULT.value;
+  // int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
+  // double             RESULT;
   // double             U( LDU, * ), V( LDV, * ), WORK( * );
   // // ..
 

@@ -55,7 +55,7 @@ void dlasq1(
   }
   D[N] = D[N].abs();
 
-  // Early return if SIGMX.value is zero (matrix is already diagonal).
+  // Early return if SIGMX is zero (matrix is already diagonal).
 
   if (SIGMX.value == ZERO) {
     dlasrt('D', N, D, IINFO);

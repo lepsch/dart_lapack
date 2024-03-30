@@ -963,12 +963,12 @@ void zgejsv(
         // not needed for SIGMA only computation
         for (p = 1; p <= N; p++) {
           TEMP1.value = SVA[IWORK[p]];
-          // []               CALL ZDSCAL( p, ONE/TEMP1.value, CWORK(N+(p-1)*N+1), 1 )
+          // []               CALL ZDSCAL( p, ONE/TEMP1, CWORK(N+(p-1)*N+1), 1 )
           zdscal(p, ONE / TEMP1.value, CWORK((p - 1) * N + 1), 1);
         }
         // .. the columns of R are scaled to have unit Euclidean lengths.
-        // []               CALL ZPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1.value,
-        // []     $              CWORK(N+N*N+1), RWORK, IERR.value )
+        // []               CALL ZPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1,
+        // []     $              CWORK(N+N*N+1), RWORK, IERR )
         zpocon('U', N, CWORK.asMatrix(N), N, ONE, TEMP1, CWORK(N * N + 1),
             RWORK, IERR);
       }
@@ -1013,13 +1013,13 @@ void zgejsv(
 
     if (!ALMORT) {
       if (L2PERT) {
-        // XSC.value = sqrt(SMALL)
+        // XSC = sqrt(SMALL)
         XSC.value = EPSLN / N;
         for (q = 1; q <= NR; q++) {
           CTEMP = Complex(XSC.value * A[q][q].abs(), ZERO);
           for (p = 1; p <= N; p++) {
             if (((p > q) && (A[p][q].abs() <= TEMP1.value)) || (p < q)) {
-              // $                     A[p][q] = TEMP1.value * ( A[p][q] / ABS(A[p][q]) )
+              // $                     A[p][q] = TEMP1 * ( A[p][q] / ABS(A[p][q]) )
               A[p][q] = CTEMP;
             }
           }
@@ -1044,13 +1044,13 @@ void zgejsv(
     // .. again some perturbation (a "background noise") is added
     // to drown denormals
     if (L2PERT) {
-      // XSC.value = sqrt(SMALL)
+      // XSC = sqrt(SMALL)
       XSC.value = EPSLN / N;
       for (q = 1; q <= NR; q++) {
         CTEMP = Complex(XSC.value * A[q][q].abs(), ZERO);
         for (p = 1; p <= NR; p++) {
           if (((p > q) && (A[p][q].abs() <= TEMP1.value)) || (p < q)) {
-            // $                   A[p][q] = TEMP1.value * ( A[p][q] / ABS(A[p][q]) )
+            // $                   A[p][q] = TEMP1 * ( A[p][q] / ABS(A[p][q]) )
             A[p][q] = CTEMP;
           }
         }
@@ -1212,7 +1212,7 @@ void zgejsv(
             CTEMP = Complex(XSC.value * V[q][q].abs(), ZERO);
             for (p = 1; p <= N; p++) {
               if ((p > q) && (V[p][q].abs() <= TEMP1.value) || (p < q)) {
-                // $                   V[p][q] = TEMP1.value * ( V[p][q] / ABS(V[p][q]) )
+                // $                   V[p][q] = TEMP1 * ( V[p][q] / ABS(V[p][q]) )
                 V[p][q] = CTEMP;
               }
               if (p < q) V[p][q] = -V[p][q];
@@ -1258,7 +1258,7 @@ void zgejsv(
                 CTEMP = Complex(
                     XSC.value * min(V[p][p].abs(), V[q][q].abs()), ZERO);
                 if (V[q][p].abs() <= TEMP1.value) {
-                  // $                     V[q][p] = TEMP1.value * ( V[q][p] / ABS(V[q][p]) )
+                  // $                     V[q][p] = TEMP1 * ( V[q][p] / ABS(V[q][p]) )
                   V[q][p] = CTEMP;
                 }
               }
@@ -1293,7 +1293,7 @@ void zgejsv(
           zgeqp3(N, NR, V, LDV, IWORK(N + 1), CWORK(N + 1), CWORK(2 * N + 1),
               LWORK - 2 * N, RWORK, IERR);
 // *               CALL ZGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
-// *     $              LWORK-2*N, IERR.value )
+// *     $              LWORK-2*N, IERR )
           if (L2PERT) {
             XSC.value = sqrt(SMALL);
             for (p = 2; p <= NR; p++) {
@@ -1301,7 +1301,7 @@ void zgejsv(
                 CTEMP = Complex(
                     XSC.value * min(V[p][p].abs(), V[q][q].abs()), ZERO);
                 if (V[q][p].abs() <= TEMP1.value) {
-                  // V[q][p] = TEMP1.value * ( V[q][p] / ABS(V[q][p]) )
+                  // V[q][p] = TEMP1 * ( V[q][p] / ABS(V[q][p]) )
                   V[q][p] = CTEMP;
                 }
               }
@@ -1316,7 +1316,7 @@ void zgejsv(
               for (q = 1; q <= p - 1; q++) {
                 CTEMP = Complex(
                     XSC.value * min(V[p][p].abs(), V[q][q].abs()), ZERO);
-                // V[p][q] = - TEMP1.value*( V[q][p] / ABS(V[q][p]) )
+                // V[p][q] = - TEMP1*( V[q][p] / ABS(V[q][p]) )
                 V[p][q] = -CTEMP;
               }
             }
@@ -1361,7 +1361,7 @@ void zgejsv(
           for (q = 2; q <= NR; q++) {
             CTEMP = XSC.value.toComplex() * V[q][q];
             for (p = 1; p <= q - 1; p++) {
-              // V[p][q] = - TEMP1.value*( V[p][q] / ABS(V[p][q]) )
+              // V[p][q] = - TEMP1*( V[p][q] / ABS(V[p][q]) )
               V[p][q] = -CTEMP;
             }
           }
@@ -1638,7 +1638,7 @@ void zgejsv(
           for (p = 2; p <= N; p++) {
             CTEMP = XSC.value.toComplex() * CWORK[N + (p - 1) * N + p];
             for (q = 1; q <= p - 1; q++) {
-              // CWORK(N+(q-1)*N+p)=-TEMP1.value * ( CWORK(N+(p-1)*N+q) /
+              // CWORK(N+(q-1)*N+p)=-TEMP1 * ( CWORK(N+(p-1)*N+q) /
               // $                                        ABS(CWORK(N+(p-1)*N+q)) )
               CWORK[N + (q - 1) * N + p] = -CTEMP;
             }
@@ -1721,7 +1721,7 @@ void zgejsv(
           CTEMP = Complex(XSC.value * V[q][q].abs(), ZERO);
           for (p = 1; p <= N; p++) {
             if ((p > q) && (V[p][q].abs() <= TEMP1.value) || (p < q)) {
-              // $                V[p][q] = TEMP1.value * ( V[p][q] / ABS(V[p][q]) )
+              // $                V[p][q] = TEMP1 * ( V[p][q] / ABS(V[p][q]) )
               V[p][q] = CTEMP;
             }
             if (p < q) V[p][q] = -V[p][q];
@@ -1745,7 +1745,7 @@ void zgejsv(
           for (p = 1; p <= q - 1; p++) {
             CTEMP =
                 Complex(XSC.value * min(U[p][p].abs(), U[q][q].abs()), ZERO);
-            // U[p][q] = - TEMP1.value * ( U[q][p] / ABS(U[q][p]) )
+            // U[p][q] = - TEMP1 * ( U[q][p] / ABS(U[q][p]) )
             U[p][q] = -CTEMP;
           }
         }

@@ -633,7 +633,7 @@ void dgejsv(
 
     if (!ALMORT) {
       if (L2PERT) {
-        // XSC.value = sqrt(SMALL)
+        // XSC = sqrt(SMALL)
         XSC.value = EPSLN / N;
         for (q = 1; q <= NR; q++) {
           TEMP1.value = XSC.value * A[q][q].abs();
@@ -662,7 +662,7 @@ void dgejsv(
     // .. again some perturbation (a "background noise") is added
     // to drown denormals
     if (L2PERT) {
-      // XSC.value = sqrt(SMALL)
+      // XSC = sqrt(SMALL)
       XSC.value = EPSLN / N;
       for (q = 1; q <= NR; q++) {
         TEMP1.value = XSC.value * A[q][q].abs();
@@ -950,7 +950,7 @@ void dgejsv(
           for (q = 2; q <= NR; q++) {
             TEMP1.value = XSC.value * V[q][q];
             for (p = 1; p <= q - 1; p++) {
-              // V[p][q] = - sign( TEMP1.value, V[q][p] )
+              // V[p][q] = - sign( TEMP1, V[q][p] )
               V[p][q] = -sign(TEMP1.value, V[p][q]);
             }
           }

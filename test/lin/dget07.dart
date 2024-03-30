@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/debug.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/lsame.dart';
 import 'package:lapack/src/matrix.dart';
@@ -41,6 +42,13 @@ void dget07(
     RESLTS[2] = ZERO;
     return;
   }
+
+  A.debug('DGET07: 1 - A', N, N);
+  B.debug('DGET07: 1 - B', N, NRHS);
+  X.debug('DGET07: 1 - X', N, NRHS);
+  XACT.debug('DGET07: 1 - XACT', N, NRHS);
+  FERR.debug('DGET07: 1 - FERR', NRHS);
+  BERR.debug('DGET07: 1 - BERR', NRHS);
 
   final EPS = dlamch('Epsilon');
   final UNFL = dlamch('Safe minimum');

@@ -281,7 +281,7 @@ void zlaqr2(
   ND.value = JW - NS.value;
 
   // ... and the number of shifts. (Subtracting
-  // INFQR.value from the spike length takes care
+  // INFQR from the spike length takes care
   // of the case of a rare QR failure while
   // calculating eigenvalues of the deflation
   // window.)

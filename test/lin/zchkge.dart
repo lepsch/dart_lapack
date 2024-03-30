@@ -140,7 +140,7 @@ void zchkge(
         }
 
         // For types 5-7, zero one or more columns of the matrix to
-        // test that INFO.value is returned correctly.
+        // test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {
@@ -238,7 +238,7 @@ void zchkge(
             }
             NT = 2;
           } else {
-            // Do only the condition estimate if INFO.value > 0.
+            // Do only the condition estimate if INFO > 0.
 
             TRFCON = true;
             ANORMO = zlange('O', M, N, A.asMatrix(), LDA, RWORK);

@@ -164,7 +164,7 @@ void dlasd4(
       TAU = TAU2 / (D[N] + sqrt(D[N] * D[N] + TAU2));
 
       // It can be proved that
-      // D[N]^2 < D[N]^2+TAU2 < SIGMA.value(N)^2 < D[N]^2+RHO/2
+      // D[N]^2 < D[N]^2+TAU2 < SIGMA(N)^2 < D[N]^2+RHO/2
     }
 
     // The following TAU is to approximate SIGMA_n - D[ N ]
@@ -335,7 +335,7 @@ void dlasd4(
       W = RHOINV + PHI + PSI;
     }
 
-    // Return with INFO.value = 1, NITER = MAXIT and not converged
+    // Return with INFO = 1, NITER = MAXIT and not converged
 
     INFO.value = 1;
     return;
@@ -390,9 +390,9 @@ void dlasd4(
         TAU2 = (A - sqrt((A * A - FOUR * B * C).abs())) / (TWO * C);
       }
 
-      // TAU2 now is an estimation of SIGMA.value^2 - D[ I ]^2. The
+      // TAU2 now is an estimation of SIGMA^2 - D[ I ]^2. The
       // following, however, is the corresponding estimation of
-      // SIGMA.value - D[ I ].
+      // SIGMA - D[ I ].
 
       TAU = TAU2 / (D[I] + sqrt(D[I] * D[I] + TAU2));
       TEMP = sqrt(EPS);
@@ -417,9 +417,9 @@ void dlasd4(
         TAU2 = -(A + sqrt((A * A + FOUR * B * C).abs())) / (TWO * C);
       }
 
-      // TAU2 now is an estimation of SIGMA.value^2 - D[ IP1 ]^2. The
+      // TAU2 now is an estimation of SIGMA^2 - D[ IP1 ]^2. The
       // following, however, is the corresponding estimation of
-      // SIGMA.value - D[ IP1 ].
+      // SIGMA - D[ IP1 ].
 
       TAU = TAU2 / (D[IP1] + sqrt((D[IP1] * D[IP1] + TAU2).abs()));
     }
@@ -760,7 +760,7 @@ void dlasd4(
         dlaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO);
 
         if (INFO.value != 0) {
-          // If INFO.value is not 0, i.e., DLAED6 failed, switch
+          // If INFO is not 0, i.e., DLAED6 failed, switch
           // back to two pole interpolation
 
           SWTCH3 = false;
@@ -879,7 +879,7 @@ void dlasd4(
       if (W * PREW > ZERO && W.abs() > PREW.abs() / TEN) SWTCH = !SWTCH;
     }
 
-    // Return with INFO.value = 1, NITER = MAXIT and not converged
+    // Return with INFO = 1, NITER = MAXIT and not converged
 
     INFO.value = 1;
   }

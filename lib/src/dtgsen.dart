@@ -189,7 +189,7 @@ void dtgsen(
       if (SWAP) {
         KS.value++;
 
-        // Swap the K-th block to position KS.value.
+        // Swap the K-th block to position KS.
         // Perform the reordering of diagonal blocks in (A, B)
         // by orthogonal transformation matrices and update
         // Q and Z accordingly (if requested):
@@ -222,7 +222,7 @@ void dtgsen(
     if (!isRejected) {
       if (WANTP) {
         // Solve generalized Sylvester equation for R and L
-        // and compute PL.value and PR.value.
+        // and compute PL and PR.
 
         N1 = M.value;
         N2 = N - M.value;

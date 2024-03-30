@@ -155,7 +155,7 @@ void zlartg(
         }
         s.value = gs.conjugate() * (fs / d.toComplex());
       }
-      // Rescale c.value and r.value
+      // Rescale c and r
       c.value *= w;
       r.value *= u.toComplex();
     }

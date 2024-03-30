@@ -94,7 +94,7 @@ void zgeev(
   //   workspace. NB refers to the optimal block size for the
   //   immediately following subroutine, as returned by ILAENV.
   //   HSWORK refers to the workspace preferred by ZHSEQR, as
-  //   calculated below. HSWORK is computed assuming ILO.value=1 and IHI.value=N,
+  //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
   //   the worst case.)
 
   if (INFO.value == 0) {
@@ -241,7 +241,7 @@ void zgeev(
         LWORK - IWRK + 1, INFO);
   }
 
-  // If INFO.value != 0 from ZHSEQR, then quit
+  // If INFO != 0 from ZHSEQR, then quit
 
   if (INFO.value == 0) {
     if (WANTVL || WANTVR) {

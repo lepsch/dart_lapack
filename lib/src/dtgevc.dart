@@ -301,8 +301,8 @@ void dtgevc(
       }
       // T
       // Compute coefficients in  ( a A - b B )  y = 0
-      // a  is  ACOEF.value
-      // b  is  BCOEFR.value + i*BCOEFI.value
+      // a  is  ACOEF
+      // b  is  BCOEFR + i*BCOEFI
 
       if (!ILCPLX) {
         // Real eigenvalue
@@ -641,8 +641,8 @@ void dtgevc(
       }
 
       // Compute coefficients in  ( a A - b B ) x = 0
-      // a  is  ACOEF.value
-      // b  is  BCOEFR.value + i*BCOEFI.value
+      // a  is  ACOEF
+      // b  is  BCOEFR + i*BCOEFI
 
       if (!ILCPLX) {
         // Real eigenvalue

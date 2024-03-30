@@ -151,19 +151,19 @@ void dposvxx(
     dlacpy(UPLO, N, N, A, LDA, AF, LDAF);
     dpotrf(UPLO, N, AF, LDAF, INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value != 0) {
-      // Pivot in column INFO.value is exactly 0
+      // Pivot in column INFO is exactly 0
       // Compute the reciprocal pivot growth factor of the
-      // leading rank-deficient INFO.value columns of A.
+      // leading rank-deficient INFO columns of A.
 
       RPVGRW.value = dla_porpvgrw(UPLO, INFO.value, A, LDA, AF, LDAF, WORK);
       return;
     }
   }
 
-  // Compute the reciprocal growth factor RPVGRW.value.
+  // Compute the reciprocal growth factor RPVGRW.
 
   RPVGRW.value = dla_porpvgrw(UPLO, N, A, LDA, AF, LDAF, WORK);
 

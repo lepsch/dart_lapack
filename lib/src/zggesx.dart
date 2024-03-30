@@ -362,7 +362,7 @@ void zggesx(
 
       // Reorder eigenvalues, transform Generalized Schur vectors, and
       // compute reciprocal condition numbers
-      // (Complex Workspace: If IJOB >= 1, need max(1, 2*SDIM.value*(N-SDIM.value))
+      // (Complex Workspace: If IJOB >= 1, need max(1, 2*SDIM*(N-SDIM))
       //                     otherwise, need 1 )
 
       ztgsen(

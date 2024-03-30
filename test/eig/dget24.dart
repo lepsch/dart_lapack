@@ -97,7 +97,7 @@ void dget24(
   if (THRESH < ZERO) {
     INFO.value = -3;
     // } else if ( NOUNIT <= 0 ) {
-    //    INFO.value = -5;
+    //    INFO = -5;
   } else if (N < 0) {
     INFO.value = -6;
   } else if (LDA < 1 || LDA < N) {
@@ -287,7 +287,7 @@ void dget24(
     // as well as (10) through (13)
 
     if (LWORK >= N + (N * N) ~/ 2) {
-      // Compute both RCONDE.value and RCONDV.value with VS
+      // Compute both RCONDE and RCONDV with VS
 
       SORT = 'S';
       RESULT[14] = ZERO;
@@ -314,7 +314,7 @@ void dget24(
       }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute both RCONDE.value and RCONDV.value without VS, and compare
+      // Compute both RCONDE and RCONDV without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('N', SORT, dslect, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -343,7 +343,7 @@ void dget24(
       }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDE.value with VS, and compare
+      // Compute RCONDE with VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('V', SORT, dslect, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -370,7 +370,7 @@ void dget24(
       }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDE.value without VS, and compare
+      // Compute RCONDE without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('N', SORT, dslect, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -397,7 +397,7 @@ void dget24(
       }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDV.value with VS, and compare
+      // Compute RCONDV with VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('V', SORT, dslect, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -424,7 +424,7 @@ void dget24(
       }
       if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDV.value without VS, and compare
+      // Compute RCONDV without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('N', SORT, dslect, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,

@@ -183,7 +183,7 @@ void zdrvpb(
           }
 
           // For types 2-4, zero one row and column of the matrix
-          // to test that INFO.value is returned correctly.
+          // to test that INFO is returned correctly.
 
           IZERO = 0;
           if (ZEROT) {

@@ -205,19 +205,19 @@ void zgbsvxx(
     }
     zgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value > 0) {
-      // Pivot in column INFO.value is exactly 0
+      // Pivot in column INFO is exactly 0
       // Compute the reciprocal pivot growth factor of the
-      // leading rank-deficient INFO.value columns of A.
+      // leading rank-deficient INFO columns of A.
 
       RPVGRW.value = zla_gbrpvgrw(N, KL, KU, INFO.value, AB, LDAB, AFB, LDAFB);
       return;
     }
   }
 
-  // Compute the reciprocal pivot growth factor RPVGRW.value.
+  // Compute the reciprocal pivot growth factor RPVGRW.
 
   RPVGRW.value = zla_gbrpvgrw(N, KL, KU, N, AB, LDAB, AFB, LDAFB);
 

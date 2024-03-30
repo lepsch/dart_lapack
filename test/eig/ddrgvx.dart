@@ -88,9 +88,9 @@ Future<void> ddrgvx(
     } else if (THRESH < ZERO) {
       INFO.value = -2;
       // } else if (NIN <= 0) {
-      //   INFO.value = -3;
+      //   INFO = -3;
       // } else if ( NOUT <= 0 ) {
-      //    INFO.value = -4;
+      //    INFO = -4;
     } else if (LDA < 1 || LDA < NMAX) {
       INFO.value = -6;
     } else if (LIWORK < NMAX + 6) {
@@ -425,13 +425,13 @@ Future<void> ddrgvx(
           RESULT[4] = ZERO;
           if (DIF[1] == ZERO) {
             if (DIFTRU[1] > ABNORM * ULP) RESULT[4] = ULPINV;
-                      } else if (DIFTRU[1] == ZERO) {
+          } else if (DIFTRU[1] == ZERO) {
             if (DIF[1] > ABNORM * ULP) RESULT[4] = ULPINV;
-                      } else if (DIF[5] == ZERO) {
+          } else if (DIF[5] == ZERO) {
             if (DIFTRU[5] > ABNORM * ULP) RESULT[4] = ULPINV;
-                      } else if (DIFTRU[5] == ZERO) {
+          } else if (DIFTRU[5] == ZERO) {
             if (DIF[5] > ABNORM * ULP) RESULT[4] = ULPINV;
-                      } else {
+          } else {
             final RATIO1 =
                 max((DIFTRU[1] / DIF[1]).abs(), (DIF[1] / DIFTRU[1]).abs());
             final RATIO2 =

@@ -52,7 +52,7 @@ void ztrsen(
   WANTSP = lsame(JOB, 'V') || WANTBH;
   WANTQ = lsame(COMPQ, 'V');
 
-  // Set M.value to the number of selected eigenvalues.
+  // Set M to the number of selected eigenvalues.
 
   M.value = 0;
   for (K = 1; K <= N; K++) {

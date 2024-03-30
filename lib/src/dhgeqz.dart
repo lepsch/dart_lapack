@@ -759,7 +759,7 @@ void dhgeqz(
         A22 = H[ILAST][ILAST];
 
         // Compute complex Givens rotation on right
-        // (Assume some element of C.value = (sA - wB) > unfl )
+        // (Assume some element of C = (sA - wB) > unfl )
         // __
         // (sA - wB) ( CZ   -SZ )
         // ( SZ    CZ )

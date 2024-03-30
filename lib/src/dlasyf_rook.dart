@@ -105,7 +105,7 @@ void dlasyf_rook(
       }
 
       if (max(ABSAKK, COLMAX) == ZERO) {
-        // Column K is zero or underflow: set INFO.value and continue
+        // Column K is zero or underflow: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -365,7 +365,7 @@ void dlasyf_rook(
       }
     } while (J <= N);
 
-    // Set KB.value to the number of columns factorized
+    // Set KB to the number of columns factorized
 
     KB.value = N - K;
   } else {
@@ -409,7 +409,7 @@ void dlasyf_rook(
       }
 
       if (max(ABSAKK, COLMAX) == ZERO) {
-        // Column K is zero or underflow: set INFO.value and continue
+        // Column K is zero or underflow: set INFO and continue
 
         if (INFO.value == 0) INFO.value = K;
         KP = K;
@@ -652,7 +652,7 @@ void dlasyf_rook(
       }
     } while (J >= 1);
 
-    // Set KB.value to the number of columns factorized
+    // Set KB to the number of columns factorized
 
     KB.value = K - 1;
   }

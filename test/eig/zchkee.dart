@@ -1077,7 +1077,7 @@ Future<void> zchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
               // $                      DR( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
               // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
               // $                      LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT,
-              // $                      INFO.value )
+              // $                      INFO )
               zdrvsg2stg(
                   NN,
                   NVAL,
@@ -1712,7 +1712,7 @@ Future<void> zchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
           // CALL ZCHKHB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
           // $                NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ),
           // $                A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT,
-          // $                INFO.value )
+          // $                INFO )
           zchkhb2stg(
               NN,
               NVAL,

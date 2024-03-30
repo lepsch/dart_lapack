@@ -36,7 +36,7 @@ void dpot06(
     return;
   }
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0.
 
   final EPS = dlamch('Epsilon');
   final ANORM = dlansy('I', UPLO, N, A, LDA, RWORK);

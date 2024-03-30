@@ -41,7 +41,7 @@ void zgbt02(
     return;
   }
 
-  // Exit with RESID.value = 1/EPS if ANORM = 0.
+  // Exit with RESID = 1/EPS if ANORM = 0.
 
   final EPS = dlamch('Epsilon');
   var ANORM = ZERO;

@@ -153,12 +153,12 @@ void dsysvxx(
     dlacpy(UPLO, N, N, A, LDA, AF, LDAF);
     dsytrf(UPLO, N, AF, LDAF, IPIV, WORK, 5 * max(1, N), INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value > 0) {
-      // Pivot in column INFO.value is exactly 0
+      // Pivot in column INFO is exactly 0
       // Compute the reciprocal pivot growth factor of the
-      // leading rank-deficient INFO.value columns of A.
+      // leading rank-deficient INFO columns of A.
 
       if (N > 0) {
         RPVGRW.value =
@@ -168,7 +168,7 @@ void dsysvxx(
     }
   }
 
-  // Compute the reciprocal pivot growth factor RPVGRW.value.
+  // Compute the reciprocal pivot growth factor RPVGRW.
 
   if (N > 0) {
     RPVGRW.value =

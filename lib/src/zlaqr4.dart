@@ -483,7 +483,7 @@ void zlaqr4(
       // ==== End of main loop ====
     }
 
-    // ==== Iteration limit exceeded.  Set INFO.value to show where
+    // ==== Iteration limit exceeded.  Set INFO to show where
     // .    the problem occurred and exit. ====
 
     INFO.value = KBOT;

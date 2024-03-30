@@ -160,7 +160,7 @@ void dchksy_rk(
         }
 
         // For matrix types 3-6, zero one or more rows and
-        // columns of the matrix to test that INFO.value is returned
+        // columns of the matrix to test that INFO is returned
         // correctly.
         final int IZERO;
         if (ZEROT) {
@@ -252,7 +252,7 @@ void dchksy_rk(
           srnamc.SRNAMT = 'DSYTRF_RK';
           dsytrf_rk(UPLO, N, AFAC.asMatrix(), LDA, E, IWORK, AINV, LWORK, INFO);
 
-          // Adjust the expected value of INFO.value to account for
+          // Adjust the expected value of INFO to account for
           // pivoting.
 
           var K = IZERO;
@@ -278,7 +278,7 @@ void dchksy_rk(
                 IMAT, NFAIL, NERRS, NOUT);
           }
 
-          // Set the condition estimate flag if the INFO.value is not 0.
+          // Set the condition estimate flag if the INFO is not 0.
 
           final TRFCON = INFO.value != 0;
 
@@ -290,7 +290,7 @@ void dchksy_rk(
 
           // +    TEST 2
           // Form the inverse and compute the residual,
-          // if the factorization was competed without INFO.value > 0
+          // if the factorization was competed without INFO > 0
           // (i.e. there is no zero rows and columns).
           // Do it only for the first block size.
 
@@ -495,7 +495,7 @@ void dchksy_rk(
 
           if (INB > 1) continue;
 
-          // Do only the condition estimate if INFO.value is not 0.
+          // Do only the condition estimate if INFO is not 0.
 
           if (TRFCON) {
             RCONDC.value = ZERO;
@@ -574,7 +574,7 @@ void dchksy_rk(
           }
 
           // +    TEST 7
-          // Get an estimate of RCOND.value = 1/CNDNUM.
+          // Get an estimate of RCOND = 1/CNDNUM.
 
           final ANORM = dlansy('1', UPLO, N, A.asMatrix(), LDA, RWORK);
           final RCOND = Box(0.0);
@@ -589,7 +589,7 @@ void dchksy_rk(
                 IMAT, NFAIL, NERRS, NOUT);
           }
 
-          // Compute the test ratio to compare to values of RCOND.value
+          // Compute the test ratio to compare to values of RCOND
 
           RESULT[7] = dget06(RCOND.value, RCONDC.value);
 

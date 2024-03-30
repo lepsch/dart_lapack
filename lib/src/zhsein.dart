@@ -60,7 +60,7 @@ void zhsein(
 
   NOINIT = lsame(INITV, 'N');
 
-  // Set M.value to the number of columns required to store the selected
+  // Set M to the number of columns required to store the selected
   // eigenvectors.
 
   M.value = 0;

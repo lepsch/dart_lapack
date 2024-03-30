@@ -416,7 +416,7 @@ void dlasq2(final int N, final Array<double> Z_, final Box<int> INFO) {
     INFO.value = 2;
 
     // Maximum number of iterations exceeded, restore the shift
-    // SIGMA.value and place the new d's and e's in a qd array.
+    // SIGMA and place the new d's and e's in a qd array.
     // This might need to be done for several blocks
 
     I1 = I0;
@@ -447,7 +447,7 @@ void dlasq2(final int N, final Array<double> Z_, final Box<int> INFO) {
     for (K = 1; K <= N; K++) {
       Z[2 * K - 1] = Z[4 * K - 3];
 
-      // Only the block 1..N0.value is unfinished.  The rest of the e's
+      // Only the block 1..N0 is unfinished.  The rest of the e's
       // must be essentially zero, although sometimes other data
       // has been stored in them.
 

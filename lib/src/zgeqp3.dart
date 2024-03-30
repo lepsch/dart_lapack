@@ -114,13 +114,13 @@ void zgeqp3(
 
   if (NFXD > 0) {
     NA = min(M, NFXD);
-    // CALL ZGEQR2( M, NA, A, LDA, TAU, WORK, INFO.value )
+    // CALL ZGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
     zgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO);
     IWS = max(IWS, WORK[1].toInt());
     if (NA < N) {
       // CALL ZUNM2R( 'Left', 'Conjugate Transpose', M, N-NA,
       //              NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK,
-      //              INFO.value )
+      //              INFO )
       zunmqr('Left', 'Conjugate Transpose', M, N - NA, NA, A, LDA, TAU,
           A(1, NA + 1), LDA, WORK, LWORK, INFO);
       IWS = max(IWS, WORK[1].toInt());

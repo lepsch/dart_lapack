@@ -139,7 +139,7 @@ void dlatme(
     }
   }
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (N < 0) {
     INFO.value = -1;

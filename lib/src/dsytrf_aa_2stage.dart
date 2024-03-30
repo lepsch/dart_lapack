@@ -297,8 +297,8 @@ void dsytrf_aa_2stage(
 
         dgetrf(N - (J + 1) * NB, NB, WORK.asMatrix(N), N,
             IPIV((J + 1) * NB + 1), IINFO);
-        // IF (IINFO != 0 && INFO.value == 0) THEN
-        //    INFO.value = IINFO+(J+1)*NB
+        // IF (IINFO != 0 && INFO == 0) THEN
+        //    INFO = IINFO+(J+1)*NB
         // END IF
 
         // Copy panel back
@@ -553,8 +553,8 @@ void dsytrf_aa_2stage(
 
         dgetrf(N - (J + 1) * NB, NB, A((J + 1) * NB + 1, J * NB + 1), LDA,
             IPIV((J + 1) * NB + 1), IINFO);
-        // IF (IINFO != 0 && INFO.value == 0) THEN
-        //    INFO.value = IINFO+(J+1)*NB
+        // IF (IINFO != 0 && INFO == 0) THEN
+        //    INFO = IINFO+(J+1)*NB
         // END IF
 
         // Compute T(J+1, J), zero out for GEMM update

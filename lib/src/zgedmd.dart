@@ -148,8 +148,8 @@ void zgedmd(
     // determine minimal and optimal sizes of the
     // workspace at any moment of the run.
     if (N == 0) {
-      // Quick return. All output except K.value is void.
-      // INFO.value=1 signals the void input.
+      // Quick return. All output except K is void.
+      // INFO=1 signals the void input.
       // In case of a workspace query, the default
       // minimal workspace lengths are returned.
       if (LQUERY) {
@@ -295,9 +295,9 @@ void zgedmd(
         if (SCALE.value >= (OFL / ROOTSC)) {
           // Norm of X(:,i) overflows. First, X(:,i)
           // is scaled by
-          // ( ONE / ROOTSC ) / SCALE.value = 1/||X(:,i)||_2.
+          // ( ONE / ROOTSC ) / SCALE = 1/||X(:,i)||_2.
           // Next, the norm of X(:,i) is stored without
-          // overflow as RWORK(i) = - SCALE.value * (ROOTSC/M),
+          // overflow as RWORK(i) = - SCALE * (ROOTSC/M),
           // the minus sign indicating the 1/M factor.
           // Scaling is performed without overflow, and
           // underflow may occur in the smallest entries
@@ -365,9 +365,9 @@ void zgedmd(
         if (SCALE.value >= (OFL / ROOTSC)) {
           // Norm of Y(:,i) overflows. First, Y(:,i)
           // is scaled by
-          // ( ONE / ROOTSC ) / SCALE.value = 1/||Y(:,i)||_2.
+          // ( ONE / ROOTSC ) / SCALE = 1/||Y(:,i)||_2.
           // Next, the norm of Y(:,i) is stored without
-          // overflow as RWORK(i) = - SCALE.value * (ROOTSC/M),
+          // overflow as RWORK(i) = - SCALE * (ROOTSC/M),
           // the minus sign indicating the 1/M factor.
           // Scaling is performed without overflow, and
           // underflow may occur in the smallest entries
@@ -504,7 +504,7 @@ void zgedmd(
         K.value = K.value + 1;
       }
   }
-  // Now, U = X(1:M,1:K.value) is the SVD/POD basis for the
+  // Now, U = X(1:M,1:K) is the SVD/POD basis for the
   // snapshot data in the input matrix X.
 
   //<4> Compute the Rayleigh quotient S = U^H * A * U.
@@ -513,8 +513,8 @@ void zgedmd(
   // matrices (for the residuals and refinements).
   //
   // In all formulas below, we need V_k*Sigma_k^(-1)
-  // where either V_k is in W(1:N,1:K.value), or V_k^H is in
-  // W(1:K.value,1:N). Here Sigma_k=diag(WORK(1:K.value)).
+  // where either V_k is in W(1:N,1:K), or V_k^H is in
+  // W(1:K,1:N). Here Sigma_k=diag(WORK(1:K)).
   if (lsame(T_OR_N, 'N')) {
     for (final i in 1.through(K.value)) {
       zdscal(N, ONE / RWORK[i], W(1, i).asArray(), 1);
@@ -524,7 +524,7 @@ void zgedmd(
     // This non-unit stride access is due to the fact
     // that zgesvd, zgesvdq and zgesdd return the
     // adjoint matrix of the right singular vectors.
-    //DO i = 1, K.value
+    //DO i = 1, K
     // zdscal( N, ONE/RWORK[i], W(i,1), LDW )    ;
     // ! W(i,1:N) = (ONE/RWORK[i]) * W(i,1:N)      ! INTRINSIC
     //}
@@ -540,38 +540,38 @@ void zgedmd(
 
   if (WNTREF) {
     //
-    // Need A*U(:,1:K.value)=Y*V_k*inv(diag(WORK(1:K.value)))
+    // Need A*U(:,1:K)=Y*V_k*inv(diag(WORK(1:K)))
     // for computing the refined Ritz vectors
     // (optionally, outside ZGEDMD).
     zgemm('N', T_OR_N, M, K.value, N, Complex.one, Y, LDY, W, LDW, Complex.zero,
         Z, LDZ);
-    // Z(1:M,1:K.value)=MATMUL(Y(1:M,1:N),TRANSPOSE(CONJG(W(1:K.value,1:N)))) ! INTRINSIC, for T_OR_N=='C'
-    // Z(1:M,1:K.value)=MATMUL(Y(1:M,1:N),W(1:N,1:K.value))                   ! INTRINSIC, for T_OR_N=='N'
+    // Z(1:M,1:K)=MATMUL(Y(1:M,1:N),TRANSPOSE(CONJG(W(1:K,1:N)))) ! INTRINSIC, for T_OR_N=='C'
+    // Z(1:M,1:K)=MATMUL(Y(1:M,1:N),W(1:N,1:K))                   ! INTRINSIC, for T_OR_N=='N'
     //
     // At this point Z contains
-    // A * U(:,1:K.value) = Y * V_k * Sigma_k^(-1), and
+    // A * U(:,1:K) = Y * V_k * Sigma_k^(-1), and
     // this is needed for computing the residuals.
     // This matrix is  returned in the array B and
     // it can be used to compute refined Ritz vectors.
     zlacpy('A', M, K.value, Z, LDZ, B, LDB);
-    // B(1:M,1:K.value) = Z(1:M,1:K.value)                  ! INTRINSIC
+    // B(1:M,1:K) = Z(1:M,1:K)                  ! INTRINSIC
 
     zgemm('C', 'N', K.value, K.value, M, Complex.one, X, LDX, Z, LDZ,
         Complex.zero, S, LDS);
-    // S(1:K.value,1:K.value) = MATMUL(TRANSPOSE(CONJG(X(1:M,1:K.value))),Z(1:M,1:K.value)) ! INTRINSIC
+    // S(1:K,1:K) = MATMUL(TRANSPOSE(CONJG(X(1:M,1:K))),Z(1:M,1:K)) ! INTRINSIC
     // At this point S = U^H * A * U is the Rayleigh quotient.
   } else {
-    // A * U(:,1:K.value) is not explicitly needed and the
+    // A * U(:,1:K) is not explicitly needed and the
     // computation is organized differently. The Rayleigh
     // quotient is computed more efficiently.
     zgemm('C', 'N', K.value, N, M, Complex.one, X, LDX, Y, LDY, Complex.zero, Z,
         LDZ);
-    // Z(1:K.value,1:N) = MATMUL( TRANSPOSE(CONJG(X(1:M,1:K.value))), Y(1:M,1:N) )  ! INTRINSIC
+    // Z(1:K,1:N) = MATMUL( TRANSPOSE(CONJG(X(1:M,1:K))), Y(1:M,1:N) )  ! INTRINSIC
     //
     zgemm('N', T_OR_N, K.value, K.value, N, Complex.one, Z, LDZ, W, LDW,
         Complex.zero, S, LDS);
-    // S(1:K.value,1:K.value) = MATMUL(Z(1:K.value,1:N),TRANSPOSE(CONJG(W(1:K.value,1:N)))) ! INTRINSIC, for T_OR_N=='T'
-    // S(1:K.value,1:K.value) = MATMUL(Z(1:K.value,1:N),(W(1:N,1:K.value)))                 ! INTRINSIC, for T_OR_N=='N'
+    // S(1:K,1:K) = MATMUL(Z(1:K,1:N),TRANSPOSE(CONJG(W(1:K,1:N)))) ! INTRINSIC, for T_OR_N=='T'
+    // S(1:K,1:K) = MATMUL(Z(1:K,1:N),(W(1:N,1:K)))                 ! INTRINSIC, for T_OR_N=='N'
     // At this point S = U^H * A * U is the Rayleigh quotient.
     // If the residuals are requested, save scaled V_k into Z.
     // Rethat V_k or V_k^H is stored in W.
@@ -590,7 +590,7 @@ void zgedmd(
   zgeev('N', JOBZL, K.value, S, LDS, EIGS, W, LDW, W, LDW, ZWORK, LZWORK,
       RWORK(N + 1), INFO1);
   //
-  // W(1:K.value,1:K.value) contains the eigenvectors of the Rayleigh
+  // W(1:K,1:K) contains the eigenvectors of the Rayleigh
   // quotient.  See the description of Z.
   // Also, see the description of zgeev.
   if (INFO1.value > 0) {
@@ -607,20 +607,20 @@ void zgedmd(
     if (WNTRES) {
       if (WNTREF) {
         // Here, if the refinement is requested, we have
-        // A*U(:,1:K.value) already computed and stored in Z.
-        // For the residuals, need Y = A * U(:,1;K.value) * W.
+        // A*U(:,1:K) already computed and stored in Z.
+        // For the residuals, need Y = A * U(:,1;K) * W.
         zgemm('N', 'N', M, K.value, K.value, Complex.one, Z, LDZ, W, LDW,
             Complex.zero, Y, LDY);
-        // Y(1:M,1:K.value) = Z(1:M,1:K.value) * W(1:K.value,1:K.value)        ! INTRINSIC
-        // This frees Z; Y contains A * U(:,1:K.value) * W.
+        // Y(1:M,1:K) = Z(1:M,1:K) * W(1:K,1:K)        ! INTRINSIC
+        // This frees Z; Y contains A * U(:,1:K) * W.
       } else {
         // Compute S = V_k * Sigma_k^(-1) * W, where
         // V_k * Sigma_k^(-1) (or its adjoint) is stored in Z
         zgemm(T_OR_N, 'N', N, K.value, K.value, Complex.one, Z, LDZ, W, LDW,
             Complex.zero, S, LDS);
         // Then, compute Z = Y * S =
-        // = Y * V_k * Sigma_k^(-1) * W(1:K.value,1:K.value) =
-        // = A * U(:,1:K.value) * W(1:K.value,1:K.value)
+        // = Y * V_k * Sigma_k^(-1) * W(1:K,1:K) =
+        // = A * U(:,1:K) * W(1:K,1:K)
         zgemm('N', 'N', M, K.value, N, Complex.one, Y, LDY, S, LDS,
             Complex.zero, Z, LDZ);
         // Save a copy of Z into Y and free Z for holding
@@ -634,23 +634,23 @@ void zgedmd(
       zgemm(T_OR_N, 'N', N, K.value, K.value, Complex.one, Z, LDZ, W, LDW,
           Complex.zero, S, LDS);
       // Then, compute Z = Y * S =
-      // = Y * V_k * Sigma_k^(-1) * W(1:K.value,1:K.value) =
-      // = A * U(:,1:K.value) * W(1:K.value,1:K.value)
+      // = Y * V_k * Sigma_k^(-1) * W(1:K,1:K) =
+      // = A * U(:,1:K) * W(1:K,1:K)
       zgemm('N', 'N', M, K.value, N, Complex.one, Y, LDY, S, LDS, Complex.zero,
           B, LDB);
       // The above replaces the following two calls
       // that were used in the developing-testing phase.
-      // zgemm( 'N', 'N', M, K.value, N, Complex.one, Y, LDY, S,             !           LDS, Complex.zero, Z, LDZ)
+      // zgemm( 'N', 'N', M, K, N, Complex.one, Y, LDY, S,             !           LDS, Complex.zero, Z, LDZ)
       // Save a copy of Z into B and free Z for holding
       // the Ritz vectors.
-      // zlacpy( 'A', M, K.value, Z, LDZ, B, LDB )
+      // zlacpy( 'A', M, K, Z, LDZ, B, LDB )
     }
 
     // Compute the Ritz vectors
     if (WNTVEC) {
       zgemm('N', 'N', M, K.value, K.value, Complex.one, X, LDX, W, LDW,
           Complex.zero, Z, LDZ);
-      // Z(1:M,1:K.value) = MATMUL(X(1:M,1:K.value), W(1:K.value,1:K.value))         ! INTRINSIC
+      // Z(1:M,1:K) = MATMUL(X(1:M,1:K), W(1:K,1:K))         ! INTRINSIC
     }
 
     if (WNTRES) {

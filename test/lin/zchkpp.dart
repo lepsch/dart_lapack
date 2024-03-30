@@ -130,7 +130,7 @@ void zchkpp(
         }
 
         // For types 3-5, zero one row and column of the matrix to
-        // test that INFO.value is returned correctly.
+        // test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {
@@ -192,7 +192,7 @@ void zchkpp(
           continue;
         }
 
-        // Skip the tests if INFO.value is not 0.
+        // Skip the tests if INFO is not 0.
 
         if (INFO.value != 0) continue;
 

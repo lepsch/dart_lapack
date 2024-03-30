@@ -162,7 +162,7 @@ void dtgex2(
 
     WEAK = S[2][1].abs() <= THRESHA && T[2][1].abs() <= THRESHB;
     if (!WEAK) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -194,7 +194,7 @@ void dtgex2(
       SB = DSCALE.value * sqrt(DSUM.value);
       STRONG = SA <= THRESHA && SB <= THRESHB;
       if (!STRONG) {
-        // Exit with INFO.value = 1 if swap was rejected.
+        // Exit with INFO = 1 if swap was rejected.
         INFO.value = 1;
         return;
       }
@@ -228,7 +228,7 @@ void dtgex2(
           LI[2][1]);
     }
 
-    // Exit with INFO.value = 0 if swap was successfully performed.
+    // Exit with INFO = 0 if swap was successfully performed.
 
     return;
   } else {
@@ -236,8 +236,8 @@ void dtgex2(
     //         and 2-by-2 blocks.
 
     // Solve the generalized Sylvester equation
-    //          S11 * R - L * S22 = SCALE.value * S12
-    //          T11 * R - L * T22 = SCALE.value * T12
+    //          S11 * R - L * S22 = SCALE * S12
+    //          T11 * R - L * T22 = SCALE * T12
     // for R and L. Solutions in LI and IR.
 
     dlacpy('Full', N1, N2, T(1, N1 + 1), LDST, LI, LDST);
@@ -266,7 +266,7 @@ void dtgex2(
         IDUM,
         LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -277,7 +277,7 @@ void dtgex2(
     //                          [ 0  ]
     // where
     //             LI =  [      -L              ]
-    //                   [ SCALE.value * identity(N2) ]
+    //                   [ SCALE * identity(N2) ]
 
     for (I = 1; I <= N2; I++) {
       dscal(N1, -ONE, LI(1, I).asArray(), 1);
@@ -285,13 +285,13 @@ void dtgex2(
     }
     dgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
     dorg2r(M, M, N2, LI, LDST, TAUL, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -300,20 +300,20 @@ void dtgex2(
 
     // IR * RQ**T =   [ 0  TR],
 
-    // where IR = [ SCALE.value * identity(N1), R ]
+    // where IR = [ SCALE * identity(N1), R ]
 
     for (I = 1; I <= N1; I++) {
       IR[N2 + I][I] = SCALE.value;
     }
     dgerq2(N1, M, IR(N2 + 1, 1), LDST, TAUR, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
     dorgr2(M, M, N1, IR, LDST, TAUR, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -334,19 +334,19 @@ void dtgex2(
 
     dgerq2(M, M, T, LDST, TAUR, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
     dormr2('R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
     dormr2('L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -365,14 +365,14 @@ void dtgex2(
 
     dgeqr2(M, M, TCPY, LDST, TAUL, WORK, LINFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
     dorm2r('L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO);
     dorm2r('R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO);
     if (LINFO.value != 0) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -396,7 +396,7 @@ void dtgex2(
       dlacpy('F', M, M, IRCOP, LDST, IR, LDST);
       dlacpy('F', M, M, LICOP, LDST, LI, LDST);
     } else if (BRQA21 >= THRESHA) {
-      // Exit with INFO.value = 1 if swap was rejected.
+      // Exit with INFO = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
@@ -432,7 +432,7 @@ void dtgex2(
       SB = DSCALE.value * sqrt(DSUM.value);
       STRONG = SA <= THRESHA && SB <= THRESHB;
       if (!STRONG) {
-        // Exit with INFO.value = 1 if swap was rejected.
+        // Exit with INFO = 1 if swap was rejected.
         INFO.value = 1;
         return;
       }
@@ -541,6 +541,6 @@ void dtgex2(
       dlacpy('Full', I, M, WORK.asMatrix(I), I, B(1, J1), LDB);
     }
 
-    // Exit with INFO.value = 0 if swap was successfully performed.
+    // Exit with INFO = 0 if swap was successfully performed.
   }
 }

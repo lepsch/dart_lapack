@@ -247,7 +247,7 @@ void zggbal(
 
   if (ILO.value == IHI.value) return;
 
-  // Balance the submatrix in rows ILO.value to IHI.value.
+  // Balance the submatrix in rows ILO to IHI.
 
   NR = IHI.value - ILO.value + 1;
   for (I = ILO.value; I <= IHI.value; I++) {

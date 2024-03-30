@@ -151,7 +151,7 @@ void zposvxx(
     zlacpy(UPLO, N, N, A, LDA, AF, LDAF);
     zpotrf(UPLO, N, AF, LDAF, INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value > 0) {
       // Pivot in column INFO is exactly 0

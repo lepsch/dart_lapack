@@ -113,7 +113,7 @@ void zget23(
   } else if (THRESH < ZERO) {
     INFO.value = -5;
     // } else if ( NOUNIT <= 0 ) {
-    //    INFO.value = -7;
+    //    INFO = -7;
   } else if (N < 0) {
     INFO.value = -8;
   } else if (LDA < 1 || LDA < N) {

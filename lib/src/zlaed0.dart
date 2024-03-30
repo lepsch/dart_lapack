@@ -67,7 +67,7 @@ void zlaed0(
   INFO.value = 0;
 
   // if( ICOMPQ < 0 || ICOMPQ > 2 ) THEN
-  //    INFO.value = -1
+  //    INFO = -1
   // ELSE if( ( ICOMPQ == 1 ) && ( QSIZ < max( 0, N ) ) )
 // $        THEN
   if (QSIZ < max(0, N)) {

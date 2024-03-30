@@ -47,7 +47,7 @@ void zlaqp2rk(
   double HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z;
   Complex AIKK;
 
-  // Initialize INFO.value
+  // Initialize INFO
 
   INFO.value = 0;
 
@@ -85,21 +85,21 @@ void zlaqp2rk(
 
       // Determine the pivot column in KK-th step, i.e. the index
       // of the column with the maximum 2-norm in the
-      // submatrix A(I:M,K.value:N).
+      // submatrix A(I:M,K:N).
 
       KP = (KK - 1) + idamax(N - KK + 1, VN1(KK), 1);
 
       // Determine the maximum column 2-norm and the relative maximum
       // column 2-norm of the submatrix A(I:M,KK:N) in step KK.
-      // RELMAXC2NRMK.value  will be computed later, after somecondition
-      // checks on MAXC2NRMK.value.
+      // RELMAXC2NRMK  will be computed later, after somecondition
+      // checks on MAXC2NRMK.
 
       MAXC2NRMK.value = VN1[KP];
 
       // ============================================================
 
       // Check if the submatrix A(I:M,KK:N) contains NaN, and set
-      // INFO.value parameter to the column number, where the first NaN
+      // INFO parameter to the column number, where the first NaN
       // is found and return from the routine.
       // We need to check the condition only if the
       // column index (same as row index) of the original whole
@@ -107,17 +107,17 @@ void zlaqp2rk(
       // original matrix is checked in the main routine.
 
       if (disnan(MAXC2NRMK.value)) {
-        // Set K.value, the number of factorized columns.
+        // Set K, the number of factorized columns.
         // that are not zero.
 
         K.value = KK - 1;
         INFO.value = K.value + KP;
 
-        // Set RELMAXC2NRMK.value to NaN.
+        // Set RELMAXC2NRMK to NaN.
 
         RELMAXC2NRMK.value = MAXC2NRMK.value;
 
-        // Array TAU(K.value+1:MINMNFACT) is not set and contains
+        // Array TAU(K+1:MINMNFACT) is not set and contains
         // undefined elements.
 
         return;
@@ -133,7 +133,7 @@ void zlaqp2rk(
       // original matrix is checked in the main routine.
 
       if (MAXC2NRMK.value == ZERO) {
-        // Set K.value, the number of factorized columns.
+        // Set K, the number of factorized columns.
         // that are not zero.
 
         K.value = KK - 1;
@@ -154,7 +154,7 @@ void zlaqp2rk(
       // ============================================================
 
       // Check if the submatrix A(I:M,KK:N) contains Inf,
-      // set INFO.value parameter to the column number, where
+      // set INFO parameter to the column number, where
       // the first Inf is found plus N, and continue
       // the computation.
       // We need to check the condition only if the
@@ -170,8 +170,8 @@ void zlaqp2rk(
 
       // Test for the second and third stopping criteria.
       // NOTE: There is no need to test for ABSTOL >= ZERO, since
-      // MAXC2NRMK.value is non-negative. Similarly, there is no need
-      // to test for RELTOL >= ZERO, since RELMAXC2NRMK.value is
+      // MAXC2NRMK is non-negative. Similarly, there is no need
+      // to test for RELTOL >= ZERO, since RELMAXC2NRMK is
       // non-negative.
       // We need to check the condition only if the
       // column index (same as row index) of the original whole
@@ -181,7 +181,7 @@ void zlaqp2rk(
       RELMAXC2NRMK.value = MAXC2NRMK.value / MAXC2NRM;
 
       if (MAXC2NRMK.value <= ABSTOL || RELMAXC2NRMK.value <= RELTOL) {
-        // Set K.value, the number of factorized columns.
+        // Set K, the number of factorized columns.
 
         K.value = KK - 1;
 
@@ -235,7 +235,7 @@ void zlaqp2rk(
       TAU[KK] = Complex.zero;
     }
 
-    // Check if TAU(KK) contains NaN, set INFO.value parameter
+    // Check if TAU(KK) contains NaN, set INFO parameter
     // to the column number where NaN is found and return from
     // the routine.
     // NOTE: There is no need to check TAU(KK) for Inf,
@@ -257,7 +257,7 @@ void zlaqp2rk(
       K.value = KK - 1;
       INFO.value = KK;
 
-      // Set MAXC2NRMK.value and  RELMAXC2NRMK.value to NaN.
+      // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
 
       MAXC2NRMK.value = TAUNAN;
       RELMAXC2NRMK.value = TAUNAN;
@@ -330,8 +330,8 @@ void zlaqp2rk(
 
   K.value = KMAX.value;
 
-  // We reached the end of the loop, i.e. all KMAX.value columns were
-  // factorized, we need to set MAXC2NRMK.value and RELMAXC2NRMK.value before
+  // We reached the end of the loop, i.e. all KMAX columns were
+  // factorized, we need to set MAXC2NRMK and RELMAXC2NRMK before
   // we return.
 
   if (K.value < MINMNFACT) {
@@ -348,9 +348,9 @@ void zlaqp2rk(
     RELMAXC2NRMK.value = ZERO;
   }
 
-  // We reached the end of the loop, i.e. all KMAX.value columns were
+  // We reached the end of the loop, i.e. all KMAX columns were
   // factorized, set TAUs corresponding to the columns that were
-  // not factorized to ZERO, i.e. TAU(K.value+1:MINMNFACT) set to Complex.zero.
+  // not factorized to ZERO, i.e. TAU(K+1:MINMNFACT) set to Complex.zero.
 
   for (J = K.value + 1; J <= MINMNFACT; J++) {
     TAU[J] = Complex.zero;

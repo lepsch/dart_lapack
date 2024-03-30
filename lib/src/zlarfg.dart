@@ -66,7 +66,7 @@ void zlarfg(
     ALPHA.value = zladiv(Complex(ONE), ALPHA.value - BETA.toComplex());
     zscal(N - 1, ALPHA.value, X, INCX);
 
-    // If ALPHA.value is subnormal, it may lose relative accuracy
+    // If ALPHA is subnormal, it may lose relative accuracy
 
     for (J = 1; J <= KNT; J++) {
       BETA *= SAFMIN;

@@ -145,7 +145,7 @@ void ddrvpo(
         }
 
         // For types 3-5, zero one row and column of the matrix to
-        // test that INFO.value is returned correctly.
+        // test that INFO is returned correctly.
 
         final int IZERO;
         if (ZEROT) {
@@ -325,7 +325,7 @@ void ddrvpo(
             dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDA);
             if (IEQUED > 1 && N > 0) {
               // Equilibrate the matrix if FACT='F' and
-              // EQUED.value='Y'.
+              // EQUED='Y'.
 
               dlaqsy(UPLO, N, A.asMatrix(), LDA, S, SCOND.value, AMAX.value,
                   EQUED);

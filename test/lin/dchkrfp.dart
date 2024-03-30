@@ -61,7 +61,7 @@ void main() async {
   final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
   ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
   NOUT.println(
-      '\n Tests of the double           LAPACK RFP routines  LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
+      '\n Tests of the DOUBLE PRECISION LAPACK RFP routines  LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
 
   // Read the values of N
 

@@ -157,7 +157,7 @@ void dlag2(
     }
 
     // Choose (real) eigenvalue closest to 2,2 element of A*B**(-1)
-    // for WR1.value.
+    // for WR1.
 
     if (PP > ABI22) {
       WR1.value = min(WBIG, WSMALL);
@@ -176,7 +176,7 @@ void dlag2(
   }
 
   // Further scaling to avoid underflow and overflow in computing
-  // SCALE1.value and overflow in computing w*B.
+  // SCALE1 and overflow in computing w*B.
 
   // This scale factor (WSCALE) is bounded from above using C1 and C2,
   // and from below using C3 and C4.

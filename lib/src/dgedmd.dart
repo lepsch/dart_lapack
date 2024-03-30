@@ -143,8 +143,8 @@ void dgedmd(
     // determine minimal and optimal sizes of the
     // workspace at any moment of the run.
     if (N == 0) {
-      // Quick return. All output except K.value is void.
-      // INFO.value=1 signals the void input.
+      // Quick return. All output except K is void.
+      // INFO=1 signals the void input.
       // In case of a workspace query, the default
       // minimal workspace lengths are returned.
       if (LQUERY) {
@@ -496,7 +496,7 @@ void dgedmd(
         K.value++;
       }
   }
-  //   Now, U = X(1:M,1:K.value) is the SVD/POD basis for the
+  //   Now, U = X(1:M,1:K) is the SVD/POD basis for the
   //   snapshot data in the input matrix X.
 
   //<4> Compute the Rayleigh quotient S = U^T * A * U.
@@ -505,8 +505,8 @@ void dgedmd(
   //    matrices (for the residuals and refinements).
   //
   //    In all formulas below, we need V_k*Sigma_k^(-1)
-  //    where either V_k is in W(1:N,1:K.value), or V_k^T is in
-  //    W(1:K.value,1:N). Here Sigma_k=diag(WORK(1:K.value)).
+  //    where either V_k is in W(1:N,1:K), or V_k^T is in
+  //    W(1:K,1:N). Here Sigma_k=diag(WORK(1:K)).
   if (lsame(T_OR_N, 'N')) {
     for (final i in 1.through(K.value)) {
       dscal(N, ONE / WORK[i], W(1, i).asArray(), 1);
@@ -516,7 +516,7 @@ void dgedmd(
     // This non-unit stride access is due to the fact
     // that DGESVD, DGESVDQ and DGESDD return the
     // transposed matrix of the right singular vectors.
-    //DO i = 1, K.value
+    //DO i = 1, K
     // dscal( N, ONE/WORK[i], W(i,1), LDW )
     // // W(i,1:N) = (ONE/WORK[i]) * W(i,1:N)
     for (final i in 1.through(K.value)) {
@@ -531,34 +531,34 @@ void dgedmd(
 
   if (WNTREF) {
     //
-    // Need A*U(:,1:K.value)=Y*V_k*inv(diag(WORK(1:K.value)))
+    // Need A*U(:,1:K)=Y*V_k*inv(diag(WORK(1:K)))
     // for computing the refined Ritz vectors
     // (optionally, outside DGEDMD).
     dgemm('N', T_OR_N, M, K.value, N, ONE, Y, LDY, W, LDW, ZERO, Z, LDZ);
-    // Z(1:M,1:K.value)=MATMUL(Y(1:M,1:N),TRANSPOSE(W(1:K.value,1:N)))  , for T_OR_N=='T'
-    // Z(1:M,1:K.value)=MATMUL(Y(1:M,1:N),W(1:N,1:K.value))             , for T_OR_N=='N'
+    // Z(1:M,1:K)=MATMUL(Y(1:M,1:N),TRANSPOSE(W(1:K,1:N)))  , for T_OR_N=='T'
+    // Z(1:M,1:K)=MATMUL(Y(1:M,1:N),W(1:N,1:K))             , for T_OR_N=='N'
     //
     // At this point Z contains
-    // A * U(:,1:K.value) = Y * V_k * Sigma_k^(-1), and
+    // A * U(:,1:K) = Y * V_k * Sigma_k^(-1), and
     // this is needed for computing the residuals.
     // This matrix is  returned in the array B and
     // it can be used to compute refined Ritz vectors.
     dlacpy('A', M, K.value, Z, LDZ, B, LDB);
-    // B(1:M,1:K.value) = Z(1:M,1:K.value)
+    // B(1:M,1:K) = Z(1:M,1:K)
 
     dgemm('T', 'N', K.value, K.value, M, ONE, X, LDX, Z, LDZ, ZERO, S, LDS);
-    // S(1:K.value,1:K.value) = MATMUL(TANSPOSE(X(1:M,1:K.value)),Z(1:M,1:K.value))
+    // S(1:K,1:K) = MATMUL(TANSPOSE(X(1:M,1:K)),Z(1:M,1:K))
     // At this point S = U^T * A * U is the Rayleigh quotient.
   } else {
-    // A * U(:,1:K.value) is not explicitly needed and the
+    // A * U(:,1:K) is not explicitly needed and the
     // computation is organized differently. The Rayleigh
     // quotient is computed more efficiently.
     dgemm('T', 'N', K.value, N, M, ONE, X, LDX, Y, LDY, ZERO, Z, LDZ);
-    // Z(1:K.value,1:N) = MATMUL( TRANSPOSE(X(1:M,1:K.value)), Y(1:M,1:N) )
-    // In the two DGEMM calls here, can use K.value for LDZ.
+    // Z(1:K,1:N) = MATMUL( TRANSPOSE(X(1:M,1:K)), Y(1:M,1:N) )
+    // In the two DGEMM calls here, can use K for LDZ.
     dgemm('N', T_OR_N, K.value, K.value, N, ONE, Z, LDZ, W, LDW, ZERO, S, LDS);
-    // S(1:K.value,1:K.value) = MATMUL(Z(1:K.value,1:N),TRANSPOSE(W(1:K.value,1:N))) , for T_OR_N=='T'
-    // S(1:K.value,1:K.value) = MATMUL(Z(1:K.value,1:N),(W(1:N,1:K.value)))          , for T_OR_N=='N'
+    // S(1:K,1:K) = MATMUL(Z(1:K,1:N),TRANSPOSE(W(1:K,1:N))) , for T_OR_N=='T'
+    // S(1:K,1:K) = MATMUL(Z(1:K,1:N),(W(1:N,1:K)))          , for T_OR_N=='N'
     // At this point S = U^T * A * U is the Rayleigh quotient.
     // If the residuals are requested, save scaled V_k into Z.
     // Recall that V_k or V_k^T is stored in W.
@@ -577,7 +577,7 @@ void dgedmd(
   dgeev('N', JOBZL, K.value, S, LDS, REIG, IMEIG, W, LDW, W, LDW, WORK(N + 1),
       LWORK - N, INFO1);
 
-  // W(1:K.value,1:K.value) contains the eigenvectors of the Rayleigh
+  // W(1:K,1:K) contains the eigenvectors of the Rayleigh
   // quotient. Even in the case of complex spectrum, all
   // computation is done in real arithmetic. REIG and
   // IMEIG are the real and the imaginary parts of the
@@ -604,19 +604,19 @@ void dgedmd(
     if (WNTRES) {
       if (WNTREF) {
         // Here, if the refinement is requested, we have
-        // A*U(:,1:K.value) already computed and stored in Z.
-        // For the residuals, need Y = A * U(:,1;K.value) * W.
+        // A*U(:,1:K) already computed and stored in Z.
+        // For the residuals, need Y = A * U(:,1;K) * W.
         dgemm('N', 'N', M, K.value, K.value, ONE, Z, LDZ, W, LDW, ZERO, Y, LDY);
-        // Y(1:M,1:K.value) = Z(1:M,1:K.value) * W(1:K.value,1:K.value)
-        // This frees Z; Y contains A * U(:,1:K.value) * W.
+        // Y(1:M,1:K) = Z(1:M,1:K) * W(1:K,1:K)
+        // This frees Z; Y contains A * U(:,1:K) * W.
       } else {
         // Compute S = V_k * Sigma_k^(-1) * W, where
         // V_k * Sigma_k^(-1) is stored in Z
         dgemm(T_OR_N, 'N', N, K.value, K.value, ONE, Z, LDZ, W, LDW, ZERO, S,
             LDS);
         // Then, compute Z = Y * S =
-        // = Y * V_k * Sigma_k^(-1) * W(1:K.value,1:K.value) =
-        // = A * U(:,1:K.value) * W(1:K.value,1:K.value)
+        // = Y * V_k * Sigma_k^(-1) * W(1:K,1:K) =
+        // = A * U(:,1:K) * W(1:K,1:K)
         dgemm('N', 'N', M, K.value, N, ONE, Y, LDY, S, LDS, ZERO, Z, LDZ);
         // Save a copy of Z into Y and free Z for holding
         // the Ritz vectors.
@@ -629,21 +629,21 @@ void dgedmd(
       dgemm(
           T_OR_N, 'N', N, K.value, K.value, ONE, Z, LDZ, W, LDW, ZERO, S, LDS);
       // Then, compute Z = Y * S =
-      // = Y * V_k * Sigma_k^(-1) * W(1:K.value,1:K.value) =
-      // = A * U(:,1:K.value) * W(1:K.value,1:K.value)
+      // = Y * V_k * Sigma_k^(-1) * W(1:K,1:K) =
+      // = A * U(:,1:K) * W(1:K,1:K)
       dgemm('N', 'N', M, K.value, N, ONE, Y, LDY, S, LDS, ZERO, B, LDB);
       // The above replaces the following two calls
       // that were used in the developing-testing phase.
-      // dgemm( 'N', 'N', M, K.value, N, ONE, Y, LDY, S,             //           LDS, ZERO, Z, LDZ)
+      // dgemm( 'N', 'N', M, K, N, ONE, Y, LDY, S,             //           LDS, ZERO, Z, LDZ)
       // Save a copy of Z into B and free Z for holding
       // the Ritz vectors.
-      // dlacpy( 'A', M, K.value, Z, LDZ, B, LDB )
+      // dlacpy( 'A', M, K, Z, LDZ, B, LDB )
     }
 
     // Compute the real form of the Ritz vectors
     if (WNTVEC) {
       dgemm('N', 'N', M, K.value, K.value, ONE, X, LDX, W, LDW, ZERO, Z, LDZ);
-      // Z(1:M,1:K.value) = MATMUL(X(1:M,1:K.value), W(1:K.value,1:K.value))
+      // Z(1:M,1:K) = MATMUL(X(1:M,1:K), W(1:K,1:K))
     }
 
     if (WNTRES) {

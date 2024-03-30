@@ -119,7 +119,7 @@ void dggev(
   // as well as the preferred amount for good performance.
   // NB refers to the optimal block size for the immediately
   // following subroutine, as returned by ILAENV. The workspace is
-  // computed assuming ILO.value = 1 and IHI.value = N, the worst case.)
+  // computed assuming ILO = 1 and IHI = N, the worst case.)
 
   if (INFO.value == 0) {
     MINWRK = max(1, 8 * N);

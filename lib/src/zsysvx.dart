@@ -100,7 +100,7 @@ void zsysvx(
     zlacpy(UPLO, N, N, A, LDA, AF, LDAF);
     zsytrf(UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO);
 
-    // Return if INFO.value is non-zero.
+    // Return if INFO is non-zero.
 
     if (INFO.value > 0) {
       RCOND.value = ZERO;
@@ -127,7 +127,7 @@ void zsysvx(
   zsyrfs(UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR,
       WORK, RWORK, INFO);
 
-  // Set INFO.value = N+1 if the matrix is singular to working precision.
+  // Set INFO = N+1 if the matrix is singular to working precision.
 
   if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
 

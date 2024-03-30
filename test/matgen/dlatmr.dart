@@ -208,7 +208,7 @@ void dlatmr(
     }
   }
 
-  // Set INFO.value if an error
+  // Set INFO if an error
 
   if (M < 0) {
     INFO.value = -1;
@@ -416,7 +416,7 @@ void dlatmr(
           TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE,
               DL, DR, IPVTNG, IWORK, SPARSE);
 
-          // Compute K = location of (ISUB.value,JSUB.value) entry in packed
+          // Compute K = location of (ISUB,JSUB) entry in packed
           // array
 
           MNSUB = min(ISUB.value, JSUB.value);
@@ -570,7 +570,7 @@ void dlatmr(
               K = N * (N + 1) ~/ 2 - (N - I + 1) * (N - I + 2) ~/ 2 + J - I + 1;
             }
 
-            // Convert K to (ISUB.value,JSUB.value) location
+            // Convert K to (ISUB,JSUB) location
 
             JSUB.value = (K - 1) ~/ LDA + 1;
             ISUB.value = K - LDA * (JSUB.value - 1);

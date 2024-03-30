@@ -106,7 +106,7 @@ void zgbtf2(
         }
       }
     } else {
-      // If pivot is zero, set INFO.value to the index of the pivot
+      // If pivot is zero, set INFO to the index of the pivot
       // unless a zero pivot has already been found.
 
       if (INFO.value == 0) INFO.value = J;

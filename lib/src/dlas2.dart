@@ -42,7 +42,7 @@ void dlas2(
       AU = FHMX / GA;
       if (AU == ZERO) {
         // Avoid possible harmful underflow if exponent range
-        // asymmetric (true SSMIN.value may not underflow even if
+        // asymmetric (true SSMIN may not underflow even if
         // AU underflows)
 
         SSMIN.value = (FHMN * FHMX) / GA;

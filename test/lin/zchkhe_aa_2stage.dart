@@ -150,7 +150,7 @@ void zchkhe_aa_2stage(
         }
 
         // For matrix types 3-6, zero one or more rows and
-        // columns of the matrix to test that INFO.value is returned
+        // columns of the matrix to test that INFO is returned
         // correctly.
 
         int IZERO;
@@ -248,7 +248,7 @@ void zchkhe_aa_2stage(
           zhetrf_aa_2stage(UPLO, N, AFAC.asMatrix(), LDA, AINV,
               max(1, (3 * NB + 1) * N), IWORK, IWORK(1 + N), WORK, LWORK, INFO);
 
-          // Adjust the expected value of INFO.value to account for
+          // Adjust the expected value of INFO to account for
           // pivoting.
 
           int K;
@@ -300,7 +300,7 @@ void zchkhe_aa_2stage(
           }
           NRUN += NT;
 
-          // Skip solver test if INFO.value is not 0.
+          // Skip solver test if INFO is not 0.
 
           if (INFO.value == 0) {
             // Do for each value of NRHS in NSVAL.

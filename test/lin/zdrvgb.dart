@@ -193,7 +193,7 @@ void zdrvgb(
           }
 
           // For types 2, 3, and 4, zero one or more columns of
-          // the matrix to test that INFO.value is returned correctly.
+          // the matrix to test that INFO is returned correctly.
 
           final int IZERO;
           if (ZEROT) {
@@ -457,7 +457,7 @@ void zdrvgb(
                     X.asMatrix(), LDB);
                 if (IEQUED > 1 && N > 0) {
                   // Equilibrate the matrix if FACT = 'F' and
-                  // EQUED.value = 'R', 'C', or 'B'.
+                  // EQUED = 'R', 'C', or 'B'.
 
                   zlaqgb(N, N, KL, KU, A.asMatrix(), LDA, S, S(N + 1),
                       ROWCND.value, COLCND.value, AMAX.value, EQUED);
