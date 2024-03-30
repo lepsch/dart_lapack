@@ -634,7 +634,7 @@ Future<void> dchkaa(
       final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('PB: positive definite banded matrices (path=$PATH)', () {
+      test.group('PB: Positive definite banded matrices (path=$PATH)', () {
         if (TSTCHK) {
           dchkpb(
               DOTYPE.copy(),
@@ -694,49 +694,52 @@ Future<void> dchkaa(
       final NTYPES = 12;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkpt(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('PT: Positive definite tridiagonal matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchkpt(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NNS,
+              NSVAL.copy(),
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvpt(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvpt(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NRHS,
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'SY')) {
       // SY:  symmetric indefinite matrices,
       //      with partial (Bunch-Kaufman) pivoting algorithm
