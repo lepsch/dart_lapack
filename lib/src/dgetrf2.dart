@@ -24,9 +24,6 @@ void dgetrf2(
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   const ONE = 1.0, ZERO = 0.0;
-  double SFMIN, TEMP;
-  int I, N1, N2;
-  final IINFO = Box(0);
 
   // Test the input parameters
 
@@ -58,17 +55,17 @@ void dgetrf2(
 
     // Compute machine safe minimum
 
-    SFMIN = dlamch('S');
+    final SFMIN = dlamch('S');
 
     // Find pivot and test for singularity
 
-    I = idamax(M, A(1, 1).asArray(), 1);
+    final I = idamax(M, A(1, 1).asArray(), 1);
     IPIV[1] = I;
     if (A[I][1] != ZERO) {
       // Apply the interchange
 
       if (I != 1) {
-        TEMP = A[1][1];
+        final TEMP = A[1][1];
         A[1][1] = A[I][1];
         A[I][1] = TEMP;
       }
@@ -76,10 +73,10 @@ void dgetrf2(
       // Compute elements 2:M of the column
 
       if (A[1][1].abs() >= SFMIN) {
-        dscal(M - 1, ONE / A[1][1], A(1, 2).asArray(), 1);
+        dscal(M - 1, ONE / A[1][1], A(2, 1).asArray(), 1);
       } else {
-        for (I = 1; I <= M - 1; I++) {
-          A[1 + I][1] = A[I + 1][I] / A[1][1];
+        for (var I = 1; I <= M - 1; I++) {
+          A[1 + I][1] /= A[1][1];
         }
       }
     } else {
@@ -88,17 +85,18 @@ void dgetrf2(
   } else {
     // Use recursive code
 
-    N1 = min(M, N) ~/ 2;
-    N2 = N - N1;
+    final N1 = min(M, N) ~/ 2;
+    final N2 = N - N1;
 
-    // [ A11 ]
+    //        [ A11 ]
     // Factor [ --- ]
     //        [ A21 ]
 
+    final IINFO = Box(0);
     dgetrf2(M, N1, A, LDA, IPIV, IINFO);
     if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value;
 
-    // [ A12 ]
+    //                       [ A12 ]
     // Apply interchanges to [ --- ]
     //                       [ A22 ]
 
@@ -120,7 +118,7 @@ void dgetrf2(
     // Adjust INFO and the pivot indices
 
     if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + N1;
-    for (I = N1 + 1; I <= min(M, N); I++) {
+    for (var I = N1 + 1; I <= min(M, N); I++) {
       IPIV[I] += N1;
     }
 

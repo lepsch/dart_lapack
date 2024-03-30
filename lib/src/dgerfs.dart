@@ -171,6 +171,7 @@ void dgerfs(
         daxpy(N, ONE, WORK(N + 1), 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
         COUNT++;
+        continue;
       }
       break;
     }
@@ -208,12 +209,11 @@ void dgerfs(
     KASE.value = 0;
     while (true) {
       dlacn2(N, WORK(2 * N + 1), WORK(N + 1), IWORK, FERR.box(J), KASE, ISAVE);
-      if (KASE.value != 0) {
+      if (KASE.value == 0) break;
         if (KASE.value == 1) {
           // Multiply by diag(W)*inv(op(A)**T).
 
-          dgetrs(
-              TRANST, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
+        dgetrs(TRANST, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
           for (I = 1; I <= N; I++) {
             WORK[N + I] = WORK[I] * WORK[N + I];
           }
@@ -225,8 +225,6 @@ void dgerfs(
           }
           dgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
         }
-      }
-      break;
     }
 
     // Normalize error.

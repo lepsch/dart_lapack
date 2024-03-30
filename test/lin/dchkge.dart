@@ -116,7 +116,7 @@ void dchkge(
 
         // Skip types 5, 6, or 7 if the matrix size is too small.
         final ZEROT = IMAT >= 5 && IMAT <= 7;
-        if (ZEROT && N < IMAT - 4) return;
+        if (ZEROT && N < IMAT - 4) continue;
 
         test('DCHKGE (IM=$IM IN=$IN IMAT=$IMAT)', () {
           // Set up parameters with DLATB4 and generate a test matrix
@@ -188,14 +188,14 @@ void dchkge(
             }
             TRFCON = false;
 
-            // +    TEST 1
+            // TEST 1
             // Reconstruct matrix from factors and compute residual.
 
             dlacpy('Full', M, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
             dget01(M, N, A.asMatrix(), LDA, AINV.asMatrix(), LDA, IWORK, RWORK,
                 RESULT(1));
 
-            // +    TEST 2
+            // TEST 2
             // Form the inverse if the factorization was successful
             // and compute the residual.
 
@@ -273,7 +273,7 @@ void dchkge(
                   final TRANS = TRANSS[ITRAN - 1];
                   final RCONDC = ITRAN == 1 ? RCONDO.value : RCONDI;
 
-                  // +    TEST 3
+                  // TEST 3
                   // Solve and compute residual for A * X = B.
 
                   srnamc.SRNAMT = 'DLARHS';
@@ -314,13 +314,13 @@ void dchkge(
                   dget02(TRANS, N, N, NRHS, A.asMatrix(), LDA, X.asMatrix(),
                       LDA, WORK.asMatrix(), LDA, RWORK, RESULT(3));
 
-                  // +    TEST 4
+                  // TEST 4
                   // Check solution from generated exact solution.
 
                   dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
                       RCONDC, RESULT(4));
 
-                  // +    TESTS 5, 6, and 7
+                  // TESTS 5, 6, and 7
                   // Use iterative refinement to improve the
                   // solution.
 
@@ -388,7 +388,7 @@ void dchkge(
               }
             }
 
-            // +    TEST 8
+            // TEST 8
             // Get an estimate of RCOND = 1/CNDNUM.
 
             for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {

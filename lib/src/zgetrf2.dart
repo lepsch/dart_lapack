@@ -92,14 +92,14 @@ void zgetrf2(
     N1 = min(M, N) ~/ 2;
     N2 = N - N1;
 
-    // [ A11 ]
+    //        [ A11 ]
     // Factor [ --- ]
     //        [ A21 ]
 
     zgetrf2(M, N1, A, LDA, IPIV, IINFO);
     if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value;
 
-    // [ A12 ]
+    //                       [ A12 ]
     // Apply interchanges to [ --- ]
     //                       [ A22 ]
 
