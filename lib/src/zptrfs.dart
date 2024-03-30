@@ -247,7 +247,7 @@ void zptrfs(
 
     RWORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
-      RWORK[I] /= DF[I] + RWORK[I + 1] * EF[I].abs();
+      RWORK[I] = RWORK[I] / DF[I] + RWORK[I + 1] * EF[I].abs();
     }
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.

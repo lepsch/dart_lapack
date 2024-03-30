@@ -155,7 +155,7 @@ void dlarrf(
     MAX1 = DPLUS[1].abs();
     for (I = 1; I <= N - 1; I++) {
       LPLUS[I] = LD[I] / DPLUS[I];
-      S *= LPLUS[I] * L[I] - LSIGMA;
+      S = S * LPLUS[I] * L[I] - LSIGMA;
       DPLUS[I + 1] = D[I + 1] + S;
       if (DPLUS[I + 1].abs() < PIVMIN) {
         DPLUS[I + 1] = -PIVMIN;

@@ -65,7 +65,7 @@ void zptts2(
 
         B[N][J] /= D[N].toComplex();
         for (I = N - 1; I >= 1; I--) {
-          B[I][J] /= D[I].toComplex() - B[I + 1][J] * E[I];
+          B[I][J] = B[I][J] / D[I].toComplex() - B[I + 1][J] * E[I];
         }
       }
     }
@@ -108,7 +108,7 @@ void zptts2(
 
         B[N][J] /= D[N].toComplex();
         for (I = N - 1; I >= 1; I--) {
-          B[I][J] /= D[I].toComplex() - B[I + 1][J] * E[I].conjugate();
+          B[I][J] = B[I][J] / D[I].toComplex() - B[I + 1][J] * E[I].conjugate();
         }
       }
     }

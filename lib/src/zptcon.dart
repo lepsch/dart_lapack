@@ -70,7 +70,7 @@ void zptcon(
 
   RWORK[N] /= D[N];
   for (I = N - 1; I >= 1; I--) {
-    RWORK[I] /= D[I] + RWORK[I + 1] * E[I].abs();
+    RWORK[I] = RWORK[I] / D[I] + RWORK[I + 1] * E[I].abs();
   }
 
   // Compute AINVNM = max(x[I]), 1<=i<=n.

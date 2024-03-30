@@ -21,7 +21,6 @@ void dpttrs(
   final D = D_.having();
   final E = E_.having();
   final B = B_.having(ld: LDB);
-  int J, JB, NB;
 
   // Test the input arguments.
 
@@ -44,17 +43,13 @@ void dpttrs(
 
   // Determine the number of right-hand sides to solve at a time.
 
-  if (NRHS == 1) {
-    NB = 1;
-  } else {
-    NB = max(1, ilaenv(1, 'DPTTRS', ' ', N, NRHS, -1, -1));
-  }
+  final NB = NRHS == 1 ? 1 : max(1, ilaenv(1, 'DPTTRS', ' ', N, NRHS, -1, -1));
 
   if (NB >= NRHS) {
     dptts2(N, NRHS, D, E, B, LDB);
   } else {
-    for (J = 1; J <= NRHS; J += NB) {
-      JB = min(NRHS - J + 1, NB);
+    for (var J = 1; J <= NRHS; J += NB) {
+      final JB = min(NRHS - J + 1, NB);
       dptts2(N, JB, D, E, B(1, J), LDB);
     }
   }

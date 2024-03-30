@@ -38,7 +38,7 @@ void dptts2(
 
     B[N][J] /= D[N];
     for (I = N - 1; I >= 1; I--) {
-      B[I][J] /= D[I] - B[I + 1][J] * E[I];
+      B[I][J] = B[I][J] / D[I] - B[I + 1][J] * E[I];
     }
   }
 }

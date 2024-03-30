@@ -201,7 +201,7 @@ void dptrfs(
 
     WORK[N] /= DF[N];
     for (I = N - 1; I >= 1; I--) {
-      WORK[I] /= DF[I] + WORK[I + 1] * EF[I].abs();
+      WORK[I] = WORK[I] / DF[I] + WORK[I + 1] * EF[I].abs();
     }
 
     // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
