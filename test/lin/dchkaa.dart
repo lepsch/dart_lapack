@@ -747,55 +747,58 @@ Future<void> dchkaa(
       final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchksy(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('SY: Symmetric indefinite matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchksy(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NNB2,
+              NBVAL2.copy(),
+              NNS,
+              NSVAL.copy(),
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvsy(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvsy(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NRHS,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'SR')) {
       // SR:  symmetric indefinite matrices,
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm
@@ -824,7 +827,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
@@ -882,7 +886,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
@@ -939,7 +944,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
@@ -995,7 +1001,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
@@ -1049,7 +1056,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -34,7 +35,11 @@ void dchksy_aa_2stage(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final NVAL = NVAL_.having();
   final NBVAL = NBVAL_.having();
@@ -48,11 +53,6 @@ void dchksy_aa_2stage(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const ZERO = 0.0;
   const NTYPES = 10;
   const NTESTS = 9;
@@ -65,12 +65,11 @@ void dchksy_aa_2stage(
   // Initialize constants and the random number seed.
 
   // Test path
-
   final PATH = '${'Double precision'[0]}S2';
 
   // Path to generate matrices
-
   final MATPATH = '${'Double precision'[0]}SY';
+
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
@@ -78,15 +77,19 @@ void dchksy_aa_2stage(
     ISEED[I] = ISEEDY[I];
   }
 
-  // Test the error exits
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrsy(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
-  if (TSTERR) derrsy(PATH, NOUT);
-  infoc.INFOT = 0;
-
-  // Set the minimum block size for which the block routine should
-  // be used, which will be later returned by ILAENV
-
-  xlaenv(2, 2);
+  test.setUp(() {
+    // Set the minimum block size for which the block routine should
+    // be used, which will be later returned by ILAENV
+    xlaenv(2, 2);
+  });
 
   // Do for each value of N in NVAL
 
@@ -103,19 +106,15 @@ void dchksy_aa_2stage(
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     // Do for each value of matrix type IMAT
-
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
       // Do the tests only if DOTYPE( IMAT ) is true.
-
       if (!DOTYPE[IMAT]) continue;
 
       // Skip types 3, 4, 5, or 6 if the matrix size is too small.
-
       final ZEROT = IMAT >= 3 && IMAT <= 6;
       if (ZEROT && N < IMAT - 2) continue;
 
       // Do first for UPLO = 'U', then for UPLO = 'L'
-
       for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
         final UPLO = UPLOS[IUPLO];
 
@@ -140,7 +139,6 @@ void dchksy_aa_2stage(
               NFAIL, NERRS, NOUT);
 
           // Skip all tests for this generated matrix
-
           continue;
         }
 
@@ -215,18 +213,15 @@ void dchksy_aa_2stage(
         // End generate the test matrix A.
 
         // Do for each value of NB in NBVAL
-
         for (var INB = 1; INB <= NNB; INB++) {
           // Set the optimal blocksize, which will be later
           // returned by ILAENV.
-
           final NB = NBVAL[INB];
           xlaenv(1, NB);
 
           // Copy the test matrix A into matrix AFAC which
           // will be factorized in place. This is needed to
           // preserve the test matrix A for subsequent tests.
-
           dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
 
           // Compute the L*D*L**T or U*D*U**T factorization of the

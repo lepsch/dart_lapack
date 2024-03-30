@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -36,6 +37,7 @@ void dchksp(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -72,13 +74,15 @@ void dchksp(
     ISEED[I] = ISEEDY[I - 1];
   }
 
-  // Test the error exits
-
-  if (TSTERR) derrsy(PATH, NOUT);
-  infoc.INFOT = 0;
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrsy(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
   // Do for each value of N in NVAL
-
   for (var IN = 1; IN <= NN; IN++) {
     final N = NVAL[IN];
     final LDA = max(N, 1);
@@ -87,16 +91,13 @@ void dchksp(
 
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
       // Do the tests only if DOTYPE( IMAT ) is true.
-
       if (!DOTYPE[IMAT]) continue;
 
       // Skip types 3, 4, 5, or 6 if the matrix size is too small.
-
       final ZEROT = IMAT >= 3 && IMAT <= 6;
       if (ZEROT && N < IMAT - 2) continue;
 
       // Do first for UPLO = 'U', then for UPLO = 'L'
-
       for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
         final UPLO = UPLOS[IUPLO - 1];
         final PACKIT = lsame(UPLO, 'U') ? 'C' : 'R';

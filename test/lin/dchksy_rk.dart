@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -39,6 +40,7 @@ void dchksy_rk(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -70,15 +72,13 @@ void dchksy_rk(
   final INFO = Box(0);
 
   // Initialize constants and the random number seed.
-
+  
   final ALPHA = (ONE + sqrt(SEVTEN)) / EIGHT;
 
   // Test path
-
   final PATH = '${'Double precision'[0]}SK';
 
   // Path to generate matrices
-
   final MATPATH = '${'Double precision'[0]}SY';
 
   var NRUN = 0;
@@ -88,15 +88,19 @@ void dchksy_rk(
     ISEED[I] = ISEEDY[I - 1];
   }
 
-  // Test the error exits
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrsy(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
-  if (TSTERR) derrsy(PATH, NOUT);
-  infoc.INFOT = 0;
-
-  // Set the minimum block size for which the block routine should
-  // be used, which will be later returned by ILAENV
-
-  xlaenv(2, 2);
+  test.setUp(() {
+    // Set the minimum block size for which the block routine should
+    // be used, which will be later returned by ILAENV
+    xlaenv(2, 2);
+  });
 
   // Do for each value of N in NVAL
 

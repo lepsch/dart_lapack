@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -35,6 +36,7 @@ void dchksy_aa(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
   final DOTYPE = DOTYPE_.having();
   final NVAL = NVAL_.having();
@@ -66,12 +68,11 @@ void dchksy_aa(
   // Initialize constants and the random number seed.
 
   // Test path
-
   final PATH = '${'Double precision'[0]}SA';
 
   // Path to generate matrices
-
   final MATPATH = '${'Double precision'[0]}SY';
+
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
@@ -79,18 +80,21 @@ void dchksy_aa(
     ISEED[I] = ISEEDY[I - 1];
   }
 
-  // Test the error exits
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrsy(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
-  if (TSTERR) derrsy(PATH, NOUT);
-  infoc.INFOT = 0;
-
-  // Set the minimum block size for which the block routine should
-  // be used, which will be later returned by ILAENV
-
-  xlaenv(2, 2);
+  test.setUp(() {
+    // Set the minimum block size for which the block routine should
+    // be used, which will be later returned by ILAENV
+    xlaenv(2, 2);
+  });
 
   // Do for each value of N in NVAL
-
   for (var IN = 1; IN <= NN; IN++) {
     final N = NVAL[IN];
     if (N > NMAX) {
@@ -104,7 +108,6 @@ void dchksy_aa(
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     // Do for each value of matrix type IMAT
-
     for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
       // Do the tests only if DOTYPE( IMAT ) is true.
 

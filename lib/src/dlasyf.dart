@@ -329,7 +329,7 @@ void dlasyf(
     // K is the main loop index, increasing from 1 in steps of 1 or 2
 
     K = 1;
-    while ((K >= NB && NB < N) || K > N) {
+    while (!((K >= NB && NB < N) || K > N)) {
       // Copy column K of A to column K of W and update it
 
       dcopy(N - K + 1, A(K, K).asArray(), 1, W(K, K).asArray(), 1);
