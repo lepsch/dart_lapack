@@ -74,6 +74,7 @@ void ddrvpt(
     final N = NVAL[IN];
     final LDA = max(1, N);
     final NIMAT = N <= 0 ? 1 : NTYPES;
+    var IZERO = 0;
 
     for (final IMAT in 1.through(NIMAT)) {
       // Do the tests only if DOTYPE( IMAT ) is true.
@@ -87,7 +88,6 @@ void ddrvpt(
             dlatb4(PATH, IMAT, N, N);
 
         final ZEROT = IMAT >= 8 && IMAT <= 10;
-        int IZERO = 0;
         if (IMAT <= 6) {
           // Type 1-6:  generate a symmetric tridiagonal matrix of
           // known condition number in lower triangular band storage.
@@ -118,7 +118,7 @@ void ddrvpt(
           // Type 7-12:  generate a diagonally dominant matrix with
           // unknown condition number in the vectors D and E.
 
-          if (!ZEROT || !DOTYPE[7]) {
+          if (!ZEROT || !DOTYPE[7] || TestDriver.isAsync) {
             // Let D and E have values from [-1,1].
 
             dlarnv(2, ISEED, N, D);
