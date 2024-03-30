@@ -1,19 +1,10 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgecon.dart';
-import 'package:lapack/src/dgerfs.dart';
-import 'package:lapack/src/dgetrf.dart';
-import 'package:lapack/src/dgetri.dart';
-import 'package:lapack/src/dgetrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -52,6 +43,7 @@ void dchkge(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -75,7 +67,6 @@ void dchkge(
   const NTESTS = 8;
   const NTRAN = 3;
   bool TRFCON;
-  String XTYPE;
   int NFAIL, NRUN;
   final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
@@ -95,10 +86,17 @@ void dchkge(
 
   // Test the error exits
 
-  xlaenv(1, 1);
-  if (TSTERR) derrge(PATH, NOUT);
-  infoc.INFOT = 0;
-  xlaenv(2, 2);
+  test.group('error exits', () {
+    test.setUp(() {
+      xlaenv(1, 1);
+    });
+    if (TSTERR) derrge(PATH, NOUT, test);
+  });
+
+  test.setUp(() {
+    infoc.INFOT = 0;
+    xlaenv(2, 2);
+  });
 
   // Do for each value of M in MVAL
 
@@ -110,323 +108,327 @@ void dchkge(
 
     for (var IN = 1; IN <= NN; IN++) {
       final N = NVAL[IN];
-      XTYPE = 'N';
       final NIMAT = M <= 0 || N <= 0 ? 1 : NTYPES;
 
       for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
         // Do the tests only if DOTYPE( IMAT ) is true.
-
-        if (!DOTYPE[IMAT]) continue;
+        final skip = !DOTYPE[IMAT];
 
         // Skip types 5, 6, or 7 if the matrix size is too small.
-
         final ZEROT = IMAT >= 5 && IMAT <= 7;
-        if (ZEROT && N < IMAT - 4) continue;
+        if (ZEROT && N < IMAT - 4) return;
 
-        // Set up parameters with DLATB4 and generate a test matrix
-        // with DLATMS.
+        test('DCHKGE (IM=$IM IN=$IN IMAT=$IMAT)', () {
+          // Set up parameters with DLATB4 and generate a test matrix
+          // with DLATMS.
 
-        final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
-            dlatb4(PATH, IMAT, M, N);
+          final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
+              dlatb4(PATH, IMAT, M, N);
 
-        srnamc.SRNAMT = 'DLATMS';
-        dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
-            'No packing', A.asMatrix(), LDA, WORK, INFO);
+          srnamc.SRNAMT = 'DLATMS';
+          dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+              'No packing', A.asMatrix(), LDA, WORK, INFO);
 
-        // Check error code from DLATMS.
-
-        if (INFO.value != 0) {
-          alaerh(PATH, 'DLATMS', INFO.value, 0, ' ', M, N, -1, -1, -1, IMAT,
-              NFAIL, NERRS, NOUT);
-          continue;
-        }
-
-        // For types 5-7, zero one or more columns of the matrix to
-        // test that INFO is returned correctly.
-
-        final int IZERO;
-        if (ZEROT) {
-          if (IMAT == 5) {
-            IZERO = 1;
-          } else if (IMAT == 6) {
-            IZERO = min(M, N);
-          } else {
-            IZERO = min(M, N) ~/ 2 + 1;
+          // Check error code from DLATMS.
+          test.expect(INFO.value, 0);
+          if (INFO.value != 0) {
+            alaerh(PATH, 'DLATMS', INFO.value, 0, ' ', M, N, -1, -1, -1, IMAT,
+                NFAIL, NERRS, NOUT);
+            return;
           }
-          final IOFF = (IZERO - 1) * LDA;
-          if (IMAT < 7) {
-            for (var I = 1; I <= M; I++) {
-              A[IOFF + I] = ZERO;
-            }
-          } else {
-            dlaset('Full', M, N - IZERO + 1, ZERO, ZERO, A(IOFF + 1).asMatrix(),
-                LDA);
-          }
-        } else {
-          IZERO = 0;
-        }
 
-        // These lines, if used in place of the calls in the DO 60
-        // loop, cause the code to bomb on a Sun SPARCstation.
+          // For types 5-7, zero one or more columns of the matrix to
+          // test that INFO is returned correctly.
 
-        // ANORMO = dlange( 'O', M, N, A, LDA, RWORK )
-        // ANORMI = dlange( 'I', M, N, A, LDA, RWORK )
-
-        // Do for each blocksize in NBVAL
-
-        for (var INB = 1; INB <= NNB; INB++) {
-          final NB = NBVAL[INB];
-          xlaenv(1, NB);
-
-          // Compute the LU factorization of the matrix.
-
-          dlacpy('Full', M, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
-          srnamc.SRNAMT = 'DGETRF';
-          dgetrf(M, N, AFAC.asMatrix(), LDA, IWORK, INFO);
-
-          // Check error code from DGETRF.
-
-          if (INFO.value != IZERO) {
-            alaerh(PATH, 'DGETRF', INFO.value, IZERO, ' ', M, N, -1, -1, NB,
-                IMAT, NFAIL, NERRS, NOUT);
-          }
-          TRFCON = false;
-
-          // +    TEST 1
-          // Reconstruct matrix from factors and compute residual.
-
-          dlacpy('Full', M, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
-          dget01(M, N, A.asMatrix(), LDA, AINV.asMatrix(), LDA, IWORK, RWORK,
-              RESULT(1));
-
-          // +    TEST 2
-          // Form the inverse if the factorization was successful
-          // and compute the residual.
-
-          final int NT;
-          final double ANORMI, ANORMO, RCONDI;
-          if (M == N && INFO.value == 0) {
-            dlacpy('Full', N, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
-            srnamc.SRNAMT = 'DGETRI';
-            final NRHS = NSVAL[1];
-            final LWORK = NMAX * max(3, NRHS).toInt();
-            dgetri(N, AINV.asMatrix(), LDA, IWORK, WORK, LWORK, INFO);
-
-            // Check error code from DGETRI.
-
-            if (INFO.value != 0) {
-              alaerh(PATH, 'DGETRI', INFO.value, 0, ' ', N, N, -1, -1, NB, IMAT,
-                  NFAIL, NERRS, NOUT);
-            }
-
-            // Compute the residual for the matrix times its
-            // inverse.  Also compute the 1-norm condition number
-            // of A.
-
-            dget03(N, A.asMatrix(), LDA, AINV.asMatrix(), LDA, WORK.asMatrix(),
-                LDA, RWORK, RCONDO, RESULT(2));
-            ANORMO = dlange('O', M, N, A.asMatrix(), LDA, RWORK);
-
-            // Compute the infinity-norm condition number of A.
-
-            ANORMI = dlange('I', M, N, A.asMatrix(), LDA, RWORK);
-            final AINVNM = dlange('I', N, N, AINV.asMatrix(), LDA, RWORK);
-            if (ANORMI <= ZERO || AINVNM <= ZERO) {
-              RCONDI = ONE;
+          final int IZERO;
+          if (ZEROT) {
+            if (IMAT == 5) {
+              IZERO = 1;
+            } else if (IMAT == 6) {
+              IZERO = min(M, N);
             } else {
-              RCONDI = (ONE / ANORMI) / AINVNM;
+              IZERO = min(M, N) ~/ 2 + 1;
             }
-            NT = 2;
-          } else {
-            // Do only the condition estimate if INFO > 0.
-
-            TRFCON = true;
-            ANORMO = dlange('O', M, N, A.asMatrix(), LDA, RWORK);
-            ANORMI = dlange('I', M, N, A.asMatrix(), LDA, RWORK);
-            RCONDO.value = ZERO;
-            RCONDI = ZERO;
-            NT = 1;
-          }
-
-          // Print information about the tests so far that did not
-          // pass the threshold.
-
-          for (var K = 1; K <= NT; K++) {
-            if (RESULT[K] >= THRESH) {
-              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              NOUT.println(
-                  ' M = ${M.i5}, N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-              NFAIL++;
-            }
-          }
-          NRUN += NT;
-
-          // Skip the remaining tests if this is not the first
-          // block size or if M != N.  Skip the solve tests if
-          // the matrix is singular.
-
-          if (INB > 1 || M != N) continue;
-          if (!TRFCON) {
-            for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-              final NRHS = NSVAL[IRHS];
-              XTYPE = 'N';
-
-              for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
-                final TRANS = TRANSS[ITRAN - 1];
-                final RCONDC = ITRAN == 1 ? RCONDO.value : RCONDI;
-
-                // +    TEST 3
-                // Solve and compute residual for A * X = B.
-
-                srnamc.SRNAMT = 'DLARHS';
-                dlarhs(
-                    PATH,
-                    XTYPE,
-                    ' ',
-                    TRANS,
-                    N,
-                    N,
-                    KL,
-                    KU,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    XACT.asMatrix(),
-                    LDA,
-                    B.asMatrix(),
-                    LDA,
-                    ISEED,
-                    INFO);
-                XTYPE = 'C';
-
-                dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
-                srnamc.SRNAMT = 'DGETRS';
-                dgetrs(TRANS, N, NRHS, AFAC.asMatrix(), LDA, IWORK,
-                    X.asMatrix(), LDA, INFO);
-
-                // Check error code from DGETRS.
-
-                if (INFO.value != 0) {
-                  alaerh(PATH, 'DGETRS', INFO.value, 0, TRANS, N, N, -1, -1,
-                      NRHS, IMAT, NFAIL, NERRS, NOUT);
-                }
-
-                dlacpy(
-                    'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
-                dget02(TRANS, N, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
-                    WORK.asMatrix(), LDA, RWORK, RESULT(3));
-
-                // +    TEST 4
-                // Check solution from generated exact solution.
-
-                dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
-                    RESULT(4));
-
-                // +    TESTS 5, 6, and 7
-                // Use iterative refinement to improve the
-                // solution.
-
-                srnamc.SRNAMT = 'DGERFS';
-                dgerfs(
-                    TRANS,
-                    N,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    AFAC.asMatrix(),
-                    LDA,
-                    IWORK,
-                    B.asMatrix(),
-                    LDA,
-                    X.asMatrix(),
-                    LDA,
-                    RWORK,
-                    RWORK(NRHS + 1),
-                    WORK,
-                    IWORK(N + 1),
-                    INFO);
-
-                // Check error code from DGERFS.
-
-                if (INFO.value != 0) {
-                  alaerh(PATH, 'DGERFS', INFO.value, 0, TRANS, N, N, -1, -1,
-                      NRHS, IMAT, NFAIL, NERRS, NOUT);
-                }
-
-                dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
-                    RESULT(5));
-                dget07(
-                    TRANS,
-                    N,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    B.asMatrix(),
-                    LDA,
-                    X.asMatrix(),
-                    LDA,
-                    XACT.asMatrix(),
-                    LDA,
-                    RWORK,
-                    true,
-                    RWORK(NRHS + 1),
-                    RESULT(6));
-
-                // Print information about the tests that did not
-                // pass the threshold.
-
-                for (var K = 3; K <= 7; K++) {
-                  if (RESULT[K] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                    NOUT.println(
-                        ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                    NFAIL++;
-                  }
-                }
-                NRUN += 5;
+            final IOFF = (IZERO - 1) * LDA;
+            if (IMAT < 7) {
+              for (var I = 1; I <= M; I++) {
+                A[IOFF + I] = ZERO;
               }
+            } else {
+              dlaset('Full', M, N - IZERO + 1, ZERO, ZERO,
+                  A(IOFF + 1).asMatrix(), LDA);
             }
+          } else {
+            IZERO = 0;
           }
 
-          // +    TEST 8
-          // Get an estimate of RCOND = 1/CNDNUM.
+          // These lines, if used in place of the calls in the DO 60
+          // loop, cause the code to bomb on a Sun SPARCstation.
 
-          for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
-            final String NORM;
-            final double ANORM, RCONDC;
-            if (ITRAN == 1) {
-              ANORM = ANORMO;
-              RCONDC = RCONDO.value;
-              NORM = 'O';
-            } else {
-              ANORM = ANORMI;
-              RCONDC = RCONDI;
-              NORM = 'I';
-            }
-            srnamc.SRNAMT = 'DGECON';
-            dgecon(NORM, N, AFAC.asMatrix(), LDA, ANORM, RCOND, WORK,
-                IWORK(N + 1), INFO);
+          // ANORMO = dlange( 'O', M, N, A, LDA, RWORK )
+          // ANORMI = dlange( 'I', M, N, A, LDA, RWORK )
 
-            // Check error code from DGECON.
+          // Do for each blocksize in NBVAL
 
-            if (INFO.value != 0) {
-              alaerh(PATH, 'DGECON', INFO.value, 0, NORM, N, N, -1, -1, -1,
+          for (var INB = 1; INB <= NNB; INB++) {
+            final NB = NBVAL[INB];
+            xlaenv(1, NB);
+
+            // Compute the LU factorization of the matrix.
+
+            dlacpy('Full', M, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            srnamc.SRNAMT = 'DGETRF';
+            dgetrf(M, N, AFAC.asMatrix(), LDA, IWORK, INFO);
+
+            // Check error code from DGETRF.
+
+            if (INFO.value != IZERO) {
+              alaerh(PATH, 'DGETRF', INFO.value, IZERO, ' ', M, N, -1, -1, NB,
                   IMAT, NFAIL, NERRS, NOUT);
             }
-            RESULT[8] = dget06(RCOND.value, RCONDC);
+            TRFCON = false;
 
-            // Print information about the tests that did not pass
-            // the threshold.
+            // +    TEST 1
+            // Reconstruct matrix from factors and compute residual.
 
-            if (RESULT[8] >= THRESH) {
-              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              NOUT.println(
-                  ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${8.i2}) =${RESULT[8].g12_5}');
-              NFAIL++;
+            dlacpy('Full', M, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
+            dget01(M, N, A.asMatrix(), LDA, AINV.asMatrix(), LDA, IWORK, RWORK,
+                RESULT(1));
+
+            // +    TEST 2
+            // Form the inverse if the factorization was successful
+            // and compute the residual.
+
+            final int NT;
+            final double ANORMI, ANORMO, RCONDI;
+            if (M == N && INFO.value == 0) {
+              dlacpy('Full', N, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
+              srnamc.SRNAMT = 'DGETRI';
+              final NRHS = NSVAL[1];
+              final LWORK = NMAX * max(3, NRHS).toInt();
+              dgetri(N, AINV.asMatrix(), LDA, IWORK, WORK, LWORK, INFO);
+
+              // Check error code from DGETRI.
+              test.expect(INFO.value, 0, reason: 'DGETRI');
+              if (INFO.value != 0) {
+                alaerh(PATH, 'DGETRI', INFO.value, 0, ' ', N, N, -1, -1, NB,
+                    IMAT, NFAIL, NERRS, NOUT);
+              }
+
+              // Compute the residual for the matrix times its
+              // inverse.  Also compute the 1-norm condition number
+              // of A.
+
+              dget03(N, A.asMatrix(), LDA, AINV.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK, RCONDO, RESULT(2));
+              ANORMO = dlange('O', M, N, A.asMatrix(), LDA, RWORK);
+
+              // Compute the infinity-norm condition number of A.
+
+              ANORMI = dlange('I', M, N, A.asMatrix(), LDA, RWORK);
+              final AINVNM = dlange('I', N, N, AINV.asMatrix(), LDA, RWORK);
+              if (ANORMI <= ZERO || AINVNM <= ZERO) {
+                RCONDI = ONE;
+              } else {
+                RCONDI = (ONE / ANORMI) / AINVNM;
+              }
+              NT = 2;
+            } else {
+              // Do only the condition estimate if INFO > 0.
+
+              TRFCON = true;
+              ANORMO = dlange('O', M, N, A.asMatrix(), LDA, RWORK);
+              ANORMI = dlange('I', M, N, A.asMatrix(), LDA, RWORK);
+              RCONDO.value = ZERO;
+              RCONDI = ZERO;
+              NT = 1;
             }
-            NRUN++;
+
+            // Print information about the tests so far that did not
+            // pass the threshold.
+
+            for (var K = 1; K <= NT; K++) {
+              final reason =
+                  ' M = ${M.i5}, N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}';
+              test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(reason);
+                NFAIL++;
+              }
+            }
+            NRUN += NT;
+
+            // Skip the remaining tests if this is not the first
+            // block size or if M != N.  Skip the solve tests if
+            // the matrix is singular.
+
+            if (INB > 1 || M != N) continue;
+            if (!TRFCON) {
+              for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+                final NRHS = NSVAL[IRHS];
+                var XTYPE = 'N';
+
+                for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+                  final TRANS = TRANSS[ITRAN - 1];
+                  final RCONDC = ITRAN == 1 ? RCONDO.value : RCONDI;
+
+                  // +    TEST 3
+                  // Solve and compute residual for A * X = B.
+
+                  srnamc.SRNAMT = 'DLARHS';
+                  dlarhs(
+                      PATH,
+                      XTYPE,
+                      ' ',
+                      TRANS,
+                      N,
+                      N,
+                      KL,
+                      KU,
+                      NRHS,
+                      A.asMatrix(),
+                      LDA,
+                      XACT.asMatrix(),
+                      LDA,
+                      B.asMatrix(),
+                      LDA,
+                      ISEED,
+                      INFO);
+                  XTYPE = 'C';
+
+                  dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+                  srnamc.SRNAMT = 'DGETRS';
+                  dgetrs(TRANS, N, NRHS, AFAC.asMatrix(), LDA, IWORK,
+                      X.asMatrix(), LDA, INFO);
+
+                  // Check error code from DGETRS.
+                  test.expect(INFO.value, 0, reason: 'DGETRS');
+                  if (INFO.value != 0) {
+                    alaerh(PATH, 'DGETRS', INFO.value, 0, TRANS, N, N, -1, -1,
+                        NRHS, IMAT, NFAIL, NERRS, NOUT);
+                  }
+
+                  dlacpy(
+                      'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+                  dget02(TRANS, N, N, NRHS, A.asMatrix(), LDA, X.asMatrix(),
+                      LDA, WORK.asMatrix(), LDA, RWORK, RESULT(3));
+
+                  // +    TEST 4
+                  // Check solution from generated exact solution.
+
+                  dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
+                      RCONDC, RESULT(4));
+
+                  // +    TESTS 5, 6, and 7
+                  // Use iterative refinement to improve the
+                  // solution.
+
+                  srnamc.SRNAMT = 'DGERFS';
+                  dgerfs(
+                      TRANS,
+                      N,
+                      NRHS,
+                      A.asMatrix(),
+                      LDA,
+                      AFAC.asMatrix(),
+                      LDA,
+                      IWORK,
+                      B.asMatrix(),
+                      LDA,
+                      X.asMatrix(),
+                      LDA,
+                      RWORK,
+                      RWORK(NRHS + 1),
+                      WORK,
+                      IWORK(N + 1),
+                      INFO);
+
+                  // Check error code from DGERFS.
+                  test.expect(INFO.value, 0, reason: 'DGERFS');
+                  if (INFO.value != 0) {
+                    alaerh(PATH, 'DGERFS', INFO.value, 0, TRANS, N, N, -1, -1,
+                        NRHS, IMAT, NFAIL, NERRS, NOUT);
+                  }
+
+                  dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA,
+                      RCONDC, RESULT(5));
+                  dget07(
+                      TRANS,
+                      N,
+                      NRHS,
+                      A.asMatrix(),
+                      LDA,
+                      B.asMatrix(),
+                      LDA,
+                      X.asMatrix(),
+                      LDA,
+                      XACT.asMatrix(),
+                      LDA,
+                      RWORK,
+                      true,
+                      RWORK(NRHS + 1),
+                      RESULT(6));
+
+                  // Print information about the tests that did not
+                  // pass the threshold.
+
+                  for (var K = 3; K <= 7; K++) {
+                    final reason =
+                        ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}';
+                    test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                    if (RESULT[K] >= THRESH) {
+                      if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                      NOUT.println(reason);
+                      NFAIL++;
+                    }
+                  }
+                  NRUN += 5;
+                }
+              }
+            }
+
+            // +    TEST 8
+            // Get an estimate of RCOND = 1/CNDNUM.
+
+            for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
+              final String NORM;
+              final double ANORM, RCONDC;
+              if (ITRAN == 1) {
+                ANORM = ANORMO;
+                RCONDC = RCONDO.value;
+                NORM = 'O';
+              } else {
+                ANORM = ANORMI;
+                RCONDC = RCONDI;
+                NORM = 'I';
+              }
+              srnamc.SRNAMT = 'DGECON';
+              dgecon(NORM, N, AFAC.asMatrix(), LDA, ANORM, RCOND, WORK,
+                  IWORK(N + 1), INFO);
+
+              // Check error code from DGECON.
+              test.expect(INFO.value, 0, reason: 'DGECON');
+              if (INFO.value != 0) {
+                alaerh(PATH, 'DGECON', INFO.value, 0, NORM, N, N, -1, -1, -1,
+                    IMAT, NFAIL, NERRS, NOUT);
+              }
+              RESULT[8] = dget06(RCOND.value, RCONDC);
+
+              // Print information about the tests that did not pass
+              // the threshold.
+              final reason =
+                  ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${8.i2}) =${RESULT[8].g12_5}';
+              test.expect(RESULT[8], lessThan(THRESH), reason: reason);
+              if (RESULT[8] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(reason);
+                NFAIL++;
+              }
+              NRUN++;
+            }
           }
-        }
+        }, skip: skip);
       }
     }
   }

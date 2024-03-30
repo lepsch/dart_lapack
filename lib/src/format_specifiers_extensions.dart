@@ -76,6 +76,7 @@ extension DoubleFormatSpecifiersExtension on double {
 
   // general
   String g(int w, [int d = 0]) {
+    if (isNaN) return this.d(w - 4, d) + ' ' * 4;
     var n = abs();
     const minFp = 0.1;
     final maxFp = pow(10, d);

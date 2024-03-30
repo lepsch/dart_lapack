@@ -90,21 +90,20 @@ Future<void> dchkaa(
   final E = Array<double>(NMAX);
   final S = Array<double>(2 * NMAX);
   final RWORK = Array<double>(5 * NMAX + 2 * MAXRHS);
-  final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
 
   final S1 = dsecnd();
   final LDA = NMAX;
   FATAL = false;
 
   // Read a dummy line.
-
   await NIN.readLine();
 
   // Report values of parameters.
 
+  final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
   ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
   NOUT.println(
-      ' Tests of the double           LAPACK routines \n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
+      ' Tests of the DOUBLE PRECISION LAPACK routines \n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}\n\n The following parameter values will be used:');
 
   // Read the values of M
 
@@ -201,19 +200,17 @@ Future<void> dchkaa(
   } else {
     // Set NBVAL2 to be the set of unique values of NB
 
-    NNB2 = () {
-      var result = 0;
-      nbLoop:
-      for (var I = 1; I <= NNB; I++) {
-        NB = NBVAL[I];
-        for (var J = 1; J <= result; J++) {
-          if (NB == NBVAL2[J]) continue nbLoop;
-        }
-        result++;
-        NBVAL2[result] = NB;
+    var result = 0;
+    nbLoop:
+    for (var I = 1; I <= NNB; I++) {
+      NB = NBVAL[I];
+      for (var J = 1; J <= result; J++) {
+        if (NB == NBVAL2[J]) continue nbLoop;
       }
-      return result;
-    }();
+      result++;
+      NBVAL2[result] = NB;
+    }
+    NNB2 = result;
 
     // Read the values of NX
 
@@ -290,6 +287,7 @@ Future<void> dchkaa(
     } on EOF catch (_) {
       break;
     }
+
     final PATH = ALINE.substring(0, 3);
     final C1 = PATH[0];
     final C2 = PATH.substring(1, 3);
@@ -309,58 +307,60 @@ Future<void> dchkaa(
       NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkge(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('GE: general matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchkge(
+              DOTYPE,
+              NM,
+              MVAL,
+              NN,
+              NVAL,
+              NNB2,
+              NBVAL2,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvge(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            B(1, 4).asArray(),
-            S,
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvge(
+              DOTYPE,
+              NN,
+              NVAL,
+              NRHS,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              B(1, 4).asArray(),
+              S,
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'GB')) {
       // GB:  general banded matrices
 
@@ -1469,7 +1469,7 @@ extension on Nout {
   }
 
   void print9993(final String s, final Array<int> a, int n) {
-    var prefix = '    $s:  ';
+    var prefix = '    ${s.a4}:  ';
     var i = 1;
     while (n > 0) {
       println('$prefix${a(i).i6(min(n, 10))}');
