@@ -61,11 +61,12 @@ void dchkgt(
   final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-  if (TSTERR) derrge(PATH, NOUT, test);
-
-  test.setUp(() {
-    infoc.INFOT = 0;
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrge(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
   });
 
   for (final IN in 1.through(NN)) {
@@ -177,7 +178,7 @@ void dchkgt(
         dgttrf(N, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1), IWORK, INFO);
 
         // Check error code from DGTTRF.
-
+        test.expect(INFO.value, IZERO);
         if (INFO.value != IZERO) {
           alaerh(PATH, 'DGTTRF', INFO.value, IZERO, ' ', N, N, 1, 1, -1, IMAT,
               NFAIL, NERRS, NOUT);
@@ -248,7 +249,7 @@ void dchkgt(
               IWORK, ANORM, RCOND, WORK, IWORK(N + 1), INFO);
 
           // Check error code from DGTCON.
-
+          test.expect(INFO.value, 0);
           if (INFO.value != 0) {
             alaerh(PATH, 'DGTCON', INFO.value, 0, NORM, N, N, -1, -1, -1, IMAT,
                 NFAIL, NERRS, NOUT);
@@ -300,7 +301,7 @@ void dchkgt(
                 AF(N + 2 * M + 1), IWORK, X.asMatrix(), LDA, INFO);
 
             // Check error code from DGTTRS.
-
+            test.expect(INFO.value, 0);
             if (INFO.value != 0) {
               alaerh(PATH, 'DGTTRS', INFO.value, 0, TRANS, N, N, -1, -1, NRHS,
                   IMAT, NFAIL, NERRS, NOUT);
@@ -343,7 +344,7 @@ void dchkgt(
                 INFO);
 
             // Check error code from DGTRFS.
-
+            test.expect(INFO.value, 0);
             if (INFO.value != 0) {
               alaerh(PATH, 'DGTRFS', INFO.value, 0, TRANS, N, N, -1, -1, NRHS,
                   IMAT, NFAIL, NERRS, NOUT);

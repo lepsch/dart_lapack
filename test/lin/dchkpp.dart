@@ -69,11 +69,9 @@ void dchkpp(
   final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-
   test.group('error exits', () {
+    // Test the error exits
     if (TSTERR) derrpo(PATH, NOUT, test);
-
     test.tearDown(() {
       infoc.INFOT = 0;
     });

@@ -61,12 +61,15 @@ void dchkps(
   final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-
-  if (TSTERR) derrps(PATH, NOUT, test);
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrps(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
   test.setUp(() {
-    infoc.INFOT = 0;
     xlaenv(2, 2);
   });
 

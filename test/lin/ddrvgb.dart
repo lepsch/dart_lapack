@@ -75,12 +75,14 @@ void ddrvgb(
   final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
-
-  if (TSTERR) derrvx(PATH, NOUT, test);
+  test.group('error exits', () {
+    if (TSTERR) derrvx(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
   test.setUp(() {
-    infoc.INFOT = 0;
-
     // Set the block size and minimum block size for testing.
     const NB = 1;
     const NBMIN = 2;
@@ -375,7 +377,7 @@ void ddrvgb(
                         X.asMatrix(), LDB, INFO);
 
                     // Check error code from DGBSV .
-
+                    test.expect(INFO.value, IZERO);
                     if (INFO.value != IZERO) {
                       alaerh(PATH, 'DGBSV ', INFO.value, IZERO, ' ', N, N, KL,
                           KU, NRHS, IMAT, NFAIL, NERRS, NOUT);
@@ -482,7 +484,7 @@ void ddrvgb(
                       INFO);
 
                   // Check the error code from DGBSVX.
-
+                  test.expect(INFO.value, IZERO);
                   if (INFO.value != IZERO) {
                     alaerh(PATH, 'DGBSVX', INFO.value, IZERO, FACT + TRANS, N,
                         N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT);

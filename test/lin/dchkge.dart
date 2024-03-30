@@ -82,24 +82,26 @@ void dchkge(
       xlaenv(1, 1);
     });
     if (TSTERR) derrge(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
   });
 
   test.setUp(() {
-    infoc.INFOT = 0;
     xlaenv(2, 2);
   });
 
   // Do for each value of M in MVAL
-  for (var IM = 1; IM <= NM; IM++) {
+  for (final IM in 1.through(NM)) {
     final M = MVAL[IM];
     final LDA = max(1, M);
 
     // Do for each value of N in NVAL
-    for (var IN = 1; IN <= NN; IN++) {
+    for (final IN in 1.through(NN)) {
       final N = NVAL[IN];
       final NIMAT = M <= 0 || N <= 0 ? 1 : NTYPES;
 
-      for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+      for (final IMAT in 1.through(NIMAT)) {
         // Do the tests only if DOTYPE( IMAT ) is true.
         final skip = !DOTYPE[IMAT];
 
@@ -172,7 +174,7 @@ void dchkge(
             dgetrf(M, N, AFAC.asMatrix(), LDA, IWORK, INFO);
 
             // Check error code from DGETRF.
-
+            test.expect(INFO.value, IZERO);
             if (INFO.value != IZERO) {
               alaerh(PATH, 'DGETRF', INFO.value, IZERO, ' ', M, N, -1, -1, NB,
                   IMAT, NFAIL, NERRS, NOUT);

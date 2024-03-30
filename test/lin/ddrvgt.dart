@@ -59,11 +59,12 @@ void ddrvgt(
   final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-  if (TSTERR) derrvx(PATH, NOUT, test);
-
-  test.setUp(() {
-    infoc.INFOT = 0;
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrvx(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
   });
 
   for (final IN in 1.through(NN)) {
@@ -266,7 +267,7 @@ void ddrvgt(
                   INFO);
 
               // Check error code from DGTSV.
-
+              test.expect(INFO.value, IZERO);
               if (INFO.value != IZERO) {
                 alaerh(PATH, 'DGTSV ', INFO.value, IZERO, ' ', N, N, 1, 1, NRHS,
                     IMAT, NFAIL, NERRS, NOUT);
@@ -344,7 +345,7 @@ void ddrvgt(
                 INFO);
 
             // Check the error code from DGTSVX.
-
+            test.expect(INFO.value, IZERO);
             if (INFO.value != IZERO) {
               alaerh(PATH, 'DGTSVX', INFO.value, IZERO, FACT + TRANS, N, N, 1,
                   1, NRHS, IMAT, NFAIL, NERRS, NOUT);

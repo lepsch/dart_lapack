@@ -75,16 +75,19 @@ void dchkgb(
   final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
-
-  if (TSTERR) derrge(PATH, NOUT, test);
+  test.group('error exits', () {
+    if (TSTERR) derrge(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
   test.setUp(() {
-    infoc.INFOT = 0;
     xlaenv(2, 2);
   });
 
   // Do for each value of M in MVAL
-  for (var IM = 1; IM <= NM; IM++) {
+  for (final IM in 1.through(NM)) {
     final M = MVAL[IM];
 
     // Set values to use for the lower bandwidth.
@@ -96,7 +99,7 @@ void dchkgb(
     ];
 
     // Do for each value of N in NVAL
-    for (var IN = 1; IN <= NN; IN++) {
+    for (final IN in 1.through(NN)) {
       final N = NVAL[IN];
 
       // Set values to use for the upper bandwidth.
@@ -112,13 +115,13 @@ void dchkgb(
       final NKU = M == 0 ? 2 : min(N + 1, NBW);
       final NIMAT = M <= 0 || N <= 0 ? 1 : NTYPES;
 
-      for (var IKL = 1; IKL <= NKL; IKL++) {
+      for (final IKL in 1.through(NKL)) {
         // Do for KL = 0, (5*M+1)/4, (3M-1)/4, and (M+1)/4. This
         // order makes it easier to skip redundant values for small
         // values of M.
 
         final KL = KLVAL[IKL - 1];
-        for (var IKU = 1; IKU <= NKU; IKU++) {
+        for (final IKU in 1.through(NKU)) {
           // Do for KU = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This
           // order makes it easier to skip redundant values for
           // small values of N.
@@ -311,142 +314,142 @@ void dchkgb(
                     RCONDI = ONE;
                   } else {
                     RCONDI = (ONE / ANORMI) / AINVNM;
-                }
+                  }
 
-                for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-                  final NRHS = NSVAL[IRHS];
-                  var XTYPE = 'N';
+                  for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+                    final NRHS = NSVAL[IRHS];
+                    var XTYPE = 'N';
 
-                  for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
-                    final TRANS = TRANSS[ITRAN - 1];
-                    final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
+                    for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+                      final TRANS = TRANSS[ITRAN - 1];
+                      final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
 
-                    // +    TEST 2:
-                    // Solve and compute residual for op(A) * X = B.
+                      // +    TEST 2:
+                      // Solve and compute residual for op(A) * X = B.
 
-                    srnamc.SRNAMT = 'DLARHS';
-                    dlarhs(
-                        PATH,
-                        XTYPE,
-                        ' ',
-                        TRANS,
-                        N,
-                        N,
-                        KL,
-                        KU,
-                        NRHS,
-                        A.asMatrix(),
-                        LDA,
-                        XACT.asMatrix(),
-                        LDB,
-                        B.asMatrix(),
-                        LDB,
-                        ISEED,
-                        INFO);
-                    XTYPE = 'C';
+                      srnamc.SRNAMT = 'DLARHS';
+                      dlarhs(
+                          PATH,
+                          XTYPE,
+                          ' ',
+                          TRANS,
+                          N,
+                          N,
+                          KL,
+                          KU,
+                          NRHS,
+                          A.asMatrix(),
+                          LDA,
+                          XACT.asMatrix(),
+                          LDB,
+                          B.asMatrix(),
+                          LDB,
+                          ISEED,
+                          INFO);
+                      XTYPE = 'C';
                       dlacpy('Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(),
                           LDB);
 
-                    srnamc.SRNAMT = 'DGBTRS';
-                    dgbtrs(TRANS, N, KL, KU, NRHS, AFAC.asMatrix(), LDAFAC,
-                        IWORK, X.asMatrix(), LDB, INFO);
+                      srnamc.SRNAMT = 'DGBTRS';
+                      dgbtrs(TRANS, N, KL, KU, NRHS, AFAC.asMatrix(), LDAFAC,
+                          IWORK, X.asMatrix(), LDB, INFO);
 
-                    // Check error code from DGBTRS.
-
-                    if (INFO.value != 0) {
+                      // Check error code from DGBTRS.
+                      test.expect(INFO.value, 0);
+                      if (INFO.value != 0) {
                         alaerh(PATH, 'DGBTRS', INFO.value, 0, TRANS, N, N, KL,
                             KU, -1, IMAT, NFAIL, NERRS, NOUT);
-                    }
+                      }
 
                       dlacpy('Full', N, NRHS, B.asMatrix(), LDB,
                           WORK.asMatrix(), LDB);
-                    dgbt02(
-                        TRANS,
-                        M,
-                        N,
-                        KL,
-                        KU,
-                        NRHS,
-                        A.asMatrix(),
-                        LDA,
-                        X.asMatrix(),
-                        LDB,
-                        WORK.asMatrix(),
-                        LDB,
-                        RWORK,
-                        RESULT(2));
+                      dgbt02(
+                          TRANS,
+                          M,
+                          N,
+                          KL,
+                          KU,
+                          NRHS,
+                          A.asMatrix(),
+                          LDA,
+                          X.asMatrix(),
+                          LDB,
+                          WORK.asMatrix(),
+                          LDB,
+                          RWORK,
+                          RESULT(2));
 
-                    // +    TEST 3:
-                    // Check solution from generated exact
-                    // solution.
+                      // +    TEST 3:
+                      // Check solution from generated exact
+                      // solution.
 
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        RCONDC, RESULT(3));
+                      dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                          RCONDC, RESULT(3));
 
-                    // +    TESTS 4, 5, 6:
-                    // Use iterative refinement to improve the
-                    // solution.
+                      // +    TESTS 4, 5, 6:
+                      // Use iterative refinement to improve the
+                      // solution.
 
-                    srnamc.SRNAMT = 'DGBRFS';
-                    dgbrfs(
-                        TRANS,
-                        N,
-                        KL,
-                        KU,
-                        NRHS,
-                        A.asMatrix(),
-                        LDA,
-                        AFAC.asMatrix(),
-                        LDAFAC,
-                        IWORK,
-                        B.asMatrix(),
-                        LDB,
-                        X.asMatrix(),
-                        LDB,
-                        RWORK,
-                        RWORK(NRHS + 1),
-                        WORK,
-                        IWORK(N + 1),
-                        INFO);
+                      srnamc.SRNAMT = 'DGBRFS';
+                      dgbrfs(
+                          TRANS,
+                          N,
+                          KL,
+                          KU,
+                          NRHS,
+                          A.asMatrix(),
+                          LDA,
+                          AFAC.asMatrix(),
+                          LDAFAC,
+                          IWORK,
+                          B.asMatrix(),
+                          LDB,
+                          X.asMatrix(),
+                          LDB,
+                          RWORK,
+                          RWORK(NRHS + 1),
+                          WORK,
+                          IWORK(N + 1),
+                          INFO);
 
-                    // Check error code from DGBRFS.
-
-                    if (INFO.value != 0) {
+                      // Check error code from DGBRFS.
+                      test.expect(INFO.value, 0);
+                      if (INFO.value != 0) {
                         alaerh(PATH, 'DGBRFS', INFO.value, 0, TRANS, N, N, KL,
                             KU, NRHS, IMAT, NFAIL, NERRS, NOUT);
-                    }
+                      }
 
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        RCONDC, RESULT(4));
-                    dgbt05(
-                        TRANS,
-                        N,
-                        KL,
-                        KU,
-                        NRHS,
-                        A.asMatrix(),
-                        LDA,
-                        B.asMatrix(),
-                        LDB,
-                        X.asMatrix(),
-                        LDB,
-                        XACT.asMatrix(),
-                        LDB,
-                        RWORK,
-                        RWORK(NRHS + 1),
-                        RESULT(5));
-                    for (var K = 2; K <= 6; K++) {
-                      final reason =
-                          ' TRANS=\'${TRANS.a1}\', N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, NRHS=${NRHS.i3}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}';
+                      dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                          RCONDC, RESULT(4));
+                      dgbt05(
+                          TRANS,
+                          N,
+                          KL,
+                          KU,
+                          NRHS,
+                          A.asMatrix(),
+                          LDA,
+                          B.asMatrix(),
+                          LDB,
+                          X.asMatrix(),
+                          LDB,
+                          XACT.asMatrix(),
+                          LDB,
+                          RWORK,
+                          RWORK(NRHS + 1),
+                          RESULT(5));
+                      for (var K = 2; K <= 6; K++) {
+                        final reason =
+                            ' TRANS=\'${TRANS.a1}\', N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, NRHS=${NRHS.i3}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}';
                         test.expect(RESULT[K], lessThan(THRESH),
                             reason: reason);
-                      if (RESULT[K] >= THRESH) {
-                        if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                        NOUT.println(reason);
-                        NFAIL++;
+                        if (RESULT[K] >= THRESH) {
+                          if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                          NOUT.println(reason);
+                          NFAIL++;
+                        }
                       }
-                    }
-                    NRUN += 5;
+                      NRUN += 5;
                     }
                   }
                 }
@@ -471,7 +474,7 @@ void dchkgb(
                       RCOND, WORK, IWORK(N + 1), INFO);
 
                   // Check error code from DGBCON.
-
+                  test.expect(INFO.value, 0);
                   if (INFO.value != 0) {
                     alaerh(PATH, 'DGBCON', INFO.value, 0, NORM, N, N, KL, KU,
                         -1, IMAT, NFAIL, NERRS, NOUT);

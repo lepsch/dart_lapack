@@ -76,11 +76,9 @@ void ddrvpp(
   final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-
   test.group('error exits', () {
+    // Test the error exits
     if (TSTERR) derrvx(PATH, NOUT, test);
-
     test.tearDown(() {
       infoc.INFOT = 0;
     });
@@ -103,7 +101,7 @@ void ddrvpp(
       final ZEROT = IMAT >= 3 && IMAT <= 5;
       if (ZEROT && N < IMAT - 2) continue;
 
-      test('DDRVPP', () {
+      test('DDRVPP (IN=$IN IMAT=$IMAT)', () {
         final INFO = Box(0);
 
         // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -123,7 +121,7 @@ void ddrvpp(
               PACKIT, A.asMatrix(), LDA, WORK, INFO);
 
           // Check error code from DLATMS.
-
+          test.expect(INFO.value, 0);
           if (INFO.value != 0) {
             alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
                 NFAIL, NERRS, NOUT);

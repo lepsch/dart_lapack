@@ -83,11 +83,12 @@ void ddrvge(
   // Test the error exits
   test.group('error exits', () {
     if (TSTERR) derrvx(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
   });
 
   test.setUp(() {
-    infoc.INFOT = 0;
-
     // Set the block size and minimum block size for testing.
     final NB = 1;
     final NBMIN = 2;
@@ -399,7 +400,7 @@ void ddrvge(
                   INFO);
 
               // Check the error code from DGESVX.
-
+              test.expect(INFO.value, IZERO);
               if (INFO.value != IZERO) {
                 alaerh(PATH, 'DGESVX', INFO.value, IZERO, FACT + TRANS, N, N,
                     -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT);

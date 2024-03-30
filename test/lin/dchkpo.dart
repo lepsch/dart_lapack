@@ -74,11 +74,15 @@ void dchkpo(
   final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-  if (TSTERR) derrpo(PATH, NOUT, test);
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrpo(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
   test.setUp(() {
-    infoc.INFOT = 0;
     xlaenv(2, 2);
   });
 
@@ -246,7 +250,7 @@ void dchkpo(
                   UPLO, N, NRHS, AFAC.asMatrix(), LDA, X.asMatrix(), LDA, INFO);
 
               // Check error code from DPOTRS.
-
+              test.expect(INFO.value, 0);
               if (INFO.value != 0) {
                 alaerh(PATH, 'DPOTRS', INFO.value, 0, UPLO, N, N, -1, -1, NRHS,
                     IMAT, NFAIL, NERRS, NOUT);
@@ -285,7 +289,7 @@ void dchkpo(
                   INFO);
 
               // Check error code from DPORFS.
-
+              test.expect(INFO.value, 0);
               if (INFO.value != 0) {
                 alaerh(PATH, 'DPORFS', INFO.value, 0, UPLO, N, N, -1, -1, NRHS,
                     IMAT, NFAIL, NERRS, NOUT);
@@ -335,7 +339,7 @@ void dchkpo(
                 UPLO, N, AFAC.asMatrix(), LDA, ANORM, RCOND, WORK, IWORK, INFO);
 
             // Check error code from DPOCON.
-
+            test.expect(INFO.value, 0);
             if (INFO.value != 0) {
               alaerh(PATH, 'DPOCON', INFO.value, 0, UPLO, N, N, -1, -1, -1,
                   IMAT, NFAIL, NERRS, NOUT);
