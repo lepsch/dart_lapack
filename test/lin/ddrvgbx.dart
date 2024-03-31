@@ -1,26 +1,10 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgbequ.dart';
-import 'package:lapack/src/dgbsv.dart';
-import 'package:lapack/src/dgbsvx.dart';
-import 'package:lapack/src/dgbsvxx.dart';
-import 'package:lapack/src/dgbtrf.dart';
-import 'package:lapack/src/dgbtrs.dart';
-import 'package:lapack/src/dla_gbrpvgrw.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlangb.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlantb.dart';
-import 'package:lapack/src/dlaqgb.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'aladhd.dart';
 import 'alaerh.dart';
 import 'alasvm.dart';
@@ -57,6 +41,7 @@ void ddrvgb(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -75,63 +60,47 @@ void ddrvgb(
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
-  const NTYPES = 8;
-  const NTESTS = 7;
-  const NTRAN = 3;
-  int NFAIL, NRUN;
-  double RCONDI = 0, RCONDO = 0, RPVGRW;
-  final ISEED = Array<int>(4);
-  final RESULT = Array<double>(NTESTS),
-      BERR = Array<double>(NRHS),
-      ERRBNDS_N = Matrix<double>(NRHS, 3),
-      ERRBNDS_C = Matrix<double>(NRHS, 3);
+  const NTYPES = 8, NTESTS = 7, NTRAN = 3;
+  final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const TRANSS = ['N', 'T', 'C'];
   const FACTS = ['F', 'N', 'E'];
   const EQUEDS = ['N', 'R', 'C', 'B'];
-  final INFO = Box(0), NERRS = Box(0);
-  final AMAX = Box(0.0),
-      COLCND = Box(0.0),
-      ROWCND = Box(0.0),
-      RCOND = Box(0.0),
-      RPVGRW_SVXX = Box(0.0);
+  final AMAX = Box(0.0), COLCND = Box(0.0), ROWCND = Box(0.0), RCOND = Box(0.0);
 
   // Initialize constants and the random number seed.
 
   final PATH = '${'Double precision'[0]}GB';
-  NRUN = 0;
-  NFAIL = 0;
-  NERRS.value = 0;
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
-  }
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
 
-  if (TSTERR) derrvx(PATH, NOUT);
-  infoc.INFOT = 0;
+  if (TSTERR) derrvx(PATH, NOUT, test);
 
-  // Set the block size and minimum block size for testing.
+  test.setUp(() {
+    infoc.INFOT = 0;
 
-  final NB = 1;
-  final NBMIN = 2;
-  xlaenv(1, NB);
-  xlaenv(2, NBMIN);
+    // Set the block size and minimum block size for testing.
+    final NB = 1;
+    final NBMIN = 2;
+    xlaenv(1, NB);
+    xlaenv(2, NBMIN);
+  });
 
   // Do for each value of N in NVAL
-
-  for (var IN = 1; IN <= NN; IN++) {
+  for (final IN in 1.through(NN)) {
     final N = NVAL[IN];
     final LDB = max(N, 1);
-    var XTYPE = 'N';
 
     // Set limits on the number of loop iterations.
-
     final NKL = N == 0 ? 1 : max(1, min(N, 4));
     final NKU = NKL;
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
-    for (var IKL = 1; IKL <= NKL; IKL++) {
+    for (final IKL in 1.through(NKL)) {
       // Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
       // it easier to skip redundant values for small values of N.
       final KL = switch (IKL) {
@@ -142,7 +111,7 @@ void ddrvgb(
         _ => throw UnimplementedError(),
       };
 
-      for (var IKU = 1; IKU <= NKU; IKU++) {
+      for (final IKU in 1.through(NKU)) {
         // Do for KU = 0, N-1, (3N-1)/4, and (N+1)/4. This order
         // makes it easier to skip redundant values for small
         // values of N.
@@ -175,460 +144,466 @@ void ddrvgb(
           continue;
         }
 
-        for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+        for (final IMAT in 1.through(NIMAT)) {
           // Do the tests only if DOTYPE( IMAT ) is true.
-
-          if (!DOTYPE[IMAT]) continue;
+          final skip = !DOTYPE[IMAT];
 
           // Skip types 2, 3, or 4 if the matrix is too small.
-
           final ZEROT = IMAT >= 2 && IMAT <= 4;
           if (ZEROT && N < IMAT - 1) continue;
 
-          // Set up parameters with DLATB4 and generate a
-          // test matrix with DLATMS.
+          test('DDRVGBX (IN=$IN IKL=$IKL IKU=$IKU IMAT=$IMAT)', () {
+            final INFO = Box(0);
+            String? XTYPE;
 
-          final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
-              dlatb4(PATH, IMAT, N, N);
+            // Set up parameters with DLATB4 and generate a
+            // test matrix with DLATMS.
 
-          srnamc.SRNAMT = 'DLATMS';
-          dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
-              'Z', A.asMatrix(), LDA, WORK, INFO);
+            final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
+                dlatb4(PATH, IMAT, N, N);
 
-          // Check the error code from DLATMS.
+            srnamc.SRNAMT = 'DLATMS';
+            dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+                'Z', A.asMatrix(), LDA, WORK, INFO);
 
-          if (INFO.value != 0) {
-            alaerh(PATH, 'DLATMS', INFO.value, 0, ' ', N, N, KL, KU, -1, IMAT,
-                NFAIL, NERRS, NOUT);
-            continue;
-          }
-
-          // For types 2, 3, and 4, zero one or more columns of
-          // the matrix to test that INFO is returned correctly.
-
-          final int IZERO;
-          if (ZEROT) {
-            if (IMAT == 2) {
-              IZERO = 1;
-            } else if (IMAT == 3) {
-              IZERO = N;
-            } else {
-              IZERO = N ~/ 2 + 1;
+            // Check the error code from DLATMS.
+            test.expect(INFO.value, 0);
+            if (INFO.value != 0) {
+              alaerh(PATH, 'DLATMS', INFO.value, 0, ' ', N, N, KL, KU, -1, IMAT,
+                  NFAIL, NERRS, NOUT);
+              return;
             }
-            var IOFF = (IZERO - 1) * LDA;
-            if (IMAT < 4) {
-              final I1 = max(1, KU + 2 - IZERO);
-              final I2 = min(KL + KU + 1, KU + 1 + (N - IZERO));
-              for (var I = I1; I <= I2; I++) {
-                A[IOFF + I] = ZERO;
+
+            // For types 2, 3, and 4, zero one or more columns of
+            // the matrix to test that INFO is returned correctly.
+
+            final int IZERO;
+            if (ZEROT) {
+              if (IMAT == 2) {
+                IZERO = 1;
+              } else if (IMAT == 3) {
+                IZERO = N;
+              } else {
+                IZERO = N ~/ 2 + 1;
               }
-            } else {
-              for (var J = IZERO; J <= N; J++) {
-                for (var I = max(1, KU + 2 - J);
-                    I <= min(KL + KU + 1, KU + 1 + (N - J));
-                    I++) {
+              var IOFF = (IZERO - 1) * LDA;
+              if (IMAT < 4) {
+                final I1 = max(1, KU + 2 - IZERO);
+                final I2 = min(KL + KU + 1, KU + 1 + (N - IZERO));
+                for (var I = I1; I <= I2; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF += LDA;
+              } else {
+                for (var J = IZERO; J <= N; J++) {
+                  for (var I = max(1, KU + 2 - J);
+                      I <= min(KL + KU + 1, KU + 1 + (N - J));
+                      I++) {
+                    A[IOFF + I] = ZERO;
+                  }
+                  IOFF += LDA;
+                }
               }
+            } else {
+              IZERO = 0;
             }
-          } else {
-            IZERO = 0;
-          }
 
-          // Save a copy of the matrix A in ASAV.
+            // Save a copy of the matrix A in ASAV.
 
-          dlacpy(
-              'Full', KL + KU + 1, N, A.asMatrix(), LDA, ASAV.asMatrix(), LDA);
+            dlacpy('Full', KL + KU + 1, N, A.asMatrix(), LDA, ASAV.asMatrix(),
+                LDA);
 
-          for (var IEQUED = 1; IEQUED <= 4; IEQUED++) {
-            final EQUED = Box(EQUEDS[IEQUED - 1]);
-            final NFACT = IEQUED == 1 ? 3 : 1;
+            for (var IEQUED = 1; IEQUED <= 4; IEQUED++) {
+              final EQUED = Box(EQUEDS[IEQUED - 1]);
+              final NFACT = IEQUED == 1 ? 3 : 1;
 
-            var ROLDO = ZERO, ROLDI = ZERO;
-            for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
-              final FACT = FACTS[IFACT - 1];
-              final PREFAC = lsame(FACT, 'F');
-              final NOFACT = lsame(FACT, 'N');
-              final EQUIL = lsame(FACT, 'E');
+              var ROLDO = ZERO, ROLDI = ZERO, RCONDI = ZERO, RCONDO = ZERO;
+              for (var IFACT = 1; IFACT <= NFACT; IFACT++) {
+                final FACT = FACTS[IFACT - 1];
+                final PREFAC = lsame(FACT, 'F');
+                final NOFACT = lsame(FACT, 'N');
+                final EQUIL = lsame(FACT, 'E');
 
-              if (ZEROT) {
-                if (PREFAC) continue;
-                RCONDO = ZERO;
-                RCONDI = ZERO;
-              } else if (!NOFACT) {
-                // Compute the condition number for comparison
-                // with the value returned by DGESVX (FACT =
-                // 'N' reuses the condition number from the
-                // previous iteration with FACT = 'F').
+                if (ZEROT) {
+                  if (PREFAC) continue;
+                  RCONDO = ZERO;
+                  RCONDI = ZERO;
+                } else if (!NOFACT) {
+                  // Compute the condition number for comparison
+                  // with the value returned by DGESVX (FACT =
+                  // 'N' reuses the condition number from the
+                  // previous iteration with FACT = 'F').
 
-                dlacpy('Full', KL + KU + 1, N, ASAV.asMatrix(), LDA,
-                    AFB(KL + 1).asMatrix(), LDAFB);
-                if (EQUIL || IEQUED > 1) {
-                  // Compute row and column scale factors to
-                  // equilibrate the matrix A.
+                  dlacpy('Full', KL + KU + 1, N, ASAV.asMatrix(), LDA,
+                      AFB(KL + 1).asMatrix(), LDAFB);
+                  if (EQUIL || IEQUED > 1) {
+                    // Compute row and column scale factors to
+                    // equilibrate the matrix A.
 
-                  dgbequ(N, N, KL, KU, AFB(KL + 1).asMatrix(), LDAFB, S,
-                      S(N + 1), ROWCND, COLCND, AMAX, INFO);
-                  if (INFO.value == 0 && N > 0) {
-                    if (lsame(EQUED.value, 'R')) {
-                      ROWCND.value = ZERO;
-                      COLCND.value = ONE;
-                    } else if (lsame(EQUED.value, 'C')) {
-                      ROWCND.value = ONE;
-                      COLCND.value = ZERO;
-                    } else if (lsame(EQUED.value, 'B')) {
-                      ROWCND.value = ZERO;
-                      COLCND.value = ZERO;
+                    dgbequ(N, N, KL, KU, AFB(KL + 1).asMatrix(), LDAFB, S,
+                        S(N + 1), ROWCND, COLCND, AMAX, INFO);
+                    if (INFO.value == 0 && N > 0) {
+                      if (lsame(EQUED.value, 'R')) {
+                        ROWCND.value = ZERO;
+                        COLCND.value = ONE;
+                      } else if (lsame(EQUED.value, 'C')) {
+                        ROWCND.value = ONE;
+                        COLCND.value = ZERO;
+                      } else if (lsame(EQUED.value, 'B')) {
+                        ROWCND.value = ZERO;
+                        COLCND.value = ZERO;
+                      }
+
+                      // Equilibrate the matrix.
+
+                      dlaqgb(
+                          N,
+                          N,
+                          KL,
+                          KU,
+                          AFB(KL + 1).asMatrix(),
+                          LDAFB,
+                          S,
+                          S(N + 1),
+                          ROWCND.value,
+                          COLCND.value,
+                          AMAX.value,
+                          EQUED);
+                    }
+                  }
+
+                  // Save the condition number of the
+                  // non-equilibrated system for use in DGET04.
+
+                  if (EQUIL) {
+                    ROLDO = RCONDO;
+                    ROLDI = RCONDI;
+                  }
+
+                  // Compute the 1-norm and infinity-norm of A.
+
+                  final ANORMO = dlangb(
+                      '1', N, KL, KU, AFB(KL + 1).asMatrix(), LDAFB, RWORK);
+                  final ANORMI = dlangb(
+                      'I', N, KL, KU, AFB(KL + 1).asMatrix(), LDAFB, RWORK);
+
+                  // Factor the matrix A.
+
+                  dgbtrf(N, N, KL, KU, AFB.asMatrix(), LDAFB, IWORK, INFO);
+
+                  // Form the inverse of A.
+
+                  dlaset('Full', N, N, ZERO, ONE, WORK.asMatrix(), LDB);
+                  srnamc.SRNAMT = 'DGBTRS';
+                  dgbtrs('No transpose', N, KL, KU, N, AFB.asMatrix(), LDAFB,
+                      IWORK, WORK.asMatrix(), LDB, INFO);
+
+                  // Compute the 1-norm condition number of A.
+
+                  var AINVNM = dlange('1', N, N, WORK.asMatrix(), LDB, RWORK);
+                  if (ANORMO <= ZERO || AINVNM <= ZERO) {
+                    RCONDO = ONE;
+                  } else {
+                    RCONDO = (ONE / ANORMO) / AINVNM;
+                  }
+
+                  // Compute the infinity-norm condition number
+                  // of A.
+
+                  AINVNM = dlange('I', N, N, WORK.asMatrix(), LDB, RWORK);
+                  if (ANORMI <= ZERO || AINVNM <= ZERO) {
+                    RCONDI = ONE;
+                  } else {
+                    RCONDI = (ONE / ANORMI) / AINVNM;
+                  }
+                }
+
+                for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
+                  // Do for each value of TRANS.
+
+                  final TRANS = TRANSS[ITRAN - 1];
+                  final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
+
+                  // Restore the matrix A.
+
+                  dlacpy('Full', KL + KU + 1, N, ASAV.asMatrix(), LDA,
+                      A.asMatrix(), LDA);
+
+                  // Form an exact solution and set the right hand
+                  // side.
+
+                  XTYPE ??= IKL == 1 ? 'N' : 'C';
+                  srnamc.SRNAMT = 'DLARHS';
+                  dlarhs(
+                      PATH,
+                      XTYPE,
+                      'Full',
+                      TRANS,
+                      N,
+                      N,
+                      KL,
+                      KU,
+                      NRHS,
+                      A.asMatrix(),
+                      LDA,
+                      XACT.asMatrix(),
+                      LDB,
+                      B.asMatrix(),
+                      LDB,
+                      ISEED,
+                      INFO);
+                  XTYPE = 'C';
+                  dlacpy(
+                      'Full', N, NRHS, B.asMatrix(), LDB, BSAV.asMatrix(), LDB);
+
+                  if (NOFACT && ITRAN == 1) {
+                    // --- Test DGBSV  ---
+
+                    // Compute the LU factorization of the matrix
+                    // and solve the system.
+
+                    dlacpy('Full', KL + KU + 1, N, A.asMatrix(), LDA,
+                        AFB(KL + 1).asMatrix(), LDAFB);
+                    dlacpy(
+                        'Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(), LDB);
+
+                    srnamc.SRNAMT = 'DGBSV ';
+                    dgbsv(N, KL, KU, NRHS, AFB.asMatrix(), LDAFB, IWORK,
+                        X.asMatrix(), LDB, INFO);
+
+                    // Check error code from DGBSV .
+                    test.expect(INFO.value, IZERO);
+                    if (INFO.value != IZERO) {
+                      alaerh(PATH, 'DGBSV ', INFO.value, IZERO, ' ', N, N, KL,
+                          KU, NRHS, IMAT, NFAIL, NERRS, NOUT);
                     }
 
-                    // Equilibrate the matrix.
+                    // Reconstruct matrix from factors and
+                    // compute residual.
 
-                    dlaqgb(
-                        N,
-                        N,
-                        KL,
-                        KU,
-                        AFB(KL + 1).asMatrix(),
-                        LDAFB,
-                        S,
-                        S(N + 1),
-                        ROWCND.value,
-                        COLCND.value,
-                        AMAX.value,
-                        EQUED);
+                    dgbt01(N, N, KL, KU, A.asMatrix(), LDA, AFB.asMatrix(),
+                        LDAFB, IWORK, WORK, RESULT(1));
+
+                    final int NT;
+                    if (IZERO == 0) {
+                      // Compute residual of the computed
+                      // solution.
+
+                      dlacpy('Full', N, NRHS, B.asMatrix(), LDB,
+                          WORK.asMatrix(), LDB);
+                      dgbt02(
+                          'No transpose',
+                          N,
+                          N,
+                          KL,
+                          KU,
+                          NRHS,
+                          A.asMatrix(),
+                          LDA,
+                          X.asMatrix(),
+                          LDB,
+                          WORK.asMatrix(),
+                          LDB,
+                          RWORK,
+                          RESULT(2));
+
+                      // Check solution from generated exact
+                      // solution.
+
+                      dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                          RCONDC, RESULT(3));
+                      NT = 3;
+                    } else {
+                      NT = 1;
+                    }
+
+                    // Print information about the tests that did
+                    // not pass the threshold.
+
+                    for (var K = 1; K <= NT; K++) {
+                      final reason =
+                          ' DGBSV, N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5} )';
+                      test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                      if (RESULT[K] >= THRESH) {
+                        if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                        NOUT.println(reason);
+                        NFAIL++;
+                      }
+                    }
+                    NRUN += NT;
                   }
-                }
 
-                // Save the condition number of the
-                // non-equilibrated system for use in DGET04.
+                  // --- Test DGBSVX ---
 
-                if (EQUIL) {
-                  ROLDO = RCONDO;
-                  ROLDI = RCONDI;
-                }
+                  if (!PREFAC) {
+                    dlaset('Full', 2 * KL + KU + 1, N, ZERO, ZERO,
+                        AFB.asMatrix(), LDAFB);
+                  }
+                  dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDB);
+                  if (IEQUED > 1 && N > 0) {
+                    // Equilibrate the matrix if FACT = 'F' and
+                    // EQUED = 'R', 'C', or 'B'.
 
-                // Compute the 1-norm and infinity-norm of A.
+                    dlaqgb(N, N, KL, KU, A.asMatrix(), LDA, S, S(N + 1),
+                        ROWCND.value, COLCND.value, AMAX.value, EQUED);
+                  }
 
-                final ANORMO = dlangb(
-                    '1', N, KL, KU, AFB(KL + 1).asMatrix(), LDAFB, RWORK);
-                final ANORMI = dlangb(
-                    'I', N, KL, KU, AFB(KL + 1).asMatrix(), LDAFB, RWORK);
+                  // Solve the system and compute the condition
+                  // number and error bounds using DGBSVX.
 
-                // Factor the matrix A.
+                  srnamc.SRNAMT = 'DGBSVX';
+                  dgbsvx(
+                      FACT,
+                      TRANS,
+                      N,
+                      KL,
+                      KU,
+                      NRHS,
+                      A.asMatrix(),
+                      LDA,
+                      AFB.asMatrix(),
+                      LDAFB,
+                      IWORK,
+                      EQUED,
+                      S,
+                      S(N + 1),
+                      B.asMatrix(),
+                      LDB,
+                      X.asMatrix(),
+                      LDB,
+                      RCOND,
+                      RWORK,
+                      RWORK(NRHS + 1),
+                      WORK,
+                      IWORK(N + 1),
+                      INFO);
 
-                dgbtrf(N, N, KL, KU, AFB.asMatrix(), LDAFB, IWORK, INFO);
-
-                // Form the inverse of A.
-
-                dlaset('Full', N, N, ZERO, ONE, WORK.asMatrix(), LDB);
-                srnamc.SRNAMT = 'DGBTRS';
-                dgbtrs('No transpose', N, KL, KU, N, AFB.asMatrix(), LDAFB,
-                    IWORK, WORK.asMatrix(), LDB, INFO);
-
-                // Compute the 1-norm condition number of A.
-
-                var AINVNM = dlange('1', N, N, WORK.asMatrix(), LDB, RWORK);
-                if (ANORMO <= ZERO || AINVNM <= ZERO) {
-                  RCONDO = ONE;
-                } else {
-                  RCONDO = (ONE / ANORMO) / AINVNM;
-                }
-
-                // Compute the infinity-norm condition number
-                // of A.
-
-                AINVNM = dlange('I', N, N, WORK.asMatrix(), LDB, RWORK);
-                if (ANORMI <= ZERO || AINVNM <= ZERO) {
-                  RCONDI = ONE;
-                } else {
-                  RCONDI = (ONE / ANORMI) / AINVNM;
-                }
-              }
-
-              bool TRFCON;
-              for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
-                // Do for each value of TRANS.
-
-                final TRANS = TRANSS[ITRAN - 1];
-                final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
-
-                // Restore the matrix A.
-
-                dlacpy('Full', KL + KU + 1, N, ASAV.asMatrix(), LDA,
-                    A.asMatrix(), LDA);
-
-                // Form an exact solution and set the right hand
-                // side.
-
-                srnamc.SRNAMT = 'DLARHS';
-                dlarhs(
-                    PATH,
-                    XTYPE,
-                    'Full',
-                    TRANS,
-                    N,
-                    N,
-                    KL,
-                    KU,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    XACT.asMatrix(),
-                    LDB,
-                    B.asMatrix(),
-                    LDB,
-                    ISEED,
-                    INFO);
-                XTYPE = 'C';
-                dlacpy(
-                    'Full', N, NRHS, B.asMatrix(), LDB, BSAV.asMatrix(), LDB);
-
-                if (NOFACT && ITRAN == 1) {
-                  // --- Test DGBSV  ---
-
-                  // Compute the LU factorization of the matrix
-                  // and solve the system.
-
-                  dlacpy('Full', KL + KU + 1, N, A.asMatrix(), LDA,
-                      AFB(KL + 1).asMatrix(), LDAFB);
-                  dlacpy('Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(), LDB);
-
-                  srnamc.SRNAMT = 'DGBSV ';
-                  dgbsv(N, KL, KU, NRHS, AFB.asMatrix(), LDAFB, IWORK,
-                      X.asMatrix(), LDB, INFO);
-
-                  // Check error code from DGBSV .
+                  // Check the error code from DGBSVX.
 
                   if (INFO.value != IZERO) {
-                    alaerh(PATH, 'DGBSV ', INFO.value, IZERO, ' ', N, N, KL, KU,
-                        NRHS, IMAT, NFAIL, NERRS, NOUT);
+                    alaerh(PATH, 'DGBSVX', INFO.value, IZERO, FACT + TRANS, N,
+                        N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT);
                   }
 
-                  // Reconstruct matrix from factors and
-                  // compute residual.
+                  // Compare WORK(1) from DGBSVX with the computed
+                  // reciprocal pivot growth factor RPVGRW
 
-                  dgbt01(N, N, KL, KU, A.asMatrix(), LDA, AFB.asMatrix(), LDAFB,
-                      IWORK, WORK, RESULT(1));
-                  final int NT;
-                  if (IZERO == 0) {
-                    // Compute residual of the computed
-                    // solution.
+                  final double RPVGRW;
+                  if (INFO.value != 0) {
+                    var ANRMPV = ZERO;
+                    for (var J = 1; J <= INFO.value; J++) {
+                      for (var I = max(KU + 2 - J, 1);
+                          I <= min(N + KU + 1 - J, KL + KU + 1);
+                          I++) {
+                        ANRMPV = max(ANRMPV, A[I + (J - 1) * LDA].abs());
+                      }
+                    }
+                    RPVGRW = switch (dlantb(
+                        'M',
+                        'U',
+                        'N',
+                        INFO.value,
+                        min(INFO.value - 1, KL + KU),
+                        AFB(max(1, KL + KU + 2 - INFO.value)).asMatrix(),
+                        LDAFB,
+                        WORK)) {
+                      ZERO => ONE,
+                      final d => ANRMPV / d,
+                    };
+                  } else {
+                    RPVGRW = switch (dlantb('M', 'U', 'N', N, KL + KU,
+                        AFB.asMatrix(), LDAFB, WORK)) {
+                      ZERO => ONE,
+                      final d =>
+                        dlangb('M', N, KL, KU, A.asMatrix(), LDA, WORK) / d
+                    };
+                  }
+                  RESULT[7] = RPVGRW -
+                      WORK[1].abs() / max(WORK[1], RPVGRW) / dlamch('E');
 
-                    dlacpy('Full', N, NRHS, B.asMatrix(), LDB, WORK.asMatrix(),
-                        LDB);
+                  final int K1;
+                  if (!PREFAC) {
+                    // Reconstruct matrix from factors and
+                    // compute residual.
+
+                    dgbt01(N, N, KL, KU, A.asMatrix(), LDA, AFB.asMatrix(),
+                        LDAFB, IWORK, WORK, RESULT(1));
+                    K1 = 1;
+                  } else {
+                    K1 = 2;
+                  }
+
+                  final bool TRFCON;
+                  if (INFO.value == 0) {
+                    TRFCON = false;
+
+                    // Compute residual of the computed solution.
+
+                    dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDB,
+                        WORK.asMatrix(), LDB);
                     dgbt02(
-                        'No transpose',
+                        TRANS,
                         N,
                         N,
                         KL,
                         KU,
                         NRHS,
-                        A.asMatrix(),
+                        ASAV.asMatrix(),
                         LDA,
                         X.asMatrix(),
                         LDB,
                         WORK.asMatrix(),
                         LDB,
-                        RWORK,
+                        RWORK(2 * NRHS + 1),
                         RESULT(2));
 
                     // Check solution from generated exact
                     // solution.
 
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        RCONDC, RESULT(3));
-                    NT = 3;
+                    if (NOFACT || (PREFAC && lsame(EQUED.value, 'N'))) {
+                      dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                          RCONDC, RESULT(3));
+                    } else {
+                      final ROLDC = ITRAN == 1 ? ROLDO : ROLDI;
+                      dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                          ROLDC, RESULT(3));
+                    }
+
+                    // Check the error bounds from iterative
+                    // refinement.
+
+                    dgbt05(
+                        TRANS,
+                        N,
+                        KL,
+                        KU,
+                        NRHS,
+                        ASAV.asMatrix(),
+                        LDA,
+                        B.asMatrix(),
+                        LDB,
+                        X.asMatrix(),
+                        LDB,
+                        XACT.asMatrix(),
+                        LDB,
+                        RWORK,
+                        RWORK(NRHS + 1),
+                        RESULT(4));
                   } else {
-                    NT = 1;
+                    TRFCON = true;
                   }
+
+                  // Compare RCOND from DGBSVX with the computed
+                  // value in RCONDC.
+
+                  RESULT[6] = dget06(RCOND.value, RCONDC);
 
                   // Print information about the tests that did
                   // not pass the threshold.
-
-                  for (var K = 1; K <= NT; K++) {
-                    if (RESULT[K] >= THRESH) {
-                      if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                      NOUT.println(
-                          ' DGBSV, N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5} )');
-                      NFAIL++;
-                    }
-                  }
-                  NRUN += NT;
-                }
-
-                // --- Test DGBSVX ---
-
-                if (!PREFAC) {
-                  dlaset('Full', 2 * KL + KU + 1, N, ZERO, ZERO, AFB.asMatrix(),
-                      LDAFB);
-                }
-                dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDB);
-                if (IEQUED > 1 && N > 0) {
-                  // Equilibrate the matrix if FACT = 'F' and
-                  // EQUED = 'R', 'C', or 'B'.
-
-                  dlaqgb(N, N, KL, KU, A.asMatrix(), LDA, S, S(N + 1),
-                      ROWCND.value, COLCND.value, AMAX.value, EQUED);
-                }
-
-                // Solve the system and compute the condition
-                // number and error bounds using DGBSVX.
-
-                srnamc.SRNAMT = 'DGBSVX';
-                dgbsvx(
-                    FACT,
-                    TRANS,
-                    N,
-                    KL,
-                    KU,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    AFB.asMatrix(),
-                    LDAFB,
-                    IWORK,
-                    EQUED,
-                    S,
-                    S(N + 1),
-                    B.asMatrix(),
-                    LDB,
-                    X.asMatrix(),
-                    LDB,
-                    RCOND,
-                    RWORK,
-                    RWORK(NRHS + 1),
-                    WORK,
-                    IWORK(N + 1),
-                    INFO);
-
-                // Check the error code from DGBSVX.
-
-                if (INFO.value != IZERO) {
-                  alaerh(PATH, 'DGBSVX', INFO.value, IZERO, FACT + TRANS, N, N,
-                      KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT);
-                }
-
-                // Compare WORK(1) from DGBSVX with the computed
-                // reciprocal pivot growth factor RPVGRW
-
-                if (INFO.value != 0) {
-                  var ANRMPV = ZERO;
-                  for (var J = 1; J <= INFO.value; J++) {
-                    for (var I = max(KU + 2 - J, 1);
-                        I <= min(N + KU + 1 - J, KL + KU + 1);
-                        I++) {
-                      ANRMPV = max(ANRMPV, A[I + (J - 1) * LDA].abs());
-                    }
-                  }
-                  RPVGRW = dlantb(
-                      'M',
-                      'U',
-                      'N',
-                      INFO.value,
-                      min(INFO.value - 1, KL + KU),
-                      AFB(max(1, KL + KU + 2 - INFO.value)).asMatrix(),
-                      LDAFB,
-                      WORK);
-                  if (RPVGRW == ZERO) {
-                    RPVGRW = ONE;
-                  } else {
-                    RPVGRW = ANRMPV / RPVGRW;
-                  }
-                } else {
-                  RPVGRW = dlantb(
-                      'M', 'U', 'N', N, KL + KU, AFB.asMatrix(), LDAFB, WORK);
-                  if (RPVGRW == ZERO) {
-                    RPVGRW = ONE;
-                  } else {
-                    RPVGRW = dlangb('M', N, KL, KU, A.asMatrix(), LDA, WORK) /
-                        RPVGRW;
-                  }
-                }
-                RESULT[7] =
-                    RPVGRW - WORK[1].abs() / max(WORK[1], RPVGRW) / dlamch('E');
-
-                final int K1;
-                if (!PREFAC) {
-                  // Reconstruct matrix from factors and
-                  // compute residual.
-
-                  dgbt01(N, N, KL, KU, A.asMatrix(), LDA, AFB.asMatrix(), LDAFB,
-                      IWORK, WORK, RESULT(1));
-                  K1 = 1;
-                } else {
-                  K1 = 2;
-                }
-
-                if (INFO.value == 0) {
-                  TRFCON = false;
-
-                  // Compute residual of the computed solution.
-
-                  dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDB, WORK.asMatrix(),
-                      LDB);
-                  dgbt02(
-                      TRANS,
-                      N,
-                      N,
-                      KL,
-                      KU,
-                      NRHS,
-                      ASAV.asMatrix(),
-                      LDA,
-                      X.asMatrix(),
-                      LDB,
-                      WORK.asMatrix(),
-                      LDB,
-                      RWORK(2 * NRHS + 1),
-                      RESULT(2));
-
-                  // Check solution from generated exact
-                  // solution.
-
-                  if (NOFACT || (PREFAC && lsame(EQUED.value, 'N'))) {
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        RCONDC, RESULT(3));
-                  } else {
-                    final ROLDC = ITRAN == 1 ? ROLDO : ROLDI;
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        ROLDC, RESULT(3));
-                  }
-
-                  // Check the error bounds from iterative
-                  // refinement.
-
-                  dgbt05(
-                      TRANS,
-                      N,
-                      KL,
-                      KU,
-                      NRHS,
-                      ASAV.asMatrix(),
-                      LDA,
-                      B.asMatrix(),
-                      LDB,
-                      X.asMatrix(),
-                      LDB,
-                      XACT.asMatrix(),
-                      LDB,
-                      RWORK,
-                      RWORK(NRHS + 1),
-                      RESULT(4));
-                } else {
-                  TRFCON = true;
-                }
-
-                // Compare RCOND from DGBSVX with the computed
-                // value in RCONDC.
-
-                RESULT[6] = dget06(RCOND.value, RCONDC);
-
-                // Print information about the tests that did
-                // not pass the threshold.
-
-                if (!TRFCON) {
-                  for (var K = K1; K <= NTESTS; K++) {
+                  final tests = !TRFCON
+                      ? [for (var K = K1; K <= NTESTS; K++) K]
+                      : [if (!PREFAC) 1, 6, 7];
+                  for (final K in tests) {
+                    test.expect(RESULT[K], lessThan(THRESH));
                     if (RESULT[K] >= THRESH) {
                       if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
                       if (PREFAC) {
@@ -639,249 +614,184 @@ void ddrvgb(
                             K, RESULT[K]);
                       }
                       NFAIL++;
+                      NRUN++;
                     }
                   }
-                  NRUN += 7 - K1;
-                } else {
-                  if (RESULT[1] >= THRESH && !PREFAC) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9995('DGBSVX', FACT, TRANS, N, KL, KU,
-                          EQUED.value, IMAT, 1, RESULT[1]);
+
+                  // --- Test DGBSVXX ---
+                  {
+                    // Restore the matrices A and B.
+
+                    dlacpy('Full', KL + KU + 1, N, ASAV.asMatrix(), LDA,
+                        A.asMatrix(), LDA);
+                    dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDB, B.asMatrix(),
+                        LDB);
+                    if (!PREFAC) {
+                      dlaset('Full', 2 * KL + KU + 1, N, ZERO, ZERO,
+                          AFB.asMatrix(), LDAFB);
+                    }
+                    dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDB);
+                    if (IEQUED > 1 && N > 0) {
+                      // Equilibrate the matrix if FACT = 'F' and
+                      // EQUED = 'R', 'C', or 'B'.
+
+                      dlaqgb(N, N, KL, KU, A.asMatrix(), LDA, S, S(N + 1),
+                          ROWCND.value, COLCND.value, AMAX.value, EQUED);
+                    }
+
+                    // Solve the system and compute the condition number
+                    // and error bounds using DGBSVXX.
+
+                    srnamc.SRNAMT = 'DGBSVXX';
+                    final N_ERR_BNDS = 3;
+                    final BERR = Array<double>(NRHS),
+                        ERRBNDS_N = Matrix<double>(NRHS, N_ERR_BNDS),
+                        ERRBNDS_C = Matrix<double>(NRHS, N_ERR_BNDS),
+                        RPVGRW_SVXX = Box(0.0);
+                    dgbsvxx(
+                        FACT,
+                        TRANS,
+                        N,
+                        KL,
+                        KU,
+                        NRHS,
+                        A.asMatrix(),
+                        LDA,
+                        AFB.asMatrix(),
+                        LDAFB,
+                        IWORK,
+                        EQUED,
+                        S,
+                        S(N + 1),
+                        B.asMatrix(),
+                        LDB,
+                        X.asMatrix(),
+                        LDB,
+                        RCOND,
+                        RPVGRW_SVXX,
+                        BERR,
+                        N_ERR_BNDS,
+                        ERRBNDS_N,
+                        ERRBNDS_C,
+                        0,
+                        Array<double>(1),
+                        WORK,
+                        IWORK(N + 1),
+                        INFO);
+
+                    // Check the error code from DGBSVXX.
+
+                    if (INFO.value == N + 1) continue;
+                    test.expect(INFO.value, IZERO);
+                    if (INFO.value != IZERO) {
+                      alaerh(PATH, 'DGBSVXX', INFO.value, IZERO, FACT + TRANS,
+                          N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT);
+                      continue;
+                    }
+
+                    // Compare RPVGRW_SVXX from DGBSVXX with the computed
+                    // reciprocal pivot growth factor RPVGRW
+                    final double RPVGRW;
+                    if (INFO.value > 0 && INFO.value < N + 1) {
+                      RPVGRW = dla_gbrpvgrw(N, KL, KU, INFO.value, A.asMatrix(),
+                          LDA, AFB.asMatrix(), LDAFB);
                     } else {
-                      NOUT.print9996(
-                          'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT[1]);
+                      RPVGRW = dla_gbrpvgrw(N, KL, KU, N, A.asMatrix(), LDA,
+                          AFB.asMatrix(), LDAFB);
                     }
-                    NFAIL++;
-                    NRUN++;
-                  }
-                  if (RESULT[6] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9995('DGBSVX', FACT, TRANS, N, KL, KU,
-                          EQUED.value, IMAT, 6, RESULT[6]);
-                    } else {
-                      NOUT.print9996(
-                          'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT[6]);
+                    RESULT[7] = (RPVGRW - RPVGRW_SVXX.value).abs() /
+                        max(RPVGRW_SVXX.value, RPVGRW) /
+                        dlamch('E');
+
+                    if (!PREFAC) {
+                      // Reconstruct matrix from factors and compute
+                      // residual.
+
+                      dgbt01(N, N, KL, KU, A.asMatrix(), LDA, AFB.asMatrix(),
+                          LDAFB, IWORK, WORK, RESULT(1));
                     }
-                    NFAIL++;
-                    NRUN++;
-                  }
-                  if (RESULT[7] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9995('DGBSVX', FACT, TRANS, N, KL, KU,
-                          EQUED.value, IMAT, 7, RESULT[7]);
-                    } else {
-                      NOUT.print9996(
-                          'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT[7]);
-                    }
-                    NFAIL++;
-                    NRUN++;
-                  }
-                }
 
-                // --- Test DGBSVXX ---
+                    final bool TRFCON;
+                    if (INFO.value == 0) {
+                      TRFCON = false;
 
-                // Restore the matrices A and B.
+                      // Compute residual of the computed solution.
 
-                dlacpy('Full', KL + KU + 1, N, ASAV.asMatrix(), LDA,
-                    A.asMatrix(), LDA);
-                dlacpy(
-                    'Full', N, NRHS, BSAV.asMatrix(), LDB, B.asMatrix(), LDB);
-                if (!PREFAC) {
-                  dlaset('Full', 2 * KL + KU + 1, N, ZERO, ZERO, AFB.asMatrix(),
-                      LDAFB);
-                }
-                dlaset('Full', N, NRHS, ZERO, ZERO, X.asMatrix(), LDB);
-                if (IEQUED > 1 && N > 0) {
-                  // Equilibrate the matrix if FACT = 'F' and
-                  // EQUED = 'R', 'C', or 'B'.
+                      dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDB,
+                          WORK.asMatrix(), LDB);
+                      dgbt02(
+                          TRANS,
+                          N,
+                          N,
+                          KL,
+                          KU,
+                          NRHS,
+                          ASAV.asMatrix(),
+                          LDA,
+                          X.asMatrix(),
+                          LDB,
+                          WORK.asMatrix(),
+                          LDB,
+                          RWORK,
+                          RESULT(2));
 
-                  dlaqgb(N, N, KL, KU, A.asMatrix(), LDA, S, S(N + 1),
-                      ROWCND.value, COLCND.value, AMAX.value, EQUED);
-                }
+                      // Check solution from generated exact solution.
 
-                // Solve the system and compute the condition number
-                // and error bounds using DGBSVXX.
-
-                srnamc.SRNAMT = 'DGBSVXX';
-                final N_ERR_BNDS = 3;
-                dgbsvxx(
-                    FACT,
-                    TRANS,
-                    N,
-                    KL,
-                    KU,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    AFB.asMatrix(),
-                    LDAFB,
-                    IWORK,
-                    EQUED,
-                    S,
-                    S(N + 1),
-                    B.asMatrix(),
-                    LDB,
-                    X.asMatrix(),
-                    LDB,
-                    RCOND,
-                    RPVGRW_SVXX,
-                    BERR,
-                    N_ERR_BNDS,
-                    ERRBNDS_N,
-                    ERRBNDS_C,
-                    0,
-                    Array<double>(1),
-                    WORK,
-                    IWORK(N + 1),
-                    INFO);
-
-                // Check the error code from DGBSVXX.
-
-                if (INFO.value == N + 1) continue;
-                if (INFO.value != IZERO) {
-                  alaerh(PATH, 'DGBSVXX', INFO.value, IZERO, FACT + TRANS, N, N,
-                      -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT);
-                  continue;
-                }
-
-                // Compare RPVGRW_SVXX from DGBSVXX with the computed
-                // reciprocal pivot growth factor RPVGRW
-
-                if (INFO.value > 0 && INFO.value < N + 1) {
-                  RPVGRW = dla_gbrpvgrw(N, KL, KU, INFO.value, A.asMatrix(),
-                      LDA, AFB.asMatrix(), LDAFB);
-                } else {
-                  RPVGRW = dla_gbrpvgrw(
-                      N, KL, KU, N, A.asMatrix(), LDA, AFB.asMatrix(), LDAFB);
-                }
-                RESULT[7] = (RPVGRW - RPVGRW_SVXX.value).abs() /
-                    max(RPVGRW_SVXX.value, RPVGRW) /
-                    dlamch('E');
-
-                if (!PREFAC) {
-                  // Reconstruct matrix from factors and compute
-                  // residual.
-
-                  dgbt01(N, N, KL, KU, A.asMatrix(), LDA, AFB.asMatrix(), LDAFB,
-                      IWORK, WORK, RESULT(1));
-                }
-
-                if (INFO.value == 0) {
-                  TRFCON = false;
-
-                  // Compute residual of the computed solution.
-
-                  dlacpy('Full', N, NRHS, BSAV.asMatrix(), LDB, WORK.asMatrix(),
-                      LDB);
-                  dgbt02(
-                      TRANS,
-                      N,
-                      N,
-                      KL,
-                      KU,
-                      NRHS,
-                      ASAV.asMatrix(),
-                      LDA,
-                      X.asMatrix(),
-                      LDB,
-                      WORK.asMatrix(),
-                      LDB,
-                      RWORK,
-                      RESULT(2));
-
-                  // Check solution from generated exact solution.
-
-                  if (NOFACT || (PREFAC && lsame(EQUED.value, 'N'))) {
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        RCONDC, RESULT(3));
-                  } else {
-                    final ROLDC = ITRAN == 1 ? ROLDO : ROLDI;
-                    dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
-                        ROLDC, RESULT(3));
-                  }
-                } else {
-                  TRFCON = true;
-                }
-
-                // Compare RCOND from DGBSVXX with the computed value
-                // in RCONDC.
-
-                RESULT[6] = dget06(RCOND.value, RCONDC);
-
-                // Print information about the tests that did not pass
-                // the threshold.
-
-                if (!TRFCON) {
-                  for (var K = K1; K <= NTESTS; K++) {
-                    if (RESULT[K] >= THRESH) {
-                      if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                      if (PREFAC) {
-                        NOUT.print9995('DGBSVXX', FACT, TRANS, N, KL, KU,
-                            EQUED.value, IMAT, K, RESULT[K]);
+                      if (NOFACT || (PREFAC && lsame(EQUED.value, 'N'))) {
+                        dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                            RCONDC, RESULT(3));
                       } else {
-                        NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT,
-                            K, RESULT[K]);
+                        final ROLDC = ITRAN == 1 ? ROLDO : ROLDI;
+                        dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
+                            ROLDC, RESULT(3));
                       }
-                      NFAIL++;
-                    }
-                  }
-                  NRUN += 7 - K1;
-                } else {
-                  if (RESULT[1] >= THRESH && !PREFAC) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9995('DGBSVXX', FACT, TRANS, N, KL, KU,
-                          EQUED.value, IMAT, 1, RESULT[1]);
                     } else {
-                      NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 1,
-                          RESULT[1]);
+                      TRFCON = true;
                     }
-                    NFAIL++;
-                    NRUN++;
-                  }
-                  if (RESULT[6] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9995('DGBSVXX', FACT, TRANS, N, KL, KU,
-                          EQUED.value, IMAT, 6, RESULT[6]);
-                    } else {
-                      NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 6,
-                          RESULT[6]);
+
+                    // Compare RCOND from DGBSVXX with the computed value
+                    // in RCONDC.
+
+                    RESULT[6] = dget06(RCOND.value, RCONDC);
+
+                    // Print information about the tests that did not pass
+                    // the threshold.
+
+                    final tests = !TRFCON
+                        ? [for (var K = K1; K <= NTESTS; K++) K]
+                        : [if (!PREFAC) 1, 6, 7];
+
+                    for (final K in tests) {
+                      test.expect(RESULT[K], lessThan(THRESH),
+                          reason: 'Test $K');
+                      if (RESULT[K] >= THRESH) {
+                        if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
+                        if (PREFAC) {
+                          NOUT.print9995('DGBSVXX', FACT, TRANS, N, KL, KU,
+                              EQUED.value, IMAT, K, RESULT[K]);
+                        } else {
+                          NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU,
+                              IMAT, K, RESULT[K]);
+                        }
+                        NFAIL++;
+                        NRUN++;
+                      }
                     }
-                    NFAIL++;
-                    NRUN++;
-                  }
-                  if (RESULT[7] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9995('DGBSVXX', FACT, TRANS, N, KL, KU,
-                          EQUED.value, IMAT, 7, RESULT[7]);
-                    } else {
-                      NOUT.print9996('DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 7,
-                          RESULT[7]);
-                    }
-                    NFAIL++;
-                    NRUN++;
                   }
                 }
               }
             }
-          }
+          }, skip: skip);
         }
       }
     }
   }
 
   // Print a summary of the results.
-
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 
   // Test Error Bounds from DGBSVXX
-
-  debchvxx(THRESH, PATH, NOUT);
+  debchvxx(THRESH, PATH, NOUT, test);
 }
 
 extension on Nout {

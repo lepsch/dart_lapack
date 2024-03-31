@@ -8,9 +8,7 @@ import '../utils.dart';
 import 'dchkee.dart';
 
 void main() async {
-  final (testDriver, nout) = TestDriver.isTesting
-      ? (asyncTestDriver, NullNout())
-      : (syncTestDriver, Nout(stdout));
+  final (testDriver, nout) = TestDriver.create();
 
   const inputs = [
     'csd.in',

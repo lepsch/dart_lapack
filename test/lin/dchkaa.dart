@@ -307,7 +307,7 @@ Future<void> dchkaa(
       NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('GE: general matrices (path=$PATH)', () {
+      test.group('GE: General matrices (path=$PATH)', () {
         if (TSTCHK) {
           dchkge(
               DOTYPE.copy(),
@@ -371,59 +371,63 @@ Future<void> dchkaa(
       NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkgb(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            LA,
-            A(1, 3).asArray(),
-            LAFAC,
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('GB: General banded matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchkgb(
+              DOTYPE.copy(),
+              NM,
+              MVAL.copy(),
+              NN,
+              NVAL.copy(),
+              NNB2,
+              NBVAL2.copy(),
+              NNS,
+              NSVAL.copy(),
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              LA,
+              A(1, 3).asArray(),
+              LAFAC,
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvgb(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            LA,
-            A(1, 3).asArray(),
-            LAFAC,
-            A(1, 6).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            B(1, 4).asArray(),
-            S,
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvgb(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NRHS,
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              LA,
+              A(1, 3).asArray(),
+              LAFAC,
+              A(1, 6).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              B(1, 4).asArray(),
+              S,
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'GT')) {
       // GT:  general tridiagonal matrices
 

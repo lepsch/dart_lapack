@@ -8,9 +8,7 @@ import '../utils.dart';
 import 'dchkaa.dart';
 
 void main() async {
-  final (testDriver, nout) = TestDriver.isTesting
-      ? (asyncTestDriver, NullNout())
-      : (syncTestDriver, Nout(stdout));
+  final (testDriver, nout) = TestDriver.create();
   final inputFile = File(path.join(currentFilePath(), '..', 'dtest.in'));
   final nin = Nin(inputFile.openRead());
   await dchkaa(nin, nout, testDriver);

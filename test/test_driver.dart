@@ -1,12 +1,19 @@
 import 'dart:io';
 
+import 'package:lapack/lapack.dart';
 import 'package:test/test.dart' as test_pkg;
 
 abstract interface class TestDriver {
   const TestDriver();
 
-  static bool get isTesting =>
+  static bool get isAsync =>
       Platform.script.normalizePath().path.contains('/dart_test.');
+
+  static (TestDriver, Nout) create() {
+    return TestDriver.isAsync
+        ? (asyncTestDriver, NullNout())
+        : (syncTestDriver, Nout(stdout));
+  }
 
   void group(String description, dynamic Function() body);
   void setUp(dynamic Function() body);

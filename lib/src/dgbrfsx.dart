@@ -353,7 +353,9 @@ void dgbrfsx(
       if (RCOND_TMP < ILLRCOND_THRESH) {
         ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 1.0;
         ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 0.0;
-        if (PARAMS[LA_LINRX_CWISE_I] == 1.0 && INFO.value < N + J) {
+        if (NPARAMS >= LA_LINRX_CWISE_I &&
+            PARAMS[LA_LINRX_CWISE_I] == 1.0 &&
+            INFO.value < N + J) {
           INFO.value = N + J;
         }
       } else if (ERR_BNDS_COMP[J][LA_LINRX_ERR_I] < ERR_LBND) {

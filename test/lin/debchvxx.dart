@@ -1,20 +1,17 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgbsvxx.dart';
-import 'package:lapack/src/dgesvxx.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dposvxx.dart';
-import 'package:lapack/src/dsysvxx.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
+import '../test_driver.dart';
 import 'dlahilb.dart';
 
-void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
+void debchvxx(
+  final double THRESH,
+  final String PATH,
+  final Nout NOUT,
+  final TestDriver test,
+) {
   const NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6;
   final BERR = Array<double>(NMAX),
       TSTRAT = Array<double>(NTESTS),
@@ -41,7 +38,7 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
   final INFO = Box(0);
   final RPVGRW = Box(0.0), ORCOND = Box(0.0);
 
-// Create the loop to test out the Hilbert matrices
+  // Create the loop to test out the Hilbert matrices
 
   final FACT = 'E';
   final UPLO = 'U';
@@ -58,381 +55,384 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
   // Main loop to test the different Hilbert Matrices.
 
   var PRINTED_GUIDE = false;
-  int N;
-  for (N = 1; N <= NMAX; N++) {
-    PARAMS[1] = -1;
-    PARAMS[2] = -1;
+  for (final N in 1.through(NMAX)) {
+    test('DEBCHVXX (N=$N)', () {
+      PARAMS[1] = -1;
+      PARAMS[2] = -1;
 
-    final KL = N - 1;
-    final KU = N - 1;
-    final NRHS = N;
-    final M = max(sqrt(N), 10.0);
+      final KL = N - 1;
+      final KU = N - 1;
+      final NRHS = N;
+      final M = max(sqrt(N), 10.0);
 
-    // Generate the Hilbert matrix, its inverse, and the
-    // right hand side, all scaled by the LCM(1,..,2N-1).
-    dlahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO);
+      // Generate the Hilbert matrix, its inverse, and the
+      // right hand side, all scaled by the LCM(1,..,2N-1).
+      dlahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO);
 
-    // Copy A into ACOPY.
-    dlacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);
+      // Copy A into ACOPY.
+      dlacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);
 
-    // Store A in band format for GB tests
-    for (var J = 1; J <= N; J++) {
-      for (var I = 1; I <= KL + KU + 1; I++) {
-        AB[I][J] = 0.0;
-      }
-    }
-    for (var J = 1; J <= N; J++) {
-      for (var I = max(1, J - KU); I <= min(N, J + KL); I++) {
-        AB[KU + 1 + I - J][J] = A[I][J];
-      }
-    }
-
-    // Copy AB into ABCOPY.
-    for (var J = 1; J <= N; J++) {
-      for (var I = 1; I <= KL + KU + 1; I++) {
-        ABCOPY[I][J] = 0.0;
-      }
-    }
-    dlacpy('ALL', KL + KU + 1, N, AB, LDAB, ABCOPY, LDAB);
-
-    // Call D**SVXX with default PARAMS and N_ERR_BND = 3.
-    if (lsamen(2, C2, 'SY')) {
-      dsysvxx(
-          FACT,
-          UPLO,
-          N,
-          NRHS,
-          ACOPY,
-          LDA,
-          AF,
-          LDA,
-          IPIV,
-          EQUED,
-          S,
-          B,
-          LDA,
-          X,
-          LDA,
-          ORCOND,
-          RPVGRW,
-          BERR,
-          NERRBND,
-          ERRBND_N.asMatrix(),
-          ERRBND_C.asMatrix(),
-          NPARAMS,
-          PARAMS,
-          WORK,
-          IWORK,
-          INFO);
-    } else if (lsamen(2, C2, 'PO')) {
-      dposvxx(
-          FACT,
-          UPLO,
-          N,
-          NRHS,
-          ACOPY,
-          LDA,
-          AF,
-          LDA,
-          EQUED,
-          S,
-          B,
-          LDA,
-          X,
-          LDA,
-          ORCOND,
-          RPVGRW,
-          BERR,
-          NERRBND,
-          ERRBND_N.asMatrix(),
-          ERRBND_C.asMatrix(),
-          NPARAMS,
-          PARAMS,
-          WORK,
-          IWORK,
-          INFO);
-    } else if (lsamen(2, C2, 'GB')) {
-      dgbsvxx(
-          FACT,
-          TRANS,
-          N,
-          KL,
-          KU,
-          NRHS,
-          ABCOPY,
-          LDAB,
-          AFB,
-          LDAFB,
-          IPIV,
-          EQUED,
-          R,
-          C,
-          B,
-          LDA,
-          X,
-          LDA,
-          ORCOND,
-          RPVGRW,
-          BERR,
-          NERRBND,
-          ERRBND_N.asMatrix(),
-          ERRBND_C.asMatrix(),
-          NPARAMS,
-          PARAMS,
-          WORK,
-          IWORK,
-          INFO);
-    } else {
-      dgesvxx(
-          FACT,
-          TRANS,
-          N,
-          NRHS,
-          ACOPY,
-          LDA,
-          AF,
-          LDA,
-          IPIV,
-          EQUED,
-          R,
-          C,
-          B,
-          LDA,
-          X,
-          LDA,
-          ORCOND,
-          RPVGRW,
-          BERR,
-          NERRBND,
-          ERRBND_N.asMatrix(),
-          ERRBND_C.asMatrix(),
-          NPARAMS,
-          PARAMS,
-          WORK,
-          IWORK,
-          INFO);
-    }
-
-    N_AUX_TESTS++;
-    if (ORCOND.value < EPS) {
-      // Either factorization failed or the matrix is flagged, and 1 <=
-      // INFO <= N+1. We don't decide based on rcond anymore.
-      //     IF (INFO == 0 || INFO > N+1) THEN
-      //        NFAIL++
-      //        WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
-      //     END IF
-    } else {
-      // Either everything succeeded (INFO == 0) or some solution failed
-      // to converge (INFO > N+1).
-      if (INFO.value > 0 && INFO.value <= N + 1) {
-        NFAIL++;
-        NOUT.println(
-            ' D${C2.a2}SVXX: N =${N.i2}, INFO = ${INFO.value.i3}, ORCOND = ${ORCOND.value.g12_5}, real RCOND = ${0.0.g12_5}');
-      }
-    }
-
-    // Calculating the difference between D**SVXX's X and the true X.
-    for (var I = 1; I <= N; I++) {
-      for (var J = 1; J <= NRHS; J++) {
-        DIFF[I][J] = X[I][J] - INVHILB[I][J];
-      }
-    }
-
-    // Calculating the RCOND
-    var RNORM = 0.0;
-    var RINORM = 0.0;
-    if (lsamen(2, C2, 'PO') || lsamen(2, C2, 'SY')) {
-      for (var I = 1; I <= N; I++) {
-        var SUMR = 0.0;
-        var SUMRI = 0.0;
-        for (var J = 1; J <= N; J++) {
-          SUMR += S[I] * A[I][J].abs() * S[J];
-          SUMRI += INVHILB[I][J].abs() / (S[J] * S[I]);
-        }
-        RNORM = max(RNORM, SUMR);
-        RINORM = max(RINORM, SUMRI);
-      }
-    } else if (lsamen(2, C2, 'GE') || lsamen(2, C2, 'GB')) {
-      for (var I = 1; I <= N; I++) {
-        var SUMR = 0.0;
-        var SUMRI = 0.0;
-        for (var J = 1; J <= N; J++) {
-          SUMR += R[I] * A[I][J].abs() * C[J];
-          SUMRI += INVHILB[I][J].abs() / (R[J] * C[I]);
-        }
-        RNORM = max(RNORM, SUMR);
-        RINORM = max(RINORM, SUMRI);
-      }
-    }
-
-    RNORM /= A[1][1].abs();
-    final RCOND = 1.0 / (RNORM * RINORM);
-
-    // Calculating the R for normwise rcond.
-    for (var I = 1; I <= N; I++) {
-      RINV[I] = 0.0;
-    }
-    for (var J = 1; J <= N; J++) {
-      for (var I = 1; I <= N; I++) {
-        RINV[I] += A[I][J].abs();
-      }
-    }
-
-    // Calculating the Normwise rcond.
-    RINORM = 0.0;
-    for (var I = 1; I <= N; I++) {
-      var SUMRI = 0.0;
+      // Store A in band format for GB tests
       for (var J = 1; J <= N; J++) {
-        SUMRI += (INVHILB[I][J] * RINV[J]).abs();
-      }
-      RINORM = max(RINORM, SUMRI);
-    }
-
-    // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
-    // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
-    final NCOND = A[1][1].abs() / RINORM;
-
-    final CONDTHRESH = M * EPS;
-    final ERRTHRESH = M * EPS;
-
-    for (var K = 1; K <= NRHS; K++) {
-      var NORMT = 0.0;
-      var NORMDIF = 0.0;
-      var CWISE_ERR = 0.0;
-      for (var I = 1; I <= N; I++) {
-        NORMT = max(INVHILB[I][K].abs(), NORMT);
-        NORMDIF = max((X[I][K] - INVHILB[I][K]).abs(), NORMDIF);
-        if (INVHILB[I][K] != 0.0) {
-          CWISE_ERR = max(
-              (X[I][K] - INVHILB[I][K]).abs() / INVHILB[I][K].abs(), CWISE_ERR);
-        } else if (X[I][K] != 0.0) {
-          CWISE_ERR = dlamch('OVERFLOW');
+        for (var I = 1; I <= KL + KU + 1; I++) {
+          AB[I][J] = 0.0;
         }
       }
-      final double NWISE_ERR;
-      if (NORMT != 0.0) {
-        NWISE_ERR = NORMDIF / NORMT;
-      } else if (NORMDIF != 0.0) {
-        NWISE_ERR = dlamch('OVERFLOW');
-      } else {
-        NWISE_ERR = 0.0;
+      for (var J = 1; J <= N; J++) {
+        for (var I = max(1, J - KU); I <= min(N, J + KL); I++) {
+          AB[KU + 1 + I - J][J] = A[I][J];
+        }
       }
 
+      // Copy AB into ABCOPY.
+      for (var J = 1; J <= N; J++) {
+        for (var I = 1; I <= KL + KU + 1; I++) {
+          ABCOPY[I][J] = 0.0;
+        }
+      }
+      dlacpy('ALL', KL + KU + 1, N, AB, LDAB, ABCOPY, LDAB);
+
+      // Call D**SVXX with default PARAMS and N_ERR_BND = 3.
+      if (lsamen(2, C2, 'SY')) {
+        dsysvxx(
+            FACT,
+            UPLO,
+            N,
+            NRHS,
+            ACOPY,
+            LDA,
+            AF,
+            LDA,
+            IPIV,
+            EQUED,
+            S,
+            B,
+            LDA,
+            X,
+            LDA,
+            ORCOND,
+            RPVGRW,
+            BERR,
+            NERRBND,
+            ERRBND_N.asMatrix(),
+            ERRBND_C.asMatrix(),
+            NPARAMS,
+            PARAMS,
+            WORK,
+            IWORK,
+            INFO);
+      } else if (lsamen(2, C2, 'PO')) {
+        dposvxx(
+            FACT,
+            UPLO,
+            N,
+            NRHS,
+            ACOPY,
+            LDA,
+            AF,
+            LDA,
+            EQUED,
+            S,
+            B,
+            LDA,
+            X,
+            LDA,
+            ORCOND,
+            RPVGRW,
+            BERR,
+            NERRBND,
+            ERRBND_N.asMatrix(),
+            ERRBND_C.asMatrix(),
+            NPARAMS,
+            PARAMS,
+            WORK,
+            IWORK,
+            INFO);
+      } else if (lsamen(2, C2, 'GB')) {
+        dgbsvxx(
+            FACT,
+            TRANS,
+            N,
+            KL,
+            KU,
+            NRHS,
+            ABCOPY,
+            LDAB,
+            AFB,
+            LDAFB,
+            IPIV,
+            EQUED,
+            R,
+            C,
+            B,
+            LDA,
+            X,
+            LDA,
+            ORCOND,
+            RPVGRW,
+            BERR,
+            NERRBND,
+            ERRBND_N.asMatrix(),
+            ERRBND_C.asMatrix(),
+            NPARAMS,
+            PARAMS,
+            WORK,
+            IWORK,
+            INFO);
+      } else {
+        dgesvxx(
+            FACT,
+            TRANS,
+            N,
+            NRHS,
+            ACOPY,
+            LDA,
+            AF,
+            LDA,
+            IPIV,
+            EQUED,
+            R,
+            C,
+            B,
+            LDA,
+            X,
+            LDA,
+            ORCOND,
+            RPVGRW,
+            BERR,
+            NERRBND,
+            ERRBND_N.asMatrix(),
+            ERRBND_C.asMatrix(),
+            NPARAMS,
+            PARAMS,
+            WORK,
+            IWORK,
+            INFO);
+      }
+
+      N_AUX_TESTS++;
+      if (ORCOND.value < EPS) {
+        // Either factorization failed or the matrix is flagged, and 1 <=
+        // INFO <= N+1. We don't decide based on rcond anymore.
+        //     IF (INFO == 0 || INFO > N+1) THEN
+        //        NFAIL++
+        //        WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
+        //     END IF
+      } else {
+        // Either everything succeeded (INFO == 0) or some solution failed
+        // to converge (INFO > N+1).
+        if (INFO.value > 0 && INFO.value <= N + 1) {
+          NFAIL++;
+          NOUT.println(
+              ' D${C2.a2}SVXX: N =${N.i2}, INFO = ${INFO.value.i3}, ORCOND = ${ORCOND.value.g12_5}, real RCOND = ${0.0.g12_5}');
+        }
+      }
+
+      // Calculating the difference between D**SVXX's X and the true X.
+      for (var I = 1; I <= N; I++) {
+        for (var J = 1; J <= NRHS; J++) {
+          DIFF[I][J] = X[I][J] - INVHILB[I][J];
+        }
+      }
+
+      // Calculating the RCOND
+      var RNORM = 0.0;
+      var RINORM = 0.0;
+      if (lsamen(2, C2, 'PO') || lsamen(2, C2, 'SY')) {
+        for (var I = 1; I <= N; I++) {
+          var SUMR = 0.0;
+          var SUMRI = 0.0;
+          for (var J = 1; J <= N; J++) {
+            SUMR += S[I] * A[I][J].abs() * S[J];
+            SUMRI += INVHILB[I][J].abs() / (S[J] * S[I]);
+          }
+          RNORM = max(RNORM, SUMR);
+          RINORM = max(RINORM, SUMRI);
+        }
+      } else if (lsamen(2, C2, 'GE') || lsamen(2, C2, 'GB')) {
+        for (var I = 1; I <= N; I++) {
+          var SUMR = 0.0;
+          var SUMRI = 0.0;
+          for (var J = 1; J <= N; J++) {
+            SUMR += R[I] * A[I][J].abs() * C[J];
+            SUMRI += INVHILB[I][J].abs() / (R[J] * C[I]);
+          }
+          RNORM = max(RNORM, SUMR);
+          RINORM = max(RINORM, SUMRI);
+        }
+      }
+
+      RNORM /= A[1][1].abs();
+      final RCOND = 1.0 / (RNORM * RINORM);
+
+      // Calculating the R for normwise rcond.
       for (var I = 1; I <= N; I++) {
         RINV[I] = 0.0;
       }
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= N; I++) {
-          RINV[I] += (A[I][J] * INVHILB[J][K]).abs();
+          RINV[I] += A[I][J].abs();
         }
       }
+
+      // Calculating the Normwise rcond.
       RINORM = 0.0;
       for (var I = 1; I <= N; I++) {
         var SUMRI = 0.0;
         for (var J = 1; J <= N; J++) {
-          SUMRI += (INVHILB[I][J] * RINV[J] / INVHILB[I][K]).abs();
+          SUMRI += (INVHILB[I][J] * RINV[J]).abs();
         }
         RINORM = max(RINORM, SUMRI);
       }
+
       // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
       // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
-      final CCOND = A[1][1].abs() / RINORM;
+      final NCOND = A[1][1].abs() / RINORM;
 
-      // Forward error bound tests
-      final NWISE_BND = ERRBND_N[K + (BND_I - 1) * NRHS];
-      final CWISE_BND = ERRBND_C[K + (BND_I - 1) * NRHS];
-      final NWISE_RCOND = ERRBND_N[K + (COND_I - 1) * NRHS];
-      // final CWISE_RCOND = ERRBND_C[K + (COND_I - 1) * NRHS];
-      // write (*,*) 'nwise : ', N, K, ncond, nwise_rcond,
-      // $           condthresh, ncond >= condthresh
-      //        write (*,*) 'nwise2: ', K, nwise_bnd, nwise_err, errthresh
-      final String NGUAR;
-      if (NCOND >= CONDTHRESH) {
-        NGUAR = 'YES';
-        if (NWISE_BND > ERRTHRESH) {
-          TSTRAT[1] = 1 / (2.0 * EPS);
+      final CONDTHRESH = M * EPS;
+      final ERRTHRESH = M * EPS;
+
+      for (var K = 1; K <= NRHS; K++) {
+        var NORMT = 0.0;
+        var NORMDIF = 0.0;
+        var CWISE_ERR = 0.0;
+        for (var I = 1; I <= N; I++) {
+          NORMT = max(INVHILB[I][K].abs(), NORMT);
+          NORMDIF = max((X[I][K] - INVHILB[I][K]).abs(), NORMDIF);
+          if (INVHILB[I][K] != 0.0) {
+            CWISE_ERR = max(
+                (X[I][K] - INVHILB[I][K]).abs() / INVHILB[I][K].abs(),
+                CWISE_ERR);
+          } else if (X[I][K] != 0.0) {
+            CWISE_ERR = dlamch('OVERFLOW');
+          }
+        }
+        final double NWISE_ERR;
+        if (NORMT != 0.0) {
+          NWISE_ERR = NORMDIF / NORMT;
+        } else if (NORMDIF != 0.0) {
+          NWISE_ERR = dlamch('OVERFLOW');
         } else {
-          if (NWISE_BND != 0.0) {
-            TSTRAT[1] = NWISE_ERR / NWISE_BND;
-          } else if (NWISE_ERR != 0.0) {
-            TSTRAT[1] = 1 / (16.0 * EPS);
+          NWISE_ERR = 0.0;
+        }
+
+        for (var I = 1; I <= N; I++) {
+          RINV[I] = 0.0;
+        }
+        for (var J = 1; J <= N; J++) {
+          for (var I = 1; I <= N; I++) {
+            RINV[I] += (A[I][J] * INVHILB[J][K]).abs();
+          }
+        }
+        RINORM = 0.0;
+        for (var I = 1; I <= N; I++) {
+          var SUMRI = 0.0;
+          for (var J = 1; J <= N; J++) {
+            SUMRI += (INVHILB[I][J] * RINV[J] / INVHILB[I][K]).abs();
+          }
+          RINORM = max(RINORM, SUMRI);
+        }
+        // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
+        // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
+        final CCOND = A[1][1].abs() / RINORM;
+
+        // Forward error bound tests
+        final NWISE_BND = ERRBND_N[K + (BND_I - 1) * NRHS];
+        final CWISE_BND = ERRBND_C[K + (BND_I - 1) * NRHS];
+        final NWISE_RCOND = ERRBND_N[K + (COND_I - 1) * NRHS];
+        // final CWISE_RCOND = ERRBND_C[K + (COND_I - 1) * NRHS];
+        // write (*,*) 'nwise : ', N, K, ncond, nwise_rcond,
+        // $           condthresh, ncond >= condthresh
+        //        write (*,*) 'nwise2: ', K, nwise_bnd, nwise_err, errthresh
+        final String NGUAR;
+        if (NCOND >= CONDTHRESH) {
+          NGUAR = 'YES';
+          if (NWISE_BND > ERRTHRESH) {
+            TSTRAT[1] = 1 / (2.0 * EPS);
           } else {
-            TSTRAT[1] = 0.0;
+            if (NWISE_BND != 0.0) {
+              TSTRAT[1] = NWISE_ERR / NWISE_BND;
+            } else if (NWISE_ERR != 0.0) {
+              TSTRAT[1] = 1 / (16.0 * EPS);
+            } else {
+              TSTRAT[1] = 0.0;
+            }
+            if (TSTRAT[1] > 1.0) {
+              TSTRAT[1] = 1 / (4.0 * EPS);
+            }
           }
-          if (TSTRAT[1] > 1.0) {
-            TSTRAT[1] = 1 / (4.0 * EPS);
-          }
-        }
-      } else {
-        NGUAR = 'NO';
-        if (NWISE_BND < 1.0) {
-          TSTRAT[1] = 1 / (8.0 * EPS);
         } else {
-          TSTRAT[1] = 1.0;
-        }
-      }
-      // write (*,*) 'cwise : ', N, K, ccond, cwise_rcond,
-      // $           condthresh, ccond >= condthresh
-      //        write (*,*) 'cwise2: ', K, cwise_bnd, cwise_err, errthresh
-      final String CGUAR;
-      if (CCOND >= CONDTHRESH) {
-        CGUAR = 'YES';
-        if (CWISE_BND > ERRTHRESH) {
-          TSTRAT[2] = 1 / (2.0 * EPS);
-        } else {
-          if (CWISE_BND != 0.0) {
-            TSTRAT[2] = CWISE_ERR / CWISE_BND;
-          } else if (CWISE_ERR != 0.0) {
-            TSTRAT[2] = 1 / (16.0 * EPS);
+          NGUAR = 'NO';
+          if (NWISE_BND < 1.0) {
+            TSTRAT[1] = 1 / (8.0 * EPS);
           } else {
-            TSTRAT[2] = 0.0;
+            TSTRAT[1] = 1.0;
           }
-          if (TSTRAT[2] > 1.0) TSTRAT[2] = 1 / (4.0 * EPS);
         }
-      } else {
-        CGUAR = 'NO';
-        if (CWISE_BND < 1.0) {
-          TSTRAT[2] = 1 / (8.0 * EPS);
+        // write (*,*) 'cwise : ', N, K, ccond, cwise_rcond,
+        // $           condthresh, ccond >= condthresh
+        //        write (*,*) 'cwise2: ', K, cwise_bnd, cwise_err, errthresh
+        final String CGUAR;
+        if (CCOND >= CONDTHRESH) {
+          CGUAR = 'YES';
+          if (CWISE_BND > ERRTHRESH) {
+            TSTRAT[2] = 1 / (2.0 * EPS);
+          } else {
+            if (CWISE_BND != 0.0) {
+              TSTRAT[2] = CWISE_ERR / CWISE_BND;
+            } else if (CWISE_ERR != 0.0) {
+              TSTRAT[2] = 1 / (16.0 * EPS);
+            } else {
+              TSTRAT[2] = 0.0;
+            }
+            if (TSTRAT[2] > 1.0) TSTRAT[2] = 1 / (4.0 * EPS);
+          }
         } else {
-          TSTRAT[2] = 1.0;
-        }
-      }
-
-      // Backwards error test
-      TSTRAT[3] = BERR[K] / EPS;
-
-      // Condition number tests
-      TSTRAT[4] = RCOND / ORCOND.value;
-      if (RCOND >= CONDTHRESH && TSTRAT[4] < 1.0) TSTRAT[4] = 1.0 / TSTRAT[4];
-
-      TSTRAT[5] = NCOND / NWISE_RCOND;
-      if (NCOND >= CONDTHRESH && TSTRAT[5] < 1.0) TSTRAT[5] = 1.0 / TSTRAT[5];
-
-      TSTRAT[6] = CCOND / NWISE_RCOND;
-      if (CCOND >= CONDTHRESH && TSTRAT[6] < 1.0) TSTRAT[6] = 1.0 / TSTRAT[6];
-
-      for (var I = 1; I <= NTESTS; I++) {
-        if (TSTRAT[I] > THRESH) {
-          if (!PRINTED_GUIDE) {
-            NOUT.println();
-            NOUT.println(
-                '   1: Normwise guaranteed forward error\n     Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n     ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
-            NOUT.println('   2: Componentwise guaranteed forward error');
-            NOUT.println('   3: Backwards error');
-            NOUT.println('   4: Reciprocal condition number');
-            NOUT.println('   5: Reciprocal normwise condition number');
-            NOUT.println('   6: Raw normwise error estimate');
-            NOUT.println('   7: Reciprocal componentwise condition number');
-            NOUT.println('   8: Raw componentwise error estimate');
-            NOUT.println();
-            PRINTED_GUIDE = true;
+          CGUAR = 'NO';
+          if (CWISE_BND < 1.0) {
+            TSTRAT[2] = 1 / (8.0 * EPS);
+          } else {
+            TSTRAT[2] = 1.0;
           }
-          NOUT.println(
-              ' D${C2.a2}SVXX: N =${N.i2}, RHS = ${K.i2}, NWISE GUAR. = $NGUAR, CWISE GUAR. = $CGUAR test(${I.i1}) =${TSTRAT[I].g12_5}');
-          NFAIL++;
+        }
+
+        // Backwards error test
+        TSTRAT[3] = BERR[K] / EPS;
+
+        // Condition number tests
+        TSTRAT[4] = RCOND / ORCOND.value;
+        if (RCOND >= CONDTHRESH && TSTRAT[4] < 1.0) TSTRAT[4] = 1.0 / TSTRAT[4];
+
+        TSTRAT[5] = NCOND / NWISE_RCOND;
+        if (NCOND >= CONDTHRESH && TSTRAT[5] < 1.0) TSTRAT[5] = 1.0 / TSTRAT[5];
+
+        TSTRAT[6] = CCOND / NWISE_RCOND;
+        if (CCOND >= CONDTHRESH && TSTRAT[6] < 1.0) TSTRAT[6] = 1.0 / TSTRAT[6];
+
+        for (var I = 1; I <= NTESTS; I++) {
+          final reason =
+              ' D${C2.a2}SVXX: N =${N.i2}, RHS = ${K.i2}, NWISE GUAR. = $NGUAR, CWISE GUAR. = $CGUAR test(${I.i1}) =${TSTRAT[I].g12_5}';
+          test.expect(TSTRAT[I], lessThan(THRESH), reason: reason);
+          if (TSTRAT[I] > THRESH) {
+            if (!PRINTED_GUIDE) {
+              NOUT.println();
+              NOUT.println(
+                  '   1: Normwise guaranteed forward error\n     Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n     ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
+              NOUT.println('   2: Componentwise guaranteed forward error');
+              NOUT.println('   3: Backwards error');
+              NOUT.println('   4: Reciprocal condition number');
+              NOUT.println('   5: Reciprocal normwise condition number');
+              NOUT.println('   6: Raw normwise error estimate');
+              NOUT.println('   7: Reciprocal componentwise condition number');
+              NOUT.println('   8: Raw componentwise error estimate');
+              NOUT.println();
+              PRINTED_GUIDE = true;
+            }
+            NOUT.println(reason);
+            NFAIL++;
+          }
         }
       }
-    }
 
 // $$$         WRITE(*,*)
 // $$$         WRITE(*,*) 'Normwise Error Bounds'
@@ -446,13 +446,14 @@ void debchvxx(final double THRESH, final String PATH, final Nout NOUT) {
 // $$$         WRITE(*,*) 'Raw error estimate: ',ERRBND(NRHS,cwise_i,rawbnd_i)
 // $$$         print *, 'Info: ', info
 // $$$         WRITE(*,*)
-    // WRITE(*,*) 'TSTRAT: ',TSTRAT
+      // WRITE(*,*) 'TSTRAT: ',TSTRAT
+    });
   }
 
   NOUT.println();
   if (NFAIL > 0) {
     NOUT.println(
-        ' D${C2.a2}SVXX: ${NFAIL.i6} out of ${(NTESTS * N + N_AUX_TESTS).i6} tests failed to pass the threshold');
+        ' D${C2.a2}SVXX: ${NFAIL.i6} out of ${(NTESTS * NMAX + N_AUX_TESTS).i6} tests failed to pass the threshold');
   } else {
     NOUT.println(' D${C2.a2}SVXX passed the tests of error bounds');
   }

@@ -299,7 +299,7 @@ void ddrvge(
                     INFO);
 
                 // Check error code from DGESV .
-
+                test.expect(INFO.value, IZERO);
                 if (INFO.value != IZERO) {
                   alaerh(PATH, 'DGESV ', INFO.value, IZERO, ' ', N, N, -1, -1,
                       NRHS, IMAT, NFAIL, NERRS, NOUT);
