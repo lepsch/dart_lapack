@@ -146,7 +146,7 @@ void dchkgb(
           }
 
           int IZERO = 0, I1 = 0, I2 = 0, IOFF = 0;
-          for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+          for (final IMAT in 1.through(NIMAT)) {
             // Do the tests only if DOTYPE( IMAT ) is true.
             final skip = !DOTYPE[IMAT];
 
@@ -155,15 +155,22 @@ void dchkgb(
             final ZEROT = IMAT >= 2 && IMAT <= 4;
             if (ZEROT && N < IMAT - 1) continue;
 
-            test('DCHKGB (IM=$IM IN=$IN IKL=$IKL IKU=$IKU)', () {
+            test('DCHKGB (IM=$IM IN=$IN IKL=$IKL IKU=$IKU IMAT=$IMAT)', () {
               final INFO = Box(0);
 
               if (!ZEROT || !DOTYPE[1] || TestDriver.isAsync) {
                 // Set up parameters with DLATB4 and generate a
                 // test matrix with DLATMS.
 
-                final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
-                    dlatb4(PATH, IMAT, M, N);
+                final (
+                  :TYPE,
+                  KL: _,
+                  KU: _,
+                  :ANORM,
+                  :MODE,
+                  COND: CNDNUM,
+                  :DIST
+                ) = dlatb4(PATH, IMAT, M, N);
 
                 final KOFF = max(1, KU + 2 - N);
                 for (var I = 1; I <= KOFF - 1; I++) {
@@ -221,13 +228,6 @@ void dchkgb(
                 }
               }
 
-              // These lines, if used in place of the calls in the
-              // loop over INB, cause the code to bomb on a Sun
-              // SPARCstation.
-
-              // ANORMO = dlangb( 'O', N, KL, KU, A, LDA, RWORK )
-              // ANORMI = dlangb( 'I', N, KL, KU, A, LDA, RWORK )
-
               // Do for each blocksize in NBVAL
               for (var INB = 1; INB <= NNB; INB++) {
                 final NB = NBVAL[INB];
@@ -243,7 +243,7 @@ void dchkgb(
                 dgbtrf(M, N, KL, KU, AFAC.asMatrix(), LDAFAC, IWORK, INFO);
 
                 // Check error code from DGBTRF.
-
+                test.expect(INFO.value, IZERO, reason: 'DGBTRF');
                 if (INFO.value != IZERO) {
                   alaerh(PATH, 'DGBTRF', INFO.value, IZERO, ' ', M, N, KL, KU,
                       NB, IMAT, NFAIL, NERRS, NOUT);
@@ -276,13 +276,19 @@ void dchkgb(
                 final ANORMO = dlangb('O', N, KL, KU, A.asMatrix(), LDA, RWORK);
                 final ANORMI = dlangb('I', N, KL, KU, A.asMatrix(), LDA, RWORK);
 
-                final int LDB;
                 final double RCONDI, RCONDO;
-                if (INFO.value == 0) {
+                if (INFO.value != 0) {
+                  // Do only the condition estimate if INFO != 0.
+
+                  RCONDO = ZERO;
+                  RCONDI = ZERO;
+
+                  // Skip the solve tests if the matrix is singular.
+                } else {
                   // Form the inverse of A so we can get a good
                   // estimate of CNDNUM = norm(A) * norm(inv(A)).
 
-                  LDB = max(1, N);
+                  final LDB = max(1, N);
                   dlaset('Full', N, N, ZERO, ONE, WORK.asMatrix(), LDB);
                   srnamc.SRNAMT = 'DGBTRS';
                   dgbtrs('No transpose', N, KL, KU, N, AFAC.asMatrix(), LDAFAC,
@@ -305,15 +311,6 @@ void dchkgb(
                     RCONDI = ONE;
                   } else {
                     RCONDI = (ONE / ANORMI) / AINVNM;
-                  }
-                } else {
-                  // Do only the condition estimate if INFO != 0.
-
-                  RCONDO = ZERO;
-                  RCONDI = ZERO;
-
-                  // Skip the solve tests if the matrix is singular.
-                  break;
                 }
 
                 for (var IRHS = 1; IRHS <= NNS; IRHS++) {
@@ -347,8 +344,8 @@ void dchkgb(
                         ISEED,
                         INFO);
                     XTYPE = 'C';
-                    dlacpy(
-                        'Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(), LDB);
+                      dlacpy('Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(),
+                          LDB);
 
                     srnamc.SRNAMT = 'DGBTRS';
                     dgbtrs(TRANS, N, KL, KU, NRHS, AFAC.asMatrix(), LDAFAC,
@@ -357,12 +354,12 @@ void dchkgb(
                     // Check error code from DGBTRS.
 
                     if (INFO.value != 0) {
-                      alaerh(PATH, 'DGBTRS', INFO.value, 0, TRANS, N, N, KL, KU,
-                          -1, IMAT, NFAIL, NERRS, NOUT);
+                        alaerh(PATH, 'DGBTRS', INFO.value, 0, TRANS, N, N, KL,
+                            KU, -1, IMAT, NFAIL, NERRS, NOUT);
                     }
 
-                    dlacpy('Full', N, NRHS, B.asMatrix(), LDB, WORK.asMatrix(),
-                        LDB);
+                      dlacpy('Full', N, NRHS, B.asMatrix(), LDB,
+                          WORK.asMatrix(), LDB);
                     dgbt02(
                         TRANS,
                         M,
@@ -415,8 +412,8 @@ void dchkgb(
                     // Check error code from DGBRFS.
 
                     if (INFO.value != 0) {
-                      alaerh(PATH, 'DGBRFS', INFO.value, 0, TRANS, N, N, KL, KU,
-                          NRHS, IMAT, NFAIL, NERRS, NOUT);
+                        alaerh(PATH, 'DGBRFS', INFO.value, 0, TRANS, N, N, KL,
+                            KU, NRHS, IMAT, NFAIL, NERRS, NOUT);
                     }
 
                     dget04(N, NRHS, X.asMatrix(), LDB, XACT.asMatrix(), LDB,
@@ -441,7 +438,8 @@ void dchkgb(
                     for (var K = 2; K <= 6; K++) {
                       final reason =
                           ' TRANS=\'${TRANS.a1}\', N=${N.i5}, KL=${KL.i5}, KU=${KU.i5}, NRHS=${NRHS.i3}, type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}';
-                      test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                        test.expect(RESULT[K], lessThan(THRESH),
+                            reason: reason);
                       if (RESULT[K] >= THRESH) {
                         if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                         NOUT.println(reason);
@@ -449,6 +447,7 @@ void dchkgb(
                       }
                     }
                     NRUN += 5;
+                    }
                   }
                 }
 

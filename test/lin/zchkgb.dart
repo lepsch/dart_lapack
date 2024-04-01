@@ -170,7 +170,7 @@ void zchkgb(
               // Set up parameters with ZLATB4 and generate a
               // test matrix with ZLATMS.
 
-              final (:TYPE, :KL, :KU, :ANORM, :MODE, :CNDNUM, :DIST) =
+              final (:TYPE, KL: _, KU: _, :ANORM, :MODE, :CNDNUM, :DIST) =
                   zlatb4(PATH, IMAT, M, N);
 
               final KOFF = max(1, KU + 2 - N);

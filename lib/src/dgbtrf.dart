@@ -1,18 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dger.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/blas/dtrsm.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgbtf2.dart';
-import 'package:lapack/src/dlaswp.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dgbtrf(
   final int M,
