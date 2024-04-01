@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
 import '../test_driver.dart';
@@ -187,11 +188,12 @@ void dchkgt(
             AF(N + 2 * M + 1), IWORK, WORK.asMatrix(), LDA, RWORK, RESULT(1));
 
         // Print the test ratio if it is >= THRESH.
-
+        final reason =
+            '${' ' * 12}N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${1.i2}) = ${RESULT[1].g12_5}';
+        test.expect(RESULT[1], lessThan(THRESH), reason: reason);
         if (RESULT[1] >= THRESH) {
           if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-          NOUT.println(
-              '${' ' * 12}N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${1.i2}) = ${RESULT[1].g12_5}');
+          NOUT.println(reason);
           NFAIL++;
         }
         NRUN++;
@@ -255,11 +257,12 @@ void dchkgt(
           RESULT[7] = dget06(RCOND.value, RCONDC);
 
           // Print the test ratio if it is >= THRESH.
-
+          final reason =
+              ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${7.i2}) = ${RESULT[7].g12_5}';
+          test.expect(RESULT[7], lessThan(THRESH), reason: reason);
           if (RESULT[7] >= THRESH) {
             if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-            NOUT.println(
-                ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${7.i2}) = ${RESULT[7].g12_5}');
+            NOUT.println(reason);
             NFAIL++;
           }
           NRUN++;
@@ -369,10 +372,12 @@ void dchkgt(
             // the threshold.
 
             for (var K = 2; K <= 6; K++) {
+              final reason =
+                  ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${RESULT[K].g12_5}';
+              test.expect(RESULT[K], lessThan(THRESH), reason: reason);
               if (RESULT[K] >= THRESH) {
                 if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                NOUT.println(
-                    ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${RESULT[K].g12_5}');
+                NOUT.println(reason);
                 NFAIL++;
               }
             }
@@ -384,6 +389,5 @@ void dchkgt(
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

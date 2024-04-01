@@ -1,17 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgtcon.dart';
-import 'package:lapack/src/dgtrfs.dart';
-import 'package:lapack/src/dgttrf.dart';
-import 'package:lapack/src/dgttrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlangt.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dgtsvx(
   final String FACT,
@@ -55,13 +44,10 @@ void dgtsvx(
   final WORK = WORK_.having();
   final IWORK = IWORK_.having();
   const ZERO = 0.0;
-  bool NOFACT, NOTRAN;
-  String NORM;
-  double ANORM;
 
   INFO.value = 0;
-  NOFACT = lsame(FACT, 'N');
-  NOTRAN = lsame(TRANS, 'N');
+  final NOFACT = lsame(FACT, 'N');
+  final NOTRAN = lsame(TRANS, 'N');
   if (!NOFACT && !lsame(FACT, 'F')) {
     INFO.value = -1;
   } else if (!NOTRAN && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
@@ -82,7 +68,6 @@ void dgtsvx(
 
   if (NOFACT) {
     // Compute the LU factorization of A.
-
     dcopy(N, D, 1, DF, 1);
     if (N > 1) {
       dcopy(N - 1, DL, 1, DLF, 1);
@@ -91,7 +76,6 @@ void dgtsvx(
     dgttrf(N, DLF, DF, DUF, DU2, IPIV, INFO);
 
     // Return if INFO is non-zero.
-
     if (INFO.value > 0) {
       RCOND.value = ZERO;
       return;
@@ -99,30 +83,21 @@ void dgtsvx(
   }
 
   // Compute the norm of the matrix A.
-
-  if (NOTRAN) {
-    NORM = '1';
-  } else {
-    NORM = 'I';
-  }
-  ANORM = dlangt(NORM, N, DL, D, DU);
+  final NORM = NOTRAN ? '1' : 'I';
+  final ANORM = dlangt(NORM, N, DL, D, DU);
 
   // Compute the reciprocal of the condition number of A.
-
   dgtcon(NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, IWORK, INFO);
 
   // Compute the solution vectors X.
-
   dlacpy('Full', N, NRHS, B, LDB, X, LDX);
   dgttrs(TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO);
 
   // Use iterative refinement to improve the computed solutions and
   // compute error bounds and backward error estimates for them.
-
   dgtrfs(TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX,
       FERR, BERR, WORK, IWORK, INFO);
 
   // Set INFO = N+1 if the matrix is singular to working precision.
-
   if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
 }

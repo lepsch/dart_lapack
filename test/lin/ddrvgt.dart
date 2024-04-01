@@ -414,9 +414,12 @@ void ddrvgt(
             // the threshold.
 
             for (final K in [...K1.through(NT), 6]) {
+              final reason =
+                  ' DGTSVX, FACT=\'${FACT.a1}\', TRANS=\'${TRANS.a1}\', N =${N.i5}, type ${IMAT.i2}, test ${K.i2}, ratio = ${RESULT[K].g12_5}';
+              test.expect(RESULT[K], lessThan(THRESH), reason: reason);
               if (RESULT[K] >= THRESH) {
                 if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                NOUT.print9998('DGTSVX', FACT, TRANS, N, IMAT, K, RESULT[K]);
+                NOUT.println(reason);
                 NFAIL++;
               }
             }
@@ -429,12 +432,4 @@ void ddrvgt(
 
   // Print a summary of the results.
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
-}
-
-extension on Nout {
-  void print9998(String s, String fact, String trans, int n, int type, int test,
-      double ratio) {
-    println(
-        ' $s, FACT=\'${fact.a1}\', TRANS=\'${trans.a1}\', N =${n.i5}, type ${type.i2}, test ${test.i2}, ratio = ${ratio.g12_5}');
-  }
 }

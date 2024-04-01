@@ -613,15 +613,13 @@ void ddrvgb(
                       ? [for (var K = K1; K <= NTESTS; K++) K]
                       : [if (!PREFAC) 1, 6, 7];
                   for (var K in tests) {
+                    final reason = PREFAC
+                        ? ' DGBSVX( \'${FACT.a1}\',\'${TRANS.a1}\',${N.i5},${KL.i5},${KU.i5},...), EQUED=\'${EQUED.value.a1}\', type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}'
+                        : ' DGBSVX( \'${FACT.a1}\',\'${TRANS.a1}\',${N.i5},${KL.i5},${KU.i5},...), type ${IMAT.i1}, test(${K.i1})=${RESULT[K].g12_5}';
+                    test.expect(RESULT[K], lessThan(THRESH), reason: reason);
                     if (RESULT[K] >= THRESH) {
                       if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                      if (PREFAC) {
-                        NOUT.print9995('DGBSVX', FACT, TRANS, N, KL, KU,
-                            EQUED.value, IMAT, K, RESULT[K]);
-                      } else {
-                        NOUT.print9996('DGBSVX', FACT, TRANS, N, KL, KU, IMAT,
-                            K, RESULT[K]);
-                      }
+                      NOUT.println(reason);
                       NFAIL++;
                       NRUN++;
                     }
@@ -636,20 +634,5 @@ void ddrvgb(
   }
 
   // Print a summary of the results.
-
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
-}
-
-extension on Nout {
-  void print9996(String s, String fact, String trans, int n, int kl, int ku,
-      int type, int test, double ratio) {
-    println(
-        ' $s( \'${fact.a1}\',\'${trans.a1}\',${n.i5},${kl.i5},${ku.i5},...), type ${type.i1}, test(${test.i1})=${ratio.g12_5}');
-  }
-
-  void print9995(String s, String fact, String trans, int n, int kl, int ku,
-      String equed, int type, int test, double ratio) {
-    println(
-        ' $s( \'${fact.a1}\',\'${trans.a1}\',${n.i5},${kl.i5},${ku.i5},...), EQUED=\'${equed.a1}\', type ${type.i1}, test(${test.i1})=${ratio.g12_5}');
-  }
 }

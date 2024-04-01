@@ -495,62 +495,17 @@ void ddrvge(
               // Print information about the tests that did not pass
               // the threshold.
 
-              if (!TRFCON) {
-                for (var K = K1; K <= NTESTS; K++) {
-                  test.expect(RESULT[K], lessThan(THRESH));
-                  if (RESULT[K] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9997('DGESVX', FACT, TRANS, N, EQUED.value,
-                          IMAT, K, RESULT[K]);
-                    } else {
-                      NOUT.print9998(
-                          'DGESVX', FACT, TRANS, N, IMAT, K, RESULT[K]);
-                    }
-                    NFAIL++;
-                  }
-                }
-                NRUN += NTESTS - K1 + 1;
-              } else {
-                if (!PREFAC) {
-                  test.expect(RESULT[1], lessThan(THRESH));
-                  if (RESULT[1] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                    if (PREFAC) {
-                      NOUT.print9997('DGESVX', FACT, TRANS, N, EQUED.value,
-                          IMAT, 1, RESULT[1]);
-                    } else {
-                      NOUT.print9998(
-                          'DGESVX', FACT, TRANS, N, IMAT, 1, RESULT[1]);
-                    }
-                    NFAIL++;
-                    NRUN++;
-                  }
-                }
-                test.expect(RESULT[6], lessThan(THRESH));
-                if (RESULT[6] >= THRESH) {
+              final tests = !TRFCON
+                  ? [for (var K = K1; K <= NTESTS; K++) K]
+                  : [if (!PREFAC) 1, 6, 7];
+              for (var K in tests) {
+                final reason = PREFAC
+                    ? ' DGESVX, FACT=\'${FACT.a1}\', TRANS=\'${TRANS.a1}\', N=${N.i5}, EQUED=\'${EQUED.value.a1}\', type ${IMAT.i2}, test(${K.i1})=${RESULT[K].g12_5}'
+                    : ' DGESVX, FACT=\'${FACT.a1}\', TRANS=\'${TRANS.a1}\', N=${N.i5}, type ${IMAT.i2}, test(${K.i1})=${RESULT[K].g12_5}';
+                test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                if (RESULT[K] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                  if (PREFAC) {
-                    NOUT.print9997('DGESVX', FACT, TRANS, N, EQUED.value, IMAT,
-                        6, RESULT[6]);
-                  } else {
-                    NOUT.print9998(
-                        'DGESVX', FACT, TRANS, N, IMAT, 6, RESULT[6]);
-                  }
-                  NFAIL++;
-                  NRUN++;
-                }
-                test.expect(RESULT[7], lessThan(THRESH));
-
-                if (RESULT[7] >= THRESH) {
-                  if (NFAIL == 0 && NERRS.value == 0) aladhd(NOUT, PATH);
-                  if (PREFAC) {
-                    NOUT.print9997('DGESVX', FACT, TRANS, N, EQUED.value, IMAT,
-                        7, RESULT[7]);
-                  } else {
-                    NOUT.print9998(
-                        'DGESVX', FACT, TRANS, N, IMAT, 7, RESULT[7]);
-                  }
+                  NOUT.println(reason);
                   NFAIL++;
                   NRUN++;
                 }
@@ -564,18 +519,4 @@ void ddrvge(
 
   // Print a summary of the results.
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
-}
-
-extension on Nout {
-  void print9998(String s, String fact, String trans, int n, int type, int test,
-      double error) {
-    println(
-        ' $s, FACT=\'${fact.a1}\', TRANS=\'${trans.a1}\', N=${n.i5}, type ${type.i2}, test(${test.i1})=${error.g12_5}');
-  }
-
-  void print9997(String s, String fact, String trans, int n, String equed,
-      int type, int test, double error) {
-    println(
-        ' $s, FACT=\'${fact.a1}\', TRANS=\'${trans.a1}\', N=${n.i5}, EQUED=\'${equed.a1}\', type ${type.i2}, test(${test.i1})=${error.g12_5}');
-  }
 }

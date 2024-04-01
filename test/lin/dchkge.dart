@@ -66,15 +66,13 @@ void dchkge(
   const NTYPES = 11, NTESTS = 8, NTRAN = 3;
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991], TRANSS = ['N', 'T', 'C'];
-  final INFO = Box(0), NERRS = Box(0);
-  final RCOND = Box(0.0), RCONDO = Box(0.0);
 
   // Initialize constants and the random number seed.
 
   final PATH = '${'Double precision'[0]}GE';
   var NRUN = 0;
   var NFAIL = 0;
-  NERRS.value = 0;
+  final NERRS = Box(0);
   final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
@@ -110,6 +108,8 @@ void dchkge(
         if (ZEROT && N < IMAT - 4) continue;
 
         test('DCHKGE (IM=$IM IN=$IN IMAT=$IMAT)', () {
+          final INFO = Box(0);
+
           // Set up parameters with DLATB4 and generate a test matrix
           // with DLATMS.
 
@@ -192,6 +192,7 @@ void dchkge(
             final int NT;
             final bool TRFCON;
             final double ANORMI, ANORMO, RCONDI;
+            final RCONDO = Box(0.0);
             if (M == N && INFO.value == 0) {
               TRFCON = false;
               dlacpy('Full', N, N, AFAC.asMatrix(), LDA, AINV.asMatrix(), LDA);
@@ -396,6 +397,7 @@ void dchkge(
                 NORM = 'I';
               }
               srnamc.SRNAMT = 'DGECON';
+              final RCOND = Box(0.0);
               dgecon(NORM, N, AFAC.asMatrix(), LDA, ANORM, RCOND, WORK,
                   IWORK(N + 1), INFO);
 
@@ -426,6 +428,5 @@ void dchkge(
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

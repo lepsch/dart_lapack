@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/matrix.dart';
@@ -175,7 +175,7 @@ void debug(String s) {
 
 void _print(String s) {
   // if (isInDebugMode) return;
-  print(s);
+  // print(s);
   // stderr.writeln(s);
 }
 
