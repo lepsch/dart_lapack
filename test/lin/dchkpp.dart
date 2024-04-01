@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -36,6 +37,7 @@ void dchkpp(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -75,7 +77,7 @@ void dchkpp(
 
   // Test the error exits
 
-  if (TSTERR) derrpo(PATH, NOUT);
+  if (TSTERR) derrpo(PATH, NOUT, test);
   infoc.INFOT = 0;
 
   // Do for each value of N in NVAL

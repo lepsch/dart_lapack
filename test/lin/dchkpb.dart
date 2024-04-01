@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
@@ -38,6 +39,7 @@ void dchkpb(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
   final DOTYPE = DOTYPE_.having();
   final NVAL = NVAL_.having();
@@ -76,7 +78,7 @@ void dchkpb(
 
   // Test the error exits
 
-  if (TSTERR) derrpo(PATH, NOUT);
+  if (TSTERR) derrpo(PATH, NOUT, test);
   infoc.INFOT = 0;
   xlaenv(2, 2);
   KDVAL[1] = 0;

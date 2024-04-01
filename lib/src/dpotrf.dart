@@ -23,7 +23,7 @@ void dpotrf(
   final A = A_.having(ld: LDA);
   const ONE = 1.0;
   bool UPPER;
-  int J = 0, JB, NB;
+  int J = 0, JB;
 
   // Test the input parameters.
 
@@ -47,7 +47,7 @@ void dpotrf(
 
   // Determine the block size for this environment.
 
-  NB = ilaenv(1, 'DPOTRF', UPLO, N, -1, -1, -1);
+  final NB = ilaenv(1, 'DPOTRF', UPLO, N, -1, -1, -1);
   if (NB <= 1 || NB >= N) {
     // Use unblocked code.
 
