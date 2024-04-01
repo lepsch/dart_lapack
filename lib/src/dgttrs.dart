@@ -1,10 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgtts2.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dgttrs(
   final String TRANS,
@@ -29,14 +25,9 @@ void dgttrs(
   final DU2 = DU2_.having();
   final B = B_.having(ld: LDB);
 
-  bool NOTRAN;
-  int ITRANS, J, JB, NB;
-
   INFO.value = 0;
-  NOTRAN = (TRANS == 'N' || TRANS == 'n');
-  if (!NOTRAN &&
-      !(TRANS == 'T' || TRANS == 't') &&
-      !(TRANS == 'C' || TRANS == 'c')) {
+  final NOTRAN = lsame(TRANS, 'N');
+  if (!NOTRAN && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
     INFO.value = -1;
   } else if (N < 0) {
     INFO.value = -2;
@@ -51,30 +42,20 @@ void dgttrs(
   }
 
   // Quick return if possible
-
   if (N == 0 || NRHS == 0) return;
 
   // Decode TRANS
-
-  if (NOTRAN) {
-    ITRANS = 0;
-  } else {
-    ITRANS = 1;
-  }
+  final ITRANS = NOTRAN ? 0 : 1;
 
   // Determine the number of right-hand sides to solve at a time.
-
-  if (NRHS == 1) {
-    NB = 1;
-  } else {
-    NB = max(1, ilaenv(1, 'DGTTRS', TRANS, N, NRHS, -1, -1));
-  }
+  final NB =
+      NRHS == 1 ? 1 : max(1, ilaenv(1, 'DGTTRS', TRANS, N, NRHS, -1, -1));
 
   if (NB >= NRHS) {
     dgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB);
   } else {
-    for (J = 1; J <= NRHS; J += NB) {
-      JB = min(NRHS - J + 1, NB);
+    for (var J = 1; J <= NRHS; J += NB) {
+      final JB = min(NRHS - J + 1, NB);
       dgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B(1, J), LDB);
     }
   }

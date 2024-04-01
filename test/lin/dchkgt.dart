@@ -50,27 +50,24 @@ void dchkgt(
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
-  const NTYPES = 12;
-  const NTESTS = 7;
-  int NFAIL, NRUN;
-  final ISEED = Array<int>(4);
+  const NTYPES = 12, NTESTS = 7;
   final RESULT = Array<double>(NTESTS), Z = Array<double>(3);
   const ISEEDY = [0, 0, 0, 1], TRANSS = ['N', 'T', 'C'];
-  final INFO = Box(0), NERRS = Box(0);
 
   final PATH = '${'Double precision'[0]}GT';
-  NRUN = 0;
-  NFAIL = 0;
-  NERRS.value = 0;
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
-  }
+  var NRUN = 0;
+  var NFAIL = 0;
+  final NERRS = Box(0);
+  final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
   if (TSTERR) derrge(PATH, NOUT, test);
-  infoc.INFOT = 0;
 
-  for (var IN = 1; IN <= NN; IN++) {
+  test.setUp(() {
+    infoc.INFOT = 0;
+  });
+
+  for (final IN in 1.through(NN)) {
     // Do for each value of N in NVAL.
 
     final N = NVAL[IN];
@@ -79,309 +76,310 @@ void dchkgt(
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     int IZERO = 0;
-    imatLoop:
-    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+    for (final IMAT in 1.through(NIMAT)) {
       // Do the tests only if DOTYPE( IMAT ) is true.
+      final skip = !DOTYPE[IMAT];
 
-      if (!DOTYPE[IMAT]) continue;
+      test('DCHKGT (IN=$IN IMAT=$IMAT)', () {
+        final INFO = Box(0);
 
-      // Set up parameters with DLATB4.
+        // Set up parameters with DLATB4.
 
-      final (:TYPE, :KL, :KU, :ANORM, :MODE, :COND, :DIST) =
-          dlatb4(PATH, IMAT, N, N);
+        final (:TYPE, :KL, :KU, :ANORM, :MODE, :COND, :DIST) =
+            dlatb4(PATH, IMAT, N, N);
 
-      final ZEROT = IMAT >= 8 && IMAT <= 10;
-      if (IMAT <= 6) {
-        // Types 1-6:  generate matrices of known condition number.
+        final ZEROT = IMAT >= 8 && IMAT <= 10;
+        if (IMAT <= 6) {
+          // Types 1-6:  generate matrices of known condition number.
 
-        final KOFF = max(2 - KU, 3 - max(1, N)).toInt();
-        srnamc.SRNAMT = 'DLATMS';
-        dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z',
-            AF(KOFF).asMatrix(), 3, WORK, INFO);
+          final KOFF = max(2 - KU, 3 - max(1, N)).toInt();
+          srnamc.SRNAMT = 'DLATMS';
+          dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z',
+              AF(KOFF).asMatrix(), 3, WORK, INFO);
 
-        // Check the error code from DLATMS.
-
-        if (INFO.value != 0) {
-          alaerh(PATH, 'DLATMS', INFO.value, 0, ' ', N, N, KL, KU, -1, IMAT,
-              NFAIL, NERRS, NOUT);
-          continue;
-        }
-        IZERO = 0;
-
-        if (N > 1) {
-          dcopy(N - 1, AF(4), 3, A, 1);
-          dcopy(N - 1, AF(3), 3, A(N + M + 1), 1);
-        }
-        dcopy(N, AF(2), 3, A(M + 1), 1);
-      } else {
-        // Types 7-12:  generate tridiagonal matrices with
-        // unknown condition numbers.
-
-        if (!ZEROT || !DOTYPE[7]) {
-          // Generate a matrix with elements from [-1,1].
-
-          dlarnv(2, ISEED, N + 2 * M, A);
-          if (ANORM != ONE) dscal(N + 2 * M, ANORM, A, 1);
-        } else if (IZERO > 0) {
-          // Reuse the last matrix by copying back the zeroed out
-          // elements.
-
-          if (IZERO == 1) {
-            A[N] = Z[2];
-            if (N > 1) A[1] = Z[3];
-          } else if (IZERO == N) {
-            A[3 * N - 2] = Z[1];
-            A[2 * N - 1] = Z[2];
-          } else {
-            A[2 * N - 2 + IZERO] = Z[1];
-            A[N - 1 + IZERO] = Z[2];
-            A[IZERO] = Z[3];
+          // Check the error code from DLATMS.
+          test.expect(INFO.value, 0);
+          if (INFO.value != 0) {
+            alaerh(PATH, 'DLATMS', INFO.value, 0, ' ', N, N, KL, KU, -1, IMAT,
+                NFAIL, NERRS, NOUT);
+            return;
           }
-        }
-
-        // If IMAT > 7, set one column of the matrix to 0.
-
-        if (!ZEROT) {
           IZERO = 0;
-        } else if (IMAT == 8) {
-          IZERO = 1;
-          Z[2] = A[N];
-          A[N] = ZERO;
+
           if (N > 1) {
-            Z[3] = A[1];
-            A[1] = ZERO;
+            dcopy(N - 1, AF(4), 3, A, 1);
+            dcopy(N - 1, AF(3), 3, A(N + M + 1), 1);
           }
-        } else if (IMAT == 9) {
-          IZERO = N;
-          Z[1] = A[3 * N - 2];
-          Z[2] = A[2 * N - 1];
-          A[3 * N - 2] = ZERO;
-          A[2 * N - 1] = ZERO;
+          dcopy(N, AF(2), 3, A(M + 1), 1);
         } else {
-          IZERO = (N + 1) ~/ 2;
-          for (var I = IZERO; I <= N - 1; I++) {
-            A[2 * N - 2 + I] = ZERO;
-            A[N - 1 + I] = ZERO;
-            A[I] = ZERO;
-          }
-          A[3 * N - 2] = ZERO;
-          A[2 * N - 1] = ZERO;
-        }
-      }
+          // Types 7-12:  generate tridiagonal matrices with
+          // unknown condition numbers.
 
-      // +    TEST 1
-      // Factor A as L*U and compute the ratio
-      //    norm(L*U - A) / (n * norm(A) * EPS )
+          if (!ZEROT || !DOTYPE[7] || TestDriver.isAsync) {
+            // Generate a matrix with elements from [-1,1].
 
-      dcopy(N + 2 * M, A, 1, AF, 1);
-      srnamc.SRNAMT = 'DGTTRF';
-      dgttrf(N, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1), IWORK, INFO);
+            dlarnv(2, ISEED, N + 2 * M, A);
+            if (ANORM != ONE) dscal(N + 2 * M, ANORM, A, 1);
+          } else if (IZERO > 0) {
+            // Reuse the last matrix by copying back the zeroed out
+            // elements.
 
-      // Check error code from DGTTRF.
-
-      if (INFO.value != IZERO) {
-        alaerh(PATH, 'DGTTRF', INFO.value, IZERO, ' ', N, N, 1, 1, -1, IMAT,
-            NFAIL, NERRS, NOUT);
-      }
-      final TRFCON = INFO.value != 0;
-
-      dgtt01(N, A, A(M + 1), A(N + M + 1), AF, AF(M + 1), AF(N + M + 1),
-          AF(N + 2 * M + 1), IWORK, WORK.asMatrix(), LDA, RWORK, RESULT(1));
-
-      // Print the test ratio if it is >= THRESH.
-
-      if (RESULT[1] >= THRESH) {
-        if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-        NOUT.println(
-            '${' ' * 12}N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${1.i2}) = ${RESULT[1].g12_5}');
-        NFAIL++;
-      }
-      NRUN++;
-
-      double RCONDI = ZERO, RCONDO = ZERO;
-      for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
-        final TRANS = TRANSS[ITRAN - 1];
-        final NORM = ITRAN == 1 ? 'O' : 'I';
-
-        final ANORM = dlangt(NORM, N, A, A(M + 1), A(N + M + 1));
-
-        final double RCONDC;
-        if (!TRFCON) {
-          // Use DGTTRS to solve for one column at a time of inv(A)
-          // or inv(A^T), computing the maximum column sum as we
-          // go.
-
-          var AINVNM = ZERO;
-          for (var I = 1; I <= N; I++) {
-            for (var J = 1; J <= N; J++) {
-              X[J] = ZERO;
+            if (IZERO == 1) {
+              A[N] = Z[2];
+              if (N > 1) A[1] = Z[3];
+            } else if (IZERO == N) {
+              A[3 * N - 2] = Z[1];
+              A[2 * N - 1] = Z[2];
+            } else {
+              A[2 * N - 2 + IZERO] = Z[1];
+              A[N - 1 + IZERO] = Z[2];
+              A[IZERO] = Z[3];
             }
-            X[I] = ONE;
-            dgttrs(TRANS, N, 1, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1),
-                IWORK, X.asMatrix(), LDA, INFO);
-            AINVNM = max(AINVNM, dasum(N, X, 1));
           }
 
-          // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
+          // If IMAT > 7, set one column of the matrix to 0.
 
-          if (ANORM <= ZERO || AINVNM <= ZERO) {
-            RCONDC = ONE;
+          if (!ZEROT) {
+            IZERO = 0;
+          } else if (IMAT == 8) {
+            IZERO = 1;
+            Z[2] = A[N];
+            A[N] = ZERO;
+            if (N > 1) {
+              Z[3] = A[1];
+              A[1] = ZERO;
+            }
+          } else if (IMAT == 9) {
+            IZERO = N;
+            Z[1] = A[3 * N - 2];
+            Z[2] = A[2 * N - 1];
+            A[3 * N - 2] = ZERO;
+            A[2 * N - 1] = ZERO;
           } else {
-            RCONDC = (ONE / ANORM) / AINVNM;
+            IZERO = (N + 1) ~/ 2;
+            for (var I = IZERO; I <= N - 1; I++) {
+              A[2 * N - 2 + I] = ZERO;
+              A[N - 1 + I] = ZERO;
+              A[I] = ZERO;
+            }
+            A[3 * N - 2] = ZERO;
+            A[2 * N - 1] = ZERO;
           }
-          if (ITRAN == 1) {
-            RCONDO = RCONDC;
-          } else {
-            RCONDI = RCONDC;
-          }
-        } else {
-          RCONDC = ZERO;
         }
 
-        // +    TEST 7
-        // Estimate the reciprocal of the condition number of the
-        // matrix.
+        // +    TEST 1
+        // Factor A as L*U and compute the ratio
+        //    norm(L*U - A) / (n * norm(A) * EPS )
 
-        srnamc.SRNAMT = 'DGTCON';
-        final RCOND = Box(0.0);
-        dgtcon(NORM, N, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1), IWORK,
-            ANORM, RCOND, WORK, IWORK(N + 1), INFO);
+        dcopy(N + 2 * M, A, 1, AF, 1);
+        srnamc.SRNAMT = 'DGTTRF';
+        dgttrf(N, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1), IWORK, INFO);
 
-        // Check error code from DGTCON.
+        // Check error code from DGTTRF.
 
-        if (INFO.value != 0) {
-          alaerh(PATH, 'DGTCON', INFO.value, 0, NORM, N, N, -1, -1, -1, IMAT,
+        if (INFO.value != IZERO) {
+          alaerh(PATH, 'DGTTRF', INFO.value, IZERO, ' ', N, N, 1, 1, -1, IMAT,
               NFAIL, NERRS, NOUT);
         }
+        final TRFCON = INFO.value != 0;
 
-        RESULT[7] = dget06(RCOND.value, RCONDC);
+        dgtt01(N, A, A(M + 1), A(N + M + 1), AF, AF(M + 1), AF(N + M + 1),
+            AF(N + 2 * M + 1), IWORK, WORK.asMatrix(), LDA, RWORK, RESULT(1));
 
         // Print the test ratio if it is >= THRESH.
 
-        if (RESULT[7] >= THRESH) {
+        if (RESULT[1] >= THRESH) {
           if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
           NOUT.println(
-              ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${7.i2}) = ${RESULT[7].g12_5}');
+              '${' ' * 12}N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${1.i2}) = ${RESULT[1].g12_5}');
           NFAIL++;
         }
         NRUN++;
-      }
 
-      // Skip the remaining tests if the matrix is singular.
-
-      if (TRFCON) continue imatLoop;
-
-      for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-        final NRHS = NSVAL[IRHS];
-
-        // Generate NRHS random solution vectors.
-
-        var IX = 1;
-        for (var J = 1; J <= NRHS; J++) {
-          dlarnv(2, ISEED, N, XACT(IX));
-          IX += LDA;
-        }
-
-        for (var ITRAN = 1; ITRAN <= 3; ITRAN++) {
+        double RCONDI = ZERO, RCONDO = ZERO;
+        for (var ITRAN = 1; ITRAN <= 2; ITRAN++) {
           final TRANS = TRANSS[ITRAN - 1];
-          final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
+          final NORM = ITRAN == 1 ? 'O' : 'I';
 
-          // Set the right hand side.
+          final ANORM = dlangt(NORM, N, A, A(M + 1), A(N + M + 1));
 
-          dlagtm(TRANS, N, NRHS, ONE, A, A(M + 1), A(N + M + 1),
-              XACT.asMatrix(), LDA, ZERO, B.asMatrix(), LDA);
+          final double RCONDC;
+          if (!TRFCON) {
+            // Use DGTTRS to solve for one column at a time of inv(A)
+            // or inv(A^T), computing the maximum column sum as we
+            // go.
 
-          // +    TEST 2
-          // Solve op(A) * X = B and compute the residual.
-
-          dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
-          srnamc.SRNAMT = 'DGTTRS';
-          dgttrs(TRANS, N, NRHS, AF, AF(M + 1), AF(N + M + 1),
-              AF(N + 2 * M + 1), IWORK, X.asMatrix(), LDA, INFO);
-
-          // Check error code from DGTTRS.
-
-          if (INFO.value != 0) {
-            alaerh(PATH, 'DGTTRS', INFO.value, 0, TRANS, N, N, -1, -1, NRHS,
-                IMAT, NFAIL, NERRS, NOUT);
-          }
-
-          dlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
-          dgtt02(TRANS, N, NRHS, A, A(M + 1), A(N + M + 1), X.asMatrix(), LDA,
-              WORK.asMatrix(), LDA, RESULT(2));
-
-          // +    TEST 3
-          // Check solution from generated exact solution.
-
-          dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
-              RESULT(3));
-
-          // +    TESTS 4, 5, and 6
-          // Use iterative refinement to improve the solution.
-
-          srnamc.SRNAMT = 'DGTRFS';
-          dgtrfs(
-              TRANS,
-              N,
-              NRHS,
-              A,
-              A(M + 1),
-              A(N + M + 1),
-              AF,
-              AF(M + 1),
-              AF(N + M + 1),
-              AF(N + 2 * M + 1),
-              IWORK,
-              B.asMatrix(),
-              LDA,
-              X.asMatrix(),
-              LDA,
-              RWORK,
-              RWORK(NRHS + 1),
-              WORK,
-              IWORK(N + 1),
-              INFO);
-
-          // Check error code from DGTRFS.
-
-          if (INFO.value != 0) {
-            alaerh(PATH, 'DGTRFS', INFO.value, 0, TRANS, N, N, -1, -1, NRHS,
-                IMAT, NFAIL, NERRS, NOUT);
-          }
-
-          dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
-              RESULT(4));
-          dgtt05(
-              TRANS,
-              N,
-              NRHS,
-              A,
-              A(M + 1),
-              A(N + M + 1),
-              B.asMatrix(),
-              LDA,
-              X.asMatrix(),
-              LDA,
-              XACT.asMatrix(),
-              LDA,
-              RWORK,
-              RWORK(NRHS + 1),
-              RESULT(5));
-
-          // Print information about the tests that did not pass
-          // the threshold.
-
-          for (var K = 2; K <= 6; K++) {
-            if (RESULT[K] >= THRESH) {
-              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              NOUT.println(
-                  ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${RESULT[K].g12_5}');
-              NFAIL++;
+            var AINVNM = ZERO;
+            for (var I = 1; I <= N; I++) {
+              for (var J = 1; J <= N; J++) {
+                X[J] = ZERO;
+              }
+              X[I] = ONE;
+              dgttrs(TRANS, N, 1, AF, AF(M + 1), AF(N + M + 1),
+                  AF(N + 2 * M + 1), IWORK, X.asMatrix(), LDA, INFO);
+              AINVNM = max(AINVNM, dasum(N, X, 1));
             }
+
+            // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
+
+            if (ANORM <= ZERO || AINVNM <= ZERO) {
+              RCONDC = ONE;
+            } else {
+              RCONDC = (ONE / ANORM) / AINVNM;
+            }
+            if (ITRAN == 1) {
+              RCONDO = RCONDC;
+            } else {
+              RCONDI = RCONDC;
+            }
+          } else {
+            RCONDC = ZERO;
           }
-          NRUN += 5;
+
+          // +    TEST 7
+          // Estimate the reciprocal of the condition number of the
+          // matrix.
+
+          srnamc.SRNAMT = 'DGTCON';
+          final RCOND = Box(0.0);
+          dgtcon(NORM, N, AF, AF(M + 1), AF(N + M + 1), AF(N + 2 * M + 1),
+              IWORK, ANORM, RCOND, WORK, IWORK(N + 1), INFO);
+
+          // Check error code from DGTCON.
+
+          if (INFO.value != 0) {
+            alaerh(PATH, 'DGTCON', INFO.value, 0, NORM, N, N, -1, -1, -1, IMAT,
+                NFAIL, NERRS, NOUT);
+          }
+
+          RESULT[7] = dget06(RCOND.value, RCONDC);
+
+          // Print the test ratio if it is >= THRESH.
+
+          if (RESULT[7] >= THRESH) {
+            if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+            NOUT.println(
+                ' NORM =\'${NORM.a1}\', N =${N.i5},${' ' * 10} type ${IMAT.i2}, test(${7.i2}) = ${RESULT[7].g12_5}');
+            NFAIL++;
+          }
+          NRUN++;
         }
-      }
+
+        // Skip the remaining tests if the matrix is singular.
+        if (TRFCON) return;
+
+        for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+          final NRHS = NSVAL[IRHS];
+
+          // Generate NRHS random solution vectors.
+
+          var IX = 1;
+          for (var J = 1; J <= NRHS; J++) {
+            dlarnv(2, ISEED, N, XACT(IX));
+            IX += LDA;
+          }
+
+          for (var ITRAN = 1; ITRAN <= 3; ITRAN++) {
+            final TRANS = TRANSS[ITRAN - 1];
+            final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
+
+            // Set the right hand side.
+
+            dlagtm(TRANS, N, NRHS, ONE, A, A(M + 1), A(N + M + 1),
+                XACT.asMatrix(), LDA, ZERO, B.asMatrix(), LDA);
+
+            // +    TEST 2
+            // Solve op(A) * X = B and compute the residual.
+
+            dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+            srnamc.SRNAMT = 'DGTTRS';
+            dgttrs(TRANS, N, NRHS, AF, AF(M + 1), AF(N + M + 1),
+                AF(N + 2 * M + 1), IWORK, X.asMatrix(), LDA, INFO);
+
+            // Check error code from DGTTRS.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'DGTTRS', INFO.value, 0, TRANS, N, N, -1, -1, NRHS,
+                  IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            dlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+            dgtt02(TRANS, N, NRHS, A, A(M + 1), A(N + M + 1), X.asMatrix(), LDA,
+                WORK.asMatrix(), LDA, RESULT(2));
+
+            // +    TEST 3
+            // Check solution from generated exact solution.
+
+            dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                RESULT(3));
+
+            // +    TESTS 4, 5, and 6
+            // Use iterative refinement to improve the solution.
+
+            srnamc.SRNAMT = 'DGTRFS';
+            dgtrfs(
+                TRANS,
+                N,
+                NRHS,
+                A,
+                A(M + 1),
+                A(N + M + 1),
+                AF,
+                AF(M + 1),
+                AF(N + M + 1),
+                AF(N + 2 * M + 1),
+                IWORK,
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                RWORK,
+                RWORK(NRHS + 1),
+                WORK,
+                IWORK(N + 1),
+                INFO);
+
+            // Check error code from DGTRFS.
+
+            if (INFO.value != 0) {
+              alaerh(PATH, 'DGTRFS', INFO.value, 0, TRANS, N, N, -1, -1, NRHS,
+                  IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            dget04(N, NRHS, X.asMatrix(), LDA, XACT.asMatrix(), LDA, RCONDC,
+                RESULT(4));
+            dgtt05(
+                TRANS,
+                N,
+                NRHS,
+                A,
+                A(M + 1),
+                A(N + M + 1),
+                B.asMatrix(),
+                LDA,
+                X.asMatrix(),
+                LDA,
+                XACT.asMatrix(),
+                LDA,
+                RWORK,
+                RWORK(NRHS + 1),
+                RESULT(5));
+
+            // Print information about the tests that did not pass
+            // the threshold.
+
+            for (var K = 2; K <= 6; K++) {
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(
+                    ' TRANS=\'${TRANS.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) = ${RESULT[K].g12_5}');
+                NFAIL++;
+              }
+            }
+            NRUN += 5;
+          }
+        }
+      }, skip: skip);
     }
   }
 

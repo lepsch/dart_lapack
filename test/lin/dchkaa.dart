@@ -71,8 +71,6 @@ Future<void> dchkaa(
   const MAXRHS = 16;
   const MATMAX = 30;
   const KDMAX = NMAX + (NMAX + 1) ~/ 4;
-  bool FATAL;
-  int LA, LAFAC, NB, NTYPES;
   final DOTYPE = Array<bool>(MATMAX);
   final IWORK = Array<int>(25 * NMAX),
       MVAL = Array<int>(MAXIN),
@@ -93,7 +91,7 @@ Future<void> dchkaa(
 
   final S1 = dsecnd();
   final LDA = NMAX;
-  FATAL = false;
+  var FATAL = false;
 
   // Read a dummy line.
   await NIN.readLine();
@@ -203,7 +201,7 @@ Future<void> dchkaa(
     var result = 0;
     nbLoop:
     for (var I = 1; I <= NNB; I++) {
-      NB = NBVAL[I];
+      final NB = NBVAL[I];
       for (var J = 1; J <= result; J++) {
         if (NB == NBVAL2[J]) continue nbLoop;
       }
@@ -304,7 +302,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'GE')) {
       // GE:  general matrices
 
-      NTYPES = 11;
+      final NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group('GE: General matrices (path=$PATH)', () {
@@ -366,9 +364,9 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'GB')) {
       // GB:  general banded matrices
 
-      LA = (2 * KDMAX + 1) * NMAX;
-      LAFAC = (3 * KDMAX + 1) * NMAX;
-      NTYPES = 8;
+      final LA = (2 * KDMAX + 1) * NMAX;
+      final LAFAC = (3 * KDMAX + 1) * NMAX;
+      final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group('GB: General banded matrices (path=$PATH)', () {
@@ -431,57 +429,59 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'GT')) {
       // GT:  general tridiagonal matrices
 
-      NTYPES = 12;
+      final NTYPES = 12;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkgt(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('GB: General tridiagonal matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchkgt(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NNS,
+              NSVAL.copy(),
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvgt(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvgt(
+              DOTYPE.copy(),
+              NN,
+              NVAL.copy(),
+              NRHS,
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'PO')) {
       // PO:  positive definite matrices
 
-      NTYPES = 9;
+      final NTYPES = 9;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -538,7 +538,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'PS')) {
       // PS:  positive semi-definite matrices
 
-      NTYPES = 9;
+      final NTYPES = 9;
 
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
@@ -567,7 +567,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'PP')) {
       // PP:  positive definite packed matrices
 
-      NTYPES = 9;
+      final NTYPES = 9;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -622,7 +622,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'PB')) {
       // PB:  positive definite banded matrices
 
-      NTYPES = 8;
+      final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -679,7 +679,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'PT')) {
       // PT:  positive definite tridiagonal matrices
 
-      NTYPES = 12;
+      final NTYPES = 12;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -729,7 +729,7 @@ Future<void> dchkaa(
       // SY:  symmetric indefinite matrices,
       //      with partial (Bunch-Kaufman) pivoting algorithm
 
-      NTYPES = 10;
+      final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -785,7 +785,7 @@ Future<void> dchkaa(
       // SR:  symmetric indefinite matrices,
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm
 
-      NTYPES = 10;
+      final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -842,7 +842,7 @@ Future<void> dchkaa(
       //      with bounded Bunch-Kaufman (rook) pivoting algorithm,
       //      different matrix storage format than SR path version.
 
-      NTYPES = 10;
+      final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -900,7 +900,7 @@ Future<void> dchkaa(
       // SA:  symmetric indefinite matrices,
       //      with partial (Aasen's) pivoting algorithm
 
-      NTYPES = 10;
+      final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -956,7 +956,7 @@ Future<void> dchkaa(
       // SA:  symmetric indefinite matrices,
       //      with partial (Aasen's) pivoting algorithm
 
-      NTYPES = 10;
+      final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1012,7 +1012,7 @@ Future<void> dchkaa(
       // SP:  symmetric indefinite packed matrices,
       //      with partial (Bunch-Kaufman) pivoting algorithm
 
-      NTYPES = 10;
+      final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1065,7 +1065,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'TR')) {
       // TR:  triangular matrices
 
-      NTYPES = 18;
+      final NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1095,7 +1095,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'TP')) {
       // TP:  triangular packed matrices
 
-      NTYPES = 18;
+      final NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1123,7 +1123,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'TB')) {
       // TB:  triangular banded matrices
 
-      NTYPES = 17;
+      final NTYPES = 17;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1151,7 +1151,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'QR')) {
       // QR:  QR factorization
 
-      NTYPES = 8;
+      final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1187,7 +1187,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'LQ')) {
       // LQ:  LQ factorization
 
-      NTYPES = 8;
+      final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1222,7 +1222,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'QL')) {
       // QL:  QL factorization
 
-      NTYPES = 8;
+      final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1257,7 +1257,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'RQ')) {
       // RQ:  RQ factorization
 
-      NTYPES = 8;
+      final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1293,7 +1293,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'QP')) {
       // QP:  QR factorization with pivoting
 
-      NTYPES = 6;
+      final NTYPES = 6;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1320,7 +1320,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'QK')) {
       // QK: truncated QR factorization with pivoting
 
-      NTYPES = 19;
+      final NTYPES = 19;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1351,7 +1351,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'TZ')) {
       // TZ:  Trapezoidal matrix
 
-      NTYPES = 3;
+      final NTYPES = 3;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTCHK) {
@@ -1375,7 +1375,7 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'LS')) {
       // LS:  Least squares drivers
 
-      NTYPES = 6;
+      final NTYPES = 6;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       if (TSTDRV) {
