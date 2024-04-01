@@ -1,18 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zhpsv.dart';
-import 'package:lapack/src/zhpsvx.dart';
-import 'package:lapack/src/zhptrf.dart';
-import 'package:lapack/src/zhptri.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlanhp.dart';
-import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/zlatms.dart';
 import 'aladhd.dart';
@@ -21,7 +9,7 @@ import 'alasvm.dart';
 import 'common.dart';
 import 'dget06.dart';
 import 'xlaenv.dart';
-import 'zerrvxx.dart';
+import 'zerrvx.dart';
 import 'zget04.dart';
 import 'zhpt01.dart';
 import 'zlaipd.dart';

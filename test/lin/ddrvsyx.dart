@@ -1,19 +1,9 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dsysv.dart';
-import 'package:lapack/src/dsysvx.dart';
-import 'package:lapack/src/dsysvxx.dart';
-import 'package:lapack/src/dsytrf.dart';
-import 'package:lapack/src/dsytri2.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'aladhd.dart';
 import 'alaerh.dart';
 import 'alasvm.dart';
@@ -47,6 +37,7 @@ void ddrvsy(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -87,7 +78,7 @@ void ddrvsy(
 
   // Test the error exits
 
-  if (TSTERR) derrvx(PATH, NOUT);
+  if (TSTERR) derrvx(PATH, NOUT, test);
   infoc.INFOT = 0;
 
   // Set the block size and minimum block size for testing.
@@ -578,10 +569,8 @@ void ddrvsy(
   }
 
   // Print a summary of the results.
-
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 
   // Test Error Bounds from DSYSVXX
-
-  debchvxx(THRESH, PATH, NOUT);
+  debchvxx(THRESH, PATH, NOUT, test);
 }

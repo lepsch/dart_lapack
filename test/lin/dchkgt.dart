@@ -1,27 +1,14 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgtcon.dart';
-import 'package:lapack/src/dgtrfs.dart';
-import 'package:lapack/src/dgttrf.dart';
-import 'package:lapack/src/dgttrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlagtm.dart';
-import 'package:lapack/src/dlangt.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
 import 'common.dart';
-import 'derrgex.dart';
+import 'derrge.dart';
 import 'dget04.dart';
 import 'dget06.dart';
 import 'dgtt01.dart';
@@ -46,6 +33,7 @@ void dchkgt(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -79,8 +67,7 @@ void dchkgt(
   }
 
   // Test the error exits
-
-  if (TSTERR) derrge(PATH, NOUT);
+  if (TSTERR) derrge(PATH, NOUT, test);
   infoc.INFOT = 0;
 
   for (var IN = 1; IN <= NN; IN++) {
@@ -296,7 +283,7 @@ void dchkgt(
         }
 
         for (var ITRAN = 1; ITRAN <= 3; ITRAN++) {
-          final TRANS = TRANSS[ITRAN];
+          final TRANS = TRANSS[ITRAN - 1];
           final RCONDC = ITRAN == 1 ? RCONDO : RCONDI;
 
           // Set the right hand side.

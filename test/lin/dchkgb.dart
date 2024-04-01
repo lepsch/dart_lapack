@@ -1,18 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgbcon.dart';
-import 'package:lapack/src/dgbrfs.dart';
-import 'package:lapack/src/dgbtrf.dart';
-import 'package:lapack/src/dgbtrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlangb.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
@@ -21,7 +9,7 @@ import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
 import 'common.dart';
-import 'derrgex.dart';
+import 'derrge.dart';
 import 'dgbt01.dart';
 import 'dgbt02.dart';
 import 'dgbt05.dart';
@@ -88,7 +76,7 @@ void dchkgb(
 
   // Test the error exits
 
-  if (TSTERR) derrge(PATH, NOUT);
+  if (TSTERR) derrge(PATH, NOUT, test);
 
   test.setUp(() {
     infoc.INFOT = 0;

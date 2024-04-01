@@ -1,10 +1,4 @@
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlaset.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void zlahilb(
   final int N,

@@ -1,13 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zsytrf_aa.dart';
-import 'package:lapack/src/zsytrs_aa.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/zlatms.dart';
 import 'alaerh.dart';
@@ -15,7 +8,7 @@ import 'alahd.dart';
 import 'alasum.dart';
 import 'common.dart';
 import 'xlaenv.dart';
-import 'zerrsyx.dart';
+import 'zerrsy.dart';
 import 'zlarhs.dart';
 import 'zlatb4.dart';
 import 'zsyt01_aa.dart';

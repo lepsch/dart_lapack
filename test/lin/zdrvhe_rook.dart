@@ -1,15 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zhesv_rook.dart';
-import 'package:lapack/src/zhetrf_rook.dart';
-import 'package:lapack/src/zhetri_rook.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlanhe.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/zlatms.dart';
 import 'aladhd.dart';
@@ -17,7 +8,7 @@ import 'alaerh.dart';
 import 'alasvm.dart';
 import 'common.dart';
 import 'xlaenv.dart';
-import 'zerrvxx.dart';
+import 'zerrvx.dart';
 import 'zget04.dart';
 import 'zhet01_rook.dart';
 import 'zlarhs.dart';

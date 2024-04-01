@@ -1,28 +1,14 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgtsv.dart';
-import 'package:lapack/src/dgtsvx.dart';
-import 'package:lapack/src/dgttrf.dart';
-import 'package:lapack/src/dgttrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlagtm.dart';
-import 'package:lapack/src/dlangt.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'aladhd.dart';
 import 'alaerh.dart';
 import 'alasvm.dart';
 import 'common.dart';
-import 'derrvxx.dart';
+import 'derrvx.dart';
 import 'dget04.dart';
 import 'dget06.dart';
 import 'dgtt01.dart';
@@ -46,6 +32,7 @@ void ddrvgt(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -79,7 +66,7 @@ void ddrvgt(
 
   // Test the error exits
 
-  if (TSTERR) derrvx(PATH, NOUT);
+  if (TSTERR) derrvx(PATH, NOUT, test);
   infoc.INFOT = 0;
 
   for (var IN = 1; IN <= NN; IN++) {

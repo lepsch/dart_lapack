@@ -1,24 +1,13 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgesvd.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/dsycon_3.dart';
-import 'package:lapack/src/dsytrf_rk.dart';
-import 'package:lapack/src/dsytri_3.dart';
-import 'package:lapack/src/dsytrs_3.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
 import 'alaerh.dart';
 import 'alahd.dart';
 import 'alasum.dart';
 import 'common.dart';
-import 'derrsyx.dart';
+import 'derrsy.dart';
 import 'dget04.dart';
 import 'dget06.dart';
 import 'dlarhs.dart';

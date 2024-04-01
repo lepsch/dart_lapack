@@ -1,27 +1,14 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlansp.dart';
-import 'package:lapack/src/dlaqsp.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dppequ.dart';
-import 'package:lapack/src/dppsv.dart';
-import 'package:lapack/src/dppsvx.dart';
-import 'package:lapack/src/dpptrf.dart';
-import 'package:lapack/src/dpptri.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'aladhd.dart';
 import 'alaerh.dart';
 import 'alasvm.dart';
 import 'common.dart';
-import 'derrvxx.dart';
+import 'derrvx.dart';
 import 'dget04.dart';
 import 'dget06.dart';
 import 'dlarhs.dart';
@@ -50,6 +37,7 @@ void ddrvpp(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -94,7 +82,7 @@ void ddrvpp(
 
   // Test the error exits
 
-  if (TSTERR) derrvx(PATH, NOUT);
+  if (TSTERR) derrvx(PATH, NOUT, test);
   infoc.INFOT = 0;
 
   // Do for each value of N in NVAL
@@ -422,6 +410,5 @@ void ddrvpp(
   }
 
   // Print a summary of the results.
-
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

@@ -1,16 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/zgemv.dart';
-import 'package:lapack/src/blas/zgeru.dart';
-import 'package:lapack/src/blas/zscal.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlacgv.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void zlavhe_rook(
   final String UPLO,

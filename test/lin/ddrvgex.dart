@@ -1,25 +1,9 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgeequ.dart';
-import 'package:lapack/src/dgesv.dart';
-import 'package:lapack/src/dgesvx.dart';
-import 'package:lapack/src/dgesvxx.dart';
-import 'package:lapack/src/dgetrf.dart';
-import 'package:lapack/src/dgetri.dart';
-import 'package:lapack/src/dla_gerpvgrw.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlantr.dart';
-import 'package:lapack/src/dlaqge.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'aladhd.dart';
 import 'alaerh.dart';
 import 'alasvm.dart';
@@ -55,6 +39,7 @@ void ddrvge(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -100,7 +85,7 @@ void ddrvge(
 
   // Test the error exits
 
-  if (TSTERR) derrvx(PATH, NOUT);
+  if (TSTERR) derrvx(PATH, NOUT, test);
   infoc.INFOT = 0;
 
   // Set the block size and minimum block size for testing.
@@ -730,7 +715,7 @@ void ddrvge(
 
   // Test Error Bounds from DGESVXX
 
-  debchvxx(THRESH, PATH, NOUT);
+  debchvxx(THRESH, PATH, NOUT, test);
 }
 
 extension on Nout {

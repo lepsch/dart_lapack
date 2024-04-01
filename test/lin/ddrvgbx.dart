@@ -10,7 +10,7 @@ import 'alaerh.dart';
 import 'alasvm.dart';
 import 'common.dart';
 import 'debchvxx.dart';
-import 'derrvxx.dart';
+import 'derrvx.dart';
 import 'dgbt01.dart';
 import 'dgbt02.dart';
 import 'dgbt05.dart';
@@ -331,8 +331,8 @@ void ddrvgb(
                   // Form an exact solution and set the right hand
                   // side.
 
-                  XTYPE ??= IKL == 1 ? 'N' : 'C';
                   srnamc.SRNAMT = 'DLARHS';
+                  XTYPE ??= IKL == 1 ? 'N' : 'C';
                   dlarhs(
                       PATH,
                       XTYPE,

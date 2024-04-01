@@ -1,12 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/ztrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zunmql.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void zgeqls(
   final int M,

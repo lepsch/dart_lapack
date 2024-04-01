@@ -1,17 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgelq2.dart';
-import 'package:lapack/src/zgeqr2.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlascl.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 double zqrt14(
   final String TRANS,

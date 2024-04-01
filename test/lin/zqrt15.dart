@@ -1,24 +1,10 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dznrm2.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlarf.dart';
-import 'package:lapack/src/zlarnv.dart';
-import 'package:lapack/src/zlascl.dart';
-import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlarnd.dart';
 import '../matgen/zlaror.dart';
 import 'dlaord.dart';
-import 'xerbla.dart';
 
 void zqrt15(
   final int SCALE,

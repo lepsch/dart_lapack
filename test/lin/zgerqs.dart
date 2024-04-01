@@ -1,13 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/ztrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zunmrq.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void zgerqs(
   final int M,

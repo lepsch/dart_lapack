@@ -1,29 +1,14 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlansb.dart';
-import 'package:lapack/src/dlaqsb.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dpbequ.dart';
-import 'package:lapack/src/dpbsv.dart';
-import 'package:lapack/src/dpbsvx.dart';
-import 'package:lapack/src/dpbtrf.dart';
-import 'package:lapack/src/dpbtrs.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'aladhd.dart';
 import 'alaerh.dart';
 import 'alasvm.dart';
 import 'common.dart';
-import 'derrvxx.dart';
+import 'derrvx.dart';
 import 'dget04.dart';
 import 'dget06.dart';
 import 'dlarhs.dart';
@@ -53,6 +38,7 @@ void ddrvpb(
   final Array<double> RWORK_,
   final Array<int> IWORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
   final DOTYPE = DOTYPE_.having();
   final NVAL = NVAL_.having();
@@ -93,7 +79,7 @@ void ddrvpb(
 
   // Test the error exits
 
-  if (TSTERR) derrvx(PATH, NOUT);
+  if (TSTERR) derrvx(PATH, NOUT, test);
   infoc.INFOT = 0;
   KDVAL[1] = 0;
 

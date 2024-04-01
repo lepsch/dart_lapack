@@ -36,7 +36,7 @@ import 'dchktp.dart';
 import 'dchktr.dart';
 import 'dchktsqr.dart';
 import 'dchktz.dart';
-import 'ddrvgbx.dart';
+import 'ddrvgb.dart';
 import 'ddrvge.dart';
 import 'ddrvgt.dart';
 import 'ddrvls.dart';
@@ -49,7 +49,7 @@ import 'ddrvsy_aa.dart';
 import 'ddrvsy_aa_2stage.dart';
 import 'ddrvsy_rk.dart';
 import 'ddrvsy_rook.dart';
-import 'ddrvsyx.dart';
+import 'ddrvsy.dart';
 import 'ilaenv.dart' as mock;
 import 'xerbla.dart' as mock;
 
@@ -451,7 +451,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
@@ -472,7 +473,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -528,7 +530,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -611,7 +614,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -667,7 +671,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -715,7 +720,8 @@ Future<void> dchkaa(
             B(1, 3).asArray(),
             WORK.asArray(),
             RWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -770,7 +776,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -825,7 +832,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -883,7 +891,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -938,7 +947,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -993,7 +1003,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }
@@ -1046,7 +1057,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9988(PATH);
       }

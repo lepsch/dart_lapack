@@ -1,10 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-
-import 'xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void zsbmv(
   final String UPLO,

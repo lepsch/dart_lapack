@@ -50,7 +50,7 @@ import 'zchktr.dart';
 import 'zchktsqr.dart';
 import 'zchktz.dart';
 import 'zchkunhr_col.dart';
-import 'zdrvgbx.dart';
+import 'zdrvgb.dart';
 import 'zdrvge.dart';
 import 'zdrvgt.dart';
 import 'zdrvhe.dart';
