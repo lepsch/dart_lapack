@@ -166,12 +166,12 @@ void ddrvgt(
           }
         }
 
+        double RCONDI = 0, RCONDO = 0;
         for (var IFACT = 1; IFACT <= 2; IFACT++) {
           final FACT = IFACT == 1 ? 'F' : 'N';
 
           // Compute the condition number for comparison with
           // the value returned by DGTSVX.
-          double RCONDI = 0, RCONDO = 0;
           if (ZEROT) {
             if (IFACT == 1) continue;
             RCONDO = ZERO;
