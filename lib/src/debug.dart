@@ -168,8 +168,13 @@ void debugi8(String name, int d1, int d2, int d3, int d4, int d5, int d6,
   a.debug(name, 8);
 }
 
-void debug(String s) {
+void debug([String? s]) {
   if (!_debug) return;
+  if (s == null) {
+    final (:file, :function, :line) = getCallerInfo();
+    print('$file:$line - $function');
+    return;
+  }
   _print(s);
 }
 

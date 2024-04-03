@@ -59,7 +59,7 @@ void dsysv_rook(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSYSV_ROOK ', -INFO.value);
+    xerbla('DSYSV_ROOK', -INFO.value);
     return;
   } else if (LQUERY) {
     return;
