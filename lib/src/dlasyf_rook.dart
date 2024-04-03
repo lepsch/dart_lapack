@@ -376,11 +376,7 @@ void dlasyf_rook(
     // K is the main loop index, increasing from 1 in steps of 1 or 2
 
     K = 1;
-    while (true) {
-      // Exit from loop
-
-      if ((K >= NB && NB < N) || K > N) break;
-
+    while (!((K >= NB && NB < N) || K > N)) { 
       KSTEP = 1;
       P = K;
 

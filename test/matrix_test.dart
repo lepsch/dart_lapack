@@ -72,8 +72,8 @@ void main() {
 
     test('maxloc', () {
       final a = Array.fromList([9, 1, 2, 3, 4]);
-      expect(a.maxloc(2, 5), 5);
-      expect(a.maxloc(2, 4), 4);
+      expect(a.maxloc(2, 5), 4);
+      expect(a.maxloc(2, 4), 3);
       expect(a.maxloc(1, 4), 1);
     });
 

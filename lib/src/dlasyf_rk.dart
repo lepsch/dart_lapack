@@ -24,14 +24,14 @@ void dlasyf_rk(
   final int LDW,
   final Box<int> INFO,
 ) {
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final E = E_.having();
   final IPIV = IPIV_.having();
   final W = W_.having(ld: LDW);
 
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const EIGHT = 8.0, SEVTEN = 17.0;
   bool DONE;
@@ -374,7 +374,7 @@ void dlasyf_rk(
     // K is the main loop index, increasing from 1 in steps of 1 or 2
 
     K = 1;
-    while ((K >= NB && NB < N) || K > N) {
+    while (!((K >= NB && NB < N) || K > N)) {
       KSTEP = 1;
       P = K;
 

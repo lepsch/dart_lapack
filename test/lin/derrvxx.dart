@@ -1731,28 +1731,28 @@ void derrvx(final String PATH, final Nout NUNIT, [final TestDriver? test]) {
     });
   } else if (lsamen(2, C2, 'SY')) {
     test?.test('DSYSV', () {
-      srnamc.SRNAMT = 'DSYSV ';
+      srnamc.SRNAMT = 'DSYSV';
       infoc.INFOT = 1;
       dsysv('/', 0, 0, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-      chkxer('DSYSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSYSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dsysv('U', -1, 0, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-      chkxer('DSYSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSYSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 3;
       dsysv('U', 0, -1, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-      chkxer('DSYSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSYSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 5;
       dsysv('U', 2, 0, A, 1, IP, B.asMatrix(), 2, W, 1, INFO);
       chkxer('DSYSV_ROOK', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 8;
       dsysv('U', 2, 0, A, 2, IP, B.asMatrix(), 1, W, 1, INFO);
-      chkxer('DSYSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSYSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 10;
       dsysv('U', 0, 0, A, 1, IP, B.asMatrix(), 1, W, 0, INFO);
-      chkxer('DSYSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSYSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 10;
       dsysv('U', 0, 0, A, 1, IP, B.asMatrix(), 1, W, -2, INFO);
-      chkxer('DSYSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSYSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test?.test('DSYSVX', () {

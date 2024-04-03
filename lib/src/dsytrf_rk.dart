@@ -48,7 +48,6 @@ void dsytrf_rk(
 
   if (INFO.value == 0) {
     // Determine the block size
-
     NB = ilaenv(1, 'DSYTRF_RK', UPLO, N, -1, -1, -1);
     LWKOPT = max(1, N * NB);
     WORK[1] = LWKOPT.toDouble();
@@ -87,8 +86,8 @@ void dsytrf_rk(
         // Factorize columns k-kb+1:k of A and use blocked code to
         // update columns 1:k-kb
 
-        dlasyf_rk(UPLO, K, NB, KB, A, LDA, E, IPIV, WORK.asMatrix(LDWORK),
-            LDWORK, IINFO);
+        dlasyf_rk(
+            UPLO, K, NB, KB, A, LDA, E, IPIV, WORK.asMatrix(), LDWORK, IINFO);
       } else {
         // Use unblocked code to factorize columns 1:k of A
 
@@ -139,7 +138,7 @@ void dsytrf_rk(
         // update columns k+kb:n
 
         dlasyf_rk(UPLO, N - K + 1, NB, KB, A(K, K), LDA, E(K), IPIV(K),
-            WORK.asMatrix(LDWORK), LDWORK, IINFO);
+            WORK.asMatrix(), LDWORK, IINFO);
       } else {
         // Use unblocked code to factorize columns k:n of A
 

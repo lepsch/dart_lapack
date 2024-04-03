@@ -310,13 +310,13 @@ Future<void> dchkaa(
           dchkge(
               DOTYPE.copy(),
               NM,
-              MVAL.copy(),
+              MVAL,
               NN,
-              NVAL.copy(),
+              NVAL,
               NNB2,
-              NBVAL2.copy(),
+              NBVAL2,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               LDA,
@@ -339,7 +339,7 @@ Future<void> dchkaa(
           ddrvge(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -374,13 +374,13 @@ Future<void> dchkaa(
           dchkgb(
               DOTYPE.copy(),
               NM,
-              MVAL.copy(),
+              MVAL,
               NN,
-              NVAL.copy(),
+              NVAL,
               NNB2,
-              NBVAL2.copy(),
+              NBVAL2,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               A(1, 1).asArray(),
@@ -403,7 +403,7 @@ Future<void> dchkaa(
           ddrvgb(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -437,9 +437,9 @@ Future<void> dchkaa(
           dchkgt(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               A(1, 1).asArray(),
@@ -460,7 +460,7 @@ Future<void> dchkaa(
           ddrvgt(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -489,11 +489,11 @@ Future<void> dchkaa(
           dchkpo(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNB2,
-              NBVAL2.copy(),
+              NBVAL2,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               LDA,
@@ -516,7 +516,7 @@ Future<void> dchkaa(
           ddrvpo(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -550,11 +550,11 @@ Future<void> dchkaa(
           dchkps(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNB2,
-              NBVAL2.copy(),
+              NBVAL2,
               NRANK,
-              RANKVAL.copy(),
+              RANKVAL,
               THRESH,
               TSTERR,
               LDA,
@@ -581,9 +581,9 @@ Future<void> dchkaa(
           dchkpp(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               LDA,
@@ -606,7 +606,7 @@ Future<void> dchkaa(
           ddrvpp(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -639,11 +639,11 @@ Future<void> dchkaa(
           dchkpb(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNB2,
-              NBVAL2.copy(),
+              NBVAL2,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               LDA,
@@ -666,7 +666,7 @@ Future<void> dchkaa(
           ddrvpb(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -699,9 +699,9 @@ Future<void> dchkaa(
           dchkpt(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               A(1, 1).asArray(),
@@ -722,7 +722,7 @@ Future<void> dchkaa(
           ddrvpt(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -748,17 +748,17 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SY: Symmetric indefinite matrices - partial pivoting (path=$PATH)',
+          'SY: Symmetric indefinite matrices - partial Bunch-Kaufman pivoting (path=$PATH)',
           () {
         if (TSTCHK) {
           dchksy(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NNB2,
-              NBVAL2.copy(),
+              NBVAL2,
               NNS,
-              NSVAL.copy(),
+              NSVAL,
               THRESH,
               TSTERR,
               LDA,
@@ -781,7 +781,7 @@ Future<void> dchkaa(
           ddrvsy(
               DOTYPE.copy(),
               NN,
-              NVAL.copy(),
+              NVAL,
               NRHS,
               THRESH,
               TSTERR,
@@ -809,11 +809,11 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SR: Symmetric indefinite matrices - bounded pivoting (path=$PATH)',
+          'SR: Symmetric indefinite matrices - bounded Bunch-Kaufman pivoting (path=$PATH)',
           () {
         if (TSTCHK) {
           dchksy_rook(
-              DOTYPE,
+              DOTYPE.copy(),
               NN,
               NVAL,
               NNB2,
@@ -870,58 +870,62 @@ Future<void> dchkaa(
       final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchksy_rk(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            E,
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group(
+          'SK: Symmetric indefinite matrices - bounded Bunch-Kaufman pivoting 2 (path=$PATH)',
+          () {
+        if (TSTCHK) {
+          dchksy_rk(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NNB2,
+              NBVAL2,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              E,
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvsy_rk(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            E,
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvsy_rk(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NRHS,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              E,
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'SA')) {
       // SA:  symmetric indefinite matrices,
       //      with partial (Aasen's) pivoting algorithm
@@ -929,56 +933,60 @@ Future<void> dchkaa(
       final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchksy_aa(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group(
+          'SA: Symmetric indefinite matrices - partial Aasen\'s pivoting (path=$PATH)',
+          () {
+        if (TSTCHK) {
+          dchksy_aa(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NNB2,
+              NBVAL2,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvsy_aa(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvsy_aa(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NRHS,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'S2')) {
       // SA:  symmetric indefinite matrices,
       //      with partial (Aasen's) pivoting algorithm

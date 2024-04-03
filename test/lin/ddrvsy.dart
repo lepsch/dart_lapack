@@ -243,7 +243,7 @@ void ddrvsy(
 
               // Factor the matrix and solve the system using DSYSV.
 
-              srnamc.SRNAMT = 'DSYSV ';
+              srnamc.SRNAMT = 'DSYSV';
               dsysv(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(),
                   LDA, WORK, LWORK, INFO);
 
@@ -269,7 +269,7 @@ void ddrvsy(
               // Check error code from DSYSV .
               test.expect(INFO.value, K);
               if (INFO.value != K) {
-                alaerh(PATH, 'DSYSV ', INFO.value, K, UPLO, N, N, -1, -1, NRHS,
+                alaerh(PATH, 'DSYSV', INFO.value, K, UPLO, N, N, -1, -1, NRHS,
                     IMAT, NFAIL, NERRS, NOUT);
               } else if (INFO.value != 0) {
                 //

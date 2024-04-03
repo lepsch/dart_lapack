@@ -49,7 +49,6 @@ void zsytrf_rk(
 
   if (INFO.value == 0) {
     // Determine the block size
-
     NB = ilaenv(1, 'ZSYTRF_RK', UPLO, N, -1, -1, -1);
     LWKOPT = max(1, N * NB);
     WORK[1] = LWKOPT.toComplex();
@@ -183,8 +182,7 @@ void zsytrf_rk(
       // Increase K and return to the start of the main loop
 
       K += KB.value;
-    }
-
+    } 
     // End Lower
   }
 
