@@ -1055,54 +1055,58 @@ Future<void> dchkaa(
       final NTYPES = 10;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchksp(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group(
+          'SP: Symmetric indefinite packed matrices - partial Bunch-Kaufman pivoting (path=$PATH)',
+          () {
+        if (TSTCHK) {
+          dchksp(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
 
-      if (TSTDRV) {
-        ddrvsp(
-            DOTYPE,
-            NN,
-            NVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9988(PATH);
-      }
+        if (TSTDRV) {
+          ddrvsp(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NRHS,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'TR')) {
       // TR:  triangular matrices
 
