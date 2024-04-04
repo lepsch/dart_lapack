@@ -54,7 +54,6 @@ void ddrvsp(
   const ONE = 1.0, ZERO = 0.0;
   const NTYPES = 10, NTESTS = 6;
   const NFACT = 2;
-  final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const FACTS = ['F', 'N'];
@@ -66,9 +65,7 @@ void ddrvsp(
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I];
-  }
+  final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
 

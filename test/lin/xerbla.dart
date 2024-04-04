@@ -12,15 +12,15 @@ void Function(String SRNAME, int INFO) xerbla(final TestDriver test) {
     infoc.LERR.value = true;
 
     var reason = infoc.INFOT != 0
-        ? 'XERBLA was called from ${srnamc.SRNAMT.trim()} with INFO = ${INFO.i6} instead of ${infoc.INFOT.i2}'
-        : 'On entry to ${SRNAME.trim()} parameter number ${INFO.i6} had an illegal value';
+        ? 'XERBLA was called from ${srnamc.SRNAMT} with INFO = ${INFO.i6} instead of ${infoc.INFOT.i2}'
+        : 'On entry to $SRNAME parameter number ${INFO.i6} had an illegal value';
     test.expect(INFO, infoc.INFOT, reason: reason);
     if (INFO != infoc.INFOT) {
       infoc.NOUT.println(' *** $reason ***');
       infoc.OK.value = false;
     }
     reason =
-        'XERBLA was called with SRNAME = ${SRNAME.trim()} instead of ${srnamc.SRNAMT.trim().a9}';
+        'XERBLA was called with SRNAME = $SRNAME instead of ${srnamc.SRNAMT.a9}';
     test.expect(SRNAME, srnamc.SRNAMT, reason: reason);
     if (SRNAME != srnamc.SRNAMT) {
       infoc.NOUT.println(' *** $reason ***');

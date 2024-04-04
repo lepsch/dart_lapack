@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
 import '../test_driver.dart';
@@ -54,13 +55,10 @@ void dchksy_aa_2stage(
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
   const ZERO = 0.0;
-  const NTYPES = 10;
-  const NTESTS = 9;
-  final ISEED = Array<int>(4);
+  const NTYPES = 10, NTESTS = 9;
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const UPLOS = ['U', 'L'];
-  final INFO = Box(0);
 
   // Initialize constants and the random number seed.
 
@@ -73,9 +71,7 @@ void dchksy_aa_2stage(
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I];
-  }
+  final ISEED = Array.fromList(ISEEDY);
 
   test.group('error exits', () {
     // Test the error exits
@@ -92,8 +88,7 @@ void dchksy_aa_2stage(
   });
 
   // Do for each value of N in NVAL
-
-  for (var IN = 1; IN <= NN; IN++) {
+  for (final IN in 1.through(NN)) {
     final N = NVAL[IN];
     if (N > NMAX) {
       NFAIL++;
@@ -102,192 +97,200 @@ void dchksy_aa_2stage(
       continue;
     }
     final LDA = max(N, 1);
-    final XTYPE = 'N';
+    const XTYPE = 'N';
     final NIMAT = N <= 0 ? 1 : NTYPES;
 
     // Do for each value of matrix type IMAT
-    for (var IMAT = 1; IMAT <= NIMAT; IMAT++) {
+    for (final IMAT in 1.through(NIMAT)) {
       // Do the tests only if DOTYPE( IMAT ) is true.
-      if (!DOTYPE[IMAT]) continue;
+      final skip = !DOTYPE[IMAT];
 
       // Skip types 3, 4, 5, or 6 if the matrix size is too small.
       final ZEROT = IMAT >= 3 && IMAT <= 6;
       if (ZEROT && N < IMAT - 2) continue;
 
-      // Do first for UPLO = 'U', then for UPLO = 'L'
-      for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
-        final UPLO = UPLOS[IUPLO];
+      test('DCHKSY_AA_2STAGE (IN=$IN IMAT=$IMAT)', () {
+        final INFO = Box(0);
 
-        // Begin generate the test matrix A.
+        // Do first for UPLO = 'U', then for UPLO = 'L'
+        for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
+          final UPLO = UPLOS[IUPLO - 1];
 
-        // Set up parameters with DLATB4 for the matrix generator
-        // based on the type of matrix to be generated.
+          // Begin generate the test matrix A.
 
-        final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
-            dlatb4(MATPATH, IMAT, N, N);
+          // Set up parameters with DLATB4 for the matrix generator
+          // based on the type of matrix to be generated.
+          final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
+              dlatb4(MATPATH, IMAT, N, N);
 
-        // Generate a matrix with DLATMS.
+          // Generate a matrix with DLATMS.
+          srnamc.SRNAMT = 'DLATMS';
+          dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
+              UPLO, A.asMatrix(), LDA, WORK, INFO);
 
-        srnamc.SRNAMT = 'DLATMS';
-        dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU,
-            UPLO, A.asMatrix(), LDA, WORK, INFO);
+          // Check error code from DLATMS and handle error.
+          test.expect(INFO.value, 0);
+          if (INFO.value != 0) {
+            alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
+                NFAIL, NERRS, NOUT);
 
-        // Check error code from DLATMS and handle error.
-
-        if (INFO.value != 0) {
-          alaerh(PATH, 'DLATMS', INFO.value, 0, UPLO, N, N, -1, -1, -1, IMAT,
-              NFAIL, NERRS, NOUT);
-
-          // Skip all tests for this generated matrix
-          continue;
-        }
-
-        // For matrix types 3-6, zero one or more rows and
-        // columns of the matrix to test that INFO is returned
-        // correctly.
-
-        int IZERO;
-        if (ZEROT) {
-          if (IMAT == 3) {
-            IZERO = 1;
-          } else if (IMAT == 4) {
-            IZERO = N;
-          } else {
-            IZERO = N ~/ 2 + 1;
+            // Skip all tests for this generated matrix
+            continue;
           }
 
-          if (IMAT < 6) {
-            // Set row and column IZERO to zero.
+          // For matrix types 3-6, zero one or more rows and
+          // columns of the matrix to test that INFO is returned
+          // correctly.
 
-            if (IUPLO == 1) {
-              var IOFF = (IZERO - 1) * LDA;
-              for (var I = 1; I <= IZERO - 1; I++) {
-                A[IOFF + I] = ZERO;
-              }
-              IOFF += IZERO;
-              for (var I = IZERO; I <= N; I++) {
-                A[IOFF] = ZERO;
-                IOFF += LDA;
-              }
-            } else {
-              var IOFF = IZERO;
-              for (var I = 1; I <= IZERO - 1; I++) {
-                A[IOFF] = ZERO;
-                IOFF += LDA;
-              }
-              IOFF -= IZERO;
-              for (var I = IZERO; I <= N; I++) {
-                A[IOFF + I] = ZERO;
-              }
-            }
-          } else {
-            if (IUPLO == 1) {
-              // Set the first IZERO rows and columns to zero.
-
-              var IOFF = 0;
-              for (var J = 1; J <= N; J++) {
-                final I2 = min(J, IZERO);
-                for (var I = 1; I <= I2; I++) {
-                  A[IOFF + I] = ZERO;
-                }
-                IOFF += LDA;
-              }
+          int IZERO;
+          if (ZEROT) {
+            if (IMAT == 3) {
               IZERO = 1;
+            } else if (IMAT == 4) {
+              IZERO = N;
             } else {
-              // Set the last IZERO rows and columns to zero.
+              IZERO = N ~/ 2 + 1;
+            }
 
-              var IOFF = 0;
-              for (var J = 1; J <= N; J++) {
-                final I1 = max(J, IZERO);
-                for (var I = I1; I <= N; I++) {
+            if (IMAT < 6) {
+              // Set row and column IZERO to zero.
+
+              if (IUPLO == 1) {
+                var IOFF = (IZERO - 1) * LDA;
+                for (var I = 1; I <= IZERO - 1; I++) {
                   A[IOFF + I] = ZERO;
                 }
-                IOFF += LDA;
+                IOFF += IZERO;
+                for (var I = IZERO; I <= N; I++) {
+                  A[IOFF] = ZERO;
+                  IOFF += LDA;
+                }
+              } else {
+                var IOFF = IZERO;
+                for (var I = 1; I <= IZERO - 1; I++) {
+                  A[IOFF] = ZERO;
+                  IOFF += LDA;
+                }
+                IOFF -= IZERO;
+                for (var I = IZERO; I <= N; I++) {
+                  A[IOFF + I] = ZERO;
+                }
+              }
+            } else {
+              if (IUPLO == 1) {
+                // Set the first IZERO rows and columns to zero.
+
+                var IOFF = 0;
+                for (var J = 1; J <= N; J++) {
+                  final I2 = min(J, IZERO);
+                  for (var I = 1; I <= I2; I++) {
+                    A[IOFF + I] = ZERO;
+                  }
+                  IOFF += LDA;
+                }
+                IZERO = 1;
+              } else {
+                // Set the last IZERO rows and columns to zero.
+
+                var IOFF = 0;
+                for (var J = 1; J <= N; J++) {
+                  final I1 = max(J, IZERO);
+                  for (var I = I1; I <= N; I++) {
+                    A[IOFF + I] = ZERO;
+                  }
+                  IOFF += LDA;
+                }
               }
             }
+          } else {
+            IZERO = 0;
           }
-        } else {
-          IZERO = 0;
-        }
 
-        // End generate the test matrix A.
+          // End generate the test matrix A.
 
-        // Do for each value of NB in NBVAL
-        for (var INB = 1; INB <= NNB; INB++) {
-          // Set the optimal blocksize, which will be later
-          // returned by ILAENV.
-          final NB = NBVAL[INB];
-          xlaenv(1, NB);
+          // Do for each value of NB in NBVAL
+          for (var INB = 1; INB <= NNB; INB++) {
+            // Set the optimal blocksize, which will be later
+            // returned by ILAENV.
+            final NB = NBVAL[INB];
+            xlaenv(1, NB);
 
-          // Copy the test matrix A into matrix AFAC which
-          // will be factorized in place. This is needed to
-          // preserve the test matrix A for subsequent tests.
-          dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
+            // Copy the test matrix A into matrix AFAC which
+            // will be factorized in place. This is needed to
+            // preserve the test matrix A for subsequent tests.
+            dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
 
-          // Compute the L*D*L**T or U*D*U**T factorization of the
-          // matrix. IWORK stores details of the interchanges and
-          // the block structure of D. AINV is a work array for
-          // block factorization, LWORK is the length of AINV.
+            // Compute the L*D*L**T or U*D*U**T factorization of the
+            // matrix. IWORK stores details of the interchanges and
+            // the block structure of D. AINV is a work array for
+            // block factorization, LWORK is the length of AINV.
+            srnamc.SRNAMT = 'DSYTRF_AA_2STAGE';
+            final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
+            dsytrf_aa_2stage(
+                UPLO,
+                N,
+                AFAC.asMatrix(),
+                LDA,
+                AINV,
+                max(1, (3 * NB + 1) * N),
+                IWORK,
+                IWORK(1 + N),
+                WORK,
+                LWORK,
+                INFO);
 
-          srnamc.SRNAMT = 'DSYTRF_AA_2STAGE';
-          final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
-          dsytrf_aa_2stage(UPLO, N, AFAC.asMatrix(), LDA, AINV,
-              max(1, (3 * NB + 1) * N), IWORK, IWORK(1 + N), WORK, LWORK, INFO);
-
-          // Adjust the expected value of INFO to account for
-          // pivoting.
-
-          var K = 0;
-          if (IZERO > 0) {
-            var J = 1;
-            K = IZERO;
-            while (true) {
-              if (J == K) {
-                K = IWORK[J];
-              } else if (IWORK[J] == K) {
-                K = J;
+            // Adjust the expected value of INFO to account for pivoting.
+            var K = 0;
+            if (IZERO > 0) {
+              var J = 1;
+              K = IZERO;
+              while (true) {
+                if (J == K) {
+                  K = IWORK[J];
+                } else if (IWORK[J] == K) {
+                  K = J;
+                }
+                if (J < K) {
+                  J++;
+                  continue;
+                }
+                break;
               }
-              if (J < K) {
-                J++;
-                continue;
+            }
+
+            // Check error code from DSYTRF and handle error.
+            test.expect(INFO.value, K);
+            if (INFO.value != K) {
+              alaerh(PATH, 'DSYTRF_AA_2STAGE', INFO.value, K, UPLO, N, N, -1,
+                  -1, NB, IMAT, NFAIL, NERRS, NOUT);
+            }
+
+            // +    TEST 1
+            // Reconstruct matrix from factors and compute residual.
+
+            // CALL DSYT01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
+            //                 AINV, LDA, RWORK, RESULT( 1 ) )
+            // NT = 1
+            const NT = 0;
+
+            // Print information about the tests that did not pass
+            // the threshold.
+            for (var K = 1; K <= NT; K++) {
+              final reason =
+                  ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}';
+              test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(reason);
+                NFAIL++;
               }
-              break;
             }
-          }
+            NRUN += NT;
 
-          // Check error code from DSYTRF and handle error.
+            // Skip solver test if INFO is not 0.
+            if (INFO.value != 0) continue;
 
-          if (INFO.value != K) {
-            alaerh(PATH, 'DSYTRF_AA_2STAGE', INFO.value, K, UPLO, N, N, -1, -1,
-                NB, IMAT, NFAIL, NERRS, NOUT);
-          }
-
-          // +    TEST 1
-          // Reconstruct matrix from factors and compute residual.
-
-          // CALL DSYT01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
-          //                 AINV, LDA, RWORK, RESULT( 1 ) )
-          // NT = 1
-          const NT = 0;
-
-          // Print information about the tests that did not pass
-          // the threshold.
-
-          for (var K = 1; K <= NT; K++) {
-            if (RESULT[K] >= THRESH) {
-              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              NOUT.println(
-                  ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NB =${NB.i4}, type ${IMAT.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
-              NFAIL++;
-            }
-          }
-          NRUN += NT;
-
-          // Skip solver test if INFO is not 0.
-
-          if (INFO.value == 0) {
             // Do for each value of NRHS in NSVAL.
-
             for (var IRHS = 1; IRHS <= NNS; IRHS++) {
               final NRHS = NSVAL[IRHS];
 
@@ -296,7 +299,6 @@ void dchksy_aa_2stage(
 
               // Choose a set of NRHS random solution vectors
               // stored in XACT and set up the right hand side B
-
               srnamc.SRNAMT = 'DLARHS';
               dlarhs(
                   MATPATH,
@@ -334,7 +336,7 @@ void dchksy_aa_2stage(
                   INFO);
 
               // Check error code from DSYTRS and handle error.
-
+              test.expect(INFO.value, 0);
               if (INFO.value != 0) {
                 if (IZERO == 0) {
                   alaerh(PATH, 'DSYTRS_AA_2STAGE', INFO.value, 0, UPLO, N, N,
@@ -345,33 +347,31 @@ void dchksy_aa_2stage(
                     'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
 
                 // Compute the residual for the solution
-
                 dpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
                     WORK.asMatrix(), LDA, RWORK, RESULT(2));
 
                 // Print information about the tests that did not pass
                 // the threshold.
-
                 for (var K = 2; K <= 2; K++) {
+                  final reason =
+                      ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}';
+                  test.expect(RESULT[K], lessThan(THRESH), reason: reason);
                   if (RESULT[K] >= THRESH) {
                     if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                    NOUT.println(
-                        ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
+                    NOUT.println(reason);
                     NFAIL++;
                   }
                 }
               }
               NRUN++;
-
               // End do for each value of NRHS in NSVAL.
             }
           }
         }
-      }
+      }, skip: skip);
     }
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

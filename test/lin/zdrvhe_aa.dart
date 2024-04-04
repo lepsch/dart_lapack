@@ -48,38 +48,30 @@ void zdrvhe_aa(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
-  const NTYPES = 10, NTESTS = 3;
-  const NFACT = 2;
-  final ISEED = Array<int>(4);
+  const NTYPES = 10, NTESTS = 3, NFACT = 2;
   final RESULT = Array<double>(NTESTS);
-  final ISEEDY = Array.fromList([1988, 1989, 1990, 1991]);
+  final ISEEDY = [1988, 1989, 1990, 1991];
   const UPLOS = ['U', 'L']; //, FACTS = ['F', 'N'];
   final INFO = Box(0), NERRS = Box(0);
 
   // Initialize constants and the random number seed.
 
   // Test path
-
   final PATH = '${'Zomplex precision'[0]}HA';
 
   // Path to generate matrices
-
   final MATPATH = '${'Zomplex precision'[0]}HE';
 
   var NRUN = 0;
   var NFAIL = 0;
   NERRS.value = 0;
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I];
-  }
+  final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits
-
+  // Test the error exits 
   if (TSTERR) zerrvx(PATH, NOUT);
   infoc.INFOT = 0;
 
   // Set the block size and minimum block size for testing.
-
   final NB = 1;
   final NBMIN = 2;
   xlaenv(1, NB);

@@ -282,76 +282,76 @@ void dchksy_aa(
             NRUN += NT;
 
             // Skip solver test if INFO is not 0.
-            if (INFO.value == 0) {
-              // Do for each value of NRHS in NSVAL.
-              for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-                final NRHS = NSVAL[IRHS];
+            if (INFO.value != 0) continue;
 
-                // +    TEST 2 (Using TRS)
-                // Solve and compute residual for  A * X = B.
+            // Do for each value of NRHS in NSVAL.
+            for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+              final NRHS = NSVAL[IRHS];
 
-                // Choose a set of NRHS random solution vectors
-                // stored in XACT and set up the right hand side B
+              // +    TEST 2 (Using TRS)
+              // Solve and compute residual for  A * X = B.
 
-                srnamc.SRNAMT = 'DLARHS';
-                dlarhs(
-                    MATPATH,
-                    XTYPE,
-                    UPLO,
-                    ' ',
-                    N,
-                    N,
-                    KL,
-                    KU,
-                    NRHS,
-                    A.asMatrix(),
-                    LDA,
-                    XACT.asMatrix(),
-                    LDA,
-                    B.asMatrix(),
-                    LDA,
-                    ISEED,
-                    INFO);
-                dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+              // Choose a set of NRHS random solution vectors
+              // stored in XACT and set up the right hand side B
 
-                srnamc.SRNAMT = 'DSYTRS_AA';
-                LWORK = max(1, 3 * N - 2);
-                dsytrs_aa(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK,
-                    X.asMatrix(), LDA, WORK, LWORK, INFO);
+              srnamc.SRNAMT = 'DLARHS';
+              dlarhs(
+                  MATPATH,
+                  XTYPE,
+                  UPLO,
+                  ' ',
+                  N,
+                  N,
+                  KL,
+                  KU,
+                  NRHS,
+                  A.asMatrix(),
+                  LDA,
+                  XACT.asMatrix(),
+                  LDA,
+                  B.asMatrix(),
+                  LDA,
+                  ISEED,
+                  INFO);
+              dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-                // Check error code from DSYTRS and handle error.
-                test.expect(INFO.value, 0);
-                if (INFO.value != 0) {
-                  if (IZERO == 0) {
-                    alaerh(PATH, 'DSYTRS_AA', INFO.value, 0, UPLO, N, N, -1, -1,
-                        NRHS, IMAT, NFAIL, NERRS, NOUT);
-                  }
-                } else {
-                  dlacpy(
-                      'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              srnamc.SRNAMT = 'DSYTRS_AA';
+              LWORK = max(1, 3 * N - 2);
+              dsytrs_aa(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK,
+                  X.asMatrix(), LDA, WORK, LWORK, INFO);
 
-                  // Compute the residual for the solution
+              // Check error code from DSYTRS and handle error.
+              if (INFO.value != 0) {
+                test.expect(IZERO, isNonZero);
+                if (IZERO == 0) {
+                  alaerh(PATH, 'DSYTRS_AA', INFO.value, 0, UPLO, N, N, -1, -1,
+                      NRHS, IMAT, NFAIL, NERRS, NOUT);
+                }
+              } else {
+                dlacpy(
+                    'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
 
-                  dpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
-                      WORK.asMatrix(), LDA, RWORK, RESULT(2));
+                // Compute the residual for the solution
 
-                  // Print information about the tests that did not pass
-                  // the threshold.
+                dpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                    WORK.asMatrix(), LDA, RWORK, RESULT(2));
 
-                  for (var K = 2; K <= 2; K++) {
-                    final reason =
-                        ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}';
-                    test.expect(RESULT[K], lessThan(THRESH), reason: reason);
-                    if (RESULT[K] >= THRESH) {
-                      if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                      NOUT.println(reason);
-                      NFAIL++;
-                    }
+                // Print information about the tests that did not pass
+                // the threshold.
+
+                for (var K = 2; K <= 2; K++) {
+                  final reason =
+                      ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}';
+                  test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                  if (RESULT[K] >= THRESH) {
+                    if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                    NOUT.println(reason);
+                    NFAIL++;
                   }
                 }
-                NRUN++; 
-                // End do for each value of NRHS in NSVAL.
               }
+              NRUN++;
+              // End do for each value of NRHS in NSVAL.
             }
           }
         }

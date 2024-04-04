@@ -290,77 +290,57 @@ void zchkhe_aa(
           NRUN += NT;
 
           // Skip solver test if INFO is not 0.
+          if (INFO.value != 0) continue;
 
-          if (INFO.value == 0) {
-            // Do for each value of NRHS in NSVAL.
+          // Do for each value of NRHS in NSVAL.
+          for (var IRHS = 1; IRHS <= NNS; IRHS++) {
+            final NRHS = NSVAL[IRHS];
 
-            for (var IRHS = 1; IRHS <= NNS; IRHS++) {
-              final NRHS = NSVAL[IRHS];
+            // +    TEST 2 (Using TRS)
+            // Solve and compute residual for  A * X = B.
 
-              // +    TEST 2 (Using TRS)
-              // Solve and compute residual for  A * X = B.
+            // Choose a set of NRHS random solution vectors
+            // stored in XACT and set up the right hand side B 
+            srnamc.SRNAMT = 'ZLARHS';
+            zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(),
+                LDA, XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);
+            zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-              // Choose a set of NRHS random solution vectors
-              // stored in XACT and set up the right hand side B
+            srnamc.SRNAMT = 'ZHETRS_AA';
+            LWORK = max(1, 3 * N - 2);
+            zhetrs_aa(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(),
+                LDA, WORK, LWORK, INFO);
 
-              srnamc.SRNAMT = 'ZLARHS';
-              zlarhs(
-                  MATPATH,
-                  XTYPE,
-                  UPLO,
-                  ' ',
-                  N,
-                  N,
-                  KL,
-                  KU,
-                  NRHS,
-                  A.asMatrix(),
-                  LDA,
-                  XACT.asMatrix(),
-                  LDA,
-                  B.asMatrix(),
-                  LDA,
-                  ISEED,
-                  INFO);
-              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
+            // Check error code from ZHETRS and handle error.
 
-              srnamc.SRNAMT = 'ZHETRS_AA';
-              LWORK = max(1, 3 * N - 2);
-              zhetrs_aa(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK,
-                  X.asMatrix(), LDA, WORK, LWORK, INFO);
+            if (INFO.value != 0) {
+              if (IZERO == 0) {
+                alaerh(PATH, 'ZHETRS_AA', INFO.value, 0, UPLO, N, N, -1, -1,
+                    NRHS, IMAT, NFAIL, NERRS, NOUT);
+              }
+            } else {
+              zlacpy('Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
 
-              // Check error code from ZHETRS and handle error.
+              // Compute the residual for the solution
 
-              if (INFO.value != 0) {
-                if (IZERO == 0) {
-                  alaerh(PATH, 'ZHETRS_AA', INFO.value, 0, UPLO, N, N, -1, -1,
-                      NRHS, IMAT, NFAIL, NERRS, NOUT);
-                }
-              } else {
-                zlacpy(
-                    'Full', N, NRHS, B.asMatrix(), LDA, WORK.asMatrix(), LDA);
+              zpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
+                  WORK.asMatrix(), LDA, RWORK, RESULT(2));
 
-                // Compute the residual for the solution
+              // Print information about the tests that did not pass
+              // the threshold.
 
-                zpot02(UPLO, N, NRHS, A.asMatrix(), LDA, X.asMatrix(), LDA,
-                    WORK.asMatrix(), LDA, RWORK, RESULT(2));
-
-                // Print information about the tests that did not pass
-                // the threshold.
-
-                for (var K = 2; K <= 2; K++) {
-                  if (RESULT[K] >= THRESH) {
-                    if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                    NOUT.println(
-                        ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
-                    NFAIL++;
-                  }
+              for (var K = 2; K <= 2; K++) {
+                if (RESULT[K] >= THRESH) {
+                  if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                  NOUT.println(
+                      ' UPLO = \'${UPLO.a1}\', N =${N.i5}, NRHS=${NRHS.i3}, type ${IMAT.i2}, test(${K.i2}) =${RESULT[K].g12_5}');
+                  NFAIL++;
                 }
               }
-              NRUN++;
-
-              // End do for each value of NRHS in NSVAL.
             }
+            NRUN++;
+
+            // End do for each value of NRHS in NSVAL.
           }
         }
       }

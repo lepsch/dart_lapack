@@ -52,7 +52,6 @@ void ddrvsy_aa(
   const ZERO = 0.0;
   const NTYPES = 10, NTESTS = 3;
   const NFACT = 2;
-  final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const UPLOS = ['U', 'L']; // FACTS = ['F', 'N'];
@@ -61,22 +60,17 @@ void ddrvsy_aa(
   // Initialize constants and the random number seed.
 
   // Test path
-
   final PATH = '${'Double precision'[0]}SA';
 
   // Path to generate matrices
-
   final MATPATH = '${'Double precision'[0]}SY';
 
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I];
-  }
+  final ISEED = Array.fromList(ISEEDY);
 
   // Test the error exits
-
   if (TSTERR) derrvx(PATH, NOUT, test);
   infoc.INFOT = 0;
 
@@ -280,7 +274,6 @@ void ddrvsy_aa(
     }
   }
 
-  // Print a summary of the results.
-
+  // Print a summary of the results. 
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }
