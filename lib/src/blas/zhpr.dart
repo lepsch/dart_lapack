@@ -30,7 +30,7 @@ void zhpr(
     INFO = 5;
   }
   if (INFO != 0) {
-    xerbla('ZHPR  ', INFO);
+    xerbla('ZHPR', INFO);
     return;
   }
 

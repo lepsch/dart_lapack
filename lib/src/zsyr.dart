@@ -35,7 +35,7 @@ void zsyr(
     INFO = 7;
   }
   if (INFO != 0) {
-    xerbla('ZSYR  ', INFO);
+    xerbla('ZSYR', INFO);
     return;
   }
 

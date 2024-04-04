@@ -55,7 +55,7 @@ void dla_gbamv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('DLA_GBAMV ', INFO);
+    xerbla('DLA_GBAMV', INFO);
     return;
   }
 

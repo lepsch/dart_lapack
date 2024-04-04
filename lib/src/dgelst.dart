@@ -97,7 +97,7 @@ void dgelst(
   }
 
   if (INFO.value != 0) {
-    xerbla('DGELST ', -INFO.value);
+    xerbla('DGELST', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

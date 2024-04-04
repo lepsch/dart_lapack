@@ -37,7 +37,7 @@ void dspsv(
     INFO.value = -7;
   }
   if (INFO.value != 0) {
-    xerbla('DSPSV ', -INFO.value);
+    xerbla('DSPSV', -INFO.value);
     return;
   }
 

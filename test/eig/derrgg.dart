@@ -554,100 +554,100 @@ void derrgg(final String PATH, final Nout NUNIT, final TestDriver test) {
       lsamen(3, PATH, 'DGX') ||
       lsamen(3, PATH, 'DXV')) {
     test('DGGES', () {
-      srnamc.SRNAMT = 'DGGES ';
+      srnamc.SRNAMT = 'DGGES';
       infoc.INFOT = 1;
       dgges('/', 'N', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dgges('N', '/', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dgges('N', 'V', '/', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dgges('N', 'V', 'S', dlctes, -1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 7;
       dgges('N', 'V', 'S', dlctes, 1, A, 0, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 9;
       dgges('N', 'V', 'S', dlctes, 1, A, 1, B, 0, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 15;
       dgges('N', 'V', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 0, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 15;
       dgges('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 1, U, 2,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 17;
       dgges('N', 'V', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 0,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 17;
       dgges('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 19;
       dgges('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2,
           W, 1, BW, INFO);
-      chkxer('DGGES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES', infoc.INFOT, NOUT, LERR, OK);
       NT += 11;
     });
 
     test('DGGES3', () {
-      srnamc.SRNAMT = 'DGGES3 ';
+      srnamc.SRNAMT = 'DGGES3';
       infoc.INFOT = 1;
       dgges3('/', 'N', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dgges3('N', '/', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dgges3('N', 'V', '/', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dgges3('N', 'V', 'S', dlctes, -1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U,
           1, W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 7;
       dgges3('N', 'V', 'S', dlctes, 1, A, 0, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 9;
       dgges3('N', 'V', 'S', dlctes, 1, A, 1, B, 0, SDIM, R1, R2, R3, Q, 1, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 15;
       dgges3('N', 'V', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 0, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 15;
       dgges3('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 1, U, 2,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 17;
       dgges3('N', 'V', 'S', dlctes, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 0,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 17;
       dgges3('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 1,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 19;
       dgges3('V', 'V', 'S', dlctes, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2,
           W, 1, BW, INFO);
-      chkxer('DGGES3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGES3', infoc.INFOT, NOUT, LERR, OK);
       NT += 11;
     });
 
@@ -709,37 +709,37 @@ void derrgg(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
 
     test('DGGEV', () {
-      srnamc.SRNAMT = 'DGGEV ';
+      srnamc.SRNAMT = 'DGGEV';
       infoc.INFOT = 1;
       dggev('/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dggev('N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dggev('V', 'V', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dggev('V', 'V', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 7;
       dggev('V', 'V', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 12;
       dggev('N', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 12;
       dggev('V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 14;
       dggev('V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 0, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 14;
       dggev('V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 16;
       dggev('V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV', infoc.INFOT, NOUT, LERR, OK);
       NT += 10;
     });
 
@@ -749,37 +749,37 @@ void derrgg(final String PATH, final Nout NUNIT, final TestDriver test) {
       xlaenv(14, 13);
       xlaenv(15, 2);
       xlaenv(17, 10);
-      srnamc.SRNAMT = 'DGGEV3 ';
+      srnamc.SRNAMT = 'DGGEV3';
       infoc.INFOT = 1;
       dggev3('/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dggev3('N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dggev3('V', 'V', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dggev3('V', 'V', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 7;
       dggev3('V', 'V', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 12;
       dggev3('N', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 12;
       dggev3('V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 14;
       dggev3('V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 0, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 14;
       dggev3('V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 16;
       dggev3('V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO);
-      chkxer('DGGEV3 ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGGEV3', infoc.INFOT, NOUT, LERR, OK);
       NT += 10;
     });
 

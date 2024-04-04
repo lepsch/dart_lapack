@@ -309,7 +309,7 @@ void ddrvpb(
                       LDAB);
                   dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-                  srnamc.SRNAMT = 'DPBSV ';
+                  srnamc.SRNAMT = 'DPBSV';
                   dpbsv(UPLO, N, KD, NRHS, AFAC.asMatrix(), LDAB, X.asMatrix(),
                       LDA, INFO);
 

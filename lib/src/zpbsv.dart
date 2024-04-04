@@ -42,7 +42,7 @@ void zpbsv(
     INFO.value = -8;
   }
   if (INFO.value != 0) {
-    xerbla('ZPBSV ', -INFO.value);
+    xerbla('ZPBSV', -INFO.value);
     return;
   }
 

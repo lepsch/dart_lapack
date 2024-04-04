@@ -49,7 +49,7 @@ void zlavsy_rook(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('ZLAVSY_ROOK ', -INFO.value);
+    xerbla('ZLAVSY_ROOK', -INFO.value);
     return;
   }
 

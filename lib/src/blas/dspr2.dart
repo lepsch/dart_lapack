@@ -33,7 +33,7 @@ void dspr2(
     INFO = 7;
   }
   if (INFO != 0) {
-    xerbla('DSPR2 ', INFO);
+    xerbla('DSPR2', INFO);
     return;
   }
 

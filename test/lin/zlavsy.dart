@@ -42,7 +42,7 @@ void zlavsy(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('ZLAVSY ', -INFO.value);
+    xerbla('ZLAVSY', -INFO.value);
     return;
   }
 

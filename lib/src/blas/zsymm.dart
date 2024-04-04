@@ -57,7 +57,7 @@ void zsymm(
     INFO = 12;
   }
   if (INFO != 0) {
-    xerbla('ZSYMM ', INFO);
+    xerbla('ZSYMM', INFO);
     return;
   }
 

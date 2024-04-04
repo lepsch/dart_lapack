@@ -80,7 +80,7 @@ void zheev_2stage(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZHEEV_2STAGE ', -INFO.value);
+    xerbla('ZHEEV_2STAGE', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

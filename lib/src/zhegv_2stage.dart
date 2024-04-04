@@ -74,7 +74,7 @@ void zhegv_2stage(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZHEGV_2STAGE ', -INFO.value);
+    xerbla('ZHEGV_2STAGE', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

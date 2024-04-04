@@ -52,19 +52,19 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
 
   if (lsamen(2, C2, 'GE')) {
     test('DGESV', () {
-      srnamc.SRNAMT = 'DGESV ';
+      srnamc.SRNAMT = 'DGESV';
       infoc.INFOT = 1;
       dgesv(-1, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGESV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGESV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dgesv(0, -1, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGESV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGESV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 4;
       dgesv(2, 1, A, 1, IP, B.asMatrix(), 2, INFO);
-      chkxer('DGESV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGESV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 7;
       dgesv(2, 1, A, 2, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGESV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGESV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DGESVX', () {
@@ -119,25 +119,25 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'GB')) {
     test('DGBSV', () {
-      srnamc.SRNAMT = 'DGBSV ';
+      srnamc.SRNAMT = 'DGBSV';
       infoc.INFOT = 1;
       dgbsv(-1, 0, 0, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dgbsv(1, -1, 0, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 3;
       dgbsv(1, 0, -1, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 4;
       dgbsv(0, 0, 0, -1, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 6;
       dgbsv(1, 1, 1, 0, A, 3, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 9;
       dgbsv(2, 0, 0, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-      chkxer('DGBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGBSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DGBSVX', () {
@@ -200,19 +200,19 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'GT')) {
     test('DGTSV', () {
-      srnamc.SRNAMT = 'DGTSV ';
+      srnamc.SRNAMT = 'DGTSV';
       infoc.INFOT = 1;
       dgtsv(-1, 0, A(1, 1).asArray(), A(1, 2).asArray(), A(1, 3).asArray(),
           B.asMatrix(), 1, INFO);
-      chkxer('DGTSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGTSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dgtsv(0, -1, A(1, 1).asArray(), A(1, 2).asArray(), A(1, 3).asArray(),
           B.asMatrix(), 1, INFO);
-      chkxer('DGTSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGTSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 7;
       dgtsv(2, 0, A(1, 1).asArray(), A(1, 2).asArray(), A(1, 3).asArray(),
           B.asMatrix(), 1, INFO);
-      chkxer('DGTSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DGTSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DGTSVX', () {
@@ -370,22 +370,22 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'PO')) {
     test('DPOSV', () {
-      srnamc.SRNAMT = 'DPOSV ';
+      srnamc.SRNAMT = 'DPOSV';
       infoc.INFOT = 1;
       dposv('/', 0, 0, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPOSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPOSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dposv('U', -1, 0, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPOSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPOSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 3;
       dposv('U', 0, -1, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPOSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPOSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 5;
       dposv('U', 2, 0, A, 1, B.asMatrix(), 2, INFO);
-      chkxer('DPOSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPOSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 7;
       dposv('U', 2, 0, A, 2, B.asMatrix(), 1, INFO);
-      chkxer('DPOSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPOSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DPOSVX', () {
@@ -435,19 +435,19 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'PP')) {
     test('DPPSV', () {
-      srnamc.SRNAMT = 'DPPSV ';
+      srnamc.SRNAMT = 'DPPSV';
       infoc.INFOT = 1;
       dppsv('/', 0, 0, A.asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPPSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dppsv('U', -1, 0, A.asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPPSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 3;
       dppsv('U', 0, -1, A.asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPPSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 6;
       dppsv('U', 2, 0, A.asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPPSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DPPSVX', () {
@@ -489,25 +489,25 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'PB')) {
     test('DPBSV', () {
-      srnamc.SRNAMT = 'DPBSV ';
+      srnamc.SRNAMT = 'DPBSV';
       infoc.INFOT = 1;
       dpbsv('/', 0, 0, 0, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dpbsv('U', -1, 0, 0, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 3;
       dpbsv('U', 1, -1, 0, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 4;
       dpbsv('U', 0, 0, -1, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 6;
       dpbsv('U', 1, 1, 0, A, 1, B.asMatrix(), 2, INFO);
-      chkxer('DPBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPBSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 8;
       dpbsv('U', 2, 0, 0, A, 1, B.asMatrix(), 1, INFO);
-      chkxer('DPBSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPBSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DPBSVX', () {
@@ -561,16 +561,16 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'PT')) {
     test('DPTSV', () {
-      srnamc.SRNAMT = 'DPTSV ';
+      srnamc.SRNAMT = 'DPTSV';
       infoc.INFOT = 1;
       dptsv(-1, 0, A(1, 1).asArray(), A(1, 2).asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPTSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPTSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dptsv(0, -1, A(1, 1).asArray(), A(1, 2).asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPTSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPTSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 6;
       dptsv(2, 0, A(1, 1).asArray(), A(1, 2).asArray(), B.asMatrix(), 1, INFO);
-      chkxer('DPTSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DPTSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DPTSVX', () {
@@ -852,19 +852,19 @@ void derrvx(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
   } else if (lsamen(2, C2, 'SP')) {
     test('DSPSV', () {
-      srnamc.SRNAMT = 'DSPSV ';
+      srnamc.SRNAMT = 'DSPSV';
       infoc.INFOT = 1;
       dspsv('/', 0, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-      chkxer('DSPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSPSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 2;
       dspsv('U', -1, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-      chkxer('DSPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSPSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 3;
       dspsv('U', 0, -1, A.asArray(), IP, B.asMatrix(), 1, INFO);
-      chkxer('DSPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSPSV', infoc.INFOT, NOUT, LERR, OK, test);
       infoc.INFOT = 7;
       dspsv('U', 2, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-      chkxer('DSPSV ', infoc.INFOT, NOUT, LERR, OK, test);
+      chkxer('DSPSV', infoc.INFOT, NOUT, LERR, OK, test);
     });
 
     test('DSPSVX', () {

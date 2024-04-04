@@ -52,7 +52,7 @@ void strsm(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('STRSM ', INFO);
+    xerbla('STRSM', INFO);
     return;
   }
 

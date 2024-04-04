@@ -216,7 +216,7 @@ void zdrvsy_aa_2stage(
 
             // Factor the matrix and solve the system using ZSYSV_AA.
 
-            srnamc.SRNAMT = 'ZSYSV_AA_2STAGE ';
+            srnamc.SRNAMT = 'ZSYSV_AA_2STAGE';
             final LWORK = min(N * NB, 3 * NMAX * NMAX);
             zsysv_aa_2stage(
                 UPLO,

@@ -34,7 +34,7 @@ void dgtsv(
     INFO.value = -7;
   }
   if (INFO.value != 0) {
-    xerbla('DGTSV ', -INFO.value);
+    xerbla('DGTSV', -INFO.value);
     return;
   }
 

@@ -52,7 +52,7 @@ void dtrmm(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('DTRMM ', INFO);
+    xerbla('DTRMM', INFO);
     return;
   }
 

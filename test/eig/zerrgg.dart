@@ -557,51 +557,51 @@ void zerrgg(
       lsamen(3, PATH, 'ZXV')) {
     // ZGGES
 
-    srnamc.SRNAMT = 'ZGGES ';
+    srnamc.SRNAMT = 'ZGGES';
     infoc.INFOT = 1;
     zgges('/', 'N', 'S', zlctes, 1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 1, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgges('N', '/', 'S', zlctes, 1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 1, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zgges('N', 'V', '/', zlctes, 1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 1, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
     zgges('N', 'V', 'S', zlctes, -1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 1, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zgges('N', 'V', 'S', zlctes, 1, A, 0, B, 1, SDIM, ALPHA, BETA, Q, 1, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
     zgges('N', 'V', 'S', zlctes, 1, A, 1, B, 0, SDIM, ALPHA, BETA, Q, 1, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 14;
     zgges('N', 'V', 'S', zlctes, 1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 0, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 14;
     zgges('V', 'V', 'S', zlctes, 2, A, 2, B, 2, SDIM, ALPHA, BETA, Q, 1, U, 2,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 16;
     zgges('N', 'V', 'S', zlctes, 1, A, 1, B, 1, SDIM, ALPHA, BETA, Q, 1, U, 0,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 16;
     zgges('V', 'V', 'S', zlctes, 2, A, 2, B, 2, SDIM, ALPHA, BETA, Q, 2, U, 1,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 18;
     zgges('V', 'V', 'S', zlctes, 2, A, 2, B, 2, SDIM, ALPHA, BETA, Q, 2, U, 2,
         W, 1, RW, BW, INFO);
-    chkxer('ZGGES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT += 11;
 
     // ZGGES3
@@ -712,37 +712,37 @@ void zerrgg(
 
     // ZGGEV
 
-    srnamc.SRNAMT = 'ZGGEV ';
+    srnamc.SRNAMT = 'ZGGEV';
     infoc.INFOT = 1;
     zggev('/', 'N', 1, A, 1, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zggev('N', '/', 1, A, 1, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zggev('V', 'V', -1, A, 1, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
     zggev('V', 'V', 1, A, 0, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zggev('V', 'V', 1, A, 1, B, 0, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 11;
     zggev('N', 'V', 1, A, 1, B, 1, ALPHA, BETA, Q, 0, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 11;
     zggev('V', 'V', 2, A, 2, B, 2, ALPHA, BETA, Q, 1, U, 2, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 13;
     zggev('V', 'N', 2, A, 2, B, 2, ALPHA, BETA, Q, 2, U, 0, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 13;
     zggev('V', 'V', 2, A, 2, B, 2, ALPHA, BETA, Q, 2, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 15;
     zggev('V', 'V', 1, A, 1, B, 1, ALPHA, BETA, Q, 1, U, 1, W, 1, RW, INFO);
-    chkxer('ZGGEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGGEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT += 10;
 
     // ZGGEV3

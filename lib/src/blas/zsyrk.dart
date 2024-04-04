@@ -50,7 +50,7 @@ void zsyrk(
     INFO = 10;
   }
   if (INFO != 0) {
-    xerbla('ZSYRK ', INFO);
+    xerbla('ZSYRK', INFO);
     return;
   }
 

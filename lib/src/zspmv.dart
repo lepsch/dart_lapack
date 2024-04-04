@@ -36,7 +36,7 @@ void zspmv(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('ZSPMV ', INFO);
+    xerbla('ZSPMV', INFO);
     return;
   }
 

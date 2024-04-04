@@ -140,12 +140,12 @@ void zdrvrf4(
 
               // call zherk the BLAS routine -> gives C1
 
-              srnamc.SRNAMT = 'ZHERK ';
+              srnamc.SRNAMT = 'ZHERK';
               zherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC);
 
               // call zhfrk the RFP routine -> gives CRF
 
-              srnamc.SRNAMT = 'ZHFRK ';
+              srnamc.SRNAMT = 'ZHFRK';
               zhfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF);
 
               // convert CRF in full format -> gives C2

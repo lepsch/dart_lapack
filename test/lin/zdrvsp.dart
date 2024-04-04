@@ -249,7 +249,7 @@ void zdrvsp(
 
             // Factor the matrix and solve the system using ZSPSV.
 
-            srnamc.SRNAMT = 'ZSPSV ';
+            srnamc.SRNAMT = 'ZSPSV';
             zspsv(UPLO, N, NRHS, AFAC, IWORK, X.asMatrix(), LDA, INFO);
 
             // Adjust the expected value of INFO to account for

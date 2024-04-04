@@ -38,7 +38,7 @@ void ztrmv(
     INFO = 8;
   }
   if (INFO != 0) {
-    xerbla('ZTRMV ', INFO);
+    xerbla('ZTRMV', INFO);
     return;
   }
 

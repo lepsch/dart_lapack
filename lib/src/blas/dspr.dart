@@ -27,7 +27,7 @@ void dspr(
     INFO = 5;
   }
   if (INFO != 0) {
-    xerbla('DSPR  ', INFO);
+    xerbla('DSPR', INFO);
     return;
   }
 

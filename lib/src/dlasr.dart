@@ -42,7 +42,7 @@ void dlasr(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('DLASR ', INFO);
+    xerbla('DLASR', INFO);
     return;
   }
 

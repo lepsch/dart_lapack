@@ -46,7 +46,7 @@ void dstev(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSTEV ', -INFO.value);
+    xerbla('DSTEV', -INFO.value);
     return;
   }
 

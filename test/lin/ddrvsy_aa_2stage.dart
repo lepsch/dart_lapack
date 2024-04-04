@@ -220,7 +220,7 @@ void ddrvsy_aa_2stage(
 
             // Factor the matrix and solve the system using DSYSV_AA.
 
-            srnamc.SRNAMT = 'DSYSV_AA_2STAGE ';
+            srnamc.SRNAMT = 'DSYSV_AA_2STAGE';
             final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
             dsysv_aa_2stage(
                 UPLO,

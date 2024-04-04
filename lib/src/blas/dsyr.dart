@@ -33,7 +33,7 @@ void dsyr(
     INFO = 7;
   }
   if (INFO != 0) {
-    xerbla('DSYR  ', INFO);
+    xerbla('DSYR', INFO);
     return;
   }
 

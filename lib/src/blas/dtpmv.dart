@@ -33,7 +33,7 @@ void dtpmv(
     INFO = 7;
   }
   if (INFO != 0) {
-    xerbla('DTPMV ', INFO);
+    xerbla('DTPMV', INFO);
     return;
   }
 

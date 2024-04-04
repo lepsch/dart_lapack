@@ -138,12 +138,12 @@ void ddrvrf4(
 
               // call dsyrk the BLAS routine -> gives C1
 
-              srnamc.SRNAMT = 'DSYRK ';
+              srnamc.SRNAMT = 'DSYRK';
               dsyrk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC);
 
               // call dsfrk the RFP routine -> gives CRF
 
-              srnamc.SRNAMT = 'DSFRK ';
+              srnamc.SRNAMT = 'DSFRK';
               dsfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF);
 
               // convert CRF in full format -> gives C2

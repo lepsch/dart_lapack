@@ -52,7 +52,7 @@ void dtrsm(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('DTRSM ', INFO);
+    xerbla('DTRSM', INFO);
     return;
   }
 

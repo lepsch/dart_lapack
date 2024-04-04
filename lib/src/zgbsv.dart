@@ -43,7 +43,7 @@ void zgbsv(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('ZGBSV ', -INFO.value);
+    xerbla('ZGBSV', -INFO.value);
     return;
   }
 

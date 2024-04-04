@@ -41,7 +41,7 @@ void ztrsv(
     INFO = 8;
   }
   if (INFO != 0) {
-    xerbla('ZTRSV ', INFO);
+    xerbla('ZTRSV', INFO);
     return;
   }
 

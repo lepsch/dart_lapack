@@ -37,7 +37,7 @@ void zgesv(
     INFO.value = -7;
   }
   if (INFO.value != 0) {
-    xerbla('ZGESV ', -INFO.value);
+    xerbla('ZGESV', -INFO.value);
     return;
   }
 

@@ -90,7 +90,7 @@ void zgels(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZGELS ', -INFO.value);
+    xerbla('ZGELS', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

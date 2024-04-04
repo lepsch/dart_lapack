@@ -51,7 +51,7 @@ void dspgv(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('DSPGV ', -INFO.value);
+    xerbla('DSPGV', -INFO.value);
     return;
   }
 

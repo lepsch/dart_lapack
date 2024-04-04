@@ -40,7 +40,7 @@ void zgerc(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('ZGERC ', INFO);
+    xerbla('ZGERC', INFO);
     return;
   }
 

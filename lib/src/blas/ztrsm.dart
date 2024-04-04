@@ -60,7 +60,7 @@ void ztrsm(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('ZTRSM ', INFO);
+    xerbla('ZTRSM', INFO);
     return;
   }
 

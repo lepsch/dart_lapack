@@ -62,7 +62,7 @@ void zhbev(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZHBEV ', -INFO.value);
+    xerbla('ZHBEV', -INFO.value);
     return;
   }
 

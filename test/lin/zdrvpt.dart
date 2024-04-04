@@ -257,7 +257,7 @@ void zdrvpt(
 
           // Factor A as L*D*L' and solve the system A*X = B.
 
-          srnamc.SRNAMT = 'ZPTSV ';
+          srnamc.SRNAMT = 'ZPTSV';
           zptsv(N, NRHS, D(N + 1), E(N + 1), X.asMatrix(), LDA, INFO);
 
           // Check error code from ZPTSV .

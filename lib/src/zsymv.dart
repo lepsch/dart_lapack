@@ -41,7 +41,7 @@ void zsymv(
     INFO = 10;
   }
   if (INFO != 0) {
-    xerbla('ZSYMV ', INFO);
+    xerbla('ZSYMV', INFO);
     return;
   }
 

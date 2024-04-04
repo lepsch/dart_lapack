@@ -43,7 +43,7 @@ void dsyrk(
     INFO = 10;
   }
   if (INFO != 0) {
-    xerbla('DSYRK ', INFO);
+    xerbla('DSYRK', INFO);
     return;
   }
 

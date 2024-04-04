@@ -57,7 +57,7 @@ void dgemm(
     INFO = 13;
   }
   if (INFO != 0) {
-    xerbla('DGEMM ', INFO);
+    xerbla('DGEMM', INFO);
     return;
   }
 

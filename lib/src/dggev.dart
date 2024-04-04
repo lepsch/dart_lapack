@@ -134,7 +134,7 @@ void dggev(
   }
 
   if (INFO.value != 0) {
-    xerbla('DGGEV ', -INFO.value);
+    xerbla('DGGEV', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

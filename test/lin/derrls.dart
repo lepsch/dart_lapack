@@ -40,31 +40,31 @@ void derrls(final String PATH, final Nout NUNIT) {
 
     // DGELS
 
-    srnamc.SRNAMT = 'DGELS ';
+    srnamc.SRNAMT = 'DGELS';
     infoc.INFOT = 1;
     dgels('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     dgels('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     dgels('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
     dgels('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     dgels('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     dgels('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     dgels('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO);
     chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     dgels('N', 1, 1, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
 
     // DGELST
 

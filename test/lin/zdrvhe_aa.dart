@@ -219,7 +219,7 @@ void zdrvhe_aa(
 
             // Factor the matrix and solve the system using ZHESV.
 
-            srnamc.SRNAMT = 'ZHESV_AA ';
+            srnamc.SRNAMT = 'ZHESV_AA';
             zhesv_aa(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(),
                 LDA, WORK, LWORK, INFO);
 

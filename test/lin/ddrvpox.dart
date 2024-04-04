@@ -264,7 +264,7 @@ void ddrvpo(
               dlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
               dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-              srnamc.SRNAMT = 'DPOSV ';
+              srnamc.SRNAMT = 'DPOSV';
               dposv(
                   UPLO, N, NRHS, AFAC.asMatrix(), LDA, X.asMatrix(), LDA, INFO);
 

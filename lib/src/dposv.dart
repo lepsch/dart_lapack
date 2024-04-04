@@ -38,7 +38,7 @@ void dposv(
     INFO.value = -7;
   }
   if (INFO.value != 0) {
-    xerbla('DPOSV ', -INFO.value);
+    xerbla('DPOSV', -INFO.value);
     return;
   }
 

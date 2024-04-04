@@ -60,7 +60,7 @@ void ztrmm(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('ZTRMM ', INFO);
+    xerbla('ZTRMM', INFO);
     return;
   }
 

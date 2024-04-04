@@ -40,7 +40,7 @@ void dlavsy(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('DLAVSY ', -INFO.value);
+    xerbla('DLAVSY', -INFO.value);
     return;
   }
 

@@ -52,7 +52,7 @@ void zherk(
     INFO = 10;
   }
   if (INFO != 0) {
-    xerbla('ZHERK ', INFO);
+    xerbla('ZHERK', INFO);
     return;
   }
 

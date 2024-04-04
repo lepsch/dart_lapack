@@ -39,7 +39,7 @@ void dsymv(
     INFO = 10;
   }
   if (INFO != 0) {
-    xerbla('DSYMV ', INFO);
+    xerbla('DSYMV', INFO);
     return;
   }
 

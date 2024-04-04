@@ -57,7 +57,7 @@ void zhemm(
     INFO = 12;
   }
   if (INFO != 0) {
-    xerbla('ZHEMM ', INFO);
+    xerbla('ZHEMM', INFO);
     return;
   }
 

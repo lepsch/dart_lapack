@@ -19,7 +19,7 @@ void dtrmv(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final X = X_.having();
-  const ZERO = 0.0; 
+  const ZERO = 0.0;
 
   // Test the input parameters.
 
@@ -38,7 +38,7 @@ void dtrmv(
     INFO = 8;
   }
   if (INFO != 0) {
-    xerbla('DTRMV ', INFO);
+    xerbla('DTRMV', INFO);
     return;
   }
 

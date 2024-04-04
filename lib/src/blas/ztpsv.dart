@@ -36,7 +36,7 @@ void ztpsv(
     INFO = 7;
   }
   if (INFO != 0) {
-    xerbla('ZTPSV ', INFO);
+    xerbla('ZTPSV', INFO);
     return;
   }
 

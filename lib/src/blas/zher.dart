@@ -36,7 +36,7 @@ void zher(
     INFO = 7;
   }
   if (INFO != 0) {
-    xerbla('ZHER  ', INFO);
+    xerbla('ZHER', INFO);
     return;
   }
 

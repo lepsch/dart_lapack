@@ -45,7 +45,7 @@ void zgemv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('ZGEMV ', INFO);
+    xerbla('ZGEMV', INFO);
     return;
   }
 

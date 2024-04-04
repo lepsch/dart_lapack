@@ -39,7 +39,7 @@ void zgeru(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('ZGERU ', INFO);
+    xerbla('ZGERU', INFO);
     return;
   }
 

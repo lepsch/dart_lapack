@@ -377,7 +377,7 @@ void zdrvgb(
                       AFB(KL + 1).asMatrix(), LDAFB);
                   zlacpy('Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(), LDB);
 
-                  srnamc.SRNAMT = 'ZGBSV ';
+                  srnamc.SRNAMT = 'ZGBSV';
                   zgbsv(N, KL, KU, NRHS, AFB.asMatrix(), LDAFB, IWORK,
                       X.asMatrix(), LDB, INFO);
 

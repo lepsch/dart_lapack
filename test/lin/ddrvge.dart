@@ -295,7 +295,7 @@ void ddrvge(
                 dlacpy('Full', N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
                 dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-                srnamc.SRNAMT = 'DGESV ';
+                srnamc.SRNAMT = 'DGESV';
                 dgesv(N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(), LDA,
                     INFO);
 

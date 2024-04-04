@@ -34,7 +34,7 @@ void dspmv(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('DSPMV ', INFO);
+    xerbla('DSPMV', INFO);
     return;
   }
 

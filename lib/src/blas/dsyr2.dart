@@ -38,7 +38,7 @@ void dsyr2(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('DSYR2 ', INFO);
+    xerbla('DSYR2', INFO);
     return;
   }
 

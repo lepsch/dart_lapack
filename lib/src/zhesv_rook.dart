@@ -61,7 +61,7 @@ void zhesv_rook(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZHESV_ROOK ', -INFO.value);
+    xerbla('ZHESV_ROOK', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

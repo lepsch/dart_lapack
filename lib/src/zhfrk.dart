@@ -56,7 +56,7 @@ void zhfrk(
     INFO = -8;
   }
   if (INFO != 0) {
-    xerbla('ZHFRK ', -INFO);
+    xerbla('ZHFRK', -INFO);
     return;
   }
 

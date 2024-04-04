@@ -44,7 +44,7 @@ void dlavsp(
     INFO.value = -8;
   }
   if (INFO.value != 0) {
-    xerbla('DLAVSP ', -INFO.value);
+    xerbla('DLAVSP', -INFO.value);
     return;
   }
 

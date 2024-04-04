@@ -278,7 +278,7 @@ void zdrvge(
               zlacpy('Full', N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
               zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-              srnamc.SRNAMT = 'ZGESV ';
+              srnamc.SRNAMT = 'ZGESV';
               zgesv(N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(), LDA,
                   INFO);
 

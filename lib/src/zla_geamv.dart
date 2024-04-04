@@ -50,7 +50,7 @@ void zla_geamv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('ZLA_GEAMV ', INFO);
+    xerbla('ZLA_GEAMV', INFO);
     return;
   }
 

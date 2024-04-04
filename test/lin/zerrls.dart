@@ -40,31 +40,31 @@ void zerrls(final String PATH, final Nout NUNIT) {
   if (lsamen(2, C2, 'LS')) {
     // ZGELS
 
-    srnamc.SRNAMT = 'ZGELS ';
+    srnamc.SRNAMT = 'ZGELS';
     infoc.INFOT = 1;
     zgels('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgels('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zgels('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
     zgels('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     zgels('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     zgels('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     zgels('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO);
     chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zgels('N', 1, 1, 0, A, 1, B, 1, W, 1, INFO);
-    chkxer('ZGELS ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGELS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZGELST
 

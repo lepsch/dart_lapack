@@ -234,7 +234,7 @@ void ddrvsp(
 
             // Factor the matrix and solve the system using DSPSV.
 
-            srnamc.SRNAMT = 'DSPSV ';
+            srnamc.SRNAMT = 'DSPSV';
             dspsv(UPLO, N, NRHS, AFAC, IWORK, X.asMatrix(), LDA, INFO);
 
             // Adjust the expected value of INFO to account for

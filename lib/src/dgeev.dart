@@ -133,7 +133,7 @@ void dgeev(
   }
 
   if (INFO.value != 0) {
-    xerbla('DGEEV ', -INFO.value);
+    xerbla('DGEEV', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

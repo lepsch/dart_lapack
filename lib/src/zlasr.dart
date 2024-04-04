@@ -44,7 +44,7 @@ void zlasr(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('ZLASR ', INFO);
+    xerbla('ZLASR', INFO);
     return;
   }
 

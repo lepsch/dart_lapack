@@ -36,7 +36,7 @@ void dgesv(
     INFO.value = -7;
   }
   if (INFO.value != 0) {
-    xerbla('DGESV ', -INFO.value);
+    xerbla('DGESV', -INFO.value);
     return;
   }
 

@@ -42,7 +42,7 @@ void dgemv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('DGEMV ', INFO);
+    xerbla('DGEMV', INFO);
     return;
   }
 

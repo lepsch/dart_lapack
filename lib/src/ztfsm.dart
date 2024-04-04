@@ -52,7 +52,7 @@ void ztfsm(
     INFO = -11;
   }
   if (INFO != 0) {
-    xerbla('ZTFSM ', -INFO);
+    xerbla('ZTFSM', -INFO);
     return;
   }
 

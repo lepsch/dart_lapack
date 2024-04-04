@@ -40,7 +40,7 @@ void zher2(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('ZHER2 ', INFO);
+    xerbla('ZHER2', INFO);
     return;
   }
 

@@ -72,7 +72,7 @@ void zhegv(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZHEGV ', -INFO.value);
+    xerbla('ZHEGV', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

@@ -144,7 +144,7 @@ void zgges(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZGGES ', -INFO.value);
+    xerbla('ZGGES', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

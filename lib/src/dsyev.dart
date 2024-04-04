@@ -63,7 +63,7 @@ void dsyev(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSYEV ', -INFO.value);
+    xerbla('DSYEV', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

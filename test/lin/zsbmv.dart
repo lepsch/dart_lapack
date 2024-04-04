@@ -41,7 +41,7 @@ void zsbmv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('ZSBMV ', INFO);
+    xerbla('ZSBMV', INFO);
     return;
   }
 

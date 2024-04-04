@@ -57,7 +57,7 @@ void zla_gbamv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('ZLA_GBAMV ', INFO);
+    xerbla('ZLA_GBAMV', INFO);
     return;
   }
 

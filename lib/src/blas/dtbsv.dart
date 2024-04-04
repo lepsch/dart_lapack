@@ -41,7 +41,7 @@ void dtbsv(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('DTBSV ', INFO);
+    xerbla('DTBSV', INFO);
     return;
   }
 

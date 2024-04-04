@@ -36,7 +36,7 @@ void zlavhp(
     INFO.value = -8;
   }
   if (INFO.value != 0) {
-    xerbla('ZLAVHP ', -INFO.value);
+    xerbla('ZLAVHP', -INFO.value);
     return;
   }
 

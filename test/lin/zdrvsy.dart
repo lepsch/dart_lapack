@@ -250,7 +250,7 @@ void zdrvsy(
 
             // Factor the matrix and solve the system using ZSYSV.
 
-            srnamc.SRNAMT = 'ZSYSV ';
+            srnamc.SRNAMT = 'ZSYSV';
             zsysv(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(), LDA,
                 WORK, LWORK, INFO);
 

@@ -259,7 +259,7 @@ void zdrvpp(
               zcopy(NPP, A, 1, AFAC, 1);
               zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-              srnamc.SRNAMT = 'ZPPSV ';
+              srnamc.SRNAMT = 'ZPPSV';
               zppsv(UPLO, N, NRHS, AFAC, X.asMatrix(), LDA, INFO);
 
               // Check error code from ZPPSV .

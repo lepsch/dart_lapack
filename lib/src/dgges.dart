@@ -149,7 +149,7 @@ void dgges(
   }
 
   if (INFO.value != 0) {
-    xerbla('DGGES ', -INFO.value);
+    xerbla('DGGES', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

@@ -71,7 +71,7 @@ void zgemm(
     INFO = 13;
   }
   if (INFO != 0) {
-    xerbla('ZGEMM ', INFO);
+    xerbla('ZGEMM', INFO);
     return;
   }
 

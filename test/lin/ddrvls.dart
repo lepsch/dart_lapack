@@ -291,7 +291,7 @@ void ddrvls(
                     dlacpy('Full', NROWS, NRHS, COPYB.asMatrix(), LDB,
                         B.asMatrix(), LDB);
                   }
-                  srnamc.SRNAMT = 'DGELS ';
+                  srnamc.SRNAMT = 'DGELS';
                   dgels(TRANS, M, N, NRHS, A.asMatrix(), LDA, B.asMatrix(), LDB,
                       WORK, LWORK, INFO);
                   if (INFO.value != 0) {

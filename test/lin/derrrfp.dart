@@ -70,31 +70,31 @@ void derrrfp(final Nout NUNIT) {
   dpftri('N', 'U', -1, A.asArray(), INFO);
   chkxer('DPFTRI', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
 
-  srnamc.SRNAMT = 'DTFSM ';
+  srnamc.SRNAMT = 'DTFSM';
   infoc.INFOT = 1;
   dtfsm('/', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
   dtfsm('N', '/', 'U', 'T', 'U', 0, 0, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 3;
   dtfsm('N', 'L', '/', 'T', 'U', 0, 0, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
   dtfsm('N', 'L', 'U', '/', 'U', 0, 0, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 5;
   dtfsm('N', 'L', 'U', 'T', '/', 0, 0, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 6;
   dtfsm('N', 'L', 'U', 'T', 'U', -1, 0, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 7;
   dtfsm('N', 'L', 'U', 'T', 'U', 0, -1, ALPHA, A.asArray(), B, 1);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 11;
   dtfsm('N', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A.asArray(), B, 0);
-  chkxer('DTFSM ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DTFSM', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
 
   srnamc.SRNAMT = 'DTFTRI';
   infoc.INFOT = 1;
@@ -182,25 +182,25 @@ void derrrfp(final Nout NUNIT) {
   dtpttr('U', 0, A.asArray(), B, 0, INFO);
   chkxer('DTPTTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
 
-  srnamc.SRNAMT = 'DSFRK ';
+  srnamc.SRNAMT = 'DSFRK';
   infoc.INFOT = 1;
   dsfrk('/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('DSFRK ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DSFRK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
   dsfrk('N', '/', 'N', 0, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('DSFRK ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DSFRK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 3;
   dsfrk('N', 'U', '/', 0, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('DSFRK ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DSFRK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
   dsfrk('N', 'U', 'N', -1, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('DSFRK ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DSFRK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 5;
   dsfrk('N', 'U', 'N', 0, -1, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('DSFRK ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DSFRK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 8;
   dsfrk('N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B.asArray());
-  chkxer('DSFRK ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+  chkxer('DSFRK', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
 
   // Print a summary line.
 

@@ -260,7 +260,7 @@ void zdrvgt(
             zcopy(N + 2 * M, A, 1, AF, 1);
             zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-            srnamc.SRNAMT = 'ZGTSV ';
+            srnamc.SRNAMT = 'ZGTSV';
             zgtsv(
                 N, NRHS, AF, AF(M + 1), AF(N + M + 1), X.asMatrix(), LDA, INFO);
 

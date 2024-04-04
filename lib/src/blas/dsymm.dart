@@ -50,7 +50,7 @@ void dsymm(
     INFO = 12;
   }
   if (INFO != 0) {
-    xerbla('DSYMM ', INFO);
+    xerbla('DSYMM', INFO);
     return;
   }
 

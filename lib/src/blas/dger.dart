@@ -37,7 +37,7 @@ void dger(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('DGER  ', INFO);
+    xerbla('DGER', INFO);
     return;
   }
 

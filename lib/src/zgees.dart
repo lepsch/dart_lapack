@@ -113,7 +113,7 @@ void zgees(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZGEES ', -INFO.value);
+    xerbla('ZGEES', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

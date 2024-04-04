@@ -54,7 +54,7 @@ void dsfrk(
     INFO = -8;
   }
   if (INFO != 0) {
-    xerbla('DSFRK ', -INFO);
+    xerbla('DSFRK', -INFO);
     return;
   }
 

@@ -55,7 +55,7 @@ void zhpgv(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('ZHPGV ', -INFO.value);
+    xerbla('ZHPGV', -INFO.value);
     return;
   }
 

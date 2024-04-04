@@ -46,7 +46,7 @@ void zla_heamv(
     INFO = 10;
   }
   if (INFO != 0) {
-    xerbla('ZHEMV ', INFO);
+    xerbla('ZHEMV', INFO);
     return;
   }
 

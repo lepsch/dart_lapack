@@ -70,7 +70,7 @@ void dsygv(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSYGV ', -INFO.value);
+    xerbla('DSYGV', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

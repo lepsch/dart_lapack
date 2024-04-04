@@ -39,7 +39,7 @@ void zposv(
     INFO.value = -7;
   }
   if (INFO.value != 0) {
-    xerbla('ZPOSV ', -INFO.value);
+    xerbla('ZPOSV', -INFO.value);
     return;
   }
 

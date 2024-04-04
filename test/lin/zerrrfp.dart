@@ -74,31 +74,31 @@ void zerrrfp(final Nout NUNIT) {
   zpftri('N', 'U', -1, A.asArray(), INFO);
   chkxer('ZPFTRI', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
-  srnamc.SRNAMT = 'ZTFSM ';
+  srnamc.SRNAMT = 'ZTFSM';
   infoc.INFOT = 1;
   ztfsm('/', 'L', 'U', 'C', 'U', 0, 0, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
   ztfsm('N', '/', 'U', 'C', 'U', 0, 0, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 3;
   ztfsm('N', 'L', '/', 'C', 'U', 0, 0, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
   ztfsm('N', 'L', 'U', '/', 'U', 0, 0, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 5;
   ztfsm('N', 'L', 'U', 'C', '/', 0, 0, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 6;
   ztfsm('N', 'L', 'U', 'C', 'U', -1, 0, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 7;
   ztfsm('N', 'L', 'U', 'C', 'U', 0, -1, CALPHA, A.asArray(), B, 1);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 11;
   ztfsm('N', 'L', 'U', 'C', 'U', 0, 0, CALPHA, A.asArray(), B, 0);
-  chkxer('ZTFSM ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZTFSM', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
   srnamc.SRNAMT = 'ZTFTRI';
   infoc.INFOT = 1;
@@ -186,25 +186,25 @@ void zerrrfp(final Nout NUNIT) {
   ztpttr('U', 0, A.asArray(), B, 0, INFO);
   chkxer('ZTPTTR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
-  srnamc.SRNAMT = 'ZHFRK ';
+  srnamc.SRNAMT = 'ZHFRK';
   infoc.INFOT = 1;
   zhfrk('/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('ZHFRK ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZHFRK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
   zhfrk('N', '/', 'N', 0, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('ZHFRK ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZHFRK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 3;
   zhfrk('N', 'U', '/', 0, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('ZHFRK ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZHFRK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
   zhfrk('N', 'U', 'N', -1, 0, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('ZHFRK ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZHFRK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 5;
   zhfrk('N', 'U', 'N', 0, -1, ALPHA, A, 1, BETA, B.asArray());
-  chkxer('ZHFRK ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZHFRK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 8;
   zhfrk('N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B.asArray());
-  chkxer('ZHFRK ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+  chkxer('ZHFRK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
   // Print a summary line.
 

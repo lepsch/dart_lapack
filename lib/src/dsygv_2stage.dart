@@ -72,7 +72,7 @@ void dsygv_2stage(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSYGV_2STAGE ', -INFO.value);
+    xerbla('DSYGV_2STAGE', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

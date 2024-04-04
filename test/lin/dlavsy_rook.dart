@@ -49,7 +49,7 @@ void dlavsy_rook(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('DLAVSY_ROOK ', -INFO.value);
+    xerbla('DLAVSY_ROOK', -INFO.value);
     return;
   }
 

@@ -245,7 +245,7 @@ void zdrvhe(
 
             // Factor the matrix and solve the system using ZHESV.
 
-            srnamc.SRNAMT = 'ZHESV ';
+            srnamc.SRNAMT = 'ZHESV';
             zhesv(UPLO, N, NRHS, AFAC.asMatrix(), LDA, IWORK, X.asMatrix(), LDA,
                 WORK, LWORK, INFO);
 

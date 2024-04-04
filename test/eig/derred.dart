@@ -61,51 +61,51 @@ void derred(final String PATH, final Nout NUNIT, final TestDriver test) {
 
   if (lsamen(2, C2, 'EV')) {
     test('DGEEV', () {
-      srnamc.SRNAMT = 'DGEEV ';
+      srnamc.SRNAMT = 'DGEEV';
       infoc.INFOT = 1;
       dgeev('X', 'N', 0, A, 1, WR, WI, VL, 1, VR, 1, W, 1, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dgeev('N', 'X', 0, A, 1, WR, WI, VL, 1, VR, 1, W, 1, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dgeev('N', 'N', -1, A, 1, WR, WI, VL, 1, VR, 1, W, 1, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dgeev('N', 'N', 2, A, 1, WR, WI, VL, 1, VR, 1, W, 6, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 9;
       dgeev('V', 'N', 2, A, 2, WR, WI, VL, 1, VR, 1, W, 8, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 11;
       dgeev('N', 'V', 2, A, 2, WR, WI, VL, 1, VR, 1, W, 8, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 13;
       dgeev('V', 'V', 1, A, 1, WR, WI, VL, 1, VR, 1, W, 3, INFO);
-      chkxer('DGEEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEEV', infoc.INFOT, NOUT, LERR, OK);
       NT += 7;
     });
   } else if (lsamen(2, C2, 'ES')) {
     test('DGEES', () {
-      srnamc.SRNAMT = 'DGEES ';
+      srnamc.SRNAMT = 'DGEES';
       infoc.INFOT = 1;
       dgees('X', 'N', dslect, 0, A, 1, SDIM, WR, WI, VL, 1, W, 1, B, INFO);
-      chkxer('DGEES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dgees('N', 'X', dslect, 0, A, 1, SDIM, WR, WI, VL, 1, W, 1, B, INFO);
-      chkxer('DGEES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 4;
       dgees('N', 'S', dslect, -1, A, 1, SDIM, WR, WI, VL, 1, W, 1, B, INFO);
-      chkxer('DGEES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 6;
       dgees('N', 'S', dslect, 2, A, 1, SDIM, WR, WI, VL, 1, W, 6, B, INFO);
-      chkxer('DGEES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 11;
       dgees('V', 'S', dslect, 2, A, 2, SDIM, WR, WI, VL, 1, W, 6, B, INFO);
-      chkxer('DGEES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEES', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 13;
       dgees('N', 'S', dslect, 1, A, 1, SDIM, WR, WI, VL, 1, W, 2, B, INFO);
-      chkxer('DGEES ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DGEES', infoc.INFOT, NOUT, LERR, OK);
       NT += 6;
     });
   } else if (lsamen(2, C2, 'VX')) {

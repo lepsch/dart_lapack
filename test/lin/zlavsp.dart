@@ -37,7 +37,7 @@ void zlavsp(
     INFO.value = -8;
   }
   if (INFO.value != 0) {
-    xerbla('ZLAVSP ', -INFO.value);
+    xerbla('ZLAVSP', -INFO.value);
     return;
   }
 

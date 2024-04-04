@@ -298,7 +298,7 @@ void zdrvls(
                     zlacpy('Full', NROWS, NRHS, COPYB.asMatrix(), LDB,
                         B.asMatrix(), LDB);
                   }
-                  srnamc.SRNAMT = 'ZGELS ';
+                  srnamc.SRNAMT = 'ZGELS';
                   zgels(TRANS, M, N, NRHS, A.asMatrix(), LDA, B.asMatrix(), LDB,
                       WORK, LWORK, INFO);
 
@@ -547,7 +547,7 @@ void zdrvls(
                       zlacpy('Full', NROWS, NRHS, COPYB.asMatrix(), LDB,
                           B.asMatrix(), LDB);
                     }
-                    srnamc.SRNAMT = 'ZGETSLS ';
+                    srnamc.SRNAMT = 'ZGETSLS';
                     zgetsls(TRANS, M, N, NRHS, A.asMatrix(), LDA, B.asMatrix(),
                         LDB, WORK, LWORK, INFO);
                     if (INFO.value != 0) {

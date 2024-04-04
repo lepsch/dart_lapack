@@ -459,16 +459,16 @@ void derrst(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
 
     test('DSTEV', () {
-      srnamc.SRNAMT = 'DSTEV ';
+      srnamc.SRNAMT = 'DSTEV';
       infoc.INFOT = 1;
       dstev('/', 0, D, E, Z, 1, W, INFO);
-      chkxer('DSTEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSTEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dstev('N', -1, D, E, Z, 1, W, INFO);
-      chkxer('DSTEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSTEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 6;
       dstev('V', 2, D, E, Z, 1, W, INFO);
-      chkxer('DSTEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSTEV', infoc.INFOT, NOUT, LERR, OK);
       NT += 3;
     });
 
@@ -736,45 +736,45 @@ void derrst(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
 
     test('DSYEV', () {
-      srnamc.SRNAMT = 'DSYEV ';
+      srnamc.SRNAMT = 'DSYEV';
       infoc.INFOT = 1;
       dsyev('/', 'U', 0, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dsyev('N', '/', 0, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dsyev('N', 'U', -1, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dsyev('N', 'U', 2, A, 1, X, W, 3, INFO);
-      chkxer('DSYEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 8;
       dsyev('N', 'U', 1, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV', infoc.INFOT, NOUT, LERR, OK);
       NT += 5;
     });
 
     test('DSYEV_2STAGE', () {
-      srnamc.SRNAMT = 'DSYEV_2STAGE ';
+      srnamc.SRNAMT = 'DSYEV_2STAGE';
       infoc.INFOT = 1;
       dsyev_2stage('/', 'U', 0, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 1;
       dsyev_2stage('V', 'U', 0, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dsyev_2stage('N', '/', 0, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dsyev_2stage('N', 'U', -1, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 5;
       dsyev_2stage('N', 'U', 2, A, 1, X, W, 3, INFO);
-      chkxer('DSYEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 8;
       dsyev_2stage('N', 'U', 1, A, 1, X, W, 1, INFO);
-      chkxer('DSYEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSYEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       NT += 6;
     });
 
@@ -922,19 +922,19 @@ void derrst(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
 
     test('DSPEV', () {
-      srnamc.SRNAMT = 'DSPEV ';
+      srnamc.SRNAMT = 'DSPEV';
       infoc.INFOT = 1;
       dspev('/', 'U', 0, A.asArray(), W, Z, 1, X, INFO);
-      chkxer('DSPEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSPEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dspev('N', '/', 0, A.asArray(), W, Z, 1, X, INFO);
-      chkxer('DSPEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSPEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dspev('N', 'U', -1, A.asArray(), W, Z, 1, X, INFO);
-      chkxer('DSPEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSPEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 7;
       dspev('V', 'U', 2, A.asArray(), W, Z, 1, X, INFO);
-      chkxer('DSPEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSPEV', infoc.INFOT, NOUT, LERR, OK);
       NT += 4;
     });
 
@@ -1125,54 +1125,54 @@ void derrst(final String PATH, final Nout NUNIT, final TestDriver test) {
     });
 
     test('DSBEV', () {
-      srnamc.SRNAMT = 'DSBEV ';
+      srnamc.SRNAMT = 'DSBEV';
       infoc.INFOT = 1;
       dsbev('/', 'U', 0, 0, A, 1, X, Z, 1, W, INFO);
-      chkxer('DSBEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dsbev('N', '/', 0, 0, A, 1, X, Z, 1, W, INFO);
-      chkxer('DSBEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dsbev('N', 'U', -1, 0, A, 1, X, Z, 1, W, INFO);
-      chkxer('DSBEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 4;
       dsbev('N', 'U', 0, -1, A, 1, X, Z, 1, W, INFO);
-      chkxer('DSBEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 6;
       dsbev('N', 'U', 2, 1, A, 1, X, Z, 1, W, INFO);
-      chkxer('DSBEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 9;
       dsbev('V', 'U', 2, 0, A, 1, X, Z, 1, W, INFO);
-      chkxer('DSBEV ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV', infoc.INFOT, NOUT, LERR, OK);
       NT += 6;
     });
 
     test('DSBEV_2STAGE', () {
-      srnamc.SRNAMT = 'DSBEV_2STAGE ';
+      srnamc.SRNAMT = 'DSBEV_2STAGE';
       infoc.INFOT = 1;
       dsbev_2stage('/', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 1;
       dsbev_2stage('V', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 2;
       dsbev_2stage('N', '/', 0, 0, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 3;
       dsbev_2stage('N', 'U', -1, 0, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 4;
       dsbev_2stage('N', 'U', 0, -1, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 6;
       dsbev_2stage('N', 'U', 2, 1, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 9;
       dsbev_2stage('N', 'U', 2, 0, A, 1, X, Z, 0, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       infoc.INFOT = 11;
       dsbev_2stage('N', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO);
-      chkxer('DSBEV_2STAGE ', infoc.INFOT, NOUT, LERR, OK);
+      chkxer('DSBEV_2STAGE', infoc.INFOT, NOUT, LERR, OK);
       NT += 8;
     });
 

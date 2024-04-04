@@ -64,51 +64,51 @@ void zerred(
   if (lsamen(2, C2, 'EV')) {
     // Test ZGEEV
 
-    srnamc.SRNAMT = 'ZGEEV ';
+    srnamc.SRNAMT = 'ZGEEV';
     infoc.INFOT = 1;
     zgeev('X', 'N', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgeev('N', 'X', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zgeev('N', 'N', -1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
     zgeev('N', 'N', 2, A, 1, X, VL, 1, VR, 1, W, 4, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     zgeev('V', 'N', 2, A, 2, X, VL, 1, VR, 1, W, 4, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zgeev('N', 'V', 2, A, 2, X, VL, 1, VR, 1, W, 4, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 12;
     zgeev('V', 'V', 1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO);
-    chkxer('ZGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEEV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT += 7;
   } else if (lsamen(2, C2, 'ES')) {
     // Test ZGEES
 
-    srnamc.SRNAMT = 'ZGEES ';
+    srnamc.SRNAMT = 'ZGEES';
     infoc.INFOT = 1;
     zgees('X', 'N', zslect, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO);
-    chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgees('N', 'X', zslect, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO);
-    chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
     zgees('N', 'S', zslect, -1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO);
-    chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     zgees('N', 'S', zslect, 2, A, 1, SDIM, X, VL, 1, W, 4, RW, B, INFO);
-    chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zgees('V', 'S', zslect, 2, A, 2, SDIM, X, VL, 1, W, 4, RW, B, INFO);
-    chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 12;
     zgees('N', 'S', zslect, 1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO);
-    chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGEES', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT += 6;
   } else if (lsamen(2, C2, 'VX')) {
     // Test ZGEEVX

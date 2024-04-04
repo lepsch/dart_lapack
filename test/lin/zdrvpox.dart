@@ -264,7 +264,7 @@ void zdrvpo(
               zlacpy(UPLO, N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
               zlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-              srnamc.SRNAMT = 'ZPOSV ';
+              srnamc.SRNAMT = 'ZPOSV';
               zposv(
                   UPLO, N, NRHS, AFAC.asMatrix(), LDA, X.asMatrix(), LDA, INFO);
 

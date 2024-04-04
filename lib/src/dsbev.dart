@@ -59,7 +59,7 @@ void dsbev(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSBEV ', -INFO.value);
+    xerbla('DSBEV', -INFO.value);
     return;
   }
 

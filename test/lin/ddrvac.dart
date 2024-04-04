@@ -160,7 +160,7 @@ void ddrvac(
           // Compute the L*L' or U'*U factorization of the
           // matrix and solve the system.
 
-          srnamc.SRNAMT = 'DSPOSV ';
+          srnamc.SRNAMT = 'DSPOSV';
 
           dlacpy('All', N, N, A.asMatrix(), LDA, AFAC.asMatrix(), LDA);
 

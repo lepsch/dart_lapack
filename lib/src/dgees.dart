@@ -112,7 +112,7 @@ void dgees(
   }
 
   if (INFO.value != 0) {
-    xerbla('DGEES ', -INFO.value);
+    xerbla('DGEES', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

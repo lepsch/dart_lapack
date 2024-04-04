@@ -49,7 +49,7 @@ void dla_geamv(
     INFO = 11;
   }
   if (INFO != 0) {
-    xerbla('DLA_GEAMV ', INFO);
+    xerbla('DLA_GEAMV', INFO);
     return;
   }
 

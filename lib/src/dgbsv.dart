@@ -42,7 +42,7 @@ void dgbsv(
     INFO.value = -9;
   }
   if (INFO.value != 0) {
-    xerbla('DGBSV ', -INFO.value);
+    xerbla('DGBSV', -INFO.value);
     return;
   }
 

@@ -88,7 +88,7 @@ void dgels(
   }
 
   if (INFO.value != 0) {
-    xerbla('DGELS ', -INFO.value);
+    xerbla('DGELS', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

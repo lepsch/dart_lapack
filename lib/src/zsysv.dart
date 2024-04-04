@@ -61,7 +61,7 @@ void zsysv(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZSYSV ', -INFO.value);
+    xerbla('ZSYSV', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

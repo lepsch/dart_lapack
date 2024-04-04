@@ -55,7 +55,7 @@ void dtfsm(
     INFO.value = -11;
   }
   if (INFO.value != 0) {
-    xerbla('DTFSM ', -INFO.value);
+    xerbla('DTFSM', -INFO.value);
     return;
   }
 

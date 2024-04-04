@@ -52,7 +52,7 @@ void dspev(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSPEV ', -INFO.value);
+    xerbla('DSPEV', -INFO.value);
     return;
   }
 

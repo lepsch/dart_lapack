@@ -257,7 +257,7 @@ void ddrvpt(
 
             // Factor A as L*D*L' and solve the system A*X = B.
 
-            srnamc.SRNAMT = 'DPTSV ';
+            srnamc.SRNAMT = 'DPTSV';
             dptsv(N, NRHS, D(N + 1), E(N + 1), X.asMatrix(), LDA, INFO);
 
             // Check error code from DPTSV .

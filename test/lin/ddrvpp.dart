@@ -253,7 +253,7 @@ void ddrvpp(
                 dcopy(NPP, A, 1, AFAC, 1);
                 dlacpy('Full', N, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
 
-                srnamc.SRNAMT = 'DPPSV ';
+                srnamc.SRNAMT = 'DPPSV';
                 dppsv(UPLO, N, NRHS, AFAC, X.asMatrix(), LDA, INFO);
 
                 // Check error code from DPPSV .

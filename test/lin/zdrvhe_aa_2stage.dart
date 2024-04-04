@@ -217,7 +217,7 @@ void zdrvhe_aa_2stage(
 
             // Factor the matrix and solve the system using ZHESV_AA.
 
-            srnamc.SRNAMT = 'ZHESV_AA_2STAGE ';
+            srnamc.SRNAMT = 'ZHESV_AA_2STAGE';
             final LWORK = min(max(1, N * NB), 3 * NMAX * NMAX);
             zhesv_aa_2stage(
                 UPLO,

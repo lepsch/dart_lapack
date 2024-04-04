@@ -156,7 +156,7 @@ void zgges3(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZGGES3 ', -INFO.value);
+    xerbla('ZGGES3', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

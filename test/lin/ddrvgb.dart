@@ -372,7 +372,7 @@ void ddrvgb(
                     dlacpy(
                         'Full', N, NRHS, B.asMatrix(), LDB, X.asMatrix(), LDB);
 
-                    srnamc.SRNAMT = 'DGBSV ';
+                    srnamc.SRNAMT = 'DGBSV';
                     dgbsv(N, KL, KU, NRHS, AFB.asMatrix(), LDAFB, IWORK,
                         X.asMatrix(), LDB, INFO);
 

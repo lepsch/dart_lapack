@@ -87,7 +87,7 @@ void zgelst(
   }
 
   if (INFO.value != 0) {
-    xerbla('ZGELST ', -INFO.value);
+    xerbla('ZGELST', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

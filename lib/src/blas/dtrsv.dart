@@ -38,7 +38,7 @@ void dtrsv(
     INFO = 8;
   }
   if (INFO != 0) {
-    xerbla('DTRSV ', INFO);
+    xerbla('DTRSV', INFO);
     return;
   }
 

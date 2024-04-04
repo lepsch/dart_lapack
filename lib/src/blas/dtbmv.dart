@@ -39,7 +39,7 @@ void dtbmv(
     INFO = 9;
   }
   if (INFO != 0) {
-    xerbla('DTBMV ', INFO);
+    xerbla('DTBMV', INFO);
     return;
   }
 

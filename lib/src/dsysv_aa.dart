@@ -59,7 +59,7 @@ void dsysv_aa(
   }
 
   if (INFO.value != 0) {
-    xerbla('DSYSV_AA ', -INFO.value);
+    xerbla('DSYSV_AA', -INFO.value);
     return;
   } else if (LQUERY) {
     return;

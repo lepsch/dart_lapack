@@ -86,19 +86,19 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   if (lsamen(2, C2, 'GE')) {
     // ZGESV
 
-    srnamc.SRNAMT = 'ZGESV ';
+    srnamc.SRNAMT = 'ZGESV';
     infoc.INFOT = 1;
     zgesv(-1, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgesv(0, -1, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
     zgesv(2, 1, A, 1, IP, B.asMatrix(), 2, INFO);
-    chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zgesv(2, 1, A, 2, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZGESVX
 
@@ -154,25 +154,25 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'GB')) {
     // ZGBSV
 
-    srnamc.SRNAMT = 'ZGBSV ';
+    srnamc.SRNAMT = 'ZGBSV';
     infoc.INFOT = 1;
     zgbsv(-1, 0, 0, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgbsv(1, -1, 0, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zgbsv(1, 0, -1, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
     zgbsv(0, 0, 0, -1, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     zgbsv(1, 1, 1, 0, A, 3, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
     zgbsv(2, 0, 0, 0, A, 1, IP, B.asMatrix(), 1, INFO);
-    chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZGBSVX
 
@@ -236,19 +236,19 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'GT')) {
     // ZGTSV
 
-    srnamc.SRNAMT = 'ZGTSV ';
+    srnamc.SRNAMT = 'ZGTSV';
     infoc.INFOT = 1;
     zgtsv(-1, 0, A(1, 1).asArray(), A(1, 2).asArray(), A(1, 3).asArray(),
         B.asMatrix(), 1, INFO);
-    chkxer('ZGTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGTSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zgtsv(0, -1, A(1, 1).asArray(), A(1, 2).asArray(), A(1, 3).asArray(),
         B.asMatrix(), 1, INFO);
-    chkxer('ZGTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGTSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zgtsv(2, 0, A(1, 1).asArray(), A(1, 2).asArray(), A(1, 3).asArray(),
         B.asMatrix(), 1, INFO);
-    chkxer('ZGTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZGTSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZGTSVX
 
@@ -407,22 +407,22 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'PO')) {
     // ZPOSV
 
-    srnamc.SRNAMT = 'ZPOSV ';
+    srnamc.SRNAMT = 'ZPOSV';
     infoc.INFOT = 1;
     zposv('/', 0, 0, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zposv('U', -1, 0, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zposv('U', 0, -1, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
     zposv('U', 2, 0, A, 1, B.asMatrix(), 2, INFO);
-    chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zposv('U', 2, 0, A, 2, B.asMatrix(), 1, INFO);
-    chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZPOSVX
 
@@ -473,19 +473,19 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'PP')) {
     // ZPPSV
 
-    srnamc.SRNAMT = 'ZPPSV ';
+    srnamc.SRNAMT = 'ZPPSV';
     infoc.INFOT = 1;
     zppsv('/', 0, 0, A.asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zppsv('U', -1, 0, A.asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zppsv('U', 0, -1, A.asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     zppsv('U', 2, 0, A.asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZPPSVX
 
@@ -528,25 +528,25 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'PB')) {
     // ZPBSV
 
-    srnamc.SRNAMT = 'ZPBSV ';
+    srnamc.SRNAMT = 'ZPBSV';
     infoc.INFOT = 1;
     zpbsv('/', 0, 0, 0, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zpbsv('U', -1, 0, 0, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zpbsv('U', 1, -1, 0, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
     zpbsv('U', 0, 0, -1, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     zpbsv('U', 1, 1, 0, A, 1, B.asMatrix(), 2, INFO);
-    chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     zpbsv('U', 2, 0, 0, A, 1, B.asMatrix(), 1, INFO);
-    chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPBSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZPBSVX
 
@@ -601,16 +601,16 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'PT')) {
     // ZPTSV
 
-    srnamc.SRNAMT = 'ZPTSV ';
+    srnamc.SRNAMT = 'ZPTSV';
     infoc.INFOT = 1;
     zptsv(-1, 0, R, A(1, 1).asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPTSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zptsv(0, -1, R, A(1, 1).asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPTSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 6;
     zptsv(2, 0, R, A(1, 1).asArray(), B.asMatrix(), 1, INFO);
-    chkxer('ZPTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZPTSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZPTSVX
 
@@ -639,28 +639,28 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'HE')) {
     // ZHESV
 
-    srnamc.SRNAMT = 'ZHESV ';
+    srnamc.SRNAMT = 'ZHESV';
     infoc.INFOT = 1;
     zhesv('/', 0, 0, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zhesv('U', -1, 0, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zhesv('U', 0, -1, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
     zhesv('U', 2, 0, A, 1, IP, B.asMatrix(), 2, W, 1, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     zhesv('U', 2, 0, A, 2, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zhesv('U', 0, 0, A, 1, IP, B.asMatrix(), 1, W, 0, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zhesv('U', 0, 0, A, 1, IP, B.asMatrix(), 1, W, -2, INFO);
-    chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZHESVX
 
@@ -871,19 +871,19 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'HP')) {
     // ZHPSV
 
-    srnamc.SRNAMT = 'ZHPSV ';
+    srnamc.SRNAMT = 'ZHPSV';
     infoc.INFOT = 1;
     zhpsv('/', 0, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zhpsv('U', -1, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zhpsv('U', 0, -1, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zhpsv('U', 2, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZHPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZHPSVX
 
@@ -916,28 +916,28 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'SY')) {
     // ZSYSV
 
-    srnamc.SRNAMT = 'ZSYSV ';
+    srnamc.SRNAMT = 'ZSYSV';
     infoc.INFOT = 1;
     zsysv('/', 0, 0, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zsysv('U', -1, 0, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zsysv('U', 0, -1, A, 1, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
     zsysv('U', 2, 0, A, 1, IP, B.asMatrix(), 2, W, 1, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
     zsysv('U', 2, 0, A, 2, IP, B.asMatrix(), 1, W, 1, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zsysv('U', 0, 0, A, 1, IP, B.asMatrix(), 1, W, 0, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
     zsysv('U', 0, 0, A, 1, IP, B.asMatrix(), 1, W, -2, INFO);
-    chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSYSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZSYSVX
 
@@ -1039,19 +1039,19 @@ void zerrvx(final String PATH, final Nout NUNIT) {
   } else if (lsamen(2, C2, 'SP')) {
     // ZSPSV
 
-    srnamc.SRNAMT = 'ZSPSV ';
+    srnamc.SRNAMT = 'ZSPSV';
     infoc.INFOT = 1;
     zspsv('/', 0, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     zspsv('U', -1, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     zspsv('U', 0, -1, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     zspsv('U', 2, 0, A.asArray(), IP, B.asMatrix(), 1, INFO);
-    chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
+    chkxer('ZSPSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK);
 
     // ZSPSVX
 
