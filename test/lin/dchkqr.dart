@@ -65,7 +65,6 @@ void dchkqr(
   final TAU = TAU_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-  // final IWORK = IWORK_.having();
   const NTESTS = 9, NTYPES = 8;
   const ZERO = 0.0;
   final RESULT = Array<double>(NTESTS);

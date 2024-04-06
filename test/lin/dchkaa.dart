@@ -1321,36 +1321,39 @@ Future<void> dchkaa(
       final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkrq(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            NNB,
-            NBVAL,
-            NXVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            NMAX,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            A(1, 4).asArray(),
-            A(1, 5).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            B(1, 4).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('RQ: RQ factorization', () {
+        if (TSTCHK) {
+          dchkrq(
+              DOTYPE.copy(),
+              NM,
+              MVAL,
+              NN,
+              NVAL,
+              NNB,
+              NBVAL,
+              NXVAL,
+              NRHS,
+              THRESH,
+              TSTERR,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              A(1, 4).asArray(),
+              A(1, 5).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              B(1, 4).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'QP')) {
       // QP:  QR factorization with pivoting
 

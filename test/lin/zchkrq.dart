@@ -68,7 +68,6 @@ void zchkrq(
   final TAU = TAU_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-  // final IWORK = IWORK_.having();
   const NTESTS = 7, NTYPES = 8;
   const ZERO = 0.0;
   final ISEED = Array<int>(4), KVAL = Array<int>(4);
