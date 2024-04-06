@@ -1360,27 +1360,30 @@ Future<void> dchkaa(
       final NTYPES = 6;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkq3(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            NNB,
-            NBVAL,
-            NXVAL,
-            THRESH,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('QP: QR factorization with pivoting', () {
+        if (TSTCHK) {
+          dchkq3(
+              DOTYPE,
+              NM,
+              MVAL,
+              NN,
+              NVAL,
+              NNB,
+              NBVAL,
+              NXVAL,
+              THRESH,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'QK')) {
       // QK: truncated QR factorization with pivoting
 
