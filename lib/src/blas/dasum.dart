@@ -1,4 +1,4 @@
-import 'package:lapack/src/matrix.dart';
+import 'package:lapack/blas.dart';
 
 double dasum(final int N, Array<double> DX, final int INCX) {
 // -- Reference BLAS level1 routine --

@@ -1,4 +1,4 @@
-import 'package:lapack/src/complex.dart';
+import 'package:lapack/blas.dart';
 
 double dcabs1(final Complex Z) {
 // -- Reference BLAS level1 routine --

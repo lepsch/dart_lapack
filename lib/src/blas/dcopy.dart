@@ -1,4 +1,4 @@
-import 'package:lapack/src/matrix.dart';
+import 'package:lapack/blas.dart';
 
 void dcopy(
   final int N,

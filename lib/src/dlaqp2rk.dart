@@ -42,11 +42,8 @@ void dlaqp2rk(
   final VN2 = VN2_.having();
   final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;
-  int I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT;
-  double AIKK, HUGEVAL, TEMP, TEMP2, TOL3Z;
 
   // Initialize INFO
-
   INFO.value = 0;
 
   // MINMNFACT in the smallest dimension of the submatrix
@@ -57,44 +54,33 @@ void dlaqp2rk(
   // contains the submatrices A(IOFFSET+1:M,1:N) and
   // B(IOFFSET+1:M,1:NRHS) as column blocks.
 
-  MINMNFACT = min(M - IOFFSET, N);
-  MINMNUPDT = min(M - IOFFSET, N + NRHS);
+  final MINMNFACT = min(M - IOFFSET, N);
+  final MINMNUPDT = min(M - IOFFSET, N + NRHS);
   KMAX.value = min(KMAX.value, MINMNFACT);
-  TOL3Z = sqrt(dlamch('Epsilon'));
-  HUGEVAL = dlamch('Overflow');
+  final TOL3Z = sqrt(dlamch('Epsilon'));
+  final HUGEVAL = dlamch('Overflow');
 
   // Compute the factorization, KK is the lomn loop index.
+  for (var KK = 1; KK <= KMAX.value; KK++) {
+    final I = IOFFSET + KK;
 
-  for (KK = 1; KK <= KMAX.value; KK++) {
-    I = IOFFSET + KK;
-
+    final int KP;
     if (I == 1) {
-      // ============================================================
-
       // We are at the first column of the original whole matrix A,
       // therefore we use the computed KP1 and MAXC2NRM from the
       // main routine.
-
       KP = KP1;
-
-      // ============================================================
     } else {
-      // ============================================================
-
       // Determine the pivot column in KK-th step, i.e. the index
       // of the column with the maximum 2-norm in the
       // submatrix A(I:M,K:N).
-
       KP = (KK - 1) + idamax(N - KK + 1, VN1(KK), 1);
 
       // Determine the maximum column 2-norm and the relative maximum
       // column 2-norm of the submatrix A(I:M,KK:N) in step KK.
       // RELMAXC2NRMK  will be computed later, after somecondition
       // checks on MAXC2NRMK.
-
       MAXC2NRMK.value = VN1[KP];
-
-      // ============================================================
 
       // Check if the submatrix A(I:M,KK:N) contains NaN, and set
       // INFO parameter to the column number, where the first NaN
@@ -103,25 +89,18 @@ void dlaqp2rk(
       // column index (same as row index) of the original whole
       // matrix is larger than 1, since the condition for whole
       // original matrix is checked in the main routine.
-
       if (disnan(MAXC2NRMK.value)) {
         // Set K, the number of factorized columns.
         // that are not zero.
-
         K.value = KK - 1;
         INFO.value = K.value + KP;
 
         // Set RELMAXC2NRMK to NaN.
-
         RELMAXC2NRMK.value = MAXC2NRMK.value;
 
-        // Array TAU(K+1:MINMNFACT) is not set and contains
-        // undefined elements.
-
+        // Array TAU(K+1:MINMNFACT) is not set and contains undefined elements.
         return;
       }
-
-      // ============================================================
 
       // Quick return, if the submatrix A(I:M,KK:N) is
       // a zero matrix.
@@ -139,17 +118,13 @@ void dlaqp2rk(
 
         // Set TAUs corresponding to the columns that were not
         // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to ZERO.
-
-        for (J = KK; J <= MINMNFACT; J++) {
+        for (var J = KK; J <= MINMNFACT; J++) {
           TAU[J] = ZERO;
         }
 
         // Return from the routine.
-
         return;
       }
-
-      // ============================================================
 
       // Check if the submatrix A(I:M,KK:N) contains Inf,
       // set INFO parameter to the column number, where
@@ -159,12 +134,9 @@ void dlaqp2rk(
       // column index (same as row index) of the original whole
       // matrix is larger than 1, since the condition for whole
       // original matrix is checked in the main routine.
-
       if (INFO.value == 0 && MAXC2NRMK.value > HUGEVAL) {
         INFO.value = N + KK - 1 + KP;
       }
-
-      // ============================================================
 
       // Test for the second and third stopping criteria.
       // NOTE: There is no need to test for ABSTOL >= ZERO, since
@@ -175,32 +147,24 @@ void dlaqp2rk(
       // column index (same as row index) of the original whole
       // matrix is larger than 1, since the condition for whole
       // original matrix is checked in the main routine.
-
       RELMAXC2NRMK.value = MAXC2NRMK.value / MAXC2NRM;
 
       if (MAXC2NRMK.value <= ABSTOL || RELMAXC2NRMK.value <= RELTOL) {
         // Set K, the number of factorized columns.
-
         K.value = KK - 1;
 
         // Set TAUs corresponding to the columns that were not
         // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to ZERO.
-
-        for (J = KK; J <= MINMNFACT; J++) {
+        for (var J = KK; J <= MINMNFACT; J++) {
           TAU[J] = ZERO;
         }
 
         // Return from the routine.
-
         return;
       }
 
-      // ============================================================
-
       // End ELSE of IF(I == 1)
     }
-
-    // ===============================================================
 
     // If the pivot column is not the first column of the
     // subblock A(1:M,KK:N):
@@ -217,7 +181,7 @@ void dlaqp2rk(
       dswap(M, A(1, KP).asArray(), 1, A(1, KK).asArray(), 1);
       VN1[KP] = VN1[KK];
       VN2[KP] = VN2[KK];
-      ITEMP = JPIV[KP];
+      final ITEMP = JPIV[KP];
       JPIV[KP] = JPIV[KK];
       JPIV[KK] = ITEMP;
     }
@@ -228,7 +192,7 @@ void dlaqp2rk(
     // and TAU(KK) = ZERO.
 
     if (I < M) {
-      dlarfg(M - I + 1, A.box(I, KK), A(I + 1, KK).asArray(), 1, TAU.box(KK));
+      dlarfg(M - I + 1, A(I, KK), A(I + 1, KK).asArray(), 1, TAU(KK));
     } else {
       TAU[KK] = ZERO;
     }
@@ -242,19 +206,16 @@ void dlaqp2rk(
     // returned by DLARFG can contain Inf, which requires
     // TAU(KK) to contain NaN. Therefore, this case of generating Inf
     // by DLARFG is covered by checking TAU(KK) for NaN.
-
     if (disnan(TAU[KK])) {
       K.value = KK - 1;
       INFO.value = KK;
 
-      // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
-
+      // Set MAXC2NRMK and RELMAXC2NRMK to NaN.
       MAXC2NRMK.value = TAU[KK];
       RELMAXC2NRMK.value = TAU[KK];
 
       // Array TAU(KK:MINMNFACT) is not set and contains
       // undefined elements, except the first element TAU(KK) = NaN.
-
       return;
     }
 
@@ -271,7 +232,7 @@ void dlaqp2rk(
     //  condition is satisfied, not only KK < N+NRHS )
 
     if (KK < MINMNUPDT) {
-      AIKK = A[I][KK];
+      final AIKK = A[I][KK];
       A[I][KK] = ONE;
       dlarf('Left', M - I + 1, N + NRHS - KK, A(I, KK).asArray(), 1, TAU[KK],
           A(I, KK + 1), LDA, WORK(1));
@@ -283,20 +244,18 @@ void dlaqp2rk(
       // only if the residual matrix A(I+1:M,KK+1:N) exists, i.e.
       // when KK < min(M-IOFFSET, N).
 
-      for (J = KK + 1; J <= N; J++) {
+      for (var J = KK + 1; J <= N; J++) {
         if (VN1[J] != ZERO) {
           // NOTE: The following lines follow from the analysis in
           // Lapack Working Note 176.
 
-          TEMP = ONE - A[I][J].abs() / pow(VN1[J], 2);
-          TEMP = max(TEMP, ZERO);
-          TEMP2 = TEMP * pow(VN1[J] / VN2[J], 2);
+          final TEMP = max(ONE - pow(A[I][J].abs() / VN1[J], 2), ZERO);
+          final TEMP2 = TEMP * pow(VN1[J] / VN2[J], 2);
           if (TEMP2 <= TOL3Z) {
             // Compute the column 2-norm for the partial
             // column A(I+1:M,J) by explicitly computing it,
             // and store it in both partial 2-norm vector VN1
             // and exact column 2-norm vector VN2.
-
             VN1[J] = dnrm2(M - I, A(I + 1, J).asArray(), 1);
             VN2[J] = VN1[J];
           } else {
@@ -304,7 +263,6 @@ void dlaqp2rk(
             // column A(I+1:M,J) by removing one
             // element A(I,J) and store it in partial
             // 2-norm vector VN1.
-
             VN1[J] *= sqrt(TEMP);
           }
         }
@@ -317,15 +275,13 @@ void dlaqp2rk(
   // If we reached this point, all colunms have been factorized,
   // i.e. no condition was triggered to exit the routine.
   // Set the number of factorized columns.
-
   K.value = KMAX.value;
 
   // We reached the end of the loop, i.e. all KMAX columns were
   // factorized, we need to set MAXC2NRMK and RELMAXC2NRMK before
   // we return.
-
   if (K.value < MINMNFACT) {
-    JMAXC2NRM = K.value + idamax(N - K.value, VN1(K.value + 1), 1);
+    final JMAXC2NRM = K.value + idamax(N - K.value, VN1(K.value + 1), 1);
     MAXC2NRMK.value = VN1[JMAXC2NRM];
 
     if (K.value == 0) {
@@ -341,8 +297,7 @@ void dlaqp2rk(
   // We reached the end of the loop, i.e. all KMAX columns were
   // factorized, set TAUs corresponding to the columns that were
   // not factorized to ZERO, i.e. TAU(K+1:MINMNFACT) set to ZERO.
-
-  for (J = K.value + 1; J <= MINMNFACT; J++) {
+  for (var J = K.value + 1; J <= MINMNFACT; J++) {
     TAU[J] = ZERO;
   }
 }
