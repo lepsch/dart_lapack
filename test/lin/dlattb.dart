@@ -178,7 +178,7 @@ void dlattb(
 
           final REXP = dlarnd(2, ISEED);
           if (REXP < ZERO) {
-            STAR1 = pow(-SFAC, ONE - REXP).toDouble();
+            STAR1 = -pow(SFAC, ONE - REXP).toDouble();
           } else {
             STAR1 = pow(SFAC, ONE + REXP).toDouble();
           }

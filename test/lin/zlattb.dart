@@ -171,7 +171,7 @@ void zlattb(
 
           final REXP = dlarnd(2, ISEED);
           if (REXP < ZERO) {
-            STAR1 = pow(-SFAC, ONE - REXP).toComplex() * zlarnd(5, ISEED);
+            STAR1 = -pow(SFAC, ONE - REXP).toComplex() * zlarnd(5, ISEED);
           } else {
             STAR1 = pow(SFAC, ONE + REXP).toComplex() * zlarnd(5, ISEED);
           }

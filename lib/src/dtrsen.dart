@@ -199,21 +199,18 @@ void dtrsen(
         KASE.value = 0;
         while (true) {
           dlacn2(NN, WORK(NN + 1), WORK, IWORK, EST, KASE, ISAVE);
-          if (KASE.value != 0) {
-            if (KASE.value == 1) {
-              // Solve  T11*R - R*T22 = scale*X.
+          if (KASE.value == 0) break;
+          if (KASE.value == 1) {
+            // Solve  T11*R - R*T22 = scale*X.
 
-              dtrsyl('N', 'N', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
-                  WORK.asMatrix(N1), N1, SCALE, IERR);
-            } else {
-              // Solve T11**T*R - R*T22**T = scale*X.
+            dtrsyl('N', 'N', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
+                WORK.asMatrix(N1), N1, SCALE, IERR);
+          } else {
+            // Solve T11**T*R - R*T22**T = scale*X.
 
-              dtrsyl('T', 'T', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
-                  WORK.asMatrix(N1), N1, SCALE, IERR);
-            }
-            continue;
+            dtrsyl('T', 'T', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
+                WORK.asMatrix(N1), N1, SCALE, IERR);
           }
-          break;
         }
 
         SEP.value = SCALE.value / EST.value;
@@ -221,8 +218,7 @@ void dtrsen(
     }
   }
 
-  // Store the output eigenvalues in WR and WI.
-
+  // Store the output eigenvalues in WR and WI. 
   for (K = 1; K <= N; K++) {
     WR[K] = T[K][K];
     WI[K] = ZERO;

@@ -169,8 +169,8 @@ void zlattp(
 
     // Now we multiply by Givens rotations, using the fact that
 
-    // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
-    // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
+    //       [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
+    //       [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
     // and
     //       [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
     //       [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
@@ -190,7 +190,7 @@ void zlattp(
         PLUS1 = STAR1 / PLUS2;
         final REXP = zlarnd(2, ISEED).real;
         if (REXP < ZERO) {
-          STAR1 = pow(-SFAC, ONE - REXP).toComplex() * zlarnd(5, ISEED);
+          STAR1 = -pow(SFAC, ONE - REXP).toComplex() * zlarnd(5, ISEED);
         } else {
           STAR1 = pow(SFAC, ONE + REXP).toComplex() * zlarnd(5, ISEED);
         }

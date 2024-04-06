@@ -1,17 +1,4 @@
-import 'dart:math';
-
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/ddot.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dtrsv.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dlatrs(
   final String UPLO,
@@ -33,27 +20,14 @@ void dlatrs(
   final X = X_.having();
   final CNORM = CNORM_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
-  bool NOTRAN, NOUNIT, UPPER;
   int I, IMAX, J, JFIRST, JINC, JLAST;
-  double BIGNUM,
-      GROW,
-      REC,
-      SMLNUM,
-      SUMJ,
-      TJJ,
-      TJJS = 0,
-      TMAX,
-      TSCAL,
-      USCAL,
-      XBND,
-      XJ,
-      XMAX;
+  double GROW, REC, SUMJ, TJJ, TJJS = 0, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
   final WORK = Array<double>(1);
 
   INFO.value = 0;
-  UPPER = lsame(UPLO, 'U');
-  NOTRAN = lsame(TRANS, 'N');
-  NOUNIT = lsame(DIAG, 'N');
+  final UPPER = lsame(UPLO, 'U');
+  final NOTRAN = lsame(TRANS, 'N');
+  final NOUNIT = lsame(DIAG, 'N');
 
   // Test the input parameters.
 
@@ -76,28 +50,25 @@ void dlatrs(
   }
 
   // Quick return if possible
-
   SCALE.value = ONE;
   if (N == 0) return;
 
-  // Determine machine dependent parameters to control overflow.
 
-  SMLNUM = dlamch('Safe minimum') / dlamch('Precision');
-  BIGNUM = ONE / SMLNUM;
+  // Determine machine dependent parameters to control overflow.
+  final SMLNUM = dlamch('Safe minimum') / dlamch('Precision');
+  final BIGNUM = ONE / SMLNUM;
 
   if (lsame(NORMIN, 'N')) {
     // Compute the 1-norm of each column, not including the diagonal.
 
     if (UPPER) {
       // A is upper triangular.
-
-      for (J = 1; J <= N; J++) {
+      for (var J = 1; J <= N; J++) {
         CNORM[J] = dasum(J - 1, A(1, J).asArray(), 1);
       }
     } else {
       // A is lower triangular.
-
-      for (J = 1; J <= N - 1; J++) {
+      for (var J = 1; J <= N - 1; J++) {
         CNORM[J] = dasum(N - J, A(J + 1, J).asArray(), 1);
       }
       CNORM[N] = ZERO;
@@ -106,7 +77,6 @@ void dlatrs(
 
   // Scale the column norms by TSCAL if the maximum element in CNORM is
   // greater than BIGNUM.
-
   IMAX = idamax(N, CNORM, 1);
   TMAX = CNORM[IMAX];
   if (TMAX <= BIGNUM) {
@@ -127,21 +97,19 @@ void dlatrs(
       TMAX = ZERO;
       if (UPPER) {
         // A is upper triangular.
-
-        for (J = 2; J <= N; J++) {
+        for (var J = 2; J <= N; J++) {
           TMAX = max(dlange('M', J - 1, 1, A(1, J), 1, WORK), TMAX);
         }
       } else {
         // A is lower triangular.
-
-        for (J = 1; J <= N - 1; J++) {
+        for (var J = 1; J <= N - 1; J++) {
           TMAX = max(dlange('M', N - J, 1, A(J + 1, J), 1, WORK), TMAX);
         }
       }
 
       if (TMAX <= dlamch('Overflow')) {
         TSCAL = ONE / (SMLNUM * TMAX);
-        for (J = 1; J <= N; J++) {
+        for (var J = 1; J <= N; J++) {
           if (CNORM[J] <= dlamch('Overflow')) {
             CNORM[J] *= TSCAL;
           } else {
@@ -149,11 +117,11 @@ void dlatrs(
             // in the summation
             CNORM[J] = ZERO;
             if (UPPER) {
-              for (I = 1; I <= J - 1; I++) {
+              for (var I = 1; I <= J - 1; I++) {
                 CNORM[J] += TSCAL * A[I][J].abs();
               }
             } else {
-              for (I = J + 1; I <= N; I++) {
+              for (var I = J + 1; I <= N; I++) {
                 CNORM[J] += TSCAL * A[I][J].abs();
               }
             }
@@ -189,56 +157,54 @@ void dlatrs(
 
     if (TSCAL != ONE) {
       GROW = ZERO;
+    } else if (NOUNIT) {
+      // A is non-unit triangular.
+
+      // Compute GROW = 1/G(j) and XBND = 1/M(j).
+      // Initially, G(0) = max{x[i], i=1,...,n}.
+
+      GROW = ONE / max(XBND, SMLNUM);
+      XBND = GROW;
+      var isTooSmall = false;
+      for (var J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
+        // Exit the loop if the growth factor is too small.
+
+        if (GROW <= SMLNUM) {
+          isTooSmall = true;
+          break;
+        }
+
+        // M(j) = G(j-1) / abs(A[j][j])
+
+        TJJ = A[J][J].abs();
+        XBND = min(XBND, min(ONE, TJJ) * GROW);
+        if (TJJ + CNORM[J] >= SMLNUM) {
+          // G(j) = G(j-1)*( 1 + CNORM[j] / abs(A[j][j]) )
+
+          GROW *= (TJJ / (TJJ + CNORM[J]));
+        } else {
+          // G(j) could overflow, set GROW to 0.
+
+          GROW = ZERO;
+        }
+      }
+      if (!isTooSmall) {
+        GROW = XBND;
+      }
     } else {
-      if (NOUNIT) {
-        // A is non-unit triangular.
+      // A is unit triangular.
 
-        // Compute GROW = 1/G(j) and XBND = 1/M(j).
-        // Initially, G(0) = max{x[i], i=1,...,n}.
+      // Compute GROW = 1/G(j), where G(0) = max{x[i], i=1,...,n}.
 
-        GROW = ONE / max(XBND, SMLNUM);
-        XBND = GROW;
-        var isTooSmall = false;
-        for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-          // Exit the loop if the growth factor is too small.
+      GROW = min(ONE, ONE / max(XBND, SMLNUM));
+      for (var J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
+        // Exit the loop if the growth factor is too small.
 
-          if (GROW <= SMLNUM) {
-            isTooSmall = true;
-            break;
-          }
+        if (GROW <= SMLNUM) break;
 
-          // M(j) = G(j-1) / abs(A[j][j])
+        // G(j) = G(j-1)*( 1 + CNORM[j] )
 
-          TJJ = A[J][J].abs();
-          XBND = min(XBND, min(ONE, TJJ) * GROW);
-          if (TJJ + CNORM[J] >= SMLNUM) {
-            // G(j) = G(j-1)*( 1 + CNORM[j] / abs(A[j][j]) )
-
-            GROW *= (TJJ / (TJJ + CNORM[J]));
-          } else {
-            // G(j) could overflow, set GROW to 0.
-
-            GROW = ZERO;
-          }
-        }
-        if (!isTooSmall) {
-          GROW = XBND;
-        }
-      } else {
-        // A is unit triangular.
-
-        // Compute GROW = 1/G(j), where G(0) = max{x[i], i=1,...,n}.
-
-        GROW = min(ONE, ONE / max(XBND, SMLNUM));
-        for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-          // Exit the loop if the growth factor is too small.
-
-          if (GROW <= SMLNUM) break;
-
-          // G(j) = G(j-1)*( 1 + CNORM[j] )
-
-          GROW *= (ONE / (ONE + CNORM[J]));
-        }
+        GROW *= (ONE / (ONE + CNORM[J]));
       }
     }
   } else {
@@ -256,53 +222,51 @@ void dlatrs(
 
     if (TSCAL != ONE) {
       GROW = ZERO;
+    } else if (NOUNIT) {
+      // A is non-unit triangular.
+
+      // Compute GROW = 1/G(j) and XBND = 1/M(j).
+      // Initially, M(0) = max{x[i], i=1,...,n}.
+
+      GROW = ONE / max(XBND, SMLNUM);
+      XBND = GROW;
+      var isTooSmall = false;
+      for (var J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
+        // Exit the loop if the growth factor is too small.
+
+        if (GROW <= SMLNUM) {
+          isTooSmall = true;
+          break;
+        }
+
+        // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM[j] ) )
+
+        XJ = ONE + CNORM[J];
+        GROW = min(GROW, XBND / XJ);
+
+        // M(j) = M(j-1)*( 1 + CNORM[j] ) / abs(A[j][j])
+
+        TJJ = A[J][J].abs();
+        if (XJ > TJJ) XBND *= (TJJ / XJ);
+      }
+      if (!isTooSmall) {
+        GROW = min(GROW, XBND);
+      }
     } else {
-      if (NOUNIT) {
-        // A is non-unit triangular.
+      // A is unit triangular.
 
-        // Compute GROW = 1/G(j) and XBND = 1/M(j).
-        // Initially, M(0) = max{x[i], i=1,...,n}.
+      // Compute GROW = 1/G(j), where G(0) = max{x[i], i=1,...,n}.
 
-        GROW = ONE / max(XBND, SMLNUM);
-        XBND = GROW;
-        var isTooSmall = false;
-        for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-          // Exit the loop if the growth factor is too small.
+      GROW = min(ONE, ONE / max(XBND, SMLNUM));
+      for (var J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
+        // Exit the loop if the growth factor is too small.
 
-          if (GROW <= SMLNUM) {
-            isTooSmall = true;
-            break;
-          }
+        if (GROW <= SMLNUM) break;
 
-          // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM[j] ) )
+        // G(j) = ( 1 + CNORM[j] )*G(j-1)
 
-          XJ = ONE + CNORM[J];
-          GROW = min(GROW, XBND / XJ);
-
-          // M(j) = M(j-1)*( 1 + CNORM[j] ) / abs(A[j][j])
-
-          TJJ = A[J][J].abs();
-          if (XJ > TJJ) XBND *= (TJJ / XJ);
-        }
-        if (!isTooSmall) {
-          GROW = min(GROW, XBND);
-        }
-      } else {
-        // A is unit triangular.
-
-        // Compute GROW = 1/G(j), where G(0) = max{x[i], i=1,...,n}.
-
-        GROW = min(ONE, ONE / max(XBND, SMLNUM));
-        for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
-          // Exit the loop if the growth factor is too small.
-
-          if (GROW <= SMLNUM) break;
-
-          // G(j) = ( 1 + CNORM[j] )*G(j-1)
-
-          XJ = ONE + CNORM[J];
-          GROW /= XJ;
-        }
+        XJ = ONE + CNORM[J];
+        GROW /= XJ;
       }
     }
   }
@@ -327,7 +291,7 @@ void dlatrs(
     if (NOTRAN) {
       // Solve A * x = b
 
-      for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
+      for (var J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
         // Compute x[j] = b(j) / A[j][j], scaling x if necessary.
 
         XJ = X[J].abs();
@@ -380,7 +344,7 @@ void dlatrs(
             // A[j][j] = 0:  Set x[1:n] = 0, x[j] = 1, and
             // scale = 0, and compute a solution to A*x = 0.
 
-            for (I = 1; I <= N; I++) {
+            for (var I = 1; I <= N; I++) {
               X[I] = ZERO;
             }
             X[J] = ONE;
@@ -432,7 +396,7 @@ void dlatrs(
     } else {
       // Solve A**T * x = b
 
-      for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
+      for (var J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) {
         // Compute x[j] = b(j) - sum A[k][j]*x[k].
         // k<>j
 
@@ -476,11 +440,11 @@ void dlatrs(
           // Otherwise, use in-line code for the dot product.
 
           if (UPPER) {
-            for (I = 1; I <= J - 1; I++) {
+            for (var I = 1; I <= J - 1; I++) {
               SUMJ += (A[I][J] * USCAL) * X[I];
             }
           } else if (J < N) {
-            for (I = J + 1; I <= N; I++) {
+            for (var I = J + 1; I <= N; I++) {
               SUMJ += (A[I][J] * USCAL) * X[I];
             }
           }
@@ -536,7 +500,7 @@ void dlatrs(
               // A[j][j] = 0:  Set x[1:n] = 0, x[j] = 1, and
               // scale = 0, and compute a solution to A**T*x = 0.
 
-              for (I = 1; I <= N; I++) {
+              for (var I = 1; I <= N; I++) {
                 X[I] = ZERO;
               }
               X[J] = ONE;
@@ -548,7 +512,7 @@ void dlatrs(
           // Compute x[j] := x[j] / A[j][j]  - sumj if the dot
           // product has already been divided by 1/A[j][j].
 
-          X[J] /= TJJS - SUMJ;
+          X[J] = X[J] / TJJS - SUMJ;
         }
         XMAX = max(XMAX, X[J].abs());
       }

@@ -506,7 +506,7 @@ void dlatbs(
           // Compute x(j) := x(j) / A(j,j) - sumj if the dot
           // product has already been divided by 1/A(j,j).
 
-          X[J] /= TJJS - SUMJ;
+          X[J] = X[J] / TJJS - SUMJ;
         }
         XMAX = max(XMAX, X[J].abs());
       }

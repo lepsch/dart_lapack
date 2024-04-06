@@ -30,20 +30,13 @@ void dtrcon(
   final WORK = WORK_.having();
   final IWORK = IWORK_.having();
   const ONE = 1.0, ZERO = 0.0;
-  bool NOUNIT, ONENRM, UPPER;
-  String NORMIN = '';
-  int IX;
-  double ANORM, SMLNUM, XNORM;
-  final ISAVE = Array<int>(3);
-  final AINVNM = Box(0.0), SCALE = Box(0.0);
-  final KASE = Box(0), KASE1 = Box(0);
 
   // Test the input parameters.
 
   INFO.value = 0;
-  UPPER = lsame(UPLO, 'U');
-  ONENRM = NORM == '1' || lsame(NORM, 'O');
-  NOUNIT = lsame(DIAG, 'N');
+  final UPPER = lsame(UPLO, 'U');
+  final ONENRM = NORM == '1' || lsame(NORM, 'O');
+  final NOUNIT = lsame(DIAG, 'N');
 
   if (!ONENRM && !lsame(NORM, 'I')) {
     INFO.value = -1;
@@ -62,60 +55,52 @@ void dtrcon(
   }
 
   // Quick return if possible
-
   if (N == 0) {
     RCOND.value = ONE;
     return;
   }
 
   RCOND.value = ZERO;
-  SMLNUM = dlamch('Safe minimum') * max(1, N);
+  final SMLNUM = dlamch('Safe minimum') * max(1, N);
 
   // Compute the norm of the triangular matrix A.
-
-  ANORM = dlantr(NORM, UPLO, DIAG, N, N, A, LDA, WORK);
+  final ANORM = dlantr(NORM, UPLO, DIAG, N, N, A, LDA, WORK);
 
   // Continue only if ANORM > 0.
+  if (ANORM <= ZERO) return;
 
-  if (ANORM > ZERO) {
-    // Estimate the norm of the inverse of A.
+  // Estimate the norm of the inverse of A.
+  final AINVNM = Box(ZERO);
+  var NORMIN = 'N';
+  final KASE1 = ONENRM ? 1 : 2;
 
-    AINVNM.value = ZERO;
-    NORMIN = 'N';
-    if (ONENRM) {
-      KASE1.value = 1;
+  final ISAVE = Array<int>(3);
+  final KASE = Box(0);
+  while (true) {
+    dlacn2(N, WORK(N + 1), WORK, IWORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
+
+    final SCALE = Box(ZERO);
+    if (KASE.value == KASE1) {
+      // Multiply by inv(A).
+      dlatrs(UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE,
+          WORK(2 * N + 1), INFO);
     } else {
-      KASE1.value = 2;
+      // Multiply by inv(A**T).
+      dlatrs(UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE,
+          WORK(2 * N + 1), INFO);
     }
-    KASE.value = 0;
-    while (true) {
-      dlacn2(N, WORK(N + 1), WORK, IWORK, AINVNM, KASE, ISAVE);
-      if (KASE.value != 0) break;
-      if (KASE.value == KASE1.value) {
-        // Multiply by inv(A).
+    NORMIN = 'Y';
 
-        dlatrs(UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE,
-            WORK(2 * N + 1), INFO);
-      } else {
-        // Multiply by inv(A**T).
-
-        dlatrs(UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE,
-            WORK(2 * N + 1), INFO);
-      }
-      NORMIN = 'Y';
-
-      // Multiply by 1/SCALE if doing so will not cause overflow.
-
-      if (SCALE.value != ONE) {
-        IX = idamax(N, WORK, 1);
-        XNORM = WORK[IX].abs();
-        if (SCALE.value < XNORM * SMLNUM || SCALE.value == ZERO) return;
-        drscl(N, SCALE.value, WORK, 1);
-      }
+    // Multiply by 1/SCALE if doing so will not cause overflow.
+    if (SCALE.value != ONE) {
+      final IX = idamax(N, WORK, 1);
+      final XNORM = WORK[IX].abs();
+      if (SCALE.value < XNORM * SMLNUM || SCALE.value == ZERO) return;
+      drscl(N, SCALE.value, WORK, 1);
     }
-
-    // Compute the estimate of the reciprocal condition number.
-
-    if (AINVNM.value != ZERO) RCOND.value = (ONE / ANORM) / AINVNM.value;
   }
+
+  // Compute the estimate of the reciprocal condition number.
+  if (AINVNM.value != ZERO) RCOND.value = (ONE / ANORM) / AINVNM.value;
 }

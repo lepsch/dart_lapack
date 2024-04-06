@@ -149,12 +149,10 @@ void ztrsen(
         if (KASE.value == 0) break;
         if (KASE.value == 1) {
           // Solve T11*R - R*T22 = scale*X.
-
           ztrsyl('N', 'N', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
               WORK.asMatrix(N1), N1, SCALE, IERR);
         } else {
           // Solve T11**H*R - R*T22**H = scale*X.
-
           ztrsyl('C', 'C', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
               WORK.asMatrix(N1), N1, SCALE, IERR);
         }
@@ -165,7 +163,6 @@ void ztrsen(
   }
 
   // Copy reordered eigenvalues to W.
-
   for (K = 1; K <= N; K++) {
     W[K] = T[K][K];
   }

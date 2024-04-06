@@ -359,63 +359,61 @@ void dtgsen(
 
           while (true) {
             dlacn2(MN2, WORK(MN2 + 1), WORK, IWORK, DIF.box(1), KASE, ISAVE);
-            if (KASE.value != 0) {
-              if (KASE.value == 1) {
-                // Solve generalized Sylvester equation.
+            if (KASE.value == 0) break;
 
-                dtgsyl(
-                    'N',
-                    IJB,
-                    N1,
-                    N2,
-                    A,
-                    LDA,
-                    A(I, I),
-                    LDA,
-                    WORK.asMatrix(N1),
-                    N1,
-                    B,
-                    LDB,
-                    B(I, I),
-                    LDB,
-                    WORK(N1 * N2 + 1).asMatrix(N1),
-                    N1,
-                    DSCALE,
-                    DIF.box(1),
-                    WORK(2 * N1 * N2 + 1),
-                    LWORK - 2 * N1 * N2,
-                    IWORK,
-                    IERR);
-              } else {
-                // Solve the transposed variant.
+            if (KASE.value == 1) {
+              // Solve generalized Sylvester equation.
 
-                dtgsyl(
-                    'T',
-                    IJB,
-                    N1,
-                    N2,
-                    A,
-                    LDA,
-                    A(I, I),
-                    LDA,
-                    WORK.asMatrix(N1),
-                    N1,
-                    B,
-                    LDB,
-                    B(I, I),
-                    LDB,
-                    WORK(N1 * N2 + 1).asMatrix(N1),
-                    N1,
-                    DSCALE,
-                    DIF.box(1),
-                    WORK(2 * N1 * N2 + 1),
-                    LWORK - 2 * N1 * N2,
-                    IWORK,
-                    IERR);
-              }
-              continue;
+              dtgsyl(
+                  'N',
+                  IJB,
+                  N1,
+                  N2,
+                  A,
+                  LDA,
+                  A(I, I),
+                  LDA,
+                  WORK.asMatrix(N1),
+                  N1,
+                  B,
+                  LDB,
+                  B(I, I),
+                  LDB,
+                  WORK(N1 * N2 + 1).asMatrix(N1),
+                  N1,
+                  DSCALE,
+                  DIF.box(1),
+                  WORK(2 * N1 * N2 + 1),
+                  LWORK - 2 * N1 * N2,
+                  IWORK,
+                  IERR);
+            } else {
+              // Solve the transposed variant.
+
+              dtgsyl(
+                  'T',
+                  IJB,
+                  N1,
+                  N2,
+                  A,
+                  LDA,
+                  A(I, I),
+                  LDA,
+                  WORK.asMatrix(N1),
+                  N1,
+                  B,
+                  LDB,
+                  B(I, I),
+                  LDB,
+                  WORK(N1 * N2 + 1).asMatrix(N1),
+                  N1,
+                  DSCALE,
+                  DIF.box(1),
+                  WORK(2 * N1 * N2 + 1),
+                  LWORK - 2 * N1 * N2,
+                  IWORK,
+                  IERR);
             }
-            break;
           }
           DIF[1] = DSCALE.value / DIF[1];
 
@@ -423,63 +421,60 @@ void dtgsen(
 
           while (true) {
             dlacn2(MN2, WORK(MN2 + 1), WORK, IWORK, DIF.box(2), KASE, ISAVE);
-            if (KASE.value != 0) {
-              if (KASE.value == 1) {
-                // Solve generalized Sylvester equation.
+            if (KASE.value == 0) break;
+            if (KASE.value == 1) {
+              // Solve generalized Sylvester equation.
 
-                dtgsyl(
-                    'N',
-                    IJB,
-                    N2,
-                    N1,
-                    A(I, I),
-                    LDA,
-                    A,
-                    LDA,
-                    WORK.asMatrix(N2),
-                    N2,
-                    B(I, I),
-                    LDB,
-                    B,
-                    LDB,
-                    WORK(N1 * N2 + 1).asMatrix(N2),
-                    N2,
-                    DSCALE,
-                    DIF.box(2),
-                    WORK(2 * N1 * N2 + 1),
-                    LWORK - 2 * N1 * N2,
-                    IWORK,
-                    IERR);
-              } else {
-                // Solve the transposed variant.
+              dtgsyl(
+                  'N',
+                  IJB,
+                  N2,
+                  N1,
+                  A(I, I),
+                  LDA,
+                  A,
+                  LDA,
+                  WORK.asMatrix(N2),
+                  N2,
+                  B(I, I),
+                  LDB,
+                  B,
+                  LDB,
+                  WORK(N1 * N2 + 1).asMatrix(N2),
+                  N2,
+                  DSCALE,
+                  DIF.box(2),
+                  WORK(2 * N1 * N2 + 1),
+                  LWORK - 2 * N1 * N2,
+                  IWORK,
+                  IERR);
+            } else {
+              // Solve the transposed variant.
 
-                dtgsyl(
-                    'T',
-                    IJB,
-                    N2,
-                    N1,
-                    A(I, I),
-                    LDA,
-                    A,
-                    LDA,
-                    WORK.asMatrix(N2),
-                    N2,
-                    B(I, I),
-                    LDB,
-                    B,
-                    LDB,
-                    WORK(N1 * N2 + 1).asMatrix(N2),
-                    N2,
-                    DSCALE,
-                    DIF.box(2),
-                    WORK(2 * N1 * N2 + 1),
-                    LWORK - 2 * N1 * N2,
-                    IWORK,
-                    IERR);
-              }
-              continue;
-            }
-            break;
+              dtgsyl(
+                  'T',
+                  IJB,
+                  N2,
+                  N1,
+                  A(I, I),
+                  LDA,
+                  A,
+                  LDA,
+                  WORK.asMatrix(N2),
+                  N2,
+                  B(I, I),
+                  LDB,
+                  B,
+                  LDB,
+                  WORK(N1 * N2 + 1).asMatrix(N2),
+                  N2,
+                  DSCALE,
+                  DIF.box(2),
+                  WORK(2 * N1 * N2 + 1),
+                  LWORK - 2 * N1 * N2,
+                  IWORK,
+                  IERR);
+            } 
           }
           DIF[2] = DSCALE.value / DIF[2];
         }

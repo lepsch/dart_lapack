@@ -164,8 +164,8 @@ void zlattr(
 
     // Now we multiply by Givens rotations, using the fact that
 
-    // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
-    // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
+    //       [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
+    //       [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
     // and
     //       [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
     //       [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
@@ -185,7 +185,7 @@ void zlattr(
         PLUS1 = STAR1 / PLUS2;
         final REXP = dlarnd(2, ISEED);
         if (REXP < ZERO) {
-          STAR1 = pow(-SFAC, (ONE - REXP)).toComplex() * zlarnd(5, ISEED);
+          STAR1 = -pow(SFAC, (ONE - REXP)).toComplex() * zlarnd(5, ISEED);
         } else {
           STAR1 = pow(SFAC, (ONE + REXP)).toComplex() * zlarnd(5, ISEED);
         }
@@ -223,8 +223,8 @@ void zlattr(
     if (UPPER) {
       for (var J = 1; J <= N - 1; J++) {
         final RA = Box(A[J][J + 1]);
-        final RB = 2.0.toComplex();
-        final C = Box(0.0);
+        final RB = 2.toComplex();
+        final C = Box(ZERO);
         final S = Box(Complex.zero);
         zrotg(RA, RB, C, S);
 
@@ -249,8 +249,8 @@ void zlattr(
     } else {
       for (var J = 1; J <= N - 1; J++) {
         final RA = Box(A[J + 1][J]);
-        final RB = 2.0.toComplex();
-        final C = Box(0.0);
+        final RB = 2.toComplex();
+        final C = Box(ZERO);
         final S = Box(Complex.zero);
         zrotg(RA, RB, C, S);
         S.value = S.value.conjugate();

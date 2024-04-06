@@ -187,7 +187,7 @@ void dlattp(
         final REXP = dlarnd(2, ISEED);
         STAR1 *= pow(SFAC, REXP);
         if (REXP < ZERO) {
-          STAR1 = pow(-SFAC, ONE - REXP).toDouble();
+          STAR1 = -pow(SFAC, ONE - REXP).toDouble();
         } else {
           STAR1 = pow(SFAC, ONE + REXP).toDouble();
         }

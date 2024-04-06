@@ -1,6 +1,4 @@
-import 'dart:math';
-
-import 'package:lapack/src/matrix.dart';
+import 'package:lapack/lapack.dart';
 
 double dsxt1(
   final int IJOB,

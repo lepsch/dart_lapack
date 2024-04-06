@@ -1,17 +1,6 @@
-import 'dart:math';
+import 'dart:math' hide pow;
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/blas/drotg.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlarnd.dart';
 import '../matgen/dlatms.dart';
@@ -44,25 +33,18 @@ void dlattr(
   final ULP = dlamch('Epsilon') * dlamch('Base');
   final SMLNUM = UNFL;
   final BIGNUM = (ONE - ULP) / SMLNUM;
-  if ((IMAT >= 7 && IMAT <= 10) || IMAT == 18) {
-    DIAG.value = 'U';
-  } else {
-    DIAG.value = 'N';
-  }
+  DIAG.value = (IMAT >= 7 && IMAT <= 10) || IMAT == 18 ? 'U' : 'N';
   INFO.value = 0;
 
   // Quick return if N <= 0.
-
   if (N <= 0) return;
 
   // Call DLATB4 to set parameters for DLATMS.
-
   final UPPER = lsame(UPLO, 'U');
   final (:TYPE, :KL, :KU, :ANORM, :MODE, COND: CNDNUM, :DIST) =
       dlatb4(PATH, UPPER ? IMAT : -IMAT, N, N);
 
   // IMAT <= 6:  Non-unit triangular matrix
-
   if (IMAT <= 6) {
     dlatms(N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU,
         'No packing', A, LDA, WORK, INFO);
@@ -160,8 +142,8 @@ void dlattr(
 
     // Now we multiply by Givens rotations, using the fact that
 
-    // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
-    // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
+    //       [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
+    //       [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
     // and
     //       [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
     //       [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
@@ -182,7 +164,7 @@ void dlattr(
         final REXP = dlarnd(2, ISEED);
         STAR1 *= pow(SFAC, REXP);
         if (REXP < ZERO) {
-          STAR1 = pow(-SFAC, ONE - REXP).toDouble();
+          STAR1 = -pow(SFAC, ONE - REXP).toDouble();
         } else {
           STAR1 = pow(SFAC, ONE + REXP).toDouble();
         }
@@ -190,7 +172,7 @@ void dlattr(
     }
 
     final X = sqrt(CNDNUM) - 1 / sqrt(CNDNUM);
-    final Y = N > 2 ? sqrt(2.0 / (N - 2)) * X : ZERO;
+    final Y = N > 2 ? sqrt(2 / (N - 2)) * X : ZERO;
     final Z = X * X;
 
     if (UPPER) {
@@ -216,55 +198,47 @@ void dlattr(
     }
 
     // Fill in the zeros using Givens rotations.
-
     if (UPPER) {
       for (var J = 1; J <= N - 1; J++) {
         final RA = Box(A[J][J + 1]);
-        final RB = Box(2.0);
-        final C = Box(0.0), S = Box(0.0);
+        final RB = Box(2.0), C = Box(ZERO), S = Box(ZERO);
         drotg(RA, RB, C, S);
 
         // Multiply by [ c  s; -s  c] on the left.
-
         if (N > J + 1) {
           drot(N - J - 1, A(J, J + 2).asArray(), LDA, A(J + 1, J + 2).asArray(),
               LDA, C.value, S.value);
         }
 
         // Multiply by [-c -s;  s -c] on the right.
-
         if (J > 1) {
           drot(J - 1, A(1, J + 1).asArray(), 1, A(1, J).asArray(), 1, -C.value,
               -S.value);
         }
 
         // Negate A(J,J+1).
-
         A[J][J + 1] = -A[J][J + 1];
       }
     } else {
       for (var J = 1; J <= N - 1; J++) {
         final RA = Box(A[J + 1][J]);
         final RB = Box(2.0);
-        final C = Box(0.0), S = Box(0.0);
+        final C = Box(ZERO), S = Box(ZERO);
         drotg(RA, RB, C, S);
 
         // Multiply by [ c -s;  s  c] on the right.
-
         if (N > J + 1) {
           drot(N - J - 1, A(J + 2, J + 1).asArray(), 1, A(J + 2, J).asArray(),
               1, C.value, -S.value);
         }
 
         // Multiply by [-c  s; -s -c] on the left.
-
         if (J > 1) {
           drot(J - 1, A(J, 1).asArray(), LDA, A(J + 1, 1).asArray(), LDA,
               -C.value, S.value);
         }
 
         // Negate A(J+1,J).
-
         A[J + 1][J] = -A[J + 1][J];
       }
     }

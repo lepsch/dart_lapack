@@ -17,11 +17,9 @@ void zrotg(
 //  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const zero = 0.0, one = 1.0;
   final safmin =
-      pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)))
-          .toDouble();
+      pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)));
   final safmax =
-      pow(radix(0.0), max(1 - minexponent(0.0), maxexponent(0.0) - 1))
-          .toDouble();
+      pow(radix(0.0), max(1 - minexponent(0.0), maxexponent(0.0) - 1));
   final rtmin = sqrt(safmin);
 
   Complex r;

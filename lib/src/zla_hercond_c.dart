@@ -105,20 +105,19 @@ double zla_hercond_c(
   }
 
   // Quick return if possible.
-
   if (N == 0) {
     return 1;
   } else if (ANORM == 0.0) {
     return 0;
   }
 
-  // Estimate the norm of inv(op(A)).
-
+  // Estimate the norm of inv(op(A)). 
   AINVNM.value = 0.0;
 
   KASE.value = 0;
-  zlacn2(N, WORK(N + 1), WORK, AINVNM, KASE, ISAVE);
-  if (KASE.value != 0) {
+  while (true) {
+    zlacn2(N, WORK(N + 1), WORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
     if (KASE.value == 2) {
       // Multiply by R.
 
@@ -160,10 +159,8 @@ double zla_hercond_c(
         WORK[I] *= RWORK[I].toComplex();
       }
     }
-    //  GO TO 10;
   }
 
   // Compute the estimate of the reciprocal condition number.
-
   return AINVNM.value != 0.0 ? 1.0 / AINVNM.value : 0;
 }
