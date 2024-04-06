@@ -1113,30 +1113,33 @@ Future<void> dchkaa(
       final NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchktr(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNB2,
-            NBVAL2,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('TR: Triangular matrices (path=$PATH)', () {
+        if (TSTCHK) {
+          dchktr(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NNB2,
+              NBVAL2,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'TP')) {
       // TP:  triangular packed matrices
 
@@ -1161,7 +1164,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
@@ -1189,7 +1193,8 @@ Future<void> dchkaa(
             WORK.asArray(),
             RWORK,
             IWORK,
-            NOUT);
+            NOUT,
+            test);
       } else {
         NOUT.print9989(PATH);
       }
