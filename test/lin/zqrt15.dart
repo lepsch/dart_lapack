@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlarnd.dart';

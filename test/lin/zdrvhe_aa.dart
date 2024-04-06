@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 
 import '../matgen/zlatms.dart';
@@ -67,7 +65,7 @@ void zdrvhe_aa(
   NERRS.value = 0;
   final ISEED = Array.fromList(ISEEDY);
 
-  // Test the error exits 
+  // Test the error exits
   if (TSTERR) zerrvx(PATH, NOUT);
   infoc.INFOT = 0;
 

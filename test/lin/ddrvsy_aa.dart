@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
@@ -274,6 +272,6 @@ void ddrvsy_aa(
     }
   }
 
-  // Print a summary of the results. 
+  // Print a summary of the results.
   alasvm(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 
 import '../matgen/zlatms.dart';
@@ -345,6 +343,6 @@ void zchksy_aa_2stage(
     }
   }
 
-  // Print a summary of the results. 
+  // Print a summary of the results.
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

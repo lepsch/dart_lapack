@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 
 import '../test_driver.dart';
@@ -207,7 +205,7 @@ void dchktb(
                 dtbtrs(UPLO, TRANS, DIAG.value, N, KD, NRHS, AB.asMatrix(),
                     LDAB, X.asMatrix(), LDA, INFO);
 
-                // Check error code from DTBTRS. 
+                // Check error code from DTBTRS.
                 if (INFO.value != 0) {
                   alaerh(
                       PATH,

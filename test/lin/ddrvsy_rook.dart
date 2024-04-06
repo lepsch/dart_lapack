@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 import 'package:test/test.dart';
 
@@ -149,7 +147,7 @@ void ddrvsy_rook(
 
             if (IMAT < 6) {
               // Set row and column IZERO to zero.
-              
+
               if (IUPLO == 1) {
                 var IOFF = (IZERO - 1) * LDA;
                 for (var I = 1; I <= IZERO - 1; I++) {

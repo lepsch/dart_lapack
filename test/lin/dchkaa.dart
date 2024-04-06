@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:lapack/lapack.dart';
 
@@ -305,7 +304,7 @@ Future<void> dchkaa(
       final NTYPES = 11;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('GE: General matrices (path=$PATH)', () {
+      test.group('GE: General matrices', () {
         if (TSTCHK) {
           dchkge(
               DOTYPE.copy(),
@@ -369,7 +368,7 @@ Future<void> dchkaa(
       final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('GB: General banded matrices (path=$PATH)', () {
+      test.group('GB: General banded matrices', () {
         if (TSTCHK) {
           dchkgb(
               DOTYPE.copy(),
@@ -432,7 +431,7 @@ Future<void> dchkaa(
       final NTYPES = 12;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('GT: General tridiagonal matrices (path=$PATH)', () {
+      test.group('GT: General tridiagonal matrices', () {
         if (TSTCHK) {
           dchkgt(
               DOTYPE.copy(),
@@ -484,7 +483,7 @@ Future<void> dchkaa(
       final NTYPES = 9;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('PO: Positive definite matrices (path=$PATH)', () {
+      test.group('PO: Positive definite matrices', () {
         if (TSTCHK) {
           dchkpo(
               DOTYPE.copy(),
@@ -545,7 +544,7 @@ Future<void> dchkaa(
 
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('PS: Positive semi-definite matrices (path=$PATH)', () {
+      test.group('PS: Positive semi-definite matrices', () {
         if (TSTCHK) {
           dchkps(
               DOTYPE.copy(),
@@ -576,7 +575,7 @@ Future<void> dchkaa(
       final NTYPES = 9;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('PP: Positive definite packed matrices (path=$PATH)', () {
+      test.group('PP: Positive definite packed matrices', () {
         if (TSTCHK) {
           dchkpp(
               DOTYPE.copy(),
@@ -634,7 +633,7 @@ Future<void> dchkaa(
       final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('PB: Positive definite banded matrices (path=$PATH)', () {
+      test.group('PB: Positive definite banded matrices', () {
         if (TSTCHK) {
           dchkpb(
               DOTYPE.copy(),
@@ -694,7 +693,7 @@ Future<void> dchkaa(
       final NTYPES = 12;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('PT: Positive definite tridiagonal matrices (path=$PATH)', () {
+      test.group('PT: Positive definite tridiagonal matrices', () {
         if (TSTCHK) {
           dchkpt(
               DOTYPE.copy(),
@@ -748,7 +747,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SY: Symmetric indefinite matrices - partial Bunch-Kaufman pivoting (path=$PATH)',
+          'SY: Symmetric indefinite matrices - partial Bunch-Kaufman pivoting',
           () {
         if (TSTCHK) {
           dchksy(
@@ -809,7 +808,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SR: Symmetric indefinite matrices - bounded Bunch-Kaufman pivoting (path=$PATH)',
+          'SR: Symmetric indefinite matrices - bounded Bunch-Kaufman pivoting',
           () {
         if (TSTCHK) {
           dchksy_rook(
@@ -871,7 +870,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SK: Symmetric indefinite matrices - bounded Bunch-Kaufman pivoting 2 (path=$PATH)',
+          'SK: Symmetric indefinite matrices - bounded Bunch-Kaufman pivoting 2',
           () {
         if (TSTCHK) {
           dchksy_rk(
@@ -934,7 +933,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SA: Symmetric indefinite matrices - partial Aasen\'s pivoting (path=$PATH)',
+          'SA: Symmetric indefinite matrices - partial Aasen\'s pivoting',
           () {
         if (TSTCHK) {
           dchksy_aa(
@@ -995,7 +994,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'S2: Symmetric indefinite matrices - partial Aasen\'s pivoting 2 (path=$PATH)',
+          'S2: Symmetric indefinite matrices - partial Aasen\'s pivoting 2',
           () {
         if (TSTCHK) {
           dchksy_aa_2stage(
@@ -1056,7 +1055,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SP: Symmetric indefinite packed matrices - partial Bunch-Kaufman pivoting (path=$PATH)',
+          'SP: Symmetric indefinite packed matrices - partial Bunch-Kaufman pivoting',
           () {
         if (TSTCHK) {
           dchksp(
@@ -1113,7 +1112,7 @@ Future<void> dchkaa(
       final NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      test.group('TR: Triangular matrices (path=$PATH)', () {
+      test.group('TR: Triangular matrices', () {
         if (TSTCHK) {
           dchktr(
               DOTYPE.copy(),
@@ -1146,29 +1145,31 @@ Future<void> dchkaa(
       final NTYPES = 18;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchktp(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('TP: Triangular packed matrices', () {
+        if (TSTCHK) {
+          dchktp(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'TB')) {
       // TB:  triangular banded matrices
 

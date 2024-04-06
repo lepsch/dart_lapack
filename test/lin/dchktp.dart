@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:lapack/lapack.dart';
 import 'package:test/test.dart';
 
@@ -59,7 +57,6 @@ void dchktp(
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
   const UPLOS = ['U', 'L'], TRANSS = ['N', 'T', 'C'];
-  final INFO = Box(0);
 
   // Initialize constants and the random number seed.
 
@@ -90,9 +87,11 @@ void dchktp(
       final skip = !DOTYPE[IMAT];
 
       test('DCHKTP - 1 (IN=$IN IMAT=$IMAT)', () {
+        final INFO = Box(0);
+
         for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
           // Do first for UPLO = 'U', then for UPLO = 'L'
-          final UPLO = UPLOS[IUPLO];
+          final UPLO = UPLOS[IUPLO - 1];
 
           // Call DLATTP to generate a triangular test matrix.
           final DIAG = Box('');
@@ -291,9 +290,10 @@ void dchktp(
       final skip = !DOTYPE[IMAT];
 
       test('DCHKTP - 2 (IN=$IN IMAT=$IMAT)', () {
+        final INFO = Box(0);
+
         for (var IUPLO = 1; IUPLO <= 2; IUPLO++) {
           // Do first for UPLO = 'U', then for UPLO = 'L'
-
           final UPLO = UPLOS[IUPLO - 1];
           for (var ITRAN = 1; ITRAN <= NTRAN; ITRAN++) {
             // Do for op(A) = A, A**T, or A**H.
@@ -301,7 +301,6 @@ void dchktp(
             final TRANS = TRANSS[ITRAN - 1];
 
             // Call DLATTP to generate a triangular test matrix.
-
             final DIAG = Box('');
             srnamc.SRNAMT = 'DLATTP';
             dlattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, INFO);
@@ -315,7 +314,7 @@ void dchktp(
             dlatps(UPLO, TRANS, DIAG.value, 'N', N, AP, B, SCALE, RWORK, INFO);
 
             // Check error code from DLATPS.
-
+            test.expect(INFO.value, 0);
             if (INFO.value != 0) {
               alaerh(PATH, 'DLATPS', INFO.value, 0, '$UPLO$TRANS${DIAG}N', N, N,
                   -1, -1, -1, IMAT, NFAIL, NERRS, NOUT);
@@ -332,7 +331,7 @@ void dchktp(
                 INFO);
 
             // Check error code from DLATPS.
-
+            test.expect(INFO.value, 0);
             if (INFO.value != 0) {
               alaerh(PATH, 'DLATPS', INFO.value, 0, '$UPLO$TRANS${DIAG}Y', N, N,
                   -1, -1, -1, IMAT, NFAIL, NERRS, NOUT);
@@ -343,21 +342,15 @@ void dchktp(
 
             // Print information about the tests that did not pass
             // the threshold.
-
-            void printFailedTest(String s, String b, int test, double ratio) {
-              NOUT.println(
-                  ' $s( \'${UPLO.a1}\'${TRANS.a1}\'${DIAG.value.a1}\'${b.a1}\',${N.i5}, ... ), type ${IMAT.i2}, test(${test.i2})=${ratio.g12_5}');
-            }
-
-            if (RESULT[8] >= THRESH) {
-              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              printFailedTest('DLATPS', 'N', 8, RESULT[8]);
-              NFAIL++;
-            }
-            if (RESULT[9] >= THRESH) {
-              if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              printFailedTest('DLATPS', 'Y', 9, RESULT[9]);
-              NFAIL++;
+            for (final (K, NORMIN) in [(8, 'N'), (9, 'Y')]) {
+              final reason =
+                  ' DLATPS( \'${UPLO.a1}\'${TRANS.a1}\'${DIAG.value.a1}\'${NORMIN.a1}\',${N.i5}, ... ), type ${IMAT.i2}, test(${K.i2})=${RESULT[K].g12_5}';
+              test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+              if (RESULT[K] >= THRESH) {
+                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                NOUT.println(reason);
+                NFAIL++;
+              }
             }
             NRUN += 2;
           }
@@ -367,6 +360,5 @@ void dchktp(
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }
