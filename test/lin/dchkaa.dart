@@ -933,8 +933,7 @@ Future<void> dchkaa(
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
       test.group(
-          'SA: Symmetric indefinite matrices - partial Aasen\'s pivoting',
-          () {
+          'SA: Symmetric indefinite matrices - partial Aasen\'s pivoting', () {
         if (TSTCHK) {
           dchksy_aa(
               DOTYPE.copy(),
@@ -1176,29 +1175,31 @@ Future<void> dchkaa(
       final NTYPES = 17;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchktb(
-            DOTYPE,
-            NN,
-            NVAL,
-            NNS,
-            NSVAL,
-            THRESH,
-            TSTERR,
-            LDA,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            RWORK,
-            IWORK,
-            NOUT,
-            test);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('TB: Triangular banded matrices', () {
+        if (TSTCHK) {
+          dchktb(
+              DOTYPE.copy(),
+              NN,
+              NVAL,
+              NNS,
+              NSVAL,
+              THRESH,
+              TSTERR,
+              LDA,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              RWORK,
+              IWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'QR')) {
       // QR:  QR factorization
 
