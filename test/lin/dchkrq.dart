@@ -1,10 +1,4 @@
-import 'dart:math';
-
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
 import '../matgen/dlatms.dart';
 import 'alaerh.dart';

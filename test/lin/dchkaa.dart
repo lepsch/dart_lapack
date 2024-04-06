@@ -1283,35 +1283,38 @@ Future<void> dchkaa(
       final NTYPES = 8;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchkql(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            NNB,
-            NBVAL,
-            NXVAL,
-            NRHS,
-            THRESH,
-            TSTERR,
-            NMAX,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            A(1, 3).asArray(),
-            A(1, 4).asArray(),
-            A(1, 5).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            B(1, 4).asArray(),
-            WORK.asArray(),
-            RWORK,
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('QL: QL factorization', () {
+        if (TSTCHK) {
+          dchkql(
+              DOTYPE.copy(),
+              NM,
+              MVAL,
+              NN,
+              NVAL,
+              NNB,
+              NBVAL,
+              NXVAL,
+              NRHS,
+              THRESH,
+              TSTERR,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              A(1, 4).asArray(),
+              A(1, 5).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              B(1, 4).asArray(),
+              WORK.asArray(),
+              RWORK,
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'RQ')) {
       // RQ:  RQ factorization
 

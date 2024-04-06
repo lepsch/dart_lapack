@@ -125,7 +125,6 @@ void dchklq(
           // Set some values for K: the first value must be MINMN,
           // corresponding to the call of DLQT01; other values are
           // used in the calls of DLQT02, and must not exceed MINMN.
-
           final KVAL = Array.fromList([MINMN, 0, 1, MINMN ~/ 2]);
           final NK = switch (MINMN) {
             0 => 1,
