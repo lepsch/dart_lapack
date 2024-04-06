@@ -66,8 +66,7 @@ void dchkqr(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   // final IWORK = IWORK_.having();
-  const NTESTS = 9;
-  const NTYPES = 8;
+  const NTESTS = 9, NTYPES = 8;
   const ZERO = 0.0;
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
@@ -82,7 +81,7 @@ void dchkqr(
 
   test.group('error exits', () {
     // Test the error exits
-    if (TSTERR) derrqr(PATH, NOUT);
+    if (TSTERR) derrqr(PATH, NOUT, test);
     test.tearDown(() {
       infoc.INFOT = 0;
     });
@@ -225,7 +224,7 @@ void dchkqr(
               for (var I = 1; I <= NTESTS; I++) {
                 final reason =
                     ' M=${M.i5}, N=${N.i5}, K=${K.i5}, NB=${NB.i4}, NX=${NX.i5}, type ${IMAT.i2}, test(${I.i2})=${RESULT[I].g12_5}';
-                test.expect(RESULT[K], lessThan(THRESH), reason: reason);
+                test.expect(RESULT[I], lessThan(THRESH), reason: reason);
                 if (RESULT[I] >= THRESH) {
                   if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
                   NOUT.println(reason);
