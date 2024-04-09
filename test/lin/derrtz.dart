@@ -4,11 +4,12 @@ import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
+import '../test_driver.dart';
 import 'alaesm.dart';
 import 'chkxer.dart';
 import 'common.dart';
 
-void derrtz(final String PATH, final Nout NUNIT) {
+void derrtz(final String PATH, final Nout NUNIT, final TestDriver test) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -32,27 +33,26 @@ void derrtz(final String PATH, final Nout NUNIT) {
   if (lsamen(2, C2, 'TZ')) {
     // Test error exits for the trapezoidal routines.
 
-    // DTZRZF
-
-    srnamc.SRNAMT = 'DTZRZF';
-    infoc.INFOT = 1;
-    dtzrzf(-1, 0, A, 1, TAU, W, 1, INFO);
-    chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    infoc.INFOT = 2;
-    dtzrzf(1, 0, A, 1, TAU, W, 1, INFO);
-    chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    infoc.INFOT = 4;
-    dtzrzf(2, 2, A, 1, TAU, W, 1, INFO);
-    chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    infoc.INFOT = 7;
-    dtzrzf(2, 2, A, 2, TAU, W, 0, INFO);
-    chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-    infoc.INFOT = 7;
-    dtzrzf(2, 3, A, 2, TAU, W, 1, INFO);
-    chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    test('DTZRZF', () {
+      srnamc.SRNAMT = 'DTZRZF';
+      infoc.INFOT = 1;
+      dtzrzf(-1, 0, A, 1, TAU, W, 1, INFO);
+      chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+      infoc.INFOT = 2;
+      dtzrzf(1, 0, A, 1, TAU, W, 1, INFO);
+      chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+      infoc.INFOT = 4;
+      dtzrzf(2, 2, A, 1, TAU, W, 1, INFO);
+      chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+      infoc.INFOT = 7;
+      dtzrzf(2, 2, A, 2, TAU, W, 0, INFO);
+      chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+      infoc.INFOT = 7;
+      dtzrzf(2, 3, A, 2, TAU, W, 1, INFO);
+      chkxer('DTZRZF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    });
   }
 
   // Print a summary line.
-
   alaesm(PATH, infoc.OK.value, infoc.NOUT);
 }

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:lapack/lapack.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dgeqr2.dart';
 import 'package:lapack/src/dlacpy.dart';
@@ -9,8 +10,10 @@ import 'package:lapack/src/format_specifiers_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
+import '../test_driver.dart';
 import 'alahd.dart';
 import 'alasum.dart';
 import 'common.dart';
@@ -34,6 +37,7 @@ void dchktz(
   final Array<double> TAU_,
   final Array<double> WORK_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -49,10 +53,8 @@ void dchktz(
 
   const NTYPES = 3, NTESTS = 3;
   const ONE = 1.0, ZERO = 0.0;
-  final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
   const ISEEDY = [1988, 1989, 1990, 1991];
-  final INFO = Box(0);
 
   // Initialize constants and the random number seed.
 
@@ -60,45 +62,44 @@ void dchktz(
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
-  }
+  final ISEED = Array.fromList(ISEEDY);
   final EPS = dlamch('Epsilon');
 
-  // Test the error exits
+  test.group('error exits', () {
+    // Test the error exits
+    if (TSTERR) derrtz(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
-  if (TSTERR) derrtz(PATH, NOUT);
-  infoc.INFOT = 0;
-
-  for (var IM = 1; IM <= NM; IM++) {
+  for (final IM in 1.through(NM)) {
     // Do for each value of M in MVAL.
-
     final M = MVAL[IM];
     final LDA = max(1, M).toInt();
 
-    for (var IN = 1; IN <= NN; IN++) {
+    for (final IN in 1.through(NN)) {
       // Do for each value of N in NVAL for which M <= N.
-
       final N = NVAL[IN];
       final MNMIN = min(M, N);
       final LWORK = max(1, max(N * N + 4 * M + N, M * N + 2 * MNMIN + 4 * N));
+      if (M > N) continue;
 
-      if (M <= N) {
-        for (var IMODE = 1; IMODE <= NTYPES; IMODE++) {
-          if (!DOTYPE[IMODE]) continue;
+      for (final IMODE in 1.through(NTYPES)) {
+        final skip = !DOTYPE[IMODE];
+        test('DCHKTZ (IM=$IM IN=$IN IMODE=$IMODE)', () {
+          final INFO = Box(0);
 
           // Do for each type of singular value distribution.
           //    0:  zero matrix
           //    1:  one small singular value
           //    2:  exponential distribution
-
           final MODE = IMODE - 1;
 
           // Test DTZRQF
 
           // Generate test matrix of size m by n using
           // singular value distribution indicated by `mode'.
-
           if (MODE == 0) {
             dlaset('Full', M, N, ZERO, ZERO, A.asMatrix(), LDA);
             for (var I = 1; I <= MNMIN; I++) {
@@ -113,46 +114,40 @@ void dchktz(
           }
 
           // Save A and its singular values
-
           dlacpy('All', M, N, A.asMatrix(), LDA, COPYA.asMatrix(), LDA);
 
           // Call DTZRZF to reduce the upper trapezoidal matrix to
           // upper triangular form.
-
           srnamc.SRNAMT = 'DTZRZF';
           dtzrzf(M, N, A.asMatrix(), LDA, TAU, WORK, LWORK, INFO);
 
           // Compute norm(svd(a) - svd(r))
-
           RESULT[1] = dqrt12(M, M, A.asMatrix(), LDA, S, WORK, LWORK);
 
           // Compute norm( A - R*Q )
-
           RESULT[2] = drzt01(
               M, N, COPYA.asMatrix(), A.asMatrix(), LDA, TAU, WORK, LWORK);
 
           // Compute norm(Q'*Q - I).
-
           RESULT[3] = drzt02(M, N, A.asMatrix(), LDA, TAU, WORK, LWORK);
 
-          // Print information about the tests that did not pass
-          // the threshold.
-
+          // Print information about the tests that did not pass the threshold.
           for (var K = 1; K <= NTESTS; K++) {
+            final reason =
+                ' M =${M.i5}, N =${N.i5}, type ${IMODE.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}';
+            test.expect(RESULT[K], lessThan(THRESH), reason: reason);
             if (RESULT[K] >= THRESH) {
               if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-              NOUT.println(
-                  ' M =${M.i5}, N =${N.i5}, type ${IMODE.i2}, test ${K.i2}, ratio =${RESULT[K].g12_5}');
+              NOUT.println(reason);
               NFAIL++;
             }
           }
           NRUN += 3;
-        }
+        }, skip: skip);
       }
     }
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

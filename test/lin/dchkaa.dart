@@ -1424,24 +1424,27 @@ Future<void> dchkaa(
       final NTYPES = 3;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTCHK) {
-        dchktz(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 3).asArray(),
-            WORK.asArray(),
-            NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('TZ: Trapezoidal matrix', () {
+        if (TSTCHK) {
+          dchktz(
+              DOTYPE.copy(),
+              NM,
+              MVAL,
+              NN,
+              NVAL,
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 3).asArray(),
+              WORK.asArray(),
+              NOUT,
+              test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'LS')) {
       // LS:  Least squares drivers
 
