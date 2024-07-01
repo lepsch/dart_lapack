@@ -1,10 +1,7 @@
-import 'dart:math';
+import 'package:lapack/lapack.dart';
+import 'package:test/test.dart';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-
+import '../test_driver.dart';
 import 'alahd.dart';
 import 'alasum.dart';
 import 'common.dart';
@@ -21,6 +18,7 @@ void dchklqtp(
   final int NNB,
   final Array<int> NBVAL_,
   final Nout NOUT,
+  final TestDriver test,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,46 +37,48 @@ void dchklqtp(
   final NERRS = Box(0);
 
   // Test the error exits
-
-  if (TSTERR) derrlqtp(PATH, NOUT);
-  infoc.INFOT = 0;
+  test.group('error exits', () {
+    if (TSTERR) derrlqtp(PATH, NOUT, test);
+    test.tearDown(() {
+      infoc.INFOT = 0;
+    });
+  });
 
   // Do for each value of M
-
-  for (var I = 1; I <= NM; I++) {
+  for (final I in 1.through(NM)) {
     final M = MVAL[I];
 
     // Do for each value of N
-
-    for (var J = 1; J <= NN; J++) {
+    for (final J in 1.through(NN)) {
       final N = NVAL[J];
 
       // Do for each value of L
-
       final MINMN = min(M, N);
-      for (var L = 0; L <= MINMN; L += max(MINMN, 1)) {
+      for (final L in 0.through(MINMN, step: max(MINMN, 1))) {
         // Do for each possible value of NB
-
-        for (var K = 1; K <= NNB; K++) {
+        for (final K in 1.through(NNB)) {
           final NB = NBVAL[K];
 
           // Test DTPLQT and DTPMLQT
-
           if ((NB <= M) && (NB > 0)) {
-            dlqt05(M, N, L, NB, RESULT);
+            test('DTPLQT and DTPMLQT (I=$I J=$J L=$L K=$K M=$M N=$N NB=$NB)',
+                () {
+              dlqt05(M, N, L, NB, RESULT);
 
-            // Print information about the tests that did not
-            // pass the threshold.
-
-            for (var T = 1; T <= NTESTS; T++) {
-              if (RESULT[T] >= THRESH) {
-                if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
-                NOUT.println(
-                    ' M=${M.i5}, N=${N.i5}, NB=${NB.i4} L=${L.i4} test(${T.i2})=${RESULT[T].g12_5}');
-                NFAIL++;
+              // Print information about the tests that did not
+              // pass the threshold.
+              for (var T = 1; T <= NTESTS; T++) {
+                final reason =
+                    ' M=${M.i5}, N=${N.i5}, NB=${NB.i4} L=${L.i4} test(${T.i2})=${RESULT[T].g12_5}';
+                test.expect(RESULT[T], lessThan(THRESH), reason: reason);
+                if (RESULT[T] >= THRESH) {
+                  if (NFAIL == 0 && NERRS.value == 0) alahd(NOUT, PATH);
+                  NOUT.println(reason);
+                  NFAIL++;
+                }
               }
-            }
-            NRUN += NTESTS;
+              NRUN += NTESTS;
+            });
           }
         }
       }
@@ -86,6 +86,5 @@ void dchklqtp(
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
 }

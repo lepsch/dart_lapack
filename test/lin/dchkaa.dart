@@ -1525,11 +1525,13 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'XQ')) {
       // XQ:  LQT routines for triangular-pentagonal matrices
 
-      if (TSTCHK) {
-        dchklqtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('XQ: LQT routines for triangular-pentagonal matrices', () {
+        if (TSTCHK) {
+          dchklqtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT, test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'TS')) {
       // TS:  QR routines for tall-skinny matrices
 

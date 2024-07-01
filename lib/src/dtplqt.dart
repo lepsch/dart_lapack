@@ -1,10 +1,4 @@
-import 'dart:math';
-
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dtplqt2.dart';
-import 'package:lapack/src/dtprfb.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/lapack.dart';
 
 void dtplqt(
   final int M,
@@ -27,11 +21,8 @@ void dtplqt(
   final B = B_.having(ld: LDB);
   final T = T_.having(ld: LDT);
   final WORK = WORK_.having();
-  int I, IB, LB, NB;
-  final IINFO = Box(0);
 
   // Test the input arguments
-
   INFO.value = 0;
   if (M < 0) {
     INFO.value = -1;
@@ -54,24 +45,22 @@ void dtplqt(
   }
 
   // Quick return if possible
-
   if (M == 0 || N == 0) return;
 
-  for (I = 1; I <= M; I += MB) {
+  for (var I = 1; I <= M; I += MB) {
     // Compute the QR factorization of the current block
-
-    IB = min(M - I + 1, MB);
-    NB = min(N - L + I + IB - 1, N);
+    final IB = min(M - I + 1, MB);
+    final NB = min(N - L + I + IB - 1, N);
+    final int LB;
     if (I >= L) {
       LB = 0;
     } else {
       LB = NB - N + L - I + 1;
     }
 
-    dtplqt2(IB, NB, LB, A(I, I), LDA, B(I, 1), LDB, T(1, I), LDT, IINFO);
+    dtplqt2(IB, NB, LB, A(I, I), LDA, B(I, 1), LDB, T(1, I), LDT, Box(0));
 
     // Update by applying H**T to B(I+IB:M,:) from the right
-
     if (I + IB <= M) {
       dtprfb(
         'R',
