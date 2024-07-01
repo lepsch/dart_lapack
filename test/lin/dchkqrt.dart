@@ -60,7 +60,7 @@ void dchkqrt(
 
         // Test DGEQRT and DGEMQRT
         if ((NB <= MINMN) && (NB > 0)) {
-          test('DCHKGB (I=$I J=$J K=$K M=$M N=$N NB=$NB)', () {
+          test('DGEQRT and DGEMQRT (I=$I J=$J K=$K M=$M N=$N NB=$NB)', () {
             dqrt04(M, N, NB, RESULT);
 
             // Print information about the tests that did not

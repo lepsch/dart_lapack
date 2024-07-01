@@ -1505,11 +1505,13 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'QX')) {
       // QX:  QRT routines for triangular-pentagonal matrices
 
-      if (TSTCHK) {
-        dchkqrtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('QX: QRT routines for triangular-pentagonal matrices', () {
+        if (TSTCHK) {
+          dchkqrtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT, test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'TQ')) {
       // TQ:  LQT routines for general matrices
 

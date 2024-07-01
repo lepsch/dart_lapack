@@ -124,5 +124,5 @@ void derrqrt(final String PATH, final Nout NUNIT, final TestDriver test) {
   });
 
   // Print a summary line.
-  alaesm(PATH, infoc.OK.value, infoc.NOUT);
+  alaesm(PATH, OK.value, NOUT);
 }
