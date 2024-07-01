@@ -30,7 +30,7 @@ abstract class Complex {
   bool operator >(Complex other);
   bool operator >=(Complex other);
   @override
-  bool operator ==(Object? other);
+  bool operator ==(Object other);
   @override
   int get hashCode;
 
@@ -120,7 +120,7 @@ class _Complex implements Complex {
   }
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is Complex && real == other.real && imaginary == other.imaginary ||
       other is ComplexTuple && real == other.$1 && imaginary == other.$2 ||

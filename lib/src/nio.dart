@@ -6,7 +6,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
 
-class EOF extends Error {} 
+class EOF extends Error {}
 
 class Nin {
   final StreamQueue<String> _lineStream;
@@ -179,14 +179,14 @@ class Nin {
 
   T _parse<T>(String s) {
     return switch (T) {
-      int => int.parse(s),
-      double =>
+      const (int) => int.parse(s),
+      const (double) =>
         double.parse(s.replaceFirstMapped(RegExp('[Dd]([+-])?'), (match) {
           return 'e${match[1] ?? ''}';
         })),
-      bool => s.contains(RegExp('[Tt]')),
-      String => s,
-      Complex => _parseComplex(s),
+      const (bool) => s.contains(RegExp('[Tt]')),
+      const (String) => s,
+      const (Complex) => _parseComplex(s),
       _ => throw UnimplementedError(),
     } as T;
   }

@@ -61,22 +61,22 @@ abstract interface class Array<T> implements Box<T>, List<T> {
 extension ArrayExtension<T> on Array<T> {
   T maxval(int start, int end) {
     switch (T) {
-      case double:
-      case int:
+      case const (double):
+      case const (int):
         var value = this[start] as num;
         for (var i = start + 1; i <= end; i++) {
           if (value < (this[i] as num)) value = this[i] as num;
         }
         return value as T;
 
-      case Complex:
+      case const (Complex):
         var value = this[start] as Complex;
         for (var i = start + 1; i <= end; i++) {
           if (value < (this[i] as Complex)) value = this[i] as Complex;
         }
         return value as T;
 
-      case bool:
+      case const (bool):
         for (var i = start; i <= end; i++) {
           if (this[start] as bool) return true as T;
         }
@@ -88,8 +88,8 @@ extension ArrayExtension<T> on Array<T> {
 
   int maxloc(int start, int end, {int dim = 1}) {
     switch (T) {
-      case double:
-      case int:
+      case const (double):
+      case const (int):
         int loc = start;
         var value = this[start] as num;
         for (var i = start + 1; i <= end; i++) {
@@ -100,7 +100,7 @@ extension ArrayExtension<T> on Array<T> {
         }
         return loc - start + 1;
 
-      case Complex:
+      case const (Complex):
         int loc = start;
         Complex value = this[start] as Complex;
         for (var i = start + 1; i <= end; i++) {
@@ -111,7 +111,7 @@ extension ArrayExtension<T> on Array<T> {
         }
         return loc - start + 1;
 
-      case bool:
+      case const (bool):
         for (var i = start; i <= end; i++) {
           if (this[start] as bool) return i - start + 1;
         }
@@ -259,19 +259,19 @@ class _Array<T> implements Array<T> {
   @override
   _Array(int length, {this.offset = oneIndexedArrayOffset})
       : _elements = switch (T) {
-          double => Float64List(length),
-          int => Int64List(length),
-          Complex => Complex64List(length),
-          bool => List.filled(length, false),
+          const (double) => Float64List(length),
+          const (int) => Int64List(length),
+          const (Complex) => Complex64List(length),
+          const (bool) => List.filled(length, false),
           _ => throw UnimplementedError(),
         } as List<T>;
 
   _Array.fromList(List<T> list, {this.offset = oneIndexedArrayOffset})
       : _elements = switch (T) {
-          double => Float64List.fromList(list as List<double>),
-          int => Int64List.fromList(list as List<int>),
-          Complex => Complex64List.fromList(list as List<Complex>),
-          bool => [...list],
+          const (double) => Float64List.fromList(list as List<double>),
+          const (int) => Int64List.fromList(list as List<int>),
+          const (Complex) => Complex64List.fromList(list as List<Complex>),
+          const (bool) => [...list],
           _ => throw UnimplementedError(),
         } as List<T>;
 
@@ -289,21 +289,21 @@ class _Array<T> implements Array<T> {
   _Array<T> _slice(int index, {int? offset, int? length}) {
     return _Array.fromData(
       switch (T) {
-        double => (_elements as Float64List).buffer.asFloat64List(
+        const (double) => (_elements as Float64List).buffer.asFloat64List(
               (_elements as Float64List).offsetInBytes +
                   (index + this.offset) *
                       (_elements as Float64List).elementSizeInBytes,
               length,
             ),
-        int => (_elements as Int64List).buffer.asInt64List(
+        const (int) => (_elements as Int64List).buffer.asInt64List(
               (_elements as Int64List).offsetInBytes +
                   (index + this.offset) *
                       (_elements as Int64List).elementSizeInBytes,
               length,
             ),
-        Complex =>
+        const (Complex) =>
           (_elements as Complex64List).slice(index + this.offset, length),
-        bool => _elements is ListSlice
+        const (bool) => _elements is ListSlice
             ? _elements.slice(
                 index + this.offset,
                 length != null
@@ -376,15 +376,15 @@ class _Array<T> implements Array<T> {
     if (T == R) return this as Array<R>;
 
     final typedData = switch (T) {
-      bool => throw UnimplementedError(),
-      Complex => (_elements as Complex64List).toData(),
+      const (bool) => throw UnimplementedError(),
+      const (Complex) => (_elements as Complex64List).toData(),
       _ => _elements as TypedData,
     };
 
     final elements = switch (R) {
-      double => typedData.buffer.asFloat64List(typedData.offsetInBytes),
-      int => typedData.buffer.asInt64List(typedData.offsetInBytes),
-      Complex => Complex64List.fromData(
+      const (double) => typedData.buffer.asFloat64List(typedData.offsetInBytes),
+      const (int) => typedData.buffer.asInt64List(typedData.offsetInBytes),
+      const (Complex) => Complex64List.fromData(
           typedData.buffer.asFloat64x2List(typedData.offsetInBytes)),
       _ => throw UnimplementedError(),
     } as List<R>;
