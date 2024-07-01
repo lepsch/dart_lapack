@@ -1,13 +1,11 @@
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dorhr_col.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:lapack/lapack.dart';
 
+import '../test_driver.dart';
 import 'alaesm.dart';
 import 'chkxer.dart';
 import 'common.dart';
 
-void derrorhr_col(final String PATH, final Nout NUNIT) {
+void derrorhr_col(final String PATH, final Nout NUNIT, final TestDriver test) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -17,8 +15,10 @@ void derrorhr_col(final String PATH, final Nout NUNIT) {
       D = Array<double>(NMAX);
   final INFO = Box(0);
 
-  infoc.NOUT = NUNIT;
-  infoc.NOUT.println();
+  final NOUT = infoc.NOUT = NUNIT;
+  final OK = infoc.OK;
+  final LERR = infoc.LERR;
+  NOUT.println();
 
   // Set the variables to innocuous values.
 
@@ -29,52 +29,51 @@ void derrorhr_col(final String PATH, final Nout NUNIT) {
     }
     D[J] = 0.0;
   }
-  infoc.OK.value = true;
+  OK.value = true;
 
   // Error exits for Householder reconstruction
 
-  // DORHR_COL
+  test('DORHR_COL', () {
+    srnamc.SRNAMT = 'DORHR_COL';
 
-  srnamc.SRNAMT = 'DORHR_COL';
+    infoc.INFOT = 1;
+    dorhr_col(-1, 0, 1, A, 1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  infoc.INFOT = 1;
-  dorhr_col(-1, 0, 1, A, 1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    infoc.INFOT = 2;
+    dorhr_col(0, -1, 1, A, 1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
+    dorhr_col(1, 2, 1, A, 1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  infoc.INFOT = 2;
-  dorhr_col(0, -1, 1, A, 1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-  dorhr_col(1, 2, 1, A, 1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    infoc.INFOT = 3;
+    dorhr_col(0, 0, -1, A, 1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  infoc.INFOT = 3;
-  dorhr_col(0, 0, -1, A, 1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    dorhr_col(0, 0, 0, A, 1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  dorhr_col(0, 0, 0, A, 1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    infoc.INFOT = 5;
+    dorhr_col(0, 0, 1, A, -1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  infoc.INFOT = 5;
-  dorhr_col(0, 0, 1, A, -1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    dorhr_col(0, 0, 1, A, 0, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  dorhr_col(0, 0, 1, A, 0, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    dorhr_col(2, 0, 1, A, 1, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  dorhr_col(2, 0, 1, A, 1, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    infoc.INFOT = 7;
+    dorhr_col(0, 0, 1, A, 1, T, -1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  infoc.INFOT = 7;
-  dorhr_col(0, 0, 1, A, 1, T, -1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    dorhr_col(0, 0, 1, A, 1, T, 0, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
 
-  dorhr_col(0, 0, 1, A, 1, T, 0, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
-
-  dorhr_col(4, 3, 2, A, 4, T, 1, D, INFO);
-  chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
+    dorhr_col(4, 3, 2, A, 4, T, 1, D, INFO);
+    chkxer('DORHR_COL', infoc.INFOT, NOUT, LERR, OK, test);
+  });
 
   // Print a summary line.
-
-  alaesm(PATH, infoc.OK.value, infoc.NOUT);
+  alaesm(PATH, OK.value, NOUT);
 }
