@@ -1483,11 +1483,15 @@ Future<void> dchkaa(
       // EQ:  Equilibration routines for general and positive definite
       //      matrices (THREQ should be between 2 and 10)
 
-      if (TSTCHK) {
-        dchkeq(THREQ, NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group(
+          'EQ: Equilibration routines for general and positive definite matrices',
+          () {
+        if (TSTCHK) {
+          dchkeq(THREQ, NOUT, test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'QT')) {
       // QT:  QRT routines for general matrices
 
