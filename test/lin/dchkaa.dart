@@ -1535,11 +1535,13 @@ Future<void> dchkaa(
     } else if (lsamen(2, C2, 'TS')) {
       // TS:  QR routines for tall-skinny matrices
 
-      if (TSTCHK) {
-        dchktsqr(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT);
-      } else {
-        NOUT.print9989(PATH);
-      }
+      test.group('TS: QR routines for tall-skinny matrices', () {
+        if (TSTCHK) {
+          dchktsqr(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT, test);
+        } else {
+          NOUT.print9989(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'HH')) {
       // HH:  Householder reconstruction for tall-skinny matrices
 
