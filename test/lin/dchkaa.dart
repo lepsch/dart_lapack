@@ -1451,31 +1451,34 @@ Future<void> dchkaa(
       final NTYPES = 6;
       await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
 
-      if (TSTDRV) {
-        ddrvls(
-            DOTYPE,
-            NM,
-            MVAL,
-            NN,
-            NVAL,
-            NNS,
-            NSVAL,
-            NNB,
-            NBVAL,
-            NXVAL,
-            THRESH,
-            TSTERR,
-            A(1, 1).asArray(),
-            A(1, 2).asArray(),
-            B(1, 1).asArray(),
-            B(1, 2).asArray(),
-            B(1, 3).asArray(),
-            RWORK,
-            RWORK(NMAX + 1),
-            NOUT);
-      } else {
-        NOUT.print9988(PATH);
-      }
+      test.group('LS: Least squares drivers', () {
+        if (TSTDRV) {
+          ddrvls(
+              DOTYPE.copy(),
+              NM,
+              MVAL,
+              NN,
+              NVAL,
+              NNS,
+              NSVAL,
+              NNB,
+              NBVAL,
+              NXVAL,
+              THRESH,
+              TSTERR,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              RWORK,
+              RWORK(NMAX + 1),
+              NOUT,
+              test);
+        } else {
+          NOUT.print9988(PATH);
+        }
+      });
     } else if (lsamen(2, C2, 'EQ')) {
       // EQ:  Equilibration routines for general and positive definite
       //      matrices (THREQ should be between 2 and 10)

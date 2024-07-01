@@ -1,24 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgebrd.dart';
-import 'package:lapack/src/zgelqf.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlalsd.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlascl.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zunmbr.dart';
-import 'package:lapack/src/zunmlq.dart';
-import 'package:lapack/src/zunmqr.dart';
+import 'package:lapack/lapack.dart';
 
 void zgelsd(
   final int M,
@@ -37,16 +19,15 @@ void zgelsd(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final S = S_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
-
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   bool LQUERY;
   int IASCL,
@@ -69,7 +50,7 @@ void zgelsd(
       NRWORK,
       NWORK,
       SMLSIZ = 0;
-  double ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM;
+  double ANRM, BNRM;
 
   // Test the input arguments.
 
@@ -108,16 +89,13 @@ void zgelsd(
       LIWORK = 3 * MINMN * NLVL + 11 * MINMN;
       MM = M;
       if (M >= N && M >= MNTHR) {
-        // Path 1a - overdetermined, with many more rows than
-        //           columns.
-
+        // Path 1a - overdetermined, with many more rows than columns.
         MM = N;
         MAXWRK = max(MAXWRK, N * ilaenv(1, 'ZGEQRF', ' ', M, N, -1, -1));
         MAXWRK = max(MAXWRK, NRHS * ilaenv(1, 'ZUNMQR', 'LC', M, NRHS, N, -1));
       }
       if (M >= N) {
         // Path 1 - overdetermined or exactly determined.
-
         LRWORK = 10 * N +
             2 * N * SMLSIZ +
             8 * N * NLVL +
@@ -139,8 +117,7 @@ void zgelsd(
             3 * SMLSIZ * NRHS +
             max(pow(SMLSIZ + 1, 2).toInt(), N * (1 + NRHS) + 2 * NRHS);
         if (N >= MNTHR) {
-          // Path 2a - underdetermined, with many more columns
-          //           than rows.
+          // Path 2a - underdetermined, with many more columns than rows.
 
           MAXWRK = M + M * ilaenv(1, 'ZGELQF', ' ', M, N, -1, -1);
           MAXWRK = max(MAXWRK,
@@ -196,18 +173,16 @@ void zgelsd(
   }
 
   // Quick return if possible.
-
   if (M == 0 || N == 0) {
     RANK.value = 0;
     return;
   }
 
   // Get machine parameters.
-
-  EPS = dlamch('P');
-  SFMIN = dlamch('S');
-  SMLNUM = SFMIN / EPS;
-  BIGNUM = ONE / SMLNUM;
+  final EPS = dlamch('P');
+  final SFMIN = dlamch('S');
+  final SMLNUM = SFMIN / EPS;
+  final BIGNUM = ONE / SMLNUM;
 
   // Scale A if max entry outside range [SMLNUM,BIGNUM].
 

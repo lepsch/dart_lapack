@@ -1,25 +1,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgels.dart';
-import 'package:lapack/src/zgelsd.dart';
-import 'package:lapack/src/zgelss.dart';
-import 'package:lapack/src/zgelst.dart';
-import 'package:lapack/src/zgelsy.dart';
-import 'package:lapack/src/zgetsls.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlarnv.dart';
+import 'package:lapack/lapack.dart';
 
 import 'alaerh.dart';
 import 'alahd.dart';
@@ -74,7 +56,7 @@ void zdrvls(
   final COPYS = COPYS_.having();
   const NTESTS = 18, SMLSIZ = 25;
   const ONE = 1.0, ZERO = 0.0;
-  final ISEED = Array<int>(4), IWQ = Array<int>(1);
+  final IWQ = Array<int>(1);
   final RESULT = Array<double>(NTESTS), RWQ = Array<double>(1);
   final WQ = Array<Complex>(1);
   const ISEEDY = [1988, 1989, 1990, 1991];
@@ -86,9 +68,7 @@ void zdrvls(
   var NRUN = 0;
   var NFAIL = 0;
   final NERRS = Box(0);
-  for (var I = 1; I <= 4; I++) {
-    ISEED[I] = ISEEDY[I - 1];
-  }
+  final ISEED = Array.fromList(ISEEDY);
   final EPS = dlamch('Epsilon');
 
   // Threshold for rank estimation
@@ -101,12 +81,10 @@ void zdrvls(
   if (TSTERR) zerrls(PATH, NOUT);
 
   // Print the header if NM = 0 or NN = 0 and THRESH = 0.
-
   if ((NM == 0 || NN == 0) && THRESH == ZERO) alahd(NOUT, PATH);
   infoc.INFOT = 0;
 
   // Compute maximal workspace needed for all routines
-
   var NMAX = 0;
   var MMAX = 0;
   var NSMAX = 0;
@@ -131,8 +109,7 @@ void zdrvls(
   final MNMIN = max(min(M, N), 1);
 
   // Compute workspace needed for routines
-  // ZQRT14, ZQRT17 (two side cases), ZQRT15 and ZQRT12
-
+  // ZQRT14, ZQRT17 (two side cases), ZQRT15 and ZQRT12 
   var LWORK = <int>[
     1,
     (M + N) * NRHS,
