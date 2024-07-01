@@ -118,53 +118,53 @@ void debugdi(String name, double d, int i) {
   debug('$name ${d.$}${i.$}');
 }
 
-void debugi1(String name, int d) {
+void debugi1(String name, int i) {
   if (!_debug) return;
-  final a = Array.fromList([d]);
+  final a = Array.fromList([i]);
   a.debug(name, 1);
 }
 
-void debugi2(String name, int d1, int d2) {
+void debugi2(String name, int i1, int i2) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2]);
+  final a = Array.fromList([i1, i2]);
   a.debug(name, 2);
 }
 
-void debugi3(String name, int d1, int d2, int d3) {
+void debugi3(String name, int i1, int i2, int i3) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2, d3]);
+  final a = Array.fromList([i1, i2, i3]);
   a.debug(name, 3);
 }
 
-void debugi4(String name, int d1, int d2, int d3, int d4) {
+void debugi4(String name, int i1, int i2, int i3, int i4) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2, d3, d4]);
+  final a = Array.fromList([i1, i2, i3, i4]);
   a.debug(name, 4);
 }
 
-void debugi5(String name, int d1, int d2, int d3, int d4, int d5) {
+void debugi5(String name, int i1, int i2, int i3, int i4, int i5) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2, d3, d4, d5]);
+  final a = Array.fromList([i1, i2, i3, i4, i5]);
   a.debug(name, 5);
 }
 
-void debugi6(String name, int d1, int d2, int d3, int d4, int d5, int d6) {
+void debugi6(String name, int i1, int i2, int i3, int i4, int i5, int i6) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2, d3, d4, d5, d6]);
+  final a = Array.fromList([i1, i2, i3, i4, i5, i6]);
   a.debug(name, 6);
 }
 
 void debugi7(
-    String name, int d1, int d2, int d3, int d4, int d5, int d6, int d7) {
+    String name, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2, d3, d4, d5, d6, d7]);
+  final a = Array.fromList([i1, i2, i3, i4, i5, i6, i7]);
   a.debug(name, 7);
 }
 
-void debugi8(String name, int d1, int d2, int d3, int d4, int d5, int d6,
-    int d7, int d8) {
+void debugi8(String name, int i1, int i2, int i3, int i4, int i5, int i6,
+    int i7, int i8) {
   if (!_debug) return;
-  final a = Array.fromList([d1, d2, d3, d4, d5, d6, d7, d8]);
+  final a = Array.fromList([i1, i2, i3, i4, i5, i6, i7, i8]);
   a.debug(name, 8);
 }
 
@@ -180,7 +180,7 @@ void debug([String? s]) {
 
 void _print(String s) {
   // if (isInDebugMode) return;
-  // print(s);
+  print(s);
   // stderr.writeln(s);
 }
 
@@ -190,11 +190,7 @@ bool get isInDebugMode {
   return inDebugMode;
 }
 
-({
-  String file,
-  String function,
-  int line,
-}) getCallerInfo([int depth = 1]) {
+({String file, String function, int line}) getCallerInfo([int depth = 1]) {
   final trace = Trace.from(StackTrace.current).terse;
   final prevFrame = trace.frames[depth + 1];
   return (
