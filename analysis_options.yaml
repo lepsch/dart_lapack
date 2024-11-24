@@ -13,8 +13,6 @@
 
 include: package:lints/recommended.yaml
 
-# Uncomment the following section to specify additional rules.
-
 linter:
   rules:
     non_constant_identifier_names: false
@@ -40,21 +38,6 @@ analyzer:
     strict-casts: true
     strict-inference: true
     strict-raw-types: true
-  exclude:
-    - lib/src/deprecated/**
-    - lib/src/install/sp/**
-    - lib/src/blas/sp/**
-    - lib/src/variants/cholesky/rl/sp/**
-    - lib/src/variants/cholesky/top/sp/**
-    - lib/src/variants/lu/cr/sp/**
-    - lib/src/variants/lu/ll/sp/**
-    - lib/src/variants/lu/rec/sp/**
-    - lib/src/variants/qr/ll/sp/**
-    - lib/src/sp/**
-    - test/blas/sp/**
-    - test/eig/sp/**
-    - test/lin/sp/**
-    - test/matgen/sp/**
 
 # For more information about the core and recommended set of lints, see
 # https://dart.dev/go/core-lints

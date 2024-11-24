@@ -1,4 +1,0 @@
-c     scabs1.f
-c
-c     The program is a fortran wrapper for scabs1.
-c
