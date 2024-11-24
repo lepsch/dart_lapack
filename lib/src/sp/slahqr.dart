@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slahqr(final int WANTT, final int WANTZ, final int N, final int ILO, final int IHI, final Matrix<double> H_, final int LDH, final int WR, final int WI, final int ILOZ, final int IHIZ, final Matrix<double> Z_, final int LDZ, final Box<int> INFO,) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

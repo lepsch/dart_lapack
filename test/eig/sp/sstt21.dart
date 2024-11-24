@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sstt21(final int N, final int KBAND, final int AD, final int AE, final int SD, final int SE, final Matrix<double> U_, final int LDU, final Array<double> _WORK_, final int RESULT,) {
   final U = U_.dim();
   final _WORK = _WORK_.dim();

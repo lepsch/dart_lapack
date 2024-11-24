@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sget22(final int TRANSA, final int TRANSE, final int TRANSW, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> E_, final int LDE, final int WR, final int WI, final Array<double> _WORK_, final int RESULT,) {
   final A = A_.dim();
   final E = E_.dim();

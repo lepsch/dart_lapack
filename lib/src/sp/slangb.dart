@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double slangb(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final Array<double> WORK_,) {
   final AB = AB_.dim();
   final WORK = WORK_.dim();

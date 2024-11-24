@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clacn2(final int N, final int V, final int X, final int EST, final int KASE, final int ISAVE,) {
 
 // -- LAPACK auxiliary routine --

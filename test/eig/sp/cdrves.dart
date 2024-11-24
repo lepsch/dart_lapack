@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cdrves(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int H, final int HT, final int W, final int WT, final Matrix<double> VS_, final int LDVS, final int RESULT, final Array<double> _WORK_, final int NWORK, final Array<double> RWORK_, final Array<int> IWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
   final DOTYPE = DOTYPE_.dim();
   final ISEED = ISEED_.dim();

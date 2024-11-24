@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cqrt15(final int SCALE, final int RKSEL, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int S, final int RANK, final int NORMA, final int NORMB, final Array<int> ISEED_, final Array<double> WORK_, final int LWORK,) {
   final A = A_.dim();
   final B = B_.dim();

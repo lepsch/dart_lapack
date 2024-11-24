@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgeqp3rk(final int M, final int N, final int NRHS, final int KMAX, final int ABSTOL, final int RELTOL, final Matrix<double> A_, final int LDA, final int K, final int MAXC2NRMK, final int RELMAXC2NRMK, final int JPIV, final int TAU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

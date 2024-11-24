@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cptcon(final int N, final int D, final int E, final int ANORM, final int RCOND, final Array<double> RWORK_, final Box<int> INFO,) {
   final RWORK = RWORK_.dim();
 

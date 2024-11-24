@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void chbt21(final int UPLO, final int N, final int KA, final int KS, final Matrix<double> A_, final int LDA, final int D, final int E, final Matrix<double> U_, final int LDU, final Array<double> _WORK_, final Array<double> RWORK_, final int RESULT,) {
   final A = A_.dim();
   final U = U_.dim();

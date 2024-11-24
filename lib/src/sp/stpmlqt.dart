@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void stpmlqt(final int SIDE, final int TRANS, final int M, final int N, final int K, final int L, final int MB, final Matrix<double> V_, final int LDV, final Matrix<double> T_, final int LDT, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Array<double> _WORK_, final Box<int> INFO,) {
   final V = V_.dim();
   final T = T_.dim();

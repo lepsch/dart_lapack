@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgegv(final int JOBVL, final int JOBVR, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHA, final int BETA, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Box<int> INFO,) {
   final A = A_.having();
   final B = B_.having();

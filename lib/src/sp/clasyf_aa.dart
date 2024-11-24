@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clasyf_aa(final int UPLO, final int J1, final int M, final int NB, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> H_, final int LDH, final Array<double> WORK_,) {
   final A = A_.dim();
   final IPIV = IPIV_.dim();

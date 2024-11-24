@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slar1v(final int N, final int B1, final int BN, final int LAMBDA, final int D, final int L, final int LD, final int LLD, final int PIVMIN, final int GAPTOL, final int Z, final int WANTNC, final int NEGCNT, final int ZTZ, final int MINGMA, final int R, final int ISUPPZ, final int NRMINV, final int RESID, final int RQCORR, final Array<double> WORK_,) {
   final WORK = WORK_.dim();
 

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slasy2(final int LTRANL, final int LTRANR, final int ISGN, final int N1, final int N2, final Matrix<double> TL_, final int LDTL, final Matrix<double> TR_, final int LDTR, final Matrix<double> B_, final int LDB, final int SCALE, final Matrix<double> X_, final int LDX, final int XNORM, final Box<int> INFO,) {
   final TL = TL_.dim();
   final TR = TR_.dim();

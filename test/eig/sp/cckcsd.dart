@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cckcsd(final int NM, final int MVAL, final int PVAL, final int QVAL, final int NMATS, final Array<int> ISEED_, final int THRESH, final int MMAX, final int X, final int XF, final int U1, final int U2, final int V1T, final int V2T, final int THETA, final Array<int> IWORK_, final Array<double> _WORK_, final Array<double> RWORK_, final int NIN, final int NOUT, final Box<int> INFO,) {
   final ISEED = ISEED_.dim();
   final IWORK = IWORK_.dim();

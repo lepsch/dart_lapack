@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double sqpt01(final int M, final int N, final int K, final int A, final int AF, final int LDA, final int TAU, final int JPVT, final Array<double> WORK_, final int LWORK,) {
   final WORK = WORK_.dim();
 

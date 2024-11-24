@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cspt03(final int UPLO, final int N, final int A, final int AINV, final Array<double> _WORK_, final int LDW, final Array<double> RWORK_, final int RCOND, final int RESID,) {
   final _WORK = _WORK_.dim();
   final RWORK = RWORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sckgqr(final int NM, final int MVAL, final int NP, final int PVAL, final int NN, final int NVAL, final int NMATS, final Array<int> ISEED_, final int THRESH, final int NMAX, final int A, final int AF, final int AQ, final int AR, final int TAUA, final int B, final int BF, final int BZ, final int BT, final int BWK, final int TAUB, final Array<double> _WORK_, final Array<double> RWORK_, final int NIN, final int NOUT, final Box<int> INFO,) {
   final ISEED = ISEED_.dim();
   final _WORK = _WORK_.dim();

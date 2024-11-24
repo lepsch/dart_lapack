@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cchkql(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NXVAL, final int NRHS, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AF, final int AQ, final int AL, final int AC, final int B, final int X, final int XACT, final int TAU, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
   final _WORK = _WORK_.dim();
   final RWORK = RWORK_.dim();

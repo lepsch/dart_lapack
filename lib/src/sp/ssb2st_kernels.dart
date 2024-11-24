@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ssb2st_kernels(final int UPLO, final int WANTZ, final int TTYPE, final int ST, final int ED, final int SWEEP, final int N, final int NB, final int IB, final Matrix<double> A_, final int LDA, final int V, final int TAU, final int LDVT, final Array<double> WORK_,) {
   final A = A_.dim();
   final WORK = WORK_.dim();

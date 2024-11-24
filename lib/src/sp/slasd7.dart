@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slasd7(final int ICOMPQ, NL, NR, final int SQRE, final int K, final int D, final int Z, final int ZW, final int VF, final int VFW, final int VL, final int VLW, final int ALPHA, final int BETA, final int DSIGMA, final int IDX, final int IDXP, final int IDXQ, final int PERM, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int GIVNUM, final int LDGNUM, final int C, final int S, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --

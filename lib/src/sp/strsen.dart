@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void strsen(final int JOB, final int COMPQ, final int SELECT, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> Q_, final int LDQ, final int WR, final int WI, final int M, final int S, final int SEP, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
   final T = T_.dim();
   final Q = Q_.dim();

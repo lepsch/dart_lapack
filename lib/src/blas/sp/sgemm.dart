@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
 import 'package:lapack/src/matrix.dart';
 
       void sgemm(final String TRANSA, final String TRANSB, final int M, final int N, final int K, final double ALPHA, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final double BETA, final int C, final int LDC,) {

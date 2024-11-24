@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slasq5(final int I0, final int N0, final int Z, final int PP, final int TAU, final int SIGMA, final int DMIN, final int DMIN1, final int DMIN2, final int DN, final int DNM1, final int DNM2, final int IEEE, final int EPS,) {
 
 // -- LAPACK computational routine --

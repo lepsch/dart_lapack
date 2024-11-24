@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ctrsna(final int JOB, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int S, final int SEP, final int MM, final int M, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final Box<int> INFO,) {
   final T = T_.dim();
   final VL = VL_.dim();

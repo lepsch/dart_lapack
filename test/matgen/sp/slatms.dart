@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slatms(final int M, final int N, final int DIST, final Array<int> ISEED_, final int SYM, final int D, final int MODE, final int COND, final int DMAX, final int KL, final int KU, final int PACK, final Matrix<double> A_, final int LDA, final Array<double> _WORK_, final Box<int> INFO,) {
   final ISEED = ISEED_.dim();
   final A = A_.dim();

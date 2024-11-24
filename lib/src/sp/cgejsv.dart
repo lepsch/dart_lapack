@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgejsv(final int JOBA, final int JOBU, final int JOBV, final int JOBR, final int JOBT, final int JOBP, final int M, final int N, final Matrix<double> A_, final int LDA, final int SVA, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final int CWORK, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final Box<int> INFO,) {
   final A = A_.dim();
   final U = U_.dim();

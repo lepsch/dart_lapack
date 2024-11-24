@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void claqp2(final int M, final int N, final int OFFSET, final Matrix<double> A_, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final Array<double> WORK_,) {
   final A = A_.dim();
   final WORK = WORK_.dim();

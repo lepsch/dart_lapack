@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sdrvst2stg(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int D1, final int D2, final int D3, final int D4, final int EVEIGS, final int WA1, final int WA2, final int WA3, final Matrix<double> U_, final int LDU, final int V, final int TAU, final int Z, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final int LIWORK, final int RESULT, final Box<int> INFO,) {
   final DOTYPE = DOTYPE_.dim();
   final ISEED = ISEED_.dim();

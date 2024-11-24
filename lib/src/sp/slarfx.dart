@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slarfx(final int SIDE, final int M, final int N, final int V, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> WORK_,) {
   final C = C_.dim();
   final WORK = WORK_.dim();

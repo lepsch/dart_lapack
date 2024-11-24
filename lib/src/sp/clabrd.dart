@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clabrd(final int M, final int N, final int NB, final Matrix<double> A_, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Matrix<double> X_, final int LDX, final int Y, final int LDY,) {
   final A = A_.dim();
   final X = X_.dim();

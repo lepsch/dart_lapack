@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cher(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int A, final int LDA,) {
 
 // -- Reference BLAS level2 routine --

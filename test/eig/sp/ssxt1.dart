@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double ssxt1(final int IJOB, final int D1, final int N1, final int D2, final int N2, final int ABSTOL, final int ULP, final int UNFL,) {
 
 // -- LAPACK test routine --

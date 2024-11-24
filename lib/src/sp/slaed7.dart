@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaed7(final int ICOMPQ, final int N, final int QSIZ, final int TLVLS, final int CURLVL, final int CURPBM, final int D, final Matrix<double> Q_, final int LDQ, final int INDXQ, final int RHO, final int CUTPNT, final int QSTORE, final int QPTR, final int PRMPTR, final int PERM, final int GIVPTR, final int GIVCOL, final int GIVNUM, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final Q = Q_.dim();
   final _WORK = _WORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sdrvrf2(final int NOUT, final int NN, final int NVAL, final Matrix<double> A_, final int LDA, final int ARF, final int AP, final int ASAV,) {
   final A = A_.having();
 

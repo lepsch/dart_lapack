@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaqp2rk(final int M, final int N, final int NRHS, final int IOFFSET, final int KMAX, final int ABSTOL, final int RELTOL, final int KP1, final int MAXC2NRM, final Matrix<double> A_, final int LDA, final int K, final int MAXC2NRMK, final int RELMAXC2NRMK, final int JPIV, final int TAU, final int VN1, final int VN2, final Array<double> _WORK_, final Box<int> INFO,) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

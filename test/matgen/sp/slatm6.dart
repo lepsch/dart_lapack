@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slatm6(final int TYPE, final int N, final Matrix<double> A_, final int LDA, final int B, final Matrix<double> X_, final int LDX, final Matrix<double> Y_, final int LDY, final int ALPHA, final int BETA, final int WX, final int WY, final int S, final int DIF,) {
   final A = A_.dim();
   final X = X_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sgebd2(final int M, final int N, final Matrix<double> A_, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Array<double> _WORK_, final Box<int> INFO,) {
   final A = A_.dim();
   final _WORK = _WORK_.dim();

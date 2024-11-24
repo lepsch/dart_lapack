@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double slatm2(final int M, final int N, final int I, final int J, final int KL, final int KU, final int IDIST, final Array<int> ISEED_, final int D, final int IGRADE, final int DL, final int DR, final int IPVTNG, final Array<int> IWORK_, final int SPARSE,) {
   final ISEED = ISEED_.dim();
   final IWORK = IWORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slagtf(final int N, final int A, final int LAMBDA, final int B, final int C, final int TOL, final int D, final int IN, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --

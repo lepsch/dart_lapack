@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ssbev_2stage(final int JOBZ, final int UPLO, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int W, final Matrix<double> Z_, final int LDZ, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
   final AB = AB_.dim();
   final Z = Z_.dim();

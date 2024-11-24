@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slanv2(final int A, final int B, final int C, final int D, final int RT1R, final int RT1I, final int RT2R, final int RT2I, final int CS, final int SN,) {
 
 // -- LAPACK auxiliary routine --

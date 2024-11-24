@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgebak(final int JOB, final int SIDE, final int N, final int ILO, final int IHI, final int SCALE, final int M, final Matrix<double> V_, final int LDV, final Box<int> INFO,) {
   final V = V_.dim();
 

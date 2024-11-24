@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slarrd(final int RANGE, final int ORDER, final int N, final int VL, final int VU, final int IL, final int IU, final int GERS, final int RELTOL, final int D, final int E, final int E2, final int PIVMIN, final int NSPLIT, final int ISPLIT, final int M, final int W, final int WERR, final int WL, final int WU, final int IBLOCK, final int INDEXW, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final _WORK = _WORK_.dim();
   final IWORK = IWORK_.dim();

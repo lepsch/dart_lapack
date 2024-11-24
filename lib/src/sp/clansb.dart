@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double clansb(final int NORM, final int UPLO, final int N, final int K, final Matrix<double> AB_, final int LDAB, final Array<double> WORK_,) {
   final AB = AB_.dim();
   final WORK = WORK_.dim();

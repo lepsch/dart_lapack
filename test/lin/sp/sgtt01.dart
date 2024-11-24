@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sgtt01(final int N, final int DL, final int D, final int DU, final int DLF, final int DF, final int DUF, final int DU2, final Array<int> IPIV_, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final int RESID,) {
   final IPIV = IPIV_.dim();
   final WORK = WORK_.dim();

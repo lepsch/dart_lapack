@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaed3(final int K, final int N, final int N1, final int D, final Matrix<double> Q_, final int LDQ, final int RHO, final int DLAMBDA, final int Q2, final int INDX, final int CTOT, final int W, final int S, final Box<int> INFO,) {
   final Q = Q_.dim();
 

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slarrc(final int JOBT, final int N, final int VL, final int VU, final int D, final int E, final int PIVMIN, final int EIGCNT, final int LCNT, final int RCNT, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --

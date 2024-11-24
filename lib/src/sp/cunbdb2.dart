@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cunbdb2(final int M, final int P, final int Q, final Matrix<double> X11_, final int LDX11, final Matrix<double> X21_, final int LDX21, final int THETA, final int PHI, final int TAUP1, final int TAUP2, final int TAUQ1, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
   final X11 = X11_.dim();
   final X21 = X21_.dim();

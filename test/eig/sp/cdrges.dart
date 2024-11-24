@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cdrges(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int B, final int S, final int T, final Matrix<double> Q_, final int LDQ, final int Z, final int ALPHA, final int BETA, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Array<bool> BWORK_, final Box<int> INFO,) {
   final DOTYPE = DOTYPE_.dim();
   final ISEED = ISEED_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sgemqr(final int SIDE, final int TRANS, final int M, final int N, final int K, final Matrix<double> A_, final int LDA, final int T, final int TSIZE, final Matrix<double> C_, final int LDC, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
   final A = A_.dim();
   final C = C_.dim();

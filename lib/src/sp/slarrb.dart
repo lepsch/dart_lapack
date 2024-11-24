@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slarrb(final int N, final int D, final int LLD, final int IFIRST, final int ILAST, final int RTOL1, final int RTOL2, final int OFFSET, final int W, final int WGAP, final int WERR, final Array<double> _WORK_, final Array<int> IWORK_, final int PIVMIN, final int SPDIAM, final int TWIST, final Box<int> INFO,) {
   final _WORK = _WORK_.dim();
   final IWORK = IWORK_.dim();

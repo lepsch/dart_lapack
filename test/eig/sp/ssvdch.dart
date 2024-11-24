@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ssvdch(final int N, final int S, final int E, final int SVD, final int TOL, final Box<int> INFO,) {
 
 // -- LAPACK test routine --

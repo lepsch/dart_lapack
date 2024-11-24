@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sgbbrd(final int VECT, final int M, final int N, final int NCC, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final int D, final int E, final Matrix<double> Q_, final int LDQ, final Matrix<double> PT_, final int LDPT, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Box<int> INFO,) {
   final AB = AB_.dim();
   final Q = Q_.dim();

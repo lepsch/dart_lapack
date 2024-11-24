@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slasd5(final int I, final int D, final int Z, final int DELTA, final int RHO, final int DSIGMA, final Array<double> WORK_,) {
   final WORK = WORK_.dim();
 

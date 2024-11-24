@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ccsdts(final int M, final int P, final int Q, final int X, final int XF, final int LDX, final Matrix<double> U1_, final int LDU1, final Matrix<double> U2_, final int LDU2, final Matrix<double> V1T_, final int LDV1T, final Matrix<double> V2T_, final int LDV2T, final int THETA, final Array<int> IWORK_, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
   final U1 = U1_.dim();
   final U2 = U2_.dim();

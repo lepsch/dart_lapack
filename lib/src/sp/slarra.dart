@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slarra(final int N, final int D, final int E, final int E2, final int SPLTOL, final int TNRM, final int NSPLIT, final int ISPLIT, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void claqr1(final int N, final Matrix<double> H_, final int LDH, final int S1, final int S2, final int V,) {
   final H = H_.dim();
 

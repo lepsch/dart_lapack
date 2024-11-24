@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cckgsv(final int NM, final int MVAL, final int PVAL, final int NVAL, final int NMATS, final Array<int> ISEED_, final int THRESH, final int NMAX, final int A, final int AF, final int B, final int BF, final int U, final int V, final int Q, final int ALPHA, final int BETA, final int R, final Array<int> IWORK_, final Array<double> _WORK_, final Array<double> RWORK_, final int NIN, final int NOUT, final Box<int> INFO,) {
   final ISEED = ISEED_.dim();
   final IWORK = IWORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clarrv(final int N, final int VL, final int VU, final int D, final int L, final int PIVMIN, final int ISPLIT, final int M, final int DOL, final int DOU, final int MINRGP, final int RTOL1, final int RTOL2, final int W, final int WERR, final int WGAP, final int IBLOCK, final int INDEXW, final int GERS, final Matrix<double> Z_, final int LDZ, final int ISUPPZ, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final Z = Z_.dim();
   final _WORK = _WORK_.dim();

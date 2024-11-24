@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void srotmg(final int SD1, final int SD2, final int SX1, final int SY1, final int SPARAM,) {
 
 // -- Reference BLAS level1 routine --

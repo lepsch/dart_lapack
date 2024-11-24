@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED_, final int NOUNIT, final int N, final Matrix<double> A_, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS_, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int ISRT, final int RESULT, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
   final ISEED = ISEED_.dim();
   final A = A_.dim();

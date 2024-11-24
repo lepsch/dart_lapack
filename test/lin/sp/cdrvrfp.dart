@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cdrvrfp(final int NOUT, NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int C_WORK_CLATMS, final int C_WORK_CPOT02, final int C_WORK_CPOT03, final int S_WORK_CLATMS, final int S_WORK_CLANHE, final int S_WORK_CPOT01, final int S_WORK_CPOT02, final int S_WORK_CPOT03,) {
 
 // -- LAPACK test routine --

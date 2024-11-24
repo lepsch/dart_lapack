@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clarzt(final int DIRECT, final int STOREV, final int N, final int K, final Matrix<double> V_, final int LDV, final int TAU, final int T, final int LDT,) {
   final V = V_.dim();
 

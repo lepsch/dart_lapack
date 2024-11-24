@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sgtt02(final int TRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final int RESID,) {
   final X = X_.dim();
   final B = B_.dim();

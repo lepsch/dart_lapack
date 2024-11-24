@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ctrsm(final String SIDE, final String UPLO, final String TRANSA, final String DIAG, final int M, final int N, final Complex ALPHA,
         final Matrix<Complex> A_, final int LDA, final Matrix<Complex> B_, final int LDB,) {
 // -- Reference BLAS level3 routine --

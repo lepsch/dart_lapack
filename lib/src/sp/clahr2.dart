@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clahr2(final int N, final int K, final int NB, final Matrix<double> A_, final int LDA, final int TAU, final Matrix<double> T_, final int LDT, final int Y, final int LDY,) {
   final A = A_.dim();
   final T = T_.dim();

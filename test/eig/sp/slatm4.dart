@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slatm4(final int ITYPE, final int N, final int NZ1, final int NZ2, final int ISIGN, final int AMAGN, final int RCOND, final int TRIANG, final int IDIST, final Array<int> ISEED_, final int A, final int LDA,) {
   final ISEED = ISEED_.dim();
 

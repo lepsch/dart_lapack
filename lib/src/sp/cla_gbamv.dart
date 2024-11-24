@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cla_gbamv(final int TRANS, final int M, final int N, final int KL, final int KU, final int ALPHA, final Matrix<double> AB_, final int LDAB, final int X, final int INCX, final int BETA, final int Y, final int INCY,) {
   final AB = AB_.dim();
 

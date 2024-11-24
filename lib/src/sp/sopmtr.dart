@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sopmtr(final int SIDE, final int UPLO, final int TRANS, final int M, final int N, final int AP, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Box<int> INFO,) {
   final C = C_.dim();
   final _WORK = _WORK_.dim();

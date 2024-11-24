@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ctgevc(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> S_, final int LDS, final Matrix<double> P_, final int LDP, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
   final S = S_.dim();
   final P = P_.dim();

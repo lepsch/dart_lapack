@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ssyevx(final int JOBZ, final int RANGE, final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int VL, final int VU, final int IL, final int IU, final int ABSTOL, final int M, final int W, final Matrix<double> Z_, final int LDZ, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final int IFAIL, final Box<int> INFO,) {
   final A = A_.dim();
   final Z = Z_.dim();

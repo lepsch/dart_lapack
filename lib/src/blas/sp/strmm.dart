@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void strmm(final int SIDE, final int UPLO, final int TRANSA, final int DIAG, final int M, final int N, final int ALPHA, final Matrix<double> A_, final int LDA, final int B, final int LDB,) {
   final A = A_.dim();
 

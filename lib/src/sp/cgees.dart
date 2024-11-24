@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgees(final int JOBVS, final int SORT, final int SELECT, final int N, final Matrix<double> A_, final int LDA, final int SDIM, final int W, final Matrix<double> VS_, final int LDVS, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
   final A = A_.dim();
   final VS = VS_.dim();

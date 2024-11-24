@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaed6(final int KNITER, final int ORGATI, final int RHO, final int D, final int Z, final int FINIT, final int TAU, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --

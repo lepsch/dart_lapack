@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaein(final int RIGHTV, final int NOINIT, final int N, final Matrix<double> H_, final int LDH, final int WR, final int WI, final int VR, final int VI, final Matrix<double> B_, final int LDB, final Array<double> _WORK_, final int EPS3, final int SMLNUM, final int BIGNUM, final Box<int> INFO,) {
   final H = H_.dim();
   final B = B_.dim();

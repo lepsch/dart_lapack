@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaqtr(final int LTRAN, final int LREAL, final int N, final Matrix<double> T_, final int LDT, final int B, final int W, final int SCALE, final int X, final Array<double> _WORK_, final Box<int> INFO,) {
   final T = T_.dim();
   final _WORK = _WORK_.dim();

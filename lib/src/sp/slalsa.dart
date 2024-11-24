@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slalsa(final int ICOMPQ, final int SMLSIZ, final int N, final int NRHS, final Matrix<double> B_, final int LDB, final Matrix<double> BX_, final int LDBX, final Matrix<double> U_, final int LDU, final int VT, final int K, final int DIFL, final int DIFR, final int Z, final int POLES, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int PERM, final int GIVNUM, final int C, final int S, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final B = B_.dim();
   final BX = BX_.dim();

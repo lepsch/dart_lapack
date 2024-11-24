@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sptsv(final int N, final int NRHS, final int D, final int E, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
   final B = B_.dim();
 

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void claed8(final int K, final int N, final int QSIZ, final Matrix<double> Q_, final int LDQ, final int D, final int RHO, final int CUTPNT, final int Z, final int DLAMBDA, final Matrix<double> Q2_, final int LDQ2, final int W, final int INDXP, final int INDX, final int INDXQ, final int PERM, final int GIVPTR, final int GIVCOL, final int GIVNUM, final Box<int> INFO,) {
   final Q = Q_.dim();
   final Q2 = Q2_.dim();

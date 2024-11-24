@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sstebz(final int RANGE, final int ORDER, final int N, final int VL, final int VU, final int IL, final int IU, final int ABSTOL, final int D, final int E, final int M, final int NSPLIT, final int W, final int IBLOCK, final int ISPLIT, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final _WORK = _WORK_.dim();
   final IWORK = IWORK_.dim();

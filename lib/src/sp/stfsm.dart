@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void stfsm(final int TRANSR, final int SIDE, final int UPLO, final int TRANS, final int DIAG, final int M, final int N, final int ALPHA, final int A, final int B, final int LDB,) {
 
 // -- LAPACK computational routine --

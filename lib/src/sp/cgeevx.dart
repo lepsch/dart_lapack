@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgeevx(final int BALANC, final int JOBVL, final int JOBVR, final int SENSE, final int N, final Matrix<double> A_, final int LDA, final int W, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int ILO, final int IHI, final int SCALE, final int ABNRM, final int RCONDE, final int RCONDV, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Box<int> INFO,) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

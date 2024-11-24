@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clags2(final int UPPER, final int A1, final int A2, final int A3, final int B1, final int B2, final int B3, final int CSU, final int SNU, final int CSV, final int SNV, final int CSQ, final int SNQ,) {
 
 // -- LAPACK auxiliary routine --

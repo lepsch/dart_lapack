@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sdrvrfp(final int NOUT, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int S_WORK_SLATMS, final int S_WORK_SPOT01, final int S_TEMP_SPOT02, final int S_TEMP_SPOT03, final int S_WORK_SLANSY, final int S_WORK_SPOT02, final int S_WORK_SPOT03,) {
 
 // -- LAPACK test routine --

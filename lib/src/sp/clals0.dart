@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clals0(final int ICOMPQ, final int NL, final int NR, final int SQRE, final int NRHS, final Matrix<double> B_, final int LDB, final Matrix<double> BX_, final int LDBX, final int PERM, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int GIVNUM, final int LDGNUM, final int POLES, final int DIFL, final int DIFR, final int Z, final int K, final int C, final int S, final Array<double> RWORK_, final Box<int> INFO,) {
   final B = B_.dim();
   final BX = BX_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clahqr(final int WANTT, final int WANTZ, final int N, final int ILO, final int IHI,
       final Matrix<double> H_, final int LDH, final int W, final int ILOZ, final int IHIZ, final Matrix<double> Z_,
       final int LDZ, final Box<int> INFO,) {

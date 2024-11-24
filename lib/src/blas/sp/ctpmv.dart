@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ctpmv(final int UPLO, final int TRANS, final int DIAG, final int N, final int AP, final int X, final int INCX,) {
 
 // -- Reference BLAS level2 routine --

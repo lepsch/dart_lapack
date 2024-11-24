@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ssgt01(final int ITYPE, final int UPLO, final int N, final int M, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> Z_, final int LDZ, final int D, final Array<double> _WORK_, final int RESULT,) {
   final A = A_.dim();
   final B = B_.dim();

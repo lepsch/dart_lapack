@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void stgsen(final int IJOB, final int WANTQ, final int WANTZ, final int SELECT, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHAR, final int ALPHAI, final int BETA, final Matrix<double> Q_, final int LDQ, final Matrix<double> Z_, final int LDZ, final int M, final int PL, final int PR, final int DIF, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
   final A = A_.dim();
   final B = B_.dim();

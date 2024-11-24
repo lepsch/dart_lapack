@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cuncsd2by1(final int JOBU1, final int JOBU2, final int JOBV1T, final int M, final int P, final int Q, final Matrix<double> X11_, final int LDX11, final Matrix<double> X21_, final int LDX21, final int THETA, final Matrix<double> U1_, final int LDU1, final Matrix<double> U2_, final int LDU2, final Matrix<double> V1T_, final int LDV1T, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final Box<int> INFO,) {
   final X11 = X11_.dim();
   final X21 = X21_.dim();

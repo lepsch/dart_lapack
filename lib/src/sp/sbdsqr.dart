@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sbdsqr(final int UPLO, final int N, final int NCVT, final int NRU, final int NCC, final int D, final int E, final Matrix<double> VT_, final int LDVT, final Matrix<double> U_, final int LDU, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Box<int> INFO,) {
   final VT = VT_.dim();
   final U = U_.dim();

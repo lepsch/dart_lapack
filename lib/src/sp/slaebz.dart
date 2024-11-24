@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slaebz(final int IJOB, final int NITMAX, final int N, final int MMAX, final int MINP, final int NBMIN, final int ABSTOL, final int RELTOL, final int PIVMIN, final int D, final int E, final int E2, final int NVAL, final int AB, final int C, final int MOUT, final int NAB, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final _WORK = _WORK_.dim();
   final IWORK = IWORK_.dim();

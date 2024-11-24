@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slasd8(final int ICOMPQ, final int K, final int D, final int Z, final int VF, final int VL, final int DIFL, final Matrix<double> DIFR_, final int LDDIFR, final int DSIGMA, final Array<double> _WORK_, final Box<int> INFO,) {
   final DIFR = DIFR_.dim();
   final _WORK = _WORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clatm1(final int MODE, final int COND, final int IRSIGN, final int IDIST, final Array<int> ISEED_, final int D, final int N, final Box<int> INFO,) {
   final ISEED = ISEED_.dim();
 

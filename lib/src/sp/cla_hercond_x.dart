@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double cla_hercond_x(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final int X, final int INFO, final Array<double> _WORK_, final Array<double> RWORK_,) {
   final A = A_.dim();
   final AF = AF_.dim();

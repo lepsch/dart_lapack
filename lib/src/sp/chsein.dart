@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void chsein(final int SIDE, final int EIGSRC, final int INITV, final int SELECT, final int N, final Matrix<double> H_, final int LDH, final int W, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> _WORK_, final Array<double> RWORK_, final int IFAILL, final int IFAILR, final Box<int> INFO,) {
   final H = H_.dim();
   final VL = VL_.dim();

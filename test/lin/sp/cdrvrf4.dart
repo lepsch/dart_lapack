@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cdrvrf4(final int NOUT, final int NN, final int NVAL, final int THRESH, final int C1, final int C2, final int LDC, final int CRF, final Matrix<double> A_, final int LDA, final int S_WORK_CLANGE,) {
   final A = A_.having();
 

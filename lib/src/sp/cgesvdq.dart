@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cgesvdq(final int JOBA, final int JOBP, final int JOBR, final int JOBU, final int JOBV, final int M, final int N, final Matrix<double> A_, final int LDA, final int S, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final int NUMRANK, final Array<int> IWORK_, final int LIWORK, final int CWORK, final int LCWORK, final Array<int> RWORK_, final int LRWORK, final Box<int> INFO,) {
   final A = A_.dim();
   final U = U_.dim();

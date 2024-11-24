@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cbbcsd(final int JOBU1, final int JOBU2, final int JOBV1T, final int JOBV2T, final int TRANS, final int M, final int P, final int Q, final int THETA, final int PHI, final Matrix<double> U1_, final int LDU1, final Matrix<double> U2_, final int LDU2, final Matrix<double> V1T_, final int LDV1T, final Matrix<double> V2T_, final int LDV2T, final int B11D, final int B11E, final int B12D, final int B12E, final int B21D, final int B21E, final int B22D, final int B22E, final Array<int> RWORK_, final int LRWORK, final Box<int> INFO,) {
   final U1 = U1_.dim();
   final U2 = U2_.dim();

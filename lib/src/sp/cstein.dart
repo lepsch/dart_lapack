@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cstein(final int N, final int D, final int E, final int M, final int W, final int IBLOCK, final int ISPLIT, final Matrix<double> Z_, final int LDZ, final Array<double> _WORK_, final Array<int> IWORK_, final int IFAIL, final Box<int> INFO,) {
   final Z = Z_.dim();
   final _WORK = _WORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sgsvj0(final int JOBV, final int M, final int N, final Matrix<double> A_, final int LDA, final int D, final int SVA, final int MV, final Matrix<double> V_, final int LDV, final int EPS, final int SFMIN, final int TOL, final int NSWEEP, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
   final A = A_.dim();
   final V = V_.dim();

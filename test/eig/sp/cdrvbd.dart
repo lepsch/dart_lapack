@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cdrvbd(final int NSIZES, final int MM, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final Matrix<double> A_, final int LDA, final Matrix<double> U_, final int LDU, final Matrix<double> VT_, final int LDVT, final int ASAV, final int USAV, final int VTSAV, final int S, final int SSAV, final int E, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUNIT, final Box<int> INFO,) {
   final DOTYPE = DOTYPE_.dim();
   final ISEED = ISEED_.dim();

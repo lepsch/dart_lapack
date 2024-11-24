@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slasd0(final int N, final int SQRE, final int D, final int E, final Matrix<double> U_, final int LDU, final Matrix<double> VT_, final int LDVT, final int SMLSIZ, final Array<int> IWORK_, final Array<double> _WORK_, final Box<int> INFO,) {
   final U = U_.dim();
   final VT = VT_.dim();

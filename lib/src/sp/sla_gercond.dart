@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       double sla_gercond(final int TRANS, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final int CMODE, final int C, final int INFO, final Array<double> _WORK_, final Array<int> IWORK_,) {
   final A = A_.dim();
   final AF = AF_.dim();

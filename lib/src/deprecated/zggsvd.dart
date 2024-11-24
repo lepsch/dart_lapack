@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void zggsvd(final int JOBU, final int JOBV, final int JOBQ, final int M, final int N, final int P, final int K, final int L, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHA, final int BETA, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Matrix<double> Q_, final int LDQ, final Array<double> _WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
   final A = A_.having();
   final B = B_.having();

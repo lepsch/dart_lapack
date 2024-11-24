@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cunbdb6(final int M1, final int M2, final int N, final int X1, final int INCX1, final int X2, final int INCX2, final Matrix<double> Q1_, final int LDQ1, final Matrix<double> Q2_, final int LDQ2, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
   final Q1 = Q1_.dim();
   final Q2 = Q2_.dim();

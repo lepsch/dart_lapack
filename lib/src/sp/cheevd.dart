@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cheevd(final int JOBZ, final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int W, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
   final A = A_.dim();
   final WORK = WORK_.dim();

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void schkhs(final int NSIZES, NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int H, final int T1, final int T2, final Matrix<double> U, final int LDU, final int Z, final int UZ, final int WR1, final int WI1, final int WR2, final int WI2, final int WR3, final int WI3, final int EVECTL, final int EVECTR, final int EVECTY, final int EVECTX, final int UU, final int TAU, final Array<double> _WORK, final int NWORK, final Array<int> IWORK, final int SELECT, final int RESULT, final Box<int> INFO,) {
 
 // -- LAPACK test routine --

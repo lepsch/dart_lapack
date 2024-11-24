@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sdrvls(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int B, final int COPYB, final int C, final int S, final int COPYS, final int NOUT,) {
 
 // -- LAPACK test routine --

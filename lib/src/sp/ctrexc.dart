@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ctrexc(final int COMPQ, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> Q_, final int LDQ, final int IFST, final int ILST, final Box<int> INFO,) {
   final T = T_.dim();
   final Q = Q_.dim();

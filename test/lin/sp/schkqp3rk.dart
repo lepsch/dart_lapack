@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void schkqp3rk(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int A, final int COPYA, final int B, final int COPYB, final int S, final int TAU, final Array<double> _WORK_, final Array<int> IWORK_, final int NOUT,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

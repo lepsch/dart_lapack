@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void slapmr(final int FORWRD, final int M, final int N, final Matrix<double> X_, final int LDX, final int K,) {
   final X = X_.dim();
 

@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void cunt03(final int RC, final int MU, final int MV, final int N, final int K, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Box<int> INFO,) {
   final U = U_.dim();
   final V = V_.dim();

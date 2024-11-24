@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ctpt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final int AP, final Array<double> RWORK_, final int RAT,) {
   final RWORK = RWORK_.dim();
 

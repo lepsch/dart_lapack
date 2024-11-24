@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void ssbgv(final int JOBZ, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB_, final int LDAB, final Matrix<double> BB_, final int LDBB, final int W, final Matrix<double> Z_, final int LDZ, final Array<double> _WORK_, final Box<int> INFO,) {
   final AB = AB_.dim();
   final BB = BB_.dim();

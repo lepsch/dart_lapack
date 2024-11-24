@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void chpt21(final int ITYPE, final int UPLO, final int N, final int KBAND, final int AP, final int D, final int E, final Matrix<double> U_, final int LDU, final int VP, final int TAU, final Array<double> _WORK_, final Array<double> RWORK_, final int RESULT,) {
   final U = U_.dim();
   final _WORK = _WORK_.dim();

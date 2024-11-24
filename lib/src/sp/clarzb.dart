@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void clarzb(final int SIDE, final int TRANS, final int DIRECT, final int STOREV, final int M, final int N, final int K, final int L, final Matrix<double> V_, final int LDV, final Matrix<double> T_, final int LDT, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final int LDWORK,) {
   final V = V_.dim();
   final T = T_.dim();

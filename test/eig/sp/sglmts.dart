@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Guilherme Lepsch. All rights reserved. Use of this
+// source code is governed by a BSD-style license that can be found in the
+// [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
+
       void sglmts(final int N, final int M, final int P, final int A, final int AF, final int LDA, final int B, final int BF, final int LDB, final int D, final int DF, final int X, final int U, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
   final WORK = WORK_.dim();
   final RWORK = RWORK_.dim();
