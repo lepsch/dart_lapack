@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlartgp.dart';
-import 'package:lapack/src/dlartgs.dart';
-import 'package:lapack/src/dlas2.dart';
-import 'package:lapack/src/dlasr.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/dswap.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlartgp.dart';
+import 'package:dart_lapack/src/dlartgs.dart';
+import 'package:dart_lapack/src/dlas2.dart';
+import 'package:dart_lapack/src/dlasr.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dbbcsd(
   final String JOBU1,

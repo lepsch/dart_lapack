@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlasyf_rk.dart';
-import 'package:lapack/src/zsytf2_rk.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlasyf_rk.dart';
+import 'package:dart_lapack/src/zsytf2_rk.dart';
 
 void zsytrf_rk(
   final String UPLO,
@@ -186,7 +186,7 @@ void zsytrf_rk(
       // Increase K and return to the start of the main loop
 
       K += KB.value;
-    } 
+    }
     // End Lower
   }
 

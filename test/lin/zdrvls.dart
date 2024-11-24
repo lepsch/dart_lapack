@@ -5,7 +5,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 
 import 'alaerh.dart';
 import 'alahd.dart';
@@ -113,7 +113,7 @@ void zdrvls(
   final MNMIN = max(min(M, N), 1);
 
   // Compute workspace needed for routines
-  // ZQRT14, ZQRT17 (two side cases), ZQRT15 and ZQRT12 
+  // ZQRT14, ZQRT17 (two side cases), ZQRT15 and ZQRT12
   var LWORK = <int>[
     1,
     (M + N) * NRHS,

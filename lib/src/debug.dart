@@ -4,8 +4,8 @@
 
 // import 'dart:io';
 
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/matrix.dart';
 // ignore: depend_on_referenced_packages
 import 'package:stack_trace/stack_trace.dart';
 

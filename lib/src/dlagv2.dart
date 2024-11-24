@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlag2.dart';
-import 'package:lapack/src/dlapy2.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlasv2.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlag2.dart';
+import 'package:dart_lapack/src/dlapy2.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlasv2.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlagv2(
   final Matrix<double> A_,

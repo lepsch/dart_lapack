@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dormrz.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dormrz.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 double drzt01(
   final int M,

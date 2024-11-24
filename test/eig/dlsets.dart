@@ -2,11 +2,11 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgglse.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgglse.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 import 'dget02.dart';
 

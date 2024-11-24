@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarf.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarf.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgebd2(
   final int M,

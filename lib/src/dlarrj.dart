@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarrj(
   final int N,

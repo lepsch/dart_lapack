@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dsymm.dart';
-import 'package:lapack/src/blas/dsyr2k.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgelqf.dart';
-import 'package:lapack/src/dlarft.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/ilaenv2stage.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/dgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dsymm.dart';
+import 'package:dart_lapack/src/blas/dsyr2k.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgelqf.dart';
+import 'package:dart_lapack/src/dlarft.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/ilaenv2stage.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/dgeqrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsytrd_sy2sb(
   final String UPLO,

@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/ztrmm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlarfg.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/blas/ztrmm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlarfg.dart';
 
 void zgeqrt3(
   final int M,

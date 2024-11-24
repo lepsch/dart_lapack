@@ -4,10 +4,10 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgesvd.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgesvd.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 import 'dlakf2.dart';
 

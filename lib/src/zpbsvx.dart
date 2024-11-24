@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlanhb.dart';
-import 'package:lapack/src/zlaqhb.dart';
-import 'package:lapack/src/zpbcon.dart';
-import 'package:lapack/src/zpbequ.dart';
-import 'package:lapack/src/zpbrfs.dart';
-import 'package:lapack/src/zpbtrf.dart';
-import 'package:lapack/src/zpbtrs.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlanhb.dart';
+import 'package:dart_lapack/src/zlaqhb.dart';
+import 'package:dart_lapack/src/zpbcon.dart';
+import 'package:dart_lapack/src/zpbequ.dart';
+import 'package:dart_lapack/src/zpbrfs.dart';
+import 'package:dart_lapack/src/zpbtrf.dart';
+import 'package:dart_lapack/src/zpbtrs.dart';
 
 void zpbsvx(
   final String FACT,

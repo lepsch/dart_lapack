@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zdotc.dart';
-import 'package:lapack/src/blas/zherk.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlansy.dart';
-import 'package:lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zdotc.dart';
+import 'package:dart_lapack/src/blas/zherk.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlansy.dart';
+import 'package:dart_lapack/src/zlaset.dart';
 
 void zunt01(
   final String ROWCOL,

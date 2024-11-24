@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zher2.dart';
-import 'package:lapack/src/blas/ztrmv.dart';
-import 'package:lapack/src/blas/ztrsv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacgv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/blas/zher2.dart';
+import 'package:dart_lapack/src/blas/ztrmv.dart';
+import 'package:dart_lapack/src/blas/ztrsv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacgv.dart';
 
 void zhegs2(
   final int ITYPE,

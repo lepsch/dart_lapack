@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlasd4.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlasd4.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlasd3(
   final int NL,

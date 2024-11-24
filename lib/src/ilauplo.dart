@@ -2,7 +2,7 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
 
 int ilauplo(final String UPLO) {
 // -- LAPACK computational routine --

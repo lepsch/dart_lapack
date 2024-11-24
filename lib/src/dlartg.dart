@@ -4,9 +4,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/la_constants.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/la_constants.dart';
 
 const _zero = dzero;
 const _one = done;

@@ -4,22 +4,22 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlansp.dart';
-import 'package:lapack/src/dopgtr.dart';
-import 'package:lapack/src/dopmtr.dart';
-import 'package:lapack/src/dsptrd.dart';
-import 'package:lapack/src/dstebz.dart';
-import 'package:lapack/src/dstein.dart';
-import 'package:lapack/src/dsteqr.dart';
-import 'package:lapack/src/dsterf.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/dswap.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlansp.dart';
+import 'package:dart_lapack/src/dopgtr.dart';
+import 'package:dart_lapack/src/dopmtr.dart';
+import 'package:dart_lapack/src/dsptrd.dart';
+import 'package:dart_lapack/src/dstebz.dart';
+import 'package:dart_lapack/src/dstein.dart';
+import 'package:dart_lapack/src/dsteqr.dart';
+import 'package:dart_lapack/src/dsterf.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dspevx(
   final String JOBZ,

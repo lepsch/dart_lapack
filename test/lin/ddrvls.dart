@@ -5,7 +5,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 import 'package:test/test.dart';
 
 import '../test_driver.dart';

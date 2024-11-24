@@ -4,12 +4,12 @@
 
       import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/blas/strsm.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/lsame.dart';
+import 'package:dart_lapack/src/blas/strsm.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void spotrf(final String UPLO, final int N, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
 // -- LAPACK computational routine --

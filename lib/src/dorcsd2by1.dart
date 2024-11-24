@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dbbcsd.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlapmr.dart';
-import 'package:lapack/src/dlapmt.dart';
-import 'package:lapack/src/dorbdb1.dart';
-import 'package:lapack/src/dorbdb2.dart';
-import 'package:lapack/src/dorbdb3.dart';
-import 'package:lapack/src/dorbdb4.dart';
-import 'package:lapack/src/dorglq.dart';
-import 'package:lapack/src/dorgqr.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dbbcsd.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlapmr.dart';
+import 'package:dart_lapack/src/dlapmt.dart';
+import 'package:dart_lapack/src/dorbdb1.dart';
+import 'package:dart_lapack/src/dorbdb2.dart';
+import 'package:dart_lapack/src/dorbdb3.dart';
+import 'package:dart_lapack/src/dorbdb4.dart';
+import 'package:dart_lapack/src/dorglq.dart';
+import 'package:dart_lapack/src/dorgqr.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dorcsd2by1(
   final String JOBU1,

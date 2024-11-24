@@ -4,22 +4,22 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgehrd.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlahqr.dart';
-import 'package:lapack/src/dlanv2.dart';
-import 'package:lapack/src/dlaqr4.dart';
-import 'package:lapack/src/dlarf.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dormhr.dart';
-import 'package:lapack/src/dtrexc.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgehrd.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlahqr.dart';
+import 'package:dart_lapack/src/dlanv2.dart';
+import 'package:dart_lapack/src/dlaqr4.dart';
+import 'package:dart_lapack/src/dlarf.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dormhr.dart';
+import 'package:dart_lapack/src/dtrexc.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlaqr3(
   final bool WANTT,

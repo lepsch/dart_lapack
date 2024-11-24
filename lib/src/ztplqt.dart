@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/ztplqt2.dart';
-import 'package:lapack/src/ztprfb.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/ztplqt2.dart';
+import 'package:dart_lapack/src/ztprfb.dart';
 
 void ztplqt(
   final int M,

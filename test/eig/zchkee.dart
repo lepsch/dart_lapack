@@ -5,17 +5,17 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/ilaenv2stage.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/ilaver.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/ilaenv2stage.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/ilaver.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 import '../test_driver.dart';
 import 'alareq.dart';

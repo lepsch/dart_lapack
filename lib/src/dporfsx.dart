@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dla_porcond.dart';
-import 'package:lapack/src/dla_porfsx_extended.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/dpocon.dart';
-import 'package:lapack/src/ilaprec.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dla_porcond.dart';
+import 'package:dart_lapack/src/dla_porfsx_extended.dart';
+import 'package:dart_lapack/src/dlansy.dart';
+import 'package:dart_lapack/src/dpocon.dart';
+import 'package:dart_lapack/src/ilaprec.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dporfsx(
   final String UPLO,

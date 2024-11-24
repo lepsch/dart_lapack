@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlar1v.dart';
-import 'package:lapack/src/dlarrb.dart';
-import 'package:lapack/src/dlarrf.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlar1v.dart';
+import 'package:dart_lapack/src/dlarrb.dart';
+import 'package:dart_lapack/src/dlarrf.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarrv(
   final int N,

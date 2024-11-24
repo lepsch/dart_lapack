@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dsyrk.dart';
-import 'package:lapack/src/blas/dtrmm.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlauu2.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dsyrk.dart';
+import 'package:dart_lapack/src/blas/dtrmm.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlauu2.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlauum(
   final String UPLO,

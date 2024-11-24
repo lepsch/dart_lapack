@@ -4,20 +4,20 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgeqp3.dart';
-import 'package:lapack/src/zgeqr2.dart';
-import 'package:lapack/src/zgerq2.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlapmt.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zung2r.dart';
-import 'package:lapack/src/zunm2r.dart';
-import 'package:lapack/src/zunmr2.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgeqp3.dart';
+import 'package:dart_lapack/src/zgeqr2.dart';
+import 'package:dart_lapack/src/zgerq2.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlapmt.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zung2r.dart';
+import 'package:dart_lapack/src/zunm2r.dart';
+import 'package:dart_lapack/src/zunmr2.dart';
 
 void zggsvp3(
   final String JOBU,

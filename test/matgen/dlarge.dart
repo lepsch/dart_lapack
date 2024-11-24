@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dger.dart';
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/blas/dger.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarnv.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlarge(
   final int N,

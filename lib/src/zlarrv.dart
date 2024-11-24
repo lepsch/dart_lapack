@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlarrb.dart';
-import 'package:lapack/src/dlarrf.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlar1v.dart';
-import 'package:lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlarrb.dart';
+import 'package:dart_lapack/src/dlarrf.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlar1v.dart';
+import 'package:dart_lapack/src/zlaset.dart';
 
 void zlarrv(
   final int N,

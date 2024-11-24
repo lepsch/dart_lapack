@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zgemv.dart';
-import 'package:lapack/src/blas/zscal.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/blas/izamax.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/blas/zgemv.dart';
+import 'package:dart_lapack/src/blas/zscal.dart';
+import 'package:dart_lapack/src/blas/zswap.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlaset.dart';
 
 void zlasyf_aa(
   final String UPLO,

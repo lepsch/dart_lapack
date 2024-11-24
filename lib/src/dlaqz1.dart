@@ -4,9 +4,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlaqz1(
   final Matrix<double> A_,

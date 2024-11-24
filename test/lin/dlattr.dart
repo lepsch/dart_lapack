@@ -4,7 +4,7 @@
 
 import 'dart:math' hide pow;
 
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 
 import '../matgen/dlarnd.dart';
 import '../matgen/dlatms.dart';

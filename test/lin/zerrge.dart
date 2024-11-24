@@ -2,24 +2,24 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgbcon.dart';
-import 'package:lapack/src/zgbequ.dart';
-import 'package:lapack/src/zgbrfs.dart';
-import 'package:lapack/src/zgbtf2.dart';
-import 'package:lapack/src/zgbtrf.dart';
-import 'package:lapack/src/zgbtrs.dart';
-import 'package:lapack/src/zgecon.dart';
-import 'package:lapack/src/zgeequ.dart';
-import 'package:lapack/src/zgerfs.dart';
-import 'package:lapack/src/zgetf2.dart';
-import 'package:lapack/src/zgetrf.dart';
-import 'package:lapack/src/zgetri.dart';
-import 'package:lapack/src/zgetrs.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zgbcon.dart';
+import 'package:dart_lapack/src/zgbequ.dart';
+import 'package:dart_lapack/src/zgbrfs.dart';
+import 'package:dart_lapack/src/zgbtf2.dart';
+import 'package:dart_lapack/src/zgbtrf.dart';
+import 'package:dart_lapack/src/zgbtrs.dart';
+import 'package:dart_lapack/src/zgecon.dart';
+import 'package:dart_lapack/src/zgeequ.dart';
+import 'package:dart_lapack/src/zgerfs.dart';
+import 'package:dart_lapack/src/zgetf2.dart';
+import 'package:dart_lapack/src/zgetrf.dart';
+import 'package:dart_lapack/src/zgetri.dart';
+import 'package:dart_lapack/src/zgetrs.dart';
 
 import 'alaesm.dart';
 import 'chkxer.dart';

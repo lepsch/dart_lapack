@@ -2,15 +2,15 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zgemv.dart';
-import 'package:lapack/src/blas/zgerc.dart';
-import 'package:lapack/src/blas/zgeru.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlacgv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/blas/zgemv.dart';
+import 'package:dart_lapack/src/blas/zgerc.dart';
+import 'package:dart_lapack/src/blas/zgeru.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlacgv.dart';
 
 void zlarz(
   final String SIDE,

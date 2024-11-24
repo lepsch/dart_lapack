@@ -2,18 +2,18 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dbdsdc.dart';
-import 'package:lapack/src/dbdsqr.dart';
-import 'package:lapack/src/dbdsvdx.dart';
-import 'package:lapack/src/dgebd2.dart';
-import 'package:lapack/src/dgebrd.dart';
-import 'package:lapack/src/dorgbr.dart';
-import 'package:lapack/src/dormbr.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dbdsdc.dart';
+import 'package:dart_lapack/src/dbdsqr.dart';
+import 'package:dart_lapack/src/dbdsvdx.dart';
+import 'package:dart_lapack/src/dgebd2.dart';
+import 'package:dart_lapack/src/dgebrd.dart';
+import 'package:dart_lapack/src/dorgbr.dart';
+import 'package:dart_lapack/src/dormbr.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import '../test_driver.dart';
 import 'chkxer.dart';

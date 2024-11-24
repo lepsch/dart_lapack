@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
 
 int iparam2stage(
   final int ISPEC,

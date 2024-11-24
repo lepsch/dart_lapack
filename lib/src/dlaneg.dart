@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 int dlaneg(
   final int N,

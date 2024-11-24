@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zhpr.dart';
-import 'package:lapack/src/blas/zhpr2.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlanhb.dart';
-import 'package:lapack/src/zlanhp.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/blas/zhpr.dart';
+import 'package:dart_lapack/src/blas/zhpr2.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlanhb.dart';
+import 'package:dart_lapack/src/zlanhp.dart';
 
 void zhbt21(
   final String UPLO,

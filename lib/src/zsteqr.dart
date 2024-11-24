@@ -4,23 +4,23 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlae2.dart';
-import 'package:lapack/src/dlaev2.dart';
-import 'package:lapack/src/dlanst.dart';
-import 'package:lapack/src/dlapy2.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlasrt.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zlasr.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlae2.dart';
+import 'package:dart_lapack/src/dlaev2.dart';
+import 'package:dart_lapack/src/dlanst.dart';
+import 'package:dart_lapack/src/dlapy2.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlasrt.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zlasr.dart';
 
 void zsteqr(
   final String COMPZ,

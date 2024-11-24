@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgeqrt2.dart';
-import 'package:lapack/src/dgeqrt3.dart';
-import 'package:lapack/src/dlarfb.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgeqrt2.dart';
+import 'package:dart_lapack/src/dgeqrt3.dart';
+import 'package:dart_lapack/src/dlarfb.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgeqrt(
   final int M,

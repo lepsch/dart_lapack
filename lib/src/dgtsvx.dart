@@ -2,7 +2,7 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 
 void dgtsvx(
   final String FACT,

@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dsytrd_sb2st.dart';
-import 'package:lapack/src/dsytrd_sy2sb.dart';
-import 'package:lapack/src/ilaenv2stage.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dsytrd_sb2st.dart';
+import 'package:dart_lapack/src/dsytrd_sy2sb.dart';
+import 'package:dart_lapack/src/ilaenv2stage.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsytrd_2stage(
   final String VECT,

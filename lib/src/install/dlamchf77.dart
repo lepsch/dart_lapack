@@ -6,9 +6,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
 
 class _DlamchCache {
   var FIRST = true;

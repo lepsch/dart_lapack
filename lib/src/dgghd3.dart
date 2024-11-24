@@ -4,20 +4,20 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/blas/dtrmv.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgghrd.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dorm22.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/blas/dtrmv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgghrd.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dorm22.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgghd3(
   final String COMPQ,

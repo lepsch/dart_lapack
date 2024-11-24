@@ -4,9 +4,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlaset.dart';
 
 import '../matgen/dlaran.dart';
 import '../matgen/zlarnd.dart';

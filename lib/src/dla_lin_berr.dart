@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dla_lin_berr(
   final int N,

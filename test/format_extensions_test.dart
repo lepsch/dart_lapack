@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
 import 'package:test/test.dart';
 
 void main() {

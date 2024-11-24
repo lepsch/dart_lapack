@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlargv.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlartv.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlargv.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlartv.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgbbrd(
   final String VECT,

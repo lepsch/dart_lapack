@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/dlasq4.dart';
-import 'package:lapack/src/dlasq5.dart';
-import 'package:lapack/src/dlasq6.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/dlasq4.dart';
+import 'package:dart_lapack/src/dlasq5.dart';
+import 'package:dart_lapack/src/dlasq6.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlasq3(
   final int I0,

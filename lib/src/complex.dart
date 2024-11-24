@@ -7,7 +7,7 @@ import 'dart:typed_data';
 
 import 'package:complex/complex.dart' as impl;
 
-import 'package:lapack/src/intrinsics/pow.dart' as intrinsic;
+import 'package:dart_lapack/src/intrinsics/pow.dart' as intrinsic;
 
 abstract class Complex {
   static const zero = Complex(0.0);

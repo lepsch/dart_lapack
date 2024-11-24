@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dger.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dger.dart';
+import 'package:dart_lapack/src/blas/dswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dgetc2(
   final int N,

@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/intrinsics/maxexponent.dart';
-import 'package:lapack/src/intrinsics/minexponent.dart';
-import 'package:lapack/src/intrinsics/radix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
+import 'package:dart_lapack/src/intrinsics/minexponent.dart';
+import 'package:dart_lapack/src/intrinsics/radix.dart';
 
 void zrotg(
   final Box<Complex> a,

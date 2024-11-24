@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/chla_transtype.dart';
-import 'package:lapack/src/dgetrs.dart';
-import 'package:lapack/src/dla_geamv.dart';
-import 'package:lapack/src/dla_lin_berr.dart';
-import 'package:lapack/src/dla_wwaddw.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xblas/blas_dgemv2_x.dart';
-import 'package:lapack/src/xblas/blas_dgemv_x.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/chla_transtype.dart';
+import 'package:dart_lapack/src/dgetrs.dart';
+import 'package:dart_lapack/src/dla_geamv.dart';
+import 'package:dart_lapack/src/dla_lin_berr.dart';
+import 'package:dart_lapack/src/dla_wwaddw.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xblas/blas_dgemv2_x.dart';
+import 'package:dart_lapack/src/xblas/blas_dgemv_x.dart';
 
 void dla_gerfsx_extended(
   final int PREC_TYPE,

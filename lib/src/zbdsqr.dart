@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zdrot.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlas2.dart';
-import 'package:lapack/src/dlasq1.dart';
-import 'package:lapack/src/dlasv2.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlasr.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zdrot.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/blas/zswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlas2.dart';
+import 'package:dart_lapack/src/dlasq1.dart';
+import 'package:dart_lapack/src/dlasv2.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlasr.dart';
 
 void zbdsqr(
   final String UPLO,

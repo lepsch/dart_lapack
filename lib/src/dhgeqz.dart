@@ -4,20 +4,20 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlag2.dart';
-import 'package:lapack/src/dlanhs.dart';
-import 'package:lapack/src/dlapy2.dart';
-import 'package:lapack/src/dlapy3.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dlasv2.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlag2.dart';
+import 'package:dart_lapack/src/dlanhs.dart';
+import 'package:dart_lapack/src/dlapy2.dart';
+import 'package:dart_lapack/src/dlapy3.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dlasv2.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dhgeqz(
   final String JOB,

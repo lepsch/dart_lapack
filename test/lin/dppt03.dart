@@ -2,14 +2,14 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dspmv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlansp.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dspmv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlansp.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dppt03(
   final String UPLO,

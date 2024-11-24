@@ -4,20 +4,20 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlansb.dart';
-import 'package:lapack/src/dlaqsb.dart';
-import 'package:lapack/src/dpbcon.dart';
-import 'package:lapack/src/dpbequ.dart';
-import 'package:lapack/src/dpbrfs.dart';
-import 'package:lapack/src/dpbtrf.dart';
-import 'package:lapack/src/dpbtrs.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlansb.dart';
+import 'package:dart_lapack/src/dlaqsb.dart';
+import 'package:dart_lapack/src/dpbcon.dart';
+import 'package:dart_lapack/src/dpbequ.dart';
+import 'package:dart_lapack/src/dpbrfs.dart';
+import 'package:dart_lapack/src/dpbtrf.dart';
+import 'package:dart_lapack/src/dpbtrs.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dpbsvx(
   final String FACT,

@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/intrinsics/huge.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlags2.dart';
-import 'package:lapack/src/zlapll.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zrot.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/intrinsics/huge.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlags2.dart';
+import 'package:dart_lapack/src/zlapll.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zrot.dart';
 
 void ztgsja(
   final String JOBU,

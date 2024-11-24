@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zhemv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilauplo.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xblas/blas_zhemv2_x.dart';
-import 'package:lapack/src/xblas/blas_zhemv_x.dart';
-import 'package:lapack/src/zla_heamv.dart';
-import 'package:lapack/src/zla_lin_berr.dart';
-import 'package:lapack/src/zla_wwaddw.dart';
-import 'package:lapack/src/zpotrs.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/blas/zhemv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilauplo.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xblas/blas_zhemv2_x.dart';
+import 'package:dart_lapack/src/xblas/blas_zhemv_x.dart';
+import 'package:dart_lapack/src/zla_heamv.dart';
+import 'package:dart_lapack/src/zla_lin_berr.dart';
+import 'package:dart_lapack/src/zla_wwaddw.dart';
+import 'package:dart_lapack/src/zpotrs.dart';
 
 void zla_porfsx_extended(
   final int PREC_TYPE,

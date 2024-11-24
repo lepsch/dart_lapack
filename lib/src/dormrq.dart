@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarfb.dart';
-import 'package:lapack/src/dlarft.dart';
-import 'package:lapack/src/dormr2.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarfb.dart';
+import 'package:dart_lapack/src/dlarft.dart';
+import 'package:dart_lapack/src/dormr2.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dormrq(
   final String SIDE,

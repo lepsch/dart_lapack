@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dzasum.dart';
-import 'package:lapack/src/blas/zhbmv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlanhb.dart';
+import 'package:dart_lapack/src/blas/dzasum.dart';
+import 'package:dart_lapack/src/blas/zhbmv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlanhb.dart';
 
 void zpbt02(
   final String UPLO,

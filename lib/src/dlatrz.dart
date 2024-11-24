@@ -2,9 +2,9 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/dlarz.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/dlarz.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlatrz(
   final int M,

@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlamrg.dart';
-import 'package:lapack/src/dlapy2.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlamrg.dart';
+import 'package:dart_lapack/src/dlapy2.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlaed8(
   final int ICOMPQ,

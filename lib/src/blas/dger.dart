@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/xerbla.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/xerbla.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dger(
   final int M,

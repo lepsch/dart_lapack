@@ -4,27 +4,27 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgebak.dart';
-import 'package:lapack/src/dgebal.dart';
-import 'package:lapack/src/dgehrd.dart';
-import 'package:lapack/src/dhseqr.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlapy2.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dorghr.dart';
-import 'package:lapack/src/dtrevc3.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgebak.dart';
+import 'package:dart_lapack/src/dgebal.dart';
+import 'package:dart_lapack/src/dgehrd.dart';
+import 'package:dart_lapack/src/dhseqr.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlapy2.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dorghr.dart';
+import 'package:dart_lapack/src/dtrevc3.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgeev(
   final String JOBVL,

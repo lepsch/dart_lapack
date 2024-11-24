@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilauplo.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilauplo.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void zla_syamv(
   final int UPLO,

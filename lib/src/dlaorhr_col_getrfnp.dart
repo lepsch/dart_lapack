@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dtrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlaorhr_col_getrfnp2.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dtrsm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlaorhr_col_getrfnp2.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlaorhr_col_getrfnp(
   final int M,

@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarf.dart';
-import 'package:lapack/src/dlarfgp.dart';
-import 'package:lapack/src/dorbdb5.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarf.dart';
+import 'package:dart_lapack/src/dlarfgp.dart';
+import 'package:dart_lapack/src/dorbdb5.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dorbdb3(
   final int M,

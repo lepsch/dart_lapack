@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgetrf.dart';
-import 'package:lapack/src/dgetrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlag2s.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/sgetrf.dart';
-import 'package:lapack/src/sgetrs.dart';
-import 'package:lapack/src/slag2d.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgetrf.dart';
+import 'package:dart_lapack/src/dgetrs.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlag2s.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/sgetrf.dart';
+import 'package:dart_lapack/src/sgetrs.dart';
+import 'package:dart_lapack/src/slag2d.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsgesv(
   final int N,

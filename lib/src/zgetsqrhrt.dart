@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlatsqr.dart';
-import 'package:lapack/src/zungtsqr_row.dart';
-import 'package:lapack/src/zunhr_col.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlatsqr.dart';
+import 'package:dart_lapack/src/zungtsqr_row.dart';
+import 'package:dart_lapack/src/zunhr_col.dart';
 
 void zgetsqrhrt(
   final int M,

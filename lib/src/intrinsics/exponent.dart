@@ -4,8 +4,8 @@
 
 import 'dart:typed_data';
 
-import 'package:lapack/src/intrinsics/digits.dart';
-import 'package:lapack/src/intrinsics/maxexponent.dart';
+import 'package:dart_lapack/src/intrinsics/digits.dart';
+import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
 
 const int Function(double x) exponent = exponent64;
 

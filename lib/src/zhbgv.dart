@@ -2,16 +2,16 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dsterf.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zhbgst.dart';
-import 'package:lapack/src/zhbtrd.dart';
-import 'package:lapack/src/zpbstf.dart';
-import 'package:lapack/src/zsteqr.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dsterf.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zhbgst.dart';
+import 'package:dart_lapack/src/zhbtrd.dart';
+import 'package:dart_lapack/src/zpbstf.dart';
+import 'package:dart_lapack/src/zsteqr.dart';
 
 void zhbgv(
   final String JOBZ,

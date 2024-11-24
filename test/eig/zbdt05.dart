@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dzasum.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlange.dart';
+import 'package:dart_lapack/src/blas/dzasum.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlange.dart';
 
 void zbdt05(
   final int M,

@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 extension IntFormatSpecifiersExtension on int {
   String i(int w) => toString().padLeft(w).w(w);

@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlarzb.dart';
-import 'package:lapack/src/zlarzt.dart';
-import 'package:lapack/src/zlatrz.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlarzb.dart';
+import 'package:dart_lapack/src/zlarzt.dart';
+import 'package:dart_lapack/src/zlatrz.dart';
 
 void ztzrzf(
   final int M,

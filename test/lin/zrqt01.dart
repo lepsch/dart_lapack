@@ -4,18 +4,18 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zherk.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgerqf.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlansy.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zungrq.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/blas/zherk.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgerqf.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlansy.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zungrq.dart';
 
 import 'common.dart';
 

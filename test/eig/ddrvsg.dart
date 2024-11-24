@@ -4,24 +4,24 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dsbgv.dart';
-import 'package:lapack/src/dsbgvd.dart';
-import 'package:lapack/src/dsbgvx.dart';
-import 'package:lapack/src/dspgv.dart';
-import 'package:lapack/src/dspgvd.dart';
-import 'package:lapack/src/dspgvx.dart';
-import 'package:lapack/src/dsygv.dart';
-import 'package:lapack/src/dsygvd.dart';
-import 'package:lapack/src/dsygvx.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dsbgv.dart';
+import 'package:dart_lapack/src/dsbgvd.dart';
+import 'package:dart_lapack/src/dsbgvx.dart';
+import 'package:dart_lapack/src/dspgv.dart';
+import 'package:dart_lapack/src/dspgvd.dart';
+import 'package:dart_lapack/src/dspgvx.dart';
+import 'package:dart_lapack/src/dsygv.dart';
+import 'package:dart_lapack/src/dsygvd.dart';
+import 'package:dart_lapack/src/dsygvx.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import '../matgen/dlarnd.dart';
 import '../matgen/dlatmr.dart';

@@ -2,12 +2,12 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dger.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/iladlc.dart';
-import 'package:lapack/src/iladlr.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/blas/dger.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/iladlc.dart';
+import 'package:dart_lapack/src/iladlr.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarf(
   final String SIDE,

@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dtrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dormrq.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dtrsm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dormrq.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgerqs(
   final int M,

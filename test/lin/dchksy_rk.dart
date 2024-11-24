@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 import 'package:test/test.dart';
 
 import '../matgen/dlatms.dart';
@@ -541,7 +541,7 @@ void dchksy_rk(
                     NFAIL++;
                   }
                 }
-                NRUN += 2; 
+                NRUN += 2;
                 // End do for each value of NRHS in NSVAL.
               }
             }

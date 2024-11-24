@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
 
 double dget06(final double RCOND, final double RCONDC) {
 // -- LAPACK test routine --

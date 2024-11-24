@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void xerbla_array(
   final String SRNAME_ARRAY,

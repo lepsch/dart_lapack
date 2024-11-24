@@ -4,18 +4,18 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/dlarra.dart';
-import 'package:lapack/src/dlarrb.dart';
-import 'package:lapack/src/dlarrc.dart';
-import 'package:lapack/src/dlarrd.dart';
-import 'package:lapack/src/dlarrk.dart';
-import 'package:lapack/src/dlasq2.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarnv.dart';
+import 'package:dart_lapack/src/dlarra.dart';
+import 'package:dart_lapack/src/dlarrb.dart';
+import 'package:dart_lapack/src/dlarrc.dart';
+import 'package:dart_lapack/src/dlarrd.dart';
+import 'package:dart_lapack/src/dlarrk.dart';
+import 'package:dart_lapack/src/dlasq2.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarre(
   final String RANGE,

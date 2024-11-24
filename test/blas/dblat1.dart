@@ -6,7 +6,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:lapack/blas.dart';
+import 'package:dart_lapack/blas.dart';
 
 import '../test_driver.dart';
 import 'common.dart';

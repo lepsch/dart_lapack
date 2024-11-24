@@ -4,20 +4,20 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgelqt.dart';
-import 'package:lapack/src/dgemlqt.dart';
-import 'package:lapack/src/dgemqrt.dart';
-import 'package:lapack/src/dgeqrt.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dtrtrs.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgelqt.dart';
+import 'package:dart_lapack/src/dgemlqt.dart';
+import 'package:dart_lapack/src/dgemqrt.dart';
+import 'package:dart_lapack/src/dgeqrt.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dtrtrs.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgelst(
   final String TRANS,

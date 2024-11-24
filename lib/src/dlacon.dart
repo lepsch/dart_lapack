@@ -2,13 +2,13 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/intrinsics/nint.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dasum.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/intrinsics/nint.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 double _ESTOLD = 0;
 int _ITER = 0, _J = 0, _JUMP = 0;

@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/intrinsics/digits.dart';
-import 'package:lapack/src/intrinsics/radix.dart';
+import 'package:dart_lapack/src/intrinsics/digits.dart';
+import 'package:dart_lapack/src/intrinsics/radix.dart';
 
 const double Function(double v) epsilon = epsilon64;
 

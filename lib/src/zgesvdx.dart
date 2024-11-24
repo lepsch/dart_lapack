@@ -4,25 +4,25 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dbdsvdx.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgebrd.dart';
-import 'package:lapack/src/zgelqf.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlascl.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zunmbr.dart';
-import 'package:lapack/src/zunmlq.dart';
-import 'package:lapack/src/zunmqr.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dbdsvdx.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgeqrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgebrd.dart';
+import 'package:dart_lapack/src/zgelqf.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlascl.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zunmbr.dart';
+import 'package:dart_lapack/src/zunmlq.dart';
+import 'package:dart_lapack/src/zunmqr.dart';
 
 void zgesvdx(
   final String JOBU,

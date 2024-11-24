@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dsymm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dasum.dart';
+import 'package:dart_lapack/src/blas/dsymm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlansy.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dpot02(
   final String UPLO,

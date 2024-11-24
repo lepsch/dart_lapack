@@ -4,24 +4,24 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zgbmv.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zhbmv.dart';
-import 'package:lapack/src/blas/zhemm.dart';
-import 'package:lapack/src/blas/zhpmv.dart';
-import 'package:lapack/src/blas/zsymm.dart';
-import 'package:lapack/src/blas/ztbmv.dart';
-import 'package:lapack/src/blas/ztpmv.dart';
-import 'package:lapack/src/blas/ztrmm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlarnv.dart';
-import 'package:lapack/src/zspmv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zgbmv.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/blas/zhbmv.dart';
+import 'package:dart_lapack/src/blas/zhemm.dart';
+import 'package:dart_lapack/src/blas/zhpmv.dart';
+import 'package:dart_lapack/src/blas/zsymm.dart';
+import 'package:dart_lapack/src/blas/ztbmv.dart';
+import 'package:dart_lapack/src/blas/ztpmv.dart';
+import 'package:dart_lapack/src/blas/ztrmm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlarnv.dart';
+import 'package:dart_lapack/src/zspmv.dart';
 
 import '../eig/zsbmv.dart';
 

@@ -3,8 +3,8 @@
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
 import 'package:async/async.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 class _Combla {
   int ICASE = 0;

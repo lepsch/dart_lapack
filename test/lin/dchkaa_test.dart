@@ -4,7 +4,7 @@
 
 import 'dart:io';
 
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 import 'package:path/path.dart' as path;
 
 import '../test_driver.dart';

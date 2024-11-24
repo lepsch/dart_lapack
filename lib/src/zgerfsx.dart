@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilaprec.dart';
-import 'package:lapack/src/ilatrans.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgecon.dart';
-import 'package:lapack/src/zla_gercond_c.dart';
-import 'package:lapack/src/zla_gercond_x.dart';
-import 'package:lapack/src/zla_gerfsx_extended.dart';
-import 'package:lapack/src/zlange.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilaprec.dart';
+import 'package:dart_lapack/src/ilatrans.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgecon.dart';
+import 'package:dart_lapack/src/zla_gercond_c.dart';
+import 'package:dart_lapack/src/zla_gercond_x.dart';
+import 'package:dart_lapack/src/zla_gerfsx_extended.dart';
+import 'package:dart_lapack/src/zlange.dart';
 
 void zgerfsx(
   final String TRANS,

@@ -4,26 +4,26 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dstebz.dart';
-import 'package:lapack/src/dsterf.dart';
-import 'package:lapack/src/ilaenv2stage.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zhetrd_2stage.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlanhe.dart';
-import 'package:lapack/src/zstein.dart';
-import 'package:lapack/src/zsteqr.dart';
-import 'package:lapack/src/zungtr.dart';
-import 'package:lapack/src/zunmtr.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/blas/zswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dstebz.dart';
+import 'package:dart_lapack/src/dsterf.dart';
+import 'package:dart_lapack/src/ilaenv2stage.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zhetrd_2stage.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlanhe.dart';
+import 'package:dart_lapack/src/zstein.dart';
+import 'package:dart_lapack/src/zsteqr.dart';
+import 'package:dart_lapack/src/zungtr.dart';
+import 'package:dart_lapack/src/zunmtr.dart';
 
 void zheevx_2stage(
   final String JOBZ,

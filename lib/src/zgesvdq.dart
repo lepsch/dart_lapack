@@ -4,30 +4,30 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dznrm2.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgelqf.dart';
-import 'package:lapack/src/zgeqp3.dart';
-import 'package:lapack/src/zgesvd.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlapmt.dart';
-import 'package:lapack/src/zlascl.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zlaswp.dart';
-import 'package:lapack/src/zpocon.dart';
-import 'package:lapack/src/zunmlq.dart';
-import 'package:lapack/src/zunmqr.dart';
+import 'package:dart_lapack/src/blas/dznrm2.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgeqrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgelqf.dart';
+import 'package:dart_lapack/src/zgeqp3.dart';
+import 'package:dart_lapack/src/zgesvd.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlapmt.dart';
+import 'package:dart_lapack/src/zlascl.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zlaswp.dart';
+import 'package:dart_lapack/src/zpocon.dart';
+import 'package:dart_lapack/src/zunmlq.dart';
+import 'package:dart_lapack/src/zunmqr.dart';
 
 void zgesvdq(
   final String JOBA,

@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dspr.dart';
-import 'package:lapack/src/blas/dspr2.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlansb.dart';
-import 'package:lapack/src/dlansp.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dspr.dart';
+import 'package:dart_lapack/src/blas/dspr2.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlansb.dart';
+import 'package:dart_lapack/src/dlansp.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dsbt21(
   final String UPLO,

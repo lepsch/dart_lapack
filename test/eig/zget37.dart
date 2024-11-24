@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgehrd.dart';
-import 'package:lapack/src/zhseqr.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/ztrevc.dart';
-import 'package:lapack/src/ztrsna.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zgehrd.dart';
+import 'package:dart_lapack/src/zhseqr.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/ztrevc.dart';
+import 'package:dart_lapack/src/ztrsna.dart';
 
 Future<void> zget37(
   final Array<double> RMAX_,

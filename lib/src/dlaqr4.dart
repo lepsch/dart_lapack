@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlahqr.dart';
-import 'package:lapack/src/dlanv2.dart';
-import 'package:lapack/src/dlaqr2.dart';
-import 'package:lapack/src/dlaqr5.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlahqr.dart';
+import 'package:dart_lapack/src/dlanv2.dart';
+import 'package:dart_lapack/src/dlaqr2.dart';
+import 'package:dart_lapack/src/dlaqr5.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlaqr4(
   final bool WANTT,

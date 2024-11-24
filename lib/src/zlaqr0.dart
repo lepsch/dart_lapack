@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlahqr.dart';
-import 'package:lapack/src/zlaqr3.dart';
-import 'package:lapack/src/zlaqr4.dart';
-import 'package:lapack/src/zlaqr5.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlahqr.dart';
+import 'package:dart_lapack/src/zlaqr3.dart';
+import 'package:dart_lapack/src/zlaqr4.dart';
+import 'package:dart_lapack/src/zlaqr5.dart';
 
 void zlaqr0(
   final bool WANTT,

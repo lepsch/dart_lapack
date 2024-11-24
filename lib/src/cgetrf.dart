@@ -3,10 +3,10 @@
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgetrf.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgetrf.dart';
 
 void cgetrf(
   final int M,

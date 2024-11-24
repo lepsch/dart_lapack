@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/sp/sgemm.dart';
-import 'package:lapack/src/blas/sp/strsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/sp/sgetf2.dart';
-import 'package:lapack/src/sp/slaswp.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/sp/sgemm.dart';
+import 'package:dart_lapack/src/blas/sp/strsm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/sp/sgetf2.dart';
+import 'package:dart_lapack/src/sp/slaswp.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void sgetrf(
   final int M,

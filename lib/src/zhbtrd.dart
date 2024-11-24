@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacgv.dart';
-import 'package:lapack/src/zlar2v.dart';
-import 'package:lapack/src/zlargv.dart';
-import 'package:lapack/src/zlartg.dart';
-import 'package:lapack/src/zlartv.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zrot.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacgv.dart';
+import 'package:dart_lapack/src/zlar2v.dart';
+import 'package:dart_lapack/src/zlargv.dart';
+import 'package:dart_lapack/src/zlartg.dart';
+import 'package:dart_lapack/src/zlartv.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zrot.dart';
 
 void zhbtrd(
   final String VECT,

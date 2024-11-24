@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/blas/zrotg.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlarnv.dart';
-import 'package:lapack/src/zrot.dart';
+import 'package:dart_lapack/src/blas/izamax.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/blas/zrotg.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlarnv.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlarnv.dart';
+import 'package:dart_lapack/src/zrot.dart';
 
 import '../matgen/zlarnd.dart';
 import '../matgen/zlatms.dart';

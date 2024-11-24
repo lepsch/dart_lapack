@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgbmv.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dsbmv.dart';
-import 'package:lapack/src/blas/dspmv.dart';
-import 'package:lapack/src/blas/dsymm.dart';
-import 'package:lapack/src/blas/dtbmv.dart';
-import 'package:lapack/src/blas/dtpmv.dart';
-import 'package:lapack/src/blas/dtrmm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dgbmv.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dsbmv.dart';
+import 'package:dart_lapack/src/blas/dspmv.dart';
+import 'package:dart_lapack/src/blas/dsymm.dart';
+import 'package:dart_lapack/src/blas/dtbmv.dart';
+import 'package:dart_lapack/src/blas/dtpmv.dart';
+import 'package:dart_lapack/src/blas/dtrmm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlarnv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlarhs(
   final String PATH,

@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dtrsyl.dart';
-import 'package:lapack/src/dtrsyl3.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/range.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dtrsyl.dart';
+import 'package:dart_lapack/src/dtrsyl3.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/range.dart';
 import 'package:test/test.dart';
 
 import '../matgen/dlatmr.dart';

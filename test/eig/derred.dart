@@ -2,20 +2,20 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgees.dart';
-import 'package:lapack/src/dgeesx.dart';
-import 'package:lapack/src/dgeev.dart';
-import 'package:lapack/src/dgeevx.dart';
-import 'package:lapack/src/dgejsv.dart';
-import 'package:lapack/src/dgesdd.dart';
-import 'package:lapack/src/dgesvd.dart';
-import 'package:lapack/src/dgesvdq.dart';
-import 'package:lapack/src/dgesvdx.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgees.dart';
+import 'package:dart_lapack/src/dgeesx.dart';
+import 'package:dart_lapack/src/dgeev.dart';
+import 'package:dart_lapack/src/dgeevx.dart';
+import 'package:dart_lapack/src/dgejsv.dart';
+import 'package:dart_lapack/src/dgesdd.dart';
+import 'package:dart_lapack/src/dgesvd.dart';
+import 'package:dart_lapack/src/dgesvdq.dart';
+import 'package:dart_lapack/src/dgesvdx.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import '../test_driver.dart';
 import 'chkxer.dart';

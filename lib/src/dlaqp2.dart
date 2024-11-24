@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/dlarf.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/blas/dswap.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/dlarf.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlaqp2(
   final int M,

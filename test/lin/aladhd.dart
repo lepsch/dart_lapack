@@ -2,10 +2,10 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 void aladhd(
   final Nout IOUNIT,

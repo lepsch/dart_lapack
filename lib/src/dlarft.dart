@@ -4,10 +4,10 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dtrmv.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/blas/dtrmv.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarft(
   final String DIRECT,

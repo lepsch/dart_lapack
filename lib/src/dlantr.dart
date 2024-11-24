@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/dlassq.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/dlassq.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 double dlantr(
   final String NORM,

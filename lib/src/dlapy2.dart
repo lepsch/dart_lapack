@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
 
 double dlapy2(final double X, final double Y) {
 // -- LAPACK auxiliary routine --

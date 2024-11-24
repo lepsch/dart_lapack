@@ -6,8 +6,8 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
 
 const oneIndexedArrayOffset = -1;
 const zeroIndexedArrayOffset = 0;

@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dtrmm.dart';
-import 'package:lapack/src/blas/dtrmv.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/dtrmm.dart';
+import 'package:dart_lapack/src/blas/dtrmv.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlahr2(
   final int N,

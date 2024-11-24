@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgesvd.dart';
-import 'package:lapack/src/zhecon_rook.dart';
-import 'package:lapack/src/zhetrf_rook.dart';
-import 'package:lapack/src/zhetri_rook.dart';
-import 'package:lapack/src/zhetrs_rook.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlanhe.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zgesvd.dart';
+import 'package:dart_lapack/src/zhecon_rook.dart';
+import 'package:dart_lapack/src/zhetrf_rook.dart';
+import 'package:dart_lapack/src/zhetri_rook.dart';
+import 'package:dart_lapack/src/zhetrs_rook.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlanhe.dart';
 
 import '../matgen/zlatms.dart';
 import 'alaerh.dart';

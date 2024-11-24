@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dla_syrpvgrw.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlaqsy.dart';
-import 'package:lapack/src/dlascl2.dart';
-import 'package:lapack/src/dsyequb.dart';
-import 'package:lapack/src/dsyrfsx.dart';
-import 'package:lapack/src/dsytrf.dart';
-import 'package:lapack/src/dsytrs.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dla_syrpvgrw.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlaqsy.dart';
+import 'package:dart_lapack/src/dlascl2.dart';
+import 'package:dart_lapack/src/dsyequb.dart';
+import 'package:dart_lapack/src/dsyrfsx.dart';
+import 'package:dart_lapack/src/dsytrf.dart';
+import 'package:dart_lapack/src/dsytrs.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsysvxx(
   final String FACT,

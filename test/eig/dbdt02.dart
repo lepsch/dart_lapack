@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dasum.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dbdt02(
   final int M,

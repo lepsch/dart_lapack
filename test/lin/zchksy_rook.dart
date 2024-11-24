@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/lapack.dart';
+import 'package:dart_lapack/lapack.dart';
 
 import '../matgen/zlatms.dart';
 import 'alaerh.dart';

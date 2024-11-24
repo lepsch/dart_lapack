@@ -2,14 +2,14 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/intrinsics/digits.dart';
-import 'package:lapack/src/intrinsics/epsilon.dart';
-import 'package:lapack/src/intrinsics/huge.dart';
-import 'package:lapack/src/intrinsics/maxexponent.dart';
-import 'package:lapack/src/intrinsics/minexponent.dart';
-import 'package:lapack/src/intrinsics/radix.dart';
-import 'package:lapack/src/intrinsics/tiny.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/intrinsics/digits.dart';
+import 'package:dart_lapack/src/intrinsics/epsilon.dart';
+import 'package:dart_lapack/src/intrinsics/huge.dart';
+import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
+import 'package:dart_lapack/src/intrinsics/minexponent.dart';
+import 'package:dart_lapack/src/intrinsics/radix.dart';
+import 'package:dart_lapack/src/intrinsics/tiny.dart';
 
 double slamch(final String CMACH) {
 // -- LAPACK auxiliary routine --

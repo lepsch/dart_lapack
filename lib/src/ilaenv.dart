@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/ieeeck.dart';
-import 'package:lapack/src/iparmq.dart';
+import 'package:dart_lapack/src/ieeeck.dart';
+import 'package:dart_lapack/src/iparmq.dart';
 
 int Function(
   int ISPEC,

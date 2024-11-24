@@ -4,9 +4,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/intrinsics/nint.dart';
-import 'package:lapack/src/ieeeck.dart';
-import 'package:lapack/src/iparam2stage.dart';
+import 'package:dart_lapack/src/intrinsics/nint.dart';
+import 'package:dart_lapack/src/ieeeck.dart';
+import 'package:dart_lapack/src/iparam2stage.dart';
 
 import 'common.dart';
 

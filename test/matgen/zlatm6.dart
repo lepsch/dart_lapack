@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgesvd.dart';
-import 'package:lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgesvd.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
 
 import 'zlakf2.dart';
 

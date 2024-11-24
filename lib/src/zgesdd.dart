@@ -4,31 +4,31 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dbdsdc.dart';
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/droundup_lwork.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgebrd.dart';
-import 'package:lapack/src/zgelqf.dart';
-import 'package:lapack/src/zlacp2.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlacrm.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlarcm.dart';
-import 'package:lapack/src/zlascl.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zungbr.dart';
-import 'package:lapack/src/zunglq.dart';
-import 'package:lapack/src/zungqr.dart';
-import 'package:lapack/src/zunmbr.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dbdsdc.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/droundup_lwork.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgeqrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgebrd.dart';
+import 'package:dart_lapack/src/zgelqf.dart';
+import 'package:dart_lapack/src/zlacp2.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlacrm.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlarcm.dart';
+import 'package:dart_lapack/src/zlascl.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zungbr.dart';
+import 'package:dart_lapack/src/zunglq.dart';
+import 'package:dart_lapack/src/zungqr.dart';
+import 'package:dart_lapack/src/zunmbr.dart';
 
 void zgesdd(
   final String JOBZ,

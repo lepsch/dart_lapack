@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlangt.dart';
-import 'package:lapack/src/dlanhs.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlangt.dart';
+import 'package:dart_lapack/src/dlanhs.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dgtt01(
   final int N,

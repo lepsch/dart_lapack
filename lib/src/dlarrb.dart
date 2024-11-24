@@ -4,9 +4,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlaneg.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlaneg.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarrb(
   final int N,

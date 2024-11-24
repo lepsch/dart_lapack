@@ -2,15 +2,15 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dtrexc.dart';
-import 'package:lapack/src/dtrsen.dart';
-import 'package:lapack/src/dtrsna.dart';
-import 'package:lapack/src/dtrsyl.dart';
-import 'package:lapack/src/dtrsyl3.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dtrexc.dart';
+import 'package:dart_lapack/src/dtrsen.dart';
+import 'package:dart_lapack/src/dtrsna.dart';
+import 'package:dart_lapack/src/dtrsyl.dart';
+import 'package:dart_lapack/src/dtrsyl3.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import '../test_driver.dart';
 import 'chkxer.dart';

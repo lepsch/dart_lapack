@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zgemv.dart';
-import 'package:lapack/src/blas/ztrmv.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/blas/zgemv.dart';
+import 'package:dart_lapack/src/blas/ztrmv.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void zlarft(
   final String DIRECT,

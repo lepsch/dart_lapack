@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgerqf.dart';
-import 'package:lapack/src/dormqr.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/dgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgerqf.dart';
+import 'package:dart_lapack/src/dormqr.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/dgeqrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dggqrf(
   final int N,

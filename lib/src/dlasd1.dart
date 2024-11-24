@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlamrg.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlasd2.dart';
-import 'package:lapack/src/dlasd3.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlamrg.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlasd2.dart';
+import 'package:dart_lapack/src/dlasd3.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlasd1(
   final int NL,

@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgbequ.dart';
-import 'package:lapack/src/zgeequ.dart';
-import 'package:lapack/src/zpbequ.dart';
-import 'package:lapack/src/zpoequ.dart';
-import 'package:lapack/src/zppequ.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zgbequ.dart';
+import 'package:dart_lapack/src/zgeequ.dart';
+import 'package:dart_lapack/src/zpbequ.dart';
+import 'package:dart_lapack/src/zpoequ.dart';
+import 'package:dart_lapack/src/zppequ.dart';
 
 void zchkeq(final double THRESH, final Nout NOUT) {
 // -- LAPACK test routine --

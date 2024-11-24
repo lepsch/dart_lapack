@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 bool dgennd(final int M, final int N, final Matrix<double> A_, final int LDA) {
 // -- LAPACK test routine --

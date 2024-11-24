@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 import 'dlaran.dart';
 

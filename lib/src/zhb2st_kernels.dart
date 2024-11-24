@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zlarfg.dart';
-import 'package:lapack/src/zlarfx.dart';
-import 'package:lapack/src/zlarfy.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zlarfg.dart';
+import 'package:dart_lapack/src/zlarfx.dart';
+import 'package:dart_lapack/src/zlarfy.dart';
 
 void zhb2st_kernels(
   final String UPLO,

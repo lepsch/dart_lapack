@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dtrsm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dormql.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dtrsm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dormql.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgeqls(
   final int M,

@@ -2,15 +2,15 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/ddot.dart';
-import 'package:lapack/src/blas/dspmv.dart';
-import 'package:lapack/src/blas/dspr2.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/ddot.dart';
+import 'package:dart_lapack/src/blas/dspmv.dart';
+import 'package:dart_lapack/src/blas/dspr2.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsptrd(
   final String UPLO,

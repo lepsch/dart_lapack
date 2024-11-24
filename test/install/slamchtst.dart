@@ -4,8 +4,8 @@
 
 import 'dart:io';
 
-import 'package:lapack/src/install/slamch.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/install/slamch.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 void main() {
   final EPS = slamch('Epsilon');

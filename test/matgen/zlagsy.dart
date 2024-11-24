@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dznrm2.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zdotc.dart';
-import 'package:lapack/src/blas/zgemv.dart';
-import 'package:lapack/src/blas/zgerc.dart';
-import 'package:lapack/src/blas/zscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacgv.dart';
-import 'package:lapack/src/zlarnv.dart';
-import 'package:lapack/src/zsymv.dart';
+import 'package:dart_lapack/src/blas/dznrm2.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zdotc.dart';
+import 'package:dart_lapack/src/blas/zgemv.dart';
+import 'package:dart_lapack/src/blas/zgerc.dart';
+import 'package:dart_lapack/src/blas/zscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacgv.dart';
+import 'package:dart_lapack/src/zlarnv.dart';
+import 'package:dart_lapack/src/zsymv.dart';
 
 void zlagsy(
   final int N,

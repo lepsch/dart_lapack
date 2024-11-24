@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlangb.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlansb.dart';
-import 'package:lapack/src/zlansp.dart';
-import 'package:lapack/src/zlansy.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlangb.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlansb.dart';
+import 'package:dart_lapack/src/zlansp.dart';
+import 'package:dart_lapack/src/zlansy.dart';
 
 import 'zlatm1.dart';
 import 'zlatm2.dart';

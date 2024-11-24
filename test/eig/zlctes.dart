@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
 
 bool zlctes(final Complex Z, final Complex D) {
 // -- LAPACK test routine --

@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlaqz0.dart';
-import 'package:lapack/src/zlaqz1.dart';
-import 'package:lapack/src/zlartg.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zrot.dart';
-import 'package:lapack/src/ztgexc.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlaqz0.dart';
+import 'package:dart_lapack/src/zlaqz1.dart';
+import 'package:dart_lapack/src/zlartg.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zrot.dart';
+import 'package:dart_lapack/src/ztgexc.dart';
 
 void zlaqz2(
   final bool ILSCHUR,

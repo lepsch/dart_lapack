@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/intrinsics/log10.dart';
+import 'package:dart_lapack/src/intrinsics/log10.dart';
 import 'package:test/test.dart';
 
 void main() {

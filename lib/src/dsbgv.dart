@@ -2,15 +2,15 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dpbstf.dart';
-import 'package:lapack/src/dsbgst.dart';
-import 'package:lapack/src/dsbtrd.dart';
-import 'package:lapack/src/dsteqr.dart';
-import 'package:lapack/src/dsterf.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dpbstf.dart';
+import 'package:dart_lapack/src/dsbgst.dart';
+import 'package:dart_lapack/src/dsbtrd.dart';
+import 'package:dart_lapack/src/dsteqr.dart';
+import 'package:dart_lapack/src/dsterf.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsbgv(
   final String JOBZ,

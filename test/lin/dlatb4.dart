@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/lsamen.dart';
 
 bool _FIRST = true;
 double _BADC1 = 0, _BADC2 = 0, _EPS = 0, _LARGE = 0, _SMALL = 0;

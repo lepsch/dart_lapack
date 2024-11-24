@@ -4,20 +4,20 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgetrf.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgeequb.dart';
-import 'package:lapack/src/zgerfsx.dart';
-import 'package:lapack/src/zgetrs.dart';
-import 'package:lapack/src/zla_gerpvgrw.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlaqge.dart';
-import 'package:lapack/src/zlascl2.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgetrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgeequb.dart';
+import 'package:dart_lapack/src/zgerfsx.dart';
+import 'package:dart_lapack/src/zgetrs.dart';
+import 'package:dart_lapack/src/zla_gerpvgrw.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlaqge.dart';
+import 'package:dart_lapack/src/zlascl2.dart';
 
 void zgesvxx(
   final String FACT,

@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/zherk.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zhfrk.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/ztfttr.dart';
-import 'package:lapack/src/ztrttf.dart';
+import 'package:dart_lapack/src/blas/zherk.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zhfrk.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/ztfttr.dart';
+import 'package:dart_lapack/src/ztrttf.dart';
 
 import '../matgen/dlarnd.dart';
 import '../matgen/zlarnd.dart';

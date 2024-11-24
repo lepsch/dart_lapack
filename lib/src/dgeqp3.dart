@@ -4,16 +4,16 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/blas/dswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgeqrf.dart';
-import 'package:lapack/src/dlaqp2.dart';
-import 'package:lapack/src/dlaqps.dart';
-import 'package:lapack/src/dormqr.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/blas/dswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgeqrf.dart';
+import 'package:dart_lapack/src/dlaqp2.dart';
+import 'package:dart_lapack/src/dlaqps.dart';
+import 'package:dart_lapack/src/dormqr.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgeqp3(
   final int M,

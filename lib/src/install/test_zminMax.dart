@@ -4,9 +4,9 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/intrinsics/huge.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/intrinsics/huge.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void main() {
 // -- LAPACK test routine --

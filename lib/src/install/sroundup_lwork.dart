@@ -2,7 +2,7 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/intrinsics/epsilon.dart';
+import 'package:dart_lapack/src/intrinsics/epsilon.dart';
 
 double sroundup_lwork(final int LWORK) {
 // -- LAPACK auxiliary routine --

@@ -2,7 +2,7 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 int iladlc(final int M, final int N, final Matrix<double> A_, final int LDA) {
 // -- LAPACK auxiliary routine --

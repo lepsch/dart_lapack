@@ -5,24 +5,24 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:lapack/src/blas/dznrm2.dart';
-import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/blas/zgemv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/range.dart';
-import 'package:lapack/src/zgedmd.dart';
-import 'package:lapack/src/zgedmdq.dart';
-import 'package:lapack/src/zgeev.dart';
-import 'package:lapack/src/zlange.dart';
-import 'package:lapack/src/zlarnv.dart';
-import 'package:lapack/src/zlascl.dart';
+import 'package:dart_lapack/src/blas/dznrm2.dart';
+import 'package:dart_lapack/src/blas/izamax.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/blas/zgemv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/range.dart';
+import 'package:dart_lapack/src/zgedmd.dart';
+import 'package:dart_lapack/src/zgedmdq.dart';
+import 'package:dart_lapack/src/zgeev.dart';
+import 'package:dart_lapack/src/zlange.dart';
+import 'package:dart_lapack/src/zlarnv.dart';
+import 'package:dart_lapack/src/zlascl.dart';
 
 import '../matgen/zlatmr.dart';
 

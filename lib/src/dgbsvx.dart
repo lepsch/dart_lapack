@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgbcon.dart';
-import 'package:lapack/src/dgbequ.dart';
-import 'package:lapack/src/dgbrfs.dart';
-import 'package:lapack/src/dgbtrf.dart';
-import 'package:lapack/src/dgbtrs.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlangb.dart';
-import 'package:lapack/src/dlantb.dart';
-import 'package:lapack/src/dlaqgb.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgbcon.dart';
+import 'package:dart_lapack/src/dgbequ.dart';
+import 'package:dart_lapack/src/dgbrfs.dart';
+import 'package:dart_lapack/src/dgbtrf.dart';
+import 'package:dart_lapack/src/dgbtrs.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlangb.dart';
+import 'package:dart_lapack/src/dlantb.dart';
+import 'package:dart_lapack/src/dlaqgb.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgbsvx(
   final String FACT,

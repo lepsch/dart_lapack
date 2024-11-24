@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgedmd.dart';
-import 'package:lapack/src/zgeqrf.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlaset.dart';
-import 'package:lapack/src/zungqr.dart';
-import 'package:lapack/src/zunmqr.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgedmd.dart';
+import 'package:dart_lapack/src/zgeqrf.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlaset.dart';
+import 'package:dart_lapack/src/zungqr.dart';
+import 'package:dart_lapack/src/zunmqr.dart';
 
 void zgedmdq(
   final String JOBS,

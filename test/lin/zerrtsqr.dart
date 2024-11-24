@@ -2,16 +2,16 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgelq.dart';
-import 'package:lapack/src/zgemlq.dart';
-import 'package:lapack/src/zgemqr.dart';
-import 'package:lapack/src/zgeqr.dart';
-import 'package:lapack/src/zlaswlq.dart';
-import 'package:lapack/src/zlatsqr.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zgelq.dart';
+import 'package:dart_lapack/src/zgemlq.dart';
+import 'package:dart_lapack/src/zgemqr.dart';
+import 'package:dart_lapack/src/zgeqr.dart';
+import 'package:dart_lapack/src/zlaswlq.dart';
+import 'package:dart_lapack/src/zlatsqr.dart';
 
 import 'alaesm.dart';
 import 'chkxer.dart';

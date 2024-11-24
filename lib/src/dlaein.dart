@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/dnrm2.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dladiv.dart';
-import 'package:lapack/src/dlapy2.dart';
-import 'package:lapack/src/dlatrs.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dasum.dart';
+import 'package:dart_lapack/src/blas/dnrm2.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dladiv.dart';
+import 'package:dart_lapack/src/dlapy2.dart';
+import 'package:dart_lapack/src/dlatrs.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlaein(
   final bool RIGHTV,

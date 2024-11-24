@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zhetrf_aa.dart';
-import 'package:lapack/src/zhetrs_aa.dart';
-import 'package:lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zhetrf_aa.dart';
+import 'package:dart_lapack/src/zhetrs_aa.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
 
 import '../matgen/zlatms.dart';
 import 'alaerh.dart';
@@ -304,7 +304,7 @@ void zchkhe_aa(
             // Solve and compute residual for  A * X = B.
 
             // Choose a set of NRHS random solution vectors
-            // stored in XACT and set up the right hand side B 
+            // stored in XACT and set up the right hand side B
             srnamc.SRNAMT = 'ZLARHS';
             zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A.asMatrix(),
                 LDA, XACT.asMatrix(), LDA, B.asMatrix(), LDA, ISEED, INFO);

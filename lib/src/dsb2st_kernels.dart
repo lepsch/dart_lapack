@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlarfg.dart';
-import 'package:lapack/src/dlarfx.dart';
-import 'package:lapack/src/dlarfy.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlarfg.dart';
+import 'package:dart_lapack/src/dlarfx.dart';
+import 'package:dart_lapack/src/dlarfy.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dsb2st_kernels(
   final String UPLO,

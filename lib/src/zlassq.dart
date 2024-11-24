@@ -4,11 +4,11 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/disnan.dart';
-import 'package:lapack/src/la_constants.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/disnan.dart';
+import 'package:dart_lapack/src/la_constants.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void zlassq(
   final int n,

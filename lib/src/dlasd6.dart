@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlamrg.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlasd7.dart';
-import 'package:lapack/src/dlasd8.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlamrg.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlasd7.dart';
+import 'package:dart_lapack/src/dlasd8.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dlasd6(
   final int ICOMPQ,

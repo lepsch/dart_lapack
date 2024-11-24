@@ -4,27 +4,27 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dbdsqr.dart';
-import 'package:lapack/src/dgebrd.dart';
-import 'package:lapack/src/dgelqf.dart';
-import 'package:lapack/src/dgeqrf.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlascl.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dorgbr.dart';
-import 'package:lapack/src/dormbr.dart';
-import 'package:lapack/src/dormlq.dart';
-import 'package:lapack/src/dormqr.dart';
-import 'package:lapack/src/drscl.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dbdsqr.dart';
+import 'package:dart_lapack/src/dgebrd.dart';
+import 'package:dart_lapack/src/dgelqf.dart';
+import 'package:dart_lapack/src/dgeqrf.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlascl.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dorgbr.dart';
+import 'package:dart_lapack/src/dormbr.dart';
+import 'package:dart_lapack/src/dormlq.dart';
+import 'package:dart_lapack/src/dormqr.dart';
+import 'package:dart_lapack/src/drscl.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgelss(
   final int M,

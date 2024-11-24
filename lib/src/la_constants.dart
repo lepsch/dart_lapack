@@ -6,12 +6,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/intrinsics/digits.dart';
-import 'package:lapack/src/intrinsics/epsilon.dart';
-import 'package:lapack/src/intrinsics/maxexponent.dart';
-import 'package:lapack/src/intrinsics/minexponent.dart';
-import 'package:lapack/src/intrinsics/radix.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/intrinsics/digits.dart';
+import 'package:dart_lapack/src/intrinsics/epsilon.dart';
+import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
+import 'package:dart_lapack/src/intrinsics/minexponent.dart';
+import 'package:dart_lapack/src/intrinsics/radix.dart';
 
 // -- LAPACK auxiliary module --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

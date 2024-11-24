@@ -4,18 +4,18 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgehrd.dart';
-import 'package:lapack/src/dhseqr.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dorghr.dart';
-import 'package:lapack/src/dtrsen.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgehrd.dart';
+import 'package:dart_lapack/src/dhseqr.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dorghr.dart';
+import 'package:dart_lapack/src/dtrsen.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 import 'package:test/test.dart';
 
 import '../test_driver.dart';

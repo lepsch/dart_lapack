@@ -4,13 +4,13 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlatsqr.dart';
-import 'package:lapack/src/dorgtsqr_row.dart';
-import 'package:lapack/src/dorhr_col.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlatsqr.dart';
+import 'package:dart_lapack/src/dorgtsqr_row.dart';
+import 'package:dart_lapack/src/dorhr_col.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgetsqrhrt(
   final int M,

@@ -2,30 +2,30 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zpbcon.dart';
-import 'package:lapack/src/zpbequ.dart';
-import 'package:lapack/src/zpbrfs.dart';
-import 'package:lapack/src/zpbtf2.dart';
-import 'package:lapack/src/zpbtrf.dart';
-import 'package:lapack/src/zpbtrs.dart';
-import 'package:lapack/src/zpocon.dart';
-import 'package:lapack/src/zpoequ.dart';
-import 'package:lapack/src/zporfs.dart';
-import 'package:lapack/src/zpotf2.dart';
-import 'package:lapack/src/zpotrf.dart';
-import 'package:lapack/src/zpotri.dart';
-import 'package:lapack/src/zpotrs.dart';
-import 'package:lapack/src/zppcon.dart';
-import 'package:lapack/src/zppequ.dart';
-import 'package:lapack/src/zpprfs.dart';
-import 'package:lapack/src/zpptrf.dart';
-import 'package:lapack/src/zpptri.dart';
-import 'package:lapack/src/zpptrs.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zpbcon.dart';
+import 'package:dart_lapack/src/zpbequ.dart';
+import 'package:dart_lapack/src/zpbrfs.dart';
+import 'package:dart_lapack/src/zpbtf2.dart';
+import 'package:dart_lapack/src/zpbtrf.dart';
+import 'package:dart_lapack/src/zpbtrs.dart';
+import 'package:dart_lapack/src/zpocon.dart';
+import 'package:dart_lapack/src/zpoequ.dart';
+import 'package:dart_lapack/src/zporfs.dart';
+import 'package:dart_lapack/src/zpotf2.dart';
+import 'package:dart_lapack/src/zpotrf.dart';
+import 'package:dart_lapack/src/zpotri.dart';
+import 'package:dart_lapack/src/zpotrs.dart';
+import 'package:dart_lapack/src/zppcon.dart';
+import 'package:dart_lapack/src/zppequ.dart';
+import 'package:dart_lapack/src/zpprfs.dart';
+import 'package:dart_lapack/src/zpptrf.dart';
+import 'package:dart_lapack/src/zpptri.dart';
+import 'package:dart_lapack/src/zpptrs.dart';
 
 import 'alaesm.dart';
 import 'chkxer.dart';

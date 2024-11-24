@@ -4,18 +4,18 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/dtrmv.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dggrqf.dart';
-import 'package:lapack/src/dormqr.dart';
-import 'package:lapack/src/dormrq.dart';
-import 'package:lapack/src/dtrtrs.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dgemv.dart';
+import 'package:dart_lapack/src/blas/dtrmv.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dggrqf.dart';
+import 'package:dart_lapack/src/dormqr.dart';
+import 'package:dart_lapack/src/dormrq.dart';
+import 'package:dart_lapack/src/dtrtrs.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dgglse(
   final int M,

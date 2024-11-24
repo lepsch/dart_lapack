@@ -2,22 +2,22 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zgebak.dart';
-import 'package:lapack/src/zgebal.dart';
-import 'package:lapack/src/zgehd2.dart';
-import 'package:lapack/src/zgehrd.dart';
-import 'package:lapack/src/zhsein.dart';
-import 'package:lapack/src/zhseqr.dart';
-import 'package:lapack/src/ztrevc.dart';
-import 'package:lapack/src/ztrevc3.dart';
-import 'package:lapack/src/zunghr.dart';
-import 'package:lapack/src/zunmhr.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zgebak.dart';
+import 'package:dart_lapack/src/zgebal.dart';
+import 'package:dart_lapack/src/zgehd2.dart';
+import 'package:dart_lapack/src/zgehrd.dart';
+import 'package:dart_lapack/src/zhsein.dart';
+import 'package:dart_lapack/src/zhseqr.dart';
+import 'package:dart_lapack/src/ztrevc.dart';
+import 'package:dart_lapack/src/ztrevc3.dart';
+import 'package:dart_lapack/src/zunghr.dart';
+import 'package:dart_lapack/src/zunmhr.dart';
 
 import 'chkxer.dart';
 import 'common.dart';

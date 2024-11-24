@@ -4,23 +4,23 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dsymm.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlag2s.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/dlat2s.dart';
-import 'package:lapack/src/dpotrs.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/slag2d.dart';
-import 'package:lapack/src/spotrf.dart';
-import 'package:lapack/src/spotrs.dart';
-import 'package:lapack/src/dpotrf.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dsymm.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlag2s.dart';
+import 'package:dart_lapack/src/dlansy.dart';
+import 'package:dart_lapack/src/dlat2s.dart';
+import 'package:dart_lapack/src/dpotrs.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/slag2d.dart';
+import 'package:dart_lapack/src/spotrf.dart';
+import 'package:dart_lapack/src/spotrs.dart';
+import 'package:dart_lapack/src/dpotrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dsposv(
   final String UPLO,

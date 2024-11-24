@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacn2.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlag2.dart';
-import 'package:lapack/src/dlassq.dart';
-import 'package:lapack/src/dtgexc.dart';
-import 'package:lapack/src/dtgsyl.dart';
-import 'package:lapack/src/intrinsics/sign.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacn2.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlag2.dart';
+import 'package:dart_lapack/src/dlassq.dart';
+import 'package:dart_lapack/src/dtgexc.dart';
+import 'package:dart_lapack/src/dtgsyl.dart';
+import 'package:dart_lapack/src/intrinsics/sign.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
 
 void dtgsen(
   final int IJOB,
@@ -478,7 +478,7 @@ void dtgsen(
                   LWORK - 2 * N1 * N2,
                   IWORK,
                   IERR);
-            } 
+            }
           }
           DIF[2] = DSCALE.value / DIF[2];
         }

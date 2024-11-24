@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 bool zgennd(final int M, final int N, final Matrix<Complex> A_, final int LDA) {
 // -- LAPACK test routine --

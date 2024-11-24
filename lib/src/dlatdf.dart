@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dasum.dart';
-import 'package:lapack/src/blas/daxpy.dart';
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/ddot.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgecon.dart';
-import 'package:lapack/src/dgesc2.dart';
-import 'package:lapack/src/dlassq.dart';
-import 'package:lapack/src/dlaswp.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dasum.dart';
+import 'package:dart_lapack/src/blas/daxpy.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/ddot.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgecon.dart';
+import 'package:dart_lapack/src/dgesc2.dart';
+import 'package:dart_lapack/src/dlassq.dart';
+import 'package:dart_lapack/src/dlaswp.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlatdf(
   final int IJOB,

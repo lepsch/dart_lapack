@@ -2,31 +2,31 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dpbcon.dart';
-import 'package:lapack/src/dpbequ.dart';
-import 'package:lapack/src/dpbrfs.dart';
-import 'package:lapack/src/dpbtf2.dart';
-import 'package:lapack/src/dpbtrf.dart';
-import 'package:lapack/src/dpbtrs.dart';
-import 'package:lapack/src/dpocon.dart';
-import 'package:lapack/src/dpoequ.dart';
-import 'package:lapack/src/dpoequb.dart';
-import 'package:lapack/src/dporfs.dart';
-import 'package:lapack/src/dporfsx.dart';
-import 'package:lapack/src/dpotf2.dart';
-import 'package:lapack/src/dpotrf.dart';
-import 'package:lapack/src/dpotri.dart';
-import 'package:lapack/src/dpotrs.dart';
-import 'package:lapack/src/dppcon.dart';
-import 'package:lapack/src/dppequ.dart';
-import 'package:lapack/src/dpprfs.dart';
-import 'package:lapack/src/dpptrf.dart';
-import 'package:lapack/src/dpptri.dart';
-import 'package:lapack/src/dpptrs.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dpbcon.dart';
+import 'package:dart_lapack/src/dpbequ.dart';
+import 'package:dart_lapack/src/dpbrfs.dart';
+import 'package:dart_lapack/src/dpbtf2.dart';
+import 'package:dart_lapack/src/dpbtrf.dart';
+import 'package:dart_lapack/src/dpbtrs.dart';
+import 'package:dart_lapack/src/dpocon.dart';
+import 'package:dart_lapack/src/dpoequ.dart';
+import 'package:dart_lapack/src/dpoequb.dart';
+import 'package:dart_lapack/src/dporfs.dart';
+import 'package:dart_lapack/src/dporfsx.dart';
+import 'package:dart_lapack/src/dpotf2.dart';
+import 'package:dart_lapack/src/dpotrf.dart';
+import 'package:dart_lapack/src/dpotri.dart';
+import 'package:dart_lapack/src/dpotrs.dart';
+import 'package:dart_lapack/src/dppcon.dart';
+import 'package:dart_lapack/src/dppequ.dart';
+import 'package:dart_lapack/src/dpprfs.dart';
+import 'package:dart_lapack/src/dpptrf.dart';
+import 'package:dart_lapack/src/dpptri.dart';
+import 'package:dart_lapack/src/dpptrs.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import 'alaesm.dart';
 import 'chkxer.dart';

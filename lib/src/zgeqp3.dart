@@ -4,17 +4,17 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dznrm2.dart';
-import 'package:lapack/src/blas/zswap.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/zgeqrf.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlaqp2.dart';
-import 'package:lapack/src/zlaqps.dart';
-import 'package:lapack/src/zunmqr.dart';
+import 'package:dart_lapack/src/blas/dznrm2.dart';
+import 'package:dart_lapack/src/blas/zswap.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/ilaenv.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/zgeqrf.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlaqp2.dart';
+import 'package:dart_lapack/src/zlaqps.dart';
+import 'package:dart_lapack/src/zunmqr.dart';
 
 void zgeqp3(
   final int M,

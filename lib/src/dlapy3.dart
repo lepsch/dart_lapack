@@ -4,7 +4,7 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
 
 double dlapy3(final double X, final double Y, final double Z) {
 // -- LAPACK auxiliary routine --

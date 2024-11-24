@@ -1,7 +1,7 @@
-name: lapack
-description: A starting point for Dart libraries or applications.
+name: dart_lapack
+description: Pure Dart implementation of LAPACK Linear Algebra PACKage
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/lepsch/dart_lapack/
 
 environment:
   sdk: ^3.4.3

@@ -4,14 +4,14 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/dsyr.dart';
-import 'package:lapack/src/blas/dsyr2.dart';
-import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/dsyr.dart';
+import 'package:dart_lapack/src/blas/dsyr2.dart';
+import 'package:dart_lapack/src/dlange.dart';
+import 'package:dart_lapack/src/dlansy.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dstt21(
   final int N,

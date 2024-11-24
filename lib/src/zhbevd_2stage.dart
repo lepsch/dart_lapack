@@ -4,21 +4,21 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dsterf.dart';
-import 'package:lapack/src/ilaenv2stage.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zhetrd_hb2st.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlanhb.dart';
-import 'package:lapack/src/zlascl.dart';
-import 'package:lapack/src/zstedc.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dsterf.dart';
+import 'package:dart_lapack/src/ilaenv2stage.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zhetrd_hb2st.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlanhb.dart';
+import 'package:dart_lapack/src/zlascl.dart';
+import 'package:dart_lapack/src/zstedc.dart';
 
 void zhbevd_2stage(
   final String JOBZ,

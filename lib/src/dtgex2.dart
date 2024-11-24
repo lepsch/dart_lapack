@@ -4,24 +4,24 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dgemm.dart';
-import 'package:lapack/src/blas/drot.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dgeqr2.dart';
-import 'package:lapack/src/dgerq2.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlagv2.dart';
-import 'package:lapack/src/dlartg.dart';
-import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/dlassq.dart';
-import 'package:lapack/src/dorg2r.dart';
-import 'package:lapack/src/dorgr2.dart';
-import 'package:lapack/src/dorm2r.dart';
-import 'package:lapack/src/dormr2.dart';
-import 'package:lapack/src/dtgsy2.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/dgemm.dart';
+import 'package:dart_lapack/src/blas/drot.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dgeqr2.dart';
+import 'package:dart_lapack/src/dgerq2.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlagv2.dart';
+import 'package:dart_lapack/src/dlartg.dart';
+import 'package:dart_lapack/src/dlaset.dart';
+import 'package:dart_lapack/src/dlassq.dart';
+import 'package:dart_lapack/src/dorg2r.dart';
+import 'package:dart_lapack/src/dorgr2.dart';
+import 'package:dart_lapack/src/dorm2r.dart';
+import 'package:dart_lapack/src/dormr2.dart';
+import 'package:dart_lapack/src/dtgsy2.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dtgex2(
   final bool WANTQ,

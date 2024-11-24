@@ -4,19 +4,19 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dlacpy.dart';
-import 'package:lapack/src/dlansy.dart';
-import 'package:lapack/src/dpftrf.dart';
-import 'package:lapack/src/dpftri.dart';
-import 'package:lapack/src/dpftrs.dart';
-import 'package:lapack/src/dpotrf.dart';
-import 'package:lapack/src/dpotri.dart';
-import 'package:lapack/src/dtfttr.dart';
-import 'package:lapack/src/dtrttf.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dlacpy.dart';
+import 'package:dart_lapack/src/dlansy.dart';
+import 'package:dart_lapack/src/dpftrf.dart';
+import 'package:dart_lapack/src/dpftri.dart';
+import 'package:dart_lapack/src/dpftrs.dart';
+import 'package:dart_lapack/src/dpotrf.dart';
+import 'package:dart_lapack/src/dpotri.dart';
+import 'package:dart_lapack/src/dtfttr.dart';
+import 'package:dart_lapack/src/dtrttf.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import '../matgen/dlatms.dart';
 import 'aladhd.dart';

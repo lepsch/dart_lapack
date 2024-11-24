@@ -4,10 +4,10 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/blas/xerbla.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/blas/lsame.dart';
+import 'package:dart_lapack/src/blas/xerbla.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void zsyr2k(
   final String UPLO,

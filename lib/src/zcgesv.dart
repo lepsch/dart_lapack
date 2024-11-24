@@ -4,22 +4,22 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/zaxpy.dart';
-import 'package:lapack/src/blas/zgemm.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/cgetrf.dart';
-import 'package:lapack/src/cgetrs.dart';
-import 'package:lapack/src/clag2z.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/dlamch.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgetrf.dart';
-import 'package:lapack/src/zgetrs.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlag2c.dart';
-import 'package:lapack/src/zlange.dart';
+import 'package:dart_lapack/src/blas/izamax.dart';
+import 'package:dart_lapack/src/blas/zaxpy.dart';
+import 'package:dart_lapack/src/blas/zgemm.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/cgetrf.dart';
+import 'package:dart_lapack/src/cgetrs.dart';
+import 'package:dart_lapack/src/clag2z.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/install/dlamch.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zgetrf.dart';
+import 'package:dart_lapack/src/zgetrs.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlag2c.dart';
+import 'package:dart_lapack/src/zlange.dart';
 
 void zcgesv(
   final int N,

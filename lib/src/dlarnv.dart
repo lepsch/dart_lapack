@@ -4,8 +4,8 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/dlaruv.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/dlaruv.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void dlarnv(
   final int IDIST,

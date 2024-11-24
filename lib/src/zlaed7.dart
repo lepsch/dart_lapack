@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlaed9.dart';
-import 'package:lapack/src/dlaeda.dart';
-import 'package:lapack/src/dlamrg.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zlacrm.dart';
-import 'package:lapack/src/zlaed8.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlaed9.dart';
+import 'package:dart_lapack/src/dlaeda.dart';
+import 'package:dart_lapack/src/dlamrg.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zlacrm.dart';
+import 'package:dart_lapack/src/zlaed8.dart';
 
 void zlaed7(
   final int N,

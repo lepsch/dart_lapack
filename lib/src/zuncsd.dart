@@ -4,18 +4,18 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/install/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zbbcsd.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlapmr.dart';
-import 'package:lapack/src/zlapmt.dart';
-import 'package:lapack/src/zunbdb.dart';
-import 'package:lapack/src/zunglq.dart';
-import 'package:lapack/src/zungqr.dart';
+import 'package:dart_lapack/src/install/lsame.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/xerbla.dart';
+import 'package:dart_lapack/src/zbbcsd.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlapmr.dart';
+import 'package:dart_lapack/src/zlapmt.dart';
+import 'package:dart_lapack/src/zunbdb.dart';
+import 'package:dart_lapack/src/zunglq.dart';
+import 'package:dart_lapack/src/zungqr.dart';
 
 void zuncsd(
   final String JOBU1,

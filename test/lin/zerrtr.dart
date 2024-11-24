@@ -2,27 +2,27 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/lsamen.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zlatbs.dart';
-import 'package:lapack/src/zlatps.dart';
-import 'package:lapack/src/zlatrs.dart';
-import 'package:lapack/src/zlatrs3.dart';
-import 'package:lapack/src/ztbcon.dart';
-import 'package:lapack/src/ztbrfs.dart';
-import 'package:lapack/src/ztbtrs.dart';
-import 'package:lapack/src/ztpcon.dart';
-import 'package:lapack/src/ztprfs.dart';
-import 'package:lapack/src/ztptri.dart';
-import 'package:lapack/src/ztptrs.dart';
-import 'package:lapack/src/ztrcon.dart';
-import 'package:lapack/src/ztrrfs.dart';
-import 'package:lapack/src/ztrti2.dart';
-import 'package:lapack/src/ztrtri.dart';
-import 'package:lapack/src/ztrtrs.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/lsamen.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zlatbs.dart';
+import 'package:dart_lapack/src/zlatps.dart';
+import 'package:dart_lapack/src/zlatrs.dart';
+import 'package:dart_lapack/src/zlatrs3.dart';
+import 'package:dart_lapack/src/ztbcon.dart';
+import 'package:dart_lapack/src/ztbrfs.dart';
+import 'package:dart_lapack/src/ztbtrs.dart';
+import 'package:dart_lapack/src/ztpcon.dart';
+import 'package:dart_lapack/src/ztprfs.dart';
+import 'package:dart_lapack/src/ztptri.dart';
+import 'package:dart_lapack/src/ztptrs.dart';
+import 'package:dart_lapack/src/ztrcon.dart';
+import 'package:dart_lapack/src/ztrrfs.dart';
+import 'package:dart_lapack/src/ztrti2.dart';
+import 'package:dart_lapack/src/ztrtri.dart';
+import 'package:dart_lapack/src/ztrtrs.dart';
 
 import 'alaesm.dart';
 import 'chkxer.dart';

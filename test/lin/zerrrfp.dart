@@ -2,22 +2,22 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zhfrk.dart';
-import 'package:lapack/src/zpftrf.dart';
-import 'package:lapack/src/zpftri.dart';
-import 'package:lapack/src/zpftrs.dart';
-import 'package:lapack/src/ztfsm.dart';
-import 'package:lapack/src/ztftri.dart';
-import 'package:lapack/src/ztfttp.dart';
-import 'package:lapack/src/ztfttr.dart';
-import 'package:lapack/src/ztpttf.dart';
-import 'package:lapack/src/ztpttr.dart';
-import 'package:lapack/src/ztrttf.dart';
-import 'package:lapack/src/ztrttp.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zhfrk.dart';
+import 'package:dart_lapack/src/zpftrf.dart';
+import 'package:dart_lapack/src/zpftri.dart';
+import 'package:dart_lapack/src/zpftrs.dart';
+import 'package:dart_lapack/src/ztfsm.dart';
+import 'package:dart_lapack/src/ztftri.dart';
+import 'package:dart_lapack/src/ztfttp.dart';
+import 'package:dart_lapack/src/ztfttr.dart';
+import 'package:dart_lapack/src/ztpttf.dart';
+import 'package:dart_lapack/src/ztpttr.dart';
+import 'package:dart_lapack/src/ztrttf.dart';
+import 'package:dart_lapack/src/ztrttp.dart';
 
 import 'chkxer.dart';
 import 'common.dart';

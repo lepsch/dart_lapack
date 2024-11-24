@@ -2,21 +2,21 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dpftrf.dart';
-import 'package:lapack/src/dpftri.dart';
-import 'package:lapack/src/dpftrs.dart';
-import 'package:lapack/src/dsfrk.dart';
-import 'package:lapack/src/dtfsm.dart';
-import 'package:lapack/src/dtftri.dart';
-import 'package:lapack/src/dtfttp.dart';
-import 'package:lapack/src/dtfttr.dart';
-import 'package:lapack/src/dtpttf.dart';
-import 'package:lapack/src/dtpttr.dart';
-import 'package:lapack/src/dtrttf.dart';
-import 'package:lapack/src/dtrttp.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/dpftrf.dart';
+import 'package:dart_lapack/src/dpftri.dart';
+import 'package:dart_lapack/src/dpftrs.dart';
+import 'package:dart_lapack/src/dsfrk.dart';
+import 'package:dart_lapack/src/dtfsm.dart';
+import 'package:dart_lapack/src/dtftri.dart';
+import 'package:dart_lapack/src/dtfttp.dart';
+import 'package:dart_lapack/src/dtfttr.dart';
+import 'package:dart_lapack/src/dtpttf.dart';
+import 'package:dart_lapack/src/dtpttr.dart';
+import 'package:dart_lapack/src/dtrttf.dart';
+import 'package:dart_lapack/src/dtrttp.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
 
 import '../eig/chkxer.dart';
 import 'common.dart';

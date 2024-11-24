@@ -4,12 +4,12 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/intrinsics/digits.dart';
-import 'package:lapack/src/intrinsics/huge.dart';
-import 'package:lapack/src/intrinsics/maxexponent.dart';
-import 'package:lapack/src/intrinsics/minexponent.dart';
-import 'package:lapack/src/intrinsics/radix.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/intrinsics/digits.dart';
+import 'package:dart_lapack/src/intrinsics/huge.dart';
+import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
+import 'package:dart_lapack/src/intrinsics/minexponent.dart';
+import 'package:dart_lapack/src/intrinsics/radix.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 double dnrm2(final int n, final Array<double> x_, final int incx) {
 // -- Reference BLAS level1 routine (version 3.9.1) --

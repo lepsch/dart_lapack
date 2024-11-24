@@ -4,15 +4,15 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/intrinsics/digits.dart';
-import 'package:lapack/src/intrinsics/huge.dart';
-import 'package:lapack/src/intrinsics/maxexponent.dart';
-import 'package:lapack/src/intrinsics/minexponent.dart';
-import 'package:lapack/src/intrinsics/radix.dart';
-import 'package:lapack/src/intrinsics/tiny.dart';
-import 'package:lapack/src/matrix.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/intrinsics/digits.dart';
+import 'package:dart_lapack/src/intrinsics/huge.dart';
+import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
+import 'package:dart_lapack/src/intrinsics/minexponent.dart';
+import 'package:dart_lapack/src/intrinsics/radix.dart';
+import 'package:dart_lapack/src/intrinsics/tiny.dart';
+import 'package:dart_lapack/src/matrix.dart';
 
 void main() {
 // -- LAPACK test routine --

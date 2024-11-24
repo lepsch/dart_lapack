@@ -4,25 +4,25 @@
 
 import 'dart:math';
 
-import 'package:lapack/src/blas/dcopy.dart';
-import 'package:lapack/src/blas/dscal.dart';
-import 'package:lapack/src/blas/dzasum.dart';
-import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/zcopy.dart';
-import 'package:lapack/src/blas/zdscal.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/dlarnv.dart';
-import 'package:lapack/src/format_specifiers_extensions.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/nio.dart';
-import 'package:lapack/src/zlacpy.dart';
-import 'package:lapack/src/zlanht.dart';
-import 'package:lapack/src/zlarnv.dart';
-import 'package:lapack/src/zptcon.dart';
-import 'package:lapack/src/zptrfs.dart';
-import 'package:lapack/src/zpttrf.dart';
-import 'package:lapack/src/zpttrs.dart';
+import 'package:dart_lapack/src/blas/dcopy.dart';
+import 'package:dart_lapack/src/blas/dscal.dart';
+import 'package:dart_lapack/src/blas/dzasum.dart';
+import 'package:dart_lapack/src/blas/idamax.dart';
+import 'package:dart_lapack/src/blas/zcopy.dart';
+import 'package:dart_lapack/src/blas/zdscal.dart';
+import 'package:dart_lapack/src/box.dart';
+import 'package:dart_lapack/src/complex.dart';
+import 'package:dart_lapack/src/dlarnv.dart';
+import 'package:dart_lapack/src/format_specifiers_extensions.dart';
+import 'package:dart_lapack/src/matrix.dart';
+import 'package:dart_lapack/src/nio.dart';
+import 'package:dart_lapack/src/zlacpy.dart';
+import 'package:dart_lapack/src/zlanht.dart';
+import 'package:dart_lapack/src/zlarnv.dart';
+import 'package:dart_lapack/src/zptcon.dart';
+import 'package:dart_lapack/src/zptrfs.dart';
+import 'package:dart_lapack/src/zpttrf.dart';
+import 'package:dart_lapack/src/zpttrs.dart';
 
 import '../matgen/zlatms.dart';
 import 'alaerh.dart';
