@@ -6,7 +6,8 @@ Pure Dart implementation of LAPACK (Linear Algebra PACKage).
 
 Dart LAPACK is a pure Dart implementation manually converted from the original
 [LAPACK in Fortran from Netlib](https://github.com/Reference-LAPACK/lapack).
-It's based on the fork of [LAPACK ref 50d68905](https://github.com/Reference-LAPACK/lapack/commits/50d689057af506e256243ff521641454b241a43b) from January 25 of 2024.
+It's based on the fork of [LAPACK ref 50d68905](https://github.com/Reference-LAPACK/lapack/commits/50d689057af506e256243ff521641454b241a43b)
+from January 25 of 2024 (Around LAPACK version 3.12.0).
 
 The package contains:
 
