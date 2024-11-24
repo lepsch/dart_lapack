@@ -7,7 +7,6 @@ repository: https://github.com/lepsch/dart_lapack/
 environment:
   sdk: ^3.4.3
 
-# Add regular dependencies here.
 dependencies:
   async: ^2.11.0
   collection: ^1.18.0
