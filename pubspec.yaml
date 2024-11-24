@@ -19,12 +19,18 @@ dev_dependencies:
   test: ^1.24.0
 
 topics:
-  - lapack
-  - blas
-  - linear
   - algebra
+  - blas
+  - eigenvalues
+  - eigenvectors
+  - lapack
+  - linear
+  - linear-algebra
+  - linear-equations
   - math
   - mathematics
   - matrix
+  - matrix-factorization
+  - singular-values
+  - svd
   - vector
-  - array
