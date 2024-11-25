@@ -1551,7 +1551,8 @@ Future<void> dchkaa(
 
       test.group('HH: Householder reconstruction for tall-skinny matrices', () {
         if (TSTCHK) {
-          dchkorhr_col(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT, test);
+          dchkorhr_col(
+              THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT, test);
         } else {
           NOUT.print9989(PATH);
         }

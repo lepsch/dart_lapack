@@ -1200,7 +1200,6 @@ class MatrixEquals<T> extends CustomMatcher {
       ];
 }
 
-
 /*
 The program:
 ```

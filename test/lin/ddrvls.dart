@@ -79,8 +79,8 @@ void ddrvls(
   final RCOND = Box(sqrt(EPS) - (sqrt(EPS) - EPS) / 2);
 
   setUp() {
-  xlaenv(2, 2);
-  xlaenv(9, SMLSIZ);
+    xlaenv(2, 2);
+    xlaenv(9, SMLSIZ);
   }
 
   test.setUp(setUp);

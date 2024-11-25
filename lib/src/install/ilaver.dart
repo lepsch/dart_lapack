@@ -4,7 +4,8 @@
 
 import 'package:dart_lapack/src/box.dart';
 
-void ilaver(final Box<int> VERS_MAJOR, final Box<int> VERS_MINOR, final Box<int> VERS_PATCH) {
+void ilaver(final Box<int> VERS_MAJOR, final Box<int> VERS_MINOR,
+    final Box<int> VERS_PATCH) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

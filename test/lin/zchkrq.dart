@@ -217,7 +217,8 @@ void zchkrq(
                 zlacpy('Full', M, NRHS, B.asMatrix(), LDA,
                     X(N - M + 1).asMatrix(), LDA);
                 srnamc.SRNAMT = 'ZGERQS';
-                zgerqs(M, N, NRHS, AF.asMatrix(), LDA, TAU, X.asMatrix(), LDA, WORK, LWORK, INFO);
+                zgerqs(M, N, NRHS, AF.asMatrix(), LDA, TAU, X.asMatrix(), LDA,
+                    WORK, LWORK, INFO);
 
                 // Check error code from ZGERQS.
 

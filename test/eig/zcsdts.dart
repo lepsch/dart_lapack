@@ -70,8 +70,7 @@ void zcsdts(
   zherk('Upper', 'Conjugate transpose', M, M, -REALONE, X, LDX, REALONE,
       WORK.asMatrix(), LDX);
   if (M > 0) {
-    EPS2 =
-        max(ULP, zlange('1', M, M, WORK.asMatrix(), LDX, RWORK) / M);
+    EPS2 = max(ULP, zlange('1', M, M, WORK.asMatrix(), LDX, RWORK) / M);
   } else {
     EPS2 = ULP;
   }
@@ -266,8 +265,7 @@ void zcsdts(
   zherk('Upper', 'Conjugate transpose', Q, M, -REALONE, X, LDX, REALONE,
       WORK.asMatrix(), LDX);
   if (M > 0) {
-    EPS2 =
-        max(ULP, zlange('1', Q, Q, WORK.asMatrix(), LDX, RWORK) / M);
+    EPS2 = max(ULP, zlange('1', Q, Q, WORK.asMatrix(), LDX, RWORK) / M);
   } else {
     EPS2 = ULP;
   }

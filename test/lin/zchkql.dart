@@ -215,7 +215,8 @@ void zchkql(
 
                 zlacpy('Full', M, NRHS, B.asMatrix(), LDA, X.asMatrix(), LDA);
                 srnamc.SRNAMT = 'ZGEQLS';
-                zgeqls(M, N, NRHS, AF.asMatrix(), LDA, TAU, X.asMatrix(), LDA, WORK, LWORK, INFO);
+                zgeqls(M, N, NRHS, AF.asMatrix(), LDA, TAU, X.asMatrix(), LDA,
+                    WORK, LWORK, INFO);
 
                 // Check error code from ZGEQLS.
 

@@ -57,7 +57,6 @@ void dlatrs(
   SCALE.value = ONE;
   if (N == 0) return;
 
-
   // Determine machine dependent parameters to control overflow.
   final SMLNUM = dlamch('Safe minimum') / dlamch('Precision');
   final BIGNUM = ONE / SMLNUM;

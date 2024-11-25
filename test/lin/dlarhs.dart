@@ -99,7 +99,7 @@ void dlarhs(
 
   // Initialize X to NRHS random vectors unless XTYPE = 'C'.
 
- final (NX, MB) = TRAN ? (M, N) : (N, M);
+  final (NX, MB) = TRAN ? (M, N) : (N, M);
   if (!lsame(XTYPE, 'C')) {
     for (J = 1; J <= NRHS; J++) {
       dlarnv(2, ISEED, N, X(1, J).asArray());

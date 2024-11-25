@@ -214,21 +214,21 @@ void dgerfs(
     while (true) {
       dlacn2(N, WORK(2 * N + 1), WORK(N + 1), IWORK, FERR.box(J), KASE, ISAVE);
       if (KASE.value == 0) break;
-        if (KASE.value == 1) {
-          // Multiply by diag(W)*inv(op(A)**T).
+      if (KASE.value == 1) {
+        // Multiply by diag(W)*inv(op(A)**T).
 
         dgetrs(TRANST, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
-          for (I = 1; I <= N; I++) {
-            WORK[N + I] = WORK[I] * WORK[N + I];
-          }
-        } else {
-          // Multiply by inv(op(A))*diag(W).
-
-          for (I = 1; I <= N; I++) {
-            WORK[N + I] = WORK[I] * WORK[N + I];
-          }
-          dgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
+        for (I = 1; I <= N; I++) {
+          WORK[N + I] = WORK[I] * WORK[N + I];
         }
+      } else {
+        // Multiply by inv(op(A))*diag(W).
+
+        for (I = 1; I <= N; I++) {
+          WORK[N + I] = WORK[I] * WORK[N + I];
+        }
+        dgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK(N + 1).asMatrix(N), N, INFO);
+      }
     }
 
     // Normalize error.

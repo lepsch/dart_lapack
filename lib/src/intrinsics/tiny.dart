@@ -16,8 +16,5 @@ double tiny64(final double _) {
 
 double tiny32(final double _) {
   // minimum **normal** positive 32 bits float (exp=1, m=0)
-  return Uint32List.fromList([0x00800000])
-      .buffer
-      .asFloat32List(0)
-      .first;
+  return Uint32List.fromList([0x00800000]).buffer.asFloat32List(0).first;
 }
