@@ -2,6 +2,8 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
+// ignore_for_file: file_names
+
 import 'dart:math';
 
 import 'package:dart_lapack/src/format_specifiers_extensions.dart';
