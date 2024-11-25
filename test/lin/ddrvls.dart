@@ -78,10 +78,13 @@ void ddrvls(
   // Threshold for rank estimation
   final RCOND = Box(sqrt(EPS) - (sqrt(EPS) - EPS) / 2);
 
-  test.setUp(() {
-    xlaenv(2, 2);
-    xlaenv(9, SMLSIZ);
-  });
+  setUp() {
+  xlaenv(2, 2);
+  xlaenv(9, SMLSIZ);
+  }
+
+  test.setUp(setUp);
+  setUp(); // To calculate the workspace
 
   test.group('error exits', () {
     // Test the error exits
