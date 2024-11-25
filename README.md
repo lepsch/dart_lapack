@@ -1,5 +1,7 @@
 # dart_lapack
 
+[![dart_lapack](https://github.com/lepsch/dart_lapack/actions/workflows/dart.yaml/badge.svg)](https://github.com/lepsch/dart_lapack/actions/workflows/dart.yaml)
+
 Pure Dart implementation of LAPACK (Linear Algebra PACKage).
 
 ## About
