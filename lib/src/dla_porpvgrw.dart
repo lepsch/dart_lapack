@@ -16,9 +16,6 @@ double dla_porpvgrw(
   final int LDAF,
   final Array<double> WORK_,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final AF = AF_.having(ld: LDAF);
   final WORK = WORK_.having();

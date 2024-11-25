@@ -32,9 +32,6 @@ void dgelst(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final WORK = WORK_.having();
@@ -53,21 +50,8 @@ void dgelst(
       SCLLEN;
   double ANRM, BIGNUM, BNRM, SMLNUM;
   final RWORK = Array<double>(1);
-  // ..
-  // .. External Functions ..
-  //- bool               lsame;
-  //- int                ILAENV;
-  //- double             DLAMCH, DLANGE;
-  // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DGELQT, DGEQRT, DGEMLQT, DGEMQRT, DLASCL, DLASET, DTRTRS, XERBLA
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DBLE, MAX, MIN
 
   // Test the input arguments.
-
   INFO.value = 0;
   MN = min(M, N);
   LQUERY = (LWORK == -1);
@@ -88,7 +72,6 @@ void dgelst(
   }
 
   // Figure out optimal block size and optimal workspace size
-
   if (INFO.value == 0 || INFO.value == -10) {
     TPSD = true;
     if (lsame(TRANS, 'N')) TPSD = false;
@@ -108,7 +91,6 @@ void dgelst(
   }
 
   // Quick return if possible
-
   if (min(M, min(N, NRHS)) == 0) {
     dlaset('Full', max(M, N), NRHS, ZERO, ZERO, B, LDB);
     WORK[1] = LWOPT.toDouble();
@@ -116,17 +98,14 @@ void dgelst(
   }
 
   // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
-
   if (NB > MN) NB = MN;
 
   // Determine the block size from the supplied LWORK
   // ( at this stage we know that LWORK >= (minimum required workspace,
   // but it may be less than optimal)
-
   NB = min(NB, LWORK ~/ (MN + MNNRHS));
 
   // The minimum value of NB, when blocked code is used
-
   NBMIN = max(2, ilaenv(2, 'DGELST', ' ', M, N, -1, -1));
 
   if (NB < NBMIN) {
@@ -134,27 +113,22 @@ void dgelst(
   }
 
   // Get machine parameters
-
   SMLNUM = dlamch('S') / dlamch('P');
   BIGNUM = ONE / SMLNUM;
 
   // Scale A, B if max element outside range [SMLNUM,BIGNUM]
-
   ANRM = dlange('M', M, N, A, LDA, RWORK);
   IASCL = 0;
   if (ANRM > ZERO && ANRM < SMLNUM) {
     // Scale matrix norm up to SMLNUM
-
     dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO);
     IASCL = 1;
   } else if (ANRM > BIGNUM) {
     // Scale matrix norm down to BIGNUM
-
     dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO);
     IASCL = 2;
   } else if (ANRM == ZERO) {
     // Matrix all zero. Return zero solution.
-
     dlaset('Full', max(M, N), NRHS, ZERO, ZERO, B, LDB);
     WORK[1] = LWOPT.toDouble();
     return;
@@ -166,12 +140,10 @@ void dgelst(
   IBSCL = 0;
   if (BNRM > ZERO && BNRM < SMLNUM) {
     // Scale matrix norm up to SMLNUM
-
     dlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO);
     IBSCL = 1;
   } else if (BNRM > BIGNUM) {
     // Scale matrix norm down to BIGNUM
-
     dlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO);
     IBSCL = 2;
   }
@@ -181,7 +153,6 @@ void dgelst(
     // Compute the blocked QR factorization of A,
     // using the compact WY representation of Q,
     // workspace at least N, optimally N*NB.
-
     dgeqrt(M, N, NB, A, LDA, WORK(1).asMatrix(NB), NB, WORK(MN * NB + 1), INFO);
 
     if (!TPSD) {
@@ -192,12 +163,10 @@ void dgelst(
       // Compute B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS),
       // using the compact WY representation of Q,
       // workspace at least NRHS, optimally NRHS*NB.
-
       dgemqrt('Left', 'Transpose', M, NRHS, N, NB, A, LDA, WORK(1).asMatrix(NB),
           NB, B, LDB, WORK(MN * NB + 1), INFO);
 
       // Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
-
       dtrtrs(
           'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO);
 
@@ -214,7 +183,6 @@ void dgelst(
       // Compute B := inv(R**T) * B in two row blocks of B.
 
       // Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
-
       dtrtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO);
 
       if (INFO.value > 0) {
@@ -223,7 +191,6 @@ void dgelst(
 
       // Block 2: Zero out all rows below the N-th row in B:
       // B(N+1:M,1:NRHS) = ZERO
-
       for (J = 1; J <= NRHS; J++) {
         for (I = N + 1; I <= M; I++) {
           B[I][J] = ZERO;
@@ -233,7 +200,6 @@ void dgelst(
       // Compute B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS),
       // using the compact WY representation of Q,
       // workspace at least NRHS, optimally NRHS*NB.
-
       dgemqrt('Left', 'No transpose', M, NRHS, N, NB, A, LDA,
           WORK(1).asMatrix(NB), NB, B, LDB, WORK(MN * NB + 1), INFO);
 
@@ -244,7 +210,6 @@ void dgelst(
     // Compute the blocked LQ factorization of A,
     // using the compact WY representation of Q,
     // workspace at least M, optimally M*NB.
-
     dgelqt(M, N, NB, A, LDA, WORK(1).asMatrix(NB), NB, WORK(MN * NB + 1), INFO);
 
     if (!TPSD) {
@@ -255,7 +220,6 @@ void dgelst(
       // Compute B := inv(L) * B in two row blocks of B.
 
       // Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
-
       dtrtrs(
           'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO);
 
@@ -265,7 +229,6 @@ void dgelst(
 
       // Block 2: Zero out all rows below the M-th row in B:
       // B(M+1:N,1:NRHS) = ZERO
-
       for (J = 1; J <= NRHS; J++) {
         for (I = M + 1; I <= N; I++) {
           B[I][J] = ZERO;
@@ -275,7 +238,6 @@ void dgelst(
       // Compute B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS),
       // using the compact WY representation of Q,
       // workspace at least NRHS, optimally NRHS*NB.
-
       dgemlqt('Left', 'Transpose', N, NRHS, M, NB, A, LDA, WORK(1).asMatrix(NB),
           NB, B, LDB, WORK(MN * NB + 1), INFO);
 
@@ -288,12 +250,10 @@ void dgelst(
       // Compute B(1:N,1:NRHS) := Q * B(1:N,1:NRHS),
       // using the compact WY representation of Q,
       // workspace at least NRHS, optimally NRHS*NB.
-
       dgemlqt('Left', 'No transpose', N, NRHS, M, NB, A, LDA,
           WORK(1).asMatrix(NB), NB, B, LDB, WORK(MN * NB + 1), INFO);
 
       // Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
-
       dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO);
 
       if (INFO.value > 0) {
@@ -305,7 +265,6 @@ void dgelst(
   }
 
   // Undo scaling
-
   if (IASCL == 1) {
     dlascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO);
   } else if (IASCL == 2) {

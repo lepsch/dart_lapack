@@ -17,9 +17,6 @@ void zlat2c(
   final int LDSA,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final SA = SA_.having(ld: LDSA);
   int I, J;

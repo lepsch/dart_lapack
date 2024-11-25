@@ -29,9 +29,6 @@ void dlaebz(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   // final E = E_.having();
   final E2 = E2_.having();

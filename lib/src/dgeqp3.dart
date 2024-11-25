@@ -26,9 +26,6 @@ void dgeqp3(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final JPVT = JPVT_.having();
   final TAU = TAU_.having();
@@ -53,8 +50,6 @@ void dgeqp3(
   final FJB = Box(0);
 
   // Test input arguments
-  // ====================
-
   INFO.value = 0;
   LQUERY = (LWORK == -1);
   if (M < 0) {
@@ -90,7 +85,6 @@ void dgeqp3(
   }
 
   // Move initial columns up front.
-
   NFXD = 1;
   for (J = 1; J <= N; J++) {
     if (JPVT[J] != 0) {
@@ -109,11 +103,9 @@ void dgeqp3(
   NFXD--;
 
   // Factorize fixed columns
-  // =======================
 
   // Compute the QR factorization of fixed columns and update
   // remaining columns.
-
   if (NFXD > 0) {
     NA = min(M, NFXD);
     // CALL DGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
@@ -128,33 +120,27 @@ void dgeqp3(
   }
 
   // Factorize free columns
-  // ======================
-
   if (NFXD < MINMN) {
     SM = M - NFXD;
     SN = N - NFXD;
     SMINMN = MINMN - NFXD;
 
     // Determine the block size.
-
     NB = ilaenv(INB, 'DGEQRF', ' ', SM, SN, -1, -1);
     NBMIN = 2;
     NX = 0;
 
     if ((NB > 1) && (NB < SMINMN)) {
       // Determine when to cross over from blocked to unblocked code.
-
       NX = max(0, ilaenv(IXOVER, 'DGEQRF', ' ', SM, SN, -1, -1));
 
       if (NX < SMINMN) {
         // Determine if workspace is large enough for blocked code.
-
         MINWS = 2 * SN + (SN + 1) * NB;
         IWS = max(IWS, MINWS);
         if (LWORK < MINWS) {
           // Not enough workspace to use optimal NB: Reduce NB and
           // determine the minimum value of NB.
-
           NB = (LWORK - 2 * SN) ~/ (SN + 1);
           NBMIN = max(2, ilaenv(INBMIN, 'DGEQRF', ' ', SM, SN, -1, -1));
         }
@@ -163,7 +149,6 @@ void dgeqp3(
 
     // Initialize partial column norms. The first N elements of work
     // store the exact column norms.
-
     for (J = NFXD + 1; J <= N; J++) {
       WORK[J] = dnrm2(SM, A(NFXD + 1, J).asArray(), 1);
       WORK[N + J] = WORK[J];
@@ -171,18 +156,15 @@ void dgeqp3(
 
     if ((NB >= NBMIN) && (NB < SMINMN) && (NX < SMINMN)) {
       // Use blocked code initially.
-
       J = NFXD + 1;
 
       // Compute factorization: while loop.
-
       TOPBMN = MINMN - NX;
       while (true) {
         if (J <= TOPBMN) {
           JB = min(NB, TOPBMN - J + 1);
 
           // Factorize JB columns among columns J:N.
-
           dlaqps(
             M,
             N - J + 1,
@@ -210,7 +192,6 @@ void dgeqp3(
     }
 
     // Use unblocked code to factor the last or only block.
-
     if (J <= MINMN) {
       dlaqp2(M, N - J + 1, J - 1, A(1, J), LDA, JPVT(J), TAU(J), WORK(J),
           WORK(N + J), WORK(2 * N + 1));

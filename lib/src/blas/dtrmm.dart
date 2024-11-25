@@ -21,9 +21,6 @@ void dtrmm(
   final Matrix<double> B_,
   final int LDB,
 ) {
-// -- Reference BLAS level3 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   const ONE = 1.0, ZERO = 0.0;

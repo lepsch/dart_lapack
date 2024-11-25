@@ -48,9 +48,6 @@ Future<void> dckgqr(
   final TestDriver test,
   final String group,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final MVAL = MVAL_.having();
   final PVAL = PVAL_.having();
   final NVAL = NVAL_.having();

@@ -22,10 +22,6 @@ void zlauu2(
   final Box<int> INFO,
 ) {
   final A = A_.having(ld: LDA);
-
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool UPPER;
   int I;
   double AII;

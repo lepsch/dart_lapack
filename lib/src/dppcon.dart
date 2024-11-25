@@ -22,9 +22,6 @@ void dppcon(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final WORK = WORK_.having();
   final IWORK = IWORK_.having();

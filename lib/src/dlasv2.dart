@@ -19,9 +19,6 @@ void dlasv2(
   final Box<double> SNL,
   final Box<double> CSL,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   const HALF = 0.5;
   const ONE = 1.0;

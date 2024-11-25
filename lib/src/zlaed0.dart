@@ -28,9 +28,6 @@ void zlaed0(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Q = Q_.having(ld: LDQ);
   final QSTORE = QSTORE_.having(ld: LDQS);
   final D = D_.having();
@@ -73,7 +70,7 @@ void zlaed0(
   // if( ICOMPQ < 0 || ICOMPQ > 2 ) THEN
   //    INFO = -1
   // ELSE if( ( ICOMPQ == 1 ) && ( QSIZ < max( 0, N ) ) )
-// $        THEN
+  // $        THEN
   if (QSIZ < max(0, N)) {
     INFO.value = -1;
   } else if (N < 0) {

@@ -22,9 +22,6 @@ import '../eig/chkxer.dart';
 import 'common.dart';
 
 void derrrfp(final Nout NUNIT) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = Matrix<double>(1, 1), B = Matrix<double>(1, 1);
   final INFO = Box(0);
 

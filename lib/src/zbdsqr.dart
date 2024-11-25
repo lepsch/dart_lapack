@@ -43,10 +43,6 @@ void zbdsqr(
   final U = U_.having(ld: LDU);
   final C = C_.having(ld: LDC);
   final RWORK = RWORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   const ONE = 1.0;
   const NEGONE = -1.0;

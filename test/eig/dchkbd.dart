@@ -67,9 +67,6 @@ void dchkbd(
   final Box<int> INFO,
   final TestDriver test,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final MVAL = MVAL_.having();
   final NVAL = NVAL_.having();
   final DOTYPE = DOTYPE_.having(length: NTYPES);
@@ -119,7 +116,6 @@ void dchkbd(
     }
 
     // Check for errors
-
     if (NSIZES < 0) {
       INFO.value = -1;
     } else if (BADMM) {
@@ -184,9 +180,9 @@ void dchkbd(
         var UPLO = ' ';
 
         // Compute "A"
-
+        //
         // Control parameters:
-
+        //
         // KMAGN  KMODE        KTYPE
         //    =1  O(1)   clustered 1  zero
         //    =2  large  clustered 2  identity
@@ -198,7 +194,6 @@ void dchkbd(
         //    =8                      random symmetric
         //    =9                      random nonsymmetric
         //    =10                     random bidiagonal (log. distrib.)
-
         var BIDIAG = false;
         if (MTYPES <= MAXTYP) {
           final ITYPE = KTYPE[JTYPE - 1];
@@ -218,32 +213,26 @@ void dchkbd(
 
           if (ITYPE == 1) {
             // Zero matrix
-
             IINFO.value = 0;
           } else if (ITYPE == 2) {
             // Identity
-
             for (var JCOL = 1; JCOL <= MNMIN; JCOL++) {
               A[JCOL][JCOL] = ANORM;
             }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, [Eigen]values Specified
-
             dlatms(MNMIN, MNMIN, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0,
                 0, 'N', A, LDA, WORK(MNMIN + 1), IINFO);
           } else if (ITYPE == 5) {
             // Symmetric, eigenvalues specified
-
             dlatms(MNMIN, MNMIN, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, M,
                 N, 'N', A, LDA, WORK(MNMIN + 1), IINFO);
           } else if (ITYPE == 6) {
             // Nonsymmetric, singular values specified
-
             dlatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, M, N, 'N',
                 A, LDA, WORK(MNMIN + 1), IINFO);
           } else if (ITYPE == 7) {
             // Diagonal, random entries
-
             dlatmr(
                 MNMIN,
                 MNMIN,
@@ -275,7 +264,6 @@ void dchkbd(
                 IINFO);
           } else if (ITYPE == 8) {
             // Symmetric, random entries
-
             dlatmr(
                 MNMIN,
                 MNMIN,
@@ -307,7 +295,6 @@ void dchkbd(
                 IINFO);
           } else if (ITYPE == 9) {
             // Nonsymmetric, random entries
-
             dlatmr(
                 M,
                 N,
@@ -339,7 +326,6 @@ void dchkbd(
                 IINFO);
           } else if (ITYPE == 10) {
             // Bidiagonal, random entries
-
             final TEMP1 = -TWO * log(ULP);
             for (var J = 1; J <= MNMIN; J++) {
               BD[J] = exp(TEMP1 * dlarnd(2, ISEED));
@@ -355,7 +341,6 @@ void dchkbd(
 
           if (IINFO.value == 0) {
             // Generate Right-Hand Side
-
             if (BIDIAG) {
               dlatmr(
                   MNMIN,
@@ -429,12 +414,10 @@ void dchkbd(
         }
 
         // Call DGEBRD and DORGBR to compute B, Q, and P, do tests.
-
         final int MQ;
         if (!BIDIAG) {
           // Compute transformations to reduce A to bidiagonal form:
           // B := Q' * A * P.
-
           dlacpy(' ', M, N, A, LDA, Q, LDQ);
           dgebrd(M, N, Q, LDQ, BD, BE, WORK, WORK(MNMIN + 1),
               WORK(2 * MNMIN + 1), LWORK - 2 * MNMIN, IINFO);
@@ -455,7 +438,6 @@ void dchkbd(
           }
 
           // Generate Q
-
           MQ = NRHS <= 0 ? MNMIN : M;
           dorgbr('Q', M, MQ, N, Q, LDQ, WORK, WORK(2 * MNMIN + 1),
               LWORK - 2 * MNMIN, IINFO);
@@ -469,7 +451,6 @@ void dchkbd(
           }
 
           // Generate P'
-
           dorgbr('P', MNMIN, N, M, PT, LDPT, WORK(MNMIN + 1),
               WORK(2 * MNMIN + 1), LWORK - 2 * MNMIN, IINFO);
 
@@ -482,14 +463,12 @@ void dchkbd(
           }
 
           // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
-
           dgemm('Transpose', 'No transpose', M, NRHS, M, ONE, Q, LDQ, X, LDX,
               ZERO, Y, LDX);
 
           // Test 1:  Check the decomposition A := Q * B * PT
           // 2:  Check the orthogonality of Q
           // 3:  Check the orthogonality of PT
-
           dbdt01(
               M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RESULT.box(1));
           dort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT.box(2));
@@ -500,7 +479,6 @@ void dchkbd(
 
         // Use DBDSQR to form the SVD of the bidiagonal matrix B:
         // B := U * S1 * VT, and compute Z = U' * Y.
-
         dcopy(MNMIN, BD, 1, S1, 1);
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
         dlacpy(' ', M, NRHS, Y, LDX, Z, LDX);
@@ -527,7 +505,6 @@ void dchkbd(
 
           // Use DBDSQR to compute only the singular values of the
           // bidiagonal matrix B;  U, VT, and Z should not be modified.
-
           dcopy(MNMIN, BD, 1, S2, 1);
           if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
 
@@ -535,7 +512,6 @@ void dchkbd(
               WORK(MNMIN + 1), IINFO);
 
           // Check error code from DBDSQR.
-
           if (IINFO.value != 0) {
             print9998(NOUT, 'DBDSQR(values)', IINFO.value, M, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
@@ -552,7 +528,6 @@ void dchkbd(
           // 5:  Check the computation Z := U' * Y
           // 6:  Check the orthogonality of U
           // 7:  Check the orthogonality of VT
-
           dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK,
               RESULT.box(4));
           dbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RESULT.box(5));
@@ -561,7 +536,6 @@ void dchkbd(
 
           // Test 8:  Check that the singular values are sorted in
           // non-increasing order and are non-negative
-
           RESULT[8] = ZERO;
           for (var I = 1; I <= MNMIN - 1; I++) {
             if (S1[I] < S1[I + 1]) RESULT[8] = ULPINV;
@@ -572,7 +546,6 @@ void dchkbd(
           }
 
           // Test 9:  Compare DBDSQR with and without singular vectors
-
           var TEMP2 = ZERO;
 
           for (var J = 1; J <= MNMIN; J++) {
@@ -586,7 +559,6 @@ void dchkbd(
 
           // Test 10:  Sturm sequence test of singular values
           // Go up by factors of two until it succeeds
-
           var TEMP1 = THRESH * (HALF - ULP);
 
           for (var J = 0; J <= LOG2UI; J++) {
@@ -599,7 +571,6 @@ void dchkbd(
 
           // Use DBDSQR to form the decomposition A := (QU) S (VT PT)
           // from the bidiagonal form A := Q B PT.
-
           if (!BIDIAG) {
             dcopy(MNMIN, BD, 1, S2, 1);
             if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
@@ -611,7 +582,6 @@ void dchkbd(
             // 12:  Check the computation Z := U' * Q' * X
             // 13:  Check the orthogonality of Q*U
             // 14:  Check the orthogonality of VT*PT
-
             final DUMMA = Array<double>(1);
             dbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK,
                 RESULT.box(11));
@@ -622,7 +592,6 @@ void dchkbd(
 
           // Use DBDSDC to form the SVD of the bidiagonal matrix B:
           // B := U * S1 * VT
-
           dcopy(MNMIN, BD, 1, S1, 1);
           if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
           dlaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT);
@@ -632,7 +601,6 @@ void dchkbd(
               WORK(MNMIN + 1), IWORK, IINFO);
 
           // Check error code from DBDSDC.
-
           if (IINFO.value != 0) {
             print9998(NOUT, 'DBDSDC(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
@@ -647,7 +615,6 @@ void dchkbd(
 
           // Use DBDSDC to compute only the singular values of the
           // bidiagonal matrix B;  U and VT should not be modified.
-
           dcopy(MNMIN, BD, 1, S2, 1);
           if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
 
@@ -655,7 +622,6 @@ void dchkbd(
               DUM.asMatrix(1), 1, DUM, IDUM, WORK(MNMIN + 1), IWORK, IINFO);
 
           // Check error code from DBDSDC.
-
           if (IINFO.value != 0) {
             print9998(NOUT, 'DBDSDC(values)', IINFO.value, M, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
@@ -671,7 +637,6 @@ void dchkbd(
           // Test 15:  Check the decomposition B := U * S1 * VT
           // 16:  Check the orthogonality of U
           // 17:  Check the orthogonality of VT
-
           dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK,
               RESULT.box(15));
           dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT.box(16));
@@ -679,7 +644,6 @@ void dchkbd(
 
           // Test 18:  Check that the singular values are sorted in
           // non-increasing order and are non-negative
-
           RESULT[18] = ZERO;
           for (var I = 1; I <= MNMIN - 1; I++) {
             if (S1[I] < S1[I + 1]) RESULT[18] = ULPINV;
@@ -690,7 +654,6 @@ void dchkbd(
           }
 
           // Test 19:  Compare DBDSQR with and without singular vectors
-
           TEMP2 = ZERO;
 
           for (var J = 1; J <= MNMIN; J++) {
@@ -704,11 +667,8 @@ void dchkbd(
 
           // Use DBDSVDX to compute the SVD of the bidiagonal matrix B:
           // B := U * S1 * VT
-
           if (JTYPE == 10 || JTYPE == 16) {
-            // =================================
             // Matrix types temporarily disabled
-            // =================================
             for (var i = 20; i <= 34; i++) {
               RESULT[i] = ZERO;
             }
@@ -745,7 +705,6 @@ void dchkbd(
               IINFO);
 
           // Check error code from DBDSVDX.
-
           if (IINFO.value != 0) {
             print9998(
                 NOUT, 'DBDSVDX(vects,A)', IINFO.value, M, N, JTYPE, IOLDSD);
@@ -768,11 +727,8 @@ void dchkbd(
 
           // Use DBDSVDX to compute only the singular values of the
           // bidiagonal matrix B;  U and VT should not be modified.
-
           if (JTYPE == 9) {
-            // =================================
             // Matrix types temporarily disabled
-            // =================================
             RESULT[24] = ZERO;
             break failed;
           }
@@ -800,7 +756,6 @@ void dchkbd(
               IINFO);
 
           // Check error code from DBDSVDX.
-
           if (IINFO.value != 0) {
             print9998(
                 NOUT, 'DBDSVDX(values,A)', IINFO.value, M, N, JTYPE, IOLDSD);
@@ -815,7 +770,6 @@ void dchkbd(
           }
 
           // Save S1 for tests 30-34.
-
           dcopy(MNMIN, S1, 1, WORK(IWBS), 1);
 
           // Test 20:  Check the decomposition B := U * S1 * VT
@@ -824,7 +778,6 @@ void dchkbd(
           // 23:  Check that the singular values are sorted in
           // non-increasing order and are non-negative
           // 24:  Compare DBDSVDX with and without singular vectors
-
           dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT,
               WORK(IWBS + MNMIN), RESULT.box(20));
           dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK(IWBS + MNMIN),
@@ -854,7 +807,6 @@ void dchkbd(
           // Use DBDSVDX with RANGE='I': choose random values for IL and
           // IU, and ask for the IL-th through IU-th singular values
           // and corresponding vectors.
-
           final ISEED2 = ISEED.copy();
           final int IL, IU;
           if (MNMIN <= 1) {
@@ -889,7 +841,6 @@ void dchkbd(
               IINFO);
 
           // Check error code from DBDSVDX.
-
           if (IINFO.value != 0) {
             print9998(
                 NOUT, 'DBDSVDX(vects,I)', IINFO.value, M, N, JTYPE, IOLDSD);
@@ -912,7 +863,6 @@ void dchkbd(
 
           // Use DBDSVDX to compute only the singular values of the
           // bidiagonal matrix B;  U and VT should not be modified.
-
           dcopy(MNMIN, BD, 1, WORK(IWBD), 1);
           if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
@@ -936,7 +886,6 @@ void dchkbd(
               IINFO);
 
           // Check error code from DBDSVDX.
-
           if (IINFO.value != 0) {
             print9998(
                 NOUT, 'DBDSVDX(values,I)', IINFO.value, M, N, JTYPE, IOLDSD);
@@ -956,7 +905,6 @@ void dchkbd(
           // 28:  Check that the singular values are sorted in
           // non-increasing order and are non-negative
           // 29:  Compare DBDSVDX with and without singular vectors
-
           dbdt04(UPLO, MNMIN, BD, BE, S1, NS1.value, U, LDPT, VT, LDPT,
               WORK(IWBS + MNMIN), RESULT.box(25));
           dort01('Columns', MNMIN, NS1.value, U, LDPT, WORK(IWBS + MNMIN),
@@ -985,7 +933,6 @@ void dchkbd(
           // Use DBDSVDX with RANGE='V': determine the values VL and VU
           // of the IL-th and IU-th singular values and ask for all
           // singular values in this range.
-
           dcopy(MNMIN, WORK(IWBS), 1, S1, 1);
 
           var VL = ZERO, VU = ONE;
@@ -1036,7 +983,6 @@ void dchkbd(
               IINFO);
 
           // Check error code from DBDSVDX.
-
           if (IINFO.value != 0) {
             print9998(
                 NOUT, 'DBDSVDX(vects,V)', IINFO.value, M, N, JTYPE, IOLDSD);
@@ -1059,7 +1005,6 @@ void dchkbd(
 
           // Use DBDSVDX to compute only the singular values of the
           // bidiagonal matrix B;  U and VT should not be modified.
-
           dcopy(MNMIN, BD, 1, WORK(IWBD), 1);
           if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
@@ -1083,7 +1028,6 @@ void dchkbd(
               IINFO);
 
           // Check error code from DBDSVDX.
-
           if (IINFO.value != 0) {
             print9998(
                 NOUT, 'DBDSVDX(values,V)', IINFO.value, M, N, JTYPE, IOLDSD);
@@ -1103,7 +1047,6 @@ void dchkbd(
           // 33:  Check that the singular values are sorted in
           // non-increasing order and are non-negative
           // 34:  Compare DBDSVDX with and without singular vectors
-
           dbdt04(UPLO, MNMIN, BD, BE, S1, NS1.value, U, LDPT, VT, LDPT,
               WORK(IWBS + MNMIN), RESULT.box(30));
           dort01('Columns', MNMIN, NS1.value, U, LDPT, WORK(IWBS + MNMIN),
@@ -1133,7 +1076,6 @@ void dchkbd(
         }
 
         // End of Loop -- Check for RESULT(j) > THRESH
-
         for (var J = 1; J <= 34; J++) {
           final reason =
               ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}';

@@ -5,10 +5,6 @@
 import 'package:dart_lapack/src/install/lsame.dart';
 
 bool lsamen(final int N, final String CA, final String CB) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   if (CA.length < N || CB.length < N) return false;
 
   // Do for each character in the two strings.

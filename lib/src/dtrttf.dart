@@ -18,9 +18,6 @@ void dtrttf(
   final Array<double> ARF_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA, offset: zeroIndexedMatrixOffset);
   final ARF = ARF_.having(offset: zeroIndexedArrayOffset);
   bool LOWER, NISODD, NORMALTRANSR;

@@ -40,9 +40,6 @@ void zdrvsy(
   final Array<int> IWORK_,
   final Nout NOUT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final NVAL = NVAL_.having();
   final A = A_.having();
@@ -54,9 +51,6 @@ void zdrvsy(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
-
-  // ..
-
   const ONE = 1.0, ZERO = 0.0;
   const NTYPES = 11, NTESTS = 6, NFACT = 2;
   final ISEED = Array<int>(4);

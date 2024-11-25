@@ -16,9 +16,6 @@ void dlasdt(
   final Array<int> NDIMR_,
   final int MSUB,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final INODE = INODE_.having();
   final NDIML = NDIML_.having();
   final NDIMR = NDIMR_.having();

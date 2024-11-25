@@ -33,9 +33,6 @@ void zunbdb6(
   final WORK = WORK_.having();
   final X1 = X1_.having();
   final X2 = X2_.having();
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ALPHA = 0.83, REALZERO = 0.0;
   int I, IX;
   double EPS, NORM, NORM_NEW;

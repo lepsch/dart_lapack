@@ -38,8 +38,6 @@ import 'alaesm.dart';
 import 'chkxer.dart';
 
 void zerrsy(final String PATH, final Nout NUNIT) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
   const NMAX = 4;
   String EQ;
   final IP = Array<int>(NMAX);

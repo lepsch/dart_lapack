@@ -21,9 +21,6 @@ void dlarrc(
   final Box<int> RCNT,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final E = E_.having();
   const ZERO = 0.0;

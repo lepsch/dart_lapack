@@ -12,9 +12,6 @@ void dchkeq(
   final Nout NOUT,
   final TestDriver test,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e1;
   const NSZ = 5, NSZB = 3 * NSZ - 2;
   const NSZP = (NSZ * (NSZ + 1)) ~/ 2, NPOW = 2 * NSZ + 1;

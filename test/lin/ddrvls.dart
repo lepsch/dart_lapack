@@ -45,9 +45,6 @@ void ddrvls(
   final Nout NOUT,
   final TestDriver test,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final MVAL = MVAL_.having();
   final NVAL = NVAL_.having();
@@ -67,7 +64,6 @@ void ddrvls(
   const ISEEDY = [1988, 1989, 1990, 1991];
 
   // Initialize constants and the random number seed.
-
   final PATH = '${'Double precision'[0]}LS';
   var NRUN = 0;
   var NFAIL = 0;
@@ -232,9 +228,7 @@ void ddrvls(
                 () {
               final INFO = Box(0);
 
-              // =====================================================
-              //       Begin test DGELS
-              // =====================================================
+              // Begin test DGELS
               final NORMA = Box(ZERO);
               if (IRANK == 1) {
                 // Generate a matrix of scaling type ISCALE
@@ -344,13 +338,9 @@ void ddrvls(
                   }
                 }
               }
-              // =====================================================
-              //       End test DGELS
-              // =====================================================
+              // End test DGELS
 
-              // =====================================================
-              //       Begin test DGELST
-              // =====================================================
+              // Begin test DGELST
               if (IRANK == 1) {
                 // Generate a matrix of scaling type ISCALE
                 dqrt13(ISCALE, M, N, COPYA.asMatrix(), LDA, NORMA, ISEED);
@@ -457,13 +447,9 @@ void ddrvls(
                   }
                 }
               }
-              // =====================================================
-              //       End test DGELST
-              // =====================================================
+              // End test DGELST
 
-              // =====================================================
-              //       Begin test DGETSLS
-              // =====================================================
+              // Begin test DGETSLS
               if (IRANK == 1) {
                 // Generate a matrix of scaling type ISCALE
                 dqrt13(ISCALE, M, N, COPYA.asMatrix(), LDA, NORMA, ISEED);
@@ -585,9 +571,7 @@ void ddrvls(
                   }
                 }
               }
-              // =====================================================
-              //       End test DGETSLS
-              // =====================================================
+              // End test DGETSLS
 
               // Generate a matrix of scaling type ISCALE and rank type IRANK.
               final RANK = Box(0);

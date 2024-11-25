@@ -41,9 +41,6 @@ void dhgeqz(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final H = H_.having(ld: LDH);
   final T = T_.having(ld: LDT);
   final ALPHAR = ALPHAR_.having();

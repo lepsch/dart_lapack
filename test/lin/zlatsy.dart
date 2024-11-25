@@ -16,9 +16,6 @@ void zlatsy(
   final int LDX,
   final Array<int> ISEED_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having(ld: LDX);
   final ISEED = ISEED_.having();
   const EYE = Complex(0.0, 1.0), TWO = Complex(2.0);

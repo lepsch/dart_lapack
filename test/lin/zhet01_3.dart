@@ -27,9 +27,6 @@ void zhet01_3(
   final Array<double> RWORK_,
   final Box<double> RESID,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final AFAC = AFAC_.having(ld: LDAFAC);
   final E = E_.having();

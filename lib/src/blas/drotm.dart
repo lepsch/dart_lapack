@@ -12,9 +12,6 @@ void drotm(
   final int INCY,
   final Array<double> DPARAM,
 ) {
-// -- Reference BLAS level1 routine -- int
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DX = DX_.having();
   final DY = DY_.having();
   final (ZERO, TWO) = (0.0, 2.0);

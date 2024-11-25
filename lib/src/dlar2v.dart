@@ -14,9 +14,6 @@ void dlar2v(
   final Array<double> S_,
   final int INCC,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final Y = Y_.having();
   final Z = Z_.having();

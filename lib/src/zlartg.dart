@@ -15,10 +15,6 @@ void zlartg(
   final Box<Complex> s,
   final Box<Complex> r,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-//    February 2021
   const zero = dzero;
   const one = done;
   final safmin = dsafmin;

@@ -17,9 +17,6 @@ void zlassq(
   final Box<double> scale,
   final Box<double> sumsq,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const zero = dzero;
   const one = done;
   final sbig = dsbig;

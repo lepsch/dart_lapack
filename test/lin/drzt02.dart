@@ -21,9 +21,6 @@ double drzt02(
   final Array<double> WORK_,
   final int LWORK,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AF = AF_.having(ld: LDA);
   final TAU = TAU_.having();
   final WORK = WORK_.having(length: LWORK);

@@ -12,9 +12,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 void dblat1(final Nout nout, final TestDriver test) {
-// -- Reference BLAS test routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const SFAC = 9.765625e-4;
 
   nout.println(' Real BLAS Test Program Results');
@@ -24,10 +21,10 @@ void dblat1(final Nout nout, final TestDriver test) {
         combla.ICASE = IC;
         _printHeader(nout);
 
-        // .. Initialize  PASS,  INCX,  and INCY for a new case. ..
-        // .. the value 9999 for INCX or INCY will appear in the ..
-        // .. detailed  output, if any, for cases  that do not involve ..
-        // .. these parameters ..
+        // Initialize  PASS,  INCX,  and INCY for a new case.
+        // the value 9999 for INCX or INCY will appear in the
+        // detailed  output, if any, for cases  that do not involve
+        // these parameters
 
         combla.PASS = true;
         combla.INCX = 9999;
@@ -144,10 +141,10 @@ void _check0(final double SFAC, final Nout nout) {
   DBTRUE[5] = 1.0 / 0.6;
 
   for (var K = 1; K <= 8; K++) {
-    // .. Set combla.N=K for identification in output if any ..
+    // Set combla.N=K for identification in output if any
     combla.N = K;
     if (combla.ICASE == 3) {
-      // .. DROTG ..
+      // DROTG
       if (K > 8) return;
       SA.value = DA1[K];
       SB.value = DB1[K];
@@ -157,7 +154,7 @@ void _check0(final double SFAC, final Nout nout) {
       _stest1(SC.value, DC1[K], DC1(K), SFAC, nout);
       _stest1(SS.value, DS1[K], DS1(K), SFAC, nout);
     } else if (combla.ICASE == 11) {
-      // .. DROTMG ..
+      // DROTMG
       for (I = 1; I <= 4; I++) {
         DTEMP[I] = DAB[I][K];
         DTEMP[I + 4] = 0.0;
@@ -279,13 +276,13 @@ void _check1(final double SFAC, final Nout nout) {
     for (NP1 = 1; NP1 <= 5; NP1++) {
       combla.N = NP1 - 1;
       LEN = (2 * max(combla.N, 1));
-      // .. Set vector arguments ..
+      // Set vector arguments
       for (I = 1; I <= LEN; I++) {
         SX[I] = DV[I][NP1][combla.INCX];
       }
 
       if (combla.ICASE == 7) {
-        // .. DNRM2 ..
+        // DNRM2
         // Test scaling when some entries are tiny or huge
         _db1nrm2(combla.N, (combla.INCX - 2) * 2, THRESH, nout);
         _db1nrm2(combla.N, combla.INCX, THRESH, nout);
@@ -293,18 +290,18 @@ void _check1(final double SFAC, final Nout nout) {
         STEMP[1] = DTRUE1[NP1];
         _stest1(dnrm2(combla.N, SX, combla.INCX), STEMP[1], STEMP, SFAC, nout);
       } else if (combla.ICASE == 8) {
-        // .. DASUM ..
+        // DASUM
         STEMP[1] = DTRUE3[NP1];
         _stest1(dasum(combla.N, SX, combla.INCX), STEMP[1], STEMP, SFAC, nout);
       } else if (combla.ICASE == 9) {
-        // .. DSCAL ..
+        // DSCAL
         dscal(combla.N, SA[(combla.INCX - 1) * 5 + NP1], SX, combla.INCX);
         for (I = 1; I <= LEN; I++) {
           STRUE[I] = DTRUE5[I][NP1][combla.INCX];
         }
         _stest(LEN, SX, STRUE, STRUE, SFAC, nout);
       } else if (combla.ICASE == 10) {
-        // .. idamax ..
+        // idamax
         _itest1(idamax(combla.N, SX, combla.INCX), ITRUE2[NP1], nout);
         for (I = 1; I <= LEN; I++) {
           SX[I] = 42.0;
@@ -727,25 +724,25 @@ void _check2(final double SFAC, final Nout nout) {
       KSIZE = min(2, KN);
       LENX = LENS[KN][MX];
       LENY = LENS[KN][MY];
-      // .. Initialize all argument arrays ..
+      // Initialize all argument arrays
       for (I = 1; I <= 7; I++) {
         SX[I] = DX1[I];
         SY[I] = DY1[I];
       }
 
       if (combla.ICASE == 1) {
-        // .. DDOT ..
+        // DDOT
         _stest1(ddot(combla.N, SX, combla.INCX, SY, combla.INCY), DT7[KN][KI],
             SSIZE1(KN), SFAC, nout);
       } else if (combla.ICASE == 2) {
-        // .. DAXPY ..
+        // DAXPY
         daxpy(combla.N, SA, SX, combla.INCX, SY, combla.INCY);
         for (J = 1; J <= LENY; J++) {
           STY[J] = DT8[J][KN][KI];
         }
         _stest(LENY, SY, STY, SSIZE2(1, KSIZE).asArray(), SFAC, nout);
       } else if (combla.ICASE == 5) {
-        // .. DCOPY ..
+        // DCOPY
         for (I = 1; I <= 7; I++) {
           STY[I] = DT10Y[I][KN][KI];
         }
@@ -769,7 +766,7 @@ void _check2(final double SFAC, final Nout nout) {
           combla.INCY = LINCY;
         }
       } else if (combla.ICASE == 6) {
-        // .. DSWAP ..
+        // DSWAP
         dswap(combla.N, SX, combla.INCX, SY, combla.INCY);
         for (I = 1; I <= 7; I++) {
           STX[I] = DT10X[I][KN][KI];
@@ -778,7 +775,7 @@ void _check2(final double SFAC, final Nout nout) {
         _stest(LENX, SX, STX, SSIZE2(1, 1).asArray(), 1.0, nout);
         _stest(LENY, SY, STY, SSIZE2(1, 1).asArray(), 1.0, nout);
       } else if (combla.ICASE == 12) {
-        // .. DROTM ..
+        // DROTM
         KNI = KN + 4 * (KI - 1);
         for (KPAR = 1; KPAR <= 4; KPAR++) {
           for (I = 1; I <= 7; I++) {
@@ -805,7 +802,7 @@ void _check2(final double SFAC, final Nout nout) {
           _stest(LENY, SY, STY, STY, SFAC, nout);
         }
       } else if (combla.ICASE == 13) {
-        // .. DSDOT ..
+        // DSDOT
         _testdsdot(dsdot(combla.N, SX, combla.INCX, SY, combla.INCY),
             DT7[KN][KI], SSIZE1[KN], 0.3125E-1, nout);
       } else {
@@ -925,7 +922,7 @@ void _check3(final double SFAC, final Nout nout) {
       LENY = LENS[KN][MY];
 
       if (combla.ICASE == 4) {
-        // .. DROT ..
+        // DROT
         for (I = 1; I <= 7; I++) {
           SX[I] = DX1[I];
           SY[I] = DY1[I];
@@ -1036,6 +1033,9 @@ void _check3(final double SFAC, final Nout nout) {
   }
 }
 
+/// Compares arrays SCOMP and STRUE of length LEN to
+/// see if the term by term differences, multiplied by SFAC, are
+/// negligible.
 void _stest(
   final int LEN,
   final Array<double> SCOMP_,
@@ -1044,14 +1044,6 @@ void _stest(
   final double SFAC,
   final Nout nout,
 ) {
-  // ********************************* STEST **************************
-
-  // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-  // SEE if THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-  // NEGLIGIBLE.
-
-  // C. L. LAWSON, JPL, 1974 DEC 10
-
   final SCOMP = SCOMP_.having();
   final STRUE = STRUE_.having();
   final SSIZE = SSIZE_.having();
@@ -1075,6 +1067,9 @@ void _stest(
   }
 }
 
+/// Compares arrays SCOMP and STRUE of length LEN to
+/// see if the term by term differences, multiplied by SFAC, are
+/// negligible.
 void _testdsdot(
   final double SCOMP,
   final double STRUE,
@@ -1082,14 +1077,6 @@ void _testdsdot(
   final double SFAC,
   final Nout nout,
 ) {
-  // ********************************* STEST **************************
-
-  // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-  // SEE if THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-  // NEGLIGIBLE.
-
-  // C. L. LAWSON, JPL, 1974 DEC 10
-
   const ZERO = 0.0;
 
   final SD = SCOMP - STRUE;
@@ -1116,33 +1103,14 @@ void _stest1(
   final Nout nout,
 ) {
   final SSIZE = SSIZE_.having();
-  // ************************* STEST1 *****************************
-
-  // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
-  // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
-  // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
-
-  // C.L. LAWSON, JPL, 1978 DEC 6
-
   final SCOMP = Array<double>(1), STRUE = Array<double>(1);
   SCOMP[1] = SCOMP1;
   STRUE[1] = STRUE1;
   _stest(1, SCOMP, STRUE, SSIZE, SFAC, nout);
 }
 
-// double _sdiff(final double SA, final double SB) {
-// // ********************************* SDIFF **************************
-// // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-//   return SA - SB;
-// }
-
+/// Compares the variables icomp and itrue for equality.
 void _itest1(final int ICOMP, final int ITRUE, final Nout nout) {
-  // ********************************* ITEST1 *************************
-
-  // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
-  // EQUALITY.
-  // C. L. LAWSON, JPL, 1974 DEC 10
-
   if (ICOMP == ITRUE) return;
 
   // HERE ICOMP IS NOT EQUAL TO ITRUE.
@@ -1159,27 +1127,26 @@ void _itest1(final int ICOMP, final int ITRUE, final Nout nout) {
       ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i5}${ICOMP.i36}${ITRUE.i36}${ID.i12}');
 }
 
+/// Compare NRM2 with a reference computation using combinations
+/// of the following values:
+///
+/// 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
+///
+/// one of these values is used to initialize x(1) and x(2:N) is
+/// filled with random values from [-1,1] scaled by another of
+/// these values.
+///
+/// This routine is adapted from the test suite provided by
+/// Anderson E. (2017)
+/// Algorithm 978: Safe Scaling in the Level 1 BLAS
+/// ACM Trans Math Softw 44:1--28
+/// https://doi.org/10.1145/3061665
 void _db1nrm2(
   final int N,
   final int INCX,
   final double THRESH,
   final Nout nout,
 ) {
-  // Compare NRM2 with a reference computation using combinations
-  // of the following values:
-
-  // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
-
-  // one of these values is used to initialize x(1) and x(2:N) is
-  // filled with random values from [-1,1] scaled by another of
-  // these values.
-
-  // This routine is adapted from the test suite provided by
-  // Anderson E. (2017)
-  // Algorithm 978: Safe Scaling in the Level 1 BLAS
-  // ACM Trans Math Softw 44:1--28
-  // https://doi.org/10.1145/3061665
-
   const NMAX = 20, NV = 10;
   const HALF = 0.5, ONE = 1.0, TWO = 2.0, ZERO = 0.0;
   const BIGNUM = 0.99792015476735990583e+292,

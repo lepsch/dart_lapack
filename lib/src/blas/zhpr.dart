@@ -15,9 +15,6 @@ void zhpr(
   final int INCX,
   final Array<Complex> AP,
 ) {
-// -- Reference BLAS level2 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   const ZERO = 0.0;
   Complex TEMP;

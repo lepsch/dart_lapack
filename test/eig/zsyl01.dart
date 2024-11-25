@@ -2,7 +2,6 @@
 // source code is governed by a BSD-style license that can be found in the
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
-// -- LAPACK test routine --
 import 'dart:math';
 
 import 'package:dart_lapack/src/blas/zgemm.dart';
@@ -25,9 +24,6 @@ void zsyl01(
   final Array<int> NINFO_,
   final Box<int> KNT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NFAIL = NFAIL_.having(length: 3);
   final NINFO = NINFO_.having(length: 2);
   final RMAX = RMAX_.having(length: 2);

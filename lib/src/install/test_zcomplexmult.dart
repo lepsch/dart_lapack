@@ -8,8 +8,6 @@ import 'package:dart_lapack/src/intrinsics/huge.dart';
 import 'package:dart_lapack/src/matrix.dart';
 
 void main() {
-// -- LAPACK test routine --
-// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   const nNaN = 3, nInf = 5;
   const czero = Complex.zero, cone = Complex.one;
   int i, nFailingTests, nTests;
@@ -17,14 +15,11 @@ void main() {
   Complex Y, R;
   final cInf = Array<Complex>(nInf), cNaN = Array<Complex>(nNaN);
 
-  // .. Intrinsic Functions ..
-  // intrinsic HUGE, DCMPLX
-
-  // .. Initialize error counts ..
+  // Initialize error counts
   nFailingTests = 0;
   nTests = 0;
 
-  // .. Inf entries ..
+  // Inf entries
   OV = huge(0.0);
   aInf = OV * 2;
   cInf[1] = Complex(aInf, 0.0);
@@ -33,13 +28,13 @@ void main() {
   cInf[4] = Complex(0.0, -aInf);
   cInf[5] = Complex(aInf, aInf);
 
-  // .. NaN entries ..
+  // NaN entries
   aNaN = aInf / aInf;
   cNaN[1] = Complex(aNaN, 0.0);
   cNaN[2] = Complex(0.0, aNaN);
   cNaN[3] = Complex(aNaN, aNaN);
 
-  // .. Tests ..
+  // Tests
 
   // Test (a) Infs
   for (i = 1; i <= nInf; i++) {

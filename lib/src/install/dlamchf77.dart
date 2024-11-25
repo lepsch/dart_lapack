@@ -27,9 +27,6 @@ class _DlamchCache {
 final _dlamchCache = _DlamchCache();
 
 double dlamch(final String CMACH) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   final LRND = Box(false);
   final BETA = Box(0), IMAX = Box(0), IMIN = Box(0), IT = Box(0);
@@ -153,8 +150,6 @@ void dlamc1(
   final Box<bool> RND,
   final Box<bool> IEEE1,
 ) {
-// -- LAPACK auxiliary routine --
-// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   double A, B, C, F, ONE, QTR, SAVEC, T1, T2;
 
   if (_dlamc1Cache.FIRST) {
@@ -341,8 +336,6 @@ void dlamc2(
   final Box<int> EMAX,
   final Box<double> RMAX,
 ) {
-// -- LAPACK auxiliary routine --
-// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   bool IEEE, IWARN = false;
   int I, LEMIN = 0;
   double A,
@@ -534,8 +527,6 @@ void dlamc2(
 // > \ingroup lamc3
 // >
 double dlamc3(final double A, final double B) {
-// -- LAPACK auxiliary routine --
-// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   return A + B;
 }
 
@@ -567,8 +558,6 @@ double dlamc3(final double A, final double B) {
 // > \ingroup lamc4
 // >
 void dlamc4(final Box<int> EMIN, final double START, final int BASE) {
-// -- LAPACK auxiliary routine --
-// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   int I;
   double A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
 
@@ -655,8 +644,6 @@ void dlamc5(
   final Box<int> EMAX,
   final Box<double> RMAX,
 ) {
-// -- LAPACK auxiliary routine --
-// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   const ZERO = 0.0, ONE = 1.0;
   int EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
   double OLDY = 0, RECBAS, Y, Z;

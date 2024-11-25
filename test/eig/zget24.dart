@@ -64,10 +64,6 @@ void zget24(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final BWORK = BWORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const EPSIN = 5.9605e-8;
   String SORT;

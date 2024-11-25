@@ -7,10 +7,6 @@ import 'package:dart_lapack/src/complex.dart';
 import 'common.dart';
 
 bool zslect(final Complex Z) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const ZERO = 0.0;
 
   if (sslct.SELOPT == 0) {

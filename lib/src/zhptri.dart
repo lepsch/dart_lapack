@@ -20,9 +20,6 @@ void zhptri(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final IPIV = IPIV_.having();
   final WORK = WORK_.having();
   const ONE = 1.0;

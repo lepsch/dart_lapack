@@ -14,9 +14,6 @@ void slag2d(
   final int LDA,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final SA = SA_.having(ld: LDSA);
   final A = A_.having(ld: LDA);
   int I, J;

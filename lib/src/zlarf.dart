@@ -21,9 +21,6 @@ void zlarf(
   final int LDC,
   final Array<Complex> WORK_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final C = C_.having(ld: LDC);
   final V = V_.having();
   final WORK = WORK_.having();

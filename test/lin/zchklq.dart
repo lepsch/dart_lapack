@@ -68,10 +68,6 @@ void zchklq(
   final TAU = TAU_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NTESTS = 7, NTYPES = 8;
   const ZERO = 0.0;
   final ISEED = Array<int>(4), KVAL = Array<int>(4);

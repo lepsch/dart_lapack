@@ -43,10 +43,6 @@ void zlatms(
   final D = D_.having();
   final A = A_.having(ld: LDA);
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   const ONE = 1.0;
   const TWOPI = 6.28318530717958647692528676655900576839;

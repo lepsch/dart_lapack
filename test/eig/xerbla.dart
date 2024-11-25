@@ -8,10 +8,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 void Function(String SRNAME, int INFO) xerbla(final TestDriver test) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   return (final String SRNAME, final int INFO) {
     infoc.LERR.value = true;
 

@@ -70,16 +70,16 @@ Future<void> dchkdmd(
   for (final LLOOP in 1.through(4)) {
     NOUT.println('L Loop Index = $LLOOP');
 
-    // Set the dimensions of the problem ...
+    // Set the dimensions of the problem
     NOUT.println('M = ');
     final M = await NIN.readInt();
     NOUT.println(M.toString());
-    // ... and the number of snapshots.
+    // and the number of snapshots.
     NOUT.println('N = ');
     final N = await NIN.readInt();
     NOUT.println(N.toString());
 
-    // ... Test the dimensions
+    // Test the dimensions
     if ((min(M, N) == 0) || (M < N)) {
       NOUT.println('Bad dimensions. Required: M >= N > 0.');
       return;
@@ -406,7 +406,7 @@ Future<void> dchkdmd(
                         SINGVX[i] = WORK[i];
                       }
 
-                      //. DGEDMD check point
+                      // DGEDMD check point
                       if (lsame(JOBZ, 'V')) {
                         // Check that Z = X*W, on return from DGEDMD
                         // This checks that the returned aigenvectors in Z are
@@ -433,7 +433,7 @@ Future<void> dchkdmd(
                         }
                       }
 
-                      //. DGEDMD check point
+                      // DGEDMD check point
                       if (lsame(JOBREF, 'R')) {
                         // The matrix A*U is returned for computing refined Ritz vectors.
                         // Check that A*U is computed correctly using the formula
@@ -505,14 +505,14 @@ Future<void> dchkdmd(
                         }
                       }
 
-                      //. DGEDMD check point
+                      // DGEDMD check point
                       if (lsame(RESIDS, 'R')) {
                         // Compare the residuals returned by DGEDMD with the
                         // explicitly computed residuals using the matrix A.
                         // Compute explicitly Y1 = A*Z
                         dgemm('N', 'N', M, K.value, M, ONE, A, LDA, Z, LDZ,
                             ZERO, Y1, M);
-                        // ... and then A*Z(:,i) - LAMBDA(i)*Z(:,i), using the real forms
+                        // and then A*Z(:,i) - LAMBDA(i)*Z(:,i), using the real forms
                         // of the invariant subspaces that correspond to complex conjugate
                         // pairs of eigencalues. (See the description of Z in DGEDMD,)
                         var i = 1;
@@ -579,9 +579,8 @@ Future<void> dchkdmd(
                         LAMBDA[i][2] = IEIG[i];
                       }
 
-                      //======================================================================
-                      //     Now test the DGEDMDQ
-                      //======================================================================
+                      // Now test the DGEDMDQ
+
                       if (TEST_QRDMD && (K_TRAJ == 1)) {
                         RJOBDATA[2] = 1;
                         // F1 = F;
@@ -729,7 +728,7 @@ Future<void> dchkdmd(
                           // Compute explicitly Y1 = A*Z
                           dgemm('N', 'N', M, KQ.value, M, ONE, A, M, Z, M, ZERO,
                               Y1, M);
-                          // ... and then A*Z(:,i) - LAMBDA(i)*Z(:,i), using the real forms
+                          // and then A*Z(:,i) - LAMBDA(i)*Z(:,i), using the real forms
                           // of the invariant subspaces that correspond to complex conjugate
                           // pairs of eigencalues. (See the description of Z in DGEDMDQ)
                           var i = 1;

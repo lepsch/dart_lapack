@@ -20,10 +20,6 @@ void dgttrf(
   final DU = DU_.having();
   final DU2 = DU2_.having();
   final IPIV = IPIV_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   int I;
   double FACT, TEMP;

@@ -40,9 +40,6 @@ void dgesvj(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final SVA = SVA_.having();
   final V = V_.having(ld: LDV);
@@ -112,7 +109,6 @@ void dgesvj(
   final AAPP = Box(0.0), AAQQ = Box(0.0), TEMP1 = Box(0.0), T = Box(0.0);
 
   // Test the input arguments
-
   LSVEC = lsame(JOBU, 'U');
   UCTOL = lsame(JOBU, 'C');
   RSVEC = lsame(JOBV, 'V');
@@ -152,7 +148,6 @@ void dgesvj(
     INFO.value = 0;
   }
 
-  // #:(
   if (INFO.value != 0) {
     xerbla('DGESVJ', -INFO.value);
     return;
@@ -161,8 +156,7 @@ void dgesvj(
     return;
   }
 
-  // #:) Quick return for void matrix
-
+  // Quick return for void matrix
   if (MINMN == 0) return;
 
   // Set numerical parameters
@@ -173,19 +167,18 @@ void dgesvj(
   // where EPS is the round-off and CTOL is defined as follows:
 
   if (UCTOL) {
-    // ... user controlled
+    // user controlled
     CTOL = WORK[1];
   } else {
-    // ... default
+    // default
     if (LSVEC || RSVEC || APPLV) {
       CTOL = sqrt(M);
     } else {
       CTOL = M.toDouble();
     }
   }
-  // ... and the machine dependent parameters are
+  // and the machine dependent parameters are
   // [!]  (Make sure that dlamch() works properly on the target machine.)
-
   EPSLN = dlamch('Epsilon');
   ROOTEPS = sqrt(EPSLN);
   SFMIN = dlamch('SafeMinimum');
@@ -207,7 +200,6 @@ void dgesvj(
   }
 
   // Initialize the right singular vector matrix.
-
   if (RSVEC) {
     MVL = N;
     dlaset('A', MVL, N, ZERO, ONE, V, LDV);
@@ -224,7 +216,6 @@ void dgesvj(
   // goal is to make sure that no column norm overflows, and that
   // sqrt(N)*max_i SVA[i] does not overflow. If INFinite entries
   // in A are detected, the procedure returns with INFO=-6.
-
   SKL = ONE / sqrt(M * N);
   NOSCALE = true;
   GOSCALE = true;
@@ -311,7 +302,6 @@ void dgesvj(
   // Move the smaller part of the spectrum from the underflow threshold
   // (!)  Start by determining the position of the nonzero entries of the
   // array SVA() relative to ( SFMIN, BIG ).
-
   AAPP.value = ZERO;
   AAQQ.value = BIG;
   for (p = 1; p <= N; p++) {
@@ -319,8 +309,7 @@ void dgesvj(
     AAPP.value = max(AAPP.value, SVA[p]);
   }
 
-  // #:) Quick return for zero matrix
-
+  // Quick return for zero matrix
   if (AAPP.value == ZERO) {
     if (LSVEC) dlaset('G', M, N, ZERO, ONE, A, LDA);
     WORK[1] = ONE;
@@ -332,8 +321,7 @@ void dgesvj(
     return;
   }
 
-  // #:) Quick return for one-column matrix
-
+  // Quick return for one-column matrix
   if (N == 1) {
     if (LSVEC) dlascl('G', 0, 0, SVA[1], SKL, M, 1, A(1, 1), LDA, IERR);
     WORK[1] = ONE / SKL;
@@ -351,7 +339,6 @@ void dgesvj(
 
   // Protect small singular values from underflow, and try to
   // avoid underflows/overflows in computing Jacobi rotations.
-
   SN = sqrt(SFMIN / EPSLN);
   TEMP1.value = sqrt(BIG / N);
   if ((AAPP.value <= SN) ||
@@ -377,7 +364,6 @@ void dgesvj(
   }
 
   // Scale, if necessary
-
   if (TEMP1.value != ONE) {
     dlascl('G', 0, 0, ONE, TEMP1.value, N, 1, SVA.asMatrix(N), N, IERR);
   }
@@ -388,7 +374,6 @@ void dgesvj(
   }
 
   // Row-cyclic Jacobi SVD algorithm with column pivoting
-
   EMPTSW = (N * (N - 1)) ~/ 2;
   NOTROT = 0;
   FASTR[1] = ZERO;
@@ -396,7 +381,6 @@ void dgesvj(
   // A is represented in factored form A *= diag(WORK), where diag(WORK)
   // is initialized to identity. WORK is updated during fast scaled
   // rotations.
-
   for (q = 1; q <= N; q++) {
     WORK[q] = ONE;
   }
@@ -408,22 +392,18 @@ void dgesvj(
   // works on pivots inside a band-like region around the diagonal.
   // The boundaries are determined dynamically, based on the number of
   // pivots above a threshold.
-
   KBL = min(8, N);
   // [TP] KBL is a tuning parameter that defines the tile size in the
   // tiling of the p-q loops of pivot pairs. In general, an optimal
   // value of KBL depends on the matrix dimensions and on the
   // parameters of the computer's memory.
-
   NBL = N ~/ KBL;
   if ((NBL * KBL) != N) NBL++;
 
   BLSKIP = pow(KBL, 2).toInt();
   // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
-
   ROWSKIP = min(5, KBL);
   // [TP] ROWSKIP is a tuning parameter.
-
   LKAHEAD = 1;
   // [TP] LKAHEAD is a tuning parameter.
 
@@ -431,7 +411,6 @@ void dgesvj(
   // structure of the input matrix. The quasi-block-cycling usually
   // invokes cubic convergence. Big part of this cycle is done inside
   // canonical subspaces of dimensions less than M.
-
   if ((LOWER || UPPER) && (N > max(64, 4 * KBL))) {
     // [TP] The number of partition levels and the actual partition are
     // tuning parameters.
@@ -452,7 +431,6 @@ void dgesvj(
       // [+ + 0 0]                                       [0 0]
       // [+ + x 0]   actually work on [x 0]              [x 0]
       // [+ + x x]                    [x x].             [x x]
-
       dgsvj0(
           JOBV,
           M - N34,
@@ -582,11 +560,8 @@ void dgesvj(
     }
   }
 
-  // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
-
+  // Row-cyclic pivot strategy with de Rijk's pivoting ..
   for (i = 1; i <= NSWEEP; i++) {
-    // .. go go go ...
-
     MXAAPQ = ZERO;
     MXSINJ = ZERO;
     ISWROT = 0;
@@ -598,7 +573,6 @@ void dgesvj(
     // 1 <= p < q <= N. This is the first step toward a blocked implementation
     // of the rotations. New implementation, based on block transformations,
     // is under development.
-
     for (ibr = 1; ibr <= NBL; ibr++) {
       igl = (ibr - 1) * KBL + 1;
 
@@ -606,8 +580,7 @@ void dgesvj(
         igl += ir1 * KBL;
 
         for (p = igl; p <= min(igl + KBL - 1, N - 1); p++) {
-          // .. de Rijk's pivoting
-
+          // de Rijk's pivoting
           q = idamax(N - p + 1, SVA(p), 1) + p - 1;
           if (p != q) {
             dswap(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1);
@@ -632,7 +605,6 @@ void dgesvj(
             // the true norm is far from the under(over)flow boundaries.
             // If properly implemented DNRM2 is available, the if-THEN-ELSE
             // below should read "AAPP = dnrm2( M, A[1][p], 1 ) * WORK(p)".
-
             if ((SVA[p] < ROOTBIG) && (SVA[p] > ROOTSFMIN)) {
               SVA[p] = dnrm2(M, A(1, p).asArray(), 1) * WORK[p];
             } else {
@@ -692,12 +664,10 @@ void dgesvj(
 
                 MXAAPQ = max(MXAAPQ, AAPQ.abs());
 
-                // TO rotate or NOT to rotate, THAT is the question ...
-
+                // TO rotate or NOT to rotate, THAT is the question
                 if (AAPQ.abs() > TOL) {
-                  // .. rotate
+                  // rotate
                   // [RTD]      ROTATED += ONE
-
                   if (ir1 == 0) {
                     NOTROT = 0;
                     PSKIPPED = 0;
@@ -725,7 +695,7 @@ void dgesvj(
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
-                      // .. choose correct signum for THETA and rotate
+                      // choose correct signum for THETA and rotate
 
                       THSIGN = -sign(ONE, AAPQ);
                       T.value =
@@ -813,7 +783,7 @@ void dgesvj(
                       }
                     }
                   } else {
-                    // .. have to use modified Gram-Schmidt like transformation
+                    // have to use modified Gram-Schmidt like transformation
                     dcopy(M, A(1, p).asArray(), 1, WORK(N + 1), 1);
                     dlascl('G', 0, 0, AAPP.value, ONE, M, 1,
                         WORK(N + 1).asMatrix(LDA), LDA, IERR);
@@ -830,7 +800,6 @@ void dgesvj(
 
                   // In the case of cancellation in updating SVA[q], SVA[p]
                   // recompute SVA[q], SVA[p].
-
                   if (pow((SVA[q] / AAQQ.value), 2) <= ROOTEPS) {
                     if ((AAQQ.value < ROOTBIG) && (AAQQ.value > ROOTSFMIN)) {
                       SVA[q] = dnrm2(M, A(1, q).asArray(), 1) * WORK[q];
@@ -871,7 +840,6 @@ void dgesvj(
               }
             }
             // END q-LOOP
-
             SVA[p] = AAPP.value;
           } else {
             SVA[p] = AAPP.value;
@@ -885,8 +853,7 @@ void dgesvj(
       }
       // end of ir1-loop
 
-      // ... gotothe off diagonal blocks
-
+      // gotothe off diagonal blocks
       igl = (ibr - 1) * KBL + 1;
 
       jbcLoop:
@@ -894,7 +861,6 @@ void dgesvj(
         jgl = (jbc - 1) * KBL + 1;
 
         // doing the block at ( ibr, jbc )
-
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N); p++) {
           AAPP.value = SVA[p];
@@ -906,10 +872,9 @@ void dgesvj(
               if (AAQQ.value > ZERO) {
                 AAPP0 = AAPP.value;
 
-                // .. M x 2 Jacobi SVD ..
+                // M x 2 Jacobi SVD ..
 
                 // Safe Gram matrix computation
-
                 if (AAQQ.value >= ONE) {
                   if (AAPP.value >= AAQQ.value) {
                     ROTOK = (SMALL * AAPP.value) <= AAQQ.value;
@@ -956,8 +921,7 @@ void dgesvj(
 
                 MXAAPQ = max(MXAAPQ, AAPQ.abs());
 
-                // TO rotate or NOT to rotate, THAT is the question ...
-
+                // TO rotate or NOT to rotate, THAT is the question
                 if (AAPQ.abs() > TOL) {
                   NOTROT = 0;
                   // [RTD]      ROTATED++
@@ -986,8 +950,7 @@ void dgesvj(
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
-                      // .. choose correct signum for THETA and rotate
-
+                      // choose correct signum for THETA and rotate
                       THSIGN = -sign(ONE, AAPQ);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
@@ -1105,7 +1068,7 @@ void dgesvj(
                   // END if ROTOK THEN ... ELSE
 
                   // In the case of cancellation in updating SVA[q]
-                  // .. recompute SVA[q]
+                  // recompute SVA[q]
                   if (pow((SVA[q] / AAQQ.value), 2) <= ROOTEPS) {
                     if ((AAQQ.value < ROOTBIG) && (AAQQ.value > ROOTSFMIN)) {
                       SVA[q] = dnrm2(M, A(1, q).asArray(), 1) * WORK[q];
@@ -1152,7 +1115,6 @@ void dgesvj(
               }
             }
             // end of the q-loop
-
             SVA[p] = AAPP.value;
           } else {
             if (AAPP.value == ZERO) {
@@ -1172,7 +1134,7 @@ void dgesvj(
     }
     // 2000 :: end of the ibr-loop
 
-    // .. update SVA[N]
+    // update SVA[N]
     if ((SVA[N] < ROOTBIG) && (SVA[N] > ROOTSFMIN)) {
       SVA[N] = dnrm2(M, A(1, N).asArray(), 1) * WORK[N];
     } else {
@@ -1183,28 +1145,26 @@ void dgesvj(
     }
 
     // Additional steering devices
-
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
 
     if ((i > SWBAND + 1) &&
             (MXAAPQ < sqrt(N) * TOL) &&
             (N * MXAAPQ * MXSINJ < TOL) ||
         NOTROT >= EMPTSW) {
-      // #:) Reaching this point means numerical convergence after the i-th
+      // Reaching this point means numerical convergence after the i-th
       // sweep.
 
-      // #:) INFO = 0 confirms successful iterations.
+      // INFO = 0 confirms successful iterations.
       INFO.value = 0;
       continue;
     }
 
-    // #:( Reaching this point means that the procedure has not converged.
+    // Reaching this point means that the procedure has not converged.
     INFO.value = NSWEEP - 1;
   }
 
   // Sort the singular values and find how many are above
   // the underflow threshold.
-
   N2 = 0;
   N4 = 0;
   for (p = 1; p <= N - 1; p++) {
@@ -1230,7 +1190,6 @@ void dgesvj(
   }
 
   // Normalize the left singular vectors.
-
   if (LSVEC || UCTOL) {
     for (p = 1; p <= N2; p++) {
       dscal(M, WORK[p] / SVA[p], A(1, p).asArray(), 1);
@@ -1238,7 +1197,6 @@ void dgesvj(
   }
 
   // Scale the product of Jacobi rotations (assemble the fast rotations).
-
   if (RSVEC) {
     if (APPLV) {
       for (p = 1; p <= N; p++) {
@@ -1265,22 +1223,17 @@ void dgesvj(
   // The singular values of A are SKL*SVA[1:N]. If SKL != ONE
   // then some of the singular values may overflow or underflow and
   // the spectrum is given in this factored representation.
-
   WORK[2] = N4.toDouble();
   // N4 is the number of computed nonzero singular values of A.
-
   WORK[3] = N2.toDouble();
   // N2 is the number of singular values of A greater than SFMIN.
   // If N2<N, SVA[N2:N] contains ZEROS and/or denormalized numbers
   // that may carry some information.
-
   WORK[4] = i.toDouble();
   // i is the index of the last sweep before declaring convergence.
-
   WORK[5] = MXAAPQ;
   // MXAAPQ is the largest absolute value of scaled pivots in the
   // last sweep
-
   WORK[6] = MXSINJ;
   // MXSINJ is the largest absolute value of the sines of Jacobi angles
   // in the last sweep

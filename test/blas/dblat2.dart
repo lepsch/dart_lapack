@@ -11,9 +11,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 Future<void> dblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
-// -- Reference BLAS test routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   xerbla = _xerbla;
 
   Nout NTRA = NullNout();
@@ -578,6 +575,7 @@ class _MainNout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests DGEMV and DGBMV.
 void _dchk1(
   final String SNAME,
   final double EPS,
@@ -611,13 +609,6 @@ void _dchk1(
   final Array<double> YT_,
   final Array<double> G_,
 ) {
-  // Tests DGEMV and DGBMV.
-  //
-  // Auxiliary routine for test program for Level 2 Blas.
-  //
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final IDIM = IDIM_.having(length: NIDIM);
   final KB = KB_.having(length: NKB);
   final ALF = ALF_.having(length: NALF);
@@ -988,6 +979,7 @@ class _Dchk1Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests DSYMV, DSBMV and DSPMV.
 void _dchk2(
   final String SNAME,
   final double EPS,
@@ -1021,14 +1013,6 @@ void _dchk2(
   final Array<double> YT_,
   final Array<double> G_,
 ) {
-  // Tests DSYMV, DSBMV and DSPMV.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final KB = KB_.having(length: NKB);
   final ALF = ALF_.having(length: NALF);
@@ -1369,6 +1353,7 @@ class _Dchk2Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests DTRMV, DTBMV, DTPMV, DTRSV, DTBSV and DTPSV.
 void _dchk3(
   final String SNAME,
   final double EPS,
@@ -1396,14 +1381,6 @@ void _dchk3(
   final Array<double> G_,
   final Array<double> Z_,
 ) {
-  // Tests DTRMV, DTBMV, DTPMV, DTRSV, DTBSV and DTPSV.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final KB = KB_.having(length: NKB);
   final INC = INC_.having(length: NINC);
@@ -1753,6 +1730,7 @@ class _Dchk3Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests DGER.
 void _dchk4(
   final String SNAME,
   final double EPS,
@@ -1783,13 +1761,6 @@ void _dchk4(
   final Array<double> G_,
   final Array<double> Z_,
 ) {
-  // Tests DGER.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final IDIM = IDIM_.having();
   final INC = INC_.having();
   final ALF = ALF_.having(length: NALF);
@@ -2073,6 +2044,7 @@ class _Dchk4Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests DSYR and DSPR.
 void _dchk5(
   final String SNAME,
   final double EPS,
@@ -2103,14 +2075,6 @@ void _dchk5(
   final Array<double> G_,
   final Array<double> Z_,
 ) {
-  // Tests DSYR and DSPR.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final INC = INC_.having(length: NINC);
@@ -2409,6 +2373,7 @@ class _Dchk5Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests DSYR2 and DSPR2.
 void _dchk6(
   final String SNAME,
   final double EPS,
@@ -2439,13 +2404,6 @@ void _dchk6(
   final Array<double> G_,
   final Matrix<double> Z_,
 ) {
-  // Tests DSYR2 and DSPR2.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final IDIM = IDIM_.having();
   final ALF = ALF_.having(length: NALF);
   final INC = INC_.having();
@@ -2783,16 +2741,10 @@ class _Dchk6Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests the error exits from the Level 2 Blas.
+/// Requires a special version of the error-handling routine XERBLA.
+/// ALPHA, BETA, A, X and Y should not need to be defined.
 void _dchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
-  // Tests the error exits from the Level 2 Blas.
-  // Requires a special version of the error-handling routine XERBLA.
-  // ALPHA, BETA, A, X and Y should not need to be defined.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   double ALPHA = 0, BETA = 0;
   final A = Matrix<double>(1, 1), X = Array<double>(1), Y = Array<double>(1);
   // infoc.OK is set to false by the special version of XERBLA or by CHKXER
@@ -3100,6 +3052,12 @@ void _dchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
   }
 }
 
+/// Generates values for an M by N matrix A within the bandwidth
+/// defined by KL and KU.
+/// Stores the values in the array AA in the data structure required
+/// by the routine, with unwanted elements set to rogue value.
+///
+/// TYPE is 'GE', 'GB', 'SY', 'SB', 'SP', 'TR', 'TB' OR 'TP'.
 void _dmake(
   final String TYPE,
   final String UPLO,
@@ -3115,18 +3073,6 @@ void _dmake(
   final Box<bool> RESET,
   final double TRANSL,
 ) {
-  // Generates values for an M by N matrix A within the bandwidth
-  // defined by KL and KU.
-  // Stores the values in the array AA in the data structure required
-  // by the routine, with unwanted elements set to rogue value.
-
-  // TYPE is 'GE', 'GB', 'SY', 'SB', 'SP', 'TR', 'TB' OR 'TP'.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final A = A_.having(ld: NMAX);
   final AA = AA_.having();
   const ZERO = 0.0, ONE = 1.0;
@@ -3264,6 +3210,7 @@ void _dmake(
   }
 }
 
+/// Checks the results of the computational tests.
 void _dmvch(
   final String TRANS,
   final int M,
@@ -3285,13 +3232,6 @@ void _dmvch(
   final Nout NOUT,
   final bool MV,
 ) {
-  // Checks the results of the computational tests.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final A = A_.having(ld: NMAX);
   final X = X_.having();
   final Y = Y_.having();
@@ -3384,14 +3324,8 @@ void _dmvch(
   }
 }
 
+/// Tests if two arrays are identical.
 bool _lde(final Array<double> RI_, final Array<double> RJ_, final int LR) {
-  // Tests if two arrays are identical.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final RI = RI_.having();
   final RJ = RJ_.having();
 
@@ -3401,6 +3335,9 @@ bool _lde(final Array<double> RI_, final Array<double> RJ_, final int LR) {
   return true;
 }
 
+/// Tests if selected elements in two arrays are equal.
+///
+/// TYPE is 'GE', 'SY' or 'SP'.
 bool _lderes(
   final String TYPE,
   final String UPLO,
@@ -3410,15 +3347,6 @@ bool _lderes(
   final Matrix<double> AS_,
   final int LDA,
 ) {
-  // Tests if selected elements in two arrays are equal.
-
-  // TYPE is 'GE', 'SY' or 'SP'.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final AA = AA_.having(ld: LDA);
   final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
@@ -3454,15 +3382,8 @@ bool _lderes(
 
 int _dbegI = 0, _dbegIC = 0, _dbegMI = 0;
 
+/// Generates random numbers uniformly distributed between -0.5 and 0.5.
 double _dbeg(final Box<bool> RESET) {
-  // Generates random numbers uniformly distributed between -0.5 and 0.5.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   if (RESET.value) {
     // Initialize local variables.
     _dbegMI = 891;
@@ -3490,14 +3411,7 @@ double _dbeg(final Box<bool> RESET) {
   return R;
 }
 
-// double _ddiff(final double X, final double Y) {
-// Auxiliary routine for test program for Level 2 Blas.
-
-// -- Written on 10-August-1987.
-// Richard Hanson, Sandia National Labs.
-
-//   return X - Y;
-
+/// Tests whether XERBLA has detected an error when it should.
 void _chkxer(
   String SRNAMT,
   final int INFOT,
@@ -3505,14 +3419,6 @@ void _chkxer(
   final Box<bool> LERR,
   final Box<bool> OK,
 ) {
-  // Tests whether XERBLA has detected an error when it should.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   if (!LERR.value) {
     NOUT.println(
         ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${INFOT.i2} NOT DETECTED BY ${SRNAMT.a6} *****');
@@ -3573,22 +3479,15 @@ void _chkxer(
   );
 }
 
+/// This is a special version of XERBLA to be used only as part of
+/// the test program for testing error exits from the Level 2 BLAS
+/// routines.
+///
+/// XERBLA  is an error handler for the Level 2 BLAS routines.
+///
+/// It is called by the Level 2 BLAS routines if an input parameter is
+/// invalid.
 void _xerbla(final String SRNAME, final int INFO) {
-  // This is a special version of XERBLA to be used only as part of
-  // the test program for testing error exits from the Level 2 BLAS
-  // routines.
-  //
-  // XERBLA  is an error handler for the Level 2 BLAS routines.
-  //
-  // It is called by the Level 2 BLAS routines if an input parameter is
-  // invalid.
-  //
-  // Auxiliary routine for test program for Level 2 Blas.
-  //
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   infoc.LERR.value = true;
   if (INFO != infoc.INFOT) {
     if (infoc.INFOT != 0) {

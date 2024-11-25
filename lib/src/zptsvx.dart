@@ -48,9 +48,6 @@ void zptsvx(
   final DF = DF_.having();
   final FERR = FERR_.having();
   final BERR = BERR_.having();
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   bool NOFACT;
   double ANORM;

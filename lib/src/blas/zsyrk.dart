@@ -21,9 +21,6 @@ void zsyrk(
   final Matrix<Complex> C_,
   final int LDC,
 ) {
-// -- Reference BLAS level3 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final C = C_.having(ld: LDC);
   Complex TEMP;

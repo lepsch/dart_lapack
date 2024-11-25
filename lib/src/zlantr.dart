@@ -23,10 +23,6 @@ double zlantr(
 ) {
   final A = A_.having(ld: LDA);
   final WORK = WORK_.having();
-
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   bool UDIAG;
   int I, J;

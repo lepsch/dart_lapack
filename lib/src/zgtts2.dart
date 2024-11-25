@@ -17,9 +17,6 @@ void zgtts2(
   final Matrix<Complex> B_,
   final int LDB,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);
   final DL = DL_.having();
@@ -28,23 +25,17 @@ void zgtts2(
   final DU2 = DU2_.having();
   int I, J = 0;
   Complex TEMP;
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DCONJG
 
   // Quick return if possible
-
   if (N == 0 || NRHS == 0) return;
 
   if (ITRANS == 0) {
     // Solve A*X = B using the LU factorization of A,
     // overwriting each right hand side vector with its solution.
-
     if (NRHS <= 1) {
       J = 1;
       while (true) {
         // Solve L*x = b.
-
         for (I = 1; I <= N - 1; I++) {
           if (IPIV[I] == I) {
             B[I + 1][J] -= DL[I] * B[I][J];
@@ -56,7 +47,6 @@ void zgtts2(
         }
 
         // Solve U*x = b.
-
         B[N][J] /= D[N];
         if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
         for (I = N - 2; I >= 1; I--) {
@@ -72,7 +62,6 @@ void zgtts2(
     } else {
       for (J = 1; J <= NRHS; J++) {
         // Solve L*x = b.
-
         for (I = 1; I <= N - 1; I++) {
           if (IPIV[I] == I) {
             B[I + 1][J] -= DL[I] * B[I][J];
@@ -84,7 +73,6 @@ void zgtts2(
         }
 
         // Solve U*x = b.
-
         B[N][J] /= D[N];
         if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
         for (I = N - 2; I >= 1; I--) {
@@ -95,12 +83,10 @@ void zgtts2(
     }
   } else if (ITRANS == 1) {
     // Solve A**T * X = B.
-
     if (NRHS <= 1) {
       J = 1;
       while (true) {
         // Solve U**T * x = b.
-
         B[1][J] /= D[1];
         if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
         for (I = 3; I <= N; I++) {
@@ -110,7 +96,6 @@ void zgtts2(
         }
 
         // Solve L**T * x = b.
-
         for (I = N - 1; I >= 1; I--) {
           if (IPIV[I] == I) {
             B[I][J] -= DL[I] * B[I + 1][J];
@@ -129,7 +114,6 @@ void zgtts2(
     } else {
       for (J = 1; J <= NRHS; J++) {
         // Solve U**T * x = b.
-
         B[1][J] /= D[1];
         if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
         for (I = 3; I <= N; I++) {
@@ -139,7 +123,6 @@ void zgtts2(
         }
 
         // Solve L**T * x = b.
-
         for (I = N - 1; I >= 1; I--) {
           if (IPIV[I] == I) {
             B[I][J] -= DL[I] * B[I + 1][J];
@@ -153,12 +136,10 @@ void zgtts2(
     }
   } else {
     // Solve A**H * X = B.
-
     if (NRHS <= 1) {
       J = 1;
       while (true) {
         // Solve U**H * x = b.
-
         B[1][J] /= D[1].conjugate();
         if (N > 1) {
           B[2][J] = (B[2][J] - DU[1].conjugate() * B[1][J]) / D[2].conjugate();
@@ -171,7 +152,6 @@ void zgtts2(
         }
 
         // Solve L**H * x = b.
-
         for (I = N - 1; I >= 1; I--) {
           if (IPIV[I] == I) {
             B[I][J] -= DL[I].conjugate() * B[I + 1][J];
@@ -190,7 +170,6 @@ void zgtts2(
     } else {
       for (J = 1; J <= NRHS; J++) {
         // Solve U**H * x = b.
-
         B[1][J] /= D[1].conjugate();
         if (N > 1) {
           B[2][J] = (B[2][J] - DU[1].conjugate() * B[1][J]) / D[2].conjugate();
@@ -203,7 +182,6 @@ void zgtts2(
         }
 
         // Solve L**H * x = b.
-
         for (I = N - 1; I >= 1; I--) {
           if (IPIV[I] == I) {
             B[I][J] -= DL[I].conjugate() * B[I + 1][J];

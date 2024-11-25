@@ -15,9 +15,6 @@ void dget31(
   final Array<int> NINFO_,
   final Box<int> KNT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NINFO = NINFO_.having();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   const TWO = 2.0, THREE = 3.0, FOUR = 4.0;

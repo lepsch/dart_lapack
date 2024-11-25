@@ -30,9 +30,6 @@ void ztprfb(
   final Matrix<Complex> WORK_,
   final int LDWORK,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having(ld: LDV);
   final T = T_.having(ld: LDT);
   final A = A_.having(ld: LDA);
@@ -42,7 +39,6 @@ void ztprfb(
   bool LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;
 
   // Quick return if possible
-
   if (M <= 0 || N <= 0 || K <= 0 || L < 0) return;
 
   if (lsame(STOREV, 'C')) {
@@ -78,23 +74,17 @@ void ztprfb(
     BACKWARD = false;
   }
 
-  // ---------------------------------------------------------------------------
-
   if (COLUMN && FORWARD && LEFT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ I ]    (K-by-K)
     //           [ V ]    (M-by-K)
-
+    //
     // Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
     //                                   [ B ]  (M-by-N)
-
+    //
     // H = I - W T W**H          or  H**H = I - W T**H W**H
-
+    //
     // A -=   T (A + V**H B)  or  A -=   T**H (A + V**H B)
     // B -= V T (A + V**H B)  or  B -= V T**H (A + V**H B)
-
-    // ---------------------------------------------------------------------------
 
     MP = min(M - L + 1, M);
     KP = min(L + 1, K);
@@ -134,22 +124,16 @@ void ztprfb(
         B[M - L + I][J] -= WORK[I][J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (COLUMN && FORWARD && RIGHT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ I ]    (K-by-K)
     //           [ V ]    (N-by-K)
-
+    //
     // Form  C H or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
-
+    //
     // H = I - W T W**H          or  H**H = I - W T**H W**H
-
+    //
     // A -= (A + B V) T      or  A -= (A + B V) T**H
     // B -= (A + B V) T V**H  or  B -= (A + B V) T**H V**H
-
-    // ---------------------------------------------------------------------------
 
     NP = min(N - L + 1, N);
     KP = min(L + 1, K);
@@ -189,23 +173,17 @@ void ztprfb(
         B[I][N - L + J] -= WORK[I][J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (COLUMN && BACKWARD && LEFT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ V ]    (M-by-K)
     //           [ I ]    (K-by-K)
-
+    //
     // Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
     //                                   [ A ]  (K-by-N)
-
+    //
     // H = I - W T W**H          or  H**H = I - W T**H W**H
-
+    //
     // A -=   T (A + V**H B)  or  A -=   T**H (A + V**H B)
     // B -= V T (A + V**H B)  or  B -= V T**H (A + V**H B)
-
-    // ---------------------------------------------------------------------------
 
     MP = min(L + 1, M);
     KP = min(K - L + 1, K);
@@ -248,22 +226,16 @@ void ztprfb(
         B[I][J] -= WORK[K - L + I][J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (COLUMN && BACKWARD && RIGHT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ V ]    (N-by-K)
     //           [ I ]    (K-by-K)
-
+    //
     // Form  C H  or  C H**H  where  C = [ B A ] (B is M-by-N, A is M-by-K)
-
+    //
     // H = I - W T W**H          or  H**H = I - W T**H W**H
-
+    //
     // A -= (A + B V) T      or  A -= (A + B V) T**H
     // B -= (A + B V) T V**H  or  B -= (A + B V) T**H V**H
-
-    // ---------------------------------------------------------------------------
 
     NP = min(L + 1, N);
     KP = min(K - L + 1, K);
@@ -305,22 +277,16 @@ void ztprfb(
         B[I][J] -= WORK[I][K - L + J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (ROW && FORWARD && LEFT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ I V ] ( I is K-by-K, V is K-by-M )
-
+    //
     // Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
     //                                   [ B ]  (M-by-N)
-
+    //
     // H = I - W**H T W          or  H**H = I - W**H T**H W
-
+    //
     // A -=     T (A + V B)  or  A -=     T**H (A + V B)
     // B -= V**H T (A + V B)  or  B -= V**H T**H (A + V B)
-
-    // ---------------------------------------------------------------------------
 
     MP = min(M - L + 1, M);
     KP = min(L + 1, K);
@@ -360,21 +326,15 @@ void ztprfb(
         B[M - L + I][J] -= WORK[I][J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (ROW && FORWARD && RIGHT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ I V ] ( I is K-by-K, V is K-by-N )
-
+    //
     // Form  C H  or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
-
+    //
     // H = I - W**H T W            or  H**H = I - W**H T**H W
-
+    //
     // A -= (A + B V**H) T      or  A -= (A + B V**H) T**H
     // B -= (A + B V**H) T V    or  B -= (A + B V**H) T**H V
-
-    // ---------------------------------------------------------------------------
 
     NP = min(N - L + 1, N);
     KP = min(L + 1, K);
@@ -414,22 +374,16 @@ void ztprfb(
         B[I][N - L + J] -= WORK[I][J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (ROW && BACKWARD && LEFT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ V I ] ( I is K-by-K, V is K-by-M )
-
+    //
     // Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
     //                                   [ A ]  (K-by-N)
-
+    //
     // H = I - W**H T W          or  H**H = I - W**H T**H W
-
+    //
     // A -=     T (A + V B)  or  A -=     T**H (A + V B)
     // B -= V**H T (A + V B)  or  B -= V**H T**H (A + V B)
-
-    // ---------------------------------------------------------------------------
 
     MP = min(L + 1, M);
     KP = min(K - L + 1, K);
@@ -471,21 +425,15 @@ void ztprfb(
         B[I][J] -= WORK[K - L + I][J];
       }
     }
-
-    // ---------------------------------------------------------------------------
   } else if (ROW && BACKWARD && RIGHT) {
-    // ---------------------------------------------------------------------------
-
     // Let  W =  [ V I ] ( I is K-by-K, V is K-by-N )
-
+    //
     // Form  C H  or  C H**H  where  C = [ B A ] (A is M-by-K, B is M-by-N)
-
+    //
     // H = I - W**H T W            or  H**H = I - W**H T**H W
-
+    //
     // A -= (A + B V**H) T      or  A -= (A + B V**H) T**H
     // B -= (A + B V**H) T V    or  B -= (A + B V**H) T**H V
-
-    // ---------------------------------------------------------------------------
 
     NP = min(L + 1, N);
     KP = min(K - L + 1, K);

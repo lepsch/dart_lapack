@@ -25,9 +25,6 @@ void dsytrs2(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);
@@ -89,11 +86,11 @@ void dsytrs2(
       }
     }
 
-// Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
+    // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
     dtrsm('L', 'U', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB);
 
-// Compute D \ B -> B   [ D \ (U \P**T * B) ]
+    // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
     I = N;
     while (I >= 1) {
@@ -168,11 +165,11 @@ void dsytrs2(
       }
     }
 
-// Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
+    // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
     dtrsm('L', 'L', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB);
 
-// Compute D \ B -> B   [ D \ (L \P**T * B) ]
+    // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
     I = 1;
     while (I <= N) {
@@ -194,7 +191,7 @@ void dsytrs2(
       I++;
     }
 
-// Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
+    // Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
     dtrsm('L', 'L', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB);
 

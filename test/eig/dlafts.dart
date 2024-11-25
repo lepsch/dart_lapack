@@ -24,9 +24,6 @@ void dlafts(
   final Box<int> IE, [
   final TestDriver? test,
 ]) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final RESULT = RESULT_.having();
   final ISEED = ISEED_.having();
 

@@ -38,9 +38,6 @@ void dlalsd(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having(length: LDB);
   final E = E_.having(length: LDB);
   final B = B_.having(ld: LDB);

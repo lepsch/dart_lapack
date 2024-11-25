@@ -3,9 +3,6 @@
 // [LICENSE file](https://github.com/lepsch/dart_lapack/blob/main/LICENSE).
 
 bool ieeeck(final int ISPEC, final double ZERO, final double ONE) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   double NEGINF, NEGZRO, NEWZRO, POSINF;
 
   POSINF = ONE / ZERO;

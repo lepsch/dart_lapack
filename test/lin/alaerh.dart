@@ -27,9 +27,6 @@ void alaerh(
   final Box<int> NERRS,
   final Nout NOUT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   String UPLO;
 
   if (INFO == 0) return;

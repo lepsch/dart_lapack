@@ -23,9 +23,6 @@ void zlatm1(
   final int N,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final ISEED = ISEED_.having(length: 4);
   final D = D_.having();
 

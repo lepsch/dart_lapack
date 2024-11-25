@@ -5,10 +5,6 @@
 import 'package:dart_lapack/blas.dart';
 
 double dasum(final int N, Array<double> DX, final int INCX) {
-// -- Reference BLAS level1 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   if (N <= 0 || INCX <= 0) return 0.0;
 
   var DTEMP = 0.0;

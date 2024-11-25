@@ -46,9 +46,6 @@ void zposvxx(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final AF = AF_.having(ld: LDAF);
   final B = B_.having(ld: LDB);
@@ -61,7 +58,6 @@ void zposvxx(
   final BERR = BERR_.having();
   final PARAMS = PARAMS_.having();
 
-  // .. Parameters ..
   const ZERO = 0.0, ONE = 1.0;
   bool EQUIL, NOFACT, RCEQU;
   int J;
@@ -84,11 +80,9 @@ void zposvxx(
   // Default is failure.  If an input parameter is wrong or
   // factorization fails, make everything look horrible.  Only the
   // pivot growth is set here, the rest is initialized in ZPORFSX.
-
   RPVGRW.value = ZERO;
 
   // Test the input parameters.  PARAMS is not tested until ZPORFSX.
-
   if (!NOFACT && !EQUIL && !lsame(FACT, 'F')) {
     INFO.value = -1;
   } else if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
@@ -135,50 +129,41 @@ void zposvxx(
 
   if (EQUIL) {
     // Compute row and column scalings to equilibrate the matrix A.
-
     zpoequb(N, A, LDA, S, SCOND, AMAX, INFEQU);
     if (INFEQU.value == 0) {
       // Equilibrate the matrix.
-
       zlaqhe(UPLO, N, A, LDA, S, SCOND.value, AMAX.value, EQUED);
       RCEQU = lsame(EQUED.value, 'Y');
     }
   }
 
   // Scale the right-hand side.
-
   if (RCEQU) zlascl2(N, NRHS, S, B, LDB);
 
   if (NOFACT || EQUIL) {
     // Compute the Cholesky factorization of A.
-
     zlacpy(UPLO, N, N, A, LDA, AF, LDAF);
     zpotrf(UPLO, N, AF, LDAF, INFO);
 
     // Return if INFO is non-zero.
-
     if (INFO.value > 0) {
       // Pivot in column INFO is exactly 0
       // Compute the reciprocal pivot growth factor of the
       // leading rank-deficient INFO columns of A.
-
       RPVGRW.value = zla_porpvgrw(UPLO, N, A, LDA, AF, LDAF, RWORK);
       return;
     }
   }
 
   // Compute the reciprocal pivot growth factor RPVGRW.
-
   RPVGRW.value = zla_porpvgrw(UPLO, N, A, LDA, AF, LDAF, RWORK);
 
   // Compute the solution matrix X.
-
   zlacpy('Full', N, NRHS, B, LDB, X, LDX);
   zpotrs(UPLO, N, NRHS, AF, LDAF, X, LDX, INFO);
 
   // Use iterative refinement to improve the computed solution and
   // compute error bounds and backward error estimates for it.
-
   zporfsx(
       UPLO,
       EQUED.value,
@@ -205,7 +190,6 @@ void zposvxx(
       INFO);
 
   // Scale solutions.
-
   if (RCEQU) {
     zlascl2(N, NRHS, S, X, LDX);
   }

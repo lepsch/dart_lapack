@@ -53,9 +53,6 @@ void zstemr(
   final D = D_.having();
   final E = E_.having();
   final W = W_.having();
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 1.0e-3;
   bool ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
   int I,

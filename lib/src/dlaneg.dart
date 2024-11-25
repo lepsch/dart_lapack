@@ -15,9 +15,6 @@ int dlaneg(
   final double PIVMIN,
   final int R,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final LLD = LLD_.having();
   const ZERO = 0.0, ONE = 1.0;

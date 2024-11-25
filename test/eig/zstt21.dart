@@ -35,9 +35,6 @@ void zstt21(
   final SD = SD_.having();
   final SE = SE_.having();
   final RESULT = RESULT_.having();
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;

@@ -16,9 +16,6 @@ void dlasd5(
   final Box<double> DSIGMA,
   final Array<double> WORK,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final Z = Z_.having();
   final DELTA = DELTA_.having();

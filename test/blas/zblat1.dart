@@ -11,10 +11,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 void zblat1(final Nout nout, final TestDriver test) {
-// -- Reference BLAS test routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const SFAC = 9.765625e-4;
 
   nout.println(' Complex BLAS Test Program Results\n ');
@@ -38,7 +34,6 @@ void zblat1(final Nout nout, final TestDriver test) {
         } else if (combla.ICASE >= 6) {
           _check1(SFAC, nout);
         }
-        // -- Print
         if (test.expect(combla.PASS, true)) {
           nout.println('                                    ----- PASS -----');
         }
@@ -158,12 +153,12 @@ void _check1(final double SFAC, final Nout nout) {
     for (NP1 = 1; NP1 <= 5; NP1++) {
       combla.N = NP1 - 1;
       LEN = 2 * max(combla.N, 1);
-      // .. Set vector arguments ..
+      // Set vector arguments
       for (I = 1; I <= LEN; I++) {
         CX[I] = CV[I][NP1][combla.INCX];
       }
       if (combla.ICASE == 6) {
-        // .. dznrm2 ..
+        // dznrm2
         // Test scaling when some entries are tiny or huge
         _zb1nrm2(combla.N, (combla.INCX - 2) * 2, THRESH, nout);
         _zb1nrm2(combla.N, combla.INCX, THRESH, nout);
@@ -171,21 +166,21 @@ void _check1(final double SFAC, final Nout nout) {
         _stest1(dznrm2(combla.N, CX, combla.INCX), STRUE2[NP1], STRUE2(NP1),
             SFAC, nout);
       } else if (combla.ICASE == 7) {
-        // .. dzasum ..
+        // dzasum
         _stest1(dzasum(combla.N, CX, combla.INCX), STRUE4[NP1], STRUE4(NP1),
             SFAC, nout);
       } else if (combla.ICASE == 8) {
-        // .. ZSCAL ..
+        // ZSCAL
         zscal(combla.N, CA, CX, combla.INCX);
         _ctest(LEN, CX, CTRUE5(1, NP1, combla.INCX).asArray(),
             CTRUE5(1, NP1, combla.INCX).asArray(), SFAC, nout);
       } else if (combla.ICASE == 9) {
-        // .. ZDSCAL ..
+        // ZDSCAL
         zdscal(combla.N, SA, CX, combla.INCX);
         _ctest(LEN, CX, CTRUE6(1, NP1, combla.INCX).asArray(),
             CTRUE6(1, NP1, combla.INCX).asArray(), SFAC, nout);
       } else if (combla.ICASE == 10) {
-        // .. izamax ..
+        // izamax
         _itest1(izamax(combla.N, CX, combla.INCX), ITRUE3[NP1], nout);
         for (I = 1; I <= LEN; I++) {
           CX[I] = Complex(42.0, 43.0);
@@ -412,26 +407,26 @@ void _check2(final double SFAC, final Nout nout) {
       KSIZE = min(2, KN);
       LENX = LENS[KN][MX];
       LENY = LENS[KN][MY];
-      // .. initialize all argument arrays ..
+      // initialize all argument arrays
       for (I = 1; I <= 7; I++) {
         CX[I] = CX1[I];
         CY[I] = CY1[I];
       }
       if (combla.ICASE == 1) {
-        // .. zdotc ..
+        // zdotc
         CDOT[1] = zdotc(combla.N, CX, combla.INCX, CY, combla.INCY);
         _ctest(1, CDOT, CT6(KN, KI).asArray(), CSIZE1(KN), SFAC, nout);
       } else if (combla.ICASE == 2) {
-        // .. zdotu ..
+        // zdotu
         CDOT[1] = zdotu(combla.N, CX, combla.INCX, CY, combla.INCY);
         _ctest(1, CDOT, CT7(KN, KI).asArray(), CSIZE1(KN), SFAC, nout);
       } else if (combla.ICASE == 3) {
-        // .. ZAXPY ..
+        // ZAXPY
         zaxpy(combla.N, CA, CX, combla.INCX, CY, combla.INCY);
         _ctest(LENY, CY, CT8(1, KN, KI).asArray(), CSIZE2(1, KSIZE).asArray(),
             SFAC, nout);
       } else if (combla.ICASE == 4) {
-        // .. ZCOPY ..
+        // ZCOPY
         zcopy(combla.N, CX, combla.INCX, CY, combla.INCY);
         _ctest(LENY, CY, CT10Y(1, KN, KI).asArray(), CSIZE3, 1.0, nout);
         if (KI == 1) {
@@ -452,7 +447,7 @@ void _check2(final double SFAC, final Nout nout) {
           combla.INCY = LINCY;
         }
       } else if (combla.ICASE == 5) {
-        // .. ZSWAP ..
+        // ZSWAP
         zswap(combla.N, CX, combla.INCX, CY, combla.INCY);
         _ctest(LENX, CX, CT10X(1, KN, KI).asArray(), CSIZE3, 1.0, nout);
         _ctest(LENY, CY, CT10Y(1, KN, KI).asArray(), CSIZE3, 1.0, nout);
@@ -464,6 +459,9 @@ void _check2(final double SFAC, final Nout nout) {
   }
 }
 
+/// Compares arrays SCOMP and STRUE of length LEN to
+/// see if the term by term differences, multiplied by SFAC, are
+/// negligible.
 void _stest(
   final int LEN,
   final Array<double> SCOMP_,
@@ -472,13 +470,6 @@ void _stest(
   final double SFAC,
   final Nout nout,
 ) {
-  // ********************************* STEST **************************
-
-  // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-  // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-  // NEGLIGIBLE.
-
-  // C. L. LAWSON, JPL, 1974 DEC 10
   final SCOMP = SCOMP_.having(length: LEN);
   final STRUE = STRUE_.having(length: LEN);
   final SSIZE = SSIZE_.having(length: LEN);
@@ -514,14 +505,6 @@ void _stest1(
   final double SFAC,
   final Nout nout,
 ) {
-  // ************************* STEST1 *****************************
-
-  // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
-  // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
-  // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
-
-  // C.L. LAWSON, JPL, 1978 DEC 6
-
   final SSIZE = SSIZE_.having();
   final SCOMP = Array<double>(1), STRUE = Array<double>(1);
 
@@ -529,13 +512,6 @@ void _stest1(
   STRUE[1] = STRUE1;
   _stest(1, SCOMP, STRUE, SSIZE, SFAC, nout);
 }
-
-// double _sdiff(final double SA, final double SB) {
-//   // ********************************* SDIFF **************************
-//   // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-
-//   return SA - SB;
-// }
 
 void _ctest(
   final int LEN,
@@ -545,10 +521,6 @@ void _ctest(
   final double SFAC,
   final Nout nout,
 ) {
-  // **************************** CTEST *****************************
-
-  // C.L. LAWSON, JPL, 1978 DEC 6
-
   int I;
   final SCOMP = Array<double>(20),
       SSIZE = Array<double>(20),
@@ -569,13 +541,8 @@ void _ctest(
   _stest(2 * LEN, SCOMP, STRUE, SSIZE, SFAC, nout);
 }
 
+/// Compares the variables icomp and itrue for equality.
 void _itest1(final int ICOMP, final int ITRUE, final Nout nout) {
-  // ********************************* ITEST1 *************************
-
-  // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
-  // EQUALITY.
-  // C. L. LAWSON, JPL, 1974 DEC 10
-
   if (ICOMP == ITRUE) return;
 
   // HERE ICOMP IS NOT EQUAL TO ITRUE.
@@ -596,27 +563,26 @@ void _itest1(final int ICOMP, final int ITRUE, final Nout nout) {
   ].i5}${[ICOMP, ITRUE].i36()}${ID.i12}');
 }
 
+/// Compare NRM2 with a reference computation using combinations
+/// of the following values:
+///
+/// 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
+///
+/// one of these values is used to initialize x(1) and x(2:N) is
+/// filled with random values from [-1,1] scaled by another of
+/// these values.
+///
+/// This routine is adapted from the test suite provided by
+/// Anderson E. (2017)
+/// Algorithm 978: Safe Scaling in the Level 1 BLAS
+/// ACM Trans Math Softw 44:1--28
+/// https://doi.org/10.1145/3061665
 void _zb1nrm2(
   final int N,
   final int INCX,
   final double THRESH,
   final Nout nout,
 ) {
-  // Compare NRM2 with a reference computation using combinations
-  // of the following values:
-
-  // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
-
-  // one of these values is used to initialize x(1) and x(2:N) is
-  // filled with random values from [-1,1] scaled by another of
-  // these values.
-
-  // This routine is adapted from the test suite provided by
-  // Anderson E. (2017)
-  // Algorithm 978: Safe Scaling in the Level 1 BLAS
-  // ACM Trans Math Softw 44:1--28
-  // https://doi.org/10.1145/3061665
-
   const NMAX = 20, NV = 10;
   const HALF = 0.5, ONE = 1.0, TWO = 2.0, THREE = 3.0, ZERO = 0.0;
   const BIGNUM = 0.99792015476735990583e+292,

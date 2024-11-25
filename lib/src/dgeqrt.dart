@@ -25,10 +25,6 @@ void dgeqrt(
   final A = A_.having(ld: LDA);
   final T = T_.having(ld: LDT);
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I, IB, K;
   const USE_RECURSIVE_QR = true;
   final IINFO = Box(0);

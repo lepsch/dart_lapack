@@ -58,12 +58,6 @@ void dgedmd(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-//  -- LAPACK driver routine                                           --
-//
-//  -- LAPACK is a software package provided by University of          --
-//  -- Tennessee, University of California Berkeley, University of     --
-//  -- Colorado Denver and NAG Ltd..                                   --
-
   final X = X_.having(ld: LDX), Y = Y_.having(ld: LDY);
   final Z = Z_.having(ld: LDZ),
       B = B_.having(ld: LDB),
@@ -396,7 +390,7 @@ void dgedmd(
   }
 
   // <2> SVD of the data snapshot matrix X.
-  // =====================================
+  //
   // The left singular vectors are stored in the array X.
   // The right singular vectors are in the array W.
   // The array W will later on contain the eigenvectors

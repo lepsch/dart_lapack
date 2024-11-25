@@ -25,9 +25,6 @@ Future<void> dget36(
   final String group,
   final double THRESH,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NINFO = NINFO_.having();
   const ZERO = 0.0, ONE = 1.0;
   const LDT = 10, LWORK = 2 * LDT * LDT;

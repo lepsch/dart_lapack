@@ -51,10 +51,6 @@ void zhpevx(
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
   final IFAIL = IFAIL_.having();
-
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   bool ALLEIG, INDEIG, TEST, VALEIG, WANTZ;
   String ORDER;

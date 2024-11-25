@@ -17,9 +17,6 @@ void dlarfg(
   final int INCX,
   final Box<double> TAU,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   const ONE = 1.0, ZERO = 0.0;
   int J, KNT = 0;

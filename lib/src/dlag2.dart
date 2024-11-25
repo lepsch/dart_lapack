@@ -20,9 +20,6 @@ void dlag2(
   final Box<double> WR2,
   final Box<double> WI,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;

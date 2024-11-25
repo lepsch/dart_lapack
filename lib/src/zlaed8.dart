@@ -41,9 +41,6 @@ void zlaed8(
   final Matrix<double> GIVNUM_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Q = Q_.having(ld: LDQ);
   final Q2 = Q2_.having(ld: LDQ2);
   final D = D_.having();

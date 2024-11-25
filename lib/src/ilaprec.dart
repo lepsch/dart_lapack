@@ -5,9 +5,6 @@
 import 'package:dart_lapack/src/install/lsame.dart';
 
 int ilaprec(final String PREC) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const BLAS_PREC_SINGLE = 211,
       BLAS_PREC_DOUBLE = 212,
       BLAS_PREC_INDIGENOUS = 213,

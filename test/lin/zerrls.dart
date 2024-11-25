@@ -19,9 +19,6 @@ import 'chkxer.dart';
 import 'common.dart';
 
 void zerrls(final String PATH, final Nout NUNIT) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 2;
   final IP = Array<int>(NMAX);
   final RW = Array<double>(NMAX), S = Array<double>(NMAX);

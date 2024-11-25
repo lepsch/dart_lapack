@@ -21,9 +21,6 @@ void zerrbd(
   final String PATH,
   final Nout NUNIT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4, LW = NMAX;
   String C2;
   int I, J, NT;

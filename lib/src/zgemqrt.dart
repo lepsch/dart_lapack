@@ -27,9 +27,6 @@ void zgemqrt(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having(ld: LDV);
   final T = T_.having(ld: LDT);
   final C = C_.having(ld: LDC);
@@ -37,8 +34,7 @@ void zgemqrt(
   bool LEFT, RIGHT, TRAN, NOTRAN;
   int I, IB, LDWORK = 0, KF, Q = 0;
 
-  // .. Test the input arguments ..
-
+  // Test the input arguments
   INFO.value = 0;
   LEFT = lsame(SIDE, 'L');
   RIGHT = lsame(SIDE, 'R');
@@ -77,8 +73,7 @@ void zgemqrt(
     return;
   }
 
-  // .. Quick return if possible ..
-
+  // Quick return if possible
   if (M == 0 || N == 0 || K == 0) return;
 
   if (LEFT && TRAN) {

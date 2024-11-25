@@ -13,9 +13,6 @@ void dlartgs(
   final Box<double> CS,
   final Box<double> SN,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NEGONE = -1.0, ONE = 1.0, ZERO = 0.0;
   double S, THRESH, W, Z;
   final R = Box(0.0);

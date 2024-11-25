@@ -32,10 +32,6 @@ void zlaghe(
   final A = A_.having(ld: LDA);
   final ISEED = ISEED_.having(length: 4);
   final WORK = WORK_.having();
-
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const HALF = Complex(0.5, 0.0);
   const ZERO = 0.0;
   int I, J;

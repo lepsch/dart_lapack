@@ -17,9 +17,6 @@ void dtftri(
   final Array<double> A_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(offset: zeroIndexedArrayOffset);
   const ONE = 1.0;
   bool LOWER, NISODD, NORMALTRANSR;

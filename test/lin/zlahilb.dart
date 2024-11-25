@@ -17,9 +17,6 @@ void zlahilb(
   final Box<int> INFO,
   final String PATH,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA, lastd: N);
   final X = X_.having(ld: LDX, lastd: NRHS);
   final B = B_.having(ld: LDB, lastd: NRHS);

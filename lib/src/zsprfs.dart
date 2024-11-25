@@ -42,9 +42,6 @@ void zsprfs(
   final AFP = AFP_.having();
   final FERR = FERR_.having();
   final BERR = BERR_.having();
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ITMAX = 5;
   const ZERO = 0.0;
   const TWO = 2.0;

@@ -56,9 +56,6 @@ void dchkbb(
   final Box<int> INFO,
   final TestDriver test,
 ) {
-// -- LAPACK test routine (input) --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final MVAL = MVAL_.having(length: NSIZES);
   final NVAL = NVAL_.having(length: NSIZES);
   final KK = KK_.having(length: NWDTHS);

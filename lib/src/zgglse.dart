@@ -39,9 +39,6 @@ void zgglse(
   final C = C_.having();
   final D = D_.having();
   final X = X_.having();
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool LQUERY;
   int LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR;
 

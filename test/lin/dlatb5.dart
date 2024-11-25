@@ -18,9 +18,6 @@ bool _FIRST = true;
   double CNDNUM,
   String DIST,
 }) dlatb5(final String PATH, final int IMAT, final int N) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const SHRINK = 0.25, TENTH = 0.1;
   const ONE = 1.0, TWO = 2.0;
   String TYPE, DIST;

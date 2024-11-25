@@ -18,23 +18,12 @@ void ztrttp(
   final Array<Complex> AP_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final AP = AP_.having();
   bool LOWER;
   int I, J, K;
-  // ..
-  // .. External Functions ..
-  //- bool               lsame;
-  // EXTERNAL lsame
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL XERBLA
 
   // Test the input parameters.
-
   INFO.value = 0;
   LOWER = lsame(UPLO, 'L');
   if (!LOWER && !lsame(UPLO, 'U')) {

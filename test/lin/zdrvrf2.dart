@@ -27,9 +27,6 @@ void zdrvrf2(
   final Array<Complex> AP_,
   final Matrix<Complex> ASAV_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NVAL = NVAL_.having();
   final A = A_.having(ld: LDA);
   final ARF = ARF_.having();

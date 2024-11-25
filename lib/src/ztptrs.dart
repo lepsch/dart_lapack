@@ -24,10 +24,6 @@ void ztptrs(
 ) {
   final AP = AP_.having();
   final B = B_.having(ld: LDB);
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool NOUNIT, UPPER;
   int J, JC;
 

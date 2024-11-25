@@ -39,9 +39,6 @@ void zchkpp(
   final Array<double> RWORK_,
   final Nout NOUT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final NVAL = NVAL_.having();
   final NSVAL = NSVAL_.having();

@@ -19,9 +19,6 @@ void dtpt06(
   final Array<double> WORK_,
   final Box<double> RAT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;

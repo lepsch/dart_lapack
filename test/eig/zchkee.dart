@@ -61,9 +61,6 @@ import 'zerrhs.dart';
 import 'zerrst.dart';
 
 Future<void> zchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   ilaenv = mock.ilaenv;
   ilaenv2stage = mock.ilaenv2stage;
   xerbla = mock.xerbla(test);
@@ -1496,7 +1493,7 @@ Future<void> zchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
 
             if (INFO.value != 0) _print9980(NOUT, 'ZDRGES', INFO.value);
 
-// Blocked version
+            // Blocked version
 
             zdrges3(
                 NN,
@@ -1612,7 +1609,7 @@ Future<void> zchkee(final Nin NIN, Nout? NOUT, final TestDriver test) async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'ZDRGEV', INFO.value);
 
-// Blocked version
+            // Blocked version
 
             xlaenv(16, 2);
             zdrgev3(

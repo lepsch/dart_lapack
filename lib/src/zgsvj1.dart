@@ -40,9 +40,6 @@ void zgsvj1(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final V = V_.having(ld: LDV);
   final D = D_.having(length: N);
@@ -92,7 +89,6 @@ void zgsvj1(
   final AAPP = Box(0.0), AAQQ = Box(0.0), T = Box(0.0);
 
   // Test the input parameters.
-
   APPLV = lsame(JOBV, 'A');
   RSVEC = lsame(JOBV, 'V');
   if (!(RSVEC || APPLV || lsame(JOBV, 'N'))) {
@@ -140,20 +136,18 @@ void zgsvj1(
   BIGTHETA = ONE / ROOTEPS;
   ROOTTOL = sqrt(TOL);
 
-  // .. Initialize the right singular vector matrix ..
-
+  // Initialize the right singular vector matrix
   // RSVEC = lsame( JOBV, 'Y' )
 
   EMPTSW = N1 * (N - N1);
   NOTROT = 0;
 
-  // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
-
+  // Row-cyclic pivot strategy with de Rijk's pivoting
   KBL = min(8, N);
   NBLR = N1 ~/ KBL;
   if ((NBLR * KBL) != N1) NBLR++;
 
-  // .. the tiling is NBLR-by-NBLC [tiles]
+  // the tiling is NBLR-by-NBLC [tiles]
 
   NBLC = (N - N1) ~/ KBL;
   if ((NBLC * KBL) != (N - N1)) NBLC++;
@@ -173,11 +167,8 @@ void zgsvj1(
   // |[x] [x] [x] *   *   * |
   // |[x] [x] [x] *   *   * |
   // |[x] [x] [x] *   *   * |
-
   var exhausted = true;
   for (i = 1; i <= NSWEEP; i++) {
-    // .. go go go ...
-
     MXAAPQ = ZERO;
     MXSINJ = ZERO;
     ISWROT = 0;
@@ -189,12 +180,10 @@ void zgsvj1(
     // 1 <= p < q <= N. This is the first step toward a blocked implementation
     // of the rotations. New implementation, based on block transformations,
     // is under development.
-
     for (ibr = 1; ibr <= NBLR; ibr++) {
       igl = (ibr - 1) * KBL + 1;
 
-      // ... go to the off diagonal blocks
-
+      // go to the off diagonal blocks
       igl = (ibr - 1) * KBL + 1;
 
       jbcLoop:
@@ -202,7 +191,6 @@ void zgsvj1(
         jgl = (jbc - 1) * KBL + N1 + 1;
 
         // doing the block at ( ibr, jbc )
-
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N1); p++) {
           AAPP.value = SVA[p];
@@ -214,10 +202,9 @@ void zgsvj1(
               if (AAQQ.value > ZERO) {
                 AAPP0 = AAPP.value;
 
-                // .. M x 2 Jacobi SVD ..
+                // M x 2 Jacobi SVD
 
                 // Safe Gram matrix computation
-
                 if (AAQQ.value >= ONE) {
                   if (AAPP.value >= AAQQ.value) {
                     ROTOK = (SMALL * AAPP.value) <= AAQQ.value;
@@ -260,12 +247,11 @@ void zgsvj1(
                 AAPQ1 = -AAPQ.abs();
                 MXAAPQ = max(MXAAPQ, -AAPQ1);
 
-                // TO rotate or NOT to rotate, THAT is the question ...
-
+                // TO rotate or NOT to rotate, THAT is the question .
                 if (AAPQ1.abs() > TOL) {
                   OMPQ = AAPQ / AAPQ.abs().toComplex();
                   NOTROT = 0;
-// [RTD]      ROTATED++
+                  // [RTD]      ROTATED++
                   PSKIPPED = 0;
                   ISWROT++;
 
@@ -290,8 +276,7 @@ void zgsvj1(
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ1));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
-                      // .. choose correct signum for THETA and rotate
-
+                      // choose correct signum for THETA and rotate
                       THSIGN = -sign(ONE, AAPQ1);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
@@ -313,7 +298,7 @@ void zgsvj1(
                     }
                     D[p] = -D[q] * OMPQ;
                   } else {
-                    // .. have to use modified Gram-Schmidt like transformation
+                    // have to use modified Gram-Schmidt like transformation
                     if (AAPP.value > AAQQ.value) {
                       zcopy(M, A(1, p).asArray(), 1, WORK, 1);
                       zlascl('G', 0, 0, AAPP.value, ONE, M, 1,
@@ -344,7 +329,7 @@ void zgsvj1(
                   // END IF ROTOK THEN ... ELSE
 
                   // In the case of cancellation in updating SVA(q), SVA(p)
-                  // .. recompute SVA(q), SVA(p)
+                  // recompute SVA(q), SVA(p)
                   if (pow(SVA[q] / AAQQ.value, 2) <= ROOTEPS) {
                     if ((AAQQ.value < ROOTBIG) && (AAQQ.value > ROOTSFMIN)) {
                       SVA[q] = dznrm2(M, A(1, q).asArray(), 1);
@@ -369,7 +354,7 @@ void zgsvj1(
                   // end of OK rotation
                 } else {
                   NOTROT++;
-// [RTD]      SKIPPED++
+                  // [RTD]      SKIPPED++
                   PSKIPPED++;
                   IJBLSK++;
                 }
@@ -410,7 +395,7 @@ void zgsvj1(
     }
     // 2000 :: end of the ibr-loop
 
-    // .. update SVA(N)
+    // update SVA(N)
     if ((SVA[N] < ROOTBIG) && (SVA[N] > ROOTSFMIN)) {
       SVA[N] = dznrm2(M, A(1, N).asArray(), 1);
     } else {
@@ -438,14 +423,14 @@ void zgsvj1(
   }
   // end i=1:NSWEEP loop
   if (exhausted) {
-    // #:( Reaching this point means that the procedure has not converged.
+    // Reaching this point means that the procedure has not converged.
     INFO.value = NSWEEP - 1;
   } else {
-    // #:) Reaching this point means numerical convergence after the i-th
+    // Reaching this point means numerical convergence after the i-th
     // sweep.
 
     INFO.value = 0;
-    // #:) INFO = 0 confirms successful iterations.
+    // INFO = 0 confirms successful iterations.
   }
 
   // Sort the vector SVA() of column norms.

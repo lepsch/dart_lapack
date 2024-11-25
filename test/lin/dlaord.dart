@@ -11,9 +11,6 @@ void dlaord(
   final Array<double> X_,
   final int INCX,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
 
   final INC = INCX.abs();

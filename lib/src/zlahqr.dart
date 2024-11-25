@@ -28,9 +28,6 @@ void zlahqr(
   final int LDZ,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final H = H_.having(ld: LDH);
   final W = W_.having();
   final Z = Z_.having(ld: LDZ);
@@ -60,20 +57,19 @@ void zlahqr(
   INFO.value = 0;
 
   // Quick return if possible
-
   if (N == 0) return;
   if (ILO == IHI) {
     W[ILO] = H[ILO][ILO];
     return;
   }
 
-  // ==== clear out the trash ====
+  // clear out the trash
   for (J = ILO; J <= IHI - 3; J++) {
     H[J + 2][J] = Complex.zero;
     H[J + 3][J] = Complex.zero;
   }
   if (ILO <= IHI - 2) H[IHI][IHI - 2] = Complex.zero;
-  // ==== ensure that subdiagonal entries are real ====
+  // ensure that subdiagonal entries are real
   if (WANTT) {
     JLO = 1;
     JHI = N;
@@ -83,9 +79,9 @@ void zlahqr(
   }
   for (I = ILO + 1; I <= IHI; I++) {
     if (H[I][I - 1].imaginary != RZERO) {
-      // ==== The following redundant normalization
-      // .    avoids problems with both gradual and
-      // .    sudden underflow in ABS(H(I,I-1)) ====
+      // The following redundant normalization
+      // avoids problems with both gradual and
+      // sudden underflow in ABS(H(I,I-1))
       SC = H[I][I - 1] / H[I][I - 1].cabs1().toComplex();
       SC = SC.conjugate() / SC.abs().toComplex();
       H[I][I - 1] = H[I][I - 1].abs().toComplex();
@@ -101,7 +97,6 @@ void zlahqr(
   NZ = IHIZ - ILOZ + 1;
 
   // Set machine-dependent constants for the stopping criterion.
-
   SAFMIN = dlamch('SAFE MINIMUM');
   // SAFMAX = RONE / SAFMIN;
   ULP = dlamch('PRECISION');
@@ -110,18 +105,15 @@ void zlahqr(
   // I1 and I2 are the indices of the first row and last column of H
   // to which transformations must be applied. If eigenvalues only are
   // being computed, I1 and I2 are set inside the main loop.
-
   if (WANTT) {
     I1 = 1;
     I2 = N;
   }
 
   // ITMAX is the total number of QR iterations allowed.
-
   ITMAX = 30 * max(10, NH);
 
   // KDEFL counts the number of iterations since a deflation
-
   KDEFL = 0;
 
   // The main loop begins here. I is the loop index and decreases from
@@ -129,7 +121,6 @@ void zlahqr(
   // with the active submatrix in rows and columns L to I.
   // Eigenvalues I+1 to IHI have already converged. Either L = ILO, or
   // H(L,L-1) is negligible so that the matrix splits.
-
   I = IHI;
   while (true) {
     if (I < ILO) break;
@@ -137,12 +128,10 @@ void zlahqr(
     // Perform QR iterations on rows and columns ILO to I until a
     // submatrix of order 1 splits off at the bottom because a
     // subdiagonal element has become negligible.
-
     L = ILO;
     var converged = false;
     for (ITS = 0; ITS <= ITMAX; ITS++) {
       // Look for a single small subdiagonal element.
-
       for (K = I; K >= L + 1; K--) {
         if (H[K][K - 1].cabs1() <= SMLNUM) break;
         TST = H[K - 1][K - 1].cabs1() + H[K][K].cabs1();
@@ -150,10 +139,10 @@ void zlahqr(
           if (K - 2 >= ILO) TST += (H[K - 1][K - 2].real.abs());
           if (K + 1 <= IHI) TST += (H[K + 1][K].real.abs());
         }
-        // ==== The following is a conservative small subdiagonal
-        // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
-        // .    1997). It has better mathematical foundation and
-        // .    improves accuracy in some examples.  ====
+        // The following is a conservative small subdiagonal
+        // deflation criterion due to Ahues & Tisseur (LAWN 122,
+        // 1997). It has better mathematical foundation and
+        // improves accuracy in some examples.
         if (H[K][K - 1].real.abs() <= ULP * TST) {
           AB = max(H[K][K - 1].cabs1(), H[K - 1][K].cabs1());
           BA = min(H[K][K - 1].cabs1(), H[K - 1][K].cabs1());
@@ -166,12 +155,10 @@ void zlahqr(
       L = K;
       if (L > ILO) {
         // H(L,L-1) is negligible
-
         H[L][L - 1] = Complex.zero;
       }
 
       // Exit from loop if a submatrix of order 1 has split off.
-
       if (L >= I) {
         converged = true;
         break;
@@ -181,7 +168,6 @@ void zlahqr(
       // Now the active submatrix is in rows and columns L to I. If
       // eigenvalues only are being computed, only the active submatrix
       // need be transformed.
-
       if (!WANTT) {
         I1 = L;
         I2 = I;
@@ -189,17 +175,14 @@ void zlahqr(
 
       if ((KDEFL % (2 * KEXSH)) == 0) {
         // Exceptional shift.
-
         S = DAT1 * H[I][I - 1].real.abs();
         T = S.toComplex() + H[I][I];
       } else if ((KDEFL % KEXSH) == 0) {
         // Exceptional shift.
-
         S = DAT1 * H[L + 1][L].real.abs();
         T = S.toComplex() + H[L][L];
       } else {
         // Wilkinson's shift.
-
         T = H[I][I];
         U = H[I - 1][I].sqrt() * H[I][I - 1].sqrt();
         S = U.cabs1();
@@ -224,7 +207,6 @@ void zlahqr(
         // Determine the effect of starting the single-shift QR
         // iteration at row M, and see if this would make H(M,M-1)
         // negligible.
-
         H11 = H[M][M];
         H22 = H[M + 1][M + 1];
         H11S = H11 - T;
@@ -254,7 +236,6 @@ void zlahqr(
       }
 
       // Single-shift QR step
-
       for (K = M; K <= I - 1; K++) {
         // The first iteration of this loop determines a reflection G
         // from the vector V and applies it from left and right to H,
@@ -267,7 +248,6 @@ void zlahqr(
 
         // V(2) is always real before the call to ZLARFG, and hence
         // after the call T2 ( = T1*V(2) ) is also real.
-
         if (K > M) zcopy(2, H(K, K - 1).asArray(), 1, V, 1);
         zlarfg(2, V(1), V(2), 1, T1);
         if (K > M) {
@@ -279,7 +259,6 @@ void zlahqr(
 
         // Apply G from the left to transform the rows of the matrix
         // in columns K to I2.
-
         for (J = K; J <= I2; J++) {
           SUM = T1.value.conjugate() * H[K][J] + T2.toComplex() * H[K + 1][J];
           H[K][J] -= SUM;
@@ -288,7 +267,6 @@ void zlahqr(
 
         // Apply G from the right to transform the columns of the
         // matrix in rows I1 to min(K+2,I).
-
         for (J = I1; J <= min(K + 2, I); J++) {
           SUM = T1.value * H[J][K] + T2.toComplex() * H[J][K + 1];
           H[J][K] -= SUM;
@@ -297,7 +275,6 @@ void zlahqr(
 
         if (WANTZ) {
           // Accumulate transformations in the matrix Z
-
           for (J = ILOZ; J <= IHIZ; J++) {
             SUM = T1.value * Z[J][K] + T2.toComplex() * Z[J][K + 1];
             Z[J][K] -= SUM;
@@ -310,7 +287,6 @@ void zlahqr(
           // consecutive small subdiagonals were found, then extra
           // scaling must be performed to ensure that H(M,M-1) remains
           // real.
-
           TEMP = Complex.one - T1.value;
           TEMP /= TEMP.abs().toComplex();
           H[M + 1][M] *= TEMP.conjugate();
@@ -328,7 +304,6 @@ void zlahqr(
       }
 
       // Ensure that H(I,I-1) is real.
-
       TEMP = H[I][I - 1];
       if (TEMP.imaginary != RZERO) {
         RTEMP = TEMP.abs();
@@ -344,19 +319,16 @@ void zlahqr(
 
     if (!converged) {
       // Failure to converge in remaining number of iterations
-
       INFO.value = I;
       return;
     }
 
     // H(I,I-1) is negligible: one eigenvalue has converged.
-
     W[I] = H[I][I];
     // reset deflation counter
     KDEFL = 0;
 
     // return to start of the main loop with new value of I.
-
     I = L - 1;
   }
 }

@@ -19,9 +19,6 @@ double dqrt11(
   final Array<double> WORK_,
   final int LWORK,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final TAU = TAU_.having();
   final WORK = WORK_.having(length: LWORK);

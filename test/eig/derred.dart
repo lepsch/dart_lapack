@@ -23,9 +23,6 @@ import 'common.dart';
 import 'dslect.dart';
 
 void derred(final String PATH, final Nout NUNIT, final TestDriver test) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4, ONE = 1.0, ZERO = 0.0;
   int NT;
   final ABNRM = Box(0.0);

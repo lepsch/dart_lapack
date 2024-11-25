@@ -8,9 +8,6 @@ import 'package:dart_lapack/src/lsamen.dart';
 import 'package:dart_lapack/src/nio.dart';
 
 void dlahd2(final Nout IOUNIT, final String PATH) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool CORZ, SORD;
   String C2;
 

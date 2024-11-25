@@ -25,10 +25,6 @@ void dlaqgb(
   final AB = AB_.having(ld: LDAB);
   final C = C_.having();
   final R = R_.having();
-
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, THRESH = 0.1;
   int I, J;
   double CJ, LARGE, SMALL;

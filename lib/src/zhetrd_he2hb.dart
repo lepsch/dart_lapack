@@ -36,10 +36,6 @@ void zhetrd_he2hb(
   final AB = AB_.having(ld: LDAB);
   final TAU = TAU_.having();
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const RONE = 1.0, HALF = Complex(0.5, 0.0);
   bool LQUERY, UPPER;
   int I,
@@ -64,7 +60,6 @@ void zhetrd_he2hb(
 
   // Determine the minimal workspace size required
   // and test the input parameters
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   LQUERY = (LWORK == -1);
@@ -98,7 +93,6 @@ void zhetrd_he2hb(
 
   // Quick return if possible
   // Copy the upper/lower portion of A into AB
-
   if (N <= KD + 1) {
     if (UPPER) {
       for (I = 1; I <= N; I++) {
@@ -117,7 +111,6 @@ void zhetrd_he2hb(
   }
 
   // Determine the pointer position for the workspace
-
   LDT = KD;
   LDS1 = KD;
   LT = LDT * KD;
@@ -139,7 +132,6 @@ void zhetrd_he2hb(
 
   // Set the workspace of the triangular matrix T to zero once such a
   // way every time T is generated the upper/lower portion will be always zero
-
   zlaset(
       'A', LDT, KD, Complex.zero, Complex.zero, WORK(TPOS).asMatrix(LDT), LDT);
 
@@ -149,11 +141,9 @@ void zhetrd_he2hb(
       PK = min(N - I - KD + 1, KD);
 
       // Compute the LQ factorization of the current block
-
       zgelqf(KD, PN, A(I, I + KD), LDA, TAU(I), WORK(S2POS), LS2, IINFO);
 
       // Copy the upper portion of A into AB
-
       for (J = I; J <= I + PK - 1; J++) {
         LK = min(KD, N - J) + 1;
         zcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
@@ -162,12 +152,10 @@ void zhetrd_he2hb(
       zlaset('Lower', PK, PK, Complex.zero, Complex.one, A(I, I + KD), LDA);
 
       // Form the matrix T
-
       zlarft('Forward', 'Rowwise', PN, PK, A(I, I + KD), LDA, TAU(I),
           WORK(TPOS).asMatrix(LDT), LDT);
 
       // Compute W:
-
       zgemm(
           'Conjugate',
           'No transpose',
@@ -229,30 +217,25 @@ void zhetrd_he2hb(
 
       // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
       // an update of the form:  A := A - V'*W - W'*V
-
       zher2k(UPLO, 'Conjugate', PN, PK, -Complex.one, A(I, I + KD), LDA,
           WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
     }
 
     // Copy the upper band to AB which is the band storage matrix
-
     for (J = N - KD + 1; J <= N; J++) {
       LK = min(KD, N - J) + 1;
       zcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
     }
   } else {
     // Reduce the lower triangle of A to lower band matrix
-
     for (I = 1; I <= N - KD; I += KD) {
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 
       // Compute the QR factorization of the current block
-
       zgeqrf(PN, KD, A(I + KD, I), LDA, TAU(I), WORK(S2POS), LS2, IINFO);
 
       // Copy the upper portion of A into AB
-
       for (J = I; J <= I + PK - 1; J++) {
         LK = min(KD, N - J) + 1;
         zcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);
@@ -261,12 +244,10 @@ void zhetrd_he2hb(
       zlaset('Upper', PK, PK, Complex.zero, Complex.one, A(I + KD, I), LDA);
 
       // Form the matrix T
-
       zlarft('Forward', 'Columnwise', PN, PK, A(I + KD, I), LDA, TAU(I),
           WORK(TPOS).asMatrix(LDT), LDT);
 
       // Compute W:
-
       zgemm(
           'No transpose',
           'No transpose',
@@ -328,20 +309,16 @@ void zhetrd_he2hb(
 
       // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
       // an update of the form:  A := A - V*W' - W*V'
-
       zher2k(UPLO, 'No transpose', PN, PK, -Complex.one, A(I + KD, I), LDA,
           WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
-      // ==================================================================
       // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
       //  DO 45 J = I, I+PK-1
       //     LK = min( KD, N-J ) + 1
       //     CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
       // 45        CONTINUE
-      // ==================================================================
     }
 
     // Copy the lower band to AB which is the band storage matrix
-
     for (J = N - KD + 1; J <= N; J++) {
       LK = min(KD, N - J) + 1;
       zcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);

@@ -26,10 +26,6 @@ void ztzrzf(
   final A = A_.having(ld: LDA);
   final TAU = TAU_.having();
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool LQUERY;
   int I,
       IB,

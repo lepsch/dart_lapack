@@ -54,10 +54,6 @@ void zchkpo(
   final XACT = XACT_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NTYPES = 9, NTESTS = 8;
   final ISEED = Array<int>(4);
   final RESULT = Array<double>(NTESTS);
@@ -358,10 +354,5 @@ void zchkpo(
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, NERRS.value);
-
-//  9999 FORMAT( ;
-//  9998 FORMAT( ;
-//  9997 FORMAT( ;
 }

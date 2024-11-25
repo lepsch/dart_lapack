@@ -30,10 +30,6 @@ void zsytrs2(
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool UPPER;
   int I, J, K, KP;
   Complex AK, AKM1, AKM1K, BK, BKM1, DENOM;
@@ -90,11 +86,11 @@ void zsytrs2(
       }
     }
 
-// Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
+    // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
     ztrsm('L', 'U', 'N', 'U', N, NRHS, Complex.one, A, LDA, B, LDB);
 
-// Compute D \ B -> B   [ D \ (U \P**T * B) ]
+    // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
     I = N;
     while (I >= 1) {
@@ -169,11 +165,11 @@ void zsytrs2(
       }
     }
 
-// Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
+    // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
     ztrsm('L', 'L', 'N', 'U', N, NRHS, Complex.one, A, LDA, B, LDB);
 
-// Compute D \ B -> B   [ D \ (L \P**T * B) ]
+    // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
     I = 1;
     while (I <= N) {
@@ -195,7 +191,7 @@ void zsytrs2(
       I++;
     }
 
-// Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
+    // Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
     ztrsm('L', 'L', 'T', 'U', N, NRHS, Complex.one, A, LDA, B, LDB);
 

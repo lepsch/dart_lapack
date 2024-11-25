@@ -39,9 +39,6 @@ void dgsvj1(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final D = D_.having();
   final SVA = SVA_.having();
@@ -92,7 +89,6 @@ void dgsvj1(
   final T = Box(0.0), AAPP = Box(0.0), AAQQ = Box(0.0);
 
   // Test the input parameters.
-
   APPLV = lsame(JOBV, 'A');
   RSVEC = lsame(JOBV, 'V');
   if (!(RSVEC || APPLV || lsame(JOBV, 'N'))) {
@@ -119,7 +115,6 @@ void dgsvj1(
     INFO.value = 0;
   }
 
-  // #:(
   if (INFO.value != 0) {
     xerbla('DGSVJ1', -INFO.value);
     return;
@@ -141,27 +136,23 @@ void dgsvj1(
   BIGTHETA = ONE / ROOTEPS;
   ROOTTOL = sqrt(TOL);
 
-  // .. Initialize the right singular vector matrix ..
+  // Initialize the right singular vector matrix
 
   // RSVEC = lsame( JOBV, 'Y' )
-
   EMPTSW = N1 * (N - N1);
   NOTROT = 0;
   FASTR[1] = ZERO;
 
-  // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
-
+  // Row-cyclic pivot strategy with de Rijk's pivoting
   KBL = min(8, N);
   NBLR = N1 ~/ KBL;
   if ((NBLR * KBL) != N1) NBLR++;
 
-  // .. the tiling is NBLR-by-NBLC [tiles]
-
+  // the tiling is NBLR-by-NBLC [tiles]
   NBLC = (N - N1) ~/ KBL;
   if ((NBLC * KBL) != (N - N1)) NBLC++;
   BLSKIP = pow(KBL, 2).toInt() + 1;
   // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
-
   ROWSKIP = min(5, KBL);
   // [TP] ROWSKIP is a tuning parameter.
   SWBAND = 0;
@@ -175,11 +166,8 @@ void dgsvj1(
   // |[x] [x] [x] *   *   * |
   // |[x] [x] [x] *   *   * |
   // |[x] [x] [x] *   *   * |
-
   var isBelowTolerance = false;
   for (i = 1; i <= NSWEEP; i++) {
-    // .. go go go ...
-
     MXAAPQ = ZERO;
     MXSINJ = ZERO;
     ISWROT = 0;
@@ -190,9 +178,7 @@ void dgsvj1(
     for (ibr = 1; ibr <= NBLR; ibr++) {
       igl = (ibr - 1) * KBL + 1;
 
-// ........................................................
-// ... go to the off diagonal blocks
-
+      // go to the off diagonal blocks
       igl = (ibr - 1) * KBL + 1;
 
       jbcLoop:
@@ -200,7 +186,6 @@ void dgsvj1(
         jgl = N1 + (jbc - 1) * KBL + 1;
 
         // doing the block at ( ibr, jbc )
-
         IJBLSK = 0;
         for (p = igl; p <= min(igl + KBL - 1, N1); p++) {
           AAPP.value = SVA[p];
@@ -214,10 +199,9 @@ void dgsvj1(
               if (AAQQ.value > ZERO) {
                 AAPP0 = AAPP.value;
 
-                // .. M x 2 Jacobi SVD ..
+                // M x 2 Jacobi SVD
 
-                // .. Safe Gram matrix computation ..
-
+                // Safe Gram matrix computation
                 if (AAQQ.value >= ONE) {
                   if (AAPP.value >= AAQQ.value) {
                     ROTOK = (SMALL * AAPP.value) <= AAQQ.value;
@@ -264,8 +248,7 @@ void dgsvj1(
 
                 MXAAPQ = max(MXAAPQ, AAPQ.abs());
 
-                // TO rotate or NOT to rotate, THAT is the question ...
-
+                // TO rotate or NOT to rotate, THAT is the question .
                 if (AAPQ.abs() > TOL) {
                   NOTROT = 0;
                   // ROTATED++
@@ -294,8 +277,7 @@ void dgsvj1(
                           sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
                       MXSINJ = max(MXSINJ, T.value.abs());
                     } else {
-                      // .. choose correct signum for THETA and rotate
-
+                      // choose correct signum for THETA and rotate
                       THSIGN = -sign(ONE, AAPQ);
                       if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
                       T.value =
@@ -411,7 +393,7 @@ void dgsvj1(
                   // END if ROTOK THEN ... ELSE
 
                   // In the case of cancellation in updating SVA[q]
-                  // .. recompute SVA[q]
+                  // recompute SVA[q]
                   if (pow(SVA[q] / AAQQ.value, 2) <= ROOTEPS) {
                     if ((AAQQ.value < ROOTBIG) && (AAQQ.value > ROOTSFMIN)) {
                       SVA[q] = dnrm2(M, A(1, q).asArray(), 1) * D[q];
@@ -479,7 +461,7 @@ void dgsvj1(
     }
     // end of the ibr-loop
 
-    // .. update SVA[N]
+    // update SVA[N]
     if ((SVA[N] < ROOTBIG) && (SVA[N] > ROOTSFMIN)) {
       SVA[N] = dnrm2(M, A(1, N).asArray(), 1) * D[N];
     } else {
@@ -490,7 +472,6 @@ void dgsvj1(
     }
 
     // Additional steering devices
-
     if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
     if ((i > SWBAND + 1) && (MXAAPQ < N * TOL) && (N * MXAAPQ * MXSINJ < TOL)) {
       isBelowTolerance = true;
@@ -504,19 +485,18 @@ void dgsvj1(
   }
   // end i=1:NSWEEP loop
   if (!isBelowTolerance) {
-    // #:) Reaching this point means that the procedure has completed the given
+    // Reaching this point means that the procedure has completed the given
     // number of sweeps.
     INFO.value = NSWEEP - 1;
   } else {
-    // #:) Reaching this point means that during the i-th sweep all pivots were
+    // Reaching this point means that during the i-th sweep all pivots were
     // below the given threshold, causing early exit.
 
     INFO.value = 0;
-    // #:) INFO = 0 confirms successful iterations.
+    // INFO = 0 confirms successful iterations.
   }
 
   // Sort the vector D
-
   for (p = 1; p <= N - 1; p++) {
     q = idamax(N - p + 1, SVA(p), 1) + p - 1;
     if (p != q) {

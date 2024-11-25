@@ -16,9 +16,6 @@ void dtptri(
   final Array<double> AP_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   const ONE = 1.0, ZERO = 0.0;
   bool NOUNIT, UPPER;

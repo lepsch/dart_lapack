@@ -34,9 +34,6 @@ void dlasq3(
   final Box<double> G,
   final Box<double> TAU,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Z = Z_.having();
   const CBIAS = 1.50;
   const ZERO = 0.0,

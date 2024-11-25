@@ -17,9 +17,6 @@ void zlaesy(
   final Box<Complex> CS1,
   final Box<Complex> SN1,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   const ONE = 1.0;
   const HALF = 0.5;

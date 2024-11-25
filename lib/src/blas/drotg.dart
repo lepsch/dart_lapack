@@ -16,10 +16,6 @@ void drotg(
   final Box<double> c,
   final Box<double> s,
 ) {
-// -- Reference BLAS level1 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const zero = 0.0, one = 1.0;
 
   final safmin =

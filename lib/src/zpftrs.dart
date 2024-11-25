@@ -23,10 +23,6 @@ void zpftrs(
 ) {
   final A = A_.having(offset: zeroIndexedArrayOffset);
   final B = B_.having(ld: LDB);
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool LOWER, NORMALTRANSR;
 
   // Test the input parameters.

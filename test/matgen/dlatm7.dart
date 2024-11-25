@@ -22,9 +22,6 @@ void dlatm7(
   final int RANK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final ISEED = ISEED_.having();
   final D = D_.having();
   const ONE = 1.0;

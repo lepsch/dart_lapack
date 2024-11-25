@@ -22,9 +22,6 @@ void ztbt06(
   final Array<double> RWORK_,
   final Box<double> RAT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AB = AB_.having(ld: LDAB);
   final RWORK = RWORK_.having();
   const ZERO = 0.0, ONE = 1.0;

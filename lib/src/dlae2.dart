@@ -13,9 +13,6 @@ void dlae2(
   final Box<double> RT1,
   final Box<double> RT2,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
   const TWO = 2.0;
   const ZERO = 0.0;

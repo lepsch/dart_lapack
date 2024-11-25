@@ -8,9 +8,6 @@ import 'package:dart_lapack/src/complex.dart';
 import 'package:dart_lapack/src/matrix.dart';
 
 bool zgennd(final int M, final int N, final Matrix<Complex> A_, final int LDA) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   const ZERO = 0.0;
 

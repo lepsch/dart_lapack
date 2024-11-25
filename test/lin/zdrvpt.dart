@@ -45,10 +45,6 @@ void zdrvpt(
   final XACT = XACT_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   const NTYPES = 12, NTESTS = 6;
   final ISEED = Array<int>(4);

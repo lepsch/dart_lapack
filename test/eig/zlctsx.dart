@@ -7,10 +7,6 @@ import 'package:dart_lapack/src/complex.dart';
 import 'common.dart';
 
 bool zlctsx(final Complex ALPHA, final Complex BETA) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   bool result;
   if (mn.FS) {
     mn.I++;

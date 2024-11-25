@@ -23,9 +23,6 @@ int _ilaenv2stage(
   final int N3,
   final int N4,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int IISPEC;
   switch (ISPEC) {
     case 1:

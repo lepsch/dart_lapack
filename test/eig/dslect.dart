@@ -7,9 +7,6 @@ import 'package:dart_lapack/src/dlapy2.dart';
 import 'common.dart';
 
 bool dslect(final double ZR, final double ZI) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I;
   double RMIN, X;
   const ZERO = 0.0;

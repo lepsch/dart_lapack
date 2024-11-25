@@ -24,9 +24,6 @@ void zunhr_col(
   final Array<Complex> D_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final T = T_.having(ld: LDT);
   final D = D_.having();

@@ -15,9 +15,6 @@ void dla_lin_berr(
   final Matrix<double> AYB_,
   final Array<double> BERR_,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final RES = RES_.having(ld: N);
   final AYB = AYB_.having(ld: N);
   final BERR = BERR_.having(length: NRHS);

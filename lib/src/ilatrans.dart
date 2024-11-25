@@ -5,9 +5,6 @@
 import 'package:dart_lapack/src/install/lsame.dart';
 
 int ilatrans(final String TRANS) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const BLAS_NO_TRANS = 111, BLAS_TRANS = 112, BLAS_CONJ_TRANS = 113;
 
   if (lsame(TRANS, 'N')) {

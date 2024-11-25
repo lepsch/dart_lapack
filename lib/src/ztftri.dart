@@ -18,9 +18,6 @@ void ztftri(
   final Array<Complex> A_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(offset: zeroIndexedArrayOffset);
   bool LOWER, NISODD, NORMALTRANSR;
   int N1, N2, K = 0;

@@ -26,9 +26,6 @@ int _ilaenv(
   final int N3,
   final int N4,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int NB, NBMIN, NX;
   bool CNAME, SNAME, TWOSTAGE;
   String C1 = '', C2 = '', C4 = '', C3 = '', SUBNAM = '';

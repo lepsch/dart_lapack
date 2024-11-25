@@ -12,11 +12,10 @@ void main() {
   double ALPHA, AVG, T1, T2, TNOSEC, TOTAL;
   final X = Array<double>(NMAX), Y = Array<double>(NMAX);
 
-  // .. Figure TOTAL flops ..
+  // Figure TOTAL flops
   TOTAL = NMAX * ITS * 2.0;
 
   // Initialize X and Y
-
   for (I = 1; I <= NMAX; I++) {
     X[I] = 1 / I;
     Y[I] = (NMAX - I) / NMAX;
@@ -24,7 +23,6 @@ void main() {
   ALPHA = 0.315;
 
   // Time TOTAL SAXPY operations
-
   T1 = dsecnd();
   for (J = 1; J <= ITS; J++) {
     for (I = 1; I <= NMAX; I++) {
@@ -44,7 +42,6 @@ void main() {
   }
 
   // Time TOTAL DAXPY operations with dsecnd in the outer loop
-
   T1 = dsecnd();
   for (J = 1; J <= ITS; J++) {
     for (I = 1; I <= NMAX; I++) {
@@ -56,7 +53,6 @@ void main() {
 
   // Compute the time used in milliseconds used by an average call
   // to dsecnd.
-
   print(' Including dsecnd, time        = ${(T2 - T1).g10_3} seconds');
   AVG = ((T2 - T1) - TNOSEC) * 1000.0e+00 / ITS;
   if (AVG > 0.0) {
@@ -65,7 +61,6 @@ void main() {
 
   // Compute the equivalent number of floating point operations used
   // by an average call to dsecnd.
-
   if ((AVG > 0.0) && (TNOSEC > 0.0)) {
     print(
         ' Equivalent floating point ops = ${((AVG / 1000) * TOTAL / TNOSEC).g10_3} ops');

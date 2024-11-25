@@ -38,9 +38,6 @@ void dtrevc3(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final SELECT = SELECT_.having();
   final T = T_.having(ld: LDT);
   final VL = VL_.having(ld: LDVL);
@@ -69,7 +66,6 @@ void dtrevc3(
   final SCALE = Box(0.0), XNORM = Box(0.0);
 
   // Decode and test the input parameters
-
   BOTHV = lsame(SIDE, 'B');
   RIGHTV = lsame(SIDE, 'R') || BOTHV;
   LEFTV = lsame(SIDE, 'L') || BOTHV;
@@ -101,7 +97,6 @@ void dtrevc3(
     // Set M to the number of columns required to store the selected
     // eigenvectors, standardize the array SELECT if necessary, and
     // test MM.
-
     if (SOMEV) {
       M.value = 0;
       PAIR = false;
@@ -141,12 +136,10 @@ void dtrevc3(
   }
 
   // Quick return if possible.
-
   if (N == 0) return;
 
   // Use blocked version of back-transformation if sufficient workspace.
   // Zero-out the workspace to avoid potential NaN propagation.
-
   if (OVER && LWORK >= N + 2 * N * NBMIN) {
     NB = (LWORK - N) ~/ (2 * N);
     NB = min(NB, NBMAX);
@@ -156,7 +149,6 @@ void dtrevc3(
   }
 
   // Set the constants to control overflow.
-
   UNFL = dlamch('Safe minimum');
   ULP = dlamch('Precision');
   SMLNUM = UNFL * (N / ULP);
@@ -164,7 +156,6 @@ void dtrevc3(
 
   // Compute 1-norm of each column of strictly upper triangular
   // part of T to control overflow in triangular solver.
-
   WORK[1] = ZERO;
   for (J = 2; J <= N; J++) {
     WORK[J] = ZERO;
@@ -178,9 +169,7 @@ void dtrevc3(
   // 1, first  of conjugate complex pair: (wr,wi)
   // -1, second of conjugate complex pair: (wr,wi)
   // ISCOMPLEX array stores IP for each column in current block.
-
   if (RIGHTV) {
-    // ============================================================
     // Compute right eigenvectors.
 
     // IV is index of column in current block.
@@ -221,7 +210,6 @@ void dtrevc3(
       }
 
       // Compute the KI-th eigenvalue (WR,WI).
-
       WR = T[KI][KI];
       WI = ZERO;
       if (IP != 0) {
@@ -230,20 +218,16 @@ void dtrevc3(
       SMIN = max(ULP * (WR.abs() + WI.abs()), SMLNUM);
 
       if (IP == 0) {
-        // --------------------------------------------------------
         // Real right eigenvector
-
         WORK[KI + IV * N] = ONE;
 
         // Form right-hand side.
-
         for (K = 1; K <= KI - 1; K++) {
           WORK[K + IV * N] = -T[K][KI];
         }
 
         // Solve upper quasi-triangular system:
         // [ T[1:KI-1][1:KI-1] - WR ]*X = SCALE*WORK.
-
         JNXT = KI - 1;
         for (J = KI - 1; J >= 1; J--) {
           if (J > JNXT) continue;
@@ -259,7 +243,6 @@ void dtrevc3(
 
           if (J1 == J2) {
             // 1-by-1 diagonal block
-
             dlaln2(
                 false,
                 1,
@@ -282,7 +265,6 @@ void dtrevc3(
 
             // Scale X[1][1] to avoid overflow when updating
             // the right-hand side.
-
             if (XNORM.value > ONE) {
               if (WORK[J] > BIGNUM / XNORM.value) {
                 X[1][1] /= XNORM.value;
@@ -291,16 +273,13 @@ void dtrevc3(
             }
 
             // Scale if necessary
-
             if (SCALE.value != ONE) dscal(KI, SCALE.value, WORK(1 + IV * N), 1);
             WORK[J + IV * N] = X[1][1];
 
             // Update right-hand side
-
             daxpy(J - 1, -X[1][1], T(1, J).asArray(), 1, WORK(1 + IV * N), 1);
           } else {
             // 2-by-2 diagonal block
-
             dlaln2(
                 false,
                 2,
@@ -323,7 +302,6 @@ void dtrevc3(
 
             // Scale X[1][1] and X[2][1] to avoid overflow when
             // updating the right-hand side.
-
             if (XNORM.value > ONE) {
               BETA = max(WORK[J - 1], WORK[J]);
               if (BETA > BIGNUM / XNORM.value) {
@@ -334,13 +312,11 @@ void dtrevc3(
             }
 
             // Scale if necessary
-
             if (SCALE.value != ONE) dscal(KI, SCALE.value, WORK(1 + IV * N), 1);
             WORK[J - 1 + IV * N] = X[1][1];
             WORK[J + IV * N] = X[2][1];
 
             // Update right-hand side
-
             daxpy(
                 J - 2, -X[1][1], T(1, J - 1).asArray(), 1, WORK(1 + IV * N), 1);
             daxpy(J - 2, -X[2][1], T(1, J).asArray(), 1, WORK(1 + IV * N), 1);
@@ -348,9 +324,7 @@ void dtrevc3(
         }
 
         // Copy the vector x or Q*x to VR and normalize.
-
         if (!OVER) {
-          // ------------------------------
           // no back-transform: copy x to VR and normalize.
           dcopy(KI, WORK(1 + IV * N), 1, VR(1, IS).asArray(), 1);
 
@@ -362,7 +336,6 @@ void dtrevc3(
             VR[K][IS] = ZERO;
           }
         } else if (NB == 1) {
-          // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI > 1) {
             dgemv('N', N, KI - 1, ONE, VR, LDVR, WORK(1 + IV * N), 1,
@@ -373,7 +346,6 @@ void dtrevc3(
           REMAX = ONE / VR[II][KI].abs();
           dscal(N, REMAX, VR(1, KI).asArray(), 1);
         } else {
-          // ------------------------------
           // version 2: back-transform block of vectors with GEMM
           // zero out below vector
           for (K = KI + 1; K <= N; K++) {
@@ -383,13 +355,11 @@ void dtrevc3(
           // back-transform and normalization is done below
         }
       } else {
-        // --------------------------------------------------------
         // Complex right eigenvector.
 
         // Initial solve
         // [ ( T[KI-1][KI-1] T[KI-1][KI] ) - (WR + I*WI) ]*X = 0.
         // [ ( T[KI][  KI-1] T[KI][  KI] )               ]
-
         if (T[KI - 1][KI].abs() >= T[KI][KI - 1].abs()) {
           WORK[KI - 1 + (IV - 1) * N] = ONE;
           WORK[KI + IV * N] = WI / T[KI - 1][KI];
@@ -401,7 +371,6 @@ void dtrevc3(
         WORK[KI - 1 + IV * N] = ZERO;
 
         // Form right-hand side.
-
         for (K = 1; K <= KI - 2; K++) {
           WORK[K + (IV - 1) * N] = -WORK[KI - 1 + (IV - 1) * N] * T[K][KI - 1];
           WORK[K + IV * N] = -WORK[KI + IV * N] * T[K][KI];
@@ -409,7 +378,6 @@ void dtrevc3(
 
         // Solve upper quasi-triangular system:
         // [ T[1:KI-2][1:KI-2] - (WR+i*WI) ]*X = SCALE*(WORK+i*WORK2)
-
         JNXT = KI - 2;
         for (J = KI - 2; J >= 1; J--) {
           if (J > JNXT) continue;
@@ -425,7 +393,6 @@ void dtrevc3(
 
           if (J1 == J2) {
             // 1-by-1 diagonal block
-
             dlaln2(
                 false,
                 1,
@@ -448,7 +415,6 @@ void dtrevc3(
 
             // Scale X[1][1] and X[1][2] to avoid overflow when
             // updating the right-hand side.
-
             if (XNORM.value > ONE) {
               if (WORK[J] > BIGNUM / XNORM.value) {
                 X[1][1] /= XNORM.value;
@@ -458,7 +424,6 @@ void dtrevc3(
             }
 
             // Scale if necessary
-
             if (SCALE.value != ONE) {
               dscal(KI, SCALE.value, WORK(1 + (IV - 1) * N), 1);
               dscal(KI, SCALE.value, WORK(1 + IV * N), 1);
@@ -467,13 +432,11 @@ void dtrevc3(
             WORK[J + IV * N] = X[1][2];
 
             // Update the right-hand side
-
             daxpy(J - 1, -X[1][1], T(1, J).asArray(), 1, WORK(1 + (IV - 1) * N),
                 1);
             daxpy(J - 1, -X[1][2], T(1, J).asArray(), 1, WORK(1 + IV * N), 1);
           } else {
             // 2-by-2 diagonal block
-
             dlaln2(
                 false,
                 2,
@@ -496,7 +459,6 @@ void dtrevc3(
 
             // Scale X to avoid overflow when updating
             // the right-hand side.
-
             if (XNORM.value > ONE) {
               BETA = max(WORK[J - 1], WORK[J]);
               if (BETA > BIGNUM / XNORM.value) {
@@ -510,7 +472,6 @@ void dtrevc3(
             }
 
             // Scale if necessary
-
             if (SCALE.value != ONE) {
               dscal(KI, SCALE.value, WORK(1 + (IV - 1) * N), 1);
               dscal(KI, SCALE.value, WORK(1 + IV * N), 1);
@@ -521,7 +482,6 @@ void dtrevc3(
             WORK[J + IV * N] = X[2][2];
 
             // Update the right-hand side
-
             daxpy(J - 2, -X[1][1], T(1, J - 1).asArray(), 1,
                 WORK(1 + (IV - 1) * N), 1);
             daxpy(J - 2, -X[2][1], T(1, J).asArray(), 1, WORK(1 + (IV - 1) * N),
@@ -533,9 +493,7 @@ void dtrevc3(
         }
 
         // Copy the vector x or Q*x to VR and normalize.
-
         if (!OVER) {
-          // ------------------------------
           // no back-transform: copy x to VR and normalize.
           dcopy(KI, WORK(1 + (IV - 1) * N), 1, VR(1, IS - 1).asArray(), 1);
           dcopy(KI, WORK(1 + IV * N), 1, VR(1, IS).asArray(), 1);
@@ -553,7 +511,6 @@ void dtrevc3(
             VR[K][IS] = ZERO;
           }
         } else if (NB == 1) {
-          // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI > 2) {
             dgemv('N', N, KI - 2, ONE, VR, LDVR, WORK(1 + (IV - 1) * N), 1,
@@ -573,7 +530,6 @@ void dtrevc3(
           dscal(N, REMAX, VR(1, KI - 1).asArray(), 1);
           dscal(N, REMAX, VR(1, KI).asArray(), 1);
         } else {
-          // ------------------------------
           // version 2: back-transform block of vectors with GEMM
           // zero out below vector
           for (K = KI + 1; K <= N; K++) {
@@ -588,7 +544,6 @@ void dtrevc3(
       }
 
       if (NB > 1) {
-        // --------------------------------------------------------
         // Blocked version of back-transform
         // For complex case, KI2 includes both vectors (KI-1 and KI)
         if (IP == 0) {
@@ -651,7 +606,6 @@ void dtrevc3(
   }
 
   if (LEFTV) {
-    // ============================================================
     // Compute left eigenvectors.
 
     // IV is index of column in current block.
@@ -684,7 +638,6 @@ void dtrevc3(
       }
 
       // Compute the KI-th eigenvalue (WR,WI).
-
       WR = T[KI][KI];
       WI = ZERO;
       if (IP != 0) {
@@ -693,20 +646,16 @@ void dtrevc3(
       SMIN = max(ULP * (WR.abs() + WI.abs()), SMLNUM);
 
       if (IP == 0) {
-        // --------------------------------------------------------
         // Real left eigenvector
-
         WORK[KI + IV * N] = ONE;
 
         // Form right-hand side.
-
         for (K = KI + 1; K <= N; K++) {
           WORK[K + IV * N] = -T[KI][K];
         }
 
         // Solve transposed quasi-triangular system:
         // [ T[KI+1:N][KI+1:N] - WR ]**T * X = SCALE*WORK
-
         VMAX = ONE;
         VCRIT = BIGNUM;
 
@@ -728,7 +677,6 @@ void dtrevc3(
 
             // Scale if necessary to avoid overflow when forming
             // the right-hand side.
-
             if (WORK[J] > VCRIT) {
               REC = ONE / VMAX;
               dscal(N - KI + 1, REC, WORK(KI + IV * N), 1);
@@ -740,7 +688,6 @@ void dtrevc3(
                 WORK(KI + 1 + IV * N), 1);
 
             // Solve [ T[J][J] - WR ]**T * X = WORK
-
             dlaln2(
                 false,
                 1,
@@ -762,7 +709,6 @@ void dtrevc3(
                 IERR);
 
             // Scale if necessary
-
             if (SCALE.value != ONE) {
               dscal(N - KI + 1, SCALE.value, WORK(KI + IV * N), 1);
             }
@@ -774,7 +720,6 @@ void dtrevc3(
 
             // Scale if necessary to avoid overflow when forming
             // the right-hand side.
-
             BETA = max(WORK[J], WORK[J + 1]);
             if (BETA > VCRIT) {
               REC = ONE / VMAX;
@@ -792,7 +737,6 @@ void dtrevc3(
             // Solve
             // [ T[J][J]-WR   T[J][J+1]      ]**T * X = SCALE*( WORK1 )
             // [ T[J+1][J]    T[J+1][J+1]-WR ]                ( WORK2 )
-
             dlaln2(
                 true,
                 2,
@@ -814,7 +758,6 @@ void dtrevc3(
                 IERR);
 
             // Scale if necessary
-
             if (SCALE.value != ONE) {
               dscal(N - KI + 1, SCALE.value, WORK(KI + IV * N), 1);
             }
@@ -828,9 +771,7 @@ void dtrevc3(
         }
 
         // Copy the vector x or Q*x to VL and normalize.
-
         if (!OVER) {
-          // ------------------------------
           // no back-transform: copy x to VL and normalize.
           dcopy(N - KI + 1, WORK(KI + IV * N), 1, VL(KI, IS).asArray(), 1);
 
@@ -842,7 +783,6 @@ void dtrevc3(
             VL[K][IS] = ZERO;
           }
         } else if (NB == 1) {
-          // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI < N) {
             dgemv(
@@ -863,7 +803,6 @@ void dtrevc3(
           REMAX = ONE / VL[II][KI].abs();
           dscal(N, REMAX, VL(1, KI).asArray(), 1);
         } else {
-          // ------------------------------
           // version 2: back-transform block of vectors with GEMM
           // zero out above vector
           // could go from KI-NV+1 to KI-1
@@ -874,13 +813,11 @@ void dtrevc3(
           // back-transform and normalization is done below
         }
       } else {
-        // --------------------------------------------------------
         // Complex left eigenvector.
 
         // Initial solve:
         // [ ( T[KI][KI]    T[KI][KI+1]  )**T - (WR - I* WI) ]*X = 0.
         // [ ( T[KI+1][KI] T[KI+1][KI+1] )                   ]
-
         if (T[KI][KI + 1].abs() >= T[KI + 1][KI].abs()) {
           WORK[KI + IV * N] = WI / T[KI][KI + 1];
           WORK[KI + 1 + (IV + 1) * N] = ONE;
@@ -892,7 +829,6 @@ void dtrevc3(
         WORK[KI + (IV + 1) * N] = ZERO;
 
         // Form right-hand side.
-
         for (K = KI + 2; K <= N; K++) {
           WORK[K + IV * N] = -WORK[KI + IV * N] * T[KI][K];
           WORK[K + (IV + 1) * N] = -WORK[KI + 1 + (IV + 1) * N] * T[KI + 1][K];
@@ -900,7 +836,6 @@ void dtrevc3(
 
         // Solve transposed quasi-triangular system:
         // [ T[KI+2:N][KI+2:N]**T - (WR-i*WI) ]*X = WORK1+i*WORK2
-
         VMAX = ONE;
         VCRIT = BIGNUM;
 
@@ -922,7 +857,6 @@ void dtrevc3(
 
             // Scale if necessary to avoid overflow when
             // forming the right-hand side elements.
-
             if (WORK[J] > VCRIT) {
               REC = ONE / VMAX;
               dscal(N - KI + 1, REC, WORK(KI + IV * N), 1);
@@ -937,7 +871,6 @@ void dtrevc3(
                 1, WORK(KI + 2 + (IV + 1) * N), 1);
 
             // Solve [ T[J][J]-(WR-i*WI) ]*(X11+i*X12)= WK+I*WK2
-
             dlaln2(
                 false,
                 1,
@@ -959,7 +892,6 @@ void dtrevc3(
                 IERR);
 
             // Scale if necessary
-
             if (SCALE.value != ONE) {
               dscal(N - KI + 1, SCALE.value, WORK(KI + IV * N), 1);
               dscal(N - KI + 1, SCALE.value, WORK(KI + (IV + 1) * N), 1);
@@ -974,7 +906,6 @@ void dtrevc3(
 
             // Scale if necessary to avoid overflow when forming
             // the right-hand side elements.
-
             BETA = max(WORK[J], WORK[J + 1]);
             if (BETA > VCRIT) {
               REC = ONE / VMAX;
@@ -999,7 +930,6 @@ void dtrevc3(
             // Solve 2-by-2 complex linear equation
             // [ (T[j][j]   T[j][j+1]  )**T - (wr-i*wi)*I ]*X = SCALE*B
             // [ (T[j+1][j] T[j+1][j+1])                  ]
-
             dlaln2(
                 true,
                 2,
@@ -1021,7 +951,6 @@ void dtrevc3(
                 IERR);
 
             // Scale if necessary
-
             if (SCALE.value != ONE) {
               dscal(N - KI + 1, SCALE.value, WORK(KI + IV * N), 1);
               dscal(N - KI + 1, SCALE.value, WORK(KI + (IV + 1) * N), 1);
@@ -1041,9 +970,7 @@ void dtrevc3(
         }
 
         // Copy the vector x or Q*x to VL and normalize.
-
         if (!OVER) {
-          // ------------------------------
           // no back-transform: copy x to VL and normalize.
           dcopy(N - KI + 1, WORK(KI + IV * N), 1, VL(KI, IS).asArray(), 1);
           dcopy(N - KI + 1, WORK(KI + (IV + 1) * N), 1,
@@ -1062,7 +989,6 @@ void dtrevc3(
             VL[K][IS + 1] = ZERO;
           }
         } else if (NB == 1) {
-          // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI < N - 1) {
             dgemv(
@@ -1102,7 +1028,6 @@ void dtrevc3(
           dscal(N, REMAX, VL(1, KI).asArray(), 1);
           dscal(N, REMAX, VL(1, KI + 1).asArray(), 1);
         } else {
-          // ------------------------------
           // version 2: back-transform block of vectors with GEMM
           // zero out above vector
           // could go from KI-NV+1 to KI-1
@@ -1118,7 +1043,6 @@ void dtrevc3(
       }
 
       if (NB > 1) {
-        // --------------------------------------------------------
         // Blocked version of back-transform
         // For complex case, KI2 includes both vectors (KI and KI+1)
         if (IP == 0) {

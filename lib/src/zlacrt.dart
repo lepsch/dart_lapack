@@ -14,9 +14,6 @@ void zlacrt(
   final Complex C,
   final Complex S,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final CX = CX_.having();
   final CY = CY_.having();
   int I, IX, IY;

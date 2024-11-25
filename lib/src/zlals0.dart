@@ -43,9 +43,6 @@ void zlals0(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final B = B_.having(ld: LDB);
   final BX = BX_.having(ld: LDBX);
   final RWORK = RWORK_.having();
@@ -166,7 +163,7 @@ void zlals0(
         // is performed in two steps (real and imaginary parts).
 
         // CALL DGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO,
-// $                     B[ J][1 ], LDB )
+        // $                     B[ J][1 ], LDB )
 
         I = K + NRHS * 2;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {
@@ -243,7 +240,7 @@ void zlals0(
         // is performed in two steps (real and imaginary parts).
 
         // CALL DGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO,
-// $                     BX[ J][1 ], LDBX )
+        // $                     BX[ J][1 ], LDBX )
 
         I = K + NRHS * 2;
         for (JCOL = 1; JCOL <= NRHS; JCOL++) {

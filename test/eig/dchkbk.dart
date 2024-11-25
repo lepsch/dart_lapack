@@ -19,9 +19,6 @@ Future<void> dchkbk(
   final TestDriver test,
   final String group,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const LDE = 20;
   const ZERO = 0.0;
   final E = Matrix<double>(LDE, LDE),

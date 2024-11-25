@@ -41,9 +41,6 @@ import 'chkxer.dart';
 import 'common.dart';
 
 void derrsy(final String PATH, final Nout NUNIT, final TestDriver test) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4;
   final IP = Array<int>(NMAX), IW = Array<int>(NMAX);
   final A = Matrix<double>(NMAX, NMAX),

@@ -16,9 +16,6 @@ import 'package:dart_lapack/src/intrinsics/tiny.dart';
 import 'package:dart_lapack/src/matrix.dart';
 
 void main() {
-// -- LAPACK test routine --
-// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
   const debug = false;
   const N = 4, nNaN = 3, nInf = 5;
   const threeFourth = 3.0 / 4, fiveFourth = 5.0 / 4, oneHalf = 1.0 / 2;
@@ -40,7 +37,7 @@ void main() {
   Complex Y;
   final cInf = Array<Complex>(nInf), cNaN = Array<Complex>(nNaN);
 
-  // .. Initialize error counts ..
+  // Initialize error counts
   subnormalTreatedAs0 = 0;
   caseAFails = 0;
   caseBFails = 0;
@@ -51,7 +48,7 @@ void main() {
   nFailingTests = 0;
   nTests = 0;
 
-  // .. Initialize machine constants ..
+  // Initialize machine constants
   min = minexponent(0.0);
   Max = maxexponent(0.0);
   m = digits(0.0);
@@ -60,25 +57,25 @@ void main() {
   blueMin = pow(b, ((min - 1) * 0.5).ceil()).toDouble();
   blueMax = pow(b, ((Max - m + 1) * 0.5).floor()).toDouble();
 
-  // .. Vector X ..
+  // Vector X
   X[1] = tiny(0.0) * pow(b, 1 - m);
   X[2] = tiny(0.0);
   X[3] = huge(0.0);
   X[4] = pow(b, Max - 1).toDouble();
 
-  // .. Then modify X using the step ..
+  // Then modify X using the step
   stepX[1] = 2.0;
   stepX[2] = 2.0;
   stepX[3] = 0.0;
   stepX[4] = 0.5;
 
-  // .. Up to the value ..
+  // Up to the value
   limX[1] = X[2];
   limX[2] = 1.0;
   limX[3] = 0.0;
   limX[4] = 2.0;
 
-  // .. Inf entries ..
+  // Inf entries
   aInf = X[3] * 2;
   cInf[1] = Complex(aInf, 0.0);
   cInf[2] = Complex(-aInf, 0.0);
@@ -86,13 +83,13 @@ void main() {
   cInf[4] = Complex(0.0, -aInf);
   cInf[5] = Complex(aInf, aInf);
 
-  // .. NaN entries ..
+  // NaN entries
   aNaN = aInf / aInf;
   cNaN[1] = Complex(aNaN, 0.0);
   cNaN[2] = Complex(0.0, aNaN);
   cNaN[3] = Complex(aNaN, aNaN);
 
-  // .. Tests ..
+  // Tests
 
   // ignore: dead_code
   if (debug) {
@@ -283,13 +280,6 @@ void main() {
       (caseDFails > 0)) {
     print('# Please check the failed (a+b*I).abs() in [stderr]');
   }
-
-  // .. Formats ..
-//  9997 FORMAT(  );
-
-//  9998 FORMAT(  );
-
-//  9999 FORMAT(  );
 }
 
 void _print9999(

@@ -21,9 +21,6 @@ Future<void> zget36(
   final Box<int> KNT,
   final Nin NIN,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const LDT = 10, LWORK = 2 * LDT * LDT;
   int I, IFST, ILST, J, N;

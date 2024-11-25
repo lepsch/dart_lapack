@@ -15,9 +15,6 @@ void dladiv(
   final Box<double> P,
   final Box<double> Q,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const BS = 2.0, HALF = 0.5, TWO = 2.0;
 
   final AA = Box(A);
@@ -71,9 +68,6 @@ void dladiv1(
   final Box<double> P,
   final Box<double> Q,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
 
   final R = D / C;
@@ -91,9 +85,6 @@ double dladiv2(
   final double R,
   final double T,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
 
   if (R != ZERO) {

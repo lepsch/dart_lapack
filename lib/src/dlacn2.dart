@@ -17,9 +17,6 @@ void dlacn2(
   final Box<int> KASE,
   final Array<int> ISAVE,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having();
   final X = X_.having();
   final ISGN = ISGN_.having();
@@ -59,15 +56,13 @@ void dlacn2(
   }
 
   switch (ISAVE[1]) {
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
     case 1:
-      // ................ ENTRY   (ISAVE( 1 ) = 1)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
-
       if (N == 1) {
         V[1] = X[1];
         EST.value = V[1].abs();
 
-        break; // ... QUIT
+        break; // QUIT
       }
       EST.value = dasum(N, X, 1);
 
@@ -83,19 +78,15 @@ void dlacn2(
       ISAVE[1] = 2;
       return;
 
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
     case 2:
-      // ................ ENTRY   (ISAVE( 1 ) = 2)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
-
       ISAVE[2] = idamax(N, X, 1);
       ISAVE[3] = 2;
       iterationLoop();
       return;
 
+    // X HAS BEEN OVERWRITTEN BY A*X.
     case 3:
-      // ................ ENTRY   (ISAVE( 1 ) = 3)
-      // X HAS BEEN OVERWRITTEN BY A*X.
-
       dcopy(N, X, 1, V, 1);
       ESTOLD = EST.value;
       EST.value = dasum(N, V, 1);
@@ -131,10 +122,8 @@ void dlacn2(
       ISAVE[1] = 4;
       return;
 
+    // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
     case 4:
-      // ................ ENTRY   (ISAVE( 1 ) = 4)
-      // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
-
       JLAST = ISAVE[2];
       ISAVE[2] = idamax(N, X, 1);
       if ((X[JLAST] != X[ISAVE[2]].abs()) && (ISAVE[3] < ITMAX)) {
@@ -145,10 +134,8 @@ void dlacn2(
       iterationComplete();
       return;
 
+    // X HAS BEEN OVERWRITTEN BY A*X.
     case 5:
-      // ................ ENTRY   (ISAVE( 1 ) = 5)
-      // X HAS BEEN OVERWRITTEN BY A*X.
-
       TEMP = TWO * (dasum(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         dcopy(N, X, 1, V, 1);

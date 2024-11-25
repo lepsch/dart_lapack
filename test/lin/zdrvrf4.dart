@@ -33,9 +33,6 @@ void zdrvrf4(
   final int LDA,
   final Array<double> D_WORK_ZLANGE_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NVAL = NVAL_.having();
   final C1 = C1_.having(ld: LDC);
   final C2 = C2_.having(ld: LDC);

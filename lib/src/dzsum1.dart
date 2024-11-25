@@ -6,9 +6,6 @@ import 'package:dart_lapack/src/complex.dart';
 import 'package:dart_lapack/src/matrix.dart';
 
 double dzsum1(final int N, final Array<Complex> CX_, final int INCX) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final CX = CX_.having();
   int I, NINCX;
   double STEMP;

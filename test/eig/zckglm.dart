@@ -36,9 +36,6 @@ Future<void> zckglm(
   final Nout NOUT,
   final Box<int> INFO,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NVAL = NVAL_.having();
   final MVAL = MVAL_.having();
   final PVAL = PVAL_.having();
@@ -179,12 +176,7 @@ Future<void> zckglm(
   }
 
   // Print a summary of the results.
-
   alasum(PATH, NOUT, NFAIL, NRUN, 0);
-
-//  9999 FORMAT( '${.i5}');
-//  9998 FORMAT( ;
-//  9997 FORMAT(  )
 }
 
 void _print9999(Nout nout, int info) {

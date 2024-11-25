@@ -20,9 +20,6 @@ double zlanhb(
   final int LDAB,
   final Array<double> WORK_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AB = AB_.having(ld: LDAB);
   final WORK = WORK_.having();
   const ONE = 1.0, ZERO = 0.0;

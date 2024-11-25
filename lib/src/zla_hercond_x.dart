@@ -31,10 +31,6 @@ double zla_hercond_x(
   final IPIV = IPIV_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I, J;
   double ANORM, TMP;
   bool UP, UPPER;

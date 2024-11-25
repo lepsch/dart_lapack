@@ -40,9 +40,6 @@ void ztrevc3(
   final int LRWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final SELECT = SELECT_.having();
   final T = T_.having(ld: LDT);
   final VL = VL_.having(ld: LDVL);
@@ -57,7 +54,6 @@ void ztrevc3(
   final SCALE = Box(0.0);
 
   // Decode and test the input parameters
-
   BOTHV = lsame(SIDE, 'B');
   RIGHTV = lsame(SIDE, 'R') || BOTHV;
   LEFTV = lsame(SIDE, 'L') || BOTHV;
@@ -68,7 +64,6 @@ void ztrevc3(
 
   // Set M to the number of columns required to store the selected
   // eigenvectors.
-
   if (SOMEV) {
     M.value = 0;
     for (J = 1; J <= N; J++) {
@@ -111,12 +106,10 @@ void ztrevc3(
   }
 
   // Quick return if possible.
-
   if (N == 0) return;
 
   // Use blocked version of back-transformation if sufficient workspace.
   // Zero-out the workspace to avoid potential NaN propagation.
-
   if (OVER && LWORK >= N + 2 * N * NBMIN) {
     NB = (LWORK - N) ~/ (2 * N);
     NB = min(NB, NBMAX);
@@ -126,27 +119,23 @@ void ztrevc3(
   }
 
   // Set the constants to control overflow.
-
   UNFL = dlamch('Safe minimum');
   ULP = dlamch('Precision');
   SMLNUM = UNFL * (N / ULP);
 
   // Store the diagonal elements of T in working array WORK.
-
   for (I = 1; I <= N; I++) {
     WORK[I] = T[I][I];
   }
 
   // Compute 1-norm of each column of strictly upper triangular
   // part of T to control overflow in triangular solver.
-
   RWORK[1] = ZERO;
   for (J = 2; J <= N; J++) {
     RWORK[J] = dzasum(J - 1, T(1, J).asArray(), 1);
   }
 
   if (RIGHTV) {
-    // ============================================================
     // Compute right eigenvectors.
 
     // IV is index of column in current block.
@@ -161,20 +150,16 @@ void ztrevc3(
       }
       SMIN = max(ULP * T[KI][KI].cabs1(), SMLNUM);
 
-      // --------------------------------------------------------
       // Complex right eigenvector
-
       WORK[KI + IV * N] = Complex.one;
 
       // Form right-hand side.
-
       for (K = 1; K <= KI - 1; K++) {
         WORK[K + IV * N] = -T[K][KI];
       }
 
       // Solve upper triangular system:
       // [ T(1:KI-1,1:KI-1) - T(KI,KI) ]*X = SCALE*WORK.
-
       for (K = 1; K <= KI - 1; K++) {
         T[K][K] -= T[KI][KI];
         if (T[K][K].cabs1() < SMIN) T[K][K] = SMIN.toComplex();
@@ -187,9 +172,7 @@ void ztrevc3(
       }
 
       // Copy the vector x or Q*x to VR and normalize.
-
       if (!OVER) {
-        // ------------------------------
         // no back-transform: copy x to VR and normalize.
         zcopy(KI, WORK(1 + IV * N), 1, VR(1, IS).asArray(), 1);
 
@@ -201,7 +184,6 @@ void ztrevc3(
           VR[K][IS] = Complex.zero;
         }
       } else if (NB == 1) {
-        // ------------------------------
         // version 1: back-transform each vector with GEMV, Q*x.
         if (KI > 1) {
           zgemv('N', N, KI - 1, Complex.one, VR, LDVR, WORK(1 + IV * N), 1,
@@ -212,7 +194,6 @@ void ztrevc3(
         REMAX = ONE / VR[II][KI].cabs1();
         zdscal(N, REMAX, VR(1, KI).asArray(), 1);
       } else {
-        // ------------------------------
         // version 2: back-transform block of vectors with GEMM
         // zero out below vector
         for (K = KI + 1; K <= N; K++) {
@@ -252,7 +233,6 @@ void ztrevc3(
       }
 
       // Restore the original diagonal elements of T.
-
       for (K = 1; K <= KI - 1; K++) {
         T[K][K] = WORK[K];
       }
@@ -262,7 +242,6 @@ void ztrevc3(
   }
 
   if (LEFTV) {
-    // ============================================================
     // Compute left eigenvectors.
 
     // IV is index of column in current block.
@@ -277,20 +256,16 @@ void ztrevc3(
       }
       SMIN = max(ULP * T[KI][KI].cabs1(), SMLNUM);
 
-      // --------------------------------------------------------
       // Complex left eigenvector
-
       WORK[KI + IV * N] = Complex.one;
 
       // Form right-hand side.
-
       for (K = KI + 1; K <= N; K++) {
         WORK[K + IV * N] = -T[KI][K].conjugate();
       }
 
       // Solve conjugate-transposed triangular system:
       // [ T(KI+1:N,KI+1:N) - T(KI,KI) ]**H * X = SCALE*WORK.
-
       for (K = KI + 1; K <= N; K++) {
         T[K][K] -= T[KI][KI];
         if (T[K][K].cabs1() < SMIN) T[K][K] = SMIN.toComplex();
@@ -303,9 +278,7 @@ void ztrevc3(
       }
 
       // Copy the vector x or Q*x to VL and normalize.
-
       if (!OVER) {
-        // ------------------------------
         // no back-transform: copy x to VL and normalize.
         zcopy(N - KI + 1, WORK(KI + IV * N), 1, VL(KI, IS).asArray(), 1);
 
@@ -317,7 +290,6 @@ void ztrevc3(
           VL[K][IS] = Complex.zero;
         }
       } else if (NB == 1) {
-        // ------------------------------
         // version 1: back-transform each vector with GEMV, Q*x.
         if (KI < N) {
           zgemv(
@@ -338,7 +310,6 @@ void ztrevc3(
         REMAX = ONE / VL[II][KI].cabs1();
         zdscal(N, REMAX, VL(1, KI).asArray(), 1);
       } else {
-        // ------------------------------
         // version 2: back-transform block of vectors with GEMM
         // zero out above vector
         // could go from KI-NV+1 to KI-1
@@ -379,7 +350,6 @@ void ztrevc3(
       }
 
       // Restore the original diagonal elements of T.
-
       for (K = KI + 1; K <= N; K++) {
         T[K][K] = WORK[K];
       }

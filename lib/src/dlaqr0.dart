@@ -32,34 +32,28 @@ void dlaqr0(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final H = H_.having(ld: LDH);
   final WR = WR_.having();
   final WI = WI_.having();
   final Z = Z_.having(ld: LDZ);
   final WORK = WORK_.having();
 
-  // .. Parameters ..
-
-  // ==== Matrices of order NTINY or smaller must be processed by
-  // .    DLAHQR because of insufficient subdiagonal scratch space.
-  // .    (This is a hard limit.) ====
+  // Matrices of order NTINY or smaller must be processed by
+  // DLAHQR because of insufficient subdiagonal scratch space.
+  // (This is a hard limit.)
   const NTINY = 15;
 
-  // ==== Exceptional deflation windows:  try to cure rare
-  // .    slow convergence by varying the size of the
-  // .    deflation window after KEXNW iterations. ====
+  // Exceptional deflation windows:  try to cure rare
+  // slow convergence by varying the size of the
+  // deflation window after KEXNW iterations.
   const KEXNW = 5;
 
-  // ==== Exceptional shifts: try to cure rare slow convergence
-  // .    with ad-hoc exceptional shifts every KEXSH iterations.
-  // .    ====
+  // Exceptional shifts: try to cure rare slow convergence
+  // with ad-hoc exceptional shifts every KEXSH iterations.
   const KEXSH = 6;
 
-  // ==== The constants WILK1 and WILK2 are used to form the
-  // .    exceptional shifts. ====
+  // The constants WILK1 and WILK2 are used to form the
+  // exceptional shifts.
   const WILK1 = 0.75, WILK2 = -0.4375;
   const ZERO = 0.0, ONE = 1.0;
   double SS, SWAP;
@@ -106,121 +100,104 @@ void dlaqr0(
 
   INFO.value = 0;
 
-  // ==== Quick return for N = 0: nothing to do. ====
-
+  // Quick return for N = 0: nothing to do.
   if (N == 0) {
     WORK[1] = ONE;
     return;
   }
 
   if (N <= NTINY) {
-    // ==== Tiny matrices must use DLAHQR. ====
-
+    // Tiny matrices must use DLAHQR.
     LWKOPT = 1;
     if (LWORK != -1) {
       dlahqr(
           WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO);
     }
   } else {
-    // ==== Use small bulge multi-shift QR with aggressive early
-    // .    deflation on larger-than-tiny matrices. ====
+    // Use small bulge multi-shift QR with aggressive early
+    // deflation on larger-than-tiny matrices.
 
-    // ==== Hope for the best. ====
-
+    // Hope for the best.
     INFO.value = 0;
 
-    // ==== Set up job flags for ILAENV. ====
+    // Set up job flags for ILAENV.
     JBCMPZ = '${WANTT ? 'S' : 'E'}${WANTZ ? 'V' : 'N'}';
 
-    // ==== NWR = recommended deflation window size.  At this
-    // .    point,  N > NTINY = 15, so there is enough
-    // .    subdiagonal workspace for NWR >= 2 as required.
-    // .    (In fact, there is enough subdiagonal space for
-    // .    NWR >= 4.) ====
-
+    // NWR = recommended deflation window size.  At this
+    // point,  N > NTINY = 15, so there is enough
+    // subdiagonal workspace for NWR >= 2 as required.
+    // (In fact, there is enough subdiagonal space for
+    // NWR >= 4.)
     NWR = ilaenv(13, 'DLAQR0', JBCMPZ, N, ILO, IHI, LWORK);
     NWR = max(2, NWR);
     NWR = min(IHI - ILO + 1, min((N - 1) ~/ 3, NWR));
 
-    // ==== NSR = recommended number of simultaneous shifts.
-    // .    At this point N > NTINY = 15, so there is at
-    // .    enough subdiagonal workspace for NSR to be even
-    // .    and greater than or equal to two as required. ====
-
+    // NSR = recommended number of simultaneous shifts.
+    // At this point N > NTINY = 15, so there is at
+    // enough subdiagonal workspace for NSR to be even
+    // and greater than or equal to two as required.
     NSR = ilaenv(15, 'DLAQR0', JBCMPZ, N, ILO, IHI, LWORK);
     NSR = min(NSR, min((N - 3) ~/ 6, IHI - ILO));
     NSR = max(2, NSR - (NSR % 2));
 
-    // ==== Estimate optimal workspace ====
+    // Estimate optimal workspace
 
-    // ==== Workspace query call to DLAQR3 ====
-
+    // Workspace query call to DLAQR3
     dlaqr3(WANTT, WANTZ, N, ILO, IHI, NWR + 1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS,
         LD, WR, WI, H, LDH, N, H, LDH, N, H, LDH, WORK, -1);
 
-    // ==== Optimal workspace = max(DLAQR5, DLAQR3) ====
-
+    // Optimal workspace = max(DLAQR5, DLAQR3)
     LWKOPT = max(3 * NSR ~/ 2, WORK[1].toInt());
 
-    // ==== Quick return in case of workspace query. ====
-
+    // Quick return in case of workspace query.
     if (LWORK == -1) {
       WORK[1] = LWKOPT.toDouble();
       return;
     }
 
-    // ==== DLAHQR/DLAQR0 crossover point ====
-
+    // DLAHQR/DLAQR0 crossover point
     NMIN = ilaenv(12, 'DLAQR0', JBCMPZ, N, ILO, IHI, LWORK);
     NMIN = max(NTINY, NMIN);
 
-    // ==== Nibble crossover point ====
-
+    // Nibble crossover point
     NIBBLE = ilaenv(14, 'DLAQR0', JBCMPZ, N, ILO, IHI, LWORK);
     NIBBLE = max(0, NIBBLE);
 
-    // ==== Accumulate reflections during ttswp?  Use block
-    // .    2-by-2 structure during matrix-matrix multiply? ====
-
+    // Accumulate reflections during ttswp?  Use block
+    // 2-by-2 structure during matrix-matrix multiply?
     KACC22 = ilaenv(16, 'DLAQR0', JBCMPZ, N, ILO, IHI, LWORK);
     KACC22 = max(0, KACC22);
     KACC22 = min(2, KACC22);
 
-    // ==== NWMAX = the largest possible deflation window for
-    // .    which there is sufficient workspace. ====
-
+    // NWMAX = the largest possible deflation window for
+    // which there is sufficient workspace.
     NWMAX = min((N - 1) ~/ 3, LWORK ~/ 2);
     NW = NWMAX;
 
-    // ==== NSMAX = the Largest number of simultaneous shifts
-    // .    for which there is sufficient workspace. ====
-
+    // NSMAX = the Largest number of simultaneous shifts
+    // for which there is sufficient workspace.
     NSMAX = min((N - 3) ~/ 6, 2 * LWORK ~/ 3);
     NSMAX -= (NSMAX % 2);
 
-    // ==== NDFL: an iteration count restarted at deflation. ====
-
+    // NDFL: an iteration count restarted at deflation.
     NDFL = 1;
 
-    // ==== ITMAX = iteration limit ====
-
+    // ITMAX = iteration limit
     ITMAX = max(30, 2 * KEXSH) * max(10, (IHI - ILO + 1));
 
-    // ==== Last row and column in the active block ====
-
+    // Last row and column in the active block
     KBOT = IHI;
 
-    // ==== Main Loop ====
+    // Main Loop
     var success = false;
     for (IT = 1; IT <= ITMAX; IT++) {
-      // ==== Done when KBOT falls below ILO ====
-
+      // Done when KBOT falls below ILO
       if (KBOT < ILO) {
         success = true;
         break;
       }
 
-      // ==== Locate active block ====
+      // Locate active block
       var hasActiveBlock = false;
       for (K = KBOT; K >= ILO + 1; K--) {
         if (H[K][K - 1] == ZERO) {
@@ -233,22 +210,21 @@ void dlaqr0(
       }
       KTOP = K;
 
-      // ==== Select deflation window size:
-      // .    Typical Case:
-      // .      If possible and advisable, nibble the entire
-      // .      active block.  If not, use size min(NWR,NWMAX)
-      // .      or min(NWR+1,NWMAX) depending upon which has
-      // .      the smaller corresponding subdiagonal entry
-      // .      (a heuristic).
-      // .
-      // .    Exceptional Case:
-      // .      If there have been no deflations in KEXNW or
-      // .      more iterations, then vary the deflation window
-      // .      size.   At first, because, larger windows are,
-      // .      in general, more powerful than smaller ones,
-      // .      rapidly increase the window to the maximum possible.
-      // .      Then, gradually reduce the window size. ====
-
+      // Select deflation window size:
+      // Typical Case:
+      //   If possible and advisable, nibble the entire
+      //   active block.  If not, use size min(NWR,NWMAX)
+      //   or min(NWR+1,NWMAX) depending upon which has
+      //   the smaller corresponding subdiagonal entry
+      //   (a heuristic).
+      //
+      // Exceptional Case:
+      //   If there have been no deflations in KEXNW or
+      //   more iterations, then vary the deflation window
+      //   size.   At first, because, larger windows are,
+      //   in general, more powerful than smaller ones,
+      //   rapidly increase the window to the maximum possible.
+      //   Then, gradually reduce the window size.
       NH = KBOT - KTOP + 1;
       NWUPBD = min(NH, NWMAX);
       if (NDFL < KEXNW) {
@@ -274,25 +250,22 @@ void dlaqr0(
         NW -= NDEC;
       }
 
-      // ==== Aggressive early deflation:
-      // .    split workspace under the subdiagonal into
-      // .      - an nw-by-nw work array V in the lower
-      // .        left-hand-corner,
-      // .      - an NW-by-at-least-NW-but-more-is-better
-      // .        (NW-by-NHO) horizontal work array along
-      // .        the bottom edge,
-      // .      - an at-least-NW-but-more-is-better (NHV-by-NW)
-      // .        vertical work array along the left-hand-edge.
-      // .        ====
-
+      // Aggressive early deflation:
+      // split workspace under the subdiagonal into
+      //   - an nw-by-nw work array V in the lower
+      //     left-hand-corner,
+      //   - an NW-by-at-least-NW-but-more-is-better
+      //     (NW-by-NHO) horizontal work array along
+      //     the bottom edge,
+      //   - an at-least-NW-but-more-is-better (NHV-by-NW)
+      //     vertical work array along the left-hand-edge.
       KV = N - NW + 1;
       KT = NW + 1;
       NHO = (N - NW - 1) - KT + 1;
       KWV = NW + 2;
       NVE = (N - NW) - KWV + 1;
 
-      // ==== Aggressive early deflation ====
-
+      // Aggressive early deflation
       dlaqr3(
           WANTT,
           WANTZ,
@@ -321,37 +294,32 @@ void dlaqr0(
           WORK,
           LWORK);
 
-      // ==== Adjust KBOT accounting for new deflations. ====
-
+      // Adjust KBOT accounting for new deflations.
       KBOT -= LD.value;
 
-      // ==== KS points to the shifts. ====
-
+      // KS points to the shifts.
       KS = KBOT - LS.value + 1;
 
-      // ==== Skip an expensive QR sweep if there is a (partly
-      // .    heuristic) reason to expect that many eigenvalues
-      // .    will deflate without it.  Here, the QR sweep is
-      // .    skipped if many eigenvalues have just been deflated
-      // .    or if the remaining active block is small.
-
+      // Skip an expensive QR sweep if there is a (partly
+      // heuristic) reason to expect that many eigenvalues
+      // will deflate without it.  Here, the QR sweep is
+      // skipped if many eigenvalues have just been deflated
+      // or if the remaining active block is small.
       if ((LD.value == 0) ||
           ((100 * LD.value <= NW * NIBBLE) &&
               (KBOT - KTOP + 1 > min(NMIN, NWMAX)))) {
-        // ==== NS = nominal number of simultaneous shifts.
-        // .    This may be lowered (slightly) if DLAQR3
-        // .    did not provide that many shifts. ====
-
+        // NS = nominal number of simultaneous shifts.
+        // This may be lowered (slightly) if DLAQR3
+        // did not provide that many shifts.
         NS = min(NSMAX, min(NSR, max(2, KBOT - KTOP)));
         NS -= (NS % 2);
 
-        // ==== If there have been no deflations
-        // .    in a multiple of KEXSH iterations,
-        // .    then try exceptional shifts.
-        // .    Otherwise use shifts provided by
-        // .    DLAQR3 above or from the eigenvalues
-        // .    of a trailing principal submatrix. ====
-
+        // If there have been no deflations
+        // in a multiple of KEXSH iterations,
+        // then try exceptional shifts.
+        // Otherwise use shifts provided by
+        // DLAQR3 above or from the eigenvalues
+        // of a trailing principal submatrix.
         if ((NDFL % KEXSH) == 0) {
           KS = KBOT - NS + 1;
           for (I = KBOT; I >= max(KS + 1, KTOP + 2); I -= 2) {
@@ -370,12 +338,11 @@ void dlaqr0(
             WI[KS] = WI[KS + 1];
           }
         } else {
-          // ==== Got NS/2 or fewer shifts? Use DLAQR4 or
-          // .    DLAHQR on a trailing principal submatrix to
-          // .    get more. (Since NS <= NSMAX <= (N-3)/6,
-          // .    there is enough space below the subdiagonal
-          // .    to fit an NS-by-NS scratch array.) ====
-
+          // Got NS/2 or fewer shifts? Use DLAQR4 or
+          // DLAHQR on a trailing principal submatrix to
+          // get more. (Since NS <= NSMAX <= (N-3)/6,
+          // there is enough space below the subdiagonal
+          // to fit an NS-by-NS scratch array.)
           if (KBOT - KS + 1 <= NS ~/ 2) {
             KS = KBOT - NS + 1;
             KT = N - NS + 1;
@@ -389,10 +356,9 @@ void dlaqr0(
             }
             KS += INF.value;
 
-            // ==== In case of a rare QR failure use
-            // .    eigenvalues of the trailing 2-by-2
-            // .    principal submatrix.  ====
-
+            // In case of a rare QR failure use
+            // eigenvalues of the trailing 2-by-2
+            // principal submatrix.
             if (KS >= KBOT) {
               AA.value = H[KBOT - 1][KBOT - 1];
               CC.value = H[KBOT][KBOT - 1];
@@ -405,10 +371,9 @@ void dlaqr0(
           }
 
           if (KBOT - KS + 1 > NS) {
-            // ==== Sort the shifts (Helps a little)
-            // .    Bubble sort keeps complex conjugate
-            // .    pairs together. ====
-
+            // Sort the shifts (Helps a little)
+            // Bubble sort keeps complex conjugate
+            // pairs together.
             SORTED = false;
             for (K = KBOT; K >= KS + 1; K--) {
               if (SORTED) break;
@@ -430,12 +395,11 @@ void dlaqr0(
             }
           }
 
-          // ==== Shuffle shifts into pairs of real shifts
-          // .    and pairs of complex conjugate shifts
-          // .    assuming complex conjugate shifts are
-          // .    already adjacent to one another. (Yes,
-          // .    they are.)  ====
-
+          // Shuffle shifts into pairs of real shifts
+          // and pairs of complex conjugate shifts
+          // assuming complex conjugate shifts are
+          // already adjacent to one another. (Yes,
+          // they are.)
           for (I = KBOT; I >= KS + 2; I -= 2) {
             if (WI[I] != -WI[I - 1]) {
               SWAP = WR[I];
@@ -451,9 +415,8 @@ void dlaqr0(
           }
         }
 
-        // ==== If there are only two shifts and both are
-        // .    real, then use only one.  ====
-
+        // If there are only two shifts and both are
+        // real, then use only one.
         if (KBOT - KS + 1 == 2) {
           if (WI[KBOT] == ZERO) {
             if ((WR[KBOT] - H[KBOT][KBOT]).abs() <
@@ -465,26 +428,24 @@ void dlaqr0(
           }
         }
 
-        // ==== Use up to NS of the the smallest magnitude
-        // .    shifts.  If there aren't NS shifts available,
-        // .    then use them all, possibly dropping one to
-        // .    make the number of shifts even. ====
-
+        // Use up to NS of the the smallest magnitude
+        // shifts.  If there aren't NS shifts available,
+        // then use them all, possibly dropping one to
+        // make the number of shifts even.
         NS = min(NS, KBOT - KS + 1);
         NS -= (NS % 2);
         KS = KBOT - NS + 1;
 
-        // ==== Small-bulge multi-shift QR sweep:
-        // .    split workspace under the subdiagonal into
-        // .    - a KDU-by-KDU work array U in the lower
-        // .      left-hand-corner,
-        // .    - a KDU-by-at-least-KDU-but-more-is-better
-        // .      (KDU-by-NHo) horizontal work array WH along
-        // .      the bottom edge,
-        // .    - and an at-least-KDU-but-more-is-better-by-KDU
-        // .      (NVE-by-KDU) vertical work WV arrow along
-        // .      the left-hand-edge. ====
-
+        // Small-bulge multi-shift QR sweep:
+        // split workspace under the subdiagonal into
+        // - a KDU-by-KDU work array U in the lower
+        //   left-hand-corner,
+        // - a KDU-by-at-least-KDU-but-more-is-better
+        //   (KDU-by-NHo) horizontal work array WH along
+        //   the bottom edge,
+        // - and an at-least-KDU-but-more-is-better-by-KDU
+        //   (NVE-by-KDU) vertical work WV arrow along
+        //   the left-hand-edge.
         KDU = 2 * NS;
         KU = N - KDU + 1;
         KWH = KDU + 1;
@@ -492,8 +453,7 @@ void dlaqr0(
         KWV = KDU + 4;
         NVE = N - KDU - KWV + 1;
 
-        // ==== Small-bulge multi-shift QR sweep ====
-
+        // Small-bulge multi-shift QR sweep
         dlaqr5(
             WANTT,
             WANTZ,
@@ -522,25 +482,23 @@ void dlaqr0(
             LDH);
       }
 
-      // ==== Note progress (or the lack of it). ====
-
+      // Note progress (or the lack of it).
       if (LD.value > 0) {
         NDFL = 1;
       } else {
         NDFL++;
       }
 
-      // ==== End of main loop ====
+      // End of main loop
     }
 
     if (!success) {
-      // ==== Iteration limit exceeded.  Set INFO to show where
-      // .    the problem occurred and exit. ====
-
+      // Iteration limit exceeded.  Set INFO to show where
+      // the problem occurred and exit.
       INFO.value = KBOT;
     }
   }
 
-  // ==== Return the optimal value of LWORK. ====
+  // Return the optimal value of LWORK.
   WORK[1] = LWKOPT.toDouble();
 }

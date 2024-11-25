@@ -28,9 +28,6 @@ void dsb2st_kernels(
   final int LDVT,
   final Array<double> WORK_,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final V = V_.having();
   final TAU = TAU_.having();

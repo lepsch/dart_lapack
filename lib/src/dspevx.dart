@@ -41,9 +41,6 @@ void dspevx(
   final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final W = W_.having();
   final Z = Z_.having(ld: LDZ);

@@ -51,11 +51,6 @@ void dgedmdq(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-//  -- LAPACK driver routine                                           --
-//
-//  -- LAPACK is a software package provided by University of          --
-//  -- Tennessee, University of California Berkeley, University of     --
-//  -- Colorado Denver and NAG Ltd..                                   --
   final F = F_.having(ld: LDF),
       X = X_.having(ld: LDX),
       Y = Y_.having(ld: LDY),

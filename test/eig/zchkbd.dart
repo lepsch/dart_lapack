@@ -62,9 +62,6 @@ void zchkbd(
   final Nout NOUT,
   final Box<int> INFO,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final MVAL = MVAL_.having();
   final NVAL = NVAL_.having();
   final DOTYPE = DOTYPE_.having();

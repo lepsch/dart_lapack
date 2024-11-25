@@ -17,10 +17,6 @@ Future<void> zchkgl(
   final Nin NIN,
   final Nout NOUT,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const LDA = 20, LDB = 20, LWORK = 6 * LDA;
   const ZERO = 0.0;
   int I, IHIIN, ILOIN, J, KNT, N, NINFO;

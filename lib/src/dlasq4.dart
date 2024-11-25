@@ -23,9 +23,6 @@ void dlasq4(
   final Box<int> TTYPE,
   final Box<double> G,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Z = Z_.having();
   const CNST1 = 0.5630, CNST2 = 1.010, CNST3 = 1.050;
   const QURTR = 0.250,

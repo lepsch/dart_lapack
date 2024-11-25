@@ -13,10 +13,6 @@ import 'package:dart_lapack/src/intrinsics/maxexponent.dart';
 import 'package:dart_lapack/src/intrinsics/minexponent.dart';
 import 'package:dart_lapack/src/intrinsics/radix.dart';
 
-// -- LAPACK auxiliary module --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
 // Standard constants for
 // const sp = 1;
 

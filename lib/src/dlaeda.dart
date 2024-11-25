@@ -27,9 +27,6 @@ void dlaeda(
   final Array<double> ZTEMP_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final PRMPTR = PRMPTR_.having();
   final PERM = PERM_.having();
   final GIVPTR = GIVPTR_.having();

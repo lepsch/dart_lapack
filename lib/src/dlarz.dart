@@ -21,9 +21,6 @@ void dlarz(
   final int LDC,
   final Array<double> WORK_,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having();
   final C = C_.having(ld: LDC);
   final WORK = WORK_.having();

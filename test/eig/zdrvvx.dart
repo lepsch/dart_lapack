@@ -74,9 +74,6 @@ Future<void> zdrvvx(
   final SCALE = SCALE_.having();
   final SCALE1 = SCALE1_.having();
   final RESULT = RESULT_.having(length: 11);
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;
   bool BADNN;

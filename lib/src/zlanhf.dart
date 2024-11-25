@@ -21,10 +21,6 @@ double zlanhf(
 ) {
   final A = A_.having(offset: zeroIndexedArrayOffset);
   final WORK = WORK_.having(offset: zeroIndexedArrayOffset);
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   int I, J, IFM, ILU, NOE, N1, K = 0, L, LDA;
   double VALUE = 0, AA, TEMP;

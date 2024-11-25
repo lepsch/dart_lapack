@@ -45,10 +45,6 @@ void dgelss(
   final B = B_.having(ld: LDB);
   final S = S_.having();
   final WORK = WORK_.having();
-
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY;
   int BDSPAC,

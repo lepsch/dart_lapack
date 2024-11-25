@@ -13,9 +13,6 @@ int iparmq(
   final int IHI,
   final int LWORK,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const INMIN = 12,
       INWIN = 13,
       INIBL = 14,
@@ -34,8 +31,7 @@ int iparmq(
   String SUBNAM;
 
   if ((ISPEC == ISHFTS) || (ISPEC == INWIN) || (ISPEC == IACC22)) {
-    // ==== Set the number simultaneous shifts ====
-
+    // Set the number simultaneous shifts
     NH = IHI - ILO + 1;
     NS = 2;
     if (NH >= 30) NS = 4;
@@ -48,37 +44,32 @@ int iparmq(
   }
 
   if (ISPEC == INMIN) {
-    // ===== Matrices of order smaller than NMIN get sent
-    // .     to xLAHQR, the classic double shift algorithm.
-    // .     This must be at least 11. ====
-
+    // Matrices of order smaller than NMIN get sent
+    // to xLAHQR, the classic double shift algorithm.
+    // This must be at least 11.
     return NMIN;
   } else if (ISPEC == INIBL) {
-    // ==== INIBL: skip a multi-shift qr iteration and
-    // .    whenever aggressive early deflation finds
-    // .    at least (NIBBLE*(window size)/100) deflations. ====
-
+    // INIBL: skip a multi-shift qr iteration and
+    // whenever aggressive early deflation finds
+    // at least (NIBBLE*(window size)/100) deflations.
     return NIBBLE;
   } else if (ISPEC == ISHFTS) {
-    // ==== NSHFTS: The number of simultaneous shifts =====
-
+    // NSHFTS: The number of simultaneous shifts =
     return NS;
   } else if (ISPEC == INWIN) {
-    // ==== NW: deflation window size.  ====
-
+    // NW: deflation window size.
     if (NH <= KNWSWP) {
       return NS;
     } else {
       return 3 * NS ~/ 2;
     }
   } else if (ISPEC == IACC22) {
-    // ==== IACC22: Whether to accumulate reflections
-    // .     before updating the far-from-diagonal elements
-    // .     and whether to use 2-by-2 block structure while
-    // .     doing it.  A small amount of work could be saved
-    // .     by making this choice dependent also upon the
-    // .     NH=IHI-ILO+1.
-
+    // IACC22: Whether to accumulate reflections
+    // before updating the far-from-diagonal elements
+    // and whether to use 2-by-2 block structure while
+    // doing it.  A small amount of work could be saved
+    // by making this choice dependent also upon the
+    // NH=IHI-ILO+1.
     SUBNAM = NAME.toUpperCase();
     var result = 0;
     if (SUBNAM.substring(1, 6) == 'GGHRD' ||
@@ -95,12 +86,11 @@ int iparmq(
     }
     return result;
   } else if (ISPEC == ICOST) {
-    // === Relative cost of near-the-diagonal chase vs
-    // BLAS updates ===
-
+    // Relative cost of near-the-diagonal chase vs
+    // BLAS updates
     return RCOST;
   }
 
-  // ===== invalid value of ispec =====
+  // invalid value of ispec
   return -1;
 }

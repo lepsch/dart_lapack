@@ -60,11 +60,6 @@ void zgedmd(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-//  -- LAPACK driver routine                                           --
-
-//  -- LAPACK is a software package provided by University of          --
-//  -- Tennessee, University of California Berkeley, University of     --
-//  -- Colorado Denver and NAG Ltd..                                   --
   final X = X_.having(ld: LDX);
   final Y = Y_.having(ld: LDY);
   final EIGS = EIGS_.having();
@@ -101,7 +96,6 @@ void zgedmd(
   final SCALE = Box(ZERO), SSUM = Box(ZERO);
 
   // Test the input arguments
-
   WNTRES = lsame(JOBR, 'R');
   SCCOLX = lsame(JOBS, 'S') || lsame(JOBS, 'C');
   SCCOLY = lsame(JOBS, 'Y');
@@ -278,7 +272,6 @@ void zgedmd(
   BADXY = false;
 
   // <1> Optional scaling of the snapshots (columns of X, Y)
-  // ==========================================================
   if (SCCOLX) {
     // The columns of X will be normalized.
     // To prevent overflows, the column norms of X are
@@ -408,7 +401,7 @@ void zgedmd(
   }
 
   // <2> SVD of the data snapshot matrix X.
-  // =====================================
+  //
   // The left singular vectors are stored in the array X.
   // The right singular vectors are in the array W.
   // The array W will later on contain the eigenvectors

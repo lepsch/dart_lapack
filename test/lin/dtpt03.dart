@@ -31,9 +31,6 @@ void dtpt03(
   final Array<double> WORK_,
   final Box<double> RESID,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final CNORM = CNORM_.having();
   final X = X_.having(ld: LDX);

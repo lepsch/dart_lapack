@@ -15,9 +15,6 @@ void zlaev2(
   final Box<double> CS1,
   final Box<Complex> SN1,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   final T = Box(0.0);
   Complex W;

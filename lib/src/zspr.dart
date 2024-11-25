@@ -15,9 +15,6 @@ void zspr(
   final int INCX,
   final Array<Complex> AP_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final AP = AP_.having();
   int I, INFO, IX, J, JX, K, KK, KX = 0;

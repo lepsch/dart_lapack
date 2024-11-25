@@ -15,9 +15,6 @@ void dget32(
   final Box<int> NINFO,
   final Box<int> KNT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0, FOUR = 4.0, EIGHT = 8.0;
   bool LTRANL, LTRANR;

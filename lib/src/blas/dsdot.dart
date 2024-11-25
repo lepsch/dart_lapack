@@ -11,15 +11,6 @@ double dsdot(
   final Array<double> SY_,
   final int INCY,
 ) {
-// -- Reference BLAS level1 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-//
-// Authors:
-// ========
-// Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
-// Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
-
   final SX = SX_.having();
   final SY = SY_.having();
 

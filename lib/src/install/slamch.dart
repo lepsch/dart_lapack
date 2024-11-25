@@ -12,10 +12,6 @@ import 'package:dart_lapack/src/intrinsics/radix.dart';
 import 'package:dart_lapack/src/intrinsics/tiny.dart';
 
 double slamch(final String CMACH) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const ONE = 1.0, ZERO = 0.0;
   double RND, EPS, SFMIN, SMALL;
 
@@ -84,7 +80,5 @@ double slamch(final String CMACH) {
 // > \endverbatim
 // >
 double slamc3(final double A, final double B) {
-// -- LAPACK auxiliary routine --
-// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   return A + B;
 }

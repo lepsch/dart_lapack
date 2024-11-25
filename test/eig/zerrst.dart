@@ -48,9 +48,6 @@ void zerrst(
   final String PATH,
   final Nout NUNIT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 3, LIW = 12 * NMAX, LW = 20 * NMAX;
   String C2;
   int I, J, N, NT;

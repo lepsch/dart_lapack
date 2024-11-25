@@ -33,10 +33,6 @@ void zsyt01_3(
   final IPIV = IPIV_.having();
   final C = C_.having(ld: LDC);
   final RWORK = RWORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   int I, J;
   final INFO = Box(0);

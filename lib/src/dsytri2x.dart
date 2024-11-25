@@ -24,9 +24,6 @@ void dsytri2x(
   final int NB,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final WORK = WORK_.having(ld: N + NB + 1);

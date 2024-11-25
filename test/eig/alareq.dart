@@ -16,9 +16,6 @@ Future<void> alareq(
   final Nin NIN,
   final Nout NOUT,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   bool FIRSTT;
   String C1;

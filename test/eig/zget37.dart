@@ -27,9 +27,6 @@ Future<void> zget37(
   final Box<int> KNT,
   final Nin NIN,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final RMAX = RMAX_.having(length: 3);
   final LMAX = LMAX_.having(length: 3);
   final NINFO = NINFO_.having(length: 3);

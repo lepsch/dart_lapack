@@ -11,9 +11,6 @@ void aladhd(
   final Nout IOUNIT,
   final String PATH,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   String SYM;
 
   final C1 = PATH.substring(0, 1);
@@ -291,7 +288,6 @@ extension on Nout {
         '\n ${PATH.a3} drivers:  ${SYM.a9} indefinite packed matrices, partial (Bunch-Kaufman) pivoting');
   }
 
-//  void print9891(String PATH, String SYM){println('\n ${PATH.a3} drivers:  ${SYM.a9} indefinite packed matrices, "rook" (bounded Bunch-Kaufman) pivoting' );}
   void print9990(String PATH) {
     println('\n ${PATH.a3}:  No header available');
   }

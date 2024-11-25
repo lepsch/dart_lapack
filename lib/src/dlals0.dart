@@ -52,10 +52,6 @@ void dlals0(
   final DIFL = DIFL_.having();
   final Z = Z_.having();
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0, NEGONE = -1.0;
   int I, J, M, N, NLP1;
   double DIFLJ, DIFRJ = 0, DJ, DSIGJ, DSIGJP = 0, TEMP;

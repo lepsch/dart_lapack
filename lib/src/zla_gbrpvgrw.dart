@@ -17,9 +17,6 @@ double zla_gbrpvgrw(
   final Matrix<Complex> AFB_,
   final int LDAFB,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AB = AB_.having(ld: LDAB);
   final AFB = AFB_.having(ld: LDAB);
   int I, J, KD;

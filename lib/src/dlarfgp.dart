@@ -17,9 +17,6 @@ void dlarfgp(
   final int INCX,
   final Box<double> TAU,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   const TWO = 2.0, ONE = 1.0, ZERO = 0.0;
   int J, KNT = 0;
@@ -35,7 +32,6 @@ void dlarfgp(
 
   if (XNORM <= EPS * ALPHA.value.abs()) {
     // H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
-
     if (ALPHA.value >= ZERO) {
       // When TAU == ZERO, the vector is special-cased to be
       // all zeros in the application routines.  We do not need
@@ -52,13 +48,11 @@ void dlarfgp(
     }
   } else {
     // general case
-
     BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value);
     SMLNUM = dlamch('S') / dlamch('E');
     KNT = 0;
     if (BETA.abs() < SMLNUM) {
       // XNORM, BETA may be inaccurate; scale X and recompute them
-
       BIGNUM = ONE / SMLNUM;
       do {
         KNT++;
@@ -68,7 +62,6 @@ void dlarfgp(
       } while ((BETA.abs() < SMLNUM) && (KNT < 20));
 
       // New BETA is at most 1, at least SMLNUM
-
       XNORM = dnrm2(N - 1, X, INCX);
       BETA = sign(dlapy2(ALPHA.value, XNORM), ALPHA.value);
     }
@@ -87,10 +80,6 @@ void dlarfgp(
       // In the case where the computed TAU ends up being a denormalized number,
       // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
       // to ZERO. This explains the next IF statement.
-
-      // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
-      // (Thanks Pat. Thanks MathWorks.)
-
       if (SAVEALPHA >= ZERO) {
         TAU.value = ZERO;
       } else {
@@ -102,12 +91,10 @@ void dlarfgp(
       }
     } else {
       // This is the general case.
-
       dscal(N - 1, ONE / ALPHA.value, X, INCX);
     }
 
     // If BETA is subnormal, it may lose relative accuracy
-
     for (J = 1; J <= KNT; J++) {
       BETA *= SMLNUM;
     }

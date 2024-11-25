@@ -31,10 +31,6 @@ void dlarzb(
   final T = T_.having(ld: LDT);
   final C = C_.having(ld: LDC);
   final WORK = WORK_.having(ld: LDWORK);
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
   String TRANST;
   int I, INFO, J;

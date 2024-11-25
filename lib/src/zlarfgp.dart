@@ -21,9 +21,6 @@ void zlarfgp(
   final int INCX,
   final Box<Complex> TAU,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   const TWO = 2.0, ONE = 1.0, ZERO = 0.0;
   int J, KNT;
@@ -42,7 +39,6 @@ void zlarfgp(
 
   if (XNORM <= EPS * ALPHA.value.abs() && ALPHI == ZERO) {
     // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
-
     if (ALPHR >= ZERO) {
       // When TAU == ZERO, the vector is special-cased to be
       // all zeros in the application routines.  We do not need
@@ -59,7 +55,6 @@ void zlarfgp(
     }
   } else {
     // general case
-
     BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR);
     SMLNUM = dlamch('S') / dlamch('E');
     BIGNUM = ONE / SMLNUM;
@@ -67,7 +62,6 @@ void zlarfgp(
     KNT = 0;
     if (BETA.abs() < SMLNUM) {
       // XNORM, BETA may be inaccurate; scale X and recompute them
-
       do {
         KNT++;
         zdscal(N - 1, BIGNUM, X, INCX);
@@ -77,7 +71,6 @@ void zlarfgp(
       } while ((BETA.abs() < SMLNUM) && (KNT < 20));
 
       // New BETA is at most 1, at least SMLNUM
-
       XNORM = dznrm2(N - 1, X, INCX);
       ALPHA.value = Complex(ALPHR, ALPHI);
       BETA = sign(dlapy3(ALPHR, ALPHI, XNORM), ALPHR);
@@ -99,10 +92,6 @@ void zlarfgp(
       // In the case where the computed TAU ends up being a denormalized number,
       // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
       // to ZERO (or TWO or whatever makes a nonnegative real number for BETA).
-
-      // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
-      // (Thanks Pat. Thanks MathWorks.)
-
       ALPHR = SAVEALPHA.real;
       ALPHI = SAVEALPHA.imaginary;
       if (ALPHI == ZERO) {
@@ -125,12 +114,10 @@ void zlarfgp(
       }
     } else {
       // This is the general case.
-
       zscal(N - 1, ALPHA.value, X, INCX);
     }
 
     // If BETA is subnormal, it may lose relative accuracy
-
     for (J = 1; J <= KNT; J++) {
       BETA *= SMLNUM;
     }

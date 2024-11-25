@@ -27,9 +27,6 @@ void dsyl01(
   final Box<int> KNT,
   final TestDriver test,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NFAIL = NFAIL_.having();
   final RMAX = RMAX_.having();
   final NINFO = NINFO_.having();

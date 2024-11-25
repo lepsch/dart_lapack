@@ -11,9 +11,6 @@ void dlarscl2(
   final Matrix<double> X_,
   final int LDX,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final X = X_.having(ld: LDX);
   int I, J;

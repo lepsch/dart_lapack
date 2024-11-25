@@ -12,9 +12,6 @@ void dlapmr(
   final int LDX,
   final Array<int> K,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having(ld: LDX);
   int I, IN, J, JJ;
   double TEMP;

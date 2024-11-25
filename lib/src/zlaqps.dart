@@ -32,9 +32,6 @@ void zlaqps(
   final Matrix<Complex> F_,
   final int LDF,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final F = F_.having(ld: LDF);
   final JPVT = JPVT_.having();

@@ -38,9 +38,6 @@ void dcsdts(
   final Array<double> RWORK_,
   final Array<double> RESULT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having(ld: LDX);
   final XF = XF_.having(ld: LDX);
   final U1 = U1_.having(ld: LDU1);

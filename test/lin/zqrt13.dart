@@ -21,9 +21,6 @@ void zqrt13(
   final Box<double> NORMA,
   final Array<int> ISEED_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final ISEED = ISEED_.having(length: 4);
 

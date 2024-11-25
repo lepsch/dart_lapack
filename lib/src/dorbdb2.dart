@@ -31,9 +31,6 @@ void dorbdb2(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X11 = X11_.having(ld: LDX11);
   final X21 = X21_.having(ld: LDX21);
   final THETA = THETA_.having();

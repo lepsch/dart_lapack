@@ -13,30 +13,16 @@ import 'chkxer.dart';
 import 'common.dart';
 
 void zerrunhr_col(String PATH, Nout NUNIT) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 2;
   final A = Matrix<Complex>(NMAX, NMAX),
       T = Matrix<Complex>(NMAX, NMAX),
       D = Array<Complex>(NMAX);
   final INFO = Box(0);
-  // bool               infoc.LERR, infoc.OK;
-  // String   (LEN=32) srnamc.SRNAMT;
-  // int                infoc.INFOT, infoc.NOUT;
-  // ..
-  // .. Common blocks ..
-  // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
-  // COMMON / SRNAMC /srnamc.SRNAMT
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DBLE, DCMPLX
 
   infoc.NOUT = NUNIT;
   infoc.NOUT.println();
 
   // Set the variables to innocuous values.
-
   for (var J = 1; J <= NMAX; J++) {
     for (var I = 1; I <= NMAX; I++) {
       A[I][J] = Complex(1.0 / (I + J));
@@ -49,7 +35,6 @@ void zerrunhr_col(String PATH, Nout NUNIT) {
   // Error exits for Householder reconstruction
 
   // ZUNHR_COL
-
   srnamc.SRNAMT = 'ZUNHR_COL';
 
   infoc.INFOT = 1;
@@ -90,6 +75,5 @@ void zerrunhr_col(String PATH, Nout NUNIT) {
   chkxer('ZUNHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
 
   // Print a summary line.
-
   alaesm(PATH, infoc.OK.value, infoc.NOUT);
 }

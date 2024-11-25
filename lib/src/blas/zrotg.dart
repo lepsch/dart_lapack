@@ -16,9 +16,6 @@ void zrotg(
   final Box<double> c,
   final Box<Complex> s,
 ) {
-//  -- Reference BLAS level1 routine --
-//  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-//  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const zero = 0.0, one = 1.0;
   final safmin =
       pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)));

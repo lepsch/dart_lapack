@@ -20,9 +20,6 @@ import 'chkxer.dart';
 import 'common.dart';
 
 void derrbd(final String PATH, final Nout NUNIT, final TestDriver test) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4, LW = NMAX;
   const ZERO = 0.0, ONE = 1.0;
   int NT;

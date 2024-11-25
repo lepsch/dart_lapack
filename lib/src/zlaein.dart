@@ -33,10 +33,6 @@ void zlaein(
   final B = B_.having(ld: LDB);
   final V = V_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, TENTH = 1.0e-1;
   String NORMIN, TRANS;
   int I, ITS, J;

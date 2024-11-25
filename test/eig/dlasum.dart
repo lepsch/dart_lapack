@@ -11,9 +11,6 @@ void dlasum(
   final int IE,
   final int NRUN,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   if (IE > 0) {
     IOUNIT.println(
         ' ${TYPE.a3}: ${IE.i4} out of ${NRUN.i5} tests failed to pass the threshold');

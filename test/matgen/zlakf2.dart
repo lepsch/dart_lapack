@@ -17,21 +17,12 @@ void zlakf2(
   final Matrix<Complex> Z_,
   final int LDZ,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDA);
   final D = D_.having(ld: LDA);
   final E = E_.having(ld: LDA);
   final Z = Z_.having(ld: LDA);
   int I, IK, J, JK, L, MN, MN2;
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL ZLASET
-
-  // Initialize Z
-
   MN = M * N;
   MN2 = 2 * MN;
   zlaset('Full', MN2, MN2, Complex.zero, Complex.zero, Z, LDZ);

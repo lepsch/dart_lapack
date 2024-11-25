@@ -21,9 +21,6 @@ void dlaic1(
   final Box<double> S,
   final Box<double> C,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final W = W_.having();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;

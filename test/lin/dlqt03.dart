@@ -41,10 +41,6 @@ void dlqt03(
   final WORK = WORK_.having(length: LWORK);
   final RWORK = RWORK_.having();
   final RESULT = RESULT_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
   const ROGUE = -1.0e+10;
   final ISEED = Array.fromList([1988, 1989, 1990, 1991]);

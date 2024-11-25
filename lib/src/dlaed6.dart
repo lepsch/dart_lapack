@@ -18,9 +18,6 @@ void dlaed6(
   final Box<double> TAU,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final Z = Z_.having();
   const MAXIT = 40;

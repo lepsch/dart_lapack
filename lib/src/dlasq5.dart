@@ -23,9 +23,6 @@ void dlasq5(
   final bool IEEE,
   final double EPS,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Z = Z_.having();
   const ZERO = 0.0, HALF = 0.5;
   int J4, J4P2;

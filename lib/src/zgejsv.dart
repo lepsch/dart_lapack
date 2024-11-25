@@ -60,9 +60,6 @@ void zgejsv(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final U = U_.having(ld: LDU);
   final V = V_.having(ld: LDV);
@@ -139,7 +136,6 @@ void zgejsv(
   final AAPP = Box(0.0), AAQQ = Box(0.0), XSC = Box(0.0), TEMP1 = Box(0.0);
 
   // Test the input arguments
-
   LSVEC = lsame(JOBU, 'U') || lsame(JOBU, 'F');
   JRACC = lsame(JOBV, 'J');
   RSVEC = lsame(JOBV, 'V') || JRACC;
@@ -185,13 +181,13 @@ void zgejsv(
   }
 
   if (INFO.value == 0) {
-    // .. compute the minimal and the optimal workspace lengths
+    // compute the minimal and the optimal workspace lengths
     // [[The expressions for computing the minimal and the optimal
     // values of LCWORK, LRWORK are written with a lot of redundancy and
     // can be simplified. However, this verbose form is useful for
     // maintenance and modifications of the code.]]
 
-    // .. minimal workspace length for ZGEQP3 of an M x N matrix,
+    // minimal workspace length for ZGEQP3 of an M x N matrix,
     //  ZGEQRF of an N x N matrix, ZGELQF of an N x N matrix,
     //  ZUNMLQ for computing N x N matrix, ZUNMQR for computing N x N
     //  matrix, ZUNMQR for computing M x N matrix, respectively.
@@ -201,13 +197,13 @@ void zgejsv(
     LWUNMLQ = max(1, N);
     LWUNMQR = max(1, N);
     LWUNMQRM = max(1, M);
-    // .. minimal workspace length for ZPOCON of an N x N matrix
+    // minimal workspace length for ZPOCON of an N x N matrix
     LWCON = 2 * N;
-    // .. minimal workspace length for ZGESVJ of an N x N matrix,
-    //  without and with explicit accumulation of Jacobi rotations
+    // minimal workspace length for ZGESVJ of an N x N matrix,
+    // without and with explicit accumulation of Jacobi rotations
     LWSVDJ = max(2 * N, 1);
     LWSVDJV = max(2 * N, 1);
-    // .. minimal REAL workspace length for ZGEQP3, ZPOCON, ZGESVJ
+    // minimal REAL workspace length for ZGEQP3, ZPOCON, ZGESVJ
     LRWQP3 = 2 * N;
     LRWCON = N;
     LRWSVDJ = N;
@@ -223,7 +219,7 @@ void zgejsv(
     OPTWRK = 2;
     MINIWRK = N;
     if (!(LSVEC || RSVEC)) {
-      // .. minimal and optimal sizes of the complex workspace if
+      // minimal and optimal sizes of the complex workspace if
       // only the singular values are requested
       if (ERREST) {
         MINWRK = max(max(N + LWQP3, pow(N, 2).toInt().toInt() + LWCON),
@@ -257,7 +253,7 @@ void zgejsv(
       }
       if (ROWPIV || L2TRAN) MINIWRK += M;
     } else if (RSVEC && !LSVEC) {
-      // .. minimal and optimal sizes of the complex workspace if the
+      // minimal and optimal sizes of the complex workspace if the
       // singular values and the right singular vectors are requested
       if (ERREST) {
         MINWRK = max(max(N + LWQP3, max(LWCON, LWSVDJ)),
@@ -299,7 +295,7 @@ void zgejsv(
       }
       if (ROWPIV || L2TRAN) MINIWRK += M;
     } else if (LSVEC && !RSVEC) {
-      // .. minimal and optimal sizes of the complex workspace if the
+      // minimal and optimal sizes of the complex workspace if the
       // singular values and the left singular vectors are requested
       if (ERREST) {
         MINWRK =
@@ -340,7 +336,7 @@ void zgejsv(
       }
       if (ROWPIV || L2TRAN) MINIWRK += M;
     } else {
-      // .. minimal and optimal sizes of the complex workspace if the
+      // minimal and optimal sizes of the complex workspace if the
       // full SVD is requested
       if (!JRACC) {
         if (ERREST) {
@@ -534,7 +530,6 @@ void zgejsv(
   // Set numerical parameters
 
   // !    NOTE: Make sure dlamch() does not fail on the target architecture.
-
   EPSLN = dlamch('Epsilon');
   SFMIN = dlamch('SafeMinimum');
   SMALL = SFMIN / EPSLN;
@@ -546,7 +541,6 @@ void zgejsv(
   // (!)  If necessary, scale SVA() to protect the largest norm from
   // overflow. It is possible that this scaling pushes the smallest
   // column norm left from the underflow threshold (extreme case).
-
   SCALEM = ONE / sqrt(M * N);
   NOSCAL = true;
   GOSCAL = true;
@@ -582,7 +576,6 @@ void zgejsv(
   }
 
   // Quick return for zero M x N matrix
-// #:)
   if (AAPP.value == ZERO) {
     if (LSVEC) zlaset('G', M, N1, Complex.zero, Complex.one, U, LDU);
     if (RSVEC) zlaset('G', N, N, Complex.zero, Complex.one, V, LDV);
@@ -607,7 +600,6 @@ void zgejsv(
   // Issue warning if denormalized column norms detected. Override the
   // high relative accuracy request. Issue licence to kill nonzero columns
   // (set them to zero) whose norm is less than sigma_max / BIG (roughly).
-// #:(
   WARNING = 0;
   if (AAQQ.value <= SFMIN) {
     L2RANK = true;
@@ -616,7 +608,6 @@ void zgejsv(
   }
 
   // Quick return for one-column matrix
-// #:)
   if (N == 1) {
     if (LSVEC) {
       zlascl('G', 0, 0, SVA[1], SCALEM, M, 1, A(1, 1), LDA, IERR);
@@ -671,7 +662,6 @@ void zgejsv(
     // (in the case of heavily row weighted A, row pivoting is strongly
     // advised) and to collect information needed to compare the
     // structures of A * A^* and A^* * A (in the case L2TRAN == true ).
-
     if (L2TRAN) {
       for (p = 1; p <= M; p++) {
         XSC.value = ZERO;
@@ -699,7 +689,6 @@ void zgejsv(
   // and row norms of A, based on the Shannon entropy. This should give
   // the right choice in most cases when the difference actually matters.
   // It may fail and pick the slower converging side.
-
   ENTRA = ZERO;
   ENTRAT = ZERO;
   if (L2TRAN) {
@@ -720,7 +709,6 @@ void zgejsv(
     // diagonal of A * A^*, compute the entropy of the corresponding
     // probability distribution. Note that A * A^* and A^* * A have the
     // same trace.
-
     ENTRAT = ZERO;
     for (p = 1; p <= M; p++) {
       BIG1 = (pow(RWORK[p] / XSC.value, 2)) * TEMP1.value;
@@ -730,7 +718,6 @@ void zgejsv(
 
     // Analyze the entropies and decide A or A^*. Smaller entropy
     // usually means better input for the algorithm.
-
     TRANSP = (ENTRAT < ENTRA);
 
     // If A^* is better than A, take the adjoint of A. This is allowed
@@ -794,7 +781,6 @@ void zgejsv(
 
   // To undo scaling at the end of this procedure, multiply the
   // computed singular values with USCAL2 / USCAL1.
-
   USCAL1 = TEMP1.value;
   USCAL2 = AAPP.value;
 
@@ -828,7 +814,6 @@ void zgejsv(
   }
 
   // Preconditioning using QR factorization with pivoting
-
   if (ROWPIV) {
     // Optional row permutation (Bjoerck row pivoting):
     // A result by Cox and Higham shows that the Bjoerck's
@@ -868,7 +853,7 @@ void zgejsv(
 
   // A * P1 = Q1 * [ R1^* 0]^*:
   for (p = 1; p <= N; p++) {
-    // .. all columns are free columns
+    // all columns are free columns
     IWORK[p] = 0;
   }
   zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N + 1), LWORK - N, RWORK, IERR);
@@ -880,7 +865,6 @@ void zgejsv(
   // rank by inspecting the computed upper triangular factor. If
   // L2RANK or L2ABER are up, then ZGEJSV will compute the SVD of
   // A + dA, where ||dA|| <= f(M,N)*EPSLN.
-
   NR = 1;
   if (L2ABER) {
     // Standard absolute error bound suffices. All sigma_i with
@@ -896,7 +880,7 @@ void zgejsv(
       }
     }
   } else if (L2RANK) {
-    // .. similarly as above, only slightly more gentle (less aggressive).
+    // similarly as above, only slightly more gentle (less aggressive).
     // Sudden drop on the diagonal of R1 is used as the criterion for
     // close-to-rank-deficient.
     TEMP1.value = sqrt(SFMIN);
@@ -941,7 +925,7 @@ void zgejsv(
   if (ERREST) {
     if (N == NR) {
       if (RSVEC) {
-        // .. V is available as workspace
+        // V is available as workspace
         zlacpy('U', N, N, A, LDA, V, LDV);
         for (p = 1; p <= N; p++) {
           TEMP1.value = SVA[IWORK[p]];
@@ -953,7 +937,7 @@ void zgejsv(
           zpocon('U', N, V, LDV, ONE, TEMP1, CWORK, RWORK, IERR);
         }
       } else if (LSVEC) {
-        // .. U is available as workspace
+        // U is available as workspace
         zlacpy('U', N, N, A, LDA, U, LDU);
         for (p = 1; p <= N; p++) {
           TEMP1.value = SVA[IWORK[p]];
@@ -970,7 +954,7 @@ void zgejsv(
           // []               CALL ZDSCAL( p, ONE/TEMP1, CWORK(N+(p-1)*N+1), 1 )
           zdscal(p, ONE / TEMP1.value, CWORK((p - 1) * N + 1), 1);
         }
-        // .. the columns of R are scaled to have unit Euclidean lengths.
+        // the columns of R are scaled to have unit Euclidean lengths.
         // []               CALL ZPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1,
         // []     $              CWORK(N+N*N+1), RWORK, IERR )
         zpocon('U', N, CWORK.asMatrix(N), N, ONE, TEMP1, CWORK(N * N + 1),
@@ -992,11 +976,10 @@ void zgejsv(
   // If there is no violent scaling, artificial perturbation is not needed.
 
   // Phase 3:
-
   if (!(RSVEC || LSVEC)) {
     // Singular Values only
 
-    // .. transpose A(1:NR,1:N)
+    // transpose A(1:NR,1:N)
     for (p = 1; p <= min(N - 1, NR); p++) {
       zcopy(N - p, A(p, p + 1).asArray(), LDA, A(p + 1, p).asArray(), 1);
       zlacgv(N - p + 1, A(p, p).asArray(), 1);
@@ -1014,7 +997,6 @@ void zgejsv(
     // the job done by the preconditioner.
     // The licence for this perturbation is in the variable L2PERT, which
     // should be false if FLUSH TO ZERO underflow is active.
-
     if (!ALMORT) {
       if (L2PERT) {
         // XSC = sqrt(SMALL)
@@ -1032,11 +1014,10 @@ void zgejsv(
         zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, A(1, 2), LDA);
       }
 
-      // .. second preconditioning using the QR factorization
-
+      // second preconditioning using the QR factorization
       zgeqrf(N, NR, A, LDA, CWORK, CWORK(N + 1), LWORK - N, IERR);
 
-      // .. and transpose upper to lower triangular
+      // and transpose upper to lower triangular
       for (p = 1; p <= NR - 1; p++) {
         zcopy(NR - p, A(p, p + 1).asArray(), LDA, A(p + 1, p).asArray(), 1);
         zlacgv(NR - p + 1, A(p, p).asArray(), 1);
@@ -1045,7 +1026,7 @@ void zgejsv(
 
     // Row-cyclic Jacobi SVD algorithm with column pivoting
 
-    // .. again some perturbation (a "background noise") is added
+    // again some perturbation (a "background noise") is added
     // to drown denormals
     if (L2PERT) {
       // XSC = sqrt(SMALL)
@@ -1063,10 +1044,9 @@ void zgejsv(
       zlaset('U', NR - 1, NR - 1, Complex.zero, Complex.zero, A(1, 2), LDA);
     }
 
-    // .. and one-sided Jacobi rotations are started on a lower
+    // and one-sided Jacobi rotations are started on a lower
     // triangular matrix (plus perturbation which is ignored in
     // the part which destroys triangular form (confusing?!))
-
     zgesvj('L', 'N', 'N', NR, NR, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK,
         LRWORK, INFO);
 
@@ -1076,7 +1056,7 @@ void zgejsv(
     // -> Singular Values and Right Singular Vectors <-
 
     if (ALMORT) {
-      // .. in this case NR equals N
+      // in this case NR equals N
       for (p = 1; p <= NR; p++) {
         zcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
         zlacgv(N - p + 1, V(p, p).asArray(), 1);
@@ -1088,9 +1068,8 @@ void zgejsv(
       SCALEM = RWORK[1];
       NUMRANK = nint(RWORK[2]);
     } else {
-      // .. two more QR factorizations ( one QRF is not enough, two require
+      // two more QR factorizations ( one QRF is not enough, two require
       // accumulated product of Jacobi rotations, three are perfect )
-
       zlaset('L', NR - 1, NR - 1, Complex.zero, Complex.zero, A(2, 1), LDA);
       zgelqf(NR, N, A, LDA, CWORK, CWORK(N + 1), LWORK - N, IERR);
       zlacpy('L', NR, NR, A, LDA, V, LDV);
@@ -1117,7 +1096,7 @@ void zgejsv(
       zunmlq('L', 'C', N, N, NR, A, LDA, CWORK, V, LDV, CWORK(N + 1), LWORK - N,
           IERR);
     }
-    // .. permute the rows of V
+    // permute the rows of V
     // DO 8991 p = 1, N
     //    CALL ZCOPY( N, V(p,1), LDV, A(IWORK[p],1), LDA )
     // 8991    CONTINUE
@@ -1136,9 +1115,9 @@ void zgejsv(
     NUMRANK = nint(RWORK[2]);
     zlapmr(false, N, N, V, LDV, IWORK);
   } else if (LSVEC && !RSVEC) {
-    // .. Singular Values and Left Singular Vectors                 ..
+    // Singular Values and Left Singular Vectors                 ..
 
-    // .. second preconditioning step to avoid need to accumulate
+    // second preconditioning step to avoid need to accumulate
     // Jacobi rotations in the Jacobi iterations.
     for (p = 1; p <= NR; p++) {
       zcopy(N - p + 1, A(p, p).asArray(), LDA, U(p, p).asArray(), 1);
@@ -1182,8 +1161,7 @@ void zgejsv(
       zlacpy('A', N, N, U, LDU, V, LDV);
     }
   } else {
-    // .. Full SVD ..
-
+    // Full SVD
     if (!JRACC) {
       if (!ALMORT) {
         // Second Preconditioning Step (QRF [with pivoting])
@@ -1192,13 +1170,12 @@ void zgejsv(
         // seems to be better optimized than the LQF, we do explicit
         // transpose and use the QRF. This is subject to changes in an
         // optimized implementation of ZGEJSV.
-
         for (p = 1; p <= NR; p++) {
           zcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
           zlacgv(N - p + 1, V(p, p).asArray(), 1);
         }
 
-        // .. the following two loops perturb small entries to avoid
+        // the following two loops perturb small entries to avoid
         // denormals in the second QR factorization, where they are
         // as good as zeros. This is done to avoid painfully slow
         // computation with denormals. The relative size of the perturbation
@@ -1209,7 +1186,6 @@ void zgejsv(
         // code, remove the action under L2PERT= true , leave the ELSE part.
         // The following two loops should be blocked and fused with the
         // transposed copy above.
-
         if (L2PERT) {
           XSC.value = sqrt(SMALL);
           for (q = 1; q <= NR; q++) {
@@ -1229,7 +1205,6 @@ void zgejsv(
         // Estimate the row scaled condition number of R1
         // (If R1 is rectangular, N > NR, then the condition number
         // of the leading NR x NR submatrix is estimated.)
-
         zlacpy('L', NR, NR, V, LDV, CWORK(2 * N + 1).asMatrix(NR), NR);
         for (p = 1; p <= NR; p++) {
           TEMP1.value = dznrm2(NR - p + 1, CWORK(2 * N + (p - 1) * NR + p), 1);
@@ -1239,16 +1214,14 @@ void zgejsv(
         zpocon('L', NR, CWORK(2 * N + 1).asMatrix(NR), NR, ONE, TEMP1,
             CWORK(2 * N + NR * NR + 1), RWORK, IERR);
         CONDR1 = ONE / sqrt(TEMP1.value);
-        // .. here need a second opinion on the condition number
-        // .. then assume worst case scenario
+        // here need a second opinion on the condition number
+        // then assume worst case scenario
         // R1 is OK for inverse <=> CONDR1 < N
         // more conservative    <=> CONDR1 < sqrt(N)
-
         COND_OK = sqrt(sqrt(NR));
         // [TP]       COND_OK is a tuning parameter.
-
         if (CONDR1 < COND_OK) {
-          // .. the second QRF without pivoting. Note: in an optimized
+          // the second QRF without pivoting. Note: in an optimized
           // implementation, this QRF should be implemented as the QRF
           // of a lower triangular matrix.
           // R1^* = Q2 * R2
@@ -1272,9 +1245,9 @@ void zgejsv(
           if (NR != N) {
             zlacpy('A', N, NR, V, LDV, CWORK(2 * N + 1).asMatrix(N), N);
           }
-          // .. save ...
+          // save
 
-          // .. this transposed copy should be better than naive
+          // this transposed copy should be better than naive
           for (p = 1; p <= NR - 1; p++) {
             zcopy(NR - p, V(p, p + 1).asArray(), LDV, V(p + 1, p).asArray(), 1);
             zlacgv(NR - p + 1, V(p, p).asArray(), 1);
@@ -1283,7 +1256,7 @@ void zgejsv(
 
           CONDR2 = CONDR1;
         } else {
-          // .. ill-conditioned case: second QRF with pivoting
+          // ill-conditioned case: second QRF with pivoting
           // Note that windowed pivoting would be equally good
           // numerically, and more run-time efficient. So, in
           // an optimal implementation, the next call to ZGEQP3
@@ -1338,7 +1311,7 @@ void zgejsv(
               CWORK(2 * N + N * NR + NR + 1),
               LWORK - 2 * N - N * NR - NR,
               IERR);
-          // .. and estimate the condition number
+          // and estimate the condition number
           zlacpy('L', NR, NR, V, LDV,
               CWORK(2 * N + N * NR + NR + 1).asMatrix(NR), NR);
           for (p = 1; p <= NR; p++) {
@@ -1350,12 +1323,12 @@ void zgejsv(
           CONDR2 = ONE / sqrt(TEMP1.value);
 
           if (CONDR2 >= COND_OK) {
-            // .. save the Householder vectors used for Q3
+            // save the Householder vectors used for Q3
             // (this overwrites the copy of R2, as it will not be
             // needed in this branch, but it does not overwrite the
             // Huseholder vectors of Q2.).
             zlacpy('U', NR, NR, V, LDV, CWORK(2 * N + 1).asMatrix(N), N);
-            // .. and the rest of the information on Q3 is in
+            // and the rest of the information on Q3 is in
             // WORK(2*N+N*NR+1:2*N+N*NR+N)
           }
         }
@@ -1378,7 +1351,6 @@ void zgejsv(
 
         // Recover the right singular vectors as solution of a well
         // conditioned triangular matrix equation.
-
         if (CONDR1 < COND_OK) {
           zgesvj(
               'L',
@@ -1404,16 +1376,15 @@ void zgejsv(
             zdscal(NR, SVA[p], V(1, p).asArray(), 1);
           }
 
-          // .. pick the right matrix equation and solve it
-
+          // pick the right matrix equation and solve it
           if (NR == N) {
-            // .. best case, R1 is inverted. The solution of this matrix
+            // best case, R1 is inverted. The solution of this matrix
             // equation is Q2*V2 = the product of the Jacobi rotations
             // used in ZGESVJ, premultiplied with the orthogonal matrix
             // from the second QR factorization.
             ztrsm('L', 'U', 'N', 'N', NR, NR, Complex.one, A, LDA, V, LDV);
           } else {
-            // .. R1 is well conditioned, but non-square. Adjoint of R2
+            // R1 is well conditioned, but non-square. Adjoint of R2
             // is inverted to get the product of the Jacobi rotations
             // used in ZGESVJ. The Q-factor from the second QR
             // factorization is then built in explicitly.
@@ -1472,7 +1443,7 @@ void zgejsv(
           }
           ztrsm('L', 'U', 'N', 'N', NR, NR, Complex.one,
               CWORK(2 * N + 1).asMatrix(N), N, U, LDU);
-          // .. apply the permutation from the second QR factorization
+          // apply the permutation from the second QR factorization
           for (q = 1; q <= NR; q++) {
             for (p = 1; p <= NR; p++) {
               CWORK[2 * N + N * NR + NR + IWORK[N + p]] = U[p][q];
@@ -1505,7 +1476,7 @@ void zgejsv(
               IERR);
         } else {
           // Last line of defense.
-// #:(          This is a rather pathological case: no scaled condition
+          // This is a rather pathological case: no scaled condition
           // improvement after two pivoted QR factorizations. Other
           // possibility is that the rank revealing QR factorization
           // or the condition estimator has failed, or the COND_OK
@@ -1584,7 +1555,6 @@ void zgejsv(
         // Permute the rows of V using the (column) permutation from the
         // first QRF. Also, scale the columns to make them unit in
         // Euclidean norm. This applies to all cases.
-
         TEMP1.value = sqrt(N) * EPSLN;
         for (q = 1; q <= N; q++) {
           for (p = 1; p <= N; p++) {
@@ -1614,7 +1584,6 @@ void zgejsv(
 
         // The Q matrix from the first QRF is built into the left singular
         // matrix U. This applies to all cases.
-
         zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N + 1),
             LWORK - N, IERR);
 
@@ -1630,12 +1599,10 @@ void zgejsv(
 
         // If the initial QRF is computed with row pivoting, the left
         // singular vectors must be adjusted.
-
         if (ROWPIV) zlaswp(N1, U, LDU, 1, M - 1, IWORK(IWOFF + 1), -1);
       } else {
-        // .. the initial matrix A has almost orthogonal columns and
+        // the initial matrix A has almost orthogonal columns and
         // the second QRF is not needed
-
         zlacpy('U', N, N, A, LDA, CWORK(N + 1).asMatrix(N), N);
         if (L2PERT) {
           XSC.value = sqrt(SMALL);
@@ -1677,7 +1644,6 @@ void zgejsv(
         }
 
         // Assemble the left singular vector matrix U (M x N).
-
         if (N < M) {
           zlaset('A', M - N, N, Complex.zero, Complex.zero, U(N + 1, 1), LDU);
           if (N < N1) {
@@ -1713,7 +1679,6 @@ void zgejsv(
       // implementation of BLAS and some LAPACK procedures, capable of working
       // in presence of extreme values, e.g. when the singular values spread from
       // the underflow to the overflow threshold.
-
       for (p = 1; p <= NR; p++) {
         zcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
         zlacgv(N - p + 1, V(p, p).asArray(), 1);
@@ -1800,7 +1765,6 @@ void zgejsv(
       // Permute the rows of V using the (column) permutation from the
       // first QRF. Also, scale the columns to make them unit in
       // Euclidean norm. This applies to all cases.
-
       TEMP1.value = sqrt(N) * EPSLN;
       for (q = 1; q <= N; q++) {
         for (p = 1; p <= N; p++) {
@@ -1818,7 +1782,6 @@ void zgejsv(
 
       // At this moment, V contains the right singular vectors of A.
       // Next, assemble the left singular vector matrix U (M x N).
-
       if (NR < M) {
         zlaset('A', M - NR, NR, Complex.zero, Complex.zero, U(NR + 1, 1), LDU);
         if (NR < N1) {
@@ -1835,7 +1798,7 @@ void zgejsv(
       if (ROWPIV) zlaswp(N1, U, LDU, 1, M - 1, IWORK(IWOFF + 1), -1);
     }
     if (TRANSP) {
-      // .. swap U and V because the procedure worked on A^*
+      // swap U and V because the procedure worked on A^*
       for (p = 1; p <= N; p++) {
         zswap(N, U(1, p).asArray(), 1, V(1, p).asArray(), 1);
       }
@@ -1844,7 +1807,6 @@ void zgejsv(
   // end of the full SVD
 
   // Undo scaling, if necessary (and possible)
-
   if (USCAL2 <= (BIG / SVA[1]) * USCAL1) {
     dlascl('G', 0, 0, USCAL1, USCAL2, NR, 1, SVA.asMatrix(N), N, IERR);
     USCAL1 = ONE;

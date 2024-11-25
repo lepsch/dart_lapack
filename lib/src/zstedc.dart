@@ -38,9 +38,6 @@ void zstedc(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Z = Z_.having(ld: LDZ);
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();

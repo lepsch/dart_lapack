@@ -51,10 +51,6 @@ import 'chkxer.dart';
 import 'common.dart';
 
 void derrst(final String PATH, final Nout NUNIT, final TestDriver test) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   // NMAX has to be at least 3 or LIW may be too small
   const NMAX = 3, LIW = 12 * NMAX, LW = 20 * NMAX;
   int N, NT;

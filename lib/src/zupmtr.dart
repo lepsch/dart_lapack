@@ -26,10 +26,6 @@ void zupmtr(
 ) {
   final C = C_.having(ld: LDC);
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool FORWRD, LEFT, NOTRAN, UPPER;
   int I, I1, I2, I3, IC = 0, II, JC = 0, MI = 0, NI = 0, NQ;
   Complex AII, TAUI;

@@ -37,9 +37,6 @@ void dlasd3(
   final Array<double> Z_,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final Q = Q_.having(ld: LDQ);
   final DSIGMA = DSIGMA_.having();

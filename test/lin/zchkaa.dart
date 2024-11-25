@@ -76,10 +76,6 @@ import 'zdrvsy_rk.dart';
 import 'zdrvsy_rook.dart';
 
 void main() async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   final NIN = Nin(stdin), NOUT = Nout(stdout);
   const NMAX = 132;
   const MAXIN = 12;

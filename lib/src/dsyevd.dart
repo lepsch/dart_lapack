@@ -19,8 +19,6 @@ import 'package:dart_lapack/src/install/dlamch.dart';
 import 'package:dart_lapack/src/matrix.dart';
 import 'package:dart_lapack/src/xerbla.dart';
 
-// >
-// =====================================================================
 void dsyevd(
   final String JOBZ,
   final String UPLO,
@@ -34,9 +32,6 @@ void dsyevd(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final W = W_.having();
   final WORK = WORK_.having();

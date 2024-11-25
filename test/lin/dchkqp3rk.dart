@@ -42,9 +42,6 @@ void dchkqp3rk(
   final Nout NOUT,
   final TestDriver test,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final MVAL = MVAL_.having();
   final NVAL = NVAL_.having();

@@ -15,9 +15,6 @@ void zptts2(
   final Matrix<Complex> B_,
   final int LDB,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final B = B_.having(ld: LDB);
   final E = E_.having();
   final D = D_.having();

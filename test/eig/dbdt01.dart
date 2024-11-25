@@ -27,9 +27,6 @@ void dbdt01(
   final Array<double> WORK_,
   final Box<double> RESID,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final Q = Q_.having(ld: LDQ);
   final D = D_.having();

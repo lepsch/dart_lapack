@@ -48,10 +48,6 @@ void zlalsd(
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int BX,
       BXST,
@@ -259,7 +255,7 @@ void zlalsd(
     // (in the real version of the code V**H is stored in WORK).
 
     // CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO,
-// $               WORK( NWORK ), N )
+    // $               WORK( NWORK ), N )
 
     J = IRWB - 1;
     for (JCOL = 1; JCOL <= NRHS; JCOL++) {
@@ -559,8 +555,8 @@ void zlalsd(
       // is performed in two steps (real and imaginary parts).
 
       // CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-// $                  RWORK( VT+ST1 ), N, RWORK( BXST ), N, ZERO,
-// $                  B( ST, 1 ), LDB )
+      // $                  RWORK( VT+ST1 ), N, RWORK( BXST ), N, ZERO,
+      // $                  B( ST, 1 ), LDB )
 
       J = BXST - N - 1;
       JREAL = IRWB - 1;

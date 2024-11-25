@@ -28,10 +28,6 @@ void zpbcon(
   final AB = AB_.having(ld: LDAB);
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   bool UPPER;
   String NORMIN;

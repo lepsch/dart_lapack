@@ -48,7 +48,7 @@ void zebchvxx(final double THRESH, final String PATH, final Nout NOUT) {
   const BND_I = 2, COND_I = 3;
   final INFO = Box(0);
 
-// Create the loop to test out the Hilbert matrices
+  // Create the loop to test out the Hilbert matrices
 
   final FACT = 'E';
   final UPLO = 'U';

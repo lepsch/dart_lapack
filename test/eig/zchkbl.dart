@@ -13,9 +13,6 @@ import 'package:dart_lapack/src/nio.dart';
 import 'package:dart_lapack/src/zgebal.dart';
 
 Future<void> zchkbl(final Nin NIN, final Nout NOUT) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const LDA = 20;
   const ZERO = 0.0;
   int I, IHIIN, ILOIN, J, KNT, N, NINFO;

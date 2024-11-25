@@ -24,9 +24,6 @@ Future<void> dchkgk(
   final TestDriver test,
   final String group,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const threshold = 0.525;
   const LDA = 50, LDB = 50, LDVL = 50, LDVR = 50;
   const LDE = 50, LDF = 50, LDWORK = 50;

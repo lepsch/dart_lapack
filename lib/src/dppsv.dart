@@ -20,9 +20,6 @@ void dppsv(
   final int LDB,
   final Box<int> INFO,
 ) {
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final B = B_.having(ld: LDB);
 

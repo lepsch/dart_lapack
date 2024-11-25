@@ -43,9 +43,6 @@ Future<void> zckcsd(
   final Nout NOUT,
   final Box<int> INFO,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final XF = XF_.having();
   final U1 = U1_.having();

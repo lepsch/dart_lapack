@@ -23,9 +23,6 @@ void dort01(
   final int LWORK,
   final Box<double> RESID,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final U = U_.having(ld: LDU);
   final WORK = WORK_.having();
   const ZERO = 0.0, ONE = 1.0;

@@ -41,9 +41,6 @@ void zhet22(
   final D = D_.having();
   final E = E_.having();
   final RESULT = RESULT_.having();
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   int J, JJ, JJ1, JJ2, NN, NNP1;
   double ANORM, ULP, UNFL, WNORM;

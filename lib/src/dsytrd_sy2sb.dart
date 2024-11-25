@@ -31,9 +31,6 @@ void dsytrd_sy2sb(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final AB = AB_.having(ld: LDAB);
   final TAU = TAU_.having();
@@ -62,7 +59,6 @@ void dsytrd_sy2sb(
 
   // Determine the minimal workspace size required
   // and test the input parameters
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   LQUERY = (LWORK == -1);
@@ -96,7 +92,6 @@ void dsytrd_sy2sb(
 
   // Quick return if possible
   // Copy the upper/lower portion of A into AB
-
   if (N <= KD + 1) {
     if (UPPER) {
       for (I = 1; I <= N; I++) {
@@ -115,7 +110,6 @@ void dsytrd_sy2sb(
   }
 
   // Determine the pointer position for the workspace
-
   LDT = KD;
   LDS1 = KD;
   LT = LDT * KD;
@@ -137,7 +131,6 @@ void dsytrd_sy2sb(
 
   // Set the workspace of the triangular matrix T to zero once such a
   // way every time T is generated the upper/lower portion will be always zero
-
   dlaset('A', LDT, KD, ZERO, ZERO, WORK(TPOS).asMatrix(LDT), LDT);
 
   if (UPPER) {
@@ -146,11 +139,9 @@ void dsytrd_sy2sb(
       PK = min(N - I - KD + 1, KD);
 
       // Compute the LQ factorization of the current block
-
       dgelqf(KD, PN, A(I, I + KD), LDA, TAU(I), WORK(S2POS), LS2, IINFO);
 
       // Copy the upper portion of A into AB
-
       for (J = I; J <= I + PK - 1; J++) {
         LK = min(KD, N - J) + 1;
         dcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
@@ -159,12 +150,10 @@ void dsytrd_sy2sb(
       dlaset('Lower', PK, PK, ZERO, ONE, A(I, I + KD), LDA);
 
       // Form the matrix T
-
       dlarft('Forward', 'Rowwise', PN, PK, A(I, I + KD), LDA, TAU(I),
           WORK(TPOS).asMatrix(LDT), LDT);
 
       // Compute W:
-
       dgemm(
           'Conjugate',
           'No transpose',
@@ -226,30 +215,25 @@ void dsytrd_sy2sb(
 
       // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
       // an update of the form:  A := A - V'*W - W'*V
-
       dsyr2k(UPLO, 'Conjugate', PN, PK, -ONE, A(I, I + KD), LDA,
           WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
     }
 
     // Copy the upper band to AB which is the band storage matrix
-
     for (J = N - KD + 1; J <= N; J++) {
       LK = min(KD, N - J) + 1;
       dcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
     }
   } else {
     // Reduce the lower triangle of A to lower band matrix
-
     for (I = 1; I <= N - KD; I += KD) {
       PN = N - I - KD + 1;
       PK = min(N - I - KD + 1, KD);
 
       // Compute the QR factorization of the current block
-
       dgeqrf(PN, KD, A(I + KD, I), LDA, TAU(I), WORK(S2POS), LS2, IINFO);
 
       // Copy the upper portion of A into AB
-
       for (J = I; J <= I + PK - 1; J++) {
         LK = min(KD, N - J) + 1;
         dcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);
@@ -258,12 +242,10 @@ void dsytrd_sy2sb(
       dlaset('Upper', PK, PK, ZERO, ONE, A(I + KD, I), LDA);
 
       // Form the matrix T
-
       dlarft('Forward', 'Columnwise', PN, PK, A(I + KD, I), LDA, TAU(I),
           WORK(TPOS).asMatrix(LDT), LDT);
 
       // Compute W:
-
       dgemm(
           'No transpose',
           'No transpose',
@@ -325,20 +307,16 @@ void dsytrd_sy2sb(
 
       // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
       // an update of the form:  A := A - V*W' - W*V'
-
       dsyr2k(UPLO, 'No transpose', PN, PK, -ONE, A(I + KD, I), LDA,
           WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
-      // ==================================================================
       // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
       //  DO 45 J = I, I+PK-1
       //     LK = min( KD, N-J ) + 1
       //     CALL DCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
-// 45        CONTINUE
-      // ==================================================================
+      // 45        CONTINUE
     }
 
     // Copy the lower band to AB which is the band storage matrix
-
     for (J = N - KD + 1; J <= N; J++) {
       LK = min(KD, N - J) + 1;
       dcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);

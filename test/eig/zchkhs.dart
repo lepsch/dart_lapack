@@ -65,9 +65,6 @@ void zchkhs(
   final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NN = NN_.having();
   final DOTYPE = DOTYPE_.having();
   final ISEED = ISEED_.having(length: 4);

@@ -29,19 +29,9 @@ void dort03(
   final Box<double> RESULT,
   final Box<int> INFO,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final U = U_.having(ld: LDU);
   final V = V_.having(ld: LDV);
   final WORK = WORK_.having();
-  // List<String>       RC;
-  // int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
-  // double             RESULT;
-  // double             U( LDU, * ), V( LDV, * ), WORK( * );
-  // // ..
-
-  // double             ZERO, ONE;
   const ZERO = 0.0, ONE = 1.0;
   int I, IRC, J, LMX;
   double RES1, S, ULP;

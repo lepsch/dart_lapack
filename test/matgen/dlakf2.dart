@@ -16,9 +16,6 @@ void dlakf2(
   final Matrix<double> Z_,
   final int LDZ,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDA);
   final D = D_.having(ld: LDA);

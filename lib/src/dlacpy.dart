@@ -16,9 +16,6 @@ void dlacpy(
   final Matrix<double> B_,
   final int LDB,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   if (lsame(UPLO, 'U')) {

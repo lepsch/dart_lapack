@@ -11,9 +11,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 Future<void> zblat2(final Nin NIN, Nout? NOUT, final TestDriver test) async {
-// -- Reference BLAS test routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   xerbla = _xerbla;
 
   Nout NTRA = NullNout();
@@ -576,6 +573,7 @@ class _MainNout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZGEMV and ZGBMV.
 void _zchk1(
   final String SNAME,
   final double EPS,
@@ -609,13 +607,6 @@ void _zchk1(
   final Array<Complex> YT_,
   final Array<double> G_,
 ) {
-  // Tests ZGEMV and ZGBMV.
-  //
-  // Auxiliary routine for test program for Level 2 Blas.
-  //
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final IDIM = IDIM_.having();
   final KB = KB_.having(length: NKB);
   final ALF = ALF_.having(length: NALF);
@@ -988,6 +979,7 @@ class _Zchk1Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZHEMV, ZHBMV and ZHPMV.
 void _zchk2(
   final String SNAME,
   final double EPS,
@@ -1021,13 +1013,6 @@ void _zchk2(
   final Array<Complex> YT_,
   final Array<double> G_,
 ) {
-  // Tests ZHEMV, ZHBMV and ZHPMV.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final IDIM = IDIM_.having();
   final KB = KB_.having(length: NKB);
   final ALF = ALF_.having(length: NALF);
@@ -1372,6 +1357,7 @@ class _Zchk2Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
 void _zchk3(
   final String SNAME,
   final double EPS,
@@ -1399,13 +1385,6 @@ void _zchk3(
   final Array<double> G_,
   final Array<Complex> Z_,
 ) {
-  // Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final IDIM = IDIM_.having();
   final KB = KB_.having(length: NKB);
   final INC = INC_.having(length: NINC);
@@ -1796,6 +1775,7 @@ class _Zchk3Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZGERC and ZGERU.
 void _zchk4(
   final String SNAME,
   final double EPS,
@@ -1826,14 +1806,6 @@ void _zchk4(
   final Array<double> G_,
   final Array<Complex> Z_,
 ) {
-  // Tests ZGERC and ZGERU.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   final IDIM = IDIM_.having();
   final INC = INC_.having(length: NINC);
   final ALF = ALF_.having(length: NALF);
@@ -2127,6 +2099,7 @@ class _Zchk4Nout extends NoutDelegator<Nout> {
   }
 }
 
+// Tests ZHER and ZHPR.
 void _zchk5(
   final String SNAME,
   final double EPS,
@@ -2157,14 +2130,6 @@ void _zchk5(
   final Array<double> G_,
   final Array<Complex> Z_,
 ) {
-  // Tests ZHER and ZHPR.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   final IDIM = IDIM_.having();
   final ALF = ALF_.having(length: NALF);
   final INC = INC_.having(length: NINC);
@@ -2466,6 +2431,7 @@ class _Zchk5Nout extends NoutDelegator<Nout> {
   }
 }
 
+// Tests ZHER2 and ZHPR2.
 void _zchk6(
   final String SNAME,
   final double EPS,
@@ -2496,14 +2462,6 @@ void _zchk6(
   final Array<double> G_,
   final Matrix<Complex> Z_,
 ) {
-  // Tests ZHER2 and ZHPR2.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   final IDIM = IDIM_.having();
   final ALF = ALF_.having(length: NALF);
   final INC = INC_.having(length: NINC);
@@ -2842,16 +2800,10 @@ class _Zchk6Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests the error exits from the Level 2 Blas.
+/// Requires a special version of the error-handling routine XERBLA.
+/// ALPHA, RALPHA, BETA, A, X and Y should not need to be defined.
 void _zchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
-  // Tests the error exits from the Level 2 Blas.
-  // Requires a special version of the error-handling routine XERBLA.
-  // ALPHA, RALPHA, BETA, A, X and Y should not need to be defined.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   Complex ALPHA = Complex.zero, BETA = Complex.zero;
   double RALPHA = 0;
   final A = Matrix<Complex>(1, 1), X = Array<Complex>(1), Y = Array<Complex>(1);
@@ -3179,6 +3131,12 @@ void _zchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
   }
 }
 
+/// Generates values for an M by N matrix A within the bandwidth
+/// defined by KL and KU.
+/// Stores the values in the array AA in the data structure required
+/// by the routine, with unwanted elements set to rogue value.
+///
+/// TYPE is 'GE', 'GB', 'HE', 'HB', 'HP', 'TR', 'TB' OR 'TP'.
 void _zmake(
   final String TYPE,
   final String UPLO,
@@ -3194,18 +3152,6 @@ void _zmake(
   final Box<bool> RESET,
   final Complex TRANSL,
 ) {
-  // Generates values for an M by N matrix A within the bandwidth
-  // defined by KL and KU.
-  // Stores the values in the array AA in the data structure required
-  // by the routine, with unwanted elements set to rogue value.
-
-  // TYPE is 'GE', 'GB', 'HE', 'HB', 'HP', 'TR', 'TB' OR 'TP'.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final A = A_.having(ld: NMAX);
   final AA = AA_.having();
   const ROGUE = Complex(-1.0e10, 1.0e10);
@@ -3353,6 +3299,7 @@ void _zmake(
   }
 }
 
+/// Checks the results of the computational tests.
 void _zmvch(
   final String TRANS,
   final int M,
@@ -3374,13 +3321,6 @@ void _zmvch(
   final Nout NOUT,
   final bool MV,
 ) {
-  // Checks the results of the computational tests.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final A = A_.having(ld: NMAX);
   final X = X_.having();
   final Y = Y_.having();
@@ -3474,18 +3414,12 @@ void _zmvch(
   }
 }
 
+/// Tests if two arrays are identical.
 bool _lze(
   final Array<Complex> RI_,
   final Array<Complex> RJ_,
   final int LR,
 ) {
-  // Tests if two arrays are identical.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final RI = RI_.having();
   final RJ = RJ_.having();
 
@@ -3495,6 +3429,9 @@ bool _lze(
   return true;
 }
 
+/// Tests if selected elements in two arrays are equal.
+///
+/// TYPE is 'GE', 'HE' or 'HP'.
 bool _lzeres(
   final String TYPE,
   final String UPLO,
@@ -3504,15 +3441,6 @@ bool _lzeres(
   final Matrix<Complex> AS_,
   final int LDA,
 ) {
-  // Tests if selected elements in two arrays are equal.
-
-  // TYPE is 'GE', 'HE' or 'HP'.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
   final AA = AA_.having(ld: LDA);
   final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
@@ -3548,16 +3476,9 @@ bool _lzeres(
 
 int _zbegI = 0, _zbegIC = 0, _zbegJ = 0, _zbegMI = 0, _zbegMJ = 0;
 
+/// Generates complex numbers as pairs of random numbers uniformly
+/// distributed between -0.5 and 0.5.
 Complex _zbeg(final Box<bool> RESET) {
-  // Generates complex numbers as pairs of random numbers uniformly
-  // distributed between -0.5 and 0.5.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   if (RESET.value) {
     // Initialize local variables.
     _zbegMI = 891;
@@ -3588,15 +3509,7 @@ Complex _zbeg(final Box<bool> RESET) {
   return Complex((_zbegI - 500) / 1001.0, (_zbegJ - 500) / 1001.0);
 }
 
-// double _ddiff(final double X, final double Y) {
-// Auxiliary routine for test program for Level 2 Blas.
-
-//   // -- Written on 10-August-1987.
-//   // Richard Hanson, Sandia National Labs.
-
-//   return X - Y;
-// }
-
+/// Tests whether XERBLA has detected an error when it should.
 void _chkxer(
   String SRNAMT,
   final int INFOT,
@@ -3604,14 +3517,6 @@ void _chkxer(
   final Box<bool> LERR,
   final Box<bool> OK,
 ) {
-  // Tests whether XERBLA has detected an error when it should.
-
-  // Auxiliary routine for test program for Level 2 Blas.
-
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   if (!LERR.value) {
     NOUT.println(
         ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${INFOT.i2} NOT DETECTED BY ${SRNAMT.a6} *****');
@@ -3674,22 +3579,15 @@ void _chkxer(
   );
 }
 
+/// This is a special version of XERBLA to be used only as part of
+/// the test program for testing error exits from the Level 2 BLAS
+/// routines.
+///
+/// XERBLA  is an error handler for the Level 2 BLAS routines.
+///
+/// It is called by the Level 2 BLAS routines if an input parameter is
+/// invalid.
 void _xerbla(final String SRNAME, final int INFO) {
-  // This is a special version of XERBLA to be used only as part of
-  // the test program for testing error exits from the Level 2 BLAS
-  // routines.
-  //
-  // XERBLA  is an error handler for the Level 2 BLAS routines.
-  //
-  // It is called by the Level 2 BLAS routines if an input parameter is
-  // invalid.
-  //
-  // Auxiliary routine for test program for Level 2 Blas.
-  //
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
-  // Jeremy Du Croz, NAG Central Office.
-
   infoc.LERR.value = true;
   if (INFO != infoc.INFOT) {
     if (infoc.INFOT != 0) {

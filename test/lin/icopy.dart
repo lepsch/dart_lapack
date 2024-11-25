@@ -11,9 +11,6 @@ void icopy(
   final Array<int> SY_,
   final int INCY,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final SX = SX_.having();
   final SY = SY_.having();
   int MP1;

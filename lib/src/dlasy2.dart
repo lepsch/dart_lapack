@@ -29,9 +29,6 @@ void dlasy2(
   final Box<double> XNORM,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final TL = TL_.having(ld: LDTL);
   final TR = TR_.having(ld: LDTR);
   final B = B_.having(ld: LDB);

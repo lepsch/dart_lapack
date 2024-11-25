@@ -25,9 +25,6 @@ void dlatm4(
   final Matrix<double> A_,
   final int LDA,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final ISEED = ISEED_.having();
   final A = A_.having(ld: LDA);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
@@ -39,12 +36,10 @@ void dlatm4(
   dlaset('Full', N, N, ZERO, ZERO, A, LDA);
 
   // Insure a correct ISEED
-
   if ((ISEED[4] % 2) != 1) ISEED[4]++;
 
   // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
   // and RCOND
-
   if (ITYPE != 0) {
     if (ITYPE.abs() >= 4) {
       KBEG = max(1, min(N, NZ1 + 1));
@@ -58,15 +53,15 @@ void dlatm4(
     ISDB = 1;
     ISDE = 0;
     switch (ITYPE.abs()) {
+      // abs(ITYPE) = 1: Identity
       case 1:
-        // abs(ITYPE) = 1: Identity
         for (JD = 1; JD <= N; JD++) {
           A[JD][JD] = ONE;
         }
         break;
 
+      // abs(ITYPE) = 2: Transposed Jordan block
       case 2:
-        // abs(ITYPE) = 2: Transposed Jordan block
         for (JD = 1; JD <= N - 1; JD++) {
           A[JD + 1][JD] = ONE;
         }
@@ -74,10 +69,9 @@ void dlatm4(
         ISDE = N - 1;
         break;
 
+      // abs(ITYPE) = 3: Transposed Jordan block, followed by the
+      //                 identity.
       case 3:
-        // abs(ITYPE) = 3: Transposed Jordan block, followed by the
-        //                 identity.
-
         K = (N - 1) ~/ 2;
         for (JD = 1; JD <= K; JD++) {
           A[JD + 1][JD] = ONE;
@@ -89,35 +83,31 @@ void dlatm4(
         }
         break;
 
+      // abs(ITYPE) = 4: 1,...,k
       case 4:
-        // abs(ITYPE) = 4: 1,...,k
-
         for (JD = KBEG; JD <= KEND; JD++) {
           A[JD][JD] = (JD - NZ1).toDouble();
         }
         break;
 
+      // abs(ITYPE) = 5: One large D value:
       case 5:
-        // abs(ITYPE) = 5: One large D value:
-
         for (JD = KBEG + 1; JD <= KEND; JD++) {
           A[JD][JD] = RCOND;
         }
         A[KBEG][KBEG] = ONE;
         break;
 
+      // abs(ITYPE) = 6: One small D value:
       case 6:
-        // abs(ITYPE) = 6: One small D value:
-
         for (JD = KBEG; JD <= KEND - 1; JD++) {
           A[JD][JD] = ONE;
         }
         A[KEND][KEND] = RCOND;
         break;
 
+      // abs(ITYPE) = 7: Exponentially distributed D values:
       case 7:
-        // abs(ITYPE) = 7: Exponentially distributed D values:
-
         A[KBEG][KBEG] = ONE;
         if (KLEN > 1) {
           ALPHA = pow(RCOND, (ONE / (KLEN - 1))).toDouble();
@@ -127,9 +117,8 @@ void dlatm4(
         }
         break;
 
+      // abs(ITYPE) = 8: Arithmetically distributed D values:
       case 8:
-        // abs(ITYPE) = 8: Arithmetically distributed D values:
-
         A[KBEG][KBEG] = ONE;
         if (KLEN > 1) {
           ALPHA = (ONE - RCOND) / (KLEN - 1);
@@ -139,18 +128,16 @@ void dlatm4(
         }
         break;
 
+      // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
       case 9:
-        // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
-
         ALPHA = log(RCOND);
         for (JD = KBEG; JD <= KEND; JD++) {
           A[JD][JD] = exp(ALPHA * dlaran(ISEED));
         }
         break;
 
+      // abs(ITYPE) = 10: Randomly distributed D values from DIST
       case 10:
-        // abs(ITYPE) = 10: Randomly distributed D values from DIST
-
         for (JD = KBEG; JD <= KEND; JD++) {
           A[JD][JD] = dlarnd(IDIST, ISEED);
         }
@@ -158,7 +145,6 @@ void dlatm4(
     }
 
     // Scale by AMAGN
-
     for (JD = KBEG; JD <= KEND; JD++) {
       A[JD][JD] = AMAGN * A[JD][JD];
     }
@@ -168,7 +154,6 @@ void dlatm4(
 
     // If ISIGN = 1 or 2, assign random signs to diagonal and
     // subdiagonal
-
     if (ISIGN > 0) {
       for (JD = KBEG; JD <= KEND; JD++) {
         if (A[JD][JD] != ZERO) {
@@ -183,7 +168,6 @@ void dlatm4(
     }
 
     // Reverse if ITYPE < 0
-
     if (ITYPE < 0) {
       for (JD = KBEG; JD <= (KBEG + KEND - 1) ~/ 2; JD++) {
         TEMP = A[JD][JD];
@@ -199,13 +183,11 @@ void dlatm4(
 
     // If ISIGN = 2, and no subdiagonals already, then apply
     // random rotations to make 2x2 blocks.
-
     if (ISIGN == 2 && ITYPE != 2 && ITYPE != 3) {
       SAFMIN = dlamch('S');
       for (JD = KBEG; JD <= KEND - 1; JD += 2) {
         if (dlaran(ISEED) > HALF) {
           // Rotation on left.
-
           CL = TWO * dlaran(ISEED) - ONE;
           SL = TWO * dlaran(ISEED) - ONE;
           TEMP = ONE / max(SAFMIN, sqrt(pow(CL, 2) + pow(SL, 2)));
@@ -213,7 +195,6 @@ void dlatm4(
           SL *= TEMP;
 
           // Rotation on right.
-
           CR = TWO * dlaran(ISEED) - ONE;
           SR = TWO * dlaran(ISEED) - ONE;
           TEMP = ONE / max(SAFMIN, sqrt(pow(CR, 2) + pow(SR, 2)));
@@ -221,7 +202,6 @@ void dlatm4(
           SR *= TEMP;
 
           // Apply
-
           SV1 = A[JD][JD];
           SV2 = A[JD + 1][JD + 1];
           A[JD][JD] = CL * CR * SV1 + SL * SR * SV2;
@@ -234,7 +214,6 @@ void dlatm4(
   }
 
   // Fill in upper triangle (except for 2x2 blocks)
-
   if (TRIANG != ZERO) {
     if (ISIGN != 2 || ITYPE == 2 || ITYPE == 3) {
       IOFF = 1;

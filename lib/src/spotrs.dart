@@ -16,8 +16,5 @@ void spotrs(
   final int LDB,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   dpotrs(UPLO, NRHS, N, A_, LDA, B_, LDB, INFO);
 }

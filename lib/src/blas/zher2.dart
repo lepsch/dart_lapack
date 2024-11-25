@@ -20,9 +20,6 @@ void zher2(
   final Matrix<Complex> A_,
   final int LDA,
 ) {
-// -- Reference BLAS level2 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final Y = Y_.having();
   final A = A_.having(ld: LDA);

@@ -24,9 +24,6 @@ void ztfsm(
   final Matrix<Complex> B_,
   final int LDB,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(offset: zeroIndexedArrayOffset);
   final B = B_.having(ld: LDB, offset: zeroIndexedMatrixOffset);
   int M1 = 0, M2 = 0, N1 = 0, N2 = 0, K = 0, INFO, I, J;

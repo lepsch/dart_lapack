@@ -14,9 +14,6 @@ void drotmg(
   final double DY1,
   final Array<double> DPARAM,
 ) {
-// -- Reference BLAS level1 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   double DFLAG, DH11 = 0, DH12 = 0, DH21 = 0, DH22 = 0;
 
   final (ZERO, ONE, TWO) = (0.0, 1.0, 2.0);

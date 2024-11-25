@@ -8,10 +8,6 @@ import 'package:dart_lapack/src/complex.dart';
 import 'package:dart_lapack/src/intrinsics/sign.dart';
 
 bool zlctes(final Complex Z, final Complex D) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const ZERO = 0.0, ONE = 1.0;
 
   if (D == Complex.zero) {

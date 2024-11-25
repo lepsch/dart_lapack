@@ -34,9 +34,6 @@ void ddrvrf3(
   final Array<double> D_WORK_DGEQRF_,
   final Array<double> TAU_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NVAL = NVAL_.having(length: NN);
   final A = A_.having(ld: LDA);
   final ARF = ARF_.having();

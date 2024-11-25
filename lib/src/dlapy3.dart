@@ -7,9 +7,6 @@ import 'dart:math';
 import 'package:dart_lapack/src/install/dlamch.dart';
 
 double dlapy3(final double X, final double Y, final double Z) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   double W, XABS, YABS, ZABS, HUGEVAL;
 

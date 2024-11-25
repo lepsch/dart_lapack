@@ -30,9 +30,6 @@ void zunbdb5(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Q1 = Q1_.having(ld: LDQ1);
   final Q2 = Q2_.having(ld: LDQ2);
   final WORK = WORK_.having();

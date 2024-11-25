@@ -38,9 +38,6 @@ void zlaed7(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Q = Q_.having(ld: LDQ);
   final INDXQ = INDXQ_.having();
   final QPTR = QPTR_.having();

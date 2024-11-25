@@ -24,9 +24,6 @@ void zhetf2(
   final Array<int> IPIV_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
 
@@ -38,7 +35,6 @@ void zhetf2(
   Complex D12, D21, T, WK, WKM1, WKP1;
 
   // Test the input parameters.
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   if (!UPPER && !lsame(UPLO, 'L')) {
@@ -54,7 +50,6 @@ void zhetf2(
   }
 
   // Initialize ALPHA for use in choosing pivot block size.
-
   ALPHA = (ONE + sqrt(SEVTEN)) / EIGHT;
 
   if (UPPER) {
@@ -62,20 +57,17 @@ void zhetf2(
 
     // K is the main loop index, decreasing from N to 1 in steps of
     // 1 or 2
-
     K = N;
     while (K >= 1) {
       KSTEP = 1;
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
-
       ABSAKK = A[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
       // Determine both COLMAX and IMAX.
-
       if (K > 1) {
         IMAX = izamax(K - 1, A(1, K).asArray(), 1);
         COLMAX = A[IMAX][K].cabs1();
@@ -86,24 +78,18 @@ void zhetf2(
       if ((max(ABSAKK, COLMAX) == ZERO) || disnan(ABSAKK)) {
         // Column K is zero or underflow, or contains a NaN:
         // set INFO and continue
-
         if (INFO.value == 0) INFO.value = K;
         KP = K;
         A[K][K] = A[K][K].real.toComplex();
       } else {
-        // ============================================================
-
         // Test for interchange
-
         if (ABSAKK >= ALPHA * COLMAX) {
           // no interchange, use 1-by-1 pivot block
-
           KP = K;
         } else {
           // JMAX is the column-index of the largest off-diagonal
           // element in row IMAX, and ROWMAX is its absolute value.
           // Determine only ROWMAX.
-
           JMAX = IMAX + izamax(K - IMAX, A(IMAX, IMAX + 1).asArray(), LDA);
           ROWMAX = A[IMAX][JMAX].cabs1();
           if (IMAX > 1) {
@@ -113,29 +99,23 @@ void zhetf2(
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
-
             KP = K;
           } else if (A[IMAX][IMAX].real.abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
-
             KP = IMAX;
           } else {
             // interchange rows and columns K-1 and IMAX, use 2-by-2
             // pivot block
-
             KP = IMAX;
             KSTEP = 2;
           }
         }
 
-        // ============================================================
-
         KK = K - KSTEP + 1;
         if (KP != KK) {
           // Interchange rows and columns KK and KP in the leading
           // submatrix A(1:k,1:k)
-
           zswap(KP - 1, A(1, KK).asArray(), 1, A(1, KP).asArray(), 1);
           for (J = KP + 1; J <= KK - 1; J++) {
             T = A[J][KK].conjugate();
@@ -158,37 +138,33 @@ void zhetf2(
         }
 
         // Update the leading submatrix
-
         if (KSTEP == 1) {
           // 1-by-1 pivot block D(k): column k now holds
-
+          //
           // W(k) = U(k)*D(k)
-
+          //
           // where U(k) is the k-th column of U
 
           // Perform a rank-1 update of A(1:k-1,1:k-1) as
-
+          //
           // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
-
           R1 = ONE / A[K][K].real;
           zher(UPLO, K - 1, -R1, A(1, K).asArray(), 1, A, LDA);
 
           // Store U(k) in column k
-
           zdscal(K - 1, R1, A(1, K).asArray(), 1);
         } else {
           // 2-by-2 pivot block D(k): columns k and k-1 now hold
-
+          //
           // ( W(k-1) W(k) ) = ( U(k-1) U(k) )*D(k)
-
+          //
           // where U(k) and U(k-1) are the k-th and (k-1)-th columns
           // of U
 
           // Perform a rank-2 update of A(1:k-2,1:k-2) as
-
+          //
           // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**H
           //    = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
-
           if (K > 2) {
             D = dlapy2(A[K - 1][K].real, A[K - 1][K].imaginary);
             D22 = A[K - 1][K - 1].real / D;
@@ -215,7 +191,6 @@ void zhetf2(
       }
 
       // Store details of the interchanges in IPIV
-
       if (KSTEP == 1) {
         IPIV[K] = KP;
       } else {
@@ -224,7 +199,6 @@ void zhetf2(
       }
 
       // Decrease K and return to the start of the main loop
-
       K -= KSTEP;
     }
   } else {
@@ -232,20 +206,17 @@ void zhetf2(
 
     // K is the main loop index, increasing from 1 to N in steps of
     // 1 or 2
-
     K = 1;
     while (K <= N) {
       KSTEP = 1;
 
       // Determine rows and columns to be interchanged and whether
       // a 1-by-1 or 2-by-2 pivot block will be used
-
       ABSAKK = A[K][K].real.abs();
 
       // IMAX is the row-index of the largest off-diagonal element in
       // column K, and COLMAX is its absolute value.
       // Determine both COLMAX and IMAX.
-
       if (K < N) {
         IMAX = K + izamax(N - K, A(K + 1, K).asArray(), 1);
         COLMAX = A[IMAX][K].cabs1();
@@ -256,15 +227,11 @@ void zhetf2(
       if ((max(ABSAKK, COLMAX) == ZERO) || disnan(ABSAKK)) {
         // Column K is zero or underflow, or contains a NaN:
         // set INFO and continue
-
         if (INFO.value == 0) INFO.value = K;
         KP = K;
         A[K][K] = A[K][K].real.toComplex();
       } else {
-        // ============================================================
-
         // Test for interchange
-
         if (ABSAKK >= ALPHA * COLMAX) {
           // no interchange, use 1-by-1 pivot block
 
@@ -273,7 +240,6 @@ void zhetf2(
           // JMAX is the column-index of the largest off-diagonal
           // element in row IMAX, and ROWMAX is its absolute value.
           // Determine only ROWMAX.
-
           JMAX = K - 1 + izamax(IMAX - K, A(IMAX, K).asArray(), LDA);
           ROWMAX = A[IMAX][JMAX].cabs1();
           if (IMAX < N) {
@@ -283,29 +249,23 @@ void zhetf2(
 
           if (ABSAKK >= ALPHA * COLMAX * (COLMAX / ROWMAX)) {
             // no interchange, use 1-by-1 pivot block
-
             KP = K;
           } else if (A[IMAX][IMAX].real.abs() >= ALPHA * ROWMAX) {
             // interchange rows and columns K and IMAX, use 1-by-1
             // pivot block
-
             KP = IMAX;
           } else {
             // interchange rows and columns K+1 and IMAX, use 2-by-2
             // pivot block
-
             KP = IMAX;
             KSTEP = 2;
           }
         }
 
-        // ============================================================
-
         KK = K + KSTEP - 1;
         if (KP != KK) {
           // Interchange rows and columns KK and KP in the trailing
           // submatrix A(k:n,k:n)
-
           if (KP < N) {
             zswap(
                 N - KP, A(KP + 1, KK).asArray(), 1, A(KP + 1, KP).asArray(), 1);
@@ -331,39 +291,33 @@ void zhetf2(
         }
 
         // Update the trailing submatrix
-
         if (KSTEP == 1) {
           // 1-by-1 pivot block D(k): column k now holds
-
+          //
           // W(k) = L(k)*D(k)
-
+          //
           // where L(k) is the k-th column of L
-
           if (K < N) {
             // Perform a rank-1 update of A(k+1:n,k+1:n) as
-
+            //
             // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
-
             R1 = ONE / A[K][K].real;
             zher(UPLO, N - K, -R1, A(K + 1, K).asArray(), 1, A(K + 1, K + 1),
                 LDA);
 
             // Store L(k) in column K
-
             zdscal(N - K, R1, A(K + 1, K).asArray(), 1);
           }
         } else {
           // 2-by-2 pivot block D(k)
-
           if (K < N - 1) {
             // Perform a rank-2 update of A(k+2:n,k+2:n) as
-
+            //
             // A := A - ( L(k) L(k+1) )*D(k)*( L(k) L(k+1) )**H
             //    = A - ( W(k) W(k+1) )*inv(D(k))*( W(k) W(k+1) )**H
-
+            //
             // where L(k) and L(k+1) are the k-th and (k+1)-th
             // columns of L
-
             D = dlapy2(A[K + 1][K].real, A[K + 1][K].imaginary);
             D11 = A[K + 1][K + 1].real / D;
             D22 = A[K][K].real / D;
@@ -389,7 +343,6 @@ void zhetf2(
       }
 
       // Store details of the interchanges in IPIV
-
       if (KSTEP == 1) {
         IPIV[K] = KP;
       } else {
@@ -398,7 +351,6 @@ void zhetf2(
       }
 
       // Increase K and return to the start of the main loop
-
       K += KSTEP;
     }
   }

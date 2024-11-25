@@ -29,10 +29,6 @@ void zgtcon(
   final DU = DU_.having();
   final DU2 = DU2_.having();
   final WORK = WORK_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   bool ONENRM;
   int I, KASE1;

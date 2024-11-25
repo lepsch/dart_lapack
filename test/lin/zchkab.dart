@@ -24,10 +24,6 @@ import 'zerrab.dart';
 import 'zerrac.dart';
 
 void main() async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   final NIN = Nin(stdin), NOUT = Nout(stdout);
   const NMAX = 132, MAXIN = 12, MAXRHS = 16, MATMAX = 30;
   const LDAMAX = NMAX;

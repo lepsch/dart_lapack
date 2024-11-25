@@ -13,9 +13,6 @@ void drot(
   final double C,
   final double S,
 ) {
-// -- Reference BLAS level1 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DX = DX_.having();
   final DY = DY_.having();
 

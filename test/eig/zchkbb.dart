@@ -70,10 +70,6 @@ void zchkbb(
   final RESULT = RESULT_.having();
   final WORK = WORK_.having();
   final RWORK = RWORK_.having();
-
-// -- LAPACK test routine (input) --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 15;
   bool BADMM, BADNN, BADNNB;

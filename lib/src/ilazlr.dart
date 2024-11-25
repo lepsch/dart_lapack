@@ -13,9 +13,6 @@ int ilazlr(
   final Matrix<Complex> A,
   final int LDA,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I, J;
 
   // Quick test for the common case where one corner is non-zero.

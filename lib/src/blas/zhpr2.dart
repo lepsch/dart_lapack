@@ -17,9 +17,6 @@ void zhpr2(
   final int INCY,
   final Array<Complex> AP,
 ) {
-// -- Reference BLAS level2 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final Y = Y_.having();
   Complex TEMP1, TEMP2;

@@ -28,9 +28,6 @@ void zgbtrs(
   final int LDB,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AB = AB_.having(ld: LDAB);
   final IPIV = IPIV_.having();
   final B = B_.having(ld: LDB);

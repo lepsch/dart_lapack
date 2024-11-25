@@ -30,10 +30,6 @@ void zlaror(
   final A = A_.having(ld: LDA);
   final ISEED = ISEED_.having(length: 4);
   final X = X_.having();
-
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20;
   int IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
   double FACTOR, XABS, XNORM;

@@ -36,9 +36,6 @@ void dlaqp2rk(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final JPIV = JPIV_.having();
   final TAU = TAU_.having();

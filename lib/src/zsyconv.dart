@@ -23,10 +23,6 @@ void zsyconv(
   final A = A_.having(ld: LDA);
   final E = E_.having();
   final IPIV = IPIV_.having();
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool UPPER, CONVERT;
   int I, IP, J;
   Complex TEMP;

@@ -19,10 +19,6 @@ int ilaenv(
   final int N3,
   final int N4,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   if (ISPEC >= 1 && ISPEC <= 5) {
     // Return a value from the common block.
     return claenv.IPARMS[ISPEC];
@@ -107,8 +103,7 @@ int iparmq(
   int NH = 0, NS = 0;
 
   if ((ISPEC == ISHFTS) || (ISPEC == INWIN) || (ISPEC == IACC22)) {
-    // ==== Set the number simultaneous shifts ====
-
+    // Set the number simultaneous shifts
     NH = IHI - ILO + 1;
     NS = 2;
     if (NH >= 30) NS = 4;
@@ -121,27 +116,26 @@ int iparmq(
   }
 
   if (ISPEC == INMIN) {
-    // ===== Matrices of order smaller than NMIN get sent
-    // .     to LAHQR, the classic double shift algorithm.
-    // .     This must be at least 11. ====
+    // Matrices of order smaller than NMIN get sent
+    // to LAHQR, the classic double shift algorithm.
+    // This must be at least 11.
     return NMIN;
   }
 
   if (ISPEC == INIBL) {
-    // ==== INIBL: skip a multi-shift qr iteration and
-    // .    whenever aggressive early deflation finds
-    // .    at least (NIBBLE*(window size)/100) deflations. ====
+    // INIBL: skip a multi-shift qr iteration and
+    // whenever aggressive early deflation finds
+    // at least (NIBBLE*(window size)/100) deflations.
     return NIBBLE;
   }
 
   if (ISPEC == ISHFTS) {
-    // ==== NSHFTS: The number of simultaneous shifts =====
+    // NSHFTS: The number of simultaneous shifts
     return NS;
   }
 
   if (ISPEC == INWIN) {
-    // ==== NW: deflation window size.  ====
-
+    // NW: deflation window size.
     if (NH <= KNWSWP) {
       return NS;
     }
@@ -149,17 +143,17 @@ int iparmq(
   }
 
   if (ISPEC == IACC22) {
-    // ==== IACC22: Whether to accumulate reflections
-    // .     before updating the far-from-diagonal elements
-    // .     and whether to use 2-by-2 block structure while
-    // .     doing it.  A small amount of work could be saved
-    // .     by making this choice dependent also upon the
-    // .     NH=IHI-ILO+1.
+    // IACC22: Whether to accumulate reflections
+    // before updating the far-from-diagonal elements
+    // and whether to use 2-by-2 block structure while
+    // doing it.  A small amount of work could be saved
+    // by making this choice dependent also upon the
+    // NH=IHI-ILO+1.
     if (NS >= KACMIN) return 1;
     if (NS >= K22MIN) return 2;
     return 0;
   }
 
-  // ===== invalid value of ispec =====
+  // invalid value of ispec
   return -1;
 }

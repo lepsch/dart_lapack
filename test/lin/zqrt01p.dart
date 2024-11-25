@@ -33,9 +33,6 @@ void zqrt01p(
   final Array<double> RWORK_,
   final Array<double> RESULT_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final AF = AF_.having(ld: LDA);
   final Q = Q_.having(ld: LDA);

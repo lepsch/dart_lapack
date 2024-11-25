@@ -52,9 +52,6 @@ void zdrgev(
   final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final ISEED = ISEED_.having(length: 4);
   final NN = NN_.having();
@@ -566,14 +563,3 @@ void _print9998(
   nout.println(
       ' ZDRGEV: $side Eigenvectors from $fn incorrectly normalized.\n Bits of error=${error.g10_3},   N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(3, ',')})');
 }
-
-//  9997 FORMAT( );
-
-//  9996 FORMAT(  );
-
-//  9995 FORMAT(  );
-//  9994 FORMAT(  );
-
-//  9993 FORMAT();
-//  9992 FORMAT( );
-//  9991 FORMAT( );

@@ -10,9 +10,6 @@ void dla_wwaddw(
   final Array<double> Y_,
   final Array<double> W_,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final Y = Y_.having();
   final W = W_.having();

@@ -36,10 +36,6 @@ void zget54(
   final U = U_.having(ld: LDU);
   final V = V_.having(ld: LDV);
   final WORK = WORK_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   double ABNORM, ULP, UNFL, WNORM;
   final DUM = Array<double>(1);

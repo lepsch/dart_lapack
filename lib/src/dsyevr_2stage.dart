@@ -45,9 +45,6 @@ void dsyevr_2stage(
   final int LIWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK driver routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final W = W_.having();
   final Z = Z_.having(ld: LDZ);
@@ -379,7 +376,7 @@ void dsyevr_2stage(
 
   // If matrix was scaled, then rescale eigenvalues appropriately.
 
-// Jump here if DSTEMR/DSTEIN succeeded.
+  // Jump here if DSTEMR/DSTEIN succeeded.
   if (ISCALE == 1) {
     if (INFO.value == 0) {
       IMAX = M.value;

@@ -25,9 +25,6 @@ void zsytri2x(
   final int NB,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final WORK = WORK_.having(ld: N + NB + 1);
@@ -86,7 +83,7 @@ void zsytri2x(
   }
   INFO.value = 0;
 
-// Splitting Workspace
+  // Splitting Workspace
   // U01 is a block (N,NB+1)
   // The first element of U01 is in WORK(1,1)
   // U11 is a block (NB+1,NB+1)

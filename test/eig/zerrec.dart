@@ -20,9 +20,6 @@ void zerrec(
   final String PATH,
   final Nout NUNIT,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NMAX = Box(4);
   final LW = NMAX.value * (NMAX.value + 2);
   int I, IFST, ILST, J, NT;

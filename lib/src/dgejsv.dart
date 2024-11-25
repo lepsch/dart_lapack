@@ -51,9 +51,6 @@ void dgejsv(
   final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final SVA = SVA_.having();
   final U = U_.having(ld: LDU);
@@ -502,7 +499,7 @@ void dgejsv(
 
   // A * P1 = Q1 * [ R1^t 0]^t:
   for (p = 1; p <= N; p++) {
-    // .. all columns are free columns
+    // all columns are free columns
     IWORK[p] = 0;
   }
   dgeqp3(M, N, A, LDA, IWORK, WORK, WORK(N + 1), LWORK - N, IERR);
@@ -530,7 +527,7 @@ void dgejsv(
       }
     }
   } else if (L2RANK) {
-    // .. similarly as above, only slightly more gentle (less aggressive).
+    // similarly as above, only slightly more gentle (less aggressive).
     // Sudden drop on the diagonal of R1 is used as the criterion for
     // close-to-rank-deficient.
     TEMP1.value = sqrt(SFMIN);
@@ -575,7 +572,7 @@ void dgejsv(
   if (ERREST) {
     if (N == NR) {
       if (RSVEC) {
-        // .. V is available as workspace
+        // V is available as workspace
         dlacpy('U', N, N, A, LDA, V, LDV);
         for (p = 1; p <= N; p++) {
           TEMP1.value = SVA[IWORK[p]];
@@ -584,7 +581,7 @@ void dgejsv(
         dpocon('U', N, V, LDV, ONE, TEMP1, WORK(N + 1), IWORK(2 * N + M + 1),
             IERR);
       } else if (LSVEC) {
-        // .. U is available as workspace
+        // U is available as workspace
         dlacpy('U', N, N, A, LDA, U, LDU);
         for (p = 1; p <= N; p++) {
           TEMP1.value = SVA[IWORK[p]];
@@ -598,7 +595,7 @@ void dgejsv(
           TEMP1.value = SVA[IWORK[p]];
           dscal(p, ONE / TEMP1.value, WORK(N + (p - 1) * N + 1), 1);
         }
-        // .. the columns of R are scaled to have unit Euclidean lengths.
+        // the columns of R are scaled to have unit Euclidean lengths.
         dpocon('U', N, WORK(N + 1).asMatrix(N), N, ONE, TEMP1,
             WORK(N + N * N + 1), IWORK(2 * N + M + 1), IERR);
       }
@@ -618,7 +615,7 @@ void dgejsv(
   if (!(RSVEC || LSVEC)) {
     // Singular Values only
 
-    // .. transpose A[1:NR][1:N]
+    // transpose A[1:NR][1:N]
     for (p = 1; p <= min(N - 1, NR); p++) {
       dcopy(N - p, A(p, p + 1).asArray(), LDA, A(p + 1, p).asArray(), 1);
     }
@@ -651,11 +648,11 @@ void dgejsv(
         dlaset('U', NR - 1, NR - 1, ZERO, ZERO, A(1, 2), LDA);
       }
 
-      // .. second preconditioning using the QR factorization
+      // second preconditioning using the QR factorization
 
       dgeqrf(N, NR, A, LDA, WORK, WORK(N + 1), LWORK - N, IERR);
 
-      // .. and transpose upper to lower triangular
+      // and transpose upper to lower triangular
       for (p = 1; p <= NR - 1; p++) {
         dcopy(NR - p, A(p, p + 1).asArray(), LDA, A(p + 1, p).asArray(), 1);
       }
@@ -663,7 +660,7 @@ void dgejsv(
 
     // Row-cyclic Jacobi SVD algorithm with column pivoting
 
-    // .. again some perturbation (a "background noise") is added
+    // again some perturbation (a "background noise") is added
     // to drown denormals
     if (L2PERT) {
       // XSC = sqrt(SMALL)
@@ -680,7 +677,7 @@ void dgejsv(
       dlaset('U', NR - 1, NR - 1, ZERO, ZERO, A(1, 2), LDA);
     }
 
-    // .. and one-sided Jacobi rotations are started on a lower
+    // and one-sided Jacobi rotations are started on a lower
     // triangular matrix (plus perturbation which is ignored in
     // the part which destroys triangular form (confusing?!))
 
@@ -693,7 +690,7 @@ void dgejsv(
     // -> Singular Values and Right Singular Vectors <-
 
     if (ALMORT) {
-      // .. in this case NR equals N
+      // in this case NR equals N
       for (p = 1; p <= NR; p++) {
         dcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
       }
@@ -703,7 +700,7 @@ void dgejsv(
       SCALEM = WORK[1];
       NUMRANK = WORK[2].round();
     } else {
-      // .. two more QR factorizations ( one QRF is not enough, two require
+      // two more QR factorizations ( one QRF is not enough, two require
       // accumulated product of Jacobi rotations, three are perfect )
 
       dlaset('Lower', NR - 1, NR - 1, ZERO, ZERO, A(2, 1), LDA);
@@ -739,9 +736,9 @@ void dgejsv(
       dlacpy('All', N, N, V, LDV, U, LDU);
     }
   } else if (LSVEC && !RSVEC) {
-    // .. Singular Values and Left Singular Vectors                 ..
+    // Singular Values and Left Singular Vectors                 ..
 
-    // .. second preconditioning step to avoid need to accumulate
+    // second preconditioning step to avoid need to accumulate
     // Jacobi rotations in the Jacobi iterations.
     for (p = 1; p <= NR; p++) {
       dcopy(N - p + 1, A(p, p).asArray(), LDA, U(p, p).asArray(), 1);
@@ -782,7 +779,7 @@ void dgejsv(
       dlacpy('All', N, N, U, LDU, V, LDV);
     }
   } else {
-    // .. Full SVD ..
+    // Full SVD ..
 
     if (!JRACC) {
       if (!ALMORT) {
@@ -797,7 +794,7 @@ void dgejsv(
           dcopy(N - p + 1, A(p, p).asArray(), LDA, V(p, p).asArray(), 1);
         }
 
-        // .. the following two loops perturb small entries to avoid
+        // the following two loops perturb small entries to avoid
         // denormals in the second QR factorization, where they are
         // as good as zeros. This is done to avoid painfully slow
         // computation with denormals. The relative size of the perturbation
@@ -837,8 +834,8 @@ void dgejsv(
         dpocon('Lower', NR, WORK(2 * N + 1).asMatrix(NR), NR, ONE, TEMP1,
             WORK(2 * N + NR * NR + 1), IWORK(M + 2 * N + 1), IERR);
         CONDR1 = ONE / sqrt(TEMP1.value);
-        // .. here need a second opinion on the condition number
-        // .. then assume worst case scenario
+        // here need a second opinion on the condition number
+        // then assume worst case scenario
         // R1 is OK for inverse <=> CONDR1 < N
         // more conservative    <=> CONDR1 < sqrt(N)
 
@@ -846,7 +843,7 @@ void dgejsv(
         // [TP] COND_OK is a tuning parameter.
 
         if (CONDR1 < COND_OK) {
-          // .. the second QRF without pivoting. Note: in an optimized
+          // the second QRF without pivoting. Note: in an optimized
           // implementation, this QRF should be implemented as the QRF
           // of a lower triangular matrix.
           // R1^t = Q2 * R2
@@ -868,16 +865,16 @@ void dgejsv(
           if (NR != N) {
             dlacpy('A', N, NR, V, LDV, WORK(2 * N + 1).asMatrix(N), N);
           }
-          // .. save ...
+          // save ...
 
-          // .. this transposed copy should be better than naive
+          // this transposed copy should be better than naive
           for (p = 1; p <= NR - 1; p++) {
             dcopy(NR - p, V(p, p + 1).asArray(), LDV, V(p + 1, p).asArray(), 1);
           }
 
           CONDR2 = CONDR1;
         } else {
-          // .. ill-conditioned case: second QRF with pivoting
+          // ill-conditioned case: second QRF with pivoting
           // Note that windowed pivoting would be equally good
           // numerically, and more run-time efficient. So, in
           // an optimal implementation, the next call to DGEQP3
@@ -919,7 +916,7 @@ void dgejsv(
           // Now, compute R2 = L3 * Q3, the LQ factorization.
           dgelqf(NR, NR, V, LDV, WORK(2 * N + N * NR + 1),
               WORK(2 * N + N * NR + NR + 1), LWORK - 2 * N - N * NR - NR, IERR);
-          // .. and estimate the condition number
+          // and estimate the condition number
           dlacpy('L', NR, NR, V, LDV,
               WORK(2 * N + N * NR + NR + 1).asMatrix(NR), NR);
           for (p = 1; p <= NR; p++) {
@@ -939,12 +936,12 @@ void dgejsv(
           CONDR2 = ONE / sqrt(TEMP1.value);
 
           if (CONDR2 >= COND_OK) {
-            // .. save the Householder vectors used for Q3
+            // save the Householder vectors used for Q3
             // (this overwrites the copy of R2, as it will not be
             // needed in this branch, but it does not overwrite the
             // Huseholder vectors of Q2.).
             dlacpy('U', NR, NR, V, LDV, WORK(2 * N + 1).asMatrix(N), N);
-            // .. and the rest of the information on Q3 is in
+            // and the rest of the information on Q3 is in
             // WORK[2*N+N*NR+1:2*N+N*NR+N]
           }
         }
@@ -978,16 +975,16 @@ void dgejsv(
             dscal(NR, SVA[p], V(1, p).asArray(), 1);
           }
 
-          // .. pick the right matrix equation and solve it
+          // pick the right matrix equation and solve it
 
           if (NR == N) {
-            // .. best case, R1 is inverted. The solution of this matrix
+            // best case, R1 is inverted. The solution of this matrix
             // equation is Q2*V2 = the product of the Jacobi rotations
             // used in DGESVJ, premultiplied with the orthogonal matrix
             // from the second QR factorization.
             dtrsm('L', 'U', 'N', 'N', NR, NR, ONE, A, LDA, V, LDV);
           } else {
-            // .. R1 is well conditioned, but non-square. Transpose(R2)
+            // R1 is well conditioned, but non-square. Transpose(R2)
             // is inverted to get the product of the Jacobi rotations
             // used in DGESVJ. The Q-factor from the second QR
             // factorization is then built in explicitly.
@@ -1014,7 +1011,7 @@ void dgejsv(
                 IERR);
           }
         } else if (CONDR2 < COND_OK) {
-          // .. the input matrix A is very likely a relative of
+          // the input matrix A is very likely a relative of
           // the Kahan matrix :)
           // The matrix R2 is inverted. The solution of the matrix equation
           // is Q3^T*V3 = the product of the Jacobi rotations (applied to
@@ -1030,7 +1027,7 @@ void dgejsv(
           }
           dtrsm('L', 'U', 'N', 'N', NR, NR, ONE, WORK(2 * N + 1).asMatrix(N), N,
               U, LDU);
-          // .. apply the permutation from the second QR factorization
+          // apply the permutation from the second QR factorization
           for (q = 1; q <= NR; q++) {
             for (p = 1; p <= NR; p++) {
               WORK[2 * N + N * NR + NR + IWORK[N + p]] = U[p][q];
@@ -1060,7 +1057,7 @@ void dgejsv(
               IERR);
         } else {
           // Last line of defense.
-          // .. This is a rather pathological case: no scaled condition
+          // This is a rather pathological case: no scaled condition
           // improvement after two pivoted QR factorizations. Other
           // possibility is that the rank revealing QR factorization
           // or the condition estimator has failed, or the COND_OK
@@ -1167,7 +1164,7 @@ void dgejsv(
 
         if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK(2 * N + 1), -1);
       } else {
-        // .. the initial matrix A has almost orthogonal columns and
+        // the initial matrix A has almost orthogonal columns and
         // the second QRF is not needed
 
         dlacpy('Upper', N, N, A, LDA, WORK(N + 1).asMatrix(N), N);
@@ -1340,7 +1337,7 @@ void dgejsv(
       if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK(2 * N + 1), -1);
     }
     if (TRANSP) {
-      // .. swap U and V because the procedure worked on A^t
+      // swap U and V because the procedure worked on A^t
       for (p = 1; p <= N; p++) {
         dswap(N, U(1, p).asArray(), 1, V(1, p).asArray(), 1);
       }

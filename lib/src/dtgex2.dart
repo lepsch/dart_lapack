@@ -42,9 +42,6 @@ void dtgex2(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final Q = Q_.having(ld: LDQ);
@@ -88,7 +85,6 @@ void dtgex2(
   INFO.value = 0;
 
   // Quick return if possible
-
   if (N <= 1 || N1 <= 0 || N2 <= 0) return;
   if (N1 > N || (J1 + N1) > N) return;
   M = N1 + N2;
@@ -102,14 +98,12 @@ void dtgex2(
   STRONG = false;
 
   // Make a local copy of selected block
-
   dlaset('Full', LDST, LDST, ZERO, ZERO, LI, LDST);
   dlaset('Full', LDST, LDST, ZERO, ZERO, IR, LDST);
   dlacpy('Full', M, M, A(J1, J1), LDA, S, LDST);
   dlacpy('Full', M, M, B(J1, J1), LDB, T, LDST);
 
   // Compute threshold for testing acceptance of swapping.
-
   EPS = dlamch('P');
   SMLNUM = dlamch('S') / EPS;
   DSCALE.value = ZERO;
@@ -122,15 +116,6 @@ void dtgex2(
   dlacpy('Full', M, M, T, LDST, WORK.asMatrix(M), M);
   dlassq(M * M, WORK, 1, DSCALE, DSUM);
   DNORMB = DSCALE.value * sqrt(DSUM.value);
-
-  // THRES has been changed from
-  //    THRESH = max( TEN*EPS*SA, SMLNUM )
-  // to
-  //    THRESH = max( TWENTY*EPS*SA, SMLNUM )
-  // on 04/01/10.
-  // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
-  // Jim Demmel and Guillaume Revy. See forum post 1783.
-
   THRESHA = max(TWENTY * EPS * DNORMA, SMLNUM);
   THRESHB = max(TWENTY * EPS * DNORMB, SMLNUM);
 
@@ -139,7 +124,6 @@ void dtgex2(
 
     // Compute orthogonal QL and RQ that swap 1-by-1 and 1-by-1 blocks
     // using Givens rotations and perform the swap tentatively.
-
     F = S[2][2] * T[1][1] - T[2][2] * S[1][1];
     G = S[2][2] * T[1][2] - T[2][2] * S[1][2];
     SA = S[2][2].abs() * T[1][1].abs();
@@ -163,7 +147,6 @@ void dtgex2(
 
     // Weak stability test: |S21| <= O(EPS F-norm((A)))
     //                 and  |T21| <= O(EPS F-norm((B)))
-
     WEAK = S[2][1].abs() <= THRESHA && T[2][1].abs() <= THRESHB;
     if (!WEAK) {
       // Exit with INFO = 1 if swap was rejected.
@@ -176,7 +159,6 @@ void dtgex2(
       //     F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
       //     and
       //     F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
-
       dlacpy('Full', M, M, A(J1, J1), LDA, WORK(M * M + 1).asMatrix(M), M);
       dgemm(
           'N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK.asMatrix(M), M);
@@ -206,7 +188,6 @@ void dtgex2(
 
     // Update (A[J1:J1+M-1][ M+J1:N], B[J1:J1+M-1][ M+J1:N]) and
     //        (A[1:J1-1][ J1:J1+M], B[1:J1-1][ J1:J1+M]).
-
     drot(J1 + 1, A(1, J1).asArray(), 1, A(1, J1 + 1).asArray(), 1, IR[1][1],
         IR[2][1]);
     drot(J1 + 1, B(1, J1).asArray(), 1, B(1, J1 + 1).asArray(), 1, IR[1][1],
@@ -217,12 +198,10 @@ void dtgex2(
         LI[1][1], LI[2][1]);
 
     // Set  N1-by-N2 (2,1) - blocks to ZERO.
-
     A[J1 + 1][J1] = ZERO;
     B[J1 + 1][J1] = ZERO;
 
     // Accumulate transformations into Q and Z if requested.
-
     if (WANTZ) {
       drot(N, Z(1, J1).asArray(), 1, Z(1, J1 + 1).asArray(), 1, IR[1][1],
           IR[2][1]);
@@ -233,7 +212,6 @@ void dtgex2(
     }
 
     // Exit with INFO = 0 if swap was successfully performed.
-
     return;
   } else {
     // CASE 2: Swap 1-by-1 and 2-by-2 blocks, or 2-by-2
@@ -243,7 +221,6 @@ void dtgex2(
     //          S11 * R - L * S22 = SCALE * S12
     //          T11 * R - L * T22 = SCALE * T12
     // for R and L. Solutions in LI and IR.
-
     dlacpy('Full', N1, N2, T(1, N1 + 1), LDST, LI, LDST);
     dlacpy('Full', N1, N2, S(1, N1 + 1), LDST, IR(N2 + 1, N1 + 1), LDST);
     dtgsy2(
@@ -282,7 +259,6 @@ void dtgex2(
     // where
     //             LI =  [      -L              ]
     //                   [ SCALE * identity(N2) ]
-
     for (I = 1; I <= N2; I++) {
       dscal(N1, -ONE, LI(1, I).asArray(), 1);
       LI[N1 + I][I] = SCALE.value;
@@ -301,9 +277,7 @@ void dtgex2(
     }
 
     // Compute orthogonal matrix RQ:
-
     // IR * RQ**T =   [ 0  TR],
-
     // where IR = [ SCALE * identity(N1), R ]
 
     for (I = 1; I <= N1; I++) {
@@ -323,7 +297,6 @@ void dtgex2(
     }
 
     // Perform the swapping tentatively:
-
     dgemm('T', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK.asMatrix(M), M);
     dgemm('N', 'T', M, M, M, ONE, WORK.asMatrix(M), M, IR, LDST, ZERO, S, LDST);
     dgemm('T', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK.asMatrix(M), M);
@@ -335,7 +308,6 @@ void dtgex2(
 
     // Triangularize the B-part by an RQ factorization.
     // Apply transformation (from left) to A-part, giving S.
-
     dgerq2(M, M, T, LDST, TAUR, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO = 1 if swap was rejected.
@@ -356,7 +328,6 @@ void dtgex2(
     }
 
     // Compute F-norm(S21) in BRQA21. (T21 is 0.)
-
     DSCALE.value = ZERO;
     DSUM.value = ONE;
     for (I = 1; I <= N2; I++) {
@@ -366,7 +337,6 @@ void dtgex2(
 
     // Triangularize the B-part by a QR factorization.
     // Apply transformation (from right) to A-part, giving S.
-
     dgeqr2(M, M, TCPY, LDST, TAUL, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO = 1 if swap was rejected.
@@ -382,7 +352,6 @@ void dtgex2(
     }
 
     // Compute F-norm(S21) in BQRA21. (T21 is 0.)
-
     DSCALE.value = ZERO;
     DSUM.value = ONE;
     for (I = 1; I <= N2; I++) {
@@ -393,7 +362,6 @@ void dtgex2(
     // Decide which method to use.
     //   Weak stability test:
     //      F-norm(S21) <= O(EPS * F-norm((S)))
-
     if (BQRA21 <= BRQA21 && BQRA21 <= THRESHA) {
       dlacpy('F', M, M, SCPY, LDST, S, LDST);
       dlacpy('F', M, M, TCPY, LDST, T, LDST);
@@ -406,7 +374,6 @@ void dtgex2(
     }
 
     // Set lower triangle of B-part to zero
-
     dlaset('Lower', M - 1, M - 1, ZERO, ZERO, T(2, 1), LDST);
 
     if (WANDS) {
@@ -414,7 +381,6 @@ void dtgex2(
       //     F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
       //     and
       //     F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
-
       dlacpy('Full', M, M, A(J1, J1), LDA, WORK(M * M + 1).asMatrix(M), M);
       dgemm(
           'N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK.asMatrix(M), M);
@@ -444,17 +410,14 @@ void dtgex2(
 
     // If the swap is accepted ("weakly" and "strongly"), apply the
     // transformations and set N1-by-N2 (2,1)-block to zero.
-
     dlaset('Full', N1, N2, ZERO, ZERO, S(N2 + 1, 1), LDST);
 
     // copy back M-by-M diagonal block starting at index J1 of (A, B)
-
     dlacpy('F', M, M, S, LDST, A(J1, J1), LDA);
     dlacpy('F', M, M, T, LDST, B(J1, J1), LDB);
     dlaset('Full', LDST, LDST, ZERO, ZERO, T, LDST);
 
     // Standardize existing 2-by-2 blocks.
-
     dlaset('Full', M, M, ZERO, ZERO, WORK.asMatrix(M), M);
     WORK[1] = ONE;
     T[1][1] = ONE;
@@ -510,7 +473,6 @@ void dtgex2(
     dlacpy('Full', M, M, WORK.asMatrix(M), M, IR, LDST);
 
     // Accumulate transformations into Q and Z if requested.
-
     if (WANTQ) {
       dgemm('N', 'N', N, M, M, ONE, Q(1, J1), LDQ, LI, LDST, ZERO,
           WORK.asMatrix(N), N);
@@ -525,7 +487,6 @@ void dtgex2(
 
     // Update (A[J1:J1+M-1][ M+J1:N], B[J1:J1+M-1][ M+J1:N]) and
     // (A[1:J1-1][ J1:J1+M], B[1:J1-1][ J1:J1+M]).
-
     I = J1 + M;
     if (I <= N) {
       dgemm('T', 'N', M, N - I + 1, M, ONE, LI, LDST, A(J1, I), LDA, ZERO,

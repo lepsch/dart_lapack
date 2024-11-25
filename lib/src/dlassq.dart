@@ -27,10 +27,6 @@ void dlassq(
   final x = x_.having();
   //  use LA_XISNAN
 
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   int i, ix;
   bool notbig;
   double abig, amed, asml, ax, ymax, ymin;
@@ -47,13 +43,13 @@ void dlassq(
     return;
   }
 
-// Compute the sum of squares in 3 accumulators:
-//    abig -- sums of squares scaled down to avoid overflow
-//    asml -- sums of squares scaled up to avoid underflow
-//    amed -- sums of squares that do not require scaling
-// The thresholds and multipliers are
-//    tbig -- values bigger than this are scaled down by sbig
-//    tsml -- values smaller than this are scaled up by ssml
+  // Compute the sum of squares in 3 accumulators:
+  //    abig -- sums of squares scaled down to avoid overflow
+  //    asml -- sums of squares scaled up to avoid underflow
+  //    amed -- sums of squares that do not require scaling
+  // The thresholds and multipliers are
+  //    tbig -- values bigger than this are scaled down by sbig
+  //    tsml -- values smaller than this are scaled up by ssml
 
   notbig = true;
   asml = zero;

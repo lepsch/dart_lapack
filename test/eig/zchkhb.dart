@@ -42,9 +42,6 @@ void zchkhb(
   final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NN = NN_.having();
   final KK = KK_.having();
   final DOTYPE = DOTYPE_.having();
@@ -56,8 +53,6 @@ void zchkhb(
   final SD = SD_.having();
   final SE = SE_.having();
   final RESULT = RESULT_.having();
-  // ..
-
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = ONE / TWO;
   const MAXTYP = 15;

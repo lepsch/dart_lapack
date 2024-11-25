@@ -57,9 +57,6 @@ void zdrvbd(
   final Nout NOUNIT,
   final Box<int> INFO,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final MM = MM_.having();
   final NN = NN_.having();
   final DOTYPE = DOTYPE_.having();
@@ -108,8 +105,6 @@ void zdrvbd(
       NTESTT,
       LRWORK;
   double ANORM = 0, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL = 0, VU = 0;
-  // ..
-  // .. Local Scalars for ZGESVDQ ..
   int LIWORK;
   final IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
   final RESULT = Array<double>(39);
@@ -120,11 +115,9 @@ void zdrvbd(
   final DIF = Box(0.0);
 
   // Check for errors
-
   INFO.value = 0;
 
   // Important constants
-
   NERRS = 0;
   NTESTT = 0;
   NTESTF = 0;
@@ -149,7 +142,6 @@ void zdrvbd(
   }
 
   // Check for errors
-
   if (NSIZES < 0) {
     INFO.value = -1;
   } else if (BADMM) {
@@ -174,11 +166,9 @@ void zdrvbd(
   }
 
   // Quick return if nothing to do
-
   if (NSIZES == 0 || NTYPES == 0) return;
 
   // More Important constants
-
   UNFL = dlamch('S');
   OVFL = ONE / UNFL;
   ULP = dlamch('E');
@@ -186,7 +176,6 @@ void zdrvbd(
   RTUNFL = sqrt(UNFL);
 
   // Loop over sizes, types
-
   NERRS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
@@ -209,25 +198,21 @@ void zdrvbd(
       }
 
       // Compute "A"
-
       if (MTYPES <= MAXTYP) {
         if (JTYPE == 1) {
           // Zero matrix
-
           zlaset('Full', M, N, Complex.zero, Complex.zero, A, LDA);
           for (I = 1; I <= min(M, N); I++) {
             S[I] = ZERO;
           }
         } else if (JTYPE == 2) {
           // Identity matrix
-
           zlaset('Full', M, N, Complex.zero, Complex.one, A, LDA);
           for (I = 1; I <= min(M, N); I++) {
             S[I] = ONE;
           }
         } else {
           // (Scaled) random matrix
-
           if (JTYPE == 3) ANORM = ONE;
           if (JTYPE == 4) ANORM = UNFL / ULP;
           if (JTYPE == 5) ANORM = OVFL * ULP;
@@ -244,10 +229,8 @@ void zdrvbd(
       zlacpy('F', M, N, A, LDA, ASAV, LDA);
 
       // Do for minimal and adequate (for blocking) workspace
-
       for (IWSPC = 1; IWSPC <= 4; IWSPC++) {
         // Test for ZGESVD
-
         IWTMP = (2 * min(M, N) + max(M, N)).toInt();
         LSWORK = IWTMP + (IWSPC - 1) * (LWORK - IWTMP) ~/ 3;
         LSWORK = min(LSWORK, LWORK);
@@ -259,7 +242,6 @@ void zdrvbd(
         }
 
         // Factorize A
-
         if (IWSPC > 1) zlacpy('F', M, N, ASAV, LDA, A, LDA);
         srnamc.SRNAMT = 'ZGESVD';
         zgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK,
@@ -271,7 +253,6 @@ void zdrvbd(
         }
 
         // Do tests 1--4
-
         zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK,
             RESULT(1));
         if (M != 0 && N != 0) {
@@ -288,7 +269,6 @@ void zdrvbd(
         }
 
         // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-
         RESULT[5] = ZERO;
         RESULT[6] = ZERO;
         RESULT[7] = ZERO;
@@ -303,7 +283,6 @@ void zdrvbd(
                 RWORK, IINFO);
 
             // Compare U
-
             DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJU == 1) {
@@ -320,7 +299,6 @@ void zdrvbd(
             RESULT[5] = max(RESULT[5], DIF.value);
 
             // Compare VT
-
             DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJVT == 1) {
@@ -337,7 +315,6 @@ void zdrvbd(
             RESULT[6] = max(RESULT[6], DIF.value);
 
             // Compare S
-
             DIF.value = ZERO;
             DIV = max(MNMIN * ULP * S[1], dlamch('Safe minimum'));
             for (I = 1; I <= MNMIN - 1; I++) {
@@ -350,7 +327,6 @@ void zdrvbd(
         }
 
         // Test for ZGESDD
-
         IWTMP = 2 * MNMIN * MNMIN + 2 * MNMIN + max(M, N);
         LSWORK = IWTMP + (IWSPC - 1) * (LWORK - IWTMP) ~/ 3;
         LSWORK = min(LSWORK, LWORK);
@@ -358,7 +334,6 @@ void zdrvbd(
         if (IWSPC == 4) LSWORK = LWORK;
 
         // Factorize A
-
         zlacpy('F', M, N, ASAV, LDA, A, LDA);
         srnamc.SRNAMT = 'ZGESDD';
         zgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK,
@@ -370,7 +345,6 @@ void zdrvbd(
         }
 
         // Do tests 1--4
-
         zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK,
             RESULT(8));
         if (M != 0 && N != 0) {
@@ -387,7 +361,6 @@ void zdrvbd(
         }
 
         // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-
         RESULT[12] = ZERO;
         RESULT[13] = ZERO;
         RESULT[14] = ZERO;
@@ -399,7 +372,6 @@ void zdrvbd(
               IWORK, IINFO);
 
           // Compare U
-
           DIF.value = ZERO;
           if (M > 0 && N > 0) {
             if (IJQ == 1) {
@@ -418,7 +390,6 @@ void zdrvbd(
           RESULT[12] = max(RESULT[12], DIF.value);
 
           // Compare VT
-
           DIF.value = ZERO;
           if (M > 0 && N > 0) {
             if (IJQ == 1) {
@@ -437,7 +408,6 @@ void zdrvbd(
           RESULT[13] = max(RESULT[13], DIF.value);
 
           // Compare S
-
           DIF.value = ZERO;
           DIV = max(MNMIN * ULP * S[1], dlamch('Safe minimum'));
           for (I = 1; I <= MNMIN - 1; I++) {
@@ -450,7 +420,6 @@ void zdrvbd(
 
         // Test ZGESVDQ
         // Note: ZGESVDQ only works for M >= N
-
         RESULT[36] = ZERO;
         RESULT[37] = ZERO;
         RESULT[38] = ZERO;
@@ -480,7 +449,6 @@ void zdrvbd(
           }
 
           // Do tests 36--39
-
           zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
               RWORK, RESULT(36));
           if (M != 0 && N != 0) {
@@ -499,7 +467,6 @@ void zdrvbd(
 
         // Test ZGESVJ
         // Note: ZGESVJ only works for M >= N
-
         RESULT[15] = ZERO;
         RESULT[16] = ZERO;
         RESULT[17] = ZERO;
@@ -553,7 +520,6 @@ void zdrvbd(
 
         // Test ZGEJSV
         // Note: ZGEJSV only works for M >= N
-
         RESULT[19] = ZERO;
         RESULT[20] = ZERO;
         RESULT[21] = ZERO;
@@ -572,7 +538,6 @@ void zdrvbd(
               LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO);
 
           // ZGEJSV returns V not VH
-
           for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
               VTSAV[J][I] = A[I][J].conjugate();
@@ -587,7 +552,6 @@ void zdrvbd(
           }
 
           // Do tests 19--22
-
           zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
               RWORK, RESULT(19));
           if (M != 0 && N != 0) {
@@ -607,7 +571,6 @@ void zdrvbd(
         // Test ZGESVDX
 
         // Factorize A
-
         zlacpy('F', M, N, ASAV, LDA, A, LDA);
         srnamc.SRNAMT = 'ZGESVDX';
         zgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV,
@@ -620,7 +583,6 @@ void zdrvbd(
         }
 
         // Do tests 1--4
-
         RESULT[23] = ZERO;
         RESULT[24] = ZERO;
         RESULT[25] = ZERO;
@@ -641,7 +603,6 @@ void zdrvbd(
         }
 
         // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
-
         RESULT[27] = ZERO;
         RESULT[28] = ZERO;
         RESULT[29] = ZERO;
@@ -657,7 +618,6 @@ void zdrvbd(
                 LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO);
 
             // Compare U
-
             DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJU == 1) {
@@ -668,7 +628,6 @@ void zdrvbd(
             RESULT[27] = max(RESULT[27], DIF.value);
 
             // Compare VT
-
             DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJVT == 1) {
@@ -679,7 +638,6 @@ void zdrvbd(
             RESULT[28] = max(RESULT[28], DIF.value);
 
             // Compare S
-
             DIF.value = ZERO;
             DIV = max(MNMIN * ULP * S[1], dlamch('Safe minimum'));
             for (I = 1; I <= MNMIN - 1; I++) {
@@ -783,7 +741,6 @@ void zdrvbd(
         }
 
         // End of Loop -- Check for RESULT(j) > THRESH
-
         NTEST = 0;
         NFAIL = 0;
         for (J = 1; J <= 39; J++) {
@@ -814,7 +771,6 @@ void zdrvbd(
   }
 
   // Summary
-
   alasvm('ZBD', NOUNIT, NERRS, NTESTT, 0);
 }
 

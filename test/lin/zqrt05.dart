@@ -26,9 +26,6 @@ void zqrt05(
   final int NB,
   final Array<double> RESULT_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final RESULT = RESULT_.having(length: 6);
   const ZERO = 0.0, ONE = 1.0;
   final ISEED = Array.fromList([1988, 1989, 1990, 1991]);

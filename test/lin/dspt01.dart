@@ -23,9 +23,6 @@ void dspt01(
   final Array<double> RWORK_,
   final Box<double> RESID,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having();
   final AFAC = AFAC_.having();
   final IPIV = IPIV_.having();

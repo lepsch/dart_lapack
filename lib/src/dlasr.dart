@@ -19,9 +19,6 @@ void dlasr(
   final Matrix<double> A_,
   final int LDA,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final C = C_.having();
   final S = S_.having();
   final A = A_.having(ld: LDA);

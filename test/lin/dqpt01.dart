@@ -21,10 +21,6 @@ double dqpt01(
   final TAU = TAU_.having();
   final JPVT = JPVT_.having();
   final WORK = WORK_.having(length: LWORK);
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   final RWORK = Array<double>(1);
   final INFO = Box(0);

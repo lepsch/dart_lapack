@@ -13,9 +13,6 @@ void zlaqr1(
   final Complex S2,
   final Array<Complex> V_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final H = H_.having(ld: LDH);
   final V = V_.having();
   const RZERO = 0.0;

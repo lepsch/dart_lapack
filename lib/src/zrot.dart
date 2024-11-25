@@ -14,9 +14,6 @@ void zrot(
   final double C,
   final Complex S,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I, IX, IY;
   Complex STEMP;
 

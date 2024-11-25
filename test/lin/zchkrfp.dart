@@ -22,10 +22,6 @@ import 'zdrvrfp.dart';
 import 'zerrrfp.dart';
 
 void main() async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   final NIN = Nin(stdin), NOUT = Nout(stdout);
   const MAXIN = 12, NMAX = 50, MAXRHS = 16, NTYPES = 9;
   final NVAL = Array<int>(MAXIN),

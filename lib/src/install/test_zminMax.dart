@@ -11,24 +11,22 @@ import 'package:dart_lapack/src/intrinsics/huge.dart';
 import 'package:dart_lapack/src/matrix.dart';
 
 void main() {
-// -- LAPACK test routine --
-// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   const zero = 0.0;
   int i, nFailingTests, nTests;
   double aInf, aNaN, OV, R;
 
-  // .. Initialize error counts ..
+  // Initialize error counts
   nFailingTests = 0;
   nTests = 0;
 
-  // .. Inf and NaN entries ..
+  // Inf and NaN entries
   OV = huge(0.0);
   aInf = OV * 2;
   aNaN = aInf / aInf;
   final X = Array.fromList([-aInf, zero, -aInf, zero, aInf, aInf, zero, aNaN]);
   final Y = Array.fromList([zero, aInf, aInf, -aInf, zero, -aInf, aNaN, zero]);
 
-  // .. Tests ..
+  // Tests
 
   for (i = 1; i <= 3; i++) {
     nTests += 2;

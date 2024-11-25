@@ -57,10 +57,6 @@ void ddrvge(
   final RWORK = RWORK_.having();
   final IWORK = IWORK_.having();
 
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const ONE = 1.0, ZERO = 0.0;
   const NTYPES = 11;
   const NTESTS = 7;

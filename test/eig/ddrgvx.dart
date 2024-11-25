@@ -56,9 +56,6 @@ Future<void> ddrgvx(
   final TestDriver test,
   final String group,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDA);
   final AI = AI_.having(ld: LDA);
@@ -508,8 +505,6 @@ void _print9992(final Nout nout) {
   nout.println(
       '\n Tests performed:  \n     a is alpha, b is beta, l is a left eigenvector, \n     r is a right eigenvector and \' means transpose.\n 1 = max | ( b A - a B )\' l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n');
 }
-
-//  ' Input Example' FORMAT(  );
 
 void _print9986(
   final Nout nout,

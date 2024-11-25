@@ -20,10 +20,6 @@ void dlartg(
   final Box<double> s,
   final Box<double> r,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-//    February 2021
   final rtmin = sqrt(_safmin);
   final rtmax = sqrt(_safmax / 2);
 

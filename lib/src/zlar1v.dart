@@ -33,9 +33,6 @@ void zlar1v(
   final Box<double> RQCORR,
   final Array<double> WORK_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Z = Z_.having();
   final D = D_.having();
   final L = L_.having();

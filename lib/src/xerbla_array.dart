@@ -11,9 +11,6 @@ void xerbla_array(
   final int SRNAME_LEN,
   final int INFO,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I;
   String SRNAME;
 

@@ -14,9 +14,6 @@ Future<void> alareq(
   final Nin NIN,
   final Nout NOUT,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final DOTYPE = DOTYPE_.having();
   final NREQ = Array<int>(100);
   const INTSTR = '0123456789';

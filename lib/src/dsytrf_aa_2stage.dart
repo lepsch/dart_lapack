@@ -32,9 +32,6 @@ void dsytrf_aa_2stage(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final TB = TB_.having();
   final IPIV = IPIV_.having();
@@ -48,7 +45,6 @@ void dsytrf_aa_2stage(
   final IINFO = Box(0);
 
   // Test the input parameters.
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   WQUERY = (LWORK == -1);
@@ -71,7 +67,6 @@ void dsytrf_aa_2stage(
   }
 
   // Answer the query
-
   NB = ilaenv(1, 'DSYTRF_AA_2STAGE', UPLO, N, -1, -1, -1);
   if (INFO.value == 0) {
     if (TQUERY) {
@@ -86,13 +81,11 @@ void dsytrf_aa_2stage(
   }
 
   // Quick return;
-
   if (N == 0) {
     return;
   }
 
   // Determine the number of the block size
-
   LDTB = LTB ~/ N;
   if (LDTB < 3 * NB + 1) {
     NB = (LDTB - 1) ~/ 3;
@@ -102,29 +95,22 @@ void dsytrf_aa_2stage(
   }
 
   // Determine the number of the block columns
-
   NT = (N + NB - 1) ~/ NB;
   TD = 2 * NB;
   KB = min(NB, N);
 
   // Initialize vectors/matrices
-
   for (J = 1; J <= KB; J++) {
     IPIV[J] = J;
   }
 
   // Save NB
-
   TB[1] = NB.toDouble();
 
   if (UPPER) {
-    // .....................................................
     // Factorize A as U**T*D*U using the upper triangle of A
-    // .....................................................
-
     for (J = 0; J <= NT - 1; J++) {
       // Generate Jth column of W and H
-
       KB = min(NB, N - J * NB);
       for (I = 1; I <= J - 1; I++) {
         if (I == 1) {
@@ -173,7 +159,6 @@ void dsytrf_aa_2stage(
       }
 
       // Compute T(J,J)
-
       dlacpy('Upper', KB, KB, A(J * NB + 1, J * NB + 1), LDA,
           TB(TD + 1 + (J * NB) * LDTB).asMatrix(LDTB - 1), LDTB - 1);
       if (J > 1) {
@@ -228,7 +213,6 @@ void dsytrf_aa_2stage(
       }
 
       // Expand T(J,J) into full format
-
       for (I = 1; I <= KB; I++) {
         for (K = I + 1; K <= KB; K++) {
           TB[TD + (K - I) + 1 + (J * NB + I - 1) * LDTB] =
@@ -239,7 +223,6 @@ void dsytrf_aa_2stage(
       if (J < NT - 1) {
         if (J > 0) {
           // Compute H(J,J)
-
           if (J == 1) {
             dgemm(
                 'NoTranspose',
@@ -273,7 +256,6 @@ void dsytrf_aa_2stage(
           }
 
           // Update with the previous column
-
           dgemm(
               'Transpose',
               'NoTranspose',
@@ -291,14 +273,12 @@ void dsytrf_aa_2stage(
         }
 
         // Copy panel to workspace to call DGETRF
-
         for (K = 1; K <= NB; K++) {
           dcopy(N - (J + 1) * NB, A(J * NB + K, (J + 1) * NB + 1).asArray(),
               LDA, WORK(1 + (K - 1) * N), 1);
         }
 
         // Factorize panel
-
         dgetrf(N - (J + 1) * NB, NB, WORK.asMatrix(N), N,
             IPIV((J + 1) * NB + 1), IINFO);
         // IF (IINFO != 0 && INFO == 0) THEN
@@ -306,14 +286,12 @@ void dsytrf_aa_2stage(
         // END IF
 
         // Copy panel back
-
         for (K = 1; K <= NB; K++) {
           dcopy(N - (J + 1) * NB, WORK(1 + (K - 1) * N), 1,
               A(J * NB + K, (J + 1) * NB + 1).asArray(), LDA);
         }
 
         // Compute T(J+1, J), zero out for GEMM update
-
         KB = min(NB, N - (J + 1) * NB);
         dlaset('Full', KB, NB, ZERO, ZERO,
             TB(TD + NB + 1 + (J * NB) * LDTB).asMatrix(LDTB - 1), LDTB - 1);
@@ -336,7 +314,6 @@ void dsytrf_aa_2stage(
 
         // Copy T(J,J+1) into T(J+1, J), both upper/lower for GEMM
         // updates
-
         for (K = 1; K <= NB; K++) {
           for (I = 1; I <= KB; I++) {
             TB[TD - NB + K - I + 1 + (J * NB + NB + I - 1) * LDTB] =
@@ -347,7 +324,6 @@ void dsytrf_aa_2stage(
             'Lower', KB, NB, ZERO, ONE, A(J * NB + 1, (J + 1) * NB + 1), LDA);
 
         // Apply pivots to trailing submatrix of A
-
         for (K = 1; K <= KB; K++) {
           // > Adjust ipiv
           IPIV[(J + 1) * NB + K] += (J + 1) * NB;
@@ -381,13 +357,9 @@ void dsytrf_aa_2stage(
       }
     }
   } else {
-    // .....................................................
     // Factorize A as L*D*L**T using the lower triangle of A
-    // .....................................................
-
     for (J = 0; J <= NT - 1; J++) {
       // Generate Jth column of W and H
-
       KB = min(NB, N - J * NB);
       for (I = 1; I <= J - 1; I++) {
         if (I == 1) {
@@ -436,7 +408,6 @@ void dsytrf_aa_2stage(
       }
 
       // Compute T(J,J)
-
       dlacpy('Lower', KB, KB, A(J * NB + 1, J * NB + 1), LDA,
           TB(TD + 1 + (J * NB) * LDTB).asMatrix(LDTB - 1), LDTB - 1);
       if (J > 1) {
@@ -491,7 +462,6 @@ void dsytrf_aa_2stage(
       }
 
       // Expand T(J,J) into full format
-
       for (I = 1; I <= KB; I++) {
         for (K = I + 1; K <= KB; K++) {
           TB[TD - (K - (I + 1)) + (J * NB + K - 1) * LDTB] =
@@ -502,7 +472,6 @@ void dsytrf_aa_2stage(
       if (J < NT - 1) {
         if (J > 0) {
           // Compute H(J,J)
-
           if (J == 1) {
             dgemm(
                 'NoTranspose',
@@ -536,7 +505,6 @@ void dsytrf_aa_2stage(
           }
 
           // Update with the previous column
-
           dgemm(
               'NoTranspose',
               'NoTranspose',
@@ -554,7 +522,6 @@ void dsytrf_aa_2stage(
         }
 
         // Factorize panel
-
         dgetrf(N - (J + 1) * NB, NB, A((J + 1) * NB + 1, J * NB + 1), LDA,
             IPIV((J + 1) * NB + 1), IINFO);
         // IF (IINFO != 0 && INFO == 0) THEN
@@ -562,7 +529,6 @@ void dsytrf_aa_2stage(
         // END IF
 
         // Compute T(J+1, J), zero out for GEMM update
-
         KB = min(NB, N - (J + 1) * NB);
         dlaset('Full', KB, NB, ZERO, ZERO,
             TB(TD + NB + 1 + (J * NB) * LDTB).asMatrix(LDTB - 1), LDTB - 1);
@@ -585,7 +551,6 @@ void dsytrf_aa_2stage(
 
         // Copy T(J+1,J) into T(J, J+1), both upper/lower for GEMM
         // updates
-
         for (K = 1; K <= NB; K++) {
           for (I = 1; I <= KB; I++) {
             TB[TD - NB + K - I + 1 + (J * NB + NB + I - 1) * LDTB] =
@@ -596,7 +561,6 @@ void dsytrf_aa_2stage(
             'Upper', KB, NB, ZERO, ONE, A((J + 1) * NB + 1, J * NB + 1), LDA);
 
         // Apply pivots to trailing submatrix of A
-
         for (K = 1; K <= KB; K++) {
           // > Adjust ipiv
           IPIV[(J + 1) * NB + K] += (J + 1) * NB;

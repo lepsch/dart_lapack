@@ -13,9 +13,6 @@ void dlarnv(
   final int N,
   final Array<double> X_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.having();
   final ISEED = ISEED_.having();
   const ONE = 1.0, TWO = 2.0;

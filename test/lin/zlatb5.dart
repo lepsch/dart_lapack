@@ -18,9 +18,6 @@ double _BADC1 = 0, _BADC2 = 0, _EPS = 0, _LARGE = 0, _SMALL = 0;
   double COND,
   String DIST,
 }) zlatb5(final String PATH, final int IMAT, final int N) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const SHRINK = 0.25, TENTH = 0.1;
   const ONE = 1.0;
   const TWO = 2.0;

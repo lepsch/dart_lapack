@@ -17,10 +17,6 @@ void dsvdct(
 ) {
   final S = S_.having();
   final E = E_.having();
-
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0;
   const ZERO = 0.0;
   int I;

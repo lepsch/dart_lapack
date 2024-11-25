@@ -26,9 +26,6 @@ void zstt22(
   final Array<double> RWORK_,
   final Array<double> RESULT_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final U = U_.having(ld: LDU);
   final WORK = WORK_.having(ld: LDWORK);
   final RWORK = RWORK_.having();

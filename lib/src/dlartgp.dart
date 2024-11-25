@@ -15,9 +15,6 @@ void dlartgp(
   final Box<double> SN,
   final Box<double> R,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   const ONE = 1.0;
   const TWO = 2.0;

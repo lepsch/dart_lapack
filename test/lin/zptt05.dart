@@ -24,9 +24,6 @@ void zptt05(
   final Array<double> BERR_,
   final Array<double> RESLTS_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.having();
   final E = E_.having();
   final B = B_.having(ld: LDB);

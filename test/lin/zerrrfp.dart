@@ -23,9 +23,6 @@ import 'chkxer.dart';
 import 'common.dart';
 
 void zerrrfp(final Nout NUNIT) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   double ALPHA, BETA;
   Complex CALPHA;
   final A = Matrix<Complex>(1, 1), B = Matrix<Complex>(1, 1);

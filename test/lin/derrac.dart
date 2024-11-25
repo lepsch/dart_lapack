@@ -11,9 +11,6 @@ import '../eig/chkxer.dart';
 import 'common.dart';
 
 void derrac(final Nout NUNIT) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4;
   final A = Matrix<double>(NMAX, NMAX),
       AF = Matrix<double>(NMAX, NMAX),

@@ -6,9 +6,6 @@ import 'package:dart_lapack/src/lsamen.dart';
 import 'package:dart_lapack/src/nio.dart';
 
 void alahdg(final Nout IOUNIT, final String PATH) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   String C2;
   int ITYPE = 0;
 

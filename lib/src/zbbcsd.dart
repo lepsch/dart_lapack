@@ -48,9 +48,6 @@ void zbbcsd(
   final int LRWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final U2 = U2_.having(ld: LDU2);
   final U1 = U1_.having(ld: LDU1);
   final V1T = V1T_.having(ld: LDV1T);

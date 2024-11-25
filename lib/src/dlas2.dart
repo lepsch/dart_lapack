@@ -13,9 +13,6 @@ void dlas2(
   final Box<double> SSMIN,
   final Box<double> SSMAX,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
   const ONE = 1.0;
   const TWO = 2.0;

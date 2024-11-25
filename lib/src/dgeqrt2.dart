@@ -21,9 +21,6 @@ void dgeqrt2(
   final int LDT,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final T = T_.having(ld: LDT);
   const ONE = 1.0e+00, ZERO = 0.0e+00;

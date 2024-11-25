@@ -14,9 +14,6 @@ double dsxt1(
   final double ULP,
   final double UNFL,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D1 = D1_.having();
   final D2 = D2_.having();
   const ZERO = 0.0;

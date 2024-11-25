@@ -57,9 +57,6 @@ void ddrvrfp(
   final Array<double> D_WORK_DPOT02_,
   final Array<double> D_WORK_DPOT03_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NVAL = NVAL_.having(length: NN);
   final NSVAL = NSVAL_.having(length: NNS);
   final NTVAL = NTVAL_.having(length: NNT);

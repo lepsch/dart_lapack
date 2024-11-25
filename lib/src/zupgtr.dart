@@ -22,9 +22,6 @@ void zupgtr(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Q = Q_.having(ld: LDQ);
   final AP = AP_.having();
   final TAU = TAU_.having();

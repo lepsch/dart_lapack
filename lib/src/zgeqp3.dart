@@ -28,9 +28,6 @@ void zgeqp3(
   final Array<double> RWORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final TAU = TAU_.having();
   final JPVT = JPVT_.having();
@@ -56,7 +53,6 @@ void zgeqp3(
   final FJB = Box(0);
 
   // Test input arguments
-
   INFO.value = 0;
   LQUERY = (LWORK == -1);
   if (M < 0) {
@@ -92,7 +88,6 @@ void zgeqp3(
   }
 
   // Move initial columns up front.
-
   NFXD = 1;
   for (J = 1; J <= N; J++) {
     if (JPVT[J] != 0) {
@@ -111,11 +106,9 @@ void zgeqp3(
   NFXD--;
 
   // Factorize fixed columns
-  // =======================
 
   // Compute the QR factorization of fixed columns and update
   // remaining columns.
-
   if (NFXD > 0) {
     NA = min(M, NFXD);
     // CALL ZGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
@@ -132,33 +125,27 @@ void zgeqp3(
   }
 
   // Factorize free columns
-  // ======================
-
   if (NFXD < MINMN) {
     SM = M - NFXD;
     SN = N - NFXD;
     SMINMN = MINMN - NFXD;
 
     // Determine the block size.
-
     NB = ilaenv(INB, 'ZGEQRF', ' ', SM, SN, -1, -1);
     NBMIN = 2;
     NX = 0;
 
     if ((NB > 1) && (NB < SMINMN)) {
       // Determine when to cross over from blocked to unblocked code.
-
       NX = max(0, ilaenv(IXOVER, 'ZGEQRF', ' ', SM, SN, -1, -1));
 
       if (NX < SMINMN) {
         // Determine if workspace is large enough for blocked code.
-
         MINWS = (SN + 1) * NB;
         IWS = max(IWS, MINWS);
         if (LWORK < MINWS) {
           // Not enough workspace to use optimal NB: Reduce NB and
           // determine the minimum value of NB.
-
           NB = LWORK ~/ (SN + 1);
           NBMIN = max(2, ilaenv(INBMIN, 'ZGEQRF', ' ', SM, SN, -1, -1));
         }
@@ -167,7 +154,6 @@ void zgeqp3(
 
     // Initialize partial column norms. The first N elements of work
     // store the exact column norms.
-
     for (J = NFXD + 1; J <= N; J++) {
       RWORK[J] = dznrm2(SM, A(NFXD + 1, J).asArray(), 1);
       RWORK[N + J] = RWORK[J];
@@ -179,13 +165,11 @@ void zgeqp3(
       J = NFXD + 1;
 
       // Compute factorization: while loop.
-
       TOPBMN = MINMN - NX;
       while (J <= TOPBMN) {
         JB = min(NB, TOPBMN - J + 1);
 
         // Factorize JB columns among columns J:N.
-
         zlaqps(
             M,
             N - J + 1,
@@ -209,7 +193,6 @@ void zgeqp3(
     }
 
     // Use unblocked code to factor the last or only block.
-
     if (J <= MINMN) {
       zlaqp2(M, N - J + 1, J - 1, A(1, J), LDA, JPVT(J), TAU(J), RWORK(J),
           RWORK(N + J), WORK(1));

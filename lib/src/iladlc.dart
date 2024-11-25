@@ -5,9 +5,6 @@
 import 'package:dart_lapack/src/matrix.dart';
 
 int iladlc(final int M, final int N, final Matrix<double> A_, final int LDA) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   const ZERO = 0.0;
   int I;

@@ -30,9 +30,6 @@ void ztpmlqt(
   final Array<Complex> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having(ld: LDV);
   final T = T_.having(ld: LDT);
   final A = A_.having(ld: LDA);
@@ -41,8 +38,7 @@ void ztpmlqt(
   bool LEFT, RIGHT, TRAN, NOTRAN;
   int I, IB, NB, LB, KF, LDAQ = 0;
 
-  // .. Test the input arguments ..
-
+  // Test the input arguments
   INFO.value = 0;
   LEFT = lsame(SIDE, 'L');
   RIGHT = lsame(SIDE, 'R');
@@ -83,8 +79,7 @@ void ztpmlqt(
     return;
   }
 
-  // .. Quick return if possible ..
-
+  // Quick return if possible
   if (M == 0 || N == 0 || K == 0) return;
 
   if (LEFT && NOTRAN) {

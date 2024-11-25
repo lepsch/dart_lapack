@@ -25,9 +25,6 @@ void zgeequb(
   final A = A_.having(ld: LDA);
   final R = R_.having();
   final C = C_.having();
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ONE = 1.0, ZERO = 0.0;
   int I, J;
   double BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX;

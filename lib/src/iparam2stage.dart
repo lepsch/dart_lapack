@@ -16,9 +16,6 @@ int iparam2stage(
   final int IBI,
   final int NXI,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB;
   bool RPREC, CPREC = false;
   String PREC = '', ALGO = '', STAG = '', SUBNAM, VECT;

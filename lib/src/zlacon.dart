@@ -19,9 +19,6 @@ void zlacon(
   final Box<double> EST,
   final Box<int> KASE,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having();
   final X = X_.having();
   const ITMAX = 5;
@@ -42,14 +39,12 @@ void zlacon(
   }
 
   switch (_JUMP) {
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
     case 1:
-      // ................ ENTRY   (_JUMP = 1)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
-
       if (N == 1) {
         V[1] = X[1];
         EST.value = V[1].abs();
-        // ... QUIT
+        // QUIT
         break;
       }
       EST.value = dzsum1(N, X, 1);
@@ -65,19 +60,15 @@ void zlacon(
       KASE.value = 2;
       _JUMP = 2;
       return;
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
     case 2:
-      // ................ ENTRY   (_JUMP = 2)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
-
       J = izmax1(N, X, 1);
       ITER = 2;
 
       continue L50;
     L50:
     case 50:
-
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
-
       for (I = 1; I <= N; I++) {
         X[I] = Complex.zero;
       }
@@ -85,10 +76,8 @@ void zlacon(
       KASE.value = 1;
       _JUMP = 3;
       return;
+    // X HAS BEEN OVERWRITTEN BY A*X.
     case 3:
-      // ................ ENTRY   (_JUMP = 3)
-      // X HAS BEEN OVERWRITTEN BY A*X.
-
       zcopy(N, X, 1, V, 1);
       ESTOLD = EST.value;
       EST.value = dzsum1(N, V, 1);
@@ -107,10 +96,8 @@ void zlacon(
       KASE.value = 2;
       _JUMP = 4;
       return;
+    // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
     case 4:
-      // ................ ENTRY   (_JUMP = 4)
-      // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
-
       JLAST = J;
       J = izmax1(N, X, 1);
       if ((X[JLAST].abs() != X[J].abs()) && (ITER < ITMAX)) {
@@ -119,11 +106,9 @@ void zlacon(
       }
 
       continue L100;
+    // ITERATION COMPLETE.  FINAL STAGE.
     L100:
     case 100:
-
-      // ITERATION COMPLETE.  FINAL STAGE.
-
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) {
         X[I] = Complex(ALTSGN * (ONE + (I - 1) / (N - 1)));
@@ -132,10 +117,8 @@ void zlacon(
       KASE.value = 1;
       _JUMP = 5;
       return;
+    // X HAS BEEN OVERWRITTEN BY A*X.
     case 5:
-      // ................ ENTRY   (_JUMP = 5)
-      // X HAS BEEN OVERWRITTEN BY A*X.
-
       TEMP = TWO * (dzsum1(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         zcopy(N, X, 1, V, 1);

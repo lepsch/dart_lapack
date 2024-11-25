@@ -11,9 +11,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 Future<void> zblat3(final Nin NIN, Nout? NOUT, final TestDriver test) async {
-// -- Reference BLAS test routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   xerbla = _xerbla;
 
   Nout NTRA = NullNout();
@@ -579,6 +576,7 @@ class _MainNout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZGEMM.
 void _zchk1(
   final String SNAME,
   final double EPS,
@@ -607,15 +605,6 @@ void _zchk1(
   final Array<Complex> CT_,
   final Array<double> G_,
 ) {
-  // Tests ZGEMM.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -913,6 +902,7 @@ class _Zchk1Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZHEMM and ZSYMM.
 void _zchk2(
   final String SNAME,
   final double EPS,
@@ -941,16 +931,6 @@ void _zchk2(
   final Array<Complex> CT_,
   final Array<double> G_,
 ) {
-  // Tests ZHEMM and ZSYMM.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -1260,6 +1240,7 @@ class _Zchk2Nout extends NoutDelegator<Nout> {
   }
 }
 
+// Tests ZTRMM and ZTRSM.
 void _zchk3(
   final String SNAME,
   final double EPS,
@@ -1284,16 +1265,6 @@ void _zchk3(
   final Array<double> G_,
   final Matrix<Complex> C_,
 ) {
-// Tests ZTRMM and ZTRSM.
-
-// Auxiliary routine for test program for Level 3 Blas.
-
-// -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final A = A_.having(ld: NMAX);
@@ -1306,7 +1277,6 @@ void _zchk3(
   final CT = CT_.having(length: NMAX);
   final G = G_.having(length: NMAX);
 
-  // .. Parameters ..
   const RZERO = 0.0;
   Complex ALPHA = Complex.zero, ALS;
   double ERRMAX;
@@ -1670,6 +1640,7 @@ class _Zchk3Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZHERK and ZSYRK.
 void _zchk4(
   final String SNAME,
   final double EPS,
@@ -1698,16 +1669,6 @@ void _zchk4(
   final Array<Complex> CT_,
   final Array<double> G_,
 ) {
-  // Tests ZHERK and ZSYRK.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -2086,6 +2047,7 @@ class _Zchk4Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests ZHER2K and ZSYR2K.
 void _zchk5(
   final String SNAME,
   final double EPS,
@@ -2114,16 +2076,6 @@ void _zchk5(
   final Array<double> G_,
   final Array<Complex> W_,
 ) {
-  // Tests ZHER2K and ZSYR2K.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -2537,22 +2489,13 @@ class _Zchk5Nout extends NoutDelegator<Nout> {
   }
 }
 
+/// Tests the error exits from the Level 3 Blas.
+/// Requires a special version of the error-handling routine XERBLA.
+/// A, B and C should not need to be defined.
 void _zchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
-  // Tests the error exits from the Level 3 Blas.
-  // Requires a special version of the error-handling routine XERBLA.
-  // A, B and C should not need to be defined.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   const ONE = 1.0, TWO = 2.0;
   Complex ALPHA, BETA;
   double RALPHA, RBETA;
-  // .. Local Arrays ..
   final A = Matrix<Complex>(2, 1),
       B = Matrix<Complex>(2, 1),
       C = Matrix<Complex>(2, 1);
@@ -3463,6 +3406,11 @@ void _zchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
   }
 }
 
+/// Generates values for an M by N matrix A.
+/// Stores the values in the array AA in the data structure required
+/// by the routine, with unwanted elements set to rogue value.
+///
+/// TYPE is 'GE', 'HE', 'SY' or 'TR'.
 void _zmake(
   final String TYPE,
   final String UPLO,
@@ -3476,19 +3424,6 @@ void _zmake(
   final Box<bool> RESET,
   final Complex TRANSL,
 ) {
-  // Generates values for an M by N matrix A.
-  // Stores the values in the array AA in the data structure required
-  // by the routine, with unwanted elements set to rogue value.
-
-  // TYPE is 'GE', 'HE', 'SY' or 'TR'.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final A = A_.having(ld: NMAX);
   final AA = AA_.having();
   const ROGUE = Complex(-1.0e10, 1.0e10);
@@ -3573,6 +3508,7 @@ void _zmake(
   }
 }
 
+/// Checks the results of the computational tests.
 void _zmmch(
   final String TRANSA,
   final String TRANSB,
@@ -3597,15 +3533,6 @@ void _zmmch(
   final Nout NOUT,
   final bool MV,
 ) {
-  // Checks the results of the computational tests.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final C = C_.having(ld: LDC);
@@ -3742,32 +3669,23 @@ void _zmmch(
   }
 
   // If the loop completes, all results are at least half accurate.
-
-//  9998 FORMAT(  );
 }
 
+/// Tests if two arrays are identical.
 bool _lze(
   final Array<Complex> RI,
   final Array<Complex> RJ,
   final int LR,
 ) {
-  // Tests if two arrays are identical.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-  int I;
-
-  for (I = 1; I <= LR; I++) {
+  for (var I = 1; I <= LR; I++) {
     if (RI[I] != RJ[I]) return false;
   }
   return true;
 }
 
+/// Tests if selected elements in two arrays are equal.
+///
+/// TYPE is 'GE' or 'HE' or 'SY'.
 bool _lzeres(
   final String TYPE,
   final String UPLO,
@@ -3777,17 +3695,6 @@ bool _lzeres(
   final Matrix<Complex> AS_,
   final int LDA,
 ) {
-  // Tests if selected elements in two arrays are equal.
-
-  // TYPE is 'GE' or 'HE' or 'SY'.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final AA = AA_.having(ld: LDA);
   final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
@@ -3823,18 +3730,9 @@ bool _lzeres(
 
 int _zbegI = 0, _zbegIC = 0, _zbegJ = 0, _zbegMI = 0, _zbegMJ = 0;
 
+/// Generates complex numbers as pairs of random numbers uniformly
+/// distributed between -0.5 and 0.5.
 Complex _zbeg(final Box<bool> RESET) {
-// Generates complex numbers as pairs of random numbers uniformly
-// distributed between -0.5 and 0.5.
-
-// Auxiliary routine for test program for Level 3 Blas.
-
-// -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   if (RESET.value) {
     // Initialize local variables.
     _zbegMI = 891;
@@ -3864,28 +3762,9 @@ Complex _zbeg(final Box<bool> RESET) {
   return Complex((_zbegI - 500) / 1001.0, (_zbegJ - 500) / 1001.0);
 }
 
-// double _ddiff(final double X, final double Y) {
-//   // Auxiliary routine for test program for Level 3 Blas.
-
-//   // -- Written on 8-February-1989.
-//   // Jack Dongarra, Argonne National Laboratory.
-//   // Iain Duff, AERE Harwell.
-//   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-//   // Sven Hammarling, Numerical Algorithms Group Ltd.
-//   return X - Y;
-
+/// Tests whether XERBLA has detected an error when it should.
 void _chkxer(
     String SRNAMT, int INFOT, Nout NOUT, Box<bool> LERR, Box<bool> OK) {
-  // Tests whether XERBLA has detected an error when it should.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   if (!LERR.value) {
     NOUT.println(
         ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${INFOT.i2} NOT DETECTED BY ${SRNAMT.a6} *****');
@@ -3894,24 +3773,15 @@ void _chkxer(
   LERR.value = false;
 }
 
+/// This is a special version of XERBLA to be used only as part of
+/// the test program for testing error exits from the Level 3 BLAS
+/// routines.
+///
+/// XERBLA  is an error handler for the Level 3 BLAS routines.
+///
+/// It is called by the Level 3 BLAS routines if an input parameter is
+/// invalid.
 void _xerbla(final String SRNAME, final int INFO) {
-  // This is a special version of XERBLA to be used only as part of
-  // the test program for testing error exits from the Level 3 BLAS
-  // routines.
-
-  // XERBLA  is an error handler for the Level 3 BLAS routines.
-
-  // It is called by the Level 3 BLAS routines if an input parameter is
-  // invalid.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   infoc.LERR.value = true;
   if (INFO != infoc.INFOT) {
     if (infoc.INFOT != 0) {

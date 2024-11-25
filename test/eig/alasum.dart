@@ -12,9 +12,6 @@ void alasum(
   final int NRUN,
   final int NERRS,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   if (NFAIL > 0) {
     NOUT.println(
         ' ${TYPE.a3}: ${NFAIL.i6} out of ${NRUN.i6} tests failed to pass the threshold');

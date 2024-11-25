@@ -28,10 +28,6 @@ void ztplqt2(
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final T = T_.having(ld: LDT);
-
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   int I, J, P, MP, NP;
   Complex ALPHA;
 

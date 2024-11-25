@@ -26,9 +26,6 @@ void dsytrf_aa(
   final int LWORK,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final IPIV = IPIV_.having();
   final WORK = WORK_.having();
@@ -39,11 +36,9 @@ void dsytrf_aa(
   double ALPHA;
 
   // Determine the block size
-
   NB = ilaenv(1, 'DSYTRF_AA', UPLO, N, -1, -1, -1);
 
   // Test the input parameters.
-
   INFO.value = 0;
   UPPER = lsame(UPLO, 'U');
   LQUERY = (LWORK == -1);
@@ -77,7 +72,6 @@ void dsytrf_aa(
   }
 
   // Quick return;
-
   if (N == 0) {
     return;
   }
@@ -87,24 +81,19 @@ void dsytrf_aa(
   }
 
   // Adjust block size based on the workspace size
-
   if (LWORK < (1 + NB) * N) {
     NB = (LWORK - N) ~/ N;
   }
 
   if (UPPER) {
-    // .....................................................
     // Factorize A as U**T*D*U using the upper triangle of A
-    // .....................................................
 
     // Copy first row A(1, 1:N) into H(1:n) (stored in WORK(1:N))
-
     dcopy(N, A(1, 1).asArray(), LDA, WORK(1), 1);
 
     // J is the main loop index, increasing from 1 to N in steps of
     // JB, where JB is the number of columns factorized by DLASYF;
     // JB is either NB, or N-J+1 for the last block
-
     J = 0;
     while (J < N) {
       // each step of the main loop
@@ -113,18 +102,15 @@ void dsytrf_aa(
       //  K1 identifies if the previous column of the panel has been
       //   explicitly stored, e.g., K1=1 for the first panel, and
       //   K1=0 for the rest
-
       J1 = J + 1;
       JB = min(N - J1 + 1, NB);
       K1 = max(1, J) - J;
 
       // Panel factorization
-
       dlasyf_aa(UPLO, 2 - K1, N - J, JB, A(max(1, J), J + 1), LDA, IPIV(J + 1),
           WORK.asMatrix(N), N, WORK(N * NB + 1));
 
       // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
-
       for (J2 = J + 2; J2 <= min(N, J + JB + 1); J2++) {
         IPIV[J2] += J;
         if ((J2 != IPIV[J2]) && ((J1 - K1) > 2)) {
@@ -137,13 +123,10 @@ void dsytrf_aa(
       // Trailing submatrix update, where
       //  the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
       //  WORK stores the current block of the auxiriarly matrix H
-
       if (J < N) {
         // If first panel and JB=1 (NB=1), then nothing to do
-
         if (J1 > 1 || JB > 1) {
           // Merge rank-1 update with BLAS-3 update
-
           ALPHA = A[J][J + 1];
           A[J][J + 1] = ONE;
           dcopy(N - J, A(J - 1, J + 1).asArray(), LDA,
@@ -153,18 +136,14 @@ void dsytrf_aa(
           // K1 identifies if the previous column of the panel has been
           //  explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
           //  while K1=0 and K2=1 for the rest
-
           if (J1 > 1) {
             // Not first panel
-
             K2 = 1;
           } else {
             // First panel
-
             K2 = 0;
 
             // First update skips the first column
-
             JB--;
           }
 
@@ -172,7 +151,6 @@ void dsytrf_aa(
             NJ = min(NB, N - J2 + 1);
 
             // Update (J2, J2) diagonal block with DGEMV
-
             J3 = J2;
             for (MJ = NJ - 1; MJ >= 1; MJ--) {
               dgemv(
@@ -191,7 +169,6 @@ void dsytrf_aa(
             }
 
             // Update off-diagonal block of J2-th block row with DGEMM
-
             dgemm(
                 'Transpose',
                 'Transpose',
@@ -209,29 +186,23 @@ void dsytrf_aa(
           }
 
           // Recover T( J, J+1 )
-
           A[J][J + 1] = ALPHA;
         }
 
         // WORK(J+1, 1) stores H(J+1, 1)
-
         dcopy(N - J, A(J + 1, J + 1).asArray(), LDA, WORK(1), 1);
       }
     }
   } else {
-    // .....................................................
     // Factorize A as L*D*L**T using the lower triangle of A
-    // .....................................................
 
     // copy first column A(1:N, 1) into H(1:N, 1)
     //  (stored in WORK(1:N))
-
     dcopy(N, A(1, 1).asArray(), 1, WORK(1), 1);
 
     // J is the main loop index, increasing from 1 to N in steps of
     // JB, where JB is the number of columns factorized by DLASYF;
     // JB is either NB, or N-J+1 for the last block
-
     J = 0;
     while (J < N) {
       // each step of the main loop
@@ -240,18 +211,15 @@ void dsytrf_aa(
       //  K1 identifies if the previous column of the panel has been
       //   explicitly stored, e.g., K1=1 for the first panel, and
       //   K1=0 for the rest
-
       J1 = J + 1;
       JB = min(N - J1 + 1, NB);
       K1 = max(1, J) - J;
 
       // Panel factorization
-
       dlasyf_aa(UPLO, 2 - K1, N - J, JB, A(J + 1, max(1, J)), LDA, IPIV(J + 1),
           WORK.asMatrix(N), N, WORK(N * NB + 1));
 
       // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
-
       for (J2 = J + 2; J2 <= min(N, J + JB + 1); J2++) {
         IPIV[J2] += J;
         if ((J2 != IPIV[J2]) && ((J1 - K1) > 2)) {
@@ -264,13 +232,10 @@ void dsytrf_aa(
       // Trailing submatrix update, where
       //   A(J2+1, J1-1) stores L(J2+1, J1) and
       //   WORK(J2+1, 1) stores H(J2+1, 1)
-
       if (J < N) {
         // if first panel and JB=1 (NB=1), then nothing to do
-
         if (J1 > 1 || JB > 1) {
           // Merge rank-1 update with BLAS-3 update
-
           ALPHA = A[J + 1][J];
           A[J + 1][J] = ONE;
           dcopy(N - J, A(J + 1, J - 1).asArray(), 1,
@@ -280,18 +245,14 @@ void dsytrf_aa(
           // K1 identifies if the previous column of the panel has been
           //  explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
           //  while K1=0 and K2=1 for the rest
-
           if (J1 > 1) {
             // Not first panel
-
             K2 = 1;
           } else {
             // First panel
-
             K2 = 0;
 
             // First update skips the first column
-
             JB--;
           }
 
@@ -299,7 +260,6 @@ void dsytrf_aa(
             NJ = min(NB, N - J2 + 1);
 
             // Update (J2, J2) diagonal block with DGEMV
-
             J3 = J2;
             for (MJ = NJ - 1; MJ >= 1; MJ--) {
               dgemv(
@@ -318,7 +278,6 @@ void dsytrf_aa(
             }
 
             // Update off-diagonal block in J2-th block column with DGEMM
-
             dgemm(
                 'No transpose',
                 'Transpose',
@@ -336,12 +295,10 @@ void dsytrf_aa(
           }
 
           // Recover T( J+1, J )
-
           A[J + 1][J] = ALPHA;
         }
 
         // WORK(J+1, 1) stores H(J+1, 1)
-
         dcopy(N - J, A(J + 1, J + 1).asArray(), 1, WORK(1), 1);
       }
     }

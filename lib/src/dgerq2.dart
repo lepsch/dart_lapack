@@ -19,24 +19,14 @@ void dgerq2(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.having(ld: LDA);
   final TAU = TAU_.having();
   final WORK = WORK_.having();
   const ONE = 1.0;
   int I, K;
   double AII;
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DLARF, DLARFG, XERBLA
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC MAX, MIN
 
   // Test the input arguments
-
   INFO.value = 0;
   if (M < 0) {
     INFO.value = -1;
@@ -55,12 +45,10 @@ void dgerq2(
   for (I = K; I >= 1; I--) {
     // Generate elementary reflector H(i) to annihilate
     // A(m-k+i,1:n-k+i-1)
-
     dlarfg(N - K + I, A.box(M - K + I, N - K + I), A(M - K + I, 1).asArray(),
         LDA, TAU.box(I));
 
     // Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
-
     AII = A[M - K + I][N - K + I];
     A[M - K + I][N - K + I] = ONE;
     dlarf('Right', M - K + I - 1, N - K + I, A(M - K + I, 1).asArray(), LDA,

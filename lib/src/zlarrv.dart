@@ -56,10 +56,6 @@ void zlarrv(
   final WORK = WORK_.having();
   final IWORK = IWORK_.having();
 
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
   const MAXITR = 10;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;
   bool ESKIP = false,

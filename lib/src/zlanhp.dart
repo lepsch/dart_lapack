@@ -18,9 +18,6 @@ double zlanhp(
   final Array<Complex> AP_,
   final Array<double> WORK_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final WORK = WORK_.having();
   const ONE = 1.0, ZERO = 0.0;

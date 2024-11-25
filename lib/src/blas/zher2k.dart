@@ -23,9 +23,6 @@ void zher2k(
   final Matrix<Complex> C_,
   final int LDC,
 ) {
-// -- Reference BLAS level3 routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);

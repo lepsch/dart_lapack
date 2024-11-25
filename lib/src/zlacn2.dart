@@ -18,9 +18,6 @@ void zlacn2(
   final Box<int> KASE,
   final Array<int> ISAVE_,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having();
   final X = X_.having();
   final ISAVE = ISAVE_.having();
@@ -40,15 +37,12 @@ void zlacn2(
   }
 
   switch (ISAVE[1]) {
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
     case 1:
-
-      // ................ ENTRY   (ISAVE[1] = 1)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
-
       if (N == 1) {
         V[1] = X[1];
         EST.value = V[1].abs();
-        // ... QUIT
+        // QUIT
         KASE.value = 0;
         return;
       }
@@ -66,18 +60,15 @@ void zlacn2(
       ISAVE[1] = 2;
       return;
 
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
     case 2:
-      // ................ ENTRY   (ISAVE[1] = 2)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
-
       ISAVE[2] = izmax1(N, X, 1);
       ISAVE[3] = 2;
 
       continue L50;
+    // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
     L50:
     case 50:
-      // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
-
       for (I = 1; I <= N; I++) {
         X[I] = Complex.zero;
       }
@@ -86,9 +77,7 @@ void zlacn2(
       ISAVE[1] = 3;
       return;
 
-    // ................ ENTRY   (ISAVE[1] = 3)
     // X HAS BEEN OVERWRITTEN BY A*X.
-
     case 3:
       zcopy(N, X, 1, V, 1);
       ESTOLD = EST.value;
@@ -109,9 +98,7 @@ void zlacn2(
       ISAVE[1] = 4;
       return;
 
-    // ................ ENTRY   (ISAVE[1] = 4)
     // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
-
     case 4:
       JLAST = ISAVE[2];
       ISAVE[2] = izmax1(N, X, 1);
@@ -121,11 +108,9 @@ void zlacn2(
       }
 
       continue L100;
+    // ITERATION COMPLETE.  FINAL STAGE.
     L100:
     case 100:
-
-      // ITERATION COMPLETE.  FINAL STAGE.
-
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) {
         X[I] = Complex(ALTSGN * (ONE + (I - 1) / (N - 1)));
@@ -135,9 +120,7 @@ void zlacn2(
       ISAVE[1] = 5;
       return;
 
-    // ................ ENTRY   (ISAVE[1] = 5)
     // X HAS BEEN OVERWRITTEN BY A*X.
-
     case 5:
       TEMP = TWO * (dzsum1(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {

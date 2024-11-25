@@ -21,17 +21,11 @@ void dlacon(
   final Box<double> EST,
   final Box<int> KASE,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final V = V_.having();
   final X = X_.having();
   final ISGN = ISGN_.having();
   const ITMAX = 5;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
-
-  // .. Save statement ..
-  // SAVE;
 
   if (KASE.value == 0) {
     for (var I = 1; I <= N; I++) {
@@ -43,10 +37,8 @@ void dlacon(
   }
 
   switch (_JUMP) {
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
     case 1:
-      // ................ ENTRY   (_JUMP = 1)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
-
       if (N == 1) {
         V[1] = X[1];
         EST.value = V[1].abs();
@@ -63,10 +55,8 @@ void dlacon(
       _JUMP = 2;
       return;
 
+    // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
     case 2:
-      // ................ ENTRY   (_JUMP = 2)
-      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
-
       _J = idamax(N, X, 1);
       _ITER = 2;
       continue L50;
@@ -80,10 +70,8 @@ void dlacon(
       KASE.value = 1;
       _JUMP = 3;
       return;
+    // X HAS BEEN OVERWRITTEN BY A*X.
     case 3:
-      // ................ ENTRY   (_JUMP = 3)
-      // X HAS BEEN OVERWRITTEN BY A*X.
-
       dcopy(N, X, 1, V, 1);
       _ESTOLD = EST.value;
       EST.value = dasum(N, V, 1);
@@ -108,10 +96,8 @@ void dlacon(
       _JUMP = 4;
       return;
 
+    // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
     case 4:
-      // ................ ENTRY   (_JUMP = 4)
-      // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
-
       final JLAST = _J;
       _J = idamax(N, X, 1);
       if ((X[JLAST] != X[_J].abs()) && (_ITER < ITMAX)) {
@@ -120,10 +106,9 @@ void dlacon(
       }
 
       continue L120;
+    // ITERATION COMPLETE.  FINAL STAGE.
     L120:
     case 120:
-      // ITERATION COMPLETE.  FINAL STAGE.
-
       var ALTSGN = ONE;
       for (var I = 1; I <= N; I++) {
         X[I] = ALTSGN * (ONE + (I - 1) / (N - 1));
@@ -132,10 +117,8 @@ void dlacon(
       KASE.value = 1;
       _JUMP = 5;
       return;
+    // X HAS BEEN OVERWRITTEN BY A*X.
     case 5:
-      // ................ ENTRY   (_JUMP = 5)
-      // X HAS BEEN OVERWRITTEN BY A*X.
-
       double TEMP = TWO * (dasum(N, X, 1) / (3 * N));
       if (TEMP > EST.value) {
         dcopy(N, X, 1, V, 1);

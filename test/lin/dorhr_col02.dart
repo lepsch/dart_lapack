@@ -27,9 +27,6 @@ void dorhr_col02(
   final int NB2,
   final Array<double> RESULT_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final RESULT = RESULT_.having();
   const ZERO = 0.0, ONE = 1.0;
   bool TESTZEROS;

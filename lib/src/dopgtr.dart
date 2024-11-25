@@ -21,9 +21,6 @@ void dopgtr(
   final Array<double> WORK_,
   final Box<int> INFO,
 ) {
-// -- LAPACK computational routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AP = AP_.having();
   final TAU = TAU_.having();
   final Q = Q_.having(ld: LDQ);

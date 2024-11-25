@@ -11,9 +11,6 @@ import '../test_driver.dart';
 import 'common.dart';
 
 Future<void> dblat3(final Nin NIN, Nout? NOUT, final TestDriver test) async {
-// -- Reference BLAS test routine --
-// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   xerbla = _xerbla;
 
   Nout NTRA = NullNout();
@@ -485,6 +482,7 @@ class _MainNout extends NoutDelegator {
   }
 }
 
+/// Tests DGEMM.
 void _dchk1(
   final String SNAME,
   final double EPS,
@@ -513,15 +511,6 @@ void _dchk1(
   final Array<double> CT_,
   final Array<double> G_,
 ) {
-  // Tests DGEMM.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -816,6 +805,7 @@ class _Dchk1Nout extends NoutDelegator {
   }
 }
 
+/// Tests DSYMM.
 void _dchk2(
   final String SNAME,
   final double EPS,
@@ -844,16 +834,6 @@ void _dchk2(
   final Array<double> CT_,
   final Array<double> G_,
 ) {
-  // Tests DSYMM.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -1155,6 +1135,7 @@ class _Dchk2Nout extends NoutDelegator {
   }
 }
 
+/// Tests DTRMM and DTRSM.
 void _dchk3(
   final String SNAME,
   final double EPS,
@@ -1179,15 +1160,6 @@ void _dchk3(
   final Array<double> G_,
   final Matrix<double> C_,
 ) {
-  // Tests DTRMM and DTRSM.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final A = A_.having(ld: NMAX);
@@ -1561,6 +1533,7 @@ class _Dchk3Nout extends NoutDelegator {
   }
 }
 
+/// Tests DSYRK.
 void _dchk4(
   final String SNAME,
   final double EPS,
@@ -1589,15 +1562,6 @@ void _dchk4(
   final Array<double> CT_,
   final Array<double> G_,
 ) {
-  // Tests DSYRK.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -1907,6 +1871,7 @@ class _Dchk4Nout extends NoutDelegator {
   }
 }
 
+/// Tests DSYR2K.
 void _dchk5(
   final String SNAME,
   final double EPS,
@@ -1935,15 +1900,6 @@ void _dchk5(
   final Array<double> G_,
   final Array<double> W_,
 ) {
-  // Tests DSYR2K.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final IDIM = IDIM_.having(length: NIDIM);
   final ALF = ALF_.having(length: NALF);
   final BET = BET_.having(length: NBET);
@@ -2295,21 +2251,10 @@ class _Dchk5Nout extends NoutDelegator {
   }
 }
 
+/// Tests the error exits from the Level 3 Blas.
+/// Requires a special version of the error-handling routine XERBLA.
+/// A, B and C should not need to be defined.
 void _dchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
-  // Tests the error exits from the Level 3 Blas.
-  // Requires a special version of the error-handling routine XERBLA.
-  // A, B and C should not need to be defined.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-  // 3-19-92:  Initialize ALPHA and BETA  (eca)
-  // 3-19-92:  Fix argument 12 in calls to SSYMM with infoc.INFOT = 9  (eca)
   const ONE = 1.0, TWO = 2.0;
   double ALPHA, BETA;
   final A = Matrix<double>(2, 1),
@@ -2324,7 +2269,6 @@ void _dchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
   infoc.LERR.value = false;
 
   // Initialize ALPHA and BETA.
-
   ALPHA = ONE;
   BETA = TWO;
 
@@ -2836,6 +2780,11 @@ void _dchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
   }
 }
 
+/// Generates values for an M by N matrix A.
+/// Stores the values in the array AA in the data structure required
+/// by the routine, with unwanted elements set to rogue value.
+//
+/// TYPE is 'GE', 'SY' or 'TR'.
 void _dmake(
   final String TYPE,
   final String UPLO,
@@ -2849,19 +2798,6 @@ void _dmake(
   final Box<bool> RESET,
   final double TRANSL,
 ) {
-  // Generates values for an M by N matrix A.
-  // Stores the values in the array AA in the data structure required
-  // by the routine, with unwanted elements set to rogue value.
-
-  // TYPE is 'GE', 'SY' or 'TR'.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
   final A = A_.having(ld: NMAX);
   final AA = AA_.having();
   const ZERO = 0.0, ONE = 1.0;
@@ -2938,6 +2874,7 @@ void _dmake(
   }
 }
 
+/// Checks the results of the computational tests.
 void _dmmch(
   final String TRANSA,
   final String TRANSB,
@@ -2962,16 +2899,6 @@ void _dmmch(
   final Nout NOUT,
   final bool MV,
 ) {
-  // Checks the results of the computational tests.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   final A = A_.having(ld: LDA);
   final B = B_.having(ld: LDB);
   final C = C_.having(ld: LDC);
@@ -3062,23 +2989,17 @@ void _dmmch(
   if (N > 1) NOUT.println('      THESE ARE THE RESULTS FOR COLUMN ${J.i3}');
 }
 
+/// Tests if two arrays are identical.
 bool _lde(final Array<double> RI, final Array<double> RJ, final int LR) {
-  // Tests if two arrays are identical.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   for (var I = 1; I <= LR; I++) {
     if (RI[I] != RJ[I]) return false;
   }
   return true;
 }
 
+/// Tests if selected elements in two arrays are equal.
+///
+/// TYPE is 'GE' or 'SY'.
 bool _lderes(
   final String TYPE,
   final String UPLO,
@@ -3088,18 +3009,6 @@ bool _lderes(
   final Matrix<double> AS_,
   final int LDA,
 ) {
-  // Tests if selected elements in two arrays are equal.
-
-  // TYPE is 'GE' or 'SY'.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-  // .. Array Arguments ..
   final AA = AA_.having(ld: LDA);
   final AS = AS_.having(ld: LDA);
   int I, IBEG, IEND, J;
@@ -3135,17 +3044,8 @@ bool _lderes(
 
 int _dbegI = 0, _dbegIC = 0, _dbegMI = 0;
 
+/// Generates random numbers uniformly distributed between -0.5 and 0.5.
 double _dbeg(final Box<bool> RESET) {
-  // Generates random numbers uniformly distributed between -0.5 and 0.5.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   if (RESET.value) {
     // Initialize local variables.
     _dbegMI = 891;
@@ -3170,29 +3070,9 @@ double _dbeg(final Box<bool> RESET) {
   return (_dbegI - 500) / 1001.0;
 }
 
-// double _ddiff(final double X, final double Y) {
-//   // Auxiliary routine for test program for Level 3 Blas.
-
-//   // -- Written on 8-February-1989.
-//   // Jack Dongarra, Argonne National Laboratory.
-//   // Iain Duff, AERE Harwell.
-//   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-//   // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-//   return X - Y;
-
+/// Tests whether XERBLA has detected an error when it should.
 void _chkxer(
     String SRNAMT, int INFOT, Nout NOUT, Box<bool> LERR, Box<bool> OK) {
-// Tests whether XERBLA has detected an error when it should.
-
-// Auxiliary routine for test program for Level 3 Blas.
-
-// -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   if (!infoc.LERR.value) {
     NOUT.println(
         ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${INFOT.i2} NOT DETECTED BY ${SRNAMT.a6} *****');
@@ -3201,24 +3081,15 @@ void _chkxer(
   infoc.LERR.value = false;
 }
 
+/// This is a special version of XERBLA to be used only as part of
+/// the test program for testing error exits from the Level 3 BLAS
+/// routines.
+///
+/// XERBLA  is an error handler for the Level 3 BLAS routines.
+///
+/// It is called by the Level 3 BLAS routines if an input parameter is
+/// invalid.
 void _xerbla(final String SRNAME, final int INFO) {
-  // This is a special version of XERBLA to be used only as part of
-  // the test program for testing error exits from the Level 3 BLAS
-  // routines.
-
-  // XERBLA  is an error handler for the Level 3 BLAS routines.
-
-  // It is called by the Level 3 BLAS routines if an input parameter is
-  // invalid.
-
-  // Auxiliary routine for test program for Level 3 Blas.
-
-  // -- Written on 8-February-1989.
-  // Jack Dongarra, Argonne National Laboratory.
-  // Iain Duff, AERE Harwell.
-  // Jeremy Du Croz, Numerical Algorithms Group Ltd.
-  // Sven Hammarling, Numerical Algorithms Group Ltd.
-
   infoc.LERR.value = true;
   if (INFO != infoc.INFOT) {
     if (infoc.INFOT != 0) {

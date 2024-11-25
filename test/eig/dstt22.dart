@@ -24,9 +24,6 @@ void dstt22(
   final int LDWORK,
   final Array<double> RESULT_,
 ) {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final AD = AD_.having();
   final AE = AE_.having();
   final SD = SD_.having();

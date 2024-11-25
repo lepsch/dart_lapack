@@ -31,9 +31,6 @@ Future<void> dget38(
   final String group,
   final double THRESH,
 ) async {
-// -- LAPACK test routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final RMAX = RMAX_.having();
   final LMAX = LMAX_.having();
   final NINFO = NINFO_.having();

@@ -27,9 +27,6 @@ void dlatdf(
   final Array<int> IPIV_,
   final Array<int> JPIV,
 ) {
-// -- LAPACK auxiliary routine --
-// -- LAPACK is a software package provided by Univ. of Tennessee,    --
-// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final Z = Z_.having(ld: LDZ);
   final RHS = RHS_.having();
   final IPIV = IPIV_.having();

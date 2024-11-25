@@ -5,8 +5,6 @@
 import 'package:dart_lapack/src/ilaenv.dart';
 
 void main() {
-// -- LAPACK test routine --
-// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
   int IEEEOK;
 
   print('We are about to check whether infinity arithmetic');
