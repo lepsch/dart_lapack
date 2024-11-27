@@ -19,3 +19,6 @@ test/*.txt
 # BLAS testing
 test/blas/*.SNAP
 test/blas/*.out
+
+# example output
+example/output.svg
